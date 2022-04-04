@@ -19,6 +19,9 @@ final class wpWax_Video_Messagge {
 	public function __construct() {
 		add_action( 'init', [$this, 'load_textdomain' ] );
 		add_action( 'plugins_loaded', [ $this, 'includes' ] );
+		add_action('wp_body_open', function() {
+			echo '<div id="root">Hello</div>';
+		});
 	}
 
     public function load_textdomain() {

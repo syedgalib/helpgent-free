@@ -12,21 +12,21 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'WPWAXVM_PATH'   , plugin_dir_path( __FILE__ ) );
+define( 'VM_PATH', plugin_dir_path( __FILE__ ) );
 
 final class wpWax_Video_Messagge {
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
-		add_action( 'plugins_loaded', array( $this, 'includes' ) );
+		add_action( 'init', [$this, 'load_textdomain' ] );
+		add_action( 'plugins_loaded', [ $this, 'includes' ] );
 	}
 
-    public function load_textdomain(){
+    public function load_textdomain() {
         load_plugin_textdomain( 'wpwaxvm', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
     }
 
-	public function includes(){
-		// require_once VM_PATH . 'inc/init.php';
+	public function includes() {
+		require_once VM_PATH . 'inc/init.php';
 	}
 }
 

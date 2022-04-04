@@ -1,7 +1,17 @@
-__*/
-/node_modules
+# OS
 .DS_Store
-/.vscode
-/.idea
-todo.txt
+
+# IDE
+.vscode/
+.idea/
+
+# NPM
+node_modules/
+package-lock.json
+
+# Map
 *.map
+
+# Others
+__*/
+todo.txt

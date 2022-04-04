@@ -1,5 +1,6 @@
 var  project    = require('./package.json'),
 gulp            = require('gulp'),
+babel           = require("gulp-babel");
 sass            = require('gulp-sass');
 autoPrefixer    = require('gulp-autoprefixer'),
 wpPot           = require('gulp-wp-pot'),
@@ -7,6 +8,15 @@ clean           = require('gulp-clean'),
 zip             = require('gulp-zip');
 
 sass.compiler = require('node-sass');
+
+
+gulp.task('babel', function () {
+    return gulp.src('src/js/main.js')
+        .pipe(babel({
+            presets: ['es2015','react']
+        }))
+        .pipe(gulp.dest('assets/js'));
+});
 
 gulp.task('sass', function () {
 	return gulp.src(['style.scss'], {cwd: 'src/sass'})

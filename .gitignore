@@ -1,0 +1,7 @@
+__*/
+/node_modules
+.DS_Store
+/.vscode
+/.idea
+todo.txt
+*.map

@@ -1,0 +1,21 @@
+{
+	"name": "wpwax-video-message",
+	"version": "1.0.0",
+	"main": "gulpfile.js",
+	"author": "wpWax",
+    "scripts": {
+		"sass": "gulp sass",
+		"pot": "gulp pot",
+		"build": "gulp build",
+		"watch": "gulp"
+	},
+	"devDependencies": {
+		"gulp": "^4.0.2",
+		"gulp-autoprefixer": "^4.0.0",
+		"gulp-clean": "^0.4.0",
+		"gulp-rtlcss": "^1.4.0",
+		"gulp-sass": "^3.1.0",
+		"gulp-wp-pot": "^2.3.5",
+		"gulp-zip": "^4.2.0"
+	}
+}

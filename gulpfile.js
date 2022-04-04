@@ -43,4 +43,4 @@ gulp.task('watch', function() {
 gulp.task('run', gulp.parallel('sass','pot'));
 gulp.task('build', gulp.series('run','clean','zip'));
 
-gulp.task('default', gulp.series('run','watch'));
+gulp.task('default', gulp.series('sass','watch'));

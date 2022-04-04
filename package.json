@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"main": "gulpfile.js",
 	"author": "wpWax",
-    "scripts": {
+	"scripts": {
 		"sass": "gulp sass",
 		"pot": "gulp pot",
 		"build": "gulp build",

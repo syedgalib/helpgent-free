@@ -4,10 +4,12 @@
 	"main": "gulpfile.js",
 	"author": "wpWax",
 	"scripts": {
-		"sass": "gulp sass",
-		"pot": "gulp pot",
-		"watch": "gulp",
-		"build": "webpack"
+		"watch:react": "gulp webpackDev && gulp watch:js",
+		"watch:sass": "gulp sass && gulp watch:sass",
+		"watch": "gulp sass && gulp webpackDev && gulp watch",
+		"dev": "gulp webpackDev",
+		"prod": "gulp webpackProd",
+		"zip": "gulp build"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",

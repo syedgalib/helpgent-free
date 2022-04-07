@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-//   mode: "production",
+  //   mode: "production",
   mode: "development",
   entry: {
     main: "./src/js/main.js",
@@ -29,11 +29,28 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: false,
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: false,
+            },
+          },
+          "sass-loader",
+        ],
       },
     ],
   },

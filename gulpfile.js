@@ -10,15 +10,6 @@ zip             = require('gulp-zip');
 
 sass.compiler = require('node-sass');
 
-
-gulp.task('babel', function () {
-    return gulp.src('src/js/main.js')
-        .pipe(babel({
-            presets: ['es2015','react']
-        }))
-        .pipe(gulp.dest('assets/js'));
-});
-
 gulp.task('sass', function () {
 	return gulp.src(['style.scss'], {cwd: 'src/sass'})
 	.pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
@@ -49,6 +40,25 @@ gulp.task('zip', function () {
 
 gulp.task('watch', function() {
 	gulp.watch('src/sass/**/*.scss', gulp.series('sass'));
+});
+
+
+gulp.task('runWebpack', function(cb) {
+    return new Promise((resolve, reject) => {
+        webpack(webpackConfig, (err, stats) => {
+            if (err) {
+                return reject(err)
+            }
+            if (stats.hasErrors()) {
+                return reject(new Error(stats.compilation.errors.join('\n')))
+            }
+            resolve()
+        })
+    })
+});
+
+gulp.task('watch:js', function() {
+	gulp.watch('src/**/*', gulp.series('runWebpack'));
 });
 
 gulp.task('run', gulp.parallel('sass','pot'));

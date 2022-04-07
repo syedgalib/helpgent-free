@@ -1,6 +1,5 @@
 var  project    = require('./package.json'),
 gulp            = require('gulp'),
-babel           = require("gulp-babel");
 sass            = require('gulp-sass');
 autoPrefixer    = require('gulp-autoprefixer'),
 wpPot           = require('gulp-wp-pot'),

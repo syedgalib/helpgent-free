@@ -13,6 +13,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 define( 'VM_PATH', plugin_dir_path( __FILE__ ) );
+define( 'VM_URL',  plugin_dir_url( __FILE__ ) );
 
 final class wpWax_Video_Messagge {
 
@@ -30,6 +31,8 @@ final class wpWax_Video_Messagge {
 
 	public function includes() {
 		require_once VM_PATH . 'inc/init.php';
+		require_once VM_PATH . 'inc/helper.php';
+		require_once VM_PATH . 'inc/scripts.php';
 	}
 }
 

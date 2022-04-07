@@ -29,7 +29,7 @@ class Scripts {
 	}
 
 	public function register_scripts() {
-		wp_register_script( 'vm-main', Helper::get_js( 'main' ), ['jquery', 'react', 'react-dom'], $this->version );
+		wp_register_script( 'vm-main', Helper::get_js( 'main' ), ['jquery', 'react', 'react-dom'], $this->version, true );
 	}
 
 	public function enqueue_scripts() {

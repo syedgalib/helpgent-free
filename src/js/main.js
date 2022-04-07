@@ -1,5 +1,3 @@
-import Starter from '../apps/starter/index.js';
-
-Starter();
+import '../apps/starter/index.js';
 
 console.log('main22');

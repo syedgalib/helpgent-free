@@ -4,6 +4,8 @@ sass            = require('gulp-sass');
 autoPrefixer    = require('gulp-autoprefixer'),
 wpPot           = require('gulp-wp-pot'),
 clean           = require('gulp-clean'),
+webpack         = require('webpack')
+webpackConfig   = require('./webpack.config.js')
 zip             = require('gulp-zip');
 
 sass.compiler = require('node-sass');

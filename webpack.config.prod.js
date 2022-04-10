@@ -1,4 +1,5 @@
 const path = require("path");
+const TerserPlugin = require('terser-webpack-plugin');
 const { rules } = require("./webpack.helper.js");
 
 module.exports = {
@@ -13,5 +14,18 @@ module.exports = {
   },
   module: {
     rules: [rules.js, rules.img, rules.css, rules.sass],
+  },
+  optimization: {
+    // remove comments from js
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
   },
 };

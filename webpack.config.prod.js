@@ -1,4 +1,5 @@
 const path = require("path");
+const { rules } = require("./webpack.helper.js");
 
 module.exports = {
   mode: "production",
@@ -11,46 +12,6 @@ module.exports = {
     path: path.resolve(__dirname, "assets/js"),
   },
   module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-          },
-        },
-      },
-      {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: "file-loader",
-      },
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: false,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: false,
-            },
-          },
-          "sass-loader",
-        ],
-      },
-    ],
+    rules: [rules.js, rules.img, rules.css, rules.sass],
   },
 };

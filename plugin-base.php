@@ -12,17 +12,18 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'VM_PATH', plugin_dir_path( __FILE__ ) );
-define( 'VM_URL',  plugin_dir_url( __FILE__ ) );
+define( 'VM_VERSION', 1.0 );
+define( 'VM_PATH',    plugin_dir_path( __FILE__ ) );
+define( 'VM_URL',     plugin_dir_url( __FILE__ ) );
 
 final class wpWax_Video_Messagge {
 
 	public function __construct() {
-		add_action( 'init', [$this, 'load_textdomain' ] );
+		add_action( 'init', [ $this, 'load_textdomain' ] );
 		add_action( 'plugins_loaded', [ $this, 'includes' ] );
-		add_action('wp_body_open', function() {
-			echo '<div id="root">Hello</div>';
-		});
+		// add_action('wp_body_open', function() {
+		// 	echo '<div id="root">Hello</div>';
+		// });
 	}
 
     public function load_textdomain() {

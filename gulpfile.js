@@ -13,7 +13,7 @@ sass.compiler = require("node-sass");
 
 gulp.task("sass", function () {
   return gulp
-    .src(["style.scss"], { cwd: "src/sass" })
+    .src(["style.scss","admin.scss"], { cwd: "src/sass" })
     .pipe(sass({ outputStyle: "expanded" }).on("error", sass.logError))
     .pipe(autoPrefixer({ browsers: ["> 1%", "last 2 versions"] }))
     .pipe(gulp.dest("assets/css/"));

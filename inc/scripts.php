@@ -32,16 +32,23 @@ class Scripts {
 	}
 
 	public function register_scripts() {
+		// Frontend
+		wp_register_style( 'vm-style', Helper::get_css( 'style' ), [], $this->version );
 		wp_register_script( 'vm-main', Helper::get_js( 'main' ), ['jquery', 'react', 'react-dom'], $this->version, true );
-		wp_register_script( 'vm-admin', Helper::get_js( 'admin' ), ['jquery', 'react', 'react-dom'], $this->version, true );
+
+		// Admin
+		wp_register_style( 'vm-admin-style', Helper::get_css( 'admin' ), [], $this->version );
+		wp_register_script( 'vm-admin-script', Helper::get_js( 'admin' ), ['jquery', 'react', 'react-dom'], $this->version, true );
 	}
 
 	public function enqueue_scripts() {
+		wp_enqueue_style( 'vm-style' );
 		wp_enqueue_script( 'vm-main' );
 	}
 
 	public function enqueue_admin_scripts() {
-		wp_enqueue_script( 'vm-admin' );
+		wp_enqueue_style( 'vm-admin-style' );
+		wp_enqueue_script( 'vm-admin-script' );
 	}
 
 }

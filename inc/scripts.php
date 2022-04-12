@@ -10,7 +10,6 @@ namespace wpWax\vm;
 class Scripts {
 
 	public $version;
-	protected static $instance = null;
 
 	public function __construct() {
 		$this->version = time(); // change to VM_VERSION later
@@ -20,15 +19,6 @@ class Scripts {
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 12 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ], 12 );
-	}
-
-	public static function instance() {
-
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
 	}
 
 	public function register_scripts() {
@@ -52,5 +42,3 @@ class Scripts {
 	}
 
 }
-
-Scripts::instance();

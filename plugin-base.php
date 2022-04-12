@@ -50,10 +50,10 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function autoload( $dir ) {
-		$dir = VM_PATH . $dir . '/';
-		foreach ( scandir( $dir ) as $file ) {
+		$path = VM_PATH . $dir . '/';
+		foreach ( scandir( $path ) as $file ) {
 			if ( preg_match( "/.php$/i", $file ) ) {
-				require_once( $dir . $file );
+				require_once( $path . $file );
 			}
 		}
 	}

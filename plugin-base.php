@@ -47,8 +47,9 @@ final class wpWax_Video_Messagge {
 
 	public function initialize() {
 		$this->loader['scripts'] = new \wpWax\vm\Scripts;
-		$this->loader['post_type'] = new \wpWax\vm\Post_type;
-		$this->loader['admin_menu'] = new \wpWax\vm\Admin_Menu;
+		$this->loader['install'] = new \wpWax\vm\Install;
+		// $this->loader['post_type'] = new \wpWax\vm\Post_type;
+		// $this->loader['admin_menu'] = new \wpWax\vm\Admin_Menu;
 	}
 
 	public function autoload( $dir ) {

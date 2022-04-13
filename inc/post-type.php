@@ -36,12 +36,14 @@ class Post_type {
 
 	function register_taxonomy_form() {
 
+		$labels = array(
+			'name'                       => _x( 'Forms', 'Taxonomy General Name', 'wpwaxvm' ),
+			'singular_name'              => _x( 'Form', 'Taxonomy Singular Name', 'wpwaxvm' ),
+			'menu_name'                  => __( 'Forms', 'wpwaxvm' ),
+		);
+
 		$args = array(
-			'labels'                     => array(
-				'name'                       => _x( 'Forms', 'Taxonomy General Name', 'wpwaxvm' ),
-				'singular_name'              => _x( 'Form', 'Taxonomy Singular Name', 'wpwaxvm' ),
-				'menu_name'                  => __( 'Forms', 'wpwaxvm' ),
-			),
+			'labels'                     => $labels,
 			'hierarchical'               => false,
 			'public'                     => true, // false
 			'show_ui'                    => true, // false

@@ -37,20 +37,20 @@ class Post_type {
 	function register_taxonomy_form() {
 
 		$labels = array(
-			'name'                       => _x( 'Forms', 'Taxonomy General Name', 'wpwaxvm' ),
-			'singular_name'              => _x( 'Form', 'Taxonomy Singular Name', 'wpwaxvm' ),
-			'menu_name'                  => __( 'Forms', 'wpwaxvm' ),
+			'name'               => _x( 'Forms', 'Taxonomy General Name', 'wpwaxvm' ),
+			'singular_name'      => _x( 'Form', 'Taxonomy Singular Name', 'wpwaxvm' ),
+			'menu_name'          => __( 'Forms', 'wpwaxvm' ),
 		);
 
 		$args = array(
-			'labels'                     => $labels,
-			'hierarchical'               => false,
-			'public'                     => true, // false
-			'show_ui'                    => true, // false
-			'show_admin_column'          => false,
-			'show_in_nav_menus'          => false,
-			'show_tagcloud'              => false,
-			'show_in_rest'               => false,
+			'labels'             => $labels,
+			'hierarchical'       => false,
+			'public'             => true, // false
+			'show_ui'            => true, // false
+			'show_admin_column'  => false,
+			'show_in_nav_menus'  => false,
+			'show_tagcloud'      => false,
+			'show_in_rest'       => false,
 		);
 
 		register_taxonomy( 'vm_form', array( 'video_message' ), $args );

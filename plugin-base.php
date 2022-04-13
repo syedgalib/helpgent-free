@@ -23,7 +23,7 @@ final class wpWax_Video_Messagge {
 	public $loader = [];
 
 	public function __construct() {
-		add_action( 'init', [ $this, 'load_textdomain' ] );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		$this->includes();
 		$this->initialize();
@@ -47,6 +47,7 @@ final class wpWax_Video_Messagge {
 
 	public function initialize() {
 		$this->loader['scripts'] = new \wpWax\vm\Scripts;
+		$this->loader['post_type'] = new \wpWax\vm\Post_type;
 	}
 
 	public function autoload( $dir ) {

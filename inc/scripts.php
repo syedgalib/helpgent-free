@@ -9,36 +9,35 @@ namespace wpWax\vm;
 
 class Scripts {
 
-	public $version;
+	public static $version;
 
-	public function __construct() {
-		$this->version = time(); // change to VM_VERSION later
+	public static function init() {
+		self::$version = time(); // change to VM_VERSION later
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_scripts' ) );
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 12 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ), 12 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ), 12 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_scripts' ), 12 );
 	}
 
-	public function register_scripts() {
+	public static function register_scripts() {
 		// Frontend
-		wp_register_style( 'vm-style', Helper::get_css( 'style' ), array(), $this->version );
-		wp_register_script( 'vm-main', Helper::get_js( 'main' ), array( 'jquery', 'react', 'react-dom' ), $this->version, true );
+		wp_register_style( 'vm-style', Helper::get_css( 'style' ), array(), self::$version );
+		wp_register_script( 'vm-main', Helper::get_js( 'main' ), array( 'jquery', 'react', 'react-dom' ), self::$version, true );
 
 		// Admin
-		wp_register_style( 'vm-admin-style', Helper::get_css( 'admin' ), array(), $this->version );
-		wp_register_script( 'vm-admin-script', Helper::get_js( 'admin' ), array( 'jquery', 'react', 'react-dom' ), $this->version, true );
+		wp_register_style( 'vm-admin-style', Helper::get_css( 'admin' ), array(), self::$version );
+		wp_register_script( 'vm-admin-script', Helper::get_js( 'admin' ), array( 'jquery', 'react', 'react-dom' ), self::$version, true );
 	}
 
-	public function enqueue_scripts() {
+	public static function enqueue_scripts() {
 		wp_enqueue_style( 'vm-style' );
 		wp_enqueue_script( 'vm-main' );
 	}
 
-	public function enqueue_admin_scripts() {
+	public static function enqueue_admin_scripts() {
 		wp_enqueue_style( 'vm-admin-style' );
 		wp_enqueue_script( 'vm-admin-script' );
 	}
-
 }

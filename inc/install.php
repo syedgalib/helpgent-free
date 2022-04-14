@@ -9,20 +9,20 @@ namespace wpWax\vm;
 
 class Install {
 
-	public function __construct() {
-		register_activation_hook( VM_PLUGIN_FILE, array( $this, 'activate' ) );
+	public static function init() {
+		register_activation_hook( VM_PLUGIN_FILE, array( __CLASS__, 'activate' ) );
 	}
 
-	public function activate() {
-		$this->create_tables();
+	public static function activate() {
+		self::create_tables();
 	}
 
-	private function create_tables() {
+	private static function create_tables() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta( $this->get_schema() );
+		dbDelta( self::get_schema() );
 	}
 
-	private function get_schema() {
+	private static function get_schema() {
 		global $wpdb;
 
 		$collate = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';

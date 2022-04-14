@@ -47,8 +47,8 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function initialize() {
-		$this->loader['install'] = new \wpWax\vm\Install;
-		$this->loader['scripts'] = new \wpWax\vm\Scripts;
+		\wpWax\vm\Install::init();
+		\wpWax\vm\Scripts::init();
 	}
 
 	public function autoload( $dir ) {

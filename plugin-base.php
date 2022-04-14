@@ -12,9 +12,10 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'VM_VERSION', 1.0 );
-define( 'VM_PATH',    trailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'VM_URL',     trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'VM_VERSION',     1.0 );
+define( 'VM_PLUGIN_FILE', __FILE__ );
+define( 'VM_PATH',        trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'VM_URL',         trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 final class wpWax_Video_Messagge {
 
@@ -46,10 +47,8 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function initialize() {
-		$this->loader['scripts'] = new \wpWax\vm\Scripts;
 		$this->loader['install'] = new \wpWax\vm\Install;
-		// $this->loader['post_type'] = new \wpWax\vm\Post_type;
-		// $this->loader['admin_menu'] = new \wpWax\vm\Admin_Menu;
+		$this->loader['scripts'] = new \wpWax\vm\Scripts;
 	}
 
 	public function autoload( $dir ) {

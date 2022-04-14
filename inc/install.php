@@ -10,16 +10,19 @@ namespace wpWax\vm;
 class Install {
 
 	public function __construct() {
-
+		register_activation_hook( VM_PLUGIN_FILE, array( $this, 'activate' ) );
 	}
 
-	public function create_tables() {
+	public function activate() {
+		$this->create_tables();
+	}
 
+	private function create_tables() {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-
+		dbDelta( $this->get_schema() );
 	}
 
-	public function schema() {
+	private function get_schema() {
 		global $wpdb;
 
 		$collate = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
@@ -35,7 +38,7 @@ class Install {
 			email varchar(100) NOT NULL,
 			messages longtext,
 			is_read tinyint(1) unsigned NOT NULL default '0',
-			PRIMARY KEY (message_id),
+			PRIMARY KEY  (message_id),
 			KEY updated_time (updated_time),
 			KEY email (email),
 			KEY is_read (is_read)
@@ -45,13 +48,13 @@ class Install {
 			form_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(250) NOT NULL,
 			options longtext,
-			PRIMARY KEY (form_id),
+			PRIMARY KEY  (form_id)
 		) $collate;
 
 		CREATE TABLE {$wpdb->prefix}vm_tags (
 			tag_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(250) NOT NULL,
-			PRIMARY KEY (tag_id),
+			PRIMARY KEY  (tag_id)
 		) $collate;
 
 		CREATE TABLE {$wpdb->prefix}vm_relationship (
@@ -59,9 +62,9 @@ class Install {
 			message_id bigint(20) unsigned NOT NULL,
 			type varchar(200) NOT NULL,
 			value bigint(20) unsigned NOT NULL,
-			PRIMARY KEY (relationship_id),
+			PRIMARY KEY  (relationship_id),
 			KEY message_id (message_id),
-			KEY type (type),
+			KEY type (type($max_index_length)),
 			KEY value (value)
 		) $collate;
 
@@ -77,5 +80,4 @@ class Install {
 
 		return $tables;
 	}
-
 }

@@ -49,6 +49,7 @@ final class wpWax_Video_Messagge {
 	public function initialize() {
 		\wpWax\vm\Install::init();
 		\wpWax\vm\Scripts::init();
+		\wpWax\vm\Admin_Menu::init();
 	}
 
 	public function autoload( $dir ) {

@@ -9,43 +9,39 @@ namespace wpWax\vm;
 
 class Admin_Menu {
 
-	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+	public static function init() {
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
 	}
 
-    public function admin_menu() {
+    public static function admin_menu() {
 
-        add_menu_page( __( 'Video Message22', 'wpwaxvm' ), __( 'Video Message', 'wpwaxvm' ), '', 'video-message', array( $this, 'plugin_page' ), 'dashicons-groups', null );
+		$settings = VM_PATH. 'inc/admin-ui/settings.php';
 
-        add_submenu_page( 'video-message', __( 'Video Message', 'wpwaxvm' ), __( 'Video Message', 'wpwaxvm' ), '', 'video-message', array( $this, 'plugin_page' ) );
+        add_menu_page( __( 'Video Message', 'wpwaxvm' ), __( 'Video Message', 'wpwaxvm' ), 'manage_options', 'video-message', '', 'dashicons-format-chat', 77 );
+
+		add_submenu_page( 'video-message', __( 'All Messages', 'wpwaxvm' ), __( 'All Messages', 'wpwaxvm' ), 'manage_options', 'video-message', array( __CLASS__, 'all_messages' ) );
+
+		add_submenu_page( 'video-message', __( 'Forms', 'wpwaxvm' ), __( 'Forms', 'wpwaxvm' ), 'manage_options', 'vm-forms', array( __CLASS__, 'forms' ) );
+
+        add_submenu_page( 'video-message', __( 'Settings', 'wpwaxvm' ), __( 'Settings', 'wpwaxvm' ), 'manage_options', 'vm-settings', $settings );
+
+		add_submenu_page( 'video-message', __( 'Integrations', 'wpwaxvm' ), __( 'Integrations', 'wpwaxvm' ), 'manage_options', 'vm-integrations', array( __CLASS__, 'integrations' ) );
     }
 
-    public function plugin_page() {
-        $action = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
-        $id     = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
+    public static function all_messages() {
+		echo 'ttt';
+    }
 
-        switch ($action) {
-            case 'view':
+    public static function forms() {
+		echo 'ttt';
+    }
 
-                $template = dirname( __FILE__ ) . '/views/vm-single.php';
-                break;
+    public static function settings() {
+		echo 'ttt';
+    }
 
-            case 'edit':
-                $template = dirname( __FILE__ ) . '/views/vm-edit.php';
-                break;
-
-            case 'new':
-                $template = dirname( __FILE__ ) . '/views/vm-new.php';
-                break;
-
-            default:
-                $template = dirname( __FILE__ ) . '/views/vm-list.php';
-                break;
-        }
-
-        if ( file_exists( $template ) ) {
-            include $template;
-        }
+	public static function integrations() {
+		echo 'ttt';
     }
 
 

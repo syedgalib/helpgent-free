@@ -1,3 +1,3 @@
-import '../apps/starter/index.js';
+import '../apps/chatbox/index.js';
 
-console.log('main22');
+console.log('main35');

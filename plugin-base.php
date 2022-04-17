@@ -50,6 +50,7 @@ final class wpWax_Video_Messagge {
 		\wpWax\vm\Install::init();
 		\wpWax\vm\Scripts::init();
 		\wpWax\vm\Admin_Menu::init();
+		\wpWax\vm\Chatbox::init();
 	}
 
 	public function autoload( $dir ) {

@@ -23,7 +23,7 @@ const rules = {
       {
         loader: "css-loader",
         options: {
-          modules: false,
+          modules: true,
         },
       },
     ],
@@ -35,7 +35,7 @@ const rules = {
       {
         loader: "css-loader",
         options: {
-          modules: false,
+          modules: true,
         },
       },
       "sass-loader",

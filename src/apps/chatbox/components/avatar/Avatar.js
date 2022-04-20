@@ -1,15 +1,14 @@
-import classes from './Avatar.scss';
+import classes from "./Avatar.scss";
+import img from "./img.png";
 
 function Avatar() {
 	function clickHandler() {
-
+		alert(3);
 	}
-
-	console.log(classes.avatar)
 
 	return (
 		<div className={classes.avatar} onClick={clickHandler}>
-			This is avatar
+			<img src={img} alt="Avatar" />
 		</div>
 	);
 }

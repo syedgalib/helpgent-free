@@ -1,9 +1,13 @@
+import { useDispatch } from 'react-redux';
+import { chatBoxActions } from '../../store/chatbox-slice';
 import classes from "./Avatar.scss";
 import img from "./img.png";
 
 function Avatar() {
+	const dispatch = useDispatch();
+
 	function clickHandler() {
-		alert(3);
+		dispatch(chatBoxActions.toggleChatBoxDisplay());
 	}
 
 	return (

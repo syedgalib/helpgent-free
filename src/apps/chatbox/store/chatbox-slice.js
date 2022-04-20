@@ -4,7 +4,7 @@ const chatBoxSlice = createSlice({
 	name: "chatBox",
 	initialState: { showChatBox: false },
 	reducers: {
-		toggleShowChatBox(state) {
+		toggleChatBoxDisplay(state) {
 			state.showChatBox = !state.showChatBox;
 		},
 	},

@@ -1,6 +1,15 @@
+import { useSelector } from 'react-redux';
+
 import classes from "./Welcome.scss";
 
 function Welcome() {
+
+	const showChatBox = useSelector((state) => state.chatBox.showChatBox);
+	console.log(showChatBox)
+
+	if ( !showChatBox ) {
+		return null;
+	}
 
 	return (
 		<div className={classes.welcome}>

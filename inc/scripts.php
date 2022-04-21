@@ -34,10 +34,20 @@ class Scripts {
 	public static function enqueue_scripts() {
 		wp_enqueue_style( 'vm-style' );
 		wp_enqueue_script( 'vm-main' );
+		self::localized_data();
 	}
 
 	public static function enqueue_admin_scripts() {
 		wp_enqueue_style( 'vm-admin-style' );
 		wp_enqueue_script( 'vm-admin-script' );
+		self::localized_data();
+	}
+
+	public static function localized_data() {
+		$api_data = array(
+			'nonce' => wp_create_nonce( 'wp_rest' )
+		);
+		wp_localize_script( 'vm-main', 'vmApi', $api_data );
+		wp_localize_script( 'vm-admin-script', 'vmApi', $api_data );
 	}
 }

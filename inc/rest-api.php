@@ -48,4 +48,22 @@ class Rest_API {
 	public static function get_all_forms() {
 		return [9,10];
 	}
+
+	public static function create_new_form( $request ) {
+		global $wpdb;
+		$data = $request->get_params();
+
+		$table = $wpdb->prefix . 'vm_forms';
+		$wpdb->insert(
+			$table,
+			array(
+				'column1' => 'value1',
+				'column2' => 123,
+			),
+			array(
+				'%s',
+				'%d',
+			)
+		);
+	}
 }

@@ -1,6 +1,5 @@
 const project = require("./package.json");
 const gulp = require("gulp");
-const sass = require("gulp-sass");
 const autoPrefixer = require("gulp-autoprefixer");
 const wpPot = require("gulp-wp-pot");
 const clean = require("gulp-clean");
@@ -9,7 +8,7 @@ const webpackProdConfig = require("./webpack.config.prod.js");
 const webpackDevConfig = require("./webpack.config.dev.js");
 const zip = require("gulp-zip");
 
-sass.compiler = require("node-sass");
+const sass = require('gulp-sass')(require('sass'));
 
 gulp.task("sass", function () {
   return gulp

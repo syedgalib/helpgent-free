@@ -1,1 +1,1 @@
-2
+<div id="wpwax-vm-forms"></div>

@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { chatBoxActions } from "../../store/chatbox-slice";
 
 import classes from "./Welcome.scss";
 
@@ -9,6 +10,15 @@ function Welcome() {
 		return null;
 	}
 
+	function videoHandler() {
+		dispatch(chatBoxActions.chatType("video"));
+		dispatch(chatBoxActions.chatStep("1"));
+	}
+
+	function screenRecordHandler() {}
+	function voiceHandler() {}
+	function textHandler() {}
+
 	return (
 		<div className={classes.welcome}>
 			<div>
@@ -18,10 +28,10 @@ function Welcome() {
 			<div>[Video Screen]</div>
 			<div>How would you like to chat?</div>
 			<div>
-				<button>Video</button>
-				<button>Screen Record</button>
-				<button>Voice</button>
-				<button>Text</button>
+				<button onClick={videoHandler}>Video</button>
+				<button onClick={screenRecordHandler}>Screen Record</button>
+				<button onClick={voiceHandler}>Voice</button>
+				<button onClick={textHandler}>Text</button>
 			</div>
 			<div>You can practise before sending</div>
 			<div>Powered by wpWax</div>

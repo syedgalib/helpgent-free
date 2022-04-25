@@ -1,4 +1,4 @@
-function Video_Step_1() {
+function Video() {
 
 	return (
 		<div>
@@ -11,4 +11,4 @@ function Video_Step_1() {
 	);
 }
 
-export default Video_Step_1;
+export default Video;

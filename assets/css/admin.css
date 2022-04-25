@@ -1,3 +1,20 @@
-.test2 {
-  color: rgb(170, 135, 135);
+:root {
+  --color-primary: #3E62F5;
+  --color-dark: #030308;
+  --color-light: #F4F5F7;
+  --color-gray: #868EAE;
+  --color-text: #5A5F7D;
+  --color-white: #ffffff;
+}
+
+.wpwax-vm-btn {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 40px;
+  color: var(--color-white);
+  background-color: var(--color-dark);
 }

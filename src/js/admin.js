@@ -1,1 +1,1 @@
-console.log('admin');
+import "../apps/builder/index.js";

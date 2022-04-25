@@ -7,7 +7,7 @@ function Avatar() {
 	const dispatch = useDispatch();
 
 	function clickHandler() {
-		dispatch(chatBoxActions.toggleChatBoxDisplay());
+		dispatch(chatBoxActions.chatScreen('welcome'));
 	}
 
 	return (

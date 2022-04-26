@@ -20,6 +20,8 @@ class Rest_API {
 		/**
 		 * Get all forms: http://example.com/wp-json/wpwax-vm/v1/get_forms
 		 *
+		 * args: { page: 1 } // for pagination
+		 *
 		 * Returns: [
 		 * 		{
 		 * 			"form_id" : 1,
@@ -45,6 +47,8 @@ class Rest_API {
 		 * 			"name"   : "Form 1",
 		 * 			"options" : {},
 		 * 		}
+		 *
+		 *  Returns: Form ID on success, false on failure
 		 */
 		register_rest_route(
 			self::$namespace,
@@ -71,17 +75,38 @@ class Rest_API {
 		return true;
 	}
 
-	public static function get_all_forms() {
+	public static function get_all_forms( $request ) {
 		global $wpdb;
-		return [9,10];
+		$table = $wpdb->prefix . 'vm_forms';
+		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
+
+		$show_errors_status = $wpdb->show_error;
+		$wpdb->show_errors = false;
+
+		$results = $wpdb->get_results( $query );
+
+		$wpdb->show_errors = $show_errors_status;
+
+		return $results;
 	}
 
 	public static function create_new_form( $request ) {
 		global $wpdb;
+
+		$show_errors_status = $wpdb->show_error;
+		$wpdb->show_errors = false;
+
 		$args = $request->get_params();
 		$args = array_map( function( $value ){
 			return sanitize_text_field( $value );
 		}, $args );
+
+		$defaults = array(
+			'name'    => '',
+			'options' => '',
+		);
+
+		$args = wp_parse_args( $args, $defaults );
 
 		$table = $wpdb->prefix . 'vm_forms';
 		$data = array(
@@ -89,12 +114,8 @@ class Rest_API {
 			'options' => $args['options'],
 		);
 
-		try {
-			$result = $wpdb->insert ($table, $data );
-		} catch (\Throwable $th) {
-			//throw $th;
-		}
-
+		$result = $wpdb->insert( $table, $data );
+		$wpdb->show_errors = $show_errors_status;
 
 		return $result ? $wpdb->insert_id : false;
 	}

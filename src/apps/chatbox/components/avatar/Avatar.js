@@ -12,7 +12,7 @@ function Avatar() {
 
 	return (
 		<div className={classes.avatar} onClick={clickHandler}>
-			<img src={img} alt="Avatar" />
+			<img className={classes.ttt} src={img} alt="Avatar" />
 		</div>
 	);
 }

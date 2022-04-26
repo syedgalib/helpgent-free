@@ -3,16 +3,20 @@ import { createSlice } from "@reduxjs/toolkit";
 const chatBoxSlice = createSlice({
 	name: "chatBox",
 	initialState: {
-		chatScreen: null, // welcome, video, audio, text, screenRecord
+		displayChatScreen: false,
+		chatScreen: "welcome", // welcome, video, audio, text, screenRecord
 		chatStep: null, // 1,2,3,4 etc + contact, sending, success
 	},
 	reducers: {
+		toggleDisplayChatScreen(state) {
+			state.displayChatScreen = !state.displayChatScreen;
+		},
 		chatScreen(state, action) {
 			state.chatScreen = action.payload;
 		},
 		chatStep(state, action) {
 			state.chatStep = action.payload.chatStep;
-		}
+		},
 	},
 });
 

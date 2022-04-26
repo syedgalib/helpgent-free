@@ -5,6 +5,7 @@ import store from './store/index';
 import App from "./App";
 
 document.addEventListener("DOMContentLoaded", function () {
+	window.store = store; // for debugging, remove later
 	ReactDOM.render(
 		<Provider store={store}>
 			<App />

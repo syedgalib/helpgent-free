@@ -36,7 +36,7 @@ class Install {
 			updated_time datetime NOT NULL,
 			name varchar(250) NOT NULL,
 			email varchar(100) NOT NULL,
-			messages longtext,
+			messages longtext NOT NULL,
 			is_read tinyint(1) unsigned NOT NULL default '0',
 			PRIMARY KEY  (message_id),
 			KEY updated_time (updated_time),
@@ -47,7 +47,7 @@ class Install {
 		CREATE TABLE {$wpdb->prefix}vm_forms (
 			form_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(250) NOT NULL,
-			options longtext,
+			options longtext NOT NULL,
 			PRIMARY KEY  (form_id)
 		) $collate;
 

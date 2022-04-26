@@ -3,14 +3,81 @@
     --color-dark: #030308;
     --color-light: #F4F5F7;
     --color-gray: #868EAE;
+    --color-danger: #EF0000;
     --color-text: #5A5F7D;
     --color-white: #ffffff;
 }
 
+.wpwax-vm-page-inner{
+    padding: 0 30px 0 0;
+}
+
+/* Button Style */
 .wpwax-vm-btn{
     display: inline-flex;
     align-items: center;
-    min-height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 2;
+    height: 40px;
+    padding: 0 25px;
+    border-radius: 8px;
     color: var(--color-white);
-    background-color: var(--color-dark);
+    &.wpwax-vm-btn-dark{
+        background-color: var(--color-dark);
+        border: 1px solid var(--color-dark);
+    }
+    &.wpwax-vm-btn-light{
+        color: var(--color-text);
+        background-color: var(--color-light);
+        border: 1px solid var(--color-light);
+    }
+    &.wpwax-vm-btn-danger{
+        color: var(--color-white);
+        background-color: var(--color-danger);
+        border: 1px solid var(--color-danger);
+    }
+}
+
+/* Table Style */
+.wpwax-vm-table-responsive{
+    display: block !important;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+.wpwax-vm-table{
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+    empty-cells: show;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: visible;
+    thead{
+        background-color: var(--color-light);
+        border-radius: 6px;
+        tr{
+            th{
+                padding: 16px 20px;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 500;
+                color: var(--color-text);
+            }
+        }
+    }
+    tbody{
+        tr{
+            td{
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--color-text);
+                padding: 15px 20px;
+            }
+        }
+    }
 }

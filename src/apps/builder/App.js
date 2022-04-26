@@ -2,9 +2,9 @@ import FormTable from './components/FormTable/Index';
 
 const BuilderContainer = () => {
     return(
-        <>
+        <div className="wpwax-vm-page-inner">
 			<FormTable />
-        </>
+        </div>
     )         
 }
 

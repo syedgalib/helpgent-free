@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
 
 import Avatar from "./components/avatar/Avatar";
-import Welcome from "./components/welcome/Welcome";
+import ChatScreen from "./components/ChatScreen/ChatScreen";
 
 function App() {
-	const chatScreen = useSelector((state) => state.chatBox.chatScreen);
+	const displayChatScreen = useSelector((state) => state.displayChatScreen);
 
 	return (
 		<>
 			<Avatar />
-			{chatScreen == "welcome" && <Welcome />}
+			{displayChatScreen && <ChatScreen />}
 		</>
 	);
 }

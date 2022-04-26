@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { chatBoxActions } from '../../store/chatbox-slice';
+import { useDispatch } from "react-redux";
+import { chatBoxActions } from "../../store/chatbox-slice";
 import classes from "./Avatar.scss";
 import img from "./img.png";
 
@@ -7,7 +7,7 @@ function Avatar() {
 	const dispatch = useDispatch();
 
 	function clickHandler() {
-		dispatch(chatBoxActions.chatScreen('welcome'));
+		dispatch(chatBoxActions.toggleDisplayChatScreen());
 	}
 
 	return (

@@ -19,6 +19,14 @@ class Rest_API {
 
 		/**
 		 * Get all forms: http://example.com/wp-json/wpwax-vm/v1/get_forms
+		 *
+		 * Returns: [
+		 * 		{
+		 * 			"form_id" : 1,
+		 * 			"title"   : "Form 1"
+		 * 		},
+		 * 		{ ... repeat ...}
+		 * ]
 		 */
 		register_rest_route(
 			self::$namespace,

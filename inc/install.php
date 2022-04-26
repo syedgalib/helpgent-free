@@ -47,7 +47,7 @@ class Install {
 		CREATE TABLE {$wpdb->prefix}vm_forms (
 			form_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(250) NOT NULL,
-			options longtext,
+			options longtext NOT NULL default '',
 			PRIMARY KEY  (form_id)
 		) $collate;
 

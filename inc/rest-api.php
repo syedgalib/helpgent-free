@@ -23,7 +23,7 @@ class Rest_API {
 		 * Returns: [
 		 * 		{
 		 * 			"form_id" : 1,
-		 * 			"title"   : "Form 1"
+		 * 			"name"    : "Form 1"
 		 * 		},
 		 * 		{ ... repeat ...}
 		 * ]
@@ -34,7 +34,25 @@ class Rest_API {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( __CLASS__, 'get_all_forms' ),
-				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+			)
+		);
+
+		/**
+		 * Create a new form: http://example.com/wp-json/wpwax-vm/v1/create_form
+		 *
+		 * args: {
+		 * 			"name"   : "Form 1",
+		 * 			"options" : {},
+		 * 		}
+		 */
+		register_rest_route(
+			self::$namespace,
+			'create_form',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( __CLASS__, 'create_new_form' ),
+				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 			)
 		);
 
@@ -54,24 +72,30 @@ class Rest_API {
 	}
 
 	public static function get_all_forms() {
+		global $wpdb;
 		return [9,10];
 	}
 
 	public static function create_new_form( $request ) {
 		global $wpdb;
-		$data = $request->get_params();
+		$args = $request->get_params();
+		$args = array_map( function( $value ){
+			return sanitize_text_field( $value );
+		}, $args );
 
 		$table = $wpdb->prefix . 'vm_forms';
-		$wpdb->insert(
-			$table,
-			array(
-				'column1' => 'value1',
-				'column2' => 123,
-			),
-			array(
-				'%s',
-				'%d',
-			)
+		$data = array(
+			'name' => $args['name'],
+			'options' => $args['options'],
 		);
+
+		try {
+			$result = $wpdb->insert ($table, $data );
+		} catch (\Throwable $th) {
+			//throw $th;
+		}
+
+
+		return $result ? $wpdb->insert_id : false;
 	}
 }

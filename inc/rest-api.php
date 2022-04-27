@@ -15,21 +15,12 @@ class Rest_API {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_routes' ) );
 	}
 
+	/**
+	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
+	 */
+
 	public static function register_routes() {
 
-		/**
-		 * Get all forms: http://example.com/wp-json/wpwax-vm/v1/get_forms
-		 *
-		 * args: { page: 1 } // for pagination
-		 *
-		 * Returns: [
-		 * 		{
-		 * 			"form_id" : 1,
-		 * 			"name"    : "Form 1"
-		 * 		},
-		 * 		{ ... repeat ...}
-		 * ]
-		 */
 		register_rest_route(
 			self::$namespace,
 			'get_forms',

@@ -18,16 +18,24 @@ class Rest_API {
 	/**
 	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
 	 */
-
 	public static function register_routes() {
 
 		register_rest_route(
 			self::$namespace,
 			'create_form',
 			array(
-				'methods'             => 'POST',
-				'callback'            => array( __CLASS__, 'create_new_form' ),
-				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'methods'  => \WP_REST_Server::EDITABLE,
+				'callback' => array( __CLASS__, 'create_new_form' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'args'     => array(
+					'name' => array(
+						'required' => true,
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'options' => array(
+						'default' => '',
+					),
+				),
 			)
 		);
 
@@ -35,15 +43,16 @@ class Rest_API {
 			self::$namespace,
 			'get_forms',
 			array(
-				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'get_all_forms' ),
-				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'methods'  => \WP_REST_Server::READABLE,
+				'callback' => array( __CLASS__, 'get_all_forms' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 			)
 		);
 
 	}
 
 	public static function check_admin_permission() {
+		return true; // @todo remove this later
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return new \WP_Error(
 				'admin_check_failed',
@@ -58,46 +67,39 @@ class Rest_API {
 	public static function create_new_form( $request ) {
 		global $wpdb;
 
-		$show_errors_status = $wpdb->show_error;
-		$wpdb->show_errors = false;
+		$show_errors_status = $wpdb->show_errors;
+		$wpdb->show_errors  = false;
 
 		$args = $request->get_params();
-		$args = array_map( function( $value ){
-			return sanitize_text_field( $value );
-		}, $args );
-
-		$defaults = array(
-			'name'    => '',
-			'options' => '',
-		);
-
-		$args = wp_parse_args( $args, $defaults );
+		// var_dump($args);
+		return true;
 
 		$table = $wpdb->prefix . 'vm_forms';
-		$data = array(
-			'name' => $args['name'],
+		$data  = array(
+			'name'    => $args['name'],
 			'options' => $args['options'],
 		);
 
-		$result = $wpdb->insert( $table, $data );
+		$result            = $wpdb->insert( $table, $data );
 		$wpdb->show_errors = $show_errors_status;
 
 		return $result ? $wpdb->insert_id : false;
 	}
 
-	public static function get_all_forms( $request ) {
+	public static function get_all_forms( \WP_REST_Request $request ) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'vm_forms';
 		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
+		// var_dump( $request->get_params() );
 
-		$show_errors_status = $wpdb->show_error;
-		$wpdb->show_errors = false;
+		$show_errors_status = $wpdb->show_errors;
+		$wpdb->show_errors  = false;
 
 		$results = $wpdb->get_results( $query );
 
 		$wpdb->show_errors = $show_errors_status;
 
-		return $results;
+		return rest_ensure_response( $results );
 	}
 
 }

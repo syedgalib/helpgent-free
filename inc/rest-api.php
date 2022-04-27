@@ -24,9 +24,18 @@ class Rest_API {
 			self::$namespace,
 			'create_form',
 			array(
-				'methods'  => 'POST',
+				'methods'  => \WP_REST_Server::EDITABLE,
 				'callback' => array( __CLASS__, 'create_new_form' ),
-				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'args'     => array(
+					'name' => array(
+						'required' => true,
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'options' => array(
+						'default' => '',
+					),
+				),
 			)
 		);
 
@@ -34,15 +43,16 @@ class Rest_API {
 			self::$namespace,
 			'get_forms',
 			array(
-				'methods'  => 'GET',
+				'methods'  => \WP_REST_Server::READABLE,
 				'callback' => array( __CLASS__, 'get_all_forms' ),
-				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 			)
 		);
 
 	}
 
 	public static function check_admin_permission() {
+		return true; // @todo remove this later
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return new \WP_Error(
 				'admin_check_failed',
@@ -61,20 +71,8 @@ class Rest_API {
 		$wpdb->show_errors  = false;
 
 		$args = $request->get_params();
-
-		$args = array_map(
-			function( $value ) {
-				return sanitize_text_field( $value );
-			},
-			$args
-		);
-
-		$defaults = array(
-			'name'    => '',
-			'options' => '',
-		);
-
-		$args = wp_parse_args( $args, $defaults );
+		// var_dump($args);
+		return true;
 
 		$table = $wpdb->prefix . 'vm_forms';
 		$data  = array(
@@ -88,10 +86,11 @@ class Rest_API {
 		return $result ? $wpdb->insert_id : false;
 	}
 
-	public static function get_all_forms( $request ) {
+	public static function get_all_forms( \WP_REST_Request $request ) {
 		global $wpdb;
 		$table = $wpdb->prefix . 'vm_forms';
 		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
+		// var_dump( $request->get_params() );
 
 		$show_errors_status = $wpdb->show_errors;
 		$wpdb->show_errors  = false;
@@ -100,7 +99,7 @@ class Rest_API {
 
 		$wpdb->show_errors = $show_errors_status;
 
-		return $results;
+		return rest_ensure_response( $results );
 	}
 
 }

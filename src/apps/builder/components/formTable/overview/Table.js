@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classes from './Style.scss';
+import {TemplateBox} from './Style';
 
 const tableData = [
     {
@@ -14,14 +14,29 @@ const Table = ()=>{
     const [state, setState] = useState({
         data: tableData,
         titleInput: '',
-        editMode: false
+        editMode: false,
+        message: ''
     });
 
     /* Data Destructuring  */
-    const { data, editMode } = state;
+    const { data, editMode, message } = state;
+
+    const activateEditMode = () => {
+        setState({
+          ...state,
+          editMode: true,
+        });
+    };
+
+    const cancelEditMode = () => {
+        setState({
+          ...state,
+          editMode: false,
+        });
+    };
     
     return(
-        <div className={`${classes.content} wpwax-vm-content-box`}>
+        <TemplateBox>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
                 <table className="wpwax-vm-table">
                     <thead>
@@ -35,24 +50,26 @@ const Table = ()=>{
                             return(
                                 <tr key={key}>
                                     <td>
-                                        <div className={classes.titlebox}>
-                                            <div className={classes.title}>
-                                                <span className={classes.name}>{value.name}</span>
-                                                <div className={editMode? `${classes.form}` : `${classes.form} ${classes.show}`}>
+                                        <div className="wpwax-vm-titlebox">
+                                            <div className="wpwax-vm-titlebox-inner">
+                                                <span className={editMode ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
+                                                    {value.name}
+                                                    <span className="wpwax-vm-titlebox__id">ID: {value.form_id}</span>
+                                                </span>
+                                                <div className={editMode? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
                                                     <input type="text" name="wpwax-vm-title-input"/>
-                                                    <div className={classes.formAction}>
-                                                        <a href="#" className={classes.iconBtn}>
-                                                            <span className="dashicons dashicons-no"></span>
-                                                        </a>
-                                                        <a href="#" className={classes.iconBtn}>
-                                                            <span className="dashicons dashicons-check"></span>
-                                                        </a>
-                                                    </div>
                                                 </div>
-                                                <span className="message">Successfuly Updated</span>
-                                                <span className="id">{value.form_id}</span>
+                                                <div className="wpwax-vm-titlebox__editor-action">
+                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={cancelEditMode}>
+                                                        <span className="dashicons dashicons-no"></span>
+                                                    </a>
+                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={activateEditMode}>
+                                                        <span className="dashicons dashicons-yes"></span>
+                                                    </a>
+                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={activateEditMode}></a>
+                                                </div>
+                                                <span className="wpwax-vm-titlebox__editor--message">{message}</span>
                                             </div>
-                                            <a href="#" className="edit dashicons dashicons-edit"></a>
                                         </div>
                                     </td>
                                     <td>
@@ -65,7 +82,7 @@ const Table = ()=>{
                     </tbody>
                 </table>
             </div>
-        </div>
+        </TemplateBox>
     )
 }
 

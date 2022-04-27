@@ -34,6 +34,7 @@ class Rest_API {
 					),
 					'options' => array(
 						'default' => '',
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 				),
 			)

@@ -18,15 +18,14 @@ class Rest_API {
 	/**
 	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
 	 */
-
 	public static function register_routes() {
 
 		register_rest_route(
 			self::$namespace,
 			'create_form',
 			array(
-				'methods'             => 'POST',
-				'callback'            => array( __CLASS__, 'create_new_form' ),
+				'methods'  => 'POST',
+				'callback' => array( __CLASS__, 'create_new_form' ),
 				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 			)
 		);
@@ -35,8 +34,8 @@ class Rest_API {
 			self::$namespace,
 			'get_forms',
 			array(
-				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'get_all_forms' ),
+				'methods'  => 'GET',
+				'callback' => array( __CLASS__, 'get_all_forms' ),
 				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 			)
 		);
@@ -58,13 +57,17 @@ class Rest_API {
 	public static function create_new_form( $request ) {
 		global $wpdb;
 
-		$show_errors_status = $wpdb->show_error;
-		$wpdb->show_errors = false;
+		$show_errors_status = $wpdb->show_errors;
+		$wpdb->show_errors  = false;
 
 		$args = $request->get_params();
-		$args = array_map( function( $value ){
-			return sanitize_text_field( $value );
-		}, $args );
+
+		$args = array_map(
+			function( $value ) {
+				return sanitize_text_field( $value );
+			},
+			$args
+		);
 
 		$defaults = array(
 			'name'    => '',
@@ -74,12 +77,12 @@ class Rest_API {
 		$args = wp_parse_args( $args, $defaults );
 
 		$table = $wpdb->prefix . 'vm_forms';
-		$data = array(
-			'name' => $args['name'],
+		$data  = array(
+			'name'    => $args['name'],
 			'options' => $args['options'],
 		);
 
-		$result = $wpdb->insert( $table, $data );
+		$result            = $wpdb->insert( $table, $data );
 		$wpdb->show_errors = $show_errors_status;
 
 		return $result ? $wpdb->insert_id : false;
@@ -90,8 +93,8 @@ class Rest_API {
 		$table = $wpdb->prefix . 'vm_forms';
 		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
 
-		$show_errors_status = $wpdb->show_error;
-		$wpdb->show_errors = false;
+		$show_errors_status = $wpdb->show_errors;
+		$wpdb->show_errors  = false;
 
 		$results = $wpdb->get_results( $query );
 

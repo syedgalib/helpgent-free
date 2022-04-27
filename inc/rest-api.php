@@ -23,26 +23,6 @@ class Rest_API {
 
 		register_rest_route(
 			self::$namespace,
-			'get_forms',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( __CLASS__, 'get_all_forms' ),
-				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-			)
-		);
-
-		/**
-		 * Create a new form: http://example.com/wp-json/wpwax-vm/v1/create_form
-		 *
-		 * args: {
-		 * 			"name"   : "Form 1",
-		 * 			"options" : {},
-		 * 		}
-		 *
-		 *  Returns: Form ID on success, false on failure
-		 */
-		register_rest_route(
-			self::$namespace,
 			'create_form',
 			array(
 				'methods'             => 'POST',
@@ -51,6 +31,15 @@ class Rest_API {
 			)
 		);
 
+		register_rest_route(
+			self::$namespace,
+			'get_forms',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( __CLASS__, 'get_all_forms' ),
+				// 'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+			)
+		);
 
 	}
 
@@ -64,21 +53,6 @@ class Rest_API {
 		}
 
 		return true;
-	}
-
-	public static function get_all_forms( $request ) {
-		global $wpdb;
-		$table = $wpdb->prefix . 'vm_forms';
-		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
-
-		$show_errors_status = $wpdb->show_error;
-		$wpdb->show_errors = false;
-
-		$results = $wpdb->get_results( $query );
-
-		$wpdb->show_errors = $show_errors_status;
-
-		return $results;
 	}
 
 	public static function create_new_form( $request ) {
@@ -110,4 +84,20 @@ class Rest_API {
 
 		return $result ? $wpdb->insert_id : false;
 	}
+
+	public static function get_all_forms( $request ) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'vm_forms';
+		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
+
+		$show_errors_status = $wpdb->show_error;
+		$wpdb->show_errors = false;
+
+		$results = $wpdb->get_results( $query );
+
+		$wpdb->show_errors = $show_errors_status;
+
+		return $results;
+	}
+
 }

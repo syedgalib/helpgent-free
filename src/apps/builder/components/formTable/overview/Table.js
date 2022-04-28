@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { apiService } from "../../../../../apiService/Service";
 import {TemplateBox} from './Style';
 
 const tableData = [
@@ -34,6 +35,12 @@ const Table = ()=>{
           editMode: false,
         });
     };
+
+    useEffect(() => {
+        const param = "1"
+        const query = apiService.get('/get_forms', {param});
+        console.log(query);
+    }, []);
     
     return(
         <TemplateBox>

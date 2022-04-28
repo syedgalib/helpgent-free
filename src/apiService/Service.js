@@ -1,15 +1,25 @@
 import axios from 'axios'
 
-export default {
-    getData: () =>
-    axios({
-        'method':'GET',
-        'url':'https://example.com/query',
-        'headers': {
-            'content-type':'application/octet-stream',
-        },
-        'params': {
-            'search':'parameter',
-        },
-    })
+/* Create Instance */
+const axiosInstance = axios.create({
+    baseURL: "http://example.com/wp-json/wpwax-vm/v1",
+    headers: {
+        "Content-type": "application/json"
+    }
+});
+
+class apiService {
+    static get(path = '', params={}) {
+        console.log(typeof params);
+        return axiosInstance({
+            method: 'GET',
+            url: path,
+            page:params,
+            headers:{
+                "Content-type": "application/json"
+            }
+        });
+      }
 }
+
+export { apiService };

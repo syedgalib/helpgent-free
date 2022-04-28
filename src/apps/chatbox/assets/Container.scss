@@ -1,0 +1,23 @@
+.container {
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	border: 1px solid;
+	padding: 20px;
+	background-color: white;
+	.relative {
+		position: relative;
+	}
+	.close {
+		position: absolute;
+		right: -36px;
+		top: -34px;
+		background: black;
+		color: white;
+		border-radius: 100%;
+		padding: 10px;
+		font-size: 17px;
+		line-height: 10px;
+		cursor: pointer;
+	}
+}

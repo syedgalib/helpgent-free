@@ -14,4 +14,9 @@ module.exports = {
   module: {
     rules: [rules.js, rules.img, rules.css, rules.sass],
   },
+  resolve: {
+    alias: {
+      Chatbox: path.resolve(__dirname, "src/apps/chatbox/"),
+    },
+  },
 };

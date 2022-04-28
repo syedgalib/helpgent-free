@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
-import store from './store/index';
-import App from "./App";
+import store from 'Chatbox/store/index';
+import App from "Chatbox/App";
 
 document.addEventListener("DOMContentLoaded", function () {
 	window.store = store; // for debugging, remove later

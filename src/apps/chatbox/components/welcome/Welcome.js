@@ -1,5 +1,5 @@
-import Container from "../ui/Container";
-import { chatBoxActions } from "../../store/chatbox-slice";
+import Container from "Chatbox/components/ui/Container";
+import { chatBoxActions } from "Chatbox/store/chatbox-slice";
 
 function Welcome() {
 	function btnHandler(type) {

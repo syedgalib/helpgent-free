@@ -12,6 +12,21 @@ const TemplateBox = Styled.div`
                 }
             }
         }
+        .wpwax-vm-table-action{
+            margin: -8px;
+        }
+        .wpwax-vm-btn{
+            font-size: 14px;
+            margin: 8px;
+            text-decoration: none;
+            .dashicons{
+                width: 15px;
+                height: 15px;
+                margin-right: 8px;
+                position: relative;
+                top: -4px;
+            }
+        }
     }
     .wpwax-vm-titlebox{
         display: flex;
@@ -24,11 +39,17 @@ const TemplateBox = Styled.div`
         .wpwax-vm-titlebox__name{
             display: none;
             min-width: 240px;
+            color: var(--color-dark);
             &.wpwax-vm-show{
                 display: block;
             }
             span{
                 display: block;
+            }
+            .wpwax-vm-titlebox__id{
+                display: block;
+                margin-top: 4px;
+                color: var(--color-gray);
             }
         }
     }
@@ -37,7 +58,15 @@ const TemplateBox = Styled.div`
         &.wpwax-vm-show{
             display: flex;
         }
-        
+        input{
+            border: 0 none;
+            background-color: transparent;
+            border-bottom: 1px solid var(--color-border-light);
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+        }
         
     }
     .wpwax-vm-titlebox__editor-action{

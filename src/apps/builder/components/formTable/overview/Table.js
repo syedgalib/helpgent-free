@@ -1,34 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { apiService } from "../../../../../apiService/Service";
 import {TemplateBox} from './Style';
-
-const tableData = [
-    {
-      "form_id": "01",
-      "name": "Place",
-    },
-]
 
 const Table = ()=>{
 
     /* Initialize State */
     const [state, setState] = useState({
-        data: tableData,
+        data: [],
         titleInput: '',
         editMode: false,
         message: ''
     });
 
     /* Data Destructuring  */
-    const { data, editMode, message } = state;
+    const { data, titleInput, editMode, message } = state;
 
-    const activateEditMode = () => {
+    /* Edit Mode Activation */
+    const activateEditMode = (name) => {
         setState({
           ...state,
+          titleInput: name,
           editMode: true,
         });
     };
 
+    /* Edit Mode Cancelation */
     const cancelEditMode = () => {
         setState({
           ...state,
@@ -36,12 +32,48 @@ const Table = ()=>{
         });
     };
 
+    /* Update Table Name */
+    const updateTableName = (event) => {
+        setState({
+          ...state,
+          titleInput: event.target.value,
+        });
+    };
+
+    /* useEffect Hook used for render data when component was mounted  */
     useEffect(() => {
-        const param = "1"
-        const query = apiService.get('/get_forms', {param});
-        console.log(query);
+        apiService.get('/get_forms')
+            .then(response => {
+                setState({
+                    ...state,
+                    titleInput: response.data.name,
+                    data: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
-    
+
+    const handleClick = (event) => {
+        if (ref.current && !ref.current.contains(event.target)) {
+            console.log("outside")
+            setState({
+                ...state,
+                editMode: false,
+            });
+        }
+    }
+
+    function detectOutsideClick(ref){
+        useEffect(() => {
+            document.addEventListener("click", handleClick);
+            return () => document.removeEventListener("click", handleClick);
+        }, [ref]);
+    }
+    const referenceBox = useRef(null);
+
+    detectOutsideClick(referenceBox);
     return(
         <TemplateBox>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
@@ -58,13 +90,13 @@ const Table = ()=>{
                                 <tr key={key}>
                                     <td>
                                         <div className="wpwax-vm-titlebox">
-                                            <div className="wpwax-vm-titlebox-inner">
+                                            <div ref={referenceBox} className="wpwax-vm-titlebox-inner">
                                                 <span className={editMode ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
                                                     {value.name}
                                                     <span className="wpwax-vm-titlebox__id">ID: {value.form_id}</span>
                                                 </span>
                                                 <div className={editMode? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
-                                                    <input type="text" name="wpwax-vm-title-input"/>
+                                                    <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName}/>
                                                 </div>
                                                 <div className="wpwax-vm-titlebox__editor-action">
                                                     <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={cancelEditMode}>
@@ -73,15 +105,17 @@ const Table = ()=>{
                                                     <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={activateEditMode}>
                                                         <span className="dashicons dashicons-yes"></span>
                                                     </a>
-                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={activateEditMode}></a>
+                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={ ()=> activateEditMode(value.name)}></a>
                                                 </div>
                                                 <span className="wpwax-vm-titlebox__editor--message">{message}</span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
-                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger"> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                        <div className="wpwax-vm-table-action">
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger"> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                        </div>
                                     </td>
                                 </tr>
                             )

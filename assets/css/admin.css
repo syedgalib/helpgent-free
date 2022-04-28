@@ -1,7 +1,9 @@
 :root {
   --color-primary: #3E62F5;
   --color-dark: #030308;
+  --color-lighter: #F8F9FB;
   --color-light: #F4F5F7;
+  --color-border-light: #EDEDED;
   --color-gray: #868EAE;
   --color-danger: #EF0000;
   --color-success: #08bf9c;
@@ -75,9 +77,20 @@
   font-weight: 500;
   color: var(--color-text);
 }
+.wpwax-vm-table tbody tr:hover td {
+  background-color: var(--color-lighter);
+}
 .wpwax-vm-table tbody tr td {
   font-size: 14px;
   font-weight: 400;
   color: var(--color-text);
   padding: 15px 20px;
+}
+.wpwax-vm-table tr th:first-child,
+.wpwax-vm-table tr td:first-child {
+  border-radius: 6px 0 0 6px;
+}
+.wpwax-vm-table tr th:last-child,
+.wpwax-vm-table tr td:last-child {
+  border-radius: 0 6px 6px 0;
 }

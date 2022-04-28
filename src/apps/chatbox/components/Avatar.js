@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { chatBoxActions } from "Chatbox/store/chatbox-slice";
-import classes from "./Avatar.scss";
-import img from "./img.png";
+import classes from "Chatbox/assets/Avatar.scss";
+import img from "Chatbox/assets/avatar.png";
 
 function Avatar() {
 	const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import Welcome from "Chatbox/components/welcome/Welcome";
+import Welcome from "Chatbox/components/Welcome";
 
 function ChatScreen() {
 	const chatScreen = useSelector((state) => state.chatScreen);

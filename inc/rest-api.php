@@ -24,16 +24,17 @@ class Rest_API {
 			self::$namespace,
 			'create_form',
 			array(
-				'methods'  => \WP_REST_Server::EDITABLE,
-				'callback' => array( __CLASS__, 'create_new_form' ),
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => array( __CLASS__, 'create_new_form' ),
 				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-				'args'     => array(
-					'name' => array(
-						'required' => true,
+				'args'                => array(
+					'name'    => array(
+						'required'          => true,
 						'sanitize_callback' => 'sanitize_text_field',
 					),
 					'options' => array(
 						'default' => '',
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 				),
 			)
@@ -43,12 +44,21 @@ class Rest_API {
 			self::$namespace,
 			'get_forms',
 			array(
-				'methods'  => \WP_REST_Server::READABLE,
-				'callback' => array( __CLASS__, 'get_all_forms' ),
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( __CLASS__, 'get_all_forms' ),
 				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'args'                => array(
+					'page' => array(
+						'default'           => 1,
+						'validate_callback' => array( __CLASS__, 'validate_int' ),
+					),
+				),
 			)
 		);
+	}
 
+	public static function validate_int( $value ) {
+		return is_numeric( $value ) ? true : false;
 	}
 
 	public static function check_admin_permission() {
@@ -67,12 +77,7 @@ class Rest_API {
 	public static function create_new_form( $request ) {
 		global $wpdb;
 
-		$show_errors_status = $wpdb->show_errors;
-		$wpdb->show_errors  = false;
-
 		$args = $request->get_params();
-		// var_dump($args);
-		return true;
 
 		$table = $wpdb->prefix . 'vm_forms';
 		$data  = array(
@@ -80,26 +85,24 @@ class Rest_API {
 			'options' => $args['options'],
 		);
 
-		$result            = $wpdb->insert( $table, $data );
-		$wpdb->show_errors = $show_errors_status;
+		$result   = $wpdb->insert( $table, $data );
+		$response = $result ? $wpdb->insert_id : false;
 
-		return $result ? $wpdb->insert_id : false;
+		return rest_ensure_response( $response );
 	}
 
-	public static function get_all_forms( \WP_REST_Request $request ) {
+	public static function get_all_forms( $request ) {
 		global $wpdb;
-		$table = $wpdb->prefix . 'vm_forms';
-		$query = $wpdb->prepare( "SELECT form_id, name FROM $table", array() );
-		// var_dump( $request->get_params() );
 
-		$show_errors_status = $wpdb->show_errors;
-		$wpdb->show_errors  = false;
+		$args   = $request->get_params();
+		$limit  = 20;
+		$offset = ( $limit * $args['page'] ) - $limit;
+
+		$table = $wpdb->prefix . 'vm_forms';
+		$query = $wpdb->prepare( "SELECT form_id, name FROM $table LIMIT %d OFFSET %d", array( $limit, $offset ) );
 
 		$results = $wpdb->get_results( $query );
 
-		$wpdb->show_errors = $show_errors_status;
-
 		return rest_ensure_response( $results );
 	}
-
 }

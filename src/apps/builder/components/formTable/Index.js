@@ -1,4 +1,4 @@
-import PageHeader from '../PageHeader/Index';
+import PageHeader from '../pageheader/Index';
 import Table from './overview/Table';
 
 function FormTable() {
@@ -8,7 +8,7 @@ function FormTable() {
 
 			<Table />
 		</>
-        
+
 	);
 }
 

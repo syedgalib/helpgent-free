@@ -1,12 +1,21 @@
+import { useDispatch } from "react-redux";
 import { useRef } from "react";
+import { chatBoxActions } from "Chatbox/store/chatbox-slice";
 
 function Form() {
+	const dispatch = useDispatch();
 	const textRef = useRef();
 
 	function submitHandler(e) {
 		e.preventDefault();
 		const text = textRef.current.value;
-		console.log(text);
+
+		const data = {
+			type: "text",
+			text: text,
+		};
+
+		dispatch(chatBoxActions.sendData(data));
 	}
 	return (
 		<form onSubmit={submitHandler}>

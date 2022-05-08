@@ -7,7 +7,7 @@ function Welcome() {
 
 	function btnHandler(type) {
 		dispatch(chatBoxActions.chatScreen(type));
-		dispatch(chatBoxActions.chatStep("1"));
+		dispatch(chatBoxActions.chatStep(1));
 	}
 
 	return (

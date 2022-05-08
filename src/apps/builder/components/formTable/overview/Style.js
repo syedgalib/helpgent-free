@@ -38,6 +38,7 @@ const TemplateBox = Styled.div`
         }
         .wpwax-vm-titlebox__name{
             display: none;
+            font-weight: 500;
             min-width: 240px;
             color: var(--color-dark);
             &.wpwax-vm-show{
@@ -47,6 +48,8 @@ const TemplateBox = Styled.div`
                 display: block;
             }
             .wpwax-vm-titlebox__id{
+                font-size: 13px;
+                font-weight: 400;
                 display: block;
                 margin-top: 4px;
                 color: var(--color-gray);

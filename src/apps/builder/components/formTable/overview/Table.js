@@ -8,25 +8,32 @@ const Table = ()=>{
     const [state, setState] = useState({
         data: [],
         titleInput: '',
-        editMode: false,
         message: ''
     });
 
-    /* Data Destructuring  */
-    const { data, titleInput, editMode, message } = state;
+    /* Initialize EditMode State */
+    const [editModeState, setEditModeState] = useState({
+        editMode: false,
+    });
+
+    /* State Destructuring  */
+    const { data, titleInput, message } = state;
+    const { editMode } = editModeState;
 
     /* Edit Mode Activation */
     const activateEditMode = (name) => {
         setState({
-          ...state,
-          titleInput: name,
-          editMode: true,
+            ...state,
+            titleInput: name,
+        });
+        setEditModeState({
+            editMode: true,
         });
     };
 
     /* Edit Mode Cancelation */
     const cancelEditMode = () => {
-        setState({
+        setEditModeState({
           ...state,
           editMode: false,
         });
@@ -38,6 +45,11 @@ const Table = ()=>{
           ...state,
           titleInput: event.target.value,
         });
+    };
+
+    /* Update Table Name */
+    const saveTableName = (id,name) => {
+        apiService.patch('/get_forms');
     };
 
     /* useEffect Hook used for render data when component was mounted  */
@@ -55,25 +67,22 @@ const Table = ()=>{
             });
     }, []);
 
-    const handleClick = (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            console.log("outside")
-            setState({
-                ...state,
-                editMode: false,
-            });
-        }
-    }
-
     function detectOutsideClick(ref){
+        const handleClick = (event) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                cancelEditMode()
+            }
+        }
         useEffect(() => {
             document.addEventListener("click", handleClick);
             return () => document.removeEventListener("click", handleClick);
         }, [ref]);
     }
-    const referenceBox = useRef(null);
 
+    /* Initialize Reference */
+    const referenceBox = useRef(null);
     detectOutsideClick(referenceBox);
+
     return(
         <TemplateBox>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
@@ -102,7 +111,7 @@ const Table = ()=>{
                                                     <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={cancelEditMode}>
                                                         <span className="dashicons dashicons-no"></span>
                                                     </a>
-                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={activateEditMode}>
+                                                    <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={()=> saveTableName(value.id, value.name)}>
                                                         <span className="dashicons dashicons-yes"></span>
                                                     </a>
                                                     <a href="#" className={editMode ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={ ()=> activateEditMode(value.name)}></a>

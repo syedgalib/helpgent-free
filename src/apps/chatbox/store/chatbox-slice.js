@@ -8,7 +8,7 @@ const initialState = {
 
 const chatBoxSlice = createSlice({
 	name: "chatBox",
-	initialState,
+	initialState: initialState,
 	reducers: {
 		toggleDisplayChatScreen(state) {
 			state.displayChatScreen = !state.displayChatScreen;
@@ -17,7 +17,7 @@ const chatBoxSlice = createSlice({
 			state.chatScreen = action.payload;
 		},
 		chatStep(state, action) {
-			state.chatStep = action.payload.chatStep;
+			state.chatStep = action.payload;
 		},
 		back(state) {
 			if ( state.chatStep > 1 ) {

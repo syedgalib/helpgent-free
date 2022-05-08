@@ -1,24 +1,47 @@
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { chatBoxActions } from "Chatbox/store/chatbox-slice";
+import ClosePopup from "Chatbox/components/ui/ClosePopup";
 
 import classes from "Chatbox/assets/Container.scss";
 
 function Container(props) {
 	const dispatch = useDispatch();
+	const chatScreen = useSelector((state) => state.chatScreen);
+	const [displayClosePopup, setDisplayClosePopup] = useState(false);
 
-	function closeHandler() {
+	function backHandler() {
+		dispatch(chatBoxActions.back());
+	}
+	function minusHandler() {
 		dispatch(chatBoxActions.toggleDisplayChatScreen());
+	}
+	function closeHandler() {
+		setDisplayClosePopup(true);
 	}
 
 	return (
-		<div className={classes.container}>
-			<div className={classes.relative}>
-				<button onClick={closeHandler} className={classes.close}>
-					x
-				</button>
-				{props.children}
+		<>
+			<div className={classes.container}>
+				<div className={classes.relative}>
+					{chatScreen != "welcome" && (
+						<button onClick={backHandler} className={classes.back}>
+							&#60;&#60;Back
+						</button>
+					)}
+					<button onClick={minusHandler} className={classes.minus}>
+						-
+					</button>
+					<button onClick={closeHandler} className={classes.close}>
+						x
+					</button>
+					{props.children}
+				</div>
 			</div>
-		</div>
+			{displayClosePopup && (
+				<ClosePopup setDisplayClosePopup={setDisplayClosePopup} />
+			)}
+		</>
 	);
 }
 

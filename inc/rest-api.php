@@ -50,7 +50,23 @@ class Rest_API {
 				'args'                => array(
 					'form_id' => array(
 						'required'          => true,
-						'sanitize_callback' => array( __CLASS__, 'validate_int' ),
+						'sanitize_callback' => array( __CLASS__, 'sanitize_int' ),
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			self::$namespace,
+			'get_form',
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( __CLASS__, 'get_form' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'args'                => array(
+					'form_id' => array(
+						'required'          => true,
+						'sanitize_callback' => array( __CLASS__, 'sanitize_int' ),
 					),
 				),
 			)
@@ -71,6 +87,10 @@ class Rest_API {
 				),
 			)
 		);
+	}
+
+	public static function sanitize_int( $value ) {
+		return intval( $value );
 	}
 
 	public static function validate_int( $value ) {
@@ -130,6 +150,20 @@ class Rest_API {
 
 		$table = $wpdb->prefix . 'vm_forms';
 		$query = $wpdb->prepare( "SELECT form_id, name FROM $table LIMIT %d OFFSET %d", array( $limit, $offset ) );
+
+		$results = $wpdb->get_results( $query );
+
+		return rest_ensure_response( $results );
+	}
+
+	public static function get_form( $request ) {
+		global $wpdb;
+
+		$args    = $request->get_params();
+		$form_id = $args['form_id'];
+
+		$table = $wpdb->prefix . 'vm_forms';
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $form_id ) );
 
 		$results = $wpdb->get_results( $query );
 

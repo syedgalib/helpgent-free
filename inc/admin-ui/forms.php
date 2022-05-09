@@ -1,1 +1,0 @@
-<div id="wpwax-vm-forms"></div>

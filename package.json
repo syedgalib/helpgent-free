@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"main": "gulpfile.js",
 	"author": "wpWax",
+	"license": "(GPL-3.0)",
 	"scripts": {
 		"watch:react": "gulp webpackDev && gulp watch:js",
 		"watch:sass": "gulp sass && gulp watch:sass",

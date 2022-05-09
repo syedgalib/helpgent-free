@@ -10,7 +10,6 @@ namespace wpWax\vm;
 class Rest_API {
 
 	public static $namespace = 'wpwax-vm/v1';
-	public static $rest_base = 'forms';
 
 	public static function init() {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_routes_forms' ) );
@@ -19,7 +18,6 @@ class Rest_API {
 	/**
 	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
 	 */
-
 	public static function register_routes_forms() {
 		$rest_base = 'forms';
 
@@ -116,85 +114,28 @@ class Rest_API {
 		return true;
 	}
 
-	public static function update_item( $request ) {
-		global $wpdb;
-
-		$args = $request->get_params();
-
-		$table = $wpdb->prefix . 'vm_forms';
-		$where = array(
-			'form_id' => $args['form_id'],
-		);
-
-		$data = array(
-			'name'    => $args['name'],
-			'options' => $args['options'],
-		);
-
-		$data = array_filter( $data );
-
-		$result = $wpdb->update( $table, $data, $where, null, '%d' );
-
-		return rest_ensure_response( $result );
-	}
-
-	public static function create_item( $request ) {
-		global $wpdb;
-
-		$args = $request->get_params();
-
-		$table = $wpdb->prefix . 'vm_forms';
-		$data  = array(
-			'name'    => $args['name'],
-			'options' => $args['options'],
-		);
-
-		$result   = $wpdb->insert( $table, $data );
-		$response = $result ? $wpdb->insert_id : false;
-
-		return rest_ensure_response( $response );
-	}
-
-	public static function delete_item( $request ) {
-		global $wpdb;
-
-		$args = $request->get_params();
-
-		$table = $wpdb->prefix . 'vm_forms';
-		$where = array(
-			'form_id' => $args['form_id'],
-		);
-
-		$result = $wpdb->delete( $table, $where, '%d' );
-		return rest_ensure_response( $result );
-	}
-
 	public static function get_items( $request ) {
-		global $wpdb;
-
-		$args   = $request->get_params();
-		$limit  = 20;
-		$offset = ( $limit * $args['page'] ) - $limit;
-
-		$table = $wpdb->prefix . 'vm_forms';
-		$query = $wpdb->prepare( "SELECT form_id, name FROM $table LIMIT %d OFFSET %d", array( $limit, $offset ) );
-
-		$results = $wpdb->get_results( $query );
-
-		return rest_ensure_response( $results );
+		$args = $request->get_params();
+		return rest_ensure_response( DB::get_forms( $args['page'] ) );
 	}
 
 	public static function get_item( $request ) {
-		global $wpdb;
-
 		$args    = $request->get_params();
-		$form_id = $args['form_id'];
+		return rest_ensure_response( DB::get_form( $args['form_id'] ) );
+	}
 
-		$table = $wpdb->prefix . 'vm_forms';
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $form_id ) );
+	public static function create_item( $request ) {
+		$args = $request->get_params();
+		return rest_ensure_response( DB::create_form( $args ) );
+	}
 
-		$results = $wpdb->get_row( $query );
+	public static function update_item( $request ) {
+		$args = $request->get_params();
+		return rest_ensure_response( DB::update_form( $args ) );
+	}
 
-		return rest_ensure_response( $results );
+	public static function delete_item( $request ) {
+		$args = $request->get_params();
+		return rest_ensure_response( DB::delete_form( $args['form_id'] ) );
 	}
 }

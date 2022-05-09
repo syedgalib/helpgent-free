@@ -33,8 +33,24 @@ class Rest_API {
 						'sanitize_callback' => 'sanitize_text_field',
 					),
 					'options' => array(
-						'default' => '',
+						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			self::$namespace,
+			'delete_form',
+			array(
+				'methods'             => \WP_REST_Server::DELETABLE,
+				'callback'            => array( __CLASS__, 'delete_form' ),
+				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				'args'                => array(
+					'form_id' => array(
+						'required'          => true,
+						'sanitize_callback' => array( __CLASS__, 'validate_int' ),
 					),
 				),
 			)
@@ -89,6 +105,20 @@ class Rest_API {
 		$response = $result ? $wpdb->insert_id : false;
 
 		return rest_ensure_response( $response );
+	}
+
+	public static function delete_form( $request ) {
+		global $wpdb;
+
+		$args = $request->get_params();
+
+		$table = $wpdb->prefix . 'vm_forms';
+		$data  = array(
+			'form_id' => $args['form_id'],
+		);
+
+		$result = $wpdb->delete( $table, $data, array( '%d' ) );
+		return rest_ensure_response( $result );
 	}
 
 	public static function get_all_forms( $request ) {

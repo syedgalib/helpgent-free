@@ -10,31 +10,47 @@ namespace wpWax\vm;
 class Rest_API {
 
 	public static $namespace = 'wpwax-vm/v1';
+	public static $rest_base = 'forms';
 
 	public static function init() {
-		add_action( 'rest_api_init', array( __CLASS__, 'register_routes' ) );
+		add_action( 'rest_api_init', array( __CLASS__, 'register_routes_forms' ) );
 	}
 
 	/**
 	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
 	 */
-	public static function register_routes() {
+
+	public static function register_routes_forms() {
+		$rest_base = 'forms';
 
 		register_rest_route(
 			self::$namespace,
-			'create_form',
+			'/' . $rest_base,
 			array(
-				'methods'             => \WP_REST_Server::EDITABLE,
-				'callback'            => array( __CLASS__, 'create_new_form' ),
-				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-				'args'                => array(
-					'name'    => array(
-						'required'          => true,
-						'sanitize_callback' => 'sanitize_text_field',
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( __CLASS__, 'get_items' ),
+					'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+					'args'                => array(
+						'page' => array(
+							'default'           => 1,
+							'validate_callback' => array( __CLASS__, 'validate_int' ),
+						),
 					),
-					'options' => array(
-						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field',
+				),
+				array(
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => array( __CLASS__, 'create_item' ),
+					'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+					'args'                => array(
+						'name'    => array(
+							'required'          => true,
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'options' => array(
+							'default'           => '',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
 					),
 				),
 			)
@@ -42,51 +58,41 @@ class Rest_API {
 
 		register_rest_route(
 			self::$namespace,
-			'delete_form',
+			'/' . $rest_base . '/(?P<form_id>[\d]+)',
 			array(
-				'methods'             => \WP_REST_Server::DELETABLE,
-				'callback'            => array( __CLASS__, 'delete_form' ),
-				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-				'args'                => array(
+				'args' => array(
 					'form_id' => array(
-						'required'          => true,
-						'sanitize_callback' => array( __CLASS__, 'sanitize_int' ),
+						'type' => 'integer',
 					),
+				),
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( __CLASS__, 'get_item' ),
+					'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+				),
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( __CLASS__, 'update_item' ),
+					'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
+					'args'                => array(
+						'name'    => array(
+							'default'           => '',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+						'options' => array(
+							'default'           => '',
+							'sanitize_callback' => 'sanitize_text_field',
+						),
+					),
+				),
+				array(
+					'methods'             => \WP_REST_Server::DELETABLE,
+					'callback'            => array( __CLASS__, 'delete_item' ),
+					'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
 				),
 			)
 		);
 
-		register_rest_route(
-			self::$namespace,
-			'get_form',
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( __CLASS__, 'get_form' ),
-				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-				'args'                => array(
-					'form_id' => array(
-						'required'          => true,
-						'sanitize_callback' => array( __CLASS__, 'sanitize_int' ),
-					),
-				),
-			)
-		);
-
-		register_rest_route(
-			self::$namespace,
-			'get_forms',
-			array(
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( __CLASS__, 'get_all_forms' ),
-				'permission_callback' => array( __CLASS__, 'check_admin_permission' ),
-				'args'                => array(
-					'page' => array(
-						'default'           => 1,
-						'validate_callback' => array( __CLASS__, 'validate_int' ),
-					),
-				),
-			)
-		);
 	}
 
 	public static function sanitize_int( $value ) {
@@ -110,7 +116,29 @@ class Rest_API {
 		return true;
 	}
 
-	public static function create_new_form( $request ) {
+	public static function update_item( $request ) {
+		global $wpdb;
+
+		$args = $request->get_params();
+
+		$table = $wpdb->prefix . 'vm_forms';
+		$where = array(
+			'form_id' => $args['form_id'],
+		);
+
+		$data = array(
+			'name'    => $args['name'],
+			'options' => $args['options'],
+		);
+
+		$data = array_filter( $data );
+
+		$result = $wpdb->update( $table, $data, $where, null, '%d' );
+
+		return rest_ensure_response( $result );
+	}
+
+	public static function create_item( $request ) {
 		global $wpdb;
 
 		$args = $request->get_params();
@@ -127,21 +155,21 @@ class Rest_API {
 		return rest_ensure_response( $response );
 	}
 
-	public static function delete_form( $request ) {
+	public static function delete_item( $request ) {
 		global $wpdb;
 
 		$args = $request->get_params();
 
 		$table = $wpdb->prefix . 'vm_forms';
-		$data  = array(
+		$where = array(
 			'form_id' => $args['form_id'],
 		);
 
-		$result = $wpdb->delete( $table, $data, array( '%d' ) );
+		$result = $wpdb->delete( $table, $where, '%d' );
 		return rest_ensure_response( $result );
 	}
 
-	public static function get_all_forms( $request ) {
+	public static function get_items( $request ) {
 		global $wpdb;
 
 		$args   = $request->get_params();
@@ -156,7 +184,7 @@ class Rest_API {
 		return rest_ensure_response( $results );
 	}
 
-	public static function get_form( $request ) {
+	public static function get_item( $request ) {
 		global $wpdb;
 
 		$args    = $request->get_params();
@@ -165,7 +193,7 @@ class Rest_API {
 		$table = $wpdb->prefix . 'vm_forms';
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $form_id ) );
 
-		$results = $wpdb->get_results( $query );
+		$results = $wpdb->get_row( $query );
 
 		return rest_ensure_response( $results );
 	}

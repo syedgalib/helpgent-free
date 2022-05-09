@@ -2,7 +2,7 @@
 /**
  * Handles database queries.
  *
- * Values aren't sanitized here, must pass sanitized values as argument.
+ * Must pass sanitized values as argument.
  *
  * @author  wpWax
  * @since   1.0

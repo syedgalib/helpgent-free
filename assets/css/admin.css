@@ -94,3 +94,106 @@
 .wpwax-vm-table tr td:last-child {
   border-radius: 0 6px 6px 0;
 }
+
+/* Notice Style */
+.wpwax-vm-notice {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  min-height: 40px;
+  border-radius: 8px;
+  padding: 0 15px;
+  color: var(--color-white);
+}
+.wpwax-vm-notice.wpwax-vm-notice-success {
+  background-color: var(--color-success);
+}
+.wpwax-vm-notice.wpwax-vm-notice-danger {
+  background-color: var(--color-danger);
+}
+.wpwax-vm-notice .wpwax-vm-notice__close {
+  text-decoration: none;
+  position: absolute;
+  right: 15px;
+  top: 0;
+  color: var(--color-white);
+}
+.wpwax-vm-notice.wpwax-vm-hide {
+  display: none;
+}
+
+/* Loading Animation */
+.wpwax-vm-loading-spin {
+  display: inline-block;
+  width: 1.75em;
+  height: 1.75em;
+  position: relative;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-animation: wpwaxRotate 1.2s infinite linear;
+          animation: wpwaxRotate 1.2s infinite linear;
+}
+.wpwax-vm-loading-spin .wpwax-vm-spin-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  -webkit-transform: scale(0.75);
+          transform: scale(0.75);
+  position: absolute;
+  opacity: 0.3;
+  -webkit-animation: wpwaxSpinMove 1s infinite linear alternate;
+          animation: wpwaxSpinMove 1s infinite linear alternate;
+  background-color: var(--color-primary);
+}
+.wpwax-vm-loading-spin .wpwax-vm-spin-dot:nth-child(1) {
+  left: 0;
+  top: 0;
+}
+.wpwax-vm-loading-spin .wpwax-vm-spin-dot:nth-child(2) {
+  right: 0;
+  top: 0;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.wpwax-vm-loading-spin .wpwax-vm-spin-dot:nth-child(3) {
+  left: 0;
+  bottom: 0;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+}
+.wpwax-vm-loading-spin .wpwax-vm-spin-dot:nth-child(4) {
+  right: 0;
+  bottom: 0;
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
+}
+
+/* Animation Keyframe */
+@-webkit-keyframes wpwaxSpinMove {
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes wpwaxSpinMove {
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes wpwaxRotate {
+  100% {
+    -webkit-transform: rotate(410deg);
+            transform: rotate(410deg);
+  }
+}
+@keyframes wpwaxRotate {
+  100% {
+    -webkit-transform: rotate(410deg);
+            transform: rotate(410deg);
+  }
+}

@@ -101,6 +101,16 @@ class Rest_API {
 		return is_numeric( $value ) ? true : false;
 	}
 
+	public static function response( $is_success, $data = '' ) {
+		$response = array(
+			'success' => $is_success,
+			'message' => $is_success ? __( 'Operation Successful', 'wpwaxvm' ) : __( 'Operation Failed', 'wpwaxvm' ),
+			'data'    => $is_success ? $data : '',
+		);
+
+		return rest_ensure_response( $response );
+	}
+
 	public static function check_admin_permission() {
 		return true; // @todo remove this later
 		if ( ! current_user_can( 'edit_posts' ) ) {
@@ -116,26 +126,35 @@ class Rest_API {
 
 	public static function get_items( $request ) {
 		$args = $request->get_params();
-		return rest_ensure_response( DB::get_forms( $args['page'] ) );
+		$data = DB::get_forms( $args['page'] );
+		return self::response( true, $data );
 	}
 
 	public static function get_item( $request ) {
-		$args    = $request->get_params();
-		return rest_ensure_response( DB::get_form( $args['form_id'] ) );
+		$args = $request->get_params();
+		$data = DB::get_form( $args['form_id'] );
+		$success = $data ? true : false;
+		return self::response( $success, $data );
 	}
 
 	public static function create_item( $request ) {
 		$args = $request->get_params();
-		return rest_ensure_response( DB::create_form( $args ) );
+		$data = DB::create_form( $args );
+		$success = $data ? true : false;
+		return self::response( $success, $data );
 	}
 
 	public static function update_item( $request ) {
 		$args = $request->get_params();
-		return rest_ensure_response( DB::update_form( $args ) );
+		$operation = DB::update_form( $args );
+		$success = $operation ? true : false;
+		return self::response( $success );
 	}
 
 	public static function delete_item( $request ) {
 		$args = $request->get_params();
-		return rest_ensure_response( DB::delete_form( $args['form_id'] ) );
+		$operation = DB::delete_form( $args['form_id'] );
+		$success = $operation ? true : false;
+		return self::response( $success );
 	}
 }

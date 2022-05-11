@@ -10,43 +10,86 @@
  * Domain Path: /languages
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-define( 'VM_VERSION',     1.0 );
+define( 'VM_VERSION', 1.0 );
 define( 'VM_PLUGIN_FILE', __FILE__ );
-define( 'VM_PATH',        trailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'VM_URL',         trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'VM_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'VM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 final class wpWax_Video_Messagge {
 
 	protected static $instance = null;
 
-	public $loader = [];
+	public $loader = array();
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
+		spl_autoload_register( array( $this, 'autoload' ) );
 
-		$this->includes();
-		$this->initialize();
+		add_action( 'init', array( $this, 'load_textdomain' ) );
+		$this->init();
 	}
 
 	public static function instance() {
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
 
-    public function load_textdomain() {
-        load_plugin_textdomain( 'wpwaxvm', false, dirname( plugin_basename(__FILE__) ) . '/languages/' );
-    }
-
-	public function includes() {
-		$this->autoload( 'inc' );
+	public function load_textdomain() {
+		load_plugin_textdomain( 'wpwaxvm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
-	public function initialize() {
+	public function autoload( $class_name ) {
+		$dirs = array(
+			'includes',
+			'includes/rest-api',
+		);
+
+		$this->autoload_file( $class_name, $dirs );
+	}
+
+	/**
+	 *
+	 * Autoload files from specified directories.
+	 *
+	 * File name calculation:
+	 *      1. Remove namespace from classname.
+	 *      2. Convert classname to lowercase.
+	 *      3. Convert '_' to '-'.
+	 *
+	 * @param string $class_name
+	 * @param array  $dirs
+	 *
+	 * @return void
+	 */
+	public function autoload_file( $class_name, $dirs ) {
+		foreach ( $dirs as $dir ) {
+			$namespace = 'wpWax\vm';
+
+			if ( ! str_starts_with( $class_name, $namespace ) ) {
+				return;
+			}
+
+			$file = strtolower( $class_name );
+			$file = str_replace( '_', '-', $file );
+			$file = explode( '\\', $file );
+			$file = array_pop( $file );
+			$file = $file . '.php';
+			$path = VM_PATH . $dir . '/' . $file;
+
+			if ( file_exists( $path ) ) {
+				require_once $path;
+				return;
+			}
+		}
+	}
+
+	public function init() {
 		\wpWax\vm\Install::init();
 		\wpWax\vm\Rest_API::init();
 		\wpWax\vm\Scripts::init();
@@ -54,19 +97,13 @@ final class wpWax_Video_Messagge {
 		\wpWax\vm\Chatbox::init();
 	}
 
-	public function autoload( $dir ) {
-		$path = VM_PATH . $dir . '/';
-		foreach ( scandir( $path ) as $file ) {
-			if ( preg_match( "/.php$/i", $file ) ) {
-				require_once( $path . $file );
-			}
-		}
-	}
-
 	public function temp() {
-		add_action('wp_body_open', function() {
-			echo '<div id="root"></div>';
-		});
+		add_action(
+			'wp_body_open',
+			function() {
+				echo '<div id="root"></div>';
+			}
+		);
 	}
 
 }

@@ -131,30 +131,30 @@ class Rest_API {
 	}
 
 	public static function get_item( $request ) {
-		$args = $request->get_params();
-		$data = DB::get_form( $args['form_id'] );
+		$args    = $request->get_params();
+		$data    = DB::get_form( $args['form_id'] );
 		$success = $data ? true : false;
 		return self::response( $success, $data );
 	}
 
 	public static function create_item( $request ) {
-		$args = $request->get_params();
-		$data = DB::create_form( $args );
+		$args    = $request->get_params();
+		$data    = DB::create_form( $args );
 		$success = $data ? true : false;
 		return self::response( $success, $data );
 	}
 
 	public static function update_item( $request ) {
-		$args = $request->get_params();
+		$args      = $request->get_params();
 		$operation = DB::update_form( $args );
-		$success = $operation ? true : false;
+		$success   = ( $operation === false ) ? false : true;
 		return self::response( $success );
 	}
 
 	public static function delete_item( $request ) {
-		$args = $request->get_params();
+		$args      = $request->get_params();
 		$operation = DB::delete_form( $args['form_id'] );
-		$success = $operation ? true : false;
+		$success   = $operation ? true : false;
 		return self::response( $success );
 	}
 }

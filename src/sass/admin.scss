@@ -15,6 +15,10 @@
     padding: 0 30px 0 0;
 }
 
+.wpwax-vm-text-center{
+    text-align: center;
+}
+
 /* Button Style */
 .wpwax-vm-btn{
     display: inline-flex;
@@ -118,16 +122,30 @@
     &.wpwax-vm-notice-danger{
         background-color: var(--color-danger);
     }
+    .wpwax-vm-notice__text{
+        line-height: 1;
+    }
     .wpwax-vm-notice__close{
         text-decoration: none;
         position: absolute;
         right: 15px;
-        top: 0;
+        top: 2px;
         color: var(--color-white);
     }
     &.wpwax-vm-hide{
         display: none;
     }
+}
+
+/* Not Fouond Text Style */
+.wpwax-notfound-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 100px;
+    color: var(--color-dark)
 }
 
 /* Loading Animation */

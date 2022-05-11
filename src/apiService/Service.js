@@ -8,26 +8,22 @@ const axiosInstance = axios.create({
     }
 });
 
-class apiService {
-    static get(path = '') {
-        return axiosInstance({
-            method: 'GET',
-            url: path,
-            headers:{
-                "Content-type": "application/json"
-            }
-        });
-    }
-    static patch(path = '', data) {
-        return axiosInstance({
-            method: 'PATCH',
-            url: path,
-            data: JSON.stringify(data),
-            headers:{
-                "Content-type": "application/json"
-            }
-        });
-    }
+const getAll = path =>{
+    return axiosInstance.get(path);
 }
 
-export { apiService };
+const dataUpdate = (path, data) => {
+    return axiosInstance.put(path, data);
+};
+
+const datadelete = path => {
+    return axiosInstance.delete(path);
+};
+
+const apiService = {
+    getAll,
+    dataUpdate,
+    datadelete
+}
+
+export default  apiService;

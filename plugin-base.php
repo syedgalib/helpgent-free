@@ -26,12 +26,10 @@ final class wpWax_Video_Messagge {
 	public $loader = array();
 
 	public function __construct() {
+		spl_autoload_register( array( $this, 'autoload' ) );
+
 		add_action( 'init', array( $this, 'load_textdomain' ) );
-
-		// $this->register_autoload();
-
-		$this->includes();
-		$this->initialize();
+		$this->init();
 	}
 
 	public static function instance() {
@@ -46,45 +44,55 @@ final class wpWax_Video_Messagge {
 		load_plugin_textdomain( 'wpwaxvm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
-	public function register_autoload() {
-		spl_autoload_register(
-			function ( $class_name ) {
-
-
-				if ( !str_starts_with( $class_name, 'wpWax\vm' ) ) {
-					return;
-				}
-
-				$file = strtolower( $class_name );
-				$file = str_replace( '_', '-', $file );
-				$file = explode( '\\', $file );
-				$file = array_pop( $file );
-				$file = $file . '.php';
-				$path = VM_PATH . 'inc/' . $file;
-				require_once $path;
-			}
+	public function autoload( $class_name ) {
+		$dirs = array(
+			'includes',
 		);
+
+		$this->autoload_file( $class_name, $dirs );
 	}
 
-	public function includes() {
-		$this->autoload( 'inc' );
+	/**
+	 *
+	 * Autoload files from specified directories.
+	 *
+	 * File name calculation:
+	 * 		1. Remove namespace from classname.
+	 * 		2. Convert classname to lowercase.
+	 * 		3. Convert '_' to '-'.
+	 *
+	 * @param string $class_name
+	 * @param array $dirs
+	 *
+	 * @return void
+	 */
+	public function autoload_file( $class_name, $dirs ) {
+		foreach ( $dirs as $dir ) {
+			$namespace = 'wpWax\vm';
+			if ( ! str_starts_with( $class_name, $namespace ) ) {
+				return;
+			}
+
+			$file = strtolower( $class_name );
+			$file = str_replace( '_', '-', $file );
+			$file = explode( '\\', $file );
+			$file = array_pop( $file );
+			$file = $file . '.php';
+			$path = VM_PATH . $dir . '/' . $file;
+
+			if ( file_exists( $path ) ) {
+				require_once $path;
+				return;
+			}
+		}
 	}
 
-	public function initialize() {
+	public function init() {
 		\wpWax\vm\Install::init();
 		\wpWax\vm\Rest_API::init();
 		\wpWax\vm\Scripts::init();
 		\wpWax\vm\Admin_Menu::init();
 		\wpWax\vm\Chatbox::init();
-	}
-
-	public function autoload( $dir ) {
-		$path = VM_PATH . $dir . '/';
-		foreach ( scandir( $path ) as $file ) {
-			if ( preg_match( '/.php$/i', $file ) ) {
-				require_once $path . $file;
-			}
-		}
 	}
 
 	public function temp() {

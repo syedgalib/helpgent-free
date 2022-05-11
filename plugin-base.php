@@ -47,6 +47,7 @@ final class wpWax_Video_Messagge {
 	public function autoload( $class_name ) {
 		$dirs = array(
 			'includes',
+			'includes/rest-api',
 		);
 
 		$this->autoload_file( $class_name, $dirs );
@@ -57,18 +58,19 @@ final class wpWax_Video_Messagge {
 	 * Autoload files from specified directories.
 	 *
 	 * File name calculation:
-	 * 		1. Remove namespace from classname.
-	 * 		2. Convert classname to lowercase.
-	 * 		3. Convert '_' to '-'.
+	 *      1. Remove namespace from classname.
+	 *      2. Convert classname to lowercase.
+	 *      3. Convert '_' to '-'.
 	 *
 	 * @param string $class_name
-	 * @param array $dirs
+	 * @param array  $dirs
 	 *
 	 * @return void
 	 */
 	public function autoload_file( $class_name, $dirs ) {
 		foreach ( $dirs as $dir ) {
 			$namespace = 'wpWax\vm';
+
 			if ( ! str_starts_with( $class_name, $namespace ) ) {
 				return;
 			}

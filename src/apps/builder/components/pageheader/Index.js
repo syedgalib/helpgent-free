@@ -6,7 +6,7 @@ const PageHeader = ()=>{
         <>
             <div className={classes.header}>
                 <h2 className={classes.title}>All Templates</h2>
-                <button href="#" className={`${classes.btn} wpwax-vm-btn wpwax-vm-btn-dark`}>Create New</button>
+                <a href={location.href+'&mode=edit'} className={`${classes.btn} wpwax-vm-btn wpwax-vm-btn-dark`}>Create New</a>
             </div>
         </>
     ) 

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 /* Create Instance */
 const axiosInstance = axios.create({
-    baseURL: "http://support.local/wp-json/wpwax-vm/v1",
+    baseURL: `${location.protocol + '//' + location.host + '/wp-json/wpwax-vm/v1'}`,
     headers: {
         "Content-type": "application/json"
     }

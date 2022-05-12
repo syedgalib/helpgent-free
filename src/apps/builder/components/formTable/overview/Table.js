@@ -13,32 +13,30 @@ const Table = ()=>{
         loader: true,
     });
 
-    /* Initialize EditMode State */
-    const [editModeState, setEditModeState] = useState({
-        editMode: '',
+    /* Initialize editElementIndex State */
+    const [editElementIndexState, seteditElementIndexState] = useState({
+        editElementIndex: '',
     });
 
     /* State Destructuring  */
     const { data, titleInput, message, responseType, loader } = state;
-    const { editMode } = editModeState;
+    const { editElementIndex } = editElementIndexState;
 
     /* Edit Mode Activation */
-    const activateEditMode = (name,index) => {
-        // console.log(index);
+    const activateeditElementIndex = (name,index) => {
         setState({
             ...state,
             titleInput: name,
         });
-        setEditModeState({
-            editMode: index,
+        seteditElementIndexState({
+            editElementIndex: index,
         });
-        // console.log(editModeState)
     };
 
     /* Edit Mode Cancelation */
-    const cancelEditMode = () => {
-        setEditModeState({
-          editMode: '',
+    const canceleditElementIndex = () => {
+        seteditElementIndexState({
+          editElementIndex: '',
         });
     };
 
@@ -91,8 +89,8 @@ const Table = ()=>{
                         loader: false,
                     });
                 }
-                setEditModeState({
-                    editMode: '',
+                seteditElementIndexState({
+                    editElementIndex: '',
                 });
                 console.log(response)
             })
@@ -160,11 +158,11 @@ const Table = ()=>{
                 
     //             if(item && !item.contains(event.target)){
     //                 console.log(event.target,item,item.contains(event.target))
-    //                 // cancelEditMode()
+    //                 // canceleditElementIndex()
     //             }
     //         })
     //         // if (refs.current[indexKey] && !refs.current[indexKey].contains(event.target)) {
-    //         //     cancelEditMode()
+    //         //     canceleditElementIndex()
     //         // }
     //     }
     //     useEffect(() => {
@@ -204,21 +202,21 @@ const Table = ()=>{
                                         <td>
                                             <div className="wpwax-vm-titlebox">
                                                 <div className="wpwax-vm-titlebox-inner">
-                                                    <span className={editMode === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
+                                                    <span className={editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
                                                         {value.name}
                                                         <span className="wpwax-vm-titlebox__id">ID: {value.form_id}</span>
                                                     </span>
-                                                    <div className={editMode === key? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
+                                                    <div className={editElementIndex === key? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
                                                         <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName}/>
                                                     </div>
                                                     <div className="wpwax-vm-titlebox__editor-action">
-                                                        <a href="#" className={editMode === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={cancelEditMode}>
+                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
                                                             <span className="dashicons dashicons-no"></span>
                                                         </a>
-                                                        <a href="#" className={editMode === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={()=> saveTableName(value.form_id)}>
+                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={()=> saveTableName(value.form_id)}>
                                                             <span className="dashicons dashicons-yes"></span>
                                                         </a>
-                                                        <a href="#" className={editMode === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={ () => activateEditMode(value.name,key)}></a>
+                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={ () => activateeditElementIndex(value.name,key)}></a>
                                                     </div>
                                                 </div>
                                             </div>

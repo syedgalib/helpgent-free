@@ -34,6 +34,10 @@
   padding: 0 25px;
   border-radius: 8px;
   color: var(--color-white);
+  text-decoration: none;
+}
+.wpwax-vm-btn:hover {
+  color: var(--color-white);
 }
 .wpwax-vm-btn.wpwax-vm-btn-dark {
   background-color: var(--color-dark);

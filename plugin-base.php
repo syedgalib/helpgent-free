@@ -45,48 +45,20 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function autoload( $class_name ) {
-		$dirs = array(
-			'includes',
-			'includes/rest-api',
-		);
+		$namespace = 'wpWax\vm';
+		$dir = 'includes';
 
-		$this->autoload_file( $class_name, $dirs );
-	}
-
-	/**
-	 *
-	 * Autoload files from specified directories.
-	 *
-	 * File name calculation:
-	 *      1. Remove namespace from classname.
-	 *      2. Convert classname to lowercase.
-	 *      3. Convert '_' to '-'.
-	 *
-	 * @param string $class_name
-	 * @param array  $dirs
-	 *
-	 * @return void
-	 */
-	public function autoload_file( $class_name, $dirs ) {
-		foreach ( $dirs as $dir ) {
-			$namespace = 'wpWax\vm';
-
-			if ( ! str_starts_with( $class_name, $namespace ) ) {
-				return;
-			}
-
-			$file = strtolower( $class_name );
-			$file = str_replace( '_', '-', $file );
-			$file = explode( '\\', $file );
-			$file = array_pop( $file );
-			$file = $file . '.php';
-			$path = VM_PATH . $dir . '/' . $file;
-
-			if ( file_exists( $path ) ) {
-				require_once $path;
-				return;
-			}
+		if ( ! str_starts_with( $class_name, $namespace ) ) {
+			return;
 		}
+
+		$file = str_replace( $namespace, '', $class_name ); // remove namespace
+		$file = str_replace( '_', '-', $file ); // convert '_' to '-'.
+		$file = str_replace( '\\', '/', $file ); // convert '\' to '/'.
+		$file = strtolower( $file ); // make lowercase
+		$path = VM_PATH . $dir . $file. '.php';
+
+		require_once $path;
 	}
 
 	public function init() {

@@ -65,11 +65,15 @@ class DB {
 		$where = array(
 			'form_id' => $args['form_id'],
 		);
-		$data  = array(
+
+		$options = json_decode( $args['options'], true );
+		$options = maybe_serialize( $options );
+
+		$data = array(
 			'name'    => $args['name'],
-			'options' => $args['options'],
+			'options' => $options,
 		);
-		$data  = array_filter( $data );
+		$data = array_filter( $data );
 
 		return $wpdb->update( $table, $data, $where, null, '%d' );
 	}

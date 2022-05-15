@@ -9,28 +9,28 @@ namespace wpWax\vm;
 
 class Admin_Menu {
 
-	public static function init() {
-		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 	}
 
-	public static function admin_menu() {
+	public function admin_menu() {
 
 		add_menu_page( __( 'Video Message', 'wpwaxvm' ), __( 'Video Message', 'wpwaxvm' ), 'manage_options', 'video-message', '', 'dashicons-format-chat', 77 );
 
-		add_submenu_page( 'video-message', __( 'All Messages', 'wpwaxvm' ), __( 'All Messages', 'wpwaxvm' ), 'manage_options', 'video-message', array( __CLASS__, 'all_messages' ) );
+		add_submenu_page( 'video-message', __( 'All Messages', 'wpwaxvm' ), __( 'All Messages', 'wpwaxvm' ), 'manage_options', 'video-message', array( $this, 'all_messages' ) );
 
-		add_submenu_page( 'video-message', __( 'Forms', 'wpwaxvm' ), __( 'Forms', 'wpwaxvm' ), 'manage_options', 'vm-forms', array( __CLASS__, 'forms' ) );
+		add_submenu_page( 'video-message', __( 'Forms', 'wpwaxvm' ), __( 'Forms', 'wpwaxvm' ), 'manage_options', 'vm-forms', array( $this, 'forms' ) );
 
-		add_submenu_page( 'video-message', __( 'Settings', 'wpwaxvm' ), __( 'Settings', 'wpwaxvm' ), 'manage_options', 'vm-settings', array( __CLASS__, 'settings' ) );
+		add_submenu_page( 'video-message', __( 'Settings', 'wpwaxvm' ), __( 'Settings', 'wpwaxvm' ), 'manage_options', 'vm-settings', array( $this, 'settings' ) );
 
-		add_submenu_page( 'video-message', __( 'Integrations', 'wpwaxvm' ), __( 'Integrations', 'wpwaxvm' ), 'manage_options', 'vm-integrations', array( __CLASS__, 'integrations' ) );
+		add_submenu_page( 'video-message', __( 'Integrations', 'wpwaxvm' ), __( 'Integrations', 'wpwaxvm' ), 'manage_options', 'vm-integrations', array( $this, 'integrations' ) );
 	}
 
-	public static function all_messages() {
-		include VM_PATH . 'inc/admin-ui/all-messages.php';
+	public function all_messages() {
+		include VM_PATH_INC . 'admin-ui/all-messages.php';
 	}
 
-	public static function forms() {
+	public function forms() {
 		$is_edit = ! empty( $_GET['mode'] ) && $_GET['mode'] == 'edit' ? true : false;
 
 		if ( $is_edit ) {
@@ -41,11 +41,11 @@ class Admin_Menu {
 		}
 	}
 
-	public static function settings() {
-		include VM_PATH . 'inc/admin-ui/settings.php';
+	public function settings() {
+		include VM_PATH_INC . 'admin-ui/settings.php';
 	}
 
-	public static function integrations() {
-		include VM_PATH . 'inc/admin-ui/integrations.php';
+	public function integrations() {
+		include VM_PATH_INC . 'admin-ui/integrations.php';
 	}
 }

@@ -9,10 +9,10 @@ namespace wpWax\vm\Rest_API;
 
 use wpWax\vm\DB;
 
-class Forms extends Base {
+class Messages extends Base {
 
 	public function __construct() {
-		$rest_base = 'forms';
+		$rest_base = 'messages';
 		parent::__construct( $rest_base );
 	}
 
@@ -42,8 +42,13 @@ class Forms extends Base {
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						'options' => array(
-							'default'           => '',
+						'email'    => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_email' ),
+							'sanitize_email' => 'sanitize_text_field',
+						),
+						'message' => array(
+							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 					),

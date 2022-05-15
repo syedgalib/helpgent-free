@@ -17,18 +17,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'VM_VERSION', 1.0 );
 define( 'VM_PLUGIN_FILE', __FILE__ );
 define( 'VM_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'VM_PATH_INC', VM_PATH . 'includes/' );
 define( 'VM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 final class wpWax_Video_Messagge {
 
 	protected static $instance = null;
 
-	public $loader = array();
+	public $objFactory = array();
 
 	public function __construct() {
+		$this->objFactory = new stdClass();
+
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		add_action( 'init', array( $this, 'load_textdomain' ) );
+
 		$this->init();
 	}
 
@@ -38,6 +42,14 @@ final class wpWax_Video_Messagge {
 		}
 
 		return self::$instance;
+	}
+
+	public function init() {
+		$this->objFactory->Install = new \wpWax\vm\Install();
+		$this->objFactory->Rest_API = new \wpWax\vm\Rest_API();
+		$this->objFactory->Scripts = new \wpWax\vm\Scripts();
+		$this->objFactory->Admin_Menu = new \wpWax\vm\Admin_Menu();
+		$this->objFactory->Chatbox = new \wpWax\vm\Chatbox();
 	}
 
 	public function load_textdomain() {
@@ -59,14 +71,6 @@ final class wpWax_Video_Messagge {
 		$path = VM_PATH . $dir . $file. '.php';
 
 		require_once $path;
-	}
-
-	public function init() {
-		\wpWax\vm\Install::init();
-		\wpWax\vm\Rest_API::init();
-		\wpWax\vm\Scripts::init();
-		\wpWax\vm\Admin_Menu::init();
-		\wpWax\vm\Chatbox::init();
 	}
 
 	public function temp() {

@@ -24,10 +24,10 @@ final class wpWax_Video_Messagge {
 
 	protected static $instance = null;
 
-	public $objFactory = array();
+	public $Factory = array(); // object factory
 
 	public function __construct() {
-		$this->objFactory = new stdClass();
+		$this->Factory = new stdClass();
 
 		spl_autoload_register( array( $this, 'autoload' ) );
 
@@ -45,12 +45,12 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function init() {
-		$this->objFactory->Install    = new \wpWax\vm\Install();
-		$this->objFactory->Scripts    = new \wpWax\vm\Scripts();
-		$this->objFactory->Admin_Menu = new \wpWax\vm\Admin_Menu();
-		$this->objFactory->Chatbox    = new \wpWax\vm\Chatbox();
+		$this->Factory->Install    = new \wpWax\vm\Install();
+		$this->Factory->Scripts    = new \wpWax\vm\Scripts();
+		$this->Factory->Admin_Menu = new \wpWax\vm\Admin_Menu();
+		$this->Factory->Chatbox    = new \wpWax\vm\Chatbox();
 
-		$this->objFactory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
+		$this->Factory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
 	}
 
 	public function load_textdomain() {

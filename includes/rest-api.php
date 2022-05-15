@@ -12,13 +12,13 @@ class Rest_API {
 	public $namespace = 'wpwax-vm/v1';
 
 	public function __construct() {
-		add_action( 'rest_api_init', array( $this, 'register_routes_forms' ) );
+		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
 	/**
 	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
 	 */
-	public function register_routes_forms() {
+	public function register_routes() {
 		$rest_base = 'forms';
 
 		register_rest_route(

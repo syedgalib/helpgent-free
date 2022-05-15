@@ -46,10 +46,11 @@ final class wpWax_Video_Messagge {
 
 	public function init() {
 		$this->objFactory->Install    = new \wpWax\vm\Install();
-		$this->objFactory->Rest_API   = new \wpWax\vm\Rest_API();
 		$this->objFactory->Scripts    = new \wpWax\vm\Scripts();
 		$this->objFactory->Admin_Menu = new \wpWax\vm\Admin_Menu();
 		$this->objFactory->Chatbox    = new \wpWax\vm\Chatbox();
+
+		$this->objFactory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
 	}
 
 	public function load_textdomain() {

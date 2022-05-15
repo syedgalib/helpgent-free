@@ -4,6 +4,6 @@ import App from "./App";
 document.addEventListener("DOMContentLoaded", function () {
 	ReactDOM.render(
 		<App />,
-		document.getElementById("wpwax-vm-forms")
+		document.getElementById("wpwax-vm-form-edit")
 	);
 });

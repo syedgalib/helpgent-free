@@ -45,11 +45,11 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function init() {
-		$this->objFactory->Install = new \wpWax\vm\Install();
-		$this->objFactory->Rest_API = new \wpWax\vm\Rest_API();
-		$this->objFactory->Scripts = new \wpWax\vm\Scripts();
+		$this->objFactory->Install    = new \wpWax\vm\Install();
+		$this->objFactory->Rest_API   = new \wpWax\vm\Rest_API();
+		$this->objFactory->Scripts    = new \wpWax\vm\Scripts();
 		$this->objFactory->Admin_Menu = new \wpWax\vm\Admin_Menu();
-		$this->objFactory->Chatbox = new \wpWax\vm\Chatbox();
+		$this->objFactory->Chatbox    = new \wpWax\vm\Chatbox();
 	}
 
 	public function load_textdomain() {
@@ -58,7 +58,7 @@ final class wpWax_Video_Messagge {
 
 	public function autoload( $class_name ) {
 		$namespace = 'wpWax\vm';
-		$dir = 'includes';
+		$dir       = 'includes';
 
 		if ( ! str_starts_with( $class_name, $namespace ) ) {
 			return;
@@ -68,7 +68,7 @@ final class wpWax_Video_Messagge {
 		$file = str_replace( '_', '-', $file ); // convert '_' to '-'.
 		$file = str_replace( '\\', '/', $file ); // convert '\' to '/'.
 		$file = strtolower( $file ); // make lowercase
-		$path = VM_PATH . $dir . $file. '.php';
+		$path = VM_PATH . $dir . $file . '.php';
 
 		require_once $path;
 	}

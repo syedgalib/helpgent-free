@@ -5,25 +5,22 @@
  * @version 1.0
  */
 
-namespace wpWax\vm;
+namespace wpWax\vm\Rest_API;
 
-class Rest_API {
+use wpWax\vm\DB;
 
-	public $namespace = 'wpwax-vm/v1';
+class Messages extends Base {
 
 	public function __construct() {
-		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		$rest_base = 'messages';
+		parent::__construct( $rest_base );
 	}
 
-	/**
-	 * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
-	 */
 	public function register_routes() {
-		$rest_base = 'forms';
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $rest_base,
+			'/' . $this->rest_base,
 			array(
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
@@ -45,8 +42,13 @@ class Rest_API {
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
-						'options' => array(
-							'default'           => '',
+						'email'    => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_email' ),
+							'sanitize_email' => 'sanitize_text_field',
+						),
+						'message' => array(
+							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						),
 					),
@@ -56,7 +58,7 @@ class Rest_API {
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $rest_base . '/(?P<form_id>[\d]+)',
+			'/' . $this->rest_base . '/(?P<form_id>[\d]+)',
 			array(
 				'args' => array(
 					'form_id' => array(
@@ -91,37 +93,6 @@ class Rest_API {
 			)
 		);
 
-	}
-
-	public function sanitize_int( $value ) {
-		return intval( $value );
-	}
-
-	public function validate_int( $value ) {
-		return is_numeric( $value ) ? true : false;
-	}
-
-	public function response( $is_success, $data = '' ) {
-		$response = array(
-			'success' => $is_success,
-			'message' => $is_success ? __( 'Operation Successful', 'wpwaxvm' ) : __( 'Operation Failed', 'wpwaxvm' ),
-			'data'    => $is_success ? $data : '',
-		);
-
-		return rest_ensure_response( $response );
-	}
-
-	public function check_admin_permission() {
-		return true; // @todo remove this later
-		if ( ! current_user_can( 'edit_posts' ) ) {
-			return new \WP_Error(
-				'admin_check_failed',
-				__( 'You are not allowed to perform this operation.' ),
-				array( 'status' => rest_authorization_required_code() )
-			);
-		}
-
-		return true;
 	}
 
 	public function get_items( $request ) {

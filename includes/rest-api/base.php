@@ -23,12 +23,16 @@ abstract class Base {
 
 	abstract public function register_routes();
 
-	public function sanitize_int( $value ) {
-		return intval( $value );
+	public function validate_int( $value ) {
+		return is_numeric( $value );
 	}
 
-	public function validate_int( $value ) {
-		return is_numeric( $value ) ? true : false;
+	public function validate_email( $value ) {
+		return is_email( $value );
+	}
+
+	public function sanitize_int( $value ) {
+		return intval( $value );
 	}
 
 	public function response( $is_success, $data = '' ) {

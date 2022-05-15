@@ -45,12 +45,15 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function init() {
-		$this->Factory->Install    = new \wpWax\vm\Install();
 		$this->Factory->Scripts    = new \wpWax\vm\Scripts();
 		$this->Factory->Admin_Menu = new \wpWax\vm\Admin_Menu();
 		$this->Factory->Chatbox    = new \wpWax\vm\Chatbox();
 
 		$this->Factory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
+
+		if ( is_admin() ) {
+			$this->Factory->Install    = new \wpWax\vm\Install();
+		}
 	}
 
 	public function load_textdomain() {

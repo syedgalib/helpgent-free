@@ -87,7 +87,6 @@ class Forms extends Base {
 				),
 			)
 		);
-
 	}
 
 	public function get_items( $request ) {

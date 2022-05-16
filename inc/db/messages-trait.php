@@ -118,10 +118,10 @@ trait Messages_Trait {
 
 	private static function build_message( $by, $time, $args ) {
 		$type = $args['message_type'];
-		$data = $args['message_data'];
+		$msg  = $args['message_value'];
 
 		if ( $type == 'text' ) {
-			$value = $data;
+			$value = $msg;
 		}
 
 		$message = array(

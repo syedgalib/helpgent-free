@@ -59,7 +59,7 @@ class Messages extends Base {
 							'required'          => true,
 							'validate_callback' => array( $this, 'validate_message_type' ),
 						),
-						'message_data' => array(
+						'message_value' => array(
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_textarea_field',
 						),
@@ -95,7 +95,7 @@ class Messages extends Base {
 							'required'          => true,
 							'validate_callback' => array( $this, 'validate_message_type' ),
 						),
-						'message_data' => array(
+						'message_value' => array(
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_textarea_field',
 						),

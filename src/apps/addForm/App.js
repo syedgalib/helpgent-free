@@ -12,7 +12,7 @@ const AddForm = () => {
 }
 
 function App() {
-    
+
 	return (
         <Provider store={store}>
             <AddForm />

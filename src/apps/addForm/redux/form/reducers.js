@@ -1,7 +1,6 @@
 import actions from './actions';
 // import toData from '../../demoData/note.json';
-const formData = [
-  {
+const formData ={
     "form_id": "1",
     "name": "",
     "template": "Large",
@@ -9,7 +8,7 @@ const formData = [
     "custom_visible_page": null,
     "acccount_creation": true,
     "account_fields": ['name','email','passowrd'],
-    "show_chat_onoad": true,
+    "show_chat_onload": true,
     "chat_video_img": "",
     "greet_message": "Welcome to Directorist, leave your questions below",
     "description_visibility": true,
@@ -35,8 +34,7 @@ const formData = [
     "thank_page_button_color": "#ffffff",
     "thank_page_button_text": "#ffffff",
     "thank_page_button_radius": "15",
-  }
-]
+}
 
 const initialState = {
   data: formData,

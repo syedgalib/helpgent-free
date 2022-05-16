@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from 'react-redux';
 import { default as Select } from 'react-select'
 import { components } from 'react-select'
 import Switch from "react-switch";
@@ -12,6 +13,16 @@ export const templateOptions = [
     {value: "Issue", label: "Issue"},
 ]
 const GeneralSettings = ()=>{
+    const { formInitialData } = useSelector(state => {
+        return {
+            formInitialData: state.form.data,
+        };
+    });
+    const [state, setState] = useState({
+        pageVisibility: formInitialData.all_page_visibility,
+        accountVisibility: formInitialData.all_page_visibility,
+    });
+    const { pageVisibility, accountVisibility } = state;
     const Option = (props) => {
         return (
           <div>
@@ -25,7 +36,19 @@ const GeneralSettings = ()=>{
             </components.Option>
           </div>
         );
-      };
+    };
+    const changePageVisibility = () =>{
+        setState({
+            ...state,
+            pageVisibility: !pageVisibility,
+        });
+    }
+    const changeAccountVisibility = () =>{
+        setState({
+            ...state,
+            accountVisibility: !accountVisibility,
+        });
+    }
     return(
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
@@ -44,8 +67,19 @@ const GeneralSettings = ()=>{
                 <div className="wpwax-vm-form-group__label">
                     <span>Display on all pages</span>
                     <label>
-                        <span>Switch with default style</span>
-                        <Switch />
+                        <Switch
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor="#6551F2"
+                            offColor="#E2E2E2"
+                            onHandleColor="#FFFFFF"
+                            className="wpwax-vm-switch"
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            checked={pageVisibility}
+                            onChange={changePageVisibility}
+                        />
                     </label>
                 </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name"/>
@@ -55,35 +89,62 @@ const GeneralSettings = ()=>{
                     <span>Display on custom pages</span>
                 </div>
                 <Select 
-                options={templateOptions} 
-                isMulti
-                closeMenuOnSelect={false}
-                hideSelectedOptions={false}
-                components={{
-                    Option
-                }}
-                allowSelectAll={true}
+                    options={templateOptions} 
+                    isMulti
+                    closeMenuOnSelect={false}
+                    hideSelectedOptions={false}
+                    searchable={false}
+                    components={{
+                        Option
+                    }}
+                    allowSelectAll={true}
                 />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Create account first</span>
-                    <Switch  />
+                    <Switch
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        onColor="#6551F2"
+                        offColor="#E2E2E2"
+                        onHandleColor="#FFFFFF"
+                        className="wpwax-vm-switch"
+                        handleDiameter={14}
+                        height={22}
+                        width={40}
+                        checked={accountVisibility}
+                        onChange={changeAccountVisibility}
+                    />
                 </div>
                 <div className="wpwax-vm-chekbox-list">
-                    <Checkbox id="account-name" label="Name"/>
-                    <Checkbox id="account-email" label="Email"/>
-                    <Checkbox id="account-password" label="Password"/>
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Name</span>
+                        <Checkbox id="account-name" label=""/>
+                    </div>
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Email</span>
+                        <Checkbox id="account-email" label=""/>
+                    </div>
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Password</span>
+                        <Checkbox id="account-password" label=""/>
+                    </div>
                 </div>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Close chat option</span>
-                    <Switch  />
                 </div>
-                <div className="wpwax-vm-chekbox-list">
-                    <Radio id="wpwax-vm-never-show" label="If closed never show again" name="wpwax-vm-close-option"/>
-                    <Radio id="wpwax-vm-load-show" label="Show on reload" name="wpwax-vm-close-option"/>
+                <div className="wpwax-vm-radio-list">
+                    <div className="wpwax-vm-radio-single">
+                        <span>If closed never show again</span>
+                        <Radio id="wpwax-vm-never-show" label="" name="wpwax-vm-close-option"/>
+                    </div>
+                    <div className="wpwax-vm-radio-single">
+                        <span>Show on reload</span>
+                        <Radio id="wpwax-vm-load-show" label="" name="wpwax-vm-close-option"/>
+                    </div>
                 </div>
             </div>
         </GeneralSettingWrap>

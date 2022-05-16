@@ -22,8 +22,6 @@ class Messages extends Base {
 			$this->namespace,
 			'/' . $this->rest_base,
 			array(
-				//id, name, time, tag, is_read
-
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_items' ),
@@ -32,6 +30,18 @@ class Messages extends Base {
 						'page' => array(
 							'default'           => 1,
 							'validate_callback' => array( $this, 'validate_int' ),
+						),
+						'read_status' => array(
+							'default'           => 'all',
+							'validate_callback' => array( $this, 'validate_read_status' ),
+						),
+						'order' => array(
+							'default'           => 'latest',
+							'validate_callback' => array( $this, 'validate_order' ),
+						),
+						'tags' => array(
+							'default'           => '',
+							'sanitize_callback' => 'sanitize_text_field',
 						),
 					),
 				),
@@ -51,7 +61,7 @@ class Messages extends Base {
 						),
 						'message_type' => array(
 							'required'          => true,
-							'sanitize_callback' => 'sanitize_text_field',
+							'validate_callback' => 'validate_message_type',
 						),
 						'message_data' => array(
 							'required'          => true,
@@ -101,9 +111,21 @@ class Messages extends Base {
 
 	}
 
+	public function validate_message_type( $value ) {
+		return in_array( $value, array( 'text', 'video', 'audio' ) );
+	}
+
+	public function validate_read_status( $value ) {
+		return in_array( $value, array( 'all', 'read', 'unread' ) );
+	}
+
+	public function validate_order( $value ) {
+		return in_array( $value, array( 'latest', 'oldest' ) );
+	}
+
 	public function get_items( $request ) {
 		$args = $request->get_params();
-		$data = DB::get_forms( $args['page'] );
+		$data = DB::get_messages( $args );
 		return $this->response( true, $data );
 	}
 

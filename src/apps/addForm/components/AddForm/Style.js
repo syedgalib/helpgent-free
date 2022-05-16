@@ -13,6 +13,11 @@ const AddFormStyle = Styled.div`
             border-bottom: 1px solid var(--color-border-light);
         }
     }
+    .wpwax-vm-add-form__tab{
+        .wpwax-vm-add-form__top{
+            margin: 0;
+        }
+    }
     .wpwax-vm-add-form__top{
         padding: 20px;
         border-radius: 14px 14px 0 0;
@@ -85,6 +90,13 @@ const AddFormStyle = Styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        .wpwax-vm-preview-label{
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 22px;
+            color: #7C7C7C;
+        }
     }
 `;
 

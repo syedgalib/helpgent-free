@@ -35,7 +35,8 @@
     border-radius: 8px;
     color: var(--color-white);
     text-decoration: none;
-    &:hover{
+    &:hover,
+    &:focus{
         color: var(--color-white);
     }
     &.wpwax-vm-btn-dark{

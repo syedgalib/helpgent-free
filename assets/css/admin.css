@@ -40,7 +40,7 @@
   color: var(--color-white);
   text-decoration: none;
 }
-.wpwax-vm-btn:hover {
+.wpwax-vm-btn:hover, .wpwax-vm-btn:focus {
   color: var(--color-white);
 }
 .wpwax-vm-btn.wpwax-vm-btn-dark {

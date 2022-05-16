@@ -83,6 +83,7 @@ const PreviewWrap = Styled.div`
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
+                min-height: 46px;
                 flex: 0 0 48%;
                 margin: 1%;
             }

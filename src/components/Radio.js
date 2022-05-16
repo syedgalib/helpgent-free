@@ -1,6 +1,6 @@
 const Radio = ({ id, name, label, value, onChange }) => {
     return (
-        <div className="wpwax-vm-checkbox">
+        <div className="wpwax-vm-radio">
             <input 
                 id={id} 
                 name={name} 

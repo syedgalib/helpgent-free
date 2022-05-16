@@ -25,6 +25,10 @@ class DB {
 		if ( $table == 'messages' ) {
 			return $wpdb->prefix . 'vm_messages';
 		}
+
+		if ( $table == 'relationship' ) {
+			return $wpdb->prefix . 'vm_relationship';
+		}
 	}
 
 }

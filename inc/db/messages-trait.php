@@ -9,16 +9,36 @@ namespace wpWax\vm\db;
 
 trait Messages_Trait {
 
+	public static function get_message( $message_id ) {
+		global $wpdb;
 
-	// id, name, time, tag, is_read
-	// page:(int), read_status:all,read,unread, order:latest,oldest, tags: empty/array
+		$table = self::get_table( 'messages' );
+
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE message_id = %d", array( $message_id ) );
+
+		$result = $wpdb->get_row( $query, ARRAY_A );
+
+		if ( ! empty( $result['messages'] ) ) {
+			$result['messages'] = maybe_unserialize( $result['messages'] );
+		}
+
+		return $result;
+	}
+
+
 	public static function get_messages( $args ) {
 		global $wpdb;
 
-		$t_messages  = self::get_table( 'messages' );
+		$t_messages = self::get_table( 'messages' );
 
 		$limit  = 20;
 		$offset = ( $limit * $args['page'] ) - $limit;
+
+		if ( $args['order'] == 'oldest' ) {
+			$order = ' ORDER BY start_time ASC';
+		} else {
+			$order = ' ORDER BY updated_time DESC';
+		}
 
 		$where = ' WHERE 1=1';
 
@@ -28,15 +48,9 @@ trait Messages_Trait {
 			$where .= ' AND is_read=0';
 		}
 
-		$select  = "SELECT message_id,name,updated_time,is_read FROM $t_messages";
+		$select = "SELECT message_id,name,updated_time,is_read FROM $t_messages";
 
-		if ( $args['tags'] ) {
-			# code...
-		}
-
-
-
-		$query = $select . $where . " LIMIT $limit OFFSET $offset";
+		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
 		return $wpdb->get_results( $query );
 	}
 
@@ -48,11 +62,14 @@ trait Messages_Trait {
 		$time = current_time( 'mysql', true );
 
 		$message = array(
-			'user_type'    => 'customer',
-			'time'         => $time,
-			'message_type' => $args['message_type'],
-			'message_data' => json_decode( $args['message_data'], true ),
+			'by'   => 'user',
+			'time' => $time,
+			'type' => $args['message_type'],
 		);
+
+		if ( $args['message_type'] == 'text' ) {
+			$message['text'] = $args['message_data'];
+		}
 
 		$messages = array( $message );
 		$messages = maybe_serialize( $messages );
@@ -70,4 +87,6 @@ trait Messages_Trait {
 
 		return $result ? $wpdb->insert_id : false;
 	}
+
+
 }

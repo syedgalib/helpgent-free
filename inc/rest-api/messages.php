@@ -39,10 +39,6 @@ class Messages extends Base {
 							'default'           => 'latest',
 							'validate_callback' => array( $this, 'validate_order' ),
 						),
-						'tags' => array(
-							'default'           => '',
-							'sanitize_callback' => 'sanitize_text_field',
-						),
 					),
 				),
 				array(
@@ -61,53 +57,53 @@ class Messages extends Base {
 						),
 						'message_type' => array(
 							'required'          => true,
-							'validate_callback' => 'validate_message_type',
+							'validate_callback' => array( $this, 'validate_message_type' ),
 						),
 						'message_data' => array(
 							'required'          => true,
-							'sanitize_callback' => 'sanitize_text_field',
+							'sanitize_callback' => 'sanitize_textarea_field',
 						),
 					),
 				),
 			)
 		);
 
-		// register_rest_route(
-		// 	$this->namespace,
-		// 	'/' . $this->rest_base . '/(?P<form_id>[\d]+)',
-		// 	array(
-		// 		'args' => array(
-		// 			'form_id' => array(
-		// 				'type' => 'integer',
-		// 			),
-		// 		),
-		// 		array(
-		// 			'methods'             => \WP_REST_Server::READABLE,
-		// 			'callback'            => array( $this, 'get_item' ),
-		// 			'permission_callback' => array( $this, 'check_admin_permission' ),
-		// 		),
-		// 		array(
-		// 			'methods'             => \WP_REST_Server::EDITABLE,
-		// 			'callback'            => array( $this, 'update_item' ),
-		// 			'permission_callback' => array( $this, 'check_admin_permission' ),
-		// 			'args'                => array(
-		// 				'name'    => array(
-		// 					'default'           => '',
-		// 					'sanitize_callback' => 'sanitize_text_field',
-		// 				),
-		// 				'options' => array(
-		// 					'default'           => '',
-		// 					'sanitize_callback' => 'sanitize_text_field',
-		// 				),
-		// 			),
-		// 		),
-		// 		array(
-		// 			'methods'             => \WP_REST_Server::DELETABLE,
-		// 			'callback'            => array( $this, 'delete_item' ),
-		// 			'permission_callback' => array( $this, 'check_admin_permission' ),
-		// 		),
-		// 	)
-		// );
+		register_rest_route(
+			$this->namespace,
+			'/' . $this->rest_base . '/(?P<message_id>[\d]+)',
+			array(
+				'args' => array(
+					'form_id' => array(
+						'type' => 'integer',
+					),
+				),
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => array( $this, 'get_item' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
+				// array(
+				// 	'methods'             => \WP_REST_Server::EDITABLE,
+				// 	'callback'            => array( $this, 'update_item' ),
+				// 	'permission_callback' => array( $this, 'check_admin_permission' ),
+				// 	'args'                => array(
+				// 		'name'    => array(
+				// 			'default'           => '',
+				// 			'sanitize_callback' => 'sanitize_text_field',
+				// 		),
+				// 		'options' => array(
+				// 			'default'           => '',
+				// 			'sanitize_callback' => 'sanitize_text_field',
+				// 		),
+				// 	),
+				// ),
+				// array(
+				// 	'methods'             => \WP_REST_Server::DELETABLE,
+				// 	'callback'            => array( $this, 'delete_item' ),
+				// 	'permission_callback' => array( $this, 'check_admin_permission' ),
+				// ),
+			)
+		);
 
 	}
 
@@ -129,12 +125,12 @@ class Messages extends Base {
 		return $this->response( true, $data );
 	}
 
-	// public function get_item( $request ) {
-	// 	$args    = $request->get_params();
-	// 	$data    = DB::get_form( $args['form_id'] );
-	// 	$success = $data ? true : false;
-	// 	return $this->response( $success, $data );
-	// }
+	public function get_item( $request ) {
+		$args    = $request->get_params();
+		$data    = DB::get_message( $args['message_id'] );
+		$success = $data ? true : false;
+		return $this->response( $success, $data );
+	}
 
 	public function create_item( $request ) {
 		$args    = $request->get_params();

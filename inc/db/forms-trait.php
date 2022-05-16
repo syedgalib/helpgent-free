@@ -37,7 +37,6 @@ trait Forms_Trait {
 		return $result;
 	}
 
-
 	public static function create_form( $args ) {
 		global $wpdb;
 

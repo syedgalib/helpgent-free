@@ -64,7 +64,7 @@ final class wpWax_Video_Messagge {
 	public function autoload( $class_name ) {
 		$namespace = 'wpWax\vm\\';
 
-		if ( ! str_starts_with( $class_name, $namespace ) ) {
+		if ( strpos( $class_name, $namespace ) !== 0 ) {
 			return;
 		}
 

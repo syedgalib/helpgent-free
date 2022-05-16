@@ -9,23 +9,6 @@ namespace wpWax\vm\db;
 
 trait Messages_Trait {
 
-	public static function get_message( $message_id ) {
-		global $wpdb;
-
-		$table = self::get_table( 'messages' );
-
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE message_id = %d", array( $message_id ) );
-
-		$result = $wpdb->get_row( $query, ARRAY_A );
-
-		if ( ! empty( $result['messages'] ) ) {
-			$result['messages'] = maybe_unserialize( $result['messages'] );
-		}
-
-		return $result;
-	}
-
-
 	public static function get_messages( $args ) {
 		global $wpdb;
 
@@ -54,6 +37,22 @@ trait Messages_Trait {
 		return $wpdb->get_results( $query );
 	}
 
+	public static function get_message( $message_id ) {
+		global $wpdb;
+
+		$table = self::get_table( 'messages' );
+
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE message_id = %d", array( $message_id ) );
+
+		$result = $wpdb->get_row( $query, ARRAY_A );
+
+		if ( ! empty( $result['messages'] ) ) {
+			$result['messages'] = maybe_unserialize( $result['messages'] );
+		}
+
+		return $result;
+	}
+
 	public static function create_message( $args ) {
 		global $wpdb;
 
@@ -61,16 +60,7 @@ trait Messages_Trait {
 
 		$time = current_time( 'mysql', true );
 
-		$message = array(
-			'by'   => 'user',
-			'time' => $time,
-			'type' => $args['message_type'],
-		);
-
-		if ( $args['message_type'] == 'text' ) {
-			$message['text'] = $args['message_data'];
-		}
-
+		$message  = self::build_message( 'user', $time, $args );
 		$messages = array( $message );
 		$messages = maybe_serialize( $messages );
 
@@ -88,5 +78,59 @@ trait Messages_Trait {
 		return $result ? $wpdb->insert_id : false;
 	}
 
+	public static function update_message( $args ) {
+		global $wpdb;
 
+		$table = self::get_table( 'messages' );
+
+		$message_id = $args['message_id'];
+
+		$time        = current_time( 'mysql', true );
+		$new_message = self::build_message( $args['message_by'], $time, $args );
+
+		$old_data = self::get_message( $message_id );
+		$messages = $old_data['messages'] ? $old_data['messages'] : array();
+		array_push( $messages, $new_message );
+		$messages = maybe_serialize( $messages );
+
+		$where = array(
+			'message_id' => $message_id,
+		);
+
+		$data = array(
+			'updated_time' => $time,
+			'messages'     => $messages,
+		);
+
+		return $wpdb->update( $table, $data, $where, null, '%d' );
+	}
+
+	public static function delete_message( $message_id ) {
+		global $wpdb;
+
+		$table = self::get_table( 'messages' );
+		$where = array(
+			'message_id' => $message_id,
+		);
+
+		return $wpdb->delete( $table, $where, '%d' );
+	}
+
+	private static function build_message( $by, $time, $args ) {
+		$type = $args['message_type'];
+		$data = $args['message_data'];
+
+		if ( $type == 'text' ) {
+			$value = $data;
+		}
+
+		$message = array(
+			'by'    => $by,
+			'time'  => $time,
+			'type'  => $type,
+			'value' => $value,
+		);
+
+		return $message;
+	}
 }

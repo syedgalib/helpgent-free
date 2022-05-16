@@ -82,26 +82,30 @@ class Messages extends Base {
 					'callback'            => array( $this, 'get_item' ),
 					'permission_callback' => array( $this, 'check_admin_permission' ),
 				),
-				// array(
-				// 	'methods'             => \WP_REST_Server::EDITABLE,
-				// 	'callback'            => array( $this, 'update_item' ),
-				// 	'permission_callback' => array( $this, 'check_admin_permission' ),
-				// 	'args'                => array(
-				// 		'name'    => array(
-				// 			'default'           => '',
-				// 			'sanitize_callback' => 'sanitize_text_field',
-				// 		),
-				// 		'options' => array(
-				// 			'default'           => '',
-				// 			'sanitize_callback' => 'sanitize_text_field',
-				// 		),
-				// 	),
-				// ),
-				// array(
-				// 	'methods'             => \WP_REST_Server::DELETABLE,
-				// 	'callback'            => array( $this, 'delete_item' ),
-				// 	'permission_callback' => array( $this, 'check_admin_permission' ),
-				// ),
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_item' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'args'                => array(
+						'message_by' => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_message_by' ),
+						),
+						'message_type' => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_message_type' ),
+						),
+						'message_data' => array(
+							'required'          => true,
+							'sanitize_callback' => 'sanitize_textarea_field',
+						),
+					),
+				),
+				array(
+					'methods'             => \WP_REST_Server::DELETABLE,
+					'callback'            => array( $this, 'delete_item' ),
+					'permission_callback' => array( $this, 'check_admin_permission' ),
+				),
 			)
 		);
 
@@ -109,6 +113,10 @@ class Messages extends Base {
 
 	public function validate_message_type( $value ) {
 		return in_array( $value, array( 'text', 'video', 'audio' ) );
+	}
+
+	public function validate_message_by( $value ) {
+		return in_array( $value, array( 'user', 'admin' ) );
 	}
 
 	public function validate_read_status( $value ) {
@@ -139,17 +147,17 @@ class Messages extends Base {
 		return $this->response( $success, $data );
 	}
 
-	// public function update_item( $request ) {
-	// 	$args      = $request->get_params();
-	// 	$operation = DB::update_form( $args );
-	// 	$success   = ( $operation === false ) ? false : true;
-	// 	return $this->response( $success );
-	// }
+	public function update_item( $request ) {
+		$args      = $request->get_params();
+		$operation = DB::update_message( $args );
+		$success   = ( $operation === false ) ? false : true;
+		return $this->response( $success );
+	}
 
-	// public function delete_item( $request ) {
-	// 	$args      = $request->get_params();
-	// 	$operation = DB::delete_form( $args['form_id'] );
-	// 	$success   = $operation ? true : false;
-	// 	return $this->response( $success );
-	// }
+	public function delete_item( $request ) {
+		$args      = $request->get_params();
+		$operation = DB::delete_message( $args['message_id'] );
+		$success   = $operation ? true : false;
+		return $this->response( $success );
+	}
 }

@@ -31,7 +31,6 @@ class Install {
 		$tables = "
 		CREATE TABLE {$wpdb->prefix}vm_messages (
 			message_id bigint(20) unsigned NOT NULL auto_increment,
-			session varchar(255) NOT NULL,
 			start_time datetime NOT NULL,
 			updated_time datetime NOT NULL,
 			name varchar(250) NOT NULL,

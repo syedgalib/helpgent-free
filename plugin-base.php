@@ -49,7 +49,8 @@ final class wpWax_Video_Messagge {
 		$this->Factory->Admin_Menu = new \wpWax\vm\Admin_Menu();
 		$this->Factory->Chatbox    = new \wpWax\vm\Chatbox();
 
-		$this->Factory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
+		$this->Factory->Rest_API_Forms    = new \wpWax\vm\rest_api\Forms();
+		$this->Factory->Rest_API_Messages = new \wpWax\vm\rest_api\Messages();
 
 		if ( is_admin() ) {
 			$this->Factory->Install = new \wpWax\vm\Install();
@@ -63,7 +64,7 @@ final class wpWax_Video_Messagge {
 	public function autoload( $class_name ) {
 		$namespace = 'wpWax\vm\\';
 
-		if ( ! str_starts_with( $class_name, $namespace ) ) {
+		if ( strpos( $class_name, $namespace ) !== 0 ) {
 			return;
 		}
 

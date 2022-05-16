@@ -5,15 +5,15 @@
  * @version 1.0
  */
 
-namespace wpWax\vm\Rest_API;
+namespace wpWax\vm\rest_api;
 
-use wpWax\vm\DB;
+use wpWax\vm\db\DB;
 
 class Messages extends Base {
 
 	public function __construct() {
-		$rest_base = 'messages';
-		parent::__construct( $rest_base );
+		$this->rest_base = 'messages';
+		parent::__construct();
 	}
 
 	public function register_routes() {
@@ -31,6 +31,14 @@ class Messages extends Base {
 							'default'           => 1,
 							'validate_callback' => array( $this, 'validate_int' ),
 						),
+						'read_status' => array(
+							'default'           => 'all',
+							'validate_callback' => array( $this, 'validate_read_status' ),
+						),
+						'order' => array(
+							'default'           => 'latest',
+							'validate_callback' => array( $this, 'validate_order' ),
+						),
 					),
 				),
 				array(
@@ -47,9 +55,13 @@ class Messages extends Base {
 							'validate_callback' => array( $this, 'validate_email' ),
 							'sanitize_email' => 'sanitize_text_field',
 						),
-						'message' => array(
+						'message_type' => array(
 							'required'          => true,
-							'sanitize_callback' => 'sanitize_text_field',
+							'validate_callback' => array( $this, 'validate_message_type' ),
+						),
+						'message_data' => array(
+							'required'          => true,
+							'sanitize_callback' => 'sanitize_textarea_field',
 						),
 					),
 				),
@@ -58,7 +70,7 @@ class Messages extends Base {
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<form_id>[\d]+)',
+			'/' . $this->rest_base . '/(?P<message_id>[\d]+)',
 			array(
 				'args' => array(
 					'form_id' => array(
@@ -75,13 +87,17 @@ class Messages extends Base {
 					'callback'            => array( $this, 'update_item' ),
 					'permission_callback' => array( $this, 'check_admin_permission' ),
 					'args'                => array(
-						'name'    => array(
-							'default'           => '',
-							'sanitize_callback' => 'sanitize_text_field',
+						'message_by' => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_message_by' ),
 						),
-						'options' => array(
-							'default'           => '',
-							'sanitize_callback' => 'sanitize_text_field',
+						'message_type' => array(
+							'required'          => true,
+							'validate_callback' => array( $this, 'validate_message_type' ),
+						),
+						'message_data' => array(
+							'required'          => true,
+							'sanitize_callback' => 'sanitize_textarea_field',
 						),
 					),
 				),
@@ -95,36 +111,52 @@ class Messages extends Base {
 
 	}
 
+	public function validate_message_type( $value ) {
+		return in_array( $value, array( 'text', 'video', 'audio' ) );
+	}
+
+	public function validate_message_by( $value ) {
+		return in_array( $value, array( 'user', 'admin' ) );
+	}
+
+	public function validate_read_status( $value ) {
+		return in_array( $value, array( 'all', 'read', 'unread' ) );
+	}
+
+	public function validate_order( $value ) {
+		return in_array( $value, array( 'latest', 'oldest' ) );
+	}
+
 	public function get_items( $request ) {
 		$args = $request->get_params();
-		$data = DB::get_forms( $args['page'] );
+		$data = DB::get_messages( $args );
 		return $this->response( true, $data );
 	}
 
 	public function get_item( $request ) {
 		$args    = $request->get_params();
-		$data    = DB::get_form( $args['form_id'] );
+		$data    = DB::get_message( $args['message_id'] );
 		$success = $data ? true : false;
 		return $this->response( $success, $data );
 	}
 
 	public function create_item( $request ) {
 		$args    = $request->get_params();
-		$data    = DB::create_form( $args );
+		$data    = DB::create_message( $args );
 		$success = $data ? true : false;
 		return $this->response( $success, $data );
 	}
 
 	public function update_item( $request ) {
 		$args      = $request->get_params();
-		$operation = DB::update_form( $args );
+		$operation = DB::update_message( $args );
 		$success   = ( $operation === false ) ? false : true;
 		return $this->response( $success );
 	}
 
 	public function delete_item( $request ) {
 		$args      = $request->get_params();
-		$operation = DB::delete_form( $args['form_id'] );
+		$operation = DB::delete_message( $args['message_id'] );
 		$success   = $operation ? true : false;
 		return $this->response( $success );
 	}

@@ -40,7 +40,13 @@ class DB {
 
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $form_id ) );
 
-		return $wpdb->get_row( $query );
+		$result = $wpdb->get_row( $query, ARRAY_A );
+
+		if ( ! empty( $result['options'] ) ) {
+			$result['options'] = maybe_unserialize( $result['options'] );
+		}
+
+		return $result;
 	}
 
 

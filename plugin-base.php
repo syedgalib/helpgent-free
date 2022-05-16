@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'VM_VERSION', 1.0 );
 define( 'VM_PLUGIN_FILE', __FILE__ );
 define( 'VM_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-define( 'VM_PATH_INC', VM_PATH . 'includes/' );
+define( 'VM_PATH_INC', VM_PATH . 'inc/' );
 define( 'VM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
 final class wpWax_Video_Messagge {
@@ -52,7 +52,7 @@ final class wpWax_Video_Messagge {
 		$this->Factory->Rest_API_Forms = new \wpWax\vm\Rest_API\Forms();
 
 		if ( is_admin() ) {
-			$this->Factory->Install    = new \wpWax\vm\Install();
+			$this->Factory->Install = new \wpWax\vm\Install();
 		}
 	}
 
@@ -61,8 +61,7 @@ final class wpWax_Video_Messagge {
 	}
 
 	public function autoload( $class_name ) {
-		$namespace = 'wpWax\vm';
-		$dir       = 'includes';
+		$namespace = 'wpWax\vm\\';
 
 		if ( ! str_starts_with( $class_name, $namespace ) ) {
 			return;
@@ -72,7 +71,7 @@ final class wpWax_Video_Messagge {
 		$file = str_replace( '_', '-', $file ); // convert '_' to '-'.
 		$file = str_replace( '\\', '/', $file ); // convert '\' to '/'.
 		$file = strtolower( $file ); // make lowercase
-		$path = VM_PATH . $dir . $file . '.php';
+		$path = VM_PATH_INC . $file . '.php';
 
 		require_once $path;
 	}

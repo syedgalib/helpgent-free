@@ -1,25 +1,13 @@
 <?php
 /**
- * Handles database queries.
- *
- * Must pass sanitized values as argument.
- *
  * @author  wpWax
  * @since   1.0
  * @version 1.0
  */
 
-namespace wpWax\vm;
+namespace wpWax\vm\db;
 
-class DB {
-
-	public static function get_table( $table ) {
-		global $wpdb;
-
-		if ( $table == 'forms' ) {
-			return $wpdb->prefix . 'vm_forms';
-		}
-	}
+trait Forms_Trait {
 
 	public static function get_forms( $page = 1 ) {
 		global $wpdb;
@@ -54,9 +42,13 @@ class DB {
 		global $wpdb;
 
 		$table = self::get_table( 'forms' );
+
+		$options = json_decode( $args['options'], true );
+		$options = maybe_serialize( $options );
+
 		$data  = array(
 			'name'    => $args['name'],
-			'options' => $args['options'],
+			'options' => $options,
 		);
 
 		$result = $wpdb->insert( $table, $data );
@@ -73,7 +65,7 @@ class DB {
 		);
 
 		$options = json_decode( $args['options'], true );
-		$options = maybe_serialize( $options );
+		$options = $options ? maybe_serialize( $options ) : '';
 
 		$data = array(
 			'name'    => $args['name'],

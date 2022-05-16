@@ -5,15 +5,15 @@
  * @version 1.0
  */
 
-namespace wpWax\vm\Rest_API;
+namespace wpWax\vm\rest_api;
 
-use wpWax\vm\DB;
+use wpWax\vm\db\DB;
 
 class Forms extends Base {
 
 	public function __construct() {
-		$rest_base = 'forms';
-		parent::__construct( $rest_base );
+		$this->rest_base = 'forms';
+		parent::__construct();
 	}
 
 	public function register_routes() {

@@ -7,16 +7,15 @@
  * @version 1.0
  */
 
-namespace wpWax\vm\Rest_API;
+namespace wpWax\vm\rest_api;
 
 abstract class Base {
 
 	public $namespace = 'wpwax-vm/v1';
 	public $rest_base;
 
-	public function __construct( $rest_base ) {
+	public function __construct() {
 		$this->namespace = 'wpwax-vm/v1';
-		$this->rest_base = $rest_base;
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}

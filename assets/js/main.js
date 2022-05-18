@@ -186,7 +186,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _apps_chatbox_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apps/chatbox/index.js */ \"./src/apps/chatbox/index.js\");\n // Testing Rest API\n\nfunction rest_test() {\n  console.log(\"start\");\n  fetch(\"http://localhost/Video-M/wp-json/wpwax-vm/v1/get_forms\", {\n    method: \"GET\",\n    headers: {\n      \"X-WP-Nonce\": vmApi.nonce\n    }\n  }).then(function (response) {\n    return response.json();\n  }).then(function (result) {\n    console.log(result);\n    console.log(\"end\");\n  });\n} // rest_test();\n\n//# sourceURL=webpack://wpwax-video-message/./src/js/main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _apps_chatbox_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apps/chatbox/index.js */ \"./src/apps/chatbox/index.js\");\n // Testing Rest API\n\nfunction rest_test() {\n  console.log(\"start\");\n  fetch(\"http://localhost/Video-M/wp-json/wpwax-vm/v1/messages\", {\n    method: \"GET\",\n    headers: {\n      \"X-WP-Nonce\": vmApi.nonce\n    }\n  }).then(function (response) {\n    return response.json();\n  }).then(function (result) {\n    console.log(result);\n    console.log(\"end\");\n  });\n} // rest_test();\n\n//# sourceURL=webpack://wpwax-video-message/./src/js/main.js?");
 
 /***/ }),
 

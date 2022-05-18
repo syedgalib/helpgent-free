@@ -44,7 +44,7 @@ class Messages extends Base {
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_item' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'permission_callback' => array( $this, 'check_user_permission' ),
 					'args'                => array(
 						'name'    => array(
 							'required'          => true,
@@ -80,12 +80,12 @@ class Messages extends Base {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_item' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'permission_callback' => array( $this, 'check_user_permission' ),
 				),
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'update_item' ),
-					'permission_callback' => array( $this, 'check_admin_permission' ),
+					'permission_callback' => array( $this, 'check_user_permission' ),
 					'args'                => array(
 						'message_by' => array(
 							'required'          => true,

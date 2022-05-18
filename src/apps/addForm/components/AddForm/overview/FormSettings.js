@@ -1,8 +1,53 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FormSettings } from './Style';
-
+import { useSelector } from 'react-redux';
+import { default as Select } from 'react-select'
+import { components } from 'react-select'
+import Switch from "react-switch";
+import Checkbox from "../../../../../components/Checkbox";
+import Radio from "../../../../../components/Radio";
+import { FormSettingsWrap } from './Style';
+export const templateOptions = [
+    {value: "chat", label: "Chat"},
+    {value: "video", label: "Video"},
+    {value: "Issue", label: "Issue"},
+]
 const FormSettings = ()=>{
-
+    const { formInitialData } = useSelector(state => {
+        return {
+            formInitialData: state.form.data,
+        };
+    });
+    const [state, setState] = useState({
+        pageVisibility: formInitialData.all_page_visibility,
+        accountVisibility: formInitialData.all_page_visibility,
+    });
+    const { pageVisibility, accountVisibility } = state;
+    const Option = (props) => {
+        return (
+          <div>
+            <components.Option {...props}>
+              <input
+                type="checkbox"
+                checked={props.isSelected}
+                onChange={() => null}
+              />
+              <label>{props.label}</label>
+            </components.Option>
+          </div>
+        );
+    };
+    const changePageVisibility = () =>{
+        setState({
+            ...state,
+            pageVisibility: !pageVisibility,
+        });
+    }
+    const changeAccountVisibility = () =>{
+        setState({
+            ...state,
+            accountVisibility: !accountVisibility,
+        });
+    }
     return(
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">

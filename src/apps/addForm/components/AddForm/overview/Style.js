@@ -3,24 +3,18 @@ import Styled from 'styled-components';
 const GeneralSettingWrap = Styled.div`
     
 `;
-const FormSettings = Styled.div`
+const FormSettingsWrap = Styled.div`
     
 `;
-const ThankSettingWrap = Styled.div`
+const ThankSettingsWrap = Styled.div`
     
 `;
 const PreviewWrap = Styled.div`
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-width: 420px;
+    width: 420px;
     min-height: 620px;
-    border-radius: 25px;
-    padding: 30px;
     z-index: 10;
     color: var(--color-white);
-    background-color: var(--color-dark);
     .wpwax-vm-preview-bg{
         position: absolute;
         left: 0;
@@ -48,6 +42,7 @@ const PreviewWrap = Styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 140px 0 50px;
     }
     .wpwax-vm-btn-play{
         display: flex;
@@ -96,11 +91,64 @@ const PreviewWrap = Styled.div`
             text-align: center;
         }
     }
+    .wpwax-vm-preview-general{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25px;
+        padding: 270px 30px;
+        background-color: var(--color-dark);
+        p{
+            font-size: 20px;
+            font-weight: 500;
+            opacity: .4;
+        }
+    }
+    .wpwax-vm-preview-from{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        border-radius: 25px;
+        padding: 30px;
+        background-color: var(--color-dark);
+    }
+    .wpwax-vm-preview-thank{
+        display: flex; 
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        padding: 165px 0 30px;
+        border-radius: 25px;
+        background-color: var(--color-white);
+        .wpwax-vm-preview-thank__content{
+            text-align: center;
+            max-width: 370px;
+            margin: 0 auto;
+            h3{
+                font-size: 30px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+            p{
+                font-size: 16px;
+                font-weight: 500;
+                color: #4D4D4D;
+            }
+        }
+        .wpwax-vm-preview-thank__botttom{
+            margin-top: 200px;
+            padding: 0 20px;
+        }
+    }
 `;
 
 export {
     GeneralSettingWrap,
-    FormSettings,
-    ThankSettingWrap,
+    FormSettingsWrap,
+    ThankSettingsWrap,
     PreviewWrap,
 };

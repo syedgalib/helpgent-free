@@ -29,10 +29,11 @@ const formData ={
     "thank_page_button_visibility": true,
     "thank_page_button_text": "Try for Free",
     "thank_page_button_url": "www.demo.com",
-    "thank_page_button_background": "#000000",
-    "thank_page_button_font_size": "Medium",
+    "thank_page_background": "#000000",
+    "thank_page_title_font_size": "Medium",
+    "thank_page_font_color": "#ffffff",
     "thank_page_button_color": "#ffffff",
-    "thank_page_button_text": "#ffffff",
+    "thank_page_button_text_color": "#ffffff",
     "thank_page_button_radius": "15",
 }
 

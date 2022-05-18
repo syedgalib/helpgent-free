@@ -34,7 +34,7 @@ class Helper {
 	}
 
 	private static function get_file_uri( $path ) {
-		$file = VM_URL. $path;
+		$file = VM_URL . $path;
 		return $file;
 	}
 }

@@ -26,9 +26,9 @@ trait Messages_Trait {
 		$where = ' WHERE 1=1';
 
 		if ( $args['read_status'] == 'read' ) {
-			$where .= ' AND is_read=1';
+			$where .= ' AND is_read=1 AND last_message_by="user"';
 		} elseif ( $args['read_status'] == 'unread' ) {
-			$where .= ' AND is_read=0';
+			$where .= ' AND is_read=0 AND last_message_by="user"';
 		}
 
 		$select = "SELECT message_id,name,updated_time,is_read FROM $t_messages";
@@ -65,12 +65,14 @@ trait Messages_Trait {
 		$messages = maybe_serialize( $messages );
 
 		$data = array(
-			'start_time'   => $time,
-			'updated_time' => $time,
-			'name'         => $args['name'],
-			'email'        => $args['email'],
-			'messages'     => $messages,
-			'is_read'      => false,
+			'start_time'      => $time,
+			'session'         => self::generate_session(),
+			'updated_time'    => $time,
+			'name'            => $args['name'],
+			'email'           => $args['email'],
+			'messages'        => $messages,
+			'last_message_by' => 'user',
+			'is_read'         => false,
 		);
 
 		$result = $wpdb->insert( $table, $data );
@@ -132,5 +134,14 @@ trait Messages_Trait {
 		);
 
 		return $message;
+	}
+
+	private static function generate_session() {
+		$time   = microtime();
+		$time   = str_replace( array( ' ', '.' ), '', $time );
+		$chars  = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz' ), 1, 10 );
+		$random = $chars . $time;
+		$random = str_shuffle( $random );
+		return $random;
 	}
 }

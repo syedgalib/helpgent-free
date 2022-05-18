@@ -44,14 +44,41 @@ abstract class Base {
 		return rest_ensure_response( $response );
 	}
 
-	public function check_admin_permission() {
+	public function error_nonce_missing() {
+		return new \WP_Error(
+			'nonce_missing',
+			__( 'Header:X-WP-Nonce is missing' ),
+			array( 'status' => rest_authorization_required_code() )
+		);
+	}
+
+	public function error_admin_check_failed() {
+		return new \WP_Error(
+			'admin_check_failed',
+			__( 'You are not allowed to perform this operation.' ),
+			array( 'status' => rest_authorization_required_code() )
+		);
+	}
+
+	public function check_user_permission( $request ) {
 		return true; // @todo remove this later
+
+		if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
+			return $this->error_nonce_missing();
+		}
+
+		return true;
+	}
+
+	public function check_admin_permission( $request ) {
+		return true; // @todo remove this later
+
+		if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
+			return $this->error_nonce_missing();
+		}
+
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			return new \WP_Error(
-				'admin_check_failed',
-				__( 'You are not allowed to perform this operation.' ),
-				array( 'status' => rest_authorization_required_code() )
-			);
+			return $this->error_admin_check_failed();
 		}
 
 		return true;

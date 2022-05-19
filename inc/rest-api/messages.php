@@ -5,7 +5,6 @@
 
 namespace wpWax\vm\rest_api;
 
-use DateTime;
 use wpWax\vm\db\DB;
 
 class Messages extends Base {

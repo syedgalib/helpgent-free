@@ -88,7 +88,7 @@ const PreviewWrap = Styled.div`
             font-size: 13px;
             font-weight: 500;
             opacity: .8;
-            margin-top: 15px;
+            margin: 15px 0 0;
             text-align: center;
         }
     }

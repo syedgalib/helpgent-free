@@ -47,9 +47,11 @@ const AddFormStyle = Styled.div`
     }
     .wpwax-vm-add-form__content{
         padding: 25px 30px;
+        .wpwax-vm-switch-list,
         .wpwax-vm-chekbox-list,
         .wpwax-vm-radio-list{
             margin-top: 18px;
+            .wpwax-vm-switch-single,
             .wpwax-vm-chekbox-single,
             .wpwax-vm-radio-single{
                 display: flex;
@@ -174,6 +176,39 @@ const AddFormStyle = Styled.div`
             display: inline-block;
             margin-bottom: 22px;
             color: #7C7C7C;
+        }
+    }
+    .wpwax-vm-uploader{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 210px;
+        border-radius: 12px;
+        border: 1px dashed #BEBEBE;
+        background-color: var(--color-bg-general);
+        .wpwax-vm-upload-trigger{
+            input[type=file]{
+                display: none;
+            }
+        }
+        .wpwax-vm-media-btn{
+            display: flex;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            min-width: 155px;
+            text-align: center;
+            color: var(--color-dark);
+            background-color: var(--color-white);
+        }
+        .wpwax-vm-seperation{
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #898989;
+            margin: 7px 0;
         }
     }
 `;

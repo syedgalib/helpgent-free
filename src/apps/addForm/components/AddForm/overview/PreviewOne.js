@@ -18,35 +18,56 @@ const PreviewOne = ({previewStage})=>{
                 </div>
                 :
                 previewStage === 'form' ?
-                <div className="wpwax-vm-preview-from">
-                    <div className="wpwax-vm-preview-bg"></div>
-                    <div className="wpwax-vm-preview-header">
-                        <h4 className="wpwax-vm-preview-title">{formInitialData.greet_message}</h4>
-                        <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>
-                    </div>
-                    <div className="wpwax-vm-preview-inner">
-                        <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
-                    </div>
-                    <div className="wpwax-vm-preview-footer">
-                        <h5 className="wpwax-vm-preview-footer__title">How would you like to chat?</h5>
-                        <div className="wpwax-vm-preview-footer__actions">
-                            {
-                                formInitialData.reply_type
-                                .map((item,key) =>{
-                                    return(
-                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" key={key}>{item}</a>
-                                    );
-                                })
-                            }
+                <>
+                    <div className="wpwax-vm-image-preview">
+
                         </div>
-                        {
-                            formInitialData.footer_visibility ?
-                            <p className="wpwax-vm-preview-footer__text">{formInitialData.footer_message}</p>
-                            :
-                            ''
-                        }
-                    </div>
-                </div>
+                        <div className="wpwax-vm-preview-from">
+                            <div className="wpwax-vm-preview-bg"></div>
+                            <div className="wpwax-vm-preview-header">
+                                <h4 className="wpwax-vm-preview-title">{formInitialData.greet_message}</h4>
+                                {formInitialData.description_visibility?
+                                    <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>:''
+                                }
+                                
+                            </div>
+                            <div className="wpwax-vm-preview-inner">
+                                <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
+                            </div>
+                            <div className="wpwax-vm-preview-footer">
+                                <h5 className="wpwax-vm-preview-footer__title">{formInitialData.chat_box_title}</h5>
+                                <div className="wpwax-vm-preview-footer__actions">
+                                    {
+                                        formInitialData.reply_type_video ? 
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Video</a>
+                                        :''
+                                    }
+                                    {
+                                        formInitialData.reply_type_screen_record ? 
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Screen Record</a>
+                                        :''
+                                    }
+                                    {
+                                        formInitialData.reply_type_voice ? 
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Voice</a>
+                                        :''
+                                    }
+                                    {
+                                        formInitialData.reply_type_text ? 
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Text</a>
+                                        :''
+                                    }
+                                </div>
+                                {
+                                    formInitialData.footer_visibility ?
+                                    <p className="wpwax-vm-preview-footer__text">{formInitialData.footer_message}</p>
+                                    :
+                                    ''
+                                }
+                            </div>
+                        </div>
+                </>
+                
                 :
                 previewStage === 'thank' ?
                 <div className="wpwax-vm-preview-thank" style={{backgroundColor: formInitialData.thank_page_background}}>

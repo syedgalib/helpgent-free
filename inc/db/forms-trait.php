@@ -16,7 +16,7 @@ trait Forms_Trait {
 
 		$query = $wpdb->prepare( "SELECT form_id, name FROM $table LIMIT %d OFFSET %d", array( $limit, $offset ) );
 
-		return $wpdb->get_results( $query );
+		return $wpdb->get_results( $query, ARRAY_A );
 	}
 
 	public static function get_form( $form_id ) {
@@ -27,10 +27,6 @@ trait Forms_Trait {
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $form_id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
-
-		if ( ! empty( $result['options'] ) ) {
-			$result['options'] = maybe_unserialize( $result['options'] );
-		}
 
 		return $result;
 	}

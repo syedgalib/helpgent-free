@@ -1,25 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select'
 import { components } from 'react-select'
 import Switch from "react-switch";
 import Checkbox from "../../../../../components/Checkbox";
 import Radio from "../../../../../components/Radio";
+import { onFormEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 export const templateOptions = [
-    {value: "light", label: "Light"},
-    {value: "medium", label: "Medium"},
-    {value: "semi-bold", label: "Semi-bold"},
-    {value: "bold", label: "Bold"},
-    {value: "black", label: "Black"},
+    {value: "large", label: "large"},
+    {value: "larger", label: "larger"},
+    {value: "x-large", label: "x-large"},
+    {value: "xx-large", label: "xx-large"},
+    {value: "medium", label: "medium"},
+    {value: "small", label: "small"},
+    {value: "smaller", label: "smaller"},
+    {value: "x-small", label: "x-small"},
 ]
 const ThankSettings = ()=>{
-    const { formInitialData } = useSelector(state => {
+    const { formData, formInitialData } = useSelector(state => {
         return {
-            formInitialData: state.form.data,
+            formData: state.form.data,
+            formInitialData: state.form.data[0],
         };
     });
     const [state, setState] = useState({
+        id: formInitialData.form_id,
         collectInfoVisibility: formInitialData.info_collection_visibility,
         pageVisibility: formInitialData.all_page_visibility,
         accountVisibility: formInitialData.all_page_visibility,
@@ -37,8 +43,58 @@ const ThankSettings = ()=>{
         buttonRadius: formInitialData.thank_page_button_radius
     });
     
-    const { collectInfoVisibility, pageVisibility, accountVisibility, title, descriptionVisibility, description, buttonVisibility, buttonText, buttonUrl, colorPicker, bgColor, titleFontSize, fontColor, buttonColor, buttonTextColor, buttonRadius} = state;
-    
+    const { id, collectInfoVisibility, pageVisibility, accountVisibility, title, descriptionVisibility, description, buttonVisibility, buttonText, buttonUrl, colorPicker, bgColor, titleFontSize, fontColor, buttonColor, buttonTextColor, buttonRadius} = state;
+    const dispatch = useDispatch();
+
+    const updateForm = (label,value)=>{
+        let updatedData = formData.map(item => {
+            if(item.form_id === id){
+                switch(label) {
+                    case "title":
+                        item.thank_page_title = value;
+                      break;
+                    case "title-size":
+                        item.thank_page_title_font_size = value;
+                      break;
+                    case "des-visibility":
+                        item.thank_page_description_Visibility = value;
+                      break;
+                    case "description":
+                        item.thank_page_description = value;
+                      break;
+                    case "btn-visibility":
+                        item.thank_page_button_visibility = value;
+                      break;
+                    case "btn-text":
+                        item.thank_page_button_text = value;
+                      break;
+                    case "btn-url":
+                        item.thank_page_button_url = value;
+                      break;
+                    case "bg-color":
+                        item.thank_page_background = value;
+                      break;
+                    case "font-color":
+                        item.thank_page_font_color = value;
+                      break;
+                    case "button-color":
+                        item.thank_page_button_color = value;
+                      break;
+                    case "button-text-color":
+                        item.thank_page_button_text_color = value;
+                      break;
+                    case "button-radius":
+                        item.thank_page_button_radius = value;
+                      break;
+                    default:
+                      // code block
+                }
+                return item;
+            }
+            return item;
+        });
+        dispatch(onFormEdit(updatedData));
+    }
     const changePageVisibility = () =>{
         setState({
             ...state,
@@ -46,28 +102,99 @@ const ThankSettings = ()=>{
         });
     }
     const changeBgColor = (event) =>{
+        let thankBgColor = event.target.value;
         setState({
             ...state,
-            bgColor: event.target.value
+            bgColor: thankBgColor
         });
+        updateForm('bg-color', thankBgColor);
     }
     const changeFontColor = (event) =>{
+        let thankFontColor = event.target.value;
         setState({
             ...state,
-            fontColor: event.target.value
+            fontColor: thankFontColor
         });
+        updateForm('font-color', thankFontColor);
     }
     const changeButtonColor = (event) =>{
+        let thankButtonColor = event.target.value;
         setState({
             ...state,
-            buttonColor: event.target.value
+            buttonColor: thankButtonColor
         });
+        updateForm('button-color', thankButtonColor);
     }
     const changeButtonTextColor = (event) =>{
+        let thankButtonTextColor = event.target.value;
         setState({
             ...state,
-            buttonTextColor: event.target.value
+            buttonTextColor: thankButtonTextColor
         });
+        updateForm('button-text-color', thankButtonTextColor);
+    }
+    const changeButtonRadius = (event) =>{
+        let thankButtonRadius = event.target.value;
+        setState({
+            ...state,
+            buttonRadius: thankButtonRadius
+        });
+        updateForm('button-radius', thankButtonRadius);
+    }
+    
+    const changeTItle = (event) =>{
+        let thankTitle = event.target.value;
+        setState({
+            ...state,
+            title: thankTitle
+        });
+        updateForm('title',thankTitle);
+    }
+    const chagneTitleFontSize = selectedSize =>{
+        console.log(selectedSize.value)
+        setState({
+            ...state,
+            titleFontSize: selectedSize.value
+        });
+        updateForm('title-size',selectedSize.value);
+    }
+    const changeDescriptionVisibility = () =>{
+        setState({
+            ...state,
+            descriptionVisibility: !descriptionVisibility
+        });
+        updateForm('des-visibility', !descriptionVisibility);
+    }
+    const changeDescription = (event) =>{
+        let thankDescription = event.target.value;
+        setState({
+            ...state,
+            description: thankDescription
+        });
+        updateForm('description', thankDescription);
+    }
+    const changeButtonVisibility = () =>{
+        setState({
+            ...state,
+            buttonVisibility: !buttonVisibility
+        });
+        updateForm('btn-visibility', !buttonVisibility);
+    }
+    const changeButtonText = (event) =>{
+        let thankBtnText = event.target.value;
+        setState({
+            ...state,
+            buttonText: thankBtnText
+        });
+        updateForm('btn-text', thankBtnText);
+    }
+    const changeButtonUrl = (event) =>{
+        let thankBtnUrl = event.target.value;
+        setState({
+            ...state,
+            buttonText: thankBtnUrl
+        });
+        updateForm('btn-url', thankBtnUrl);
     }
     return(
         <ThankSettingsWrap>
@@ -109,7 +236,7 @@ const ThankSettings = ()=>{
                 <div className="wpwax-vm-form-group__label">
                     <span>Title</span>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={title}/>
+                <textarea className="wpwax-vm-form__element" value={title} onChange={(e)=> changeTItle(e)}/>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -125,12 +252,12 @@ const ThankSettings = ()=>{
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={pageVisibility}
-                            onChange={changePageVisibility}
+                            checked={descriptionVisibility}
+                            onChange={changeDescriptionVisibility}
                         />
                     </label>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={description}/>
+                <textarea className="wpwax-vm-form__element" value={description} onChange={(e)=> changeDescription(e)}/>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -145,18 +272,18 @@ const ThankSettings = ()=>{
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={pageVisibility}
-                        onChange={changePageVisibility}
+                        checked={buttonVisibility}
+                        onChange={changeButtonVisibility}
                     />
                 </div>
                 <div className="wpwax-vm-form-group__input-list wpwax-vm-addbtn-style">
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button text</span>
-                        <input type="text" className="wpwax-vm-form__element" value={buttonText} />
+                        <input type="text" className="wpwax-vm-form__element" value={buttonText} onChange={(e)=> changeButtonText(e)}/>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button URL</span>
-                        <input type="url" className="wpwax-vm-form__element" value={buttonUrl} />
+                        <input type="url" className="wpwax-vm-form__element" value={buttonUrl} onChange={(e)=> changeButtonUrl(e)} />
                     </div>
                 </div>
             </div>
@@ -180,6 +307,7 @@ const ThankSettings = ()=>{
                             closeMenuOnSelect={false}
                             hideSelectedOptions={false}
                             searchable={false}
+                            onChange={chagneTitleFontSize}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
@@ -209,7 +337,7 @@ const ThankSettings = ()=>{
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button border-radius</span>
                         <div className="wpwax-vm-form__color-plate">
-                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} />
+                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
                         </div>
                     </div>
                 </div>

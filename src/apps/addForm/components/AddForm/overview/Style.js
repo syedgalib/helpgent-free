@@ -14,6 +14,7 @@ const PreviewWrap = Styled.div`
     width: 420px;
     min-height: 620px;
     z-index: 10;
+    word-break: break-all;
     color: var(--color-white);
     .wpwax-vm-preview-bg{
         position: absolute;
@@ -121,7 +122,7 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         width: 100%;
         height: 100%;
-        padding: 165px 0 30px;
+        padding: 155px 0 30px;
         border-radius: 25px;
         background-color: var(--color-white);
         .wpwax-vm-preview-thank__content{
@@ -131,11 +132,13 @@ const PreviewWrap = Styled.div`
             h3{
                 font-size: 30px;
                 font-weight: 600;
+                line-height: 1.07;
                 color: var(--color-dark);
             }
             p{
                 font-size: 16px;
                 font-weight: 500;
+                line-height: 1.625;
                 color: #4D4D4D;
             }
         }

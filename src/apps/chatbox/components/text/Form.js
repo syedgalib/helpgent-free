@@ -15,7 +15,8 @@ function Form() {
 			text: text,
 		};
 
-		dispatch(chatBoxActions.sendData(data));
+		dispatch(chatBoxActions.setData(data));
+		dispatch(chatBoxActions.chatScreen('ContactForm'));
 	}
 	return (
 		<form onSubmit={submitHandler}>

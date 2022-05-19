@@ -5,7 +5,7 @@ const initialState = {
 	success: false,
 	data: {},
 	displayChatScreen: false,
-	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, sending, success
+	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, ContactForm, sending, success
 	chatStep: 1, // 1,2,3,4 etc + contact, sending, success
 };
 
@@ -32,10 +32,13 @@ const chatBoxSlice = createSlice({
 		reset() {
 			return initialState;
 		},
-		sendData(state, action) {
+		setData(state, action) {
 			state.data = action.payload;
 			state.sending = true;
-			console.log(state.data)
+		},
+		send(state, action) {
+			state.sending = true;
+			console.log(action.payload)
 		},
 	},
 });

@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm;
@@ -25,7 +23,7 @@ class Install {
 	private function get_schema() {
 		global $wpdb;
 
-		$collate = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
+		$collate          = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 		$max_index_length = 191;
 
 		$tables = "

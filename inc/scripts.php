@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm;
@@ -45,7 +43,7 @@ class Scripts {
 
 	public function localized_data() {
 		$api_data = array(
-			'nonce' => wp_create_nonce( 'wp_rest' )
+			'nonce' => wp_create_nonce( 'wp_rest' ),
 		);
 		wp_localize_script( 'vm-main', 'vmApi', $api_data );
 		wp_localize_script( 'vm-admin-script', 'vmApi', $api_data );

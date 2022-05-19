@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm\db;
@@ -31,7 +29,7 @@ trait Messages_Trait {
 			$where .= ' AND is_read=0 AND last_message_by="user"';
 		}
 
-		$select = "SELECT message_id,name,updated_time,is_read FROM $t_messages";
+		$select = "SELECT message_id,name,updated_time,last_message_by,is_read FROM $t_messages";
 
 		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
 		return $wpdb->get_results( $query );

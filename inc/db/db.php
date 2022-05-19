@@ -1,12 +1,6 @@
 <?php
 /**
- * Handles database queries.
- *
- * Must pass sanitized values as argument.
- *
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm\db;

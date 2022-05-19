@@ -90,14 +90,39 @@ class Forms extends Base {
 	public function get_items( $request ) {
 		$args = $request->get_params();
 		$data = DB::get_forms( $args['page'] );
-		return $this->response( true, $data );
+
+		$rest_data = array_map(
+			function( $item ) {
+				$result = array(
+					'form_id' => esc_html( $item['form_id'] ),
+					'name'    => esc_html( $item['name'] ),
+				);
+				return $result;
+			},
+			$data
+		);
+
+		return $this->response( true, $rest_data );
 	}
 
 	public function get_item( $request ) {
-		$args    = $request->get_params();
-		$data    = DB::get_form( $args['form_id'] );
-		$success = $data ? true : false;
-		return $this->response( $success, $data );
+		$args = $request->get_params();
+		$data = DB::get_form( $args['form_id'] );
+
+		if ( $data ) {
+			$success   = true;
+			$rest_data = array(
+				'form_id' => esc_html( $data['form_id'] ),
+				'name'    => esc_html( $data['name'] ),
+				'options' => maybe_unserialize( $data['options'] ),
+			);
+
+		} else {
+			$success   = false;
+			$rest_data = array();
+		}
+
+		return $this->response( $success, $rest_data );
 	}
 
 	public function create_item( $request ) {

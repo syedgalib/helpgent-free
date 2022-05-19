@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 
 import Container from "Chatbox/components/ui/Container";
 import Welcome from "Chatbox/components/Welcome";
+import ContactForm from "Chatbox/components/ContactForm";
 import Sending from "Chatbox/components/Sending";
 import Success from "Chatbox/components/Success";
 import Video from "Chatbox/components/video/Index";
@@ -11,9 +12,8 @@ import ScreenRecord from "Chatbox/components/screen-record/Index";
 
 function ChatScreen() {
 	const chatScreen = useSelector((state) => state.chatScreen);
-	const sending = useSelector((state) => state.sending);
-	const success = useSelector((state) => state.success);
 
+	console.log(chatScreen)
 	return (
 		<Container>
 			{chatScreen == "welcome" && <Welcome />}
@@ -22,6 +22,7 @@ function ChatScreen() {
 			{chatScreen == "text" && <Text />}
 			{chatScreen == "screenRecord" && <ScreenRecord />}
 
+			{chatScreen == "contactForm" && <ContactForm />}
 			{chatScreen == "sending" && <Sending />}
 			{chatScreen == "success" && <Success />}
 		</Container>

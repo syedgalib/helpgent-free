@@ -172,6 +172,8 @@ class Messages extends Base {
 				'last_message_is_read' => esc_html( $data['is_read'] ),
 			);
 
+			$messages = maybe_unserialize( $data['messages'] );
+
 			$rest_data['messages'] = array_map(
 				function( $item ) use ( $args ) {
 					$result = array(
@@ -182,7 +184,7 @@ class Messages extends Base {
 					);
 					return $result;
 				},
-				$data['messages']
+				$messages
 			);
 		} else {
 			$success   = false;

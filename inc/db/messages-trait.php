@@ -44,10 +44,6 @@ trait Messages_Trait {
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
-		if ( ! empty( $result['messages'] ) ) {
-			$result['messages'] = maybe_unserialize( $result['messages'] );
-		}
-
 		return $result;
 	}
 

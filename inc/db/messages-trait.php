@@ -32,7 +32,7 @@ trait Messages_Trait {
 		$select = "SELECT message_id,name,updated_time,last_message_by,is_read FROM $t_messages";
 
 		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
-		return $wpdb->get_results( $query );
+		return $wpdb->get_results( $query, ARRAY_A );
 	}
 
 	public static function get_message( $message_id ) {

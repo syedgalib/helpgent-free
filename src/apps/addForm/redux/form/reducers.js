@@ -1,6 +1,6 @@
 import actions from './actions';
-// import toData from '../../demoData/note.json';
-const formData ={
+const formData = [
+  {
     "form_id": "1",
     "name": "",
     "template": "Large",
@@ -29,13 +29,14 @@ const formData ={
     "thank_page_button_visibility": true,
     "thank_page_button_text": "Try for Free",
     "thank_page_button_url": "www.demo.com",
-    "thank_page_background": "#000000",
-    "thank_page_title_font_size": "Medium",
-    "thank_page_font_color": "#ffffff",
-    "thank_page_button_color": "#ffffff",
+    "thank_page_background": "#ffffff",
+    "thank_page_title_font_size": "xx-large",
+    "thank_page_font_color": "#030308",
+    "thank_page_button_color": "#6551F2",
     "thank_page_button_text_color": "#ffffff",
-    "thank_page_button_radius": "15",
-}
+    "thank_page_button_radius": "10",
+  }
+]
 
 const initialState = {
   data: formData,
@@ -44,6 +45,10 @@ const initialState = {
 };
 
 const {
+  FORM_READ_BEGIN,
+  FORM_READ_SUCCESS,
+  FORM_READ_ERR,
+
   FORM_ADD_BEGIN,
   FORM_ADD_SUCCESS,
   FORM_ADD_ERR,
@@ -68,6 +73,23 @@ const FormReducer = (state = initialState, action) => {
         ...state,
         error: err,
         sLoading: false,
+      };
+    case FORM_READ_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FORM_READ_SUCCESS:
+      return {
+        ...state,
+        data,
+        loading: false,
+      };
+    case FORM_READ_ERR:
+      return {
+        ...state,
+        error: err,
+        loading: false,
       };
     default:
       return state;

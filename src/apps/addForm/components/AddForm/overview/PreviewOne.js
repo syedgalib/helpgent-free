@@ -6,10 +6,10 @@ import { PreviewWrap } from './Style';
 const PreviewOne = ({previewStage})=>{
     const { formInitialData } = useSelector(state => {
         return {
-            formInitialData: state.form.data,
+            formInitialData: state.form.data[0],
         };
     });
-    
+    console.log(typeof formInitialData.thank_page_button_radius)
     return(
         <PreviewWrap>
             { previewStage === 'general' ?
@@ -49,13 +49,27 @@ const PreviewOne = ({previewStage})=>{
                 </div>
                 :
                 previewStage === 'thank' ?
-                <div className="wpwax-vm-preview-thank">
+                <div className="wpwax-vm-preview-thank" style={{backgroundColor: formInitialData.thank_page_background}}>
                     <div className="wpwax-vm-preview-thank__content">
-                        <h3>Thank you</h3>
-                        <p>Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface</p>
+                        <h3 style={{color: formInitialData.thank_page_font_color, fontSize: `${formInitialData.thank_page_title_font_size}`}}>{formInitialData.thank_page_title}</h3>
+                        {
+                            formInitialData.thank_page_description_Visibility?
+                            <p>{formInitialData.thank_page_description}</p>:
+                            ''
+                        }
                     </div>
                     <div className="wpwax-vm-preview-thank__botttom">
-                        <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block">{formInitialData.thank_page_button_text}</button>
+                        {formInitialData.thank_page_button_visibility ?
+                            <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block"
+                                style={{
+                                    borderRadius: `${formInitialData.thank_page_button_radius}px`,
+                                    backgroundColor: formInitialData.thank_page_button_color, 
+                                    borderColor: formInitialData.thank_page_button_color, 
+                                    color: formInitialData.thank_page_button_text_color, 
+                                }}
+                            >{formInitialData.thank_page_button_text}</button>:
+                            ''
+                        }
                     </div>
                 </div>
                 :

@@ -2,8 +2,12 @@ import actions from './actions';
 // import initialState from '../../demoData/note.json';
 
 const {
+  formReadBegin,
+  formReadSuccess,
+
   addFormBegin,
   addFormSuccess,
+  formReadErr,
   addFormErr,
 } = actions;
 
@@ -18,5 +22,17 @@ const addForm = data => {
   };
 };
 
+const onFormEdit = data => {
+  console.log(data)
+  return async dispatch => {
+    try {
+      dispatch(formReadBegin());
+      console.log(data);
+      dispatch(formReadSuccess(data));
+    } catch (err) {
+      dispatch(formReadErr(err));
+    }
+  };
+};
 
-export { addForm };
+export { addForm, onFormEdit };

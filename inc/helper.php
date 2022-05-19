@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm;
@@ -34,7 +32,7 @@ class Helper {
 	}
 
 	private static function get_file_uri( $path ) {
-		$file = VM_URL. $path;
+		$file = VM_URL . $path;
 		return $file;
 	}
 }

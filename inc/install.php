@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm;
@@ -25,21 +23,24 @@ class Install {
 	private function get_schema() {
 		global $wpdb;
 
-		$collate = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
+		$collate          = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 		$max_index_length = 191;
 
 		$tables = "
 		CREATE TABLE {$wpdb->prefix}vm_messages (
 			message_id bigint(20) unsigned NOT NULL auto_increment,
+			session varchar(255) NOT NULL,
 			start_time datetime NOT NULL,
 			updated_time datetime NOT NULL,
 			name varchar(250) NOT NULL,
 			email varchar(100) NOT NULL,
 			messages longtext NOT NULL,
+			last_message_by varchar(100) NOT NULL,
 			is_read tinyint(1) unsigned NOT NULL default '0',
 			PRIMARY KEY  (message_id),
 			KEY updated_time (updated_time),
 			KEY email (email),
+			KEY last_message_by (last_message_by),
 			KEY is_read (is_read)
 		  ) $collate;
 

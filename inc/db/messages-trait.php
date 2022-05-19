@@ -1,8 +1,6 @@
 <?php
 /**
  * @author  wpWax
- * @since   1.0
- * @version 1.0
  */
 
 namespace wpWax\vm\db;
@@ -26,15 +24,15 @@ trait Messages_Trait {
 		$where = ' WHERE 1=1';
 
 		if ( $args['read_status'] == 'read' ) {
-			$where .= ' AND is_read=1';
+			$where .= ' AND is_read=1 AND last_message_by="user"';
 		} elseif ( $args['read_status'] == 'unread' ) {
-			$where .= ' AND is_read=0';
+			$where .= ' AND is_read=0 AND last_message_by="user"';
 		}
 
-		$select = "SELECT message_id,name,updated_time,is_read FROM $t_messages";
+		$select = "SELECT message_id,name,updated_time,last_message_by,is_read FROM $t_messages";
 
 		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
-		return $wpdb->get_results( $query );
+		return $wpdb->get_results( $query, ARRAY_A );
 	}
 
 	public static function get_message( $message_id ) {
@@ -45,10 +43,6 @@ trait Messages_Trait {
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE message_id = %d", array( $message_id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
-
-		if ( ! empty( $result['messages'] ) ) {
-			$result['messages'] = maybe_unserialize( $result['messages'] );
-		}
 
 		return $result;
 	}
@@ -65,12 +59,14 @@ trait Messages_Trait {
 		$messages = maybe_serialize( $messages );
 
 		$data = array(
-			'start_time'   => $time,
-			'updated_time' => $time,
-			'name'         => $args['name'],
-			'email'        => $args['email'],
-			'messages'     => $messages,
-			'is_read'      => false,
+			'start_time'      => $time,
+			'session'         => self::generate_session(),
+			'updated_time'    => $time,
+			'name'            => $args['name'],
+			'email'           => $args['email'],
+			'messages'        => $messages,
+			'last_message_by' => 'user',
+			'is_read'         => false,
 		);
 
 		$result = $wpdb->insert( $table, $data );
@@ -132,5 +128,14 @@ trait Messages_Trait {
 		);
 
 		return $message;
+	}
+
+	private static function generate_session() {
+		$time   = microtime();
+		$time   = str_replace( array( ' ', '.' ), '', $time );
+		$chars  = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz' ), 1, 10 );
+		$random = $chars . $time;
+		$random = str_shuffle( $random );
+		return $random;
 	}
 }

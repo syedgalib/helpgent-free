@@ -19,9 +19,9 @@ const PreviewOne = ({previewStage})=>{
                 :
                 previewStage === 'form' ?
                 <>
-                        <div className="wpwax-vm-image-preview">
+                        <div className="wpwax-vm-media-preview">
                             <img src="" alt="" />
-                            <a href="#" className="wpwax-vm-image-preview__replace"></a>
+                            <a href="#" className="wpwax-vm-media-preview__replace">Replace</a>
                         </div>
                         <div className="wpwax-vm-preview-from">
                             <div className="wpwax-vm-preview-bg"></div>

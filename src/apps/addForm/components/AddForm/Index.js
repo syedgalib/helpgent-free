@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 // import apiService  from "../../../../../apiService/Service";
+import { ReactSVG } from 'react-svg';
 import GeneralSettings from "./overview/GeneralSettings";
 import FormSettings from "./overview/FormSettings";
 import ThankSettings from "./overview/ThankSettings";
@@ -46,7 +47,7 @@ const AddForm = ()=>{
                 </form>
             </div>
             <div className="wpwax-vm-preview">
-                <span className="wpwax-vm-preview-label">Preview your changes</span>
+                <span className="wpwax-vm-preview-label"><ReactSVG src={require(`../../../../../assets/svg/icons/hand-down.svg`).default} />Preview your changes</span>
                 <PreviewOne previewStage={ formStage } />
             </div>
         </AddFormStyle>

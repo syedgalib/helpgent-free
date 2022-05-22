@@ -90,6 +90,7 @@ const GeneralSettings = ()=>{
                     closeMenuOnSelect={false}
                     hideSelectedOptions={false}
                     searchable={false}
+                    menuIsOpen={true}
                     components={{
                         Option
                     }}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import propTypes from 'prop-types';
-import { ReactSVG } from 'react-svg'
+import { ReactSVG } from 'react-svg';
 import { useSelector } from 'react-redux';
 import { PreviewWrap } from './Style';
 

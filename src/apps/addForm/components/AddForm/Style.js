@@ -144,7 +144,7 @@ const AddFormStyle = Styled.div`
             flex: 1;
             height: 40px;
             border-radius: 6px;
-            background-color: var(--color-bg-gray);
+            background-color: var(--color-bg-general);
             .wpwax-vm-form__color-text{
                 padding-left: 15px;
                 margin: 0;
@@ -186,9 +186,11 @@ const AddFormStyle = Styled.div`
             border: 0 none;
             border-radius: 10px;
             padding: 8px;
+            margin: 0;
             background-color: var(--color-white);
             box-shadow: 0 6px 40px rgba(144,144,144,.25);
-            .css-1n7v3ny-option{
+            .css-1n7v3ny-option,
+            .css-9gakcf-option{
                 border-radius: 8px;
                 background-color: var(--color-bg-gray);
                 .wpwax-vm-checkbox label{
@@ -196,6 +198,10 @@ const AddFormStyle = Styled.div`
                     font-weight: 400;
                     color: #4D4D4D;
                 }
+            }
+            .css-9gakcf-option{
+                border-radius: 8px;
+                background-color: var(--color-bg-gray);
             }
             .css-yt9ioa-option{
                 .wpwax-vm-checkbox label{
@@ -261,9 +267,15 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-preview-label{
             font-size: 14px;
             font-weight: 500;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin-bottom: 22px;
             color: #7C7C7C;
+            svg{
+                position: relative;
+                top: 3px;
+                margin-right: 5px;
+            }
         }
     }
     .wpwax-vm-uploader{

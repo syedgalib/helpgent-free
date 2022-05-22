@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import propTypes from 'prop-types';
+import { ReactSVG } from 'react-svg'
 import { useSelector } from 'react-redux';
 import { PreviewWrap } from './Style';
 
@@ -20,13 +21,13 @@ const PreviewOne = ({previewStage})=>{
                 previewStage === 'form' ?
                 <>
                         <div className="wpwax-vm-media-preview">
-                            <img src="" alt="" />
-                            <a href="#" className="wpwax-vm-media-preview__replace">Replace</a>
+                            <img src={require(`../../../../../../assets/img/builder/form-img.png`).default} alt="wpwax Media" />
+                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={require(`../../../../../../assets/svg/icons/replace.svg`).default} />Replace</a>
                         </div>
                         <div className="wpwax-vm-preview-from">
                             <div className="wpwax-vm-preview-bg"></div>
                             <div className="wpwax-vm-preview-header">
-                                <h4 className="wpwax-vm-preview-title">{formInitialData.greet_message}</h4>
+                                <h4 className="wpwax-vm-preview-title" style={{color: formInitialData.font_color}} >{formInitialData.greet_message}</h4>
                                 {formInitialData.description_visibility?
                                     <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>:''
                                 }
@@ -40,22 +41,22 @@ const PreviewOne = ({previewStage})=>{
                                 <div className="wpwax-vm-preview-footer__actions">
                                     {
                                         formInitialData.reply_type_video ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Video</a>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Video</a>
                                         :''
                                     }
                                     {
                                         formInitialData.reply_type_screen_record ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Screen Record</a>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Screen Record</a>
                                         :''
                                     }
                                     {
                                         formInitialData.reply_type_voice ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Voice</a>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Voice</a>
                                         :''
                                     }
                                     {
                                         formInitialData.reply_type_text ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Text</a>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Text</a>
                                         :''
                                     }
                                 </div>

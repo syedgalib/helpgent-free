@@ -24,7 +24,7 @@ const formData = [
     "font_size": "Medium",
     "font_color": "#ffffff",
     "button_color": "#000000",
-    "Button_border_radius": "15",
+    "button_border_radius": "15",
     "info_collection_visibility": true,
     "collect_info": ['name','email','phone'],
     "thank_page_title": "Thank You",

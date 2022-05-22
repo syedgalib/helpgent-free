@@ -5,13 +5,32 @@ const AddFormStyle = Styled.div`
     align-items: flex-start;
     margin-top: 30px;
     .wpwax-vm-add-form{
+        position: relative;
         width: 420px;
         border-radius: 14px;
+        z-index: 10;
         background-color: var(--color-bg-white);
     }
     .wpwax-vm-form-group{
         &:not(:last-child){
             border-bottom: 1px solid var(--color-border-light);
+        }
+        .wpwax-vm-form-group__label{
+            .wpwax-vm-btn-collapsable{
+                text-decoration: none;
+                color: #4D4D4D;
+                &:focus{
+                    outline: none;
+                    box-shadow: 0 0;
+                }
+                &.wpwax-vm-open{
+                    .dashicons-arrow-down-alt2 {
+                        &:before{
+                            content: '\f343';
+                        }
+                    }
+                }
+            }
         }
     }
     .wpwax-vm-add-form__tab{
@@ -47,6 +66,19 @@ const AddFormStyle = Styled.div`
     }
     .wpwax-vm-add-form__content{
         padding: 25px 30px;
+        height: 580px;
+        overflow-y: scroll;
+        &::-webkit-scrollbar{
+            width: 8px;
+        }
+        &::-webkit-scrollbar-track{
+            background-color: var(--color-white);
+        }
+        &::-webkit-scrollbar-thumb{
+            border-radius: 5px;
+            height: 200px;
+            background-color: var(--color-bg-gray);
+        }
         .wpwax-vm-switch-list,
         .wpwax-vm-chekbox-list,
         .wpwax-vm-radio-list{
@@ -78,6 +110,13 @@ const AddFormStyle = Styled.div`
                     }
                 }
             }
+            
+            &.wpwax-vm-hide{
+                display: none;
+            }
+            &.wpwax-vm-show{
+                display: block;
+            }
         }
         .wpwax-vm-form-group__input-single{
             display: flex;
@@ -95,9 +134,6 @@ const AddFormStyle = Styled.div`
             }
             .wpwax-vm-form__element{
                 flex: 1;
-            }
-            .css-1okebmr-indicatorSeparator{
-                background-color: transparent;
             }
         }
         .wpwax-vm-form__color-plate{
@@ -145,6 +181,56 @@ const AddFormStyle = Styled.div`
                 z-index: 10;
             }
         }
+        .css-26l3qy-menu{
+            border-radius: 10px;
+            border: 0 none;
+            border-radius: 10px;
+            padding: 8px;
+            background-color: var(--color-white);
+            box-shadow: 0 6px 40px rgba(144,144,144,.25);
+            .css-1n7v3ny-option{
+                border-radius: 8px;
+                background-color: var(--color-bg-gray);
+                .wpwax-vm-checkbox label{
+                    font-size: 13px;
+                    font-weight: 400;
+                    color: #4D4D4D;
+                }
+            }
+            .css-yt9ioa-option{
+                .wpwax-vm-checkbox label{
+                    font-size: 13px;
+                    font-weight: 400;
+                    color: #4D4D4D;
+                }
+            }
+        }
+        .css-b62m3t-container{
+            width: 100%;
+            .css-6j8wv5-Input{
+                input{
+                    &:focus{
+                        box-shadow: 0 0;
+                    }
+                }
+            }
+        }
+        .css-1s2u09g-control{
+            border: 0 none;
+            background-color: var(--color-bg-general);
+        }
+        .css-1pahdxg-control{
+            border: 0 none;
+            box-shadow: 0 0;
+            background-color: var(--color-bg-general);
+            &:hover{
+                border: 0 none;
+            }
+        }
+        .css-1okebmr-indicatorSeparator{
+            min-width: auto;
+            background-color: transparent;
+        }
     }
     .wpwax-vm-add-form__bottom{
         display: flex;
@@ -169,7 +255,9 @@ const AddFormStyle = Styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 160px;
+        padding-top: 120px;
+        margin-left: -70px;
+        z-index: 0;
         .wpwax-vm-preview-label{
             font-size: 14px;
             font-weight: 500;

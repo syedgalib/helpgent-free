@@ -10,12 +10,40 @@ const ThankSettingsWrap = Styled.div`
     
 `;
 const PreviewWrap = Styled.div`
-    position: relative;
     width: 420px;
-    min-height: 620px;
+    min-height: 640px;
     z-index: 10;
+    position: relative;
     word-break: break-all;
+    padding-top: 0;
     color: var(--color-white);
+    .wpwax-vm-media-preview{
+        position: absolute;
+        left: -90%;
+        top: -160px;
+        height: 210px;
+        &:after{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .50);
+            z-index: 0;
+            border-radius: 12px;
+            content: '';
+        }
+        .wpwax-vm-media-preview__replace{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 15px;
+            z-index: 10;
+            svg{
+                margin-right: 6px;
+            }
+        }
+    }
     .wpwax-vm-preview-bg{
         position: absolute;
         left: 0;
@@ -115,6 +143,7 @@ const PreviewWrap = Styled.div`
         width: 100%;
         border-radius: 25px;
         padding: 30px;
+        /* margin: 10px 0 -35px; */
         background-color: var(--color-dark);
     }
     .wpwax-vm-preview-thank{

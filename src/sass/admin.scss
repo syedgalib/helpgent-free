@@ -58,6 +58,11 @@
         background-color: var(--color-danger);
         border: 1px solid var(--color-danger);
     }
+    &.wpwax-vm-btn-white{
+        color: var(--color-dark);
+        background-color: var(--color-white);
+        border: 1px solid var(--color-white);
+    }
 }
 
 /* Button Size */

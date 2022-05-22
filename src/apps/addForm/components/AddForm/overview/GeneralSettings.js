@@ -27,12 +27,7 @@ const GeneralSettings = ()=>{
         return (
           <div>
             <components.Option {...props}>
-              <input
-                type="checkbox"
-                checked={props.isSelected}
-                onChange={() => null}
-              />
-              <label>{props.label}</label>
+              <Checkbox id={`wpwax-vm${props.label}`} label={props.label}/>
             </components.Option>
           </div>
         );
@@ -89,6 +84,7 @@ const GeneralSettings = ()=>{
                     <span>Display on custom pages</span>
                 </div>
                 <Select 
+                    className='my-class'
                     options={templateOptions} 
                     isMulti
                     closeMenuOnSelect={false}

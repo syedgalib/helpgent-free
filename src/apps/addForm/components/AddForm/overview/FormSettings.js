@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { default as Select } from 'react-select'
-import { components } from 'react-select'
+import { default as Select } from 'react-select';
 import Switch from "react-switch";
-import Checkbox from "../../../../../components/Checkbox";
-import Radio from "../../../../../components/Radio";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { FormSettingsWrap } from './Style';
-export const templateOptions = [
-    {value: "chat", label: "Chat"},
-    {value: "video", label: "Video"},
-    {value: "Issue", label: "Issue"},
+export const fontSizeOptions = [
+    {value: "roboto", label: "Roboto"},
+    {value: "inter", label: "Inter"},
+    {value: "legend", label: "Legend"},
+]
+export const fontOptions = [
+    {value: "large", label: "large"},
+    {value: "larger", label: "larger"},
+    {value: "x-large", label: "x-large"},
+    {value: "xx-large", label: "xx-large"},
+    {value: "medium", label: "medium"},
+    {value: "small", label: "small"},
+    {value: "smaller", label: "smaller"},
+    {value: "x-small", label: "x-small"},
 ]
 const FormSettings = ()=>{
     const { formData, formInitialData } = useSelector(state => {
@@ -19,10 +26,6 @@ const FormSettings = ()=>{
             formInitialData: state.form.data[0],
         };
     });
-    // const [state, setState] = useState({
-    //     pageVisibility: formInitialData.all_page_visibility,
-    //     accountVisibility: formInitialData.all_page_visibility,
-    // });
 
     const [state, setState] = useState({
         id: formInitialData.form_id,
@@ -34,11 +37,15 @@ const FormSettings = ()=>{
         replyTypeScreenRecord: formInitialData.reply_type_screen_record,
         replyTypeVoice: formInitialData.reply_type_voice,
         replyTypeText: formInitialData.reply_type_text,
+        titleColor: formInitialData.font_color,
+        buttonColor: formInitialData.button_color,
+        buttonRadius: formInitialData.button_border_radius,
         footerVisibility: formInitialData.footer_visibility,
         footerMessage: formInitialData.footer_message,
+        openCollapse: true,
     });
     
-    const { id, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, footerVisibility, footerMessage } = state;
+    const { id, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
     const dispatch = useDispatch();
     const updateForm = (label,value)=>{
         let updatedData = formData.map(item => {
@@ -68,18 +75,21 @@ const FormSettings = ()=>{
                     case "replyText-visibility":
                         item.reply_type_text = value;
                       break;
-                    case "footer-visibility":
-                        item.footer_visibility = value;
+                    case "title-color":
+                        item.font_color = value;
                       break;
-                    case "footer-text":
-                        item.footer_message = value;
-                      break;
-                    case "button-text-color":
-                        item.thank_page_button_text_color = value;
+                    case "button-color":
+                        item.button_color = value;
                       break;
                     case "button-radius":
-                        item.thank_page_button_radius = value;
+                        item.button_border_radius = value;
                       break;
+                    case "footer-visibility":
+                        item.footer_visibility = value;
+                    break;
+                    case "footer-text":
+                        item.footer_message = value;
+                    break;
                     default:
                       // code block
                 }
@@ -156,20 +166,39 @@ const FormSettings = ()=>{
         });
         updateForm('footer-text', footerMessageText);
     }
-
-
-    const changePageVisibility = () =>{
+    const changeTitleColor = (event) =>{
+        let titleColor = event.target.value;
         setState({
             ...state,
-            descriptionVisibility: !descriptionVisibility,
+            titleColor: titleColor
         });
+        updateForm('title-color', titleColor);
     }
-    const changeAccountVisibility = () =>{
+    const changeButtonColor = (event) =>{
+        let buttonColor = event.target.value;
         setState({
             ...state,
-            descriptionVisibility: !descriptionVisibility,
+            buttonColor: buttonColor
+        });
+        updateForm('button-color', buttonColor);
+    }
+    const changeButtonRadius = (event) =>{
+        let buttonRadius = event.target.value;
+        setState({
+            ...state,
+            buttonRadius: buttonRadius
+        });
+        updateForm('button-radius', buttonRadius);
+    }
+
+    const toogleCollapse = (e)=>{
+        e.preventDefault();
+        setState({
+            ...state,
+            openCollapse: !openCollapse
         });
     }
+
     return(
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -308,14 +337,14 @@ const FormSettings = ()=>{
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Customize</span>
+                    <a href="" className={openCollapse? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e=>toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
                 </div>
-                <div className="wpwax-vm-form-group__input-list">
-                    
-                    <div className="wpwax-vm-form-group__input-single">
+                <div className={openCollapse? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
+                    <div className="wpwax-vm-form-group__input-single"> 
                         <span> Font</span>
                         <Select 
-                            options={templateOptions}
-                            closeMenuOnSelect={false}
+                            options={fontOptions}
+                            closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
                             // onChange={chagneTitleFontSize}
@@ -324,20 +353,33 @@ const FormSettings = ()=>{
                     <div className="wpwax-vm-form-group__input-single">
                         <span> Font Size</span>
                         <Select 
-                            options={templateOptions}
-                            closeMenuOnSelect={false}
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
                             // onChange={chagneTitleFontSize}
                         />
                     </div>
-                    
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{titleColor}</span>
+                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: titleColor}}></label>
+                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={titleColor} onChange={(e)=>changeTitleColor(e)} />
+                        </div>
+                    </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button color</span>
                         <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{}</span>
-                            <label htmlFor="wpwax-vm-form-button-color" className="wpwax-vm-form__color-ball"></label>
-                            <input type="color" id="wpwax-vm-form-button-color" className="wpwax-vm-form__element" />
+                            <span className="wpwax-vm-form__color-text">{buttonColor}</span>
+                            <label htmlFor="wpwax-vm-form-button-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: buttonColor}}></label>
+                            <input type="color" id="wpwax-vm-form-button-color" className="wpwax-vm-form__element" value={buttonColor} onChange={(e)=>changeButtonColor(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Button border-radius</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
                         </div>
                     </div>
                 </div>

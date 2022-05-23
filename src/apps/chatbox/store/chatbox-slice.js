@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import api from "Chatbox/helpers/api";
 
 const initialState = {
 	sending: false,
@@ -8,14 +9,6 @@ const initialState = {
 	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, contactForm, sending, success
 	chatStep: 1, // 1,2,3,4 etc + contact, sending, success
 };
-
-function send(name, email, data) {
-	if ( data.type == 'text' ) {
-		console.log(current(data.text));
-	}
-	// alert(data.text);
-	// console.log({ name, email, data });
-}
 
 const chatBoxSlice = createSlice({
 	name: "chatBox",
@@ -42,7 +35,6 @@ const chatBoxSlice = createSlice({
 		},
 		setData(state, action) {
 			state.data = action.payload;
-			console.log(state.data);
 		},
 		send(state, action) {
 			state.sending = true;
@@ -51,7 +43,9 @@ const chatBoxSlice = createSlice({
 			let email = action.payload.email;
 			let data = state.data;
 
-			send(name, email, data);
+			api.sendMessage(name, email, data);
+
+			// send(name, email, data);
 		},
 	},
 });

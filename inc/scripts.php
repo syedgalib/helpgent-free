@@ -43,9 +43,10 @@ class Scripts {
 
 	public function localized_data() {
 		$api_data = array(
-			'nonce' => wp_create_nonce( 'wp_rest' ),
+			'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
+			'apiNonce'    => wp_create_nonce( 'wp_rest' ),
 		);
-		wp_localize_script( 'vm-main', 'vmApi', $api_data );
-		wp_localize_script( 'vm-admin-script', 'vmApi', $api_data );
+		wp_localize_script( 'vm-main', 'vmData', $api_data );
+		wp_localize_script( 'vm-admin-script', 'vmData', $api_data );
 	}
 }

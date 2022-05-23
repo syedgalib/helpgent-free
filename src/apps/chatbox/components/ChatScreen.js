@@ -13,7 +13,6 @@ import ScreenRecord from "Chatbox/components/screen-record/Index";
 function ChatScreen() {
 	const chatScreen = useSelector((state) => state.chatScreen);
 
-	console.log(chatScreen)
 	return (
 		<Container>
 			{chatScreen == "welcome" && <Welcome />}

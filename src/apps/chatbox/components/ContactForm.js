@@ -9,20 +9,32 @@ function ContactForm() {
 
 	function submitHandler(e) {
 		e.preventDefault();
-		const name = textRef.current.value;
+
+		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 
-		dispatch(chatBoxActions.sendData(name, email));
+		dispatch(chatBoxActions.send({ name, email }));
 	}
-	console.log('ok')
+
 	return (
 		<div>
 			<p>
-				Before you go, please leave your contact details so that we can get back to you...
+				Before you go, please leave your contact details so that we can
+				get back to you...
 			</p>
 			<form onSubmit={submitHandler}>
-				<input type="text" ref={nameRef} required />
-				<input type="email" ref={emailRef} required />
+				<input
+					placeholder="Your name*"
+					type="text"
+					ref={nameRef}
+					required
+				/>
+				<input
+					placeholder="Your email*"
+					type="email"
+					ref={emailRef}
+					required
+				/>
 				<button>Send</button>
 			</form>
 		</div>

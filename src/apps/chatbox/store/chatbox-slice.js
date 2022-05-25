@@ -37,7 +37,7 @@ const chatBoxSlice = createSlice({
 			state.data = action.payload;
 		},
 		send(state, action) {
-			state.sending = true;
+			state.chatScreen = 'sending';
 
 			let name = action.payload.name;
 			let email = action.payload.email;

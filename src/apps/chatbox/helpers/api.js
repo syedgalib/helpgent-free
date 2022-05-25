@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const axiosObj = axios.create({
 	baseURL: vmData.apiEndpoint,
@@ -9,6 +10,8 @@ const axiosObj = axios.create({
 });
 
 const sendMessage = (name, email, data) => {
+	const dispatch = useDispatch();
+
 	if (data.type == "text") {
 		axiosObj
 			.post("/messages", {
@@ -18,13 +21,17 @@ const sendMessage = (name, email, data) => {
 				message_value: data.text,
 			})
 			.then(function (response) {
-				console.log(response.response);
+				dispatch(chatBoxActions.chatScreen('success'));
+			})
+			.catch((error) => {
+				let result = error.response.data;
+				console.log(result);
 			});
 	}
 };
 
 const api = {
-	sendMessage
+	sendMessage,
 };
 
 export default api;

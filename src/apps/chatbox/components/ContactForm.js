@@ -13,7 +13,13 @@ function ContactForm() {
 		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 
+
+
 		dispatch(chatBoxActions.send({ name, email }));
+
+
+
+
 	}
 
 	return (

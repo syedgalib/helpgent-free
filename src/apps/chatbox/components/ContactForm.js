@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
-import { chatBoxActions } from "Chatbox/store/chatbox-slice";
+import { chatBoxActions, send } from "Chatbox/store/chatbox-slice";
 
 function ContactForm() {
 	const dispatch = useDispatch();
@@ -13,13 +13,7 @@ function ContactForm() {
 		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 
-
-
-		dispatch(chatBoxActions.send({ name, email }));
-
-
-
-
+		dispatch(send({ name, email }));
 	}
 
 	return (

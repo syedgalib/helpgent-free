@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import api from "Chatbox/helpers/api";
 
 const initialState = {
@@ -9,6 +9,24 @@ const initialState = {
 	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, contactForm, sending, success
 	chatStep: 1, // 1,2,3,4 etc + contact, sending, success
 };
+
+export const send = createAsyncThunk(
+	"chatBox/send",
+	async ({ name, email }, thunkAPI) => {
+
+		const data = thunkAPI.getState().data;
+		console.log(data)
+		console.log('api')
+		api.sendMessage(name, email, data).then(function (response) {
+			console.log(response);
+			return response;
+		});
+		// const result = await api.sendMessage(name, email, data);
+		// console.log(result)
+		// console.log('showing result')
+		// return result;
+	}
+);
 
 const chatBoxSlice = createSlice({
 	name: "chatBox",
@@ -36,17 +54,35 @@ const chatBoxSlice = createSlice({
 		setData(state, action) {
 			state.data = action.payload;
 		},
-		send(state, action) {
-			state.chatScreen = 'sending';
+		// async send(state, action) {
+		// 	state.chatScreen = "sending";
 
-			let name = action.payload.name;
-			let email = action.payload.email;
-			let data = state.data;
+		// 	let name = action.payload.name;
+		// 	let email = action.payload.email;
+		// 	let data = state.data;
 
-			api.sendMessage(name, email, data);
+		// 	let result = await api.sendMessage(name, email, data);
+		// 	console.log(result)
 
-			// send(name, email, data);
-		},
+		// 	// send(name, email, data);
+		// },
+	},
+	extraReducers: (builder) => {
+		builder.addCase(send.pending, (state, action) => {
+			console.log("pending");
+			// state.chatScreen = "sending";
+			console.log(action);
+		});
+		builder.addCase(send.fulfilled, (state, action) => {
+			console.log("fulfilled");
+			// state.chatScreen = "success";
+			console.log(action);
+		});
+		builder.addCase(send.rejected, (state, action) => {
+			console.log("rejected");
+			console.log(action);
+			// state.chatScreen = "contactForm";
+		});
 	},
 });
 

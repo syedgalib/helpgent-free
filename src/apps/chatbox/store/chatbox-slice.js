@@ -13,18 +13,34 @@ const initialState = {
 export const send = createAsyncThunk(
 	"chatBox/send",
 	async ({ name, email }, thunkAPI) => {
-
 		const data = thunkAPI.getState().data;
-		console.log(data)
-		console.log('api')
-		api.sendMessage(name, email, data).then(function (response) {
-			console.log(response);
-			return response;
-		});
-		// const result = await api.sendMessage(name, email, data);
-		// console.log(result)
-		// console.log('showing result')
-		// return result;
+
+		try {
+			let result = await api.sendMessage(name, email, data);
+			return thunkAPI.fulfillWithValue(result);
+			// console.log("success");
+			// console.log(result);
+		} catch (error) {
+			let result = error.response.data;
+			// console.log("error");
+			// console.log(result);
+			return thunkAPI.rejectWithValue(result);
+		}
+
+		// console.log("api");
+		// console.log(data);
+		// api.sendMessage(name, email, data)
+		// 	.then(function (response) {
+		// 		console.log("success");
+		// 		console.log(response);
+		// 		return response;
+		// 	})
+		// 	.catch(function (e) {
+		// 		let result = e.response.data;
+		// 		console.log("error");
+		// 		console.log(result);
+		// 		return thunkAPI.rejectWithValue(result);
+		// 	});
 	}
 );
 
@@ -54,35 +70,22 @@ const chatBoxSlice = createSlice({
 		setData(state, action) {
 			state.data = action.payload;
 		},
-		// async send(state, action) {
-		// 	state.chatScreen = "sending";
-
-		// 	let name = action.payload.name;
-		// 	let email = action.payload.email;
-		// 	let data = state.data;
-
-		// 	let result = await api.sendMessage(name, email, data);
-		// 	console.log(result)
-
-		// 	// send(name, email, data);
-		// },
 	},
-	extraReducers: (builder) => {
-		builder.addCase(send.pending, (state, action) => {
+	extraReducers: {
+		[send.pending]: (state) => {
 			console.log("pending");
 			// state.chatScreen = "sending";
 			console.log(action);
-		});
-		builder.addCase(send.fulfilled, (state, action) => {
+		},
+		[send.fulfilled]: (state, { payload }) => {
 			console.log("fulfilled");
 			// state.chatScreen = "success";
+			console.log(payload);
+		},
+		[send.rejected]: (state, action) => {
+			// let message = payload.message;
 			console.log(action);
-		});
-		builder.addCase(send.rejected, (state, action) => {
-			console.log("rejected");
-			console.log(action);
-			// state.chatScreen = "contactForm";
-		});
+		},
 	},
 });
 

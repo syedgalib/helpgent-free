@@ -17,13 +17,13 @@ export const send = createAsyncThunk(
 
 		try {
 			let result = await api.sendMessage(name, email, data);
+			console.log('success')
+			console.log(result)
 			return thunkAPI.fulfillWithValue(result);
-			// console.log("success");
-			// console.log(result);
 		} catch (error) {
 			let result = error.response.data;
-			// console.log("error");
-			// console.log(result);
+			console.log("error");
+			console.log(result);
 			return thunkAPI.rejectWithValue(result);
 		}
 
@@ -84,6 +84,7 @@ const chatBoxSlice = createSlice({
 		},
 		[send.rejected]: (state, action) => {
 			// let message = payload.message;
+			console.log("rejected");
 			console.log(action);
 		},
 	},

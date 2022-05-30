@@ -8,9 +8,9 @@ const axiosObj = axios.create({
 	},
 });
 
-const sendMessage = (name, email, data) => {
+const sendMessage = async (name, email, data) => {
 	if (data.type == "text") {
-		return axiosObj.post("/messages", {
+		return await axiosObj.post("/messages", {
 			name,
 			email,
 			message_type: "text",

@@ -17,7 +17,12 @@ function Container(props) {
 		dispatch(chatBoxActions.toggleDisplayChatScreen());
 	}
 	function closeHandler() {
-		setDisplayClosePopup(true);
+		if ( chatScreen == "success" ) {
+			dispatch(chatBoxActions.reset());
+		} else {
+			setDisplayClosePopup(true);
+		}
+
 	}
 
 	let backBtn = (

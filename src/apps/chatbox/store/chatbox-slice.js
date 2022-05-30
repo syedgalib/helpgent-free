@@ -51,6 +51,11 @@ const chatBoxSlice = createSlice({
 		reset() {
 			return initialState;
 		},
+		resetWithChatScreen() {
+			let state = { ...initialState };
+			state.displayChatScreen = true;
+			return state;
+		},
 		setContactInfo(state, { payload }) {
 			state.name = payload.name;
 			state.email = payload.email;
@@ -65,9 +70,6 @@ const chatBoxSlice = createSlice({
 		});
 		builder.addCase(sendMessage.fulfilled, (state) => {
 			state.chatScreen = "success";
-			state.name = "";
-			state.email = "";
-			state.data = {};
 		});
 		builder.addCase(sendMessage.rejected, (state, { payload }) => {
 			state.chatScreen = "contactForm";

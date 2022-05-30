@@ -6,7 +6,7 @@ function Success() {
 
 	function btnHandler(e) {
 		e.preventDefault();
-		dispatch(chatBoxActions.chatScreen("welcome"));
+		dispatch(chatBoxActions.resetWithChatScreen());
 	}
 
 	return (

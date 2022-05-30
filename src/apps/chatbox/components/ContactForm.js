@@ -1,11 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
-import { sendMessage } from "Chatbox/store/chatbox-slice";
+import { chatBoxActions, sendMessage } from "Chatbox/store/chatbox-slice";
 
 function ContactForm() {
 	const dispatch = useDispatch();
 	const nameRef = useRef();
 	const emailRef = useRef();
+
+	const name = useSelector((state) => state.name);
+	const email = useSelector((state) => state.email);
 
 	function submitHandler(e) {
 		e.preventDefault();
@@ -13,7 +16,8 @@ function ContactForm() {
 		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 
-		dispatch(sendMessage({ name, email }));
+		dispatch(chatBoxActions.setContactInfo({ name, email }));
+		dispatch(sendMessage());
 	}
 
 	return (
@@ -26,12 +30,14 @@ function ContactForm() {
 				<input
 					placeholder="Your name*"
 					type="text"
+					defaultValue={name}
 					ref={nameRef}
 					required
 				/>
 				<input
 					placeholder="Your email*"
 					type="email"
+					defaultValue={email}
 					ref={emailRef}
 					required
 				/>

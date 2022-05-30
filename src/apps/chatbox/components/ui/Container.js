@@ -20,15 +20,20 @@ function Container(props) {
 		setDisplayClosePopup(true);
 	}
 
+	let backBtn = (
+		<button onClick={backHandler} className={classes.back}>
+			&#60;&#60;Back
+		</button>
+	);
+	if (chatScreen == "welcome" || chatScreen == "success") {
+		backBtn = "";
+	}
+
 	return (
 		<>
 			<div className={classes.container}>
 				<div className={classes.relative}>
-					{chatScreen != "welcome" && (
-						<button onClick={backHandler} className={classes.back}>
-							&#60;&#60;Back
-						</button>
-					)}
+					{backBtn}
 					<button onClick={minusHandler} className={classes.minus}>
 						-
 					</button>

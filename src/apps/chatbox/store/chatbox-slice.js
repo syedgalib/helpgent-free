@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import api from "Chatbox/helpers/api";
 
 const initialState = {
+	name: "",
+	email: "",
 	data: {},
 	displayChatScreen: false,
 	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, contactForm, sending, success
@@ -10,8 +12,10 @@ const initialState = {
 
 export const sendMessage = createAsyncThunk(
 	"chatBox/send",
-	async ({ name, email }, thunkAPI) => {
+	async (_, thunkAPI) => {
 		const data = thunkAPI.getState().data;
+		const name = thunkAPI.getState().name;
+		const email = thunkAPI.getState().email;
 
 		try {
 			let response = await api.sendMessage(name, email, data);
@@ -47,6 +51,10 @@ const chatBoxSlice = createSlice({
 		reset() {
 			return initialState;
 		},
+		setContactInfo(state, { payload }) {
+			state.name = payload.name;
+			state.email = payload.email;
+		},
 		setData(state, action) {
 			state.data = action.payload;
 		},
@@ -57,6 +65,9 @@ const chatBoxSlice = createSlice({
 		});
 		builder.addCase(sendMessage.fulfilled, (state) => {
 			state.chatScreen = "success";
+			state.name = "";
+			state.email = "";
+			state.data = {};
 		});
 		builder.addCase(sendMessage.rejected, (state, { payload }) => {
 			state.chatScreen = "contactForm";

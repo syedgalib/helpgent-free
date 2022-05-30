@@ -6,7 +6,8 @@ import img from "Chatbox/assets/avatar.png";
 function Avatar() {
 	const dispatch = useDispatch();
 
-	function clickHandler() {
+	function clickHandler(e) {
+		e.preventDefault();
 		dispatch(chatBoxActions.toggleDisplayChatScreen());
 	}
 

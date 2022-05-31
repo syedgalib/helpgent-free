@@ -42,6 +42,7 @@ const chatBoxSlice = createSlice({
 			state.chatStep = action.payload;
 		},
 		back(state) {
+			// @todo - is not fully functional
 			if (state.chatStep > 1) {
 				state.chatStep -= 1;
 			} else {

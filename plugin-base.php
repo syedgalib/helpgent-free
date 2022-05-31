@@ -24,7 +24,7 @@ final class wpWax_Video_Messagge {
 
 	protected static $instance = null;
 
-	public $Factory = array(); // object factory
+	public $Factory; // object factory
 
 	public function __construct() {
 		$this->Factory = new stdClass();

@@ -22,6 +22,12 @@ class Helper {
 	public static function get_js( $filename ) {
 		$path = 'assets/js/' . $filename . '.js';
 
+		if ( VM_IN_DEVELOPMENT ) {
+			$path = VM_VITE_HOST . 'src/js/' . $filename . '.js';
+
+			return $path;
+		}
+
 		return self::get_file_uri( $path );
 	}
 

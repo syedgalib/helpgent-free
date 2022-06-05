@@ -32,12 +32,6 @@ export default defineConfig( ( { command, mode } ) => {
           entryFileNames: config.entryFileNames,
           chunkFileNames: config.entryFileNames,
           assetFileNames: config.assetFileNames,
-          // manualChunks: () => 'common.js',
-          
-          // globals: {
-          //   react: 'React',
-          //   reactDOM: 'ReactDOM',
-          // }
         },
       },
     },

@@ -1,22 +1,8 @@
 const project = require("./package.json");
-const gulp = require("gulp");
-const autoPrefixer = require("gulp-autoprefixer");
-const wpPot = require("gulp-wp-pot");
-const clean = require("gulp-clean");
-const webpack = require("webpack");
-const webpackProdConfig = require("./webpack.config.prod.js");
-const webpackDevConfig = require("./webpack.config.dev.js");
-const zip = require("gulp-zip");
-
-const sass = require("gulp-sass")(require("sass"));
-
-gulp.task("sass", function () {
-	return gulp
-		.src(["style.scss", "admin.scss"], { cwd: "src/sass" })
-		.pipe(sass({ outputStyle: "expanded" }).on("error", sass.logError))
-		.pipe(autoPrefixer({ browsers: ["> 1%", "last 2 versions"] }))
-		.pipe(gulp.dest("assets/css/"));
-});
+const gulp    = require("gulp");
+const wpPot   = require("gulp-wp-pot");
+const clean   = require("gulp-clean");
+const zip     = require("gulp-zip");
 
 gulp.task("pot", function () {
 	return gulp
@@ -52,46 +38,4 @@ gulp.task("zip", function () {
 		.pipe(gulp.dest("__build"));
 });
 
-gulp.task("webpackProd", function (cb) {
-	return new Promise((resolve, reject) => {
-		webpack(webpackProdConfig, (err, stats) => {
-			if (err) {
-				return reject(err);
-			}
-			if (stats.hasErrors()) {
-				return reject(new Error(stats.compilation.errors.join("\n")));
-			}
-			resolve();
-		});
-	});
-});
-
-gulp.task("webpackDev", function (cb) {
-	return new Promise((resolve, reject) => {
-		webpack(webpackDevConfig, (err, stats) => {
-			if (err) {
-				return reject(err);
-			}
-			if (stats.hasErrors()) {
-				return reject(new Error(stats.compilation.errors.join("\n")));
-			}
-			resolve();
-		});
-	});
-});
-
-gulp.task("watch:js", function () {
-	gulp.watch(["src/apps/**/*", "src/js/**/*"], gulp.series("webpackDev"));
-});
-
-gulp.task("watch:sass", function () {
-	gulp.watch("src/sass/**/*.scss", gulp.series("sass"));
-});
-
-gulp.task("watch", function () {
-	gulp.watch(["src/apps/**/*", "src/js/**/*"], gulp.series("webpackDev"));
-	gulp.watch("src/sass/**/*.scss", gulp.series("sass"));
-});
-
-gulp.task("all", gulp.parallel("sass", "pot", "webpackProd"));
-gulp.task("build", gulp.series("all", "clean", "zip"));
+gulp.task("build", gulp.series("pot", "clean", "zip"));

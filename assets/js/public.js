@@ -27826,4 +27826,8 @@ document.addEventListener("DOMContentLoaded", function() {
     columnNumber: 3
   }, this));
 });
+const AwesomeTest = () => {
+  console.log("AwesomeTest");
+};
+AwesomeTest();
 //# sourceMappingURL=public.js.map

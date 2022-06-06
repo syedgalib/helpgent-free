@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react'
 import path from 'path';
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { defineConfig } from 'vite'
 import projectConfig from './vite.project-config'
 
 // https://vitejs.dev/config/
@@ -22,7 +22,7 @@ export default defineConfig( ( { command, mode } ) => {
       minify: config.minify,
       rollupOptions: {
         input: {
-          public: '/src/js/public.js',
+          // public: '/src/js/public.js',
           admin: '/src/js/admin.js',
         },
         output: {

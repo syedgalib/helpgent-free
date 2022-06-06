@@ -22,7 +22,7 @@ export default defineConfig( ( { command, mode } ) => {
       minify: config.minify,
       rollupOptions: {
         input: {
-          // public: '/src/js/public.js',
+          public: '/src/js/public.js',
           admin: '/src/js/admin.js',
         },
         output: {

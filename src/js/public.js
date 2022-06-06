@@ -1,12 +1,6 @@
 import 'SASS/style.scss';
 import "./apps/chatbox";
 
-const AwesomeTest = () => {
-	console.log( 'AwesomeTest' );
-}
-
-AwesomeTest();
-
 // Testing Rest API
 function rest_test() {
 	console.log("start");

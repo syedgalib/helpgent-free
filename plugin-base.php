@@ -20,7 +20,8 @@ define( 'VM_PATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'VM_PATH_INC', VM_PATH . 'inc/' );
 define( 'VM_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 
-defined( 'VM_VITE_HOST' ) || define( 'VM_VITE_HOST', 'http://localhost:3000/' );
+defined( 'VM_VITE_HOST' ) || define( 'VM_VITE_HOST', 'http://localhost:3000' );
+defined( 'VM_VITE_BASE' ) || define( 'VM_VITE_BASE',  VM_VITE_HOST . '/wp-content/plugins/wpwax-video-message/' );
 defined( 'VM_IN_DEVELOPMENT' ) || define( 'VM_IN_DEVELOPMENT', SCRIPT_DEBUG );
 
 final class wpWax_Video_Messagge {

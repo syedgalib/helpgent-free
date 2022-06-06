@@ -89,8 +89,16 @@ class Scripts {
 			'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
 			'apiNonce'    => wp_create_nonce( 'wp_rest' ),
 		);
+
+		$vite_data = array(
+			'VM_VITE_HOST'      => VM_VITE_HOST,
+			'VM_VITE_BASE'      => VM_VITE_BASE,
+			'VM_IN_DEVELOPMENT' => VM_IN_DEVELOPMENT,
+		);
+
 		wp_localize_script( 'vm-public-script', 'vmData', $api_data );
 		wp_localize_script( 'vm-admin-script', 'vmData', $api_data );
+		wp_localize_script( 'vm-react-refresh', 'vmViteData', $vite_data );
 	}
 
 	public function add_vite_script_attributes( $tag, $handle, $src ) {

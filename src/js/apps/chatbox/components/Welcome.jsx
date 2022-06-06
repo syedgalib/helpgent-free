@@ -13,8 +13,7 @@ function Welcome() {
 	return (
 		<div>
 			<div>
-				Welcome to wpWax, Leave your question below and we'll get back
-				to you asap.
+				Welcome to wpWax, Leave your question below and we'll get back to you asap.
 			</div>
 			<div>[Video Screen]</div>
 			<div>How would you like to chat?</div>

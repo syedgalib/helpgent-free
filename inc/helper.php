@@ -23,7 +23,7 @@ class Helper {
 		$path = 'assets/js/' . $filename . '.js';
 
 		if ( VM_IN_DEVELOPMENT ) {
-			$path = VM_VITE_HOST . 'src/js/' . $filename . '.js';
+			$path = VM_VITE_BASE . 'src/js/' . $filename . '.js';
 
 			return $path;
 		}

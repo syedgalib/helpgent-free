@@ -1,0 +1,20 @@
+{
+    "name": "wpwax/wpwax-customer-support-app",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "WPWaxCustomerSupportApp\\": "app/"
+        },
+        "files": [ 
+            "helper/const.php", 
+            "helper/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "wpWax",
+            "email": "contact@wpWax.com"
+        }
+    ],
+    "require": {}
+}

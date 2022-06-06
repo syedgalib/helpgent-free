@@ -1,0 +1,81 @@
+<?php
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION', '0.1.0' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT', 3000 );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST', 'http://localhost:' . WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT . '/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST_BASE' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST_BASE', WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST . 'wp-content/plugins/wpwax-customer-support-app/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT', SCRIPT_DEBUG );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_SCRIPT_VERSION' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_SCRIPT_VERSION', WPWAX_CUSTOMER_SUPPORT_APP_VERSION );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE', dirname( dirname( __FILE__ ) ) . '/simple-todo.php' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_BASE' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_BASE', dirname( dirname( __FILE__ ) ) . '/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_LANGUAGES' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_LANGUAGES', WPWAX_CUSTOMER_SUPPORT_APP_BASE . 'languages' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_POST_TYPE' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_POST_TYPE', 'wpwax-customer-support-app' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_TEMPLATE_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_TEMPLATE_PATH', WPWAX_CUSTOMER_SUPPORT_APP_BASE . 'template/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VIEW_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VIEW_PATH', WPWAX_CUSTOMER_SUPPORT_APP_BASE . 'view/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_URL' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_URL', plugin_dir_url( WPWAX_CUSTOMER_SUPPORT_APP_FILE ) );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL', WPWAX_CUSTOMER_SUPPORT_APP_URL . 'assets/dist/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_SRC_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_SRC_PATH', 'assets/src/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH',  WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL . 'js/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH',  WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL . 'js/vendor-js' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH', 'assets/dist/vendor-js/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH', WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL . 'css/' );
+}
+
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_LOAD_MIN_FILES' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_LOAD_MIN_FILES', ! SCRIPT_DEBUG );
+}

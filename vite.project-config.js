@@ -14,7 +14,7 @@ function projectConfig( mode ) {
 
     // Common Config
     const commonConfig = {
-        destDir: 'assets/',
+        destDir: 'assets/dist/',
         server: {
             cors: true,
             strictPort: true,

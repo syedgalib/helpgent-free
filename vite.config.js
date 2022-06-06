@@ -10,20 +10,20 @@ export default defineConfig( ( { command, mode } ) => {
   console.log( { command, mode } );
 
   return {
-    base: '/wp-content/plugins/wpwax-video-message/',
+    base: '/wp-content/plugins/wpwax-customer-support-app/',
     plugins: [ react() ],
     build: {
       target: 'es2015',
       outDir: '',
-      assetsDir: 'assets/js',
+      assetsDir: 'assets/dist/js',
       emptyOutDir: false,
       polyfillModulePreload: false,
       sourcemap: true,
       minify: config.minify,
       rollupOptions: {
         input: {
-          public: '/src/js/public.js',
-          admin: '/src/js/admin.js',
+          public: '/assets/src/js/public/public.js',
+          admin: '/assets/src/js/admin/admin.js',
         },
         output: {
           entryFileNames: config.entryFileNames,
@@ -34,9 +34,9 @@ export default defineConfig( ( { command, mode } ) => {
     },
     resolve: {
       alias: {
-        Assets: path.resolve(__dirname, "src/assets/"),
-        SASS: path.resolve(__dirname, "src/sass/"),
-        Chatbox: path.resolve(__dirname, "src/js/apps/chatbox/"),
+        Assets: path.resolve(__dirname, "assets/src/assets/"),
+        SASS: path.resolve(__dirname, "assets/src/sass/"),
+        Chatbox: path.resolve(__dirname, "assets/src/js/apps/chatbox/"),
       },
     },
     server: config.server,

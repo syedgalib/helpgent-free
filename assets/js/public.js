@@ -27483,13 +27483,13 @@ function Welcome() {
       children: "[Video Screen]"
     }, void 0, false, {
       fileName: _jsxFileName$b,
-      lineNumber: 19,
+      lineNumber: 18,
       columnNumber: 4
     }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
       children: "How would you like to chat?"
     }, void 0, false, {
       fileName: _jsxFileName$b,
-      lineNumber: 20,
+      lineNumber: 19,
       columnNumber: 4
     }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
       children: [/* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("button", {
@@ -27497,45 +27497,45 @@ function Welcome() {
         children: "Video"
       }, void 0, false, {
         fileName: _jsxFileName$b,
-        lineNumber: 22,
+        lineNumber: 21,
         columnNumber: 5
       }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("button", {
         onClick: () => btnHandler("screenRecord"),
         children: "Screen Record"
       }, void 0, false, {
         fileName: _jsxFileName$b,
-        lineNumber: 23,
+        lineNumber: 22,
         columnNumber: 5
       }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("button", {
         onClick: () => btnHandler("audio"),
         children: "Voice"
       }, void 0, false, {
         fileName: _jsxFileName$b,
-        lineNumber: 26,
+        lineNumber: 25,
         columnNumber: 5
       }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("button", {
         onClick: () => btnHandler("text"),
         children: "Text"
       }, void 0, false, {
         fileName: _jsxFileName$b,
-        lineNumber: 27,
+        lineNumber: 26,
         columnNumber: 5
       }, this)]
     }, void 0, true, {
       fileName: _jsxFileName$b,
-      lineNumber: 21,
+      lineNumber: 20,
       columnNumber: 4
     }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
       children: "You can practise before sending"
     }, void 0, false, {
       fileName: _jsxFileName$b,
-      lineNumber: 29,
+      lineNumber: 28,
       columnNumber: 4
     }, this), /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
       children: "Powered by wpWax"
     }, void 0, false, {
       fileName: _jsxFileName$b,
-      lineNumber: 30,
+      lineNumber: 29,
       columnNumber: 4
     }, this)]
   }, void 0, true, {
@@ -27826,8 +27826,4 @@ document.addEventListener("DOMContentLoaded", function() {
     columnNumber: 3
   }, this));
 });
-const AwesomeTest = () => {
-  console.log("AwesomeTest");
-};
-AwesomeTest();
 //# sourceMappingURL=public.js.map

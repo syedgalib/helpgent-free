@@ -11,10 +11,7 @@ export default defineConfig( ( { command, mode } ) => {
 
   return {
     base: '/wp-content/plugins/wpwax-video-message/',
-    plugins: [ 
-      react(), 
-      splitVendorChunkPlugin(),
-    ],
+    plugins: [ react() ],
     build: {
       target: 'es2015',
       outDir: '',

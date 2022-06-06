@@ -8,8 +8,8 @@
 		"dev": "vite",
 		"build-dev": "vite build --mode development",
 		"build-prod": "vite build --mode production",
-		"zip": "gulp build",
-		"build": "npm run build-dev && npm run build-prod && npm run zip"
+		"prod": "npm run build-dev && npm run build-prod",
+		"build": "gulp build"
 	},
 	"engines": {
 		"node": "16.15.0",

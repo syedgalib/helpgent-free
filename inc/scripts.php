@@ -11,7 +11,6 @@ class Scripts {
 
 	public function __construct() {
 		$this->version = ( VM_IN_DEVELOPMENT ) ? null : time(); // change to VM_VERSION later
-		// $this->version = null; // change to VM_VERSION later
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
@@ -96,9 +95,9 @@ class Scripts {
 
 	public function add_vite_script_attributes( $tag, $handle, $src ) {
 
-		// if ( ! VM_IN_DEVELOPMENT ) {
-		// 	return $tag;
-		// }
+		if ( ! VM_IN_DEVELOPMENT ) {
+			return $tag;
+		}
 
         if ( ! preg_match( '/^(vm-).+/',  $handle ) ) {
             return $tag;

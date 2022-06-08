@@ -4,16 +4,16 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION', '0.1.0' );
 }
 
-if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT', 3000 );
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT', 3000 );
 }
 
-if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST', 'http://localhost:' . WPWAX_CUSTOMER_SUPPORT_APP_VITE_PORT . '/' );
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_HOST' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_HOST', 'http://localhost:' . WPWAX_CUSTOMER_SUPPORT_APP_PORT . '/' );
 }
 
-if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST_BASE' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST_BASE', WPWAX_CUSTOMER_SUPPORT_APP_VITE_HOST . 'wp-content/plugins/wpwax-customer-support-app/' );
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE', WPWAX_CUSTOMER_SUPPORT_APP_HOST . 'wp-content/plugins/wpwax-video-message/' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT' ) ) {
@@ -53,15 +53,15 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_URL' ) ) {
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL', WPWAX_CUSTOMER_SUPPORT_APP_URL . 'assets/dist/' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL', WPWAX_CUSTOMER_SUPPORT_APP_URL . 'assets/' );
 }
 
-if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_SRC_PATH' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_SRC_PATH', 'assets/src/' );
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH', 'src/' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH',  WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL . 'js/' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH', WPWAX_CUSTOMER_SUPPORT_APP_ASSET_URL . 'js/' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH' ) ) {
@@ -69,7 +69,7 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH' ) ) {
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH', 'assets/dist/vendor-js/' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH', 'assets/vendor-js/' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH' ) ) {

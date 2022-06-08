@@ -14,7 +14,7 @@ gulp.task("pot", function () {
 				team: "wpWax <support@wpwax.com>",
 			})
 		)
-		.pipe(gulp.dest("languages/wpwaxvm.pot"));
+		.pipe(gulp.dest(`languages/${project.name}.pot`));
 });
 
 gulp.task("clean", function () {

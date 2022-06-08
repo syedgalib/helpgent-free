@@ -1,21 +1,24 @@
 <?php
 
-use WPWaxCustomerSupportApp\Controller;
+use WPWaxCustomerSupportApp\Module;
 use WPWaxCustomerSupportApp\Helper;
 
 final class WPWaxCustomerSupportApp {
 
+    /**
+     * @var mixed
+     */
     private static $instance;
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     private function __construct() {
 
         // Load Textdomain
-        add_action('plugins_loaded', [ $this, 'load_textdomain' ] );
+        add_action( 'plugins_loaded', [$this, 'load_textdomain'] );
 
         // Register Controllers
         $controllers = $this->get_controllers();
@@ -25,12 +28,12 @@ final class WPWaxCustomerSupportApp {
 
     /**
      * Get Instance
-     * 
+     *
      * @return WPWaxCustomerSupportApp
      */
     public static function get_instance() {
-        
-        if ( self::$instance === null ) {
+
+        if ( null === self::$instance ) {
             self::$instance = new self();
         }
 
@@ -39,19 +42,19 @@ final class WPWaxCustomerSupportApp {
 
     /**
      * Get Controllers
-     * 
+     *
      * @return array Controllers
      */
     protected function get_controllers() {
         return [
-            // Controller
-            Controller\Init::class,
+            // Module
+            Module\Init::class,
         ];
     }
 
     /**
      * Load Text Domain
-     * 
+     *
      * @return void
      */
     public function load_textdomain() {
@@ -60,20 +63,20 @@ final class WPWaxCustomerSupportApp {
 
     /**
      * Cloning instances of the class is forbidden.
-     * 
+     *
      * @return void
      */
     public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __('Cheatin&#8217; huh?', 'wpwax-customer-support-app'), '1.0' );
-	}
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wpwax-customer-support-app' ), '1.0' );
+    }
 
     /**
      * Unserializing instances of the class is forbidden.
-     * 
+     *
      * @return void
      */
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __('Cheatin&#8217; huh?', 'wpwax-customer-support-app'), '1.0' );
-	}
+    public function __wakeup() {
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wpwax-customer-support-app' ), '1.0' );
+    }
 
 }

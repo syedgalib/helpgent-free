@@ -103,10 +103,15 @@ const AddFormStyle = Styled.div`
             }
         }
         .wpwax-vm-form-group__input-list {
+            margin-top: 14px;
             &.wpwax-vm-addbtn-style{
                 .wpwax-vm-form-group__input-single{
                     span{
                         margin-right: 45px;
+                        min-width: 70px;
+                    }
+                    input{
+                        text-align: center;
                     }
                 }
             }
@@ -134,6 +139,12 @@ const AddFormStyle = Styled.div`
             }
             .wpwax-vm-form__element{
                 flex: 1;
+            }
+            .wpwax-vm-form__input-radius{
+                input{
+                    max-width: 70px;
+                    text-align: center;
+                }
             }
         }
         .wpwax-vm-form__color-plate{
@@ -181,15 +192,15 @@ const AddFormStyle = Styled.div`
                 z-index: 10;
             }
         }
-        .css-26l3qy-menu{
+        .wpwax-vm-select__menu{
             border-radius: 10px;
             border: 0 none;
             border-radius: 10px;
-            padding: 8px;
+            padding: 8px 15px;
             margin: 0;
             background-color: var(--color-white);
-            box-shadow: 0 6px 40px rgba(144,144,144,.25);
-            .css-1n7v3ny-option,
+            box-shadow: 0 5px 10px rgba(0,0,0,.16);
+            /* .css-1n7v3ny-option,
             .css-9gakcf-option{
                 border-radius: 8px;
                 background-color: var(--color-bg-gray);
@@ -198,32 +209,49 @@ const AddFormStyle = Styled.div`
                     font-weight: 400;
                     color: #4D4D4D;
                 }
-            }
-            .css-9gakcf-option{
-                border-radius: 8px;
-                background-color: var(--color-bg-gray);
-            }
-            .css-yt9ioa-option{
+            } */
+            .wpwax-vm-select__option{
+                font-size: 14px;
+                font-weight: 500;
+                padding: 0;
+                color: var(--color-dark);
+                &:not(:last-child){
+                    margin-bottom: 8px;
+                }
                 .wpwax-vm-checkbox label{
                     font-size: 13px;
                     font-weight: 400;
                     color: #4D4D4D;
+                }
+                .wpwax-vm-checkbox{
+                    label{
+                        width: 100%;
+                        padding: 10px 12px 7px;
+                    }
+                }
+                &.wpwax-vm-select__option--is-focused,
+                &.wpwax-vm-select__option--is-selected{
+                    background-color: transparent;
                 }
             }
         }
         .css-b62m3t-container{
             width: 100%;
-            .css-6j8wv5-Input{
+            .wpwax-vm-select__input-container{
                 input{
+                    color: #898989;
                     &:focus{
                         box-shadow: 0 0;
                     }
                 }
             }
         }
-        .css-1s2u09g-control{
+        .wpwax-vm-select__control{
             border: 0 none;
             background-color: var(--color-bg-general);
+            .wpwax-vm-select__indicator-separator{
+                display: none;
+            }
         }
         .css-1pahdxg-control{
             border: 0 none;

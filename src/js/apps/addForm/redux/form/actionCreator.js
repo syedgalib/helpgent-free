@@ -23,11 +23,9 @@ const addForm = data => {
 };
 
 const onFormEdit = data => {
-  console.log(data)
   return async dispatch => {
     try {
       dispatch(formReadBegin());
-      console.log(data);
       dispatch(formReadSuccess(data));
     } catch (err) {
       dispatch(formReadErr(err));

@@ -1,13 +1,12 @@
 import React from "react";
-import classes from './Style.scss';
-import './Style.scss';
+import PageHeaderStyle from './Style';
 const PageHeader = ()=>{
     return(
         <>
-            <div className={classes.header}>
-                <h2 className={classes.title}>All Templates</h2>
-                <a href={location.href+'&mode=edit'} className={`${classes.btn} wpwax-vm-btn wpwax-vm-btn-dark`}>Create New</a>
-            </div>
+            <PageHeaderStyle>
+                <h2 className="wpwax-vm-page-header-title">All Templates</h2>
+                <a href={location.href+'&mode=edit'} className={`wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-dark`}>Create New</a>
+            </PageHeaderStyle>
         </>
     ) 
 }

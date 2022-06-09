@@ -8,34 +8,43 @@ import Radio from "../../../../../components/Radio";
 import { GeneralSettingWrap } from './Style';
 
 export const templateOptions = [
+    {value: "page1", label: "Page Name"},
+    {value: "page2", label: "Page Name"},
+    {value: "page3", label: "Page Name"},
+]
+
+export const customPages = [
     {value: "chat", label: "Chat"},
     {value: "video", label: "Video"},
     {value: "Issue", label: "Issue"},
 ]
-const GeneralSettings = () => {
+const GeneralSettings = ()=>{
     const { formInitialData } = useSelector(state => {
         return {
             formInitialData: state.form.data,
         };
     });
+
     const [state, setState] = useState({
-        pageVisibility: formInitialData.all_page_visibility,
-        accountVisibility: formInitialData.all_page_visibility,
+        pageVisibility: formInitialData[0].all_page_visibility,
+        accountVisibility: formInitialData[0].all_page_visibility,
+        optionSelected: null
     });
-    const { pageVisibility, accountVisibility } = state;
+
+    const { pageVisibility, accountVisibility, optionSelected } = state;
     const Option = (props) => {
         return (
           <div>
             <components.Option {...props}>
-              <Checkbox id={`wpwax-vm${props.label}`} label={props.label}/>
+              <Checkbox id={`wpwax-vm${props.label}`} label={props.label} isSelected={props.isSelected}/>
             </components.Option>
           </div>
         );
     };
-    const changePageVisibility = () => {
+    const changePageVisibility = () =>{
         setState({
             ...state,
-            pageVisibility: typeof pageVisibility == 'boolean' ? ! pageVisibility : false,
+            pageVisibility: !pageVisibility,
         });
     }
     const changeAccountVisibility = () =>{
@@ -44,25 +53,45 @@ const GeneralSettings = () => {
             accountVisibility: !accountVisibility,
         });
     }
+    const handleChange = (selected) => {
+        setState({
+            ...state,
+            optionSelected: selected
+        });
+    };
     return(
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Name of Form</span>
                 </div>
-                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name"/>
+                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" placeholder="Name this video form…"/>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Template <span className="wpwax-vm-tooltip"><i className="dashicons"></i></span></span>
                 </div>
-                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name"/>
+                <Select
+                    classNamePrefix="wpwax-vm-select"
+                    isMulti
+                    options={customPages}
+                    closeMenuOnSelect={false}
+                    hideSelectedOptions={false}
+                    searchable={false}
+                    onChange={handleChange}
+                    // menuIsOpen={true}
+                    allowSelectAll={true}
+                    value={optionSelected}
+                    components={{
+                        Option
+                    }}
+                />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Display on all pages</span>
                     <label>
-                        {/* <Switch
+                        <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor="#6551F2"
@@ -72,9 +101,9 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={ typeof pageVisibility == 'boolean' ? pageVisibility : false }
+                            checked={pageVisibility}
                             onChange={changePageVisibility}
-                        /> */}
+                        />
                     </label>
                 </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name"/>
@@ -84,23 +113,24 @@ const GeneralSettings = () => {
                     <span>Display on custom pages</span>
                 </div>
                 <Select 
-                    className='my-class'
+                    classNamePrefix="wpwax-vm-select"
                     options={templateOptions} 
                     isMulti
                     closeMenuOnSelect={false}
                     hideSelectedOptions={false}
                     searchable={false}
-                    menuIsOpen={true}
                     components={{
                         Option
                     }}
+                    onChange={handleChange}
+                    value={optionSelected}
                     allowSelectAll={true}
                 />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Create account first</span>
-                    {/* <Switch
+                    <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
                         onColor="#6551F2"
@@ -112,7 +142,7 @@ const GeneralSettings = () => {
                         width={40}
                         checked={accountVisibility}
                         onChange={changeAccountVisibility}
-                    /> */}
+                    />
                 </div>
                 <div className="wpwax-vm-chekbox-list">
                     <div className="wpwax-vm-chekbox-single">

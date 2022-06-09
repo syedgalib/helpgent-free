@@ -1,15 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import apiService  from "../../../../../apiService/Service";
 import { ReactSVG } from 'react-svg';
 import GeneralSettings from "./overview/GeneralSettings";
 import FormSettings from "./overview/FormSettings";
 import ThankSettings from "./overview/ThankSettings";
 import PreviewOne from "./overview/PreviewOne";
+import PreviewTwo from "./overview/PreviewTwo";
+import { onFormEdit } from '../../redux/form/actionCreator';
 import { AddFormStyle } from './Style';
-import handDownImg from 'Assets/svg/icons/hand-down.svg';
+import handsDown from '../../../../../assets/svg/icons/hand-down.svg';
 
-const AddForm = () => {
-
+const AddForm = ()=>{
+    const { formInitialData } = useSelector(state => {
+        return {
+            formInitialData: state.form.data[0],
+        };
+    });
+    
     const [formStage, setFormStage] = useState("general");
     
     return(
@@ -40,15 +49,19 @@ const AddForm = () => {
                         </TabPanel>
                     </Tabs>
                     
-                    
                     <div className="wpwax-vm-add-form__bottom">
                         <a href="#" className="wpwax-vm-form-save">Save</a>
                     </div>
                 </form>
             </div>
             <div className="wpwax-vm-preview">
-                <span className="wpwax-vm-preview-label"><ReactSVG src={ handDownImg } />Preview your changes</span>
-                <PreviewOne previewStage={ formStage } />
+                <span className="wpwax-vm-preview-label"><ReactSVG src={ handsDown } />Preview your changes</span>
+                {
+                formInitialData.formStyle === 'theme-1' ?
+                    <PreviewOne previewStage={ formStage } />
+                    :
+                    <PreviewTwo previewStage={formStage} />
+                }
             </div>
         </AddFormStyle>
     )

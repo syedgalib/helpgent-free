@@ -128,6 +128,4 @@ const TemplateBox = Styled.div`
     }
 `;
 
-export {
-    TemplateBox,
-};
+export default TemplateBox;

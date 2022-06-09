@@ -4,8 +4,9 @@ import { ReactSVG } from 'react-svg';
 import { useSelector } from 'react-redux';
 import { PreviewWrap } from './Style';
 
-import formImg from 'Assets/img/builder/form-img.png';
-import replaceImg from 'Assets/svg/icons/replace.svg';
+import formImg from '../../../../../../assets/img/builder/form-img.png';
+import replaceIcon from '../../../../../../assets/svg/icons/replace.svg';
+import previewBg from '../../../../../../assets/img/builder/bg.png';
 
 const PreviewOne = ({previewStage})=>{
     const { formInitialData } = useSelector(state => {
@@ -13,7 +14,6 @@ const PreviewOne = ({previewStage})=>{
             formInitialData: state.form.data[0],
         };
     });
-    console.log(typeof formInitialData.thank_page_button_radius)
     return(
         <PreviewWrap>
             { previewStage === 'general' ?
@@ -24,8 +24,8 @@ const PreviewOne = ({previewStage})=>{
                 previewStage === 'form' ?
                 <>
                         <div className="wpwax-vm-media-preview">
-                            <img src={formImg} alt="wpwax Media" />
-                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={ replaceImg } />Replace</a>
+                            <img src={ formImg } alt="wpwax Media" />
+                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={ replaceIcon } />Replace</a>
                         </div>
                         <div className="wpwax-vm-preview-from">
                             <div className="wpwax-vm-preview-bg"></div>

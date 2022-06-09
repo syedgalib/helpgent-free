@@ -17,7 +17,7 @@ export const templateOptions = [
     {value: "smaller", label: "smaller"},
     {value: "x-small", label: "x-small"},
 ]
-const ThankSettings = () => {
+const ThankSettings = ()=>{
     const { formData, formInitialData } = useSelector(state => {
         return {
             formData: state.form.data,
@@ -303,6 +303,7 @@ const ThankSettings = () => {
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Title Font size</span>
                         <Select 
+                            classNamePrefix="wpwax-vm-select"
                             options={templateOptions}
                             closeMenuOnSelect={false}
                             hideSelectedOptions={false}
@@ -336,7 +337,7 @@ const ThankSettings = () => {
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button border-radius</span>
-                        <div className="wpwax-vm-form__color-plate">
+                        <div className="wpwax-vm-form__input-radius">
                             <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
                         </div>
                     </div>

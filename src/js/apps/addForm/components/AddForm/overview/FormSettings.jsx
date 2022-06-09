@@ -9,6 +9,10 @@ export const fontSizeOptions = [
     {value: "inter", label: "Inter"},
     {value: "legend", label: "Legend"},
 ]
+export const formType = [
+    {value: "theme-1", label: "Theme 1"},
+    {value: "theme-2", label: "Theme 2"}
+]
 export const fontOptions = [
     {value: "large", label: "large"},
     {value: "larger", label: "larger"},
@@ -29,6 +33,7 @@ const FormSettings = ()=>{
 
     const [state, setState] = useState({
         id: formInitialData.form_id,
+        formStyle: formInitialData.formStyle,
         grettingMessage: formInitialData.greet_message,
         descriptionVisibility: formInitialData.description_visibility,
         description: formInitialData.description,
@@ -45,7 +50,8 @@ const FormSettings = ()=>{
         openCollapse: true,
     });
     
-    const { id, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
+    const { id, formStyle, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
+
     const dispatch = useDispatch();
     const updateForm = (label,value)=>{
         let updatedData = formData.map(item => {
@@ -58,7 +64,7 @@ const FormSettings = ()=>{
                         item.description_visibility = value;
                       break;
                     case "description":
-                        item.thank_page_description = value;
+                        item.description = value;
                       break;
                     case "chat-title":
                         item.chat_box_title = value;
@@ -90,6 +96,10 @@ const FormSettings = ()=>{
                     case "footer-text":
                         item.footer_message = value;
                     break;
+                    case "form-style":
+                        console.log(value)
+                        item.formStyle = value;
+                    break;
                     default:
                       // code block
                 }
@@ -113,6 +123,14 @@ const FormSettings = ()=>{
             descriptionVisibility: !descriptionVisibility
         });
         updateForm('des-visibility', !descriptionVisibility);
+    }
+    const changeDescription = (event) =>{
+        let description = event.target.value;
+        setState({
+            ...state,
+            description: description
+        });
+        updateForm('description', description);
     }
     const changeChatTitle = (event) =>{
         let chatTitleText = event.target.value;
@@ -199,6 +217,16 @@ const FormSettings = ()=>{
         });
     }
 
+    const chagneFormStyle = event =>{
+        let formStyle = event.value;
+        // console.log(formStyle);
+        setState({
+            ...state,
+            formStyle: formStyle
+        });
+        updateForm('form-style', formStyle);
+    }
+
     return(
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -213,6 +241,19 @@ const FormSettings = ()=>{
                     <span className="wpwax-vm-seperation">or</span>
                     <a href="#" className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-media-recorder">Record a video</a>
                 </div>
+            </div>
+            <div className="wpwax-vm-form-group">
+                <div className="wpwax-vm-form-group__label">
+                    <span>Form Style</span>
+                </div>
+                <Select 
+                    classNamePrefix="wpwax-vm-select"
+                    options={formType}
+                    closeMenuOnSelect={true}
+                    hideSelectedOptions={false}
+                    searchable={false}
+                    onChange={chagneFormStyle}
+                />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -239,7 +280,7 @@ const FormSettings = ()=>{
                         />
                     </label>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={description}/>
+                <textarea className="wpwax-vm-form__element" value={description} onChange={changeDescription}/>
             </div>
             <div className="wpwax-vm-form-group">
                 <input type="text" className="wpwax-vm-form__element" value={chatTitle} onChange={changeChatTitle}/>
@@ -343,6 +384,7 @@ const FormSettings = ()=>{
                     <div className="wpwax-vm-form-group__input-single"> 
                         <span> Font</span>
                         <Select 
+                            classNamePrefix="wpwax-vm-select"
                             options={fontOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
@@ -353,6 +395,7 @@ const FormSettings = ()=>{
                     <div className="wpwax-vm-form-group__input-single">
                         <span> Font Size</span>
                         <Select 
+                            classNamePrefix="wpwax-vm-select"
                             options={fontSizeOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
@@ -378,7 +421,7 @@ const FormSettings = ()=>{
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button border-radius</span>
-                        <div className="wpwax-vm-form__color-plate">
+                        <div className="wpwax-vm-form__input-radius">
                             <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
                         </div>
                     </div>

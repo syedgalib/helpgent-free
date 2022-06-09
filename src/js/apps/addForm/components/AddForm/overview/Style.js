@@ -143,8 +143,51 @@ const PreviewWrap = Styled.div`
         width: 100%;
         border-radius: 25px;
         padding: 30px;
-        /* margin: 10px 0 -35px; */
         background-color: var(--color-dark);
+        &.wpwax-vm-preview-form-theme-2{
+            padding: 0;
+            background-color: var(--color-white);
+        }
+    }
+    .wpwax-vm-preview-from{
+        &.wpwax-vm-preview-form-theme-2{
+            .wpwax-vm-preview-header{
+                padding: 20px;
+                border-radius: 25px 25px 0 0;
+                background-color: var(--color-primary);
+                .wpwax-vm-preview-title{
+                    margin: 0;
+                }
+            }
+           .wpwax-vm-preview-inner{
+               display: block;
+               padding: 0;
+               .wpwax-vm-preview-img{
+                    position: relative;
+                    z-index: 10;
+                    &:after{
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-image: linear-gradient(to bottom, rgba(0,0,0,.5) , rgba(255,255,255));
+                        content: '';
+                        z-index: -1;
+                    }
+               }
+               .wpwax-vm-btn-play{
+                   position: absolute;
+                   left: 50%;
+                   top: 50%;
+                   transform: translate(-50%,-50%);
+               }
+               .wpwax-vm-preview-img{   
+                    min-height: 355px;
+                    background-size: cover;
+               }
+           } 
+        }
     }
     .wpwax-vm-preview-thank{
         display: flex; 

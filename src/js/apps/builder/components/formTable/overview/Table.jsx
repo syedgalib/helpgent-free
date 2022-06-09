@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import apiService  from '../../../../../apiService/Service';
-import {TemplateBox} from './Style';
+import TemplateBox from './Style';
 
 const Table = () => {
 

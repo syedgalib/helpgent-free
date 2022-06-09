@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { chatBoxActions } from "Chatbox/store/chatbox-slice";
+import { chatBoxActions } from "../../../../store/chatbox-slice";
 
-import classes from "Chatbox/assets/ClosePopup.module.scss";
+// import classes from "ChatApp/assets/ClosePopup.module.scss";
 
 function ClosePopup(props) {
 	const dispatch = useDispatch();
@@ -13,8 +13,8 @@ function ClosePopup(props) {
 		props.setDisplayClosePopup(false);
 	}
 	return (
-		<div  className={classes.main}>
-			<div className={classes.box}>
+		<div  className="ff">
+			<div className="dd">
 				<p>
 					Are you sure that you want to close? All progress will be
 					lost.

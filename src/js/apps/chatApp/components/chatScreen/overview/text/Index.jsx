@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Form from "Chatbox/components/text/Form";
+import Form from "./Form";
 
 function Text() {
 	const chatStep = useSelector((state) => state.chatStep);

@@ -23,54 +23,54 @@ const PreviewOne = ({previewStage})=>{
                 :
                 previewStage === 'form' ?
                 <>
-                        <div className="wpwax-vm-media-preview">
-                            <img src={ formImg } alt="wpwax Media" />
-                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={ replaceIcon } />Replace</a>
+                    <div className="wpwax-vm-media-preview">
+                        <img src={ formImg } alt="wpwax Media" />
+                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={ replaceIcon } />Replace</a>
+                    </div>
+                    <div className="wpwax-vm-preview-from">
+                        <div className="wpwax-vm-preview-bg"></div>
+                        <div className="wpwax-vm-preview-header">
+                            <h4 className="wpwax-vm-preview-title" style={{color: formInitialData.font_color}} >{formInitialData.greet_message}</h4>
+                            {formInitialData.description_visibility?
+                                <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>:''
+                            }
+                            
                         </div>
-                        <div className="wpwax-vm-preview-from">
-                            <div className="wpwax-vm-preview-bg"></div>
-                            <div className="wpwax-vm-preview-header">
-                                <h4 className="wpwax-vm-preview-title" style={{color: formInitialData.font_color}} >{formInitialData.greet_message}</h4>
-                                {formInitialData.description_visibility?
-                                    <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>:''
-                                }
-                                
-                            </div>
-                            <div className="wpwax-vm-preview-inner">
-                                <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
-                            </div>
-                            <div className="wpwax-vm-preview-footer">
-                                <h5 className="wpwax-vm-preview-footer__title">{formInitialData.chat_box_title}</h5>
-                                <div className="wpwax-vm-preview-footer__actions">
-                                    {
-                                        formInitialData.reply_type_video ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Video</a>
-                                        :''
-                                    }
-                                    {
-                                        formInitialData.reply_type_screen_record ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Screen Record</a>
-                                        :''
-                                    }
-                                    {
-                                        formInitialData.reply_type_voice ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Voice</a>
-                                        :''
-                                    }
-                                    {
-                                        formInitialData.reply_type_text ? 
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Text</a>
-                                        :''
-                                    }
-                                </div>
+                        <div className="wpwax-vm-preview-inner">
+                            <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
+                        </div>
+                        <div className="wpwax-vm-preview-footer">
+                            <h5 className="wpwax-vm-preview-footer__title">{formInitialData.chat_box_title}</h5>
+                            <div className="wpwax-vm-preview-footer__actions">
                                 {
-                                    formInitialData.footer_visibility ?
-                                    <p className="wpwax-vm-preview-footer__text">{formInitialData.footer_message}</p>
-                                    :
-                                    ''
+                                    formInitialData.reply_type_video ? 
+                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Video</a>
+                                    :''
+                                }
+                                {
+                                    formInitialData.reply_type_screen_record ? 
+                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Screen Record</a>
+                                    :''
+                                }
+                                {
+                                    formInitialData.reply_type_voice ? 
+                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Voice</a>
+                                    :''
+                                }
+                                {
+                                    formInitialData.reply_type_text ? 
+                                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{borderRadius: `${formInitialData.button_border_radius}px`, backgroundColor: `${formInitialData.button_color}`, borderColor: `${formInitialData.button_color}`}}>Text</a>
+                                    :''
                                 }
                             </div>
+                            {
+                                formInitialData.footer_visibility ?
+                                <p className="wpwax-vm-preview-footer__text">{formInitialData.footer_message}</p>
+                                :
+                                ''
+                            }
                         </div>
+                    </div>
                 </>
                 
                 :

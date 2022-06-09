@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from "react-redux";
-import store from "Chatbox/store/index";
-import App from "Chatbox/App.jsx";
+import store from "./store/index";
+import App from "./App";
 
 document.addEventListener("DOMContentLoaded", function () {
 	const container = document.getElementById("wpwax-vm-chatbox");
@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	const root = createRoot( container );
+	console.log("chat")
 
 	root.render(
 		<Provider store={store}>

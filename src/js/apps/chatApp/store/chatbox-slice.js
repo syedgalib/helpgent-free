@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import api from "Chatbox/helpers/api";
+import api from "../helpers/api";
 
 const initialState = {
 	name: "",

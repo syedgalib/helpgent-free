@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { chatBoxActions } from "Chatbox/store/chatbox-slice";
+import { chatBoxActions } from "../../../store/chatbox-slice";
 
 function Success() {
 	const dispatch = useDispatch();

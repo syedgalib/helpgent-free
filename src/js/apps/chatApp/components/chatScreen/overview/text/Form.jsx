@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
-import { chatBoxActions } from "Chatbox/store/chatbox-slice";
+import { chatBoxActions } from "../../../../store/chatbox-slice";
 
 function Form() {
 	const dispatch = useDispatch();

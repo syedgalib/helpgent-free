@@ -1,11 +1,10 @@
 import { useSelector } from "react-redux";
 
-import Avatar from "Chatbox/components/Avatar";
-import ChatScreen from "Chatbox/components/ChatScreen";
+import Avatar from "./components/avatar";
+import ChatScreen from "./components/chatScreen";
 
 function App() {
 	const displayChatScreen = useSelector((state) => state.displayChatScreen);
-
 	return (
 		<>
 			<Avatar />

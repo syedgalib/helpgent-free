@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 
-import Container from "Chatbox/components/ui/Container";
-import Welcome from "Chatbox/components/Welcome";
-import ContactForm from "Chatbox/components/ContactForm";
-import Sending from "Chatbox/components/Sending";
-import Success from "Chatbox/components/Success";
-import Video from "Chatbox/components/video/Index";
-import Audio from "Chatbox/components/audio/Index";
-import Text from "Chatbox/components/text/Index";
-import ScreenRecord from "Chatbox/components/screen-record/Index";
+import Container from "./overview/screen-wrapper/Index";
+import Welcome from "./overview/Welcome";
+import ContactForm from "./overview/ContactForm";
+import Sending from "./overview/Sending";
+import Success from "./overview/Success";
+import Video from "./overview/video/Index";
+import Audio from "./overview/audio/Index";
+import Text from "./overview/text/Index";
+import ScreenRecord from "./overview/screen-record/Index";
 
 function ChatScreen() {
 	const chatScreen = useSelector((state) => state.chatScreen);

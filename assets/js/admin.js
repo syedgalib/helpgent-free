@@ -55,7 +55,7 @@ function getAugmentedNamespace(n) {
   return a;
 }
 function _extends$4() {
-  _extends$4 = Object.assign ? Object.assign.bind() : function(target) {
+  _extends$4 = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
       for (var key in source) {
@@ -85,7 +85,7 @@ function _objectWithoutPropertiesLoose$4(source, excluded) {
 var admin = "";
 var classes = ".header {\n  display: flex;\n  align-items: center;\n  margin-bottom: 22px;\n}\n.header .title {\n  font-size: 24px;\n  font-weight: 500;\n}\n.header .btn {\n  margin-left: 20px;\n}";
 var Style = "";
-var _jsxFileName$h = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/builder/components/pageheader/Index.jsx";
+var _jsxFileName$h = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\builder\\components\\pageheader\\Index.jsx";
 const PageHeader = () => {
   return /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV(jsxDevRuntime.exports.Fragment, {
     children: /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
@@ -1331,7 +1331,7 @@ const TemplateBox = Styled.div`
         }
     }
 `;
-var _jsxFileName$g = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/builder/components/formTable/overview/Table.jsx";
+var _jsxFileName$g = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\builder\\components\\formTable\\overview\\Table.jsx";
 const Table = () => {
   const [state, setState] = react.exports.useState({
     data: [],
@@ -1691,7 +1691,7 @@ const Table = () => {
     columnNumber: 9
   }, globalThis);
 };
-var _jsxFileName$f = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/builder/components/formTable/Index.jsx";
+var _jsxFileName$f = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\builder\\components\\formTable\\Index.jsx";
 function FormTable() {
   return /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV(jsxDevRuntime.exports.Fragment, {
     children: [/* @__PURE__ */ jsxDevRuntime.exports.jsxDEV(PageHeader, {}, void 0, false, {
@@ -1705,7 +1705,7 @@ function FormTable() {
     }, this)]
   }, void 0, true);
 }
-var _jsxFileName$e = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/builder/App.jsx";
+var _jsxFileName$e = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\builder\\App.jsx";
 const BuilderContainer = () => {
   return /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
     className: "wpwax-vm-page-inner",
@@ -1727,7 +1727,7 @@ function App$1() {
     columnNumber: 9
   }, this);
 }
-var _jsxFileName$d = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/builder/index.jsx";
+var _jsxFileName$d = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\builder\\index.jsx";
 document.addEventListener("DOMContentLoaded", function() {
   const container = document.getElementById("wpwax-vm-forms");
   if (!container) {
@@ -2749,7 +2749,7 @@ function getTabsCount(children) {
   });
   return tabCount;
 }
-var _jsxFileName$c = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/node_modules/react-tabs/esm/components/UncontrolledTabs.js";
+var _jsxFileName$c = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\node_modules\\react-tabs\\esm\\components\\UncontrolledTabs.js";
 var _excluded$9 = ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName", "environment", "disableUpDownKeys"];
 function _objectWithoutPropertiesLoose$3(source, excluded) {
   if (source == null)
@@ -3031,7 +3031,7 @@ var UncontrolledTabs = function UncontrolledTabs2(props) {
 };
 UncontrolledTabs.defaultProps = defaultProps$4;
 UncontrolledTabs.propTypes = propTypes$4;
-var _jsxFileName$b = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/node_modules/react-tabs/esm/components/Tabs.js";
+var _jsxFileName$b = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\node_modules\\react-tabs\\esm\\components\\Tabs.js";
 function _extends$2() {
   _extends$2 = Object.assign || function(target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -3178,7 +3178,7 @@ var TabList = function TabList2(props) {
 TabList.tabsRole = "TabList";
 TabList.propTypes = propTypes$2;
 TabList.defaultProps = defaultProps$2;
-var _jsxFileName$a = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/node_modules/react-tabs/esm/components/Tab.js";
+var _jsxFileName$a = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\node_modules\\react-tabs\\esm\\components\\Tab.js";
 var _excluded$7 = ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"];
 function _objectWithoutPropertiesLoose$1(source, excluded) {
   if (source == null)
@@ -3308,7 +3308,7 @@ TabPanel.tabsRole = "TabPanel";
 TabPanel.propTypes = propTypes;
 TabPanel.defaultProps = defaultProps$1;
 function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p2) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
     o2.__proto__ = p2;
     return o2;
   };
@@ -8846,7 +8846,7 @@ var StateManagedSelect = /* @__PURE__ */ react.exports.forwardRef(function(props
 var Select = StateManagedSelect;
 var reactSwitch = { exports: {} };
 var reactSwitch_dev = {};
-var _jsxFileName$9 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/node_modules/react-switch/dist/react-switch.dev.js";
+var _jsxFileName$9 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\node_modules\\react-switch\\dist\\react-switch.dev.js";
 var _jsxDEV = jsxDevRuntime.exports.jsxDEV;
 Object.defineProperty(reactSwitch_dev, "__esModule", {
   value: true
@@ -9374,7 +9374,7 @@ reactSwitch_dev.default = ReactSwitch;
   reactSwitch.exports = reactSwitch_dev;
 }
 var Switch = reactSwitch.exports;
-var _jsxFileName$8 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/components/Checkbox.jsx";
+var _jsxFileName$8 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\components\\Checkbox.jsx";
 const Checkbox = ({
   id,
   label,
@@ -9406,7 +9406,7 @@ const Checkbox = ({
     columnNumber: 9
   }, globalThis);
 };
-var _jsxFileName$7 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/components/Radio.jsx";
+var _jsxFileName$7 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\components\\Radio.jsx";
 const Radio = ({
   id,
   name,
@@ -9617,7 +9617,7 @@ const PreviewWrap = Styled.div`
         }
     }
 `;
-var _jsxFileName$6 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/components/AddForm/overview/GeneralSettings.jsx";
+var _jsxFileName$6 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\components\\AddForm\\overview\\GeneralSettings.jsx";
 const templateOptions$1 = [{
   value: "chat",
   label: "Chat"
@@ -9983,7 +9983,7 @@ const onFormEdit = (data) => {
     }
   });
 };
-var _jsxFileName$5 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/components/AddForm/overview/FormSettings.jsx";
+var _jsxFileName$5 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\components\\AddForm\\overview\\FormSettings.jsx";
 const fontSizeOptions = [{
   value: "roboto",
   label: "Roboto"
@@ -10759,7 +10759,7 @@ const FormSettings = () => {
     columnNumber: 9
   }, globalThis);
 };
-var _jsxFileName$4 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/components/AddForm/overview/ThankSettings.jsx";
+var _jsxFileName$4 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\components\\AddForm\\overview\\ThankSettings.jsx";
 const templateOptions = [{
   value: "large",
   label: "large"
@@ -11518,7 +11518,7 @@ const ThankSettings = () => {
 };
 var formImg = "/wp-content/plugins/wpwax-video-message/assets/images/form-img.png";
 var replaceImg = "/wp-content/plugins/wpwax-video-message/assets/images/replace.svg";
-var _jsxFileName$3 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/components/AddForm/overview/PreviewOne.jsx";
+var _jsxFileName$3 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\components\\AddForm\\overview\\PreviewOne.jsx";
 const PreviewOne = ({
   previewStage
 }) => {
@@ -12088,7 +12088,7 @@ const AddFormStyle = Styled.div`
     }
 `;
 var handDownImg = "/wp-content/plugins/wpwax-video-message/assets/images/hand-down.svg";
-var _jsxFileName$2 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/components/AddForm/Index.jsx";
+var _jsxFileName$2 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\components\\AddForm\\Index.jsx";
 const AddForm$1 = () => {
   const [formStage, setFormStage] = react.exports.useState("general");
   return /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV(AddFormStyle, {
@@ -12246,7 +12246,7 @@ const AddForm$1 = () => {
     columnNumber: 9
   }, globalThis);
 };
-var _jsxFileName$1 = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/App.jsx";
+var _jsxFileName$1 = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\App.jsx";
 const AddForm = () => {
   return /* @__PURE__ */ jsxDevRuntime.exports.jsxDEV("div", {
     className: "wpwax-vm-page-inner",
@@ -12275,7 +12275,7 @@ function App() {
     columnNumber: 9
   }, this);
 }
-var _jsxFileName = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/src/js/apps/addForm/index.jsx";
+var _jsxFileName = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\src\\js\\apps\\addForm\\index.jsx";
 document.addEventListener("DOMContentLoaded", function() {
   const container = document.getElementById("wpwax-vm-form-edit");
   if (!container) {

@@ -23041,11 +23041,6 @@ var reactIs_development = {};
  */
 {
   (function() {
-    var enableScopeAPI = false;
-    var enableCacheElement = false;
-    var enableTransitionTracing = false;
-    var enableLegacyHidden = false;
-    var enableDebugTracing = false;
     var REACT_ELEMENT_TYPE = Symbol.for("react.element");
     var REACT_PORTAL_TYPE = Symbol.for("react.portal");
     var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -23060,10 +23055,12 @@ var reactIs_development = {};
     var REACT_MEMO_TYPE = Symbol.for("react.memo");
     var REACT_LAZY_TYPE = Symbol.for("react.lazy");
     var REACT_OFFSCREEN_TYPE = Symbol.for("react.offscreen");
-    var REACT_MODULE_REFERENCE;
-    {
-      REACT_MODULE_REFERENCE = Symbol.for("react.module.reference");
-    }
+    var enableScopeAPI = false;
+    var enableCacheElement = false;
+    var enableTransitionTracing = false;
+    var enableLegacyHidden = false;
+    var enableDebugTracing = false;
+    var REACT_MODULE_REFERENCE = Symbol.for("react.module.reference");
     function isValidElementType(type) {
       if (typeof type === "string" || typeof type === "function") {
         return true;
@@ -24182,7 +24179,7 @@ var reactJsxDevRuntime_development = {};
 {
   jsxDevRuntime.exports = reactJsxDevRuntime_development;
 }
-var _jsxFileName = "/Users/syedgalibahmed/Local Sites/video-chat-support/app/public/wp-content/plugins/wpwax-video-message/node_modules/react-redux/es/components/Provider.js";
+var _jsxFileName = "D:\\react-wp\\support\\app\\public\\wp-content\\plugins\\wpwax-video-message\\node_modules\\react-redux\\es\\components\\Provider.js";
 function Provider({
   store,
   context,

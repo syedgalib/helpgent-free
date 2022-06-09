@@ -25,7 +25,7 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_SCRIPT_VERSION' ) ) {
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE', dirname( dirname( __FILE__ ) ) . '/simple-todo.php' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE', dirname( dirname( __FILE__ ) ) . '/wpwax-video-message.php' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_BASE' ) ) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -26,7 +26,8 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Version_1\Init::class,
+            Forms::class,
+            Messages::class,
         ];
     }
 

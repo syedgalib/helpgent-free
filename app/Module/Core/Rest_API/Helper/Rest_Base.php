@@ -5,7 +5,7 @@
  * @author  wpWax
  */
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Helper;
 
 abstract class Rest_Base {
 

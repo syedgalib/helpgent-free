@@ -156,10 +156,13 @@ const PreviewWrap = Styled.div`
                 border-radius: 25px 25px 0 0;
                 background-color: var(--color-primary);
                 .wpwax-vm-preview-title{
+                    font-size: 15px;
+                    font-weight: 600;
                     margin: 0;
                 }
             }
            .wpwax-vm-preview-inner{
+               position: relative;
                display: block;
                padding: 0;
                .wpwax-vm-preview-img{
@@ -170,8 +173,20 @@ const PreviewWrap = Styled.div`
                         left: 0;
                         top: 0;
                         width: 100%;
-                        height: 100%;
-                        background-image: linear-gradient(to bottom, rgba(0,0,0,.5) , rgba(255,255,255));
+                        height: 280px;
+                        opacity: .9;
+                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+                        content: '';
+                        z-index: -1;
+                    }
+                    &:before{
+                        position: absolute;
+                        left: 0;
+                        bottom: -100px;
+                        width: 100%;
+                        height: 250px;
+                        opacity: .9;
+                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
                         content: '';
                         z-index: -1;
                     }
@@ -181,12 +196,32 @@ const PreviewWrap = Styled.div`
                    left: 50%;
                    top: 50%;
                    transform: translate(-50%,-50%);
+                   z-index: 10;
                }
                .wpwax-vm-preview-img{   
                     min-height: 355px;
                     background-size: cover;
                }
-           } 
+           }
+           .wpwax-vm-preview-footer{
+                position: relative;
+                z-index: 10;
+                border-radius: 0 0 25px 25px;
+                padding: 0 30px;
+                background-color: var(--color-white);
+                .wpwax-vm-preview-footer__title{
+                    font-size: 15px;
+                    font-weight: 600;
+                    margin: 14px 0 20px;
+                    color: var(--color-dark);
+                }
+                .wpwax-vm-preview-footer__text{
+                    font-size: 13px;
+                    font-weight: 500;
+                    margin-bottom: 15px;
+                    color: var(--color-text);
+                }
+           }
         }
     }
     .wpwax-vm-preview-thank{

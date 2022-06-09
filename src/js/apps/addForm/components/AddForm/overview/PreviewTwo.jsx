@@ -29,10 +29,6 @@ const PreviewTwo = ({previewStage})=>{
                     <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
                         <div className="wpwax-vm-preview-header">
                             <h4 className="wpwax-vm-preview-title" style={{color: formInitialData.font_color}} >{formInitialData.greet_message}</h4>
-                            {formInitialData.description_visibility?
-                                <span className="wpwax-vm-preview-subtitle">{formInitialData.description}</span>:''
-                            }
-                            
                         </div>
                         <div className="wpwax-vm-preview-inner">
                             <div className="wpwax-vm-preview-img" style={{backgroundImage: `url("${ previewBg }")`}}></div>

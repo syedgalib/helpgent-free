@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 
-import chatBoxSlice from "./chatbox-slice";
+// import chatBoxSlice from "./chatbox-slice";
 
-const store = configureStore({
-	reducer: chatBoxSlice.reducer,
-});
+// const store = configureStore({
+// 	reducer: chatBoxSlice.reducer,
+// });
 
-export default store;
+// export default store;

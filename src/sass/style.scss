@@ -70,6 +70,9 @@
     &.wpwax-vm-btn-lg{
         height: 56px;
     }
+    &.wpwax-vm-btn-md{
+        height: 44px;
+    }
 }
 /* Block Button Style */
 .wpwax-vm-btn-block{
@@ -332,3 +335,15 @@
       transform: rotate(410deg);
     }
 }
+
+@keyframes wpwaxVideoOpen {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+

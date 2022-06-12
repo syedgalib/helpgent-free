@@ -1,14 +1,15 @@
 import { useDispatch } from "react-redux";
-import { chatBoxActions } from "../../store/chatbox-slice.js";
+import { displayChatBox } from "../../store/chatBox/actionCreator";
 import AvatarWrap from "./Style";
 import avater from '../../assets/avatar.png';
 
 function Avatar() {
+
 	const dispatch = useDispatch();
 
 	function clickHandler(e) {
 		e.preventDefault();
-		dispatch(chatBoxActions.toggleDisplayChatScreen());
+		dispatch(displayChatBox());
 	}
 
 	return (

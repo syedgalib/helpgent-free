@@ -5,27 +5,35 @@ const ScreenWrapper = Styled.div`
     bottom: 30px;
     right: 25px;
     min-height: 500px;
+    max-width: 420px;
+    z-index: 100;
+    border-radius: 25px;
+    background-color: var(--color-white);
+    animation: wpwaxVideoOpen .4s ease-in-out;
     .wpwax-vm-chatbox-container{
         position: relative;
-        z-index: 101;
-        &:after,
-        &:before{
-            position: absolute;
-            left: 0;
-            top: 0px;
-            width: 100%;
-            height: 336px;
-            content: '';
-            opacity: .9;
-            z-index: 10;
-            border-radius: 25px;
-            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
-        }
-        &:before{
-            top: auto;
-            bottom: 0;
-            height: 340px;
-            background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));
+        .wpwax-vm-chatbox-wrap{
+            position: relative;
+            z-index: 101;
+            &:after,
+            &:before{
+                position: absolute;
+                left: 0;
+                top: 0px;
+                width: 100%;
+                height: 336px;
+                content: '';
+                opacity: .9;
+                z-index: 10;
+                border-radius: 25px;
+                background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+            }
+            &:before{
+                top: auto;
+                bottom: 0;
+                height: 340px;
+                background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));
+            }
         }
         .wpwax-vm-chatbox-btn-close{
             position: absolute;
@@ -38,6 +46,7 @@ const ScreenWrapper = Styled.div`
             height: 38px;
             border-radius: 50%;
             cursor: pointer;
+            z-index: 101;
             background-color: var(--color-dark);
             color: var(--color-white);
         }

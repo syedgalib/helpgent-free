@@ -11,12 +11,18 @@ import Text from "./overview/text/Index";
 import ScreenRecord from "./overview/screen-record/Index";
 
 function ChatScreen() {
-	const chatScreen = useSelector((state) => state.chatScreen);
-
+	
+	// const chatScreen = useSelector((state) => state.chatScreen);
+	const { chatScreen } = useSelector(state => {
+        return {
+            chatScreen: state.chatBox.chatScreen,
+        };
+    });
+	console.log("fgdfdf");
 	return (
 		<Container>
 			{chatScreen == "welcome" && <Welcome />}
-			{chatScreen == "video" && <Video />}
+			{/* {chatScreen == "video" && <Video />} */}
 			{chatScreen == "audio" && <Audio />}
 			{chatScreen == "text" && <Text />}
 			{chatScreen == "screenRecord" && <ScreenRecord />}

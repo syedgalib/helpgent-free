@@ -1,9 +1,6 @@
-const base = ( typeof wpWaxCustomerSupportAppHostData !== undefined && wpWaxCustomerSupportAppHostData.base ) ? wpWaxCustomerSupportAppHostData.base : 'http://localhost:3000/';
+import RefreshRuntime from 'http://localhost:3000/wp-content/plugins/wpwax-video-message/@react-refresh';
 
-import( base + '@react-refresh' ).then( ( response ) => {
-    const RefreshRuntime = response.default;
-    RefreshRuntime.injectIntoGlobalHook(window)
-    window.$RefreshReg$ = () => {}
-    window.$RefreshSig$ = () => (type) => type
-    window.__vite_plugin_react_preamble_installed__ = true
-});
+RefreshRuntime.injectIntoGlobalHook(window)
+window.$RefreshReg$ = () => {}
+window.$RefreshSig$ = () => (type) => type
+window.__vite_plugin_react_preamble_installed__ = true

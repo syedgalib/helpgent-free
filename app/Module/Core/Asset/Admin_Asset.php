@@ -77,13 +77,6 @@ class Admin_Asset extends Enqueuer {
             'ver'       => null,
             'group'     => 'global',
             'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-            'data'      => [
-                'wpWaxCustomerSupportAppHostData' => [
-                    'host'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST,
-                    'base'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE,
-                    'in_development' => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-                ],
-            ],
         ];
 
         $scripts['wpwax-customer-support-app-admin-script'] = [

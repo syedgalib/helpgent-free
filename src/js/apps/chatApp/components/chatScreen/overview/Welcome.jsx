@@ -3,14 +3,16 @@ import { ReactSVG } from 'react-svg';
 import { chatBoxActions } from "../../../store/chatbox-slice";
 import previewBg from "../../../../../../assets/img/builder/bg.png";
 import expander from "../../../../../../assets/svg/icons/expand.svg";
+import { changeChatScreen } from '../../../store/chatBox/actionCreator';
 import ChatboxForm from "./Style.js";
 function Welcome() {
 	const dispatch = useDispatch();
 	const chatBoxStyle = "theme-1";
 
-	function btnHandler(type) {
-		dispatch(chatBoxActions.chatScreen(type));
-		dispatch(chatBoxActions.chatStep(1));
+	function handleChatAction(type) {
+		console.log(type)
+		dispatch(changeChatScreen(type));
+		// dispatch(chatBoxActions.chatStep(1));
 	}
 
 	if(chatBoxStyle === 'theme-1'){
@@ -36,10 +38,10 @@ function Welcome() {
 					<div className="wpwax-vm-chatbox-footer">
 						<h5 className="wpwax-vm-chatbox-footer__title">How would you like to chat?</h5>
 						<div className="wpwax-vm-chatbox-footer__actions">
-							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => btnHandler("video")}>Video</a>
-							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => btnHandler("screenRecord")}>Screen Record</a>
-							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => btnHandler("voice")}>Voice</a>
-							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => btnHandler("text")}>Text</a>
+							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("video")}>Video</a>
+							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("screenRecord")}>Screen Record</a>
+							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("voice")}>Voice</a>
+							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("text")}>Text</a>
 						</div>
 						<p className="wpwax-vm-chatbox-footer__text">You can practise before sending</p>
 						<p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>

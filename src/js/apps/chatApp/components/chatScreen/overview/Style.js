@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
+    box-sizing: border-box;
     .wpwax-vm-chatbox-bg{
         position: absolute;
         left: 0;

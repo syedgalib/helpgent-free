@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Record from './overview/Record';
 import Upload from './overview/Upload';
-import VideoHomeWrap  from './Style';
+import { VideoHomeWrap }  from './Style';
 
 const Video = ()=>{
 	const { videoFormData } = useSelector(state => {
@@ -28,13 +28,13 @@ const Video = ()=>{
 		return(
 			<VideoHomeWrap>
 				<div className="wpwax-vm-video-home">
-					<h3>How would you like to create this step?</h3>
-					<div className="wpwax-vm-video-home-btns">
-						<a href="" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleVideo("record")}>Record Video</a>
+					<h3 className="wpwax-vm-video-home__title">How would you like to create this step?</h3>
+					<div className="wpwax-vm-video-home__btns">
+						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" onClick={() => handleVideo("record")}>Record Video</a>
 						<span>Or</span>
-						<a href="" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-light" onClick={() => handleVideo("upload")}>Upload Video</a>
-						<span className="wpwax-vm-short-text">Max file size: 300MB</span>
+						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-light" onClick={() => handleVideo("upload")}>Upload Video</a>
 					</div>
+					<span className="wpwax-vm-short-text">Max file size: 300MB</span>
 				</div>
 			</VideoHomeWrap>
 		);

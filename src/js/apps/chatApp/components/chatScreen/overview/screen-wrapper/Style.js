@@ -4,11 +4,12 @@ const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 30px;
     right: 25px;
-    min-height: 500px;
+    min-height: 605px;
     max-width: 420px;
     z-index: 100;
     border-radius: 25px;
     background-color: var(--color-white);
+    box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
     .wpwax-vm-chatbox-container{
         position: relative;
@@ -28,6 +29,9 @@ const ScreenWrapper = Styled.div`
                 border-radius: 25px;
                 background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
             }
+            &:after{
+                top: -2px;
+            }
             &:before{
                 top: auto;
                 bottom: 0;
@@ -37,8 +41,8 @@ const ScreenWrapper = Styled.div`
         }
         .wpwax-vm-chatbox-btn-close{
             position: absolute;
-            right: -20px;
-            top: -20px;
+            right: -18px;
+            top: -18px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -46,7 +50,7 @@ const ScreenWrapper = Styled.div`
             height: 38px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 101;
+            z-index: 102;
             background-color: var(--color-dark);
             color: var(--color-white);
         }
@@ -56,7 +60,6 @@ const ScreenWrapper = Styled.div`
             position: relative;
             z-index: 100
         }
-
     }
 `;
 

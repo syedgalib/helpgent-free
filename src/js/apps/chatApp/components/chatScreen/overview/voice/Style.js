@@ -1,46 +1,6 @@
 import Styled from 'styled-components';
 
-const VideoHomeWrap = Styled.div`
-    text-align: center;
-    padding: 180px 25px 180px;
-    border-radius: 25px;
-    min-width: 420px;
-    box-sizing: border-box;
-    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
-    .wpwax-vm-video-home__title{
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0 0 30px;
-        color: var(--color-dark);
-    }
-    .wpwax-vm-video-home__btns{
-        a,
-        span{
-            display: flex;
-            justify-content: center;
-        }
-        span{
-            font-size: 13px;
-            font-weight: 500;
-            margin: 12px 0;
-            display: inline-block;
-        }
-    }
-    .wpwax-vm-btn{
-        &.wpwax-vm-btn-light{
-            color: var(--color-dark);
-            background-color: var(--color-border-light);
-        }
-    }
-    .wpwax-vm-short-text{
-        font-size: 12px;
-        font-weight: 500;
-        color: #898989;
-        margin: 0;
-    }
-`;
-
-const VideoRecordWrap = Styled.div`
+const RecorderWrap = Styled.div`
     text-align: center;
     padding: 100px 25px;
     min-width: 420px;
@@ -204,4 +164,4 @@ const VideoRecordWrap = Styled.div`
     }
 `;
 
-export { VideoHomeWrap, VideoRecordWrap };
+export { RecorderWrap };

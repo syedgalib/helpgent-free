@@ -8,9 +8,9 @@
     --color-bg-general: #EDEDED;
     --color-border-light: #EDEDED;
     --color-gray: #868EAE;
-    --color-danger: #EF0000;
+    --color-danger: #FC495D;
     --color-success: #08bf9c;
-    --color-text: #5A5F7D;
+    --color-text: #898989;
     --color-white: #ffffff;
     --color-black: #000000;
 }
@@ -76,8 +76,8 @@
 }
 /* Block Button Style */
 .wpwax-vm-btn-block{
-    display: block;
-    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* Form Elements Style */
@@ -344,6 +344,17 @@
     100% {
         transform: translateY(0px);
         opacity: 1;
+    }
+}
+
+@keyframes wpwaxVmScaling {
+    0% {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 

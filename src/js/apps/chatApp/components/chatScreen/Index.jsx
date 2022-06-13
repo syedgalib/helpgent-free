@@ -6,24 +6,25 @@ import ContactForm from "./overview/ContactForm";
 import Sending from "./overview/Sending";
 import Success from "./overview/Success";
 import Video from "./overview/video/Index";
-import Audio from "./overview/audio/Index";
+import Voice from "./overview/voice/Index";
 import Text from "./overview/text/Index";
 import ScreenRecord from "./overview/screen-record/Index";
 
 function ChatScreen() {
 	
 	// const chatScreen = useSelector((state) => state.chatScreen);
-	const { chatScreen } = useSelector(state => {
+	const { chatScreen, displayChatScreen } = useSelector(state => {
         return {
             chatScreen: state.chatBox.chatScreen,
+            displayChatScreen: state.chatBox.displayChatScreen,
         };
     });
-	console.log("fgdfdf");
+	console.log(chatScreen,displayChatScreen);
 	return (
 		<Container>
 			{chatScreen == "welcome" && <Welcome />}
-			{/* {chatScreen == "video" && <Video />} */}
-			{chatScreen == "audio" && <Audio />}
+			{chatScreen == "video" && <Video />}
+			{chatScreen == "voice" && <Voice />}
 			{chatScreen == "text" && <Text />}
 			{chatScreen == "screenRecord" && <ScreenRecord />}
 

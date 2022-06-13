@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { ReactSVG } from 'react-svg';
-import { VideoRecordWrap } from '../Style';
+import { RecorderWrap } from '../Style';
 import permissionImg from '../../../../../../../../assets/img/chatbox/permission.png';
 import play from '../../../../../../../../assets/svg/icons/play.svg'
 import previewBg from "../../../../../../../../assets/img/builder/bg.png";
@@ -36,15 +36,7 @@ const Record = ()=>{
 	console.log(recordStage === "before-send");
 		if(recordStage === "permission"){
 			return(
-				<VideoRecordWrap>
-					<h4 className="wpwax-video-screen-title">To record video, your browser will need to request access to your camera & microphone.</h4>
-					<img src={ permissionImg } alt="wpwax video support" />
-					<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary" onClick={ ()=> updateRecordStage("staging") }>Request Permission</a>
-				</VideoRecordWrap>
-			);
-		}else if(recordStage === "staging"){
-			return(
-				<VideoRecordWrap className="wpwax-vm-record-staging">
+				<RecorderWrap className="wpwax-vm-record-staging">
 					<span className={startRecording ? "wpwax-vm-timer wpwax-vm-timer-start" : "wpwax-vm-timer"}>
 						<span className="wpwax-vm-sec">00</span>
 						<span className="wpwax-vm-seperator">:</span>
@@ -58,11 +50,11 @@ const Record = ()=>{
 							<a href="#" className="wpwax-vm-btn-close">x</a>
 						</div>
 					</div>
-				</VideoRecordWrap>
+				</RecorderWrap>
 			)
 		}else if(recordStage === "before-send"){
 			return(
-				<VideoRecordWrap className="wpwax-vm-record-ready">
+				<RecorderWrap>
 					<div className="wpwax-vm-record-ready__top">
 						<div className="wpwax-vm-recorded-preview wpax-vm-preview-bg" style={{backgroundImage: `url("${ previewBg }")`}}></div>
 						<a href="#" className="wpwax-vm-recorded-play"><ReactSVG src={ play } /></a>
@@ -74,7 +66,7 @@ const Record = ()=>{
 							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-light">No</a>
 						</div>
 					</div>
-				</VideoRecordWrap>
+				</RecorderWrap>
 			)
 		}else if(recordStage === "progress"){
 			

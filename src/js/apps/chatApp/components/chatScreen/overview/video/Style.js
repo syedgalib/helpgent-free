@@ -41,99 +41,71 @@ const VideoHomeWrap = Styled.div`
 `;
 
 const VideoRecordWrap = Styled.div`
-    text-align: center;
+    position: relative;
     padding: 100px 25px;
     min-width: 420px;
     box-sizing: border-box;
+    text-align: center;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-video-screen-title{
         font-size: 18px;
         font-weight: 500;
-        margin: 0 0 30px;
-    }
-    img{
-        max-width: 370px;
-        margin-bottom: 26px;
+        color: var(--color-dark);
     }
     &.wpwax-vm-record-staging{
-        .wpwax-vm-timer{
-            span{
-                font-size: 50px;
-                font-weight: 500;
-                color: var(--color-text);
-            }
-            &.wpwax-vm-timer-start{
-                span{
-                    color: var(--color-danger);
-                }
-            }
+        height: 620px;
+        z-index: 101;
+        padding: 0;
+        animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+        &:after,
+        &:before{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 15%;
+            content: '';
+            z-index: -1;
+            opacity: .8;
+            background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));
         }
-        .wpwax-vm-record-staging__bottom{
-            padding-top: 180px;
-            .wpwax-vm-record-staging__bottom--action{
-                position: relative;
-                .wpwax-vm-pause-btn{
-                    display: none;
-                    position: relative;
-                    &:after{
-                        position: absolute;
-                        left: 50%;
-                        top: 50%;
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 14px;
-                        transform: translate(-50%,-50%);
-                        content: '';
-                        background-color: var(--color-white);
-                        z-index: 101;
-                    }
-                }
-                .wpwax-vm-record-btn{
+        &:after{
+            border-radius: 25px 25px 0 0;
+        }
+        &:before{
+            top:auto;
+            bottom: 0;
+            border-radius: 0 0 25px 25px;
+            opacity: .6;
+        }
+        video{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+        }
+        .wpwax-vm-record-staging__top{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            .wpwax-vm-record-staging__title{
+                font-size: 26px;
+                text-align: left;
+                margin: 0;
+                padding: 40px;
+                color: var(--color-dark);
+                .wpwax-vm-timer{
                     display: block;
-                }
-                .wpwax-vm-record-btn,
-                .wpwax-vm-pause-btn{
-                    width: 110px;
-                    height: 110px;
-                    margin: 0 auto;
-                    border-radius: 50%;
-                    background-color: var(--color-danger);
-                }
-                .wpwax-vm-btn-close{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 70px;
-                    height: 70px;
-                    position: absolute;
-                    right: 40px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    border-radius: 50%;
-                    background-color: #B4B4B4;
-                    text-decoration: none;
-                    color: var(--color-white);
-                }
-                &.wpwax-vm-record-start{
-                    .wpwax-vm-record-btn{
-                        display: none;
-                    }
-                    .wpwax-vm-pause-btn{
-                        display: block;
-                    }
-                    .wpwax-vm-btn-close{
-                        display: none;
-                    }
+                    margin: 6px 0 0;
                 }
             }
-            p{
-                font-size: 18px;
-                font-weight: 600;
-                margin-bottom:30px;
-                color: var(--color-dark);
-                .wpwax-vm-highlighted{
-                    color: #EF0000;
-                }
+            .wpwax-vm-record-staging__btn-expand{
+                position: absolute;
+                right: 15px;
+                top: 40px;
             }
         }
     }

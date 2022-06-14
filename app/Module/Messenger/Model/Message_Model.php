@@ -24,7 +24,7 @@ class Message_Model extends Base_Model {
 
         global $wpdb;
 
-		$table = self::get_table_name();
+		$table = self::get_table_name( self::$table );
 
         $default = [];
 
@@ -32,7 +32,7 @@ class Message_Model extends Base_Model {
         $default['page']  = 1;
         $default['order'] = 'latest';
 
-        $args = array_merge( $default, $args );
+        $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
@@ -62,7 +62,11 @@ class Message_Model extends Base_Model {
     public static function get_item( $id ) {
         global $wpdb;
 
-		$table = self::get_table_name();
+        if ( empty( $id ) ) {
+            return false;
+        }
+
+		$table = self::get_table_name( self::$table );
 
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
 
@@ -80,7 +84,7 @@ class Message_Model extends Base_Model {
     public static function create_item( $args = [] ) {
         global $wpdb;
 
-		$table = self::get_table_name();
+		$table = self::get_table_name( self::$table );
 
         $default = [];
 
@@ -92,12 +96,16 @@ class Message_Model extends Base_Model {
         $default['message_type']  = '';
         $default['seen_by']       = '';
 
-        $args = array_merge( $default, $args );
+        $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
         $time = current_time( 'mysql', true );
 
         $args['created_on'] = $time;
         $args['updated_on'] = $time;
+
+        if ( ! isset( $args['id'] ) ) {
+            unset( $args['id'] );
+        }
 
         if ( ! empty( $args['seen_by'] ) ) {
             $args['seen_by'] = maybe_serialize( $args['seen_by'] );
@@ -121,14 +129,14 @@ class Message_Model extends Base_Model {
             return null;
         }
 
-		$table    = self::get_table_name();
+		$table    = self::get_table_name( self::$table );
 		$old_data = self::get_item( $args['id'] );
 
         if ( empty( $old_data ) ) {
             return null;
         }
 
-        $args = array_merge( $old_data, $args );
+        $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
 
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;
@@ -151,7 +159,11 @@ class Message_Model extends Base_Model {
     public static function delete_item( $id ) {
         global $wpdb;
 
-		$table = self::get_table_name();
+        if ( empty( $id ) ) {
+            return false;
+        }
+
+		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );

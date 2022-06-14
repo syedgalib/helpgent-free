@@ -37,10 +37,10 @@ interface Base_Model_Interface {
     public static function update_item( $args = [] );
 
     /**
-     * Update Item
+     * Delete Item
      * 
      * @param array $args
-     * @return array|null
+     * @return bool
      */
     public static function delete_item( $id );
 

@@ -48,10 +48,10 @@ class Attachment_Model extends Base_Model {
     }
 
     /**
-     * Update Item
+     * Delete Item
      * 
      * @param array $args
-     * @return array|null
+     * @return bool
      */
     public static function delete_item( $id ) {
         

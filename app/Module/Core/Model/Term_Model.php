@@ -2,7 +2,6 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Model;
 
-
 use WPWaxCustomerSupportApp\Model\Base_Model;
 
 class Term_Model extends Base_Model {

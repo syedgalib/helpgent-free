@@ -2,7 +2,6 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
-
 use WPWaxCustomerSupportApp\Model\Base_Model;
 
 class Message_Model extends Base_Model {

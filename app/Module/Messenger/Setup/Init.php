@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Setup;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -26,10 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Setup\Init::class,
-            Asset\Init::class,
-            Admin\Init::class,
-            Chatbox::class,
+            Activation::class,
         ];
     }
 

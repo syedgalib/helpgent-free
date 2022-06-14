@@ -4,6 +4,10 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION', '0.1.0' );
 }
 
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX', 'wpwax_cs' );
+}
+
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT', 3000 );
 }
@@ -25,7 +29,7 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_SCRIPT_VERSION' ) ) {
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE', dirname( dirname( __FILE__ ) ) . '/wpwax-video-message.php' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_FILE', dirname( dirname( __FILE__ ) ) . '/wpwax-customer-support-app.php' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_BASE' ) ) {

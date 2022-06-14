@@ -2,7 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Model;
 
-interface Base_Model_Interface {
+interface DB_Model_Interface {
 
     /**
      * Get Items

@@ -1,17 +1,15 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
+namespace WPWaxCustomerSupportApp\Model;
 
-use WPWaxCustomerSupportApp\Model\DB_Model;
-
-class Message_Model extends DB_Model {
+abstract class DB_Model implements DB_Model_Interface {
 
     /**
      * Table Name
      * 
      * @var string
      */
-    public static $table = 'messages';
+    public static $table = '';
 
     /**
      * Get Items
@@ -86,14 +84,6 @@ class Message_Model extends DB_Model {
 
         $default = [];
 
-        $default['user_id']       = 0;
-        $default['session_id']    = self::generate_session();
-        $default['note']          = '';
-        $default['message']       = '';
-        $default['attachment_id'] = '';
-        $default['message_type']  = '';
-        $default['seen_by']       = '';
-
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
         $time = current_time( 'mysql', true );
@@ -103,10 +93,6 @@ class Message_Model extends DB_Model {
 
         if ( ! isset( $args['id'] ) ) {
             unset( $args['id'] );
-        }
-
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
         }
 
 		$result = $wpdb->insert( $table, $args );
@@ -139,10 +125,6 @@ class Message_Model extends DB_Model {
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
-        }
-
         $where = ['id' => $args['id'] ];
 
 		return $wpdb->update( $table, $args, $where, null, '%d' );
@@ -169,21 +151,15 @@ class Message_Model extends DB_Model {
         return ( ! empty( $status ) ) ? true : false;
     }
 
-
     /**
-     * Generate Session
+     * Get Table Name
      * 
-     * @return string
+     * @return String Table Name
      */
-    protected static function generate_session() {
-		$time   = microtime();
-		$time   = str_replace( array( ' ', '.' ), '', $time );
-		$chars  = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz' ), 1, 10 );
-		$random = $chars . $time;
-		$random = str_shuffle( $random );
+    public static function get_table_name( $table = '' ) {
+        global $wpdb;
 
-		return $random;
-	}
+        return $wpdb->prefix . WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX . '_' . $table;
+    }
 
 }
-

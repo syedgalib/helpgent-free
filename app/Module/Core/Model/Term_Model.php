@@ -2,9 +2,16 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Model;
 
-use WPWaxCustomerSupportApp\Model\Base_Model;
+use WPWaxCustomerSupportApp\Model\DB_Model;
 
-class Term_Model extends Base_Model {
+class Term_Model extends DB_Model {
+
+    /**
+     * Table Name
+     * 
+     * @var string
+     */
+    public static $table = 'terms';
 
     /**
      * Get Items

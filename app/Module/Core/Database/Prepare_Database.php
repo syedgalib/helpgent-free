@@ -51,6 +51,9 @@ class Prepare_Database {
 
 		CREATE TABLE {$table_prefix}_attachments (
 			id bigint(20) unsigned NOT NULL auto_increment,
+			created_on datetime NOT NULL,
+			updated_on datetime NOT NULL,
+			title varchar(255) NOT NULL  DEFAULT '',
 			link varchar(255) NOT NULL  DEFAULT '',
 			PRIMARY KEY (id),
             KEY link (link)

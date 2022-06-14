@@ -3,7 +3,7 @@
  * @author  wpWax
  */
 
-namespace WPWaxCustomerSupportApp\Model\DB;
+namespace WPWaxCustomerSupportApp\DB;
 
 trait Forms_Trait {
 

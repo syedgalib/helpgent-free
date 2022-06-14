@@ -5,10 +5,9 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Helper\Rest_Base;
-use WPWaxCustomerSupportApp\Model\DB\DB;
+use WPWaxCustomerSupportApp\DB\DB;
 
-class Forms extends Rest_Base {
+class Forms extends Base {
 
     public function __construct() {
         $this->rest_base = 'forms';

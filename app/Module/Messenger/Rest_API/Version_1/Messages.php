@@ -1,0 +1,308 @@
+<?php
+/**
+ * @author wpWax
+ */
+
+namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
+
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
+
+class Messages extends Rest_Base {
+
+    /**
+     * Rest Base
+     * 
+     * @var string
+     */
+    public $rest_base = 'messages';
+
+    public function register_routes() {
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base,
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_items' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'args'                => [
+                        'timezone'    => [
+                            'default'           => '',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'page'        => [
+                            'default'           => 1,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
+                        'read_status' => [
+                            'default'           => 'all',
+                            'validate_callback' => [ $this, 'validate_read_status' ],
+                        ],
+                        'order'       => [
+                            'default'           => 'latest',
+                            'validate_callback' => [ $this, 'validate_order' ],
+                        ],
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => [ $this, 'create_item' ],
+                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'args'                => [
+                        'name'          => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'email'         => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_email' ],
+                            'sanitize_email'    => 'sanitize_text_field',
+                        ],
+                        'message_type'  => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_message_type' ],
+                        ],
+                        'message_value' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_textarea_field',
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<message_id>[\d]+)',
+            [
+                'args' => [
+                    'form_id' => [
+                        'type' => 'integer',
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_item' ],
+                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'args'                => [
+                        'timezone' => [
+                            'default'           => '',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'update_item' ],
+                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'args'                => [
+                        'message_by'    => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_message_by' ],
+                        ],
+                        'message_type'  => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_message_type' ],
+                        ],
+                        'message_value' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_textarea_field',
+                        ],
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::DELETABLE,
+                    'callback'            => [ $this, 'delete_item' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                ],
+            ]
+        );
+
+    }
+
+    /**
+     * @param $value
+     */
+    public function validate_message_type( $value ) {
+        return in_array( $value, [ 'text', 'video', 'audio' ] );
+    }
+
+    /**
+     * @param $value
+     */
+    public function validate_message_by( $value ) {
+        return in_array( $value, [ 'user', 'admin' ] );
+    }
+
+    /**
+     * @param $value
+     */
+    public function validate_read_status( $value ) {
+        return in_array( $value, [ 'all', 'read', 'unread' ] );
+    }
+
+    /**
+     * @param $value
+     */
+    public function validate_order( $value ) {
+        return in_array( $value, [ 'latest', 'oldest' ] );
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function get_items( $request ) {
+        $args = $request->get_params();
+        $data = Message_Model::get_items( $args );
+
+        if ( empty( $data ) ) {
+            return $this->response( true, [] );
+        }
+
+        // Prepare items for response
+        foreach ( $data as $key => $value ) {
+             $item = $this->prepare_item_for_response( $value );
+
+             if ( empty( $item ) ) {
+                continue;
+             }
+
+             $data[ $key ] = $item;
+        }
+
+        return $this->response( true, $data );
+    }
+
+    /**
+     * Prepare item for response
+     * 
+     * @return array
+     */
+    public function prepare_item_for_response( $item = [] ) {
+
+        if ( ! is_array( $item ) || empty( $item ) ) {
+            return null;
+        }
+
+        $integer_type_fields = [ 'id', 'user_id', 'attachment_id' ];
+        $serialized_type_fields = [ 'seen_by' ];
+
+        // Sanitize Integer Fields
+        foreach ( $item as $key => $value ) {
+
+            if ( ! in_array( $key, $integer_type_fields ) ) {
+                continue;
+            }
+
+            $item[ $key ] = ( ! empty( $item[ $key ] ) && is_numeric( $item[ $key ] ) ) ? (int) $item[ $key ] : null;
+
+        }
+
+        // Sanitize Serialized Fields
+        foreach ( $item as $key => $value ) {
+
+            if ( ! in_array( $key, $serialized_type_fields ) ) {
+                continue;
+            }
+
+            $item[ $key ] = ( ! empty( $item[ $key ] ) ) ? maybe_unserialize( $item[ $key ] ) : null;
+
+        }
+
+        return $item;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function get_item( $request ) {
+        $args = $request->get_params();
+        $data = [];
+
+        if ( $data ) {
+            $success = true;
+
+            $rest_data = [
+                'message_id'           => esc_html( $data['message_id'] ),
+                'name'                 => esc_html( $data['name'] ),
+                'avatar'               => esc_url( get_avatar_url( $data['email'] ) ),
+                'last_message_by'      => esc_html( $data['last_message_by'] ),
+                'last_message_time'    => esc_html( $this->get_formatted_time( $data['updated_time'], $args['timezone'] ) ),
+                'last_message_is_read' => esc_html( $data['is_read'] ),
+            ];
+
+            $messages = maybe_unserialize( $data['messages'] );
+
+            $rest_data['messages'] = array_map(
+                function ( $item ) use ( $args ) {
+                    $result = [
+                        'by'    => esc_html( $item['by'] ),
+                        'time'  => esc_html( $this->get_formatted_time( $item['time'], $args['timezone'] ) ),
+                        'type'  => esc_html( $item['type'] ),
+                        'value' => esc_html( $item['value'] ),
+                    ];
+
+                    return $result;
+                },
+                $messages
+            );
+        } else {
+            $success   = false;
+            $rest_data = [];
+        }
+
+        return $this->response( $success, $rest_data );
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function create_item( $request ) {
+        $args    = $request->get_params();
+        $data    = [];
+        $success = $data ? true : false;
+
+        return $this->response( $success, $data );
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function update_item( $request ) {
+        $args      = $request->get_params();
+        $operation = [];
+        $success   = ( false === $operation ) ? false : true;
+
+        return $this->response( $success );
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function delete_item( $request ) {
+        $args      = $request->get_params();
+        $operation = [];
+        $success   = $operation ? true : false;
+
+        return $this->response( $success );
+    }
+
+    /**
+     * @param $time
+     * @param $timezone
+     */
+    private function get_formatted_time( $time, $timezone ) {
+        $timezone  = $timezone ? $timezone : wp_timezone_string();
+        $timezone  = new \DateTimeZone( $timezone );
+        $timestamp = strtotime( $time );
+
+        return wp_date( 'j M y @ G:i', $timestamp, $timezone );
+    }
+
+}

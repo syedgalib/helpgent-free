@@ -4,7 +4,7 @@
  * @author  wpWax
  */
 
-namespace WPWaxCustomerSupportApp\Model\DB;
+namespace WPWaxCustomerSupportApp\DB;
 
 class DB {
 	use Forms_Trait;

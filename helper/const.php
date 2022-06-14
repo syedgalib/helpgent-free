@@ -8,6 +8,10 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX', 'wpwax_cs' );
 }
 
+if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_REST_BASE_PREFIX' ) ) {
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_REST_BASE_PREFIX', 'wpwax_cs' );
+}
+
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_PORT', 3000 );
 }

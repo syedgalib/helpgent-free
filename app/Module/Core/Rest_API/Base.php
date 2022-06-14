@@ -5,14 +5,14 @@
  * @author  wpWax
  */
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Helper;
+namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
 
-abstract class Rest_Base {
+abstract class Base {
 
     /**
      * @var string
      */
-    public $namespace = 'wpwax-vm/v1';
+    public $namespace = WPWAX_CUSTOMER_SUPPORT_APP_REST_BASE_PREFIX . '/v1';
 
     /**
      * @var mixed
@@ -20,9 +20,7 @@ abstract class Rest_Base {
     public $rest_base;
 
     public function __construct() {
-        $this->namespace = 'wpwax-vm/v1';
-
-        add_action( 'rest_api_init', [$this, 'register_routes'] );
+        add_action( 'rest_api_init', [ $this, 'register_routes' ] );
     }
 
     abstract public function register_routes();
@@ -55,7 +53,7 @@ abstract class Rest_Base {
     public function response( $is_success, $data = '' ) {
         $response = [
             'success' => $is_success,
-            'message' => $is_success ? __( 'Operation Successful', 'wpwaxvm' ) : __( 'Operation Failed', 'wpwaxvm' ),
+            'message' => $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' ),
             'data'    => $is_success ? $data : '',
         ];
 

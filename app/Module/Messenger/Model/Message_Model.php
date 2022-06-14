@@ -8,12 +8,48 @@ use WPWaxCustomerSupportApp\Model\Base_Model;
 class Message_Model extends Base_Model {
 
     /**
+     * Table Name
+     * 
+     * @var string
+     */
+    public static $table = 'messages';
+
+    /**
      * Get Items
      * 
      * @param array $args
      * @return array|null
      */
     public static function get_items( $args = [] ) {
+
+        global $wpdb;
+
+		$table = self::get_table_name();
+
+        $default = [];
+
+        $default['limit'] = 20;
+        $default['page']  = 1;
+        $default['order'] = 'latest';
+
+        $args = array_merge( $default, $args );
+
+		$limit  = $args['limit'];
+		$offset = ( $limit * $args['page'] ) - $limit;
+
+		if ( $args['order'] == 'oldest' ) {
+			$order = ' ORDER BY created_on ASC';
+		} else {
+			$order = ' ORDER BY updated_on DESC';
+		}
+
+		$where = ' WHERE 1=1';
+
+		$select = "SELECT * FROM $table";
+
+		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
+
+		return $wpdb->get_results( $query, ARRAY_A );
 
     }
 
@@ -24,17 +60,52 @@ class Message_Model extends Base_Model {
      * @return array|null
      */
     public static function get_item( $id ) {
-        
+        global $wpdb;
+
+		$table = self::get_table_name();
+
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
+
+		$result = $wpdb->get_row( $query, ARRAY_A );
+
+		return $result;
     }
 
     /**
      * Create Item
      * 
      * @param array $args
-     * @return array|null
+     * @return int|null
      */
     public static function create_item( $args = [] ) {
-        
+        global $wpdb;
+
+		$table = self::get_table_name();
+
+        $default = [];
+
+        $default['user_id']       = 0;
+        $default['session_id']    = self::generate_session();
+        $default['note']          = '';
+        $default['message']       = '';
+        $default['attachment_id'] = '';
+        $default['message_type']  = '';
+        $default['seen_by']       = '';
+
+        $args = array_merge( $default, $args );
+
+        $time = current_time( 'mysql', true );
+
+        $args['created_on'] = $time;
+        $args['updated_on'] = $time;
+
+        if ( ! empty( $args['seen_by'] ) ) {
+            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
+        }
+
+		$result = $wpdb->insert( $table, $args );
+
+		return $result ? $wpdb->insert_id : false;
     }
 
     /**
@@ -44,7 +115,31 @@ class Message_Model extends Base_Model {
      * @return array|null
      */
     public static function update_item( $args = [] ) {
+        global $wpdb;
         
+        if ( empty( $args['id'] ) ) {
+            return null;
+        }
+
+		$table    = self::get_table_name();
+		$old_data = self::get_item( $args['id'] );
+
+        if ( empty( $old_data ) ) {
+            return null;
+        }
+
+        $args = array_merge( $old_data, $args );
+
+        $time = current_time( 'mysql', true );
+        $args['updated_on'] = $time;
+
+        if ( ! empty( $args['seen_by'] ) ) {
+            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
+        }
+
+        $where = ['id' => $args['id'] ];
+
+		return $wpdb->update( $table, $args, $where, null, '%d' );
     }
 
     /**
@@ -54,8 +149,31 @@ class Message_Model extends Base_Model {
      * @return bool
      */
     public static function delete_item( $id ) {
-        
+        global $wpdb;
+
+		$table = self::get_table_name();
+		$where = ['id' => $id ];
+
+		$status = $wpdb->delete( $table, $where, '%d' );
+
+        return ( ! empty( $status ) ) ? true : false;
     }
+
+
+    /**
+     * Generate Session
+     * 
+     * @return string
+     */
+    protected static function generate_session() {
+		$time   = microtime();
+		$time   = str_replace( array( ' ', '.' ), '', $time );
+		$chars  = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz' ), 1, 10 );
+		$random = $chars . $time;
+		$random = str_shuffle( $random );
+
+		return $random;
+	}
 
 }
 

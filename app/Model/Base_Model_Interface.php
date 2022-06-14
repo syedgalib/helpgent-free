@@ -24,7 +24,7 @@ interface Base_Model_Interface {
      * Create Item
      * 
      * @param array $args
-     * @return array|null
+     * @return int|null
      */
     public static function create_item( $args = [] );
 

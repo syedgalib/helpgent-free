@@ -1,7 +1,4 @@
 <?php
-/**
- * @author wpWax
- */
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 

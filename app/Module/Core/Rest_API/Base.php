@@ -1,9 +1,4 @@
 <?php
-/**
- * API Ref: https://gist.github.com/kowsar89/56e857d85ad0ceb595828fdb4a5a05e5
- *
- * @author  wpWax
- */
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
 

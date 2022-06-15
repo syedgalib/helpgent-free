@@ -5,8 +5,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Helper\Rest_Base;
-use WPWaxCustomerSupportApp\Model\DB\DB;
+use WPWaxCustomerSupportApp\DB\DB;
 
 class Messages extends Rest_Base {
 

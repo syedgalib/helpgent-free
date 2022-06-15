@@ -73,8 +73,7 @@ class Messages extends Rest_Base {
                             'validate_callback' => [ $this, 'validate_message_type' ],
                         ],
                         'seen_by' => [
-                            'required'          => false,
-                            // 'sanitize_callback' => [ $this, 'rest_sanitize_array' ],
+                            'required' => false,
                         ],
                     ],
                 ],
@@ -106,17 +105,37 @@ class Messages extends Rest_Base {
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
-                        'message_by'    => [
-                            'required'          => true,
-                            'validate_callback' => [ $this, 'validate_message_by' ],
+                        'user_id'         => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'message_type'  => [
+                        'user_full_name' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'email' => [
+                            'required'          => false,
+                            'validate_callback' => [ $this, 'validate_email' ],
+                            'sanitize_callback' => 'sanitize_email',
+                        ],
+                        'message' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'note' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'attachment_id' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'message_type' => [
                             'required'          => true,
                             'validate_callback' => [ $this, 'validate_message_type' ],
                         ],
-                        'message_value' => [
-                            'required'          => true,
-                            'sanitize_callback' => 'sanitize_textarea_field',
+                        'seen_by' => [
+                            'required' => false,
                         ],
                     ],
                 ],
@@ -220,7 +239,7 @@ class Messages extends Rest_Base {
 
         $data    = Message_Model::create_item( $args );
         $data    = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
-        $success = $data ? true : false;
+        $success = ! empty( $data ) ? true : false;
 
         return $this->response( $success, $data );
     }
@@ -230,11 +249,18 @@ class Messages extends Rest_Base {
      * @return mixed
      */
     public function update_item( $request ) {
-        $args      = $request->get_params();
-        $operation = [];
-        $success   = ( false === $operation ) ? false : true;
+        $args = $request->get_params();
 
-        return $this->response( $success );
+        if ( ! empty( $args['seen_by'] ) ) {
+            $args['seen_by'] = $this->convert_string_to_array( $args['seen_by'] );
+        }
+
+        $data = Message_Model::update_item( $args );
+        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
+
+        $success = ! empty( $data ) ? true : false;
+
+        return $this->response( $success, $data );
     }
 
     /**
@@ -305,10 +331,27 @@ class Messages extends Rest_Base {
      */
     public function convert_string_to_array( $string, $separator = ',' ) {
 
-        $list = explode( $separator, $string );
+        $string = trim( $string, ',\s' );
+        $list   = explode( $separator, $string );
             
         if ( ! is_array( $list ) ) {
             return [];
+        }
+
+        return $list;
+    }
+
+    /**
+     * Parse array items to int
+     * 
+     * @param array $list
+     * 
+     * @return array
+     */
+    public function parse_array_items_to_int( $list = [] ) {
+
+        if ( ! is_array( $list ) ) {
+            return $list;
         }
 
         foreach( $list as $key => $value ) {

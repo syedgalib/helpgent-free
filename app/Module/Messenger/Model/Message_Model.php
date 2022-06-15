@@ -145,7 +145,9 @@ class Message_Model extends DB_Model {
 
         $where = ['id' => $args['id'] ];
 
-		return $wpdb->update( $table, $args, $where, null, '%d' );
+		$result = $wpdb->update( $table, $args, $where, null, '%d' );
+
+        return $result ? self::get_item( $args['id'] ) : false;
     }
 
     /**

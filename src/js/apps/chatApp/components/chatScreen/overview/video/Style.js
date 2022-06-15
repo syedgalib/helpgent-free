@@ -52,6 +52,12 @@ const VideoRecordWrap = Styled.div`
         font-weight: 500;
         color: var(--color-dark);
     }
+    &.wpwax-vm-record-permission{
+        .wpwax-vm-btn{
+            margin-top: 28px;
+            border-radius: 10px;
+        }
+    }
     &.wpwax-vm-record-staging{
         height: 620px;
         z-index: 101;
@@ -63,7 +69,7 @@ const VideoRecordWrap = Styled.div`
             left: 0;
             top: 0;
             width: 100%;
-            height: 15%;
+            height: 20%;
             content: '';
             z-index: -1;
             opacity: .8;
@@ -77,6 +83,7 @@ const VideoRecordWrap = Styled.div`
             bottom: 0;
             border-radius: 0 0 25px 25px;
             opacity: .6;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));
         }
         video{
             position: relative;
@@ -93,10 +100,11 @@ const VideoRecordWrap = Styled.div`
             justify-content: space-between;
             .wpwax-vm-record-staging__title{
                 font-size: 26px;
+                font-weight: 600;
                 text-align: left;
                 margin: 0;
-                padding: 40px;
-                color: var(--color-dark);
+                padding: 30px;
+                color: var(--color-white);
                 .wpwax-vm-timer{
                     display: block;
                     margin: 6px 0 0;
@@ -105,18 +113,70 @@ const VideoRecordWrap = Styled.div`
             .wpwax-vm-record-staging__btn-expand{
                 position: absolute;
                 right: 15px;
-                top: 40px;
+                top: 30px;
+            }
+        }
+        .wpwax-vm-record-staging__action{
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            z-index: 101;
+            &.wpwax-vm-record-start{
+                .wpwax-vm-btn-record{
+                    background-color: var(--color-danger);
+                    &:after{
+                        border-radius: 8px;
+                        background-color: var(--color-white);
+                    }
+                }
+            }
+        }
+        .wpwax-vm-btn-record{
+            display: block;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--color-white);
+            &:after{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                content: "";
+                z-index: 101;
+                background-color: var(--color-danger);
             }
         }
     }
     &.wpwax-vm-record-ready{
-        padding: 90px 25px 90px;
-        .wpwax-vm-record-ready__top{
+        padding: 25px;
+        .wpwax-vm-form{
+            position: relative;
+            min-height: 570px;
+        }
+        .wpwax-vm-text-reply{
+            .wpwax-vm-form-group{
+                .wpwax-vm-form__element{
+                    background-color: transparent;
+                    &:focus{
+                        outline: 0 none;
+                        border: 0 none;
+                    }
+                }
+            }
+        }
+        .wpwax-vm-recored-video{
+            margin-top: 30px;
             position: relative;
             .wpwax-vm-recorded-preview{
                 min-height: 240px;
+                border-radius: 15px;
+                background-size: cover;
                 position: relative;
-                z-index: 101;
                 &:after{
                     position: absolute;
                     left: 0;
@@ -124,35 +184,29 @@ const VideoRecordWrap = Styled.div`
                     width: 100%;
                     height: 100%;
                     border-radius: 15px;
-                    background-color: rgba(3,3,8,1);
-                    opacity: .3;
-                    content: "";
-                    z-index: -1;
-                }
-                &.wpax-vm-preview-bg{
-                    background-size: cover;
+                    content: '';
+                    background-color: rgba(3,3,38,.30);
                 }
             }
-            .wpwax-vm-recorded-play{
+            .wpwax-vm-recored-video__play{
                 position: absolute;
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%,-50%);
                 display: flex;
-                align-items: center;
                 justify-content: center;
-                width: 70px;
-                height: 70px;
+                align-items: center;
+                width: 60px;
+                height: 60px;
                 margin: 0 auto;
                 border-radius: 50%;
-                z-index: 101;
                 background-color: var(--color-white);
-                box-shadow: 0 5px 50px rgba(0,0,0,.15);
+                box-shadow: 0 3px 20px rgba(0,0,0,.05);
                 div{
-                    line-height: 1;
-                    svg{
-                        position: relative;
-                        left: 2px;
+                    line-height: .5;
+                    svg {
+                        width: 16px;
+                        height: 16px;
                         path{
                             fill: var(--color-danger);
                         }
@@ -160,18 +214,125 @@ const VideoRecordWrap = Styled.div`
                 }
             }
         }
-        .wpwax-vm-record-ready__bottom{
-            padding-top: 36px;
-            h4{
-                font-size: 20px;
-                font-weight: 600;
-                margin: 0 0 20px;
-            }
-            .wpwax-vm-record-ready__bottom--actions{
-                a + a{
-                    margin-top: 10px;
+        .wpwax-vm-form-bottom{
+            position: absolute;
+            width: 100%;
+            bottom: 25px;
+            .wpwax-vm-btn{
+                svg{
+                    position: relative;
+                    top: 3px;
+                    margin-left: 10px;
+                    width: 16px;
+                    height: 16px;
                 }
             }
+            .wpwax-vm-btn-link{
+                display: block;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: 600;
+                margin-top: 14px;
+                &:hover{
+                    color: var(--color-primary);
+                }
+            }
+        }
+    }
+    &.wpwax-vm-record-send-progress{
+        min-height: 620px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .wpwax-vm-record-send-progress__bar{
+            position: relative;
+            width: 164px;
+            height: 164px;
+            border-radius: 50%;
+            margin: 0 auto 40px; 
+            &:after{
+                content: "";
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 158px;
+                height: 158px;
+                border-radius: 50%;
+                background-color: white;
+            }
+            &:before{
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-image: linear-gradient(90deg, #6551F2 0%, transparent 0%, transparent), linear-gradient(270deg, #6551F2 50%, #E8E8E8 50%, #E8E8E8);
+                content: "";
+            }
+            span{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                font-size: 16px;
+                font-weight: 600;
+                z-index: 101;
+            }
+        }
+        p{
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            color: var(--color-dark);
+            &.wpwax-vm-danger-text{
+                color:  var(--color-danger);
+            }
+            &+p{
+                margin-top: 6px;
+            }
+        }
+    }
+    &.wpwax-vm-record-send-success{
+        padding: 0;
+        min-height: 620px;
+        border-radius: 25px;
+        .wpwax-vm-record-send-success__top{
+            padding: 30px 0 40px;
+            background-color: #030308;
+            border-radius: 25px 25px 0 0;
+            .wpwax-vm-record-send-success__check{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 70px;
+                height: 70px;
+                margin: 0 auto;
+                border-radius: 50%:
+                background-color: var(--color-success);
+            }
+            h4{
+                margin: 20px 0 0;
+                font-size: 20px;
+                font-weight: 600;
+                margin: 18px auto 0;
+                line-height: 1.3;
+                color:  var(--color-white);
+            }
+        }
+        .wpwax-vm-record-send-success__content{
+            padding: 50px 30px 0;
+            .wpwax-vm-record-send-success__title{
+                font-size: 24px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+            p{
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--color-text);
+            }
+        }
+        .wpwax-vm-record-send-success__bottom{
+            padding: 120px 30px 30px 30px;
         }
     }
 `;

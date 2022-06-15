@@ -8,7 +8,7 @@
     --color-bg-general: #EDEDED;
     --color-border-light: #EDEDED;
     --color-gray: #868EAE;
-    --color-danger: #FC495D;
+    --color-danger: #EF0000;
     --color-success: #08bf9c;
     --color-text: #898989;
     --color-white: #ffffff;
@@ -93,6 +93,7 @@
         border-radius: 6px;
         padding: 9px 16px;
         border: 0 none;
+        box-sizing: border-box;
         color: var(--color-dark);
         background-color: var(--color-bg-general);
     }

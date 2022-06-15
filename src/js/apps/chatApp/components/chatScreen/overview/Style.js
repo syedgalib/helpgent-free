@@ -211,4 +211,40 @@ const ChatboxForm = Styled.div`
     
 `;
 
-export default ChatboxForm;
+const ContactFormWrap = Styled.div`
+    .wpwax-vm-contact-form{
+        padding: 60px 25px 25px;
+        position: relative;
+        min-height: 595px;
+        .wpwax-vm-contact-form__title{
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.333;
+            margin: 0 0 30px;
+            color: var(--color-dark);
+        }
+        .wpwax-vm-form-group{
+            margin-bottom: 0;
+            .wpwax-vm-form__element{
+                min-height: 46px;
+                border-radius: 8px;
+            }
+        }
+        .wpwax-vm-form__bottom{
+            position: absolute;
+            width: calc( 100% - 50px );
+            bottom: 25px;
+            left: 25px;
+            .wpwax-vm-btn{
+                border-radius: 10px;
+                svg{
+                    width: 16px;
+                    height: 16px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+`;
+
+export  {ChatboxForm, ContactFormWrap};

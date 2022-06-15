@@ -4,7 +4,7 @@ import { chatBoxActions } from "../../../store/chatbox-slice";
 import previewBg from "../../../../../../assets/img/builder/bg.png";
 import expander from "../../../../../../assets/svg/icons/expand.svg";
 import { changeChatScreen } from '../../../store/chatBox/actionCreator';
-import ChatboxForm from "./Style.js";
+import { ChatboxForm } from "./Style.js";
 function Welcome() {
 	const dispatch = useDispatch();
 	const chatBoxStyle = "theme-1";

@@ -49,7 +49,7 @@ abstract class Base {
         $response = [
             'success' => $is_success,
             'message' => $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' ),
-            'data'    => $is_success ? $data : '',
+            'data'    => $is_success ? $data : null,
         ];
 
         return rest_ensure_response( $response );

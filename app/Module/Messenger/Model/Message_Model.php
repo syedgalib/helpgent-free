@@ -111,7 +111,7 @@ class Message_Model extends DB_Model {
 
 		$result = $wpdb->insert( $table, $args );
 
-		return $result ? $wpdb->insert_id : false;
+		return $result ? self::get_item( $wpdb->insert_id ) : false;
     }
 
     /**

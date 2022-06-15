@@ -184,7 +184,7 @@ class Messages extends Rest_Base {
         }
 
         $integer_type_fields = [ 'id', 'user_id', 'attachment_id' ];
-        $serialized_type_fields = [ 'seen_by' ];
+        $serialized_fields = [ 'seen_by' ];
 
         // Sanitize Integer Fields
         foreach ( $item as $key => $value ) {
@@ -200,11 +200,11 @@ class Messages extends Rest_Base {
         // Sanitize Serialized Fields
         foreach ( $item as $key => $value ) {
 
-            if ( ! in_array( $key, $serialized_type_fields ) ) {
+            if ( ! in_array( $key, $serialized_fields ) ) {
                 continue;
             }
 
-            $item[ $key ] = ( ! empty( $item[ $key ] ) ) ? maybe_unserialize( $item[ $key ] ) : null;
+            $item[ $key ] = ( ! empty( $item[ $key ] ) ) ? maybe_unserialize( $value ) : null;
 
         }
 

@@ -1,5 +1,5 @@
 import 'SASS/style.scss';
-import '../apps/chatApp';
+import '../apps/chatApp/index.jsx';
 
 // Testing Rest API
 function rest_test() {

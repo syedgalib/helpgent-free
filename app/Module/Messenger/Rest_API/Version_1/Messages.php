@@ -211,7 +211,7 @@ class Messages extends Rest_Base {
      */
     public function get_item( $request ) {
         $args = $request->get_params();
-        $id = (int) $args['id'];
+        $id   = (int) $args['id'];
 
         $success = false;
         $data    = Message_Model::get_item( $id );
@@ -234,7 +234,7 @@ class Messages extends Rest_Base {
         $args = $request->get_params();
 
         if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_array( $args['seen_by'] );
+            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
         }
 
         $data    = Message_Model::create_item( $args );
@@ -252,7 +252,7 @@ class Messages extends Rest_Base {
         $args = $request->get_params();
 
         if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_array( $args['seen_by'] );
+            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
         }
 
         $data = Message_Model::update_item( $args );
@@ -268,8 +268,9 @@ class Messages extends Rest_Base {
      * @return mixed
      */
     public function delete_item( $request ) {
-        $args      = $request->get_params();
-        $operation = [];
+        $args = $request->get_params();
+
+        $operation = Message_Model::delete_item( $args['id'] );
         $success   = $operation ? true : false;
 
         return $this->response( $success );
@@ -322,10 +323,26 @@ class Messages extends Rest_Base {
     }
 
     /**
+     * Convert string to int array
+     * 
+     * @param string $string
+     * @param string $separator ,
+     * @param string $remove_non_int_items true
+     * 
+     * @return array
+     */
+    public function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true ) {
+        $list = $this->convert_string_to_array( $string, $separator );
+        $list = $this->parse_array_items_to_int( $list, $remove_non_int_items );
+
+        return $list;
+    }
+
+    /**
      * Convert string to array
      * 
      * @param string $string
-     * @param string $separator
+     * @param string $separator ,
      * 
      * @return array
      */
@@ -348,19 +365,27 @@ class Messages extends Rest_Base {
      * 
      * @return array
      */
-    public function parse_array_items_to_int( $list = [] ) {
+    public function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
 
         if ( ! is_array( $list ) ) {
             return $list;
         }
 
         foreach( $list as $key => $value ) {
+
+            $list[ $key ] = 0;
+
             if ( is_numeric( $value ) ) {
                 $list[ $key ] = (int) $value;
             }
+
+            if ( ! is_numeric( $value ) && $remove_non_int_items ) {
+                unset( $list[ $key ] );
+            }
+
         }
 
-        return $list;
+        return array_values( $list );
     }
 
     /**

@@ -109,13 +109,13 @@ class Attachment extends Rest_Base {
 
         // Prepare items for response
         foreach ( $data as $key => $value ) {
-             $item = $this->prepare_item_for_response( $value, $args );
+            $item = $this->prepare_item_for_response( $value, $args );
 
-             if ( empty( $item ) ) {
+            if ( empty( $item ) ) {
                 continue;
-             }
+            }
 
-             $data[ $key ] = $item;
+            $data[ $key ] = $item;
         }
 
         return $this->response( true, $data );
@@ -133,11 +133,13 @@ class Attachment extends Rest_Base {
 
         $success = false;
         $data    = Attachment_Model::get_item( $id );
-        
-        if ( ! empty( $data ) ) {
-            $success = true;
-            $data    = $this->prepare_item_for_response( $data, $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
         }
+        
+        $success = true;
+        $data    = $this->prepare_item_for_response( $data, $args );
 
         return $this->response( $success, $data );
     }
@@ -158,61 +160,59 @@ class Attachment extends Rest_Base {
 
         $args = array_merge( $default_args, $args );
 
-        if ( ! isset( $_FILES['file'] ) && empty( $args['link'] ) ) {
-            $message = __( 'Required file or link is missing', 'wpwax-customer-support-app' );
-            return $this->response( false, null, $message );
-        }
-
         if ( isset( $_FILES['file'] ) ) {
-            $file = Helper\handle_media_upload( $_FILES['file'] );
-
-            if ( ! empty( $file['error'] ) ) {
-                return $this->response( false, null, $file['error'] );
-            }
-
-            if ( empty( $args['title'] ) ) {
-                $file_name = $_FILES['file']['name'];
-                $args['title'] = preg_replace( '/\..+$/', '', $file_name );
-            }
-
-            $args['link']       = $file['url'];
-            $args['media_type'] = $file['type'];
+            $args['file'] = $_FILES['file'];
         }
 
         $data = Attachment_Model::create_item( $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
         $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
-    
         $success = ! empty( $data ) ? true : false;
 
         return $this->response( $success, $data );
     }
 
     /**
+     * Update Item
+     * 
      * @param $request
-     * @return mixed
+     * @return array Response
      */
     public function update_item( $request ) {
         $args = $request->get_params();
 
         $data = Attachment_Model::update_item( $args );
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
 
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
         $success = ! empty( $data ) ? true : false;
 
         return $this->response( $success, $data );
     }
 
     /**
+     * Delete Item
+     * 
      * @param $request
-     * @return mixed
+     * @return array Response
      */
     public function delete_item( $request ) {
         $args = $request->get_params();
 
         $operation = Attachment_Model::delete_item( $args['id'] );
-        $success   = $operation ? true : false;
 
-        return $this->response( $success );
+        if ( is_wp_error( $operation ) ) {
+            return $operation;
+        }
+
+        return $this->response( true );
     }
 
 }

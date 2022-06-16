@@ -101,7 +101,7 @@ class Message_Model extends DB_Model {
         $args['created_on'] = $time;
         $args['updated_on'] = $time;
 
-        if ( ! isset( $args['id'] ) ) {
+        if ( isset( $args['id'] ) ) {
             unset( $args['id'] );
         }
 

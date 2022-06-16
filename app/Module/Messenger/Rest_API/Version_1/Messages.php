@@ -69,7 +69,7 @@ class Messages extends Rest_Base {
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'message_type' => [
-                            'required'          => true,
+                            'required'          => false,
                             'validate_callback' => [ $this, 'validate_message_type' ],
                         ],
                         'seen_by' => [
@@ -131,7 +131,7 @@ class Messages extends Rest_Base {
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'message_type' => [
-                            'required'          => true,
+                            'required'          => false,
                             'validate_callback' => [ $this, 'validate_message_type' ],
                         ],
                         'seen_by' => [
@@ -154,20 +154,6 @@ class Messages extends Rest_Base {
      */
     public function validate_message_type( $value ) {
         return in_array( $value, [ 'text', 'video', 'audio' ] );
-    }
-
-    /**
-     * @param $value
-     */
-    public function validate_message_by( $value ) {
-        return in_array( $value, [ 'user', 'admin' ] );
-    }
-
-    /**
-     * @param $value
-     */
-    public function validate_read_status( $value ) {
-        return in_array( $value, [ 'all', 'read', 'unread' ] );
     }
 
     /**

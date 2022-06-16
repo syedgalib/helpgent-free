@@ -53,8 +53,10 @@ class Prepare_Database {
 			id bigint(20) unsigned NOT NULL auto_increment,
 			created_on datetime NOT NULL,
 			updated_on datetime NOT NULL,
-			title varchar(255) NOT NULL  DEFAULT '',
-			link varchar(255) NOT NULL  DEFAULT '',
+			title varchar(255) NOT NULL DEFAULT '',
+			link varchar(255) NOT NULL DEFAULT '',
+			media_type varchar(100) NOT NULL DEFAULT '',
+			expires_on datetime DEFAULT NULL,
 			PRIMARY KEY (id),
             KEY link (link)
 		) $collate;

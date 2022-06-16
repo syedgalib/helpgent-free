@@ -97,7 +97,7 @@ abstract class DB_Model implements DB_Model_Interface {
 
 		$result = $wpdb->insert( $table, $args );
 
-		return $result ? $wpdb->insert_id : false;
+        return $result ? self::get_item( $wpdb->insert_id ) : false;
     }
 
     /**
@@ -127,7 +127,9 @@ abstract class DB_Model implements DB_Model_Interface {
 
         $where = ['id' => $args['id'] ];
 
-		return $wpdb->update( $table, $args, $where, null, '%d' );
+        $result = $wpdb->update( $table, $args, $where, null, '%d' );
+
+        return $result ? self::get_item( $args['id'] ) : false;
     }
 
     /**

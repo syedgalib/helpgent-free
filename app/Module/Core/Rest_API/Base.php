@@ -45,11 +45,15 @@ abstract class Base {
      * @param $is_success
      * @param $data
      */
-    public function response( $is_success, $data = '' ) {
+    public function response( $is_success, $data = null, $message = '' ) {
+
+        $default_message = $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' );
+        $message = ( ! empty( $message ) ) ? $message : $default_message;
+
         $response = [
             'success' => $is_success,
-            'message' => $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' ),
-            'data'    => $is_success ? $data : null,
+            'message' => $message,
+            'data'    => $data,
         ];
 
         return rest_ensure_response( $response );
@@ -105,6 +109,129 @@ abstract class Base {
         }
 
         return true;
+    }
+
+    /**
+     * Prepare item for response
+     * 
+     * @param array $item
+     * @param array $args
+     * 
+     * @return array
+     */
+    public function prepare_item_for_response( $item = [], $args = [] ) {
+
+        if ( ! is_array( $item ) || empty( $item ) ) {
+            return null;
+        }
+
+        $integer_fields    = [ 'id' ];
+        $date_fields       = [ 'created_on', 'updated_on' ];
+
+        
+        // Sanitize Fields
+        foreach ( $item as $key => $value ) {
+
+            // Sanitize Integer Fields
+            if ( in_array( $key, $integer_fields ) ) {
+                $item[ $key ] = ( ! empty( $item[ $key ] ) && is_numeric( $item[ $key ] ) ) ? (int) $item[ $key ] : null;
+            }
+
+            // Sanitize Date Fields
+            else if ( in_array( $key, $date_fields ) ) {
+                $formatted_key = $key . '_formatted';
+                $timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
+
+                $item[ $formatted_key ] = ( ! empty( $item[ $key ] ) ) ? esc_html( $this->get_formatted_time( $item[ $key ], $timezone ) ) : null;
+            }
+            
+            else {
+                $item[ $key ] = esc_html( $value );
+            }
+
+        }
+
+        return $item;
+    }
+
+    /**
+     * Convert string to int array
+     * 
+     * @param string $string
+     * @param string $separator ,
+     * @param string $remove_non_int_items true
+     * 
+     * @return array
+     */
+    public function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true ) {
+        $list = $this->convert_string_to_array( $string, $separator );
+        $list = $this->parse_array_items_to_int( $list, $remove_non_int_items );
+
+        return $list;
+    }
+
+    /**
+     * Convert string to array
+     * 
+     * @param string $string
+     * @param string $separator ,
+     * 
+     * @return array
+     */
+    public function convert_string_to_array( $string, $separator = ',' ) {
+
+        $string = trim( $string, ',\s' );
+        $list   = explode( $separator, $string );
+            
+        if ( ! is_array( $list ) ) {
+            return [];
+        }
+
+        return $list;
+    }
+
+    /**
+     * Parse array items to int
+     * 
+     * @param array $list
+     * 
+     * @return array
+     */
+    public function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
+
+        if ( ! is_array( $list ) ) {
+            return $list;
+        }
+
+        foreach( $list as $key => $value ) {
+
+            $list[ $key ] = 0;
+
+            if ( is_numeric( $value ) ) {
+                $list[ $key ] = (int) $value;
+            }
+
+            if ( ! is_numeric( $value ) && $remove_non_int_items ) {
+                unset( $list[ $key ] );
+            }
+
+        }
+
+        return array_values( $list );
+    }
+
+    /**
+     * Get Formatted Time
+     * 
+     * @param $time
+     * @param $timezone
+     */
+    protected function get_formatted_time( $time, $timezone ) {
+        $timezone  = $timezone ? $timezone : wp_timezone_string();
+        $timezone  = new \DateTimeZone( $timezone );
+        $timestamp = strtotime( $time );
+
+        return wp_date( 'j M y @ G:i', $timestamp, $timezone );
     }
 
 }

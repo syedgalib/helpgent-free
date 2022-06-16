@@ -1,5 +1,6 @@
 <?php
 
+namespace WPWaxCustomerSupportApp\Root\Helper;
 
 /**
  * Get The Public Template
@@ -10,11 +11,11 @@
  * 
  * @return string Public Template
  */
-function wpwax_customer_support_app_get_template( $path = '', $data = [], $extract = true ) {
+function get_template( $path = '', $data = [], $extract = true ) {
 
     ob_start();
 
-    wpwax_customer_support_app_get_the_template( $path, $data, $extract );
+    get_the_template( $path, $data, $extract );
 
     return ob_get_clean();
 }
@@ -28,11 +29,11 @@ function wpwax_customer_support_app_get_template( $path = '', $data = [], $extra
  * 
  * @return void Prints Public Template
  */
-function wpwax_customer_support_app_get_the_template( $path = '', $data = [], $extract = true ) {
+function get_the_template( $path = '', $data = [], $extract = true ) {
 
     $file_path = WPWAX_CUSTOMER_SUPPORT_APP_TEMPLATE_PATH . $path;
 
-    wpwax_customer_support_app_get_the_file_content( $file_path, $data, $extract );
+    get_the_file_content( $file_path, $data, $extract );
 }
 
 
@@ -45,11 +46,11 @@ function wpwax_customer_support_app_get_the_template( $path = '', $data = [], $e
  * 
  * @return string Admin Template
  */
-function wpwax_customer_support_app_get_view( $path = '', $data = [], $extract = true ) {
+function get_view( $path = '', $data = [], $extract = true ) {
 
     ob_start();
 
-    wpwax_customer_support_app_get_the_view( $path, $data, $extract );
+    get_the_view( $path, $data, $extract );
 
     return ob_get_clean();
 }
@@ -63,11 +64,11 @@ function wpwax_customer_support_app_get_view( $path = '', $data = [], $extract =
  * 
  * @return void Prints Admin Template
  */
-function wpwax_customer_support_app_get_the_view( $path = '', $data = [], $extract = true ) {
+function get_the_view( $path = '', $data = [], $extract = true ) {
 
     $file_path = WPWAX_CUSTOMER_SUPPORT_APP_VIEW_PATH . $path;
 
-    wpwax_customer_support_app_get_the_file_content( $file_path, $data, $extract );
+    get_the_file_content( $file_path, $data, $extract );
 }
 
 /**
@@ -79,7 +80,7 @@ function wpwax_customer_support_app_get_the_view( $path = '', $data = [], $extra
  * 
  * @return void Prints the file contents
  */
-function wpwax_customer_support_app_get_the_file_content( $path = '', $data = [], $extract = true ) {
+function get_the_file_content( $path = '', $data = [], $extract = true ) {
 
     $file = $path . '.php';
 
@@ -92,4 +93,31 @@ function wpwax_customer_support_app_get_the_file_content( $path = '', $data = []
     }
     
     include $file;
+}
+
+/**
+ * Handle Upload
+ * 
+ * @return mixed
+ */
+function handle_media_upload( $file, $overrides = array( 'test_form' => false ) ) {
+    include_media_uploader_files();
+
+    $time = current_time( 'mysql' );
+    $file = wp_handle_upload( $file, $overrides, $time );
+
+    return $file;
+}
+
+/**
+ * Include Media Uploader Files
+ * 
+ * @return void
+ */
+function include_media_uploader_files() {
+
+    require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
+    require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
+    require_once( ABSPATH . "wp-admin" . '/includes/media.php' );
+    
 }

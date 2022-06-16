@@ -196,15 +196,19 @@ class Attachment_Model extends DB_Model {
     /**
      * Delete Item
      * 
-     * @param array $args
+     * @param int $id
      * @return bool|WP_Error
      */
     public static function delete_item( $id ) {
         global $wpdb;
 
-        if ( empty( $id ) ) {
-            return false;
+        $old_data = self::get_item( $id );
+
+        if ( is_wp_error( $old_data ) ) {
+            return $old_data;
         }
+
+        $link = $old_data['link'];
 
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
@@ -215,6 +219,8 @@ class Attachment_Model extends DB_Model {
             $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+        Helper\delete_file_by_url( $link );
 
         return true;
     }

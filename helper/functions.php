@@ -110,6 +110,32 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 }
 
 /**
+ * Delete File by URL
+ * 
+ * @param string $file_url
+ * @return bool
+ */
+function delete_file_by_url( $file_url ) {
+    $regex = '/wp-content.+/';
+
+    $match = [];
+    preg_match( $regex, $file_url, $match );
+
+    $file_path = ( ! empty( $match ) ) ? $match[0] : '';
+
+    $upload_dir = wp_upload_dir();
+    $file_src   = preg_replace( $regex, $file_path, $upload_dir['basedir'] );
+
+    if ( file_exists( $file_src ) ) {
+        wp_delete_file( $file_src );
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
  * Include Media Uploader Files
  * 
  * @return void

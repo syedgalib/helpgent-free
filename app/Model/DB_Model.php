@@ -2,6 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Model;
 
+use \WP_Error;
+
 abstract class DB_Model implements DB_Model_Interface {
 
     /**
@@ -15,7 +17,7 @@ abstract class DB_Model implements DB_Model_Interface {
      * Get Items
      * 
      * @param array $args
-     * @return array|null
+     * @return array
      */
     public static function get_items( $args = [] ) {
         global $wpdb;
@@ -53,13 +55,14 @@ abstract class DB_Model implements DB_Model_Interface {
      * Get Item
      * 
      * @param int $id
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function get_item( $id ) {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            return false;
+            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$table = self::get_table_name( self::$table );
@@ -68,6 +71,11 @@ abstract class DB_Model implements DB_Model_Interface {
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
+        if ( empty( $result ) ) {
+            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
 		return $result;
     }
 
@@ -75,7 +83,7 @@ abstract class DB_Model implements DB_Model_Interface {
      * Create Item
      * 
      * @param array $args
-     * @return int|null
+     * @return array|WP_Error
      */
     public static function create_item( $args = [] ) {
         global $wpdb;
@@ -97,27 +105,34 @@ abstract class DB_Model implements DB_Model_Interface {
 
 		$result = $wpdb->insert( $table, $args );
 
-        return $result ? self::get_item( $wpdb->insert_id ) : false;
+        if ( ! $result ) {
+            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        return self::get_item( $wpdb->insert_id );
     }
 
     /**
      * Update Item
      * 
      * @param array $args
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
         
-        if ( empty( $args['id'] ) ) {
-            return null;
+        if ( empty( $id ) ) {
+            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$table    = self::get_table_name( self::$table );
 		$old_data = self::get_item( $args['id'] );
 
         if ( empty( $old_data ) ) {
-            return null;
+            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
@@ -129,7 +144,12 @@ abstract class DB_Model implements DB_Model_Interface {
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
-        return $result ? self::get_item( $args['id'] ) : false;
+        if ( ! $result ) {
+            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        return self::get_item( $args['id'] );
     }
 
     /**
@@ -142,13 +162,19 @@ abstract class DB_Model implements DB_Model_Interface {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            return false;
+            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
+
+        if ( empty( $status ) ) {
+            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
 
         return ( ! empty( $status ) ) ? true : false;
     }

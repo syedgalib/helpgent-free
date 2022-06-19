@@ -134,6 +134,25 @@ function merge_params( $default = [], $args = [] ) {
 }
 
 /**
+ * Generate Slug
+ * 
+ * @param string $string
+ * 
+ * @return string Slug
+ */
+function generate_slug( $string ) {
+
+    $slug = trim( $string );
+    $slug = sanitize_key( $slug );
+    $slug = strtolower( $string );
+    $slug = preg_replace( '/\s{2,}/', ' ', $slug );
+    $slug = preg_replace( '/\s/', '-', $slug ); 
+
+    return $slug;
+
+}
+
+/**
  * Delete File by URL
  * 
  * @param string $file_url

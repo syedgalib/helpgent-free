@@ -104,10 +104,20 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+        $term_exists = self::term_exists( $args['name'], $args['taxonomy'] );
+
+        if ( $term_exists ) {
+            $message = __( 'The term already exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
         $default_term_args = [];
         $default_term_args['name'] = '';
 
         $term_args = Helper\merge_params( $default_term_args, $args );
+
+        $term_args['term_key'] = Helper\generate_slug( $term_args['name'] );
+
 		$create_terms = $wpdb->insert( $table, $term_args );
 
         if ( empty( $create_terms ) ) {
@@ -118,18 +128,28 @@ class Term_Model extends DB_Model {
         $args['term_id'] = $wpdb->insert_id;
         $term_taxonomy = Term_Taxonomy_Model::create_item( $args );
 
-        return $term_taxonomy;
-
         if ( is_wp_error( $term_taxonomy ) ) {
 
             // Delete The Term
-            self::delete_item( $wpdb->insert_id );
+            self::delete_item( $args['term_id'] );
 
             return $term_taxonomy;
 
         }
 
-        $term = self::get_item( $wpdb->insert_id );
+        $term = self::get_item( $args['term_id'] );
+
+        if ( is_wp_error( $term ) ) {
+
+            // Delete The Term
+            self::delete_item( $args['term_id'] );
+
+            // Delete The Term Taxonomy
+            Term_Taxonomy_Model::delete_item( $term_taxonomy['term_taxonomy_id'] );
+
+            return $term;
+        }
+
         $data = array_merge( $term, $term_taxonomy );
 
         return $data;
@@ -197,6 +217,35 @@ class Term_Model extends DB_Model {
         }
 
         return ( ! empty( $status ) ) ? true : false;
+    }
+
+    /**
+     * Term Exists
+     * 
+     * @param string $term_name
+     * @param string $taxonomy
+     * 
+     * @return bool
+     */
+    public static function term_exists( $term_name, $taxonomy ) {
+        global $wpdb;
+
+        $term_table          = self::get_table_name( self::$table );
+        $term_taxonomy_table = self::get_table_name( 'term_taxonomy' );
+
+        $term_key = Helper\generate_slug( $term_name );
+
+        $sql = "SELECT {$term_table}.term_key, {$term_taxonomy_table}.taxonomy
+        FROM {$term_table}
+        INNER JOIN {$term_taxonomy_table}
+        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id
+        WHERE {$term_table}.term_key = '{$term_key}' AND {$term_taxonomy_table}.taxonomy = '{$taxonomy}'
+        ";
+
+        $query   = $wpdb->prepare( $sql );
+        $results = $wpdb->get_results( $query, ARRAY_A );
+
+        return ! empty( $results ) ? true : false;
     }
 
 }

@@ -36,8 +36,10 @@ class Prepare_Database {
 		CREATE TABLE {$table_prefix}_terms (
 			term_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(200) NOT NULL DEFAULT '',
+			term_key varchar(200) NOT NULL DEFAULT '',
 			PRIMARY KEY (term_id),
-			KEY name (name)
+			KEY name (name),
+			KEY slug (slug)
 		  ) $collate;
 
 		CREATE TABLE {$table_prefix}_term_taxonomy (

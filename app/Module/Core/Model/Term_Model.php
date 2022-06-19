@@ -94,6 +94,11 @@ class Term_Model extends DB_Model {
             unset( $args['term_id'] );
         }
 
+        if ( empty( $args['name'] ) ) {
+            $message = __( 'The term name is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
         if ( empty( $args['taxonomy'] ) ) {
             $message = __( 'The taxonomy is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );

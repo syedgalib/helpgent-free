@@ -8,7 +8,7 @@ interface DB_Model_Interface {
      * Get Items
      * 
      * @param array $args
-     * @return array|null
+     * @return array
      */
     public static function get_items( $args = [] );
 
@@ -16,7 +16,7 @@ interface DB_Model_Interface {
      * Get Item
      * 
      * @param int $id
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function get_item( $id );
 
@@ -24,7 +24,7 @@ interface DB_Model_Interface {
      * Create Item
      * 
      * @param array $args
-     * @return int|null
+     * @return array|WP_Error
      */
     public static function create_item( $args = [] );
 
@@ -32,7 +32,7 @@ interface DB_Model_Interface {
      * Update Item
      * 
      * @param array $args
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function update_item( $args = [] );
 

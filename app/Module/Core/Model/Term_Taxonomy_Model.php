@@ -87,9 +87,9 @@ class Term_Taxonomy_Model extends DB_Model {
 
         $default = [];
 
-        $default['term_id']     = 0;
-        $default['taxonomy']    = '';
-        $default['parent']      = 0;
+        $default['term_id']  = 0;
+        $default['taxonomy'] = '';
+        $default['parent']   = 0;
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 

@@ -109,6 +109,30 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
     return $file;
 }
 
+
+/**
+ * Merge Params
+ * 
+ * @param array $default
+ * @param array $args
+ * 
+ * @return array Merged Params
+ */
+function merge_params( $default = [], $args = [] ) {
+
+    foreach( $default as $key => $value ) {
+
+        if ( ! isset( $args[ $key ] ) ) {
+            continue;
+        }
+
+        $default[ $key ] = $args[ $key ];
+    }
+
+    return $default;
+
+}
+
 /**
  * Delete File by URL
  * 

@@ -18,13 +18,14 @@ class Attachment_Model extends DB_Model {
     /**
      * Get Items
      * 
-     * @param array $args
+     * @param WP_REST_Request $request
      * @return array
      */
-    public static function get_items( $args = [] ) {
+    public static function get_items( $request ) {
         global $wpdb;
 
-		$table = self::get_table_name( self::$table );
+        $args  = $request->get_params();
+        $table = self::get_table_name( self::$table );
 
         $default = [];
 
@@ -56,11 +57,14 @@ class Attachment_Model extends DB_Model {
     /**
      * Get Item
      * 
-     * @param int $id
+     * @param WP_REST_Request $request
      * @return array|WP_Error
      */
-    public static function get_item( $id ) {
+    public static function get_item( $request ) {
         global $wpdb;
+
+        $args = $request->get_params();
+        $id   = $args['id'];
 
         if ( empty( $id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
@@ -84,12 +88,13 @@ class Attachment_Model extends DB_Model {
     /**
      * Create Item
      * 
-     * @param array $args
+     * @param WP_REST_Request $request
      * @return array|WP_Error
      */
-    public static function create_item( $args = [] ) {
+    public static function create_item( $request ) {
         global $wpdb;
 
+        $args = $request->get_params();
 		$table = self::get_table_name( self::$table );
 
         $default = [];
@@ -145,19 +150,22 @@ class Attachment_Model extends DB_Model {
     /**
      * Update Item
      * 
-     * @param array $args
+     * @param WP_REST_Request $request
      * @return array|WP_Error
      */
-    public static function update_item( $args = [] ) {
+    public static function update_item( $request ) {
         global $wpdb;
+
+        $args = $request->get_params();
+        $id   = $args['id'];
         
-        if ( empty( $args['id'] ) ) {
+        if ( empty( $id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $args['id'] );
+		$old_data = self::get_item( $id );
 
         if ( empty( $old_data ) ) {
             $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
@@ -182,7 +190,7 @@ class Attachment_Model extends DB_Model {
             $args['expires_on'] = null;
         }
 
-        $where = ['id' => $args['id'] ];
+        $where = ['id' => $id ];
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( ! $result ) {
@@ -190,17 +198,20 @@ class Attachment_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $args['id'] );
+        return self::get_item( $id );
     }
 
     /**
      * Delete Item
      * 
-     * @param int $id
+     * @param WP_REST_Request $request
      * @return bool|WP_Error
      */
-    public static function delete_item( $id ) {
+    public static function delete_item( $request ) {
         global $wpdb;
+
+        $args = $request->get_params();
+        $id   = $args['id'];
 
         $old_data = self::get_item( $id );
 

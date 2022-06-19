@@ -39,7 +39,7 @@ interface DB_Model_Interface {
     /**
      * Delete Item
      * 
-     * @param array $args
+     * @param int $id
      * @return bool
      */
     public static function delete_item( $id );

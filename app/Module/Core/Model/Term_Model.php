@@ -3,7 +3,9 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Model;
 
 use \WP_Error;
+use \WP_REST_Request;
 use WPWaxCustomerSupportApp\Model\DB_Model;
+use WPWaxCustomerSupportApp\Root\Helper;
 
 class Term_Model extends DB_Model {
 
@@ -48,20 +50,20 @@ class Term_Model extends DB_Model {
     /**
      * Get Item
      * 
-     * @param int $id
+     * @param array $args
      * @return array|WP_Error
      */
-    public static function get_item( $id ) {
+    public static function get_item( $term_id ) {
         global $wpdb;
 
-        if ( empty( $id ) ) {
+        if ( empty( $term_id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
 		$table = self::get_table_name( self::$table );
 
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE term_id = %d", array( $id ) );
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE term_id = %d", array( $term_id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
@@ -92,41 +94,68 @@ class Term_Model extends DB_Model {
             unset( $args['term_id'] );
         }
 
-		$result = $wpdb->insert( $table, $args );
+        if ( empty( $args['taxonomy'] ) ) {
+            $message = __( 'The taxonomy is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
 
-        if ( ! $result ) {
+        $default_term_args = [];
+        $default_term_args['name'] = '';
+
+        $term_args = Helper\merge_params( $default_term_args, $args );
+		$create_terms = $wpdb->insert( $table, $term_args );
+
+        if ( empty( $create_terms ) ) {
             $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $wpdb->insert_id );
+        $args['term_id'] = $wpdb->insert_id;
+        $term_taxonomy = Term_Taxonomy_Model::create_item( $args );
+
+        return $term_taxonomy;
+
+        if ( is_wp_error( $term_taxonomy ) ) {
+
+            // Delete The Term
+            self::delete_item( $wpdb->insert_id );
+
+            return $term_taxonomy;
+
+        }
+
+        $term = self::get_item( $wpdb->insert_id );
+        $data = array_merge( $term, $term_taxonomy );
+
+        return $data;
     }
 
     /**
      * Update Item
      * 
-     * @param array $args
+     * @param WP_REST_Request $request
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
-        
-        if ( empty( $id ) ) {
+
+        if ( empty( $args['term_id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
+        $id = $args['term_id'];
+
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $args['id'] );
+		$old_data = self::get_item( $id );
 
         if ( empty( $old_data ) ) {
             $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
-
-        $where = ['term_id' => $args['id'] ];
+        $args  = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
+        $where = [ 'term_id' => $id ];
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
@@ -135,13 +164,13 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $args['id'] );
+        return self::get_item( $id );
     }
 
     /**
      * Delete Item
      * 
-     * @param array $args
+     * @param int $id
      * @return bool
      */
     public static function delete_item( $id ) {
@@ -153,7 +182,7 @@ class Term_Model extends DB_Model {
         }
 
 		$table = self::get_table_name( self::$table );
-		$where = ['term_id' => $id ];
+		$where = [ 'term_id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 

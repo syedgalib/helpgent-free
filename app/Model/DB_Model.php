@@ -88,7 +88,7 @@ abstract class DB_Model implements DB_Model_Interface {
     public static function create_item( $args = [] ) {
         global $wpdb;
 
-		$table = self::get_table_name( self::$table );
+        $table = self::get_table_name( self::$table );
 
         $default = [];
 
@@ -122,13 +122,15 @@ abstract class DB_Model implements DB_Model_Interface {
     public static function update_item( $args = [] ) {
         global $wpdb;
         
-        if ( empty( $id ) ) {
+        if ( empty( $args['id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
+        $id = $args['id'];
+
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $args['id'] );
+		$old_data = self::get_item( $id );
 
         if ( empty( $old_data ) ) {
             $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
@@ -140,7 +142,7 @@ abstract class DB_Model implements DB_Model_Interface {
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;
 
-        $where = ['id' => $args['id'] ];
+        $where = ['id' => $id ];
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
@@ -149,13 +151,13 @@ abstract class DB_Model implements DB_Model_Interface {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $args['id'] );
+        return self::get_item( $id );
     }
 
     /**
      * Delete Item
      * 
-     * @param array $args
+     * @param int $id
      * @return bool
      */
     public static function delete_item( $id ) {

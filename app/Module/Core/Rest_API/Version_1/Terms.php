@@ -2,16 +2,16 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
-class Attachment extends Rest_Base {
+class Terms extends Rest_Base {
 
     /**
      * Rest Base
      * 
      * @var string
      */
-    public $rest_base = 'attachments';
+    public $rest_base = 'terms';
 
     public function register_routes() {
 
@@ -24,17 +24,13 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'get_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        'timezone'    => [
+                        'timezone' => [
                             'default'           => '',
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'page'        => [
+                        'page' => [
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
-                        ],
-                        'order'       => [
-                            'default'           => 'latest',
-                            'validate_callback' => [ $this, 'validate_order' ],
                         ],
                     ],
                 ],
@@ -43,7 +39,18 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'create_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
-                        
+                        'name' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'taxonomy' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'parent' => [
+                            'default'           => 0,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
                     ],
                 ],
             ]
@@ -74,7 +81,18 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
-                        
+                        'name' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'taxonomy' => [
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'parent' => [
+                            'default'           => 0,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
                     ],
                 ],
                 [
@@ -88,16 +106,6 @@ class Attachment extends Rest_Base {
     }
 
     /**
-     * Validate Order
-     * 
-     * @param $value
-     * @return array
-     */
-    public function validate_order( $value ) {
-        return in_array( $value, [ 'latest', 'oldest' ] );
-    }
-
-    /**
      * Get Items
      * 
      * @param $request
@@ -105,7 +113,7 @@ class Attachment extends Rest_Base {
      */
     public function get_items( $request ) {
         $args = $request->get_params();
-        $data = Attachment_Model::get_items( $args );
+        $data = Term_Model::get_items( $args );
 
         if ( empty( $data ) ) {
             return $this->response( true, [] );
@@ -136,7 +144,7 @@ class Attachment extends Rest_Base {
         $id   = (int) $args['id'];
 
         $success = false;
-        $data    = Attachment_Model::get_item( $id );
+        $data    = Term_Model::get_item( $id );
 
         if ( is_wp_error( $data ) ) {
             return $data;
@@ -158,21 +166,14 @@ class Attachment extends Rest_Base {
         $args = $request->get_params();
         $default_args = [];
 
-        $default_args['link']       = '';
-        $default_args['title']      = '';
-        $default_args['expires_on'] = null;
-
         $args = array_merge( $default_args, $args );
-
-        if ( isset( $_FILES['file'] ) ) {
-            $args['file'] = $_FILES['file'];
-        }
-
-        $data = Attachment_Model::create_item( $args );
+        $data = Term_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return $data;
         }
+
+        return $data;
 
         $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
         $success = ! empty( $data ) ? true : false;
@@ -189,7 +190,7 @@ class Attachment extends Rest_Base {
     public function update_item( $request ) {
         $args = $request->get_params();
 
-        $data = Attachment_Model::update_item( $args );
+        $data = Term_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return $data;
@@ -210,7 +211,7 @@ class Attachment extends Rest_Base {
     public function delete_item( $request ) {
         $args = $request->get_params();
 
-        $operation = Attachment_Model::delete_item( $args['id'] );
+        $operation = Term_Model::delete_item( $args['id'] );
 
         if ( is_wp_error( $operation ) ) {
             return $operation;

@@ -27,6 +27,8 @@ class Init {
     protected function get_controllers() {
         return [
             Messages::class,
+            Terms::class,
+            Tags::class,
         ];
     }
 

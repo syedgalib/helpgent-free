@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 
@@ -11,7 +11,7 @@ class Terms extends Rest_Base {
      * 
      * @var string
      */
-    public $rest_base = 'terms';
+    public $rest_base = 'messages/terms';
 
     public function register_routes() {
 

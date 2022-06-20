@@ -111,6 +111,68 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 
 
 /**
+ * Filter Params
+ * 
+ * @param array $default
+ * @param array $args
+ * 
+ * @return array Merged Params
+ */
+function filter_params( $default = [], $args = [] ) {
+
+    $filtered_params = [];
+
+    foreach( $default as $key => $value ) {
+
+        if ( ! isset( $args[ $key ] ) ) {
+            continue;
+        }
+
+        $filtered_params[ $key ] = $args[ $key ];
+    }
+
+    return $filtered_params;
+
+}
+
+/**
+ * List has same data
+ * 
+ * @param array $list_a
+ * @param array $list_b
+ * 
+ * @return bool
+ */
+function list_has_same_data( $list_a = [], $list_b = [] ) {
+
+    if ( ! is_array( $list_a ) || ! is_array( $list_b ) ) {
+        return false;
+    }
+
+    if ( count( $list_a ) < count( $list_b ) ) {
+        $smaller_list = $list_a;
+        $larger_list  = $list_b;
+    } else {
+        $smaller_list = $list_b;
+        $larger_list  = $list_a;
+    }
+
+    foreach( $smaller_list as $key => $value ) {
+
+        if ( ! isset( $larger_list[ $key ] ) ) {
+            continue;
+        }
+
+        if ( (string) $value !== (string) $larger_list[ $key ] ) {
+            return false;
+        }
+    }
+
+    return true;
+
+}
+
+/**
  * Merge Params
  * 
  * @param array $default

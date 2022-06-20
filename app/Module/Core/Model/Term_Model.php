@@ -25,7 +25,8 @@ class Term_Model extends DB_Model {
     public static function get_items( $args = [] ) {
         global $wpdb;
 
-		$table = self::get_table_name( self::$table );
+		$term_table          = self::get_table_name( self::$table );
+		$term_taxonomy_table = self::get_table_name( Term_Taxonomy_Model::$table );
 
         $default = [];
 
@@ -37,11 +38,14 @@ class Term_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-		$where = ' WHERE 1=1';
+        $sql = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
+        FROM {$term_table}
+        INNER JOIN {$term_taxonomy_table}
+        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id
+        LIMIT $limit OFFSET $offset
+        ";
 
-		$select = "SELECT * FROM $table";
-
-		$query = $select . $where . " LIMIT $limit OFFSET $offset";
+        $query = $wpdb->prepare( $sql );
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -61,11 +65,18 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		$table = self::get_table_name( self::$table );
+        $term_table          = self::get_table_name( self::$table );
+		$term_taxonomy_table = self::get_table_name( Term_Taxonomy_Model::$table );
 
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE term_id = %d", array( $term_id ) );
+        $sql = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
+        FROM {$term_table}
+        INNER JOIN {$term_taxonomy_table}
+        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id
+        WHERE {$term_table}.term_id = %d
+        ";
 
-		$result = $wpdb->get_row( $query, ARRAY_A );
+        $query  = $wpdb->prepare( $sql, [ $term_id ] );
+        $result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
             $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
@@ -107,7 +118,7 @@ class Term_Model extends DB_Model {
         $term_exists = self::term_exists( $args['name'], $args['taxonomy'] );
 
         if ( $term_exists ) {
-            $message = __( 'The term already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource already exists.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -158,7 +169,7 @@ class Term_Model extends DB_Model {
     /**
      * Update Item
      * 
-     * @param WP_REST_Request $request
+     * @param array $args
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
@@ -171,25 +182,70 @@ class Term_Model extends DB_Model {
 
         $id = $args['term_id'];
 
-		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $id );
+		$table         = self::get_table_name( self::$table );
+		$old_term_data = self::get_item( $id );
 
-        if ( empty( $old_data ) ) {
+        $term_taxonomy_args = [ 'where' => [ 'term_id' => $id ] ];
+        $term_taxonomy_data = Term_Taxonomy_Model::get_items( $term_taxonomy_args, true );
+
+        if ( empty( $old_term_data ) ) {
             $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        $args  = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
-        $where = [ 'term_id' => $id ];
-
-        $result = $wpdb->update( $table, $args, $where, null, '%d' );
-
-        if ( ! $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+        if ( empty( $term_taxonomy_data ) ) {
+            $message = __( 'The resource is not valid.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $id );
+        // Update Terms
+        $accepted_terms_args = [];
+        $accepted_terms_args['name'] = '';
+        $terms_args = Helper\filter_params( $accepted_terms_args, $args );
+
+        $term_is_updatable = ! Helper\list_has_same_data( $old_term_data, $terms_args );
+
+        if ( ! empty( $terms_args ) && $term_is_updatable ) {
+            $terms_args = Helper\merge_params( $accepted_terms_args, $args );
+            $term_exists = self::term_exists( $terms_args['name'], $term_taxonomy_data['taxonomy'] );
+
+            if ( $term_exists ) {
+                $message = __( 'The resource already exists.', 'wpwax-customer-support-app' );
+                return new WP_Error( 403, $message );
+            }
+
+            if ( ! empty( $terms_args['name'] ) ) {
+                $terms_args['term_key'] = Helper\generate_slug( $terms_args['name'] );  
+            }
+    
+            $where  = [ 'term_id' => $id ];
+            $result = $wpdb->update( $table, $terms_args, $where, null, '%d' );
+    
+            if ( empty( $result ) ) {
+                $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+                return new WP_Error( 403, $message );
+            }
+        }
+
+        // Update Term Taxonomy
+        $accepted_term_taxonomy_args = [];
+        $accepted_term_taxonomy_args['parent'] = '';
+
+        $updating_term_taxonomy_args = Helper\filter_params( $accepted_term_taxonomy_args, $args );
+
+        if ( ! empty( $updating_term_taxonomy_args ) ) {
+            $updating_term_taxonomy_args['where']['term_id'] = $id;
+            $term_taxonomy_data = Term_Taxonomy_Model::update_item( $updating_term_taxonomy_args );
+
+            if ( is_wp_error( $term_taxonomy_data ) ) {
+                return $term_taxonomy_data;
+            }
+        }
+
+        $updated_term = self::get_item( $id );
+        $data = array_merge( $updated_term, $term_taxonomy_data );
+
+        return $data;
     }
 
     /**
@@ -206,8 +262,16 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+        $old_data = self::get_item( $id );
+
+        if ( is_wp_error( $old_data ) ) {
+            return $old_data;
+        }
+
 		$table = self::get_table_name( self::$table );
-		$where = [ 'term_id' => $id ];
+        $where = [ 'term_id' => $id ];
+        
+        Term_Taxonomy_Model::delete_item_where( $where );
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 
@@ -216,7 +280,7 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return ( ! empty( $status ) ) ? true : false;
+        return true;
     }
 
     /**
@@ -231,7 +295,7 @@ class Term_Model extends DB_Model {
         global $wpdb;
 
         $term_table          = self::get_table_name( self::$table );
-        $term_taxonomy_table = self::get_table_name( 'term_taxonomy' );
+        $term_taxonomy_table = self::get_table_name( Term_Taxonomy_Model::$table );
 
         $term_key = Helper\generate_slug( $term_name );
 

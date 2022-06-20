@@ -58,7 +58,7 @@ class Terms extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\d]+)',
+            '/' . $this->rest_base . '/(?P<term_id>[\d]+)',
             [
                 'args' => [
                     'form_id' => [
@@ -82,15 +82,14 @@ class Terms extends Rest_Base {
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
                         'name' => [
-                            'required'          => true,
+                            'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'taxonomy' => [
-                            'required'          => true,
+                            'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'parent' => [
-                            'default'           => 0,
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
                     ],
@@ -141,7 +140,7 @@ class Terms extends Rest_Base {
      */
     public function get_item( $request ) {
         $args = $request->get_params();
-        $id   = (int) $args['id'];
+        $id   = (int) $args['term_id'];
 
         $success = false;
         $data    = Term_Model::get_item( $id );
@@ -211,7 +210,7 @@ class Terms extends Rest_Base {
     public function delete_item( $request ) {
         $args = $request->get_params();
 
-        $operation = Term_Model::delete_item( $args['id'] );
+        $operation = Term_Model::delete_item( $args['term_id'] );
 
         if ( is_wp_error( $operation ) ) {
             return $operation;

@@ -46,19 +46,19 @@ class Message_Term_Relationship_Model extends DB_Model {
 
 		$where = ' WHERE 1=1';
 
-        // $sql = "SELECT {$relationship_table}.*, {$taxonomy_table}.*,  {$term_table}.*
-        // FROM {$relationship_table}
-        // INNER JOIN {$taxonomy_table} ON {$relationship_table}.term_taxonomy_id = {$taxonomy_table}.term_taxonomy_id
-        // INNER JOIN {$term_table} ON {$taxonomy_table}.term_id = {$term_table}.term_id
-        // LIMIT $limit OFFSET $offset
-        // ";
-
-        $select = "SELECT {$relationship_table}.*, {$taxonomy_table}.*,  {$term_table}.*
-        FROM ( 
-            ({$relationship_table} INNER JOIN {$taxonomy_table} ON {$relationship_table}.term_taxonomy_id = {$taxonomy_table}.term_taxonomy_id)
-            INNER JOIN {$term_table} ON {$taxonomy_table}.term_id = {$term_table}.term_id
-        )
+        $query = "SELECT {$relationship_table}.*, {$taxonomy_table}.*,  {$term_table}.*
+        FROM {$relationship_table}
+        INNER JOIN {$taxonomy_table} ON {$relationship_table}.term_taxonomy_id = {$taxonomy_table}.term_taxonomy_id
+        INNER JOIN {$term_table} ON {$taxonomy_table}.term_id = {$term_table}.term_id
+        LIMIT $limit OFFSET $offset
         ";
+
+        // $select = "SELECT {$relationship_table}.*, {$taxonomy_table}.*
+        // FROM ( 
+        //     ({$relationship_table} INNER JOIN {$taxonomy_table} ON {$relationship_table}.term_taxonomy_id = {$taxonomy_table}.term_taxonomy_id)
+        //     -- INNER JOIN {$term_table} ON {$taxonomy_table}.term_id = {$term_table}.term_id
+        // )
+        // ";
 
         // $as = "SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
         // FROM (
@@ -68,7 +68,7 @@ class Message_Term_Relationship_Model extends DB_Model {
 
 		// $select = "SELECT * FROM $relationship_table";
 
-		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
+		// $query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -88,18 +88,7 @@ class Message_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		$table = self::get_table_name( self::$table );
-
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
-
-		$result = $wpdb->get_row( $query, ARRAY_A );
-
-        if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-		return $result;
+        return Term_Model::get_item( $id );
     }
 
     /**
@@ -115,17 +104,27 @@ class Message_Term_Relationship_Model extends DB_Model {
 
         $default = [];
 
+        $default['object_id']        = 0;
+        $default['term_taxonomy_id'] = 0;
+
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
-        $time = current_time( 'mysql', true );
+        $term = Term_Model::get_item( $args['term_taxonomy_id'] );
 
-        $args['created_on'] = $time;
-        $args['updated_on'] = $time;
-
-        if ( ! isset( $args['id'] ) ) {
-            unset( $args['id'] );
+        if ( is_wp_error( $term ) ) {
+            return $term;
         }
 
+        if ( empty( $args['object_id'] ) ) {
+            $message = __( 'Object ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        if ( empty( $args['term_taxonomy_id'] ) ) {
+            $message = __( 'Term taxonomy id is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+        
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
@@ -133,7 +132,7 @@ class Message_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $wpdb->insert_id );
+        return self::get_item( $args['term_taxonomy_id'] );
     }
 
     /**

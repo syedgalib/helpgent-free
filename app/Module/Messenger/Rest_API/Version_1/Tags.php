@@ -25,10 +25,6 @@ class Tags extends Rest_Base {
                     'callback'            => [ $this, 'get_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        'timezone'    => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
                         'page'        => [
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
@@ -44,37 +40,13 @@ class Tags extends Rest_Base {
                     'callback'            => [ $this, 'create_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
-                        'user_id'         => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
+                        'message_id' => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_int' ],
                         ],
-                        'user_full_name' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_email' ],
-                            'sanitize_callback' => 'sanitize_email',
-                        ],
-                        'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'attachment_id' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'message_type' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_message_type' ],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
+                        'term_id' => [
+                            'required'          => true,
+                            'validate_callback' => [ $this, 'validate_int' ],
                         ],
                     ],
                 ],
@@ -94,49 +66,20 @@ class Tags extends Rest_Base {
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
-                    'args'                => [
-                        'timezone' => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                    ],
+                    'args'                => [],
                 ],
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_user_permission' ],
                     'args'                => [
-                        'user_id'         => [
+                        'message_id' => [
                             'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
+                            'validate_callback' => [ $this, 'validate_int' ],
                         ],
-                        'user_full_name' => [
+                        'term_id' => [
                             'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_email' ],
-                            'sanitize_callback' => 'sanitize_email',
-                        ],
-                        'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'attachment_id' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'message_type' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_message_type' ],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
+                            'validate_callback' => [ $this, 'validate_int' ],
                         ],
                     ],
                 ],
@@ -223,11 +166,28 @@ class Tags extends Rest_Base {
     public function create_item( $request ) {
         $args = $request->get_params();
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
+        $params_map = [
+            'message_id' => 'object_id',
+            'term_id'    => 'term_taxonomy_id',
+        ];
+
+        $model_args = [];
+
+        // Parse Args
+        foreach( $params_map as $key => $value ) {
+            
+            if ( empty( $args[ $key ] ) ) {
+                continue;
+            }
+
+            $model_args[ $value ] = $args[ $key ];
+
         }
 
-        $data    = Message_Model::create_item( $args );
+        $data = Message_Term_Relationship_Model::create_item( $model_args );
+
+        return $data;
+
         $data    = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
         $success = ! empty( $data ) ? true : false;
 

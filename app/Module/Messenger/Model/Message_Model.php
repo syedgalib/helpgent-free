@@ -17,7 +17,7 @@ class Message_Model extends DB_Model {
      * Get Items
      * 
      * @param array $args
-     * @return array|null
+     * @return array
      */
     public static function get_items( $args = [] ) {
         global $wpdb;

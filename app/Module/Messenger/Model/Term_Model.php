@@ -1,9 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use \WP_Error;
-use \WP_REST_Request;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Root\Helper;
 
@@ -14,7 +13,7 @@ class Term_Model extends DB_Model {
      * 
      * @var string
      */
-    public static $table = 'terms';
+    public static $table = 'message_terms';
 
     /**
      * Get Items

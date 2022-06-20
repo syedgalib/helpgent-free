@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use WPWaxCustomerSupportApp\Model\DB_Model;
 

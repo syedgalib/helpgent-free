@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
@@ -13,7 +13,7 @@ class Term_Taxonomy_Model extends DB_Model {
      * 
      * @var string
      */
-    public static $table = 'term_taxonomy';
+    public static $table = 'message_term_taxonomy';
 
     /**
      * Get Items

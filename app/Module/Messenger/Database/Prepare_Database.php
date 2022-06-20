@@ -50,6 +50,24 @@ class Prepare_Database {
 			KEY updated_on (updated_on)
 		  ) $collate;
 
+		CREATE TABLE {$table_prefix}_message_terms (
+			term_id bigint(20) unsigned NOT NULL auto_increment,
+			name varchar(200) NOT NULL DEFAULT '',
+			term_key varchar(200) NOT NULL DEFAULT '',
+			PRIMARY KEY (term_id),
+			KEY name (name),
+			KEY term_key (term_key)
+		  ) $collate;
+
+		CREATE TABLE {$table_prefix}_message_term_taxonomy (
+			term_taxonomy_id bigint(20) unsigned NOT NULL auto_increment,
+			term_id bigint(20) unsigned NOT NULL DEFAULT 0,
+			taxonomy varchar(32) NOT NULL  DEFAULT '',
+			parent bigint(20) unsigned NOT NULL DEFAULT 0,
+			PRIMARY KEY (term_taxonomy_id),
+            KEY taxonomy (taxonomy)
+		) $collate;
+
 		CREATE TABLE {$table_prefix}_message_term_relationships (
 			object_id bigint(20) unsigned NOT NULL DEFAULT 0,
 			term_taxonomy_id bigint(20) unsigned NOT NULL DEFAULT 0,

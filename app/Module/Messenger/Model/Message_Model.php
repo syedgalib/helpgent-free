@@ -26,9 +26,11 @@ class Message_Model extends DB_Model {
 
         $default = [];
 
-        $default['limit'] = 20;
-        $default['page']  = 1;
-        $default['order'] = 'latest';
+        $default['limit']    = 20;
+        $default['page']     = 1;
+        $default['order']    = 'latest';
+        $default['group_by'] = '';
+        $default['fields']   = '*';
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
@@ -43,9 +45,36 @@ class Message_Model extends DB_Model {
 
 		$where = ' WHERE 1=1';
 
-		$select = "SELECT * FROM $table";
+        // Construct where clause
+        if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
+            
+            foreach ( $args['where'] as $key => $value ) {
 
-		$query = $select . $where . $order . " LIMIT $limit OFFSET $offset";
+                if ( is_array( $value ) ) {
+
+                    $_key     = $value['field'];
+                    $_compare = $value['compare'];
+                    $_value   = $value['value'];
+
+                    $where .= " AND {$_key} {$_compare} {$_value}";
+
+                    continue;
+                }
+
+                $where .= " AND {$key}='{$value}'";
+            }
+
+        }
+        
+        $group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY ' . $args['group_by'] : '';
+
+        $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? implode( ', ', $args['fields'] ) : '';
+
+        $fields = trim( $fields, ', ' );
+        $fields = ( empty( $fields ) ) ? '*' : $fields;
+
+		$select = "SELECT $fields FROM $table";
+		$query  = $select . $where . $group_by . $order . " LIMIT $limit OFFSET $offset";
 
 		return $wpdb->get_results( $query, ARRAY_A );
 

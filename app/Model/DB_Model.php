@@ -186,10 +186,10 @@ abstract class DB_Model implements DB_Model_Interface {
      * 
      * @return String Table Name
      */
-    public static function get_table_name( $table = '' ) {
+    public static function get_table_name( $table = '', $sub_prefix = WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX . '_' ) {
         global $wpdb;
 
-        return $wpdb->prefix . WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX . '_' . $table;
+        return $wpdb->prefix . $sub_prefix . $table;
     }
 
 }

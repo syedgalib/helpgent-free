@@ -68,10 +68,10 @@ class Prepare_Database {
             KEY taxonomy (taxonomy)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_message_term_relationships (
-			object_id bigint(20) unsigned NOT NULL DEFAULT 0,
+		CREATE TABLE {$table_prefix}_session_term_relationships (
+			session_id varchar(255) NOT NULL,
 			term_taxonomy_id bigint(20) unsigned NOT NULL DEFAULT 0,
-			PRIMARY KEY (object_id),
+			PRIMARY KEY (session_id, term_taxonomy_id),
             KEY term_taxonomy_id (term_taxonomy_id)
 		) $collate;
 		";

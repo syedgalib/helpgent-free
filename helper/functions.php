@@ -196,6 +196,102 @@ function merge_params( $default = [], $args = [] ) {
 }
 
 /**
+ * Swap array keys
+ * 
+ * @param array $list
+ * @param array $swap_map
+ * 
+ * @return array Swaped Array
+ */
+function swap_array_keys( $list = [], $swap_map = [] ) {
+
+    if ( ! is_array( $list ) && ! is_array( $swap_map ) ) {
+        return $list;
+    }
+
+    foreach( $list as $key => $value ) {
+            
+        if ( empty( $swap_map[ $key ] ) ) {
+            continue;
+        }
+
+        unset( $list[ $key ] );
+
+        $swap_key = $swap_map[ $key ];
+        $list[ $swap_key ] = $value;
+    }
+
+    return $list;
+
+}
+
+/**
+ * Convert string to int array
+ * 
+ * @param string $string
+ * @param string $separator ,
+ * @param string $remove_non_int_items true
+ * 
+ * @return array
+ */
+function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true ) {
+    $list = convert_string_to_array( $string, $separator );
+    $list = parse_array_items_to_int( $list, $remove_non_int_items );
+
+    return $list;
+}
+
+/**
+ * Convert string to array
+ * 
+ * @param string $string
+ * @param string $separator ,
+ * 
+ * @return array
+ */
+function convert_string_to_array( $string, $separator = ',' ) {
+
+    $string = trim( $string, ',\s' );
+    $list   = explode( $separator, $string );
+        
+    if ( ! is_array( $list ) ) {
+        return [];
+    }
+
+    return $list;
+}
+
+/**
+ * Parse array items to int
+ * 
+ * @param array $list
+ * 
+ * @return array
+ */
+function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
+
+    if ( ! is_array( $list ) ) {
+        return $list;
+    }
+
+    foreach( $list as $key => $value ) {
+
+        $list[ $key ] = 0;
+
+        if ( is_numeric( $value ) ) {
+            $list[ $key ] = (int) $value;
+        }
+
+        if ( ! is_numeric( $value ) && $remove_non_int_items ) {
+            unset( $list[ $key ] );
+        }
+
+    }
+
+    return array_values( $list );
+}
+
+/**
  * Generate Slug
  * 
  * @param string $string

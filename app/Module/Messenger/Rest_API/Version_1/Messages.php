@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
+use WPWaxCustomerSupportApp\Root\Helper;
 
 class Messages extends Rest_Base {
 
@@ -35,6 +36,9 @@ class Messages extends Rest_Base {
                         'order'       => [
                             'default'           => 'latest',
                             'validate_callback' => [ $this, 'validate_order' ],
+                        ],
+                        'session_id'  => [
+                            'sanitize_callback' => 'sanitize_text_field',
                         ],
                     ],
                 ],
@@ -169,6 +173,20 @@ class Messages extends Rest_Base {
      */
     public function get_items( $request ) {
         $args = $request->get_params();
+
+
+        $where = [];
+        $where['session_id'] = '';
+        $where = Helper\filter_params( $where, $args );
+
+        $default = [];
+
+        $default['limit'] = 20;
+        $default['page']  = 1;
+
+        $args = Helper\filter_params( $default, $args );
+        $args['where'] = $where;
+
         $data = Message_Model::get_items( $args );
 
         if ( empty( $data ) ) {

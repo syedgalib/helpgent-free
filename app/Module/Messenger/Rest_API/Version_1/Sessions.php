@@ -133,6 +133,7 @@ class Sessions extends Rest_Base {
 
         $args['group_by'] = 'session_id';
         $args['fields']   = [ 'session_id' ];
+        $args['order_by'] = [ 'latest' ];
 
         $session_data = Message_Model::get_items( $args );
 

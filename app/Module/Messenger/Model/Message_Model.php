@@ -37,11 +37,30 @@ class Message_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-		if ( $args['order'] == 'oldest' ) {
-			$order = ' ORDER BY created_on ASC';
-		} else {
-			$order = ' ORDER BY updated_on DESC';
-		}
+
+        // Prepare Order
+        switch ( $args['order'] ) {
+            case 'latest':
+                $order = ' ORDER BY updated_on DESC';
+                break;
+
+            case 'oldest':
+                $order = ' ORDER BY created_on ASC';
+                break;
+
+            case 'read':
+                $order = " ORDER BY case when seen_by = '' then 0 case when seen_by != '' then 1 ASC";
+                break;
+
+            case 'unread':
+                $order = " ORDER BY case when seen_by = '' then 0 case when seen_by != '' then 1 DESC";
+                break;
+            
+            default:
+                $order = ' ORDER BY updated_on DESC';
+                break;
+        }
+        
 
 		$where = ' WHERE 1=1';
 

@@ -19,7 +19,7 @@ class Message_Model extends DB_Model {
      * @param array $args
      * @return array
      */
-    public static function get_items( $args = [] ) {
+    public static function get_items( $args = [], $debug = false ) {
         global $wpdb;
 
 		$table = self::get_table_name( self::$table );
@@ -28,7 +28,7 @@ class Message_Model extends DB_Model {
 
         $default['limit']    = 20;
         $default['page']     = 1;
-        $default['order']    = 'latest';
+        $default['order_by'] = 'latest';
         $default['group_by'] = '';
         $default['fields']   = '*';
 
@@ -37,9 +37,8 @@ class Message_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-
         // Prepare Order
-        switch ( $args['order'] ) {
+        switch ( $args['order_by'] ) {
             case 'latest':
                 $order = ' ORDER BY updated_on DESC';
                 break;
@@ -49,18 +48,17 @@ class Message_Model extends DB_Model {
                 break;
 
             case 'read':
-                $order = " ORDER BY case when seen_by = '' then 0 case when seen_by != '' then 1 ASC";
+                $order = " ORDER BY CASE WHEN seen_by = '' THEN 0 WHEN seen_by != '' THEN 1 END DESC";
                 break;
 
             case 'unread':
-                $order = " ORDER BY case when seen_by = '' then 0 case when seen_by != '' then 1 DESC";
+                $order = " ORDER BY CASE WHEN seen_by = '' THEN 0 WHEN seen_by != '' THEN 1 END ASC";
                 break;
             
             default:
                 $order = ' ORDER BY updated_on DESC';
                 break;
         }
-        
 
 		$where = ' WHERE 1=1';
 

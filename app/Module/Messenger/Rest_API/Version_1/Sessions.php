@@ -99,6 +99,8 @@ class Sessions extends Rest_Base {
     }
 
     /**
+     * Validate Message Type
+     * 
      * @param $value
      */
     public function validate_message_type( $value ) {
@@ -106,6 +108,8 @@ class Sessions extends Rest_Base {
     }
 
     /**
+     * Validate Order
+     * 
      * @param $value
      */
     public function validate_order( $value ) {
@@ -113,6 +117,8 @@ class Sessions extends Rest_Base {
     }
 
     /**
+     * Get Items
+     * 
      * @param $request
      * @return mixed
      */
@@ -184,7 +190,7 @@ class Sessions extends Rest_Base {
 
         // Add users to session data
         $session_data = array_map(  function( $item ) use ( $user_data ) {
-            
+
             $users = [];
 
             foreach( $user_data as $user ) {

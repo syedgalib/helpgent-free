@@ -117,6 +117,8 @@ class Sessions extends Rest_Base {
      * @return mixed
      */
     public function get_items( $request ) {
+
+        // Get session data
         $args = $request->get_params();
 
         $default = [];
@@ -132,23 +134,22 @@ class Sessions extends Rest_Base {
             return $this->response( true, [] );
         }
 
-
-        // Get Users Data
+        // Get users data
         $session_ids = array_map( function( $item ) {
             $session_id = $item['session_id'];
             return "'{$session_id}'";
         }, $session_data );
 
-        $session_ids = implode( ',', $session_ids );
-        $session_ids = trim( $session_ids, ', ' );
+        $session_ids_as_string = implode( ',', $session_ids );
+        $session_ids_as_string = trim( $session_ids_as_string, ', ' );
 
         $users_args = [];
-        $users_args['fields'] = ['user_id'];
+        $users_args['fields'] = [ 'user_id', 'session_id' ];
         $users_args['where'] = [
             [
                 'field'   => 'session_id',
                 'compare' => 'IN',
-                'value'   => "($session_ids)",
+                'value'   => "($session_ids_as_string)",
             ]
         ];
 
@@ -159,22 +160,54 @@ class Sessions extends Rest_Base {
             return new WP_Error( 403, $message );
         }
 
-        return $user_data;
+        // Prepare user data
+        $user_data = array_map( function( $item ) {
+            $user = get_user_by( 'id', $item['user_id'] );
 
-        $data = [];
+            if ( empty( $user ) ) {
+                return [];
+            }
 
-        // Prepare items for response
-        foreach ( $data as $key => $value ) {
-             $item = $this->prepare_item_for_response( $value, $args );
+            $avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
 
-             if ( empty( $item ) ) {
-                continue;
-             }
+            $user_data = [];
 
-             $data[ $key ] = $item;
-        }
+            $user_data['id']         = $user->ID;
+            $user_data['name']       = $user->display_name;
+            $user_data['avater']     = $avater;
+            $user_data['session_id'] = $item['session_id'];
 
-        return $this->response( true, $data );
+            return $user_data;
+
+        }, $user_data );
+
+
+        // Add users to session data
+        $session_data = array_map(  function( $item ) use ( $user_data ) {
+            
+            $users = [];
+
+            foreach( $user_data as $user ) {
+                if ( ! is_array( $user ) ) {
+                    continue;
+                }
+
+                if ( $user['session_id'] !== $item['session_id'] ) {
+                    continue;
+                }
+
+                unset( $user['session_id'] );
+                array_push( $users, $user );
+            }
+
+            $item['users'] = $users;
+
+            return $item;
+
+        }, $session_data );
+
+
+        return $this->response( true, $session_data );
     }
 
     /**

@@ -296,6 +296,8 @@ class Sessions extends Rest_Base {
     }
 
     /**
+     * Delete Item
+     * 
      * @param $request
      * @return mixed
      */

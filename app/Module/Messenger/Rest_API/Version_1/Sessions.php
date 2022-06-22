@@ -42,7 +42,7 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\d]+)',
+            '/' . $this->rest_base . '/(?P<id>[\w]+)',
             [
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
@@ -304,8 +304,14 @@ class Sessions extends Rest_Base {
     public function delete_item( $request ) {
         $args = $request->get_params();
 
-        $operation = Message_Model::delete_item( $args['id'] );
+        $where = [ 'session_id' => $args['id'] ];
+
+        $operation = Message_Model::delete_item_where( $where );
         $success   = $operation ? true : false;
+
+        if ( $success ) {
+            Session_Term_Relationship_Model::delete_item_where( $where );
+        }
 
         return $this->response( $success );
     }

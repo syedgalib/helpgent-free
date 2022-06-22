@@ -242,6 +242,21 @@ class Message_Model extends DB_Model {
         return ( ! empty( $status ) ) ? true : false;
     }
 
+    /**
+     * Delete Item Where
+     * 
+     * @param array $args
+     * @return bool
+     */
+    public static function delete_item_where( $where = [] ) {
+        global $wpdb;
+
+		$table = self::get_table_name( self::$table );
+		$status = $wpdb->delete( $table, $where, '%d' );
+
+        return ( ! empty( $status ) ) ? true : false;
+    }
+
 
     /**
      * Generate Session

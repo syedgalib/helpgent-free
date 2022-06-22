@@ -436,6 +436,13 @@ class Users extends Rest_Base {
 			);
 		}
 
+        // Get Custom Metas
+        $custom_metas = $this->user_custom_meta_schema();
+        foreach( $custom_metas as $meta_key => $schema ) {
+            $meta_value = get_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_META_PREFIX . $meta_key, true );
+            $data[ $meta_key ] = $meta_value;
+        }
+
 		$context  = ! empty( $request['context'] ) ? $request['context'] : 'view';
 		$data     = $this->add_additional_fields_to_object( $data, $request );
 		$data     = $this->filter_response_by_context( $data, $context );
@@ -452,6 +459,19 @@ class Users extends Rest_Base {
 		 */
 		return apply_filters( 'wpwax_customer_support_app_rest_prepare_user', $response, $user, $request );
 	}
+
+    /**
+     * User Custom Metas
+     * 
+     * @return array
+     */
+    protected function user_custom_meta_schema() {
+        $metas = [];
+
+        $metas['is_guest'] = [ 'type' => 'bool' ];
+
+        return $metas;
+    }
 
 	/**
 	 * Update user meta fields.
@@ -483,6 +503,11 @@ class Users extends Rest_Base {
 			update_user_meta( $id, 'description', Helper\clean_var( $request['description'] ) );
 		}
 
+		// Save description.
+		if ( isset( $request['description'] ) ) {
+			update_user_meta( $id, 'description', Helper\clean_var( $request['description'] ) );
+		}
+
 		// Save user avater.
 		if ( isset( $request['avater'] ) ) {
 			if ( empty( $request['avater']['id'] ) && ! empty( $request['avater']['src'] ) ) {
@@ -504,6 +529,18 @@ class Users extends Rest_Base {
 				delete_term_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_USER_META_AVATER );
 			}
 		}
+
+        $custom_metas = $this->user_custom_meta_schema();
+
+        foreach( $custom_metas as $meta_key => $schema ) {
+
+            if ( ! isset( $request[ $meta_key ] ) ) {
+                continue;
+            }
+
+            update_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_META_PREFIX . $meta_key, $request[ $meta_key ] );
+
+        }
 	}
 
 	/**

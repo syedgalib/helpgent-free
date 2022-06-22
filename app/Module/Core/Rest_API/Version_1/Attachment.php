@@ -41,7 +41,7 @@ class Attachment extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [
                         
                     ],
@@ -61,7 +61,7 @@ class Attachment extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -72,7 +72,7 @@ class Attachment extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update_item' ],
-                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         
                     ],

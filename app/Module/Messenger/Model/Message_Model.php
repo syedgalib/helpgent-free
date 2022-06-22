@@ -136,7 +136,7 @@ class Message_Model extends DB_Model {
      * Create Item
      * 
      * @param array $args
-     * @return int|null
+     * @return int|WP_Error
      */
     public static function create_item( $args = [] ) {
         global $wpdb;
@@ -182,7 +182,7 @@ class Message_Model extends DB_Model {
      * Update Item
      * 
      * @param array $args
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;

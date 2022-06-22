@@ -2,6 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
+use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 
 class Message_Model extends DB_Model {
@@ -106,7 +107,7 @@ class Message_Model extends DB_Model {
      * Get Item
      * 
      * @param int $id
-     * @return array|null
+     * @return array|WP_Error
      */
     public static function get_item( $id ) {
         global $wpdb;
@@ -120,6 +121,11 @@ class Message_Model extends DB_Model {
 		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
+
+        if ( empty( $result ) ) {
+            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
 
 		return $result;
     }
@@ -162,7 +168,12 @@ class Message_Model extends DB_Model {
 
 		$result = $wpdb->insert( $table, $args );
 
-		return $result ? self::get_item( $wpdb->insert_id ) : false;
+        if ( empty( $result ) ) {
+            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+		return  self::get_item( $wpdb->insert_id );
     }
 
     /**
@@ -175,14 +186,16 @@ class Message_Model extends DB_Model {
         global $wpdb;
         
         if ( empty( $args['id'] ) ) {
-            return null;
+            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$table    = self::get_table_name( self::$table );
 		$old_data = self::get_item( $args['id'] );
 
         if ( empty( $old_data ) ) {
-            return null;
+            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
@@ -198,7 +211,12 @@ class Message_Model extends DB_Model {
 
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
 
-        return $result ? self::get_item( $args['id'] ) : false;
+        if ( empty( $result ) ) {
+            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        return self::get_item( $args['id'] );
     }
 
     /**

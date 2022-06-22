@@ -189,6 +189,10 @@ class Messages extends Rest_Base {
 
         $data = Message_Model::get_items( $args );
 
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
         if ( empty( $data ) ) {
             return $this->response( true, [] );
         }
@@ -219,11 +223,13 @@ class Messages extends Rest_Base {
 
         $success = false;
         $data    = Message_Model::get_item( $id );
-        
-        if ( ! empty( $data ) ) {
-            $success = true;
-            $data    = $this->prepare_item_for_response( $data, $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
         }
+        
+        $success = true;
+        $data    = $this->prepare_item_for_response( $data, $args );
 
         return $this->response( $success, $data );
     }
@@ -241,9 +247,14 @@ class Messages extends Rest_Base {
             $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
         }
 
-        $data    = Message_Model::create_item( $args );
-        $data    = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
-        $success = ! empty( $data ) ? true : false;
+        $data = Message_Model::create_item( $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+        $data    = $this->prepare_item_for_response( $data, $args );
+        $success = true;
 
         return $this->response( $success, $data );
     }
@@ -260,9 +271,13 @@ class Messages extends Rest_Base {
         }
 
         $data = Message_Model::update_item( $args );
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
 
-        $success = ! empty( $data ) ? true : false;
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+        $data    = $this->prepare_item_for_response( $data, $args );
+        $success = true;
 
         return $this->response( $success, $data );
     }
@@ -275,9 +290,12 @@ class Messages extends Rest_Base {
         $args = $request->get_params();
 
         $operation = Message_Model::delete_item( $args['id'] );
-        $success   = $operation ? true : false;
 
-        return $this->response( $success );
+        if ( is_wp_error( $operation ) ) {
+            return $operation;
+        }
+
+        return $this->response( true );
     }
 
     /**

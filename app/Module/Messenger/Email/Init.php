@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -26,12 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Setup\Init::class,
-            Rest_API\Init::class,
-            Asset\Init::class,
-            Admin\Init::class,
-            Email\Init::class,
-            Public\Init::class,
+            Send_Signup_Email::class,
         ];
     }
 

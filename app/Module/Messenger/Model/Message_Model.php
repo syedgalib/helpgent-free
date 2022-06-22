@@ -92,9 +92,9 @@ class Message_Model extends DB_Model {
         $group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY ' . $args['group_by'] : '';
 
         $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? implode( ', ', $args['fields'] ) : '';
-
         $fields = trim( $fields, ', ' );
         $fields = ( empty( $fields ) ) ? '*' : $fields;
+        
 		$select = "SELECT $fields FROM $table";
 		$query  = $select . $where . $group_by . $order . " LIMIT $limit OFFSET $offset";
 

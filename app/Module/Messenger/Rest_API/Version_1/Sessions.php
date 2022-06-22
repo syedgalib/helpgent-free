@@ -134,80 +134,37 @@ class Sessions extends Rest_Base {
         $args = array_merge( $default, $args );
 
         $args['group_by'] = 'session_id';
-        $args['fields']   = [ 'session_id' ];
+        $args['fields']   = [ 'GROUP_CONCAT(user_id) as users', 'session_id' ];
 
         $session_data = Message_Model::get_items( $args );
-
-        return $session_data;
 
         if ( empty( $session_data ) ) {
             return $this->response( true, [] );
         }
 
-        // Get users data
-        $session_ids = array_map( function( $item ) {
-            $session_id = $item['session_id'];
-            return "'{$session_id}'";
-        }, $session_data );
-
-        $session_ids_as_string = implode( ',', $session_ids );
-        $session_ids_as_string = trim( $session_ids_as_string, ', ' );
-
-        $users_args = [];
-        $users_args['fields'] = [ 'user_id', 'session_id' ];
-        $users_args['where'] = [
-            [
-                'field'   => 'session_id',
-                'compare' => 'IN',
-                'value'   => "($session_ids_as_string)",
-            ]
-        ];
-
-        $user_data = Message_Model::get_items( $users_args, false );
-
-        if ( empty( $user_data ) ) {
-            $message = __( 'Something went wrong.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-        // Prepare user data
-        $user_data = array_map( function( $item ) {
-            $user = get_user_by( 'id', $item['user_id'] );
-
-            if ( empty( $user ) ) {
-                return [];
-            }
-
-            $avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
-
-            $user_data = [];
-
-            $user_data['id']         = $user->ID;
-            $user_data['name']       = $user->display_name;
-            $user_data['avater']     = $avater;
-            $user_data['session_id'] = $item['session_id'];
-
-            return $user_data;
-
-        }, $user_data );
-
-
-        // Add users to session data
-        $session_data = array_map( function( $item ) use ( $user_data ) {
+        // Add user data to session data
+        $session_data = array_map( function( $item ) {
 
             $users = [];
+            $users_ids = Helper\convert_string_to_int_array( $item['users'] );
+            $users_ids = array_unique( $users_ids );
 
-            foreach( $user_data as $user ) {
-                if ( ! is_array( $user ) ) {
+            foreach( $users_ids as $user_id ) {
+                $user = get_user_by( 'id', $user_id );
+
+                if ( empty( $user ) ) {
                     continue;
                 }
 
-                if ( $user['session_id'] !== $item['session_id'] ) {
-                    continue;
-                }
+                $avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
 
-                unset( $user['session_id'] );
-                array_push( $users, $user );
+                $user_info = [];
+
+                $user_info['id']     = $user->ID;
+                $user_info['name']   = $user->display_name;
+                $user_info['avater'] = $avater;
+
+                array_push( $users, $user_info );
             }
 
             $item['users'] = $users;

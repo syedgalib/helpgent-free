@@ -38,12 +38,6 @@ class Message_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-        $count_message = "COUNT( id ) AS total_message";
-        $args['fields'][] = $count_message;
-
-        $count_totaL_unread = "COUNT( CASE WHEN seen_by = '' THEN 1 ELSE NULL END ) AS totaL_unread";
-        $args['fields'][] = $count_totaL_unread;
-
         // Prepare Order
         switch ( $args['order_by'] ) {
             case 'latest':
@@ -91,6 +85,14 @@ class Message_Model extends DB_Model {
         }
         
         $group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY ' . $args['group_by'] : '';
+
+        if ( ! empty( $group_by ) ) {
+            $count_message = "COUNT( id ) AS total_message";
+            $args['fields'][] = $count_message;
+
+            $count_totaL_unread = "COUNT( CASE WHEN seen_by = '' THEN 1 ELSE NULL END ) AS totaL_unread";
+            $args['fields'][] = $count_totaL_unread;
+        }
 
         $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? implode( ', ', $args['fields'] ) : '';
         $fields = trim( $fields, ', ' );

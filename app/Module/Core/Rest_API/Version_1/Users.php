@@ -407,7 +407,6 @@ class Users extends Rest_Base {
 	 */
 	public function prepare_item_for_response( $user, $request ) {
 		$id     = $user->ID;
-		$schema = $this->get_item_schema();
 		$data   = array(
 			'id'           => $id,
 			'date_created' => Rest_Helper::prepare_date_response( $user->user_registered ),
@@ -471,6 +470,12 @@ class Users extends Rest_Base {
 		// Save last name.
 		if ( isset( $request['last_name'] ) ) {
 			update_user_meta( $id, 'last_name', Helper\clean_var( $request['last_name'] ) );
+		}
+
+		// Save name.
+		if ( isset( $request['name'] ) ) {
+            update_user_meta( $id, 'first_name', Helper\clean_var( $request['name'] ) );
+			update_user_meta( $id, 'last_name', '' );
 		}
 
 		// Save description.

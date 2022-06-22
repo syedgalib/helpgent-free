@@ -3,7 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
-use WPWaxCustomerSupportApp\Root\Helper;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Messages extends Rest_Base {
 

@@ -4,7 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Root\Helper;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Term_Model extends DB_Model {
 

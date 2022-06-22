@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Root\Helper;
+namespace WPWaxCustomerSupportApp\Base\Helper;
 
 /**
  * Get The Public Template
@@ -347,4 +347,72 @@ function include_media_uploader_files() {
     require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
     require_once( ABSPATH . "wp-admin" . '/includes/media.php' );
     
+}
+
+
+/**
+ * Timezone - helper to retrieve the timezone string for a site until.
+ * a WP core method exists (see https://core.trac.wordpress.org/ticket/24730).
+ *
+ * Adapted from https://secure.php.net/manual/en/function.timezone-name-from-abbr.php#89155.
+ *
+ * Copied from wc_timezone_string
+ *
+ * @return string PHP timezone string for the site
+ */
+function timezone_string() {
+	// Added in WordPress 5.3 Ref https://developer.wordpress.org/reference/functions/wp_timezone_string/.
+	if ( function_exists( 'wp_timezone_string' ) ) {
+		return wp_timezone_string();
+	}
+
+	// If site timezone string exists, return it.
+	$timezone = get_option( 'timezone_string' );
+	if ( $timezone ) {
+		return $timezone;
+	}
+
+	// Get UTC offset, if it isn't set then return UTC.
+	$utc_offset = floatval( get_option( 'gmt_offset', 0 ) );
+	if ( ! is_numeric( $utc_offset ) || 0.0 === $utc_offset ) {
+		return 'UTC';
+	}
+
+	// Adjust UTC offset from hours to seconds.
+	$utc_offset = (int) ( $utc_offset * 3600 );
+
+	// Attempt to guess the timezone string from the UTC offset.
+	$timezone = timezone_name_from_abbr( '', $utc_offset );
+	if ( $timezone ) {
+		return $timezone;
+	}
+
+	// Last try, guess timezone string manually.
+	foreach ( timezone_abbreviations_list() as $abbr ) {
+		foreach ( $abbr as $city ) {
+			// WordPress restrict the use of date(), since it's affected by timezone settings, but in this case is just what we need to guess the correct timezone.
+			if ( (bool) date( 'I' ) === (bool) $city['dst'] && $city['timezone_id'] && intval( $city['offset'] ) === $utc_offset ) { // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+				return $city['timezone_id'];
+			}
+		}
+	}
+
+	// Fallback to UTC.
+	return 'UTC';
+}
+
+
+/*
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @param string|array $var Data to sanitize.
+ * @return string|array
+ */
+function clean_var($var) {
+    if (is_array($var)) {
+        return array_map('clean_var', $var);
+    } else {
+        return is_scalar($var) ? sanitize_text_field($var) : $var;
+    }
 }

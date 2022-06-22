@@ -1,8 +1,8 @@
 <?php
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
-
-abstract class Base {
+use \WP_REST_Controller;
+abstract class Base extends WP_REST_Controller {
 
     /**
      * @var string
@@ -17,8 +17,6 @@ abstract class Base {
     public function __construct() {
         add_action( 'rest_api_init', [ $this, 'register_routes' ] );
     }
-
-    abstract public function register_routes();
 
     /**
      * @param $value
@@ -110,50 +108,7 @@ abstract class Base {
 
         return true;
     }
-
-    /**
-     * Prepare item for response
-     * 
-     * @param array $item
-     * @param array $args
-     * 
-     * @return array
-     */
-    public function prepare_item_for_response( $item = [], $args = [] ) {
-
-        if ( ! is_array( $item ) || empty( $item ) ) {
-            return null;
-        }
-
-        $integer_fields    = [ 'id' ];
-        $date_fields       = [ 'created_on', 'updated_on' ];
-
-        
-        // Sanitize Fields
-        foreach ( $item as $key => $value ) {
-
-            // Sanitize Integer Fields
-            if ( in_array( $key, $integer_fields ) ) {
-                $item[ $key ] = ( ! empty( $item[ $key ] ) && is_numeric( $item[ $key ] ) ) ? (int) $item[ $key ] : null;
-            }
-
-            // Sanitize Date Fields
-            else if ( in_array( $key, $date_fields ) ) {
-                $formatted_key = $key . '_formatted';
-                $timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
-
-                $item[ $formatted_key ] = ( ! empty( $item[ $key ] ) ) ? esc_html( $this->get_formatted_time( $item[ $key ], $timezone ) ) : null;
-            }
-            
-            else {
-                $item[ $key ] = esc_html( $value );
-            }
-
-        }
-
-        return $item;
-    }
-
+    
     /**
      * Convert string to int array
      * 

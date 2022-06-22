@@ -5,7 +5,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 use \WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
-use WPWaxCustomerSupportApp\Root\Helper;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Sessions extends Rest_Base {
 

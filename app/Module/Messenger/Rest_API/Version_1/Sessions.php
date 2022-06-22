@@ -59,7 +59,7 @@ class Sessions extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'add_terms' ],
-                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'session_id' => [
                             'required'          => true,
@@ -81,7 +81,7 @@ class Sessions extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'remove_terms' ],
-                    'permission_callback' => [ $this, 'check_user_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'session_id' => [
                             'required'          => true,

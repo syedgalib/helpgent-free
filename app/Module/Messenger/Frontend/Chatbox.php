@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Public;
+namespace WPWaxCustomerSupportApp\Module\Messenger\Frontend;
 
 class Chatbox {
 

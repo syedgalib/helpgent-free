@@ -31,7 +31,7 @@ class Init {
             Asset\Init::class,
             Admin\Init::class,
             Email\Init::class,
-            Public\Init::class,
+            Frontend\Init::class,
         ];
     }
 

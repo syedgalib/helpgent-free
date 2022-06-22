@@ -37,6 +37,12 @@ class Message_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
+        $count_message = "COUNT( id ) AS total_message";
+        $args['fields'][] = $count_message;
+
+        $count_totaL_unread = "COUNT( CASE WHEN seen_by = '' THEN 1 ELSE NULL END ) AS totaL_unread";
+        $args['fields'][] = $count_totaL_unread;
+
         // Prepare Order
         switch ( $args['order_by'] ) {
             case 'latest':
@@ -48,11 +54,11 @@ class Message_Model extends DB_Model {
                 break;
 
             case 'read':
-                $order = " ORDER BY CASE WHEN seen_by = '' THEN 0 WHEN seen_by != '' THEN 1 END DESC";
+                $order = " ORDER BY totaL_unread ASC";
                 break;
 
             case 'unread':
-                $order = " ORDER BY CASE WHEN seen_by = '' THEN 0 WHEN seen_by != '' THEN 1 END ASC";
+                $order = " ORDER BY totaL_unread DESC";
                 break;
             
             default:
@@ -89,7 +95,6 @@ class Message_Model extends DB_Model {
 
         $fields = trim( $fields, ', ' );
         $fields = ( empty( $fields ) ) ? '*' : $fields;
-
 		$select = "SELECT $fields FROM $table";
 		$query  = $select . $where . $group_by . $order . " LIMIT $limit OFFSET $offset";
 

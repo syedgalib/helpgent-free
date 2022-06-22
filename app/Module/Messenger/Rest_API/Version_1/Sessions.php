@@ -31,7 +31,7 @@ class Sessions extends Rest_Base {
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
-                        'order'       => [
+                        'order_by'       => [
                             'default'           => 'latest',
                             'validate_callback' => [ $this, 'validate_order' ],
                         ],
@@ -113,7 +113,7 @@ class Sessions extends Rest_Base {
      * @param $value
      */
     public function validate_order( $value ) {
-        return in_array( $value, [ 'latest', 'oldest' ] );
+        return in_array( $value, [ 'latest', 'oldest', 'read', 'unread' ] );
     }
 
     /**
@@ -129,13 +129,16 @@ class Sessions extends Rest_Base {
 
         $default = [];
 
+        $default['order_by'] = 'latest';
+
         $args = array_merge( $default, $args );
 
         $args['group_by'] = 'session_id';
         $args['fields']   = [ 'session_id' ];
-        $args['order_by'] = 'read';
 
         $session_data = Message_Model::get_items( $args );
+
+        return $session_data;
 
         if ( empty( $session_data ) ) {
             return $this->response( true, [] );
@@ -190,7 +193,7 @@ class Sessions extends Rest_Base {
 
 
         // Add users to session data
-        $session_data = array_map(  function( $item ) use ( $user_data ) {
+        $session_data = array_map( function( $item ) use ( $user_data ) {
 
             $users = [];
 

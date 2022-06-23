@@ -96,29 +96,12 @@ abstract class Base extends WP_REST_Controller {
     }
 
     /**
-     * @param $request
-     * @return mixed
-     */
-    public function check_user_permission( $request ) {
-        return true;
-
-		// @todo remove this later
-
-        if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
-            return $this->error_nonce_missing();
-        }
-
-        return true;
-    }
-
-    /**
+     * Check guest permission
+     * 
      * @param $request
      * @return mixed
      */
     public function check_guest_permission( $request ) {
-        return true;
-
-		// @todo remove this later
 
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
@@ -128,14 +111,13 @@ abstract class Base extends WP_REST_Controller {
     }
 
     /**
+     * Check admin permission
+     * 
      * @param $request
      * @return mixed
      */
     public function check_admin_permission( $request ) {
-        return true;
-
-		// @todo remove this later
-
+       
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }

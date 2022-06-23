@@ -24,6 +24,8 @@ class Prepare_Database {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
+		file_put_contents( dirname( __FILE__ ) . '/log.txt', 'Activated' . "\n", FILE_APPEND );
+
 		dbDelta( $this->get_schema() );
 
 	}
@@ -43,9 +45,9 @@ class Prepare_Database {
 		CREATE TABLE {$table_prefix}_chatbox_templates (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(255) NOT NULL DEFAULT '',
-			page_id bigint(20) unsigned NOT NULL auto_increment,
+			page_id bigint(20) unsigned NOT NULL,
 			is_default tinyint unsigned NOT NULL DEFAULT 0,
-			options longtext NOT NULL DEFAULT '',
+			options longtext NOT NULL,
 			PRIMARY KEY (id)
 		  ) $collate;
 		";

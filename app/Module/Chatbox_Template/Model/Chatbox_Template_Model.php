@@ -116,8 +116,11 @@ class Chatbox_Template_Model extends DB_Model {
         $default['is_default'] = 0;
         $default['options']    = '';
 
-        $args = Helper\merge_params( $default, $args );
+        if ( isset( $args['is_default'] ) ) {
+            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
+        }
 
+        $args = Helper\merge_params( $default, $args );
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
@@ -148,6 +151,10 @@ class Chatbox_Template_Model extends DB_Model {
         if ( empty( $old_data ) ) {
             $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
+        }
+
+        if ( isset( $args['is_default'] ) ) {
+            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
         }
 
         $args = Helper\filter_params( $old_data, $args );

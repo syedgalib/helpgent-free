@@ -45,8 +45,8 @@ class Chatbox_Template extends Rest_Base {
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
                         'is_default' => [
-                            'default'           => false,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'type'    => 'boolean',
+                            'default' => false,
                         ],
                         'options' => [
                             'required'          => true,
@@ -86,8 +86,8 @@ class Chatbox_Template extends Rest_Base {
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
                         'is_default' => [
-                            'default'           => false,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'type'    => 'boolean',
+                            'default' => false,
                         ],
                         'options' => [
                             'required'          => false,
@@ -208,7 +208,7 @@ class Chatbox_Template extends Rest_Base {
         $default['id']         = '';
         $default['name']       = '';
         $default['page_id']    = '';
-        $default['is_default'] = '';
+        $default['is_default'] = false;
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
@@ -236,11 +236,10 @@ class Chatbox_Template extends Rest_Base {
         $default['id']         = '';
         $default['name']       = '';
         $default['page_id']    = '';
-        $default['is_default'] = '';
+        $default['is_default'] = false;
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
-
         $data = Chatbox_Template_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
@@ -278,7 +277,9 @@ class Chatbox_Template extends Rest_Base {
      */
     public function get_sanitize_schema() {
         return [
+            'string'  => [ 'name' ],
             'integer' => [ 'id', 'page_id', 'is_default' ],
+            'boolean' => [ 'is_default' ],
         ];
     }
 

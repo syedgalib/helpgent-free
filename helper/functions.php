@@ -157,6 +157,34 @@ function merge_params( $default = [], $args = [] ) {
 }
 
 /**
+ * Is Truthy
+ * 
+ * @param mixed $value
+ * @return bool
+ */
+function is_truthy( $value ) {
+
+    if ( true === $value ) {
+        return true;
+    }
+
+    if ( 'true' === strtolower( $value ) ) {
+        return true;
+    }
+
+    if ( 1 === $value ) {
+        return true;
+    }
+
+    if ( '1' === $value ) {
+        return true;
+    }
+
+    return false;
+
+}
+
+/**
  * List has same data
  * 
  * @param array $list_a
@@ -426,18 +454,30 @@ function clean_var($var) {
 function sanitize_list_items( $list = [], $schema = [] ) {
     $default_schema = [];
 
-    $default_schema['integer']       = [ 'id' ];
-    $default_schema['serialized']    = [];
-    $default_schema['datetime']      = [ 'created_on', 'updated_on' ];
+    $default_schema['string']     = [];
+    $default_schema['integer']    = [ 'id' ];
+    $default_schema['serialized'] = [];
+    $default_schema['datetime']   = [ 'created_on', 'updated_on' ];
+    $default_schema['boolean']    = [];
 
     $schema = merge_params( $default_schema, $schema );
     
     // Sanitize Fields
     foreach ( $list as $key => $value ) {
 
+        // Sanitize String Fields
+        if ( in_array( $key, $schema['string'] ) ) {
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_string( $list[ $key ] ) ) ? sanitize_text_field( $list[ $key ] ) : null;
+        }
+
         // Sanitize Integer Fields
         if ( in_array( $key, $schema['integer'] ) ) {
             $list[ $key ] = ( ! empty( $list[ $key ] ) && is_numeric( $list[ $key ] ) ) ? (int) $list[ $key ] : null;
+        }
+
+        // Sanitize Boolean Fields
+        if ( in_array( $key, $schema['boolean'] ) ) {
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_truthy( $list[ $key ] ) ) ? true : false;
         }
 
         // Sanitize Serialized Fields

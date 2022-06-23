@@ -26,6 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
+            Rest_Filters::class,
             Version_1\Init::class,
         ];
     }

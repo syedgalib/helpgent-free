@@ -240,7 +240,10 @@ class Chatbox_Template extends Rest_Base {
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
+
         $data = Chatbox_Template_Model::update_item( $args );
+
+        return $data;
 
         if ( is_wp_error( $data ) ) {
             return $data;

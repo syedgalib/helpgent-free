@@ -116,11 +116,26 @@ class Chatbox_Template_Model extends DB_Model {
         $default['is_default'] = 0;
         $default['options']    = '';
 
+        if ( ! empty( $args['name'] ) ) {
+            $args['name'] = sanitize_text_field( $args['name'] );
+        }
+
+        if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
+            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
         if ( isset( $args['is_default'] ) ) {
             $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
         }
-
+        
         $args = Helper\merge_params( $default, $args );
+
+        if ( self::name_exists( $args['name'] ) ) {
+            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
@@ -153,14 +168,31 @@ class Chatbox_Template_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+        if ( ! empty( $args['name'] ) ) {
+            $args['name'] = sanitize_text_field( $args['name'] );
+        }
+
+        if ( ! empty( $args['name'] ) && strtolower( $args['name'] ) !== strtolower( $old_data['name'] ) && self::name_exists( $args['name'] ) ) {
+            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
+            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
         if ( isset( $args['is_default'] ) ) {
             $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
         }
 
         $args = Helper\filter_params( $old_data, $args );
 
-        $where = ['id' => $args['id'] ];
+        if ( Helper\list_has_same_data( $old_data, $args ) ) {
+            return self::get_item( $args['id'] );
+        }
 
+        $where = ['id' => $args['id'] ];
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( empty( $result ) ) {
@@ -205,6 +237,27 @@ class Chatbox_Template_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
         return ( ! empty( $status ) ) ? true : false;
+    }
+
+    /**
+     * Name Exists
+     * 
+     * @param string $template_name
+     * 
+     * @return bool
+     */
+    public static function name_exists( $template_name ) {
+        global $wpdb;
+
+        $template_name = strtolower( sanitize_text_field( $template_name ) );
+
+        $table = self::get_table_name( self::$table );
+        $sql   = "SELECT LOWER(name) FROM {$table} WHERE name = '{$template_name}'";
+
+        $query   = $wpdb->prepare( $sql );
+        $results = $wpdb->get_row( $query, ARRAY_A );
+
+        return ! empty( $results ) ? true : false;
     }
 }
 

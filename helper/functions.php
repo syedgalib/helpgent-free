@@ -122,7 +122,26 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
  */
 function filter_params( $default = [], $args = [] ) {
 
-    $filtered_params = [];
+    foreach( $args as $key => $value ) {
+
+        if ( ! isset( $default[ $key ] ) ) {
+            unset( $args[ $key ] );
+        }
+    }
+
+    return $args;
+
+}
+
+/**
+ * Merge Params
+ * 
+ * @param array $default
+ * @param array $args
+ * 
+ * @return array Merged Params
+ */
+function merge_params( $default = [], $args = [] ) {
 
     foreach( $default as $key => $value ) {
 
@@ -130,10 +149,10 @@ function filter_params( $default = [], $args = [] ) {
             continue;
         }
 
-        $filtered_params[ $key ] = $args[ $key ];
+        $default[ $key ] = $args[ $key ];
     }
 
-    return $filtered_params;
+    return $default;
 
 }
 
@@ -171,29 +190,6 @@ function list_has_same_data( $list_a = [], $list_b = [] ) {
     }
 
     return true;
-
-}
-
-/**
- * Merge Params
- * 
- * @param array $default
- * @param array $args
- * 
- * @return array Merged Params
- */
-function merge_params( $default = [], $args = [] ) {
-
-    foreach( $default as $key => $value ) {
-
-        if ( ! isset( $args[ $key ] ) ) {
-            continue;
-        }
-
-        $default[ $key ] = $args[ $key ];
-    }
-
-    return $default;
 
 }
 

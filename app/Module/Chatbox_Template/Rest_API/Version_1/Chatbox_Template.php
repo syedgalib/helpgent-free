@@ -25,20 +25,9 @@ class Chatbox_Template extends Rest_Base {
                     'callback'            => [ $this, 'get_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        'timezone'    => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
                         'page'        => [
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
-                        ],
-                        'order'       => [
-                            'default'           => 'latest',
-                            'validate_callback' => [ $this, 'validate_order' ],
-                        ],
-                        'session_id'  => [
-                            'sanitize_callback' => 'sanitize_text_field',
                         ],
                     ],
                 ],
@@ -47,37 +36,21 @@ class Chatbox_Template extends Rest_Base {
                     'callback'            => [ $this, 'create_item' ],
                     'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [
-                        'user_id'         => [
-                            'required'          => false,
+                        'name' => [
+                            'required'          => true,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'user_full_name' => [
+                        'page_id' => [
                             'required'          => false,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
+                        'is_default' => [
+                            'default'           => false,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
+                        'options' => [
+                            'required'          => true,
                             'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_email' ],
-                            'sanitize_callback' => 'sanitize_email',
-                        ],
-                        'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'attachment_id' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'message_type' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_message_type' ],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
                         ],
                     ],
                 ],
@@ -89,7 +62,7 @@ class Chatbox_Template extends Rest_Base {
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
             [
                 'args' => [
-                    'form_id' => [
+                    'id' => [
                         'type' => 'integer',
                     ],
                 ],
@@ -97,49 +70,28 @@ class Chatbox_Template extends Rest_Base {
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
-                    'args'                => [
-                        'timezone' => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                    ],
+                    'args'                => [],
                 ],
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        'user_id'         => [
+                        'name' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'user_full_name' => [
+                        'page_id' => [
+                            'required'          => false,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
+                        'is_default' => [
+                            'default'           => false,
+                            'validate_callback' => [ $this, 'validate_int' ],
+                        ],
+                        'options' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_email' ],
-                            'sanitize_callback' => 'sanitize_email',
-                        ],
-                        'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'attachment_id' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'message_type' => [
-                            'required'          => false,
-                            'validate_callback' => [ $this, 'validate_message_type' ],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
                         ],
                     ],
                 ],
@@ -176,7 +128,12 @@ class Chatbox_Template extends Rest_Base {
 
 
         $where = [];
-        $where['session_id'] = '';
+
+        $where['id']         = '';
+        $where['name']       = '';
+        $where['page_id']    = '';
+        $where['is_default'] = '';
+
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
@@ -247,10 +204,15 @@ class Chatbox_Template extends Rest_Base {
     public function create_item( $request ) {
         $args = $request->get_params();
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
-        }
+        $default = [];
+    
+        $default['id']         = '';
+        $default['name']       = '';
+        $default['page_id']    = '';
+        $default['is_default'] = '';
+        $default['options']    = '';
 
+        $args = Helper\filter_params( $default, $args );
         $data = Chatbox_Template_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
@@ -272,9 +234,13 @@ class Chatbox_Template extends Rest_Base {
     public function update_item( $request ) {
         $args = $request->get_params();
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
-        }
+        $default['id']         = '';
+        $default['name']       = '';
+        $default['page_id']    = '';
+        $default['is_default'] = '';
+        $default['options']    = '';
+
+        $args = Helper\filter_params( $default, $args );
 
         $data = Chatbox_Template_Model::update_item( $args );
 
@@ -313,9 +279,7 @@ class Chatbox_Template extends Rest_Base {
      */
     public function get_sanitize_schema() {
         return [
-            'integer'    => [ 'id', 'user_id', 'attachment_id' ],
-            'serialized' => [ 'seen_by' ],
-            'datetime'   => [ 'created_on', 'updated_on' ],
+            'integer' => [ 'id', 'page_id', 'is_default' ],
         ];
     }
 

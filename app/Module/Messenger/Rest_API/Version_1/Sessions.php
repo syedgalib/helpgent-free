@@ -6,6 +6,7 @@ use \WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 
 class Sessions extends Rest_Base {
 
@@ -306,12 +307,32 @@ class Sessions extends Rest_Base {
 
         $where = [ 'session_id' => $args['id'] ];
 
+        $messages_args = [];
+
+        $messages_args['fields'] = ['attachment_id'];
+        $messages_args['where']  = $where;
+
+        $messages = Message_Model::get_items( $messages_args );
+
+        if ( empty( $messages ) ) {
+            $message = __( 'No resource exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
         $operation = Message_Model::delete_item_where( $where );
         $success   = $operation ? true : false;
 
-        if ( $success ) {
-            Session_Term_Relationship_Model::delete_item_where( $where );
+        if ( ! $success ) {
+            $this->response( $success );
         }
+
+        // Delete Attachment
+        foreach( $messages as $message ) {
+            Attachment_Model::delete_item( $message['attachment_id'] );
+        }
+
+        // Delete Terms
+        Session_Term_Relationship_Model::delete_item_where( $where );
 
         return $this->response( $success );
     }

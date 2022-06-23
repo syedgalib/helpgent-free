@@ -1,7 +1,10 @@
 <?php
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+
 use \WP_REST_Controller;
+use \WP_Error;
+
 use WPWaxCustomerSupportApp\Base\Helper;
 
 abstract class Base extends WP_REST_Controller {
@@ -67,7 +70,7 @@ abstract class Base extends WP_REST_Controller {
      * 
 	 * @return WP_REST_Response|null Response object on success, or null object on failure.
      */
-    public function prepare_item_for_response( $item = [], $request_params ) {
+    public function prepare_item_for_response( $item, $request_params ) {
 
         if ( ! is_array( $item ) || empty( $item ) ) {
             return null;

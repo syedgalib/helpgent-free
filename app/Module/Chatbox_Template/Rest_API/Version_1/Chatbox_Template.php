@@ -23,7 +23,7 @@ class Chatbox_Template extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [
                         'page'        => [
                             'default'           => 1,
@@ -34,7 +34,7 @@ class Chatbox_Template extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'name' => [
                             'required'          => true,
@@ -69,7 +69,7 @@ class Chatbox_Template extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [],
                 ],
                 [

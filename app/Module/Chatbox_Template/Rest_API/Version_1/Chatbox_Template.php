@@ -126,7 +126,6 @@ class Chatbox_Template extends Rest_Base {
     public function get_items( $request ) {
         $args = $request->get_params();
 
-
         $where = [];
 
         $where['id']         = '';

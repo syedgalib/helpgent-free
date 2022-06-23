@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Attachment extends Rest_Base {
 
@@ -43,7 +44,20 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'create_item' ],
                     'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [
-                        
+                        'link' => [
+                            'type'              => 'string',
+                            'required'          => true,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'title' => [
+                            'type'              => 'string',
+                            'default'           => '',
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'expires_on' => [
+                            'type'    => 'date-time',
+                            'default' => null,
+                        ],
                     ],
                 ],
             ]
@@ -74,7 +88,10 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        
+                        'expires_on' => [
+                            'type'    => 'date-time',
+                            'default' => null,
+                        ],
                     ],
                 ],
                 [
@@ -188,6 +205,11 @@ class Attachment extends Rest_Base {
      */
     public function update_item( $request ) {
         $args = $request->get_params();
+
+        $default = [];
+        $default['expires_on'] = null;
+
+        $args = Helper\filter_params( $default , $args );
 
         $data = Attachment_Model::update_item( $args );
 

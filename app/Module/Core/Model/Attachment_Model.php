@@ -176,7 +176,6 @@ class Attachment_Model extends DB_Model {
 
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;
-        
 
         if ( isset( $args['expires_on'] ) && empty( $args['expires_on'] ) ) {
             $args['expires_on'] = null;

@@ -44,9 +44,11 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'create_item' ],
                     'permission_callback' => [ $this, 'check_guest_permission' ],
                     'args'                => [
+                        'file' => [
+                            'required' => false,
+                        ],
                         'link' => [
                             'type'              => 'string',
-                            'required'          => true,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'title' => [

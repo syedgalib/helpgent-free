@@ -2,6 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
 use \WP_REST_Controller;
+use WPWaxCustomerSupportApp\Base\Helper;
+
 abstract class Base extends WP_REST_Controller {
 
     /**
@@ -55,6 +57,26 @@ abstract class Base extends WP_REST_Controller {
         ];
 
         return rest_ensure_response( $response );
+    }
+
+    /**
+     * Prepare item for response
+     * 
+	 * @param array $item    WordPress representation of the item.
+	 * @param array $request_params Request params.
+     * 
+	 * @return WP_REST_Response|null Response object on success, or null object on failure.
+     */
+    public function prepare_item_for_response( $item = [], $request_params ) {
+
+        if ( ! is_array( $item ) || empty( $item ) ) {
+            return null;
+        }
+
+        $schema = ( ! empty( $request_params['sanitize_schema'] ) ) ? $request_params['sanitize_schema'] : [];
+        $item   = Helper\sanitize_list_items( $item, $schema );
+
+        return $item;
     }
 
     public function error_nonce_missing() {

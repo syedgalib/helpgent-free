@@ -2,6 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Base\Helper;
 
+use function Sodium\memcmp;
+
 /**
  * Get The Public Template
  * 
@@ -415,4 +417,65 @@ function clean_var($var) {
     } else {
         return is_scalar($var) ? sanitize_text_field($var) : $var;
     }
+}
+
+/**
+ * Sanitize List Items
+ * 
+ * @param array $list
+ * @param array $schema
+ * 
+ * @return array Sanitized List
+ */
+function sanitize_list_items( $list = [], $schema = [] ) {
+    $default_schema = [];
+
+    $default_schema['integer']       = [ 'id' ];
+    $default_schema['serialized']    = [];
+    $default_schema['datetime']      = [ 'created_on', 'updated_on' ];
+
+    $schema = merge_params( $default_schema, $schema );
+    
+    // Sanitize Fields
+    foreach ( $list as $key => $value ) {
+
+        // Sanitize Integer Fields
+        if ( in_array( $key, $schema['integer'] ) ) {
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_numeric( $list[ $key ] ) ) ? (int) $list[ $key ] : null;
+        }
+
+        // Sanitize Serialized Fields
+        else if ( in_array( $key, $schema['serialized'] ) ) {
+            $list[ $key ] = ( ! empty( $list[ $key ] ) ) ? maybe_unserialize( $value ) : null;
+        }
+
+        // Sanitize Date Fields
+        else if ( in_array( $key, $schema['datetime'] ) ) {
+            $formatted_key = $key . '_formatted';
+            $timezone      = ( ! empty( $request_params['timezone'] ) ) ? $request_params['timezone'] : null;
+
+            $list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? esc_html( get_formatted_time( $list[ $key ], $timezone ) ) : null;
+        }
+        
+        else {
+            $list[ $key ] = esc_html( $value );
+        }
+
+    }
+
+    return $list;
+}
+
+/**
+ * Get Formatted Time
+ * 
+ * @param $time
+ * @param $timezone
+ */
+function get_formatted_time( $time, $timezone ) {
+    $timezone  = $timezone ? $timezone : wp_timezone_string();
+    $timezone  = new \DateTimeZone( $timezone );
+    $timestamp = strtotime( $time );
+
+    return wp_date( 'j M y @ G:i', $timestamp, $timezone );
 }

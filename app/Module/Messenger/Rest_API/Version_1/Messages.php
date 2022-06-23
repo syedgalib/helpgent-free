@@ -197,6 +197,8 @@ class Messages extends Rest_Base {
             return $this->response( true, [] );
         }
 
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
+
         // Prepare items for response
         foreach ( $data as $key => $value ) {
              $item = $this->prepare_item_for_response( $value, $args );
@@ -227,6 +229,8 @@ class Messages extends Rest_Base {
         if ( is_wp_error( $data ) ) {
             return $data;
         }
+
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
         
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
@@ -253,6 +257,8 @@ class Messages extends Rest_Base {
             return $data;
         }
 
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
+
         $data    = $this->prepare_item_for_response( $data, $args );
         $success = true;
 
@@ -275,6 +281,8 @@ class Messages extends Rest_Base {
         if ( is_wp_error( $data ) ) {
             return $data;
         }
+
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
 
         $data    = $this->prepare_item_for_response( $data, $args );
         $success = true;
@@ -299,49 +307,16 @@ class Messages extends Rest_Base {
     }
 
     /**
-     * Prepare item for response
+     * Get sanitize schema
      * 
      * @return array
      */
-    public function prepare_item_for_response( $item = [], $args = [] ) {
-
-        if ( ! is_array( $item ) || empty( $item ) ) {
-            return null;
-        }
-
-        $integer_fields    = [ 'id', 'user_id', 'attachment_id' ];
-        $serialized_fields = [ 'seen_by' ];
-        $date_fields       = [ 'created_on', 'updated_on' ];
-
-        
-        // Sanitize Fields
-        foreach ( $item as $key => $value ) {
-
-            // Sanitize Integer Fields
-            if ( in_array( $key, $integer_fields ) ) {
-                $item[ $key ] = ( ! empty( $item[ $key ] ) && is_numeric( $item[ $key ] ) ) ? (int) $item[ $key ] : null;
-            }
-
-            // Sanitize Serialized Fields
-            else if ( in_array( $key, $serialized_fields ) ) {
-                $item[ $key ] = ( ! empty( $item[ $key ] ) ) ? maybe_unserialize( $value ) : null;
-            }
-
-            // Sanitize Date Fields
-            else if ( in_array( $key, $date_fields ) ) {
-                $formatted_key = $key . '_formatted';
-                $timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
-
-                $item[ $formatted_key ] = ( ! empty( $item[ $key ] ) ) ? esc_html( $this->get_formatted_time( $item[ $key ], $timezone ) ) : null;
-            }
-            
-            else {
-                $item[ $key ] = esc_html( $value );
-            }
-
-        }
-
-        return $item;
+    public function get_sanitize_schema() {
+        return [
+            'integer'    => [ 'id', 'user_id', 'attachment_id' ],
+            'serialized' => [ 'seen_by' ],
+            'datetime'   => [ 'created_on', 'updated_on' ],
+        ];
     }
 
 }

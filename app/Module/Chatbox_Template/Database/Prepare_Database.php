@@ -24,8 +24,6 @@ class Prepare_Database {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
-		file_put_contents( dirname( __FILE__ ) . '/log.txt', 'Activated' . "\n", FILE_APPEND );
-
 		dbDelta( $this->get_schema() );
 
 	}

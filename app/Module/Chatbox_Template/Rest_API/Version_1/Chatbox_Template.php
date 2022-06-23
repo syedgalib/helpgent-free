@@ -12,7 +12,7 @@ class Chatbox_Template extends Rest_Base {
      * 
      * @var string
      */
-    public $rest_base = 'messages';
+    public $rest_base = 'chatbox-templates';
 
     public function register_routes() {
 

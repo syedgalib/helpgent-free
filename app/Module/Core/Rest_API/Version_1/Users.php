@@ -198,7 +198,27 @@ class Users extends Rest_Base {
 		}
 
 		if ( email_exists( $request['email'] ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_email_exists', __( 'A resource is already registered.', 'wpwax-customer-support-app' ) );
+
+			$old_user_data = get_user_by( 'email', $request['email'] );
+
+			$request->set_param( 'context', 'edit' );
+			$response = $this->prepare_item_for_response( $old_user_data, $request );
+			$response = rest_ensure_response( $response );
+			$response->set_status( 201 );
+			$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $old_user_data ) ) );
+
+
+			/**
+			 * Fires after a user is created or updated via the REST API.
+			 *
+			 * @param WP_User         $user_data Data used to create the user.
+			 * @param WP_REST_Request $request   Request object.
+			 */
+			do_action( 'wpwax_customer_support_app_rest_insert_user_exists', $old_user_data, $request );
+
+			return $response;
+
+			// return new WP_Error( 'wpwax_customer_support_app_rest_user_email_exists', __( 'A resource is already registered.', 'wpwax-customer-support-app' ) );
 		}
 
         if ( empty( $request['password'] ) ) {

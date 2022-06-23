@@ -279,7 +279,7 @@ class Chatbox_Template extends Rest_Base {
     public function get_sanitize_schema() {
         return [
             'string'  => [ 'name' ],
-            'integer' => [ 'id', 'page_id', 'is_default' ],
+            'integer' => [ 'id', 'page_id' ],
             'boolean' => [ 'is_default' ],
             'json'    => [ 'options' ],
         ];

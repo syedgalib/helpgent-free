@@ -281,6 +281,7 @@ class Chatbox_Template extends Rest_Base {
             'string'  => [ 'name' ],
             'integer' => [ 'id', 'page_id', 'is_default' ],
             'boolean' => [ 'is_default' ],
+            'json'    => [ 'options' ],
         ];
     }
 

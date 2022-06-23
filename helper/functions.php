@@ -459,6 +459,7 @@ function sanitize_list_items( $list = [], $schema = [] ) {
     $default_schema['serialized'] = [];
     $default_schema['datetime']   = [ 'created_on', 'updated_on' ];
     $default_schema['boolean']    = [];
+    $default_schema['json']       = [];
 
     $schema = merge_params( $default_schema, $schema );
     
@@ -483,6 +484,12 @@ function sanitize_list_items( $list = [], $schema = [] ) {
         // Sanitize Serialized Fields
         else if ( in_array( $key, $schema['serialized'] ) ) {
             $list[ $key ] = ( ! empty( $list[ $key ] ) ) ? maybe_unserialize( $value ) : null;
+        }
+
+        // Sanitize JSON Fields
+        else if ( in_array( $key, $schema['json'] ) ) {
+            $json_data    = json_decode( $list[ $key ], true );
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && $json_data  ) ? $json_data : null;
         }
 
         // Sanitize Date Fields

@@ -202,6 +202,8 @@ class Users extends Rest_Base {
 			$old_user_data = get_user_by( 'email', $request['email'] );
 
 			$request->set_param( 'context', 'edit' );
+			$request->set_param( 'user_exists', true );
+
 			$response = $this->prepare_item_for_response( $old_user_data, $request );
 			$response = rest_ensure_response( $response );
 			$response->set_status( 201 );
@@ -217,8 +219,6 @@ class Users extends Rest_Base {
 			do_action( 'wpwax_customer_support_app_rest_insert_user_exists', $old_user_data, $request );
 
 			return $response;
-
-			// return new WP_Error( 'wpwax_customer_support_app_rest_user_email_exists', __( 'A resource is already registered.', 'wpwax-customer-support-app' ) );
 		}
 
         if ( empty( $request['password'] ) ) {

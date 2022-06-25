@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 // import apiService  from "../../../../../apiService/Service";
 import { ReactSVG } from 'react-svg';
-import GeneralSettings from "./overview/GeneralSettings";
+import handsDown from '../../../../../assets/svg/icons/hand-down.svg';
 import FormSettings from "./overview/FormSettings";
-import ThankSettings from "./overview/ThankSettings";
+import GeneralSettings from "./overview/GeneralSettings";
 import PreviewOne from "./overview/PreviewOne";
 import PreviewTwo from "./overview/PreviewTwo";
-import { onFormEdit } from '../../redux/form/actionCreator';
+import ThankSettings from "./overview/ThankSettings";
 import { AddFormStyle } from './Style';
-import handsDown from '../../../../../assets/svg/icons/hand-down.svg';
 
 const AddForm = ()=>{
     const { formInitialData } = useSelector(state => {

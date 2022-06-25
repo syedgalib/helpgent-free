@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { default as Select } from 'react-select'
-import { components } from 'react-select'
+import { default as Select } from 'react-select';
 import Switch from "react-switch";
 import Checkbox from "../../../../../components/Checkbox";
-import Radio from "../../../../../components/Radio";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 export const templateOptions = [
@@ -45,53 +43,48 @@ const ThankSettings = ()=>{
     
     const { id, collectInfoVisibility, pageVisibility, accountVisibility, title, descriptionVisibility, description, buttonVisibility, buttonText, buttonUrl, colorPicker, bgColor, titleFontSize, fontColor, buttonColor, buttonTextColor, buttonRadius} = state;
     const dispatch = useDispatch();
-
     const updateForm = (label,value)=>{
         let updatedData = formData.map(item => {
-            if(item.form_id === id){
-                switch(label) {
-                    case "title":
-                        item.thank_page_title = value;
-                      break;
-                    case "title-size":
-                        item.thank_page_title_font_size = value;
-                      break;
-                    case "des-visibility":
-                        item.thank_page_description_Visibility = value;
-                      break;
-                    case "description":
-                        item.thank_page_description = value;
-                      break;
-                    case "btn-visibility":
-                        item.thank_page_button_visibility = value;
-                      break;
-                    case "btn-text":
-                        item.thank_page_button_text = value;
-                      break;
-                    case "btn-url":
-                        item.thank_page_button_url = value;
-                      break;
-                    case "bg-color":
-                        item.thank_page_background = value;
-                      break;
-                    case "font-color":
-                        item.thank_page_font_color = value;
-                      break;
-                    case "button-color":
-                        item.thank_page_button_color = value;
-                      break;
-                    case "button-text-color":
-                        item.thank_page_button_text_color = value;
-                      break;
-                    case "button-radius":
-                        item.thank_page_button_radius = value;
-                      break;
-                    default:
-                      // code block
-                }
-                return item;
+            switch(label) {
+                case "title":
+                    return { ...item, thank_page_title: value}
+                    break;
+                case "title-size":
+                    return { ...item, thank_page_title_font_size: value} 
+                    break;
+                case "des-visibility":
+                    return { ...item, thank_page_description_Visibility: value} 
+                    break;
+                case "description":
+                    return { ...item, thank_page_description: value}
+                    break;
+                case "btn-visibility":
+                    return { ...item, thank_page_button_visibility: value}
+                    break;
+                case "btn-text":
+                    return { ...item, thank_page_button_text: value}
+                    break;
+                case "btn-url":
+                    return { ...item, thank_page_button_url: value}
+                    break;
+                case "bg-color":
+                    return { ...item, thank_page_background: value}
+                    break;
+                case "font-color":
+                    return { ...item, thank_page_font_color: value}
+                    break;
+                case "button-color":
+                    return { ...item, thank_page_button_color: value}
+                    break;
+                case "button-text-color":
+                    return { ...item, thank_page_button_text_color: value}
+                    break;
+                case "button-radius":
+                    return { ...item, thank_page_button_radius: value}
+                    break;
+                default:
+                    // code block
             }
-            return item;
         });
         dispatch(onFormEdit(updatedData));
     }
@@ -151,7 +144,6 @@ const ThankSettings = ()=>{
         updateForm('title',thankTitle);
     }
     const chagneTitleFontSize = selectedSize =>{
-        console.log(selectedSize.value)
         setState({
             ...state,
             titleFontSize: selectedSize.value

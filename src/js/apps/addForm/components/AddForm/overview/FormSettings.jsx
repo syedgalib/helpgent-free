@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
@@ -59,46 +59,59 @@ const FormSettings = ()=>{
                 switch(label) {
                     case "greet":
                         item.greet_message = value;
+                        return { ...item, greet_message: value};
                       break;
                     case "des-visibility":
                         item.description_visibility = value;
+                        return { ...item, description_visibility: value};
                       break;
                     case "description":
                         item.description = value;
+                        return { ...item, description: value};
                       break;
                     case "chat-title":
                         item.chat_box_title = value;
+                        return { ...item, chat_box_title: value};
                       break;
                     case "video-visibility":
                         item.reply_type_video = value;
+                        return { ...item, reply_type_video: value};
                       break;
                     case "screen-record-visibility":
                         item.reply_type_screen_record = value;
+                        return { ...item, reply_type_screen_record: value};
                       break;
                     case "voice-visibility":
                         item.reply_type_voice = value;
+                        return { ...item, reply_type_voice: value};
                       break;
                     case "replyText-visibility":
                         item.reply_type_text = value;
+                        return { ...item, reply_type_text: value};
                       break;
                     case "title-color":
                         item.font_color = value;
+                        return { ...item, font_color: value};
                       break;
                     case "button-color":
                         item.button_color = value;
+                        return { ...item, button_color: value};
                       break;
                     case "button-radius":
                         item.button_border_radius = value;
+                        return { ...item, button_border_radius: value};
                       break;
                     case "footer-visibility":
                         item.footer_visibility = value;
+                        return { ...item, footer_visibility: value};
                     break;
                     case "footer-text":
                         item.footer_message = value;
+                        return { ...item, footer_message: value};
                     break;
                     case "form-style":
-                        console.log(value)
                         item.formStyle = value;
+                        return { ...item, formStyle: value};
                     break;
                     default:
                       // code block

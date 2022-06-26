@@ -4,10 +4,10 @@ import actions from './actions';
 const {
   formReadBegin,
   formReadSuccess,
+  formReadErr,
 
   addFormBegin,
   addFormSuccess,
-  formReadErr,
   addFormErr,
 } = actions;
 

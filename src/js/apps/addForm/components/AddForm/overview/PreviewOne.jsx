@@ -9,11 +9,13 @@ import replaceIcon from '../../../../../../assets/svg/icons/replace.svg';
 import previewBg from '../../../../../../assets/img/builder/bg.png';
 
 const PreviewOne = ({previewStage})=>{
+    /* initialize Form Data */
     const { formInitialData } = useSelector(state => {
         return {
             formInitialData: state.form.data[0],
         };
     });
+
     return(
         <PreviewWrap>
             { previewStage === 'general' ?
@@ -23,10 +25,6 @@ const PreviewOne = ({previewStage})=>{
                 :
                 previewStage === 'form' ?
                 <>
-                    <div className="wpwax-vm-media-preview">
-                        <img src={ formImg } alt="wpwax Media" />
-                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-white wpwax-vm-media-preview__replace"><ReactSVG src={ replaceIcon } />Replace</a>
-                    </div>
                     <div className="wpwax-vm-preview-from">
                         <div className="wpwax-vm-preview-bg"></div>
                         <div className="wpwax-vm-preview-header">
@@ -102,7 +100,7 @@ const PreviewOne = ({previewStage})=>{
                 ''
             }
         </PreviewWrap>
-    )
+    );
 }
 
 PreviewOne.propTypes = {

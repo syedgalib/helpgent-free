@@ -289,7 +289,7 @@ const AddFormStyle = Styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 120px;
+        padding-top: 80px;
         margin-left: -70px;
         z-index: 0;
         .wpwax-vm-preview-label{

@@ -7,6 +7,7 @@ import Checkbox from "../../../../../components/Checkbox";
 import Radio from "../../../../../components/Radio";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
+
 export const templateOptions = [
     {value: "large", label: "large"},
     {value: "larger", label: "larger"},
@@ -18,6 +19,7 @@ export const templateOptions = [
     {value: "x-small", label: "x-small"},
 ]
 const ThankSettings = ()=>{
+    /* initialize Form Data */
     const { formData, formInitialData } = useSelector(state => {
         return {
             formData: state.form.data,
@@ -42,12 +44,17 @@ const ThankSettings = ()=>{
         buttonTextColor: formInitialData.thank_page_button_text_color,
         buttonRadius: formInitialData.thank_page_button_radius
     });
-    
-    const { id, collectInfoVisibility, pageVisibility, accountVisibility, title, descriptionVisibility, description, buttonVisibility, buttonText, buttonUrl, colorPicker, bgColor, titleFontSize, fontColor, buttonColor, buttonTextColor, buttonRadius} = state;
-    const dispatch = useDispatch();
 
+    /* Destructuring State */
+    const { id, collectInfoVisibility, pageVisibility, accountVisibility, title, descriptionVisibility, description, buttonVisibility, buttonText, buttonUrl, colorPicker, bgColor, titleFontSize, fontColor, buttonColor, buttonTextColor, buttonRadius} = state;
+    
+    /* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
+    console.log(typeof formInitialData)
+    /* Helper function for live preview Update */
     const updateForm = (label,value)=>{
-        let updatedData = formData.map(item => {
+        const updatedData = formData.map(item => {
+            console.log(item);
             if(item.form_id === id){
                 switch(label) {
                     case "title":
@@ -89,12 +96,15 @@ const ThankSettings = ()=>{
                     default:
                       // code block
                 }
-                return item;
+                // return item;
             }
-            return item;
+            // return item;
         });
+        // console.log(updatedData);
         dispatch(onFormEdit(updatedData));
     }
+
+    /* For updating each element, we create seperate function */
     const changePageVisibility = () =>{
         setState({
             ...state,
@@ -141,7 +151,6 @@ const ThankSettings = ()=>{
         });
         updateForm('button-radius', thankButtonRadius);
     }
-    
     const changeTItle = (event) =>{
         let thankTitle = event.target.value;
         setState({
@@ -151,7 +160,6 @@ const ThankSettings = ()=>{
         updateForm('title',thankTitle);
     }
     const chagneTitleFontSize = selectedSize =>{
-        console.log(selectedSize.value)
         setState({
             ...state,
             titleFontSize: selectedSize.value
@@ -196,6 +204,7 @@ const ThankSettings = ()=>{
         });
         updateForm('btn-url', thankBtnUrl);
     }
+
     return(
         <ThankSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -344,7 +353,7 @@ const ThankSettings = ()=>{
                 </div>
             </div>
         </ThankSettingsWrap>
-    )
+    );
 }
 
 export default ThankSettings;

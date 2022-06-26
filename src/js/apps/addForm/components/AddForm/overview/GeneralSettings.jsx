@@ -2,10 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from 'react-redux';
 import { default as Select } from 'react-select'
 import { components } from 'react-select'
+import { ReactSVG } from 'react-svg';
 import Switch from "react-switch";
 import Checkbox from "../../../../../components/Checkbox";
 import Radio from "../../../../../components/Radio";
 import { GeneralSettingWrap } from './Style';
+
+import questionIcon from '../../../../../../assets/svg/icons/question-circle.svg';
 
 export const templateOptions = [
     {value: "page1", label: "Page Name"},
@@ -19,6 +22,7 @@ export const customPages = [
     {value: "Issue", label: "Issue"},
 ]
 const GeneralSettings = ()=>{
+    /* initialize Form Data */
     const { formInitialData } = useSelector(state => {
         return {
             formInitialData: state.form.data,
@@ -36,29 +40,36 @@ const GeneralSettings = ()=>{
         return (
           <div>
             <components.Option {...props}>
-              <Checkbox id={`wpwax-vm${props.label}`} label={props.label} isSelected={props.isSelected}/>
+              <Checkbox id={`wpwax-vm${props.value}`} label={props.label} isSelected={props.isSelected}/>
             </components.Option>
           </div>
         );
     };
+
+    /* To Handle Page visibility Option */
     const changePageVisibility = () =>{
         setState({
             ...state,
             pageVisibility: !pageVisibility,
         });
     }
+
+    /* To Handle Account visibility Option */
     const changeAccountVisibility = () =>{
         setState({
             ...state,
             accountVisibility: !accountVisibility,
         });
     }
-    const handleChange = (selected) => {
+
+    /* To Handle Template Change */
+    const handleSelectChange = (selected) => {
         setState({
             ...state,
             optionSelected: selected
         });
     };
+
     return(
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
@@ -68,18 +79,24 @@ const GeneralSettings = ()=>{
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" placeholder="Name this video form…"/>
             </div>
             <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span>Template <span className="wpwax-vm-tooltip"><i className="dashicons"></i></span></span>
+                <div className="wpwax-vm-form-group__label wpwax-vm-has-tooltip">
+                    <span className="wpwax-vm-tooltip-wrap"> 
+                       <span>Template </span>
+                       <span className="wpwax-vm-tooltip">
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                            <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+                        </span>
+                    </span>
                 </div>
                 <Select
                     classNamePrefix="wpwax-vm-select"
                     isMulti
-                    options={customPages}
+                    options={templateOptions}
                     closeMenuOnSelect={false}
                     hideSelectedOptions={false}
                     searchable={false}
-                    onChange={handleChange}
-                    // menuIsOpen={true}
+                    onChange={handleSelectChange}
+                    menuIsOpen={true}
                     allowSelectAll={true}
                     value={optionSelected}
                     components={{
@@ -89,7 +106,13 @@ const GeneralSettings = ()=>{
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Display on all pages</span>
+                    <span className="wpwax-vm-tooltip-wrap">
+                        <span>Display on all pages</span> 
+                        <span className="wpwax-vm-tooltip">
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                            <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+                        </span>
+                    </span>
                     <label>
                         <Switch
                             uncheckedIcon={false}
@@ -110,7 +133,13 @@ const GeneralSettings = ()=>{
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Display on custom pages</span>
+                    <span className="wpwax-vm-tooltip-wrap"> 
+                        <span>Display on custom pages</span>
+                       <span className="wpwax-vm-tooltip">
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                            <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+                        </span>
+                    </span>
                 </div>
                 <Select 
                     classNamePrefix="wpwax-vm-select"
@@ -122,7 +151,7 @@ const GeneralSettings = ()=>{
                     components={{
                         Option
                     }}
-                    onChange={handleChange}
+                    onChange={handleSelectChange}
                     value={optionSelected}
                     allowSelectAll={true}
                 />

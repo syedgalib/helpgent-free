@@ -13,6 +13,7 @@ import { AddFormStyle } from './Style';
 import handsDown from '../../../../../assets/svg/icons/hand-down.svg';
 
 const AddForm = ()=>{
+    /* initialize Form Data */
     const { formInitialData } = useSelector(state => {
         return {
             formInitialData: state.form.data[0],

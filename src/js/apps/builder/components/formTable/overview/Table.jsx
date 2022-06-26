@@ -99,7 +99,7 @@ const Table = () => {
             })
     };
 
-    /* Update Table Name */
+    /* Delete Form */
     const deleteForm = id => {
         setState({
             ...state,

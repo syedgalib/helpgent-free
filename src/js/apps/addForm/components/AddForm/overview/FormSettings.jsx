@@ -4,6 +4,7 @@ import { default as Select } from 'react-select';
 import Switch from "react-switch";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { FormSettingsWrap } from './Style';
+
 export const fontSizeOptions = [
     {value: "roboto", label: "Roboto"},
     {value: "inter", label: "Inter"},
@@ -24,13 +25,13 @@ export const fontOptions = [
     {value: "x-small", label: "x-small"},
 ]
 const FormSettings = ()=>{
+    /* initialize Form Data */
     const { formData, formInitialData } = useSelector(state => {
         return {
             formData: state.form.data,
             formInitialData: state.form.data[0],
         };
     });
-
     const [state, setState] = useState({
         id: formInitialData.form_id,
         formStyle: formInitialData.formStyle,
@@ -50,9 +51,13 @@ const FormSettings = ()=>{
         openCollapse: true,
     });
     
+    /* Destructuring State */
     const { id, formStyle, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
 
+    /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+    /* Helper function for live preview Update */
     const updateForm = (label,value)=>{
         let updatedData = formData.map(item => {
             if(item.form_id === id){
@@ -109,6 +114,8 @@ const FormSettings = ()=>{
         });
         dispatch(onFormEdit(updatedData));
     }
+
+    /* For updating each element, we create seperate function */
     const changeGreet = (event) =>{
         let greetMessage = event.target.value;
         setState({
@@ -209,6 +216,7 @@ const FormSettings = ()=>{
         updateForm('button-radius', buttonRadius);
     }
 
+    /* To handle section toggle */
     const toogleCollapse = (e)=>{
         e.preventDefault();
         setState({
@@ -217,6 +225,7 @@ const FormSettings = ()=>{
         });
     }
 
+    /* To handle changing preview form style */
     const chagneFormStyle = event =>{
         let formStyle = event.value;
         // console.log(formStyle);
@@ -428,7 +437,7 @@ const FormSettings = ()=>{
                 </div>
             </div>
         </FormSettingsWrap>
-    )
+    );
 }
 
 export default FormSettings;

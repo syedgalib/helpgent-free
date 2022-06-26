@@ -22,8 +22,16 @@ export default defineConfig( ( { command, mode } ) => {
       minify: config.minify,
       rollupOptions: {
         input: {
-          public: '/src/js/public/public.js',
-          admin: '/src/js/admin/admin.js',
+          // Core Module
+          'core-public': '/src/modules/core/js/public/core-public.js',
+          'core-admin': '/src/modules/core/js/admin/core-admin.js',
+
+          // Messenger Module
+          'messenger-public': '/src/modules/messenger/js/public/messenger-public.js',
+          'messenger-admin': '/src/modules/messenger/js/admin/messenger-admin.js',
+
+          // Chatbox Template Module
+          'chatbox-template-admin': '/src/modules/chatboxTemplate/js/admin/chatbox-template-admin.js',
         },
         output: {
           entryFileNames: config.entryFileNames,
@@ -34,11 +42,29 @@ export default defineConfig( ( { command, mode } ) => {
     },
     resolve: {
       alias: {
-        Assets: path.resolve(__dirname, "src/assets/"),
-        SASS: path.resolve(__dirname, "src/sass/"),
-        Chatbox: path.resolve(__dirname, "src/js/apps/chatbox/"),
-        Builder: path.resolve(__dirname, "src/js/apps/builder/"),
-        AddForm: path.resolve(__dirname, "src/js/apps/addForm/"),
+        // Global
+        Components: path.resolve( __dirname, 'src/lib/components/' ),
+        apiService: path.resolve( __dirname, 'src/lib/apiService/' ),
+
+        // Core Module
+        CoreModule: path.resolve( __dirname, 'src/modules/core/' ),
+        CoreJS: path.resolve( __dirname, 'src/modules/core/js/' ),
+        CoreCSS: path.resolve( __dirname, 'src/modules/core/sass/' ),
+        CoreAssets: path.resolve( __dirname, 'src/modules/core/assets/' ),
+
+        // Messenger Module
+        MessengerModule: path.resolve( __dirname, 'src/modules/messenger/' ),
+        MessengerJS: path.resolve( __dirname, 'src/modules/messenger/js/' ),
+        MessengerApps: path.resolve( __dirname, 'src/modules/messenger/js/apps/' ),
+        MessengerCSS: path.resolve( __dirname, 'src/modules/messenger/sass/' ),
+        MessengerAssets: path.resolve( __dirname, 'src/modules/messenger/assets/' ),
+
+        // Chatbox Template Module
+        ChatboxTemplateModule: path.resolve( __dirname, 'src/modules/chatboxTemplate/' ),
+        ChatboxTemplateJS: path.resolve( __dirname, 'src/modules/chatboxTemplate/js/' ),
+        ChatboxTemplateApps: path.resolve( __dirname, 'src/modules/chatboxTemplate/js/apps/' ),
+        ChatboxTemplateCSS: path.resolve( __dirname, 'src/modules/chatboxTemplate/sass/' ),
+        ChatboxTemplateAssets: path.resolve( __dirname, 'src/modules/chatboxTemplate/assets/' ),
       },
     },
     server: config.server,

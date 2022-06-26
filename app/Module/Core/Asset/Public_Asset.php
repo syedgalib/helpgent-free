@@ -43,8 +43,8 @@ class Public_Asset extends Enqueuer {
         //     'group'     => 'public',
         // ];
 
-        $scripts['wpwax-customer-support-app-public-style'] = [
-            'file_name' => 'public',
+        $scripts['wpwax-customer-support-app-core-public-style'] = [
+            'file_name' => 'core-public',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
@@ -80,14 +80,14 @@ class Public_Asset extends Enqueuer {
             'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
         ];
 
-        $scripts['wpwax-customer-support-app-public-script'] = [
-            'file_name' => 'public',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/public/',
+        $scripts['wpwax-customer-support-app-core-public-script'] = [
+            'file_name' => 'core-public',
+            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'public',
             'data'      => [
-                'wpWaxCustomerSupportAppScriptData' => [
-                    'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
+                'wpWaxCustomerSupportApp_CoreScriptData' => [
+                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
                     'apiNonce'    => wp_create_nonce( 'wp_rest' ),
                 ],
             ],

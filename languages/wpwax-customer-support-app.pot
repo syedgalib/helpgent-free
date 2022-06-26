@@ -1,11 +1,13 @@
-# Copyright (C) 2022 Simple Todo
-# This file is distributed under the same license as the Simple Todo package.
+# Copyright (C) 2022 wpwax-customer-support-app
+# This file is distributed under the same license as the wpwax-customer-support-app package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Todo\n"
+"Project-Id-Version: wpwax-customer-support-app\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language-Team: wpWax <support@wpwax.com>\n"
+"Report-Msgid-Bugs-To: support@wpwax.com\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -13,6 +15,26 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app.php:66, ../app.php:75
+#: app.php:70, app.php:79
 msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: app/Module/Core/Admin/Admin_Menu.php:13, app/Module/Core/Admin/Admin_Menu.php:13
+msgid "Video Message"
+msgstr ""
+
+#: app/Module/Core/Admin/Admin_Menu.php:15, app/Module/Core/Admin/Admin_Menu.php:15
+msgid "All Messages"
+msgstr ""
+
+#: app/Module/Core/Admin/Admin_Menu.php:17, app/Module/Core/Admin/Admin_Menu.php:17
+msgid "Forms"
+msgstr ""
+
+#: app/Module/Core/Admin/Admin_Menu.php:19, app/Module/Core/Admin/Admin_Menu.php:19
+msgid "Settings"
+msgstr ""
+
+#: app/Module/Core/Admin/Admin_Menu.php:21, app/Module/Core/Admin/Admin_Menu.php:21
+msgid "Integrations"
 msgstr ""

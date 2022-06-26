@@ -41,8 +41,8 @@ class Admin_Asset extends Enqueuer {
         //     'group'     => 'admin',
         // ];
 
-        $scripts['wpwax-customer-support-app-admin-style'] = [
-            'file_name' => 'admin',
+        $scripts['wpwax-customer-support-app-core-admin-style'] = [
+            'file_name' => 'core-admin',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
@@ -79,14 +79,14 @@ class Admin_Asset extends Enqueuer {
             'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
         ];
 
-        $scripts['wpwax-customer-support-app-admin-script'] = [
-            'file_name' => 'admin',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/admin/',
+        $scripts['wpwax-customer-support-app-core-admin-script'] = [
+            'file_name' => 'core-admin',
+            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/admin/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'admin',
             'data'      => [
-                'wpWaxCustomerSupportAppScriptData' => [
-                    'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
+                'wpWaxCustomerSupportApp_CoreScriptData' => [
+                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
                     'apiNonce'    => wp_create_nonce( 'wp_rest' ),
                 ],
             ],

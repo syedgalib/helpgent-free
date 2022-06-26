@@ -3,7 +3,6 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
 
 use \WP_REST_Controller;
-use \WP_Error;
 
 use WPWaxCustomerSupportApp\Base\Helper;
 
@@ -106,6 +105,12 @@ abstract class Base extends WP_REST_Controller {
      */
     public function check_guest_permission( $request ) {
 
+        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+        
+        if ( $skip_permission ) {
+            return true;
+        }
+
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }
@@ -120,6 +125,12 @@ abstract class Base extends WP_REST_Controller {
      * @return mixed
      */
     public function check_admin_permission( $request ) {
+
+        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+        
+        if ( $skip_permission ) {
+            return true;
+        }
        
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();

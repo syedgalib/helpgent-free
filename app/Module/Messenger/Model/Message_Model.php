@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Message_Model extends DB_Model {
 
@@ -153,8 +154,7 @@ class Message_Model extends DB_Model {
         $default['message_type']  = '';
         $default['seen_by']       = '';
 
-        $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
-
+        $args = Helper\merge_params( $default, $args );
         $time = current_time( 'mysql', true );
 
         $args['created_on'] = $time;
@@ -199,8 +199,8 @@ class Message_Model extends DB_Model {
             $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
-
-        $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
+        
+        $args = Helper\filter_params( $old_data, $args );
 
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;

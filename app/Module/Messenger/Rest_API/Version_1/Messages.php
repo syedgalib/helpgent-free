@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 
 class Messages extends Rest_Base {
 
@@ -78,6 +79,11 @@ class Messages extends Rest_Base {
                         ],
                         'seen_by' => [
                             'required' => false,
+                        ],
+                        'terms' => [
+                            'type'              => 'string',
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
                         ],
                     ],
                 ],
@@ -255,6 +261,17 @@ class Messages extends Rest_Base {
 
         if ( is_wp_error( $data ) ) {
             return $data;
+        }
+
+        // Assign Terms
+        if ( isset( $args['terms'] ) ) {
+            $terms = Helper\convert_string_to_int_array( $args['terms'] );
+            foreach( $terms as $term_id ) {
+                Session_Term_Relationship_Model::create_item([
+                    'session_id' => $data['session_id'],
+                    'term_id'    => $term_id,
+                ]);
+            }
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();

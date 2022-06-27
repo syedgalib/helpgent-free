@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import Container from "./overview/screen-wrapper/Index";
-import Welcome from "./overview/Welcome";
+import Welcome from "./overview/home/Welcome.jsx";
 import ContactForm from "./overview/ContactForm";
 import Sending from "./overview/Sending";
 import Success from "./overview/Success";
@@ -19,18 +19,20 @@ function ChatScreen() {
             displayChatScreen: state.chatBox.displayChatScreen,
         };
     });
-	console.log(chatScreen,displayChatScreen);
+
+	console.log( chatScreen,displayChatScreen );
+
 	return (
 		<Container>
-			{chatScreen == "welcome" && <Welcome />}
-			{chatScreen == "video" && <Video />}
-			{chatScreen == "voice" && <Voice />}
-			{chatScreen == "text" && <Text />}
-			{chatScreen == "screenRecord" && <ScreenRecord />}
+			{ chatScreen == "welcome" && <Welcome /> }
+			{ chatScreen == "video" && <Video /> }
+			{ chatScreen == "voice" && <Voice /> }
+			{ chatScreen == "text" && <Text /> }
+			{ chatScreen == "screenRecord" && <ScreenRecord /> }
 
-			{chatScreen == "contactForm" && <ContactForm />}
-			{chatScreen == "sending" && <Sending />}
-			{chatScreen == "success" && <Success />}
+			{ chatScreen == "contactForm" && <ContactForm /> }
+			{ chatScreen == "sending" && <Sending /> }
+			{ chatScreen == "success" && <Success /> }
 		</Container>
 	);
 }

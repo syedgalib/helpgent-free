@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ReactSVG } from 'react-svg';
 import { VideoRecordWrap } from '../Style';
-import { ContactFormWrap } from '../../Style';
+import { ContactFormWrap } from '../../home/style/Style';
 /* Images */
 import permissionImg from '../../../../../../../../assets/img/chatbox/permission.png';
 import play from '../../../../../../../../assets/svg/icons/play.svg'

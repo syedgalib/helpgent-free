@@ -4,7 +4,7 @@ import Form from "./Form";
 function Text() {
 	const chatStep = useSelector((state) => state.chatStep);
 
-	let result = "";
+	let result = <Form />;
 
 	switch (chatStep) {
 		case 1:

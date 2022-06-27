@@ -26,7 +26,9 @@ const {
 const chatboxReducers = (state = initialState, action) => {
   const { type, data, err } = action;
   const { displayChatScreen } = initialState;
+
   console.log(data);
+  
   switch (type) {
     case DISPLAY_CHAT_SCREEN_BEGIN:
       return {

@@ -23,14 +23,14 @@ export default defineConfig( ( { command, mode } ) => {
       rollupOptions: {
         input: {
           // Core Module
-          // 'core-public': '/src/modules/core/js/public/core-public.js',
-          // 'core-admin': '/src/modules/core/js/admin/core-admin.js',
+          'core-public': '/src/modules/core/js/public/core-public.js',
+          'core-admin': '/src/modules/core/js/admin/core-admin.js',
 
-          // // Messenger Module
-          // 'messenger-public': '/src/modules/messenger/js/public/messenger-public.js',
-          // 'messenger-admin': '/src/modules/messenger/js/admin/messenger-admin.js',
+          // Messenger Module
+          'messenger-public': '/src/modules/messenger/js/public/messenger-public.js',
+          'messenger-admin': '/src/modules/messenger/js/admin/messenger-admin.js',
 
-          // // Chatbox Template Module
+          // Chatbox Template Module
           'chatbox-template-admin': '/src/modules/chatboxTemplate/js/admin/chatbox-template-admin.js',
         },
         output: {

@@ -5,8 +5,8 @@ function Welcome() {
 	const chatBoxStyle = "theme-1";
 
 	const themes = {
-		'theme-1': <Theme_1></Theme_1>,
-		'theme-2': <Theme_2></Theme_2>,
+		'theme-1': <Theme_1/>,
+		'theme-2': <Theme_2/>,
 	};
 
 	if (Object.keys(themes).includes(chatBoxStyle)) {

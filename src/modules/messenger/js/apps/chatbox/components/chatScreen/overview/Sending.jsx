@@ -1,6 +1,4 @@
 function Sending() {
-
-
 	return (
 		<div>
 			<p>Sending....</p>

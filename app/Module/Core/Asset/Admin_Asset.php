@@ -28,21 +28,22 @@ class Admin_Asset extends Enqueuer {
     /**
      * Load Admin CSS Scripts
      *
+     * @Example
+      $scripts['wpwax-customer-support-app-core-admin-style'] = [
+          'file_name' => 'admin',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'deps'      => [],
+          'ver'       => $this->script_version,
+          'group'     => 'admin',
+      ];
+     * 
      * @return void
      */
     public function add_css_scripts() {
         $scripts = [];
 
-        // $scripts['wpwax-customer-support-app-admin-main-style'] = [
-        //     'file_name' => 'admin-main',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
-        //     'deps'      => [],
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'admin',
-        // ];
-
-        $scripts['wpwax-customer-support-app-admin-style'] = [
-            'file_name' => 'admin',
+        $scripts['wpwax-customer-support-app-core-admin-style'] = [
+            'file_name' => 'core-admin',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
@@ -55,19 +56,20 @@ class Admin_Asset extends Enqueuer {
 
     /**
      * Load Admin JS Scripts
+     * 
+     * @Example
+      $scripts['wpwax-customer-support-app-core-admin-script'] = [
+          'file_name' => 'admin',
+          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/admin/',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'group'     => 'admin',
+          'data'      => [ 'object-key' => [] ],
+      ];
      *
      * @return void
      */
     public function add_js_scripts() {
         $scripts = [];
-
-        // $scripts['wpwax-customer-support-app-admin-main-script'] = [
-        //     'file_name'     => 'admin-main',
-        //     'base_path'     => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-        //     'deps'          => '',
-        //     'ver'           => $this->script_version,
-        //     'group'         => 'admin',
-        // ];
 
         $scripts['wpwax-customer-support-app-react-refresh'] = [
             'file_name' => 'react-refresh',
@@ -77,23 +79,16 @@ class Admin_Asset extends Enqueuer {
             'ver'       => null,
             'group'     => 'global',
             'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-            'data'      => [
-                'wpWaxCustomerSupportAppHostData' => [
-                    'host'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST,
-                    'base'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE,
-                    'in_development' => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-                ],
-            ],
         ];
 
-        $scripts['wpwax-customer-support-app-admin-script'] = [
-            'file_name' => 'admin',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/admin/',
+        $scripts['wpwax-customer-support-app-core-admin-script'] = [
+            'file_name' => 'core-admin',
+            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/admin/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'admin',
             'data'      => [
-                'wpWaxCustomerSupportAppScriptData' => [
-                    'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
+                'wpWaxCustomerSupportApp_CoreScriptData' => [
+                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
                     'apiNonce'    => wp_create_nonce( 'wp_rest' ),
                 ],
             ],

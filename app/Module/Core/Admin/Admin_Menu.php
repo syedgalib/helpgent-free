@@ -2,10 +2,12 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Admin;
 
+use WPWaxCustomerSupportApp\Base\Helper;
+
 class Admin_Menu {
 
     public function __construct() {
-        add_action( 'admin_menu', [$this, 'admin_menu'] );
+        add_action( 'admin_menu', [ $this, 'admin_menu' ] );
     }
 
     public function admin_menu() {
@@ -22,7 +24,7 @@ class Admin_Menu {
     }
 
     public function all_messages() {
-        wpwax_customer_support_app_get_the_view( 'admin-ui/all-messages' );
+        Helper\get_the_view( 'admin-ui/all-messages' );
     }
 
     public function forms() {
@@ -38,11 +40,11 @@ class Admin_Menu {
     }
 
     public function settings() {
-        wpwax_customer_support_app_get_the_view( 'admin-ui/settings' );
+        Helper\get_the_view( 'admin-ui/settings' );
     }
 
     public function integrations() {
-        wpwax_customer_support_app_get_the_view( 'admin-ui/integrations' );
+        Helper\get_the_view( 'admin-ui/integrations' );
     }
 
 }

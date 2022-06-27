@@ -2,8 +2,6 @@
 
 namespace WPWaxCustomerSupportApp\Base\Helper;
 
-use function Sodium\memcmp;
-
 /**
  * Get The Public Template
  * 

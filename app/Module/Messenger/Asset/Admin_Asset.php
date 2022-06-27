@@ -28,21 +28,22 @@ class Admin_Asset extends Enqueuer {
     /**
      * Load Admin CSS Scripts
      *
+     * @Example
+      $scripts['wpwax-customer-support-app-messenger-admin-style'] = [
+          'file_name' => 'admin',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'deps'      => [],
+          'ver'       => $this->script_version,
+          'group'     => 'admin',
+      ];
+     * 
      * @return void
      */
     public function add_css_scripts() {
         $scripts = [];
 
-        // $scripts['wpwax-customer-support-app-admin-main-style'] = [
-        //     'file_name' => 'admin-main',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
-        //     'deps'      => [],
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'admin',
-        // ];
-
-        // $scripts['wpwax-customer-support-app-admin-style'] = [
-        //     'file_name' => 'admin',
+        // $scripts['wpwax-customer-support-app-messenger-admin-style'] = [
+        //     'file_name' => 'messenger-admin',
         //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
         //     'deps'      => [],
         //     'ver'       => $this->script_version,
@@ -56,31 +57,26 @@ class Admin_Asset extends Enqueuer {
     /**
      * Load Admin JS Scripts
      *
+     * @Example
+      $scripts['wpwax-customer-support-app-messenger-admin-script'] = [
+          'file_name' => 'admin',
+          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'group'     => 'admin',
+          'data'      => [ 'object-key' => [] ],
+      ];
+     * 
      * @return void
      */
     public function add_js_scripts() {
         $scripts = [];
 
-        // $scripts['wpwax-customer-support-app-admin-main-script'] = [
-        //     'file_name'     => 'admin-main',
-        //     'base_path'     => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-        //     'deps'          => '',
-        //     'ver'           => $this->script_version,
-        //     'group'         => 'admin',
-        // ];
-
-        // $scripts['wpwax-customer-support-app-admin-script'] = [
-        //     'file_name' => 'admin',
-        //     'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/admin/',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-        //     'group'     => 'admin',
-        //     'data'      => [
-        //         'wpWaxCustomerSupportAppScriptData' => [
-        //             'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
-        //             'apiNonce'    => wp_create_nonce( 'wp_rest' ),
-        //         ],
-        //     ],
-        // ];
+        $scripts['wpwax-customer-support-app-messenger-admin-script'] = [
+            'file_name' => 'messenger-admin',
+            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
+            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'group'     => 'admin',
+        ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );
         $this->js_scripts = $scripts;

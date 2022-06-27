@@ -28,8 +28,17 @@ class Public_Asset extends Enqueuer {
     }
 
     /**
-     * Load Admin CSS Scripts
+     * Load Public CSS Scripts
      *
+     * @Example
+      $scripts['wpwax-customer-support-app-core-public-style'] = [
+          'file_name' => 'public',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'deps'      => [],
+          'ver'       => $this->script_version,
+          'group'     => 'public',
+      ];
+     * 
      * @return void
      */
     public function add_css_scripts() {
@@ -43,8 +52,8 @@ class Public_Asset extends Enqueuer {
         //     'group'     => 'public',
         // ];
 
-        $scripts['wpwax-customer-support-app-public-style'] = [
-            'file_name' => 'public',
+        $scripts['wpwax-customer-support-app-core-public-style'] = [
+            'file_name' => 'core-public',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
@@ -56,20 +65,21 @@ class Public_Asset extends Enqueuer {
     }
 
     /**
-     * Load Admin JS Scripts
+     * Load Public JS Scripts
      *
+     * @Example
+      $scripts['wpwax-customer-support-app-core-public-script'] = [
+          'file_name' => 'public',
+          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
+          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'group'     => 'public',
+          'data'      => [ 'object-key' => [] ],
+      ];
+     * 
      * @return void
      */
     public function add_js_scripts() {
         $scripts = [];
-
-        // $scripts['wpwax-customer-support-app-public-script'] = [
-        //     'file_name'     => 'public-main',
-        //     'base_path'     => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-        //     'deps'          => '',
-        //     'ver'           => $this->script_version,
-        //     'group'         => 'public',
-        // ];
 
         $scripts['wpwax-customer-support-app-react-refresh'] = [
             'file_name' => 'react-refresh',
@@ -78,23 +88,16 @@ class Public_Asset extends Enqueuer {
             'ver'       => null,
             'group'     => 'global',
             'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-            'data'      => [
-                'wpWaxCustomerSupportAppHostData' => [
-                    'host'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST,
-                    'base'           => WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE,
-                    'in_development' => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-                ],
-            ],
         ];
 
-        $scripts['wpwax-customer-support-app-public-script'] = [
-            'file_name' => 'public',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/public/',
+        $scripts['wpwax-customer-support-app-core-public-script'] = [
+            'file_name' => 'core-public',
+            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'public',
             'data'      => [
-                'wpWaxCustomerSupportAppScriptData' => [
-                    'apiEndpoint' => site_url() . '/wp-json/wpwax-vm/v1',
+                'wpWaxCustomerSupportApp_CoreScriptData' => [
+                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
                     'apiNonce'    => wp_create_nonce( 'wp_rest' ),
                 ],
             ],

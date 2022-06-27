@@ -29,9 +29,9 @@ abstract class Enqueuer extends Enqueuer_Base {
      */
     public function add_script_attributes( $tag, $handle, $src ) {
 
-        if ( ! WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT ) {
-            return $tag;
-        }
+        // if ( ! WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT ) {
+        //     return $tag;
+        // }
 
         if ( ! preg_match( '/^(wpwax-customer-support-app-).+/', $handle ) ) {
             return $tag;

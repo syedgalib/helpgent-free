@@ -123,6 +123,7 @@ function Theme_2() {
                                 height='100%' 
                                 src={templateOptions.greet_video_url}
                                 onLoadedMetadata={handleLoadedGreetVideoMetadata}
+                                onClick={toggolePlayGreetVideo}
                             >   
                             </video>
                         }

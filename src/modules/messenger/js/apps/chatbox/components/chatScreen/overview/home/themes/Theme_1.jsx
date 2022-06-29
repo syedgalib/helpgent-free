@@ -92,7 +92,7 @@ function Theme_1() {
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap">
-                <div className="wpwax-vm-chatbox-bg" >
+                <div className="wpwax-vm-chatbox-bg">
                 {  templateOptions.greet_video_url &&
 				    <video 
                         ref={greetVideo} 
@@ -101,6 +101,7 @@ function Theme_1() {
                         height='100%' 
                         src={templateOptions.greet_video_url}
                         onLoadedMetadata={handleLoadedGreetVideoMetadata}
+                        onClick={toggolePlayGreetVideo}
                     >   
                     </video>
                 }

@@ -6,12 +6,11 @@ export default {
     "options": {
         "theme": 'theme-1',
         "chat_visibility_type": 'show_on_reload', // show_on_reload | never_show_after_close
+        "tag": 1,
         
         // Home Page
         "greet_video_url": "",
         "greet_message": "Welcome to Directorist, leave your questions below",
-        "show_description": true,
-        "description": "Welcome to Directorist, leave your questions below",
         "chat_box_title": "How would you like to chat?",
         "can_replay_in": [ 'video', 'screen_recording', 'voice', 'text' ],
         "show_footer": true,

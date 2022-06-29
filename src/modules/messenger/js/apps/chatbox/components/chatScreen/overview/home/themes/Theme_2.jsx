@@ -44,6 +44,10 @@ function Theme_2() {
     }
 
     function updateGreetVideoElapsedTime() {
+        if ( ! greetVideo.current ) {
+            return;
+        }
+
         const currentTime = greetVideo.current.currentTime;
         const prettyCurrentTime = formatTimeAsCountdown( currentTime );
         
@@ -86,9 +90,8 @@ function Theme_2() {
     }
 
     function handleChatAction(type) {
-        console.log(type)
+        greetVideo.current.pause();
         dispatch(changeChatScreen(type));
-        // dispatch(chatBoxActions.chatStep(1));
     }
 
     return (
@@ -150,7 +153,7 @@ function Theme_2() {
                         </div>
                     }
 
-                    { templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> }
+                    { templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> }
                     
                     <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>

@@ -4,8 +4,8 @@ const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 30px;
     right: 25px;
-    min-height: 605px;
-    max-width: 420px;
+    height: 605px;
+    width: 420px;
     z-index: 100;
     border-radius: 25px;
     background-color: var(--color-white);
@@ -13,6 +13,7 @@ const ScreenWrapper = Styled.div`
     animation: wpwaxVideoOpen .4s ease-in-out;
     .wpwax-vm-chatbox-container{
         position: relative;
+        height: 100%;
         .wpwax-vm-chatbox-wrap{
             position: relative;
             z-index: 101;

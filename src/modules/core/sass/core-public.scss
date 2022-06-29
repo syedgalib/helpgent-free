@@ -324,6 +324,48 @@
     }
 }
 
+// ----------------------------------------
+
+
+.wpwax-vm-transparent-form-control {
+    border: none;
+    outline: none;
+    background: transparent !important;
+}
+
+.wpwax-vm-w-f {
+    width: 100%;
+}
+
+.wpwax-vm-p-20 {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.wpwax-vm-h-100pr {
+    height: 100%;
+}
+
+.wpwax-vm-d-block {
+    display: block;
+}
+
+.wpwax-vm-d-flex {
+    display: flex;
+}
+
+.wpwax-vm-d-flex-grow-1 {
+    flex-grow: 1;
+}
+
+.wpwax-vm-flex-direction-column {
+    flex-direction: column;
+}
+
+.wpwax-vm-space-between {
+    justify-content: space-between;
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

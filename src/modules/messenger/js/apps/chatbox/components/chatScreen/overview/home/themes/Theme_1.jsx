@@ -1,12 +1,17 @@
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from "react-redux";
+import { useRef } from 'react';
+import { useState } from 'react';
+
 import { changeChatScreen } from '../../../../../store/chatBox/actionCreator';
 import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 
+import { formatTimeAsCountdown } from 'Helper/formatter';
+
 import { ChatboxForm } from "../style/Style.js";
 import expander from "MessengerAssets/svg/icons/expand.svg";
-import { useRef } from 'react';
-import { useState } from 'react';
+import { useEffect } from 'react';
+
 
 function Theme_1() {
     const dispatch = useDispatch();
@@ -28,7 +33,7 @@ function Theme_1() {
         greetVideo.current.play();
 
         const duration = greetVideo.current.duration;
-        const prettyDuration = formatTime( duration );
+        const prettyDuration = formatTimeAsCountdown( duration );
         
         if ( ! prettyDuration ) {
             return;
@@ -38,13 +43,9 @@ function Theme_1() {
         greetVideo.current.addEventListener( 'timeupdate', updateGreetVideoElapsedTime );
     }
 
-    function handleChatAction(type) {
-        dispatch( changeChatScreen(type) );
-    }
-
     function updateGreetVideoElapsedTime() {
         const currentTime = greetVideo.current.currentTime;
-        const prettyCurrentTime = formatTime( currentTime );
+        const prettyCurrentTime = formatTimeAsCountdown( currentTime );
         
         if ( ! prettyCurrentTime ) {
             return;
@@ -64,7 +65,7 @@ function Theme_1() {
         greetVideo.current.pause();
     }
 
-    function toggoleFullscreenGreetVideo( event ) {
+    function fullscreenGreetVideo( event ) {
         event.preventDefault();
 
         if (greetVideo.current.requestFullscreen) {
@@ -76,7 +77,6 @@ function Theme_1() {
         }
     }
 
-
     function isPausedGreetVideo() {
         if ( greetVideo.current && typeof greetVideo.current.paused !== 'undefined' && greetVideo.current.paused ) {
             return true;
@@ -85,8 +85,8 @@ function Theme_1() {
         return false;
     }
 
-    function formatTime( timeInSecond ) {
-       return ( ! isNaN( timeInSecond ) ) ? new Date( timeInSecond * 1000).toISOString().substring(14, 19) : '00:00';
+    function handleChatAction(type) {
+        dispatch( changeChatScreen(type) );
     }
 
     return (
@@ -110,9 +110,9 @@ function Theme_1() {
                     <div className="wpwax-vm-chatbox-header__top">
                         <span className="wpwax-vm-timer">
                             <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
-                            <span className="wpwax-vm-total-time"> - { greetVideoTotalDuration }</span>
+                            <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
                         </span>
-                        <a href="#" onClick={toggoleFullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
+                        <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
                             <ReactSVG src={expander} />
                         </a>
                     </div>

@@ -1,14 +1,89 @@
-import { ReactSVG } from 'react-svg';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef } from 'react';
+import { useState } from 'react';
+
+import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
+import { formatTimeAsCountdown } from 'Helper/formatter';
+
 import { changeChatScreen } from '../../../../../store/chatBox/actionCreator';
 
 import { ChatboxForm } from "../style/Style.js";
 
+import { ReactSVG } from 'react-svg';
 import previewBg from "MessengerAssets/img/builder/bg.png";
 import expander from "MessengerAssets/svg/icons/expand.svg";
 
 function Theme_2() {
     const dispatch = useDispatch();
+
+    const { templateOptions, supportedReplayTypes } = useSelector( state => {
+        return {
+			templateOptions: state.chatboxTemplate.template.options,
+			supportedReplayTypes: state.chatboxTemplate.supportedReplayTypes,
+        };
+    });
+
+    const [ greetVideoTotalDuration, setGreetVideoTotalDuration ] = useState( '00:00' );
+    const [ greetVideoPlayedDuration, setGreetVideoPlayedDuration ] = useState( '00:00' );
+
+    const greetVideo = useRef();
+
+    // Greet Video
+    function handleLoadedGreetVideoMetadata() {
+        greetVideo.current.play();
+
+        const duration = greetVideo.current.duration;
+        const prettyDuration = formatTimeAsCountdown( duration );
+        
+        if ( ! prettyDuration ) {
+            return;
+        }
+        
+        setGreetVideoTotalDuration( prettyDuration );
+        greetVideo.current.addEventListener( 'timeupdate', updateGreetVideoElapsedTime );
+    }
+
+    function updateGreetVideoElapsedTime() {
+        const currentTime = greetVideo.current.currentTime;
+        const prettyCurrentTime = formatTimeAsCountdown( currentTime );
+        
+        if ( ! prettyCurrentTime ) {
+            return;
+        }
+
+        setGreetVideoPlayedDuration( prettyCurrentTime );
+    }
+
+    function toggolePlayGreetVideo( event ) {
+        event.preventDefault();
+
+        if ( greetVideo.current.paused ) {
+            greetVideo.current.play();
+            return;
+        }
+
+        greetVideo.current.pause();
+    }
+
+    function fullscreenGreetVideo( event ) {
+        event.preventDefault();
+
+        if (greetVideo.current.requestFullscreen) {
+            greetVideo.current.requestFullscreen();
+        } else if (greetVideo.current.webkitRequestFullscreen) { /* Safari */
+            greetVideo.current.webkitRequestFullscreen();
+        } else if (greetVideo.current.msRequestFullscreen) { /* IE11 */
+            greetVideo.current.msRequestFullscreen();
+        }
+    }
+
+    function isPausedGreetVideo() {
+        if ( greetVideo.current && typeof greetVideo.current.paused !== 'undefined' && greetVideo.current.paused ) {
+            return true;
+        }
+
+        return false;
+    }
 
     function handleChatAction(type) {
         console.log(type)
@@ -20,30 +95,62 @@ function Theme_2() {
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2">
                 <div className="wpwax-vm-chatbox-header">
-                    <h4 className="wpwax-vm-chatbox-title" >Welcome to WpWax, leave your questions below and we will get back to you asap.</h4>
+                    { 
+                        templateOptions.greet_message && 
+                        <h4 className="wpwax-vm-chatbox-title">
+                            { templateOptions.greet_message }
+                        </h4> 
+                    }
                 </div>
+
                 <div className="wpwax-vm-chatbox-inner">
                     <div className="wpwax-vm-chatbox-inner-action">
                         <span className="wpwax-vm-timer">
-                            <span className="wpwax-vm-count-time">00:00</span> /
-                            <span className="wpwax-vm-total-time">00:20</span>
+                            <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
+                            <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
                         </span>
-                        <a href="#" className="wpwax-vm-fulscreen-trigger">
+                        <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
                             <ReactSVG src={expander} />
                         </a>
                     </div>
-                    <div className="wpwax-vm-chatbox-img" style={{ backgroundImage: `url("${previewBg}")` }}></div>
-                    <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
-                </div>
-                <div className="wpwax-vm-chatbox-footer">
-                    <h5 className="wpwax-vm-chatbox-footer__title">How would you like to chat?</h5>
-                    <div className="wpwax-vm-chatbox-footer__actions">
-                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("video")}>Video</a>
-                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("screenRecord")}>Screen Record</a>
-                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("voice")}>Voice</a>
-                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction("text")}>Text</a>
+
+                    <div className="wpwax-vm-chatbox-img">
+                        {  templateOptions.greet_video_url &&
+                            <video 
+                                ref={greetVideo} 
+                                style={{objectFit: 'cover'}} 
+                                width='100%' 
+                                height='100%' 
+                                src={templateOptions.greet_video_url}
+                                onLoadedMetadata={handleLoadedGreetVideoMetadata}
+                            >   
+                            </video>
+                        }
                     </div>
-                    <p className="wpwax-vm-chatbox-footer__text">You can practise before sending</p>
+                    
+                    <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
+                </div>
+
+                <div className="wpwax-vm-chatbox-footer">
+                    { templateOptions.chat_box_title && <h5 className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_box_title }</h5> }
+                    
+                    {
+                        canReplay() && 
+                        <div className="wpwax-vm-chatbox-footer__actions"> 
+                        {
+                            supportedReplayTypes.map( item => {
+                                if ( ! templateOptions.can_replay_in.includes( item.type )  ) {
+                                    return '';
+                                }
+    
+                                return <a key={item.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction( item.type )}>{item.label}</a>
+                            })
+                        } 
+                        </div>
+                    }
+
+                    { templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> }
+                    
                     <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>
             </div>

@@ -6,7 +6,6 @@ import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 import { ChatboxForm } from "../style/Style.js";
 import expander from "MessengerAssets/svg/icons/expand.svg";
 import { useRef } from 'react';
-import { useEffect } from 'react';
 import { useState } from 'react';
 
 function Theme_1() {
@@ -65,6 +64,19 @@ function Theme_1() {
         greetVideo.current.pause();
     }
 
+    function toggoleFullscreenGreetVideo( event ) {
+        event.preventDefault();
+
+        if (greetVideo.current.requestFullscreen) {
+            greetVideo.current.requestFullscreen();
+        } else if (greetVideo.current.webkitRequestFullscreen) { /* Safari */
+            greetVideo.current.webkitRequestFullscreen();
+        } else if (greetVideo.current.msRequestFullscreen) { /* IE11 */
+            greetVideo.current.msRequestFullscreen();
+        }
+    }
+
+
     function isPausedGreetVideo() {
         if ( greetVideo.current && typeof greetVideo.current.paused !== 'undefined' && greetVideo.current.paused ) {
             return true;
@@ -100,7 +112,7 @@ function Theme_1() {
                             <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
                             <span className="wpwax-vm-total-time"> - { greetVideoTotalDuration }</span>
                         </span>
-                        <a href="#" className="wpwax-vm-fulscreen-trigger">
+                        <a href="#" onClick={toggoleFullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
                             <ReactSVG src={expander} />
                         </a>
                     </div>

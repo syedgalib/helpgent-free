@@ -28,7 +28,6 @@ const displayChatBox = () => {
 const changeChatScreen = (chatType) => {
   return async dispatch => {
     try {
-      console.log(chatType)
       dispatch(changeChatScreenBegin());
       dispatch(changeChatScreenSuccess(chatType));
     } catch (err) {

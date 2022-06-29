@@ -43,10 +43,16 @@ class Prepare_Database {
 		CREATE TABLE {$table_prefix}_chatbox_templates (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(255) NOT NULL DEFAULT '',
-			page_id bigint(20) unsigned NOT NULL,
 			is_default tinyint unsigned NOT NULL DEFAULT 0,
 			options longtext NOT NULL,
 			PRIMARY KEY (id)
+		  ) $collate;
+
+		CREATE TABLE {$table_prefix}_chatbox_template_page_relationships (
+			template_id bigint(20) unsigned NOT NULL,
+			page_id bigint(20) unsigned NOT NULL,
+			PRIMARY KEY (template_id, page_id),
+			KEY page_id (page_id)
 		  ) $collate;
 		";
 

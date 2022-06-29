@@ -2,6 +2,7 @@ import Theme_1 from "./themes/Theme_1";
 import Theme_2 from "./themes/Theme_2";
 
 function Welcome() {
+
 	const chatBoxStyle = "theme-1";
 
 	const themes = {

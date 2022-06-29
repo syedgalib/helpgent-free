@@ -6,14 +6,14 @@ use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class Chatbox_Template_Model extends DB_Model {
+class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Table Name
      * 
      * @var string
      */
-    public static $table = 'chatbox_templates';
+    public static $table = 'chatbox_template_page_relationships';
 
     /**
      * Get Items
@@ -86,7 +86,7 @@ class Chatbox_Template_Model extends DB_Model {
 
 		$table = self::get_table_name( self::$table );
 
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE template_id = %d", array( $id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
@@ -111,31 +111,10 @@ class Chatbox_Template_Model extends DB_Model {
 
         $default = [];
 
-        $default['name']       = '';
-        $default['page_id']    = 0;
-        $default['is_default'] = 0;
-        $default['options']    = '';
-
-        if ( ! empty( $args['name'] ) ) {
-            $args['name'] = sanitize_text_field( $args['name'] );
-        }
-
-        if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
-            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-        if ( isset( $args['is_default'] ) ) {
-            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
-        }
+        $default['template_id'] = '';
+        $default['page_id']     = 0;
         
         $args = Helper\merge_params( $default, $args );
-
-        if ( self::name_exists( $args['name'] ) ) {
-            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
@@ -155,44 +134,26 @@ class Chatbox_Template_Model extends DB_Model {
     public static function update_item( $args = [] ) {
         global $wpdb;
         
-        if ( empty( $args['id'] ) ) {
-            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+        if ( empty( $args['template_id'] ) ) {
+            $message = __( 'Template ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $args['id'] );
+		$old_data = self::get_item( $args['template_id'] );
 
         if ( empty( $old_data ) ) {
             $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        if ( ! empty( $args['name'] ) ) {
-            $args['name'] = sanitize_text_field( $args['name'] );
-        }
-
-        if ( ! empty( $args['name'] ) && strtolower( $args['name'] ) !== strtolower( $old_data['name'] ) && self::name_exists( $args['name'] ) ) {
-            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-        if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
-            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-        if ( isset( $args['is_default'] ) ) {
-            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
-        }
-
         $args = Helper\filter_params( $old_data, $args );
 
         if ( Helper\list_has_same_data( $old_data, $args ) ) {
-            return self::get_item( $args['id'] );
+            return self::get_item( $args['template_id'] );
         }
 
-        $where = ['id' => $args['id'] ];
+        $where = ['template_id' => $args['template_id'] ];
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( empty( $result ) ) {
@@ -217,7 +178,7 @@ class Chatbox_Template_Model extends DB_Model {
         }
 
 		$table = self::get_table_name( self::$table );
-		$where = ['id' => $id ];
+		$where = ['template_id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 
@@ -237,27 +198,6 @@ class Chatbox_Template_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
         return ( ! empty( $status ) ) ? true : false;
-    }
-
-    /**
-     * Name Exists
-     * 
-     * @param string $template_name
-     * 
-     * @return bool
-     */
-    public static function name_exists( $template_name ) {
-        global $wpdb;
-
-        $template_name = strtolower( sanitize_text_field( $template_name ) );
-
-        $table = self::get_table_name( self::$table );
-        $sql   = "SELECT LOWER(name) FROM {$table} WHERE name = '{$template_name}'";
-
-        $query   = $wpdb->prepare( $sql );
-        $results = $wpdb->get_row( $query, ARRAY_A );
-
-        return ! empty( $results ) ? true : false;
     }
 }
 

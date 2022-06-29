@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import api from "../helpers/api";
 
 const initialState = {
-	name: "",
-	email: "",
+	name: "Someone",
+	email: "user@email.com",
 	data: {},
 	displayChatScreen: false,
 	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, contactForm, sending, success
@@ -17,8 +17,15 @@ export const sendMessage = createAsyncThunk(
 		const name = thunkAPI.getState().name;
 		const email = thunkAPI.getState().email;
 
+		console.log( { data, name, email } );
+
+		const args = {
+			userID: 1,
+			message: 'Test',
+		};
+
 		try {
-			let response = await api.sendMessage(name, email, data);
+			let response = await api.sendMessage( args );
 			let result = response.data;
 			return thunkAPI.fulfillWithValue(result);
 		} catch (error) {

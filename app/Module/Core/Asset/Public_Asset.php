@@ -97,8 +97,11 @@ class Public_Asset extends Enqueuer {
             'group'     => 'public',
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => [
-                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
-                    'apiNonce'    => wp_create_nonce( 'wp_rest' ),
+                    'apiEndpoint'   => rest_url( 'wpwax_cs/v1' ),
+                    'apiNonce'      => wp_create_nonce( 'wp_rest' ),
+                    'currentPageID' => get_the_ID(),
+                    'isFrontPage'   => is_front_page(),
+                    'isHome'        => is_home(),
                 ],
             ],
         ];

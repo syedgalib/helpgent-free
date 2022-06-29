@@ -43,6 +43,7 @@ export default defineConfig( ( { command, mode } ) => {
     resolve: {
       alias: {
         // Global
+        Helper: path.resolve( __dirname, 'src/helpers/' ),
         Components: path.resolve( __dirname, 'src/lib/components/' ),
         apiService: path.resolve( __dirname, 'src/lib/apiService/' ),
 

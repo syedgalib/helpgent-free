@@ -8,6 +8,31 @@ const axiosObj = axios.create({
 	},
 });
 
+// getChatboxTemplate
+const getChatboxTemplate = async ({ pageID, returnDefaultIfResultEmpty }) => {
+	let args = {};
+
+	args.page_id = pageID;
+	args.return_default_if_result_empty = ( typeof returnDefaultIfResultEmpty === 'boolean' ) ? returnDefaultIfResultEmpty : true;
+
+	return await axiosObj.get("/chatbox-templates", { params: args });
+};
+
+// getChatboxTemplate
+const createChatboxTemplate = async ({ name, page_ids, is_default, options }) => {
+	let args = {};
+
+	args.name       = ( name ) ? name : '';
+	args.page_ids   = ( page_ids ) ? page_ids : '';
+	args.is_default = ( typeof is_default === 'boolean' ) ? is_default : false;
+	args.options    = ( options && typeof options === 'object' ) ? options : {};
+
+	args.options = JSON.stringify( args.options );
+
+	return await axiosObj.post("/chatbox-templates", args);
+};
+
+// sendMessage
 const sendMessage = async ({ user_id, session_id, message, message_type, note, attachment_id, seen_by, terms }) => {
 	let args = {};
 
@@ -50,6 +75,8 @@ const sendMessage = async ({ user_id, session_id, message, message_type, note, a
 
 const api = {
 	axiosObj,
+	createChatboxTemplate,
+	getChatboxTemplate,
 	sendMessage,
 };
 

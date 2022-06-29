@@ -2,7 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Chatbox_Template\Model\Chatbox_Template_Model;
+use \WP_REST_Response;
+use WPWaxCustomerSupportApp\Module\Chatbox_Template\Model\CB_Template_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
 class Chatbox_Template extends Rest_Base {
@@ -29,6 +30,10 @@ class Chatbox_Template extends Rest_Base {
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
+                        'return_default_if_result_empty' => [
+                            'type'    => 'boolean',
+                            'default' => false,
+                        ],
                     ],
                 ],
                 [
@@ -40,9 +45,9 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => true,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'page_id' => [
+                        'page_ids' => [
                             'required'          => false,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'is_default' => [
                             'type'    => 'boolean',
@@ -81,9 +86,9 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'page_id' => [
+                        'page_ids' => [
                             'required'          => false,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'is_default' => [
                             'type'    => 'boolean',
@@ -135,18 +140,23 @@ class Chatbox_Template extends Rest_Base {
 
         $where = Helper\filter_params( $where, $args );
 
+        if ( isset( $where['is_default'] ) ) {
+            $where['is_default'] = ( Helper\is_truthy( $where['is_default'] ) ) ? 1 : 0;
+        }
+
         $default = [];
 
-        $default['limit'] = 20;
-        $default['page']  = 1;
+        $default['limit']                          = 20;
+        $default['page']                           = 1;
+        $default['return_default_if_result_empty'] = false;
 
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
-        $data = Chatbox_Template_Model::get_items( $args );
+        $data = CB_Template_Model::get_items( $args );
 
-        if ( is_wp_error( $data ) ) {
-            return $data;
+        if ( empty( $data ) && Helper\is_truthy( $args['return_default_if_result_empty'] ) ) {
+            $data = CB_Template_Model::get_items( [ 'where' => [ 'is_default' => true ] ] );
         }
 
         if ( empty( $data ) ) {
@@ -180,10 +190,13 @@ class Chatbox_Template extends Rest_Base {
         $id   = (int) $args['id'];
 
         $success = false;
-        $data    = Chatbox_Template_Model::get_item( $id );
+        $data    = CB_Template_Model::get_item( $id );
 
         if ( is_wp_error( $data ) ) {
-            return $data;
+            return new WP_REST_Response(
+                [ 'success' => false, 'message' => $data->get_error_message() ], 
+                $data->get_error_code() 
+            );
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
@@ -207,15 +220,18 @@ class Chatbox_Template extends Rest_Base {
     
         $default['id']         = '';
         $default['name']       = '';
-        $default['page_id']    = '';
+        $default['page_ids']   = '';
         $default['is_default'] = false;
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
-        $data = Chatbox_Template_Model::create_item( $args );
+        $data = CB_Template_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
-            return $data;
+            return new WP_REST_Response(
+                [ 'success' => false, 'message' => $data->get_error_message() ], 
+                $data->get_error_code() 
+            );
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
@@ -235,16 +251,18 @@ class Chatbox_Template extends Rest_Base {
 
         $default['id']         = '';
         $default['name']       = '';
-        $default['page_id']    = '';
+        $default['page_ids']   = '';
         $default['is_default'] = false;
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
-
-        $data = Chatbox_Template_Model::update_item( $args );
+        $data = CB_Template_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
-            return $data;
+            return new WP_REST_Response(
+                [ 'success' => false, 'message' => $data->get_error_message() ], 
+                $data->get_error_code() 
+            );
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
@@ -262,13 +280,9 @@ class Chatbox_Template extends Rest_Base {
     public function delete_item( $request ) {
         $args = $request->get_params();
 
-        $operation = Chatbox_Template_Model::delete_item( $args['id'] );
+        $operation = CB_Template_Model::delete_item( $args['id'] );
 
-        if ( is_wp_error( $operation ) ) {
-            return $operation;
-        }
-
-        return $this->response( true );
+        return $this->response( $operation );
     }
 
     /**

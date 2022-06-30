@@ -1,31 +1,28 @@
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
-import { chatBoxActions } from "../../../../store/chatbox-slice";
+import { upateFormData } from "../../../../store/forms/messenger/actionCreator";
 
 function Form() {
 	const dispatch = useDispatch();
-	const textRef = useRef();
+	const textRef  = useRef();
 
 	function submitHandler(e) {
 		e.preventDefault();
-		const text = textRef.current.value;
 
-		const data = {
-			type: "text",
-			text: text,
+		const updatedFormData = {
+			message: textRef.current.value,
 		};
 
-		dispatch(chatBoxActions.setData(data));
-		dispatch(chatBoxActions.chatScreen('contactForm'));
+		dispatch( upateFormData( updatedFormData ) );
 	}
 	
 	return (
 		<form onSubmit={submitHandler} className="wpwax-vm-h-100pr">
 			<div className="wpwax-vm-d-flex wpwax-vm-h-100pr wpwax-vm-flex-direction-column">
 				<div className="wpwax-vm-body wpwax-vm-d-flex-grow-1">
-					<div className="wpwax-vm-form-group">
+					<div className="wpwax-vm-form-group wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column">
 						<textarea
-							className="wpwax-vm-form__element wpwax-vm-transparent-form-control"
+							className="wpwax-vm-form__element wpwax-vm-transparent-form-control wpwax-vm-d-flex-grow-1 wpwax-vm-mb-20"
 							required
 							maxLength="1000"
 							row="10"
@@ -36,8 +33,8 @@ function Form() {
 				</div>
 
 				<div className="wpwax-vm-footer">
-					<button className="wpwax-vm-btn wpwax-vm-w-f wpwax-vm-d-block wpwax-vm-btn-lg wpwax-vm-btn-primary">
-						Send
+					<button type="submit" className="wpwax-vm-btn wpwax-vm-w-f wpwax-vm-btn-block wpwax-vm-btn-lg wpwax-vm-btn-primary">
+						Next
 					</button>
 				</div>
 			</div>

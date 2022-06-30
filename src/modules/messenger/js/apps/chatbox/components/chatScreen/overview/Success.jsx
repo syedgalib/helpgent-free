@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
-import { chatBoxActions } from "../../../store/chatbox-slice";
+// import { chatBoxActions } from "../../../store/chatbox-slice";
 
 function Success() {
 	const dispatch = useDispatch();
 
 	function btnHandler(e) {
 		e.preventDefault();
-		dispatch(chatBoxActions.resetWithChatScreen());
+		// dispatch(chatBoxActions.resetWithChatScreen());
 	}
 
 	return (

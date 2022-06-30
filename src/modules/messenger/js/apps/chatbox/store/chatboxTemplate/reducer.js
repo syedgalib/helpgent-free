@@ -1,5 +1,5 @@
 import actions from "./actions";
-import defaultTemplateData from '././../data/defaultChatboxTemplate';
+import defaultTemplateData from './defaultChatboxTemplate';
 
 const { 
     LOAD_TEMPLATE_BEGAIN, 

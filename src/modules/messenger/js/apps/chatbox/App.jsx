@@ -7,27 +7,26 @@ import { loadTemplate } from './store/chatboxTemplate/actionCreator';
 function App() {
 	const dispatch = useDispatch();
 
-	const { showChatbox, template, displayChatScreen } = useSelector( state => {
+	const { showChatboxApp, showChatbox } = useSelector( state => {
         return {
-			showChatbox: state.chatboxTemplate.showChatbox,
-			template: state.chatboxTemplate.template,
-            displayChatScreen: state.chatBox.displayChatScreen,
+			showChatboxApp: state.chatboxTemplate.showChatbox,
+            showChatbox: state.chatbox.showChatbox,
         };
     });
 
 	// Init State
 	useEffect( () => {
-		dispatch(loadTemplate());
+		dispatch( loadTemplate() );
 	}, []);
 	
-	if ( ! showChatbox ) {
+	if ( ! showChatboxApp ) {
 		return '';
 	}
 
 	return (
 		<>
 			<Avatar />
-			{displayChatScreen && <ChatScreen />}
+			{ showChatbox && <ChatScreen /> }
 		</>
 	);
 }

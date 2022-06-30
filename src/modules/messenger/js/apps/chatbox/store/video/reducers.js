@@ -18,24 +18,24 @@ const {
 } = actions;
 
 const VideoReducer = (state = initialState, action) => {
-  const { type, row, err } = action;
+  const { type, row, error } = action;
   switch (type) {
     case RECORD_STAGE_CHANGE_BEGIN:
       return {
         ...state,
-        sLoading: true,
+        isLoading: true,
       };
     case RECORD_STAGE_CHANGE_SUCCESS:
       return {
         ...state,
         row,
-        sLoading: false,
+        isLoading: false,
       };
     case RECORD_STAGE_CHANGE_ERR:
       return {
         ...state,
-        error: err,
-        sLoading: false,
+        error,
+        isLoading: false,
       };
     default:
       return state;

@@ -326,15 +326,32 @@
 
 // ----------------------------------------
 
-
 .wpwax-vm-transparent-form-control {
     border: none;
     outline: none;
     background: transparent !important;
 }
 
+.wpwax-vm-btn svg {
+    margin-left: 10px;
+}
+
+.wpwax-vm-btn div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wpwax-vm-h-20 {
+    height: 20px;
+}
+
 .wpwax-vm-w-f {
     width: 100%;
+}
+
+.wpwax-vm-mb-20 {
+    margin-bottom: 10px;
 }
 
 .wpwax-vm-p-20 {

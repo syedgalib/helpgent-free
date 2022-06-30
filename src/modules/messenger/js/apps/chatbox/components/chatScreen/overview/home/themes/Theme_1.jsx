@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRef } from 'react';
 import { useState } from 'react';
 
-import { changeChatScreen } from '../../../../../store/chatBox/actionCreator';
+import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 
 import { formatTimeAsCountdown } from 'Helper/formatter';
 
 import { ChatboxForm } from "../style/Style.js";
 import expander from "MessengerAssets/svg/icons/expand.svg";
-import { useEffect } from 'react';
 
 
 function Theme_1() {

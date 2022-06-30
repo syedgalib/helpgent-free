@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { chatBoxActions } from "../../../../store/chatbox-slice";
+// import { chatBoxActions } from "../../../../store/chatbox-slice";
 import ClosePopup from "./ClosePopup";
 import PreviewOne from "ChatboxTemplateApps/addForm/components/AddForm/overview/PreviewOne";
-import { closeChatBox } from '../../../../store/chatBox/actionCreator.js';
+import { hideChatbox } from '../../../../store/chatbox/actionCreator.js';
 import ScreenWrapper from "./Style";
 
 // import classes from "ChatApp/assets/Container.module.scss";
@@ -14,13 +14,13 @@ function Container(props) {
 	const [displayClosePopup, setDisplayClosePopup] = useState(false);
 
 	function backHandler() {
-		dispatch(chatBoxActions.back());
+		// dispatch(chatBoxActions.back());
 	}
 	function minusHandler() {
-		dispatch(chatBoxActions.toggleDisplayChatScreen());
+		// dispatch(chatBoxActions.toggleDisplayChatScreen());
 	}
 	function handleClose() {
-		dispatch(closeChatBox());
+		dispatch(hideChatbox());
 	}
 
 	let backBtn = (

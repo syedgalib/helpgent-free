@@ -11,8 +11,8 @@ const changeRecordSyage = stage => {
     try {
       dispatch(recordStageChangeBegin());
       dispatch(recordStageChangeSuccess(stage));
-    } catch (err) {
-      dispatch(recordStageChangeError(err));
+    } catch (error) {
+      dispatch(recordStageChangeError(error));
     }
   };
 };

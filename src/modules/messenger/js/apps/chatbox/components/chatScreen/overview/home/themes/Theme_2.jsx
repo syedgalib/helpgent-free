@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 import { formatTimeAsCountdown } from 'Helper/formatter';
 
-import { changeChatScreen } from '../../../../../store/chatBox/actionCreator';
+import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 
 import { ChatboxForm } from "../style/Style.js";
 

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { chatBoxActions } from "../../../../store/chatbox-slice";
+// import { chatBoxActions } from "../../../../store/chatbox-slice";
 
 // import classes from "ChatApp/assets/ClosePopup.module.scss";
 
@@ -7,7 +7,7 @@ function ClosePopup(props) {
 	const dispatch = useDispatch();
 
 	function yesHandler() {
-		dispatch(chatBoxActions.reset());
+		// dispatch(chatBoxActions.reset());
 	}
 	function noHandler() {
 		props.setDisplayClosePopup(false);

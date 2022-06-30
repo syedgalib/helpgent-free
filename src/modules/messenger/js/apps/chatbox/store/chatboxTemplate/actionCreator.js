@@ -1,6 +1,6 @@
 import { parseInteger } from "Helper/parser";
 import actions from "./actions";
-import api from './../../helpers/api';
+import api from './api';
 
 const { 
     loadTemplateBegain, 

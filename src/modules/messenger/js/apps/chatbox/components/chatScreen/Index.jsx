@@ -9,30 +9,26 @@ import Video from "./overview/video/Index";
 import Voice from "./overview/voice/Index";
 import Text from "./overview/text/Index";
 import ScreenRecord from "./overview/screen-record/Index";
+import screenTypes from "../../store/chatbox/screenTypes";
 
 function ChatScreen() {
-	
-	// const chatScreen = useSelector((state) => state.chatScreen);
-	const { chatScreen, displayChatScreen } = useSelector(state => {
+	const { currentChatScreen } = useSelector(state => {
         return {
-            chatScreen: state.chatBox.chatScreen,
-            displayChatScreen: state.chatBox.displayChatScreen,
+            currentChatScreen: state.chatbox.currentChatScreen,
         };
     });
 
-	console.log( chatScreen,displayChatScreen );
-
 	return (
 		<Container>
-			{ chatScreen == "welcome" && <Welcome /> }
-			{ chatScreen == "video" && <Video /> }
-			{ chatScreen == "voice" && <Voice /> }
-			{ chatScreen == "text" && <Text /> }
-			{ chatScreen == "screenRecord" && <ScreenRecord /> }
+			{ currentChatScreen == screenTypes.HOME && <Welcome /> }
+			{ currentChatScreen == screenTypes.VIDEO && <Video /> }
+			{ currentChatScreen == screenTypes.AUDIO && <Voice /> }
+			{ currentChatScreen == screenTypes.TEXT && <Text /> }
+			{ currentChatScreen == screenTypes.SCREEN_RECORD && <ScreenRecord /> }
 
-			{ chatScreen == "contactForm" && <ContactForm /> }
-			{ chatScreen == "sending" && <Sending /> }
-			{ chatScreen == "success" && <Success /> }
+			{ currentChatScreen == screenTypes.CONTACT_FORM && <ContactForm /> }
+			{ currentChatScreen == screenTypes.SENDING && <Sending /> }
+			{ currentChatScreen == screenTypes.SUCCESS && <Success /> }
 		</Container>
 	);
 }

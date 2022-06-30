@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { displayChatBox } from "../../store/chatBox/actionCreator";
+import { showChatbox } from "../../store/chatbox/actionCreator";
 import AvatarWrap from "./Style";
 import avater from '../../assets/avatar.png';
 
@@ -14,7 +14,7 @@ function Avatar() {
 
 	function clickHandler(e) {
 		e.preventDefault();
-		dispatch(displayChatBox());
+		dispatch(showChatbox());
 	}
 
 	return (

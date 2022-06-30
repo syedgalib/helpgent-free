@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 import Container from "./overview/screen-wrapper/Index";
-import Welcome from "./overview/home/Welcome.jsx";
+import Home from "./overview/home/index.jsx";
 import ContactForm from "./overview/ContactForm";
 import Sending from "./overview/Sending";
 import Success from "./overview/Success";
@@ -18,17 +18,28 @@ function ChatScreen() {
         };
     });
 
+	const screens = {
+		[ screenTypes.HOME ]: <Home />,
+		[ screenTypes.VIDEO ]: <Video />,
+		[ screenTypes.AUDIO ]: <Voice />,
+		[ screenTypes.TEXT ]: <Text />,
+		[ screenTypes.SCREEN_RECORD ]: <ScreenRecord />,
+		[ screenTypes.CONTACT_FORM ]: <ContactForm />,
+		[ screenTypes.SENDING ]: <Sending />,
+		[ screenTypes.SENDING ]: <Success />,
+	};
+
+	function CurrentScreen() {
+		if ( ! Object.keys( screens ).includes( currentChatScreen ) ) {
+			return '';
+		}
+
+		return screens[ currentChatScreen ];
+	}
+
 	return (
 		<Container>
-			{ currentChatScreen == screenTypes.HOME && <Welcome /> }
-			{ currentChatScreen == screenTypes.VIDEO && <Video /> }
-			{ currentChatScreen == screenTypes.AUDIO && <Voice /> }
-			{ currentChatScreen == screenTypes.TEXT && <Text /> }
-			{ currentChatScreen == screenTypes.SCREEN_RECORD && <ScreenRecord /> }
-
-			{ currentChatScreen == screenTypes.CONTACT_FORM && <ContactForm /> }
-			{ currentChatScreen == screenTypes.SENDING && <Sending /> }
-			{ currentChatScreen == screenTypes.SUCCESS && <Success /> }
+			<CurrentScreen/>
 		</Container>
 	);
 }

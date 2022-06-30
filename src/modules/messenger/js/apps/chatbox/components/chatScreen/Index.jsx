@@ -31,8 +31,6 @@ function ChatScreen() {
 
 	function CurrentScreen() {
 
-		console.log( { currentChatScreen } );
-
 		if ( ! Object.keys( screens ).includes( currentChatScreen ) ) {
 			return '';
 		}

@@ -10,7 +10,6 @@ import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import { ChatboxForm } from "../style/Style.js";
 
 import { ReactSVG } from 'react-svg';
-import previewBg from "MessengerAssets/img/builder/bg.png";
 import expander from "MessengerAssets/svg/icons/expand.svg";
 
 function Theme_2() {

@@ -4,7 +4,7 @@ const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 30px;
     right: 25px;
-    height: 605px;
+    height: 630px;
     width: 420px;
     z-index: 100;
     border-radius: 25px;

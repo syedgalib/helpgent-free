@@ -1,5 +1,6 @@
 import actions from "./actions";
 import defaultTemplateData from './defaultChatboxTemplate';
+import screenTypes from "../chatbox/screenTypes";
 
 const { 
     LOAD_TEMPLATE_BEGAIN, 
@@ -12,10 +13,10 @@ const initialState = {
 	showChatbox: false,
 	template: defaultTemplateData,
     supportedReplayTypes: [
-        { type: 'text', label: 'Text' },
-        { type: 'video', label: 'Video' },
-        { type: 'voice', label: 'Voice' },
-        { type: 'screenRecord', label: 'Screen Record' },
+        { type: screenTypes.TEXT, label: 'Text' },
+        { type: screenTypes.VIDEO, label: 'Video' },
+        { type: screenTypes.AUDIO, label: 'Voice' },
+        { type: screenTypes.SCREEN_RECORD, label: 'Screen Record' },
     ]
 };
 

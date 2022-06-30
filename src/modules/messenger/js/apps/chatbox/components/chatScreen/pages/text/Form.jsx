@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { upateFormData } from "../../../../store/forms/messenger/actionCreator";
+import { changeChatScreen } from "../../../../store/chatBox/actionCreator";
+import screenTypes from "../../../../store/chatbox/screenTypes";
 
 function Form() {
 	const dispatch = useDispatch();
@@ -14,6 +16,7 @@ function Form() {
 		};
 
 		dispatch( upateFormData( updatedFormData ) );
+		dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
 	}
 	
 	return (

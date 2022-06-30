@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { upateFormData } from "../../../../store/forms/messenger/actionCreator";
-import { changeChatScreen } from "../../../../store/chatBox/actionCreator";
+import { changeChatScreen } from "../../../../store/chatbox/actionCreator";
 import screenTypes from "../../../../store/chatbox/screenTypes";
 
 function Form() {
@@ -15,8 +15,10 @@ function Form() {
 			message: textRef.current.value,
 		};
 
+		const nextScreen = screenTypes.CONTACT_FORM;
+
 		dispatch( upateFormData( updatedFormData ) );
-		dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+		dispatch( changeChatScreen( nextScreen ) );
 	}
 	
 	return (

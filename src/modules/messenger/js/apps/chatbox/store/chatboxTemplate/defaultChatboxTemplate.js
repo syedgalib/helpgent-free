@@ -11,7 +11,7 @@ export default {
         // Home Page
         "greet_video_url": "",
         "greet_message": "Welcome to Directorist, leave your questions below",
-        "chat_box_title": "How would you like to chat?",
+        "chat_options_title": "How would you like to chat?",
         "can_replay_in": [ 'video', 'screen_recording', 'voice', 'text' ],
         "show_footer": true,
         "footer_message": "You can practice before sending",
@@ -28,18 +28,30 @@ export default {
         "thank_page_cta_button_text": "Try for Free",
         "thank_page_cta_button_url": "www.demo.com",
 
-        "thank_page_cta_background": "#ffffff",
-        "thank_page_cta_title_font_size": "xx-large",
-        "thank_page_cta_font_color": "#030308",
-        "thank_page_cta_button_color": "#6551F2",
-        "thank_page_cta_button_text_color": "#ffffff",
-        "thank_page_cta_button_radius": "10",
+        "thank_page_background_color": "#ffffff",
+        "thank_page_title_font_size": "xx-large",
 
         // Template Style
-        "font": "Roboto",
-        "font_size": "Medium",
-        "font_color": "#ffffff",
-        "button_color": "#000000",
-        "button_border_radius": "15",
+        "primary_color": "#2271b1",
+
+        "font_family": "Roboto",
+        "font_size": "medium",
+        "font_color": "#898989",
+
+        "greet_message_font_color": "#FFFFFF",
+        "greet_message_font_size": "medium",
+
+        "chat_options_title_font_size": "medium",
+        "chat_options_title_font_color": "#FFFFFF",
+
+        "footer_message_font_size": "medium",
+
+        "primary_button_font_color": "#FFFFFF",
+        "primary_button_border_radius": "15",
+        "primary_button_background_color": "#2271b1",
+
+        "secondary_button_font_color": "#FFFFFF",
+        "secondary_button_border_radius": "15",
+        "secondary_button_background_color": "#EDEDED",
     }
 }

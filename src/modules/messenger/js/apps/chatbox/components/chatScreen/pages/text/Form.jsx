@@ -15,19 +15,17 @@ function Form() {
 			message: textRef.current.value,
 		};
 
-		const nextScreen = screenTypes.CONTACT_FORM;
-
 		dispatch( upateFormData( updatedFormData ) );
-		dispatch( changeChatScreen( nextScreen ) );
+		dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
 	}
 	
 	return (
 		<form onSubmit={submitHandler} className="wpwax-vm-h-100pr">
 			<div className="wpwax-vm-d-flex wpwax-vm-h-100pr wpwax-vm-flex-direction-column">
-				<div className="wpwax-vm-body wpwax-vm-d-flex-grow-1">
+				<div className="wpwax-vm-body wpwax-vm-flex-grow-1">
 					<div className="wpwax-vm-form-group wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column">
 						<textarea
-							className="wpwax-vm-form__element wpwax-vm-transparent-form-control wpwax-vm-d-flex-grow-1 wpwax-vm-mb-20"
+							className="wpwax-vm-form__element wpwax-vm-transparent-form-control wpwax-vm-flex-grow-1 wpwax-vm-mb-20"
 							required
 							maxLength="1000"
 							row="10"

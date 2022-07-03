@@ -44,7 +44,8 @@ function Container(props) {
 						x
 					</button>
 				</div>
-				{props.children}
+
+				<div className="wpwax-vm-h-100pr">{ props.children }</div>
 			</div>
 		</ScreenWrapper>
 	);

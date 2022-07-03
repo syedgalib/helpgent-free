@@ -7,7 +7,7 @@ import { formatTimeAsCountdown } from 'Helper/formatter';
 
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 
-import { ChatboxForm } from "../style/Style.js";
+import { ChatboxForm } from '../../../style/Style';
 
 import { ReactSVG } from 'react-svg';
 import expander from "MessengerAssets/svg/icons/expand.svg";
@@ -95,7 +95,7 @@ function Theme_2() {
 
     return (
         <ChatboxForm>
-            <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2">
+            <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
                 <div className="wpwax-vm-chatbox-header">
                     { 
                         templateOptions.greet_message && 
@@ -105,7 +105,7 @@ function Theme_2() {
                     }
                 </div>
 
-                <div className="wpwax-vm-chatbox-inner">
+                <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
                     <div className="wpwax-vm-chatbox-inner-action">
                         <span className="wpwax-vm-timer">
                             <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>

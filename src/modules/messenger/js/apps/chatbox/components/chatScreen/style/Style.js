@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
+    height: 100%;
     box-sizing: border-box;
     .wpwax-vm-chatbox-bg{
         position: absolute;
@@ -43,7 +44,6 @@ const ChatboxForm = Styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 140px 0 50px;
     }
     .wpwax-vm-btn-play{
         display: flex;
@@ -248,4 +248,4 @@ const ContactFormWrap = Styled.div`
     }
 `;
 
-export  {ChatboxForm, ContactFormWrap};
+export { ChatboxForm, ContactFormWrap };

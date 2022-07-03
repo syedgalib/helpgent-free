@@ -8,7 +8,7 @@ import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 
 import { formatTimeAsCountdown } from 'Helper/formatter';
 
-import { ChatboxForm } from "../style/Style.js";
+import { ChatboxForm } from '../../../style/Style';
 import expander from "MessengerAssets/svg/icons/expand.svg";
 
 
@@ -95,7 +95,7 @@ function Theme_1() {
 
     return (
         <ChatboxForm>
-            <div className="wpwax-vm-chatbox-wrap">
+            <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">
                 <div className="wpwax-vm-chatbox-bg">
                 {  templateOptions.greet_video_url &&
 				    <video 
@@ -130,9 +130,11 @@ function Theme_1() {
                     }
                     
                 </div>
-                <div className="wpwax-vm-chatbox-inner">
+
+                <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
                     <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
                 </div>
+
                 <div className="wpwax-vm-chatbox-footer">
                     { templateOptions.chat_box_title && <h5 className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_box_title }</h5> }
 

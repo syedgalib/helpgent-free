@@ -2,9 +2,10 @@ import Styled from 'styled-components';
 
 const ScreenWrapper = Styled.div`
     position: fixed;
-    bottom: 30px;
+    bottom: 15px;
     right: 25px;
-    height: 630px;
+    height: calc(100vh - 85px);
+    max-height: 630px;
     width: 420px;
     z-index: 100;
     border-radius: 25px;
@@ -12,9 +13,11 @@ const ScreenWrapper = Styled.div`
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
     .wpwax-vm-chatbox-container{
+        height: 100%;
         position: relative;
         height: 100%;
         .wpwax-vm-chatbox-wrap{
+            height: 100%;
             position: relative;
             z-index: 101;
             &:after,

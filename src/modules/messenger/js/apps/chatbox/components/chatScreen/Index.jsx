@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 
-import Container from "./pages/screen-wrapper/Index";
+import Container from "./pages/screen-wrapper/Index.jsx";
 import Home from "./pages/home/Index.jsx";
-import ContactForm from "./pages/ContactForm";
-import Sending from "./pages/Sending";
-import Success from "./pages/Success";
-import Video from "./pages/video/Index";
-import Voice from "./pages/voice/Index";
-import Text from "./pages/text/Index";
-import ScreenRecord from "./pages/screen-record/Index";
+import ContactForm from "./pages/contactForm/Index.jsx";
+import Sending from "./pages/Sending.jsx";
+import Success from "./pages/Success.jsx";
+import Video from "./pages/video/Index.jsx";
+import Voice from "./pages/voice/Index.jsx";
+import Text from "./pages/text/Index.jsx";
+import ScreenRecord from "./pages/screen-record/Index.jsx";
 import screenTypes from "../../store/chatbox/screenTypes";
 
 function ChatScreen() {
@@ -26,7 +26,7 @@ function ChatScreen() {
 		[ screenTypes.SCREEN_RECORD ]: <ScreenRecord />,
 		[ screenTypes.CONTACT_FORM ]: <ContactForm />,
 		[ screenTypes.SENDING ]: <Sending />,
-		[ screenTypes.SENDING ]: <Success />,
+		[ screenTypes.SUCCESS ]: <Success />,
 	};
 
 	function CurrentScreen() {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ReactSVG } from 'react-svg';
-import { VideoRecordWrap } from '../Style';
-import { ContactFormWrap } from '../../home/style/Style';
+import { VideoRecordWrap } from './../Style';
+import { ContactFormWrap } from '../../../style/Style';
+
 /* Images */
 import permissionImg from '../../../../../../../../assets/img/chatbox/permission.png';
 import play from '../../../../../../../../assets/svg/icons/play.svg'
@@ -59,7 +60,7 @@ const Record = ()=>{
 				...state,
 				recordStage: "success",
 			});
-		}, 3000);
+		}, 30000);
 	}
 	
 	if(recordStage === "permission"){

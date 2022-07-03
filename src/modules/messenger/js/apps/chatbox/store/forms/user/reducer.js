@@ -1,21 +1,30 @@
 import actions from "./actions";
 
 const { 
-    SUBMIT_FORM_BEGAIN, 
+    UPDATE_FORM_DATA,
+    SUBMIT_FORM_BEGAIN,
     SUBMIT_FORM_SUCCESS, 
     SUBMIT_FORM_ERROR, 
 } = actions;
 
 const initialState = {
     formData: {
-        user_id: 0,
+        email: '',
+        name: '',
     },
 	isSubmitting: false,
 	status: null,
 };
 
 const reducer = ( state = initialState, action ) => {
+    const { payload } = action;
+
     switch ( action.type ) {
+        case UPDATE_FORM_DATA:
+            return {
+                ...state,
+                formData: { ...state.formData, ...payload }
+            };
         case SUBMIT_FORM_BEGAIN:
             return {
                 ...state,

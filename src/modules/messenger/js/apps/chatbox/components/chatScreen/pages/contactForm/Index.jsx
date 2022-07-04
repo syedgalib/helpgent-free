@@ -1,4 +1,3 @@
-import { ContactFormWrap } from '../../style/Style';
 import Form from './Form.jsx';
 
 function ContactForm() {

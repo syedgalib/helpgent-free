@@ -1,13 +1,25 @@
 const actions = {
-    UPDATE_FORM_DATA: 'UPDATE_FORM_DATA',
-    SUBMIT_FORM_BEGAIN: 'SUBMIT_FORM_BEGAIN',
-    SUBMIT_FORM_SUCCESS: 'SUBMIT_FORM_SUCCESS',
-    SUBMIT_FORM_ERROR: 'SUBMIT_FORM_ERROR',
+    UPDATING_FORM_DATA: 'UPDATING_USER_FORM_DATA',
+    UPDATE_FORM_DATA: 'UPDATE_USER_FORM_DATA',
+    UPDATED_FORM_DATA: 'UPDATED_USER_FORM_DATA',
+    SUBMIT_FORM_BEGAIN: 'SUBMIT_USER_FORM_BEGAIN',
+    SUBMIT_FORM_SUCCESS: 'SUBMIT_USER_FORM_SUCCESS',
+    SUBMIT_FORM_ERROR: 'SUBMIT_USER_FORM_ERROR',
 
-    upateFormData: ( formData ) => {
+    upatingFormData: () => {
+        return {
+            type: actions.UPDATING_FORM_DATA,
+        }
+    },
+    upateFormDataAction: ( formData, isFinalUpdate ) => {
         return {
             type: actions.UPDATE_FORM_DATA,
-            payload: formData,
+            payload: { formData, isFinalUpdate },
+        }
+    },
+    upatedFormData: () => {
+        return {
+            type: actions.UPDATED_FORM_DATA,
         }
     },
     submitFormBegain: () => {

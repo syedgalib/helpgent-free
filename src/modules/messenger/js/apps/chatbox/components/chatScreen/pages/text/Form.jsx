@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { upateFormData } from "../../../../store/forms/messenger/actionCreator";
 import { changeChatScreen } from "../../../../store/chatbox/actionCreator";
 import screenTypes from "../../../../store/chatbox/screenTypes";
+import messageTypes from "../../../../store/forms/messenger/messageTypes";
 
 function Form() {
 	const dispatch = useDispatch();
@@ -12,6 +13,7 @@ function Form() {
 		e.preventDefault();
 
 		const updatedFormData = {
+			message_type: messageTypes.TEXT,
 			message: textRef.current.value,
 		};
 

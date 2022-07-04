@@ -21,9 +21,9 @@ const initialState = {
 };
 
 const reducer = ( state = initialState, action ) => {
-    const { payload } = action;
+    const { type, payload } = action;
 
-    switch ( action.type ) {
+    switch ( type ) {
         case UPDATE_FORM_DATA:
             return {
                 ...state,

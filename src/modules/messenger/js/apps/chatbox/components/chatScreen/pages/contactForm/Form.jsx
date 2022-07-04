@@ -1,19 +1,73 @@
 import { ReactSVG } from "react-svg";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeChatScreen } from "../../../../store/chatbox/actionCreator";
-import { upateFormData } from "../../../../store/forms/user/actionCreator";
+
+import { submitForm as submitUserForm } from "../../../../store/forms/user/actionCreator";
+import { upateFormData as upateUserFormData } from "../../../../store/forms/user/actionCreator";
+
 import paperPlan from "MessengerAssets/svg/icons/paper-plane.svg";
 import { useState } from "react";
 import screenTypes from "../../../../store/chatbox/screenTypes";
+import { useEffect } from "react";
 
 function Form() {
     const dispatch = useDispatch();
+
+    const { userForm } = useSelector( state => {
+        return {
+			userForm: state.userForm,
+        };
+    });
+
 
 	const nameRef  = useRef();
 	const emailRef = useRef();
 
     const [ errorMessage, setErrorMessage ] = useState( '' );
+
+    // Create User
+    useEffect( () => {
+
+        if ( userForm.status !== null ) {
+            return;
+        }
+
+        if ( ! userForm.isReadyFormData ) {
+            return;
+        }
+
+        console.log( 'Create User' );
+
+        // Create User
+        dispatch( submitUserForm( userForm.formData ) );
+
+    }, [ userForm.isReadyFormData ] );
+
+    // After User Created
+    useEffect( () => {
+
+        if ( ! userForm.status ) {
+            return;
+        }
+
+        console.log( 'After User Created' );
+
+        // Upload Attachment if needed
+        // dispatch( submitForm( userForm.formData ) );
+
+    }, [ userForm.status ] );
+
+    // After User Creation Failed
+    useEffect( () => {
+
+        if ( false !== userForm.status ) {
+            return;
+        }
+        
+        console.log( 'User Creation Failed' );
+
+    }, [ userForm.status ] );
 
 	function submitHandler(e) {
 		e.preventDefault();
@@ -26,20 +80,31 @@ function Form() {
             return;
         }
 
+        console.log( 'before', {userForm} );
         const formData = { name, email };
+        dispatch( upateUserFormData( formData, true ) );
 
-        dispatch( upateFormData( formData ) );
-        dispatch( changeChatScreen( screenTypes.SENDING ) );
+        // dispatch( changeChatScreen( screenTypes.SENDING ) );
 
-        setTimeout( function() {
-            dispatch( changeChatScreen( screenTypes.SUCCESS ) );
-        }, 3000 )
+        // setTimeout( function() {
+        //     dispatch( changeChatScreen( screenTypes.SUCCESS ) );
+        // }, 3000 )
 	}
 
     return (
         <form onSubmit={submitHandler} className="wpwax-vm-h-100pr">
             <div className="wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column">
 				<div className="wpwax-vm-body wpwax-vm-flex-grow-1">
+
+                    <p>
+                        { userForm.isUpdatingFormData ? 'isUpdatingFormData' : 'isNotUpdatingFormData' }
+                    </p>
+
+                    <p>
+                        { userForm.isReadyFormData ? 'isReadyFormData' : 'isNotReadyFormData' }
+                    </p>
+                    
+
                     <h4 className="wpwax-vm-contact-form__title">Before you go, please leave your contact details so we can get back to you…</h4>
                     
                     <div className="wpwax-vm-form-group">

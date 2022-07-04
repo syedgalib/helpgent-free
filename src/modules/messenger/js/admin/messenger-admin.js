@@ -1,1 +1,1 @@
-import 'MessengerCSS/messenger-admin.scss';
+import '../apps/chatDashboard/index.jsx';

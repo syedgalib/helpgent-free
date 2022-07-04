@@ -60,7 +60,7 @@ const Record = ()=>{
 				...state,
 				recordStage: "success",
 			});
-		}, 30000);
+		}, 3000);
 	}
 	
 	if(recordStage === "permission"){
@@ -126,7 +126,7 @@ const Record = ()=>{
 						<div className="wpwax-vm-form-group">
 							<input type="text" className="wpwax-vm-form__element" placeholder="Your email*" />
 						</div>
-						<div className="wpwax-vm-form__bottom">
+						<div className="_wpwax-vm-form__bottom">
 							<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary" onClick={ (e)=> handleSendVideo(e) }>Send<ReactSVG src={ paperPlan } /></a>
 						</div>
 					</form>

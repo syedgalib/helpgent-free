@@ -106,39 +106,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-<<<<<<< HEAD
-        margin-bottom: 12px;
-=======
         margin-bottom: 8px;
->>>>>>> origin/improve/api
         span{
             font-size: 16px;
             font-weight: 500;
             color: #4D4D4D;
         }
-<<<<<<< HEAD
-        .wpwax-vm-tooltip-wrap{
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            .wpwax-vm-tooltip {
-                .wpwax-vm-tooltip-text{
-                    top: -40px;
-                    transform: translateX(-47%);
-                    font-size: 12px;
-                    text-align: center;
-                    color: var(--color-white);
-                }
-                .wpwax-vm-tooltip-icon{
-                    position: relative;
-                    top: 2px;
-                    display: block;
-                    margin-left: 10px;
-                }
-            }
-        }
-=======
->>>>>>> origin/improve/api
     }
 }
 
@@ -146,10 +119,6 @@
     display: flex;
     align-items: center;
     input[type=checkbox]{
-<<<<<<< HEAD
-        min-width: 20px;
-=======
->>>>>>> origin/improve/api
         width: 20px;
         height: 20px;
         border-radius: 4px;
@@ -303,54 +272,6 @@
     }
 }
 
-<<<<<<< HEAD
-/* Tooltip Style */
-.wpwax-vm-tooltip{
-    position: relative;
-    &:hover{
-        .wpwax-vm-tooltip-text{
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-    .wpwax-vm-tooltip-icon{
-        cursor: pointer;
-    }
-    .wpwax-vm-tooltip-text{
-        position: absolute;
-        top: -15px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        min-width: 130px;
-        font-size: 12px;
-        border-radius: 6px;
-        padding: 0 10px;
-        min-height: 30px;
-        display: flex;
-        align-items: center;
-        z-index: 101;
-        opacity: 0;
-        visibility: hidden;
-        color: var(--color-white);
-        background-color: var(--color-dark);
-        &:after{
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-top: 12px solid var(--color-dark);
-            content: '';
-        }
-    }
-}
-
-=======
->>>>>>> origin/improve/api
 /* Not Fouond Text Style */
 .wpwax-notfound-text{
     display: flex;
@@ -402,8 +323,6 @@
     }
 }
 
-<<<<<<< HEAD
-=======
 // ----------------------------------------
 
 
@@ -572,7 +491,6 @@
     justify-content: space-between;
 }
 
->>>>>>> origin/improve/api
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

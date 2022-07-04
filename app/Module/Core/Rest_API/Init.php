@@ -26,8 +26,8 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Forms::class,
-            Messages::class,
+            Rest_Filters::class,
+            Version_1\Init::class,
         ];
     }
 

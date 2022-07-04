@@ -16,10 +16,10 @@ const actions = {
       };
     },
   
-    recordStageChagErr: err => {
+    recordStageChagErr: error => {
       return {
         type: actions.RECORD_STAGE_CHANGE_ERR,
-        err,
+        error,
       };
     },
   };

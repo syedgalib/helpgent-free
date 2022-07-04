@@ -26,6 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
+            Setup\Init::class,
             Asset\Init::class,
             Admin\Init::class,
             Rest_API\Init::class,

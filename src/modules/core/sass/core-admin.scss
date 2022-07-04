@@ -10,7 +10,11 @@
     --color-gray: #868EAE;
     --color-danger: #EF0000;
     --color-success: #08bf9c;
+<<<<<<< HEAD
     --color-text: #5A5F7D;
+=======
+    --color-text: #898989;
+>>>>>>> origin/improve/api
     --color-white: #ffffff;
     --color-black: #000000;
 }
@@ -70,16 +74,18 @@
     &.wpwax-vm-btn-lg{
         height: 56px;
     }
+    &.wpwax-vm-btn-md{
+        height: 44px;
+    }
 }
 /* Block Button Style */
 .wpwax-vm-btn-block{
-    display: block;
-    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* Form Elements Style */
 .wpwax-vm-form-group{
-    padding-bottom: 20px;
     margin-bottom: 20px;
     .wpwax-vm-form__element{
         width: 100%;
@@ -90,6 +96,7 @@
         border-radius: 6px;
         padding: 9px 16px;
         border: 0 none;
+        box-sizing: border-box;
         color: var(--color-dark);
         background-color: var(--color-bg-general);
     }
@@ -398,3 +405,26 @@
       transform: rotate(410deg);
     }
 }
+
+@keyframes wpwaxVideoOpen {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+@keyframes wpwaxVmScaling {
+    0% {
+        opacity: 0;
+        transform: scale(.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

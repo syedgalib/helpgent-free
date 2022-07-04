@@ -26,9 +26,12 @@ class Init {
      */
     protected function get_controllers() {
         return [
+            Setup\Init::class,
+            Rest_API\Init::class,
             Asset\Init::class,
             Admin\Init::class,
-            Chatbox::class,
+            Email\Init::class,
+            Frontend\Init::class,
         ];
     }
 

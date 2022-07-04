@@ -1,19 +1,32 @@
-import { useSelector } from "react-redux";
-import Avatar from "./components/avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import Avatar from "./components/avatar/Index.jsx";
 import ChatScreen from "./components/chatScreen/Index.jsx";
+import { loadTemplate } from './store/chatboxTemplate/actionCreator';
 
 function App() {
-	const { displayChatScreen } = useSelector(state => {
+	const dispatch = useDispatch();
+
+	const { showChatboxApp, showChatbox } = useSelector( state => {
         return {
-            displayChatScreen: state.chatBox.displayChatScreen,
+			showChatboxApp: state.chatboxTemplate.showChatbox,
+            showChatbox: state.chatbox.showChatbox,
         };
     });
+
+	// Init State
+	useEffect( () => {
+		dispatch( loadTemplate() );
+	}, []);
 	
-	console.log(displayChatScreen);
+	if ( ! showChatboxApp ) {
+		return '';
+	}
+
 	return (
 		<>
 			<Avatar />
-			{displayChatScreen && <ChatScreen />}
+			{ showChatbox && <ChatScreen /> }
 		</>
 	);
 }

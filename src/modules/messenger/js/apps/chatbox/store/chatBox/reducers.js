@@ -1,84 +1,36 @@
 import actions from './actions';
+import screenTypes from './screenTypes';
 
 const initialState = {
-  name: "",
-	email: "",
-	data: {},
-	displayChatScreen: false,
-	chatScreen: "welcome", // welcome, video, audio, text, screenRecord, contactForm, sending, success
-	chatStep: 1, // 1,2,3,4 etc + contact, sending, success
+	showChatbox: false,
+	currentChatScreen: screenTypes.HOME,
 };
 
 const {
-    DISPLAY_CHAT_SCREEN_BEGIN,
-    DISPLAY_CHAT_SCREEN_SUCCESS,
-    DISPLAY_CHAT_SCREEN_ERR,
-
-    CHANGE_CHAT_SCREEN_BEGIN,
-    CHANGE_CHAT_SCREEN_SUCCESS,
-    CHANGE_CHAT_SCREEN_ERR,
-
-    CLOSE_CHAT_SCREEN_BEGIN,
-    CLOSE_CHAT_SCREEN_SUCCESS,
-    CLOSE_CHAT_SCREEN_ERR,
+  SHOW_CHATBOX,
+  HIDE_CHATBOX,
+  CHANGE_CHAT_SCREEN,
 } = actions;
 
 const chatboxReducers = (state = initialState, action) => {
-  const { type, data, err } = action;
-  const { displayChatScreen } = initialState;
-  console.log(data);
+  const { type, payload } = action;
+  
   switch (type) {
-    case DISPLAY_CHAT_SCREEN_BEGIN:
+    case SHOW_CHATBOX:
       return {
         ...state,
-        sLoading: true,
+        showChatbox: true,
       };
-    case DISPLAY_CHAT_SCREEN_SUCCESS:
+    case HIDE_CHATBOX:
       return {
         ...state,
-        displayChatScreen: !displayChatScreen,
-        sLoading: false,
+        currentChatScreen: screenTypes.HOME,
+        showChatbox: false,
       };
-    case DISPLAY_CHAT_SCREEN_ERR:
+    case CHANGE_CHAT_SCREEN:
       return {
         ...state,
-        error: err,
-        sLoading: false,
-      };
-    case CHANGE_CHAT_SCREEN_BEGIN:
-      return {
-        ...state,
-        sLoading: true,
-      };
-    case CHANGE_CHAT_SCREEN_SUCCESS:
-      return {
-        ...state,
-        chatScreen: data,
-        sLoading: false,
-      };
-    case CHANGE_CHAT_SCREEN_ERR:
-      return {
-        ...state,
-        error: err,
-        sLoading: false,
-      };
-    case CLOSE_CHAT_SCREEN_BEGIN:
-      return {
-        ...state,
-        sLoading: true,
-      };
-    case CLOSE_CHAT_SCREEN_SUCCESS:
-      console.log(displayChatScreen);
-      return {
-        ...state,
-        displayChatScreen: displayChatScreen,
-        chatScreen: "welcome",
-      };
-    case CLOSE_CHAT_SCREEN_ERR:
-      return {
-        ...state,
-        error: err,
-        sLoading: false,
+        currentChatScreen: payload,
       };
     default:
       return state;

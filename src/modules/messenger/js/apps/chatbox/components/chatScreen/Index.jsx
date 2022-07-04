@@ -1,36 +1,46 @@
 import { useSelector } from "react-redux";
 
-import Container from "./overview/screen-wrapper/Index";
-import Welcome from "./overview/Welcome";
-import ContactForm from "./overview/ContactForm";
-import Sending from "./overview/Sending";
-import Success from "./overview/Success";
-import Video from "./overview/video/Index";
-import Voice from "./overview/voice/Index";
-import Text from "./overview/text/Index";
-import ScreenRecord from "./overview/screen-record/Index";
+import Container from "./pages/screen-wrapper/Index.jsx";
+import Home from "./pages/home/Index.jsx";
+import ContactForm from "./pages/contactForm/Index.jsx";
+import Sending from "./pages/Sending.jsx";
+import Success from "./pages/Success.jsx";
+import Video from "./pages/video/Index.jsx";
+import Voice from "./pages/voice/Index.jsx";
+import Text from "./pages/text/Index.jsx";
+import ScreenRecord from "./pages/screen-record/Index.jsx";
+import screenTypes from "../../store/chatbox/screenTypes";
 
 function ChatScreen() {
-	
-	// const chatScreen = useSelector((state) => state.chatScreen);
-	const { chatScreen, displayChatScreen } = useSelector(state => {
+	const { currentChatScreen } = useSelector(state => {
         return {
-            chatScreen: state.chatBox.chatScreen,
-            displayChatScreen: state.chatBox.displayChatScreen,
+            currentChatScreen: state.chatbox.currentChatScreen,
         };
     });
-	console.log(chatScreen,displayChatScreen);
+
+	const screens = {
+		[ screenTypes.HOME ]: <Home />,
+		[ screenTypes.VIDEO ]: <Video />,
+		[ screenTypes.AUDIO ]: <Voice />,
+		[ screenTypes.TEXT ]: <Text />,
+		[ screenTypes.SCREEN_RECORD ]: <ScreenRecord />,
+		[ screenTypes.CONTACT_FORM ]: <ContactForm />,
+		[ screenTypes.SENDING ]: <Sending />,
+		[ screenTypes.SUCCESS ]: <Success />,
+	};
+
+	function CurrentScreen() {
+
+		if ( ! Object.keys( screens ).includes( currentChatScreen ) ) {
+			return '';
+		}
+
+		return screens[ currentChatScreen ];
+	}
+
 	return (
 		<Container>
-			{chatScreen == "welcome" && <Welcome />}
-			{chatScreen == "video" && <Video />}
-			{chatScreen == "voice" && <Voice />}
-			{chatScreen == "text" && <Text />}
-			{chatScreen == "screenRecord" && <ScreenRecord />}
-
-			{chatScreen == "contactForm" && <ContactForm />}
-			{chatScreen == "sending" && <Sending />}
-			{chatScreen == "success" && <Success />}
+			<CurrentScreen/>
 		</Container>
 	);
 }

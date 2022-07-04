@@ -30,7 +30,6 @@ const Record = ()=>{
 	function handleRecordAction(e){
 		e.preventDefault();
 		if(startRecording){
-			console.log("true");
 			setState({
 				recordStage: "ready",
 				startRecording: true

@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import React, { useState } from "react";
 import Record from './overview/Record';
 import Upload from './overview/Upload';
 import { VideoHomeWrap }  from './Style';
 
 const Video = ()=>{
-	const { videoFormData } = useSelector(state => {
-        return {
-            videoFormData: state,
-        };
-    });
-	console.log(videoFormData);
-    const [state, setState] = useState({
+    const [ state, setState ] = useState({
         step: "home"
     });
 

@@ -2,12 +2,14 @@ import actions from "./actions";
 import api from './api';
 
 const { 
+    upateState, 
     upatingFormData, 
     upateFormDataAction, 
     upatedFormData, 
     submitFormBegain, 
     submitFormSuccess, 
     submitFormError,
+    reset,
 } = actions;
 
 const upateFormData = ( formData, isFinalUpdate ) => {
@@ -20,23 +22,17 @@ const upateFormData = ( formData, isFinalUpdate ) => {
 
 const submitForm = ( formData ) => {
     return async (dispatch) => {
- 
-        console.log( { formData } );
-
         try {
             dispatch( submitFormBegain() );
 
             let response = await api.createUser( formData );
             let result   = response.data;
 
-            console.log( { result } );
-
             dispatch( submitFormSuccess( result ) );
         } catch (error) {
-            console.log( { error } );
-            dispatch( submitFormError( error ) );
+            dispatch( submitFormError( error.response.data.message ) );
         }
     }
 };
 
-export { upateFormData, submitForm };
+export { upateState, upateFormData, submitForm, reset };

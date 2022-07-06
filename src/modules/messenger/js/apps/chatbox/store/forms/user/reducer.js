@@ -1,30 +1,39 @@
 import actions from "./actions";
 
 const {
+    UPDATE_STATE,
     UPDATING_FORM_DATA,
     UPDATE_FORM_DATA,
     UPDATED_FORM_DATA,
     SUBMIT_FORM_BEGAIN,
     SUBMIT_FORM_SUCCESS, 
-    SUBMIT_FORM_ERROR, 
+    SUBMIT_FORM_ERROR,
+    RESET,
 } = actions;
 
 const initialState = {
     formData: {
-        email: '',
         name: '',
+        email: '',
     },
     user: null,
 	isUpdatingFormData: false,
 	isReadyFormData: false,
+	submitted: false,
 	isSubmitting: false,
 	status: null,
+	statusMessage: '',
 };
 
 const reducer = ( state = initialState, action ) => {
     const { type, payload } = action;
 
     switch ( type ) {
+        case UPDATE_STATE:
+            return {
+                ...state,
+                ...payload,
+            };
         case UPDATING_FORM_DATA:
             return {
                 ...state,
@@ -32,9 +41,6 @@ const reducer = ( state = initialState, action ) => {
             };
         case UPDATE_FORM_DATA:
             const _isReadyFormData = ( typeof payload.isFinalUpdate === 'boolean' ) ? payload.isFinalUpdate : state.isReadyFormData;
-
-            console.log( 'UPDATE_FORM_DATA', { _isReadyFormData } );
-
             return {
                 ...state,
                 formData: { ...state.formData, ...payload.formData },
@@ -48,12 +54,14 @@ const reducer = ( state = initialState, action ) => {
         case SUBMIT_FORM_BEGAIN:
             return {
                 ...state,
-                isSubmitting: true
+                submitted: true,
+                isSubmitting: true,
+                status: null,
             };
         case SUBMIT_FORM_SUCCESS:
             return {
                 ...state,
-                user: action.payload.data,
+                user: payload,
                 isSubmitting: false,
                 status: true,
             };
@@ -62,7 +70,12 @@ const reducer = ( state = initialState, action ) => {
                 ...state,
                 isSubmitting: false,
                 status: false,
+                statusMessage: payload,
             };
+
+        case RESET:
+            return initialState;
+
         default:
             return state;
     }

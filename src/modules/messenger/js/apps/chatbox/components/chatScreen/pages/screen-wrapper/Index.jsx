@@ -1,12 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { hideChatbox } from '../../../../store/chatbox/actionCreator.js';
+import { useResetStore } from "../../../../store/reset.js";
 import ScreenWrapper from "./Style";
 
 function Container(props) {
-	const dispatch = useDispatch();
-	const chatScreen = useSelector((state) => state.chatScreen);
+	const dispatch   = useDispatch();
+	const resetStore = useResetStore();
 
 	function handleClose() {
+		resetStore();
 		dispatch( hideChatbox() );
 	}
 

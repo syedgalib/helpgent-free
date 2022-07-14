@@ -1,6 +1,5 @@
-import { useSelector } from "react-redux";
-import Sidebar from "./components/sidebar";
 import MessageBox from "./components/messageBox";
+import Sidebar from "./components/sidebar/Index.jsx";
 // import ChatScreen from "./components/chatScreen/Index.jsx";
 
 import ChatDashboardWrap from "./Style";

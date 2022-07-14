@@ -26,7 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Send_Signup_Email::class,
+            Message_Notification_Emails::class,
         ];
     }
 

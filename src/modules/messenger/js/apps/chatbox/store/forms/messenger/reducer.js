@@ -17,6 +17,7 @@ const initialState = {
         note: '',
         attachment_id: 0,
         terms: '',
+        notify_user: true,
     },
 	initSubmission: false,
 	submited: false,

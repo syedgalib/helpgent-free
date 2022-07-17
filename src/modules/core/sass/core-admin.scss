@@ -529,6 +529,30 @@
 	color: var(--color-dark);
 }
 
+/* Wpwax Vm Media */
+.wpwax-vm-media {
+	display: flex;
+	align-items: flex-start;
+
+	.wpwax-vm-media__body {
+		flex: 1;
+		margin-left: 10px;
+
+		.wpwax-vm-media__title {
+			font-size: 16px;
+			font-weight: 500;
+			margin: 0 0 4px;
+			color: var(--color-dark);
+		}
+
+		.wpwax-vm-media__meta {
+			font-size: 12px;
+			font-weight: 500;
+			color: var(--text-color);
+		}
+	}
+}
+
 /* Loading Animation */
 .wpwax-vm-loading-spin {
 	display: inline-block;

@@ -7,16 +7,18 @@ const MediaBox = ({ img, title, metaList }) => {
                 <div className="wpwax-vm-media__meta">
                     {
                         metaList.map((item, i) => {
-                            return(
+                            return (
                                 <>
                                     {
-                                        item.type === "date" ? <span className="wpwax-vm-media__meta--date">{item.text}</span> : '';
-                                        item.type === "email" ? <span className="wpwax-vm-media__meta--email">{item.text}</span> : '';
+                                        item.type === "date" ? <span className="wpwax-vm-media__meta--date">{item.text}</span> : ''
+                                    }
+                                    {
+                                        item.type === "email" ? <span className="wpwax-vm-media__meta--email">{item.text}</span> : ''
                                     }
                                 </>
-                                
+
                             )
-                            
+
                         })
                     }
                 </div>

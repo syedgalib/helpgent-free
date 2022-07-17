@@ -258,12 +258,16 @@
 		display: flex;
 		justify-content: space-between;
 		text-decoration: none;
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0;
+		}
 	}
 
 	.wpwax-vm-dropdown__content {
 		position: absolute;
 		left: 0;
-		top: 0;
 		width: 100%;
 		margin: 0;
 		padding: 10px 8px;
@@ -291,6 +295,15 @@
 			}
 		}
 	}
+}
+
+/* Wpwax Media Status */
+.wpwax-vm-usermedia-status {
+	display: block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: var(--color-danger);
 }
 
 /* Table Style */
@@ -452,7 +465,9 @@
 
 	&.wpwax-vm-dropdown-fixed {
 		.wpwax-vm-dropdown__content {
-			max-width: 220px;
+			min-width: 220px;
+			left: auto;
+			right: 0;
 		}
 	}
 
@@ -476,6 +491,7 @@
 		.wpwax-vm-dropdown__toggle--text-content {
 			display: inline-block;
 			margin-left: 8px;
+			color: #4D4D4D;
 		}
 	}
 }
@@ -484,10 +500,11 @@
 	position: absolute;
 	width: calc(100% - 16px);
 	left: 0;
-	top: 10px;
+	top: 20px;
 	padding: 8px;
 	border-radius: 10px;
 	display: none;
+	z-index: 100;
 	box-shadow: 0 6px 40px rgba(144, 144, 144, 0.25);
 	background-color: var(--color-white);
 
@@ -537,6 +554,8 @@
 	.wpwax-vm-media__body {
 		flex: 1;
 		margin-left: 10px;
+		position: relative;
+		top: 2px;
 
 		.wpwax-vm-media__title {
 			font-size: 16px;

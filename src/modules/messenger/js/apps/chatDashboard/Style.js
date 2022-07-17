@@ -5,6 +5,7 @@ const ChatDashboardWrap = Styled.div`
     padding-top: 40px;
     .wpwax-vm-sidebar{
         width: 340px;
+        padding-left: 10px;
     }
     .wpwax-vm-messagebox{
         flex: auto;

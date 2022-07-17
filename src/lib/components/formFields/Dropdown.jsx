@@ -1,42 +1,70 @@
 import { useState } from "react";
 import { ReactSVG } from 'react-svg';
-const Dropdown = ({ dropdownText, textIcon, dropdownIcon, dropdownList, dropdownWidth }) => {
+import angleDown from '../../../modules/messenger/assets/svg/icons/angle-down.svg';
+import angleUp from '../../../modules/messenger/assets/svg/icons/angle-up.svg';
+const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
+
     const [state, setState] = useState({
         openDropdown: false,
     });
+
+    /* State Distructuring */
     const { openDropdown } = state;
-    const handleDropdown = (event) =>{
+
+    /* Handle Dropdown active inactive */
+    const handleDropdown = (event) => {
+        event.preventDefault();
+
         setState({
             openDropdown: !openDropdown
         });
+
+        if (!openDropdown) {
+            event.target.closest('.wpwax-vm-usermedia') ? event.target.closest('.wpwax-vm-usermedia').classList.add('wpwax-vm-active') : '';
+        } else {
+            event.target.closest('.wpwax-vm-usermedia') ? event.target.closest('.wpwax-vm-usermedia').classList.remove('wpwax-vm-active') : '';
+        }
     }
+
+    /* Handle the open close dropdown icon */
+    const renderDropdownIcon = () => {
+        if (openDropdown) {
+            return dropdownIconOpen ? <ReactSVG src={dropdownIconOpen} /> : ''
+
+        } else {
+            return dropdownIconClose ? <ReactSVG src={dropdownIconClose} /> : ''
+        }
+    }
+
     return (
-        <div className={ dropdownWidth === "full" ? "wpwax-vm-dropdown wpwax-vm-dropdown-full" : "wpwax-vm-dropdown wpwax-vm-dropdown-fixed"}> 
-            <a href="#" className={ dropdownText? "wpwax-vm-dropdown__toggle": "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only" } onClick={ handleDropdown }>
+        <div className={dropdownWidth === "full" ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' : 
+        'wpwax-vm-dropdown wpwax-vm-dropdown-full'}` : 
+        `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 
+        'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'}`}>
+            <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"} onClick={handleDropdown}>
                 {
-                    dropdownText ? 
-                    <span className="wpwax-vm-dropdown__toggle--text">
-                        {
-                            textIcon? <ReactSVG src={ textIcon } />:''
-                        }
-                        <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">unread</span></span>
-                    </span>: ""
+                    dropdownText ?
+                        <span className="wpwax-vm-dropdown__toggle--text">
+                            {
+                                textIcon ? <ReactSVG src={textIcon} /> : ''
+                            }
+                            <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">unread</span></span>
+                        </span> : ""
                 }
-                
+
                 {
-                    dropdownIcon ? <ReactSVG src={ dropdownIcon } /> : ''
+                    renderDropdownIcon()
                 }
-                
+
             </a>
-            <ul className={openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show": "wpwax-vm-dropdown__content"}> 
+            <ul className={openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show" : "wpwax-vm-dropdown__content"}>
                 {
                     dropdownList.map((item, i) => {
-                        console.log(item);
-                        return(
+                        return (
                             <li key={i}>
-                                <a href="#">{item.icon?<div className="wpwax-vm-dropdown-item-icon"><ReactSVG src={ item.icon } /></div>:'' }{item.text}</a>
+                                <a href="#">{item.icon ? <div className="wpwax-vm-dropdown-item-icon"><ReactSVG src={item.icon} /></div> : ''}{item.text}</a>
                             </li>
-                        ); 
+                        );
                     })
                 }
             </ul>

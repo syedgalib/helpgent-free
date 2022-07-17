@@ -4,12 +4,19 @@ const SidebarWrap = Styled.div`
     .wpwax-vm-sidebar-top{
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 25px;
         .wpwax-vm-sidebar-title{
-            font-size: 18px;
             margin: 0;
-            color: var(--color-dark);
+        }
+        .wpwax-vm-sidebar-refresher{
+            line-height: 1;
+        }
+    }
+    .wpwax-vm-sidebar-search{
+        .wpwax-vm-form__element{
+            border-radius: 10px;
+            background-color: #DDDDDD;
         }
     }
 `;

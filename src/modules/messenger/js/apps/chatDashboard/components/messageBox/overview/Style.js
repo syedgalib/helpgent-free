@@ -247,4 +247,114 @@ const ContactFormWrap = Styled.div`
     }
 `;
 
-export  {ChatboxForm, ContactFormWrap};
+const MessageBox = Styled.div`
+    &.wpwax-vm-message-single{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        margin-bottom: 30px;
+        padding: 0 30px;
+        .wpwax-vm-message-author{
+            margin-left: 15px;
+        }
+        .wpwax-vm-message-content{
+            .wpwax-vm-message-content__top{
+                text-align: right;
+                margin-bottom: 8px;
+                span{
+                    font-size: 14px;
+                    color: var(--color-text);
+                }
+                .wpwax-vm-message-time{
+                    display:  inline-block;
+                    margin-left: 4px;
+                }
+            }
+            .wpwax-vm-message-content__inner{
+                padding: 18px;
+                border-radius: 16px 0 16px 16px;
+                background-color: var(--color-bg-general);
+                p{
+                    font-size: 17px;
+                    margin: 0;
+                    color: #4D4D4D;
+                }
+            }
+        }
+        &.wpwax-vm-message-single-replied{
+            justify-content: flex-start;
+            .wpwax-vm-message-author{
+                margin-left: 0;
+                margin-right: 15px;
+                order: -1;
+            }
+            .wpwax-vm-message-content{
+                .wpwax-vm-message-content__top{
+                    text-align: left;
+                }
+                .wpwax-vm-message-content__inner{
+                    border-radius: 0 16px 16px;
+                }
+            }
+            
+        }
+        &.wpwax-vm-message-single-video{
+            .wpwax-vm-message-content{
+                .wpwax-vm-message-content__inner{
+                    background-color: #F3F3F3;
+                    min-height: 280px;
+                    width: 440px;
+                    position: relative;
+                    video{
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .wpwax-vm-btn-play{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                        text-decoration: none;
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                        background-color: var(--color-black);
+                        .dashicons{
+                            font-size: 18px;
+                            color: var(--color-white);
+                        }
+                    }
+                }
+            }
+        }
+        &.wpwax-vm-message-single-audio{
+            .wpwax-vm-message-content__inner--audio{
+                display: flex;
+                align-items: flex-start;
+                .wpwax-vm-btn-play{
+                    position: relative;
+                    top: 2px;
+                    text-decoration: none;
+                    line-height: 1;
+                    span.dashicons{
+                        font-size: 24px;
+                        margin-right: 10px;
+                        color: var(--color-dark);
+                    }
+                }
+            }
+            .wpwax-vm-timer{
+                display: inline-block;
+                font-size: 14px;
+                font-weight: 500;
+                margin-top: 8px;
+                color: var(--color-dark)
+            }
+        }
+    }
+`;
+
+export  {ChatboxForm, ContactFormWrap, MessageBox};

@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import Dropdown from "../../../../../../../lib/components/formFields/Dropdown.jsx";
 import MediaBox from "../../../../../../../lib/components/MediaBox";
+import Taglist from "./overview/Taglist.jsx";
 import userImg from "../../../../../assets/img/chatdashboard/user.png";
-import ellipsisH from '../../../../../assets/svg/icons/ellipsis-h.svg';
+import ellipsisV from '../../../../../assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from '../../../../../assets/svg/icons/envelope-open.svg';
 import filterIcon from '../../../../../assets/svg/icons/filter.svg';
 import angleDown from '../../../../../assets/svg/icons/angle-down.svg';
@@ -37,17 +38,21 @@ const filterDropdown = [
 const moreDropdown = [
 	{
 		icon: envelopeOpen,
+		name: "mark-read",
 		text: "Mark as unread"
 	},
 	{
 		icon: tag,
+		name: "tags",
 		text: "Add tags"
 	},
 	{
 		icon: trash,
+		name: "delete-conv",
 		text: "Delete Conversation"
 	},
 ];
+
 const metaList = [
 	{
 		type: "date",
@@ -82,7 +87,7 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
 						</div>
 					</li>
 					<li className="wpwax-vm-usermedia">
@@ -91,7 +96,7 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
 						</div>
 					</li>
 					<li className="wpwax-vm-usermedia">
@@ -100,11 +105,12 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
 						</div>
 					</li>
 				</ul>
 			</div>
+			<Taglist />
 		</SidebarWrap>
 	);
 }

@@ -15,6 +15,9 @@ const MediaBox = ({ img, title, metaList }) => {
                                 {
                                     item.type === "email" ? <span className="wpwax-vm-media__meta--email">{item.text}</span> : ''
                                 }
+                                {
+                                    item.type === "name" ? <span className="wpwax-vm-media__meta--name">{item.text}</span> : ''
+                                }
                             </span>
 
                         )

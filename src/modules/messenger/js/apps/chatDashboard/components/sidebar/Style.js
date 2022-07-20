@@ -80,6 +80,7 @@ const SidebarWrap = Styled.div`
             .wpwax-vm-dropdown__content{
                 li{
                     padding: 0 16px;
+                    margin-bottom: 0;
                     &:last-child{
                         a{
                             padding-top: 10px;

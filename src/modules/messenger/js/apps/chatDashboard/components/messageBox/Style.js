@@ -1,5 +1,97 @@
 import Styled from 'styled-components';
 
+const ChatboxWrap = Styled.div`
+    .wpwax-vm-replymode-wrap{
+        position: relative;
+        &:after{
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            z-index: 100001;
+            background-color: rgba(0,0,0,.80);
+        }
+    }
+    .wpwax-vm-video-msg{
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100002;
+        &.wpwax-vm-video-msg-home{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #F0F0F0;
+            border-radius: 30px 30px 0 0;
+            .wpwax-vm-video-msg__close{
+                position: absolute;
+                right: 40px;
+                top: -50px;
+                text-decoration: none;
+                color: var(--color-white);
+                .dashicons{
+                    font-size: 30px;
+                }
+            }
+            .wpwax-vm-video-home__title{
+                font-size: 22px;
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+            .wpwax-vm-video-home__action{
+                display: flex;
+                .wpwax-vm-video-home__action--btn{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    min-width: 300px;
+                    min-height: 150px;
+                    margin: 10px;
+                    border-radius: 10px;
+                    text-align: center;
+                    text-decoration: none;
+                    background-color: var(--color-white);
+                    &:focus{
+                        outline: none;
+                        box-shadow: 0 0;
+                    }
+                    &:hover{
+                        .wpwax-vm-video-home__action--icon{
+                            svg{
+                                path{
+                                    fill: var(--color-primary)
+                                }
+                            }
+                        }
+                        .wpwax-vm-video-home__action--text{
+                            color: var(--color-primary);
+                        }
+                    }
+                    .wpwax-vm-video-home__action--icon{
+                        margin-bottom: 12px;
+                        svg{
+                            path{
+                                fill: var(--color-dark);
+                            }
+                        }
+                    }
+                    .wpwax-vm-video-home__action--text{
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: var(--color-dark);
+                    }
+                }
+            }
+        }
+    }
+`;
+
 const MessageBoxWrap = Styled.div`
     border-radius: 20px;
     background-color: var(--color-white);
@@ -137,4 +229,4 @@ const MessageBoxWrap = Styled.div`
     }
 `;
 
-export {MessageBoxWrap};
+export {ChatboxWrap, MessageBoxWrap};

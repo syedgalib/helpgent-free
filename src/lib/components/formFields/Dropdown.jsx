@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
-import { handleTagModal } from '../../../modules/messenger/js/apps/chatDashboard/store/tags/actionCreator';
+import { handleTagModal, handleDeleteConfirmationModal } from '../../../modules/messenger/js/apps/chatDashboard/store/tags/actionCreator';
 import angleDown from '../../../modules/messenger/assets/svg/icons/angle-down.svg';
 import angleUp from '../../../modules/messenger/assets/svg/icons/angle-up.svg';
 const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
@@ -35,18 +35,15 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
         console.log(btnName);
         switch (btnName) {
             case 'mark-read':
-                console.log("mark As Read");
                 break;
             case 'tags':
                 dispatch(handleTagModal(true));
             case 'delete-conv':
-                console.log("Delete Conv");
+                dispatch(handleDeleteConfirmationModal(true));
                 break;
             case 'edit':
-                console.log("Edit");
                 break;
             case 'delete':
-                console.log("delete");
                 break;
             default:
                 break;

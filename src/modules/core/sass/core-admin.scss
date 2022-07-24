@@ -37,6 +37,11 @@
 	cursor: pointer;
 	color: var(--color-white);
 
+	&:focus {
+		outline: none;
+		box-shadow: 0 0;
+	}
+
 	&:hover,
 	&:focus {
 		color: var(--color-white);
@@ -83,6 +88,10 @@
 		height: 56px;
 	}
 
+	&.wpwax-vm-btn-sm {
+		height: 38px;
+	}
+
 	&.wpwax-vm-btn-md {
 		height: 44px;
 	}
@@ -110,6 +119,11 @@
 		box-sizing: border-box;
 		color: var(--color-dark);
 		background-color: var(--color-bg-general);
+
+		&:focus {
+			box-shadow: 0 0;
+			outline: 0 none;
+		}
 	}
 
 	textarea {
@@ -611,6 +625,10 @@
 		transform: translateY(-50%);
 		color: var(--color-dark);
 		text-decoration: none;
+
+		.dashicons {
+			font-size: 20px;
+		}
 	}
 }
 

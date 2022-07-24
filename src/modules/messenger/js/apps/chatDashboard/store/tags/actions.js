@@ -6,6 +6,10 @@ const actions = {
     TAG_FORM_MODAL_UPDATE_BEGIN: 'TAG_FORM_MODAL_UPDATE_BEGIN',
     TAG_FORM_MODAL_UPDATE_SUCCESS: 'TAG_FORM_MODAL_UPDATE_SUCCESS',
     TAG_FORM_MODAL_UPDATE_ERR: 'TAG_FORM_MODAL_UPDATE_ERR',
+
+    DELETE_CONFIRMATION_MODAL_BEGIN: 'DELETE_CONFIRMATION_MODAL_BEGIN',
+    DELETE_CONFIRMATION_MODAL_SUCCESS: 'DELETE_CONFIRMATION_MODAL_SUCCESS',
+    DELETE_CONFIRMATION_MODAL_ERR: 'DELETE_CONFIRMATION_MODAL_ERR',
   
     tagListModalUpdatenBegin: () => {
       return {
@@ -43,6 +47,26 @@ const actions = {
     tagFormModalUpdateError: err => {
       return {
         type: actions.TAG_FORM_MODAL_UPDATE_ERR,
+        err,
+      };
+    },
+
+    deleteConfirmationBegin: () => {
+      return {
+        type: actions.DELETE_CONFIRMATION_MODAL_BEGIN,
+      };
+    },
+  
+    deleteConfirmationSuccess: status => {
+      return {
+        type: actions.DELETE_CONFIRMATION_MODAL_SUCCESS,
+        status,
+      };
+    },
+  
+    deleteConfirmationError: err => {
+      return {
+        type: actions.DELETE_CONFIRMATION_MODAL_ERR,
         err,
       };
     },

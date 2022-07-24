@@ -109,7 +109,11 @@ const {
 
   TAG_FORM_MODAL_UPDATE_BEGIN,
   TAG_FORM_MODAL_UPDATE_SUCCESS,
-  TAG_FORM_MODAL_UPDATE_ERR
+  TAG_FORM_MODAL_UPDATE_ERR,
+
+  DELETE_CONFIRMATION_MODAL_BEGIN,
+  DELETE_CONFIRMATION_MODAL_SUCCESS,
+  DELETE_CONFIRMATION_MODAL_ERR
 } = actions;
 
 const TagReducer = (state = initialState, action) => {
@@ -144,10 +148,27 @@ const TagReducer = (state = initialState, action) => {
         ...state,
         tagsModal: !status,
         tagFormModal: status,
-        modalOverlay: status,
         sLoading: false,
       };
     case TAG_FORM_MODAL_UPDATE_ERR:
+      return {
+        ...state,
+        error: err,
+        sLoading: false,
+      };
+    case DELETE_CONFIRMATION_MODAL_BEGIN:
+      return {
+        ...state,
+        sLoading: true,
+      };
+    case DELETE_CONFIRMATION_MODAL_SUCCESS:
+      return {
+        ...state,
+        deleteConversation: status,
+        modalOverlay: status,
+        sLoading: false,
+      };
+    case DELETE_CONFIRMATION_MODAL_ERR:
       return {
         ...state,
         error: err,

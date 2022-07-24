@@ -8,6 +8,10 @@ const {
   tagFormModalUpdatenBegin,
   tagFormModalUpdateSuccess,
   tagFormModalUpdateError,
+
+  deleteConfirmationBegin,
+  deleteConfirmationSuccess,
+  deleteConfirmationError,
 } = actions;
 
 const handleTagModal = status => {
@@ -32,4 +36,15 @@ const handleTagFormModal = status => {
   };
 };
 
-export { handleTagModal, handleTagFormModal };
+const handleDeleteConfirmationModal = status => {
+  return async dispatch => {
+    try {
+      dispatch(deleteConfirmationBegin());
+      dispatch(deleteConfirmationSuccess(status));
+    } catch (err) {
+      dispatch(deleteConfirmationError(err));
+    }
+  };
+};
+
+export { handleTagModal, handleTagFormModal, handleDeleteConfirmationModal };

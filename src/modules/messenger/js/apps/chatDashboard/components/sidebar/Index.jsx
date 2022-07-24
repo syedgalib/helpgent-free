@@ -3,6 +3,8 @@ import { ReactSVG } from 'react-svg';
 import Dropdown from "../../../../../../../lib/components/formFields/Dropdown.jsx";
 import MediaBox from "../../../../../../../lib/components/MediaBox";
 import Taglist from "./overview/Taglist.jsx";
+import AddTag from "./overview/AddTag.jsx";
+import DeleteConfirm from "./overview/DeleteConfirm.jsx";
 import userImg from "../../../../../assets/img/chatdashboard/user.png";
 import ellipsisV from '../../../../../assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from '../../../../../assets/svg/icons/envelope-open.svg';
@@ -111,6 +113,8 @@ function Sidebar() {
 				</ul>
 			</div>
 			<Taglist />
+			<AddTag />
+			<DeleteConfirm />
 		</SidebarWrap>
 	);
 }

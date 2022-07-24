@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { TaglistWrap } from "./Style";
+import { AddTagWrap } from "./Style";
 import { ReactSVG } from 'react-svg';
 import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCreator';
 import userImg from "../../../../../../assets/img/chatdashboard/user.png";
@@ -13,38 +13,20 @@ function AddTag() {
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { allTags, modalOpen } = useSelector(state => {
+    const { modalOpen } = useSelector(state => {
         return {
             activeAuthorId: state.tags.activeAuthorId,
-            modalOpen: state.tags.tagsModal,
-            allTags: state.tags,
+            modalOpen: state.tags.tagFormModal,
         };
     });
 
-    /* Dropdown Array Item Declaration */
-    const moreDropdown = [
-        {
-            naem: "edit",
-            text: "Edit"
-        },
-        {
-            name: "delete",
-            text: "Delete"
-        }
-    ];
-
     const handleCloseModal = (event) => {
         event.preventDefault();
-        dispatch(handleTagModal(false));
-    }
-
-    const handleAddTagModal = (event) => {
-        event.preventDefault();
-        dispatch(handleTagFormModal(true));
+        dispatch(handleTagFormModal(false));
     }
 
     return (
-        <TaglistWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
+        <AddTagWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
             <div className="wpwax-vm-modal__header">
                 <div className="wpwax-vm-taglist-author">
                     <img src={userImg} alt="Wpwax-vm-Tag Author" />
@@ -53,27 +35,19 @@ function AddTag() {
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
             <div className="wpwax-vm-modal__body">
-                <div className="wpawax-vm-taglist-search">
-                    <span className="dashicons dashicons-search"></span>
-                    <input type="text" placeholder="Search" />
-                </div>
-                <div className="wpawax-vm-taglist-inner">
-                    <ul>
-                        <li>
-                            <span className="wpwax-vm-taglist-label">Food</span>
-                            <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
-                        </li>
-                    </ul>
-                </div>
+                <form action="">
+                    <div className="wpwax-vm-addtag-form">
+                        <div className="wpwax-vm-form-group">
+                            <input type="text" className="wpwax-vm-form__element" placeholder="Ex. Travel" />
+                        </div>
+                        <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Add</button>
+                    </div>
+                </form>
             </div>
             <div className="wpwax-vm-modal__footer">
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-white" onClick={handleAddTagModal}>
-                    <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
-                    <span className="wpwax-vm-btn-text">New Tag</span>
-                </a>
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary">Done</a>
+                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white" onClick={handleCloseModal}>Cancel</a>
             </div>
-        </TaglistWrap>
+        </AddTagWrap>
     );
 }
 

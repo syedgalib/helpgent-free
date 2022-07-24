@@ -4,6 +4,10 @@ const {
   tagListModalUpdatenBegin,
   tagListModalUpdateSuccess,
   tagListModalUpdateError,
+
+  tagFormModalUpdatenBegin,
+  tagFormModalUpdateSuccess,
+  tagFormModalUpdateError,
 } = actions;
 
 const handleTagModal = status => {
@@ -17,4 +21,15 @@ const handleTagModal = status => {
   };
 };
 
-export { handleTagModal };
+const handleTagFormModal = status => {
+  return async dispatch => {
+    try {
+      dispatch(tagFormModalUpdatenBegin());
+      dispatch(tagFormModalUpdateSuccess(status));
+    } catch (err) {
+      dispatch(tagFormModalUpdateError(err));
+    }
+  };
+};
+
+export { handleTagModal, handleTagFormModal };

@@ -2,11 +2,16 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TaglistWrap } from "./Style";
 import { ReactSVG } from 'react-svg';
+import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCreator';
 import userImg from "../../../../../../assets/img/chatdashboard/user.png";
 import Dropdown from "../../../../../../../../lib/components/formFields/Dropdown.jsx";
 import ellipsisH from "../../../../../../assets/svg/icons/ellipsis-h.svg";
 
 function Taglist() {
+
+    /* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
+
     /* initialize Form Data */
     const { allTags, modalOpen } = useSelector(state => {
         return {
@@ -28,8 +33,14 @@ function Taglist() {
         }
     ];
 
-    const handleCloseModal = () =>{
-        
+    const handleCloseModal = (event) => {
+        event.preventDefault();
+        dispatch(handleTagModal(false));
+    }
+
+    const handleAddTagModal = (event) => {
+        event.preventDefault();
+        dispatch(handleTagFormModal(true));
     }
 
     return (
@@ -56,7 +67,7 @@ function Taglist() {
                 </div>
             </div>
             <div className="wpwax-vm-modal__footer">
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-white">
+                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-white" onClick={handleAddTagModal}>
                     <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
                     <span className="wpwax-vm-btn-text">New Tag</span>
                 </a>

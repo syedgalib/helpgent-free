@@ -71,16 +71,6 @@ class Admin_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-react-refresh'] = [
-            'file_name' => 'react-refresh',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH,
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH,
-            'deps'      => [],
-            'ver'       => null,
-            'group'     => 'global',
-            'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-        ];
-
         $scripts['wpwax-customer-support-app-core-admin-script'] = [
             'file_name' => 'core-admin',
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/admin/',

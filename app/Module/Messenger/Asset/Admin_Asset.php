@@ -41,23 +41,7 @@ class Admin_Asset extends Enqueuer {
      */
     public function add_css_scripts() {
         $scripts = [];
-
-        // $scripts['wpwax-customer-support-app-messenger-admin-style'] = [
-        //     'file_name' => 'messenger-admin',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
-        //     'deps'      => [],
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'admin',
-        // ];
-
-        // $scripts['wpwax-customer-support-app-chatbox-template-admin-style'] = [
-        //     'file_name' => 'chatbox-template-admin',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
-        //     'deps'      => [],
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'public',
-        // ];
-
+        
         $scripts           = array_merge( $this->css_scripts, $scripts );
         $this->css_scripts = $scripts;
     }

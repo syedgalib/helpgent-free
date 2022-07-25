@@ -1,4 +1,5 @@
-import 'CoreCSS/core-public.scss';
+// import 'CoreCSS/core-public.scss';
+import './../../sass/core-public.scss';
 
 // Testing Rest API
 function rest_test() {

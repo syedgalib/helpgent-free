@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import tags from './tags/reducers';
-import chatBox from './chatBox/reducers';
+import messages from './messages/reducers';
 
 const rootReducers = combineReducers({
   tags,
-  chatBox
+  messages,
 });
   
 export default rootReducers;

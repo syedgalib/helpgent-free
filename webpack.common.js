@@ -1,5 +1,6 @@
 const path                 = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin         = require("terser-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -122,5 +123,19 @@ module.exports = {
     },
   },
 
-  devtool: 'source-map'
+  devtool: 'source-map',
+
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
+  },
 };

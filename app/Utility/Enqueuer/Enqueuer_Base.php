@@ -59,10 +59,6 @@ abstract class Enqueuer_Base {
      */
     public function enqueue_css_scripts_by_group( array $args = [] ) {
 
-        if ( WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT ) {
-            return;
-        }
-
         $default = ['scripts' => $this->css_scripts, 'group' => 'public'];
         $args    = array_merge( $default, $args );
 
@@ -91,24 +87,15 @@ abstract class Enqueuer_Base {
             $default = [
                 'file_name' => $handle,
                 'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-                'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'js/',
                 'link'      => '',
                 'deps'      => [],
                 'ver'       => $this->script_version,
-                'has_rtl'   => false,
                 'in_footer' => true,
                 'src_ext'   => 'js',
             ];
 
             $script_args = array_merge( $default, $script_args );
             $ext         = 'js';
-
-            if ( WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT ) {
-                $ext = $script_args['src_ext'];
-
-                $script_args['ver']       = null;
-                $script_args['base_path'] = WPWAX_CUSTOMER_SUPPORT_APP_HOST_BASE . $script_args['src_path'];
-            }
 
             $src = $script_args['base_path'] . $this->get_script_file_name( $script_args ) . '.' . $ext;
 
@@ -203,8 +190,9 @@ abstract class Enqueuer_Base {
         return true;
     }
 
-// handle_script_before_enqueue_task
     /**
+     * Handle script before enqueue task
+     * 
      * @param array $task
      */
     public function handle_script_before_enqueue_task( $task = [] ) {
@@ -270,10 +258,6 @@ abstract class Enqueuer_Base {
         $args    = array_merge( $default, $args );
 
         $file_name = ( ! empty( $args['file_name'] ) ) ? $args['file_name'] : '';
-
-        if ( WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT ) {
-            return $file_name;
-        }
 
         $has_min = ( ! empty( $args['has_min'] ) ) ? true : false;
         $has_rtl = ( ! empty( $args['has_rtl'] ) ) ? true : false;

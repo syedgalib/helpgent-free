@@ -1,2 +1,2 @@
-var coreAdmin = "";
+!function(){"use strict";var e={"./src/modules/core/sass/core-admin.scss":function(e,r,o){o.r(r)}},r={};function o(s){var t=r[s];if(void 0!==t)return t.exports;var n=r[s]={exports:{}};return e[s](n,n.exports,o),n.exports}o.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})};var s={};!function(){o.r(s);o("./src/modules/core/sass/core-admin.scss")}()}();
 //# sourceMappingURL=core-admin.js.map

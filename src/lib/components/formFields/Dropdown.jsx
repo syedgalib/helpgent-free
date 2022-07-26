@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
-import { handleTagModal, handleDeleteConfirmationModal } from '../../../modules/messenger/js/apps/chatDashboard/store/tags/actionCreator';
-import angleDown from '../../../modules/messenger/assets/svg/icons/angle-down.svg';
-import angleUp from '../../../modules/messenger/assets/svg/icons/angle-up.svg';
+import { handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
 
     const [state, setState] = useState({

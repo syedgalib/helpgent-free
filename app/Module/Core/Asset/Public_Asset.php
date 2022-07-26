@@ -13,8 +13,6 @@ class Public_Asset extends Enqueuer {
     function __construct() {
         $this->asset_group = 'public';
         add_action( 'wp_enqueue_scripts', [$this, 'enqueue_scripts'] );
-
-        parent::__construct();
     }
 
     /**
@@ -80,16 +78,7 @@ class Public_Asset extends Enqueuer {
      */
     public function add_js_scripts() {
         $scripts = [];
-
-        $scripts['wpwax-customer-support-app-react-refresh'] = [
-            'file_name' => 'react-refresh',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_SRC_PATH,
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH,
-            'ver'       => null,
-            'group'     => 'global',
-            'enable'    => WPWAX_CUSTOMER_SUPPORT_APP_IN_DEVELOPMENT,
-        ];
-
+        
         $scripts['wpwax-customer-support-app-core-public-script'] = [
             'file_name' => 'core-public',
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',

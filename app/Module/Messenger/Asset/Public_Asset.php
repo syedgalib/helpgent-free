@@ -13,8 +13,6 @@ class Public_Asset extends Enqueuer {
     function __construct() {
         $this->asset_group = 'public';
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-
-        parent::__construct();
     }
 
     /**
@@ -43,14 +41,6 @@ class Public_Asset extends Enqueuer {
      */
     public function add_css_scripts() {
         $scripts = [];
-
-        // $scripts['wpwax-customer-support-app-messenger-public-style'] = [
-        //     'file_name' => 'messenger-public',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
-        //     'deps'      => [],
-        //     'ver'       => $this->script_version,
-        //     'group'     => 'public',
-        // ];
 
         $scripts           = array_merge( $this->css_scripts, $scripts );
         $this->css_scripts = $scripts;

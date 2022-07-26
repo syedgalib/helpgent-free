@@ -1,6 +1,6 @@
 import Styled from 'styled-components';
 
-const ChatboxWrap = Styled.div`
+const ChatBoxWrap = Styled.div`
     .wpwax-vm-replymode-wrap{
         position: relative;
         &:after{
@@ -229,4 +229,4 @@ const MessageBoxWrap = Styled.div`
     }
 `;
 
-export {ChatboxWrap, MessageBoxWrap};
+export {ChatBoxWrap, MessageBoxWrap};

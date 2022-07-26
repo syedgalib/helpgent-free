@@ -3,13 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import MediaBox from "Components/MediaBox.jsx";
 import Message from "./overview/Message.jsx";
+import Video from "./overview/video/Index.jsx";
 import userImg from "Assets/img/chatdashboard/user.png";
 import search from "Assets/svg/icons/magnifier.svg";
 import videoPlay from "Assets/svg/icons/video-play.svg";
 import screenRecord from "Assets/svg/icons/s-record.svg";
 import mice from "Assets/svg/icons/mice.svg";
 import textIcon from "Assets/svg/icons/text.svg";
-import { MessageBoxWrap } from "./Style";
+import { ChatBoxWrap, MessageBoxWrap } from "./Style";
+
+import { handleMessageTypeChange } from '../../store/messages/actionCreator';
 
 const metaList = [
 	{
@@ -103,7 +106,7 @@ function MessageBox() {
 	// const chatScreen = useSelector((state) => state.chatScreen);
 
 	return (
-		<ChatboxWrap>
+		<ChatBoxWrap>
 			<MessageBoxWrap>
 				<div className="wpwax-vm-messagebox-header">
 					<div className="wpwax-vm-messagebox-header__left">
@@ -168,7 +171,7 @@ function MessageBox() {
 
 			}
 
-		</ChatboxWrap>
+		</ChatBoxWrap>
 
 	);
 }

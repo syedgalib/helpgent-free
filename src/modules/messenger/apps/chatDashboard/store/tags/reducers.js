@@ -118,7 +118,6 @@ const {
 
 const TagReducer = (state = initialState, action) => {
   const { type, status, err } = action;
-  console.log(status)
   switch (type) {
     case TAG_LIST_MODAL_UPDATE_BEGIN:
       return {

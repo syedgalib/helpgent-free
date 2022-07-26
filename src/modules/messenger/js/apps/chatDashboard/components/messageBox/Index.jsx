@@ -146,7 +146,7 @@ function MessageBox() {
 				<div className="wpwax-vm-messagebox-footer">
 					<span className="wpwax-vm-messagebox-footer__text">How would you like to answer?</span>
 					<div className="wpwax-vm-messagebox-footer__actionlist">
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray">
+						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleVideoMessage}>
 							<div className="wpwax-vm-btn-icon"><ReactSVG src={videoPlay} /></div>
 							<span className="wpwax-vm-btn-text">Video</span>
 						</a>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import MediaBox from "Components/MediaBox.jsx";
@@ -15,6 +15,7 @@ import { ChatBoxWrap, MessageBoxWrap } from "./Style";
 
 import { handleReplyModeChange, handleMessageTypeChange } from '../../store/messages/actionCreator';
 
+/* Dropdown Array Item Declaration */
 const metaList = [
 	{
 		type: "email",
@@ -63,6 +64,8 @@ const messageList = [
 
 function MessageBox() {
 
+	const ref = useRef(null);
+
 	const [state, setState] = useState({
 		openSearch: false,
 	});
@@ -80,39 +83,52 @@ function MessageBox() {
 
 	const { openSearch } = state;
 
+	/* Handle Search Toggle */
 	const handleSearchToggle = (event) => {
 		event.preventDefault();
 		const searchInput = document.getElementById("wpwax-vm-messagebox-search");
 		searchInput.setSelectionRange(0, 0);
-		searchInput.focus();
+
 		setState({
 			openSearch: !openSearch
 		});
 	}
 
+	/* Focus Input field when search inopen */
+	useEffect(() => {
+		ref.current.focus();
+	}, [openSearch]);
+
+	/* Handle Video Message */
 	const handleVideoMessage = (event) => {
 		event.preventDefault();
 		dispatch(handleMessageTypeChange("video"));
 	}
+
+	/* Handle Text Message */
 	const handleTextMessage = (event) => {
 		event.preventDefault();
 		dispatch(handleMessageTypeChange("text"));
 		dispatch(handleReplyModeChange(false));
 	}
+
+	/* Handle Voice Message */
 	const handleVoiceMessage = (event) => {
 		event.preventDefault();
 		dispatch(handleMessageTypeChange("voice"));
 		dispatch(handleReplyModeChange(false));
 	}
 
+	/* Handle Reply Mode */
 	const haldleReplyMode = () => {
-
 		if (messageType === "video") {
 			return (
 				<Video />
 			)
 		}
 	}
+
+	/* Handle Load Footer Content */
 	const handleFooterContent = () => {
 
 		if (messageType === "text") {
@@ -170,14 +186,14 @@ function MessageBox() {
 			);
 		}
 	}
+
+	/* Handle Text Colse */
 	const handleTextClose = (e) => {
 		e.preventDefault();
 		dispatch(handleMessageTypeChange(""));
 		dispatch(handleReplyModeChange(false));
 
 	}
-
-	// const chatScreen = useSelector((state) => state.chatScreen);
 
 	return (
 		<ChatBoxWrap>
@@ -190,7 +206,7 @@ function MessageBox() {
 						<div className="wpwax-vm-messagebox-header__actionlist">
 							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search">
 								<div className={openSearch ? "wpwax-vm-searchbox wpwax-vm-show" : "wpwax-vm-searchbox"}>
-									<input type="text" name="wpwax-vm-messagebox-search" id="wpwax-vm-messagebox-search" placeholder="Search" />
+									<input type="text" ref={ref} name="wpwax-vm-messagebox-search" id="wpwax-vm-messagebox-search" placeholder="Search" />
 								</div>
 								<a href="#" className="wpwax-vm-search-toggle" onClick={handleSearchToggle}><ReactSVG src={search} /></a>
 							</div>
@@ -224,7 +240,6 @@ function MessageBox() {
 			{
 				replyMode ? <div className="wpwax-vm-replymode-wrap">{haldleReplyMode()}</div> : ""
 			}
-
 		</ChatBoxWrap>
 
 	);

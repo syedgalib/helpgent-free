@@ -3,6 +3,10 @@ const actions = {
     TAG_LIST_MODAL_UPDATE_SUCCESS: 'TAG_LIST_MODAL_UPDATE_SUCCESS',
     TAG_LIST_MODAL_UPDATE_ERR: 'TAG_LIST_MODAL_UPDATE_ERR',
 
+    TAG_EDIT_BEGIN: 'TAG_EDIT_BEGIN',
+    TAG_EDIT_SUCCESS: 'TAG_EDIT_SUCCESS',
+    TAG_EDIT_ERR: 'TAG_EDIT_ERR',
+
     TAG_FORM_MODAL_UPDATE_BEGIN: 'TAG_FORM_MODAL_UPDATE_BEGIN',
     TAG_FORM_MODAL_UPDATE_SUCCESS: 'TAG_FORM_MODAL_UPDATE_SUCCESS',
     TAG_FORM_MODAL_UPDATE_ERR: 'TAG_FORM_MODAL_UPDATE_ERR',
@@ -27,6 +31,26 @@ const actions = {
     tagListModalUpdateError: err => {
       return {
         type: actions.TAG_LIST_MODAL_UPDATE_ERR,
+        err,
+      };
+    },
+  
+    tagEditBegin: () => {
+      return {
+        type: actions.TAG_EDIT_BEGIN,
+      };
+    },
+  
+    tagEditSuccess: status => {
+      return {
+        type: actions.TAG_EDIT_SUCCESS,
+        status,
+      };
+    },
+  
+    tagEditError: err => {
+      return {
+        type: actions.TAG_EDIT_ERR,
         err,
       };
     },

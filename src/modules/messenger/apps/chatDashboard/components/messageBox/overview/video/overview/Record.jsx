@@ -42,6 +42,7 @@ const Record = () => {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+    /* Handle Back */
     const handleBack = (e) => {
         e.preventDefault();
         setState({
@@ -49,6 +50,8 @@ const Record = () => {
             recordingStage: "start"
         });
     }
+
+    /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
         dispatch(handleMessageStageChange("home"));
@@ -58,6 +61,7 @@ const Record = () => {
         return (
             <VideoReplyWrap className="wpwax-vm-reply-ready">
                 <a href="" className="wpwax-vm-reply-close" onClick={handleClose}><span className="dashicons dashicons-no-alt"></span></a>
+
                 <div className="wpwax-vm-reply-ready__video">
                     <div className="wpwax-vm-reply-video-bg">
                         <img src={previewBg} alt="Wpwax Video Support Plugin" />
@@ -71,6 +75,7 @@ const Record = () => {
                     </div>
                     <a href="#" className="wpwax-vm-video_play"><span className="dashicons dashicons-controls-play"></span></a>
                 </div>
+
                 <div className="wpwax-vm-reply-ready__content">
                     <MediaBox img={userImg} title={"Replying to Adnan…"} metaList={metaList} />
                     <div className="wpwax-vm-reply-ready__text-form">

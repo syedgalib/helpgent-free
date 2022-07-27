@@ -146,6 +146,7 @@ const MessageBoxWrap = Styled.div`
             text-decoration: none;
             &:hover{
                 svg path,
+                svg circle,
                 span{
                     color: var(--color-primary);
                     fill: var(--color-primary);

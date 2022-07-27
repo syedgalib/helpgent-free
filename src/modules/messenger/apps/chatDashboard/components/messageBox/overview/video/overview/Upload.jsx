@@ -3,13 +3,11 @@ import { ReactSVG } from 'react-svg';
 import { useSelector, useDispatch } from "react-redux";
 import MediaBox from "Components/MediaBox.jsx";
 import { VideoReplyWrap } from '../Style';
-
 import userImg from "Assets/img/chatdashboard/user.png";
-import previewBg from "Assets/img/chatdashboard/record-bg.png";
 import plane from "Assets/svg/icons/paper-plane.svg";
-import expand from "Assets/svg/icons/expand.svg";
 
 import { handleMessageStageChange } from '../../../../../store/messages/actionCreator';
+
 const metaList = [
     {
         type: "email",
@@ -21,16 +19,10 @@ const Upload = () => {
         step: ""
     });
 
-    function handleVideo(step) {
-        setState({
-            ...state,
-            step: step
-        });
-    }
-
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+    /* Handle Back */
     const handleBack = (e) => {
         e.preventDefault();
         setState({
@@ -38,21 +30,26 @@ const Upload = () => {
             recordingStage: "start"
         });
     }
+
+    /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
         dispatch(handleMessageStageChange("home"));
     }
+
+    /* Handle File Upload */
     const handleFileUpload = (e) => {
         e.preventDefault();
         const fileInput = document.getElementById("wpwax-vm-reply-ready-video");
         fileInput.click();
-
     }
 
     return (
         <VideoReplyWrap className="wpwax-vm-reply-ready wpwax-vm-reply-upload">
             <a href="" className="wpwax-vm-reply-close" onClick={handleClose}><span className="dashicons dashicons-no-alt"></span></a>
+
             <div className="wpwax-vm-reply-ready__video"></div>
+
             <div className="wpwax-vm-reply-ready__content">
                 <MediaBox img={userImg} title={"Replying to Adnan…"} metaList={metaList} />
                 <div className="wpwax-vm-reply-ready__text-form">

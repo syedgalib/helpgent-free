@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import Record from './overview/Record.jsx';
@@ -16,25 +16,22 @@ const Video = () => {
 			step: state.messages.videoStage,
 		};
 	});
-	// const [state, setState] = useState({
-	// 	step: "home"
-	// });
 
 	/* Dispasth is used for passing the actions to redux store  */
 	const dispatch = useDispatch();
 
+	/* Handle Video Action */
 	function handlevideoAction(e, stage) {
 		e.preventDefault();
 		dispatch(handleMessageStageChange(stage));
 	}
 
+	/* Handle Close */
 	const handleClose = (e) => {
 		e.preventDefault();
 		dispatch(handleReplyModeChange(false));
 	}
 
-	// const { step } = state;
-	console.log(step);
 	if (step === "home") {
 		return (
 			<div className="wpwax-vm-video-msg wpwax-vm-video-msg-home">

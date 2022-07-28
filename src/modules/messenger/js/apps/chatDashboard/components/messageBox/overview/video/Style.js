@@ -50,11 +50,17 @@ const VideoReplyWrap = Styled.div`
         display: flex;
         justify-content: space-between;
         padding: 40px 40px 0;
+        @media only screen and (max-width: 767px){
+            padding: 15px 15px 0;
+        }
         h4{
             font-size: 26px;
             font-weight: 600;
             margin: 0;
             color: var(--color-white);
+            @media only screen and (max-width: 767px){
+                font-size: 20px;
+            }
             .wpwax-vm-timer{
                 display: block;
                 font-size: 16px;
@@ -83,6 +89,10 @@ const VideoReplyWrap = Styled.div`
             height: 90px;
             border-radius: 50%;
             background-color: var(--color-white);
+            @media only screen and (max-width: 767px){
+                width: 70px;
+                height: 70px;
+            }
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
@@ -123,6 +133,9 @@ const VideoReplyWrap = Styled.div`
         top: 80px;
         bottom: 0;
         width: 100%;
+        @media only screen and (max-width: 767px){
+            flex-direction: column;
+        }
         &.wpwax-vm-reply-upload{
             .wpwax-vm-reply-ready__video{
                 border-radius: 30px 0 0 0;

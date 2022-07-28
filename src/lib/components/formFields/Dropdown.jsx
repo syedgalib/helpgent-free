@@ -18,9 +18,14 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
     /* Handle Dropdown active inactive */
     const handleDropdown = (event) => {
         event.preventDefault();
+        const allUserMedia = document.querySelectorAll(".wpwax-vm-usermedia");
 
         setState({
             openDropdown: !openDropdown
+        });
+
+        allUserMedia.forEach(medaiItem => {
+            medaiItem.classList.remove(".wpwax-vm-active");
         });
 
         if (!openDropdown) {

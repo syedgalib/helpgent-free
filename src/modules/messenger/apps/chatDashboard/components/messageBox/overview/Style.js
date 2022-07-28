@@ -254,6 +254,9 @@ const MessageBox = Styled.div`
         justify-content: flex-end;
         margin-bottom: 30px;
         padding: 0 30px;
+        @media only screen and (max-width: 767px){
+            padding: 0 15px;
+        }
         .wpwax-vm-message-author{
             margin-left: 15px;
         }
@@ -278,6 +281,9 @@ const MessageBox = Styled.div`
                     font-size: 17px;
                     margin: 0;
                     color: #4D4D4D;
+                    @media only screen and (max-width: 1199px){
+                        font-size: 16px;
+                    }
                 }
             }
         }
@@ -305,6 +311,14 @@ const MessageBox = Styled.div`
                     min-height: 280px;
                     width: 440px;
                     position: relative;
+                    @media only screen and (max-width: 767px){
+                        min-height: 140px;
+                        width: 240px;
+                    }
+                    @media only screen and (max-width: 375px){
+                        min-height: 140px;
+                        width: 200px;
+                    }
                     video{
                         width: 100%;
                         height: 100%;
@@ -323,7 +337,9 @@ const MessageBox = Styled.div`
                         border-radius: 50%;
                         background-color: var(--color-black);
                         .dashicons{
-                            font-size: 18px;
+                            position: relative;
+                            top: -2px;
+                            font-size: 24px;
                             color: var(--color-white);
                         }
                     }

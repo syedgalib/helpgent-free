@@ -42,9 +42,16 @@ const ChatBoxWrap = Styled.div`
                 font-size: 22px;
                 font-weight: 600;
                 color: var(--color-dark);
+                @media only screen and (max-width: 767px){
+                    text-align: center;
+                    margin: 20px 25px;
+                }
             }
             .wpwax-vm-video-home__action{
                 display: flex;
+                @media only screen and (max-width: 767px){
+                    flex-direction: column;
+                }
                 .wpwax-vm-video-home__action--btn{
                     display: flex;
                     justify-content: center;
@@ -101,16 +108,31 @@ const MessageBoxWrap = Styled.div`
         justify-content: space-between;
         padding: 20px 0;
         border-bottom: 1px solid var(--color-bg-general);
+        @media only screen and (max-width: 767px){
+            flex-direction: column;
+        }
     }
     .wpwax-vm-messagebox-header__left{
         padding-left: 30px;
+        @media only screen and (max-width: 767px){
+            padding: 15px 15px 0;
+            margin: 0;
+        }
     }
     .wpwax-vm-messagebox-header__right{
         padding-right: 30px;
+        @media only screen and (max-width: 767px){
+            padding: 15px;
+        }
         .wpwax-vm-messagebox-header__actionlist{
             display: flex;
             flex-wrap: wrap;
             margin: 0 -15px;
+            @media only screen and (max-width: 767px){
+                flex-direction: column;
+                align-items: center;
+                margin: -15px;
+            }
         }
         .wpwax-vm-searchbox{
             display: none;
@@ -138,6 +160,12 @@ const MessageBoxWrap = Styled.div`
         align-items: center;
         padding: 0 15px;
         line-height: 1;
+        @media only screen and (max-width: 767px){
+            margin: 10px 0;
+        }
+        &.wpwax-vm-messagebox-header-search{
+            min-height: 40px;
+        }
         .wpwax-vm-messagebox-header__action--link{
             display: flex;
             align-items: center;
@@ -174,8 +202,11 @@ const MessageBoxWrap = Styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 30px 0;
+        padding: 30px;
         border-top: 1px solid var(--color-border-light);
+        @media only screen and (max-width: 1199px){
+            flex-direction: column;
+        }
         .wpwax-vm-btn{
             border-radius: 10px;
             &:hover{
@@ -197,13 +228,28 @@ const MessageBoxWrap = Styled.div`
             font-weight: 500;
             margin-right: 10px;
             color: #4D4D4D;
+            @media only screen and (max-width: 1199px){
+                margin: 0 0 20px 0;
+            }
         }
         .wpwax-vm-messagebox-footer__actionlist{
+            margin: -10px 0;
+            @media only screen and (max-width: 1199px){
+                text-align: center;
+            }
             .wpwax-vm-btn{
-                margin: 0 10px;
+                margin: 10px;
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;
+                &.wpwax-vm-btn-lg{
+                    @media only screen and (max-width: 1399px){
+                        padding: 0 18px;
+                    }
+                    @media only screen and (max-width: 1299px){
+                        padding: 0 15px;
+                    }
+                }
                 &:hover{
                     .wpwax-vm-btn-icon{
                         svg circle,
@@ -232,6 +278,9 @@ const MessageBoxWrap = Styled.div`
             display: flex;
             width: 100%;
             padding: 0 30px;
+            @media only screen and (max-width: 767px){
+                padding: 0 15px;
+            }
             .wpwax-vm-messagebox-reply__input{
                 display: flex;
                 align-items: center;

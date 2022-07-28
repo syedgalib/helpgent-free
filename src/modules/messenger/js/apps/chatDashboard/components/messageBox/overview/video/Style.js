@@ -22,7 +22,6 @@ const VideoReplyWrap = Styled.div`
         opacity: .80;
         z-index: 10;
         content: "";
-        border-radius: 30px 30px 0 0;
         background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))
     }
     &:before{
@@ -52,7 +51,7 @@ const VideoReplyWrap = Styled.div`
         justify-content: space-between;
         padding: 40px 40px 0;
         @media only screen and (max-width: 767px){
-            padding: 20px 20px 0;
+            padding: 15px 15px 0;
         }
         h4{
             font-size: 26px;
@@ -137,16 +136,10 @@ const VideoReplyWrap = Styled.div`
         @media only screen and (max-width: 767px){
             flex-direction: column;
         }
-        &:after{
-            border-radius: 30px 0 0 0;
-        }
         &.wpwax-vm-reply-upload{
             .wpwax-vm-reply-ready__video{
                 border-radius: 30px 0 0 0;
                 background-color: var(--color-dark);
-                @media only screen and (max-width: 767px){
-                    border-radius: 30px 30px 0 0;
-                }
             }
             .wpwax-vm-reply-ready__file-input{
                 display: flex;
@@ -158,9 +151,6 @@ const VideoReplyWrap = Styled.div`
                 min-height: 250px;
                 border: 1px dashed #C4C4C4;
                 background-color: #EAEAEA;
-                @media only screen and (max-width: 767px){
-                    margin: 0 30px 40px;
-                }
                 input[type=file]{
                     display: none;
                 }
@@ -207,32 +197,16 @@ const VideoReplyWrap = Styled.div`
         }
         &:after{
             width: 50%;
-            @media only screen and (max-width: 767px){
-                width: 100%;
-                border-radius: 30px 30px 0 0;
-            }
         }
         .wpwax-vm-reply-ready__video{
             width: 50%;
             position: relative;
-            @media only screen and (max-width: 767px){
-                width: 100%;
-                min-height: 280px;
-                height: 100%;
-            }
             .wpwax-vm-reply-video-bg{
                 border-radius: 0px;
-                @media only screen and (max-width: 767px){
-                    border-radius: 30px 30px 0 0;
-                }
             }
             img{
                 width: 100%;
                 height: 100%;
-                border-radius: 30px 0 0 0;
-                @media only screen and (max-width: 767px){
-                    border-radius: 30px 30px 0 0;
-                }
             }
             .wpwax-vm-reply-ready__video--top{
                 display: flex;
@@ -251,7 +225,6 @@ const VideoReplyWrap = Styled.div`
                 position: absolute;
                 left: 50%;
                 top: 50%;
-                transform: translate(-50%,-50%);
                 display: flex;
                 align-items: center;
                justify-content: center;
@@ -276,15 +249,8 @@ const VideoReplyWrap = Styled.div`
             width: 50%;
             border-radius: 0 30px 0 0;
             background-color: #F0F0F0;
-            @media only screen and (max-width: 767px){
-                width: 100%;
-                border-radius: 0;
-            }
             .wpwax-vm-media{
                 padding: 40px 50px 45px;
-                @media only screen and (max-width: 767px){
-                    padding: 40px 30px 45px;
-                }
                 .wpwax-vm-media__title{
                     font-size: 22px;
                     font-weight: 600;

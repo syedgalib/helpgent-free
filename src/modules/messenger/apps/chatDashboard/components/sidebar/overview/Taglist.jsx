@@ -1,12 +1,23 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { TaglistWrap } from "./Style";
-import { ReactSVG } from 'react-svg';
 import AddTag from "./AddTag.jsx";
-import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCreator';
+import { TaglistWrap } from "./Style";
 import userImg from "Assets/img/chatdashboard/user.png";
 import Dropdown from "Components/formFields/Dropdown.jsx";
 import ellipsisH from "Assets/svg/icons/ellipsis-h.svg";
+
+import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCreator';
+
+/* Dropdown Array Item Declaration */
+const moreDropdown = [
+    {
+        name: "edit",
+        text: "Edit"
+    },
+    {
+        name: "delete",
+        text: "Delete"
+    }
+];
 
 function Taglist() {
 
@@ -14,35 +25,28 @@ function Taglist() {
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { allTags, modalOpen } = useSelector(state => {
+    const { allTags, activeAuthorId, modalOpen } = useSelector(state => {
         return {
             activeAuthorId: state.tags.activeAuthorId,
-            modalOpen: state.tags.tagsModal,
-            allTags: state.tags,
+            allTags: state.tags.allTags,
+            modalOpen: state.tags.tagsModal
         };
     });
 
-    /* Dropdown Array Item Declaration */
-    const moreDropdown = [
-        {
-            naem: "edit",
-            text: "Edit"
-        },
-        {
-            name: "delete",
-            text: "Delete"
-        }
-    ];
-
+    /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
         dispatch(handleTagModal(false));
     }
 
+    /* Handle Add Tag */
     const handleAddTagModal = (event) => {
         event.preventDefault();
         dispatch(handleTagFormModal(true));
     }
+
+    const userTag = allTags.filter(tag => tag.authorId === activeAuthorId);
+    console.log(userTag.tags);
 
     return (
         <TaglistWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
@@ -53,6 +57,7 @@ function Taglist() {
                 </div>
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
+
             <div className="wpwax-vm-modal__body">
                 <div className="wpawax-vm-taglist-search">
                     <span className="dashicons dashicons-search"></span>
@@ -60,13 +65,18 @@ function Taglist() {
                 </div>
                 <div className="wpawax-vm-taglist-inner">
                     <ul>
-                        <li>
-                            <span className="wpwax-vm-taglist-label">Food</span>
-                            <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
-                        </li>
+                        {
+                            userTag.map(tag => {
+                                <li>
+                                    <span className="wpwax-vm-taglist-label">{tag.label}</span>
+                                    <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
+                                </li>
+                            })
+                        }
                     </ul>
                 </div>
             </div>
+
             <div className="wpwax-vm-modal__footer">
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white" onClick={handleAddTagModal}>
                     <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
@@ -74,6 +84,7 @@ function Taglist() {
                 </a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Done</a>
             </div>
+
             <AddTag />
         </TaglistWrap>
     );

@@ -22,7 +22,7 @@ function Sending() {
         };
     });
 
-	// // Init State
+	// Init State
 	useEffect( () => {
 
 		if ( userForm.submitted ) {

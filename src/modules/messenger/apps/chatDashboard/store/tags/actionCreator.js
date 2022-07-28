@@ -1,6 +1,10 @@
 import actions from './actions';
 
 const {
+  tagEditBegin,
+  tagEditSuccess,
+  tagEditError,
+
   tagListModalUpdatenBegin,
   tagListModalUpdateSuccess,
   tagListModalUpdateError,
@@ -21,6 +25,17 @@ const handleTagModal = status => {
       dispatch(tagListModalUpdateSuccess(status));
     } catch (err) {
       dispatch(tagListModalUpdateError(err));
+    }
+  };
+};
+
+const handleTagEdit = (status, data) => {
+  return async dispatch => {
+    try {
+      dispatch(tagEditBegin());
+      dispatch(tagEditSuccess(status));
+    } catch (err) {
+      dispatch(tagEditError(err));
     }
   };
 };
@@ -47,4 +62,4 @@ const handleDeleteConfirmationModal = status => {
   };
 };
 
-export { handleTagModal, handleTagFormModal, handleDeleteConfirmationModal };
+export { handleTagModal, handleTagEdit, handleTagFormModal, handleDeleteConfirmationModal };

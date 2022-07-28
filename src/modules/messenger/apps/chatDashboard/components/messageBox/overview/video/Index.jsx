@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import Record from './overview/Record.jsx';
 import Upload from './overview/Upload.jsx';
-import videoCamera from "../../../../../../../assets/svg/icons/video-camera.svg";
-import upload from "../../../../../../../assets/svg/icons/cloud-upload.svg";
+import videoCamera from "Assets/svg/icons/video-camera.svg";
+import upload from "Assets/svg/icons/cloud-upload.svg";
+
+import { handleMessageStageChange, handleReplyModeChange } from '../../../../store/messages/actionCreator';
 
 const Video = () => {
-	const [state, setState] = useState({
-		step: "home"
+
+	/* initialize Form Data */
+	const { step } = useSelector(state => {
+		return {
+			step: state.messages.videoStage,
+		};
 	});
 
-	function handlevideoAction(e, step) {
+	/* Dispasth is used for passing the actions to redux store  */
+	const dispatch = useDispatch();
+
+	/* Handle Video Action */
+	function handlevideoAction(e, stage) {
 		e.preventDefault();
-		setState({
-			step: step
-		});
+		dispatch(handleMessageStageChange(stage));
 	}
 
-	const { step } = state;
+	/* Handle Close */
+	const handleClose = (e) => {
+		e.preventDefault();
+		dispatch(handleReplyModeChange(false));
+	}
+
 	if (step === "home") {
 		return (
 			<div className="wpwax-vm-video-msg wpwax-vm-video-msg-home">
-				<a href="#" className="wpwax-vm-video-msg__close"><span className="dashicons dashicons-no-alt"></span></a>
+				<a href="#" className="wpwax-vm-video-msg__close" onClick={handleClose}><span className="dashicons dashicons-no-alt"></span></a>
 				<h4 className="wpwax-vm-video-home__title">How would you like to create this step?</h4>
 				<div className="wpwax-vm-video-home__action">
 					<a href="#" className="wpwax-vm-video-home__action--btn" onClick={(e) => handlevideoAction(e, "record")}>

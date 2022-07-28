@@ -9,6 +9,8 @@ import audioRange from "Assets/svg/icons/audio-range.svg";
 // import classes from "ChatApp/assets/Container.module.scss";
 
 function Message({ message }) {
+
+	/* Load Message Content */
 	const setMessageContent = () => {
 		if (message.type === "text") {
 			return (
@@ -47,6 +49,7 @@ function Message({ message }) {
 					}
 				</div>
 			</div>
+
 			<div className="wpwax-vm-message-author">
 				{
 					message.reply ? <img src={replier} alt="Wpwax Video Support" /> : <img src={author} alt="Wpwax Video Support" />

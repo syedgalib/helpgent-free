@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from "react-redux";
 import { ReactSVG } from 'react-svg';
 import Dropdown from "Components/formFields/Dropdown.jsx";
 import MediaBox from "Components/MediaBox.jsx";
@@ -64,14 +63,13 @@ const metaList = [
 
 function Sidebar() {
 
-	const dispatch = useDispatch();
-
 	return (
 		<SidebarWrap>
 			<div className="wpwax-vm-sidebar-top">
 				<h3 className="wpwax-vm-sidebar-title">List of Messages</h3>
 				<a href="#" className="wpwax-vm-sidebar-refresher"><ReactSVG src={rotateIcon} /></a>
 			</div>
+
 			<div className="wpwax-vm-sidebar-filter">
 				<div className="wpwax-vm-sidebar-search">
 					<div className="wpwax-vm-form-group wpwax-vm-form-icon-left">
@@ -81,6 +79,7 @@ function Sidebar() {
 				</div>
 				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} dropdownWidth="full" />
 			</div>
+
 			<div className="wpwax-vm-sidebar-userlist">
 				<ul>
 					<li className="wpwax-vm-usermedia">
@@ -112,8 +111,11 @@ function Sidebar() {
 					</li>
 				</ul>
 			</div>
+
 			<Taglist />
+
 			<AddTag />
+
 			<DeleteConfirm />
 		</SidebarWrap>
 	);

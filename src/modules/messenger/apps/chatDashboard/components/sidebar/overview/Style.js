@@ -43,6 +43,16 @@ const TaglistWrap = Styled.div`
                 }
             }
         }
+        .wpwax-vm-dropdown.wpwax-vm-dropdown-fixed{
+            .wpwax-vm-dropdown__content{
+                min-width: 160px;
+                li{
+                    a{
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 
     .wpwax-vm-modal__footer{

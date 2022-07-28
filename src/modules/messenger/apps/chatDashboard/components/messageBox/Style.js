@@ -1,6 +1,6 @@
 import Styled from 'styled-components';
 
-const ChatboxWrap = Styled.div`
+const ChatBoxWrap = Styled.div`
     .wpwax-vm-replymode-wrap{
         position: relative;
         &:after{
@@ -146,6 +146,7 @@ const MessageBoxWrap = Styled.div`
             text-decoration: none;
             &:hover{
                 svg path,
+                svg circle,
                 span{
                     color: var(--color-primary);
                     fill: var(--color-primary);
@@ -169,6 +170,7 @@ const MessageBoxWrap = Styled.div`
         padding-top: 25px;
     }
     .wpwax-vm-messagebox-footer{
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -226,7 +228,86 @@ const MessageBoxWrap = Styled.div`
                 }
             }
         }
+        .wpwax-vm-messagebox-reply{
+            display: flex;
+            width: 100%;
+            padding: 0 30px;
+            .wpwax-vm-messagebox-reply__input{
+                display: flex;
+                align-items: center;
+                width: 100%;
+                min-height: 52px;
+                border-radius: 26px;
+                padding: 0 25px;
+                background-color: var(--color-bg-general);
+                input{
+                    font-size: 18px;
+                    border: 0 none;
+                    padding: 0;
+                    background-color: transparent;
+                    &:focus{
+                        outline: none;
+                        box-shadow: 0 0;
+                        border: 0 none;
+                    }
+                }
+                .wpwax-vm-audio-range{
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    min-height: 10px;
+                    border-radius: 100px;
+                    margin: 0 30px;
+                    background-color: #C4C4C4;
+                    .wpwax-vm-audio-range-inner{
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 10px;
+                        display: block;
+                        border-radius: 100px;
+                        background-color: var(--color-dark);
+                    }
+                }
+                .wpwax-vm-timer{
+                    font-size: 14px;
+                    font-weight: 500;
+                    color:  var(--color-dark);
+                }
+            }
+        }
+        .wpwax-vm-messagebox-reply-send{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            margin-left: 10px;
+            background-color: var(--color-primary);
+        }
+        .wpwax-vm-messagebox-reply-text-close{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -27px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            text-decoration: none;
+            color: var(--color-white);
+            background-color: var(--color-dark);
+        }
+        .wpwax-vm-messagebox-reply-voice-close{
+            text-decoration: none;
+            color: var(--color-dark);
+            .dashicons{
+                font-size: 25px;
+            }
+        }
     }
 `;
 
-export {ChatboxWrap, MessageBoxWrap};
+export {ChatBoxWrap, MessageBoxWrap};

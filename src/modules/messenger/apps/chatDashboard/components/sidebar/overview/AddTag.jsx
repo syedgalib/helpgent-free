@@ -13,17 +13,21 @@ function AddTag() {
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { modalOpen } = useSelector(state => {
+    const { allTags, modalOpen, activeAuthorId } = useSelector(state => {
         return {
             activeAuthorId: state.tags.activeAuthorId,
+            allTags: state.tags.allTags,
             modalOpen: state.tags.tagFormModal,
         };
     });
 
+    /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
         dispatch(handleTagFormModal(false));
     }
+
+    
 
     return (
         <AddTagWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
@@ -34,6 +38,7 @@ function AddTag() {
                 </div>
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
+
             <div className="wpwax-vm-modal__body">
                 <form action="">
                     <div className="wpwax-vm-addtag-form">
@@ -44,6 +49,7 @@ function AddTag() {
                     </div>
                 </form>
             </div>
+
             <div className="wpwax-vm-modal__footer">
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white" onClick={handleCloseModal}>Cancel</a>
             </div>

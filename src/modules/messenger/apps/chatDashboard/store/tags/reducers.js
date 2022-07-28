@@ -103,6 +103,10 @@ const initialState = {
 };
 
 const {
+  TAG_EDIT_BEGIN,
+  TAG_EDIT_SUCCESS,
+  TAG_EDIT_ERR,
+
   TAG_LIST_MODAL_UPDATE_BEGIN,
   TAG_LIST_MODAL_UPDATE_SUCCESS,
   TAG_LIST_MODAL_UPDATE_ERR,
@@ -117,8 +121,7 @@ const {
 } = actions;
 
 const TagReducer = (state = initialState, action) => {
-  const { type, status, err } = action;
-  console.log(status)
+  const { type, status, data, err } = action;
   switch (type) {
     case TAG_LIST_MODAL_UPDATE_BEGIN:
       return {
@@ -133,6 +136,26 @@ const TagReducer = (state = initialState, action) => {
         sLoading: false,
       };
     case TAG_LIST_MODAL_UPDATE_ERR:
+      return {
+        ...state,
+        error: err,
+        sLoading: false,
+      };
+    case TAG_EDIT_BEGIN:
+      return {
+        ...state,
+        sLoading: true,
+      };
+    case TAG_EDIT_SUCCESS:
+      return {
+        ...state,
+        tagFormModal: status,
+        tagsModal: !status,
+        modalOverlay: status,
+        data: data,
+        sLoading: false,
+      };
+    case TAG_EDIT_ERR:
       return {
         ...state,
         error: err,

@@ -1,11 +1,6 @@
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { DeleteConfirmWrap } from "./Style";
-import { ReactSVG } from 'react-svg';
 import { handleDeleteConfirmationModal } from '../../../store/tags/actionCreator';
-import userImg from "Assets/img/chatdashboard/user.png";
-import Dropdown from "Components/formFields/Dropdown.jsx";
-import ellipsisH from "Assets/svg/icons/ellipsis-h.svg";
 
 function DeleteConfirm() {
 
@@ -19,6 +14,7 @@ function DeleteConfirm() {
         };
     });
 
+    /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
         dispatch(handleDeleteConfirmationModal(false));
@@ -32,6 +28,7 @@ function DeleteConfirm() {
                 </div>
                 <p>Are you sure you want to delete this conversation?</p>
             </div>
+
             <div className="wpwax-vm-modal__footer">
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-gray" onClick={handleCloseModal}>Cancel</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-danger" onClick={handleCloseModal}>Delete</a>

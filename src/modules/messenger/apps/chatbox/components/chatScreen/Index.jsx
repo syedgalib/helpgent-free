@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Container from "./pages/screen-wrapper/Index.jsx";
 import Home from "./pages/home/Index.jsx";
@@ -10,8 +10,12 @@ import Voice from "./pages/voice/Index.jsx";
 import Text from "./pages/text/Index.jsx";
 import ScreenRecord from "./pages/screen-record/Index.jsx";
 import screenTypes from "../../store/chatbox/screenTypes";
+import { useFormHooks } from "../../store/forms/hooks.js";
 
 function ChatScreen() {
+
+	useFormHooks();
+
 	const { currentChatScreen } = useSelector(state => {
         return {
             currentChatScreen: state.chatbox.currentChatScreen,

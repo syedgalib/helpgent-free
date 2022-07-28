@@ -2,10 +2,12 @@ import actions from "./actions";
 import api from './api';
 
 const { 
-    upateFormData, 
+    upateState,
+    upateFormData,
     submitFormBegain, 
     submitFormSuccess, 
     submitFormError,
+    reset,
 } = actions;
 
 const submitForm = ( formData ) => {
@@ -18,9 +20,9 @@ const submitForm = ( formData ) => {
 
             dispatch( submitFormSuccess( result ) );
         } catch (error) {
-            dispatch( submitFormError( error ) );
+            dispatch( submitFormError( error.response.data.message ) );
         }
     }
 };
 
-export { upateFormData, submitForm };
+export { upateState, upateFormData, submitForm, reset };

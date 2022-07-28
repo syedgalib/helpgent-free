@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 
 class Messages extends Rest_Base {
@@ -84,6 +85,10 @@ class Messages extends Rest_Base {
                             'type'              => 'string',
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'notify_user' => [
+                            'type'    => 'boolean',
+                            'default' => false,
                         ],
                     ],
                 ],
@@ -182,7 +187,10 @@ class Messages extends Rest_Base {
 
 
         $where = [];
+
         $where['session_id'] = '';
+        $where['user_id']    = '';
+
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
@@ -278,6 +286,20 @@ class Messages extends Rest_Base {
 
         $data    = $this->prepare_item_for_response( $data, $args );
         $success = true;
+
+        // Notify User if requested
+        if ( isset( $args['notify_user'] ) && Helper\is_truthy( $args['notify_user'] ) ) {
+            $user         = get_user_by( 'id', $args['user_id'] );
+            $old_messages = Message_Model::get_items( [ 'where' => [ 'user_id' => $args['user_id'] ] ] );
+            $old_sessions = Message_Model::get_items( [ 'where' => [ 'session_id' => $data['session_id'] ] ] );
+
+            if ( count( $old_messages ) < 2 ) {
+                Message_Notification_Emails::notify_first_session_created( $user );
+            } else if ( count( $old_sessions ) < 2 ) {
+                Message_Notification_Emails::notify_new_session_created( $user );
+            }
+
+        }
 
         return $this->response( $success, $data );
     }

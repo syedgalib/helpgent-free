@@ -5,7 +5,7 @@ namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 use \WP_REST_Server;
 use \WP_User_Query;
 use \WP_Error;
-
+use \WP_REST_Response;
 use WPWaxCustomerSupportApp\Module\Core\Rest_API\Rest_Helper;
 use WPWaxCustomerSupportApp\Base\Helper;
 
@@ -220,6 +220,10 @@ class Users extends Rest_Base {
 
 			return $response;
 		}
+
+        if ( ! is_email( $request['email'] ) ) {
+            return new WP_REST_Response( [ 'success' => false, 'message' => _( 'A valid email is required' ) ], 403 );
+        }
 
         if ( empty( $request['password'] ) ) {
             $request['password'] = wp_generate_password();

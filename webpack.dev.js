@@ -16,4 +16,8 @@ module.exports = merge(common, {
       sourceMap: true,
     }),
   ],
+
+  optimization: {
+    minimize: false,
+  }
 });

@@ -154,12 +154,16 @@ const VideoReplyWrap = Styled.div`
                 justify-content: center;
                 align-items: center;
                 margin: 0 40px 45px;
+                padding: 20px;
                 border-radius: 14px;
                 min-height: 250px;
                 border: 1px dashed #C4C4C4;
                 background-color: #EAEAEA;
                 @media only screen and (max-width: 767px){
                     margin: 0 30px 40px;
+                }
+                @media only screen and (max-width: 1399px){
+                    min-height: 180px;
                 }
                 input[type=file]{
                     display: none;
@@ -278,6 +282,7 @@ const VideoReplyWrap = Styled.div`
             background-color: #F0F0F0;
             @media only screen and (max-width: 767px){
                 width: 100%;
+                overflow-y: auto;
                 border-radius: 0;
             }
             .wpwax-vm-media{
@@ -320,6 +325,9 @@ const VideoReplyWrap = Styled.div`
             width: 100%;
             display: flex;
             background-color: var(--color-white);
+            @media only screen and (max-width: 767px){
+                position: fixed;
+            }
             .wpwax-vm-reply-ready-btn{
                 display: flex;
                 justify-content: center;
@@ -360,4 +368,5 @@ const VideoReplyWrap = Styled.div`
     }
 `;
 
-export  {VideoReplyWrap};
+export { VideoReplyWrap };
+

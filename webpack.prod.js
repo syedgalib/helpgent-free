@@ -49,6 +49,9 @@ module.exports = merge(common, {
       },
     }),
   ],
+  optimization: {
+    minimize: true,
+  },
   output: {
     filename: "../js/[name].min.js",
   },

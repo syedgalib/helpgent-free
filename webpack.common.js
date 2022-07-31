@@ -14,6 +14,9 @@ module.exports = {
 
     // Chatbox Template Module
     'chatbox-template-admin': '/src/modules/chatboxTemplate/admin/chatbox-template-admin.js',
+
+    // Settings Panel Module
+    'settings-panel-admin': '/src/modules/settingsPanel/admin/settings-panel-admin.js',
   },
 
   output: {

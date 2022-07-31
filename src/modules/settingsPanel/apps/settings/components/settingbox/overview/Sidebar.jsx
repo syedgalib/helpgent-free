@@ -1,29 +1,96 @@
 import { useSelector } from "react-redux";
+import { ReactSVG } from 'react-svg';
+import NavItem from "./NavItem.jsx";
 import { SidebarWrap } from '../Style';
+import globe from 'Assets/svg/icons/globe.svg';
+import envelope from 'Assets/svg/icons/envelope.svg';
+import link from 'Assets/svg/icons/link.svg';
 
-function Sidebar() {
+const SidebarData = [
+    {
+        label: "Language",
+        icon: <ReactSVG src={globe} />,
+        iconClosed: <span className="dashicons dashicons-arrow-down"></span>,
+        iconOpened: <span className="dashicons dashicons-arrow-up"></span>,
+
+        subNav: [
+            {
+                label: "Available Integration",
+                path: "integration"
+            },
+            {
+                label: "Directorist",
+                path: "directorsit"
+            },
+            {
+                label: "WooCommerce",
+                path: "wpwax"
+            },
+            {
+                label: "Live Chat Plugins",
+                path: "liveChat"
+            }
+        ]
+    },
+    {
+        label: "Email",
+        icon: <ReactSVG src={envelope} />,
+        iconClosed: <span className="dashicons dashicons-arrow-down"></span>,
+        iconOpened: <span className="dashicons dashicons-arrow-up"></span>,
+
+        subNav: [
+            {
+                label: "Available Integration",
+                path: "integration"
+            },
+            {
+                label: "Directorist",
+                path: "directorsit"
+            },
+            {
+                label: "WooCommerce",
+                path: "wpwax"
+            },
+            {
+                label: "Live Chat Plugins",
+                path: "liveChat"
+            }
+        ]
+    },
+    {
+        label: "Integration",
+        icon: <ReactSVG src={link} />,
+        iconClosed: <span className="dashicons dashicons-arrow-down"></span>,
+        iconOpened: <span className="dashicons dashicons-arrow-up"></span>,
+
+        subNav: [
+            {
+                label: "Available Integration",
+                path: "integration"
+            },
+            {
+                label: "Directorist",
+                path: "directorsit"
+            },
+            {
+                label: "WooCommerce",
+                path: "wpwax"
+            },
+            {
+                label: "Live Chat Plugins",
+                path: "liveChat"
+            }
+        ]
+    }
+]
+const Sidebar = () => {
 
     return (
         <SidebarWrap>
             <ul className="wpwax-vm-sidebar-nav">
-                <li className="wpwax-vm-sidebar-nav__item">
-                    <a href="#">
-                        <div className="wpwax-vm-sidebar-nav__item--icon"></div>
-                        <span className="wpwax-vm-sidebar-nav__item--text">Language</span>
-                    </a>
-                </li>
-                <li className="wpwax-vm-sidebar-nav__item">
-                    <a href="#">
-                        <div className="wpwax-vm-sidebar-nav__item--icon"></div>
-                        <span className="wpwax-vm-sidebar-nav__item--text">Email</span>
-                    </a>
-                </li>
-                <li className="wpwax-vm-sidebar-nav__item">
-                    <a href="#">
-                        <div className="wpwax-vm-sidebar-nav__item--icon"></div>
-                        <span className="wpwax-vm-sidebar-nav__item--text">Integrations</span>
-                    </a>
-                </li>
+                {
+                    SidebarData.map((menuItem, index) => <NavItem item={menuItem} key={index} />)
+                }
             </ul>
         </SidebarWrap>
     );

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
+const Dropdown = ({ dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -11,6 +11,12 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
 
     /* State Distructuring */
     const { openDropdown } = state;
+
+    const [selectedState, setSelectedState] = useState({
+        selectedItemText: dropdownList[0].text,
+    });
+
+    const { selectedItemText } = selectedState;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -23,6 +29,8 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
         setState({
             openDropdown: !openDropdown
         });
+
+
 
         allUserMedia.forEach(medaiItem => {
             medaiItem.classList.remove(".wpwax-vm-active");
@@ -38,7 +46,9 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
     /* Handle Dropdown Trigger */
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
-        console.log(btnName);
+        setSelectedState({
+            selectedItemText: event.target.text
+        });
         switch (btnName) {
             case 'mark-read':
                 break;
@@ -101,9 +111,12 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
 
     return (
         <div className={dropdownWidth === "full" ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' :
-            'wpwax-vm-dropdown wpwax-vm-dropdown-full'}` :
-            `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
-                'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'}`} ref={ref}>
+            'wpwax-vm-dropdown wpwax-vm-dropdown-full'}`
+            : dropdownSelectedText
+                ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
+                    'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed'}`
+                : `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
+                    'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'}`} ref={ref}>
             <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"} onClick={handleDropdown}>
                 {
                     dropdownText ?
@@ -113,6 +126,17 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
                             }
                             <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">unread</span></span>
                         </span> : ""
+                }
+
+                {
+                    dropdownSelectedText ?
+                        <span className="wpwax-vm-dropdown__toggle--text">
+                            {
+                                textIcon ? <ReactSVG src={textIcon} /> : ''
+                            }
+                            <span className="wpwax-vm-dropdown__toggle--text-content">{selectedItemText}</span>
+                        </span> : ""
+
                 }
 
                 {

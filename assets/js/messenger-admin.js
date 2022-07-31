@@ -3036,6 +3036,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Dropdown = function Dropdown(_ref) {
   var dropdownText = _ref.dropdownText,
+      dropdownSelectedText = _ref.dropdownSelectedText,
       textIcon = _ref.textIcon,
       dropdownIconOpen = _ref.dropdownIconOpen,
       dropdownIconClose = _ref.dropdownIconClose,
@@ -3053,6 +3054,15 @@ var Dropdown = function Dropdown(_ref) {
 
 
   var openDropdown = state.openDropdown;
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    selectedItemText: dropdownList[0].text
+  }),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedState = _useState4[0],
+      setSelectedState = _useState4[1];
+
+  var selectedItemText = selectedState.selectedItemText;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -3079,7 +3089,9 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
-    console.log(btnName);
+    setSelectedState({
+      selectedItemText: event.target.text
+    });
 
     switch (btnName) {
       case 'mark-read':
@@ -3149,7 +3161,7 @@ var Dropdown = function Dropdown(_ref) {
     };
   }, [openDropdown]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: dropdownWidth === "full" ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-full') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'),
+    className: dropdownWidth === "full" ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-full') : dropdownSelectedText ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'),
     ref: ref,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
       href: "#",
@@ -3165,6 +3177,14 @@ var Dropdown = function Dropdown(_ref) {
             className: "wpwax-vm-selected",
             children: "unread"
           })]
+        })]
+      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+        className: "wpwax-vm-dropdown__toggle--text",
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+          src: textIcon
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "wpwax-vm-dropdown__toggle--text-content",
+          children: selectedItemText
         })]
       }) : "", renderDropdownIcon()]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {

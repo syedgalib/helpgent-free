@@ -1,12 +1,28 @@
 import { useSelector } from "react-redux";
+import { ReactSVG } from 'react-svg';
 import Sidebar from "./overview/Sidebar.jsx";
 import SettingContent from "./overview/SettingContent.jsx";
+import File from 'Assets/svg/icons/file.svg';
+import QuestonCircle from 'Assets/svg/icons/question-circle.svg';
 import { SetingBoxWrap } from './Style';
 
-function SettingBox() {
-
+const SettingBox = () => {
     return (
         <SetingBoxWrap>
+            <div className="wpwax-vm-settings-top">
+                <h2 className="wpwax-vm-settings-top__title">Settings</h2>
+
+                <div className="wpwax-vm-settings-top__links">
+                    <a href="#">
+                        <div className="wpwax-vm-settings-top__link-icon"><ReactSVG src={File} /></div>
+                        <span className="wpwax-vm-settings-top__link-text">Documentation </span>
+                    </a>
+                    <a href="#">
+                        <div className="wpwax-vm-settings-top__link-icon"><ReactSVG src={QuestonCircle} /></div>
+                        <span className="wpwax-vm-settings-top__link-text">Support </span>
+                    </a>
+                </div>
+            </div>
             <div className="wpwax-vm-seetings-box">
                 <div className="wpwax-vm-seetings-box__header">
                     <div className="wpwax-vm-seetings-box__breadcrumb">

@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const initialState = {
-  sidebarPath: "language",
+  sidebarPath: "live-chat",
   loading: false,
   error: null,
 };

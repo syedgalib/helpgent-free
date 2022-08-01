@@ -213,7 +213,179 @@ const SidebarMenuItem = Styled.li`
 `;
 
 const SettingContentWrap = Styled.div`
-    
+    width: 100%;
+    padding: 45px 90px 45px 45px;
+    background-color: var(--color-white);
+    .wpwax-vm-settings__single{
+        display: flex;
+        &:not(:last-child){
+            margin-bottom: 40px;
+        }
+        .wpwax-vm-settings__single--label{
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 40px 0 0;
+            white-space: nowrap;
+            min-width: 280px;
+            color: var(--color-dark);
+        }
+        .wpwax-vm-settings__single--element{
+            width: 100%;
+            .wpwax-vm-setting-has-info{
+                display: flex;
+                align-items: center;
+                .wpwax-vm-setting-info{
+                    display: flex;
+                    text-decoration: none;
+                    margin-left: 30px;
+                }
+                .wpwax-vm-setting-has-info__text{
+                    display: inline-block;
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: var(--color-info);
+                    margin-left: 8px;
+                }
+            }
+            .wpwax-vm-radio-list{
+                .wpwax-vm-radio-list__item{
+                    &:not(:last-child){
+                        margin-bottom: 18px;
+                    }
+                    .wpwax-vm-radio{
+                        label{
+                            position: relative;
+                            top: -2px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            margin-left: 6px;
+                            color: #4D4D4D;
+                        }
+                    }
+                }
+            }
+            .wpwax-vm-form__color-plate{
+                max-width: 200px;
+            }
+            .wpwax-vm-form-group {
+                .wpwax-vm-form__element{
+                    min-height: 44px;
+                }
+                textarea.wpwax-vm-form__element{
+                    min-height: 80px;
+                }
+            }
+        }
+    }
+    .wpwax-vm-setting-preview-wrap{
+        margin: -10px 0 0 325px;
+        .wpwax-vm-indicator{
+            display: flex;
+            margin-bottom: 15px;
+            .wpwax-vm-indicator__text{
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 500;
+                margin-left: 10px;
+                color: var(--color-info);
+            }
+        }
+    }
 `;
 
-export { SetingBoxWrap, SidebarMenuItem, SidebarWrap, SettingContentWrap, };
+const ChatBoxPreviewWrap = Styled.div`
+    max-width: 350px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.16);
+    .wpwax-vm-chatbox-top{
+        position: relative;
+        padding: 20px;
+        border-radius: 10px 10px 0 0;
+        background-color: var(--color-dark);
+        .wpwax-vm-chatbox-top__title{
+            margin-bottom: 10px;
+        }
+        .wpwax-vm-chatbox-top__imglist{
+            display: flex;
+            >div{
+                margin: 3px;
+            }
+        }
+        .wpwax-vm-chatbox-btn-close{
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            text-decoration: none;
+            color: var(--color-white);
+        }
+    }
+    .wpwax-vm-chatbox-content{
+        padding: 10px 12px;
+        min-height: 310px;
+        background-color: #F7F7F7;
+        .wpwax-vm-chatbox-content___inner{
+            display: flex;
+            align-items: start;
+            position: relative;
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 3px solid var(--color-primary);
+            background-color: var(--color-white);
+            .wpwax-vm-chatbox-content__text{
+                p{
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin: 0 0 14px;
+                    color: var(--color-dark);
+                }
+                .wpwax-vm-btn{
+                    padding: 0 22px;
+                    border-radius: 17px;
+                    &.wpwax-vm-btn-sm{
+                        height: 34px;
+                    }
+                }
+            }
+        }
+        .wpwax-vm-chatbox-content__img{
+            padding: 5px;
+            border-radius: 50%;
+            width: 85px;
+            height: 85px;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,.10);
+            background-color: var(--color-white);
+            img{
+                max-width: 85px;
+            }
+        }
+    }
+    .wpwax-vm-chatbox-bottom{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 15px;
+        border-radius: 0 0 10px 10px;
+        background-color: var(--color-white);
+        .wpwax-vm-btn-send{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: #E2E2E2;
+            >div{
+                line-height: 1;
+            }
+            svg {
+                width: 14px;
+                height: 14px;
+                path{
+                    fill: var(--color-white);
+                }
+            }
+        }
+    }
+`;
+
+export { SetingBoxWrap, SidebarMenuItem, SidebarWrap, SettingContentWrap, ChatBoxPreviewWrap };

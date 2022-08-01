@@ -3035,13 +3035,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Dropdown = function Dropdown(_ref) {
-  var dropdownText = _ref.dropdownText,
+  var selectable = _ref.selectable,
+      dropdownText = _ref.dropdownText,
       dropdownSelectedText = _ref.dropdownSelectedText,
       textIcon = _ref.textIcon,
       dropdownIconOpen = _ref.dropdownIconOpen,
       dropdownIconClose = _ref.dropdownIconClose,
-      dropdownList = _ref.dropdownList,
-      dropdownWidth = _ref.dropdownWidth;
+      dropdownList = _ref.dropdownList;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -3135,23 +3135,11 @@ var Dropdown = function Dropdown(_ref) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
-      var modalDoms = document.querySelectorAll('.wpwax-vm-modal.wpwax-vm-show');
-      var overlay = document.querySelector('.wpax-vm-overlay'); // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
-
-      if (openDropdown && ref.current && !ref.current.contains(e.target) && !overlay.contains(e.target)) {
+      if (openDropdown && ref.current && !ref.current.contains(e.target)) {
         setState({
           openDropdown: false
         });
       }
-
-      modalDoms.forEach(function (modalDom) {
-        if (!modalDom.contains(e.target)) {
-          setState({
-            openDropdown: false
-          });
-        }
-      });
     };
 
     document.addEventListener("mousedown", checkIfClickedOutside);
@@ -3161,11 +3149,11 @@ var Dropdown = function Dropdown(_ref) {
     };
   }, [openDropdown]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    className: dropdownWidth === "full" ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-full') : dropdownSelectedText ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'),
+    className: selectable ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'),
     ref: ref,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
       href: "#",
-      className: dropdownText ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only",
+      className: dropdownText ? "wpwax-vm-dropdown__toggle" : "".concat(selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"),
       onClick: handleDropdown,
       children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
@@ -4482,8 +4470,7 @@ function Sidebar() {
         textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_9__["default"],
         dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
         dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_10__["default"],
-        dropdownList: filterDropdown,
-        dropdownWidth: "full"
+        dropdownList: filterDropdown
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
@@ -4505,8 +4492,7 @@ function Sidebar() {
               dropdownText: false,
               dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
               dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-              dropdownList: moreDropdown,
-              dropdownWidth: "fixed"
+              dropdownList: moreDropdown
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("li", {
@@ -4526,8 +4512,7 @@ function Sidebar() {
               dropdownText: false,
               dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
               dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-              dropdownList: moreDropdown,
-              dropdownWidth: "fixed"
+              dropdownList: moreDropdown
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("li", {
@@ -4547,8 +4532,7 @@ function Sidebar() {
               dropdownText: false,
               dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
               dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-              dropdownList: moreDropdown,
-              dropdownWidth: "fixed"
+              dropdownList: moreDropdown
             })]
           })]
         })]

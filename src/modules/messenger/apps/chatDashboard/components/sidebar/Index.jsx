@@ -77,7 +77,7 @@ function Sidebar() {
 						<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-search" placeholder="Search" />
 					</div>
 				</div>
-				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} dropdownWidth="full" />
+				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />
 			</div>
 
 			<div className="wpwax-vm-sidebar-userlist">
@@ -88,7 +88,7 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} />
 						</div>
 					</li>
 					<li className="wpwax-vm-usermedia">
@@ -97,7 +97,7 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} />
 						</div>
 					</li>
 					<li className="wpwax-vm-usermedia">
@@ -106,7 +106,7 @@ function Sidebar() {
 						</div>
 						<div className="wpwax-vm-usermedia__right">
 							<span className="wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"></span>
-							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} dropdownWidth="fixed" />
+							<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} />
 						</div>
 					</li>
 				</ul>

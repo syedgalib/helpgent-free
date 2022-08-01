@@ -147,51 +147,7 @@ const AddFormStyle = Styled.div`
                 }
             }
         }
-        .wpwax-vm-form__color-plate{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            flex: 1;
-            height: 40px;
-            border-radius: 6px;
-            background-color: var(--color-bg-general);
-            .wpwax-vm-form__color-text{
-                padding-left: 15px;
-                margin: 0;
-            }
-            input[type="color"]{
-                flex: none;
-                appearance: none;
-                padding: 0;
-                width: 26px;
-                min-height: 26px;
-                margin-right: 15px;
-                border-radius: 50%;
-                opacity: 0;
-                cursor: pointer;
-                &::-webkit-color-swatch-wrapper{
-                    padding: 0;
-                }
-                &::-webkit-color-swatch{
-                    border: none
-                }
-            }
-            .wpwax-vm-form__color-ball{
-                position: absolute;
-                right: 12px;
-                top: 6px;
-                width: 26px;
-                height: 26px;
-                border-radius: 50%;
-            }
-            .block-picker{
-                position: absolute !important;
-                left: 5px;
-                top: 50px;
-                z-index: 10;
-            }
-        }
+        
         .wpwax-vm-select__menu{
             border-radius: 10px;
             border: 0 none;

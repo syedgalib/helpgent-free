@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -81,25 +81,12 @@ const Dropdown = ({ dropdownText, dropdownSelectedText, textIcon, dropdownIconOp
     /* Focus Input field when search inopen */
     useEffect(() => {
         const checkIfClickedOutside = e => {
-            const modalDoms = document.querySelectorAll('.wpwax-vm-modal.wpwax-vm-show');
-            const overlay = document.querySelector('.wpax-vm-overlay');
-            // If the menu is open and the clicked target is not within the menu,
-            // then close the menu
 
-            if (openDropdown && ref.current && !ref.current.contains(e.target) && !overlay.contains(e.target)) {
+            if (openDropdown && ref.current && !ref.current.contains(e.target)) {
                 setState({
                     openDropdown: false
                 });
             }
-
-            modalDoms.forEach(modalDom => {
-                if (!modalDom.contains(e.target)) {
-                    setState({
-                        openDropdown: false
-                    });
-                }
-            });
-
         }
         document.addEventListener("mousedown", checkIfClickedOutside)
         return () => {
@@ -110,14 +97,8 @@ const Dropdown = ({ dropdownText, dropdownSelectedText, textIcon, dropdownIconOp
 
 
     return (
-        <div className={dropdownWidth === "full" ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' :
-            'wpwax-vm-dropdown wpwax-vm-dropdown-full'}`
-            : dropdownSelectedText
-                ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
-                    'wpwax-vm-dropdown wpwax-vm-dropdown-select wpwax-vm-dropdown-fixed'}`
-                : `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
-                    'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'}`} ref={ref}>
-            <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"} onClick={handleDropdown}>
+        <div className={selectable ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable'}` : `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'}`} ref={ref}>
+            <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : `${selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"}`} onClick={handleDropdown}>
                 {
                     dropdownText ?
                         <span className="wpwax-vm-dropdown__toggle--text">

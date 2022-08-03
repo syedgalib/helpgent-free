@@ -12,8 +12,8 @@ const getAll = path =>{
     return axiosInstance.get(path);
 }
 
-const dataUpdate = (path, data) => {
-    return axiosInstance.put(path, data);
+const dataUpdate = (path, args) => {
+    return axiosInstance.post(path, args);
 };
 
 const datadelete = path => {
@@ -26,4 +26,4 @@ const apiService = {
     datadelete
 }
 
-export default  apiService;
+export default apiService;

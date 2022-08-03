@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Modal from 'Components/Modal.jsx';
 import apiService from 'apiService/Service';
 import TemplateBox from './Style';
 
@@ -9,7 +10,9 @@ const Table = () => {
         data: [],
         titleInput: '',
         message: '',
-        responseType: 'success',
+        responseType: '',
+        deleteId: '',
+        modalStatus: 'close',
         loader: true,
     });
 
@@ -19,11 +22,12 @@ const Table = () => {
     });
 
     /* State Destructuring  */
-    const { data, titleInput, message, responseType, loader } = state;
+    const { data, titleInput, message, responseType, modalStatus, deleteId, loader } = state;
     const { editElementIndex } = editElementIndexState;
 
     /* Edit Mode Activation */
-    const activateeditElementIndex = (name,index) => {
+    const activateeditElementIndex = (e, name, index) => {
+        e.preventDefault()
         setState({
             ...state,
             titleInput: name,
@@ -36,15 +40,15 @@ const Table = () => {
     /* Edit Mode Cancelation */
     const canceleditElementIndex = () => {
         seteditElementIndexState({
-          editElementIndex: '',
+            editElementIndex: '',
         });
     };
 
     /* Update Table Name */
     const updateTableName = (event) => {
         setState({
-          ...state,
-          titleInput: event.target.value,
+            ...state,
+            titleInput: event.target.value,
         });
     };
 
@@ -52,85 +56,101 @@ const Table = () => {
     const removeNotice = (event) => {
         event.preventDefault();
         setState({
-          ...state,
-          message: '',
+            ...state,
+            message: '',
         });
     };
 
     /* Update Table Name */
     const saveTableName = (id) => {
-        setState({
-            ...state,
-            loader: true,
-        });
-        const updatedData = data.map(item => {
-            if (item.form_id === id) {
-              item.name = titleInput;
-              return item;
-            }
-            return item;
-        });
-        apiService.dataUpdate(`/forms/${id}`, updatedData)
-            .then(response =>{
-                if(response.data.success){
+
+        data.filter(item => item.id === id).map(item => {
+            let args = {};
+            args.name = (titleInput) ? titleInput : '';
+            const stateData = data.filter(stateItem => {
+                if (stateItem.id === id) {
+                    stateItem.name = titleInput;
+                }
+                return stateItem;
+            });
+
+
+            apiService.dataUpdate(`/chatbox-templates/${id}`, args)
+                .then(response => {
+                    if (response.data.success) {
+                        setState({
+                            ...state,
+                            data: stateData,
+                            responseType: 'success',
+                            message: response.data.message,
+                            loader: false,
+                        });
+                    } else {
+                        setState({
+                            ...state,
+                            data: data,
+                            responseType: 'warning',
+                            message: response.data.message,
+                            loader: false,
+                        });
+                    }
+                    seteditElementIndexState({
+                        editElementIndex: '',
+                    });
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        })
+    };
+
+    /* Handle Delete Confirmation */
+    const handleOk = () => {
+        apiService.datadelete(`/chatbox-templates/${deleteId}`)
+            .then(response => {
+                if (response.data.success) {
+                    const stateData = data.filter(item => item.id !== deleteId);
                     setState({
                         ...state,
-                        data: updatedData,
+                        data: stateData,
                         responseType: 'success',
                         message: response.data.message,
-                        loader: false,
-                    });
-                }else{
-                    setState({
-                        ...state,
-                        data: data,
-                        responseType: 'warning',
-                        message: response.data.message,
+                        modalStatus: 'close',
                         loader: false,
                     });
                 }
-                seteditElementIndexState({
-                    editElementIndex: '',
+            })
+            .catch((error) => {
+                setState({
+                    ...state,
+                    message: error.message,
+                    responseType: 'error',
+                    modalStatus: 'close',
+                    loader: false,
                 });
-                console.log(response)
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
+            });
+    };
+
+    /* Handle Delete Modal Cancelation */
+    const handleCancel = () => {
+        setState({
+            ...state,
+            modalStatus: 'close'
+        });
     };
 
     /* Delete Form */
     const deleteForm = id => {
         setState({
             ...state,
-            loader: true,
+            modalStatus: "open",
+            deleteId: id,
         });
-        apiService.datadelete(`/forms/${id}`)
-            .then(response => {
-                if(response.data.success){
-                    const responsedData = data.filter(item => item.form_id !== id);
-                    setState({
-                        ...state,
-                        data: responsedData,
-                        responseType: 'success',
-                        message: response.data.message,
-                        loader: false,
-                    });
-                }
-            })
-            .catch((error) =>{
-                setState({
-                    ...state,
-                    message: error.message,
-                    responseType: 'error',
-                    loader: false,
-                });
-            })
     };
 
     /* useEffect Hook used for render data when component was mounted  */
     useEffect(() => {
-        apiService.getAll('/forms')
+        apiService.getAll('/chatbox-templates')
             .then(response => {
                 setState({
                     ...state,
@@ -149,97 +169,83 @@ const Table = () => {
             });
     }, []);
 
-    // function detectOutsideClick(refs){
-        
-    //     const handleClick = (event) => {
-    //         // console.log(indexKey);
-    //         // console.log(refs.current[indexKey]);
-    //         refs.current.map((item,index)=>{
-                
-    //             if(item && !item.contains(event.target)){
-    //                 console.log(event.target,item,item.contains(event.target))
-    //                 // canceleditElementIndex()
-    //             }
-    //         })
-    //         // if (refs.current[indexKey] && !refs.current[indexKey].contains(event.target)) {
-    //         //     canceleditElementIndex()
-    //         // }
-    //     }
-    //     useEffect(() => {
-    //         document.addEventListener("click", handleClick);
-    //         return () => document.removeEventListener("click", handleClick);
-    //     }, [refs]);
-    // }
-
-    /* Initialize Reference */
-    // const referenceBox = useRef([]);
-    // detectOutsideClick(referenceBox);
-    // console.log(referenceBox)
-    return(
-        <TemplateBox>
+    return (
+        <TemplateBox className={loader ? "wpwax-vm-loder-active" : ""}>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
                 {message ?
-                    <p className={`${responseType ==='success'?'wpwax-vm-notice wpwax-vm-notice-success':'wpwax-vm-notice wpwax-vm-notice-danger'}`}>
+                    <p className={`${responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'}`}>
                         <span className="wpwax-vm-notice__text">{message}</span>
                         <a href="#" className="wpwax-vm-notice__close" onClick={removeNotice}>x</a>
                     </p>
-                    :''
+                    : ''
                 }
-                
-                <table className="wpwax-vm-table">
-                    <thead>
-                        <tr>
-                            <th className="wpwax-vm-head-name">Title</th>
-                            <th className="wpwax-vm-head-action">Action</th>
-                        </tr>
-                    </thead>
-                    
-                    <tbody>
-                        {data.length > 0 ? (
-                            data.map((value, key) => {
-                                return(
-                                    <tr key={key}>
-                                        <td>
-                                            <div className="wpwax-vm-titlebox">
-                                                <div className="wpwax-vm-titlebox-inner">
-                                                    <span className={editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
-                                                        {value.name}
-                                                        <span className="wpwax-vm-titlebox__id">ID: {value.form_id}</span>
-                                                    </span>
-                                                    <div className={editElementIndex === key? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
-                                                        <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName}/>
-                                                    </div>
-                                                    <div className="wpwax-vm-titlebox__editor-action">
-                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
-                                                            <span className="dashicons dashicons-no"></span>
-                                                        </a>
-                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={()=> saveTableName(value.form_id)}>
-                                                            <span className="dashicons dashicons-yes"></span>
-                                                        </a>
-                                                        <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={ () => activateeditElementIndex(value.name,key)}></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="wpwax-vm-table-action">
-                                                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
-                                                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={()=> deleteForm(value.form_id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })):(
-                            <tr>
-                                <td colSpan={2}>
-                                    <span className="wpwax-notfound-text wpwax-vm-text-center">Sorry!! Data Not Found :(</span>
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                    
-                </table>
-                
+                {
+                    loader ? <span className="wpwax-vm-loading-spin">
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                    </span> :
+                        <table className="wpwax-vm-table">
+                            <thead>
+                                <tr>
+                                    <th className="wpwax-vm-head-name">Title</th>
+                                    <th className="wpwax-vm-head-action">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {
+                                    data.length > 0 ?
+                                        data.map((value, key) => {
+                                            return (
+                                                <tr key={key}>
+                                                    <td>
+                                                        <div className="wpwax-vm-titlebox">
+                                                            <div className="wpwax-vm-titlebox-inner">
+                                                                <span className={editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
+                                                                    {value.name}
+                                                                    <span className="wpwax-vm-titlebox__id">ID: {value.id}</span>
+                                                                </span>
+                                                                <div className={editElementIndex === key ? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
+                                                                    <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName} />
+                                                                </div>
+                                                                <div className="wpwax-vm-titlebox__editor-action">
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
+                                                                        <span className="dashicons dashicons-no"></span>
+                                                                    </a>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={() => saveTableName(value.id)}>
+                                                                        <span className="dashicons dashicons-yes"></span>
+                                                                    </a>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={(e) => activateeditElementIndex(e, value.name, key)}></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="wpwax-vm-table-action">
+                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
+                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={() => deleteForm(value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
+                                        :
+                                        <tr>
+                                            <td colSpan={2}>
+                                                <span className="wpwax-notfound-text wpwax-vm-text-center">Sorry!! Data Not Found :(</span>
+                                            </td>
+                                        </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                }
+
+                <Modal title="Delete Template" handleOk={handleOk} handleCancel={handleCancel} status={modalStatus}>
+                    <p>Are Your Sure ?</p>
+                </Modal>
             </div>
         </TemplateBox>
     )

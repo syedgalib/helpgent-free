@@ -1,8 +1,8 @@
+import Checkbox from "Components/formFields/Checkbox.jsx";
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
-import Checkbox from "Components/formFields/Checkbox.jsx";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 
@@ -38,14 +38,15 @@ const ThankSettings = () => {
         ctaBgColor: formInitialOption.thank_page_cta_background,
         ctaTitleFontSize: formInitialOption.thank_page_cta_title_font_size,
         ctaFontColor: formInitialOption.thank_page_cta_font_color,
-        ctaButtonColor: formInitialData.thank_page_cta_button_color,
-        ctaButtonTextColor: formInitialData.thank_page_cta_button_text_color,
-        ctaButtonRadius: formInitialData.thank_page_cta_button_radius
+        ctaButtonColor: formInitialOption.thank_page_cta_button_color,
+        ctaButtonTextColor: formInitialOption.thank_page_cta_button_text_color,
+        ctaButtonRadius: formInitialOption.thank_page_cta_button_radius,
+        openCollapse: true
     });
 
     /* Destructuring State */
     const {
-        id, collectInfoVisibility, collectableInfo, title, descriptionVisibility, description, ctaButtonVisibility, ctaButtonText, ctaButtonUrl, ctaBgColor, ctaTitleFontSize, ctaFontColor, ctaButtonColor, ctaButtonTextColor, ctaButtonRadius
+        id, collectInfoVisibility, collectableInfo, title, descriptionVisibility, description, ctaButtonVisibility, ctaButtonText, ctaButtonUrl, ctaBgColor, ctaTitleFontSize, ctaFontColor, ctaButtonColor, ctaButtonTextColor, ctaButtonRadius, openCollapse
     } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -78,35 +79,93 @@ const ThankSettings = () => {
                         }
                     }
                 case "des-visibility":
-                    return { ...item, thank_page_description_Visibility: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            show_thank_page_description: value
+                        }
+                    }
                 case "description":
-                    return { ...item, thank_page_description: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_description: value
+                        }
+                    }
                 case "btn-visibility":
-                    return { ...item, thank_page_button_visibility: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            show_thank_page_cta_button: value
+                        }
+                    }
                 case "btn-text":
-                    return { ...item, thank_page_button_text: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_button_text: value
+                        }
+                    }
                 case "btn-url":
-                    return { ...item, thank_page_button_url: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_button_url: value
+                        }
+                    }
                 case "bg-color":
-                    return { ...item, thank_page_background: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_background: value
+                        }
+                    }
+                case "title-size":
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_title_font_size: value
+                        }
+                    }
                 case "font-color":
-                    return { ...item, thank_page_font_color: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_font_color: value
+                        }
+                    }
                 case "button-color":
-                    return { ...item, thank_page_button_color: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_button_color: value
+                        }
+                    }
                 case "button-text-color":
-                    return { ...item, thank_page_button_text_color: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_button_text_color: value
+                        }
+                    }
                 case "button-radius":
-                    return { ...item, thank_page_button_radius: value }
-                    break;
+                    return {
+                        ...item,
+                        option: {
+                            ...item.option,
+                            thank_page_cta_button_radius: value
+                        }
+                    }
                 default:
                 // code block
             }
@@ -219,6 +278,15 @@ const ThankSettings = () => {
 
     console.log(collectableInfo);
 
+    /* To handle section toggle */
+    const toogleCollapse = (e) => {
+        e.preventDefault();
+        setState({
+            ...state,
+            openCollapse: !openCollapse
+        });
+    }
+
     return (
         <ThankSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -284,7 +352,7 @@ const ThankSettings = () => {
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Add buttons</span>
-                    {/* <Switch
+                    <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
                         onColor="#6551F2"
@@ -296,7 +364,7 @@ const ThankSettings = () => {
                         width={40}
                         checked={ctaButtonVisibility}
                         onChange={changeButtonVisibility}
-                    /> */}
+                    />
                 </div>
                 <div className="wpwax-vm-form-group__input-list wpwax-vm-addbtn-style">
                     <div className="wpwax-vm-form-group__input-single">
@@ -312,8 +380,9 @@ const ThankSettings = () => {
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Customize</span>
+                    <a href="" className={openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e => toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
                 </div>
-                <div className="wpwax-vm-form-group__input-list">
+                <div className={openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Background Color</span>
                         <div className="wpwax-vm-form__color-plate">

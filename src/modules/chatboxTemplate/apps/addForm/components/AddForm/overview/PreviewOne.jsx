@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
 import propTypes from 'prop-types';
-import { ReactSVG } from 'react-svg';
+import React from "react";
 import { useSelector } from 'react-redux';
 import { PreviewWrap } from './Style';
 
-import formImg from 'Assets/img/builder/form-img.png';
-import replaceIcon from 'Assets/svg/icons/replace.svg';
-import previewBg from 'Assets/img/builder/bg.png';
 
 const PreviewOne = ({ previewStage }) => {
     /* initialize Form Data */
@@ -56,25 +52,25 @@ const PreviewOne = ({ previewStage }) => {
 
                     :
                     previewStage === 'thank' ?
-                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_background }}>
+                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_cta_background }}>
                             <div className="wpwax-vm-preview-thank__content">
-                                <h3 style={{ color: formOption.thank_page_font_color, fontSize: `${formOption.thank_page_title_font_size}` }}>{formOption.thank_page_title}</h3>
+                                <h3 style={{ color: formOption.thank_page_cta_font_color, fontSize: `${formOption.thank_page_cta_title_font_size}` }}>{formOption.thank_page_title}</h3>
                                 {
-                                    formOption.thank_page_description_Visibility ?
-                                        <p>{formOption.thank_page_description}</p> :
+                                    formOption.show_thank_page_description ?
+                                        <p style={{ color: formOption.thank_page_cta_font_color }}>{formOption.thank_page_description}</p> :
                                         ''
                                 }
                             </div>
                             <div className="wpwax-vm-preview-thank__botttom">
-                                {formOption.thank_page_button_visibility ?
+                                {formOption.show_thank_page_cta_button ?
                                     <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block"
                                         style={{
-                                            borderRadius: `${formOption.thank_page_button_radius}px`,
-                                            backgroundColor: formOption.thank_page_button_color,
-                                            borderColor: formOption.thank_page_button_color,
-                                            color: formOption.thank_page_button_text_color,
+                                            borderRadius: `${formOption.thank_page_cta_button_radius}px`,
+                                            backgroundColor: formOption.thank_page_cta_button_color,
+                                            borderColor: formOption.thank_page_cta_button_color,
+                                            color: formOption.thank_page_cta_button_text_color,
                                         }}
-                                    >{formOption.thank_page_button_text}</button> :
+                                    >{formOption.thank_page_cta_button_text}</button> :
                                     ''
                                 }
                             </div>

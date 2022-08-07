@@ -8560,21 +8560,13 @@ var GeneralSettings = function GeneralSettings() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
-/* harmony import */ var Assets_img_builder_form_img_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/img/builder/form-img.png */ "./src/assets/img/builder/form-img.png");
-/* harmony import */ var Assets_svg_icons_replace_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/replace.svg */ "./src/assets/svg/icons/replace.svg");
-/* harmony import */ var Assets_img_builder_bg_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/img/builder/bg.png */ "./src/assets/img/builder/bg.png");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -8587,7 +8579,7 @@ var PreviewOne = function PreviewOne(_ref) {
   var previewStage = _ref.previewStage;
 
   /* initialize Form Data */
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
       formOption: state.form.data[0].option
     };
@@ -8595,51 +8587,51 @@ var PreviewOne = function PreviewOne(_ref) {
       formOption = _useSelector.formOption;
 
   console.log(formOption);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.PreviewWrap, {
-    children: previewStage === 'general' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.PreviewWrap, {
+    children: previewStage === 'general' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "wpwax-vm-preview-general",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
         children: "No Preview Available"
       })
-    }) : previewStage === 'form' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }) : previewStage === 'form' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-preview-from",
         style: {
           fontFamily: formOption.font
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "wpwax-vm-preview-bg"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-preview-header",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
             className: "wpwax-vm-preview-title",
             style: {
               color: formOption.font_color,
               fontSize: formOption.font_size
             },
             children: formOption.greet_message
-          }), formOption.show_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), formOption.show_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "wpwax-vm-preview-subtitle",
             children: formOption.description
           }) : '']
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "wpwax-vm-preview-inner",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-play",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
               className: "dashicons dashicons-controls-play"
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-preview-footer",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
             className: "wpwax-vm-preview-footer__title",
             children: formOption.chat_box_title
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "wpwax-vm-preview-footer__actions",
             children: formOption.can_replay_in.map(function (item, index) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
                 href: "#",
                 className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
                 style: {
@@ -8650,39 +8642,42 @@ var PreviewOne = function PreviewOne(_ref) {
                 children: item === "screen_recording" ? "Screen Recording" : item
               }, index);
             })
-          }), formOption.show_footer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          }), formOption.show_footer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
             className: "wpwax-vm-preview-footer__text",
             children: formOption.footer_message
           }) : '']
         })]
       })
-    }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-preview-thank",
       style: {
-        backgroundColor: formOption.thank_page_background
+        backgroundColor: formOption.thank_page_cta_background
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-preview-thank__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
           style: {
-            color: formOption.thank_page_font_color,
-            fontSize: "".concat(formOption.thank_page_title_font_size)
+            color: formOption.thank_page_cta_font_color,
+            fontSize: "".concat(formOption.thank_page_cta_title_font_size)
           },
           children: formOption.thank_page_title
-        }), formOption.thank_page_description_Visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+        }), formOption.show_thank_page_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          style: {
+            color: formOption.thank_page_cta_font_color
+          },
           children: formOption.thank_page_description
         }) : '']
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-preview-thank__botttom",
-        children: formOption.thank_page_button_visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        children: formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block",
           style: {
-            borderRadius: "".concat(formOption.thank_page_button_radius, "px"),
-            backgroundColor: formOption.thank_page_button_color,
-            borderColor: formOption.thank_page_button_color,
-            color: formOption.thank_page_button_text_color
+            borderRadius: "".concat(formOption.thank_page_cta_button_radius, "px"),
+            backgroundColor: formOption.thank_page_cta_button_color,
+            borderColor: formOption.thank_page_cta_button_color,
+            color: formOption.thank_page_cta_button_text_color
           },
-          children: formOption.thank_page_button_text
+          children: formOption.thank_page_cta_button_text
         }) : ''
       })]
     }) : ''
@@ -8690,7 +8685,7 @@ var PreviewOne = function PreviewOne(_ref) {
 };
 
 PreviewOne.propTypes = {
-  previewStage: (prop_types__WEBPACK_IMPORTED_MODULE_8___default().string)
+  previewStage: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string)
 };
 /* harmony default export */ __webpack_exports__["default"] = (PreviewOne);
 
@@ -8900,12 +8895,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "templateOptions": function() { return /* binding */ templateOptions; }
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
 /* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -8964,7 +8959,7 @@ var templateOptions = [{
 
 var ThankSettings = function ThankSettings() {
   /* initialize Form Data */
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return {
       formData: state.form.data,
       formInitialData: state.form.data[0],
@@ -8975,7 +8970,7 @@ var ThankSettings = function ThankSettings() {
       formInitialData = _useSelector.formInitialData,
       formInitialOption = _useSelector.formInitialOption;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     id: formInitialData.form_id,
     collectInfoVisibility: formInitialOption.collect_info,
     collectableInfo: formInitialOption.collectable_info,
@@ -8988,9 +8983,10 @@ var ThankSettings = function ThankSettings() {
     ctaBgColor: formInitialOption.thank_page_cta_background,
     ctaTitleFontSize: formInitialOption.thank_page_cta_title_font_size,
     ctaFontColor: formInitialOption.thank_page_cta_font_color,
-    ctaButtonColor: formInitialData.thank_page_cta_button_color,
-    ctaButtonTextColor: formInitialData.thank_page_cta_button_text_color,
-    ctaButtonRadius: formInitialData.thank_page_cta_button_radius
+    ctaButtonColor: formInitialOption.thank_page_cta_button_color,
+    ctaButtonTextColor: formInitialOption.thank_page_cta_button_text_color,
+    ctaButtonRadius: formInitialOption.thank_page_cta_button_radius,
+    openCollapse: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -9012,10 +9008,11 @@ var ThankSettings = function ThankSettings() {
       ctaFontColor = state.ctaFontColor,
       ctaButtonColor = state.ctaButtonColor,
       ctaButtonTextColor = state.ctaButtonTextColor,
-      ctaButtonRadius = state.ctaButtonRadius;
+      ctaButtonRadius = state.ctaButtonRadius,
+      openCollapse = state.openCollapse;
   /* Dispasth is used for passing the actions to redux store  */
 
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
 
   var updateForm = function updateForm(label, value) {
     var updatedData = formData.map(function (item) {
@@ -9043,63 +9040,80 @@ var ThankSettings = function ThankSettings() {
 
         case "des-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_description_Visibility: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              show_thank_page_description: value
+            })
           });
-          break;
 
         case "description":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_description: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_description: value
+            })
           });
-          break;
 
         case "btn-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_visibility: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              show_thank_page_cta_button: value
+            })
           });
-          break;
 
         case "btn-text":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_text: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_button_text: value
+            })
           });
-          break;
 
         case "btn-url":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_url: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_button_url: value
+            })
           });
-          break;
 
         case "bg-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_background: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_background: value
+            })
           });
-          break;
+
+        case "title-size":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_title_font_size: value
+            })
+          });
 
         case "font-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_font_color: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_font_color: value
+            })
           });
-          break;
 
         case "button-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_color: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_button_color: value
+            })
           });
-          break;
 
         case "button-text-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_text_color: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_button_text_color: value
+            })
           });
-          break;
 
         case "button-radius":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_button_radius: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_cta_button_radius: value
+            })
           });
-          break;
 
         default: // code block
 
@@ -9212,6 +9226,15 @@ var ThankSettings = function ThankSettings() {
   };
 
   console.log(collectableInfo);
+  /* To handle section toggle */
+
+  var toogleCollapse = function toogleCollapse(e) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      openCollapse: !openCollapse
+    }));
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.ThankSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9220,7 +9243,7 @@ var ThankSettings = function ThankSettings() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: "Collect info"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -9241,7 +9264,7 @@ var ThankSettings = function ThankSettings() {
             className: "wpwax-vm-chekbox-single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               children: item
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
               id: "contact-".concat(item),
               label: ""
             })]
@@ -9269,7 +9292,7 @@ var ThankSettings = function ThankSettings() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: "Description"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -9292,11 +9315,23 @@ var ThankSettings = function ThankSettings() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: "Add buttons"
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          uncheckedIcon: false,
+          checkedIcon: false,
+          onColor: "#6551F2",
+          offColor: "#E2E2E2",
+          onHandleColor: "#FFFFFF",
+          className: "wpwax-vm-switch",
+          handleDiameter: 14,
+          height: 22,
+          width: 40,
+          checked: ctaButtonVisibility,
+          onChange: changeButtonVisibility
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-form-group__input-list wpwax-vm-addbtn-style",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -9327,13 +9362,22 @@ var ThankSettings = function ThankSettings() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: "Customize"
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+          href: "",
+          className: openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable",
+          onClick: function onClick(e) {
+            return toogleCollapse(e);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "dashicons-arrow-down-alt2 dashicons"
+          })
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "wpwax-vm-form-group__input-list",
+        className: openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
@@ -9681,11 +9725,11 @@ var formData = [{
     "show_thank_page_cta_button": true,
     "thank_page_cta_button_text": "Try for Free",
     "thank_page_cta_button_url": "www.demo.com",
-    "thank_page_cta_background": "%23ffffff",
+    "thank_page_cta_background": "#23ffffff",
     "thank_page_cta_title_font_size": "xx-large",
-    "thank_page_cta_font_color": "%23030308",
-    "thank_page_cta_button_color": "%236551F2",
-    "thank_page_cta_button_text_color": "%23ffffff",
+    "thank_page_cta_font_color": "#23030308",
+    "thank_page_cta_button_color": "#236551F2",
+    "thank_page_cta_button_text_color": "#23ffffff",
     "thank_page_cta_button_radius": "10",
     "font": "Roboto",
     "font_size": "Medium",

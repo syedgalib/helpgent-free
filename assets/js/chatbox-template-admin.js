@@ -7272,7 +7272,8 @@ var Radio = function Radio(_ref) {
       name = _ref.name,
       label = _ref.label,
       value = _ref.value,
-      onChange = _ref.onChange;
+      onChange = _ref.onChange,
+      checked = _ref.checked;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-radio",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -7280,7 +7281,8 @@ var Radio = function Radio(_ref) {
       name: name,
       type: "radio",
       value: value,
-      onChange: onChange
+      onChange: onChange,
+      checked: checked
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
       children: label
@@ -7341,13 +7343,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
-/* harmony import */ var _overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overview/FormSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx");
-/* harmony import */ var _overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overview/GeneralSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx");
-/* harmony import */ var _overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/PreviewOne.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx");
-/* harmony import */ var _overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overview/PreviewTwo.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx");
-/* harmony import */ var _overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overview/ThankSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/arrow-small-left.svg */ "./src/assets/svg/icons/arrow-small-left.svg");
+/* harmony import */ var _overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overview/FormSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx");
+/* harmony import */ var _overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/GeneralSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx");
+/* harmony import */ var _overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overview/PreviewOne.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx");
+/* harmony import */ var _overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overview/PreviewTwo.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx");
+/* harmony import */ var _overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./overview/ThankSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7375,6 +7378,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var AddForm = function AddForm() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -7389,72 +7393,95 @@ var AddForm = function AddForm() {
       formStage = _useState2[0],
       setFormStage = _useState2[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_10__.AddFormStyle, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+  var handleFormNext = function handleFormNext(e) {
+    e.preventDefault();
+
+    if (formStage === "general") {
+      setFormStage("form");
+    } else if (formStage === "form") {
+      setFormStage("thank");
+    }
+  };
+
+  var claback = function claback(childData) {};
+
+  var getFormContent = function getFormContent() {
+    if (formStage === "general") {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "wpwax-vm-add-form__content",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+      });
+    } else if (formStage === "form") {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "wpwax-vm-add-form__content",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})
+      });
+    } else {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "wpwax-vm-add-form__content",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {})
+      });
+    }
+  };
+
+  console.log(formInitialData);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.AddFormStyle, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
       className: "wpwax-vm-add-form",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("form", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
         action: "",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tabs, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "wpwax-vm-add-form__tab",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabList, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("ul", {
             className: "wpwax-vm-add-form__top",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tab, {
-              href: "#",
-              className: "wpwax-vm-add-form__top--btn",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+              className: formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("general");
               },
               children: "General"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tab, {
-              href: "#",
-              className: "wpwax-vm-add-form__top--btn",
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+              className: formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("form");
               },
               children: "Form Settings"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.Tab, {
-              href: "#",
-              className: "wpwax-vm-add-form__top--btn",
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+              className: formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("thank");
               },
               children: "Thank You Page"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
-              className: "wpwax-vm-add-form__content",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
-              className: "wpwax-vm-add-form__content",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
-              className: "wpwax-vm-add-form__content",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {})
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          }), getFormContent()]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
           className: "wpwax-vm-add-form__bottom",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+          children: [formStage === "form" || formStage === "general" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
             href: "#",
+            className: "wpwax-vm-form-next",
+            onClick: function onClick(e) {
+              return handleFormNext(e);
+            },
+            children: ["Next ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
+              src: Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            })]
+          }) : null, formStage === "thank" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+            type: "submit",
             className: "wpwax-vm-form-save",
             children: "Save"
-          })
+          }) : null]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "wpwax-vm-preview",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
         className: "wpwax-vm-preview-label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
           src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
         }), "Preview your changes"]
-      }), formInitialData.formStyle === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      }), formInitialData.option.theme === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         previewStage: formStage
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
         previewStage: formStage
       })]
     })]
@@ -7482,7 +7509,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        &:not(:last-child){\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.react-tabs__tab--selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 0;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 16px 0;\n        background-color: var(--color-primary);\n        .wpwax-vm-form-save{\n            display: flex;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        &:not(:last-child){\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.react-tabs__tab--selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 0;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 16px 0;\n        background-color: var(--color-primary);\n        .wpwax-vm-form-save{\n            display: flex;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"])));
+var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -7508,6 +7535,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -7534,7 +7569,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var fontSizeOptions = [{
+var fontOptions = [{
   value: "roboto",
   label: "Roboto"
 }, {
@@ -7551,7 +7586,7 @@ var formType = [{
   value: "theme-2",
   label: "Theme 2"
 }];
-var fontOptions = [{
+var fontSizeOptions = [{
   value: "large",
   label: "large"
 }, {
@@ -7582,28 +7617,27 @@ var FormSettings = function FormSettings() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
       formData: state.form.data,
-      formInitialData: state.form.data[0]
+      formInitialData: state.form.data[0],
+      formInitialOption: state.form.data[0].option
     };
   }),
       formData = _useSelector.formData,
-      formInitialData = _useSelector.formInitialData;
+      formInitialData = _useSelector.formInitialData,
+      formInitialOption = _useSelector.formInitialOption;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    id: formInitialData.form_id,
-    formStyle: formInitialData.formStyle,
-    grettingMessage: formInitialData.greet_message,
-    descriptionVisibility: formInitialData.description_visibility,
-    description: formInitialData.description,
-    chatTitle: formInitialData.chat_box_title,
-    replyTypeVideo: formInitialData.reply_type_video,
-    replyTypeScreenRecord: formInitialData.reply_type_screen_record,
-    replyTypeVoice: formInitialData.reply_type_voice,
-    replyTypeText: formInitialData.reply_type_text,
-    titleColor: formInitialData.font_color,
-    buttonColor: formInitialData.button_color,
-    buttonRadius: formInitialData.button_border_radius,
-    footerVisibility: formInitialData.footer_visibility,
-    footerMessage: formInitialData.footer_message,
+    id: formInitialData.id,
+    grettingMessage: formInitialOption.greet_message,
+    grettingVideo: formInitialOption.greet_video_url,
+    descriptionVisibility: formInitialOption.show_description,
+    description: formInitialOption.description,
+    chatTitle: formInitialOption.chat_box_title,
+    chatReplyType: formInitialOption.can_replay_in,
+    footerVisibility: formInitialOption.show_footer,
+    footerMessage: formInitialOption.footer_message,
+    fontColor: formInitialOption.font_color,
+    buttonColor: formInitialOption.button_color,
+    buttonRadius: formInitialOption.button_border_radius,
     openCollapse: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7613,16 +7647,12 @@ var FormSettings = function FormSettings() {
 
 
   var id = state.id,
-      formStyle = state.formStyle,
       grettingMessage = state.grettingMessage,
       descriptionVisibility = state.descriptionVisibility,
       description = state.description,
       chatTitle = state.chatTitle,
-      replyTypeVideo = state.replyTypeVideo,
-      replyTypeScreenRecord = state.replyTypeScreenRecord,
-      replyTypeVoice = state.replyTypeVoice,
-      replyTypeText = state.replyTypeText,
-      titleColor = state.titleColor,
+      chatReplyType = state.chatReplyType,
+      fontColor = state.fontColor,
       buttonColor = state.buttonColor,
       buttonRadius = state.buttonRadius,
       footerVisibility = state.footerVisibility,
@@ -7635,105 +7665,98 @@ var FormSettings = function FormSettings() {
 
   var updateForm = function updateForm(label, value) {
     var updatedData = formData.map(function (item) {
-      if (item.form_id === id) {
+      if (item.id === id) {
         switch (label) {
           case "greet":
-            item.greet_message = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              greet_message: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                greet_message: value
+              })
             });
-            break;
 
           case "des-visibility":
-            item.description_visibility = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              description_visibility: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                show_description: value
+              })
             });
-            break;
 
           case "description":
-            item.description = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              description: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                description: value
+              })
             });
-            break;
 
           case "chat-title":
-            item.chat_box_title = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              chat_box_title: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                chat_box_title: value
+              })
             });
-            break;
+
+          case "chat-type":
+            return _objectSpread(_objectSpread({}, item), {}, {
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                can_replay_in: value
+              })
+            });
 
           case "video-visibility":
-            item.reply_type_video = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              reply_type_video: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                chat_box_title: value
+              })
             });
-            break;
-
-          case "screen-record-visibility":
-            item.reply_type_screen_record = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              reply_type_screen_record: value
-            });
-            break;
-
-          case "voice-visibility":
-            item.reply_type_voice = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              reply_type_voice: value
-            });
-            break;
-
-          case "replyText-visibility":
-            item.reply_type_text = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              reply_type_text: value
-            });
-            break;
-
-          case "title-color":
-            item.font_color = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              font_color: value
-            });
-            break;
-
-          case "button-color":
-            item.button_color = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              button_color: value
-            });
-            break;
-
-          case "button-radius":
-            item.button_border_radius = value;
-            return _objectSpread(_objectSpread({}, item), {}, {
-              button_border_radius: value
-            });
-            break;
 
           case "footer-visibility":
-            item.footer_visibility = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              footer_visibility: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                show_footer: value
+              })
             });
-            break;
 
           case "footer-text":
-            item.footer_message = value;
             return _objectSpread(_objectSpread({}, item), {}, {
-              footer_message: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                footer_message: value
+              })
             });
-            break;
 
-          case "form-style":
-            item.formStyle = value;
+          case "form-font":
             return _objectSpread(_objectSpread({}, item), {}, {
-              formStyle: value
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                font: value
+              })
             });
-            break;
+
+          case "form-font-size":
+            return _objectSpread(_objectSpread({}, item), {}, {
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                font_size: value
+              })
+            });
+
+          case "font-color":
+            return _objectSpread(_objectSpread({}, item), {}, {
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                font_color: value
+              })
+            });
+
+          case "button-color":
+            return _objectSpread(_objectSpread({}, item), {}, {
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                button_color: value
+              })
+            });
+
+          case "button-radius":
+            return _objectSpread(_objectSpread({}, item), {}, {
+              option: _objectSpread(_objectSpread({}, item.option), {}, {
+                button_border_radius: value
+              })
+            });
 
           default: // code block
 
@@ -7773,39 +7796,42 @@ var FormSettings = function FormSettings() {
   };
 
   var changeChatTitle = function changeChatTitle(event) {
-    var chatTitleText = event.target.value;
+    var chatTitle = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
       chatTitle: chatTitleText
     }));
     updateForm('chat-title', chatTitleText);
   };
 
-  var changeVideoVisibility = function changeVideoVisibility() {
+  var handleChatArray = function handleChatArray(type) {
+    var updatear = chatReplyType;
+    updatear = updatear.indexOf(type) === -1 ? [].concat(_toConsumableArray(updatear), [type]) : updatear.filter(function (elm) {
+      return elm != type;
+    });
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      replyTypeVideo: !replyTypeVideo
+      chatReplyType: updatear
     }));
-    updateForm('video-visibility', !replyTypeVideo);
+    updateForm('chat-type', updatear);
   };
 
-  var changeScreenRecordVisibility = function changeScreenRecordVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      replyTypeScreenRecord: !replyTypeScreenRecord
-    }));
-    updateForm('screen-record-visibility', !replyTypeScreenRecord);
+  var handleChatReplyType = function handleChatReplyType(id) {
+    if (id === "wpwax-vm-reply-video") {
+      handleChatArray("video");
+    } else if (id === "wpwax-vm-reply-s-record") {
+      handleChatArray("screen_recording");
+    } else if (id === "wpwax-vm-reply-voice") {
+      handleChatArray("voice");
+    } else if (id === "wpwax-vm-reply-text") {
+      handleChatArray("text");
+    }
   };
 
-  var changeVoiceVisibility = function changeVoiceVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      replyTypeVoice: !replyTypeVoice
-    }));
-    updateForm('voice-visibility', !replyTypeVoice);
+  var chagneFont = function chagneFont(selectedFont) {
+    updateForm('form-font', selectedFont.value);
   };
 
-  var changeReplyTextVisibility = function changeReplyTextVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      replyTypeText: !replyTypeText
-    }));
-    updateForm('replyText-visibility', !replyTypeText);
+  var chagneFontSize = function chagneFontSize(selectedFontSize) {
+    updateForm('form-font-size', selectedFontSize.value);
   };
 
   var changeFooterVisibility = function changeFooterVisibility() {
@@ -7817,19 +7843,18 @@ var FormSettings = function FormSettings() {
 
   var changeFooterMessage = function changeFooterMessage(event) {
     var footerMessageText = event.target.value;
-    console.log(footerMessage);
     setState(_objectSpread(_objectSpread({}, state), {}, {
       footerMessage: footerMessageText
     }));
     updateForm('footer-text', footerMessageText);
   };
 
-  var changeTitleColor = function changeTitleColor(event) {
-    var titleColor = event.target.value;
+  var changeFontColor = function changeFontColor(event) {
+    var fontColor = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      titleColor: titleColor
+      fontColor: fontColor
     }));
-    updateForm('title-color', titleColor);
+    updateForm('font-color', fontColor);
   };
 
   var changeButtonColor = function changeButtonColor(event) {
@@ -7847,25 +7872,15 @@ var FormSettings = function FormSettings() {
     }));
     updateForm('button-radius', buttonRadius);
   };
-  /* To handle section toggle */
 
+  console.log(buttonColor);
+  /* To handle section toggle */
 
   var toogleCollapse = function toogleCollapse(e) {
     e.preventDefault();
     setState(_objectSpread(_objectSpread({}, state), {}, {
       openCollapse: !openCollapse
     }));
-  };
-  /* To handle changing preview form style */
-
-
-  var chagneFormStyle = function chagneFormStyle(event) {
-    var formStyle = event.value; // console.log(formStyle);
-
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      formStyle: formStyle
-    }));
-    updateForm('form-style', formStyle);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.FormSettingsWrap, {
@@ -7895,21 +7910,6 @@ var FormSettings = function FormSettings() {
           className: "wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-media-recorder",
           children: "Record a video"
         })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          children: "Form Style"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        classNamePrefix: "wpwax-vm-select",
-        options: formType,
-        closeMenuOnSelect: true,
-        hideSelectedOptions: false,
-        searchable: false,
-        onChange: chagneFormStyle
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -7971,7 +7971,7 @@ var FormSettings = function FormSettings() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-            children: "Videos"
+            children: "Video"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_2__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
@@ -7982,8 +7982,9 @@ var FormSettings = function FormSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: replyTypeVideo,
-            onChange: changeVideoVisibility
+            id: "wpwax-vm-reply-video",
+            checked: chatReplyType.indexOf('video') === -1 ? false : true,
+            onChange: handleChatReplyType
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
@@ -7999,8 +8000,9 @@ var FormSettings = function FormSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: replyTypeScreenRecord,
-            onChange: changeScreenRecordVisibility
+            id: "wpwax-vm-reply-s-record",
+            checked: chatReplyType.indexOf('screen_recording') === -1 ? false : true,
+            onChange: handleChatReplyType
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
@@ -8016,8 +8018,9 @@ var FormSettings = function FormSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: replyTypeVoice,
-            onChange: changeVoiceVisibility
+            id: "wpwax-vm-reply-voice",
+            checked: chatReplyType.indexOf('voice') === -1 ? false : true,
+            onChange: handleChatReplyType
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
@@ -8033,8 +8036,9 @@ var FormSettings = function FormSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: replyTypeText,
-            onChange: changeReplyTextVisibility
+            id: "wpwax-vm-reply-text",
+            checked: chatReplyType.indexOf('text') === -1 ? false : true,
+            onChange: handleChatReplyType
           })]
         })]
       })]
@@ -8091,8 +8095,8 @@ var FormSettings = function FormSettings() {
             options: fontOptions,
             closeMenuOnSelect: true,
             hideSelectedOptions: false,
-            searchable: false // onChange={chagneTitleFontSize}
-
+            searchable: false,
+            onChange: chagneFont
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
@@ -8103,8 +8107,8 @@ var FormSettings = function FormSettings() {
             options: fontSizeOptions,
             closeMenuOnSelect: true,
             hideSelectedOptions: false,
-            searchable: false // onChange={chagneTitleFontSize}
-
+            searchable: false,
+            onChange: chagneFontSize
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
@@ -8114,20 +8118,20 @@ var FormSettings = function FormSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: titleColor
+              children: fontColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
               htmlFor: "wpwax-vm-form-title-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: titleColor
+                backgroundColor: fontColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-form-title-color",
               className: "wpwax-vm-form__element",
-              value: titleColor,
+              value: fontColor,
               onChange: function onChange(e) {
-                return changeTitleColor(e);
+                return changeFontColor(e);
               }
             })]
           })]
@@ -8196,15 +8200,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
 /* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
 /* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
-/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -8235,25 +8240,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var templateOptions = [{
-  value: "page1",
-  label: "Page Name"
+  value: "theme-1",
+  label: "Theme One"
 }, {
-  value: "page2",
-  label: "Page Name"
-}, {
-  value: "page3",
-  label: "Page Name"
+  value: "theme-2",
+  label: "Theme Two"
 }];
 var customPages = [{
-  value: "chat",
-  label: "Chat"
+  value: "0",
+  label: "Sample Pages"
 }, {
-  value: "video",
-  label: "Video"
-}, {
-  value: "Issue",
-  label: "Issue"
+  value: "2",
+  label: "Privacy Polices"
 }];
 
 var GeneralSettings = function GeneralSettings() {
@@ -8264,24 +8264,26 @@ var GeneralSettings = function GeneralSettings() {
     };
   }),
       formInitialData = _useSelector.formInitialData;
+  /* Initialize State Data */
+
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    pageVisibility: formInitialData[0].all_page_visibility,
-    accountVisibility: formInitialData[0].all_page_visibility,
-    optionSelected: null
+    diplayAllPage: formInitialData[0].option.display_on_all_pages,
+    displayedCustomPages: formInitialData[0].page_ids,
+    chatVisibilityType: formInitialData[0].option.chat_visibility_type
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
 
-  var pageVisibility = state.pageVisibility,
-      accountVisibility = state.accountVisibility,
-      optionSelected = state.optionSelected;
+  var diplayAllPage = state.diplayAllPage,
+      displayedCustomPages = state.displayedCustomPages,
+      chatVisibilityType = state.chatVisibilityType;
 
   var Option = function Option(props) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: "wpwax-vm".concat(props.value),
           label: props.label,
           isSelected: props.isSelected
@@ -8289,103 +8291,174 @@ var GeneralSettings = function GeneralSettings() {
       }))
     });
   };
-  /* To Handle Page visibility Option */
+  /* Dispasth is used for passing the actions to redux store  */
 
 
-  var changePageVisibility = function changePageVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      pageVisibility: !pageVisibility
-    }));
-  };
-  /* To Handle Account visibility Option */
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
+  var updateForm = function updateForm(label, value) {
+    var updatedData = formInitialData.map(function (item) {
+      switch (label) {
+        case "name":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            name: value
+          });
+          break;
 
-  var changeAccountVisibility = function changeAccountVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      accountVisibility: !accountVisibility
-    }));
+        case "theme":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              theme: value
+            })
+          });
+          break;
+
+        case "display-page":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              display_on_all_pages: value
+            })
+          });
+          break;
+
+        case "page-id":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            page_ids: value
+          });
+          break;
+
+        case "close-chat":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              chat_visibility_type: value
+            })
+          });
+          break;
+
+        default: // code block
+
+      }
+    });
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.onFormEdit)(updatedData));
   };
   /* To Handle Template Change */
 
 
-  var handleSelectChange = function handleSelectChange(selected) {
+  var handleThemeChange = function handleThemeChange(selectedTheme) {
+    var templateTheme = selectedTheme.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      optionSelected: selected
+      optionSelected: selectedTheme
     }));
+    updateForm('theme', templateTheme);
+  };
+  /* To Handle Template Change */
+
+
+  var handleNameChange = function handleNameChange(event) {
+    var formName = event.target.value;
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      name: formName
+    }));
+    updateForm('name', formName);
+  };
+  /* To Handle Template Change */
+
+
+  var handleDisplayPages = function handleDisplayPages() {
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      diplayAllPage: !diplayAllPage
+    }));
+    updateForm('display-page', !diplayAllPage);
+  };
+  /* To Handle Template Change */
+
+
+  var handleCustomPages = function handleCustomPages(selectedPages) {
+    var PageIds = [];
+    selectedPages.map(function (item) {
+      PageIds.push(item.value);
+    });
+    var pageIdString = PageIds.join();
+    updateForm('page-id', pageIdString);
+  };
+  /* To Handle Template Change */
+
+
+  var handleClosignChat = function handleClosignChat(e) {
+    var closeOption = e.target.value;
+    updateForm('close-chat', closeOption);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.GeneralSettingWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.GeneralSettingWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
           children: "Name of Form"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
         id: "wpwax-vm-form-name",
-        placeholder: "Name this video form\u2026"
+        placeholder: "Name this video form\u2026",
+        onChange: function onChange(e) {
+          return handleNameChange(e);
+        }
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label wpwax-vm-has-tooltip",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-            children: "Template "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Theme "
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
         classNamePrefix: "wpwax-vm-select",
-        isMulti: true,
         options: templateOptions,
-        closeMenuOnSelect: false,
         hideSelectedOptions: false,
         searchable: false,
-        onChange: handleSelectChange,
-        menuIsOpen: true,
+        onChange: handleThemeChange // menuIsOpen={true}
+        ,
         allowSelectAll: true,
-        value: optionSelected,
-        components: {
-          Option: Option
-        }
+        value: displayedCustomPages
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        className: "wpwax-vm-form-group__label wpwax-vm-mb-0",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Display on all pages"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8395,123 +8468,79 @@ var GeneralSettings = function GeneralSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: pageVisibility,
-            onChange: changePageVisibility
+            checked: diplayAllPage,
+            onChange: handleDisplayPages
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
-        type: "text",
-        className: "wpwax-vm-form__element",
-        id: "wpwax-vm-form-name"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Display on custom pages"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
         classNamePrefix: "wpwax-vm-select",
-        options: templateOptions,
+        options: customPages,
         isMulti: true,
-        closeMenuOnSelect: false,
-        hideSelectedOptions: false,
         searchable: false,
         components: {
           Option: Option
         },
-        onChange: handleSelectChange,
-        value: optionSelected,
+        onChange: handleCustomPages,
         allowSelectAll: true
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-          children: "Create account first"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          onHandleColor: "#FFFFFF",
-          className: "wpwax-vm-switch",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: accountVisibility,
-          onChange: changeAccountVisibility
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "wpwax-vm-chekbox-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-            children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            id: "account-name",
-            label: ""
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-            children: "Email"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            id: "account-email",
-            label: ""
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-            children: "Password"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            id: "account-password",
-            label: ""
-          })]
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
           children: "Close chat option"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "wpwax-vm-radio-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "If closed never show again"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
             id: "wpwax-vm-never-show",
             label: "",
-            name: "wpwax-vm-close-option"
+            value: "never_load",
+            name: "wpwax-vm-close-option",
+            onChange: function onChange(e) {
+              return handleClosignChat(e);
+            },
+            checked: chatVisibilityType === "never_load"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Show on reload"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
             id: "wpwax-vm-load-show",
             label: "",
-            name: "wpwax-vm-close-option"
+            value: "show_on_reload",
+            name: "wpwax-vm-close-option",
+            onChange: function onChange(e) {
+              return handleClosignChat(e);
+            },
+            checked: chatVisibilityType === "show_on_reload"
           })]
         })]
       })]
@@ -8560,11 +8589,12 @@ var PreviewOne = function PreviewOne(_ref) {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return {
-      formInitialData: state.form.data[0]
+      formOption: state.form.data[0].option
     };
   }),
-      formInitialData = _useSelector.formInitialData;
+      formOption = _useSelector.formOption;
 
+  console.log(formOption);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.PreviewWrap, {
     children: previewStage === 'general' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "wpwax-vm-preview-general",
@@ -8574,6 +8604,9 @@ var PreviewOne = function PreviewOne(_ref) {
     }) : previewStage === 'form' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-preview-from",
+        style: {
+          fontFamily: formOption.font
+        },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-preview-bg"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -8581,12 +8614,13 @@ var PreviewOne = function PreviewOne(_ref) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
             className: "wpwax-vm-preview-title",
             style: {
-              color: formInitialData.font_color
+              color: formOption.font_color,
+              fontSize: formOption.font_size
             },
-            children: formInitialData.greet_message
-          }), formInitialData.description_visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            children: formOption.greet_message
+          }), formOption.show_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
             className: "wpwax-vm-preview-subtitle",
-            children: formInitialData.description
+            children: formOption.description
           }) : '']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-preview-inner",
@@ -8601,79 +8635,54 @@ var PreviewOne = function PreviewOne(_ref) {
           className: "wpwax-vm-preview-footer",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
             className: "wpwax-vm-preview-footer__title",
-            children: formInitialData.chat_box_title
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: formOption.chat_box_title
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "wpwax-vm-preview-footer__actions",
-            children: [formInitialData.reply_type_video ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-              href: "#",
-              className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
-              style: {
-                borderRadius: "".concat(formInitialData.button_border_radius, "px"),
-                backgroundColor: "".concat(formInitialData.button_color),
-                borderColor: "".concat(formInitialData.button_color)
-              },
-              children: "Video"
-            }) : '', formInitialData.reply_type_screen_record ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-              href: "#",
-              className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
-              style: {
-                borderRadius: "".concat(formInitialData.button_border_radius, "px"),
-                backgroundColor: "".concat(formInitialData.button_color),
-                borderColor: "".concat(formInitialData.button_color)
-              },
-              children: "Screen Record"
-            }) : '', formInitialData.reply_type_voice ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-              href: "#",
-              className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
-              style: {
-                borderRadius: "".concat(formInitialData.button_border_radius, "px"),
-                backgroundColor: "".concat(formInitialData.button_color),
-                borderColor: "".concat(formInitialData.button_color)
-              },
-              children: "Voice"
-            }) : '', formInitialData.reply_type_text ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-              href: "#",
-              className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
-              style: {
-                borderRadius: "".concat(formInitialData.button_border_radius, "px"),
-                backgroundColor: "".concat(formInitialData.button_color),
-                borderColor: "".concat(formInitialData.button_color)
-              },
-              children: "Text"
-            }) : '']
-          }), formInitialData.footer_visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+            children: formOption.can_replay_in.map(function (item, index) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+                href: "#",
+                className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary",
+                style: {
+                  borderRadius: "".concat(formOption.button_border_radius, "px"),
+                  backgroundColor: "".concat(formOption.button_color),
+                  borderColor: "".concat(formOption.button_color)
+                },
+                children: item === "screen_recording" ? "Screen Recording" : item
+              }, index);
+            })
+          }), formOption.show_footer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
             className: "wpwax-vm-preview-footer__text",
-            children: formInitialData.footer_message
+            children: formOption.footer_message
           }) : '']
         })]
       })
     }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-preview-thank",
       style: {
-        backgroundColor: formInitialData.thank_page_background
+        backgroundColor: formOption.thank_page_background
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-preview-thank__content",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
           style: {
-            color: formInitialData.thank_page_font_color,
-            fontSize: "".concat(formInitialData.thank_page_title_font_size)
+            color: formOption.thank_page_font_color,
+            fontSize: "".concat(formOption.thank_page_title_font_size)
           },
-          children: formInitialData.thank_page_title
-        }), formInitialData.thank_page_description_Visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
-          children: formInitialData.thank_page_description
+          children: formOption.thank_page_title
+        }), formOption.thank_page_description_Visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          children: formOption.thank_page_description
         }) : '']
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-preview-thank__botttom",
-        children: formInitialData.thank_page_button_visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        children: formOption.thank_page_button_visibility ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           className: "wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block",
           style: {
-            borderRadius: "".concat(formInitialData.thank_page_button_radius, "px"),
-            backgroundColor: formInitialData.thank_page_button_color,
-            borderColor: formInitialData.thank_page_button_color,
-            color: formInitialData.thank_page_button_text_color
+            borderRadius: "".concat(formOption.thank_page_button_radius, "px"),
+            backgroundColor: formOption.thank_page_button_color,
+            borderColor: formOption.thank_page_button_color,
+            color: formOption.thank_page_button_text_color
           },
-          children: formInitialData.thank_page_button_text
+          children: formOption.thank_page_button_text
         }) : ''
       })]
     }) : ''
@@ -8743,7 +8752,8 @@ var PreviewTwo = function PreviewTwo(_ref) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
             className: "wpwax-vm-preview-title",
             style: {
-              color: formInitialData.font_color
+              color: formInitialData.font_color,
+              fontSize: formOption.font_size
             },
             children: formInitialData.greet_message
           })
@@ -8873,8 +8883,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 var GeneralSettingWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n"])));
 var FormSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    \n"])));
-var ThankSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    \n"])));
-var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    width: 420px;\n    min-height: 640px;\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    color: var(--color-white);\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                margin-right: 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: -1;\n    }\n    .wpwax-vm-preview-header{\n        .wpwax-vm-preview-title{\n            font-size: 24px;\n            font-weight: 600;\n            line-height: 1.25;\n            color: #ffffff;\n            margin-bottom: 15px;\n            max-width: 320px;\n        }\n        .wpwax-vm-preview-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-preview-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        .wpwax-vm-preview-footer__title{\n            font-size: 18px;\n            font-weight: 600;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 46px;\n                flex: 0 0 48%;\n                margin: 1%;\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 15px 0 0;\n            text-align: center;\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 100%;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 100%;\n        border-radius: 25px;\n        padding: 30px;\n        background-color: var(--color-dark);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            background-color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            .wpwax-vm-preview-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-preview-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n           .wpwax-vm-preview-inner{\n               position: relative;\n               display: block;\n               padding: 0;\n               .wpwax-vm-preview-img{\n                    position: relative;\n                    z-index: 10;\n                    &:after{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 280px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                        content: '';\n                        z-index: -1;\n                    }\n                    &:before{\n                        position: absolute;\n                        left: 0;\n                        bottom: -100px;\n                        width: 100%;\n                        height: 250px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                        content: '';\n                        z-index: -1;\n                    }\n               }\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-50%);\n                   z-index: 10;\n               }\n               .wpwax-vm-preview-img{   \n                    min-height: 355px;\n                    background-size: cover;\n               }\n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 30px;\n                background-color: var(--color-white);\n                .wpwax-vm-preview-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    color: var(--color-text);\n                }\n           }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        width: 100%;\n        height: 100%;\n        padding: 155px 0 30px;\n        border-radius: 25px;\n        background-color: var(--color-white);\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: 30px;\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-dark);\n            }\n            p{\n                font-size: 16px;\n                font-weight: 500;\n                line-height: 1.625;\n                color: #4D4D4D;\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0 20px;\n        }\n    }\n"])));
+var ThankSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    .wpwax-vm-chekbox-list{\n        .wpwax-vm-chekbox-single{\n            span{\n                text-transform: capitalize;\n            }\n        }\n    }\n"])));
+var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    width: 420px;\n    min-height: 640px;\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    color: var(--color-white);\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                margin-right: 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: -1;\n    }\n    .wpwax-vm-preview-header{\n        .wpwax-vm-preview-title{\n            font-size: 24px;\n            font-weight: 600;\n            line-height: 1.25;\n            color: #ffffff;\n            margin-bottom: 15px;\n            max-width: 320px;\n        }\n        .wpwax-vm-preview-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-preview-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        .wpwax-vm-preview-footer__title{\n            font-size: 18px;\n            font-weight: 600;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 46px;\n                text-transform: capitalize;\n                flex: 0 0 48%;\n                margin: 1%;\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 15px 0 0;\n            text-align: center;\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 100%;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 100%;\n        border-radius: 25px;\n        padding: 30px;\n        background-color: var(--color-dark);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            background-color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            .wpwax-vm-preview-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-preview-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n           .wpwax-vm-preview-inner{\n               position: relative;\n               display: block;\n               padding: 0;\n               .wpwax-vm-preview-img{\n                    position: relative;\n                    z-index: 10;\n                    &:after{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 280px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                        content: '';\n                        z-index: -1;\n                    }\n                    &:before{\n                        position: absolute;\n                        left: 0;\n                        bottom: -100px;\n                        width: 100%;\n                        height: 250px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                        content: '';\n                        z-index: -1;\n                    }\n               }\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-50%);\n                   z-index: 10;\n               }\n               .wpwax-vm-preview-img{   \n                    min-height: 355px;\n                    background-size: cover;\n               }\n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 30px;\n                background-color: var(--color-white);\n                .wpwax-vm-preview-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    color: var(--color-text);\n                }\n           }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        width: 100%;\n        height: 100%;\n        padding: 155px 0 30px;\n        border-radius: 25px;\n        background-color: var(--color-white);\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: 30px;\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-dark);\n            }\n            p{\n                font-size: 16px;\n                font-weight: 500;\n                line-height: 1.625;\n                color: #4D4D4D;\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0 20px;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -8957,29 +8967,30 @@ var ThankSettings = function ThankSettings() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
       formData: state.form.data,
-      formInitialData: state.form.data[0]
+      formInitialData: state.form.data[0],
+      formInitialOption: state.form.data[0].option
     };
   }),
       formData = _useSelector.formData,
-      formInitialData = _useSelector.formInitialData;
+      formInitialData = _useSelector.formInitialData,
+      formInitialOption = _useSelector.formInitialOption;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     id: formInitialData.form_id,
-    collectInfoVisibility: formInitialData.info_collection_visibility,
-    pageVisibility: formInitialData.all_page_visibility,
-    accountVisibility: formInitialData.all_page_visibility,
-    title: formInitialData.thank_page_title,
-    descriptionVisibility: formInitialData.thank_page_description_Visibility,
-    description: formInitialData.thank_page_description,
-    buttonVisibility: formInitialData.thank_page_button_visibility,
-    buttonText: formInitialData.thank_page_button_text,
-    buttonUrl: formInitialData.thank_page_button_url,
-    bgColor: formInitialData.thank_page_background,
-    titleFontSize: formInitialData.thank_page_title_font_size,
-    fontColor: formInitialData.thank_page_font_color,
-    buttonColor: formInitialData.thank_page_button_color,
-    buttonTextColor: formInitialData.thank_page_button_text_color,
-    buttonRadius: formInitialData.thank_page_button_radius
+    collectInfoVisibility: formInitialOption.collect_info,
+    collectableInfo: formInitialOption.collectable_info,
+    title: formInitialOption.thank_page_title,
+    descriptionVisibility: formInitialOption.show_thank_page_description,
+    description: formInitialOption.thank_page_description,
+    ctaButtonVisibility: formInitialOption.show_thank_page_cta_button,
+    ctaButtonText: formInitialOption.thank_page_cta_button_text,
+    ctaButtonUrl: formInitialOption.thank_page_cta_button_url,
+    ctaBgColor: formInitialOption.thank_page_cta_background,
+    ctaTitleFontSize: formInitialOption.thank_page_cta_title_font_size,
+    ctaFontColor: formInitialOption.thank_page_cta_font_color,
+    ctaButtonColor: formInitialData.thank_page_cta_button_color,
+    ctaButtonTextColor: formInitialData.thank_page_cta_button_text_color,
+    ctaButtonRadius: formInitialData.thank_page_cta_button_radius
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -8989,21 +9000,19 @@ var ThankSettings = function ThankSettings() {
 
   var id = state.id,
       collectInfoVisibility = state.collectInfoVisibility,
-      pageVisibility = state.pageVisibility,
-      accountVisibility = state.accountVisibility,
+      collectableInfo = state.collectableInfo,
       title = state.title,
       descriptionVisibility = state.descriptionVisibility,
       description = state.description,
-      buttonVisibility = state.buttonVisibility,
-      buttonText = state.buttonText,
-      buttonUrl = state.buttonUrl,
-      colorPicker = state.colorPicker,
-      bgColor = state.bgColor,
-      titleFontSize = state.titleFontSize,
-      fontColor = state.fontColor,
-      buttonColor = state.buttonColor,
-      buttonTextColor = state.buttonTextColor,
-      buttonRadius = state.buttonRadius;
+      ctaButtonVisibility = state.ctaButtonVisibility,
+      ctaButtonText = state.ctaButtonText,
+      ctaButtonUrl = state.ctaButtonUrl,
+      ctaBgColor = state.ctaBgColor,
+      ctaTitleFontSize = state.ctaTitleFontSize,
+      ctaFontColor = state.ctaFontColor,
+      ctaButtonColor = state.ctaButtonColor,
+      ctaButtonTextColor = state.ctaButtonTextColor,
+      ctaButtonRadius = state.ctaButtonRadius;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -9011,17 +9020,26 @@ var ThankSettings = function ThankSettings() {
   var updateForm = function updateForm(label, value) {
     var updatedData = formData.map(function (item) {
       switch (label) {
+        case "info-visibility":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              collect_info: value
+            })
+          });
+
         case "title":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_title: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              thank_page_title: value
+            })
           });
-          break;
 
-        case "title-size":
+        case "collectable-info":
           return _objectSpread(_objectSpread({}, item), {}, {
-            thank_page_title_font_size: value
+            option: _objectSpread(_objectSpread({}, item.option), {}, {
+              collectable_info: value
+            })
           });
-          break;
 
         case "des-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
@@ -9093,10 +9111,11 @@ var ThankSettings = function ThankSettings() {
   /* For updating each element, we create seperate function */
 
 
-  var changePageVisibility = function changePageVisibility() {
+  var handleCollectInfoVisibility = function handleCollectInfoVisibility() {
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      pageVisibility: !pageVisibility
+      collectInfoVisibility: !collectInfoVisibility
     }));
+    updateForm('info-visibility', !collectInfoVisibility);
   };
 
   var changeBgColor = function changeBgColor(event) {
@@ -9139,7 +9158,7 @@ var ThankSettings = function ThankSettings() {
     updateForm('button-radius', thankButtonRadius);
   };
 
-  var changeTItle = function changeTItle(event) {
+  var changeTitle = function changeTitle(event) {
     var thankTitle = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
       title: thankTitle
@@ -9192,6 +9211,7 @@ var ThankSettings = function ThankSettings() {
     updateForm('btn-url', thankBtnUrl);
   };
 
+  console.log(collectableInfo);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.ThankSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9210,37 +9230,23 @@ var ThankSettings = function ThankSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: pageVisibility,
-            onChange: changePageVisibility
+            checked: collectInfoVisibility,
+            onChange: handleCollectInfoVisibility
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "wpwax-vm-chekbox-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "contact-name",
-            label: ""
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            children: "Email"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "contact-email",
-            label: ""
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            children: "Phone Number"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "contact-password",
-            label: ""
-          })]
-        })]
+        children: collectableInfo.map(function (item, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "wpwax-vm-chekbox-single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              children: item
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              id: "contact-".concat(item),
+              label: ""
+            })]
+          }, index);
+        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9253,7 +9259,7 @@ var ThankSettings = function ThankSettings() {
         className: "wpwax-vm-form__element",
         value: title,
         onChange: function onChange(e) {
-          return changeTItle(e);
+          return changeTitle(e);
         }
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -9286,23 +9292,11 @@ var ThankSettings = function ThankSettings() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           children: "Add buttons"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          onHandleColor: "#FFFFFF",
-          className: "wpwax-vm-switch",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: buttonVisibility,
-          onChange: changeButtonVisibility
-        })]
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-form-group__input-list wpwax-vm-addbtn-style",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -9312,7 +9306,7 @@ var ThankSettings = function ThankSettings() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
             type: "text",
             className: "wpwax-vm-form__element",
-            value: buttonText,
+            value: ctaButtonText,
             onChange: function onChange(e) {
               return changeButtonText(e);
             }
@@ -9324,7 +9318,7 @@ var ThankSettings = function ThankSettings() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
             type: "url",
             className: "wpwax-vm-form__element",
-            value: buttonUrl,
+            value: ctaButtonUrl,
             onChange: function onChange(e) {
               return changeButtonUrl(e);
             }
@@ -9348,18 +9342,18 @@ var ThankSettings = function ThankSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: bgColor
+              children: ctaBgColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
               htmlFor: "wpwax-vm-form-bg-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: bgColor
+                backgroundColor: ctaBgColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "color",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-form-bg-color",
-              value: bgColor,
+              value: ctaBgColor,
               onChange: function onChange(e) {
                 return changeBgColor(e);
               }
@@ -9385,18 +9379,18 @@ var ThankSettings = function ThankSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: fontColor
+              children: ctaFontColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
               htmlFor: "wpwax-vm-form-font-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: fontColor
+                backgroundColor: ctaFontColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "color",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-form-font-color",
-              value: fontColor,
+              value: ctaFontColor,
               onChange: function onChange(e) {
                 return changeFontColor(e);
               }
@@ -9410,18 +9404,18 @@ var ThankSettings = function ThankSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: buttonColor
+              children: ctaButtonColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
               htmlFor: "wpwax-vm-form-button-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: buttonColor
+                backgroundColor: ctaButtonColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-form-button-color",
               className: "wpwax-vm-form__element",
-              value: buttonColor,
+              value: ctaButtonColor,
               onChange: function onChange(e) {
                 return changeButtonColor(e);
               }
@@ -9435,18 +9429,18 @@ var ThankSettings = function ThankSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: buttonTextColor
+              children: ctaButtonTextColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
               htmlFor: "wpwax-vm-form-text-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: buttonTextColor
+                backgroundColor: ctaButtonTextColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-form-text-color",
               className: "wpwax-vm-form__element",
-              value: buttonTextColor,
+              value: ctaButtonTextColor,
               onChange: function onChange(e) {
                 return changeButtonTextColor(e);
               }
@@ -9461,7 +9455,7 @@ var ThankSettings = function ThankSettings() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
-              value: buttonRadius,
+              value: ctaButtonRadius,
               onChange: function onChange(e) {
                 return changeButtonRadius(e);
               }
@@ -9665,44 +9659,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var formData = [{
-  "form_id": "1",
+  "id": "1",
   "name": "",
-  "template": "Large",
-  "all_page_visibility": true,
-  "custom_visible_page": null,
-  "acccount_creation": true,
-  "account_fields": ['name', 'email', 'passowrd'],
-  "show_chat_onload": true,
-  "chat_video_img": "",
-  "greet_message": "Welcome to Directorist, leave your questions below",
-  "description_visibility": true,
-  "description": "Welcome to Directorist, leave your questions below",
-  "chat_box_title": "How would you like to chat?",
-  "reply_type_video": true,
-  "reply_type_screen_record": true,
-  "reply_type_voice": false,
-  "reply_type_text": false,
-  "footer_visibility": true,
-  "footer_message": "You can practice before sending",
-  "font": "Roboto",
-  "font_size": "Medium",
-  "font_color": "#ffffff",
-  "button_color": "#000000",
-  "button_border_radius": "15",
-  "info_collection_visibility": true,
-  "collect_info": ['name', 'email', 'phone'],
-  "thank_page_title": "Thank You",
-  "thank_page_description_Visibility": true,
-  "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
-  "thank_page_button_visibility": true,
-  "thank_page_button_text": "Try for Free",
-  "thank_page_button_url": "www.demo.com",
-  "thank_page_background": "#ffffff",
-  "thank_page_title_font_size": "xx-large",
-  "thank_page_font_color": "#030308",
-  "thank_page_button_color": "#6551F2",
-  "thank_page_button_text_color": "#ffffff",
-  "thank_page_button_radius": "10"
+  "option": {
+    "theme": "theme-1",
+    "display_on_all_pages": false,
+    "chat_visibility_type": "show_on_reload",
+    "greet_video_url": "",
+    "greet_message": "Welcome to Directorist, leave your questions below",
+    "show_description": true,
+    "description": "Welcome to Directorist, leave your questions below",
+    "chat_box_title": "How would you like to chat?",
+    "can_replay_in": ["video", "screen_recording", "voice", "text"],
+    "show_footer": true,
+    "footer_message": "You can practice before sending",
+    "thank_page_title": "Thank You",
+    "show_thank_page_description": true,
+    "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
+    "collect_info": true,
+    "collectable_info": ["name", "email", "phone"],
+    "show_thank_page_cta_button": true,
+    "thank_page_cta_button_text": "Try for Free",
+    "thank_page_cta_button_url": "www.demo.com",
+    "thank_page_cta_background": "%23ffffff",
+    "thank_page_cta_title_font_size": "xx-large",
+    "thank_page_cta_font_color": "%23030308",
+    "thank_page_cta_button_color": "%236551F2",
+    "thank_page_cta_button_text_color": "%23ffffff",
+    "thank_page_cta_button_radius": "10",
+    "font": "Roboto",
+    "font_size": "Medium",
+    "font_color": "#23ffffff",
+    "button_color": "#6551f2",
+    "button_border_radius": "15"
+  },
+  "page_ids": "0,20",
+  "is_default": true // "template": "Large",
+  // "all_page_visibility": true,
+  // "custom_visible_page": null,
+  // "acccount_creation": true,
+  // "account_fields": ['name','email','passowrd'],
+  // "show_chat_onload": true,
+  // "chat_video_img": "",
+  // "greet_message": "Welcome to Directorist, leave your questions below",
+  // "description_visibility": true,
+  // "description": "Welcome to Directorist, leave your questions below",
+  // "chat_box_title": "How would you like to chat?",
+  // "reply_type_video": true,
+  // "reply_type_screen_record": true,
+  // "reply_type_voice": false,
+  // "reply_type_text": false,
+  // "footer_visibility": true,
+  // "footer_message": "You can practice before sending",
+  // "font": "Roboto",
+  // "font_size": "Medium",
+  // "font_color": "#ffffff",
+  // "button_color": "#000000",
+  // "button_border_radius": "15",
+  // "info_collection_visibility": true,
+  // "collect_info": ['name','email','phone'],
+  // "thank_page_title": "Thank You",
+  // "thank_page_description_Visibility": true, 
+  // "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
+  // "thank_page_button_visibility": true,
+  // "thank_page_button_text": "Try for Free",
+  // "thank_page_button_url": "www.demo.com",
+  // "thank_page_background": "#ffffff",
+  // "thank_page_title_font_size": "xx-large",
+  // "thank_page_font_color": "#030308",
+  // "thank_page_button_color": "#6551F2",
+  // "thank_page_button_text_color": "#ffffff",
+  // "thank_page_button_radius": "10",
+
 }];
 var initialState = {
   data: formData,
@@ -10625,6 +10653,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2482c2ea22c8f79006f7f86098589294.png");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/arrow-small-left.svg":
+/*!***************************************************!*\
+  !*** ./src/assets/svg/icons/arrow-small-left.svg ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
 
 /***/ }),
 

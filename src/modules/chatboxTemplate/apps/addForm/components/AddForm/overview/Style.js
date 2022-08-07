@@ -7,7 +7,13 @@ const FormSettingsWrap = Styled.div`
     
 `;
 const ThankSettingsWrap = Styled.div`
-    
+    .wpwax-vm-chekbox-list{
+        .wpwax-vm-chekbox-single{
+            span{
+                text-transform: capitalize;
+            }
+        }
+    }
 `;
 const PreviewWrap = Styled.div`
     width: 420px;
@@ -64,6 +70,7 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-subtitle{
             font-size: 15px;
             font-weight: 500;
+            line-height: 1.5;
             opacity: .8;
         }
     }
@@ -108,6 +115,7 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 box-sizing: border-box;
                 min-height: 46px;
+                text-transform: capitalize;
                 flex: 0 0 48%;
                 margin: 1%;
             }

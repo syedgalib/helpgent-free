@@ -5,121 +5,168 @@ import Switch from "react-switch";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { FormSettingsWrap } from './Style';
 
-export const fontSizeOptions = [
-    {value: "roboto", label: "Roboto"},
-    {value: "inter", label: "Inter"},
-    {value: "legend", label: "Legend"},
+export const fontOptions = [
+    { value: "roboto", label: "Roboto" },
+    { value: "inter", label: "Inter" },
+    { value: "legend", label: "Legend" },
 ]
 export const formType = [
-    {value: "theme-1", label: "Theme 1"},
-    {value: "theme-2", label: "Theme 2"}
+    { value: "theme-1", label: "Theme 1" },
+    { value: "theme-2", label: "Theme 2" }
 ]
-export const fontOptions = [
-    {value: "large", label: "large"},
-    {value: "larger", label: "larger"},
-    {value: "x-large", label: "x-large"},
-    {value: "xx-large", label: "xx-large"},
-    {value: "medium", label: "medium"},
-    {value: "small", label: "small"},
-    {value: "smaller", label: "smaller"},
-    {value: "x-small", label: "x-small"},
+export const fontSizeOptions = [
+    { value: "large", label: "large" },
+    { value: "larger", label: "larger" },
+    { value: "x-large", label: "x-large" },
+    { value: "xx-large", label: "xx-large" },
+    { value: "medium", label: "medium" },
+    { value: "small", label: "small" },
+    { value: "smaller", label: "smaller" },
+    { value: "x-small", label: "x-small" },
 ]
-const FormSettings = ()=>{
+const FormSettings = () => {
     /* initialize Form Data */
-    const { formData, formInitialData } = useSelector(state => {
+    const { formData, formInitialData, formInitialOption } = useSelector(state => {
         return {
             formData: state.form.data,
             formInitialData: state.form.data[0],
+            formInitialOption: state.form.data[0].option,
         };
     });
     const [state, setState] = useState({
-        id: formInitialData.form_id,
-        formStyle: formInitialData.formStyle,
-        grettingMessage: formInitialData.greet_message,
-        descriptionVisibility: formInitialData.description_visibility,
-        description: formInitialData.description,
-        chatTitle: formInitialData.chat_box_title,
-        replyTypeVideo: formInitialData.reply_type_video,
-        replyTypeScreenRecord: formInitialData.reply_type_screen_record,
-        replyTypeVoice: formInitialData.reply_type_voice,
-        replyTypeText: formInitialData.reply_type_text,
-        titleColor: formInitialData.font_color,
-        buttonColor: formInitialData.button_color,
-        buttonRadius: formInitialData.button_border_radius,
-        footerVisibility: formInitialData.footer_visibility,
-        footerMessage: formInitialData.footer_message,
+        id: formInitialData.id,
+        grettingMessage: formInitialOption.greet_message,
+        grettingVideo: formInitialOption.greet_video_url,
+        descriptionVisibility: formInitialOption.show_description,
+        description: formInitialOption.description,
+        chatTitle: formInitialOption.chat_box_title,
+        chatReplyType: formInitialOption.can_replay_in,
+        footerVisibility: formInitialOption.show_footer,
+        footerMessage: formInitialOption.footer_message,
+        fontColor: formInitialOption.font_color,
+        buttonColor: formInitialOption.button_color,
+        buttonRadius: formInitialOption.button_border_radius,
         openCollapse: true,
     });
-    
+
     /* Destructuring State */
-    const { id, formStyle, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
+    const { id, grettingMessage, descriptionVisibility, description, chatTitle, chatReplyType, fontColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
     /* Helper function for live preview Update */
-    const updateForm = (label,value)=>{
+    const updateForm = (label, value) => {
         let updatedData = formData.map(item => {
-            if(item.form_id === id){
-                switch(label) {
+            if (item.id === id) {
+                switch (label) {
                     case "greet":
-                        item.greet_message = value;
-                        return { ...item, greet_message: value};
-                      break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                greet_message: value
+                            }
+                        }
                     case "des-visibility":
-                        item.description_visibility = value;
-                        return { ...item, description_visibility: value};
-                      break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                show_description: value
+                            }
+                        }
                     case "description":
-                        item.description = value;
-                        return { ...item, description: value};
-                      break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                description: value
+                            }
+                        }
                     case "chat-title":
-                        item.chat_box_title = value;
-                        return { ...item, chat_box_title: value};
-                      break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                chat_box_title: value
+                            }
+                        }
+                    case "chat-type":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                can_replay_in: value
+                            }
+                        }
                     case "video-visibility":
-                        item.reply_type_video = value;
-                        return { ...item, reply_type_video: value};
-                      break;
-                    case "screen-record-visibility":
-                        item.reply_type_screen_record = value;
-                        return { ...item, reply_type_screen_record: value};
-                      break;
-                    case "voice-visibility":
-                        item.reply_type_voice = value;
-                        return { ...item, reply_type_voice: value};
-                      break;
-                    case "replyText-visibility":
-                        item.reply_type_text = value;
-                        return { ...item, reply_type_text: value};
-                      break;
-                    case "title-color":
-                        item.font_color = value;
-                        return { ...item, font_color: value};
-                      break;
-                    case "button-color":
-                        item.button_color = value;
-                        return { ...item, button_color: value};
-                      break;
-                    case "button-radius":
-                        item.button_border_radius = value;
-                        return { ...item, button_border_radius: value};
-                      break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                chat_box_title: value
+                            }
+                        }
                     case "footer-visibility":
-                        item.footer_visibility = value;
-                        return { ...item, footer_visibility: value};
-                    break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                show_footer: value
+                            }
+                        }
                     case "footer-text":
-                        item.footer_message = value;
-                        return { ...item, footer_message: value};
-                    break;
-                    case "form-style":
-                        item.formStyle = value;
-                        return { ...item, formStyle: value};
-                    break;
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                footer_message: value
+                            }
+                        }
+                    case "form-font":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                font: value
+                            }
+                        }
+                    case "form-font-size":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                font_size: value
+                            }
+                        }
+                    case "font-color":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                font_color: value
+                            }
+                        }
+                    case "button-color":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                button_color: value
+                            }
+                        }
+                    case "button-radius":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                button_border_radius: value
+                            }
+                        }
+
                     default:
-                      // code block
+                    // code block
                 }
                 return item;
             }
@@ -129,7 +176,7 @@ const FormSettings = ()=>{
     }
 
     /* For updating each element, we create seperate function */
-    const changeGreet = (event) =>{
+    const changeGreet = (event) => {
         let greetMessage = event.target.value;
         setState({
             ...state,
@@ -137,14 +184,14 @@ const FormSettings = ()=>{
         });
         updateForm('greet', greetMessage);
     }
-    const changeDescriptionVisibillity = () =>{
+    const changeDescriptionVisibillity = () => {
         setState({
             ...state,
             descriptionVisibility: !descriptionVisibility
         });
         updateForm('des-visibility', !descriptionVisibility);
     }
-    const changeDescription = (event) =>{
+    const changeDescription = (event) => {
         let description = event.target.value;
         setState({
             ...state,
@@ -152,67 +199,66 @@ const FormSettings = ()=>{
         });
         updateForm('description', description);
     }
-    const changeChatTitle = (event) =>{
-        let chatTitleText = event.target.value;
+    const changeChatTitle = (event) => {
+        let chatTitle = event.target.value;
         setState({
             ...state,
             chatTitle: chatTitleText
         });
         updateForm('chat-title', chatTitleText);
     }
-    const changeVideoVisibility = () =>{
+    const handleChatArray = (type) => {
+        let updatear = chatReplyType;
+        updatear = updatear.indexOf(type) === -1 ? [...updatear, type] : updatear.filter(elm => elm != type);
         setState({
             ...state,
-            replyTypeVideo: !replyTypeVideo
+            chatReplyType: updatear
         });
-        updateForm('video-visibility', !replyTypeVideo);
+
+        updateForm('chat-type', updatear);
     }
-    const changeScreenRecordVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeScreenRecord: !replyTypeScreenRecord
-        });
-        updateForm('screen-record-visibility', !replyTypeScreenRecord);
+    const handleChatReplyType = (id) => {
+        if (id === "wpwax-vm-reply-video") {
+            handleChatArray("video");
+        } else if (id === "wpwax-vm-reply-s-record") {
+            handleChatArray("screen_recording");
+        } else if (id === "wpwax-vm-reply-voice") {
+            handleChatArray("voice");
+        } else if (id === "wpwax-vm-reply-text") {
+            handleChatArray("text");
+        }
     }
-    const changeVoiceVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeVoice: !replyTypeVoice
-        });
-        updateForm('voice-visibility', !replyTypeVoice);
-    }
-    const changeReplyTextVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeText: !replyTypeText
-        });
-        updateForm('replyText-visibility', !replyTypeText);
-    }
-    const changeFooterVisibility = () =>{
+
+    const chagneFont = (selectedFont) => {
+        updateForm('form-font', selectedFont.value);
+    };
+    const chagneFontSize = (selectedFontSize) => {
+        updateForm('form-font-size', selectedFontSize.value);
+    };
+    const changeFooterVisibility = () => {
         setState({
             ...state,
             footerVisibility: !footerVisibility
         });
         updateForm('footer-visibility', !footerVisibility);
     }
-    const changeFooterMessage = (event) =>{
+    const changeFooterMessage = (event) => {
         let footerMessageText = event.target.value;
-        console.log(footerMessage);
         setState({
             ...state,
             footerMessage: footerMessageText
         });
         updateForm('footer-text', footerMessageText);
     }
-    const changeTitleColor = (event) =>{
-        let titleColor = event.target.value;
+    const changeFontColor = (event) => {
+        let fontColor = event.target.value;
         setState({
             ...state,
-            titleColor: titleColor
+            fontColor: fontColor
         });
-        updateForm('title-color', titleColor);
+        updateForm('font-color', fontColor);
     }
-    const changeButtonColor = (event) =>{
+    const changeButtonColor = (event) => {
         let buttonColor = event.target.value;
         setState({
             ...state,
@@ -220,7 +266,7 @@ const FormSettings = ()=>{
         });
         updateForm('button-color', buttonColor);
     }
-    const changeButtonRadius = (event) =>{
+    const changeButtonRadius = (event) => {
         let buttonRadius = event.target.value;
         setState({
             ...state,
@@ -229,8 +275,10 @@ const FormSettings = ()=>{
         updateForm('button-radius', buttonRadius);
     }
 
+    console.log(buttonColor);
+
     /* To handle section toggle */
-    const toogleCollapse = (e)=>{
+    const toogleCollapse = (e) => {
         e.preventDefault();
         setState({
             ...state,
@@ -238,18 +286,7 @@ const FormSettings = ()=>{
         });
     }
 
-    /* To handle changing preview form style */
-    const chagneFormStyle = event =>{
-        let formStyle = event.value;
-        // console.log(formStyle);
-        setState({
-            ...state,
-            formStyle: formStyle
-        });
-        updateForm('form-style', formStyle);
-    }
-
-    return(
+    return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -257,7 +294,7 @@ const FormSettings = ()=>{
                 </div>
                 <div className="wpwax-vm-uploader">
                     <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
-                        <input type="file" id="wpwax-vm-media-upload"/>
+                        <input type="file" id="wpwax-vm-media-upload" />
                         <label htmlFor="wpwax-vm-media-upload">Add image/video</label>
                     </span>
                     <span className="wpwax-vm-seperation">or</span>
@@ -266,22 +303,9 @@ const FormSettings = ()=>{
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Form Style</span>
-                </div>
-                <Select 
-                    classNamePrefix="wpwax-vm-select"
-                    options={formType}
-                    closeMenuOnSelect={true}
-                    hideSelectedOptions={false}
-                    searchable={false}
-                    onChange={chagneFormStyle}
-                />
-            </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
                     <span>Greetings message </span>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={grettingMessage} onChange={(e)=>changeGreet(e)}/>
+                <textarea className="wpwax-vm-form__element" value={grettingMessage} onChange={(e) => changeGreet(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -302,10 +326,10 @@ const FormSettings = ()=>{
                         />
                     </label>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={description} onChange={changeDescription}/>
+                <textarea className="wpwax-vm-form__element" value={description} onChange={changeDescription} />
             </div>
             <div className="wpwax-vm-form-group">
-                <input type="text" className="wpwax-vm-form__element" value={chatTitle} onChange={changeChatTitle}/>
+                <input type="text" className="wpwax-vm-form__element" value={chatTitle} onChange={changeChatTitle} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -313,7 +337,7 @@ const FormSettings = ()=>{
                 </div>
                 <div className="wpwax-vm-switch-list">
                     <div className="wpwax-vm-switch-single">
-                        <span>Videos</span>
+                        <span>Video</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -324,8 +348,9 @@ const FormSettings = ()=>{
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeVideo}
-                            onChange={changeVideoVisibility}
+                            id="wpwax-vm-reply-video"
+                            checked={chatReplyType.indexOf('video') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -340,8 +365,9 @@ const FormSettings = ()=>{
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeScreenRecord}
-                            onChange={changeScreenRecordVisibility}
+                            id="wpwax-vm-reply-s-record"
+                            checked={chatReplyType.indexOf('screen_recording') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -356,8 +382,9 @@ const FormSettings = ()=>{
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeVoice}
-                            onChange={changeVoiceVisibility}
+                            id="wpwax-vm-reply-voice"
+                            checked={chatReplyType.indexOf('voice') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -372,8 +399,9 @@ const FormSettings = ()=>{
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeText}
-                            onChange={changeReplyTextVisibility}
+                            id="wpwax-vm-reply-text"
+                            checked={chatReplyType.indexOf('text') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                 </div>
@@ -395,56 +423,56 @@ const FormSettings = ()=>{
                         onChange={changeFooterVisibility}
                     />
                 </div>
-                <textarea className="wpwax-vm-form__element" value={footerMessage} onChange={(e)=> changeFooterMessage(e)}/>
+                <textarea className="wpwax-vm-form__element" value={footerMessage} onChange={(e) => changeFooterMessage(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Customize</span>
-                    <a href="" className={openCollapse? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e=>toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
+                    <a href="" className={openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e => toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
                 </div>
-                <div className={openCollapse? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
-                    <div className="wpwax-vm-form-group__input-single"> 
+                <div className={openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
+                    <div className="wpwax-vm-form-group__input-single">
                         <span> Font</span>
-                        <Select 
+                        <Select
                             classNamePrefix="wpwax-vm-select"
                             options={fontOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
-                            // onChange={chagneTitleFontSize}
+                            onChange={chagneFont}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span> Font Size</span>
-                        <Select 
+                        <Select
                             classNamePrefix="wpwax-vm-select"
                             options={fontSizeOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
-                            // onChange={chagneTitleFontSize}
+                            onChange={chagneFontSize}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Font color</span>
                         <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{titleColor}</span>
-                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: titleColor}}></label>
-                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={titleColor} onChange={(e)=>changeTitleColor(e)} />
+                            <span className="wpwax-vm-form__color-text">{fontColor}</span>
+                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: fontColor }}></label>
+                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={fontColor} onChange={(e) => changeFontColor(e)} />
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button color</span>
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{buttonColor}</span>
-                            <label htmlFor="wpwax-vm-form-button-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: buttonColor}}></label>
-                            <input type="color" id="wpwax-vm-form-button-color" className="wpwax-vm-form__element" value={buttonColor} onChange={(e)=>changeButtonColor(e)} />
+                            <label htmlFor="wpwax-vm-form-button-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: buttonColor }}></label>
+                            <input type="color" id="wpwax-vm-form-button-color" className="wpwax-vm-form__element" value={buttonColor} onChange={(e) => changeButtonColor(e)} />
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Button border-radius</span>
                         <div className="wpwax-vm-form__input-radius">
-                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
+                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e) => changeButtonRadius(e)} />
                         </div>
                     </div>
                 </div>

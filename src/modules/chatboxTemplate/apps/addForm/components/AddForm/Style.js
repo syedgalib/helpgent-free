@@ -12,7 +12,9 @@ const AddFormStyle = Styled.div`
         background-color: var(--color-bg-white);
     }
     .wpwax-vm-form-group{
+        margin-bottom: 16px;
         &:not(:last-child){
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--color-border-light);
         }
         .wpwax-vm-form-group__label{
@@ -57,7 +59,7 @@ const AddFormStyle = Styled.div`
                 outline: 0 none;
                 box-shadow: 0 0;
             }
-            &.react-tabs__tab--selected{
+            &.wpwax-vm-add-form__top--btn-selected{
                 font-weight: 700;
                 color: var(--color-white);
                 background-color: var(--color-primary);
@@ -147,6 +149,10 @@ const AddFormStyle = Styled.div`
                 }
             }
         }
+
+        .wpwax-vm-select__control{
+            cursor: pointer;
+        }
         
         .wpwax-vm-select__menu{
             border-radius: 10px;
@@ -169,7 +175,8 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-select__option{
                 font-size: 14px;
                 font-weight: 500;
-                padding: 0;
+                padding: 4px 0;
+                cursor: pointer;
                 color: var(--color-dark);
                 &:not(:last-child){
                     margin-bottom: 8px;
@@ -227,16 +234,37 @@ const AddFormStyle = Styled.div`
         justify-content: center;
         align-items: center;
         border-radius: 0 0 14px 14px;
-        padding: 16px 0;
+        padding: 12px 0;
         background-color: var(--color-primary);
-        .wpwax-vm-form-save{
+        a{
             display: flex;
+            align-items: center;
             justify-content: center;
             width: 100%;
             font-size: 17px;
             font-weight: 600;
+            min-height: 24px;
             text-decoration: none;
             color: var(--color-white);
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+                border: 0 none;
+            }
+            svg{
+                margin-left: 10px;
+            }
+        }
+        button{
+            font-size: 17px;
+            font-weight: 600;
+            border: 0 none;
+            color: #fff;
+            padding: 0;
+            min-height: 24px;
+            width: 100%;
+            cursor: pointer;
+            background: transparent;
         }
     }
     .wpwax-vm-preview{

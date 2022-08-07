@@ -24,6 +24,11 @@
 	text-align: center;
 }
 
+/* Spacing */
+.wpwax-vm-mb-0 {
+	margin-bottom: 0 !important;
+}
+
 /* Button Style */
 .wpwax-vm-btn {
 	display: inline-flex;
@@ -230,7 +235,7 @@
 		font-size: 14px;
 		font-weight: 500;
 		position: relative;
-		top: -2px;
+		top: -4px;
 		line-height: 1;
 		color: var(--color-dark);
 	}

@@ -3169,7 +3169,8 @@ var Radio = function Radio(_ref) {
       name = _ref.name,
       label = _ref.label,
       value = _ref.value,
-      onChange = _ref.onChange;
+      onChange = _ref.onChange,
+      checked = _ref.checked;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-radio",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -3177,7 +3178,8 @@ var Radio = function Radio(_ref) {
       name: name,
       type: "radio",
       value: value,
-      onChange: onChange
+      onChange: onChange,
+      checked: checked
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
       children: label

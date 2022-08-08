@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useSelector } from 'react-redux';
-import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 // import apiService  from "../../../../../apiService/Service";
-import { ReactSVG } from 'react-svg';
-import handsDown from 'Assets/svg/icons/hand-down.svg';
 import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
+import handsDown from 'Assets/svg/icons/hand-down.svg';
+import { ReactSVG } from 'react-svg';
 import FormSettings from "./overview/FormSettings.jsx";
 import GeneralSettings from "./overview/GeneralSettings.jsx";
 import PreviewOne from "./overview/PreviewOne.jsx";
@@ -20,6 +19,10 @@ const AddForm = () => {
         };
     });
 
+    const [state, setState] = useState({
+        validation: true
+    });
+
     const [formStage, setFormStage] = useState("general");
 
     const handleFormNext = (e) => {
@@ -31,8 +34,20 @@ const AddForm = () => {
         }
     }
 
-    const claback = (childData) => {
-
+    const handleAddTemplate = (e) => {
+        e.preventDefault()
+        console.log(typeof formInitialData.name);
+        if(formInitialData.name ===''){
+            console.log("re")
+            setState({
+                validation: false
+            });
+            setTimeout(() => {
+                setState({
+                    validation: true
+                });
+            }, "4000")
+        }
     }
 
     const getFormContent = () => {
@@ -46,23 +61,29 @@ const AddForm = () => {
             </div>
         } else {
             return <div className="wpwax-vm-add-form__content">
+                {
+                    !state.validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                }
                 <ThankSettings />
             </div>
         }
     }
 
-    console.log(formInitialData);
+    console.log(state.validation);
 
     return (
         <AddFormStyle>
             <div className="wpwax-vm-add-form">
-                <form action="">
+                <form action="" onSubmit={handleAddTemplate}>
                     <div className="wpwax-vm-add-form__tab">
                         <ul className="wpwax-vm-add-form__top">
                             <li className={formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("general")}>General</li>
                             <li className={formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("form")}>Form Settings</li>
                             <li className={formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("thank")}>Thank You Page</li>
                         </ul>
+
+                        <p className="wpwax-vm-text-highlighted">* required Fields</p>
+                        
 
                         {
                             getFormContent()

@@ -31,7 +31,7 @@ const formData = [
         ],
         "show_thank_page_cta_button":true,
         "thank_page_cta_button_text":"Try for Free",
-        "thank_page_cta_button_url":"www.demo.com",
+        "thank_page_cta_button_url":"https://dashboardmarket.com/",
         "thank_page_cta_background":"#23ffffff",
         "thank_page_cta_title_font_size":"xx-large",
         "thank_page_cta_font_color":"#23030308",

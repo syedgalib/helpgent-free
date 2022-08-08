@@ -532,6 +532,17 @@
 	}
 }
 
+.wpwax-vm-text-highlighted {
+	font-size: 16px;
+	margin: 0;
+	color: var(--color-danger);
+}
+
+.wpwax-vm-require-sign,
+.wpwax-vm-form-group .wpwax-vm-form-group__label .wpwax-vm-require-sign {
+	color: var(--color-danger);
+}
+
 /* Tooltip Style */
 .wpwax-vm-tooltip {
 	position: relative;

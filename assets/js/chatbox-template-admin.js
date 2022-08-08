@@ -7340,17 +7340,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-tabs */ "./node_modules/react-tabs/esm/index.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
-/* harmony import */ var Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/arrow-small-left.svg */ "./src/assets/svg/icons/arrow-small-left.svg");
-/* harmony import */ var _overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overview/FormSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx");
-/* harmony import */ var _overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/GeneralSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx");
-/* harmony import */ var _overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overview/PreviewOne.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx");
-/* harmony import */ var _overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overview/PreviewTwo.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx");
-/* harmony import */ var _overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./overview/ThankSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/arrow-small-left.svg */ "./src/assets/svg/icons/arrow-small-left.svg");
+/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
+/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
+/* harmony import */ var _overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overview/FormSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx");
+/* harmony import */ var _overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overview/GeneralSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx");
+/* harmony import */ var _overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/PreviewOne.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx");
+/* harmony import */ var _overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overview/PreviewTwo.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx");
+/* harmony import */ var _overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overview/ThankSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7362,7 +7363,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
  // import apiService  from "../../../../../apiService/Service";
@@ -7388,10 +7388,17 @@ var AddForm = function AddForm() {
   }),
       formInitialData = _useSelector.formInitialData;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("general"),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    validation: true
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      formStage = _useState2[0],
-      setFormStage = _useState2[1];
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("general"),
+      _useState4 = _slicedToArray(_useState3, 2),
+      formStage = _useState4[0],
+      setFormStage = _useState4[1];
 
   var handleFormNext = function handleFormNext(e) {
     e.preventDefault();
@@ -7403,85 +7410,107 @@ var AddForm = function AddForm() {
     }
   };
 
-  var claback = function claback(childData) {};
+  var handleAddTemplate = function handleAddTemplate(e) {
+    e.preventDefault();
+    console.log(_typeof(formInitialData.name));
+
+    if (formInitialData.name === '') {
+      console.log("re");
+      setState({
+        validation: false
+      });
+      setTimeout(function () {
+        setState({
+          validation: true
+        });
+      }, "4000");
+    }
+  };
 
   var getFormContent = function getFormContent() {
     if (formStage === "general") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})
       });
     } else if (formStage === "form") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-add-form__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {})
+        children: [!state.validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          className: "wpwax-vm-notice wpwax-vm-notice-danger",
+          children: "Please fill the required fields"
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {})]
       });
     }
   };
 
-  console.log(formInitialData);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.AddFormStyle, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+  console.log(state.validation);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_10__.AddFormStyle, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
       className: "wpwax-vm-add-form",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("form", {
         action: "",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        onSubmit: handleAddTemplate,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
           className: "wpwax-vm-add-form__tab",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("ul", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("ul", {
             className: "wpwax-vm-add-form__top",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("li", {
               className: formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("general");
               },
               children: "General"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("li", {
               className: formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("form");
               },
               children: "Form Settings"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("li", {
               className: formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn",
               onClick: function onClick() {
                 return setFormStage("thank");
               },
               children: "Thank You Page"
             })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            className: "wpwax-vm-text-highlighted",
+            children: "* required Fields"
           }), getFormContent()]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
           className: "wpwax-vm-add-form__bottom",
-          children: [formStage === "form" || formStage === "general" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+          children: [formStage === "form" || formStage === "general" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-form-next",
             onClick: function onClick(e) {
               return handleFormNext(e);
             },
-            children: ["Next ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
-              src: Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            children: ["Next ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+              src: Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
             })]
-          }) : null, formStage === "thank" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+          }) : null, formStage === "thank" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
             type: "submit",
             className: "wpwax-vm-form-save",
             children: "Save"
           }) : null]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
       className: "wpwax-vm-preview",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
         className: "wpwax-vm-preview-label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
-          src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+          src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
         }), "Preview your changes"]
-      }), formInitialData.option.theme === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }), formInitialData.option.theme === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
         previewStage: formStage
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
         previewStage: formStage
       })]
     })]
@@ -7509,7 +7538,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 25px 30px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"])));
+var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            input[type=file]{\n                display: none;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-width: 155px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -8197,15 +8226,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "customPages": function() { return /* binding */ customPages; },
 /* harmony export */   "templateOptions": function() { return /* binding */ templateOptions; }
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
-/* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
 /* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
@@ -8240,7 +8269,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var templateOptions = [{
   value: "theme-1",
   label: "Theme One"
@@ -8258,7 +8286,7 @@ var customPages = [{
 
 var GeneralSettings = function GeneralSettings() {
   /* initialize Form Data */
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
     return {
       formInitialData: state.form.data
     };
@@ -8267,7 +8295,7 @@ var GeneralSettings = function GeneralSettings() {
   /* Initialize State Data */
 
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
     diplayAllPage: formInitialData[0].option.display_on_all_pages,
     displayedCustomPages: formInitialData[0].page_ids,
     chatVisibilityType: formInitialData[0].option.chat_visibility_type
@@ -8283,7 +8311,7 @@ var GeneralSettings = function GeneralSettings() {
   var Option = function Option(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
           id: "wpwax-vm".concat(props.value),
           label: props.label,
           isSelected: props.isSelected
@@ -8294,7 +8322,7 @@ var GeneralSettings = function GeneralSettings() {
   /* Dispasth is used for passing the actions to redux store  */
 
 
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
 
   var updateForm = function updateForm(label, value) {
     var updatedData = formInitialData.map(function (item) {
@@ -8394,8 +8422,11 @@ var GeneralSettings = function GeneralSettings() {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          children: "Name of Form"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+          children: ["Name of Form ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            className: "wpwax-vm-require-sign",
+            children: "*"
+          })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
         type: "text",
@@ -8418,7 +8449,7 @@ var GeneralSettings = function GeneralSettings() {
             className: "wpwax-vm-tooltip",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
                 src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -8449,7 +8480,7 @@ var GeneralSettings = function GeneralSettings() {
             className: "wpwax-vm-tooltip",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
                 src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -8458,7 +8489,7 @@ var GeneralSettings = function GeneralSettings() {
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_5__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8485,7 +8516,7 @@ var GeneralSettings = function GeneralSettings() {
             className: "wpwax-vm-tooltip",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
                 src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -8518,7 +8549,7 @@ var GeneralSettings = function GeneralSettings() {
           className: "wpwax-vm-radio-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "If closed never show again"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-never-show",
             label: "",
             value: "never_load",
@@ -8532,7 +8563,7 @@ var GeneralSettings = function GeneralSettings() {
           className: "wpwax-vm-radio-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Show on reload"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-load-show",
             label: "",
             value: "show_on_reload",
@@ -9143,7 +9174,7 @@ var ThankSettings = function ThankSettings() {
   var changeFontColor = function changeFontColor(event) {
     var thankFontColor = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      fontColor: thankFontColor
+      ctaFontColor: thankFontColor
     }));
     updateForm('font-color', thankFontColor);
   };
@@ -9151,7 +9182,7 @@ var ThankSettings = function ThankSettings() {
   var changeButtonColor = function changeButtonColor(event) {
     var thankButtonColor = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonColor: thankButtonColor
+      ctaButtonColor: thankButtonColor
     }));
     updateForm('button-color', thankButtonColor);
   };
@@ -9159,7 +9190,7 @@ var ThankSettings = function ThankSettings() {
   var changeButtonTextColor = function changeButtonTextColor(event) {
     var thankButtonTextColor = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonTextColor: thankButtonTextColor
+      ctaButtonTextColor: thankButtonTextColor
     }));
     updateForm('button-text-color', thankButtonTextColor);
   };
@@ -9167,7 +9198,7 @@ var ThankSettings = function ThankSettings() {
   var changeButtonRadius = function changeButtonRadius(event) {
     var thankButtonRadius = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonRadius: thankButtonRadius
+      ctaButtonRadius: thankButtonRadius
     }));
     updateForm('button-radius', thankButtonRadius);
   };
@@ -9212,7 +9243,7 @@ var ThankSettings = function ThankSettings() {
   var changeButtonText = function changeButtonText(event) {
     var thankBtnText = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonText: thankBtnText
+      ctaButtonText: thankBtnText
     }));
     updateForm('btn-text', thankBtnText);
   };
@@ -9220,7 +9251,7 @@ var ThankSettings = function ThankSettings() {
   var changeButtonUrl = function changeButtonUrl(event) {
     var thankBtnUrl = event.target.value;
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonText: thankBtnUrl
+      ctaButtonUrl: thankBtnUrl
     }));
     updateForm('btn-url', thankBtnUrl);
   };
@@ -9724,7 +9755,7 @@ var formData = [{
     "collectable_info": ["name", "email", "phone"],
     "show_thank_page_cta_button": true,
     "thank_page_cta_button_text": "Try for Free",
-    "thank_page_cta_button_url": "www.demo.com",
+    "thank_page_cta_button_url": "https://dashboardmarket.com/",
     "thank_page_cta_background": "#23ffffff",
     "thank_page_cta_title_font_size": "xx-large",
     "thank_page_cta_font_color": "#23030308",
@@ -10385,61 +10416,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container);
   root.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
 });
-
-/***/ }),
-
-/***/ "./node_modules/clsx/dist/clsx.m.js":
-/*!******************************************!*\
-  !*** ./node_modules/clsx/dist/clsx.m.js ***!
-  \******************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* export default binding */ __WEBPACK_DEFAULT_EXPORT__; }
-/* harmony export */ });
-function toVal(mix) {
-	var k, y, str='';
-
-	if (typeof mix === 'string' || typeof mix === 'number') {
-		str += mix;
-	} else if (typeof mix === 'object') {
-		if (Array.isArray(mix)) {
-			for (k=0; k < mix.length; k++) {
-				if (mix[k]) {
-					if (y = toVal(mix[k])) {
-						str && (str += ' ');
-						str += y;
-					}
-				}
-			}
-		} else {
-			for (k in mix) {
-				if (mix[k]) {
-					str && (str += ' ');
-					str += k;
-				}
-			}
-		}
-	}
-
-	return str;
-}
-
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
-	var i=0, tmp, x, str='';
-	while (i < arguments.length) {
-		if (tmp = arguments[i++]) {
-			if (x = toVal(tmp)) {
-				str && (str += ' ');
-				str += x
-			}
-		}
-	}
-	return str;
-}
-
 
 /***/ }),
 
@@ -49412,1015 +49388,6 @@ exports["default"] = ReactSwitch;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./dist/react-switch.dev.js */ "./node_modules/react-switch/dist/react-switch.dev.js");
 }
-
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/components/Tab.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/react-tabs/esm/components/Tab.js ***!
-  \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-var _excluded = ["children", "className", "disabled", "disabledClassName", "focus", "id", "panelId", "selected", "selectedClassName", "tabIndex", "tabRef"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-var DEFAULT_CLASS = 'react-tabs__tab';
-var DEFAULT_PROPS = {
-  className: DEFAULT_CLASS,
-  disabledClassName: DEFAULT_CLASS + "--disabled",
-  focus: false,
-  id: null,
-  panelId: null,
-  selected: false,
-  selectedClassName: DEFAULT_CLASS + "--selected"
-};
-var propTypes =  true ? {
-  children: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string)]),
-  className: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)]),
-  disabled: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  tabIndex: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  disabledClassName: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  focus: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  // private
-  id: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  // private
-  panelId: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  // private
-  selected: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  // private
-  selectedClassName: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  tabRef: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().func)
-} : 0;
-
-var Tab = function Tab(props) {
-  var _cx;
-
-  var nodeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-
-  var children = props.children,
-      className = props.className,
-      disabled = props.disabled,
-      disabledClassName = props.disabledClassName,
-      focus = props.focus,
-      id = props.id,
-      panelId = props.panelId,
-      selected = props.selected,
-      selectedClassName = props.selectedClassName,
-      tabIndex = props.tabIndex,
-      tabRef = props.tabRef,
-      attributes = _objectWithoutPropertiesLoose(props, _excluded);
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (selected && focus) {
-      nodeRef.current.focus();
-    }
-  }, [selected, focus]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", _extends({}, attributes, {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className, (_cx = {}, _cx[selectedClassName] = selected, _cx[disabledClassName] = disabled, _cx)),
-    ref: function ref(node) {
-      nodeRef.current = node;
-      if (tabRef) tabRef(node);
-    },
-    role: "tab",
-    id: id,
-    "aria-selected": selected ? 'true' : 'false',
-    "aria-disabled": disabled ? 'true' : 'false',
-    "aria-controls": panelId,
-    tabIndex: tabIndex || (selected ? '0' : null),
-    "data-rttab": true
-  }), children);
-};
-
-Tab.propTypes =  true ? propTypes : 0;
-Tab.tabsRole = 'Tab';
-Tab.defaultProps = DEFAULT_PROPS;
-/* harmony default export */ __webpack_exports__["default"] = (Tab);
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/components/TabList.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/react-tabs/esm/components/TabList.js ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-var _excluded = ["children", "className"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-var defaultProps = {
-  className: 'react-tabs__tab-list'
-};
-var propTypes =  true ? {
-  children: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array)]),
-  className: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)])
-} : 0;
-
-var TabList = function TabList(props) {
-  var children = props.children,
-      className = props.className,
-      attributes = _objectWithoutPropertiesLoose(props, _excluded);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", _extends({}, attributes, {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className),
-    role: "tablist"
-  }), children);
-};
-
-TabList.tabsRole = 'TabList';
-TabList.propTypes =  true ? propTypes : 0;
-TabList.defaultProps = defaultProps;
-/* harmony default export */ __webpack_exports__["default"] = (TabList);
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/components/TabPanel.js":
-/*!************************************************************!*\
-  !*** ./node_modules/react-tabs/esm/components/TabPanel.js ***!
-  \************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-var _excluded = ["children", "className", "forceRender", "id", "selected", "selectedClassName", "tabId"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-var DEFAULT_CLASS = 'react-tabs__tab-panel';
-var defaultProps = {
-  className: DEFAULT_CLASS,
-  forceRender: false,
-  selectedClassName: DEFAULT_CLASS + "--selected"
-};
-var propTypes =  true ? {
-  children: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().node),
-  className: prop_types__WEBPACK_IMPORTED_MODULE_2___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_2___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_2___default().object)]),
-  forceRender: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  id: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  // private
-  selected: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().bool),
-  // private
-  selectedClassName: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string),
-  tabId: (prop_types__WEBPACK_IMPORTED_MODULE_2___default().string) // private
-
-} : 0;
-
-var TabPanel = function TabPanel(props) {
-  var _cx;
-
-  var children = props.children,
-      className = props.className,
-      forceRender = props.forceRender,
-      id = props.id,
-      selected = props.selected,
-      selectedClassName = props.selectedClassName,
-      tabId = props.tabId,
-      attributes = _objectWithoutPropertiesLoose(props, _excluded);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({}, attributes, {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className, (_cx = {}, _cx[selectedClassName] = selected, _cx)),
-    role: "tabpanel",
-    id: id,
-    "aria-labelledby": tabId
-  }), forceRender || selected ? children : null);
-};
-
-TabPanel.tabsRole = 'TabPanel';
-TabPanel.propTypes =  true ? propTypes : 0;
-TabPanel.defaultProps = defaultProps;
-/* harmony default export */ __webpack_exports__["default"] = (TabPanel);
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/components/Tabs.js":
-/*!********************************************************!*\
-  !*** ./node_modules/react-tabs/esm/components/Tabs.js ***!
-  \********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
-/* harmony import */ var _UncontrolledTabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UncontrolledTabs */ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js");
-/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
-
-
-
-var MODE_CONTROLLED = 0;
-var MODE_UNCONTROLLED = 1;
-var propTypes =  true ? {
-  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.childrenPropType,
-  direction: prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOf(['rtl', 'ltr']),
-  className: prop_types__WEBPACK_IMPORTED_MODULE_4___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_4___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_4___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)]),
-  defaultFocus: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
-  defaultIndex: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().number),
-  disabledTabClassName: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
-  disableUpDownKeys: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
-  domRef: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().func),
-  focusTabOnClick: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
-  forceRenderTabPanel: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().bool),
-  onSelect: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.onSelectPropType,
-  selectedIndex: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_1__.selectedIndexPropType,
-  selectedTabClassName: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
-  selectedTabPanelClassName: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().string),
-  environment: (prop_types__WEBPACK_IMPORTED_MODULE_4___default().object)
-} : 0;
-var defaultProps = {
-  defaultFocus: false,
-  focusTabOnClick: true,
-  forceRenderTabPanel: false,
-  selectedIndex: null,
-  defaultIndex: null,
-  environment: null,
-  disableUpDownKeys: false
-};
-
-var getModeFromProps = function getModeFromProps(props) {
-  return props.selectedIndex === null ? MODE_UNCONTROLLED : MODE_CONTROLLED;
-};
-
-var checkForIllegalModeChange = function checkForIllegalModeChange(props, mode) {
-  if ( true && mode != undefined && mode !== getModeFromProps(props)) {
-    throw new Error("Switching between controlled mode (by using `selectedIndex`) and uncontrolled mode is not supported in `Tabs`.\nFor more information about controlled and uncontrolled mode of react-tabs see https://github.com/reactjs/react-tabs#controlled-vs-uncontrolled-mode.");
-  }
-};
-/**
- * State:
- *   mode: Initialized only once from props and never changes
- *   selectedIndex: null if controlled mode, otherwise initialized with prop defaultIndex, changed on selection of tabs, has effect to ensure it never gets out of bound
- *   focus: Because we never remove focus from the Tabs this state is only used to indicate that we should focus the current tab.
- *          It is initialized from the prop defaultFocus, and after the first render it is reset back to false. Later it can become true again when using keys to navigate the tabs.
- */
-
-
-var Tabs = function Tabs(props) {
-  var children = props.children,
-      defaultFocus = props.defaultFocus,
-      defaultIndex = props.defaultIndex,
-      focusTabOnClick = props.focusTabOnClick,
-      onSelect = props.onSelect;
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultFocus),
-      focus = _useState[0],
-      setFocus = _useState[1];
-
-  var _useState2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getModeFromProps(props)),
-      mode = _useState2[0];
-
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(mode === MODE_UNCONTROLLED ? defaultIndex || 0 : null),
-      selectedIndex = _useState3[0],
-      setSelectedIndex = _useState3[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // Reset focus after initial render, see comment above
-    setFocus(false);
-  }, []);
-
-  if (mode === MODE_UNCONTROLLED) {
-    // Ensure that we handle removed tabs and don't let selectedIndex get out of bounds
-    var tabsCount = (0,_helpers_count__WEBPACK_IMPORTED_MODULE_3__.getTabsCount)(children);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-      if (selectedIndex != null) {
-        var maxTabIndex = Math.max(0, tabsCount - 1);
-        setSelectedIndex(Math.min(selectedIndex, maxTabIndex));
-      }
-    }, [tabsCount]);
-  }
-
-  checkForIllegalModeChange(props, mode);
-
-  var handleSelected = function handleSelected(index, last, event) {
-    // Call change event handler
-    if (typeof onSelect === 'function') {
-      // Check if the change event handler cancels the tab change
-      if (onSelect(index, last, event) === false) return;
-    } // Always set focus on tabs unless it is disabled
-
-
-    if (focusTabOnClick) {
-      setFocus(true);
-    }
-
-    if (mode === MODE_UNCONTROLLED) {
-      // Update selected index
-      setSelectedIndex(index);
-    }
-  };
-
-  var subProps = _extends({}, props);
-
-  subProps.focus = focus;
-  subProps.onSelect = handleSelected;
-
-  if (selectedIndex != null) {
-    subProps.selectedIndex = selectedIndex;
-  }
-
-  delete subProps.defaultFocus;
-  delete subProps.defaultIndex;
-  delete subProps.focusTabOnClick;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_UncontrolledTabs__WEBPACK_IMPORTED_MODULE_2__["default"], subProps, children);
-};
-
-Tabs.propTypes =  true ? propTypes : 0;
-Tabs.defaultProps = defaultProps;
-Tabs.tabsRole = 'Tabs';
-/* harmony default export */ __webpack_exports__["default"] = (Tabs);
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/components/UncontrolledTabs.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/react-tabs/esm/components/UncontrolledTabs.js ***!
-  \********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
-/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
-/* harmony import */ var _helpers_propTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/propTypes */ "./node_modules/react-tabs/esm/helpers/propTypes.js");
-/* harmony import */ var _helpers_count__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../helpers/count */ "./node_modules/react-tabs/esm/helpers/count.js");
-/* harmony import */ var _helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../helpers/childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
-/* harmony import */ var _helpers_elementTypes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../helpers/elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
-var _excluded = ["children", "className", "disabledTabClassName", "domRef", "focus", "forceRenderTabPanel", "onSelect", "selectedIndex", "selectedTabClassName", "selectedTabPanelClassName", "environment", "disableUpDownKeys"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-
-
-
-
-
-
-function isNode(node) {
-  return node && 'getAttribute' in node;
-} // Determine if a node from event.target is a Tab element
-
-
-function isTabNode(node) {
-  return isNode(node) && node.getAttribute('data-rttab');
-} // Determine if a tab node is disabled
-
-
-function isTabDisabled(node) {
-  return isNode(node) && node.getAttribute('aria-disabled') === 'true';
-}
-
-var canUseActiveElement;
-
-function determineCanUseActiveElement(environment) {
-  var env = environment || (typeof window !== 'undefined' ? window : undefined);
-
-  try {
-    canUseActiveElement = !!(typeof env !== 'undefined' && env.document && env.document.activeElement);
-  } catch (e) {
-    // Work around for IE bug when accessing document.activeElement in an iframe
-    // Refer to the following resources:
-    // http://stackoverflow.com/a/10982960/369687
-    // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12733599
-    // istanbul ignore next
-    canUseActiveElement = false;
-  }
-}
-
-var defaultProps = {
-  className: 'react-tabs',
-  focus: false
-};
-var propTypes =  true ? {
-  children: _helpers_propTypes__WEBPACK_IMPORTED_MODULE_3__.childrenPropType,
-  direction: prop_types__WEBPACK_IMPORTED_MODULE_7___default().oneOf(['rtl', 'ltr']),
-  className: prop_types__WEBPACK_IMPORTED_MODULE_7___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_7___default().string), (prop_types__WEBPACK_IMPORTED_MODULE_7___default().array), (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object)]),
-  disabledTabClassName: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
-  disableUpDownKeys: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
-  domRef: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
-  focus: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
-  forceRenderTabPanel: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
-  onSelect: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func.isRequired),
-  selectedIndex: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().number.isRequired),
-  selectedTabClassName: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
-  selectedTabPanelClassName: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
-  environment: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().object)
-} : 0;
-
-var UncontrolledTabs = function UncontrolledTabs(props) {
-  var tabNodes = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
-  var tabIds = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
-  var panelIds = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)([]);
-
-  var _ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-
-  function setSelected(index, event) {
-    // Check index boundary
-    if (index < 0 || index >= getTabsCount()) return;
-    var onSelect = props.onSelect,
-        selectedIndex = props.selectedIndex; // Call change event handler
-
-    onSelect(index, selectedIndex, event);
-  }
-
-  function getNextTab(index) {
-    var count = getTabsCount(); // Look for non-disabled tab from index to the last tab on the right
-
-    for (var i = index + 1; i < count; i++) {
-      if (!isTabDisabled(getTab(i))) {
-        return i;
-      }
-    } // If no tab found, continue searching from first on left to index
-
-
-    for (var _i = 0; _i < index; _i++) {
-      if (!isTabDisabled(getTab(_i))) {
-        return _i;
-      }
-    } // All tabs are disabled, return index
-
-    /* istanbul ignore next */
-
-
-    return index;
-  }
-
-  function getPrevTab(index) {
-    var i = index; // Look for non-disabled tab from index to first tab on the left
-
-    while (i--) {
-      if (!isTabDisabled(getTab(i))) {
-        return i;
-      }
-    } // If no tab found, continue searching from last tab on right to index
-
-
-    i = getTabsCount();
-
-    while (i-- > index) {
-      if (!isTabDisabled(getTab(i))) {
-        return i;
-      }
-    } // All tabs are disabled, return index
-
-    /* istanbul ignore next */
-
-
-    return index;
-  }
-
-  function getFirstTab() {
-    var count = getTabsCount(); // Look for non disabled tab from the first tab
-
-    for (var i = 0; i < count; i++) {
-      if (!isTabDisabled(getTab(i))) {
-        return i;
-      }
-    }
-    /* istanbul ignore next */
-
-
-    return null;
-  }
-
-  function getLastTab() {
-    var i = getTabsCount(); // Look for non disabled tab from the last tab
-
-    while (i--) {
-      if (!isTabDisabled(getTab(i))) {
-        return i;
-      }
-    }
-    /* istanbul ignore next */
-
-
-    return null;
-  }
-
-  function getTabsCount() {
-    var children = props.children;
-    return (0,_helpers_count__WEBPACK_IMPORTED_MODULE_4__.getTabsCount)(children);
-  }
-
-  function getTab(index) {
-    return tabNodes.current["tabs-" + index];
-  }
-
-  function getChildren() {
-    var index = 0;
-    var children = props.children,
-        disabledTabClassName = props.disabledTabClassName,
-        focus = props.focus,
-        forceRenderTabPanel = props.forceRenderTabPanel,
-        selectedIndex = props.selectedIndex,
-        selectedTabClassName = props.selectedTabClassName,
-        selectedTabPanelClassName = props.selectedTabPanelClassName,
-        environment = props.environment;
-    tabIds.current = tabIds.current || [];
-    panelIds.current = panelIds.current || [];
-    var diff = tabIds.current.length - getTabsCount(); // Add ids if new tabs have been added
-    // Don't bother removing ids, just keep them in case they are added again
-    // This is more efficient, and keeps the uuid counter under control
-
-    while (diff++ < 0) {
-      tabIds.current.push((0,_helpers_uuid__WEBPACK_IMPORTED_MODULE_2__["default"])());
-      panelIds.current.push((0,_helpers_uuid__WEBPACK_IMPORTED_MODULE_2__["default"])());
-    } // Map children to dynamically setup refs
-
-
-    return (0,_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_5__.deepMap)(children, function (child) {
-      var result = child; // Clone TabList and Tab components to have refs
-
-      if ((0,_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_6__.isTabList)(child)) {
-        var listIndex = 0; // Figure out if the current focus in the DOM is set on a Tab
-        // If it is we should keep the focus on the next selected tab
-
-        var wasTabFocused = false;
-
-        if (canUseActiveElement == null) {
-          determineCanUseActiveElement(environment);
-        }
-
-        var env = environment || (typeof window !== 'undefined' ? window : undefined);
-
-        if (canUseActiveElement && env) {
-          wasTabFocused = react__WEBPACK_IMPORTED_MODULE_0___default().Children.toArray(child.props.children).filter(_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_6__.isTab).some(function (tab, i) {
-            return env.document.activeElement === getTab(i);
-          });
-        }
-
-        result = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, {
-          children: (0,_helpers_childrenDeepMap__WEBPACK_IMPORTED_MODULE_5__.deepMap)(child.props.children, function (tab) {
-            var key = "tabs-" + listIndex;
-            var selected = selectedIndex === listIndex;
-            var props = {
-              tabRef: function tabRef(node) {
-                tabNodes.current[key] = node;
-              },
-              id: tabIds.current[listIndex],
-              panelId: panelIds.current[listIndex],
-              selected: selected,
-              focus: selected && (focus || wasTabFocused)
-            };
-            if (selectedTabClassName) props.selectedClassName = selectedTabClassName;
-            if (disabledTabClassName) props.disabledClassName = disabledTabClassName;
-            listIndex++;
-            return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(tab, props);
-          })
-        });
-      } else if ((0,_helpers_elementTypes__WEBPACK_IMPORTED_MODULE_6__.isTabPanel)(child)) {
-        var _props = {
-          id: panelIds.current[index],
-          tabId: tabIds.current[index],
-          selected: selectedIndex === index
-        };
-        if (forceRenderTabPanel) _props.forceRender = forceRenderTabPanel;
-        if (selectedTabPanelClassName) _props.selectedClassName = selectedTabPanelClassName;
-        index++;
-        result = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, _props);
-      }
-
-      return result;
-    });
-  }
-
-  function handleKeyDown(e) {
-    var direction = props.direction,
-        disableUpDownKeys = props.disableUpDownKeys;
-
-    if (isTabFromContainer(e.target)) {
-      var index = props.selectedIndex;
-      var preventDefault = false;
-      var useSelectedIndex = false;
-
-      if (e.code === 'Space' || e.keyCode === 32
-      /* space */
-      || e.code === 'Enter' || e.keyCode === 13
-      /* enter */
-      ) {
-        preventDefault = true;
-        useSelectedIndex = false;
-        handleClick(e);
-      } // keyCode is deprecated and only used here for IE
-
-
-      if (e.code === 'ArrowLeft' || e.keyCode === 37
-      /* arrow left */
-      || !disableUpDownKeys && (e.keyCode === 38 || e.code === 'ArrowUp')
-      /* arrow up */
-      ) {
-        // Select next tab to the left, validate if up arrow is not disabled
-        if (direction === 'rtl') {
-          index = getNextTab(index);
-        } else {
-          index = getPrevTab(index);
-        }
-
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.code === 'ArrowRight' || e.keyCode === 39
-      /* arrow right */
-      || !disableUpDownKeys && (e.keyCode === 40 || e.code === 'ArrowDown')
-      /* arrow down */
-      ) {
-        // Select next tab to the right, validate if down arrow is not disabled
-        if (direction === 'rtl') {
-          index = getPrevTab(index);
-        } else {
-          index = getNextTab(index);
-        }
-
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.keyCode === 35 || e.code === 'End') {
-        // Select last tab (End key)
-        index = getLastTab();
-        preventDefault = true;
-        useSelectedIndex = true;
-      } else if (e.keyCode === 36 || e.code === 'Home') {
-        // Select first tab (Home key)
-        index = getFirstTab();
-        preventDefault = true;
-        useSelectedIndex = true;
-      } // This prevents scrollbars from moving around
-
-
-      if (preventDefault) {
-        e.preventDefault();
-      } // Only use the selected index in the state if we're not using the tabbed index
-
-
-      if (useSelectedIndex) {
-        setSelected(index, e);
-      }
-    }
-  }
-
-  function handleClick(e) {
-    var node = e.target;
-
-    do {
-      if (isTabFromContainer(node)) {
-        if (isTabDisabled(node)) {
-          return;
-        }
-
-        var index = [].slice.call(node.parentNode.children).filter(isTabNode).indexOf(node);
-        setSelected(index, e);
-        return;
-      }
-    } while ((node = node.parentNode) != null);
-  }
-  /**
-   * Determine if a node from event.target is a Tab element for the current Tabs container.
-   * If the clicked element is not a Tab, it returns false.
-   * If it finds another Tabs container between the Tab and `this`, it returns false.
-   */
-
-
-  function isTabFromContainer(node) {
-    // return immediately if the clicked element is not a Tab.
-    if (!isTabNode(node)) {
-      return false;
-    } // Check if the first occurrence of a Tabs container is `this` one.
-
-
-    var nodeAncestor = node.parentElement;
-
-    do {
-      if (nodeAncestor === _ref.current) return true;
-      if (nodeAncestor.getAttribute('data-rttabs')) break;
-      nodeAncestor = nodeAncestor.parentElement;
-    } while (nodeAncestor);
-
-    return false;
-  }
-
-  var children = props.children,
-      className = props.className,
-      disabledTabClassName = props.disabledTabClassName,
-      domRef = props.domRef,
-      focus = props.focus,
-      forceRenderTabPanel = props.forceRenderTabPanel,
-      onSelect = props.onSelect,
-      selectedIndex = props.selectedIndex,
-      selectedTabClassName = props.selectedTabClassName,
-      selectedTabPanelClassName = props.selectedTabPanelClassName,
-      environment = props.environment,
-      disableUpDownKeys = props.disableUpDownKeys,
-      attributes = _objectWithoutPropertiesLoose(props, _excluded);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({}, attributes, {
-    className: (0,clsx__WEBPACK_IMPORTED_MODULE_1__["default"])(className),
-    onClick: handleClick,
-    onKeyDown: handleKeyDown,
-    ref: function ref(node) {
-      _ref.current = node;
-      if (domRef) domRef(node);
-    },
-    "data-rttabs": true
-  }), getChildren());
-};
-
-UncontrolledTabs.defaultProps = defaultProps;
-UncontrolledTabs.propTypes =  true ? propTypes : 0;
-/* harmony default export */ __webpack_exports__["default"] = (UncontrolledTabs);
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/react-tabs/esm/helpers/childrenDeepMap.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "deepForEach": function() { return /* binding */ deepForEach; },
-/* harmony export */   "deepMap": function() { return /* binding */ deepMap; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
-
-
-function isTabChild(child) {
-  return (0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child) || (0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child) || (0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child);
-}
-
-function deepMap(children, callback) {
-  return react__WEBPACK_IMPORTED_MODULE_0__.Children.map(children, function (child) {
-    // null happens when conditionally rendering TabPanel/Tab
-    // see https://github.com/reactjs/react-tabs/issues/37
-    if (child === null) return null;
-
-    if (isTabChild(child)) {
-      return callback(child);
-    }
-
-    if (child.props && child.props.children && typeof child.props.children === 'object') {
-      // Clone the child that has children and map them too
-      return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child, _extends({}, child.props, {
-        children: deepMap(child.props.children, callback)
-      }));
-    }
-
-    return child;
-  });
-}
-function deepForEach(children, callback) {
-  return react__WEBPACK_IMPORTED_MODULE_0__.Children.forEach(children, function (child) {
-    // null happens when conditionally rendering TabPanel/Tab
-    // see https://github.com/reactjs/react-tabs/issues/37
-    if (child === null) return;
-
-    if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child) || (0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child)) {
-      callback(child);
-    } else if (child.props && child.props.children && typeof child.props.children === 'object') {
-      if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child)) callback(child);
-      deepForEach(child.props.children, callback);
-    }
-  });
-}
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/helpers/count.js":
-/*!******************************************************!*\
-  !*** ./node_modules/react-tabs/esm/helpers/count.js ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "getTabsCount": function() { return /* binding */ getTabsCount; }
-/* harmony export */ });
-/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
-/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
-
-
-function getTabsCount(children) {
-  var tabCount = 0;
-  (0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(children, function (child) {
-    if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child)) tabCount++;
-  });
-  return tabCount;
-}
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/helpers/elementTypes.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/react-tabs/esm/helpers/elementTypes.js ***!
-  \*************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "isTab": function() { return /* binding */ isTab; },
-/* harmony export */   "isTabList": function() { return /* binding */ isTabList; },
-/* harmony export */   "isTabPanel": function() { return /* binding */ isTabPanel; }
-/* harmony export */ });
-function makeTypeChecker(tabsRole) {
-  return function (element) {
-    return !!element.type && element.type.tabsRole === tabsRole;
-  };
-}
-
-var isTab = makeTypeChecker('Tab');
-var isTabList = makeTypeChecker('TabList');
-var isTabPanel = makeTypeChecker('TabPanel');
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/helpers/propTypes.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/react-tabs/esm/helpers/propTypes.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "childrenPropType": function() { return /* binding */ childrenPropType; },
-/* harmony export */   "onSelectPropType": function() { return /* binding */ onSelectPropType; },
-/* harmony export */   "selectedIndexPropType": function() { return /* binding */ selectedIndexPropType; }
-/* harmony export */ });
-/* harmony import */ var _childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./childrenDeepMap */ "./node_modules/react-tabs/esm/helpers/childrenDeepMap.js");
-/* harmony import */ var _elementTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elementTypes */ "./node_modules/react-tabs/esm/helpers/elementTypes.js");
-
-
-function childrenPropType(props, propName, componentName) {
-  var error;
-  var tabsCount = 0;
-  var panelsCount = 0;
-  var tabListFound = false;
-  var listTabs = [];
-  var children = props[propName];
-  (0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(children, function (child) {
-    if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabList)(child)) {
-      if (child.props && child.props.children && typeof child.props.children === 'object') {
-        (0,_childrenDeepMap__WEBPACK_IMPORTED_MODULE_0__.deepForEach)(child.props.children, function (listChild) {
-          return listTabs.push(listChild);
-        });
-      }
-
-      if (tabListFound) {
-        error = new Error("Found multiple 'TabList' components inside 'Tabs'. Only one is allowed.");
-      }
-
-      tabListFound = true;
-    }
-
-    if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTab)(child)) {
-      if (!tabListFound || listTabs.indexOf(child) === -1) {
-        error = new Error("Found a 'Tab' component outside of the 'TabList' component. 'Tab' components " + "have to be inside the 'TabList' component.");
-      }
-
-      tabsCount++;
-    } else if ((0,_elementTypes__WEBPACK_IMPORTED_MODULE_1__.isTabPanel)(child)) {
-      panelsCount++;
-    }
-  });
-
-  if (!error && tabsCount !== panelsCount) {
-    error = new Error("There should be an equal number of 'Tab' and 'TabPanel' in `" + componentName + "`. " + ("Received " + tabsCount + " 'Tab' and " + panelsCount + " 'TabPanel'."));
-  }
-
-  return error;
-}
-function onSelectPropType(props, propName, componentName, location, propFullName) {
-  var prop = props[propName];
-  var name = propFullName || propName;
-  var error = null;
-
-  if (prop && typeof prop !== 'function') {
-    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied " + ("to `" + componentName + "`, expected `function`."));
-  } else if (props.selectedIndex != null && prop == null) {
-    error = new Error("The " + location + " `" + name + "` is marked as required in `" + componentName + "`, but " + "its value is `undefined` or `null`.\n" + "`onSelect` is required when `selectedIndex` is also set. Not doing so will " + "make the tabs not do anything, as `selectedIndex` indicates that you want to " + "handle the selected tab yourself.\n" + "If you only want to set the inital tab replace `selectedIndex` with `defaultIndex`.");
-  }
-
-  return error;
-}
-function selectedIndexPropType(props, propName, componentName, location, propFullName) {
-  var prop = props[propName];
-  var name = propFullName || propName;
-  var error = null;
-
-  if (prop != null && typeof prop !== 'number') {
-    error = new Error("Invalid " + location + " `" + name + "` of type `" + typeof prop + "` supplied to " + ("`" + componentName + "`, expected `number`."));
-  } else if (props.defaultIndex != null && prop != null) {
-    return new Error("The " + location + " `" + name + "` cannot be used together with `defaultIndex` " + ("in `" + componentName + "`.\n") + ("Either remove `" + name + "` to let `" + componentName + "` handle the selected ") + "tab internally or remove `defaultIndex` to handle it yourself.");
-  }
-
-  return error;
-}
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/helpers/uuid.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/react-tabs/esm/helpers/uuid.js ***!
-  \*****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ uuid; },
-/* harmony export */   "reset": function() { return /* binding */ reset; }
-/* harmony export */ });
-// Get a universally unique identifier
-var count = 0;
-function uuid() {
-  return "react-tabs-" + count++;
-}
-function reset() {
-  count = 0;
-}
-
-/***/ }),
-
-/***/ "./node_modules/react-tabs/esm/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/react-tabs/esm/index.js ***!
-  \**********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Tab": function() { return /* reexport safe */ _components_Tab__WEBPACK_IMPORTED_MODULE_2__["default"]; },
-/* harmony export */   "TabList": function() { return /* reexport safe */ _components_TabList__WEBPACK_IMPORTED_MODULE_1__["default"]; },
-/* harmony export */   "TabPanel": function() { return /* reexport safe */ _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__["default"]; },
-/* harmony export */   "Tabs": function() { return /* reexport safe */ _components_Tabs__WEBPACK_IMPORTED_MODULE_0__["default"]; },
-/* harmony export */   "resetIdCounter": function() { return /* reexport safe */ _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__.reset; }
-/* harmony export */ });
-/* harmony import */ var _components_Tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Tabs */ "./node_modules/react-tabs/esm/components/Tabs.js");
-/* harmony import */ var _components_TabList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/TabList */ "./node_modules/react-tabs/esm/components/TabList.js");
-/* harmony import */ var _components_Tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Tab */ "./node_modules/react-tabs/esm/components/Tab.js");
-/* harmony import */ var _components_TabPanel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TabPanel */ "./node_modules/react-tabs/esm/components/TabPanel.js");
-/* harmony import */ var _helpers_uuid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers/uuid */ "./node_modules/react-tabs/esm/helpers/uuid.js");
-
-
-
-
 
 
 /***/ }),

@@ -39,6 +39,9 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-add-form__top{
             margin: 0;
         }
+        .wpwax-vm-text-highlighted {
+            padding: 25px 30px 0;
+        }
     }
     .wpwax-vm-add-form__top{
         padding: 20px;
@@ -67,7 +70,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-add-form__content{
-        padding: 25px 30px;
+        padding: 15px 30px 25px;
         height: 580px;
         overflow-y: scroll;
         &::-webkit-scrollbar{
@@ -228,6 +231,9 @@ const AddFormStyle = Styled.div`
             min-width: auto;
             background-color: transparent;
         }
+        .wpwax-vm-notice{
+            margin-bottom: 15px;
+        }
     }
     .wpwax-vm-add-form__bottom{
         display: flex;
@@ -328,3 +334,4 @@ const AddFormStyle = Styled.div`
 export {
     AddFormStyle,
 };
+

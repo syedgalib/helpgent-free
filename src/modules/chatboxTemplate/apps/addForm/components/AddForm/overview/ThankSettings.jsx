@@ -194,7 +194,7 @@ const ThankSettings = () => {
         let thankFontColor = event.target.value;
         setState({
             ...state,
-            fontColor: thankFontColor
+            ctaFontColor: thankFontColor
         });
         updateForm('font-color', thankFontColor);
     }
@@ -202,7 +202,7 @@ const ThankSettings = () => {
         let thankButtonColor = event.target.value;
         setState({
             ...state,
-            buttonColor: thankButtonColor
+            ctaButtonColor: thankButtonColor
         });
         updateForm('button-color', thankButtonColor);
     }
@@ -210,7 +210,7 @@ const ThankSettings = () => {
         let thankButtonTextColor = event.target.value;
         setState({
             ...state,
-            buttonTextColor: thankButtonTextColor
+            ctaButtonTextColor: thankButtonTextColor
         });
         updateForm('button-text-color', thankButtonTextColor);
     }
@@ -218,7 +218,7 @@ const ThankSettings = () => {
         let thankButtonRadius = event.target.value;
         setState({
             ...state,
-            buttonRadius: thankButtonRadius
+            ctaButtonRadius: thankButtonRadius
         });
         updateForm('button-radius', thankButtonRadius);
     }
@@ -263,7 +263,7 @@ const ThankSettings = () => {
         let thankBtnText = event.target.value;
         setState({
             ...state,
-            buttonText: thankBtnText
+            ctaButtonText: thankBtnText
         });
         updateForm('btn-text', thankBtnText);
     }
@@ -271,7 +271,7 @@ const ThankSettings = () => {
         let thankBtnUrl = event.target.value;
         setState({
             ...state,
-            buttonText: thankBtnUrl
+            ctaButtonUrl: thankBtnUrl
         });
         updateForm('btn-url', thankBtnUrl);
     }

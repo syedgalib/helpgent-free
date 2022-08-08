@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { default as Select } from 'react-select'
-import { components } from 'react-select'
-import { ReactSVG } from 'react-svg';
-import Switch from "react-switch";
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import Radio from "Components/formFields/Radio.jsx";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { components, default as Select } from 'react-select';
+import { ReactSVG } from 'react-svg';
+import Switch from "react-switch";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
@@ -145,7 +144,7 @@ const GeneralSettings = () => {
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Name of Form</span>
+                    <span>Name of Form <span className="wpwax-vm-require-sign">*</span></span>
                 </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" placeholder="Name this video form…" onChange={e => handleNameChange(e)} />
             </div>

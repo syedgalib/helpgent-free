@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import apiService  from "../../../../../apiService/Service";
 import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
 import handsDown from 'Assets/svg/icons/hand-down.svg';
@@ -10,6 +10,8 @@ import PreviewOne from "./overview/PreviewOne.jsx";
 import PreviewTwo from "./overview/PreviewTwo.jsx";
 import ThankSettings from "./overview/ThankSettings.jsx";
 import { AddFormStyle } from './Style';
+
+import { addForm } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
     /* initialize Form Data */
@@ -24,6 +26,9 @@ const AddForm = () => {
     });
 
     const [formStage, setFormStage] = useState("general");
+
+        /* Dispasth is used for passing the actions to redux store  */
+        const dispatch = useDispatch();
 
     const handleFormNext = (e) => {
         e.preventDefault();
@@ -47,6 +52,8 @@ const AddForm = () => {
                     validation: true
                 });
             }, "4000")
+        }else{
+            dispatch(addForm(formInitialData));
         }
     }
 

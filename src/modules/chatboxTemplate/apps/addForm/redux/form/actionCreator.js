@@ -1,3 +1,4 @@
+import apiService from 'apiService/Service.js';
 import actions from './actions';
 // import initialState from '../../demoData/note.json';
 
@@ -11,11 +12,20 @@ const {
   addFormErr,
 } = actions;
 
-const addForm = data => {
+const addForm = args => {
   return async dispatch => {
     try {
-      dispatch(addFormBegin());
-      dispatch(addFormSuccess(data));
+      await dispatch(addFormBegin());
+      apiService.dataAdd(`/chatbox-templates/`, args)
+          
+          .then(response => {
+            console.log(response);
+            // await dispatch(addFormSuccess(response.data));
+          })
+          .catch((error) => {
+              console.log(error)
+          })
+      // dispatch(addFormSuccess(data));
     } catch (err) {
       dispatch(addFormErr(err));
     }

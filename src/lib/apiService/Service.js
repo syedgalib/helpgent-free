@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 /* Create Instance */
 const axiosInstance = axios.create({
@@ -16,12 +16,18 @@ const dataUpdate = (path, args) => {
     return axiosInstance.post(path, args);
 };
 
+const dataAdd = (path, args) => {
+    console.log(args);
+    return axiosInstance.post(path, args);
+};
+
 const datadelete = path => {
     return axiosInstance.delete(path);
 };
 
 const apiService = {
     getAll,
+    dataAdd,
     dataUpdate,
     datadelete
 }

@@ -50,7 +50,20 @@ const FormSettings = () => {
     });
 
     /* Destructuring State */
-    const { id, grettingMessage, descriptionVisibility, description, chatTitle, chatReplyType, fontColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
+    const { 
+        id, 
+        grettingMessage, 
+        descriptionVisibility, 
+        description, 
+        chatTitle, 
+        chatReplyType, 
+        fontColor, 
+        buttonColor, 
+        buttonRadius, 
+        footerVisibility, 
+        footerMessage, 
+        openCollapse 
+    } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();

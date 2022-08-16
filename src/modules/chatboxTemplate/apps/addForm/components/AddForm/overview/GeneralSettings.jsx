@@ -30,11 +30,16 @@ const GeneralSettings = () => {
     /* Initialize State Data */
     const [state, setState] = useState({
         diplayAllPage: formInitialData[0].option.display_on_all_pages,
+        templateName: formInitialData[0].name,
+        templateTheme: formInitialData[0].option.theme,
         displayedCustomPages: formInitialData[0].page_ids,
         chatVisibilityType: formInitialData[0].option.chat_visibility_type,
     });
 
-    const { diplayAllPage, displayedCustomPages, chatVisibilityType } = state;
+    const { templateName, diplayAllPage, templateTheme, chatVisibilityType } = state;
+    console.log(templateOptions.filter(function (option) {
+        return option.value === templateTheme;
+    })[0])
 
     const Option = (props) => {
         return (
@@ -54,7 +59,6 @@ const GeneralSettings = () => {
             switch (label) {
                 case "name":
                     return { ...item, name: value };
-                    break;
                 case "theme":
                     return {
                         ...item,
@@ -63,7 +67,6 @@ const GeneralSettings = () => {
                             theme: value
                         }
                     }
-                    break;
                 case "display-page":
                     return {
                         ...item,
@@ -72,11 +75,9 @@ const GeneralSettings = () => {
                             display_on_all_pages: value
                         }
                     }
-                    break;
                 case "page-id":
                     return { ...item, page_ids: value }
-                    break;
-                case "close-chat":
+                case "chat-visibility":
                     return {
                         ...item,
                         option: {
@@ -84,7 +85,6 @@ const GeneralSettings = () => {
                             chat_visibility_type: value
                         }
                     }
-                    break;
                 default:
                 // code block
             }
@@ -97,7 +97,7 @@ const GeneralSettings = () => {
         let templateTheme = selectedTheme.value;
         setState({
             ...state,
-            optionSelected: selectedTheme
+            templateTheme: selectedTheme
         });
         updateForm('theme', templateTheme);
     };
@@ -107,7 +107,7 @@ const GeneralSettings = () => {
         let formName = event.target.value;
         setState({
             ...state,
-            name: formName
+            templateName: formName
         });
         updateForm('name', formName);
     };
@@ -134,9 +134,13 @@ const GeneralSettings = () => {
     };
 
     /* To Handle Template Change */
-    const handleClosignChat = (e) => {
-        let closeOption = e.target.value;
-        updateForm('close-chat', closeOption);
+    const handleChatVisibility = (e) => {
+        let visiblityType = e.target.value;
+        setState({
+            ...state,
+            chatVisibilityType: visiblityType
+        });
+        updateForm('chat-visibility', visiblityType);
 
     };
 
@@ -146,7 +150,7 @@ const GeneralSettings = () => {
                 <div className="wpwax-vm-form-group__label">
                     <span>Name of Form <span className="wpwax-vm-require-sign">*</span></span>
                 </div>
-                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" placeholder="Name this video form…" onChange={e => handleNameChange(e)} />
+                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" value={templateName} placeholder="Name this video form…" onChange={e => handleNameChange(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label wpwax-vm-has-tooltip">
@@ -164,9 +168,10 @@ const GeneralSettings = () => {
                     hideSelectedOptions={false}
                     searchable={false}
                     onChange={handleThemeChange}
-                    // menuIsOpen={true}
+                    defaultValue={templateOptions.filter(function (option) {
+                        return option.value === templateTheme;
+                    })[0]}
                     allowSelectAll={true}
-                    value={displayedCustomPages}
                 />
             </div>
             <div className="wpwax-vm-form-group">
@@ -213,6 +218,9 @@ const GeneralSettings = () => {
                     components={{
                         Option
                     }}
+                    // defaultValue={[displayedCustomPages.filter(function (page) {
+
+                    // })]}
                     onChange={handleCustomPages}
                     allowSelectAll={true}
                 />
@@ -224,11 +232,11 @@ const GeneralSettings = () => {
                 <div className="wpwax-vm-radio-list">
                     <div className="wpwax-vm-radio-single">
                         <span>If closed never show again</span>
-                        <Radio id="wpwax-vm-never-show" label="" value="never_load" name="wpwax-vm-close-option" onChange={e => handleClosignChat(e)} checked={chatVisibilityType === "never_load"} />
+                        <Radio id="wpwax-vm-never-show" label="" value="never_load" name="wpwax-vm-close-option" onChange={e => handleChatVisibility(e)} checked={chatVisibilityType === "never_load"} />
                     </div>
                     <div className="wpwax-vm-radio-single">
                         <span>Show on reload</span>
-                        <Radio id="wpwax-vm-load-show" label="" value="show_on_reload" name="wpwax-vm-close-option" onChange={e => handleClosignChat(e)} checked={chatVisibilityType === "show_on_reload"} />
+                        <Radio id="wpwax-vm-load-show" label="" value="show_on_reload" name="wpwax-vm-close-option" onChange={e => handleChatVisibility(e)} checked={chatVisibilityType === "show_on_reload"} />
                     </div>
                 </div>
             </div>

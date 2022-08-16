@@ -4,15 +4,18 @@ namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
 
-class Admin_Asset extends Enqueuer {
+class Admin_Asset extends Enqueuer
+{
 
     /**
      * Constuctor
      *
      */
-    function __construct() {
+    function __construct()
+    {
         $this->asset_group = 'admin';
-        add_action( 'admin_enqueue_scripts', [$this, 'enqueue_scripts'] );
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_lib_scripts']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
 
     /**
@@ -20,9 +23,20 @@ class Admin_Asset extends Enqueuer {
      *
      * @return void
      */
-    public function load_scripts() {
+    public function load_scripts()
+    {
         $this->add_css_scripts();
         $this->add_js_scripts();
+    }
+
+    /**
+     * Load Library Scripts
+     *
+     * @return void
+     */
+    public function enqueue_lib_scripts()
+    {
+        wp_enqueue_media();
     }
 
     /**
@@ -39,10 +53,11 @@ class Admin_Asset extends Enqueuer {
      *
      * @return void
      */
-    public function add_css_scripts() {
+    public function add_css_scripts()
+    {
         $scripts = [];
 
-        $scripts           = array_merge( $this->css_scripts, $scripts );
+        $scripts           = array_merge($this->css_scripts, $scripts);
         $this->css_scripts = $scripts;
     }
 
@@ -60,7 +75,8 @@ class Admin_Asset extends Enqueuer {
      * 
      * @return void
      */
-    public function add_js_scripts() {
+    public function add_js_scripts()
+    {
         $scripts = [];
 
         $scripts['wpwax-customer-support-app-chatbox-template-admin-script'] = [
@@ -72,7 +88,7 @@ class Admin_Asset extends Enqueuer {
             'group'     => 'admin',
         ];
 
-        $scripts          = array_merge( $this->js_scripts, $scripts );
+        $scripts          = array_merge($this->js_scripts, $scripts);
         $this->js_scripts = $scripts;
     }
 }

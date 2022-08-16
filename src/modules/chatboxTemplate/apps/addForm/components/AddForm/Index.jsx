@@ -27,8 +27,8 @@ const AddForm = () => {
 
     const [formStage, setFormStage] = useState("general");
 
-        /* Dispasth is used for passing the actions to redux store  */
-        const dispatch = useDispatch();
+    /* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
 
     const handleFormNext = (e) => {
         e.preventDefault();
@@ -41,9 +41,7 @@ const AddForm = () => {
 
     const handleAddTemplate = (e) => {
         e.preventDefault()
-        console.log(typeof formInitialData.name);
-        if(formInitialData.name ===''){
-            console.log("re")
+        if (formInitialData.name === '') {
             setState({
                 validation: false
             });
@@ -52,7 +50,7 @@ const AddForm = () => {
                     validation: true
                 });
             }, "4000")
-        }else{
+        } else {
             dispatch(addForm(formInitialData));
         }
     }
@@ -76,8 +74,6 @@ const AddForm = () => {
         }
     }
 
-    console.log(state.validation);
-
     return (
         <AddFormStyle>
             <div className="wpwax-vm-add-form">
@@ -90,7 +86,7 @@ const AddForm = () => {
                         </ul>
 
                         <p className="wpwax-vm-text-highlighted">* required Fields</p>
-                        
+
 
                         {
                             getFormContent()

@@ -6,15 +6,15 @@ import Switch from "react-switch";
 import { onFormEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 
-export const templateOptions = [
-    { value: "large", label: "large" },
-    { value: "larger", label: "larger" },
-    { value: "x-large", label: "x-large" },
-    { value: "xx-large", label: "xx-large" },
-    { value: "medium", label: "medium" },
-    { value: "small", label: "small" },
-    { value: "smaller", label: "smaller" },
-    { value: "x-small", label: "x-small" },
+export const fontSizeOptions = [
+    { value: "large", label: "Large" },
+    { value: "larger", label: "Larger" },
+    { value: "x-large", label: "X-large" },
+    { value: "xx-large", label: "XX-large" },
+    { value: "medium", label: "Medium" },
+    { value: "small", label: "Small" },
+    { value: "smaller", label: "Smaller" },
+    { value: "x-small", label: "X-small" },
 ]
 const ThankSettings = () => {
     /* initialize Form Data */
@@ -276,8 +276,6 @@ const ThankSettings = () => {
         updateForm('btn-url', thankBtnUrl);
     }
 
-    console.log(collectableInfo);
-
     /* To handle section toggle */
     const toogleCollapse = (e) => {
         e.preventDefault();
@@ -395,11 +393,14 @@ const ThankSettings = () => {
                         <span>Title Font size</span>
                         <Select
                             classNamePrefix="wpwax-vm-select"
-                            options={templateOptions}
+                            options={fontSizeOptions}
                             closeMenuOnSelect={false}
                             hideSelectedOptions={false}
                             searchable={false}
                             onChange={chagneTitleFontSize}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === ctaTitleFontSize;
+                            })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">

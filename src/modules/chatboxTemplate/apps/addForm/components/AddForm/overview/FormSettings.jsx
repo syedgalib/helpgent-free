@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
+import { ReactSVG } from "react-svg";
 import Switch from "react-switch";
 import { onFormEdit } from '../../../redux/form/actionCreator';
+import replaceIcon from 'Assets/svg/icons/replace.svg'
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -15,14 +17,14 @@ export const formType = [
     { value: "theme-2", label: "Theme 2" }
 ]
 export const fontSizeOptions = [
-    { value: "large", label: "large" },
-    { value: "larger", label: "larger" },
-    { value: "x-large", label: "x-large" },
-    { value: "xx-large", label: "xx-large" },
-    { value: "medium", label: "medium" },
-    { value: "small", label: "small" },
-    { value: "smaller", label: "smaller" },
-    { value: "x-small", label: "x-small" },
+    { value: "large", label: "Large" },
+    { value: "larger", label: "Larger" },
+    { value: "x-large", label: "X-large" },
+    { value: "xx-large", label: "XX-large" },
+    { value: "medium", label: "Medium" },
+    { value: "small", label: "Small" },
+    { value: "smaller", label: "Smaller" },
+    { value: "x-small", label: "X-small" },
 ]
 const FormSettings = () => {
     /* initialize Form Data */
@@ -37,12 +39,15 @@ const FormSettings = () => {
         id: formInitialData.id,
         grettingMessage: formInitialOption.greet_message,
         grettingVideo: formInitialOption.greet_video_url,
+        grettingImage: formInitialOption.greet_image_url,
         descriptionVisibility: formInitialOption.show_description,
         description: formInitialOption.description,
         chatTitle: formInitialOption.chat_box_title,
         chatReplyType: formInitialOption.can_replay_in,
         footerVisibility: formInitialOption.show_footer,
         footerMessage: formInitialOption.footer_message,
+        font: formInitialOption.font,
+        fontSize: formInitialOption.font_size,
         fontColor: formInitialOption.font_color,
         buttonColor: formInitialOption.button_color,
         buttonRadius: formInitialOption.button_border_radius,
@@ -50,19 +55,23 @@ const FormSettings = () => {
     });
 
     /* Destructuring State */
-    const { 
-        id, 
-        grettingMessage, 
-        descriptionVisibility, 
-        description, 
-        chatTitle, 
-        chatReplyType, 
-        fontColor, 
-        buttonColor, 
-        buttonRadius, 
-        footerVisibility, 
-        footerMessage, 
-        openCollapse 
+    const {
+        id,
+        grettingMessage,
+        grettingVideo,
+        grettingImage,
+        descriptionVisibility,
+        description,
+        chatTitle,
+        chatReplyType,
+        font,
+        fontSize,
+        fontColor,
+        buttonColor,
+        buttonRadius,
+        footerVisibility,
+        footerMessage,
+        openCollapse
     } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -79,6 +88,22 @@ const FormSettings = () => {
                             option: {
                                 ...item.option,
                                 greet_message: value
+                            }
+                        }
+                    case "greet-media-image":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                greet_image_url: value
+                            }
+                        }
+                    case "greet-media-video":
+                        return {
+                            ...item,
+                            option: {
+                                ...item.option,
+                                greet_video_url: value
                             }
                         }
                     case "des-visibility":
@@ -288,8 +313,6 @@ const FormSettings = () => {
         updateForm('button-radius', buttonRadius);
     }
 
-    console.log(buttonColor);
-
     /* To handle section toggle */
     const toogleCollapse = (e) => {
         e.preventDefault();
@@ -299,6 +322,47 @@ const FormSettings = () => {
         });
     }
 
+    let frame;
+    const openUploader = e => {
+        e.preventDefault();
+
+        // If the media frame already exists, reopen it.
+        if (frame) {
+            frame.open()
+            return
+        }
+        // Create a new media frame
+        frame = wp.media({
+            title: 'Select or Upload Media Of Your Chosen Persuasion',
+            button: {
+                text: 'Use this media',
+            },
+            multiple: false, // Set to true to allow multiple files to be selected
+        })
+
+        frame.on('select', function () {
+            let attachment = frame.state().get('selection').first() && frame.state().get('selection').first().toJSON();
+            const attatchmentType = attachment.type
+            const attatchmentUrl = attachment.url
+            if (attatchmentType === "image") {
+                setState({
+                    ...state,
+                    grettingImage: attatchmentUrl
+                });
+                updateForm('greet-media-image', attatchmentUrl);
+            } else if (attachment.type === "video") {
+                setState({
+                    ...state,
+                    grettingVideo: attatchmentUrl
+                });
+                updateForm('greet-media-video', attatchmentUrl);
+            }
+
+        });
+
+        // Finally, open the modal on click
+        frame.open();
+    }
     return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -307,11 +371,19 @@ const FormSettings = () => {
                 </div>
                 <div className="wpwax-vm-uploader">
                     <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
-                        <input type="file" id="wpwax-vm-media-upload" />
-                        <label htmlFor="wpwax-vm-media-upload">Add image/video</label>
+                        <a href="#" className="wpwax-vm-media-upload" onClick={e => openUploader(e)}>Add image/video</a>
+                        {/* <input type="button" className="wpwax-vm-media-upload" onClick={e => openUploader(e)} value="Add image/video" /> */}
                     </span>
-                    <span className="wpwax-vm-seperation">or</span>
-                    <a href="#" className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-media-recorder">Record a video</a>
+                    {
+                        grettingVideo !== '' || grettingImage !== '' ?
+                            <div className="wpwax-vm-media-preview">
+                                <div className="wpwax-vm-media-preview__src">
+                                    {grettingImage !== '' ? <img src={grettingImage} alt="Wpwax Video Support" /> : null}
+                                    {grettingVideo !== '' ? <video src={grettingVideo}></video> : null}
+                                </div>
+                                <a href="#" className="wpwax-vm-media-preview__replace" onClick={e => openUploader(e)}><div className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></div> Replace</a>
+                            </div> : null
+                    }
                 </div>
             </div>
             <div className="wpwax-vm-form-group">
@@ -453,6 +525,9 @@ const FormSettings = () => {
                             hideSelectedOptions={false}
                             searchable={false}
                             onChange={chagneFont}
+                            defaultValue={fontOptions.filter(function (option) {
+                                return option.label === font;
+                            })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
@@ -464,6 +539,9 @@ const FormSettings = () => {
                             hideSelectedOptions={false}
                             searchable={false}
                             onChange={chagneFontSize}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">

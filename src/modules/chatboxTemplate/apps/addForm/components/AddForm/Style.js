@@ -297,6 +297,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-uploader{
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -306,8 +307,8 @@ const AddFormStyle = Styled.div`
         border: 1px dashed #BEBEBE;
         background-color: var(--color-bg-general);
         .wpwax-vm-upload-trigger{
-            input[type=file]{
-                display: none;
+            a{
+                color: var(--color-dark);
             }
         }
         .wpwax-vm-media-btn{
@@ -316,7 +317,6 @@ const AddFormStyle = Styled.div`
             font-size: 14px;
             font-weight: 500;
             border-radius: 8px;
-            min-width: 155px;
             text-align: center;
             color: var(--color-dark);
             background-color: var(--color-white);
@@ -327,6 +327,50 @@ const AddFormStyle = Styled.div`
             font-weight: 500;
             color: #898989;
             margin: 7px 0;
+        }
+        a{
+            text-decoration: none;
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+        }
+    }
+    .wpwax-vm-media-preview{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background-color: var(--color-bg-general);
+        z-index: 10;
+        .wpwax-vm-media-preview__replace{
+            position: absolute;
+            left: 50%;
+            bottom: 15px;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            min-height: 40px;
+            padding: 0 20px;
+            color: var(--color-dark);
+            background-color: var(--color-white);
+            .wpwax-vm-media-preview__replace--icon{
+                position: relative;
+                top: 2px;
+                margin-right: 8px;
+            }
+        }
+        .wpwax-vm-media-preview__src{
+            height: 100%;
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+            }
         }
     }
 `;

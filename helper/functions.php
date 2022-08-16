@@ -551,3 +551,61 @@ function get_wp_pages() {
 
 	return $pages;
 }
+
+/**
+ * Get Options
+ *
+ * @return array Options
+ */
+function get_options() {
+	return get_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, [] );
+}
+
+/**
+ * Get Option
+ *
+ * @return mixed Option
+ */
+function get_option( $option_key = '', $default = '' ) {
+	$options = get_options();
+
+	if ( empty( $options ) ) {
+		return [];
+	}
+
+	if ( ! isset( $options[ $option_key ] ) ) {
+		return $default;
+	}
+
+	return $options[ $option_key ];
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @return void
+ */
+function update_option( $option_key = '', $value = '' ) {
+	$options = get_options();
+
+	$options[ $option_key ] = $value;
+
+	update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @return void
+ */
+function delete_option( $option_key = '' ) {
+	$options = get_options();
+
+	if ( ! isset( $options[ $option_key ] ) ) {
+		return;
+	}
+
+	unset( $options[ $option_key ] );
+
+	update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}

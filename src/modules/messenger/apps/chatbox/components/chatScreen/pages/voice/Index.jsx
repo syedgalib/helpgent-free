@@ -1,40 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import React from 'react';
 import Record from './overview/Record.jsx';
-// import { VideoHomeWrap }  from './Style';
 
-const Voice = ()=>{
-	const { videoFormData } = useSelector(state => {
-        return {
-            videoFormData: state,
-        };
-    });
-	console.log(videoFormData);
-    const [state, setState] = useState({
-        step: "home"
-    });
+const App = () => {
+    return (
+        <div className='wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+            <Record />
+        </div>
+    );
+};
 
-	function handleVideo(step){
-		setState({
-            ...state,
-            step: step
-        });
-	}
-	
-	const { step } = state;
-	return(
-		<Record />
-	)
-    // if( step === "record"){
-	// 	return(
-	// 		<Record />
-	// 	);
-	// }else if(step === "upload"){
-	// 	return(
-	// 		<Upload />
-	// 	);
-	// }
-}
-
-export default Voice;
+export default App;

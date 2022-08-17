@@ -2,13 +2,15 @@
 
 namespace WPWaxCustomerSupportApp\Base\Helper;
 
+use WP_Query;
+
 /**
  * Get The Public Template
- * 
+ *
  * @param string $path
  * @param array $data
  * @param bool $extract
- * 
+ *
  * @return string Public Template
  */
 function get_template( $path = '', $data = [], $extract = true ) {
@@ -22,11 +24,11 @@ function get_template( $path = '', $data = [], $extract = true ) {
 
 /**
  * Prints The Public Template
- * 
+ *
  * @param string $path
  * @param array $data
  * @param bool $extract
- * 
+ *
  * @return void Prints Public Template
  */
 function get_the_template( $path = '', $data = [], $extract = true ) {
@@ -39,11 +41,11 @@ function get_the_template( $path = '', $data = [], $extract = true ) {
 
 /**
  * Get The Admin Template
- * 
+ *
  * @param string $path
  * @param array $data
  * @param bool $extract
- * 
+ *
  * @return string Admin Template
  */
 function get_view( $path = '', $data = [], $extract = true ) {
@@ -57,11 +59,11 @@ function get_view( $path = '', $data = [], $extract = true ) {
 
 /**
  * Prints The Admin Template
- * 
+ *
  * @param string $path
  * @param array $data
  * @param bool $extract
- * 
+ *
  * @return void Prints Admin Template
  */
 function get_the_view( $path = '', $data = [], $extract = true ) {
@@ -73,11 +75,11 @@ function get_the_view( $path = '', $data = [], $extract = true ) {
 
 /**
  * Prints The File Content
- * 
+ *
  * @param string $path
  * @param array $data
  * @param bool $extract
- * 
+ *
  * @return void Prints the file contents
  */
 function get_the_file_content( $path = '', $data = [], $extract = true ) {
@@ -91,13 +93,13 @@ function get_the_file_content( $path = '', $data = [], $extract = true ) {
     if ( $extract ) {
         extract( $data );
     }
-    
+
     include $file;
 }
 
 /**
  * Handle Upload
- * 
+ *
  * @return mixed
  */
 function handle_media_upload( $file, $overrides = array( 'test_form' => false ) ) {
@@ -112,10 +114,10 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 
 /**
  * Filter Params
- * 
+ *
  * @param array $default
  * @param array $args
- * 
+ *
  * @return array Merged Params
  */
 function filter_params( $default = [], $args = [] ) {
@@ -133,10 +135,10 @@ function filter_params( $default = [], $args = [] ) {
 
 /**
  * Merge Params
- * 
+ *
  * @param array $default
  * @param array $args
- * 
+ *
  * @return array Merged Params
  */
 function merge_params( $default = [], $args = [] ) {
@@ -156,7 +158,7 @@ function merge_params( $default = [], $args = [] ) {
 
 /**
  * Is Truthy
- * 
+ *
  * @param mixed $value
  * @return bool
  */
@@ -184,10 +186,10 @@ function is_truthy( $value ) {
 
 /**
  * List has same data
- * 
+ *
  * @param array $list_a
  * @param array $list_b
- * 
+ *
  * @return bool
  */
 function list_has_same_data( $list_a = [], $list_b = [] ) {
@@ -221,10 +223,10 @@ function list_has_same_data( $list_a = [], $list_b = [] ) {
 
 /**
  * Swap array keys
- * 
+ *
  * @param array $list
  * @param array $swap_map
- * 
+ *
  * @return array Swaped Array
  */
 function swap_array_keys( $list = [], $swap_map = [] ) {
@@ -234,7 +236,7 @@ function swap_array_keys( $list = [], $swap_map = [] ) {
     }
 
     foreach( $list as $key => $value ) {
-            
+
         if ( empty( $swap_map[ $key ] ) ) {
             continue;
         }
@@ -251,11 +253,11 @@ function swap_array_keys( $list = [], $swap_map = [] ) {
 
 /**
  * Convert string to int array
- * 
+ *
  * @param string $string
  * @param string $separator ,
  * @param string $remove_non_int_items true
- * 
+ *
  * @return array
  */
 function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true ) {
@@ -267,17 +269,17 @@ function convert_string_to_int_array( $string, $separator = ',', $remove_non_int
 
 /**
  * Convert string to array
- * 
+ *
  * @param string $string
  * @param string $separator ,
- * 
+ *
  * @return array
  */
 function convert_string_to_array( $string, $separator = ',' ) {
 
     $string = trim( $string, ',\s' );
     $list   = explode( $separator, $string );
-        
+
     if ( ! is_array( $list ) ) {
         return [];
     }
@@ -287,9 +289,9 @@ function convert_string_to_array( $string, $separator = ',' ) {
 
 /**
  * Parse array items to int
- * 
+ *
  * @param array $list
- * 
+ *
  * @return array
  */
 function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
@@ -317,9 +319,9 @@ function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
 
 /**
  * Generate Slug
- * 
+ *
  * @param string $string
- * 
+ *
  * @return string Slug
  */
 function generate_slug( $string ) {
@@ -328,7 +330,7 @@ function generate_slug( $string ) {
     $slug = sanitize_key( $slug );
     $slug = strtolower( $string );
     $slug = preg_replace( '/\s{2,}/', ' ', $slug );
-    $slug = preg_replace( '/\s/', '-', $slug ); 
+    $slug = preg_replace( '/\s/', '-', $slug );
 
     return $slug;
 
@@ -336,7 +338,7 @@ function generate_slug( $string ) {
 
 /**
  * Delete File by URL
- * 
+ *
  * @param string $file_url
  * @return bool
  */
@@ -362,7 +364,7 @@ function delete_file_by_url( $file_url ) {
 
 /**
  * Include Media Uploader Files
- * 
+ *
  * @return void
  */
 function include_media_uploader_files() {
@@ -370,7 +372,7 @@ function include_media_uploader_files() {
     require_once( ABSPATH . "wp-admin" . '/includes/image.php' );
     require_once( ABSPATH . "wp-admin" . '/includes/file.php' );
     require_once( ABSPATH . "wp-admin" . '/includes/media.php' );
-    
+
 }
 
 
@@ -443,10 +445,10 @@ function clean_var($var) {
 
 /**
  * Sanitize List Items
- * 
+ *
  * @param array $list
  * @param array $schema
- * 
+ *
  * @return array Sanitized List
  */
 function sanitize_list_items( $list = [], $schema = [] ) {
@@ -460,7 +462,7 @@ function sanitize_list_items( $list = [], $schema = [] ) {
     $default_schema['json']       = [];
 
     $schema = merge_params( $default_schema, $schema );
-    
+
     // Sanitize Fields
     foreach ( $list as $key => $value ) {
 
@@ -497,7 +499,7 @@ function sanitize_list_items( $list = [], $schema = [] ) {
 
             $list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? esc_html( get_formatted_time( $list[ $key ], $timezone ) ) : null;
         }
-        
+
         else {
             $list[ $key ] = esc_html( $value );
         }
@@ -509,7 +511,7 @@ function sanitize_list_items( $list = [], $schema = [] ) {
 
 /**
  * Get Formatted Time
- * 
+ *
  * @param $time
  * @param $timezone
  */
@@ -519,4 +521,140 @@ function get_formatted_time( $time, $timezone ) {
     $timestamp = strtotime( $time );
 
     return wp_date( 'j M y @ G:i', $timestamp, $timezone );
+}
+
+/**
+ * Get WP Pages
+ *
+ * @return array Pages
+ */
+function get_wp_pages() {
+	$query = new WP_Query([
+		'post_type'     => 'page',
+		'post_status'   => 'publish',
+		'post_per_page' => -1,
+		'fields'        => 'ids',
+	]);
+
+	if ( ! $query->have_posts() ) {
+		return [];
+	}
+
+	$pages = [];
+
+	foreach( $query->posts as $id ) {
+		$pages[] = [
+			'id'    => $id,
+			'title' => get_the_title( $id ),
+		];
+	}
+
+	return $pages;
+}
+
+/**
+ * Get Options
+ *
+ * @return array Options
+ */
+function get_options() {
+	return \get_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, [] );
+}
+
+/**
+ * Get Option
+ *
+ * @param string $option_key
+ * @param mixed $default
+ *
+ * @return mixed Option
+ */
+function get_option( $option_key = '', $default = '' ) {
+	$options = get_options();
+
+	if ( empty( $options ) ) {
+		return [];
+	}
+
+	if ( ! isset( $options[ $option_key ] ) ) {
+		return $default;
+	}
+
+	return $options[ $option_key ];
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @param string $option_key
+ * @param mixed $value
+ *
+ * @return void
+ */
+function update_option( $option_key = '', $value = '' ) {
+	$options = get_options();
+
+	$options[ $option_key ] = $value;
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}
+
+/**
+ * Sets or Update Options
+ *
+ * @param array $options
+ * @return array $options
+ */
+function update_options( $new_options = [] ) {
+	$old_options = get_options();
+
+	$options = array_merge( $old_options, $new_options );
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options );
+
+	return $options;
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @return void
+ */
+function delete_option( $option_key = '' ) {
+	$options = get_options();
+
+	if ( ! isset( $options[ $option_key ] ) ) {
+		return;
+	}
+
+	unset( $options[ $option_key ] );
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @param array $deleting_options
+ * @return array $options
+ */
+function delete_options( $option_keys = [] ) {
+	$options = get_options();
+
+	if ( empty( $options ) ) {
+		return;
+	}
+
+	foreach ( $option_keys as $key ) {
+
+		if ( ! isset( $options[ $key ] ) ) {
+			continue;
+		}
+
+		unset( $options[ $key ] );
+	}
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options );
+
+	return $options;
 }

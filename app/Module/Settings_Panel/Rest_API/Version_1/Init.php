@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Settings_Panel;
+namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -22,12 +22,11 @@ class Init {
     /**
      * Controllers
      *
-     * @return array
+     * @return array Controllers
      */
     protected function get_controllers() {
         return [
-            Asset\Init::class,
-            Rest_API\Init::class,
+            Settings_Panel::class,
         ];
     }
 

@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Admin_Asset extends Enqueuer {
 
@@ -36,7 +37,7 @@ class Admin_Asset extends Enqueuer {
           'ver'       => $this->script_version,
           'group'     => 'admin',
       ];
-     * 
+     *
      * @return void
      */
     public function add_css_scripts() {
@@ -56,7 +57,7 @@ class Admin_Asset extends Enqueuer {
 
     /**
      * Load Admin JS Scripts
-     * 
+     *
      * @Example
       $scripts['wpwax-customer-support-app-core-admin-script'] = [
           'file_name' => 'admin',
@@ -80,6 +81,7 @@ class Admin_Asset extends Enqueuer {
                 'wpWaxCustomerSupportApp_CoreScriptData' => [
                     'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
                     'apiNonce'    => wp_create_nonce( 'wp_rest' ),
+                    'wp_pages'    => Helper\get_wp_pages(),
                 ],
             ],
         ];

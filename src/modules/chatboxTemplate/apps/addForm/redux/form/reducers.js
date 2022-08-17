@@ -90,7 +90,7 @@ const formData = [
 const initialState = {
   data: formData,
   response: "",
-  loading: true,
+  loading: false,
   error: null,
 };
 

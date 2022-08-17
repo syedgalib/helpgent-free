@@ -129,7 +129,7 @@ const PreviewWrap = Styled.div`
         }
     }
     .wpwax-vm-preview-general{
-        width: 100%;
+        // width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -148,7 +148,7 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        width: 100%;
+        // width: 100%;
         border-radius: 25px;
         padding: 30px;
         background-color: var(--color-dark);
@@ -270,3 +270,4 @@ export {
     ThankSettingsWrap,
     PreviewWrap,
 };
+

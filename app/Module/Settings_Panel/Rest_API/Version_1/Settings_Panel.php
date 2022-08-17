@@ -2,10 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 
 class Settings_Panel extends Rest_Base {
 
@@ -33,8 +30,8 @@ class Settings_Panel extends Rest_Base {
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'options'            => [
-                            'required'          => true,
-                            // 'sanitize_callback' => 'sanitize_text_field',
+                            'type'     => 'object',
+                            'required' => true,
                         ],
                     ],
                 ],
@@ -44,8 +41,8 @@ class Settings_Panel extends Rest_Base {
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'options'            => [
-                            'required'          => true,
-                            // 'sanitize_callback' => 'sanitize_text_field',
+                            'type'     => 'array',
+                            'required' => true,
                         ],
                     ],
                 ],
@@ -55,197 +52,53 @@ class Settings_Panel extends Rest_Base {
     }
 
     /**
-     * @param $value
-     */
-    public function validate_message_type( $value ) {
-        return in_array( $value, [ 'text', 'video', 'audio' ] );
-    }
-
-    /**
-     * @param $value
-     */
-    public function validate_order( $value ) {
-        return in_array( $value, [ 'latest', 'oldest' ] );
-    }
-
-    /**
+	 * Get Items
+	 *
      * @param $request
      * @return mixed
      */
     public function get_items( $request ) {
-        $args = $request->get_params();
-
-
-        $where = [];
-
-        $where['session_id'] = '';
-        $where['user_id']    = '';
-
-        $where = Helper\filter_params( $where, $args );
-
-        $default = [];
-
-        $default['limit'] = 20;
-        $default['page']  = 1;
-
-        $args = Helper\filter_params( $default, $args );
-        $args['where'] = $where;
-
-        $data = Message_Model::get_items( $args );
-
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        if ( empty( $data ) ) {
-            return $this->response( true, [] );
-        }
-
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        // Prepare items for response
-        foreach ( $data as $key => $value ) {
-             $item = $this->prepare_item_for_response( $value, $args );
-
-             if ( empty( $item ) ) {
-                continue;
-             }
-
-             $data[ $key ] = $item;
-        }
+		$data = Helper\get_options();
 
         return $this->response( true, $data );
     }
 
     /**
-     * Get Item
-     *
-     * @param object $request
-     * @return array Response
-     */
-    public function get_item( $request ) {
-        $args = $request->get_params();
-        $id   = (int) $args['id'];
-
-        $success = false;
-        $data    = Message_Model::get_item( $id );
-
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $success = true;
-        $data    = $this->prepare_item_for_response( $data, $args );
-
-        return $this->response( $success, $data );
-    }
-
-    /**
-     * Create Item
+     * Create or Update Items
      *
      * @param $request
      * @return array Response
      */
-    public function create_item( $request ) {
+    public function create_update_items( $request ) {
         $args = $request->get_params();
+		$data = Helper\get_options();
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
+        if ( empty( $args['options'] ) ) {
+            return $this->response( true, $data );
         }
 
-        $data = Message_Model::create_item( $args );
+		$data = Helper\update_options( $args['options'] );
 
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        // Assign Terms
-        if ( isset( $args['terms'] ) ) {
-            $terms = Helper\convert_string_to_int_array( $args['terms'] );
-            foreach( $terms as $term_id ) {
-                Session_Term_Relationship_Model::create_item([
-                    'session_id' => $data['session_id'],
-                    'term_id'    => $term_id,
-                ]);
-            }
-        }
-
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $data    = $this->prepare_item_for_response( $data, $args );
-        $success = true;
-
-        // Notify User if requested
-        if ( isset( $args['notify_user'] ) && Helper\is_truthy( $args['notify_user'] ) ) {
-            $user         = get_user_by( 'id', $args['user_id'] );
-            $old_messages = Message_Model::get_items( [ 'where' => [ 'user_id' => $args['user_id'] ] ] );
-            $old_sessions = Message_Model::get_items( [ 'where' => [ 'session_id' => $data['session_id'] ] ] );
-
-            if ( count( $old_messages ) < 2 ) {
-                Message_Notification_Emails::notify_first_session_created( $user );
-            } else if ( count( $old_sessions ) < 2 ) {
-                Message_Notification_Emails::notify_new_session_created( $user );
-            }
-
-        }
-
-        return $this->response( $success, $data );
+        return $this->response( true, $data );
     }
 
     /**
+	 * Delete Items
+	 *
      * @param $request
      * @return mixed
      */
-    public function update_item( $request ) {
+    public function delete_items( $request ) {
         $args = $request->get_params();
+		$data = Helper\get_options();
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
+        if ( empty( $args['options'] ) ) {
+            return $this->response( true, $data );
         }
 
-        $data = Message_Model::update_item( $args );
+		$data = Helper\delete_options( $args['options'] );
 
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $data    = $this->prepare_item_for_response( $data, $args );
-        $success = true;
-
-        return $this->response( $success, $data );
-    }
-
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function delete_item( $request ) {
-        $args = $request->get_params();
-
-        $operation = Message_Model::delete_item( $args['id'] );
-
-        if ( is_wp_error( $operation ) ) {
-            return $operation;
-        }
-
-        return $this->response( true );
-    }
-
-    /**
-     * Get sanitize schema
-     *
-     * @return array
-     */
-    public function get_sanitize_schema() {
-        return [
-            'integer'    => [ 'id', 'user_id', 'attachment_id' ],
-            'serialized' => [ 'seen_by' ],
-            'datetime'   => [ 'created_on', 'updated_on' ],
-        ];
+        return $this->response( true, $data );
     }
 
 }

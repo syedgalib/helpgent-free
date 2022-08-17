@@ -558,11 +558,14 @@ function get_wp_pages() {
  * @return array Options
  */
 function get_options() {
-	return get_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, [] );
+	return \get_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, [] );
 }
 
 /**
  * Get Option
+ *
+ * @param string $option_key
+ * @param mixed $default
  *
  * @return mixed Option
  */
@@ -583,6 +586,9 @@ function get_option( $option_key = '', $default = '' ) {
 /**
  * Sets or Update Option
  *
+ * @param string $option_key
+ * @param mixed $value
+ *
  * @return void
  */
 function update_option( $option_key = '', $value = '' ) {
@@ -590,7 +596,23 @@ function update_option( $option_key = '', $value = '' ) {
 
 	$options[ $option_key ] = $value;
 
-	update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}
+
+/**
+ * Sets or Update Options
+ *
+ * @param array $options
+ * @return array $options
+ */
+function update_options( $new_options = [] ) {
+	$old_options = get_options();
+
+	$options = array_merge( $old_options, $new_options );
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options );
+
+	return $options;
 }
 
 /**
@@ -607,5 +629,32 @@ function delete_option( $option_key = '' ) {
 
 	unset( $options[ $option_key ] );
 
-	update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options  );
+}
+
+/**
+ * Sets or Update Option
+ *
+ * @param array $deleting_options
+ * @return array $options
+ */
+function delete_options( $option_keys = [] ) {
+	$options = get_options();
+
+	if ( empty( $options ) ) {
+		return;
+	}
+
+	foreach ( $option_keys as $key ) {
+
+		if ( ! isset( $options[ $key ] ) ) {
+			continue;
+		}
+
+		unset( $options[ $key ] );
+	}
+
+	\update_option( WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options );
+
+	return $options;
 }

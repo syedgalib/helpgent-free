@@ -7128,12 +7128,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
+console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 
 var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
-  baseURL: "".concat(location.protocol + '//' + location.host + '/wp-json/wpwax_cs/v1'),
+  baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
   headers: {
-    "Content-type": "application/json"
+    "Content-type": "application/json",
+    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
   }
 });
 
@@ -9723,7 +9725,7 @@ var addForm = function addForm(args) {
               return dispatch(addFormBegin());
 
             case 3:
-              apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].dataAdd("/chatbox-templates/", args).then(function (response) {
+              apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].dataAdd("/chatbox-templates", args).then(function (response) {
                 console.log(response); // await dispatch(addFormSuccess(response.data));
               }).catch(function (error) {
                 console.log(error);

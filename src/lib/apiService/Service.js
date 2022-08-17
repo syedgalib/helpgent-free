@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 const axiosInstance = axios.create({
-    baseURL: `${location.protocol + '//' + location.host + '/wp-json/wpwax_cs/v1'}`,
+    baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
     headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+        "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce,
     }
 });
 

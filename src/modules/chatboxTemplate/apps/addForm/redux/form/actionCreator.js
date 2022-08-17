@@ -16,7 +16,7 @@ const addForm = args => {
   return async dispatch => {
     try {
       await dispatch(addFormBegin());
-      apiService.dataAdd(`/chatbox-templates/`, args)
+      apiService.dataAdd(`/chatbox-templates`, args)
           
           .then(response => {
             console.log(response);

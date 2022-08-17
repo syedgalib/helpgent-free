@@ -8278,10 +8278,11 @@ var reducer = function reducer() {
       });
 
     case LOAD_TEMPLATE_SUCCESS:
+      var showChatbox = action.payload.data.length;
       return _objectSpread(_objectSpread({}, state), {}, {
         isLoading: false,
-        showChatbox: true,
-        template: action.payload.data[0]
+        showChatbox: showChatbox,
+        template: showChatbox ? action.payload.data[0] : null
       });
 
     case LOAD_TEMPLATE_ERROR:

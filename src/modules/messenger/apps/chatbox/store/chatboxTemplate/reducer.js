@@ -2,10 +2,10 @@ import actions from "./actions";
 import defaultTemplateData from './defaultChatboxTemplate';
 import screenTypes from "../chatbox/screenTypes";
 
-const { 
-    LOAD_TEMPLATE_BEGAIN, 
-    LOAD_TEMPLATE_SUCCESS, 
-    LOAD_TEMPLATE_ERROR, 
+const {
+    LOAD_TEMPLATE_BEGAIN,
+    LOAD_TEMPLATE_SUCCESS,
+    LOAD_TEMPLATE_ERROR,
 } = actions;
 
 const initialState = {
@@ -28,11 +28,13 @@ const reducer = ( state = initialState, action ) => {
                 isLoading: true
             };
         case LOAD_TEMPLATE_SUCCESS:
+			const showChatbox = action.payload.data.length;
+
             return {
                 ...state,
                 isLoading: false,
-                showChatbox: true,
-                template: action.payload.data[0],
+                showChatbox: showChatbox,
+                template: showChatbox ? action.payload.data[0] : null,
             };
         case LOAD_TEMPLATE_ERROR:
             return {

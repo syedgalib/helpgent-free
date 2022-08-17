@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import Modal from 'Components/Modal.jsx';
 import apiService from 'apiService/Service';
+import Modal from 'Components/Modal.jsx';
+import React, { useEffect, useState } from "react";
 import TemplateBox from './Style';
 
 const Table = () => {
@@ -171,7 +171,7 @@ const Table = () => {
     }, []);
 
     return (
-        <TemplateBox className={loader ? "wpwax-vm-loder-active" : ""}>
+        <TemplateBox className={loader ? "wpwax-vm-loder-active" : null}>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
                 {message ?
                     <p className={`${responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'}`}>

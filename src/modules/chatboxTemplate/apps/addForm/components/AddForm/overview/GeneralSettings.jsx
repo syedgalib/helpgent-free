@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
 import { ReactSVG } from 'react-svg';
 import Switch from "react-switch";
-import { onFormEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
@@ -89,7 +89,7 @@ const GeneralSettings = () => {
                 // code block
             }
         });
-        dispatch(onFormEdit(updatedData));
+        dispatch(handleDynamicEdit(updatedData));
     }
 
     /* To Handle Template Change */

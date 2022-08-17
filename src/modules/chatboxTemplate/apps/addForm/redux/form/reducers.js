@@ -1,7 +1,7 @@
 import actions from './actions';
 const formData = [
   {
-    id: "1",
+    id: "",
     name: "",
     "option":{
         "theme":"theme-1",
@@ -90,7 +90,7 @@ const formData = [
 const initialState = {
   data: formData,
   response: "",
-  loading: false,
+  loading: true,
   error: null,
 };
 
@@ -115,7 +115,7 @@ const FormReducer = (state = initialState, action) => {
     case FORM_ADD_SUCCESS:
       return {
         ...state,
-        data,
+        response: JSON.parse(data),
         sLoading: false,
       };
     case FORM_ADD_ERR:
@@ -127,19 +127,16 @@ const FormReducer = (state = initialState, action) => {
     case FORM_READ_BEGIN:
       return {
         ...state,
-        loading: true,
       };
     case FORM_READ_SUCCESS:
       return {
         ...state,
         data,
-        loading: false,
       };
     case FORM_READ_ERR:
       return {
         ...state,
         error: err,
-        loading: false,
       };
     default:
       return state;

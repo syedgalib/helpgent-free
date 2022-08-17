@@ -15,24 +15,22 @@ const {
 const addForm = args => {
   return async dispatch => {
     try {
-      await dispatch(addFormBegin());
-      apiService.dataAdd(`/chatbox-templates`, args)
-          
+      dispatch(addFormBegin());
+      await apiService.dataAdd(`/chatbox-templates`, args)
           .then(response => {
             console.log(response);
-            // await dispatch(addFormSuccess(response.data));
+            dispatch(addFormSuccess(JSON.stringify(response)));
           })
           .catch((error) => {
               console.log(error)
           })
-      // dispatch(addFormSuccess(data));
     } catch (err) {
       dispatch(addFormErr(err));
     }
   };
 };
 
-const onFormEdit = data => {
+const handleDynamicEdit = data => {
   return async dispatch => {
     try {
       dispatch(formReadBegin());
@@ -43,5 +41,5 @@ const onFormEdit = data => {
   };
 };
 
-export { addForm, onFormEdit };
+export { addForm, handleDynamicEdit };
 

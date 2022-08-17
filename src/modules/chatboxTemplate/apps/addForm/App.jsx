@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
-import store from './redux/store';
 import Form from './components/AddForm/Index.jsx';
+import store from './redux/store';
 
 const AddForm = () => {
     return(
@@ -11,8 +11,10 @@ const AddForm = () => {
 }
 
 function App() {
+
 	return (
         <Provider store={store}>
+            
             <AddForm />
         </Provider>
         

@@ -10,6 +10,17 @@ const AddFormStyle = Styled.div`
         border-radius: 14px;
         z-index: 10;
         background-color: var(--color-bg-white);
+        .wpwax-vm-loading-spin{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 100;
+        }
+        &.wpwax-vm-loder-active{
+            &:after{
+                border-radius: 14px;
+            }
+        }
     }
     .wpwax-vm-form-group{
         margin-bottom: 16px;

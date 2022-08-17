@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
-import { onFormEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 
 export const fontSizeOptions = [
@@ -171,7 +171,7 @@ const ThankSettings = () => {
             }
         });
         // console.log(updatedData);
-        dispatch(onFormEdit(updatedData));
+        dispatch(handleDynamicEdit(updatedData));
     }
 
     /* For updating each element, we create seperate function */

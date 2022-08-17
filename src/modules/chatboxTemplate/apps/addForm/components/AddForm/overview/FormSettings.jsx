@@ -1,10 +1,10 @@
+import replaceIcon from 'Assets/svg/icons/replace.svg';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import { ReactSVG } from "react-svg";
 import Switch from "react-switch";
-import { onFormEdit } from '../../../redux/form/actionCreator';
-import replaceIcon from 'Assets/svg/icons/replace.svg'
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -210,7 +210,7 @@ const FormSettings = () => {
             }
             return item;
         });
-        dispatch(onFormEdit(updatedData));
+        dispatch(handleDynamicEdit(updatedData));
     }
 
     /* For updating each element, we create seperate function */

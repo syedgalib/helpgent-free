@@ -15,13 +15,15 @@ import { addForm } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
     /* initialize Form Data */
-    const { formInitialData } = useSelector(state => {
+    const { formInitialData, loading, response } = useSelector(state => {
         return {
             formInitialData: state.form.data[0],
+            loading: state.form.loading,
+            response: state.form.response,
         };
     });
 
-    console.log(JSON.parse(JSON.stringify(formInitialData)));
+    console.log(loading)
 
     const [state, setState] = useState({
         validation: true
@@ -53,12 +55,15 @@ const AddForm = () => {
                 });
             }, "4000")
         } else {
-            // console.log(JSON.stringify(formInitialData.option))
-            // dispatch(addForm(formInitialData));
-
-
-            // console.log(tformInitialData)
-            dispatch(addForm(JSON.stringify(formInitialData)));
+            const formData = {
+                id: formInitialData.id,
+                name: formInitialData.name,
+                options: JSON.stringify(formInitialData.option),
+                page_ids: formInitialData.page_ids,
+                is_default: formInitialData.is_default,
+            }
+        
+            dispatch(addForm(formData));
         }
     }
 
@@ -76,6 +81,12 @@ const AddForm = () => {
                 {
                     !state.validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
                 }
+                {
+                    response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
+                }
+                {
+                    response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
+                }
                 <ThankSettings />
             </div>
         }
@@ -83,7 +94,16 @@ const AddForm = () => {
 
     return (
         <AddFormStyle>
-            <div className="wpwax-vm-add-form">
+
+            <div className={loading ? "wpwax-vm-add-form wpwax-vm-loder-active" : "wpwax-vm-add-form"}>
+                {
+                    loading ? <span className="wpwax-vm-loading-spin">
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                </span> : null
+                }
                 <form action="" onSubmit={handleAddTemplate}>
                     <div className="wpwax-vm-add-form__tab">
                         <ul className="wpwax-vm-add-form__top">

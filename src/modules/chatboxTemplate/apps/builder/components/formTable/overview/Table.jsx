@@ -158,6 +158,7 @@ const Table = () => {
                     data: response.data.data,
                     loader: false,
                 });
+                console.log(response);
             })
             .catch((error) => {
                 setState({

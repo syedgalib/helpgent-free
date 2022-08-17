@@ -21,6 +21,8 @@ const AddForm = () => {
         };
     });
 
+    console.log(JSON.parse(JSON.stringify(formInitialData)));
+
     const [state, setState] = useState({
         validation: true
     });
@@ -51,7 +53,12 @@ const AddForm = () => {
                 });
             }, "4000")
         } else {
-            dispatch(addForm(formInitialData));
+            // console.log(JSON.stringify(formInitialData.option))
+            // dispatch(addForm(formInitialData));
+
+
+            // console.log(tformInitialData)
+            dispatch(addForm(JSON.stringify(formInitialData)));
         }
     }
 

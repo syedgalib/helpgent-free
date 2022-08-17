@@ -7396,6 +7396,8 @@ var AddForm = function AddForm() {
   }),
       formInitialData = _useSelector.formInitialData;
 
+  console.log(JSON.parse(JSON.stringify(formInitialData)));
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     validation: true
   }),
@@ -7435,7 +7437,10 @@ var AddForm = function AddForm() {
         });
       }, "4000");
     } else {
-      dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.addForm)(formInitialData));
+      // console.log(JSON.stringify(formInitialData.option))
+      // dispatch(addForm(formInitialData));
+      // console.log(tformInitialData)
+      dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.addForm)(JSON.stringify(formInitialData)));
     }
   };
 
@@ -8723,7 +8728,6 @@ var PreviewOne = function PreviewOne(_ref) {
   }),
       formOption = _useSelector.formOption;
 
-  console.log(formOption);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.PreviewWrap, {
     children: previewStage === 'general' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "wpwax-vm-preview-general",
@@ -9856,8 +9860,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var formData = [{
-  "id": "1",
-  "name": "",
+  id: "1",
+  name: "",
   "option": {
     "theme": "theme-1",
     "display_on_all_pages": false,
@@ -9891,8 +9895,8 @@ var formData = [{
     "button_color": "#6551f2",
     "button_border_radius": "15"
   },
-  "page_ids": "0,20",
-  "is_default": true // "template": "Large",
+  page_ids: "0,20",
+  is_default: true // "template": "Large",
   // "all_page_visibility": true,
   // "custom_visible_page": null,
   // "acccount_creation": true,
@@ -10315,6 +10319,7 @@ var Table = function Table() {
         data: response.data.data,
         loader: false
       }));
+      console.log(response);
     }).catch(function (error) {
       setState(_objectSpread(_objectSpread({}, state), {}, {
         message: error.message,

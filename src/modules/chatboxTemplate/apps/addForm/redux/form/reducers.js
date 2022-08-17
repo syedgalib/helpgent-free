@@ -1,8 +1,8 @@
 import actions from './actions';
 const formData = [
   {
-    "id": "1",
-    "name": "",
+    id: "1",
+    name: "",
     "option":{
         "theme":"theme-1",
         "display_on_all_pages": false,
@@ -46,8 +46,8 @@ const formData = [
         "button_border_radius":"15"
      
     },
-    "page_ids": "0,20",
-    "is_default": true,
+    page_ids: "0,20",
+    is_default: true,
     // "template": "Large",
     // "all_page_visibility": true,
     // "custom_visible_page": null,

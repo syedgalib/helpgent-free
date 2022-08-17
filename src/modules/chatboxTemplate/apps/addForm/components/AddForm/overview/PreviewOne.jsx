@@ -11,7 +11,6 @@ const PreviewOne = ({ previewStage }) => {
             formOption: state.form.data[0].option,
         };
     });
-    console.log(formOption);
     return (
         <PreviewWrap>
             {previewStage === 'general' ?

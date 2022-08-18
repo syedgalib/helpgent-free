@@ -62,7 +62,7 @@ const AddForm = () => {
                 page_ids: formInitialData.page_ids,
                 is_default: formInitialData.is_default,
             }
-        
+
             dispatch(addForm(formData));
         }
     }
@@ -81,12 +81,7 @@ const AddForm = () => {
                 {
                     !state.validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
                 }
-                {
-                    response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
-                }
-                {
-                    response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
-                }
+
                 <ThankSettings />
             </div>
         }
@@ -98,11 +93,11 @@ const AddForm = () => {
             <div className={loading ? "wpwax-vm-add-form wpwax-vm-loder-active" : "wpwax-vm-add-form"}>
                 {
                     loading ? <span className="wpwax-vm-loading-spin">
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                </span> : null
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                    </span> : null
                 }
                 <form action="" onSubmit={handleAddTemplate}>
                     <div className="wpwax-vm-add-form__tab">
@@ -117,6 +112,13 @@ const AddForm = () => {
 
                         {
                             getFormContent()
+                        }
+
+                        {
+                            response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
+                        }
+                        {
+                            response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
                         }
 
                     </div>

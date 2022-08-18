@@ -53,6 +53,9 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-text-highlighted {
             padding: 25px 30px 0;
         }
+        .wpwax-vm-notice{
+            margin: 20px 30px 20px;
+        }
     }
     .wpwax-vm-add-form__top{
         padding: 20px;
@@ -346,6 +349,10 @@ const AddFormStyle = Styled.div`
                 box-shadow: 0 0;
             }
         }
+        &.wpax-vm-has-src{
+            border: 0 none;
+            min-height: 200px;
+        }
     }
     .wpwax-vm-media-preview{
         position: absolute;
@@ -380,6 +387,11 @@ const AddFormStyle = Styled.div`
             img{
                 width: 100%;
                 height: 100%;
+                border-radius: 12px;
+            }
+            video{
+                height: 100%;
+                width: 100%;
                 border-radius: 12px;
             }
         }

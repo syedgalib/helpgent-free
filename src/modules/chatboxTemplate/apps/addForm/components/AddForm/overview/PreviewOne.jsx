@@ -1,18 +1,45 @@
 import propTypes from 'prop-types';
 import React from "react";
 import { useSelector } from 'react-redux';
+import { ReactSVG } from 'react-svg';
 import { PreviewWrap } from './Style';
+
+import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import miceIcon from 'Assets/svg/icons/mice.svg';
+import textIcon from 'Assets/svg/icons/text.svg';
+import recordIcon from 'Assets/svg/icons/s-record.svg';
 
 
 const PreviewOne = ({ previewStage }) => {
     /* initialize Form Data */
-    const { formOption } = useSelector(state => {
+    const { formOption, loading } = useSelector(state => {
         return {
             formOption: state.form.data[0].option,
+            loading: state.form.loading,
         };
     });
+
+    const iconContent = (button) => {
+        if (button === 'video') {
+            return <ReactSVG src={videoIcon} />
+        } else if (button === 'screen_recording') {
+            return <ReactSVG src={recordIcon} />
+        } else if (button === 'voice') {
+            return <ReactSVG src={miceIcon} />
+        } else if (button === 'text') {
+            return <ReactSVG src={textIcon} />
+        }
+    }
     return (
-        <PreviewWrap>
+        <PreviewWrap className={loading ? "wpwax-vm-loder-active" : null}>
+            {
+                loading ? <span className="wpwax-vm-loading-spin">
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                    <span className="wpwax-vm-spin-dot"></span>
+                </span> : null
+            }
             {previewStage === 'general' ?
                 <div className="wpwax-vm-preview-general">
                     <p>No Preview Available</p>
@@ -21,7 +48,14 @@ const PreviewOne = ({ previewStage }) => {
                 previewStage === 'form' ?
                     <>
                         <div className="wpwax-vm-preview-from" style={{ fontFamily: formOption.font }} >
-                            <div className="wpwax-vm-preview-bg"></div>
+                            <div className="wpwax-vm-preview-img">
+                                {
+                                    formOption.greet_image_url !== '' ? <img src={formOption.greet_image_url} alt="Wpwax Video Support Plugin" /> : null
+                                }
+                                {
+                                    formOption.greet_video_url !== '' ? <video src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                }
+                            </div>
                             <div className="wpwax-vm-preview-header">
                                 <h4 className="wpwax-vm-preview-title" style={{ color: formOption.font_color, fontSize: formOption.font_size }} >{formOption.greet_message}</h4>
                                 {formOption.show_description ?
@@ -36,7 +70,11 @@ const PreviewOne = ({ previewStage }) => {
                                 <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>
                                 <div className="wpwax-vm-preview-footer__actions">
                                     {
-                                        formOption.can_replay_in.map((item, index) => <a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary" style={{ borderRadius: `${formOption.button_border_radius}px`, backgroundColor: `${formOption.button_color}`, borderColor: `${formOption.button_color}` }} key={index}>{item === "screen_recording" ? "Screen Recording" : item}</a>)
+                                        formOption.can_replay_in.map((item, index) =>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" style={{ borderRadius: `${formOption.button_border_radius}px`, backgroundColor: `${formOption.button_color}`, borderColor: `${formOption.button_color}` }} key={index}>
+                                                {iconContent(item)}
+                                                {item === "screen_recording" ? "Screen Recording" : item}
+                                            </a>)
                                     }
                                 </div>
                                 {

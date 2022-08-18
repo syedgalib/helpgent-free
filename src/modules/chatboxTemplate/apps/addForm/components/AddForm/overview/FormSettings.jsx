@@ -95,7 +95,8 @@ const FormSettings = () => {
                             ...item,
                             option: {
                                 ...item.option,
-                                greet_image_url: value
+                                greet_image_url: value,
+                                greet_video_url: '',
                             }
                         }
                     case "greet-media-video":
@@ -103,7 +104,8 @@ const FormSettings = () => {
                             ...item,
                             option: {
                                 ...item.option,
-                                greet_video_url: value
+                                greet_video_url: value,
+                                greet_image_url: ''
                             }
                         }
                     case "des-visibility":
@@ -252,10 +254,10 @@ const FormSettings = () => {
             ...state,
             chatReplyType: updatear
         });
-
+        console.log(updatear)
         updateForm('chat-type', updatear);
     }
-    const handleChatReplyType = (id) => {
+    const handleChatReplyType = (checked, event, id) => {
         if (id === "wpwax-vm-reply-video") {
             handleChatArray("video");
         } else if (id === "wpwax-vm-reply-s-record") {
@@ -347,13 +349,15 @@ const FormSettings = () => {
             if (attatchmentType === "image") {
                 setState({
                     ...state,
-                    grettingImage: attatchmentUrl
+                    grettingImage: attatchmentUrl,
+                    grettingVideo: '',
                 });
                 updateForm('greet-media-image', attatchmentUrl);
             } else if (attachment.type === "video") {
                 setState({
                     ...state,
-                    grettingVideo: attatchmentUrl
+                    grettingVideo: attatchmentUrl,
+                    grettingImage: ''
                 });
                 updateForm('greet-media-video', attatchmentUrl);
             }
@@ -369,7 +373,7 @@ const FormSettings = () => {
                 <div className="wpwax-vm-form-group__label">
                     <span>Add an image/video or Record a video</span>
                 </div>
-                <div className="wpwax-vm-uploader">
+                <div className={grettingVideo !== '' || grettingImage !== '' ? 'wpwax-vm-uploader wpax-vm-has-src' : 'wpwax-vm-uploader'}>
                     <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
                         <a href="#" className="wpwax-vm-media-upload" onClick={e => openUploader(e)}>Add image/video</a>
                         {/* <input type="button" className="wpwax-vm-media-upload" onClick={e => openUploader(e)} value="Add image/video" /> */}

@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { PreviewWrap } from './Style';
 
-import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import miceIcon from 'Assets/svg/icons/mice.svg';
-import textIcon from 'Assets/svg/icons/text.svg';
 import recordIcon from 'Assets/svg/icons/s-record.svg';
+import textIcon from 'Assets/svg/icons/text.svg';
+import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
 
 const PreviewOne = ({ previewStage }) => {
@@ -29,6 +29,12 @@ const PreviewOne = ({ previewStage }) => {
         } else if (button === 'text') {
             return <ReactSVG src={textIcon} />
         }
+    }
+
+    const handleButtonPlay = e=>{
+        e.preventDefault();
+        const videoDom = document.querySelector('.wpwax-vm-preview-video');
+        videoDom.play();
     }
     return (
         <PreviewWrap className={loading ? "wpwax-vm-loder-active" : null}>
@@ -53,7 +59,7 @@ const PreviewOne = ({ previewStage }) => {
                                     formOption.greet_image_url !== '' ? <img src={formOption.greet_image_url} alt="Wpwax Video Support Plugin" /> : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? <video src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                    formOption.greet_video_url !== '' ? <video className="wpwax-vmpreview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
                                 }
                             </div>
                             <div className="wpwax-vm-preview-header">
@@ -64,7 +70,10 @@ const PreviewOne = ({ previewStage }) => {
 
                             </div>
                             <div className="wpwax-vm-preview-inner">
-                                <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
+                                {
+                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e=>handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
+                                }
+                                
                             </div>
                             <div className="wpwax-vm-preview-footer">
                                 <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>

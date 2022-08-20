@@ -1,6 +1,6 @@
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import Radio from "Components/formFields/Radio.jsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
 import { ReactSVG } from 'react-svg';
@@ -15,10 +15,6 @@ export const templateOptions = [
     { value: "theme-2", label: "Theme Two" },
 ]
 
-export const customPages = [
-    { value: "0", label: "Sample Pages" },
-    { value: "2", label: "Privacy Polices" },
-]
 const GeneralSettings = () => {
     /* initialize Form Data */
     const { formInitialData } = useSelector(state => {
@@ -36,7 +32,7 @@ const GeneralSettings = () => {
         chatVisibilityType: formInitialData[0].option.chat_visibility_type,
     });
 
-    const { templateName, diplayAllPage, templateTheme, chatVisibilityType } = state;
+    const { templateName, diplayAllPage, templateTheme, displayedCustomPages, chatVisibilityType } = state;
     console.log(templateOptions.filter(function (option) {
         return option.value === templateTheme;
     })[0])
@@ -51,6 +47,14 @@ const GeneralSettings = () => {
         );
     };
 
+    const customPages = []
+    
+    useEffect(() => {
+        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item,index)=>{
+            customPages.push({value: `${item.id}`, label:`${item.title}`})
+        });
+    }, []);
+    
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -143,7 +147,6 @@ const GeneralSettings = () => {
         updateForm('chat-visibility', visiblityType);
 
     };
-
     return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">

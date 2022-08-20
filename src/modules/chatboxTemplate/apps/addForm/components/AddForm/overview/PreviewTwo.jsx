@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
 import propTypes from 'prop-types';
-import { ReactSVG } from 'react-svg';
+import React from "react";
 import { useSelector } from 'react-redux';
+import { ReactSVG } from 'react-svg';
 import { PreviewWrap } from './Style';
 
-import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import miceIcon from 'Assets/svg/icons/mice.svg';
-import textIcon from 'Assets/svg/icons/text.svg';
 import recordIcon from 'Assets/svg/icons/s-record.svg';
+import textIcon from 'Assets/svg/icons/text.svg';
+import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
 const PreviewTwo = ({ previewStage }) => {
     /* initialize Form Data */
@@ -30,6 +30,12 @@ const PreviewTwo = ({ previewStage }) => {
         }
     }
 
+    const handleButtonPlay = e=>{
+        e.preventDefault();
+        const videoDom = document.querySelector('.wpwax-vm-preview-video');
+        videoDom.play();
+    }
+
     return (
         <PreviewWrap>
             {previewStage === 'general' ?
@@ -47,7 +53,13 @@ const PreviewTwo = ({ previewStage }) => {
                                 {
                                     formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img" style={{ backgroundImage: `url("${formOption.greet_image_url}")` }}></div> : null
                                 }
-                                <a href="#" className="wpwax-vm-btn-play"><i className="dashicons dashicons-controls-play"></i></a>
+                                {
+                                    formOption.greet_video_url !== '' ? <video className="wpwax-vm-preview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                }
+                                {
+                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e=>handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
+                                }
+                                
                             </div>
                             <div className="wpwax-vm-preview-footer">
                                 <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>

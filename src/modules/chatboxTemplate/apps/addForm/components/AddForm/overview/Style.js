@@ -249,6 +249,7 @@ const PreviewWrap = Styled.div`
                position: relative;
                display: block;
                padding: 0;
+               min-height: 220px;
                .wpwax-vm-btn-play{
                    position: absolute;
                    left: 50%;
@@ -271,6 +272,10 @@ const PreviewWrap = Styled.div`
                         z-index: -1;
                     }
                }
+               video{
+                    width: 100%;
+                    min-height: 340px;
+               }
                
            }
            .wpwax-vm-preview-footer{
@@ -292,6 +297,19 @@ const PreviewWrap = Styled.div`
                     color: #4D4D4D;
                 }
            }
+           .wpwax-vmpreview-video{
+                position: relative;
+                z-index: 10;
+                &:after{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: -1;
+                    background-color: rgba(3,3,8,.30);
+                }
+            }
         }
     }
     .wpwax-vm-preview-thank{

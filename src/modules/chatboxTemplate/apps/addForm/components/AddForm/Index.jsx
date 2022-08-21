@@ -23,8 +23,6 @@ const AddForm = () => {
         };
     });
 
-    console.log(loading)
-
     const [state, setState] = useState({
         validation: true
     });

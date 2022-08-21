@@ -53,6 +53,7 @@ const GeneralSettings = () => {
         wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item,index)=>{
             customPages.push({value: `${item.id}`, label:`${item.title}`})
         });
+        
     }, []);
     
     /* Dispasth is used for passing the actions to redux store  */

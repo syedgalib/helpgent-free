@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { PreviewWrap } from './Style';
@@ -18,6 +18,13 @@ const PreviewTwo = ({ previewStage }) => {
         };
     });
 
+    const [state, setState] = useState({
+        isPaused: false,
+    });
+
+    /* Destructuring State */
+    const { isPaused } = state;
+
     const iconContent = (button) => {
         if (button === 'video') {
             return <ReactSVG src={videoIcon} />
@@ -30,10 +37,22 @@ const PreviewTwo = ({ previewStage }) => {
         }
     }
 
-    const handleButtonPlay = e=>{
-        e.preventDefault();
-        const videoDom = document.querySelector('.wpwax-vm-preview-video');
-        videoDom.play();
+    const greetVideoDom = useRef();
+
+    const handleToggleGreetVideo = e => {
+        e.preventDefault()
+        console.log(greetVideoDom.current.paused);
+        if (greetVideoDom.current.paused) {
+            greetVideoDom.current.play();
+            setState({
+                isPaused: true
+            });
+            return;
+        }
+        greetVideoDom.current.pause();
+        setState({
+            isPaused: false
+        });
     }
 
     return (
@@ -54,12 +73,21 @@ const PreviewTwo = ({ previewStage }) => {
                                     formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img" style={{ backgroundImage: `url("${formOption.greet_image_url}")` }}></div> : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? <video className="wpwax-vm-preview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                    formOption.greet_video_url !== '' ?
+                                        <video style={{ objectFit: 'cover' }}
+                                            ref={greetVideoDom}
+                                            width='100%'
+                                            height='100%'
+                                            className="wpwax-vm-preview-video"
+                                            onClick={handleToggleGreetVideo}
+                                            src={formOption.greet_video_url}
+                                        />
+                                        : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e=>handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
+                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}><i className={!isPaused ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause'}></i></a> : null
                                 }
-                                
+
                             </div>
                             <div className="wpwax-vm-preview-footer">
                                 <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>

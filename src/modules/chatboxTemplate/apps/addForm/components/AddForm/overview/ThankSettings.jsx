@@ -18,35 +18,52 @@ export const fontSizeOptions = [
 ]
 const ThankSettings = () => {
     /* initialize Form Data */
-    const { formData, formInitialData, formInitialOption } = useSelector(state => {
+    const { 
+        collectInfoVisibility, 
+        collectableInfo, 
+        title, 
+        descriptionVisibility, 
+        description, 
+        ctaButtonVisibility, 
+        ctaButtonText, 
+        ctaButtonUrl, 
+        ctaBgColor, 
+        ctaTitleFontSize, 
+        ctaFontColor, 
+        ctaButtonColor,
+        ctaButtonTextColor,
+        ctaButtonRadius,
+        formData, 
+        formInitialData, 
+        formInitialOption 
+    } = useSelector(state => {
         return {
+            collectInfoVisibility: state.form.data[0].options.collect_info,
+            collectableInfo: state.form.data[0].options.collectable_info,
+            title: state.form.data[0].options.thank_page_title,
+            descriptionVisibility: state.form.data[0].options.show_thank_page_description,
+            description: state.form.data[0].options.thank_page_description,
+            ctaButtonVisibility: state.form.data[0].options.show_thank_page_cta_button,
+            ctaButtonText: state.form.data[0].options.thank_page_cta_button_text,
+            ctaButtonUrl: state.form.data[0].options.thank_page_cta_button_url,
+            ctaBgColor: state.form.data[0].options.thank_page_cta_background,
+            ctaTitleFontSize: state.form.data[0].options.thank_page_cta_title_font_size,
+            ctaFontColor: state.form.data[0].options.thank_page_cta_font_color,
+            ctaButtonColor: state.form.data[0].options.thank_page_cta_button_color,
+            ctaButtonTextColor: state.form.data[0].options.thank_page_cta_button_text_color,
+            ctaButtonRadius: state.form.data[0].options.thank_page_cta_button_radius,
             formData: state.form.data,
             formInitialData: state.form.data[0],
             formInitialOption: state.form.data[0].options,
         };
     });
     const [state, setState] = useState({
-        id: formInitialData.form_id,
-        collectInfoVisibility: formInitialOption.collect_info,
-        collectableInfo: formInitialOption.collectable_info,
-        title: formInitialOption.thank_page_title,
-        descriptionVisibility: formInitialOption.show_thank_page_description,
-        description: formInitialOption.thank_page_description,
-        ctaButtonVisibility: formInitialOption.show_thank_page_cta_button,
-        ctaButtonText: formInitialOption.thank_page_cta_button_text,
-        ctaButtonUrl: formInitialOption.thank_page_cta_button_url,
-        ctaBgColor: formInitialOption.thank_page_cta_background,
-        ctaTitleFontSize: formInitialOption.thank_page_cta_title_font_size,
-        ctaFontColor: formInitialOption.thank_page_cta_font_color,
-        ctaButtonColor: formInitialOption.thank_page_cta_button_color,
-        ctaButtonTextColor: formInitialOption.thank_page_cta_button_text_color,
-        ctaButtonRadius: formInitialOption.thank_page_cta_button_radius,
         openCollapse: true
     });
 
     /* Destructuring State */
     const {
-        id, collectInfoVisibility, collectableInfo, title, descriptionVisibility, description, ctaButtonVisibility, ctaButtonText, ctaButtonUrl, ctaBgColor, ctaTitleFontSize, ctaFontColor, ctaButtonColor, ctaButtonTextColor, ctaButtonRadius, openCollapse
+        openCollapse
     } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -57,112 +74,112 @@ const ThankSettings = () => {
                 case "info-visibility":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             collect_info: value
                         }
                     }
                 case "title":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_title: value
                         }
                     }
                 case "collectable-info":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             collectable_info: value
                         }
                     }
                 case "des-visibility":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             show_thank_page_description: value
                         }
                     }
                 case "description":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_description: value
                         }
                     }
                 case "btn-visibility":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             show_thank_page_cta_button: value
                         }
                     }
                 case "btn-text":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_button_text: value
                         }
                     }
                 case "btn-url":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_button_url: value
                         }
                     }
                 case "bg-color":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_background: value
                         }
                     }
                 case "title-size":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_title_font_size: value
                         }
                     }
                 case "font-color":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_font_color: value
                         }
                     }
                 case "button-color":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_button_color: value
                         }
                     }
                 case "button-text-color":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_button_text_color: value
                         }
                     }
                 case "button-radius":
                     return {
                         ...item,
-                        option: {
-                            ...item.option,
+                        options: {
+                            ...item.options,
                             thank_page_cta_button_radius: value
                         }
                     }
@@ -176,103 +193,64 @@ const ThankSettings = () => {
 
     /* For updating each element, we create seperate function */
     const handleCollectInfoVisibility = () => {
-        setState({
-            ...state,
-            collectInfoVisibility: !collectInfoVisibility,
-        });
+        
         updateForm('info-visibility', !collectInfoVisibility);
     }
     const changeBgColor = (event) => {
         let thankBgColor = event.target.value;
-        setState({
-            ...state,
-            bgColor: thankBgColor
-        });
+        
         updateForm('bg-color', thankBgColor);
     }
     const changeFontColor = (event) => {
         let thankFontColor = event.target.value;
-        setState({
-            ...state,
-            ctaFontColor: thankFontColor
-        });
+    
         updateForm('font-color', thankFontColor);
     }
     const changeButtonColor = (event) => {
         let thankButtonColor = event.target.value;
-        setState({
-            ...state,
-            ctaButtonColor: thankButtonColor
-        });
+        
         updateForm('button-color', thankButtonColor);
     }
     const changeButtonTextColor = (event) => {
         let thankButtonTextColor = event.target.value;
-        setState({
-            ...state,
-            ctaButtonTextColor: thankButtonTextColor
-        });
+        
         updateForm('button-text-color', thankButtonTextColor);
     }
     const changeButtonRadius = (event) => {
         let thankButtonRadius = event.target.value;
-        setState({
-            ...state,
-            ctaButtonRadius: thankButtonRadius
-        });
+           
         updateForm('button-radius', thankButtonRadius);
     }
     const changeTitle = (event) => {
         let thankTitle = event.target.value;
-        setState({
-            ...state,
-            title: thankTitle
-        });
+        
         updateForm('title', thankTitle);
     }
     const chagneTitleFontSize = selectedSize => {
-        setState({
-            ...state,
-            titleFontSize: selectedSize.value
-        });
+        
         updateForm('title-size', selectedSize.value);
     }
     const changeDescriptionVisibility = () => {
-        setState({
-            ...state,
-            descriptionVisibility: !descriptionVisibility
-        });
+        
         updateForm('des-visibility', !descriptionVisibility);
     }
     const changeDescription = (event) => {
         let thankDescription = event.target.value;
-        setState({
-            ...state,
-            description: thankDescription
-        });
+        
         updateForm('description', thankDescription);
     }
     const changeButtonVisibility = () => {
-        setState({
-            ...state,
-            buttonVisibility: !buttonVisibility
-        });
+        
         updateForm('btn-visibility', !buttonVisibility);
     }
     const changeButtonText = (event) => {
         let thankBtnText = event.target.value;
-        setState({
-            ...state,
-            ctaButtonText: thankBtnText
-        });
+        
         updateForm('btn-text', thankBtnText);
     }
     const changeButtonUrl = (event) => {
         let thankBtnUrl = event.target.value;
-        setState({
-            ...state,
-            ctaButtonUrl: thankBtnUrl
-        });
+        
         updateForm('btn-url', thankBtnUrl);
     }
 
@@ -284,6 +262,13 @@ const ThankSettings = () => {
             openCollapse: !openCollapse
         });
     }
+
+    const handleCollectableInfo = ()=>{
+        
+    }
+
+
+    console.log(collectInfoVisibility);
 
     return (
         <ThankSettingsWrap>
@@ -307,7 +292,7 @@ const ThankSettings = () => {
                     </label>
                 </div>
                 <div className="wpwax-vm-chekbox-list">
-                    {
+                    {/* {
                         collectableInfo.map((item, index) => {
                             return (
                                 <div className="wpwax-vm-chekbox-single" key={index}>
@@ -317,7 +302,19 @@ const ThankSettings = () => {
                             )
 
                         })
-                    }
+                    } */}
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Name</span>
+                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                    </div>
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Email</span>
+                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                    </div>
+                    <div className="wpwax-vm-chekbox-single">
+                        <span>Phone</span>
+                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                    </div>
                 </div>
             </div>
             <div className="wpwax-vm-form-group">

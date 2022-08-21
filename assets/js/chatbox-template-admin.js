@@ -7598,7 +7598,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 20px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            a{\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: var(--color-bg-general);\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                border-radius: 12px;\n            }\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 20px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            a{\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: var(--color-bg-general);\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                border-radius: 12px;\n            }\n        }\n    }\n"])));
+var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 20px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            a{\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: var(--color-bg-general);\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    margin-top: 30px;\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        background-color: var(--color-bg-white);\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid var(--color-border-light);\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 0;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 20px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-bg-gray);\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: var(--color-dark);\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: var(--color-white);\n                background-color: var(--color-primary);\n            }\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 15px 30px 25px;\n        height: 580px;\n        overflow-y: scroll;\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: var(--color-white);\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: var(--color-bg-gray);\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span{\n                        margin-right: 45px;\n                        min-width: 70px;\n                    }\n                    input{\n                        text-align: center;\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                color: var(--color-dark);\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 15px;\n            margin: 0;\n            background-color: var(--color-white);\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            /* .css-1n7v3ny-option,\n            .css-9gakcf-option{\n                border-radius: 8px;\n                background-color: var(--color-bg-gray);\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n            } */\n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 4px 0;\n                cursor: pointer;\n                color: var(--color-dark);\n                &:not(:last-child){\n                    margin-bottom: 8px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: #4D4D4D;\n                }\n                .wpwax-vm-checkbox{\n                    label{\n                        width: 100%;\n                        padding: 10px 12px 7px;\n                    }\n                }\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: transparent;\n                }\n            }\n        }\n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 0 none;\n            background-color: var(--color-bg-general);\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n        }\n        .css-1pahdxg-control{\n            border: 0 none;\n            box-shadow: 0 0;\n            background-color: var(--color-bg-general);\n            &:hover{\n                border: 0 none;\n            }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 15px;\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        background-color: var(--color-primary);\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: var(--color-white);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-upload-trigger{\n            a{\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: var(--color-bg-general);\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -7638,6 +7638,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7649,8 +7651,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -7708,9 +7708,7 @@ var fontSizeOptions = [{
 var FormSettings = function FormSettings() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
-    var _ref;
-
-    return _ref = {
+    return {
       id: state.form.data.id,
       grettingMessage: state.form.data[0].options.greet_message,
       grettingVideo: state.form.data[0].options.greet_video_url,
@@ -7725,8 +7723,11 @@ var FormSettings = function FormSettings() {
       fontSize: state.form.data[0].options.font_size,
       fontColor: state.form.data[0].options.font_color,
       buttonColor: state.form.data[0].options.button_color,
-      buttonRadius: state.form.data[0].options.button_border_radius
-    }, _defineProperty(_ref, "buttonRadius", state.form.data[0].options.button_border_radius), _defineProperty(_ref, "formData", state.form.data), _defineProperty(_ref, "formInitialData", state.form.data[0]), _defineProperty(_ref, "formInitialOption", state.form.data[0].options), _ref;
+      buttonRadius: state.form.data[0].options.button_border_radius,
+      formData: state.form.data,
+      formInitialData: state.form.data[0],
+      formInitialOption: state.form.data[0].options
+    };
   }),
       id = _useSelector.id,
       grettingMessage = _useSelector.grettingMessage,
@@ -7737,6 +7738,12 @@ var FormSettings = function FormSettings() {
       chatTitle = _useSelector.chatTitle,
       chatReplyType = _useSelector.chatReplyType,
       footerVisibility = _useSelector.footerVisibility,
+      footerMessage = _useSelector.footerMessage,
+      font = _useSelector.font,
+      fontSize = _useSelector.fontSize,
+      fontColor = _useSelector.fontColor,
+      buttonColor = _useSelector.buttonColor,
+      buttonRadius = _useSelector.buttonRadius,
       formData = _useSelector.formData,
       formInitialData = _useSelector.formInitialData,
       formInitialOption = _useSelector.formInitialOption;
@@ -7759,158 +7766,141 @@ var FormSettings = function FormSettings() {
 
   var updateForm = function updateForm(label, value) {
     var updatedData = formData.map(function (item) {
-      if (item.id === id) {
-        switch (label) {
-          case "greet":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                greet_message: value
-              })
-            });
+      switch (label) {
+        case "greet":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              greet_message: value
+            })
+          });
 
-          case "greet-media-image":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                greet_image_url: value,
-                greet_video_url: ''
-              })
-            });
+        case "greet-media-image":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              greet_image_url: value,
+              greet_video_url: ''
+            })
+          });
 
-          case "greet-media-video":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                greet_video_url: value,
-                greet_image_url: ''
-              })
-            });
+        case "greet-media-video":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              greet_video_url: value,
+              greet_image_url: ''
+            })
+          });
 
-          case "des-visibility":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                show_description: value
-              })
-            });
+        case "des-visibility":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              show_description: value
+            })
+          });
 
-          case "description":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                description: value
-              })
-            });
+        case "description":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              description: value
+            })
+          });
 
-          case "chat-title":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                chat_box_title: value
-              })
-            });
+        case "chat-title":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              chat_box_title: value
+            })
+          });
 
-          case "chat-type":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                can_replay_in: value
-              })
-            });
+        case "chat-type":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              can_replay_in: value
+            })
+          });
 
-          case "video-visibility":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                chat_box_title: value
-              })
-            });
+        case "video-visibility":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              chat_box_title: value
+            })
+          });
 
-          case "footer-visibility":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                show_footer: value
-              })
-            });
+        case "footer-visibility":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              show_footer: value
+            })
+          });
 
-          case "footer-text":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                footer_message: value
-              })
-            });
+        case "footer-text":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              footer_message: value
+            })
+          });
 
-          case "form-font":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                font: value
-              })
-            });
+        case "form-font":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              font: value
+            })
+          });
 
-          case "form-font-size":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                font_size: value
-              })
-            });
+        case "form-font-size":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              font_size: value
+            })
+          });
 
-          case "font-color":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                font_color: value
-              })
-            });
+        case "font-color":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              font_color: value
+            })
+          });
 
-          case "button-color":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                button_color: value
-              })
-            });
+        case "button-color":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              button_color: value
+            })
+          });
 
-          case "button-radius":
-            return _objectSpread(_objectSpread({}, item), {}, {
-              option: _objectSpread(_objectSpread({}, item.option), {}, {
-                button_border_radius: value
-              })
-            });
+        case "button-radius":
+          return _objectSpread(_objectSpread({}, item), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
+              button_border_radius: value
+            })
+          });
 
-          default: // code block
+        default: // code block
 
-        }
-
-        return item;
       }
-
-      return item;
     });
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
-  /* For updating each element, we create seperate function */
 
+  console.log(descriptionVisibility);
+  /* For updating each element, we create seperate function */
 
   var changeGreet = function changeGreet(event) {
     var greetMessage = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      grettingMessage: greetMessage
-    }));
     updateForm('greet', greetMessage);
   };
 
   var changeDescriptionVisibillity = function changeDescriptionVisibillity() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      descriptionVisibility: !descriptionVisibility
-    }));
     updateForm('des-visibility', !descriptionVisibility);
   };
 
   var changeDescription = function changeDescription(event) {
     var description = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      description: description
-    }));
     updateForm('description', description);
   };
 
   var changeChatTitle = function changeChatTitle(event) {
     var chatTitle = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      chatTitle: chatTitleText
-    }));
-    updateForm('chat-title', chatTitleText);
+    updateForm('chat-title', chatTitle);
   };
 
   var handleChatArray = function handleChatArray(type) {
@@ -7918,10 +7908,6 @@ var FormSettings = function FormSettings() {
     updatear = updatear.indexOf(type) === -1 ? [].concat(_toConsumableArray(updatear), [type]) : updatear.filter(function (elm) {
       return elm != type;
     });
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      chatReplyType: updatear
-    }));
-    console.log(updatear);
     updateForm('chat-type', updatear);
   };
 
@@ -7946,41 +7932,27 @@ var FormSettings = function FormSettings() {
   };
 
   var changeFooterVisibility = function changeFooterVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      footerVisibility: !footerVisibility
-    }));
     updateForm('footer-visibility', !footerVisibility);
   };
 
   var changeFooterMessage = function changeFooterMessage(event) {
     var footerMessageText = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      footerMessage: footerMessageText
-    }));
     updateForm('footer-text', footerMessageText);
   };
 
   var changeFontColor = function changeFontColor(event) {
     var fontColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      fontColor: fontColor
-    }));
     updateForm('font-color', fontColor);
   };
 
   var changeButtonColor = function changeButtonColor(event) {
     var buttonColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonColor: buttonColor
-    }));
     updateForm('button-color', buttonColor);
   };
 
   var changeButtonRadius = function changeButtonRadius(event) {
     var buttonRadius = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonRadius: buttonRadius
-    }));
+    console.log(buttonRadius);
     updateForm('button-radius', buttonRadius);
   };
   /* To handle section toggle */
@@ -7988,9 +7960,6 @@ var FormSettings = function FormSettings() {
 
   var toogleCollapse = function toogleCollapse(e) {
     e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      openCollapse: !openCollapse
-    }));
   };
 
   var frame;
@@ -8415,7 +8384,7 @@ var GeneralSettings = function GeneralSettings() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
     return {
       formInitialData: state.form.data,
-      diplayAllPage: state.form.data[0].options.display_on_all_pages,
+      diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages : false,
       templateName: state.form.data[0].name,
       templateTheme: state.form.data[0].options.theme,
       displayedCustomPages: state.form.data[0].page_ids,
@@ -8428,11 +8397,8 @@ var GeneralSettings = function GeneralSettings() {
       templateTheme = _useSelector.templateTheme,
       displayedCustomPages = _useSelector.displayedCustomPages,
       chatVisibilityType = _useSelector.chatVisibilityType;
-
-  templateOptions.filter(function (option) {
-    return option.value === templateTheme;
-  })[0];
   /* Dispasth is used for passing the actions to redux store  */
+
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
 
@@ -8468,14 +8434,14 @@ var GeneralSettings = function GeneralSettings() {
 
         case "theme":
           return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               theme: value
             })
           });
 
         case "display-page":
           return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               display_on_all_pages: value
             })
           });
@@ -8487,7 +8453,7 @@ var GeneralSettings = function GeneralSettings() {
 
         case "chat-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               chat_visibility_type: value
             })
           });
@@ -8538,7 +8504,7 @@ var GeneralSettings = function GeneralSettings() {
     updateForm('chat-visibility', visiblityType);
   };
 
-  console.log(chatVisibilityType);
+  console.log(formInitialData);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -8623,7 +8589,7 @@ var GeneralSettings = function GeneralSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: diplayAllPage ? diplayAllPage : false,
+            checked: diplayAllPage,
             onChange: handleDisplayPages
           })
         })]
@@ -9151,7 +9117,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var GeneralSettingWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n"])));
 var FormSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    \n"])));
 var ThankSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    .wpwax-vm-chekbox-list{\n        .wpwax-vm-chekbox-single{\n            span{\n                text-transform: capitalize;\n            }\n        }\n    }\n"])));
-var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    width: 480px;\n    /* min-height: 640px; */\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                margin-right: 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 280px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 250px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        .wpwax-vm-preview-title{\n            font-size: 24px;\n            font-weight: 600;\n            line-height: 1.25;\n            color: #ffffff;\n            margin-bottom: 15px;\n            max-width: 320px;\n        }\n        .wpwax-vm-preview-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: 18px;\n            font-weight: 600;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 46px;\n                text-transform: capitalize;\n                flex: 0 0 48%;\n                margin: 1%;\n                >div{\n                    line-height: 1;\n                }\n                svg{\n                    position: relative;\n                    top: 1px;\n                    width: 18px;\n                    margin-right: 10px;\n                    path,\n                    circle{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 18px 0 0;\n            text-align: center;\n        }\n    }\n    .wpwax-vm-preview-general{\n        // width: 100%;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        // width: 100%;\n        border-radius: 25px;\n        padding: 30px;\n        background-color: var(--color-dark);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            background-color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-preview-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n           .wpwax-vm-preview-inner{\n               position: relative;\n               display: block;\n               padding: 0;\n               min-height: 220px;\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-50%);\n                   z-index: 10;\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10; \n                    min-height: 355px;\n                    background-size: cover;\n                    &:before{\n                        border-radius: 0px;\n                        bottom: -100px;\n                        z-index: -1;\n                    }\n                    &:after{\n                        border-radius: 0px;\n                        z-index: -1;\n                    }\n               }\n               video{\n                    width: 100%;\n                    min-height: 340px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 30px;\n                background-color: var(--color-white);\n                .wpwax-vm-preview-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    color: #4D4D4D;\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        width: 100%;\n        height: 100%;\n        padding: 155px 0 30px;\n        border-radius: 25px;\n        background-color: var(--color-white);\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: 30px;\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-dark);\n            }\n            p{\n                font-size: 16px;\n                font-weight: 500;\n                line-height: 1.625;\n                color: #4D4D4D;\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0 20px;\n        }\n    }\n"])));
+var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    width: 480px;\n    /* min-height: 640px; */\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                margin-right: 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 280px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 250px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        .wpwax-vm-preview-title{\n            font-size: 24px;\n            font-weight: 600;\n            line-height: 1.25;\n            color: #ffffff;\n            margin-bottom: 15px;\n            max-width: 320px;\n        }\n        .wpwax-vm-preview-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: 18px;\n            font-weight: 600;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 46px;\n                text-transform: capitalize;\n                flex: 0 0 48%;\n                margin: 1%;\n                >div{\n                    line-height: 1;\n                }\n                svg{\n                    position: relative;\n                    top: 1px;\n                    width: 18px;\n                    margin-right: 10px;\n                    path,\n                    circle{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 18px 0 0;\n            text-align: center;\n        }\n    }\n    .wpwax-vm-preview-general{\n        // width: 100%;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        // width: 100%;\n        border-radius: 25px;\n        padding: 30px;\n        background-color: var(--color-dark);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            background-color: var(--color-white);\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-preview-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n           .wpwax-vm-preview-inner{\n               position: relative;\n               display: block;\n               padding: 0;\n               min-height: 220px;\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-50%);\n                   z-index: 10;\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10; \n                    min-height: 355px;\n                    background-size: cover;\n                    &:before{\n                        border-radius: 0px;\n                        bottom: -100px;\n                        z-index: -1;\n                    }\n                    &:after{\n                        border-radius: 0px;\n                        z-index: -1;\n                    }\n               }\n               video{\n                    width: 100%;\n                    height: 340px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 30px;\n                background-color: var(--color-white);\n                .wpwax-vm-preview-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    color: #4D4D4D;\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        width: 100%;\n        height: 100%;\n        padding: 155px 0 30px;\n        border-radius: 25px;\n        background-color: var(--color-white);\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: 30px;\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-dark);\n            }\n            p{\n                font-size: 16px;\n                font-weight: 500;\n                line-height: 1.625;\n                color: #4D4D4D;\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0 20px;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -9233,31 +9199,44 @@ var ThankSettings = function ThankSettings() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return {
+      collectInfoVisibility: state.form.data[0].options.collect_info,
+      collectableInfo: state.form.data[0].options.collectable_info,
+      title: state.form.data[0].options.thank_page_title,
+      descriptionVisibility: state.form.data[0].options.show_thank_page_description,
+      description: state.form.data[0].options.thank_page_description,
+      ctaButtonVisibility: state.form.data[0].options.show_thank_page_cta_button,
+      ctaButtonText: state.form.data[0].options.thank_page_cta_button_text,
+      ctaButtonUrl: state.form.data[0].options.thank_page_cta_button_url,
+      ctaBgColor: state.form.data[0].options.thank_page_cta_background,
+      ctaTitleFontSize: state.form.data[0].options.thank_page_cta_title_font_size,
+      ctaFontColor: state.form.data[0].options.thank_page_cta_font_color,
+      ctaButtonColor: state.form.data[0].options.thank_page_cta_button_color,
+      ctaButtonTextColor: state.form.data[0].options.thank_page_cta_button_text_color,
+      ctaButtonRadius: state.form.data[0].options.thank_page_cta_button_radius,
       formData: state.form.data,
       formInitialData: state.form.data[0],
       formInitialOption: state.form.data[0].options
     };
   }),
+      collectInfoVisibility = _useSelector.collectInfoVisibility,
+      collectableInfo = _useSelector.collectableInfo,
+      title = _useSelector.title,
+      descriptionVisibility = _useSelector.descriptionVisibility,
+      description = _useSelector.description,
+      ctaButtonVisibility = _useSelector.ctaButtonVisibility,
+      ctaButtonText = _useSelector.ctaButtonText,
+      ctaButtonUrl = _useSelector.ctaButtonUrl,
+      ctaBgColor = _useSelector.ctaBgColor,
+      ctaTitleFontSize = _useSelector.ctaTitleFontSize,
+      ctaFontColor = _useSelector.ctaFontColor,
+      ctaButtonColor = _useSelector.ctaButtonColor,
+      ctaButtonTextColor = _useSelector.ctaButtonTextColor,
+      ctaButtonRadius = _useSelector.ctaButtonRadius,
       formData = _useSelector.formData,
       formInitialData = _useSelector.formInitialData,
       formInitialOption = _useSelector.formInitialOption;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    id: formInitialData.form_id,
-    collectInfoVisibility: formInitialOption.collect_info,
-    collectableInfo: formInitialOption.collectable_info,
-    title: formInitialOption.thank_page_title,
-    descriptionVisibility: formInitialOption.show_thank_page_description,
-    description: formInitialOption.thank_page_description,
-    ctaButtonVisibility: formInitialOption.show_thank_page_cta_button,
-    ctaButtonText: formInitialOption.thank_page_cta_button_text,
-    ctaButtonUrl: formInitialOption.thank_page_cta_button_url,
-    ctaBgColor: formInitialOption.thank_page_cta_background,
-    ctaTitleFontSize: formInitialOption.thank_page_cta_title_font_size,
-    ctaFontColor: formInitialOption.thank_page_cta_font_color,
-    ctaButtonColor: formInitialOption.thank_page_cta_button_color,
-    ctaButtonTextColor: formInitialOption.thank_page_cta_button_text_color,
-    ctaButtonRadius: formInitialOption.thank_page_cta_button_radius,
     openCollapse: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -9266,22 +9245,7 @@ var ThankSettings = function ThankSettings() {
   /* Destructuring State */
 
 
-  var id = state.id,
-      collectInfoVisibility = state.collectInfoVisibility,
-      collectableInfo = state.collectableInfo,
-      title = state.title,
-      descriptionVisibility = state.descriptionVisibility,
-      description = state.description,
-      ctaButtonVisibility = state.ctaButtonVisibility,
-      ctaButtonText = state.ctaButtonText,
-      ctaButtonUrl = state.ctaButtonUrl,
-      ctaBgColor = state.ctaBgColor,
-      ctaTitleFontSize = state.ctaTitleFontSize,
-      ctaFontColor = state.ctaFontColor,
-      ctaButtonColor = state.ctaButtonColor,
-      ctaButtonTextColor = state.ctaButtonTextColor,
-      ctaButtonRadius = state.ctaButtonRadius,
-      openCollapse = state.openCollapse;
+  var openCollapse = state.openCollapse;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
@@ -9291,98 +9255,98 @@ var ThankSettings = function ThankSettings() {
       switch (label) {
         case "info-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               collect_info: value
             })
           });
 
         case "title":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_title: value
             })
           });
 
         case "collectable-info":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               collectable_info: value
             })
           });
 
         case "des-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               show_thank_page_description: value
             })
           });
 
         case "description":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_description: value
             })
           });
 
         case "btn-visibility":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               show_thank_page_cta_button: value
             })
           });
 
         case "btn-text":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_button_text: value
             })
           });
 
         case "btn-url":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_button_url: value
             })
           });
 
         case "bg-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_background: value
             })
           });
 
         case "title-size":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_title_font_size: value
             })
           });
 
         case "font-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_font_color: value
             })
           });
 
         case "button-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_button_color: value
             })
           });
 
         case "button-text-color":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_button_text_color: value
             })
           });
 
         case "button-radius":
           return _objectSpread(_objectSpread({}, item), {}, {
-            option: _objectSpread(_objectSpread({}, item.option), {}, {
+            options: _objectSpread(_objectSpread({}, item.options), {}, {
               thank_page_cta_button_radius: value
             })
           });
@@ -9398,102 +9362,63 @@ var ThankSettings = function ThankSettings() {
 
 
   var handleCollectInfoVisibility = function handleCollectInfoVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      collectInfoVisibility: !collectInfoVisibility
-    }));
     updateForm('info-visibility', !collectInfoVisibility);
   };
 
   var changeBgColor = function changeBgColor(event) {
     var thankBgColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      bgColor: thankBgColor
-    }));
     updateForm('bg-color', thankBgColor);
   };
 
   var changeFontColor = function changeFontColor(event) {
     var thankFontColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaFontColor: thankFontColor
-    }));
     updateForm('font-color', thankFontColor);
   };
 
   var changeButtonColor = function changeButtonColor(event) {
     var thankButtonColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaButtonColor: thankButtonColor
-    }));
     updateForm('button-color', thankButtonColor);
   };
 
   var changeButtonTextColor = function changeButtonTextColor(event) {
     var thankButtonTextColor = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaButtonTextColor: thankButtonTextColor
-    }));
     updateForm('button-text-color', thankButtonTextColor);
   };
 
   var changeButtonRadius = function changeButtonRadius(event) {
     var thankButtonRadius = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaButtonRadius: thankButtonRadius
-    }));
     updateForm('button-radius', thankButtonRadius);
   };
 
   var changeTitle = function changeTitle(event) {
     var thankTitle = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      title: thankTitle
-    }));
     updateForm('title', thankTitle);
   };
 
   var chagneTitleFontSize = function chagneTitleFontSize(selectedSize) {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      titleFontSize: selectedSize.value
-    }));
     updateForm('title-size', selectedSize.value);
   };
 
   var changeDescriptionVisibility = function changeDescriptionVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      descriptionVisibility: !descriptionVisibility
-    }));
     updateForm('des-visibility', !descriptionVisibility);
   };
 
   var changeDescription = function changeDescription(event) {
     var thankDescription = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      description: thankDescription
-    }));
     updateForm('description', thankDescription);
   };
 
   var changeButtonVisibility = function changeButtonVisibility() {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      buttonVisibility: !buttonVisibility
-    }));
     updateForm('btn-visibility', !buttonVisibility);
   };
 
   var changeButtonText = function changeButtonText(event) {
     var thankBtnText = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaButtonText: thankBtnText
-    }));
     updateForm('btn-text', thankBtnText);
   };
 
   var changeButtonUrl = function changeButtonUrl(event) {
     var thankBtnUrl = event.target.value;
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      ctaButtonUrl: thankBtnUrl
-    }));
     updateForm('btn-url', thankBtnUrl);
   };
   /* To handle section toggle */
@@ -9506,6 +9431,9 @@ var ThankSettings = function ThankSettings() {
     }));
   };
 
+  var handleCollectableInfo = function handleCollectableInfo() {};
+
+  console.log(collectInfoVisibility);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.ThankSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9528,19 +9456,36 @@ var ThankSettings = function ThankSettings() {
             onChange: handleCollectInfoVisibility
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-chekbox-list",
-        children: collectableInfo.map(function (item, index) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            className: "wpwax-vm-chekbox-single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-              children: item
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              id: "contact-".concat(item),
-              label: ""
-            })]
-          }, index);
-        })
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            children: "Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "contact-name",
+            label: "",
+            onChange: handleCollectableInfo
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            children: "Email"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "contact-name",
+            label: "",
+            onChange: handleCollectableInfo
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            children: "Phone"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "contact-name",
+            label: "",
+            onChange: handleCollectableInfo
+          })]
+        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",

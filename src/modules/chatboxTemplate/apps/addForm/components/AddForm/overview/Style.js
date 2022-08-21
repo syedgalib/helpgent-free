@@ -90,7 +90,9 @@ const PreviewWrap = Styled.div`
         }
         video{
             width: 100%;
-            height: 100%
+            height: 100%;
+            border-radius: 25px;
+            object-fit: cover;
         }
         &:after{
             position: absolute;
@@ -274,7 +276,7 @@ const PreviewWrap = Styled.div`
                }
                video{
                     width: 100%;
-                    min-height: 340px;
+                    height: 340px;
                }
                
            }

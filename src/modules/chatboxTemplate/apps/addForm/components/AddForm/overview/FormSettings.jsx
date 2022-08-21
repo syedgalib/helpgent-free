@@ -38,6 +38,12 @@ const FormSettings = () => {
         chatTitle,
         chatReplyType,
         footerVisibility,
+        footerMessage,
+        font,
+        fontSize,
+        fontColor,
+        buttonColor,
+        buttonRadius,
         formData,
         formInitialData,
         formInitialOption
@@ -57,7 +63,6 @@ const FormSettings = () => {
             fontSize: state.form.data[0].options.font_size,
             fontColor: state.form.data[0].options.font_color,
             buttonColor: state.form.data[0].options.button_color,
-            buttonRadius: state.form.data[0].options.button_border_radius,
             buttonRadius: state.form.data[0].options.button_border_radius,
             formData: state.form.data,
             formInitialData: state.form.data[0],
@@ -80,21 +85,20 @@ const FormSettings = () => {
     /* Helper function for live preview Update */
     const updateForm = (label, value) => {
         let updatedData = formData.map(item => {
-            if (item.id === id) {
                 switch (label) {
                     case "greet":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 greet_message: value
                             }
                         }
                     case "greet-media-image":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 greet_image_url: value,
                                 greet_video_url: '',
                             }
@@ -102,8 +106,8 @@ const FormSettings = () => {
                     case "greet-media-video":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 greet_video_url: value,
                                 greet_image_url: ''
                             }
@@ -111,96 +115,96 @@ const FormSettings = () => {
                     case "des-visibility":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 show_description: value
                             }
                         }
                     case "description":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 description: value
                             }
                         }
                     case "chat-title":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 chat_box_title: value
                             }
                         }
                     case "chat-type":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 can_replay_in: value
                             }
                         }
                     case "video-visibility":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 chat_box_title: value
                             }
                         }
                     case "footer-visibility":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 show_footer: value
                             }
                         }
                     case "footer-text":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 footer_message: value
                             }
                         }
                     case "form-font":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 font: value
                             }
                         }
                     case "form-font-size":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 font_size: value
                             }
                         }
                     case "font-color":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 font_color: value
                             }
                         }
                     case "button-color":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 button_color: value
                             }
                         }
                     case "button-radius":
                         return {
                             ...item,
-                            option: {
-                                ...item.option,
+                            options: {
+                                ...item.options,
                                 button_border_radius: value
                             }
                         }
@@ -208,53 +212,31 @@ const FormSettings = () => {
                     default:
                     // code block
                 }
-                return item;
-            }
-            return item;
         });
         dispatch(handleDynamicEdit(updatedData));
     }
 
+    console.log(descriptionVisibility);
+
     /* For updating each element, we create seperate function */
     const changeGreet = (event) => {
         let greetMessage = event.target.value;
-        setState({
-            ...state,
-            grettingMessage: greetMessage
-        });
         updateForm('greet', greetMessage);
     }
     const changeDescriptionVisibillity = () => {
-        setState({
-            ...state,
-            descriptionVisibility: !descriptionVisibility
-        });
         updateForm('des-visibility', !descriptionVisibility);
     }
     const changeDescription = (event) => {
         let description = event.target.value;
-        setState({
-            ...state,
-            description: description
-        });
         updateForm('description', description);
     }
     const changeChatTitle = (event) => {
         let chatTitle = event.target.value;
-        setState({
-            ...state,
-            chatTitle: chatTitleText
-        });
-        updateForm('chat-title', chatTitleText);
+        updateForm('chat-title', chatTitle);
     }
     const handleChatArray = (type) => {
         let updatear = chatReplyType;
         updatear = updatear.indexOf(type) === -1 ? [...updatear, type] : updatear.filter(elm => elm != type);
-        setState({
-            ...state,
-            chatReplyType: updatear
-        });
-        console.log(updatear)
         updateForm('chat-type', updatear);
     }
     const handleChatReplyType = (checked, event, id) => {
@@ -276,52 +258,29 @@ const FormSettings = () => {
         updateForm('form-font-size', selectedFontSize.value);
     };
     const changeFooterVisibility = () => {
-        setState({
-            ...state,
-            footerVisibility: !footerVisibility
-        });
         updateForm('footer-visibility', !footerVisibility);
     }
     const changeFooterMessage = (event) => {
         let footerMessageText = event.target.value;
-        setState({
-            ...state,
-            footerMessage: footerMessageText
-        });
         updateForm('footer-text', footerMessageText);
     }
     const changeFontColor = (event) => {
         let fontColor = event.target.value;
-        setState({
-            ...state,
-            fontColor: fontColor
-        });
         updateForm('font-color', fontColor);
     }
     const changeButtonColor = (event) => {
         let buttonColor = event.target.value;
-        setState({
-            ...state,
-            buttonColor: buttonColor
-        });
         updateForm('button-color', buttonColor);
     }
     const changeButtonRadius = (event) => {
         let buttonRadius = event.target.value;
-        setState({
-            ...state,
-            buttonRadius: buttonRadius
-        });
+        console.log(buttonRadius);
         updateForm('button-radius', buttonRadius);
     }
 
     /* To handle section toggle */
     const toogleCollapse = (e) => {
         e.preventDefault();
-        setState({
-            ...state,
-            openCollapse: !openCollapse
-        });
     }
 
     let frame;

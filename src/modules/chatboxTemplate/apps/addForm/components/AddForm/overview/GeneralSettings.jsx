@@ -1,11 +1,11 @@
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import Radio from "Components/formFields/Radio.jsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
 import { ReactSVG } from 'react-svg';
 import Switch from "react-switch";
-import { handleDynamicEdit, updateDataWithId } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
@@ -20,7 +20,7 @@ const GeneralSettings = () => {
     const { formInitialData, diplayAllPage, templateName, templateTheme, displayedCustomPages, chatVisibilityType } = useSelector(state => {
         return {
             formInitialData: state.form.data,
-            diplayAllPage: state.form.data[0].options.display_on_all_pages,
+            diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages: false,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].page_ids,
@@ -28,10 +28,6 @@ const GeneralSettings = () => {
 
         };
     });
-
-    templateOptions.filter(function (option) {
-        return option.value === templateTheme;
-    })[0]
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -66,7 +62,7 @@ const GeneralSettings = () => {
                     return {
                         ...item,
                         options: {
-                            ...item.option,
+                            ...item.options,
                             theme: value
                         }
                     }
@@ -74,7 +70,7 @@ const GeneralSettings = () => {
                     return {
                         ...item,
                         options: {
-                            ...item.option,
+                            ...item.options,
                             display_on_all_pages: value
                         }
                     }
@@ -84,7 +80,7 @@ const GeneralSettings = () => {
                     return {
                         ...item,
                         options: {
-                            ...item.option,
+                            ...item.options,
                             chat_visibility_type: value
                         }
                     }
@@ -131,7 +127,7 @@ const GeneralSettings = () => {
         updateForm('chat-visibility', visiblityType);
     };
 
-    console.log(chatVisibilityType)
+    console.log(formInitialData)
 
     return (
         <GeneralSettingWrap>
@@ -183,7 +179,7 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={diplayAllPage ? diplayAllPage : false}
+                            checked={diplayAllPage}
                             onChange={handleDisplayPages}
                         />
                     </label>

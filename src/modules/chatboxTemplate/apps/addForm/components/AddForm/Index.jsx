@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 // import apiService  from "../../../../../apiService/Service";
 import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
@@ -9,9 +9,10 @@ import GeneralSettings from "./overview/GeneralSettings.jsx";
 import PreviewOne from "./overview/PreviewOne.jsx";
 import PreviewTwo from "./overview/PreviewTwo.jsx";
 import ThankSettings from "./overview/ThankSettings.jsx";
+import apiService from 'apiService/Service.js';
 import { AddFormStyle } from './Style';
 
-import { addForm } from '../../redux/form/actionCreator';
+import { addForm, updateDataWithId } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
     /* initialize Form Data */
@@ -24,7 +25,8 @@ const AddForm = () => {
     });
 
     const [state, setState] = useState({
-        validation: true
+        validation: true,
+        fetchStatus: true
     });
 
     const [formStage, setFormStage] = useState("general");
@@ -56,7 +58,7 @@ const AddForm = () => {
             const formData = {
                 id: formInitialData.id,
                 name: formInitialData.name,
-                options: JSON.stringify(formInitialData.option),
+                options: JSON.stringify(formInitialData.options),
                 page_ids: formInitialData.page_ids,
                 is_default: formInitialData.is_default,
             }
@@ -85,6 +87,16 @@ const AddForm = () => {
         }
     }
 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search)
+        const id = queryParams.get("id");
+
+        if (id) {
+            dispatch(updateDataWithId(id));
+        }
+
+    }, []);
+
     return (
         <AddFormStyle>
 
@@ -98,45 +110,51 @@ const AddForm = () => {
                     </span> : null
                 }
                 <form action="" onSubmit={handleAddTemplate}>
-                    <div className="wpwax-vm-add-form__tab">
-                        <ul className="wpwax-vm-add-form__top">
-                            <li className={formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("general")}>General</li>
-                            <li className={formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("form")}>Form Settings</li>
-                            <li className={formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("thank")}>Thank You Page</li>
-                        </ul>
+                    {
+                        state.fetchStatus ?
+                            <>
+                                <div className="wpwax-vm-add-form__tab">
+                                    <ul className="wpwax-vm-add-form__top">
+                                        <li className={formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("general")}>General</li>
+                                        <li className={formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("form")}>Form Settings</li>
+                                        <li className={formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("thank")}>Thank You Page</li>
+                                    </ul>
 
-                        <p className="wpwax-vm-text-highlighted">* required Fields</p>
+                                    <p className="wpwax-vm-text-highlighted">* required Fields</p>
 
 
-                        {
-                            getFormContent()
-                        }
+                                    {
+                                        getFormContent()
+                                    }
 
-                        {
-                            response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
-                        }
-                        {
-                            response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
-                        }
+                                    {
+                                        response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
+                                    }
+                                    {
+                                        response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
+                                    }
 
-                    </div>
+                                </div>
 
-                    <div className="wpwax-vm-add-form__bottom">
+                                <div className="wpwax-vm-add-form__bottom">
 
-                        {
-                            formStage === "form" || formStage === "general" ? <a href="#" className="wpwax-vm-form-next" onClick={e => handleFormNext(e)}>Next <ReactSVG src={arrowLeft} /></a> : null
-                        }
-                        {
-                            formStage === "thank" ? <button type="submit" className="wpwax-vm-form-save">Save</button> : null
-                        }
+                                    {
+                                        formStage === "form" || formStage === "general" ? <a href="#" className="wpwax-vm-form-next" onClick={e => handleFormNext(e)}>Next <ReactSVG src={arrowLeft} /></a> : null
+                                    }
+                                    {
+                                        formStage === "thank" ? <button type="submit" className="wpwax-vm-form-save">Save</button> : null
+                                    }
 
-                    </div>
+                                </div>
+                            </>
+                            : <p>Sorry !! Server Error. Please Try Again.</p>
+                    }
                 </form>
             </div>
             <div className="wpwax-vm-preview">
                 <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>
                 {
-                    formInitialData.option.theme === 'theme-1' ?
+                    formInitialData.options.theme === 'theme-1' ?
                         <PreviewOne previewStage={formStage} />
                         :
                         <PreviewTwo previewStage={formStage} />

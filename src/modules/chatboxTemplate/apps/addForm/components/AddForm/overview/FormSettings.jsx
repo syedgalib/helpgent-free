@@ -28,33 +28,6 @@ export const fontSizeOptions = [
 ]
 const FormSettings = () => {
     /* initialize Form Data */
-    const { formData, formInitialData, formInitialOption } = useSelector(state => {
-        return {
-            formData: state.form.data,
-            formInitialData: state.form.data[0],
-            formInitialOption: state.form.data[0].option,
-        };
-    });
-    const [state, setState] = useState({
-        id: formInitialData.id,
-        grettingMessage: formInitialOption.greet_message,
-        grettingVideo: formInitialOption.greet_video_url,
-        grettingImage: formInitialOption.greet_image_url,
-        descriptionVisibility: formInitialOption.show_description,
-        description: formInitialOption.description,
-        chatTitle: formInitialOption.chat_box_title,
-        chatReplyType: formInitialOption.can_replay_in,
-        footerVisibility: formInitialOption.show_footer,
-        footerMessage: formInitialOption.footer_message,
-        font: formInitialOption.font,
-        fontSize: formInitialOption.font_size,
-        fontColor: formInitialOption.font_color,
-        buttonColor: formInitialOption.button_color,
-        buttonRadius: formInitialOption.button_border_radius,
-        openCollapse: true,
-    });
-
-    /* Destructuring State */
     const {
         id,
         grettingMessage,
@@ -64,13 +37,40 @@ const FormSettings = () => {
         description,
         chatTitle,
         chatReplyType,
-        font,
-        fontSize,
-        fontColor,
-        buttonColor,
-        buttonRadius,
         footerVisibility,
-        footerMessage,
+        formData,
+        formInitialData,
+        formInitialOption
+    } = useSelector(state => {
+        return {
+            id: state.form.data.id,
+            grettingMessage: state.form.data[0].options.greet_message,
+            grettingVideo: state.form.data[0].options.greet_video_url,
+            grettingImage: state.form.data[0].options.greet_image_url,
+            descriptionVisibility: state.form.data[0].options.show_description,
+            description: state.form.data[0].options.description,
+            chatTitle: state.form.data[0].options.chat_box_title,
+            chatReplyType: state.form.data[0].options.can_replay_in,
+            footerVisibility: state.form.data[0].options.show_footer,
+            footerMessage: state.form.data[0].options.footer_message,
+            font: state.form.data[0].options.font,
+            fontSize: state.form.data[0].options.font_size,
+            fontColor: state.form.data[0].options.font_color,
+            buttonColor: state.form.data[0].options.button_color,
+            buttonRadius: state.form.data[0].options.button_border_radius,
+            buttonRadius: state.form.data[0].options.button_border_radius,
+            formData: state.form.data,
+            formInitialData: state.form.data[0],
+            formInitialOption: state.form.data[0].options,
+        };
+    });
+    const [state, setState] = useState({
+        // id: formInitialData.id,
+        openCollapse: true,
+    });
+
+    /* Destructuring State */
+    const {
         openCollapse
     } = state;
 

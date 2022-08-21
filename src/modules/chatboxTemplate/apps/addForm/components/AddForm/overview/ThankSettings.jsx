@@ -22,7 +22,7 @@ const ThankSettings = () => {
         return {
             formData: state.form.data,
             formInitialData: state.form.data[0],
-            formInitialOption: state.form.data[0].option,
+            formInitialOption: state.form.data[0].options,
         };
     });
     const [state, setState] = useState({

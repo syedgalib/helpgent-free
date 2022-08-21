@@ -7,6 +7,10 @@ const actions = {
   FORM_ADD_SUCCESS: 'FORM_ADD_SUCCESS',
   FORM_ADD_ERR: 'FORM_ADD_ERR',
 
+  FORM_UPDATE_BEGIN: 'FORM_UPDATE_BEGIN',
+  FORM_UPDATE_SUCCESS: 'FORM_UPDATE_SUCCESS',
+  FORM_UPDATE_ERR: 'FORM_UPDATE_ERR',
+
   addFormBegin: () => {
     return {
       type: actions.FORM_ADD_BEGIN,
@@ -43,6 +47,27 @@ const actions = {
   formReadErr: err => {
     return {
       type: actions.FORM_READ_ERR,
+      err,
+    };
+  },
+
+  formUpdateBegin: (id) => {
+    console.log(id);
+    return {
+      type: actions.FORM_UPDATE_BEGIN,
+    };
+  },
+
+  formUpdateSuccess: data => {
+    return {
+      type: actions.FORM_UPDATE_SUCCESS,
+      data,
+    };
+  },
+
+  formUpdateErr: err => {
+    return {
+      type: actions.FORM_UPDATE_ERR,
       err,
     };
   },

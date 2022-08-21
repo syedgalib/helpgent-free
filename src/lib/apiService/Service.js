@@ -13,6 +13,10 @@ const getAll = path =>{
     return axiosInstance.get(path);
 }
 
+const getById = (path,args) =>{
+    return axiosInstance.get(path, args);
+}
+
 const dataUpdate = (path, args) => {
     return axiosInstance.post(path, args);
 };
@@ -28,6 +32,7 @@ const datadelete = path => {
 
 const apiService = {
     getAll,
+    getById,
     dataAdd,
     dataUpdate,
     datadelete

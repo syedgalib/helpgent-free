@@ -14,7 +14,7 @@ const PreviewOne = ({ previewStage }) => {
     /* initialize Form Data */
     const { formOption, loading } = useSelector(state => {
         return {
-            formOption: state.form.data[0].option,
+            formOption: state.form.data[0].options,
             loading: state.form.loading,
         };
     });
@@ -31,7 +31,7 @@ const PreviewOne = ({ previewStage }) => {
         }
     }
 
-    const handleButtonPlay = e=>{
+    const handleButtonPlay = e => {
         e.preventDefault();
         const videoDom = document.querySelector('.wpwax-vm-preview-video');
         videoDom.play();
@@ -71,9 +71,9 @@ const PreviewOne = ({ previewStage }) => {
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {
-                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e=>handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
+                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e => handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
                                 }
-                                
+
                             </div>
                             <div className="wpwax-vm-preview-footer">
                                 <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>

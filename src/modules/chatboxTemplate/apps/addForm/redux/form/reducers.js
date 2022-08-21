@@ -3,7 +3,7 @@ const formData = [
   {
     id: "",
     name: "",
-    "option":{
+    "options":{
         "theme":"theme-1",
         "display_on_all_pages": false,
         "chat_visibility_type":"show_on_reload",
@@ -66,6 +66,10 @@ const {
   FORM_ADD_BEGIN,
   FORM_ADD_SUCCESS,
   FORM_ADD_ERR,
+
+  FORM_UPDATE_BEGIN,
+  FORM_UPDATE_SUCCESS,
+  FORM_UPDATE_ERR,
 } = actions;
 
 const FormReducer = (state = initialState, action) => {
@@ -98,6 +102,20 @@ const FormReducer = (state = initialState, action) => {
         data,
       };
     case FORM_READ_ERR:
+      return {
+        ...state,
+        error: err,
+      };
+    case FORM_UPDATE_BEGIN:
+      return {
+        ...state,
+      };
+    case FORM_UPDATE_SUCCESS:
+      return {
+        ...state,
+        data,
+      };
+    case FORM_UPDATE_ERR:
       return {
         ...state,
         error: err,

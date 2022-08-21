@@ -13,7 +13,7 @@ const PreviewTwo = ({ previewStage }) => {
     /* initialize Form Data */
     const { formOption, loading } = useSelector(state => {
         return {
-            formOption: state.form.data[0].option,
+            formOption: state.form.data[0].options,
             loading: state.form.loading,
         };
     });

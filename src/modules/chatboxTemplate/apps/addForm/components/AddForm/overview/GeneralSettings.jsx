@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
 import { ReactSVG } from 'react-svg';
 import Switch from "react-switch";
-import { handleDynamicEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit, updateDataWithId } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
@@ -17,25 +17,25 @@ export const templateOptions = [
 
 const GeneralSettings = () => {
     /* initialize Form Data */
-    const { formInitialData } = useSelector(state => {
+    const { formInitialData, diplayAllPage, templateName, templateTheme, displayedCustomPages, chatVisibilityType } = useSelector(state => {
         return {
             formInitialData: state.form.data,
+            diplayAllPage: state.form.data[0].options.display_on_all_pages,
+            templateName: state.form.data[0].name,
+            templateTheme: state.form.data[0].options.theme,
+            displayedCustomPages: state.form.data[0].page_ids,
+            chatVisibilityType: state.form.data[0].options.chat_visibility_type,
+
         };
     });
 
-    /* Initialize State Data */
-    const [state, setState] = useState({
-        diplayAllPage: formInitialData[0].option.display_on_all_pages,
-        templateName: formInitialData[0].name,
-        templateTheme: formInitialData[0].option.theme,
-        displayedCustomPages: formInitialData[0].page_ids,
-        chatVisibilityType: formInitialData[0].option.chat_visibility_type,
-    });
-
-    const { templateName, diplayAllPage, templateTheme, displayedCustomPages, chatVisibilityType } = state;
-    console.log(templateOptions.filter(function (option) {
+    templateOptions.filter(function (option) {
         return option.value === templateTheme;
-    })[0])
+    })[0]
+
+    /* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
+
 
     const Option = (props) => {
         return (
@@ -48,16 +48,14 @@ const GeneralSettings = () => {
     };
 
     const customPages = []
-    
+
     useEffect(() => {
-        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item,index)=>{
-            customPages.push({value: `${item.id}`, label:`${item.title}`})
+        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+            customPages.push({ value: `${item.id}`, label: `${item.title}` })
         });
-        
     }, []);
-    
-    /* Dispasth is used for passing the actions to redux store  */
-    const dispatch = useDispatch();
+
+
 
     const updateForm = (label, value) => {
         let updatedData = formInitialData.map(item => {
@@ -67,7 +65,7 @@ const GeneralSettings = () => {
                 case "theme":
                     return {
                         ...item,
-                        option: {
+                        options: {
                             ...item.option,
                             theme: value
                         }
@@ -75,7 +73,7 @@ const GeneralSettings = () => {
                 case "display-page":
                     return {
                         ...item,
-                        option: {
+                        options: {
                             ...item.option,
                             display_on_all_pages: value
                         }
@@ -85,7 +83,7 @@ const GeneralSettings = () => {
                 case "chat-visibility":
                     return {
                         ...item,
-                        option: {
+                        options: {
                             ...item.option,
                             chat_visibility_type: value
                         }
@@ -94,35 +92,24 @@ const GeneralSettings = () => {
                 // code block
             }
         });
+        console.log(updatedData)
         dispatch(handleDynamicEdit(updatedData));
     }
 
     /* To Handle Template Change */
     const handleThemeChange = (selectedTheme) => {
         let templateTheme = selectedTheme.value;
-        setState({
-            ...state,
-            templateTheme: selectedTheme
-        });
         updateForm('theme', templateTheme);
     };
 
     /* To Handle Template Change */
     const handleNameChange = (event) => {
         let formName = event.target.value;
-        setState({
-            ...state,
-            templateName: formName
-        });
         updateForm('name', formName);
     };
 
     /* To Handle Template Change */
     const handleDisplayPages = () => {
-        setState({
-            ...state,
-            diplayAllPage: !diplayAllPage
-        });
         updateForm('display-page', !diplayAllPage);
     };
 
@@ -141,13 +128,11 @@ const GeneralSettings = () => {
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
         let visiblityType = e.target.value;
-        setState({
-            ...state,
-            chatVisibilityType: visiblityType
-        });
         updateForm('chat-visibility', visiblityType);
-
     };
+
+    console.log(chatVisibilityType)
+
     return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
@@ -198,7 +183,7 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={diplayAllPage}
+                            checked={diplayAllPage ? diplayAllPage : false}
                             onChange={handleDisplayPages}
                         />
                     </label>

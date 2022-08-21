@@ -225,7 +225,7 @@ const Table = () => {
                                                     </td>
                                                     <td>
                                                         <div className="wpwax-vm-table-action">
-                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
+                                                            <a href={`${location.href}&mode=edit&id=${value.id}`} className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
                                                             <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={() => deleteForm(value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
                                                         </div>
                                                     </td>

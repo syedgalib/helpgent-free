@@ -10,6 +10,10 @@ const {
   addFormBegin,
   addFormSuccess,
   addFormErr,
+  
+  formUpdateBegin,
+  formUpdateSuccess,
+  formUpdateErr,
 } = actions;
 
 const addForm = args => {
@@ -34,6 +38,7 @@ const handleDynamicEdit = data => {
   return async dispatch => {
     try {
       dispatch(formReadBegin());
+      console.log(data);
       dispatch(formReadSuccess(data));
     } catch (err) {
       dispatch(formReadErr(err));
@@ -41,5 +46,26 @@ const handleDynamicEdit = data => {
   };
 };
 
-export { addForm, handleDynamicEdit };
+const updateDataWithId = id => {
+  console.log('tes')
+  return async dispatch => {
+    // try {
+      dispatch(formUpdateBegin(id));
+      await apiService.getAll(`/chatbox-templates/${id}`)
+        .then(response => {
+            dispatch(formUpdateSuccess([response.data.data]));
+        })
+        .catch((error) => {
+          dispatch(formUpdateErr(err));
+        });
+    // } catch (err) {
+    //   console.log(err);
+    //   dispatch(formReadErr(err));
+    // }
+  };
+};
+
+
+
+export { addForm, handleDynamicEdit, updateDataWithId };
 

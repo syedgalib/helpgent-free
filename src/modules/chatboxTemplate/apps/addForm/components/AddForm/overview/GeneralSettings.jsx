@@ -1,10 +1,11 @@
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import Radio from "Components/formFields/Radio.jsx";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
 import { ReactSVG } from 'react-svg';
 import Switch from "react-switch";
+import formUpdater from "../../../../../../../lib/components/FormUpdater";
 import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
@@ -15,12 +16,33 @@ export const templateOptions = [
     { value: "theme-2", label: "Theme Two" },
 ]
 
+export const fontOptions = [
+    { value: "roboto", label: "Roboto" },
+    { value: "inter", label: "Inter" },
+    { value: "legend", label: "Legend" },
+]
+
+export const fontSizeOptions = [
+    { value: "large", label: "Large" },
+    { value: "larger", label: "Larger" },
+    { value: "x-large", label: "X-large" },
+    { value: "xx-large", label: "XX-large" },
+    { value: "medium", label: "Medium" },
+    { value: "small", label: "Small" },
+    { value: "smaller", label: "Smaller" },
+    { value: "x-small", label: "X-small" },
+]
+
 const GeneralSettings = () => {
     /* initialize Form Data */
-    const { formInitialData, diplayAllPage, templateName, templateTheme, displayedCustomPages, chatVisibilityType } = useSelector(state => {
+    const { formInitialData, pageBackground, fontColor, fontFamily, fontSize, diplayAllPage, templateName, templateTheme, displayedCustomPages, chatVisibilityType } = useSelector(state => {
         return {
             formInitialData: state.form.data,
-            diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages: false,
+            pageBackground: state.form.data[0].options.page_background_color,
+            fontColor: state.form.data[0].options.font_family,
+            fontFamily: state.form.data[0].options.font_color,
+            fontSize: state.form.data[0].options.font_size,
+            diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages : false,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].page_ids,
@@ -28,6 +50,13 @@ const GeneralSettings = () => {
 
         };
     });
+
+    const [state, setState] = useState({
+        openCollapse: true
+    });
+
+    /* Destructuring State */
+    const { openCollapse } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -53,44 +82,44 @@ const GeneralSettings = () => {
 
 
 
-    const updateForm = (label, value) => {
-        let updatedData = formInitialData.map(item => {
-            switch (label) {
-                case "name":
-                    return { ...item, name: value };
-                case "theme":
-                    return {
-                        ...item,
-                        options: {
-                            ...item.options,
-                            theme: value
-                        }
-                    }
-                case "display-page":
-                    return {
-                        ...item,
-                        options: {
-                            ...item.options,
-                            display_on_all_pages: value
-                        }
-                    }
-                case "page-id":
-                    return { ...item, page_ids: value }
-                case "chat-visibility":
-                    return {
-                        ...item,
-                        options: {
-                            ...item.options,
-                            chat_visibility_type: value
-                        }
-                    }
-                default:
-                // code block
-            }
-        });
-        console.log(updatedData)
-        dispatch(handleDynamicEdit(updatedData));
-    }
+    // const updateForm = (label, value) => {
+    //     let updatedData = formInitialData.map(item => {
+    //         switch (label) {
+    //             case "name":
+    //                 return { ...item, name: value };
+    //             case "theme":
+    //                 return {
+    //                     ...item,
+    //                     options: {
+    //                         ...item.options,
+    //                         theme: value
+    //                     }
+    //                 }
+    //             case "display-page":
+    //                 return {
+    //                     ...item,
+    //                     options: {
+    //                         ...item.options,
+    //                         display_on_all_pages: value
+    //                     }
+    //                 }
+    //             case "page-id":
+    //                 return { ...item, page_ids: value }
+    //             case "chat-visibility":
+    //                 return {
+    //                     ...item,
+    //                     options: {
+    //                         ...item.options,
+    //                         chat_visibility_type: value
+    //                     }
+    //                 }
+    //             default:
+    //             // code block
+    //         }
+    //     });
+    //     console.log(updatedData)
+    //     dispatch(handleDynamicEdit(updatedData));
+    // }
 
     /* To Handle Template Change */
     const handleThemeChange = (selectedTheme) => {
@@ -127,7 +156,26 @@ const GeneralSettings = () => {
         updateForm('chat-visibility', visiblityType);
     };
 
-    console.log(formInitialData)
+    const handleChangeFormValue = (e) => {
+        const updatedData = formUpdater(e.target.id, e.target.value, formInitialData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
+
+    const handleChangeSelectValue = (selectEvent, e) => {
+        const updatedData = formUpdater(e.name, selectEvent.value, formInitialData);
+        dispatch(handleDynamicEdit(updatedData));
+    };
+
+    /* To handle section toggle */
+    const toogleCollapse = (e) => {
+        e.preventDefault();
+        setState({
+            ...state,
+            openCollapse: !openCollapse
+        });
+    }
+
+    console.log(formInitialData[0]);
 
     return (
         <GeneralSettingWrap>
@@ -223,6 +271,97 @@ const GeneralSettings = () => {
                         <span>Show on reload</span>
                         <Radio id="wpwax-vm-load-show" label="" value="show_on_reload" name="wpwax-vm-close-option" onChange={e => handleChatVisibility(e)} checked={chatVisibilityType === "show_on_reload"} />
                     </div>
+                </div>
+            </div>
+            <div className="wpwax-vm-form-group">
+                <div className="wpwax-vm-form-group__label">
+                    <span>Customize</span>
+                    <a href="" className={openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e => toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
+                </div>
+                <div className={openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Page Background Color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{pageBackground}</span>
+                            <label htmlFor="wpwax-vm-form-bg-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: pageBackground }}></label>
+                            <input type="color" id="wpwax-vm-form-bg-color" className="wpwax-vm-form__element" value={pageBackground} onChange={(e) => handleChangeFormValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font Family</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-font-family"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontOptions.filter(function (option) {
+                                console.log(fontFamily);
+                                return option.label === fontFamily;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font Size</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-font-size"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{fontColor}</span>
+                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: fontColor }}></label>
+                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={fontColor} onChange={(e) => handleChangeFormValue(e)} />
+                        </div>
+                    </div>
+                    {/* <div className="wpwax-vm-form-group__input-single">
+                        <span> Font</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            onChange={chagneFont}
+                            defaultValue={fontOptions.filter(function (option) {
+                                return option.label === font;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span> Font Size</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            onChange={chagneFontSize}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{fontColor}</span>
+                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: fontColor }}></label>
+                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={fontColor} onChange={(e) => changeFontColor(e)} />
+                        </div>
+                    </div> */}
                 </div>
             </div>
         </GeneralSettingWrap>

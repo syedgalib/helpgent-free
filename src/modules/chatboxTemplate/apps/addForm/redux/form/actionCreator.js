@@ -22,7 +22,23 @@ const addForm = args => {
       dispatch(addFormBegin());
       await apiService.dataAdd(`/chatbox-templates`, args)
           .then(response => {
-            console.log(response);
+            dispatch(addFormSuccess(JSON.stringify(response)));
+          })
+          .catch((error) => {
+              console.log(error)
+          })
+    } catch (err) {
+      dispatch(addFormErr(err));
+    }
+  };
+};
+
+const editForm = (id,args) => {
+  return async dispatch => {
+    try {
+      dispatch(addFormBegin());
+      await apiService.dataAdd(`/chatbox-templates/${id}`, args)
+          .then(response => {
             dispatch(addFormSuccess(JSON.stringify(response)));
           })
           .catch((error) => {
@@ -38,7 +54,6 @@ const handleDynamicEdit = data => {
   return async dispatch => {
     try {
       dispatch(formReadBegin());
-      console.log(data);
       dispatch(formReadSuccess(data));
     } catch (err) {
       dispatch(formReadErr(err));
@@ -67,5 +82,5 @@ const updateDataWithId = id => {
 
 
 
-export { addForm, handleDynamicEdit, updateDataWithId };
+export { addForm, editForm, handleDynamicEdit, updateDataWithId };
 

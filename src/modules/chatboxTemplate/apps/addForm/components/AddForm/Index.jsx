@@ -12,9 +12,11 @@ import ThankSettings from "./overview/ThankSettings.jsx";
 import apiService from 'apiService/Service.js';
 import { AddFormStyle } from './Style';
 
-import { addForm, updateDataWithId } from '../../redux/form/actionCreator';
+import { addForm, editForm, updateDataWithId } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
+    const queryParams = new URLSearchParams(window.location.search)
+    const id = queryParams.get("id");
     /* initialize Form Data */
     const { formInitialData, loading, response } = useSelector(state => {
         return {
@@ -62,8 +64,11 @@ const AddForm = () => {
                 page_ids: formInitialData.page_ids,
                 is_default: formInitialData.is_default,
             }
-
-            dispatch(addForm(formData));
+            if (id) {
+                dispatch(editForm(id, formData));
+            } else {
+                dispatch(addForm(formData));
+            }
         }
     }
 
@@ -88,13 +93,9 @@ const AddForm = () => {
     }
 
     useEffect(() => {
-        const queryParams = new URLSearchParams(window.location.search)
-        const id = queryParams.get("id");
-
         if (id) {
             dispatch(updateDataWithId(id));
         }
-
     }, []);
 
     return (

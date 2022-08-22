@@ -22,9 +22,9 @@ const PreviewOne = ({ previewStage }) => {
     const iconContent = (button) => {
         if (button === 'video') {
             return <ReactSVG src={videoIcon} />
-        } else if (button === 'screen_recording') {
+        } else if (button === 'screenRecord') {
             return <ReactSVG src={recordIcon} />
-        } else if (button === 'voice') {
+        } else if (button === 'audio') {
             return <ReactSVG src={miceIcon} />
         } else if (button === 'text') {
             return <ReactSVG src={textIcon} />

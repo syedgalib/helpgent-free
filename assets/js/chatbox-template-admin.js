@@ -7171,6 +7171,124 @@ var apiService = {
 
 /***/ }),
 
+/***/ "./src/lib/components/FormUpdater.js":
+/*!*******************************************!*\
+  !*** ./src/lib/components/FormUpdater.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var FormUpdater = function FormUpdater(label, value, formInitialData) {
+  var updatedData = formInitialData.map(function (item) {
+    switch (label) {
+      case "name":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          name: value
+        });
+
+      case "wpwax-vm-greet-msg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_message: value
+          })
+        });
+
+      case "wpwax-vm-description-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_description: value
+          })
+        });
+
+      case "wpwax-vm-description":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_description: value
+          })
+        });
+
+      case "wpwax-vm-chat-title":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            chat_options_title: value
+          })
+        });
+
+      case "chat-type":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            can_replay_in: value
+          })
+        });
+
+      case "wpwax-vm-footer-msg-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_footer: value
+          })
+        });
+
+      case "wpwax-vm-footer-msg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            footer_message: value
+          })
+        });
+
+      case "theme":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            theme: value
+          })
+        });
+
+      case "display-page":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            display_on_all_pages: value
+          })
+        });
+
+      case "page-id":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          page_ids: value
+        });
+
+      case "wpwax-vm-form-bg-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            page_background_color: value
+          })
+        });
+
+      case "wpwax-vm-font-family":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            font_family: value
+          })
+        });
+
+      default: // code block
+
+    }
+  });
+  return updatedData; // dispatch(handleDynamicEdit(updatedData));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (FormUpdater);
+
+/***/ }),
+
 /***/ "./src/lib/components/Modal.jsx":
 /*!**************************************!*\
   !*** ./src/lib/components/Modal.jsx ***!
@@ -7396,7 +7514,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var AddForm = function AddForm() {
+  var queryParams = new URLSearchParams(window.location.search);
+  var id = queryParams.get("id");
   /* initialize Form Data */
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
       formInitialData: state.form.data[0],
@@ -7455,7 +7576,12 @@ var AddForm = function AddForm() {
         page_ids: formInitialData.page_ids,
         is_default: formInitialData.is_default
       };
-      dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.addForm)(formData));
+
+      if (id) {
+        dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.editForm)(id, formData));
+      } else {
+        dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.addForm)(formData));
+      }
     }
   };
 
@@ -7482,9 +7608,6 @@ var AddForm = function AddForm() {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var queryParams = new URLSearchParams(window.location.search);
-    var id = queryParams.get("id");
-
     if (id) {
       dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.updateDataWithId)(id));
     }
@@ -7620,12 +7743,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../lib/components/FormUpdater */ "./src/lib/components/FormUpdater.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7633,12 +7763,6 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -7651,6 +7775,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -7711,25 +7836,34 @@ var FormSettings = function FormSettings() {
     return {
       id: state.form.data.id,
       grettingMessage: state.form.data[0].options.greet_message,
+      grettingMessageColor: state.form.data[0].options.greet_message_font_color,
+      grettingMessageFontSize: state.form.data[0].options.greet_message_font_size,
       grettingVideo: state.form.data[0].options.greet_video_url,
       grettingImage: state.form.data[0].options.greet_image_url,
-      descriptionVisibility: state.form.data[0].options.show_description,
+      descriptionVisibility: state.form.data[0].options.show_description ? state.form.data[0].options.show_description : false,
       description: state.form.data[0].options.description,
-      chatTitle: state.form.data[0].options.chat_box_title,
+      chatTitle: state.form.data[0].options.chat_options_title,
+      chatTitleFontSize: state.form.data[0].options.chat_options_title_font_size,
+      chatTitleColor: state.form.data[0].options.chat_options_title_font_color,
       chatReplyType: state.form.data[0].options.can_replay_in,
-      footerVisibility: state.form.data[0].options.show_footer,
+      footerVisibility: state.form.data[0].options.show_footer ? state.form.data[0].options.show_footer : false,
       footerMessage: state.form.data[0].options.footer_message,
-      font: state.form.data[0].options.font,
+      footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
+      fontFamily: state.form.data[0].options.font_family,
       fontSize: state.form.data[0].options.font_size,
       fontColor: state.form.data[0].options.font_color,
-      buttonColor: state.form.data[0].options.button_color,
-      buttonRadius: state.form.data[0].options.button_border_radius,
+      primaryButtonColor: state.form.data[0].options.primary_button_font_color,
+      primaryButtonRadius: state.form.data[0].options.primary_button_border_radius,
+      primaryButtonBackground: state.form.data[0].options.primary_button_background_color,
+      // secondaryButtonColor: state.form.data[0].options.secondary_button_font_color,
+      // secondaryButtonRadius: state.form.data[0].options.secondary_button_border_radius,
+      // secondaryButtonBackground: state.form.data[0].options.secondary_button_background_color,
       formData: state.form.data,
       formInitialData: state.form.data[0],
       formInitialOption: state.form.data[0].options
     };
   }),
-      id = _useSelector.id,
+      formInitialData = _useSelector.formInitialData,
       grettingMessage = _useSelector.grettingMessage,
       grettingVideo = _useSelector.grettingVideo,
       grettingImage = _useSelector.grettingImage,
@@ -7739,17 +7873,15 @@ var FormSettings = function FormSettings() {
       chatReplyType = _useSelector.chatReplyType,
       footerVisibility = _useSelector.footerVisibility,
       footerMessage = _useSelector.footerMessage,
-      font = _useSelector.font,
+      fontFamily = _useSelector.fontFamily,
       fontSize = _useSelector.fontSize,
       fontColor = _useSelector.fontColor,
-      buttonColor = _useSelector.buttonColor,
-      buttonRadius = _useSelector.buttonRadius,
-      formData = _useSelector.formData,
-      formInitialData = _useSelector.formInitialData,
-      formInitialOption = _useSelector.formInitialOption;
+      primaryButtonColor = _useSelector.primaryButtonColor,
+      primaryButtonRadius = _useSelector.primaryButtonRadius,
+      primaryButtonBackground = _useSelector.primaryButtonBackground,
+      formData = _useSelector.formData;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    // id: formInitialData.id,
     openCollapse: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7762,204 +7894,52 @@ var FormSettings = function FormSettings() {
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
-  /* Helper function for live preview Update */
-
-  var updateForm = function updateForm(label, value) {
-    var updatedData = formData.map(function (item) {
-      switch (label) {
-        case "greet":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              greet_message: value
-            })
-          });
-
-        case "greet-media-image":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              greet_image_url: value,
-              greet_video_url: ''
-            })
-          });
-
-        case "greet-media-video":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              greet_video_url: value,
-              greet_image_url: ''
-            })
-          });
-
-        case "des-visibility":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              show_description: value
-            })
-          });
-
-        case "description":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              description: value
-            })
-          });
-
-        case "chat-title":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              chat_box_title: value
-            })
-          });
-
-        case "chat-type":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              can_replay_in: value
-            })
-          });
-
-        case "video-visibility":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              chat_box_title: value
-            })
-          });
-
-        case "footer-visibility":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              show_footer: value
-            })
-          });
-
-        case "footer-text":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              footer_message: value
-            })
-          });
-
-        case "form-font":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              font: value
-            })
-          });
-
-        case "form-font-size":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              font_size: value
-            })
-          });
-
-        case "font-color":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              font_color: value
-            })
-          });
-
-        case "button-color":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              button_color: value
-            })
-          });
-
-        case "button-radius":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              button_border_radius: value
-            })
-          });
-
-        default: // code block
-
-      }
-    });
-    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
-  };
-
-  console.log(descriptionVisibility);
   /* For updating each element, we create seperate function */
-
-  var changeGreet = function changeGreet(event) {
-    var greetMessage = event.target.value;
-    updateForm('greet', greetMessage);
-  };
-
-  var changeDescriptionVisibillity = function changeDescriptionVisibillity() {
-    updateForm('des-visibility', !descriptionVisibility);
-  };
-
-  var changeDescription = function changeDescription(event) {
-    var description = event.target.value;
-    updateForm('description', description);
-  };
-
-  var changeChatTitle = function changeChatTitle(event) {
-    var chatTitle = event.target.value;
-    updateForm('chat-title', chatTitle);
-  };
 
   var handleChatArray = function handleChatArray(type) {
     var updatear = chatReplyType;
     updatear = updatear.indexOf(type) === -1 ? [].concat(_toConsumableArray(updatear), [type]) : updatear.filter(function (elm) {
       return elm != type;
     });
-    updateForm('chat-type', updatear);
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])("chat-type", updatear, formData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
 
   var handleChatReplyType = function handleChatReplyType(checked, event, id) {
     if (id === "wpwax-vm-reply-video") {
       handleChatArray("video");
     } else if (id === "wpwax-vm-reply-s-record") {
-      handleChatArray("screen_recording");
+      handleChatArray("screenRecord");
     } else if (id === "wpwax-vm-reply-voice") {
-      handleChatArray("voice");
+      handleChatArray("audio");
     } else if (id === "wpwax-vm-reply-text") {
       handleChatArray("text");
     }
   };
 
-  var chagneFont = function chagneFont(selectedFont) {
-    updateForm('form-font', selectedFont.value);
+  var handleChangeInputValue = function handleChangeInputValue(e) {
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
 
-  var chagneFontSize = function chagneFontSize(selectedFontSize) {
-    updateForm('form-font-size', selectedFontSize.value);
+  var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
+    console.log(event, value, id);
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(id, value, formData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
 
-  var changeFooterVisibility = function changeFooterVisibility() {
-    updateForm('footer-visibility', !footerVisibility);
-  };
-
-  var changeFooterMessage = function changeFooterMessage(event) {
-    var footerMessageText = event.target.value;
-    updateForm('footer-text', footerMessageText);
-  };
-
-  var changeFontColor = function changeFontColor(event) {
-    var fontColor = event.target.value;
-    updateForm('font-color', fontColor);
-  };
-
-  var changeButtonColor = function changeButtonColor(event) {
-    var buttonColor = event.target.value;
-    updateForm('button-color', buttonColor);
-  };
-
-  var changeButtonRadius = function changeButtonRadius(event) {
-    var buttonRadius = event.target.value;
-    console.log(buttonRadius);
-    updateForm('button-radius', buttonRadius);
+  var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   /* To handle section toggle */
 
 
   var toogleCollapse = function toogleCollapse(e) {
     e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      openCollapse: !openCollapse
+    }));
   };
 
   var frame;
@@ -7991,32 +7971,37 @@ var FormSettings = function FormSettings() {
           grettingImage: attatchmentUrl,
           grettingVideo: ''
         }));
-        updateForm('greet-media-image', attatchmentUrl);
+        var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('greet-media-image', attatchmentUrl, formData);
+        dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
       } else if (attachment.type === "video") {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           grettingVideo: attatchmentUrl,
           grettingImage: ''
         }));
-        updateForm('greet-media-video', attatchmentUrl);
+
+        var _updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('greet-media-video', attatchmentUrl, formData);
+
+        dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(_updatedData));
       }
     }); // Finally, open the modal on click
 
     frame.open();
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.FormSettingsWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+  console.log(descriptionVisibility);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.FormSettingsWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Add an image/video or Record a video"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: grettingVideo !== '' || grettingImage !== '' ? 'wpwax-vm-uploader wpax-vm-has-src' : 'wpwax-vm-uploader',
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-media-upload",
             onClick: function onClick(e) {
@@ -8024,53 +8009,54 @@ var FormSettings = function FormSettings() {
             },
             children: "Add image/video"
           })
-        }), grettingVideo !== '' || grettingImage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), grettingVideo !== '' || grettingImage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-media-preview",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "wpwax-vm-media-preview__src",
-            children: [grettingImage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+            children: [grettingImage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
               src: grettingImage,
               alt: "Wpwax Video Support"
-            }) : null, grettingVideo !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("video", {
+            }) : null, grettingVideo !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("video", {
               src: grettingVideo
             }) : null]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-media-preview__replace",
             onClick: function onClick(e) {
               return openUploader(e);
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
               className: "wpwax-vm-media-preview__replace--icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
                 src: Assets_svg_icons_replace_svg__WEBPACK_IMPORTED_MODULE_0__["default"]
               })
             }), " Replace"]
           })]
         }) : null]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Greetings message "
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
         className: "wpwax-vm-form__element",
+        id: "wpwax-vm-greet-msg",
         value: grettingMessage,
         onChange: function onChange(e) {
-          return changeGreet(e);
+          return handleChangeInputValue(e);
         }
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Description"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8080,37 +8066,44 @@ var FormSettings = function FormSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
+            id: "wpwax-vm-description-visibility",
             checked: descriptionVisibility,
-            onChange: changeDescriptionVisibillity
+            onChange: handleChangeSwitchValue
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
         className: "wpwax-vm-form__element",
         value: description,
-        onChange: changeDescription
+        id: "wpwax-vm-description",
+        onChange: function onChange(e) {
+          return handleChangeInputValue(e);
+        }
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "wpwax-vm-form-group",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
+        id: "wpwax-vm-chat-title",
         value: chatTitle,
-        onChange: changeChatTitle
+        onChange: function onChange(e) {
+          return handleChangeInputValue(e);
+        }
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Users can reply in"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-switch-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: "Video"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8124,11 +8117,11 @@ var FormSettings = function FormSettings() {
             checked: chatReplyType.indexOf('video') === -1 ? false : true,
             onChange: handleChatReplyType
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: "Screen Recording"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8139,14 +8132,14 @@ var FormSettings = function FormSettings() {
             height: 22,
             width: 40,
             id: "wpwax-vm-reply-s-record",
-            checked: chatReplyType.indexOf('screen_recording') === -1 ? false : true,
+            checked: chatReplyType.indexOf('screenRecord') === -1 ? false : true,
             onChange: handleChatReplyType
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: "Voice"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8157,14 +8150,14 @@ var FormSettings = function FormSettings() {
             height: 22,
             width: 40,
             id: "wpwax-vm-reply-voice",
-            checked: chatReplyType.indexOf('voice') === -1 ? false : true,
+            checked: chatReplyType.indexOf('audio') === -1 ? false : true,
             onChange: handleChatReplyType
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-switch-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: "Text"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8180,144 +8173,173 @@ var FormSettings = function FormSettings() {
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Footer Message "
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
           uncheckedIcon: false,
           checkedIcon: false,
           onColor: "#6551F2",
           offColor: "#E2E2E2",
           onHandleColor: "#FFFFFF",
           className: "wpwax-vm-switch",
+          id: "wpwax-vm-footer-msg-visibility",
           handleDiameter: 14,
           height: 22,
           width: 40,
           checked: footerVisibility,
-          onChange: changeFooterVisibility
+          onChange: handleChangeSwitchValue
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
         className: "wpwax-vm-form__element",
+        id: "wpwax-vm-footer-msg",
         value: footerMessage,
         onChange: function onChange(e) {
-          return changeFooterMessage(e);
+          return handleChangeInputValue(e);
         }
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           children: "Customize"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
           href: "",
           className: openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable",
           onClick: function onClick(e) {
             return toogleCollapse(e);
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "dashicons-arrow-down-alt2 dashicons"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: " Font"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: "Font Family"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__["default"], {
             classNamePrefix: "wpwax-vm-select",
             options: fontOptions,
             closeMenuOnSelect: true,
             hideSelectedOptions: false,
             searchable: false,
-            onChange: chagneFont,
+            name: "wpwax-vm-fontfamily",
+            onChange: handleChangeSelectValue,
             defaultValue: fontOptions.filter(function (option) {
-              return option.label === font;
+              return option.label === fontFamily;
             })[0]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: " Font Size"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__["default"], {
             classNamePrefix: "wpwax-vm-select",
             options: fontSizeOptions,
             closeMenuOnSelect: true,
             hideSelectedOptions: false,
             searchable: false,
-            onChange: chagneFontSize,
+            name: "wpwax-vm-fontsize",
+            onChange: handleChangeSelectValue,
             defaultValue: fontSizeOptions.filter(function (option) {
               return option.label === fontSize;
             })[0]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             children: "Font color"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
               children: fontColor
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
               htmlFor: "wpwax-vm-form-title-color",
               className: "wpwax-vm-form__color-ball",
               style: {
                 backgroundColor: fontColor
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-form-title-color",
               className: "wpwax-vm-form__element",
               value: fontColor,
               onChange: function onChange(e) {
-                return changeFontColor(e);
+                return handleChangeInputValue(e);
               }
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: "Button color"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: "Primary Button color"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: buttonColor
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+              children: primaryButtonColor
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
               htmlFor: "wpwax-vm-form-button-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: buttonColor
+                backgroundColor: primaryButtonColor
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-form-button-color",
               className: "wpwax-vm-form__element",
-              value: buttonColor,
+              value: primaryButtonColor,
               onChange: function onChange(e) {
-                return changeButtonColor(e);
+                return handleChangeInputValue(e);
               }
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-vm-form-group__input-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: "Button border-radius"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: "Primary Button Radius"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "wpwax-vm-form__input-radius",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
-              value: buttonRadius,
+              value: primaryButtonRadius,
               onChange: function onChange(e) {
-                return changeButtonRadius(e);
+                return handleChangeInputValue(e);
               }
             })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          className: "wpwax-vm-form-group__input-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: "Primary Background color"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            className: "wpwax-vm-form__color-plate",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+              className: "wpwax-vm-form__color-text",
+              children: primaryButtonBackground
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+              htmlFor: "wpwax-vm-form-button-color",
+              className: "wpwax-vm-form__color-ball",
+              style: {
+                backgroundColor: primaryButtonBackground
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+              type: "color",
+              id: "wpwax-vm-form-button-color",
+              className: "wpwax-vm-form__element",
+              value: primaryButtonBackground,
+              onChange: function onChange(e) {
+                return handleChangeInputValue(e);
+              }
+            })]
           })]
         })]
       })]
@@ -8338,6 +8360,8 @@ var FormSettings = function FormSettings() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fontOptions": function() { return /* binding */ fontOptions; },
+/* harmony export */   "fontSizeOptions": function() { return /* binding */ fontSizeOptions; },
 /* harmony export */   "templateOptions": function() { return /* binding */ templateOptions; }
 /* harmony export */ });
 /* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
@@ -8345,19 +8369,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
-/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../../lib/components/FormUpdater */ "./src/lib/components/FormUpdater.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -8378,12 +8416,51 @@ var templateOptions = [{
   value: "theme-2",
   label: "Theme Two"
 }];
+var fontOptions = [{
+  value: "roboto",
+  label: "Roboto"
+}, {
+  value: "inter",
+  label: "Inter"
+}, {
+  value: "legend",
+  label: "Legend"
+}];
+var fontSizeOptions = [{
+  value: "large",
+  label: "Large"
+}, {
+  value: "larger",
+  label: "Larger"
+}, {
+  value: "x-large",
+  label: "X-large"
+}, {
+  value: "xx-large",
+  label: "XX-large"
+}, {
+  value: "medium",
+  label: "Medium"
+}, {
+  value: "small",
+  label: "Small"
+}, {
+  value: "smaller",
+  label: "Smaller"
+}, {
+  value: "x-small",
+  label: "X-small"
+}];
 
 var GeneralSettings = function GeneralSettings() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
     return {
       formInitialData: state.form.data,
+      pageBackground: state.form.data[0].options.page_background_color,
+      fontColor: state.form.data[0].options.font_family,
+      fontFamily: state.form.data[0].options.font_color,
+      fontSize: state.form.data[0].options.font_size,
       diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages : false,
       templateName: state.form.data[0].name,
       templateTheme: state.form.data[0].options.theme,
@@ -8392,20 +8469,34 @@ var GeneralSettings = function GeneralSettings() {
     };
   }),
       formInitialData = _useSelector.formInitialData,
+      pageBackground = _useSelector.pageBackground,
+      fontColor = _useSelector.fontColor,
+      fontFamily = _useSelector.fontFamily,
+      fontSize = _useSelector.fontSize,
       diplayAllPage = _useSelector.diplayAllPage,
       templateName = _useSelector.templateName,
       templateTheme = _useSelector.templateTheme,
       displayedCustomPages = _useSelector.displayedCustomPages,
       chatVisibilityType = _useSelector.chatVisibilityType;
-  /* Dispasth is used for passing the actions to redux store  */
 
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    openCollapse: true
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+  /* Destructuring State */
+
+
+  var openCollapse = state.openCollapse;
+  /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
 
   var Option = function Option(props) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
           id: "wpwax-vm".concat(props.value),
           label: props.label,
           isSelected: props.isSelected
@@ -8422,51 +8513,46 @@ var GeneralSettings = function GeneralSettings() {
         label: "".concat(item.title)
       });
     });
-  }, []);
+  }, []); // const updateForm = (label, value) => {
+  //     let updatedData = formInitialData.map(item => {
+  //         switch (label) {
+  //             case "name":
+  //                 return { ...item, name: value };
+  //             case "theme":
+  //                 return {
+  //                     ...item,
+  //                     options: {
+  //                         ...item.options,
+  //                         theme: value
+  //                     }
+  //                 }
+  //             case "display-page":
+  //                 return {
+  //                     ...item,
+  //                     options: {
+  //                         ...item.options,
+  //                         display_on_all_pages: value
+  //                     }
+  //                 }
+  //             case "page-id":
+  //                 return { ...item, page_ids: value }
+  //             case "chat-visibility":
+  //                 return {
+  //                     ...item,
+  //                     options: {
+  //                         ...item.options,
+  //                         chat_visibility_type: value
+  //                     }
+  //                 }
+  //             default:
+  //             // code block
+  //         }
+  //     });
+  //     console.log(updatedData)
+  //     dispatch(handleDynamicEdit(updatedData));
+  // }
 
-  var updateForm = function updateForm(label, value) {
-    var updatedData = formInitialData.map(function (item) {
-      switch (label) {
-        case "name":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            name: value
-          });
-
-        case "theme":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              theme: value
-            })
-          });
-
-        case "display-page":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              display_on_all_pages: value
-            })
-          });
-
-        case "page-id":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            page_ids: value
-          });
-
-        case "chat-visibility":
-          return _objectSpread(_objectSpread({}, item), {}, {
-            options: _objectSpread(_objectSpread({}, item.options), {}, {
-              chat_visibility_type: value
-            })
-          });
-
-        default: // code block
-
-      }
-    });
-    console.log(updatedData);
-    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
-  };
   /* To Handle Template Change */
-
 
   var handleThemeChange = function handleThemeChange(selectedTheme) {
     var templateTheme = selectedTheme.value;
@@ -8504,19 +8590,38 @@ var GeneralSettings = function GeneralSettings() {
     updateForm('chat-visibility', visiblityType);
   };
 
-  console.log(formInitialData);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.GeneralSettingWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+  var handleChangeFormValue = function handleChangeFormValue(e) {
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.target.id, e.target.value, formInitialData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
+  };
+
+  var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formInitialData);
+    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
+  };
+  /* To handle section toggle */
+
+
+  var toogleCollapse = function toogleCollapse(e) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      openCollapse: !openCollapse
+    }));
+  };
+
+  console.log(formInitialData[0]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_8__.GeneralSettingWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          children: ["Name of Form ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+          children: ["Name of Form ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-require-sign",
             children: "*"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
         id: "wpwax-vm-form-name",
@@ -8526,28 +8631,28 @@ var GeneralSettings = function GeneralSettings() {
           return handleNameChange(e);
         }
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-form-group__label wpwax-vm-has-tooltip",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Theme "
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
         classNamePrefix: "wpwax-vm-select",
         options: templateOptions,
         hideSelectedOptions: false,
@@ -8558,28 +8663,28 @@ var GeneralSettings = function GeneralSettings() {
         })[0],
         allowSelectAll: true
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "wpwax-vm-form-group",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-form-group__label wpwax-vm-mb-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Display on all pages"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_5__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551F2",
@@ -8594,28 +8699,28 @@ var GeneralSettings = function GeneralSettings() {
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Display on custom pages"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
               children: "Tooltip Text will be here"
             })]
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
         classNamePrefix: "wpwax-vm-select",
         options: customPages,
         isMulti: true,
@@ -8628,20 +8733,20 @@ var GeneralSettings = function GeneralSettings() {
         onChange: handleCustomPages,
         allowSelectAll: true
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           children: "Close chat option"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-radio-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "If closed never show again"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-never-show",
             label: "",
             value: "never_load",
@@ -8651,11 +8756,11 @@ var GeneralSettings = function GeneralSettings() {
             },
             checked: chatVisibilityType === "never_load"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Show on reload"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-load-show",
             label: "",
             value: "show_on_reload",
@@ -8664,6 +8769,109 @@ var GeneralSettings = function GeneralSettings() {
               return handleChatVisibility(e);
             },
             checked: chatVisibilityType === "show_on_reload"
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      className: "wpwax-vm-form-group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: "wpwax-vm-form-group__label",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+          children: "Customize"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
+          href: "",
+          className: openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable",
+          onClick: function onClick(e) {
+            return toogleCollapse(e);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            className: "dashicons-arrow-down-alt2 dashicons"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        className: openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "wpwax-vm-form-group__input-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: "Page Background Color"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "wpwax-vm-form__color-plate",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+              className: "wpwax-vm-form__color-text",
+              children: pageBackground
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+              htmlFor: "wpwax-vm-form-bg-color",
+              className: "wpwax-vm-form__color-ball",
+              style: {
+                backgroundColor: pageBackground
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+              type: "color",
+              id: "wpwax-vm-form-bg-color",
+              className: "wpwax-vm-form__element",
+              value: pageBackground,
+              onChange: function onChange(e) {
+                return handleChangeFormValue(e);
+              }
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "wpwax-vm-form-group__input-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: "Font Family"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            classNamePrefix: "wpwax-vm-select",
+            options: fontOptions,
+            closeMenuOnSelect: true,
+            hideSelectedOptions: false,
+            searchable: false,
+            name: "wpwax-vm-font-family",
+            onChange: handleChangeSelectValue,
+            defaultValue: fontOptions.filter(function (option) {
+              console.log(fontFamily);
+              return option.label === fontFamily;
+            })[0]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "wpwax-vm-form-group__input-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: "Font Size"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            classNamePrefix: "wpwax-vm-select",
+            options: fontSizeOptions,
+            closeMenuOnSelect: true,
+            hideSelectedOptions: false,
+            searchable: false,
+            name: "wpwax-vm-font-size",
+            onChange: handleChangeSelectValue,
+            defaultValue: fontSizeOptions.filter(function (option) {
+              return option.label === fontSize;
+            })[0]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "wpwax-vm-form-group__input-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            children: "Font color"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+            className: "wpwax-vm-form__color-plate",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+              className: "wpwax-vm-form__color-text",
+              children: fontColor
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+              htmlFor: "wpwax-vm-form-title-color",
+              className: "wpwax-vm-form__color-ball",
+              style: {
+                backgroundColor: fontColor
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+              type: "color",
+              id: "wpwax-vm-form-title-color",
+              className: "wpwax-vm-form__element",
+              value: fontColor,
+              onChange: function onChange(e) {
+                return handleChangeFormValue(e);
+              }
+            })]
           })]
         })]
       })]
@@ -8726,11 +8934,11 @@ var PreviewOne = function PreviewOne(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
       });
-    } else if (button === 'screen_recording') {
+    } else if (button === 'screenRecord') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
-    } else if (button === 'voice') {
+    } else if (button === 'audio') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
       });
@@ -8948,11 +9156,11 @@ var PreviewTwo = function PreviewTwo(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
       });
-    } else if (button === 'screen_recording') {
+    } else if (button === 'screenRecord') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
-    } else if (button === 'voice') {
+    } else if (button === 'audio') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
       });
@@ -9417,7 +9625,7 @@ var ThankSettings = function ThankSettings() {
   };
 
   var changeButtonVisibility = function changeButtonVisibility() {
-    updateForm('btn-visibility', !buttonVisibility);
+    updateForm('btn-visibility', !ctaButtonVisibility);
   };
 
   var changeButtonText = function changeButtonText(event) {
@@ -9805,6 +10013,7 @@ document.addEventListener("DOMContentLoaded", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addForm": function() { return /* binding */ addForm; },
+/* harmony export */   "editForm": function() { return /* binding */ editForm; },
 /* harmony export */   "handleDynamicEdit": function() { return /* binding */ handleDynamicEdit; },
 /* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; }
 /* harmony export */ });
@@ -9842,7 +10051,6 @@ var addForm = function addForm(args) {
               dispatch(addFormBegin());
               _context.next = 4;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].dataAdd("/chatbox-templates", args).then(function (response) {
-                console.log(response);
                 dispatch(addFormSuccess(JSON.stringify(response)));
               }).catch(function (error) {
                 console.log(error);
@@ -9871,27 +10079,37 @@ var addForm = function addForm(args) {
   }();
 };
 
-var handleDynamicEdit = function handleDynamicEdit(data) {
+var editForm = function editForm(id, args) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dispatch) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              try {
-                dispatch(formReadBegin());
-                console.log(data);
-                dispatch(formReadSuccess(data));
-              } catch (err) {
-                dispatch(formReadErr(err));
-              }
+              _context2.prev = 0;
+              dispatch(addFormBegin());
+              _context2.next = 4;
+              return apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].dataAdd("/chatbox-templates/".concat(id), args).then(function (response) {
+                dispatch(addFormSuccess(JSON.stringify(response)));
+              }).catch(function (error) {
+                console.log(error);
+              });
 
-            case 1:
+            case 4:
+              _context2.next = 9;
+              break;
+
+            case 6:
+              _context2.prev = 6;
+              _context2.t0 = _context2["catch"](0);
+              dispatch(addFormErr(_context2.t0));
+
+            case 9:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, null, [[0, 6]]);
     }));
 
     return function (_x2) {
@@ -9900,24 +10118,21 @@ var handleDynamicEdit = function handleDynamicEdit(data) {
   }();
 };
 
-var updateDataWithId = function updateDataWithId(id) {
-  console.log('tes');
+var handleDynamicEdit = function handleDynamicEdit(data) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              // try {
-              dispatch(formUpdateBegin(id));
-              _context3.next = 3;
-              return apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAll("/chatbox-templates/".concat(id)).then(function (response) {
-                dispatch(formUpdateSuccess([response.data.data]));
-              }).catch(function (error) {
-                dispatch(formUpdateErr(err));
-              });
+              try {
+                dispatch(formReadBegin());
+                dispatch(formReadSuccess(data));
+              } catch (err) {
+                dispatch(formReadErr(err));
+              }
 
-            case 3:
+            case 1:
             case "end":
               return _context3.stop();
           }
@@ -9927,6 +10142,37 @@ var updateDataWithId = function updateDataWithId(id) {
 
     return function (_x3) {
       return _ref3.apply(this, arguments);
+    };
+  }();
+};
+
+var updateDataWithId = function updateDataWithId(id) {
+  console.log('tes');
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              // try {
+              dispatch(formUpdateBegin(id));
+              _context4.next = 3;
+              return apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].getAll("/chatbox-templates/".concat(id)).then(function (response) {
+                dispatch(formUpdateSuccess([response.data.data]));
+              }).catch(function (error) {
+                dispatch(formUpdateErr(err));
+              });
+
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };
@@ -10033,13 +10279,16 @@ var formData = [{
     "theme": "theme-1",
     "display_on_all_pages": false,
     "chat_visibility_type": "show_on_reload",
+    "tag": 1,
     "greet_image_url": "",
     "greet_video_url": "",
     "greet_message": "Welcome to Directorist, leave your questions below",
+    "greet_message_font_color": "#FFFFFF",
+    "greet_message_font_size": "medium",
     "show_description": true,
     "description": "Welcome to Directorist, leave your questions below",
-    "chat_box_title": "How would you like to chat?",
-    "can_replay_in": ["video", "screen_recording", "voice", "text"],
+    "chat_options_title": "How would you like to chat?",
+    "can_replay_in": ["video", "screenRecord", "audio", "text"],
     "show_footer": true,
     "footer_message": "You can practice before sending",
     "thank_page_title": "Thank You",
@@ -10050,19 +10299,30 @@ var formData = [{
     "show_thank_page_cta_button": true,
     "thank_page_cta_button_text": "Try for Free",
     "thank_page_cta_button_url": "https://dashboardmarket.com/",
-    "thank_page_cta_background": "#23ffffff",
-    "thank_page_cta_title_font_size": "XX-large",
+    "thank_page_background_color": "#23ffffff",
+    "thank_page_title_font_size": "XX-large",
+    "primary_color": "#2271b1",
+    "page_background_color": "#ffffff",
     "thank_page_cta_font_color": "#23030308",
     "thank_page_cta_button_color": "#236551F2",
     "thank_page_cta_button_text_color": "#23ffffff",
     "thank_page_cta_button_radius": "10",
-    "font": "Roboto",
+    "font_family": "Roboto",
     "font_size": "Medium",
     "font_color": "#23ffffff",
     "button_color": "#6551f2",
-    "button_border_radius": "10"
+    "button_border_radius": "10",
+    "chat_options_title_font_size": "medium",
+    "chat_options_title_font_color": "#FFFFFF",
+    "footer_message_font_size": "medium",
+    "primary_button_font_color": "#FFFFFF",
+    "primary_button_border_radius": "15",
+    "primary_button_background_color": "#2271b1",
+    "secondary_button_font_color": "#FFFFFF",
+    "secondary_button_border_radius": "15",
+    "secondary_button_background_color": "#EDEDED"
   },
-  page_ids: "0,20",
+  pages: "0,20",
   is_default: true
 }];
 var initialState = {

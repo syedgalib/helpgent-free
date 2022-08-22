@@ -241,7 +241,7 @@ const ThankSettings = () => {
     }
     const changeButtonVisibility = () => {
 
-        updateForm('btn-visibility', !buttonVisibility);
+        updateForm('btn-visibility', !ctaButtonVisibility);
     }
     const changeButtonText = (event) => {
         let thankBtnText = event.target.value;

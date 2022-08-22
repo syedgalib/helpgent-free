@@ -1,5 +1,6 @@
 :root {
 	--color-primary: #6551f2;
+	--color-secondary: #FC495D;
 	--color-dark: #030308;
 	--color-lighter: #f8f9fb;
 	--color-light: #f4f5f7;
@@ -14,6 +15,15 @@
 	--color-text: #898989;
 	--color-white: #ffffff;
 	--color-black: #000000;
+	--font-family: "Roboto";
+	--font-size: "medium";
+	--font-color: "#898989";
+	--primary-button-color: #FFFFFF;
+	--primary-button-bg-color: #2271b1;
+	--primary-button-border-radius: "15";
+	--secondary-button-color: #FFFFFF;
+	--secondary-button-bg-color: #FC495D;
+	--secondary-button-border-radius: "15";
 }
 
 .wpwax-vm-page-inner {

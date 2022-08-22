@@ -9142,6 +9142,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9431,9 +9439,26 @@ var ThankSettings = function ThankSettings() {
     }));
   };
 
-  var handleCollectableInfo = function handleCollectableInfo() {};
+  var handleContactInfoArray = function handleContactInfoArray(type) {
+    var newInfoArray = collectableInfo;
+    newInfoArray = newInfoArray.indexOf(type) === -1 ? [].concat(_toConsumableArray(newInfoArray), [type]) : newInfoArray.filter(function (elm) {
+      return elm != type;
+    });
+    updateForm('collectable-info', newInfoArray);
+  };
 
-  console.log(collectInfoVisibility);
+  var handleCollectableInfo = function handleCollectableInfo(e) {
+    console.log(e.target.id);
+
+    if (e.target.id === "contact-name") {
+      handleContactInfoArray("name");
+    } else if (e.target.id === "contact-email") {
+      handleContactInfoArray("email");
+    } else if (e.target.id === "contact-phone") {
+      handleContactInfoArray("phone");
+    }
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.ThankSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9465,25 +9490,34 @@ var ThankSettings = function ThankSettings() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
             id: "contact-name",
             label: "",
-            onChange: handleCollectableInfo
+            value: collectableInfo.indexOf('name') === -1 ? false : true,
+            onChange: function onChange(e) {
+              return handleCollectableInfo(e);
+            }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "wpwax-vm-chekbox-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             children: "Email"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            id: "contact-name",
+            id: "contact-email",
             label: "",
-            onChange: handleCollectableInfo
+            value: collectableInfo.indexOf('email') === -1 ? false : true,
+            onChange: function onChange(e) {
+              return handleCollectableInfo(e);
+            }
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "wpwax-vm-chekbox-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             children: "Phone"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            id: "contact-name",
+            id: "contact-phone",
             label: "",
-            onChange: handleCollectableInfo
+            value: collectableInfo.indexOf('phone') === -1 ? false : true,
+            onChange: function onChange(e) {
+              return handleCollectableInfo(e);
+            }
           })]
         })]
       })]

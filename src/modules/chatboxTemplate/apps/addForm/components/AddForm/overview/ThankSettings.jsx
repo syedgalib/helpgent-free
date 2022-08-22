@@ -18,24 +18,24 @@ export const fontSizeOptions = [
 ]
 const ThankSettings = () => {
     /* initialize Form Data */
-    const { 
-        collectInfoVisibility, 
-        collectableInfo, 
-        title, 
-        descriptionVisibility, 
-        description, 
-        ctaButtonVisibility, 
-        ctaButtonText, 
-        ctaButtonUrl, 
-        ctaBgColor, 
-        ctaTitleFontSize, 
-        ctaFontColor, 
+    const {
+        collectInfoVisibility,
+        collectableInfo,
+        title,
+        descriptionVisibility,
+        description,
+        ctaButtonVisibility,
+        ctaButtonText,
+        ctaButtonUrl,
+        ctaBgColor,
+        ctaTitleFontSize,
+        ctaFontColor,
         ctaButtonColor,
         ctaButtonTextColor,
         ctaButtonRadius,
-        formData, 
-        formInitialData, 
-        formInitialOption 
+        formData,
+        formInitialData,
+        formInitialOption
     } = useSelector(state => {
         return {
             collectInfoVisibility: state.form.data[0].options.collect_info,
@@ -193,64 +193,64 @@ const ThankSettings = () => {
 
     /* For updating each element, we create seperate function */
     const handleCollectInfoVisibility = () => {
-        
+
         updateForm('info-visibility', !collectInfoVisibility);
     }
     const changeBgColor = (event) => {
         let thankBgColor = event.target.value;
-        
+
         updateForm('bg-color', thankBgColor);
     }
     const changeFontColor = (event) => {
         let thankFontColor = event.target.value;
-    
+
         updateForm('font-color', thankFontColor);
     }
     const changeButtonColor = (event) => {
         let thankButtonColor = event.target.value;
-        
+
         updateForm('button-color', thankButtonColor);
     }
     const changeButtonTextColor = (event) => {
         let thankButtonTextColor = event.target.value;
-        
+
         updateForm('button-text-color', thankButtonTextColor);
     }
     const changeButtonRadius = (event) => {
         let thankButtonRadius = event.target.value;
-           
+
         updateForm('button-radius', thankButtonRadius);
     }
     const changeTitle = (event) => {
         let thankTitle = event.target.value;
-        
+
         updateForm('title', thankTitle);
     }
     const chagneTitleFontSize = selectedSize => {
-        
+
         updateForm('title-size', selectedSize.value);
     }
     const changeDescriptionVisibility = () => {
-        
+
         updateForm('des-visibility', !descriptionVisibility);
     }
     const changeDescription = (event) => {
         let thankDescription = event.target.value;
-        
+
         updateForm('description', thankDescription);
     }
     const changeButtonVisibility = () => {
-        
+
         updateForm('btn-visibility', !buttonVisibility);
     }
     const changeButtonText = (event) => {
         let thankBtnText = event.target.value;
-        
+
         updateForm('btn-text', thankBtnText);
     }
     const changeButtonUrl = (event) => {
         let thankBtnUrl = event.target.value;
-        
+
         updateForm('btn-url', thankBtnUrl);
     }
 
@@ -263,12 +263,22 @@ const ThankSettings = () => {
         });
     }
 
-    const handleCollectableInfo = ()=>{
-        
+    const handleContactInfoArray = (type) => {
+        let newInfoArray = collectableInfo;
+        newInfoArray = newInfoArray.indexOf(type) === -1 ? [...newInfoArray, type] : newInfoArray.filter(elm => elm != type);
+        updateForm('collectable-info', newInfoArray);
     }
 
-
-    console.log(collectInfoVisibility);
+    const handleCollectableInfo = (e) => {
+        console.log(e.target.id);
+        if (e.target.id === "contact-name") {
+            handleContactInfoArray("name");
+        } else if (e.target.id === "contact-email") {
+            handleContactInfoArray("email");
+        } else if (e.target.id === "contact-phone") {
+            handleContactInfoArray("phone");
+        }
+    }
 
     return (
         <ThankSettingsWrap>
@@ -292,28 +302,17 @@ const ThankSettings = () => {
                     </label>
                 </div>
                 <div className="wpwax-vm-chekbox-list">
-                    {/* {
-                        collectableInfo.map((item, index) => {
-                            return (
-                                <div className="wpwax-vm-chekbox-single" key={index}>
-                                    <span>{item}</span>
-                                    <Checkbox id={`contact-${item}`} label="" />
-                                </div>
-                            )
-
-                        })
-                    } */}
                     <div className="wpwax-vm-chekbox-single">
                         <span>Name</span>
-                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                        <Checkbox id="contact-name" label="" value={collectableInfo.indexOf('name') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
                     </div>
                     <div className="wpwax-vm-chekbox-single">
                         <span>Email</span>
-                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                        <Checkbox id="contact-email" label="" value={collectableInfo.indexOf('email') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
                     </div>
                     <div className="wpwax-vm-chekbox-single">
                         <span>Phone</span>
-                        <Checkbox id="contact-name" label="" onChange={handleCollectableInfo} />
+                        <Checkbox id="contact-phone" label="" value={collectableInfo.indexOf('phone') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
                     </div>
                 </div>
             </div>

@@ -1,9 +1,8 @@
 import propTypes from 'prop-types';
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { PreviewWrap } from './Style';
-
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import recordIcon from 'Assets/svg/icons/s-record.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
@@ -19,6 +18,13 @@ const PreviewOne = ({ previewStage }) => {
         };
     });
 
+    const [state, setState] = useState({
+        isPaused: false,
+    });
+
+    /* Destructuring State */
+    const { isPaused } = state;
+
     const iconContent = (button) => {
         if (button === 'video') {
             return <ReactSVG src={videoIcon} />
@@ -31,11 +37,24 @@ const PreviewOne = ({ previewStage }) => {
         }
     }
 
-    const handleButtonPlay = e => {
-        e.preventDefault();
-        const videoDom = document.querySelector('.wpwax-vm-preview-video');
-        videoDom.play();
+    const greetVideoDom = useRef();
+
+    const handleToggleGreetVideo = e => {
+        e.preventDefault()
+        console.log(greetVideoDom.current.paused);
+        if (greetVideoDom.current.paused) {
+            greetVideoDom.current.play();
+            setState({
+                isPaused: true
+            });
+            return;
+        }
+        greetVideoDom.current.pause();
+        setState({
+            isPaused: false
+        });
     }
+
     return (
         <PreviewWrap className={loading ? "wpwax-vm-loder-active" : null}>
             {
@@ -53,17 +72,17 @@ const PreviewOne = ({ previewStage }) => {
                 :
                 previewStage === 'form' ?
                     <>
-                        <div className="wpwax-vm-preview-from" style={{ fontFamily: formOption.font }} >
+                        <div className="wpwax-vm-preview-from">
                             <div className="wpwax-vm-preview-img">
                                 {
                                     formOption.greet_image_url !== '' ? <img src={formOption.greet_image_url} alt="Wpwax Video Support Plugin" /> : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? <video className="wpwax-vmpreview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                    formOption.greet_video_url !== '' ? <video ref={greetVideoDom} className="wpwax-vmpreview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
                                 }
                             </div>
                             <div className="wpwax-vm-preview-header">
-                                <h4 className="wpwax-vm-preview-title" style={{ color: formOption.font_color, fontSize: formOption.font_size }} >{formOption.greet_message}</h4>
+                                <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
                                     <span className="wpwax-vm-preview-subtitle">{formOption.description}</span> : ''
                                 }
@@ -71,16 +90,15 @@ const PreviewOne = ({ previewStage }) => {
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {
-                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e => handleButtonPlay(e)}><i className="dashicons dashicons-controls-play"></i></a> : null
+                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}><i className={!isPaused ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause'}></i></a> : null
                                 }
-
                             </div>
                             <div className="wpwax-vm-preview-footer">
-                                <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>
+                                <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_options_title}</h5>
                                 <div className="wpwax-vm-preview-footer__actions">
                                     {
                                         formOption.can_replay_in.map((item, index) =>
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" style={{ borderRadius: `${formOption.button_border_radius}px`, backgroundColor: `${formOption.button_color}`, borderColor: `${formOption.button_color}` }} key={index}>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" key={index}>
                                                 {iconContent(item)}
                                                 {item === "screen_recording" ? "Screen Recording" : item}
                                             </a>)
@@ -89,40 +107,27 @@ const PreviewOne = ({ previewStage }) => {
                                 {
                                     formOption.show_footer ?
                                         <p className="wpwax-vm-preview-footer__text">{formOption.footer_message}</p>
-                                        :
-                                        ''
+                                        : null
                                 }
                             </div>
                         </div>
                     </>
-
                     :
                     previewStage === 'thank' ?
-                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_cta_background }}>
+                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_background_color }}>
                             <div className="wpwax-vm-preview-thank__content">
-                                <h3 style={{ color: formOption.thank_page_cta_font_color, fontSize: `${formOption.thank_page_cta_title_font_size}` }}>{formOption.thank_page_title}</h3>
+                                <h3>{formOption.thank_page_title}</h3>
                                 {
                                     formOption.show_thank_page_description ?
-                                        <p style={{ color: formOption.thank_page_cta_font_color }}>{formOption.thank_page_description}</p> :
-                                        ''
+                                        <p>{formOption.thank_page_description}</p> : null
                                 }
                             </div>
                             <div className="wpwax-vm-preview-thank__botttom">
                                 {formOption.show_thank_page_cta_button ?
-                                    <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block"
-                                        style={{
-                                            borderRadius: `${formOption.thank_page_cta_button_radius}px`,
-                                            backgroundColor: formOption.thank_page_cta_button_color,
-                                            borderColor: formOption.thank_page_cta_button_color,
-                                            color: formOption.thank_page_cta_button_text_color,
-                                        }}
-                                    >{formOption.thank_page_cta_button_text}</button> :
-                                    ''
+                                    <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block">{formOption.thank_page_cta_button_text}</button> : null
                                 }
                             </div>
-                        </div>
-                        :
-                        ''
+                        </div> : null
             }
         </PreviewWrap>
     );

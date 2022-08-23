@@ -3,6 +3,9 @@ import Styled from 'styled-components';
 const AddFormStyle = Styled.div`
     display: flex;
     align-items: flex-start;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--color-text);
     margin-top: 30px;
     .wpwax-vm-add-form{
         position: relative;
@@ -145,6 +148,7 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-form-group__input-single{
             display: flex;
             justify-content: space-between;
+            font-size: 14px;
             &:not(:last-child){
                 margin-bottom: 20px;
             }

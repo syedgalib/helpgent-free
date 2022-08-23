@@ -22,7 +22,7 @@ const PreviewWrap = Styled.div`
     position: relative;
     word-break: break-all;
     padding-top: 0;
-    color: var(--color-white);
+    color: var(--color-text);
     &.wpwax-vm-loder-active{
         &:after{
             border-radius: 25px;
@@ -122,12 +122,12 @@ const PreviewWrap = Styled.div`
     .wpwax-vm-preview-header{
         position: relative;
         .wpwax-vm-preview-title{
-            font-size: 24px;
             font-weight: 600;
             line-height: 1.25;
-            color: #ffffff;
-            margin-bottom: 15px;
+            margin: 0 0 15px;
             max-width: 320px;
+            font-size: var(--font-size-greet);
+            color: var(--color-text-greet);
         }
         .wpwax-vm-preview-subtitle{
             font-size: 15px;
@@ -165,8 +165,9 @@ const PreviewWrap = Styled.div`
     .wpwax-vm-preview-footer{
         position: relative;
         .wpwax-vm-preview-footer__title{
-            font-size: 18px;
+            font-size: var(--font-size-chat);
             font-weight: 600;
+            color: var(--color-text-chat);
             text-align: center;
         }
         .wpwax-vm-preview-footer__actions{
@@ -327,16 +328,16 @@ const PreviewWrap = Styled.div`
             max-width: 370px;
             margin: 0 auto;
             h3{
-                font-size: 30px;
+                font-size: var(--font-size-thank-title);
                 font-weight: 600;
                 line-height: 1.07;
-                color: var(--color-dark);
+                color: var(--color-thank-title);
             }
             p{
-                font-size: 16px;
+                font-size: var(--font-size-thank-desc);
                 font-weight: 500;
                 line-height: 1.625;
-                color: #4D4D4D;
+                color: var(--color-thank-desc);
             }
         }
         .wpwax-vm-preview-thank__botttom{

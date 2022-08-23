@@ -18,13 +18,63 @@ const AddForm = () => {
     const queryParams = new URLSearchParams(window.location.search)
     const id = queryParams.get("id");
     /* initialize Form Data */
-    const { formInitialData, loading, response } = useSelector(state => {
+    const {
+        primaryColor,
+        fontFamily,
+        fontSize,
+        fontColor,
+        greetColor,
+        chatColor,
+        greetSize,
+        chatSize,
+        btnRadius,
+        primaryBtnColor,
+        primaryBtnBg,
+        thankTitleColor,
+        thankTitleFontSize,
+        thankDescColor,
+        thankDescFontSize,
+        formInitialData,
+        loading,
+        response
+    } = useSelector(state => {
         return {
+            primaryColor: state.form.data[0].options.primary_color,
+            fontFamily: state.form.data[0].options.font_family,
+            fontSize: state.form.data[0].options.font_size,
+            fontColor: state.form.data[0].options.font_color,
+            greetColor: state.form.data[0].options.greet_message_font_color,
+            chatColor: state.form.data[0].options.chat_options_title_font_color,
+            greetSize: state.form.data[0].options.greet_message_font_size,
+            chatSize: state.form.data[0].options.chat_options_title_font_size,
+            btnRadius: state.form.data[0].options.button_border_radius,
+            primaryBtnColor: state.form.data[0].options.primary_button_font_color,
+            primaryBtnBg: state.form.data[0].options.primary_button_background_color,
+            thankTitleColor: state.form.data[0].options.thank_page_title_color,
+            thankTitleFontSize: state.form.data[0].options.thank_page_title_font_size,
+            thankDescColor: state.form.data[0].options.thank_page_description_color,
+            thankDescFontSize: state.form.data[0].options.thank_page_description_font_size,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
             response: state.form.response,
         };
     });
+
+    document.documentElement.style.setProperty("--color-primary", primaryColor);
+    document.documentElement.style.setProperty("--font-family", fontFamily);
+    document.documentElement.style.setProperty("--font-size", fontSize);
+    document.documentElement.style.setProperty("--color-text", fontColor);
+    document.documentElement.style.setProperty("--color-text-greet", greetColor);
+    document.documentElement.style.setProperty("--color-text-chat", chatColor);
+    document.documentElement.style.setProperty("--font-size-greet", greetSize);
+    document.documentElement.style.setProperty("--font-size-chat", chatSize);
+    document.documentElement.style.setProperty("--btn-radius", btnRadius + 'px');
+    document.documentElement.style.setProperty("--primary-btn-color", primaryBtnColor);
+    document.documentElement.style.setProperty("--primary-btn-bg", primaryBtnBg);
+    document.documentElement.style.setProperty("--color-thank-title", thankTitleColor);
+    document.documentElement.style.setProperty("--font-size-thank-title", thankTitleFontSize);
+    document.documentElement.style.setProperty("--color-thank-desc", thankDescColor);
+    document.documentElement.style.setProperty("--font-size-thank-desc", thankDescFontSize);
 
     const [state, setState] = useState({
         validation: true,

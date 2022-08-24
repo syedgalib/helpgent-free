@@ -658,3 +658,26 @@ function delete_options( $option_keys = [] ) {
 
 	return $options;
 }
+
+
+function get_current_user() {
+	$current_user = get_user_by( 'id', get_current_user_id() );
+
+	if ( is_wp_error( $current_user ) ) {
+		return [];
+	}
+
+	$user = json_decode( json_encode( $current_user->data ), true );
+
+	if ( isset( $user['user_pass'] ) ) {
+		unset( $user['user_pass'] );
+	}
+
+	if ( isset( $user['user_activation_key'] ) ) {
+		unset( $user['user_activation_key'] );
+	}
+
+	$user['roles'] = $current_user->roles;
+
+	return $user;
+}

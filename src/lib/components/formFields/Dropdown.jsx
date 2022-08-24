@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -51,6 +51,10 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         });
         switch (btnName) {
             case 'mark-read':
+                setOuterState({
+                    ...outerState,
+                    sessions: []
+                });
                 break;
             case 'tags':
                 dispatch(handleTagModal(true));

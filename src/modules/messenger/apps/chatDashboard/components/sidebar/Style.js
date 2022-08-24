@@ -1,6 +1,11 @@
 import Styled from 'styled-components';
 
 const SidebarWrap = Styled.div`
+    .wpwax-vm-loading-spin{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
     .wpwax-vm-sidebar-top{
         display: flex;
         justify-content: space-between;
@@ -31,11 +36,29 @@ const SidebarWrap = Styled.div`
     }
     .wpwax-vm-sidebar-userlist{
         margin-top: 6px;
-        ul {
+        >ul {
+            height: 800px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            scrollbar-width: thin;
+            margin: 0 -12px;
+            scrollbar-color: var(--color-light);
+            &::-webkit-scrollbar {
+                width: 11px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--color-light);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--color-bg-gray);
+                border-radius: 6px;
+                border: 3px solid var(--color-light);
+            }
             .wpwax-vm-usermedia{
                 padding: 12px;
                 border-radius: 10px;
-                margin: 0 -12px;
                 background-color: transparent;
                 transition: background .3s ease-in;
                 &.wpwax-vm-active,
@@ -78,6 +101,9 @@ const SidebarWrap = Styled.div`
             }
             
             .wpwax-vm-dropdown__content{
+                left: auto;
+                right: 0;
+                min-width: 220px;
                 li{
                     padding: 0 16px;
                     margin-bottom: 0;

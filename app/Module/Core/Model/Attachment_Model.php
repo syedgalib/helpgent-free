@@ -10,14 +10,14 @@ class Attachment_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
     public static $table = 'attachments';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -54,7 +54,7 @@ class Attachment_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $id
      * @return array|WP_Error
      */
@@ -82,13 +82,13 @@ class Attachment_Model extends DB_Model {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
     public static function create_item( $args = [] ) {
         global $wpdb;
-        
+
 		$table   = self::get_table_name( self::$table );
         $default = [];
 
@@ -142,13 +142,13 @@ class Attachment_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
-        
+
         if ( empty( $args['id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -194,7 +194,7 @@ class Attachment_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param int $id
      * @return bool|WP_Error
      */

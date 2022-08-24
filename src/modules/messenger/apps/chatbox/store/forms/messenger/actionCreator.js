@@ -1,11 +1,11 @@
 import actions from "./actions";
 import api from './api';
 
-const { 
+const {
     upateState,
-    upateFormData,
-    submitFormBegain, 
-    submitFormSuccess, 
+    updateFormData,
+    submitFormBegain,
+    submitFormSuccess,
     submitFormError,
     reset,
 } = actions;
@@ -25,4 +25,4 @@ const submitForm = ( formData ) => {
     }
 };
 
-export { upateState, upateFormData, submitForm, reset };
+export { upateState, updateFormData, submitForm, reset };

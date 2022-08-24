@@ -1,21 +1,21 @@
 import actions from "./actions";
 import api from './api';
 
-const { 
-    upateState, 
-    upatingFormData, 
-    upateFormDataAction, 
-    upatedFormData, 
-    submitFormBegain, 
-    submitFormSuccess, 
+const {
+    upateState,
+    upatingFormData,
+    updateFormDataAction,
+    upatedFormData,
+    submitFormBegain,
+    submitFormSuccess,
     submitFormError,
     reset,
 } = actions;
 
-const upateFormData = ( formData, isFinalUpdate ) => {
+const updateFormData = ( formData, isFinalUpdate ) => {
     return async (dispatch) => {
         dispatch( upatingFormData() );
-        dispatch( upateFormDataAction( formData, isFinalUpdate ) );
+        dispatch( updateFormDataAction( formData, isFinalUpdate ) );
         dispatch( upatedFormData() );
     }
 }
@@ -35,4 +35,4 @@ const submitForm = ( formData ) => {
     }
 };
 
-export { upateState, upateFormData, submitForm, reset };
+export { upateState, updateFormData, submitForm, reset };

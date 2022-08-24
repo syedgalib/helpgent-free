@@ -1,52 +1,65 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { RecorderWrap } from '../Style';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import play from 'Assets/svg/icons/play.svg';
-import pause from 'Assets/svg/icons/pause-solid.svg';
+import pause from 'Assets/svg/icons/pause.svg';
 import previewBg from 'Assets/img/builder/bg.png';
+import { useEffect } from 'react';
 
-import RecordRTC from 'recordrtc';
+import {
+    updateFormData,
+    submitForm,
+} from '../../../../../store/forms/attachment/actionCreator';
 
-const Record = () => {
+function Record() {
     const audioRef = useRef();
+    const dispatch = useDispatch();
+
+    const { formData } = useSelector((state) => {
+        return {
+            formData: state.attachmentForm.formData,
+        };
+    });
 
     const [state, setState] = useState({
-        recordStage: 'permission',
-        isRecording: false,
         permissionDenied: false,
     });
 
-    const [recorder, setRecorder] = useState(null);
+    const stages = {
+        PERMISSION: 'permission',
+        RECORD: 'record',
+        BEFORE_SEND: 'before_send',
+        UPLOADING: 'uploading',
+    };
+
+    const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
+    const [isRecording, setIsRecording] = useState(false);
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
 
     // Init State
     useState(function () {
-        check_if_need_permission().then(function (status) {
-            if (!status) {
-                updateRecordStage('record');
+        console.log('@Init State');
+
+        check_if_need_permission().then(function (is_needed_permission) {
+            console.log('Init State::', { is_needed_permission });
+            if (is_needed_permission) {
+                setCurrentStage(stages.PERMISSION);
             }
         });
     }, []);
 
     useEffect(
         function () {
-            if (recorder) {
-                recorder.startRecording();
-            }
+            console.log('formDataUpdated', { formData });
         },
-        [recorder]
+        [formData]
     );
 
-    function updateRecordStage(stage) {
-        setState({
-            ...state,
-            recordStage: stage,
-        });
-    }
-
+    // check_if_need_permission
     async function check_if_need_permission() {
         try {
             const permission = await navigator.permissions.query({
@@ -59,6 +72,7 @@ const Record = () => {
         }
     }
 
+    // requestPermission
     async function requestPermission() {
         try {
             await navigator.mediaDevices.getUserMedia({
@@ -69,7 +83,7 @@ const Record = () => {
                 },
             });
 
-            updateRecordStage('record');
+            setCurrentStage(stages.RECORD);
         } catch (error) {
             console.log({ error });
 
@@ -80,46 +94,53 @@ const Record = () => {
         }
     }
 
-    function updateRecordingStatus(status) {
-        setState({
-            ...state,
-            isRecording: status,
-        });
-    }
-
+    // startRecording
     async function startRecording() {
         try {
-            const newAudioStream = await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100,
-                },
+            window.wpwaxAudioStream = await navigator.mediaDevices.getUserMedia(
+                {
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        sampleRate: 44100,
+                    },
+                }
+            );
+
+            window.wpwaxRecorder = new RecordRTC(window.wpwaxAudioStream, {
+                type: 'audio',
+                mimeType: 'audio/wav',
+                recorderType: RecordRTC.StereoAudioRecorder,
+                // disableLogs: true,
             });
 
-            const _recorder = new RecordRTC(newAudioStream, { type: 'audio' });
-
-            setRecorder(_recorder);
-            updateRecordingStatus(true);
+            window.wpwaxRecorder.startRecording();
+            setIsRecording(true);
         } catch (error) {
             console.log({ error });
 
-            updateRecordingStatus(false);
+            setIsRecording(false);
         }
     }
 
+    // stopRecording
     function stopRecording() {
-        recorder.stopRecording(function (url) {
-            let blob = recorder.getBlob();
+        window.wpwaxRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxRecorder.getBlob();
+            blob.name = Math.floor(new Date().getTime() / 1000) + '.wav';
+
+            console.log('chk-123', { blob });
 
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
-            updateRecordingStatus(false);
-
-            updateRecordStage('before-send');
+            setIsRecording(false);
+            setCurrentStage(stages.BEFORE_SEND);
         });
+
+        window.wpwaxAudioStream.getTracks().forEach((track) => track.stop());
     }
 
+    // togglePlayPauseAudio
     function togglePlayPauseAudio() {
         if (audioRef.current.paused) {
             setIsPlayingPreview(true);
@@ -130,9 +151,30 @@ const Record = () => {
         }
     }
 
-    const { recordStage, isRecording, permissionDenied } = state;
+    function sendAudio() {
+        console.log('sendAudio');
+        setCurrentStage(stages.UPLOADING);
 
-    if (recordStage === 'permission') {
+        const formData = {
+            file: recordedAudioBlob,
+        };
+
+        dispatch(updateFormData(formData));
+        dispatch(submitForm(formData));
+    }
+
+    function prepareRecordAgain(e) {
+        e.preventDefault();
+
+        setIsRecording(false);
+        setCurrentStage(stages.RECORD);
+    }
+
+    const { permissionDenied } = state;
+
+    console.log('chk-1', { currentStage });
+
+    if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
                 <h4 className='wpwax-video-screen-title'>
@@ -155,7 +197,7 @@ const Record = () => {
                 )}
             </RecorderWrap>
         );
-    } else if (recordStage === 'record') {
+    } else if (currentStage === stages.RECORD) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
                 <span
@@ -203,7 +245,7 @@ const Record = () => {
                 </div>
             </RecorderWrap>
         );
-    } else if (recordStage === 'before-send') {
+    } else if (currentStage === stages.BEFORE_SEND) {
         return (
             <RecorderWrap>
                 <div className=''>
@@ -226,7 +268,7 @@ const Record = () => {
                         onClick={togglePlayPauseAudio}
                         className='wpwax-vm-recorded-play'
                     >
-                        <ReactSVG src={isPlayingPreview ? play : pause} />
+                        <ReactSVG src={isPlayingPreview ? pause : play} />
                     </a>
                 </div>
                 <div className='wpwax-vm-record-ready__bottom'>
@@ -234,12 +276,18 @@ const Record = () => {
                     <div className='wpwax-vm-record-ready__bottom--actions'>
                         <a
                             href='#'
-                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
+                            onClick={(e) => {
+                                sendAudio(e);
+                            }}
+                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary'
                         >
                             Yes
                         </a>
                         <a
                             href='#'
+                            onClick={(e) => {
+                                prepareRecordAgain(e);
+                            }}
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-light'
                         >
                             No
@@ -248,9 +296,28 @@ const Record = () => {
                 </div>
             </RecorderWrap>
         );
-    } else if (recordStage === 'progress') {
-    } else if (recordStage === 'success') {
+    } else if (currentStage === stages.UPLOADING) {
+        return (
+            <RecorderWrap>
+                <div className='wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+                    <div className='wpwax-vm-record-send-progress__content'>
+                        <div className='wpwax-vm-record-send-progress__bar'>
+                            <span>Uploading</span>
+                        </div>
+
+                        <div className='wpwax-vm-text-center'>
+                            <p>We’re currently uploading your audio</p>
+                            <p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
+                                Please don’t leave this page!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </RecorderWrap>
+        );
+    } else {
+        return '';
     }
-};
+}
 
 export default Record;

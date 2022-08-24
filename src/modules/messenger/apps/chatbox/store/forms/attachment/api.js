@@ -2,9 +2,17 @@ import { restRequest } from 'Helper/http';
 
 // createAttachment
 const createAttachment = async ( args ) => {
-	let args = {};
+	const formData = new FormData();
 
-	return await restRequest.post("/attachment", args);
+	for ( let key in args ) {
+		formData.append( key, args[ key ], 'file' );
+	}
+
+	return await restRequest.post("/attachments", formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		}
+	});
 };
 
 const api = { createAttachment }

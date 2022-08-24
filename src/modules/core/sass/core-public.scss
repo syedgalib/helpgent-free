@@ -330,7 +330,7 @@
     width: 164px;
     height: 164px;
     border-radius: 50%;
-    margin: 0 auto 40px; 
+    margin: 0 auto 40px;
     &:after {
         content: "";
         position: absolute;
@@ -362,10 +362,10 @@
 }
 
 @keyframes wpwaxVMSpiner {
-    from { 
+    from {
         transform: rotate(0deg);
     }
-    to { 
+    to {
         transform: rotate(360deg);
     }
 }
@@ -404,6 +404,10 @@
 
 .wpwax-vm-m-0 {
     margin: 0px;
+}
+
+.wpwax-vm-mb-10 {
+    margin-bottom: 10px;
 }
 
 .wpwax-vm-mb-20 {

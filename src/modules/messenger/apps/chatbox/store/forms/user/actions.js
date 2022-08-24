@@ -19,7 +19,7 @@ const actions = {
             type: actions.UPDATING_FORM_DATA,
         }
     },
-    upateFormDataAction: ( formData, isFinalUpdate ) => {
+    updateFormDataAction: ( formData, isFinalUpdate ) => {
         return {
             type: actions.UPDATE_FORM_DATA,
             payload: { formData, isFinalUpdate },

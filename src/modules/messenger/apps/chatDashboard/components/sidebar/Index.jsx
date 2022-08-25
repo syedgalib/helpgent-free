@@ -85,6 +85,7 @@ function Sidebar() {
 			})
 	}, []);
 	console.log(wpWaxCustomerSupportApp_CoreScriptData);
+	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -114,10 +115,19 @@ function Sidebar() {
 						<ul>
 							{
 								sessions.map((item, index) => {
+									console.log(item)
+									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
+									let imgList = [];
+									let titleString = []
+									for (let i = 0; i < users.length; i++) {
+										imgList.push(users[i].avater);
+										titleString.push(users[i].name)
+									}
+									console.log(titleString.join());
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
 											<div className="wpwax-vm-usermedia__left">
-												<MediaBox img={userImg} title={"Adnan"} metaList={metaList} />
+												<MediaBox img={imgList} title={titleString.join()} metaList={metaList} />
 											</div>
 											<div className="wpwax-vm-usermedia__right">
 												<span className={item.totaL_unread > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>

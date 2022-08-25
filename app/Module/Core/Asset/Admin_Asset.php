@@ -79,9 +79,10 @@ class Admin_Asset extends Enqueuer {
             'group'     => 'admin',
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => [
-                    'apiEndpoint' => rest_url( 'wpwax_cs/v1' ),
-                    'apiNonce'    => wp_create_nonce( 'wp_rest' ),
-                    'wp_pages'    => Helper\get_wp_pages(),
+                    'apiEndpoint'  => rest_url( 'wpwax_cs/v1' ),
+                    'apiNonce'     => wp_create_nonce( 'wp_rest' ),
+                    'wp_pages'     => Helper\get_wp_pages(),
+                    'current_user' => Helper\get_current_user(),
                 ],
             ],
         ];

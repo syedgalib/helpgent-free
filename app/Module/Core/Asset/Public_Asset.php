@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Public_Asset extends Enqueuer {
 
@@ -36,7 +37,7 @@ class Public_Asset extends Enqueuer {
           'ver'       => $this->script_version,
           'group'     => 'public',
       ];
-     * 
+     *
      * @return void
      */
     public function add_css_scripts() {
@@ -73,12 +74,12 @@ class Public_Asset extends Enqueuer {
           'group'     => 'public',
           'data'      => [ 'object-key' => [] ],
       ];
-     * 
+     *
      * @return void
      */
     public function add_js_scripts() {
         $scripts = [];
-        
+
         $scripts['wpwax-customer-support-app-core-public-script'] = [
             'file_name' => 'core-public',
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
@@ -91,6 +92,7 @@ class Public_Asset extends Enqueuer {
                     'currentPageID' => get_the_ID(),
                     'isFrontPage'   => is_front_page(),
                     'isHome'        => is_home(),
+                    'current_user'  => Helper\get_current_user(),
                 ],
             ],
         ];

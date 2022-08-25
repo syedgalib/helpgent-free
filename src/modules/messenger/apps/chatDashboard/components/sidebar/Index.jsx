@@ -84,7 +84,7 @@ function Sidebar() {
 				console.log(error);
 			})
 	}, []);
-	console.log(sessionState)
+	console.log(wpWaxCustomerSupportApp_CoreScriptData);
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">

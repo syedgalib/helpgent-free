@@ -7004,7 +7004,7 @@ function Sidebar() {
       console.log(error);
     });
   }, []);
-  console.log(sessionState);
+  console.log(wpWaxCustomerSupportApp_CoreScriptData);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_18__["default"], {
     className: loader ? "wpwax-vm-loder-active" : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {

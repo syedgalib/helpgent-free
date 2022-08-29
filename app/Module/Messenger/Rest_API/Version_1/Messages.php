@@ -206,8 +206,6 @@ class Messages extends Rest_Base {
 
         $data = Message_Model::get_items( $args );
 
-		// return $data;
-
         if ( is_wp_error( $data ) ) {
             return $data;
         }

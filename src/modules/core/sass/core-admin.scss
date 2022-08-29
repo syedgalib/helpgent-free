@@ -1,6 +1,6 @@
 :root {
 	--color-primary: #6551f2;
-	--color-secondary: #FC495D;
+	--color-secondary: #fc495d;
 	--color-dark: #030308;
 	--color-lighter: #f8f9fb;
 	--color-light: #f4f5f7;
@@ -18,11 +18,11 @@
 	--font-family: "Roboto";
 	--font-size: "medium";
 	--font-color: "#898989";
-	--primary-button-color: #FFFFFF;
+	--primary-button-color: #ffffff;
 	--primary-button-bg-color: #2271b1;
 	--primary-button-border-radius: "15";
-	--secondary-button-color: #FFFFFF;
-	--secondary-button-bg-color: #FC495D;
+	--secondary-button-color: #ffffff;
+	--secondary-button-bg-color: #fc495d;
 	--secondary-button-border-radius: "15";
 }
 
@@ -420,7 +420,7 @@
 		width: 26px;
 		height: 26px;
 		border-radius: 50%;
-		box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+		box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
 	}
 
 	.block-picker {
@@ -493,7 +493,6 @@
 	}
 
 	tr {
-
 		th,
 		td {
 			&:first-child {
@@ -630,7 +629,7 @@
 		font-weight: 500;
 		color: var(--color-dark);
 
-		>div {
+		> div {
 			position: relative;
 			bottom: -2px;
 		}
@@ -708,6 +707,10 @@
 			font-size: 16px;
 			font-weight: 500;
 			margin: 0 0 4px;
+			white-space: nowrap;
+			width: 160px;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			color: var(--color-dark);
 		}
 

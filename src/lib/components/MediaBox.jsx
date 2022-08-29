@@ -1,6 +1,8 @@
+import { ReactSVG } from "react-svg";
 import userImg from "Assets/img/chatdashboard/user.png";
-const MediaBox = ({ img, title, metaList }) => {
-    console.log(img)
+import userIcon from "Assets/svg/icons/users.svg";
+const MediaBox = ({ img, multiImg, title, metaList }) => {
+    console.log(multiImg)
     return (
 
         <div className="wpwax-vm-media">
@@ -12,16 +14,23 @@ const MediaBox = ({ img, title, metaList }) => {
                     <div className="wpax-vm-imglist">
                         {
                             img.map((src, index) => {
-                                if (src !== '') {
-                                    return (
-                                        <img src={src} alt="" key={index} />
-                                    )
-                                } else {
-                                    return (
-                                        <img src={userImg} alt="" key={index} />
-                                    )
+                                console.log(index)
+                                if(index === 0){
+                                    if (src !== '') {
+                                        return (
+                                            <img src={src} alt="" key={index} />
+                                        )
+                                    } else {
+                                        return (
+                                            <img src={userImg} alt="" key={index} />
+                                        )
+                                    }
                                 }
+                                
                             })
+                        }
+                        {
+                            multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>: null
                         }
                     </div> : null
             }

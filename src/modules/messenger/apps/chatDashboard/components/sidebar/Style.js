@@ -70,6 +70,32 @@ const SidebarWrap = Styled.div`
                         top: 40px;
                     }
                 }
+                .wpax-vm-imglist{
+                    display: flex;
+                    align-items: center;
+                    img{
+                        max-width: 35px;
+                    }
+                    .wpwax-vm-more-img{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 50%;
+                        margin-left: -16px;
+                        background-color: var(--color-bg-gray);
+                        box-shadow: 0 6px 40px rgba(144,144,144,.25);
+                        >div{
+                            line-height: 1;
+                        }
+                        svg{
+                            width: 18px;
+                            height: 18px;
+                            fill: var(--color-primary);
+                        }
+                    }
+                }
             }
         }
     }

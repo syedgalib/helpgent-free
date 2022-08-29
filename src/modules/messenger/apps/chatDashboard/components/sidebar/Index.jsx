@@ -46,7 +46,7 @@ const moreDropdown = [
 	},
 	{
 		icon: tag,
-		name: "tags",
+		name: "add-tags",
 		text: "Add tags"
 	},
 	{
@@ -67,6 +67,7 @@ function Sidebar() {
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
 		sessions: [],
+		modalSession: {},
 		loader: true
 	});
 

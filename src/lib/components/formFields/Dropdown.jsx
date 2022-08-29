@@ -56,8 +56,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     sessions: []
                 });
                 break;
-            case 'tags':
-                dispatch(handleTagModal(true));
+            case 'add-tags':
+                setOuterState({
+                    ...outerState,
+                    sessions: []
+                });
                 break;
             case 'delete-conv':
                 dispatch(handleDeleteConfirmationModal(true));

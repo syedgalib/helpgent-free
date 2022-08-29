@@ -5643,8 +5643,10 @@ var Dropdown = function Dropdown(_ref) {
         }));
         break;
 
-      case 'tags':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagModal)(true));
+      case 'add-tags':
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          sessions: []
+        }));
         break;
 
       case 'delete-conv':
@@ -6990,7 +6992,7 @@ var moreDropdown = [{
   text: "Mark as unread"
 }, {
   icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_16__["default"],
-  name: "tags",
+  name: "add-tags",
   text: "Add tags"
 }, {
   icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_17__["default"],
@@ -7006,6 +7008,7 @@ function Sidebar() {
   /* Initialize State */
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     sessions: [],
+    modalSession: {},
     loader: true
   }),
       _useState2 = _slicedToArray(_useState, 2),

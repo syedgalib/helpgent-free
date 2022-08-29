@@ -3059,8 +3059,10 @@ var Dropdown = function Dropdown(_ref) {
         }));
         break;
 
-      case 'tags':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagModal)(true));
+      case 'add-tags':
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          sessions: []
+        }));
         break;
 
       case 'delete-conv':

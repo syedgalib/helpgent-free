@@ -85,6 +85,38 @@ function Sidebar() {
 				console.log(error);
 			})
 	}, []);
+
+	const handleDropdownTrigger = (event, btnName) => {
+        event.preventDefault();
+        setSelectedState({
+            selectedItemText: event.target.text
+        });
+        switch (btnName) {
+            case 'mark-read':
+                setOuterState({
+                    ...outerState,
+                    sessions: []
+                });
+                break;
+            case 'add-tags':
+				console.log("yes")
+                // setOuterState({
+                //     ...outerState,
+                //     sessions: []
+                // });
+                break;
+            case 'delete-conv':
+                dispatch(handleDeleteConfirmationModal(true));
+                break;
+            case 'edit':
+                dispatch(handleTagEdit(true, {}));
+                break;
+            case 'delete':
+                break;
+            default:
+                break;
+        }
+    }
 	console.log(wpWaxCustomerSupportApp_CoreScriptData);
 	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user
 	return (

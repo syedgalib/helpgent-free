@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, handleDropdownTrigger }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -44,36 +44,36 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     }
 
     /* Handle Dropdown Trigger */
-    const handleDropdownTrigger = (event, btnName) => {
-        event.preventDefault();
-        setSelectedState({
-            selectedItemText: event.target.text
-        });
-        switch (btnName) {
-            case 'mark-read':
-                setOuterState({
-                    ...outerState,
-                    sessions: []
-                });
-                break;
-            case 'add-tags':
-                setOuterState({
-                    ...outerState,
-                    sessions: []
-                });
-                break;
-            case 'delete-conv':
-                dispatch(handleDeleteConfirmationModal(true));
-                break;
-            case 'edit':
-                dispatch(handleTagEdit(true, {}));
-                break;
-            case 'delete':
-                break;
-            default:
-                break;
-        }
-    }
+    // const handleDropdownTrigger = (event, btnName) => {
+    //     event.preventDefault();
+    //     setSelectedState({
+    //         selectedItemText: event.target.text
+    //     });
+    //     switch (btnName) {
+    //         case 'mark-read':
+    //             setOuterState({
+    //                 ...outerState,
+    //                 sessions: []
+    //             });
+    //             break;
+    //         case 'add-tags':
+    //             setOuterState({
+    //                 ...outerState,
+    //                 sessions: []
+    //             });
+    //             break;
+    //         case 'delete-conv':
+    //             dispatch(handleDeleteConfirmationModal(true));
+    //             break;
+    //         case 'edit':
+    //             dispatch(handleTagEdit(true, {}));
+    //             break;
+    //         case 'delete':
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
     /* Handle the open close dropdown icon */
     const renderDropdownIcon = () => {

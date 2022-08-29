@@ -11,7 +11,7 @@ class Messages extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'messages';
@@ -185,23 +185,28 @@ class Messages extends Rest_Base {
     public function get_items( $request ) {
         $args = $request->get_params();
 
-
         $where = [];
 
         $where['session_id'] = '';
         $where['user_id']    = '';
+        $where['seen']       = '';
 
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
 
-        $default['limit'] = 20;
-        $default['page']  = 1;
+        $default['limit']    = 20;
+        $default['page']     = 1;
+        $default['fields']   = '';
+        $default['group_by'] = '';
+        $default['order_by'] = '';
 
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
         $data = Message_Model::get_items( $args );
+
+		// return $data;
 
         if ( is_wp_error( $data ) ) {
             return $data;
@@ -229,7 +234,7 @@ class Messages extends Rest_Base {
 
     /**
      * Get Item
-     * 
+     *
      * @param object $request
      * @return array Response
      */
@@ -245,7 +250,7 @@ class Messages extends Rest_Base {
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
-        
+
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
 
@@ -254,7 +259,7 @@ class Messages extends Rest_Base {
 
     /**
      * Create Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -347,7 +352,7 @@ class Messages extends Rest_Base {
 
     /**
      * Get sanitize schema
-     * 
+     *
      * @return array
      */
     public function get_sanitize_schema() {

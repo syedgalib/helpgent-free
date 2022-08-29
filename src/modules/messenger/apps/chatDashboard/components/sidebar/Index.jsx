@@ -117,17 +117,22 @@ function Sidebar() {
 								sessions.map((item, index) => {
 									console.log(item)
 									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
-									let imgList = [];
-									let titleString = []
+									let images = [];
+									let titleString = [];
+									let multiImg = false;
 									for (let i = 0; i < users.length; i++) {
-										imgList.push(users[i].avater);
+										images.push(users[i].avater);
 										titleString.push(users[i].name)
 									}
-									console.log(titleString.join());
+
+									if(images.length > 1){
+										multiImg = true;
+									}
+									console.log(images.length)
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
 											<div className="wpwax-vm-usermedia__left">
-												<MediaBox img={imgList} title={titleString.join()} metaList={metaList} />
+												<MediaBox img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
 											</div>
 											<div className="wpwax-vm-usermedia__right">
 												<span className={item.totaL_unread > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>

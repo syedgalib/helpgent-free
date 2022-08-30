@@ -138,7 +138,7 @@ class Message_Model extends DB_Model {
 
 		$fields = [ '*' ];
 
-		if ( ! empty( $args['fields'] ) ) {
+		if ( ! empty( $args['fields'] ) && is_string( $args['fields'] ) ) {
 			$_fields = preg_replace( "/\s/", '', $args['fields'] );
 			$_fields = trim( $_fields, ',' );
 			$_fields = explode( ',', $_fields );
@@ -150,6 +150,14 @@ class Message_Model extends DB_Model {
 				if ( ! in_array( $order_by_field, $fields ) ) {
 					$fields[] = $order_by_field;
 				}
+			}
+		}
+
+		if ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) {
+			$fields = array_merge( $fields, $args['fields'] );
+
+			if ( ! in_array( $order_by_field, $fields ) ) {
+				$fields[] = $order_by_field;
 			}
 		}
 

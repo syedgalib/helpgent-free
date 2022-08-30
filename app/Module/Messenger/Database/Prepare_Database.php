@@ -51,19 +51,20 @@ class Prepare_Database {
 
 		CREATE TABLE {$table_prefix}_messages_seen_by (
 			user_id bigint(20) unsigned NOT NULL,
-			session_id varchar(255) NOT NULL,
 			message_id bigint(20) NOT NULL,
+			session_id varchar(255) NOT NULL,
 			PRIMARY KEY (message_id),
 			KEY user_id (user_id),
 			KEY session_id (session_id)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_messages_marked_as_read_cache (
+		CREATE TABLE {$table_prefix}_cache_messages_marked_as_read (
 			user_id bigint(20) unsigned NOT NULL,
+			message_id bigint(20) unsigned NOT NULL,
 			session_id varchar(255) NOT NULL,
-			message_ids longtext NOT NULL,
-			PRIMARY KEY (user_id),
-			KEY session_id (session_id)
+			PRIMARY KEY (message_id),
+			KEY session_id (session_id),
+			KEY message_id (message_id)
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_message_terms (

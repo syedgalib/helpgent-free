@@ -473,10 +473,7 @@ class Sessions extends Rest_Base {
 		$sassion_id      = $args['id'];
 		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
-		$log = [
-			'marked_as_read' => [],
-			'cache_marked_as_read' => [],
-		];
+		$log = [];
 
 		// Get all unread messages
 		$query_args = [
@@ -524,11 +521,11 @@ class Sessions extends Rest_Base {
 				$messages_marked_as_read[] = $message['id'];
 			}
 
-			$success_res = array_merge( $message, [ 'success' => true ] );
-			$error_res   = [ 'message_id' => $message['id'], 'success' => false ];
-
-			$log['marked_as_read'][]       = ( ! is_wp_error( $mark_as_read )  ) ? $success_res : $error_res;
-			$log['cache_marked_as_read'][] = ( ! is_wp_error( $cache_mark_as_read )  ) ? $success_res : $error_res;
+			$log[] = [
+				'message_id'         => $message['id'],
+				'marked_as_read'     => ! is_wp_error( $mark_as_read ),
+				'cache_mark_as_read' => ! is_wp_error( $cache_mark_as_read )
+			];
 		}
 
 		if ( ! empty( $messages_marked_as_read ) ) {
@@ -555,10 +552,7 @@ class Sessions extends Rest_Base {
 		$sassion_id      = $args['id'];
 		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
-		$log = [
-			'marked_as_unread'       => [],
-			'cache_marked_as_unread' => [],
-		];
+		$log = [];
 
 		// Get all messages marked read
 		$query_args = [
@@ -599,11 +593,12 @@ class Sessions extends Rest_Base {
 				$messages_marked_as_unread[] = $message['message_id'];
 			}
 
-			$success_res = array_merge( $message, [ 'success' => true ] );
-			$error_res   = [ 'message_id' => $message['id'], 'success' => false ];
+			$log[] = [
+				'message_id'             => $message['message_id'],
+				'marked_as_unread'       => ! is_wp_error( $mark_as_unread ),
+				'cache_marked_as_unread' => ! is_wp_error( $cache_mark_as_unread )
+			];
 
-			$log['marked_as_unread'][]       = ( ! is_wp_error( $mark_as_unread )  ) ? $success_res : $error_res;
-			$log['cache_marked_as_unread'][] = ( ! is_wp_error( $cache_mark_as_unread )  ) ? $success_res : $error_res;
 		}
 
 		if ( ! empty( $messages_marked_as_unread ) ) {

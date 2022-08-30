@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { ReactSVG } from 'react-svg';
+import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from "Components/formFields/Dropdown.jsx";
 import MediaBox from "Components/MediaBox.jsx";
 import Taglist from "./overview/Taglist.jsx";
 import AddTag from "./overview/AddTag.jsx";
 import DeleteConfirm from "./overview/DeleteConfirm.jsx";
 import apiService from 'apiService/Service.js';
+import { handleReadSessions } from '../../store/sessions/actionCreator';
 import userImg from "Assets/img/chatdashboard/user.png";
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
@@ -64,63 +66,46 @@ const metaList = [
 ];
 
 function Sidebar() {
+	 /* initialize Form Data */
+	 const { sessions, loading } = useSelector(state => {
+		// console.log(state)
+        return {
+            sessions: state.sessions.sessions,
+            loading: state.sessions.loading,
+        };
+    });
+
+	
+
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
-		sessions: [],
 		modalSession: {},
+		deletableSession: "",
+		deleteModalOpen: false,
+		serveSuccess: true,
 		loader: true
 	});
 
-	const { sessions, loader } = sessionState;
+	const { modalSession, deletableSession, deleteModalOpen, loader } = sessionState;
+
+	console.log(sessionState)
+
+	/* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
 	useEffect(() => {
 		apiService.getAll('/sessions')
 			.then(response => {
-				setSessionState({
-					...sessionState,
-					sessions: response.data.data,
-					loader: false
-				});
+				dispatch(handleReadSessions(response.data.data));
 			})
 			.catch((error) => {
 				console.log(error);
 			})
 	}, []);
 
-	const handleDropdownTrigger = (event, btnName) => {
-        event.preventDefault();
-        setSelectedState({
-            selectedItemText: event.target.text
-        });
-        switch (btnName) {
-            case 'mark-read':
-                setOuterState({
-                    ...outerState,
-                    sessions: []
-                });
-                break;
-            case 'add-tags':
-				console.log("yes")
-                // setOuterState({
-                //     ...outerState,
-                //     sessions: []
-                // });
-                break;
-            case 'delete-conv':
-                dispatch(handleDeleteConfirmationModal(true));
-                break;
-            case 'edit':
-                dispatch(handleTagEdit(true, {}));
-                break;
-            case 'delete':
-                break;
-            default:
-                break;
-        }
-    }
-	console.log(wpWaxCustomerSupportApp_CoreScriptData);
+	console.log(sessions);
 	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user
 	return (
-		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
+		<SidebarWrap className={loading ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
 				<h3 className="wpwax-vm-sidebar-title">List of Messages</h3>
 				<a href="#" className="wpwax-vm-sidebar-refresher"><ReactSVG src={rotateIcon} /></a>
@@ -136,7 +121,7 @@ function Sidebar() {
 				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />
 			</div>
 			{
-				loader ?
+				loading ?
 					<span className="wpwax-vm-loading-spin">
 						<span className="wpwax-vm-spin-dot"></span>
 						<span className="wpwax-vm-spin-dot"></span>
@@ -148,7 +133,6 @@ function Sidebar() {
 						<ul>
 							{
 								sessions.map((item, index) => {
-									console.log(item)
 									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
 									let images = [];
 									let titleString = [];
@@ -161,7 +145,6 @@ function Sidebar() {
 									if(images.length > 1){
 										multiImg = true;
 									}
-									console.log(images.length)
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
 											<div className="wpwax-vm-usermedia__left">
@@ -169,7 +152,7 @@ function Sidebar() {
 											</div>
 											<div className="wpwax-vm-usermedia__right">
 												<span className={item.totaL_unread > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>
-												<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} />
+												<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={item.session_id}/>
 											</div>
 										</li>
 									)
@@ -184,7 +167,7 @@ function Sidebar() {
 
 			<AddTag />
 
-			<DeleteConfirm />
+			<DeleteConfirm deleteBy={deletableSession} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
 		</SidebarWrap>
 	);
 }

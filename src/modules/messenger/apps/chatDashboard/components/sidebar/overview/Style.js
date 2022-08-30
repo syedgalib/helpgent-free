@@ -86,7 +86,7 @@ const AddTagWrap = Styled.div`
         display: flex;
         align-items: flex-start;
         padding-top: 10px;
-        min-height: 140px;
+        margin: 0 -5px;
         .wpwax-vm-form-group{
             flex: 1;
             input{
@@ -104,6 +104,34 @@ const AddTagWrap = Styled.div`
         .wpwax-vm-form-group,
         .wpwax-vm-btn{
             margin: 5px;
+        }
+    }
+    .wpwax-vm-taglist{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 20px -7.5px 0;
+        .wpwax-vm-tag__check{
+            padding: 7.5px;
+            flex: 0 0 auto;
+            width: 33.33%;
+            box-sizing: border-box;
+        }
+        .wpwax-vm-checkbox{
+            label{
+                top: -2px;
+                margin-left: 5px;
+            }
+        }
+    }
+    .wpwax-vm-btnlink{
+        display: inline-block;
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: underline;
+        margin: 15px 0 10px;
+        color: var(--color-dark);
+        &:hover{
+            color: var(--color-primary);
         }
     }
     .wpwax-vm-modal__footer{

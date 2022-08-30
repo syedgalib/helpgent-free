@@ -23,7 +23,8 @@ function App() {
 				<MessageBox />
 			</div>
 
-			<span className={modalOverlay ? "wpax-vm-overlay wpwax-vm-show" : "wpax-vm-overlay"}></span>
+			{/* <span className={modalOverlay ? "wpax-vm-overlay wpwax-vm-show" : "wpax-vm-overlay"}></span> */}
+			<span className="wpax-vm-overlay"></span>
 		</ChatDashboardWrap>
 	);
 }

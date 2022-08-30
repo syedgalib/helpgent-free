@@ -1,23 +1,61 @@
 import { useSelector, useDispatch } from "react-redux";
+import apiService from 'apiService/Service.js';
 import { DeleteConfirmWrap } from "./Style";
-import { handleDeleteConfirmationModal } from '../../../store/tags/actionCreator';
+import { handleReadSessions } from '../../../store/sessions/actionCreator';
 
-function DeleteConfirm() {
+const DeleteConfirm = props => {
+    const { deleteBy, modalOpen,  outerState, setOuterState } = props;
 
+    /* initialize Form Data */
+	 const { sessions, loading } = useSelector(state => {
+		// console.log(state)
+        return {
+            sessions: state.sessions.sessions,
+            loading: state.sessions.loading,
+        };
+    });
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { modalOpen } = useSelector(state => {
-        return {
-            modalOpen: state.tags.deleteConversation,
-        };
-    });
+    // const { modalOpen } = useSelector(state => {
+    //     return {
+    //         modalOpen: state.tags.deleteConversation,
+    //     };
+    // });
+
+    console.log(props)
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
-        dispatch(handleDeleteConfirmationModal(false));
+        
+        setOuterState({
+            ...outerState,
+            deleteModalOpen: !modalOpen
+        });
+        const overlay = document.querySelector('.wpax-vm-overlay');
+        overlay.classList.remove('wpwax-vm-show');
+    }
+
+    const handledelete = async (event) =>{
+        event.preventDefault();
+        
+        await apiService.datadelete(`/sessions/${deleteBy}`)
+        .then(response => {
+            console.log(response)
+            const sessionlist = sessions.filter(item=> item.session_id !== deleteBy);
+            dispatch(handleReadSessions(sessionlist));
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+        setOuterState({
+            ...outerState,
+            deleteModalOpen: !modalOpen
+        });
+        const overlay = document.querySelector('.wpax-vm-overlay');
+        overlay.classList.remove('wpwax-vm-show');
     }
 
     return (
@@ -31,7 +69,7 @@ function DeleteConfirm() {
 
             <div className="wpwax-vm-modal__footer">
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-gray" onClick={handleCloseModal}>Cancel</a>
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-danger" onClick={handleCloseModal}>Delete</a>
+                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-danger" onClick={handledelete}>Delete</a>
             </div>
         </DeleteConfirmWrap>
     );

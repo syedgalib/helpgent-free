@@ -102,7 +102,7 @@ class Messages_Seen_By_Model extends DB_Model {
 		}
 
 		if ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) {
-			$fields  = array_merge( $fields, $args['fields'] );
+			$fields = array_merge( $fields, $args['fields'] );
 		}
 
 		$fields = join( ', ', $fields );
@@ -124,8 +124,6 @@ class Messages_Seen_By_Model extends DB_Model {
      * @return array|WP_Error
      */
     public static function get_item_where( $args = [] ) {
-        global $wpdb;
-
         if ( empty( $args['user_id'] ) ) {
 			$message = __( 'User ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );

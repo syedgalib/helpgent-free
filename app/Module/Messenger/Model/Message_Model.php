@@ -29,6 +29,8 @@ class Message_Model extends DB_Model {
 		$term_table     = self::get_table_name( 'session_term_relationships' );
 		$table_name     = 'message';
 
+		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
+
         $default = [];
 
         $default['limit']    = 20;
@@ -50,12 +52,12 @@ class Message_Model extends DB_Model {
         switch ( $args['order_by'] ) {
             case 'latest':
                 $order_by_field = "updated_on";
-                $order          = " ORDER BY $order_by_field DESC";
+                $order          = " ORDER BY message.$order_by_field DESC";
                 break;
 
             case 'oldest':
                 $order_by_field = "created_on";
-                $order          = " ORDER BY $order_by_field ASC";
+                $order          = " ORDER BY message.$order_by_field ASC";
                 break;
 
             case 'read':
@@ -70,7 +72,7 @@ class Message_Model extends DB_Model {
 
             default:
 				$order_by_field = "updated_on";
-                $order          = " ORDER BY $order_by_field DESC";
+                $order          = " ORDER BY message.$order_by_field DESC";
                 break;
         }
 
@@ -130,10 +132,11 @@ class Message_Model extends DB_Model {
 		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
 
 		$computed_fields = [
-			'total_message' => "COUNT( message.id ) AS total_message",
-			'users'         => "GROUP_CONCAT( DISTINCT message.user_id ) as users",
-			'total_unread'  => "COUNT( CASE WHEN message.seen_by IS NULL THEN 1 ELSE NULL END ) AS total_unread",
-			'terms'         => "GROUP_CONCAT( DISTINCT $term_table.term_taxonomy_id ) as terms",
+			'total_message'   => "COUNT( message.id ) AS total_message",
+			'users'           => "GROUP_CONCAT( DISTINCT message.user_id ) as users",
+			'total_unread'    => "COUNT( CASE WHEN message.is_seen = 0 THEN 1 ELSE NULL END ) AS total_unread",
+			'terms'           => "GROUP_CONCAT( DISTINCT $term_table.term_taxonomy_id ) as terms",
+			'unread_messages' => "GROUP_CONCAT( DISTINCT CASE WHEN message.is_seen = 0 THEN message.id ELSE NULL END ) as unread_messages",
 		];
 
 		$fields = [ '*' ];
@@ -161,6 +164,13 @@ class Message_Model extends DB_Model {
 			}
 		}
 
+		$message_table_fields = [
+			"$messages_table.*",
+			"$seen_by_table.message_id",
+			"GROUP_CONCAT( DISTINCT $seen_by_table.user_id ) as seen_by",
+			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen"
+		];
+
 		// Prefix Fields
 		$fields = array_map( function( $item ) use( $computed_fields ) {
 
@@ -175,7 +185,9 @@ class Message_Model extends DB_Model {
 		$fields = join( ', ', $fields );
 		$fields = trim( $fields, ', ' );
 
-		$select_messages = "SELECT $messages_table.*, $seen_by_table.message_id, GROUP_CONCAT( $seen_by_table.user_id ) as seen_by FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id";
+		$message_table_fields = trim( join( ', ', $message_table_fields ) );
+
+		$select_messages = "SELECT $message_table_fields FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id";
 		$select          = "SELECT $fields FROM ( {$select_messages} GROUP BY $messages_table.id ) AS message LEFT JOIN $term_table ON message.session_id = $term_table.session_id";
 		$pagination      = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
 		$query           = $select . $where . $group_by . $order . $pagination;
@@ -189,15 +201,15 @@ class Message_Model extends DB_Model {
 
 		if ( $is_seen ) {
 			$args['where']['seen_by'] = [
-				'field'     => 'seen_by',
-				'compare'   => 'IS NOT',
-				'value'     => "NULL",
+				'field'     => 'is_seen',
+				'compare'   => '=',
+				'value'     => 1,
 			];
 		} else {
 			$args['where']['seen_by'] = [
-				'field'   => 'seen_by',
-				'compare' =>'IS',
-				'value'   => "NULL",
+				'field'   => 'is_seen',
+				'compare' =>'=',
+				'value'   => 0,
 			];
 		}
 
@@ -214,7 +226,8 @@ class Message_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            return false;
+            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$table = self::get_table_name( self::$table );
@@ -250,7 +263,6 @@ class Message_Model extends DB_Model {
         $default['message']       = '';
         $default['attachment_id'] = '';
         $default['message_type']  = '';
-        $default['seen_by']       = null;
 
         $args = Helper\merge_params( $default, $args );
         $time = current_time( 'mysql', true );
@@ -262,10 +274,6 @@ class Message_Model extends DB_Model {
             unset( $args['id'] );
         }
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
-        }
-
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
@@ -273,7 +281,16 @@ class Message_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		return  self::get_item( $wpdb->insert_id );
+		$message = self::get_item( $wpdb->insert_id );
+
+		// Mark as seen by author
+		Messages_Seen_By_Model::create_item([
+			'user_id'    => $message['user_id'],
+			'message_id' => $message['id'],
+			'session_id' => $message['session_id'],
+		]);
+
+		return $message;
     }
 
     /**
@@ -323,7 +340,7 @@ class Message_Model extends DB_Model {
      * Delete Item
      *
      * @param array $args
-     * @return bool
+     * @return bool|WP_Error
      */
     public static function delete_item( $id ) {
         global $wpdb;
@@ -332,12 +349,29 @@ class Message_Model extends DB_Model {
             return false;
         }
 
+		$message = self::get_item( $id );
+
+		if ( is_wp_error( $message ) ) {
+			return $message;
+		}
+
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 
-        return ( ! empty( $status ) ) ? true : false;
+		if ( empty( $status ) ) {
+			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
+		}
+
+		// Mark as seen by author
+		Messages_Seen_By_Model::delete_item_where([
+			'user_id'    => $message['user_id'],
+			'message_id' => $message['id'],
+			'session_id' => $message['session_id'],
+		]);
+
+        return true;
     }
 
     /**

@@ -53,7 +53,7 @@ class Prepare_Database {
 			user_id bigint(20) unsigned NOT NULL,
 			message_id bigint(20) NOT NULL,
 			session_id varchar(255) NOT NULL,
-			PRIMARY KEY (message_id),
+			KEY message_id (message_id),
 			KEY user_id (user_id),
 			KEY session_id (session_id)
 		) $collate;
@@ -62,9 +62,9 @@ class Prepare_Database {
 			user_id bigint(20) unsigned NOT NULL,
 			message_id bigint(20) unsigned NOT NULL,
 			session_id varchar(255) NOT NULL,
-			PRIMARY KEY (message_id),
-			KEY session_id (session_id),
-			KEY message_id (message_id)
+			KEY user_id (user_id),
+			KEY message_id (message_id),
+			KEY session_id (session_id)
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_message_terms (

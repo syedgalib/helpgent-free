@@ -174,7 +174,15 @@ class Sessions extends Rest_Base {
         $args = array_merge( $default, $args );
 
         $args['group_by'] = 'session_id';
-        $args['fields']   = 'session_id, users, total_message, total_unread, updated_on, terms';
+        $args['fields']   =  [
+			'session_id',
+			'users',
+			'total_message',
+			'total_unread',
+			'updated_on',
+			'terms',
+			'unread_messages'
+		];
 
         $session_data = Message_Model::get_items( $args );
 
@@ -219,7 +227,23 @@ class Sessions extends Rest_Base {
 
         $args['group_by'] = 'session_id';
         $args['limit']    = 1;
-        $args['fields']   = 'session_id, users, total_message, total_unread, updated_on, terms';
+        $args['fields']   =  [
+			'session_id',
+			'users',
+			'total_message',
+			'total_unread',
+			'updated_on',
+			'terms',
+			'unread_messages'
+		 ];
+
+		if ( ! empty( $args['id'] ) ) {
+			$args['where'] = [
+				'session_id' => $args['id'],
+ 			];
+
+			unset( $args['id'] );
+		}
 
         $session_data = Message_Model::get_items( $args );
 
@@ -486,8 +510,9 @@ class Sessions extends Rest_Base {
 					'value'   => $current_user_id,
 				],
 			],
-			'limit'  => -1,
-			'fields' => ['id', 'user_id', 'seen_by'],
+			'limit'           => -1,
+			'current_user_id' => $current_user_id,
+			'fields'          => [ 'id', 'user_id', 'seen_by', 'is_seen' ],
 		];
 
 		$unread_messages = Message_Model::get_items( $query_args );

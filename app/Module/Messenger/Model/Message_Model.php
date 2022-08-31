@@ -157,7 +157,7 @@ class Message_Model extends DB_Model {
 		}
 
 		if ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) {
-			$fields = array_merge( $fields, $args['fields'] );
+			$fields = $args['fields'];
 
 			if ( ! in_array( $order_by_field, $fields ) ) {
 				$fields[] = $order_by_field;

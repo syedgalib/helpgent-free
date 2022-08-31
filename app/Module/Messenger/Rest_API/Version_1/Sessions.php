@@ -499,27 +499,12 @@ class Sessions extends Rest_Base {
 
 		$log = [];
 
-		// Get all unread messages
-		$query_args = [
-			'where' => [
-				'session_id' => $sassion_id,
-				'seen'       => 0,
-				'user_id'    => [
-					'field'   => 'user_id',
-					'compare' => '!=',
-					'value'   => $current_user_id,
-				],
-			],
-			'limit'           => -1,
-			'current_user_id' => $current_user_id,
-			'fields'          => [ 'id', 'user_id', 'seen_by', 'is_seen' ],
-		];
-
-		$unread_messages = Message_Model::get_items( $query_args );
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 
 		if ( empty( $unread_messages ) ) {
 			$response_data = [
 				'messages_marked_as_read' => [],
+				'total_unread'            => 0,
 				'log'                     => $log,
 			];
 
@@ -549,7 +534,7 @@ class Sessions extends Rest_Base {
 			$log[] = [
 				'message_id'         => $message['id'],
 				'marked_as_read'     => ! is_wp_error( $mark_as_read ),
-				'cache_mark_as_read' => ! is_wp_error( $cache_mark_as_read )
+				'cache_mark_as_read' => ! is_wp_error( $cache_mark_as_read ),
 			];
 		}
 
@@ -557,9 +542,12 @@ class Sessions extends Rest_Base {
 			$messages_marked_as_read = array_map( function( $item ) { return (int) $item; }, $messages_marked_as_read );
 		}
 
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
+
 		// Response Data
 		$data = [
 			'messages_marked_as_read' => $messages_marked_as_read,
+			'total_unread'            => count( $unread_messages ),
 			'log'                     => $log,
 		];
 
@@ -577,6 +565,8 @@ class Sessions extends Rest_Base {
 		$sassion_id      = $args['id'];
 		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
+
 		$log = [];
 
 		// Get all messages marked read
@@ -592,7 +582,8 @@ class Sessions extends Rest_Base {
 		if ( empty( $marked_as_read_messages ) ) {
 			$response_data = [
 				'messages_marked_as_unread' => [],
-				'status'                    => $log,
+				'total_unread'              => count( $unread_messages ),
+				'log'                       => $log,
 			];
 
 			return $this->response( $response_data );
@@ -630,13 +621,45 @@ class Sessions extends Rest_Base {
 			$messages_marked_as_unread = array_map( function( $item ) { return (int) $item; }, $messages_marked_as_unread );
 		}
 
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
+
 		// Response Data
 		$data = [
 			'messages_marked_as_unread' => $messages_marked_as_unread,
+			'total_unread'              => count( $unread_messages ),
 			'log'                       => $log,
 		];
 
 		return $this->response( $data );
+	}
+
+
+	/**
+	 * Get Unread messages
+	 *
+	 * @param string $sassion_id
+	 * @param int $current_user_id
+	 *
+	 * @return array Messages
+	 */
+	public function get_unread_messages( $sassion_id, $current_user_id ) {
+		// Get all unread messages
+		$query_args = [
+			'where' => [
+				'session_id' => $sassion_id,
+				'seen'       => 0,
+				'user_id'    => [
+					'field'   => 'user_id',
+					'compare' => '!=',
+					'value'   => $current_user_id,
+				],
+			],
+			'limit'           => -1,
+			'current_user_id' => $current_user_id,
+			'fields'          => [ 'id', 'session_id', 'user_id', 'seen_by', 'is_seen' ],
+		];
+
+		return Message_Model::get_items( $query_args );
 	}
 
 }

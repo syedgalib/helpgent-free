@@ -46,7 +46,6 @@ function Taglist() {
     }
 
     const userTag = allTags.filter(tag => tag.authorId === activeAuthorId);
-    console.log(userTag.tags);
 
     return (
         <TaglistWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>

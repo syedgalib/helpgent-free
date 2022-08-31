@@ -5492,7 +5492,6 @@ var MediaBox = function MediaBox(_ref) {
       multiImg = _ref.multiImg,
       title = _ref.title,
       metaList = _ref.metaList;
-  console.log(multiImg);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-media",
     children: [typeof img === "string" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -5501,8 +5500,6 @@ var MediaBox = function MediaBox(_ref) {
     }) : null, _typeof(img) === "object" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpax-vm-imglist",
       children: [img.map(function (src, index) {
-        console.log(index);
-
         if (index === 0) {
           if (src !== '') {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
@@ -7077,7 +7074,8 @@ function Sidebar() {
     modalSession: {},
     deletableSession: "",
     deleteModalOpen: false,
-    serveSuccess: true,
+    successMessage: "",
+    rejectMessage: "",
     loader: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7087,8 +7085,9 @@ function Sidebar() {
   var modalSession = sessionState.modalSession,
       deletableSession = sessionState.deletableSession,
       deleteModalOpen = sessionState.deleteModalOpen,
+      successMessage = sessionState.successMessage,
+      rejectMessage = sessionState.rejectMessage,
       loader = sessionState.loader;
-  console.log(sessionState);
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
@@ -7099,7 +7098,6 @@ function Sidebar() {
       console.log(error);
     });
   }, []);
-  console.log(sessions);
   var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_20__["default"], {
     className: loading ? "wpwax-vm-loder-active" : null,
@@ -7115,7 +7113,13 @@ function Sidebar() {
           src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      className: "wpwax-vm-notice wpwax-vm-notice-success",
+      children: successMessage
+    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      className: "wpwax-vm-notice wpwax-vm-notice-danger",
+      children: rejectMessage
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
         className: "wpwax-vm-sidebar-search",
@@ -7225,7 +7229,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-sidebar-filter{\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        >ul {\n            height: 800px;\n            overflow-x: hidden;\n            overflow-y: scroll;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: var(--color-bg-general);\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        >ul {\n            height: 800px;\n            overflow-x: hidden;\n            overflow-y: scroll;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: var(--color-bg-general);\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (SidebarWrap);
 
 /***/ }),
@@ -7335,7 +7339,6 @@ function AddTag() {
   };
 
   var handleTagInput = function handleTagInput(e) {
-    console.log(e);
     var tagName = e.target.value;
     setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
       tagInput: e.target.value
@@ -7352,11 +7355,9 @@ function AddTag() {
       setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
         allTags: [].concat(_toConsumableArray(allTags), [response.data])
       }));
-      console.log(response);
     });
   };
 
-  console.log(allTags);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.AddTagWrap, {
     className: modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -7513,7 +7514,6 @@ var DeleteConfirm = function DeleteConfirm(props) {
   //     };
   // });
 
-  console.log(props);
   /* Handle Modal Close */
 
   var handleCloseModal = function handleCloseModal(event) {
@@ -7540,18 +7540,55 @@ var DeleteConfirm = function DeleteConfirm(props) {
                   return item.session_id !== deleteBy;
                 });
                 dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionlist));
+                setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                  successMessage: "Session Successfully Deleted",
+                  rejectMessage: "",
+                  deleteModalOpen: !modalOpen
+                }));
+                setTimeout(function () {
+                  setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                    successMessage: "",
+                    rejectMessage: "",
+                    deleteModalOpen: !modalOpen
+                  }));
+                }, 3000);
               }).catch(function (error) {
                 console.log(error);
+
+                if (error.code === 403) {
+                  setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                    successMessage: "",
+                    rejectMessage: "Wrong Resource Provided",
+                    deleteModalOpen: !modalOpen
+                  }));
+                  setTimeout(function () {
+                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                      successMessage: "",
+                      rejectMessage: "",
+                      deleteModalOpen: !modalOpen
+                    }));
+                  }, 3000);
+                } else {
+                  setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                    successMessage: "",
+                    rejectMessage: "Server Not exist",
+                    deleteModalOpen: !modalOpen
+                  }));
+                  setTimeout(function () {
+                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                      successMessage: "",
+                      rejectMessage: "",
+                      deleteModalOpen: !modalOpen
+                    }));
+                  }, 3000);
+                }
               });
 
             case 3:
-              setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                deleteModalOpen: !modalOpen
-              }));
               overlay = document.querySelector('.wpax-vm-overlay');
               overlay.classList.remove('wpwax-vm-show');
 
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -7691,7 +7728,6 @@ function Taglist() {
   var userTag = allTags.filter(function (tag) {
     return tag.authorId === activeAuthorId;
   });
-  console.log(userTag.tags);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.TaglistWrap, {
     className: modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {

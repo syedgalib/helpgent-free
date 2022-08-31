@@ -53,7 +53,6 @@ function AddTag() {
     }
 
     const handleTagInput = (e)=>{
-        console.log(e);
         const tagName = e.target.value;
         
         setTagState({
@@ -76,11 +75,8 @@ function AddTag() {
                     response.data
                 ]
             });
-            console.log(response);
         })
     }
-
-    console.log(allTags)
 
     return (
         <AddTagWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>

@@ -2,7 +2,6 @@ import { ReactSVG } from "react-svg";
 import userImg from "Assets/img/chatdashboard/user.png";
 import userIcon from "Assets/svg/icons/users.svg";
 const MediaBox = ({ img, multiImg, title, metaList }) => {
-    console.log(multiImg)
     return (
 
         <div className="wpwax-vm-media">
@@ -14,7 +13,6 @@ const MediaBox = ({ img, multiImg, title, metaList }) => {
                     <div className="wpax-vm-imglist">
                         {
                             img.map((src, index) => {
-                                console.log(index)
                                 if(index === 0){
                                     if (src !== '') {
                                         return (

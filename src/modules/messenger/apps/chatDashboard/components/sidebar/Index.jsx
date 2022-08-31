@@ -82,13 +82,12 @@ function Sidebar() {
 		modalSession: {},
 		deletableSession: "",
 		deleteModalOpen: false,
-		serveSuccess: true,
+		successMessage: "",
+		rejectMessage: "",
 		loader: true
 	});
 
-	const { modalSession, deletableSession, deleteModalOpen, loader } = sessionState;
-
-	console.log(sessionState)
+	const { modalSession, deletableSession, deleteModalOpen, successMessage, rejectMessage, loader } = sessionState;
 
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -102,7 +101,6 @@ function Sidebar() {
 			})
 	}, []);
 
-	console.log(sessions);
 	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user
 	return (
 		<SidebarWrap className={loading ? "wpwax-vm-loder-active" : null}>
@@ -110,7 +108,16 @@ function Sidebar() {
 				<h3 className="wpwax-vm-sidebar-title">List of Messages</h3>
 				<a href="#" className="wpwax-vm-sidebar-refresher"><ReactSVG src={rotateIcon} /></a>
 			</div>
-
+			{
+				successMessage !== '' ?
+				<span className="wpwax-vm-notice wpwax-vm-notice-success">{successMessage}</span>
+				:null
+			}
+			{
+				rejectMessage !== '' ?
+				<span className="wpwax-vm-notice wpwax-vm-notice-danger">{rejectMessage}</span>
+				:null
+			}
 			<div className="wpwax-vm-sidebar-filter">
 				<div className="wpwax-vm-sidebar-search">
 					<div className="wpwax-vm-form-group wpwax-vm-form-icon-left">

@@ -18,7 +18,11 @@ const SidebarWrap = Styled.div`
             line-height: 1;
         }
     }
+    .wpwax-vm-notice{
+        margin-bottom: 15px;
+    }
     .wpwax-vm-sidebar-filter{
+        margin-bottom: 20px;
         .wpwax-vm-dropdown{
             .wpwax-vm-dropdown__content{
                 top: 30px;

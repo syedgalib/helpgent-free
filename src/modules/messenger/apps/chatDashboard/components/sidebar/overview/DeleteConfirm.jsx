@@ -24,8 +24,6 @@ const DeleteConfirm = props => {
     //     };
     // });
 
-    console.log(props)
-
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
@@ -46,14 +44,57 @@ const DeleteConfirm = props => {
             console.log(response)
             const sessionlist = sessions.filter(item=> item.session_id !== deleteBy);
             dispatch(handleReadSessions(sessionlist));
+            setOuterState({
+                ...outerState,
+                successMessage: `Session Successfully Deleted`,
+                rejectMessage: "",
+                deleteModalOpen: !modalOpen
+            });
+            setTimeout(() => {
+                setOuterState({
+                    ...outerState,
+                    successMessage: "",
+                    rejectMessage: "",
+                    deleteModalOpen: !modalOpen
+                });
+            }, 3000);
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(error => {
+            console.log(error)
+            if(error.code === 403){
+                setOuterState({
+                    ...outerState,
+                    successMessage: "",
+                    rejectMessage: "Wrong Resource Provided",
+                    deleteModalOpen: !modalOpen
+                });
+                setTimeout(() => {
+                    setOuterState({
+                        ...outerState,
+                        successMessage: "",
+                        rejectMessage: "",
+                        deleteModalOpen: !modalOpen
+                    });
+                }, 3000);
+                
+            }else{
+                setOuterState({
+                    ...outerState,
+                    successMessage: "",
+                    rejectMessage: "Server Not exist",
+                    deleteModalOpen: !modalOpen
+                });
+                setTimeout(() => {
+                    setOuterState({
+                        ...outerState,
+                        successMessage: "",
+                        rejectMessage: "",
+                        deleteModalOpen: !modalOpen
+                    });
+                }, 3000);
+                
+            }
         })
-        setOuterState({
-            ...outerState,
-            deleteModalOpen: !modalOpen
-        });
         const overlay = document.querySelector('.wpax-vm-overlay');
         overlay.classList.remove('wpwax-vm-show');
     }

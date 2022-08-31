@@ -7,12 +7,15 @@ use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Cache_Messages_Marked_As_Read_Model;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 
 class Sessions extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'sessions';
@@ -46,8 +49,44 @@ class Sessions extends Rest_Base {
             '/' . $this->rest_base . '/(?P<id>[\w]+)',
             [
                 [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_item' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\w]+)',
+            [
+                [
                     'methods'             => \WP_REST_Server::DELETABLE,
                     'callback'            => [ $this, 'delete_item' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\w]+)/mark-as-read',
+            [
+                [
+                    'methods'             => \WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'mark_as_read' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<id>[\w]+)/mark-as-unread',
+            [
+                [
+                    'methods'             => \WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'mark_as_unread' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                 ],
             ]
@@ -101,7 +140,7 @@ class Sessions extends Rest_Base {
 
     /**
      * Validate Message Type
-     * 
+     *
      * @param $value
      */
     public function validate_message_type( $value ) {
@@ -110,7 +149,7 @@ class Sessions extends Rest_Base {
 
     /**
      * Validate Order
-     * 
+     *
      * @param $value
      */
     public function validate_order( $value ) {
@@ -119,7 +158,7 @@ class Sessions extends Rest_Base {
 
     /**
      * Get Items
-     * 
+     *
      * @param $request
      * @return mixed
      */
@@ -135,7 +174,15 @@ class Sessions extends Rest_Base {
         $args = array_merge( $default, $args );
 
         $args['group_by'] = 'session_id';
-        $args['fields']   = [ 'GROUP_CONCAT(user_id) as users', 'session_id' ];
+        $args['fields']   =  [
+			'session_id',
+			'users',
+			'total_message',
+			'total_unread',
+			'updated_on',
+			'terms',
+			'unread_messages'
+		];
 
         $session_data = Message_Model::get_items( $args );
 
@@ -143,32 +190,17 @@ class Sessions extends Rest_Base {
             return $this->response( true, [] );
         }
 
-        // Add user data to session data
-        $session_data = array_map( function( $item ) {
+		$self = $this;
 
-            $users = [];
-            $users_ids = Helper\convert_string_to_int_array( $item['users'] );
-            $users_ids = array_unique( $users_ids );
+        // Expand session data
+        $session_data = array_map( function( $item ) use( $self ) {
+			// Expand user data
+            $user_ids = Helper\convert_string_to_int_array( $item['users'] );
+            $item['users'] = $self->get_users_data_by_ids( $user_ids );
 
-            foreach( $users_ids as $user_id ) {
-                $user = get_user_by( 'id', $user_id );
-
-                if ( empty( $user ) ) {
-                    continue;
-                }
-
-                $avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
-
-                $user_info = [];
-
-                $user_info['id']     = $user->ID;
-                $user_info['name']   = $user->display_name;
-                $user_info['avater'] = $avater;
-
-                array_push( $users, $user_info );
-            }
-
-            $item['users'] = $users;
+			// Expand term data
+            $terms_ids = Helper\convert_string_to_int_array( $item['terms'] );
+            $item['terms'] = $self->get_terms_data_by_ids( $terms_ids );
 
             return $item;
 
@@ -179,8 +211,166 @@ class Sessions extends Rest_Base {
     }
 
     /**
+     * Get Item
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function get_item( $request ) {
+        $args = $request->get_params();
+
+        $default = [];
+
+        $default['order_by'] = 'latest';
+
+        $args = array_merge( $default, $args );
+
+        $args['group_by'] = 'session_id';
+        $args['limit']    = 1;
+        $args['fields']   =  [
+			'session_id',
+			'users',
+			'total_message',
+			'total_unread',
+			'updated_on',
+			'terms',
+			'unread_messages'
+		 ];
+
+		if ( ! empty( $args['id'] ) ) {
+			$args['where'] = [
+				'session_id' => $args['id'],
+ 			];
+
+			unset( $args['id'] );
+		}
+
+        $session_data = Message_Model::get_items( $args );
+
+        if ( empty( $session_data ) ) {
+            return $this->response( true, [] );
+        }
+
+		$self = $this;
+
+        // Expand session data
+        $session_data = array_map( function( $item ) use( $self ) {
+			// Expand user data
+            $user_ids = Helper\convert_string_to_int_array( $item['users'] );
+            $item['users'] = $self->get_users_data_by_ids( $user_ids );
+
+			// Expand term data
+            $terms_ids = Helper\convert_string_to_int_array( $item['terms'] );
+            $item['terms'] = $self->get_terms_data_by_ids( $terms_ids );
+
+            return $item;
+
+        }, $session_data );
+
+		$session_data = $session_data[0];
+
+        return $this->response( true, $session_data );
+    }
+
+	/**
+     * Delete Item
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function delete_item( $request ) {
+        $args  = $request->get_params();
+        $where = [ 'session_id' => $args['id'] ];
+
+        $messages_args = [];
+        $messages_args['where']  = $where;
+
+        $messages = Message_Model::get_items( $messages_args );
+
+        if ( empty( $messages ) ) {
+            $message = __( 'No resource exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        $operation = Message_Model::delete_item_where( $where );
+        $success   = $operation ? true : false;
+
+        if ( ! $success ) {
+            $this->response( $success );
+        }
+
+        // Delete Attachment
+        foreach( $messages as $message ) {
+            Attachment_Model::delete_item( $message['attachment_id'] );
+        }
+
+        // Delete Terms
+        Session_Term_Relationship_Model::delete_item_where( $where );
+
+        return $this->response( $success );
+    }
+
+	/**
+	 * Get terms data by IDs.
+	 *
+	 * @param array $user_ids
+	 *
+	 * @return array Users Data
+	 */
+	protected function get_terms_data_by_ids( $term_ids = [] ) {
+
+		if ( empty( $term_ids ) ) {
+			return [];
+		}
+
+		$terms = [];
+
+		foreach( $term_ids as $term_id ) {
+			$terms[] = Term_Model::get_item( $term_id );
+		}
+
+		return $terms;
+	}
+
+	/**
+	 * Get users data by IDs.
+	 *
+	 * @param array $user_ids
+	 *
+	 * @return array Users Data
+	 */
+	protected function get_users_data_by_ids( $user_ids = [] ) {
+
+		if ( empty( $user_ids ) ) {
+			return [];
+		}
+
+		$users = [];
+
+		foreach( $user_ids as $user_id ) {
+			$user = get_user_by( 'id', $user_id );
+
+			if ( empty( $user ) ) {
+				continue;
+			}
+
+			$avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+
+			$user_info = [];
+
+			$user_info['id']     = $user->ID;
+			$user_info['name']   = $user->display_name;
+			$user_info['avater'] = $avater;
+
+			array_push( $users, $user_info );
+		}
+
+		return $users;
+	}
+
+    /**
      * Add Terms
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -218,7 +408,7 @@ class Sessions extends Rest_Base {
 
         foreach( $terms as $term_id ) {
 
-            $status = Session_Term_Relationship_Model::create_item([ 
+            $status = Session_Term_Relationship_Model::create_item([
                 'session_id' => $args['session_id'],
                 'term_id'    => $term_id,
             ]);
@@ -231,7 +421,7 @@ class Sessions extends Rest_Base {
             $data['success'][ $term_id ] = $status;
 
         }
-        
+
         $success = ( count( $data['success'] ) === count( $terms ) ) ? true : false;
 
         return $this->response( $success, $data );
@@ -239,7 +429,7 @@ class Sessions extends Rest_Base {
 
     /**
      * Remove Terms
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -277,7 +467,7 @@ class Sessions extends Rest_Base {
 
         foreach( $terms as $term_id ) {
 
-            $status = Session_Term_Relationship_Model::delete_item_where([ 
+            $status = Session_Term_Relationship_Model::delete_item_where([
                 'session_id'       => $args['session_id'],
                 'term_taxonomy_id' => $term_id,
             ]);
@@ -290,51 +480,163 @@ class Sessions extends Rest_Base {
             $data['success'][ $term_id ] = $status;
 
         }
-        
+
         $success = ( count( $data['success'] ) === count( $terms ) ) ? true : false;
 
         return $this->response( $success, $data );
     }
 
-    /**
-     * Delete Item
-     * 
+	/**
+     * Mark as Read
+     *
      * @param $request
      * @return mixed
      */
-    public function delete_item( $request ) {
-        $args = $request->get_params();
+	public function mark_as_read( $request ) {
+		$args            = $request->get_params();
+		$sassion_id      = $args['id'];
+		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
-        $where = [ 'session_id' => $args['id'] ];
+		$log = [];
 
-        $messages_args = [];
+		// Get all unread messages
+		$query_args = [
+			'where' => [
+				'session_id' => $sassion_id,
+				'seen'       => 0,
+				'user_id'    => [
+					'field'   => 'user_id',
+					'compare' => '!=',
+					'value'   => $current_user_id,
+				],
+			],
+			'limit'           => -1,
+			'current_user_id' => $current_user_id,
+			'fields'          => [ 'id', 'user_id', 'seen_by', 'is_seen' ],
+		];
 
-        $messages_args['fields'] = ['attachment_id'];
-        $messages_args['where']  = $where;
+		$unread_messages = Message_Model::get_items( $query_args );
 
-        $messages = Message_Model::get_items( $messages_args );
+		if ( empty( $unread_messages ) ) {
+			$response_data = [
+				'messages_marked_as_read' => [],
+				'log'                     => $log,
+			];
 
-        if ( empty( $messages ) ) {
-            $message = __( 'No resource exists.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
+			return $this->response( $response_data );
+		}
 
-        $operation = Message_Model::delete_item_where( $where );
-        $success   = $operation ? true : false;
+		$messages_marked_as_read = [];
 
-        if ( ! $success ) {
-            $this->response( $success );
-        }
+		// Set Mark as Read
+		foreach( $unread_messages as $message ) {
+			$args = [
+				'user_id'    => $current_user_id,
+				'session_id' => $message['session_id'],
+				'message_id' => $message['id'],
+			];
 
-        // Delete Attachment
-        foreach( $messages as $message ) {
-            Attachment_Model::delete_item( $message['attachment_id'] );
-        }
+			// Mark as Read
+			$mark_as_read = Messages_Seen_By_Model::create_item( $args );
 
-        // Delete Terms
-        Session_Term_Relationship_Model::delete_item_where( $where );
+			// Cache marked as read
+			$cache_mark_as_read = Cache_Messages_Marked_As_Read_Model::create_item( $args );
 
-        return $this->response( $success );
-    }
+			if ( ! is_wp_error( $mark_as_read ) ) {
+				$messages_marked_as_read[] = $message['id'];
+			}
+
+			$log[] = [
+				'message_id'         => $message['id'],
+				'marked_as_read'     => ! is_wp_error( $mark_as_read ),
+				'cache_mark_as_read' => ! is_wp_error( $cache_mark_as_read )
+			];
+		}
+
+		if ( ! empty( $messages_marked_as_read ) ) {
+			$messages_marked_as_read = array_map( function( $item ) { return (int) $item; }, $messages_marked_as_read );
+		}
+
+		// Response Data
+		$data = [
+			'messages_marked_as_read' => $messages_marked_as_read,
+			'log'                     => $log,
+		];
+
+		return $this->response( $data );
+	}
+
+	/**
+     * Mark as Unread
+     *
+     * @param $request
+     * @return mixed
+     */
+	public function mark_as_unread( $request ) {
+		$args            = $request->get_params();
+		$sassion_id      = $args['id'];
+		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
+
+		$log = [];
+
+		// Get all messages marked read
+		$query_args = [
+			'where' => [
+				'user_id'    => $current_user_id,
+				'session_id' => $sassion_id,
+			]
+		];
+
+		$marked_as_read_messages = Cache_Messages_Marked_As_Read_Model::get_items( $query_args );
+
+		if ( empty( $marked_as_read_messages ) ) {
+			$response_data = [
+				'messages_marked_as_unread' => [],
+				'status'                    => $log,
+			];
+
+			return $this->response( $response_data );
+		}
+
+		$messages_marked_as_unread = [];
+
+		// Set Mark as Unread
+		foreach( $marked_as_read_messages as $message ) {
+			$args = [
+				'user_id'    => $message['user_id'],
+				'session_id' => $message['session_id'],
+				'message_id' => $message['message_id'],
+			];
+
+			// Mark as Read
+			$mark_as_unread = Messages_Seen_By_Model::delete_item_where( $args );
+
+			// Cache marked as read
+			$cache_mark_as_unread = Cache_Messages_Marked_As_Read_Model::delete_item_where( $args );
+
+			if ( ! is_wp_error( $mark_as_unread ) ) {
+				$messages_marked_as_unread[] = $message['message_id'];
+			}
+
+			$log[] = [
+				'message_id'             => $message['message_id'],
+				'marked_as_unread'       => ! is_wp_error( $mark_as_unread ),
+				'cache_marked_as_unread' => ! is_wp_error( $cache_mark_as_unread )
+			];
+
+		}
+
+		if ( ! empty( $messages_marked_as_unread ) ) {
+			$messages_marked_as_unread = array_map( function( $item ) { return (int) $item; }, $messages_marked_as_unread );
+		}
+
+		// Response Data
+		$data = [
+			'messages_marked_as_unread' => $messages_marked_as_unread,
+			'log'                       => $log,
+		];
+
+		return $this->response( $data );
+	}
 
 }

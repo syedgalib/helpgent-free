@@ -6,7 +6,7 @@ class Prepare_Database {
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     public function __construct() {
@@ -31,7 +31,7 @@ class Prepare_Database {
 
         $table_prefix = $wpdb->prefix . WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX;
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
-        
+
 		$tables = "
 		CREATE TABLE {$table_prefix}_messages (
 			id bigint(20) unsigned NOT NULL auto_increment,
@@ -43,12 +43,29 @@ class Prepare_Database {
 			message longtext NOT NULL DEFAULT '',
 			attachment_id int(20) DEFAULT NULL,
 			message_type varchar(100) NOT NULL DEFAULT 'text',
-			seen_by longtext,
 			PRIMARY KEY (id),
 			KEY user_id (user_id),
 			KEY created_on (created_on),
 			KEY updated_on (updated_on)
-		  ) $collate;
+		) $collate;
+
+		CREATE TABLE {$table_prefix}_messages_seen_by (
+			user_id bigint(20) unsigned NOT NULL,
+			message_id bigint(20) NOT NULL,
+			session_id varchar(255) NOT NULL,
+			KEY message_id (message_id),
+			KEY user_id (user_id),
+			KEY session_id (session_id)
+		) $collate;
+
+		CREATE TABLE {$table_prefix}_cache_messages_marked_as_read (
+			user_id bigint(20) unsigned NOT NULL,
+			message_id bigint(20) unsigned NOT NULL,
+			session_id varchar(255) NOT NULL,
+			KEY user_id (user_id),
+			KEY message_id (message_id),
+			KEY session_id (session_id)
+		) $collate;
 
 		CREATE TABLE {$table_prefix}_message_terms (
 			term_id bigint(20) unsigned NOT NULL auto_increment,
@@ -57,7 +74,7 @@ class Prepare_Database {
 			PRIMARY KEY (term_id),
 			KEY name (name),
 			KEY term_key (term_key)
-		  ) $collate;
+		) $collate;
 
 		CREATE TABLE {$table_prefix}_message_term_taxonomy (
 			term_taxonomy_id bigint(20) unsigned NOT NULL auto_increment,

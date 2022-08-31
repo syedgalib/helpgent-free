@@ -5,13 +5,14 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 
 class Messages extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'messages';
@@ -162,6 +163,57 @@ class Messages extends Rest_Base {
             ]
         );
 
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/(?P<message_id>[\d]+)/seen-by',
+            [
+                'args' => [
+                    'message_id' => [
+                        'type' => 'integer',
+                    ],
+                    'user_id' => [
+                        'type' => 'integer',
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_seen_by_items' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'args'                => [
+                        'message_id' => [
+							'type' => 'integer',
+						],
+                    ],
+                ],
+				[
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => [ $this, 'create_seen_by_item' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'args'                => [
+                        'message_id' => [
+							'type' => 'integer',
+						],
+						'user_id' => [
+							'type' => 'integer',
+						],
+                    ],
+                ],
+                [
+                    'methods'             => \WP_REST_Server::DELETABLE,
+                    'callback'            => [ $this, 'delete_seen_by_item' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+					'args'                => [
+                        'message_id' => [
+							'type' => 'integer',
+						],
+						'user_id' => [
+							'type' => 'integer',
+						],
+                    ],
+                ],
+            ]
+        );
+
     }
 
     /**
@@ -185,18 +237,21 @@ class Messages extends Rest_Base {
     public function get_items( $request ) {
         $args = $request->get_params();
 
-
         $where = [];
 
         $where['session_id'] = '';
         $where['user_id']    = '';
+        $where['seen']       = '';
 
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
 
-        $default['limit'] = 20;
-        $default['page']  = 1;
+        $default['limit']    = 20;
+        $default['page']     = 1;
+        $default['fields']   = '';
+        $default['group_by'] = '';
+        $default['order_by'] = '';
 
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
@@ -229,7 +284,7 @@ class Messages extends Rest_Base {
 
     /**
      * Get Item
-     * 
+     *
      * @param object $request
      * @return array Response
      */
@@ -245,7 +300,7 @@ class Messages extends Rest_Base {
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
-        
+
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
 
@@ -254,17 +309,12 @@ class Messages extends Rest_Base {
 
     /**
      * Create Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
     public function create_item( $request ) {
         $args = $request->get_params();
-
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = $this->convert_string_to_int_array( $args['seen_by'] );
-        }
-
         $data = Message_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
@@ -345,14 +395,121 @@ class Messages extends Rest_Base {
         return $this->response( true );
     }
 
+
+	/**
+	 * Get Seen By Items
+	 *
+     * @param $request
+     * @return mixed
+     */
+    public function get_seen_by_items( $request ) {
+        $args = $request->get_params();
+
+        $default = [];
+        $default['message_id'] = 0;
+
+        $args = Helper\filter_params( $default, $args );
+        $data = Messages_Seen_By_Model::get_items( [ 'where' => $args ] );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+        if ( empty( $data ) ) {
+            return $this->response( true, [] );
+        }
+
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
+
+        // Prepare items for response
+        foreach ( $data as $key => $value ) {
+             $item = $this->prepare_item_for_response( $value, $args );
+
+             if ( empty( $item ) ) {
+                continue;
+             }
+
+             $data[ $key ] = $item;
+        }
+
+        return $this->response( true, $data );
+    }
+
+	/**
+     * Create Seen By Item
+     *
+     * @param $request
+     * @return array Response
+     */
+    public function create_seen_by_item( $request ) {
+        $args = $request->get_params();
+
+		$default = [];
+
+        $default['user_id']    = 0;
+        $default['message_id'] = 0;
+
+        $args = Helper\filter_params( $default, $args );
+
+		$message = Message_Model::get_item( $args['message_id'] );
+
+		if ( is_wp_error( $message ) ) {
+			return $message;
+		}
+
+		$args['session_id'] = $message['session_id'];
+
+        $data = Messages_Seen_By_Model::create_item( $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+        $args['sanitize_schema'] = $this->get_sanitize_schema();
+
+        $data    = $this->prepare_item_for_response( $data, $args );
+        $success = true;
+
+        return $this->response( $success, $data );
+    }
+
+	/**
+	 * Delete Seen By Item
+	 *
+     * @param $request
+     * @return mixed
+     */
+    public function delete_seen_by_item( $request ) {
+        $args = $request->get_params();
+
+		$default['user_id']    = 0;
+        $default['message_id'] = 0;
+
+		$message = Message_Model::get_item( $args['message_id'] );
+
+		if ( is_wp_error( $message ) ) {
+			return $message;
+		}
+
+		$args['session_id'] = $message['session_id'];
+
+        $operation = Messages_Seen_By_Model::delete_item_where( $args );
+
+        if ( is_wp_error( $operation ) ) {
+            return $operation;
+        }
+
+        return $this->response( true );
+    }
+
     /**
      * Get sanitize schema
-     * 
+     *
      * @return array
      */
     public function get_sanitize_schema() {
         return [
-            'integer'    => [ 'id', 'user_id', 'attachment_id' ],
+            'integer'    => [ 'id', 'message_id', 'user_id', 'attachment_id' ],
             'serialized' => [ 'seen_by' ],
             'datetime'   => [ 'created_on', 'updated_on' ],
         ];

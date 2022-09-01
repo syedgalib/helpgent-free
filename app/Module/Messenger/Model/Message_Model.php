@@ -48,6 +48,15 @@ class Message_Model extends DB_Model {
 
 		$offset = ( ! is_null( $limit ) ) ? ( $limit * $args['page'] ) - $limit : null;
 
+		$computed_fields = [
+			'total_message'    => "COUNT( message.id ) AS total_message",
+			'users'            => "GROUP_CONCAT( DISTINCT message.user_id ) as users",
+			'total_unread'     => "COUNT( CASE WHEN message.is_seen = 0 THEN 1 ELSE NULL END ) AS total_unread",
+			'terms'            => "GROUP_CONCAT( DISTINCT $term_table.term_taxonomy_id ) as terms",
+			'unread_messages'  => "GROUP_CONCAT( DISTINCT CASE WHEN message.is_seen = 0 THEN message.id ELSE NULL END ) as unread_messages",
+			'my_message_count' => "COUNT( CASE WHEN message.user_id = $current_user_id THEN 1 ELSE NULL END ) as my_message_count",
+		];
+
         // Prepare Order
         switch ( $args['order_by'] ) {
             case 'latest':
@@ -89,9 +98,12 @@ class Message_Model extends DB_Model {
 			$supported_conditions = [ 'AND', 'OR' ];
 
             foreach ( $args['where'] as $key => $value ) {
+
+				$where_table_name = "{$table_name}.";
+
 				// ---> C1
 				if ( ! is_array( $value ) ) {
-					$where .= " AND {$table_name}.{$key}='{$value}'";
+					$where .= " AND {$where_table_name}{$key}='{$value}'";
 					continue;
 				}
 
@@ -102,7 +114,7 @@ class Message_Model extends DB_Model {
 					$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
 
                     foreach ( $value['rules'] as $index => $rule ) {
-						$_key       = $table_name . '.' . $rule['field'];
+						$_key       = $where_table_name . $rule['field'];
 						$_compare   = $rule['compare'];
 						$_value     = $rule['value'];
 
@@ -120,7 +132,7 @@ class Message_Model extends DB_Model {
                 }
 
 				// ---> C3
-				$_key     = $table_name . '.' .  $value['field'];
+				$_key     = $where_table_name . $value['field'];
 				$_compare = $value['compare'];
 				$_value   = $value['value'];
 
@@ -130,14 +142,16 @@ class Message_Model extends DB_Model {
         }
 
 		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
+		$having   = '';
 
-		$computed_fields = [
-			'total_message'   => "COUNT( message.id ) AS total_message",
-			'users'           => "GROUP_CONCAT( DISTINCT message.user_id ) as users",
-			'total_unread'    => "COUNT( CASE WHEN message.is_seen = 0 THEN 1 ELSE NULL END ) AS total_unread",
-			'terms'           => "GROUP_CONCAT( DISTINCT $term_table.term_taxonomy_id ) as terms",
-			'unread_messages' => "GROUP_CONCAT( DISTINCT CASE WHEN message.is_seen = 0 THEN message.id ELSE NULL END ) as unread_messages",
-		];
+		if ( is_array( $args['having'] ) ) {
+			$having_field     = isset( $args['having']['field'] ) ? $args['having']['field'] : '';
+			$having_field     = in_array( $having_field, array_keys( $computed_fields ) ) ? $having_field : 'message.' . $having_field;
+			$having_condition = isset( $args['having']['condition'] ) ? $args['having']['condition'] : '=';
+			$having_value     = isset( $args['having']['value'] ) ? $args['having']['value'] : '';
+
+			$having           = " HAVING {$having_field} {$having_condition} {$having_value}";
+		}
 
 		$fields = [ '*' ];
 
@@ -168,7 +182,7 @@ class Message_Model extends DB_Model {
 			"$messages_table.*",
 			"$seen_by_table.message_id",
 			"GROUP_CONCAT( DISTINCT $seen_by_table.user_id ) as seen_by",
-			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen"
+			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen",
 		];
 
 		// Prefix Fields
@@ -190,7 +204,7 @@ class Message_Model extends DB_Model {
 		$select_messages = "SELECT $message_table_fields FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id";
 		$select          = "SELECT $fields FROM ( {$select_messages} GROUP BY $messages_table.id ) AS message LEFT JOIN $term_table ON message.session_id = $term_table.session_id";
 		$pagination      = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
-		$query           = $select . $where . $group_by . $order . $pagination;
+		$query           = $select . $where . $group_by . $having . $order . $pagination;
 
 		return $wpdb->get_results( $query, ARRAY_A );
 

@@ -46,7 +46,7 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\w]+)',
+            '/' . $this->rest_base . '/(?P<session_id>[\w]+)',
             [
                 [
                     'methods'             => \WP_REST_Server::READABLE,
@@ -58,7 +58,7 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\w]+)',
+            '/' . $this->rest_base . '/(?P<session_id>[\w]+)',
             [
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
@@ -70,7 +70,7 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\w]+)/mark-as-read',
+            '/' . $this->rest_base . '/(?P<session_id>[\w]+)/mark-as-read',
             [
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
@@ -82,7 +82,7 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/(?P<id>[\w]+)/mark-as-unread',
+            '/' . $this->rest_base . '/(?P<session_id>[\w]+)/mark-as-unread',
             [
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
@@ -162,16 +162,21 @@ class Sessions extends Rest_Base {
      * @param $request
      * @return mixed
      */
-    public function get_items( $request ) {
-
-        // Get session data
+    public function get_items( $request, $send_rest_response = true ) {
         $args = $request->get_params();
+
+		$where = [];
+
+        $where['session_id'] = '';
+        $where = Helper\filter_params( $where, $args );
 
         $default = [];
 
+        $default['limit']    = 20;
         $default['order_by'] = 'latest';
 
-        $args = array_merge( $default, $args );
+        $args = Helper\filter_params( $default, $args );
+        $args['where'] = $where;
 
         $args['group_by'] = 'session_id';
         $args['fields']   =  [
@@ -181,68 +186,19 @@ class Sessions extends Rest_Base {
 			'total_unread',
 			'updated_on',
 			'terms',
-			'unread_messages'
+			'unread_messages',
+			'my_message_count',
 		];
 
-        $session_data = Message_Model::get_items( $args );
+		$user = wp_get_current_user();
+		$args['current_user_id'] = $user->ID;
 
-        if ( empty( $session_data ) ) {
-            return $this->response( true, [] );
-        }
-
-		$self = $this;
-
-        // Expand session data
-        $session_data = array_map( function( $item ) use( $self ) {
-			// Expand user data
-            $user_ids = Helper\convert_string_to_int_array( $item['users'] );
-            $item['users'] = $self->get_users_data_by_ids( $user_ids );
-
-			// Expand term data
-            $terms_ids = Helper\convert_string_to_int_array( $item['terms'] );
-            $item['terms'] = $self->get_terms_data_by_ids( $terms_ids );
-
-            return $item;
-
-        }, $session_data );
-
-
-        return $this->response( true, $session_data );
-    }
-
-    /**
-     * Get Item
-     *
-     * @param $request
-     * @return mixed
-     */
-    public function get_item( $request ) {
-        $args = $request->get_params();
-
-        $default = [];
-
-        $default['order_by'] = 'latest';
-
-        $args = array_merge( $default, $args );
-
-        $args['group_by'] = 'session_id';
-        $args['limit']    = 1;
-        $args['fields']   =  [
-			'session_id',
-			'users',
-			'total_message',
-			'total_unread',
-			'updated_on',
-			'terms',
-			'unread_messages'
-		 ];
-
-		if ( ! empty( $args['id'] ) ) {
-			$args['where'] = [
-				'session_id' => $args['id'],
- 			];
-
-			unset( $args['id'] );
+		if ( ! $this->is_user_admin( $user ) ) {
+			$args['having'] = [
+				'field'     => 'my_message_count',
+				'condition' => '>',
+				'value'     => 0,
+			];
 		}
 
         $session_data = Message_Model::get_items( $args );
@@ -267,7 +223,31 @@ class Sessions extends Rest_Base {
 
         }, $session_data );
 
-		$session_data = $session_data[0];
+
+		if ( $send_rest_response ) {
+			return $this->response( true, $session_data );
+		}
+
+        return $session_data;
+    }
+
+    /**
+     * Get Item
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function get_item( $request ) {
+		$request->set_param( 'limit', 1 );
+		$request->set_param( 'session_id' , $request->get_param( 'session_id' ) );
+
+		$session_data = $this->get_items( $request, false );
+
+		if ( is_wp_error( $session_data ) ) {
+			return $session_data;
+		}
+
+		$session_data = ( ! empty( $session_data ) ) ? $session_data[0] : [];
 
         return $this->response( true, $session_data );
     }
@@ -280,7 +260,7 @@ class Sessions extends Rest_Base {
      */
     public function delete_item( $request ) {
         $args  = $request->get_params();
-        $where = [ 'session_id' => $args['id'] ];
+        $where = [ 'session_id' => $args['session_id'] ];
 
         $messages_args = [];
         $messages_args['where']  = $where;
@@ -494,7 +474,7 @@ class Sessions extends Rest_Base {
      */
 	public function mark_as_read( $request ) {
 		$args            = $request->get_params();
-		$sassion_id      = $args['id'];
+		$sassion_id      = $args['session_id'];
 		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
 		$log = [];
@@ -562,7 +542,7 @@ class Sessions extends Rest_Base {
      */
 	public function mark_as_unread( $request ) {
 		$args            = $request->get_params();
-		$sassion_id      = $args['id'];
+		$sassion_id      = $args['session_id'];
 		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
 
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );

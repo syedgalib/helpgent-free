@@ -5,6 +5,10 @@ const {
   tagEditSuccess,
   tagEditError,
 
+  setSessionBegin,
+  setSessionSuccess,
+  setSessionError,
+
   tagListModalUpdatenBegin,
   tagListModalUpdateSuccess,
   tagListModalUpdateError,
@@ -25,6 +29,16 @@ const handleTagModal = status => {
       dispatch(tagListModalUpdateSuccess(status));
     } catch (err) {
       dispatch(tagListModalUpdateError(err));
+    }
+  };
+};
+const handleSetSession = id => {
+  return async dispatch => {
+    try {
+      dispatch(setSessionBegin());
+      dispatch(setSessionSuccess(id));
+    } catch (err) {
+      dispatch(setSessionError(err));
     }
   };
 };
@@ -62,4 +76,4 @@ const handleDeleteConfirmationModal = status => {
   };
 };
 
-export { handleTagModal, handleTagEdit, handleTagFormModal, handleDeleteConfirmationModal };
+export { handleTagModal, handleSetSession, handleTagEdit, handleTagFormModal, handleDeleteConfirmationModal };

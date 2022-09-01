@@ -93,11 +93,12 @@ const tagList = [
 const initialState = {
   allTags: tagList,
   activeAuthorId: "a01",
-  activeTagId: "t01",
   tagsModal: false,
   tagFormModal: false,
   deleteConversation: false,
   modalOverlay: false,
+  activeSessionId: '',
+  activeTagId: "t01",
   loading: false,
   error: null,
 };
@@ -106,6 +107,10 @@ const {
   TAG_EDIT_BEGIN,
   TAG_EDIT_SUCCESS,
   TAG_EDIT_ERR,
+
+  SET_SESSION_BEGIN,
+  SET_SESSION_SUCCESS,
+  SET_SESSION_ERR,
 
   TAG_LIST_MODAL_UPDATE_BEGIN,
   TAG_LIST_MODAL_UPDATE_SUCCESS,
@@ -121,7 +126,7 @@ const {
 } = actions;
 
 const TagReducer = (state = initialState, action) => {
-  const { type, status, data, err } = action;
+  const { type, status, id, data, err } = action;
   switch (type) {
     case TAG_LIST_MODAL_UPDATE_BEGIN:
       return {
@@ -156,6 +161,23 @@ const TagReducer = (state = initialState, action) => {
         sLoading: false,
       };
     case TAG_EDIT_ERR:
+      return {
+        ...state,
+        error: err,
+        sLoading: false,
+      };
+    case SET_SESSION_BEGIN:
+      return {
+        ...state,
+        sLoading: true,
+      };
+    case SET_SESSION_SUCCESS:
+      return {
+        ...state,
+        activeSessionId: id,
+        sLoading: false,
+      };
+    case SET_SESSION_ERR:
       return {
         ...state,
         error: err,

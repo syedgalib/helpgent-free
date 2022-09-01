@@ -3,6 +3,10 @@ const actions = {
     TAG_LIST_MODAL_UPDATE_SUCCESS: 'TAG_LIST_MODAL_UPDATE_SUCCESS',
     TAG_LIST_MODAL_UPDATE_ERR: 'TAG_LIST_MODAL_UPDATE_ERR',
 
+    SET_SESSION_BEGIN: 'SET_SESSION_BEGIN',
+    SET_SESSION_SUCCESS: 'SET_SESSION_SUCCESS',
+    SET_SESSION_ERR: 'SET_SESSION_ERR',
+
     TAG_EDIT_BEGIN: 'TAG_EDIT_BEGIN',
     TAG_EDIT_SUCCESS: 'TAG_EDIT_SUCCESS',
     TAG_EDIT_ERR: 'TAG_EDIT_ERR',
@@ -51,6 +55,25 @@ const actions = {
     tagEditError: err => {
       return {
         type: actions.TAG_EDIT_ERR,
+        err,
+      };
+    },
+    setSessionBegin: () => {
+      return {
+        type: actions.SET_SESSION_BEGIN,
+      };
+    },
+  
+    setSessionSuccess: status => {
+      return {
+        type: actions.SET_SESSION_SUCCESS,
+        status,
+      };
+    },
+  
+    setSessionError: err => {
+      return {
+        type: actions.SET_SESSION_ERR,
         err,
       };
     },

@@ -5631,7 +5631,8 @@ var Dropdown = function Dropdown(_ref) {
       dropdownList = _ref.dropdownList,
       outerState = _ref.outerState,
       setOuterState = _ref.setOuterState,
-      sessionId = _ref.sessionId;
+      sessionId = _ref.sessionId,
+      termId = _ref.termId;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -5677,10 +5678,10 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
+    var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
       selectedItemText: event.target.text
     });
-    console.log(btnName);
 
     switch (btnName) {
       case 'mark-read':
@@ -5690,28 +5691,35 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'add-tags':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagModal)(true)); // setOuterState({
-        //     ...outerState,
-        //     sessions: []
-        // });
+        overlay.classList.add('wpwax-vm-show'); // console.log(btnName);
+
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          activeSessionId: sessionId,
+          tagListModalOpen: true // addTagModalOpen: false
+
+        })); // dispatch(handleSetSession(sessionId));
+        // dispatch(handleTagModal(true));
 
         break;
 
       case 'delete-conv':
-        var overlay = document.querySelector('.wpax-vm-overlay');
         overlay.classList.add('wpwax-vm-show');
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-          deletableSession: sessionId,
+          activeSessionId: sessionId,
           deleteModalOpen: true
         })); // dispatch(handleDeleteConfirmationModal(true));
 
         break;
 
-      case 'edit':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagEdit)(true, {}));
+      case 'term-edit':
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          activeTermId: termId,
+          tagListModalOpen: false,
+          addTagModalOpen: true
+        }));
         break;
 
-      case 'delete':
+      case 'term-delete':
         break;
 
       default:
@@ -6977,17 +6985,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
 /* harmony import */ var _store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store/sessions/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/sessions/actionCreator.js");
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
-/* harmony import */ var Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-v.svg */ "./src/assets/svg/icons/ellipsis-v.svg");
-/* harmony import */ var Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/envelope-open.svg */ "./src/assets/svg/icons/envelope-open.svg");
-/* harmony import */ var Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/filter.svg */ "./src/assets/svg/icons/filter.svg");
-/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
-/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Assets/svg/icons/rotate-right.svg */ "./src/assets/svg/icons/rotate-right.svg");
-/* harmony import */ var Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Assets/svg/icons/tag.svg */ "./src/assets/svg/icons/tag.svg");
-/* harmony import */ var Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Assets/svg/icons/trash.svg */ "./src/assets/svg/icons/trash.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
+/* harmony import */ var Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-v.svg */ "./src/assets/svg/icons/ellipsis-v.svg");
+/* harmony import */ var Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/envelope-open.svg */ "./src/assets/svg/icons/envelope-open.svg");
+/* harmony import */ var Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/filter.svg */ "./src/assets/svg/icons/filter.svg");
+/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
+/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Assets/svg/icons/rotate-right.svg */ "./src/assets/svg/icons/rotate-right.svg");
+/* harmony import */ var Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Assets/svg/icons/tag.svg */ "./src/assets/svg/icons/tag.svg");
+/* harmony import */ var Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Assets/svg/icons/trash.svg */ "./src/assets/svg/icons/trash.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6999,6 +7008,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -7039,15 +7049,15 @@ var filterDropdown = [{
   text: "Oldest"
 }];
 var moreDropdown = [{
-  icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+  icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
   name: "mark-read",
   text: "Mark as unread"
 }, {
-  icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_18__["default"],
+  icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
   name: "add-tags",
   text: "Add tags"
 }, {
-  icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
+  icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_20__["default"],
   name: "delete-conv",
   text: "Delete Conversation"
 }];
@@ -7057,7 +7067,9 @@ var metaList = [{
 }];
 
 function Sidebar() {
+  var taglistModalOpen = false;
   /* initialize Form Data */
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     // console.log(state)
     return {
@@ -7072,8 +7084,9 @@ function Sidebar() {
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     modalSession: {},
-    deletableSession: "",
+    activeSessionId: "",
     deleteModalOpen: false,
+    tagListModalOpen: false,
     successMessage: "",
     rejectMessage: "",
     loader: true
@@ -7083,8 +7096,9 @@ function Sidebar() {
       setSessionState = _useState2[1];
 
   var modalSession = sessionState.modalSession,
-      deletableSession = sessionState.deletableSession,
+      activeSessionId = sessionState.activeSessionId,
       deleteModalOpen = sessionState.deleteModalOpen,
+      tagListModalOpen = sessionState.tagListModalOpen,
       successMessage = sessionState.successMessage,
       rejectMessage = sessionState.rejectMessage,
       loader = sessionState.loader;
@@ -7098,66 +7112,67 @@ function Sidebar() {
       console.log(error);
     });
   }, []);
-  var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_20__["default"], {
+  var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user; // console.log(sessionState)
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_21__["default"], {
     className: loading ? "wpwax-vm-loder-active" : null,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
       className: "wpwax-vm-sidebar-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("h3", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("h3", {
         className: "wpwax-vm-sidebar-title",
         children: "List of Messages"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-sidebar-refresher",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+          src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
         })
       })]
-    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-success",
       children: successMessage
-    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-danger",
       children: rejectMessage
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
         className: "wpwax-vm-sidebar-search",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
           className: "wpwax-vm-form-group wpwax-vm-form-icon-left",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
             className: "wpwax-vm-input-icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-              src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_16__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+              src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("input", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("input", {
             type: "text",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-filter-search",
             placeholder: "Search"
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         dropdownText: true,
-        textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
-        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_15__["default"],
-        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+        textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__["default"],
+        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_15__["default"],
         dropdownList: filterDropdown
       })]
-    }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("span", {
+    }), loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("ul", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("ul", {
         children: sessions.map(function (item, index) {
           var users = item.users.filter(function (p) {
             return p.id !== parseInt(currentUser.ID);
@@ -7175,24 +7190,24 @@ function Sidebar() {
             multiImg = true;
           }
 
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("li", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("li", {
             className: "wpwax-vm-usermedia",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
               className: "wpwax-vm-usermedia__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 img: images,
                 multiImg: multiImg,
                 title: titleString.join(),
                 metaList: metaList
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
               className: "wpwax-vm-usermedia__right",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)("span", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("span", {
                 className: item.totaL_unread > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                 dropdownText: false,
-                dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
-                dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
+                dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+                dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
                 dropdownList: moreDropdown,
                 outerState: sessionState,
                 setOuterState: setSessionState,
@@ -7202,8 +7217,14 @@ function Sidebar() {
           }, index);
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_overview_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_overview_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_overview_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      deleteBy: deletableSession,
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_overview_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      sessionState: sessionState,
+      setSessionState: setSessionState
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_overview_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      sessionState: sessionState,
+      setSessionState: setSessionState
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)(_overview_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      deleteBy: activeSessionId,
       modalOpen: deleteModalOpen,
       outerState: sessionState,
       setOuterState: setSessionState
@@ -7253,7 +7274,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
 /* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
 /* harmony import */ var Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-h.svg */ "./src/assets/svg/icons/ellipsis-h.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Taglist_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Taglist.jsx */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Taglist.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -7293,11 +7315,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function AddTag() {
+
+var AddTag = function AddTag(props) {
+  var sessionState = props.sessionState,
+      setSessionState = props.setSessionState; // console.log(sessionState);
+
+  var activeSessionId = sessionState.activeSessionId,
+      activeTermId = sessionState.activeTermId,
+      addTagModalOpen = sessionState.addTagModalOpen;
   /* Initialize State */
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     tagInput: "",
     allTags: [],
+    assignedTags: {},
     loading: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7306,21 +7337,11 @@ function AddTag() {
 
   var tagInput = tagState.tagInput,
       allTags = tagState.allTags,
+      assignedTags = tagState.assignedTags,
       loading = tagState.loading;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  /* initialize Form Data */
-
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    return {
-      // activeAuthorId: state.tags.activeAuthorId,
-      // allTags: state.tags.allTags,
-      modalOpen: state.tags.tagFormModal
-    };
-  }),
-      modalOpen = _useSelector.modalOpen;
-
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].getAll('/messages/terms').then(function (response) {
       setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
@@ -7335,7 +7356,10 @@ function AddTag() {
 
   var handleCloseModal = function handleCloseModal(event) {
     event.preventDefault();
-    dispatch((0,_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleTagFormModal)(false));
+    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+      tagListModalOpen: true,
+      addTagModalOpen: false
+    })); // dispatch(handleTagFormModal(false));
   };
 
   var handleTagInput = function handleTagInput(e) {
@@ -7351,103 +7375,131 @@ function AddTag() {
       taxonomy: "tag",
       name: tagInput
     };
+    setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+      loading: true
+    }));
     apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].dataAdd('/messages/terms', termData).then(function (response) {
       setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+        loading: false,
         allTags: [].concat(_toConsumableArray(allTags), [response.data])
       }));
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.AddTagWrap, {
-    className: modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-      className: "wpwax-vm-modal__header",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-        className: "wpwax-vm-taglist-author",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
-          src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_7__["default"],
-          alt: "Wpwax-vm-Tag Author"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-          className: "wpwax-vm-taglist-author__name",
-          children: "Tags Adnan"
+  var handleAssignList = function handleAssignList(e) {
+    console.log(e.target.checked);
+    var id = e.target.id;
+    var tId = [];
+    tId.push(id);
+    var newlyAssigned = {
+      sessssion_id: activeSessionId,
+      term_id: tId
+    };
+    console.log(newlyAssigned); // setTagState({
+    //     ...tagState,
+    //     tagInput: e.target.value
+    // });
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.AddTagWrap, {
+      className: addTagModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "wpwax-vm-modal__header",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+          className: "wpwax-vm-taglist-author",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("img", {
+            src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_7__["default"],
+            alt: "Wpwax-vm-Tag Author"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+            className: "wpwax-vm-taglist-author__name",
+            children: "Tags Adnan"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+          href: "#",
+          className: "wpwax-vm-modal__close",
+          onClick: handleCloseModal,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+            className: "dashicons dashicons-no-alt"
+          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-        href: "#",
-        className: "wpwax-vm-modal__close",
-        onClick: handleCloseModal,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-          className: "dashicons dashicons-no-alt"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        className: "wpwax-vm-modal__body",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("form", {
+          action: "",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+            className: "wpwax-vm-addtag-form",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+              className: "wpwax-vm-form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
+                type: "text",
+                className: "wpwax-vm-form__element",
+                placeholder: "Ex. Travel",
+                value: tagInput,
+                onChange: function onChange(e) {
+                  return handleTagInput(e);
+                }
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+              className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
+              onClick: function onClick(e) {
+                return handleAddTag(e);
+              },
+              children: "Add"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "wpwax-vm-taglist-box",
+          children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+            className: "wpwax-vm-loading-spin",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "wpwax-vm-spin-dot"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "wpwax-vm-spin-dot"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "wpwax-vm-spin-dot"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+              className: "wpwax-vm-spin-dot"
+            })]
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+              className: "wpwax-vm-taglist",
+              children: allTags.map(function (item, index) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+                  className: "wpwax-vm-tag__check",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                    id: "wpwax-vm-term-".concat(item.term_id),
+                    label: item.name,
+                    isSelected: false,
+                    onChange: function onChange(e) {
+                      return handleAssignList(e);
+                    }
+                  })
+                }, index);
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+              href: "#",
+              className: "wpwax-vm-btnlink",
+              children: "Add"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+              href: "#",
+              className: "wpwax-vm-btnlink wpwax-vm-btn-danger",
+              children: "Remove"
+            })]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        className: "wpwax-vm-modal__footer",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+          href: "#",
+          className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white",
+          onClick: handleCloseModal,
+          children: "Cancel"
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-      className: "wpwax-vm-modal__body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("form", {
-        action: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "wpwax-vm-addtag-form",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "wpwax-vm-form-group",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
-              type: "text",
-              className: "wpwax-vm-form__element",
-              placeholder: "Ex. Travel",
-              value: tagInput,
-              onChange: function onChange(e) {
-                return handleTagInput(e);
-              }
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
-            className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
-            onClick: function onClick(e) {
-              return handleAddTag(e);
-            },
-            children: "Add"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "wpwax-vm-taglist-box",
-        children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
-          className: "wpwax-vm-loading-spin",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-            className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-            className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-            className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-            className: "wpwax-vm-spin-dot"
-          })]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-            className: "wpwax-vm-taglist",
-            children: allTags.map(function (item, index) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                className: "wpwax-vm-tag__check",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  id: "wpwax-vm".concat(item.term_id),
-                  label: item.name,
-                  isSelected: false
-                })
-              }, index);
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-btnlink",
-            children: "Save"
-          })]
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-      className: "wpwax-vm-modal__footer",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-        href: "#",
-        className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white",
-        onClick: handleCloseModal,
-        children: "Cancel"
-      })
-    })]
+    })
   });
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (AddTag);
 
@@ -7653,7 +7705,7 @@ var _templateObject, _templateObject2, _templateObject3;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            margin-left: 12px;\n            color: var(--color-dark);\n        }\n    }\n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        background-color: var(--color-bg-general);\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                border: 0 none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        margin-top: 28px;\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown.wpwax-vm-dropdown-fixed{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
+var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            margin-left: 12px;\n            color: var(--color-dark);\n        }\n    }\n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        background-color: var(--color-bg-general);\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                border: 0 none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        margin-top: 28px;\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
 var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        padding-top: 10px;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                border: 0 none;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 0;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n                margin-left: 5px;\n            }\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
 
@@ -7668,14 +7720,33 @@ var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _AddTag_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddTag.jsx */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/AddTag.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
 /* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
 /* harmony import */ var Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-h.svg */ "./src/assets/svg/icons/ellipsis-h.svg");
 /* harmony import */ var _store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../store/tags/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/tags/actionCreator.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -7688,28 +7759,60 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var moreDropdown = [{
-  name: "edit",
+  name: "term-edit",
   text: "Edit"
 }, {
-  name: "delete",
+  name: "term-delete",
   text: "Delete"
 }];
 
-function Taglist() {
+var Taglist = function Taglist(props) {
+  var sessionState = props.sessionState,
+      setSessionState = props.setSessionState;
+  var activeSessionId = sessionState.activeSessionId,
+      tagListModalOpen = sessionState.tagListModalOpen;
   /* Dispasth is used for passing the actions to redux store  */
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
+
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   /* initialize Form Data */
 
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
-      activeAuthorId: state.tags.activeAuthorId,
-      allTags: state.tags.allTags,
-      modalOpen: state.tags.tagsModal
+      // activeSession: state.tags.activeSessionId,
+      // modalOpen: state.tags.tagsModal,
+      sessions: state.sessions.sessions
     };
   }),
       allTags = _useSelector.allTags,
-      activeAuthorId = _useSelector.activeAuthorId,
-      modalOpen = _useSelector.modalOpen;
+      modalOpen = _useSelector.modalOpen,
+      sessions = _useSelector.sessions; // setSessionState({
+  //     ...sessionState,
+  // });
+
+  /* Initialize State */
+
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    editableTerm: "",
+    // allTagModalOpen: allTagModal,
+    addTagModalOpen: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      tagState = _useState2[0],
+      setTagState = _useState2[1];
+
+  var addTagModalOpen = tagState.addTagModalOpen,
+      allTagModalOpen = tagState.allTagModalOpen;
+  var currentSession = [];
+  var allTerms = [];
+
+  if (sessions.length !== 0) {
+    currentSession = sessions.filter(function (singleSession) {
+      return singleSession.session_id === activeSessionId;
+    }); // console.log(currentSession)
+
+    currentSession.length !== 0 ? allTerms = currentSession[0].terms : null;
+  }
   /* Handle Modal Close */
 
 
@@ -7722,24 +7825,66 @@ function Taglist() {
 
   var handleAddTagModal = function handleAddTagModal(event) {
     event.preventDefault();
-    dispatch((0,_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleTagFormModal)(true));
+    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+      tagListModalOpen: false,
+      addTagModalOpen: true
+    })); // dispatch(handleTagFormModal(true));
   };
 
-  var userTag = allTags.filter(function (tag) {
-    return tag.authorId === activeAuthorId;
-  });
+  console.log(sessions);
+  var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+  var users = [];
+
+  if (currentSession.length !== 0) {
+    users = currentSession[0].users.filter(function (p) {
+      return p.id !== parseInt(currentUser.ID);
+    });
+  }
+
+  var images = [];
+  var titleString = [];
+  var multiImg = false;
+
+  for (var i = 0; i < users.length; i++) {
+    images.push(users[i].avater);
+    titleString.push(users[i].name);
+  }
+
+  if (images.length > 1) {
+    multiImg = true;
+  }
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.TaglistWrap, {
-    className: modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
+    className: tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-modal__header",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-taglist-author",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
-          src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__["default"],
-          alt: "Wpwax-vm-Tag Author"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "wpwax-vm-taglist-author__img",
+          children: [images.map(function (src, index) {
+            if (index === 0) {
+              if (src !== '') {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                  src: src,
+                  alt: ""
+                }, index);
+              } else {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+                  src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__["default"],
+                  alt: ""
+                }, index);
+              }
+            }
+          }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-more-img",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(ReactSVG, {
+              src: userIcon
+            })
+          }) : null]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
           className: "wpwax-vm-taglist-author__name",
-          children: "Tags Adnan"
+          children: ["Tags ", titleString]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "#",
@@ -7762,20 +7907,21 @@ function Taglist() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpawax-vm-taglist-inner",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
-          children: userTag.map(function (tag) {
-            /*#__PURE__*/
-            (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("li", {
+          children: allTerms.map(function (term, index) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("li", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                 className: "wpwax-vm-taglist-label",
-                children: tag.label
+                children: term.name
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 dropdownText: false,
                 dropdownIconOpen: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
                 dropdownIconClose: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
                 dropdownList: moreDropdown,
-                dropdownWidth: "fixed"
+                outerState: sessionState,
+                setOuterState: setSessionState,
+                termId: term.term_id
               })]
-            });
+            }, index);
           })
         })
       })]
@@ -7796,9 +7942,9 @@ function Taglist() {
         className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
         children: "Done"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AddTag_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+    })]
   });
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Taglist);
 
@@ -8428,6 +8574,7 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "handleDeleteConfirmationModal": function() { return /* binding */ handleDeleteConfirmationModal; },
+/* harmony export */   "handleSetSession": function() { return /* binding */ handleSetSession; },
 /* harmony export */   "handleTagEdit": function() { return /* binding */ handleTagEdit; },
 /* harmony export */   "handleTagFormModal": function() { return /* binding */ handleTagFormModal; },
 /* harmony export */   "handleTagModal": function() { return /* binding */ handleTagModal; }
@@ -8445,6 +8592,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var tagEditBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditBegin,
     tagEditSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditSuccess,
     tagEditError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditError,
+    setSessionBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionBegin,
+    setSessionSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionSuccess,
+    setSessionError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionError,
     tagListModalUpdatenBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdatenBegin,
     tagListModalUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdateSuccess,
     tagListModalUpdateError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdateError,
@@ -8483,7 +8633,7 @@ var handleTagModal = function handleTagModal(status) {
   }();
 };
 
-var handleTagEdit = function handleTagEdit(status, data) {
+var handleSetSession = function handleSetSession(id) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dispatch) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -8491,10 +8641,10 @@ var handleTagEdit = function handleTagEdit(status, data) {
           switch (_context2.prev = _context2.next) {
             case 0:
               try {
-                dispatch(tagEditBegin());
-                dispatch(tagEditSuccess(status));
+                dispatch(setSessionBegin());
+                dispatch(setSessionSuccess(id));
               } catch (err) {
-                dispatch(tagEditError(err));
+                dispatch(setSessionError(err));
               }
 
             case 1:
@@ -8511,7 +8661,7 @@ var handleTagEdit = function handleTagEdit(status, data) {
   }();
 };
 
-var handleTagFormModal = function handleTagFormModal(status) {
+var handleTagEdit = function handleTagEdit(status, data) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -8519,10 +8669,10 @@ var handleTagFormModal = function handleTagFormModal(status) {
           switch (_context3.prev = _context3.next) {
             case 0:
               try {
-                dispatch(tagFormModalUpdatenBegin());
-                dispatch(tagFormModalUpdateSuccess(status));
+                dispatch(tagEditBegin());
+                dispatch(tagEditSuccess(status));
               } catch (err) {
-                dispatch(tagFormModalUpdateError(err));
+                dispatch(tagEditError(err));
               }
 
             case 1:
@@ -8539,7 +8689,7 @@ var handleTagFormModal = function handleTagFormModal(status) {
   }();
 };
 
-var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(status) {
+var handleTagFormModal = function handleTagFormModal(status) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -8547,10 +8697,10 @@ var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(statu
           switch (_context4.prev = _context4.next) {
             case 0:
               try {
-                dispatch(deleteConfirmationBegin());
-                dispatch(deleteConfirmationSuccess(status));
+                dispatch(tagFormModalUpdatenBegin());
+                dispatch(tagFormModalUpdateSuccess(status));
               } catch (err) {
-                dispatch(deleteConfirmationError(err));
+                dispatch(tagFormModalUpdateError(err));
               }
 
             case 1:
@@ -8563,6 +8713,34 @@ var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(statu
 
     return function (_x4) {
       return _ref4.apply(this, arguments);
+    };
+  }();
+};
+
+var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(status) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              try {
+                dispatch(deleteConfirmationBegin());
+                dispatch(deleteConfirmationSuccess(status));
+              } catch (err) {
+                dispatch(deleteConfirmationError(err));
+              }
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 };
@@ -8583,6 +8761,9 @@ var actions = {
   TAG_LIST_MODAL_UPDATE_BEGIN: 'TAG_LIST_MODAL_UPDATE_BEGIN',
   TAG_LIST_MODAL_UPDATE_SUCCESS: 'TAG_LIST_MODAL_UPDATE_SUCCESS',
   TAG_LIST_MODAL_UPDATE_ERR: 'TAG_LIST_MODAL_UPDATE_ERR',
+  SET_SESSION_BEGIN: 'SET_SESSION_BEGIN',
+  SET_SESSION_SUCCESS: 'SET_SESSION_SUCCESS',
+  SET_SESSION_ERR: 'SET_SESSION_ERR',
   TAG_EDIT_BEGIN: 'TAG_EDIT_BEGIN',
   TAG_EDIT_SUCCESS: 'TAG_EDIT_SUCCESS',
   TAG_EDIT_ERR: 'TAG_EDIT_ERR',
@@ -8623,6 +8804,23 @@ var actions = {
   tagEditError: function tagEditError(err) {
     return {
       type: actions.TAG_EDIT_ERR,
+      err: err
+    };
+  },
+  setSessionBegin: function setSessionBegin() {
+    return {
+      type: actions.SET_SESSION_BEGIN
+    };
+  },
+  setSessionSuccess: function setSessionSuccess(status) {
+    return {
+      type: actions.SET_SESSION_SUCCESS,
+      status: status
+    };
+  },
+  setSessionError: function setSessionError(err) {
+    return {
+      type: actions.SET_SESSION_ERR,
       err: err
     };
   },
@@ -8749,17 +8947,21 @@ var tagList = [{
 var initialState = {
   allTags: tagList,
   activeAuthorId: "a01",
-  activeTagId: "t01",
   tagsModal: false,
   tagFormModal: false,
   deleteConversation: false,
   modalOverlay: false,
+  activeSessionId: '',
+  activeTagId: "t01",
   loading: false,
   error: null
 };
 var TAG_EDIT_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_EDIT_BEGIN,
     TAG_EDIT_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_EDIT_SUCCESS,
     TAG_EDIT_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_EDIT_ERR,
+    SET_SESSION_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_SESSION_BEGIN,
+    SET_SESSION_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_SESSION_SUCCESS,
+    SET_SESSION_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SET_SESSION_ERR,
     TAG_LIST_MODAL_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_LIST_MODAL_UPDATE_BEGIN,
     TAG_LIST_MODAL_UPDATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_LIST_MODAL_UPDATE_SUCCESS,
     TAG_LIST_MODAL_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].TAG_LIST_MODAL_UPDATE_ERR,
@@ -8775,6 +8977,7 @@ var TagReducer = function TagReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
   var type = action.type,
       status = action.status,
+      id = action.id,
       data = action.data,
       err = action.err;
 
@@ -8812,6 +9015,23 @@ var TagReducer = function TagReducer() {
       });
 
     case TAG_EDIT_ERR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        error: err,
+        sLoading: false
+      });
+
+    case SET_SESSION_BEGIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        sLoading: true
+      });
+
+    case SET_SESSION_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        activeSessionId: id,
+        sLoading: false
+      });
+
+    case SET_SESSION_ERR:
       return _objectSpread(_objectSpread({}, state), {}, {
         error: err,
         sLoading: false

@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import AddTag from "./AddTag.jsx";
 import { TaglistWrap } from "./Style";
 import userImg from "Assets/img/chatdashboard/user.png";
 import Dropdown from "Components/formFields/Dropdown.jsx";
@@ -10,28 +10,52 @@ import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCr
 /* Dropdown Array Item Declaration */
 const moreDropdown = [
     {
-        name: "edit",
+        name: "term-edit",
         text: "Edit"
     },
     {
-        name: "delete",
+        name: "term-delete",
         text: "Delete"
     }
 ];
 
-function Taglist() {
-
+const Taglist= props =>  {
+    
+    const { sessionState, setSessionState } = props;
+    const { activeSessionId, tagListModalOpen } = sessionState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { allTags, activeAuthorId, modalOpen } = useSelector(state => {
+    const { allTags, modalOpen, sessions } = useSelector(state => {
         return {
-            activeAuthorId: state.tags.activeAuthorId,
-            allTags: state.tags.allTags,
-            modalOpen: state.tags.tagsModal
+            // activeSession: state.tags.activeSessionId,
+            // modalOpen: state.tags.tagsModal,
+            sessions: state.sessions.sessions
         };
     });
+
+    // setSessionState({
+    //     ...sessionState,
+        
+    // });
+
+    /* Initialize State */
+	const [tagState, setTagState] = useState({
+        editableTerm: "",
+        // allTagModalOpen: allTagModal,
+		addTagModalOpen: false,
+	});
+
+    const { addTagModalOpen, allTagModalOpen } = tagState;
+
+    let currentSession = []
+    let allTerms = [];
+    if(sessions.length !== 0){
+        currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
+        // console.log(currentSession)
+        currentSession.length !== 0 ? allTerms = currentSession[0].terms : null;
+    }
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -42,17 +66,56 @@ function Taglist() {
     /* Handle Add Tag */
     const handleAddTagModal = (event) => {
         event.preventDefault();
-        dispatch(handleTagFormModal(true));
+        setSessionState({
+            ...sessionState,
+            tagListModalOpen: false,
+            addTagModalOpen: true
+        });
+        // dispatch(handleTagFormModal(true));
+    }
+    console.log(sessions);
+    const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+    let users = [];
+    if(currentSession.length !== 0){
+        users = currentSession[0].users.filter(p => p.id !== parseInt(currentUser.ID));
+    }
+    let images = [];
+    let titleString = [];
+    let multiImg = false;
+    for (let i = 0; i < users.length; i++) {
+        images.push(users[i].avater);
+        titleString.push(users[i].name)
     }
 
-    const userTag = allTags.filter(tag => tag.authorId === activeAuthorId);
-
+    if(images.length > 1){
+        multiImg = true;
+    }
     return (
-        <TaglistWrap className={modalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
+        <TaglistWrap className={tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
             <div className="wpwax-vm-modal__header">
                 <div className="wpwax-vm-taglist-author">
-                    <img src={userImg} alt="Wpwax-vm-Tag Author" />
-                    <span className="wpwax-vm-taglist-author__name">Tags Adnan</span>
+                    <div className="wpwax-vm-taglist-author__img">
+                        {
+                            images.map((src, index) => {
+                                if(index === 0){
+                                    if (src !== '') {
+                                        return (
+                                            <img src={src} alt="" key={index} />
+                                        )
+                                    } else {
+                                        return (
+                                            <img src={userImg} alt="" key={index} />
+                                        )
+                                    }
+                                }
+                                
+                            })
+                        }
+                        {
+                            multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>:null
+                        }
+                    </div>
+                    <span className="wpwax-vm-taglist-author__name">Tags {titleString}</span>
                 </div>
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
@@ -65,11 +128,13 @@ function Taglist() {
                 <div className="wpawax-vm-taglist-inner">
                     <ul>
                         {
-                            userTag.map(tag => {
-                                <li>
-                                    <span className="wpwax-vm-taglist-label">{tag.label}</span>
-                                    <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} dropdownWidth="fixed" />
-                                </li>
+                            allTerms.map( ( term,index ) => {
+                                return(
+                                    <li key={index}>
+                                        <span className="wpwax-vm-taglist-label">{term.name}</span>
+                                        <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} termId={term.term_id}/>
+                                    </li>
+                                )
                             })
                         }
                     </ul>
@@ -83,8 +148,6 @@ function Taglist() {
                 </a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Done</a>
             </div>
-
-            <AddTag />
         </TaglistWrap>
     );
 }

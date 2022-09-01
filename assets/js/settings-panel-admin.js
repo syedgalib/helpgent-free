@@ -3001,7 +3001,8 @@ var Dropdown = function Dropdown(_ref) {
       dropdownList = _ref.dropdownList,
       outerState = _ref.outerState,
       setOuterState = _ref.setOuterState,
-      sessionId = _ref.sessionId;
+      sessionId = _ref.sessionId,
+      termId = _ref.termId;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -3047,10 +3048,10 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
+    var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
       selectedItemText: event.target.text
     });
-    console.log(btnName);
 
     switch (btnName) {
       case 'mark-read':
@@ -3060,28 +3061,35 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'add-tags':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagModal)(true)); // setOuterState({
-        //     ...outerState,
-        //     sessions: []
-        // });
+        overlay.classList.add('wpwax-vm-show'); // console.log(btnName);
+
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          activeSessionId: sessionId,
+          tagListModalOpen: true // addTagModalOpen: false
+
+        })); // dispatch(handleSetSession(sessionId));
+        // dispatch(handleTagModal(true));
 
         break;
 
       case 'delete-conv':
-        var overlay = document.querySelector('.wpax-vm-overlay');
         overlay.classList.add('wpwax-vm-show');
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-          deletableSession: sessionId,
+          activeSessionId: sessionId,
           deleteModalOpen: true
         })); // dispatch(handleDeleteConfirmationModal(true));
 
         break;
 
-      case 'edit':
-        dispatch((0,MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleTagEdit)(true, {}));
+      case 'term-edit':
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          activeTermId: termId,
+          tagListModalOpen: false,
+          addTagModalOpen: true
+        }));
         break;
 
-      case 'delete':
+      case 'term-delete':
         break;
 
       default:
@@ -3222,6 +3230,7 @@ var Radio = function Radio(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "handleDeleteConfirmationModal": function() { return /* binding */ handleDeleteConfirmationModal; },
+/* harmony export */   "handleSetSession": function() { return /* binding */ handleSetSession; },
 /* harmony export */   "handleTagEdit": function() { return /* binding */ handleTagEdit; },
 /* harmony export */   "handleTagFormModal": function() { return /* binding */ handleTagFormModal; },
 /* harmony export */   "handleTagModal": function() { return /* binding */ handleTagModal; }
@@ -3239,6 +3248,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var tagEditBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditBegin,
     tagEditSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditSuccess,
     tagEditError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagEditError,
+    setSessionBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionBegin,
+    setSessionSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionSuccess,
+    setSessionError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSessionError,
     tagListModalUpdatenBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdatenBegin,
     tagListModalUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdateSuccess,
     tagListModalUpdateError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].tagListModalUpdateError,
@@ -3277,7 +3289,7 @@ var handleTagModal = function handleTagModal(status) {
   }();
 };
 
-var handleTagEdit = function handleTagEdit(status, data) {
+var handleSetSession = function handleSetSession(id) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(dispatch) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -3285,10 +3297,10 @@ var handleTagEdit = function handleTagEdit(status, data) {
           switch (_context2.prev = _context2.next) {
             case 0:
               try {
-                dispatch(tagEditBegin());
-                dispatch(tagEditSuccess(status));
+                dispatch(setSessionBegin());
+                dispatch(setSessionSuccess(id));
               } catch (err) {
-                dispatch(tagEditError(err));
+                dispatch(setSessionError(err));
               }
 
             case 1:
@@ -3305,7 +3317,7 @@ var handleTagEdit = function handleTagEdit(status, data) {
   }();
 };
 
-var handleTagFormModal = function handleTagFormModal(status) {
+var handleTagEdit = function handleTagEdit(status, data) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(dispatch) {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
@@ -3313,10 +3325,10 @@ var handleTagFormModal = function handleTagFormModal(status) {
           switch (_context3.prev = _context3.next) {
             case 0:
               try {
-                dispatch(tagFormModalUpdatenBegin());
-                dispatch(tagFormModalUpdateSuccess(status));
+                dispatch(tagEditBegin());
+                dispatch(tagEditSuccess(status));
               } catch (err) {
-                dispatch(tagFormModalUpdateError(err));
+                dispatch(tagEditError(err));
               }
 
             case 1:
@@ -3333,7 +3345,7 @@ var handleTagFormModal = function handleTagFormModal(status) {
   }();
 };
 
-var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(status) {
+var handleTagFormModal = function handleTagFormModal(status) {
   return /*#__PURE__*/function () {
     var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(dispatch) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -3341,10 +3353,10 @@ var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(statu
           switch (_context4.prev = _context4.next) {
             case 0:
               try {
-                dispatch(deleteConfirmationBegin());
-                dispatch(deleteConfirmationSuccess(status));
+                dispatch(tagFormModalUpdatenBegin());
+                dispatch(tagFormModalUpdateSuccess(status));
               } catch (err) {
-                dispatch(deleteConfirmationError(err));
+                dispatch(tagFormModalUpdateError(err));
               }
 
             case 1:
@@ -3357,6 +3369,34 @@ var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(statu
 
     return function (_x4) {
       return _ref4.apply(this, arguments);
+    };
+  }();
+};
+
+var handleDeleteConfirmationModal = function handleDeleteConfirmationModal(status) {
+  return /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              try {
+                dispatch(deleteConfirmationBegin());
+                dispatch(deleteConfirmationSuccess(status));
+              } catch (err) {
+                dispatch(deleteConfirmationError(err));
+              }
+
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function (_x5) {
+      return _ref5.apply(this, arguments);
     };
   }();
 };
@@ -3377,6 +3417,9 @@ var actions = {
   TAG_LIST_MODAL_UPDATE_BEGIN: 'TAG_LIST_MODAL_UPDATE_BEGIN',
   TAG_LIST_MODAL_UPDATE_SUCCESS: 'TAG_LIST_MODAL_UPDATE_SUCCESS',
   TAG_LIST_MODAL_UPDATE_ERR: 'TAG_LIST_MODAL_UPDATE_ERR',
+  SET_SESSION_BEGIN: 'SET_SESSION_BEGIN',
+  SET_SESSION_SUCCESS: 'SET_SESSION_SUCCESS',
+  SET_SESSION_ERR: 'SET_SESSION_ERR',
   TAG_EDIT_BEGIN: 'TAG_EDIT_BEGIN',
   TAG_EDIT_SUCCESS: 'TAG_EDIT_SUCCESS',
   TAG_EDIT_ERR: 'TAG_EDIT_ERR',
@@ -3417,6 +3460,23 @@ var actions = {
   tagEditError: function tagEditError(err) {
     return {
       type: actions.TAG_EDIT_ERR,
+      err: err
+    };
+  },
+  setSessionBegin: function setSessionBegin() {
+    return {
+      type: actions.SET_SESSION_BEGIN
+    };
+  },
+  setSessionSuccess: function setSessionSuccess(status) {
+    return {
+      type: actions.SET_SESSION_SUCCESS,
+      status: status
+    };
+  },
+  setSessionError: function setSessionError(err) {
+    return {
+      type: actions.SET_SESSION_ERR,
       err: err
     };
   },

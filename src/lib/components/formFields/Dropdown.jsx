@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
-import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
+import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, sessionId }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, sessionId, termId }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -43,10 +43,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
+        const overlay = document.querySelector('.wpax-vm-overlay');
         setSelectedState({
             selectedItemText: event.target.text
         });
-        console.log(btnName);
+
         switch (btnName) {
             case 'mark-read':
                 setOuterState({
@@ -55,26 +56,35 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 });
                 break;
             case 'add-tags':
-				dispatch(handleTagModal(true));
-                // setOuterState({
-                //     ...outerState,
-                //     sessions: []
-                // });
+                overlay.classList.add('wpwax-vm-show');
+                // console.log(btnName);
+                setOuterState({
+                    ...outerState,
+                    activeSessionId: sessionId,
+                    tagListModalOpen: true,
+                    // addTagModalOpen: false
+                });
+                // dispatch(handleSetSession(sessionId));
+                // dispatch(handleTagModal(true));
                 break;
             case 'delete-conv':
-                const overlay = document.querySelector('.wpax-vm-overlay');
                 overlay.classList.add('wpwax-vm-show');
                 setOuterState({
                     ...outerState,
-                    deletableSession: sessionId,
+                    activeSessionId: sessionId,
                     deleteModalOpen: true
                 });
                 // dispatch(handleDeleteConfirmationModal(true));
                 break;
-            case 'edit':
-                dispatch(handleTagEdit(true, {}));
+            case 'term-edit':
+                setOuterState({
+                    ...outerState,
+                    activeTermId: termId,
+                    tagListModalOpen: false,
+                    addTagModalOpen: true
+                });
                 break;
-            case 'delete':
+            case 'term-delete':
                 break;
             default:
                 break;

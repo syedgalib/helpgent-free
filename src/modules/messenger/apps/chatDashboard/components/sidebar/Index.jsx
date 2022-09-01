@@ -9,6 +9,7 @@ import DeleteConfirm from "./overview/DeleteConfirm.jsx";
 import apiService from 'apiService/Service.js';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
 import userImg from "Assets/img/chatdashboard/user.png";
+import userIcon from "Assets/svg/icons/users.svg";
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
 import filterIcon from 'Assets/svg/icons/filter.svg';
@@ -66,6 +67,7 @@ const metaList = [
 ];
 
 function Sidebar() {
+	const taglistModalOpen = false;
 	 /* initialize Form Data */
 	 const { sessions, loading } = useSelector(state => {
 		// console.log(state)
@@ -80,14 +82,15 @@ function Sidebar() {
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
 		modalSession: {},
-		deletableSession: "",
+		activeSessionId: "",
 		deleteModalOpen: false,
+		tagListModalOpen: false,
 		successMessage: "",
 		rejectMessage: "",
 		loader: true
 	});
 
-	const { modalSession, deletableSession, deleteModalOpen, successMessage, rejectMessage, loader } = sessionState;
+	const { modalSession, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, loader } = sessionState;
 
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -101,7 +104,9 @@ function Sidebar() {
 			})
 	}, []);
 
-	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user
+	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+
+	// console.log(sessionState)
 	return (
 		<SidebarWrap className={loading ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -169,12 +174,13 @@ function Sidebar() {
 						</ul>
 					</div>
 			}
+			{/* <ModalContext.Provider value={value}> */}
+				<Taglist sessionState={sessionState} setSessionState={setSessionState} />
+			{/* </ModalContext.Provider> */}
 
-			<Taglist />
+			<AddTag sessionState={sessionState} setSessionState={setSessionState} />
 
-			<AddTag />
-
-			<DeleteConfirm deleteBy={deletableSession} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
+			<DeleteConfirm deleteBy={activeSessionId} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
 		</SidebarWrap>
 	);
 }

@@ -21,6 +21,8 @@ const submitForm = ( formData ) => {
             dispatch( submitFormSuccess( result ) );
         } catch (error) {
             dispatch( submitFormError( error.response.data.message ) );
+
+			console.log( { error } );
         }
     }
 };

@@ -97,7 +97,7 @@ function Sending() {
         }
 
         dispatch(changeChatScreen(screenTypes.SUCCESS));
-    }, [messengerForm.initSubmission]);
+    }, [messengerForm.status]);
 
     return (
         <div className='wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>

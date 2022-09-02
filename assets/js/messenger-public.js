@@ -6688,6 +6688,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
   var textRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
@@ -7330,7 +7331,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/pause.svg */ "./src/assets/svg/icons/pause.svg");
 /* harmony import */ var Assets_img_builder_bg_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/img/builder/bg.png */ "./src/assets/img/builder/bg.png");
 /* harmony import */ var _store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/forms/attachment/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/actionCreator.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/forms/messenger/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/actionCreator.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/modules/messenger/apps/chatbox/store/chatbox/screenTypes.js");
+/* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -7370,16 +7375,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
 function Record() {
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
-      formData: state.attachmentForm.formData
+      attachmentForm: state.attachmentForm
     };
   }),
-      formData = _useSelector.formData;
+      attachmentForm = _useSelector.attachmentForm;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     permissionDenied: false
@@ -7422,22 +7431,24 @@ function Record() {
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
-    console.log('@Init State');
     check_if_need_permission().then(function (is_needed_permission) {
-      console.log('Init State::', {
-        is_needed_permission: is_needed_permission
-      });
-
       if (is_needed_permission) {
         setCurrentStage(stages.PERMISSION);
       }
     });
-  }, []);
+  }, []); // On Upload Complete
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log('formDataUpdated', {
-      formData: formData
-    });
-  }, [formData]); // check_if_need_permission
+    if (true === attachmentForm.status) {
+      // Update Messenger Form Data
+      dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_9__.updateFormData)({
+        message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_12__["default"].AUDIO,
+        attachment_id: attachmentForm.uploadedAttachment.id
+      })); // Switch to Contact form
+
+      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_10__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].CONTACT_FORM));
+    }
+  }, [attachmentForm.status]); // check_if_need_permission
 
   function check_if_need_permission() {
     return _check_if_need_permission.apply(this, arguments);
@@ -7577,10 +7588,6 @@ function Record() {
   function stopRecording() {
     window.wpwaxRecorder.stopRecording(function (url) {
       var blob = window.wpwaxRecorder.getBlob();
-      blob.name = Math.floor(new Date().getTime() / 1000) + '.wav';
-      console.log('chk-123', {
-        blob: blob
-      });
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setIsRecording(false);
@@ -7603,7 +7610,6 @@ function Record() {
   }
 
   function sendAudio() {
-    console.log('sendAudio');
     setCurrentStage(stages.UPLOADING);
     var formData = {
       file: recordedAudioBlob
@@ -7619,68 +7625,65 @@ function Record() {
   }
 
   var permissionDenied = state.permissionDenied;
-  console.log('chk-1', {
-    currentStage: currentStage
-  });
 
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record audio, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_4__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
         className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
           className: "wpwax-vm-sec",
           children: "00"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
           className: "wpwax-vm-seperator",
           children: ":"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
           className: "wpwax-vm-min",
           children: "00"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "wpwax-vm-record-staging__bottom",
-        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("p", {
-          children: ["Tap to", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("p", {
+          children: ["Tap to", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             className: "wpwax-vm-highlighted",
             children: "Start"
           }), ' ', "recording!"]
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: !isRecording ? 'wpwax-vm-record-staging__bottom--action' : 'wpwax-vm-record-staging__bottom--action wpwax-vm-record-start',
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick() {
               return startRecording();
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-pause-btn",
             onClick: function onClick() {
               return stopRecording();
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-close",
             children: "x"
@@ -7689,10 +7692,10 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("audio", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("audio", {
           ref: audioRef,
           src: recordedAudioURL,
           onPlay: function onPlay() {
@@ -7705,35 +7708,35 @@ function Record() {
             return setIsPlayingPreview(false);
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "wpwax-vm-record-ready__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
           style: {
             backgroundImage: "url(\"".concat(Assets_img_builder_bg_png__WEBPACK_IMPORTED_MODULE_7__["default"], "\")")
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           onClick: togglePlayPauseAudio,
           className: "wpwax-vm-recorded-play",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
             src: isPlayingPreview ? Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_6__["default"] : Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "wpwax-vm-record-ready__bottom",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
           children: "Ready to Send ?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: "wpwax-vm-record-ready__bottom--actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               sendAudio(e);
             },
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary",
             children: "Yes"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               prepareRecordAgain(e);
@@ -7745,21 +7748,21 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
             className: "wpwax-vm-record-send-progress__bar",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
               children: "Uploading"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
               children: "We\u2019re currently uploading your audio"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-text-danger",
               children: "Please don\u2019t leave this page!"
             })]
@@ -8427,7 +8430,7 @@ var submitForm = function submitForm(formData) {
                 result: result,
                 formData: formData
               });
-              dispatch(submitFormSuccess(result));
+              dispatch(submitFormSuccess(result.data));
               _context.next = 15;
               break;
 
@@ -8588,6 +8591,7 @@ var UPDATE_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_F
     SUBMIT_FORM_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_SUCCESS,
     SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR;
 var initialState = {
+  uploadedAttachment: null,
   formData: {},
   isSubmitting: false,
   status: null
@@ -8613,7 +8617,11 @@ var reducer = function reducer() {
       });
 
     case SUBMIT_FORM_SUCCESS:
+      console.log('SUBMIT_FORM_SUCCESS', {
+        payload: payload
+      });
       return _objectSpread(_objectSpread({}, state), {}, {
+        uploadedAttachment: payload,
         isSubmitting: false,
         status: true
       });

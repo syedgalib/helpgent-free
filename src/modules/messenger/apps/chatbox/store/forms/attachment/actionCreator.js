@@ -20,7 +20,7 @@ const submitForm = ( formData ) => {
 
 			console.log( { result, formData } );
 
-            dispatch( submitFormSuccess( result ) );
+            dispatch( submitFormSuccess( result.data ) );
         } catch (error) {
             console.log( { error: error.response.data } );
             dispatch( submitFormError( error.response.data ) );

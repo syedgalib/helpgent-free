@@ -9,6 +9,7 @@ const {
 } = actions;
 
 const initialState = {
+    uploadedAttachment: null,
     formData: {},
 	isSubmitting: false,
 	status: null,
@@ -31,8 +32,12 @@ const reducer = ( state = initialState, action ) => {
                 status: null,
             };
         case SUBMIT_FORM_SUCCESS:
+
+			console.log( 'SUBMIT_FORM_SUCCESS', { payload } );
+
             return {
                 ...state,
+				uploadedAttachment: payload,
                 isSubmitting: false,
                 status: true,
             };

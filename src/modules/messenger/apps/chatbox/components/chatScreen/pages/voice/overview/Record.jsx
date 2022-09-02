@@ -9,17 +9,22 @@ import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
 import {
-    updateFormData,
-    submitForm,
+    updateFormData as updateAttachmentFormData,
+    submitForm as submitAttachmentForm,
 } from '../../../../../store/forms/attachment/actionCreator';
+
+import { updateFormData as updateMessengerFormData } from '../../../../../store/forms/messenger/actionCreator';
+import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
+import screenTypes from '../../../../../store/chatbox/screenTypes';
+import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 
 function Record() {
     const audioRef = useRef();
     const dispatch = useDispatch();
 
-    const { formData } = useSelector((state) => {
+    const { attachmentForm } = useSelector((state) => {
         return {
-            formData: state.attachmentForm.formData,
+            attachmentForm: state.attachmentForm,
         };
     });
 
@@ -42,21 +47,30 @@ function Record() {
 
     // Init State
     useState(function () {
-        console.log('@Init State');
-
         check_if_need_permission().then(function (is_needed_permission) {
-            console.log('Init State::', { is_needed_permission });
             if (is_needed_permission) {
                 setCurrentStage(stages.PERMISSION);
             }
         });
     }, []);
 
+    // On Upload Complete
     useEffect(
         function () {
-            console.log('formDataUpdated', { formData });
+            if (true === attachmentForm.status) {
+                // Update Messenger Form Data
+                dispatch(
+                    updateMessengerFormData({
+                        message_type: messageTypes.AUDIO,
+                        attachment_id: attachmentForm.uploadedAttachment.id,
+                    })
+                );
+
+                // Switch to Contact form
+                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            }
         },
-        [formData]
+        [attachmentForm.status]
     );
 
     // check_if_need_permission
@@ -127,9 +141,6 @@ function Record() {
     function stopRecording() {
         window.wpwaxRecorder.stopRecording(function (url) {
             let blob = window.wpwaxRecorder.getBlob();
-            blob.name = Math.floor(new Date().getTime() / 1000) + '.wav';
-
-            console.log('chk-123', { blob });
 
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
@@ -152,15 +163,14 @@ function Record() {
     }
 
     function sendAudio() {
-        console.log('sendAudio');
         setCurrentStage(stages.UPLOADING);
 
         const formData = {
             file: recordedAudioBlob,
         };
 
-        dispatch(updateFormData(formData));
-        dispatch(submitForm(formData));
+        dispatch(updateAttachmentFormData(formData));
+        dispatch(submitAttachmentForm(formData));
     }
 
     function prepareRecordAgain(e) {
@@ -171,8 +181,6 @@ function Record() {
     }
 
     const { permissionDenied } = state;
-
-    console.log('chk-1', { currentStage });
 
     if (currentStage === stages.PERMISSION) {
         return (

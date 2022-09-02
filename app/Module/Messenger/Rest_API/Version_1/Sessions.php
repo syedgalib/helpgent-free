@@ -204,7 +204,7 @@ class Sessions extends Rest_Base {
         $session_data = Message_Model::get_items( $args );
 
         if ( empty( $session_data ) ) {
-            return $this->response( true, [] );
+            return ( $send_rest_response ) ? $this->response( true, [] ) : [];
         }
 
 		$self = $this;
@@ -223,7 +223,6 @@ class Sessions extends Rest_Base {
 
         }, $session_data );
 
-
 		if ( $send_rest_response ) {
 			return $this->response( true, $session_data );
 		}
@@ -239,7 +238,7 @@ class Sessions extends Rest_Base {
      */
     public function get_item( $request ) {
 		$request->set_param( 'limit', 1 );
-		$request->set_param( 'session_id' , $request->get_param( 'session_id' ) );
+		$request->set_param( 'session_id', $request->get_param( 'session_id' ) );
 
 		$session_data = $this->get_items( $request, false );
 
@@ -247,7 +246,7 @@ class Sessions extends Rest_Base {
 			return $session_data;
 		}
 
-		$session_data = ( ! empty( $session_data ) ) ? $session_data[0] : [];
+		$session_data = ! empty( $session_data ) && is_array( $session_data ) ? $session_data[0] : [];
 
         return $this->response( true, $session_data );
     }

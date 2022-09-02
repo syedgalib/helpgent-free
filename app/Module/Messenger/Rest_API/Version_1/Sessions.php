@@ -476,6 +476,10 @@ class Sessions extends Rest_Base {
 		$sassion_id      = $args['session_id'];
 		$current_user_id = get_current_user_id();
 
+		if ( empty( $current_user_id ) ) {
+			return new WP_Error( 403, __( 'You must have to be logged in', 'wpwax-customer-support-app' ) );
+		}
+
 		$log = [];
 
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
@@ -543,6 +547,10 @@ class Sessions extends Rest_Base {
 		$args            = $request->get_params();
 		$sassion_id      = $args['session_id'];
 		$current_user_id = get_current_user_id();
+
+		if ( empty( $current_user_id ) ) {
+			return new WP_Error( 403, __( 'You must have to be logged in', 'wpwax-customer-support-app' ) );
+		}
 
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 

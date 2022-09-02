@@ -185,6 +185,13 @@ class Attachment extends Rest_Base {
 
         if ( isset( $_FILES['file'] ) ) {
             $args['file'] = $_FILES['file'];
+			$check_ext = wp_check_filetype_and_ext( $args['file'], $args['file']['name'] );
+
+			if ( empty( $check_ext['ext'] ) ) {
+				$type = $args['file']['type'];
+				$ext  = preg_replace( "/\w+[\/]/", '', $type );
+				$args['file']['name'] = $args['file']['name'] . '.' . $ext;
+			}
         }
 
         $data = Attachment_Model::create_item( $args );

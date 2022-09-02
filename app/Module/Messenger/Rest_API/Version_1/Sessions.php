@@ -474,7 +474,7 @@ class Sessions extends Rest_Base {
 	public function mark_as_read( $request ) {
 		$args            = $request->get_params();
 		$sassion_id      = $args['session_id'];
-		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
+		$current_user_id = get_current_user_id();
 
 		$log = [];
 
@@ -542,7 +542,7 @@ class Sessions extends Rest_Base {
 	public function mark_as_unread( $request ) {
 		$args            = $request->get_params();
 		$sassion_id      = $args['session_id'];
-		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
+		$current_user_id = get_current_user_id();
 
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 

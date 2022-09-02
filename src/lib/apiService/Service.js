@@ -1,10 +1,11 @@
-import axios from 'axios'
-
+import axios from 'axios';
+console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 const axiosInstance = axios.create({
-    baseURL: `${location.protocol + '//' + location.host + '/wp-json/wpwax_cs/v1'}`,
+    baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
     headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+        "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce,
     }
 });
 
@@ -12,8 +13,17 @@ const getAll = path =>{
     return axiosInstance.get(path);
 }
 
-const dataUpdate = (path, data) => {
-    return axiosInstance.put(path, data);
+const getById = (path,args) =>{
+    return axiosInstance.get(path, args);
+}
+
+const dataUpdate = (path, args) => {
+    return axiosInstance.post(path, args);
+};
+
+const dataAdd = (path, args) => {
+    console.log(args);
+    return axiosInstance.post(path, args);
 };
 
 const datadelete = path => {
@@ -22,8 +32,10 @@ const datadelete = path => {
 
 const apiService = {
     getAll,
+    getById,
+    dataAdd,
     dataUpdate,
     datadelete
 }
 
-export default  apiService;
+export default apiService;

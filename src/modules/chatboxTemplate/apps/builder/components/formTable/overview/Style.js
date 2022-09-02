@@ -4,6 +4,26 @@ const TemplateBox = Styled.div`
     border-radius: 10px;
     padding: 20px;
     background-color: var(--color-white);
+    .wpwax-vm-table-wrap{
+        position: relative;
+        min-height: 200px;
+        .wpwax-vm-loading-spin{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 101;
+        }
+        .wpwax-vm-modal{
+            .wpwax-vm-modal__body{
+                text-align: center;
+                p{
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: var(--color-dark);
+                }
+            }
+        }
+    }
     .wpwax-vm-table{
         tr{
             th{
@@ -17,6 +37,7 @@ const TemplateBox = Styled.div`
         }
         .wpwax-vm-btn{
             font-size: 14px;
+            padding: 0 14px;
             margin: 8px;
             text-decoration: none;
             .dashicons{

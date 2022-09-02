@@ -1,1 +1,1 @@
-4
+<div id="wpwax-vm-settings"></div>

@@ -1,236 +1,132 @@
+import replaceIcon from 'Assets/svg/icons/replace.svg';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
+import { ReactSVG } from "react-svg";
 import Switch from "react-switch";
-import { onFormEdit } from '../../../redux/form/actionCreator';
+import formUpdater from "../../../../../../../lib/components/FormUpdater";
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { FormSettingsWrap } from './Style';
 
-export const fontSizeOptions = [
-    {value: "roboto", label: "Roboto"},
-    {value: "inter", label: "Inter"},
-    {value: "legend", label: "Legend"},
+export const fontOptions = [
+    { value: "roboto", label: "Roboto" },
+    { value: "inter", label: "Inter" },
+    { value: "legend", label: "Legend" },
 ]
 export const formType = [
-    {value: "theme-1", label: "Theme 1"},
-    {value: "theme-2", label: "Theme 2"}
+    { value: "theme-1", label: "Theme 1" },
+    { value: "theme-2", label: "Theme 2" }
 ]
-export const fontOptions = [
-    {value: "large", label: "large"},
-    {value: "larger", label: "larger"},
-    {value: "x-large", label: "x-large"},
-    {value: "xx-large", label: "xx-large"},
-    {value: "medium", label: "medium"},
-    {value: "small", label: "small"},
-    {value: "smaller", label: "smaller"},
-    {value: "x-small", label: "x-small"},
+export const fontSizeOptions = [
+    { value: "large", label: "Large" },
+    { value: "larger", label: "Larger" },
+    { value: "x-large", label: "X-large" },
+    { value: "xx-large", label: "XX-large" },
+    { value: "medium", label: "Medium" },
+    { value: "small", label: "Small" },
+    { value: "smaller", label: "Smaller" },
+    { value: "x-small", label: "X-small" },
 ]
-const FormSettings = ()=>{
+const FormSettings = () => {
     /* initialize Form Data */
-    const { formData, formInitialData } = useSelector(state => {
+    const {
+        formInitialData,
+        grettingMessage,
+        grettingMessageColor,
+        grettingVideo,
+        grettingImage,
+        descriptionVisibility,
+        description,
+        chatTitle,
+        chatReplyType,
+        footerVisibility,
+        footerMessage,
+        primaryColor,
+        pageBgColor,
+        fontFamily,
+        fontSize,
+        fontColor,
+        buttonRadius,
+        primaryButtonColor,
+        primaryButtonBackground,
+        formData,
+    } = useSelector(state => {
         return {
+            id: state.form.data.id,
+            grettingMessage: state.form.data[0].options.greet_message,
+            grettingMessageColor: state.form.data[0].options.greet_message_font_color,
+            grettingMessageFontSize: state.form.data[0].options.greet_message_font_size,
+            grettingVideo: state.form.data[0].options.greet_video_url,
+            grettingImage: state.form.data[0].options.greet_image_url,
+            descriptionVisibility: state.form.data[0].options.show_description ? state.form.data[0].options.show_description : false,
+            description: state.form.data[0].options.description,
+            chatTitle: state.form.data[0].options.chat_options_title,
+            chatTitleFontSize: state.form.data[0].options.chat_options_title_font_size,
+            chatTitleColor: state.form.data[0].options.chat_options_title_font_color,
+            chatReplyType: state.form.data[0].options.can_replay_in,
+            footerVisibility: state.form.data[0].options.show_footer ? state.form.data[0].options.show_footer : false,
+            footerMessage: state.form.data[0].options.footer_message,
+            footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
+            primaryColor: state.form.data[0].options.primary_color,
+            pageBgColor: state.form.data[0].options.page_background_color,
+            fontFamily: state.form.data[0].options.font_family,
+            fontSize: state.form.data[0].options.font_size,
+            fontColor: state.form.data[0].options.font_color,
+            buttonRadius: state.form.data[0].options.button_border_radius,
+            primaryButtonColor: state.form.data[0].options.primary_button_font_color,
+            primaryButtonBackground: state.form.data[0].options.primary_button_background_color,
             formData: state.form.data,
             formInitialData: state.form.data[0],
+            formInitialOption: state.form.data[0].options,
         };
     });
     const [state, setState] = useState({
-        id: formInitialData.form_id,
-        formStyle: formInitialData.formStyle,
-        grettingMessage: formInitialData.greet_message,
-        descriptionVisibility: formInitialData.description_visibility,
-        description: formInitialData.description,
-        chatTitle: formInitialData.chat_box_title,
-        replyTypeVideo: formInitialData.reply_type_video,
-        replyTypeScreenRecord: formInitialData.reply_type_screen_record,
-        replyTypeVoice: formInitialData.reply_type_voice,
-        replyTypeText: formInitialData.reply_type_text,
-        titleColor: formInitialData.font_color,
-        buttonColor: formInitialData.button_color,
-        buttonRadius: formInitialData.button_border_radius,
-        footerVisibility: formInitialData.footer_visibility,
-        footerMessage: formInitialData.footer_message,
         openCollapse: true,
     });
-    
+
     /* Destructuring State */
-    const { id, formStyle, grettingMessage, descriptionVisibility, description, chatTitle, replyTypeVideo, replyTypeScreenRecord, replyTypeVoice, replyTypeText, titleColor, buttonColor, buttonRadius, footerVisibility, footerMessage, openCollapse } = state;
+    const { openCollapse } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
-    /* Helper function for live preview Update */
-    const updateForm = (label,value)=>{
-        let updatedData = formData.map(item => {
-            if(item.form_id === id){
-                switch(label) {
-                    case "greet":
-                        item.greet_message = value;
-                        return { ...item, greet_message: value};
-                      break;
-                    case "des-visibility":
-                        item.description_visibility = value;
-                        return { ...item, description_visibility: value};
-                      break;
-                    case "description":
-                        item.description = value;
-                        return { ...item, description: value};
-                      break;
-                    case "chat-title":
-                        item.chat_box_title = value;
-                        return { ...item, chat_box_title: value};
-                      break;
-                    case "video-visibility":
-                        item.reply_type_video = value;
-                        return { ...item, reply_type_video: value};
-                      break;
-                    case "screen-record-visibility":
-                        item.reply_type_screen_record = value;
-                        return { ...item, reply_type_screen_record: value};
-                      break;
-                    case "voice-visibility":
-                        item.reply_type_voice = value;
-                        return { ...item, reply_type_voice: value};
-                      break;
-                    case "replyText-visibility":
-                        item.reply_type_text = value;
-                        return { ...item, reply_type_text: value};
-                      break;
-                    case "title-color":
-                        item.font_color = value;
-                        return { ...item, font_color: value};
-                      break;
-                    case "button-color":
-                        item.button_color = value;
-                        return { ...item, button_color: value};
-                      break;
-                    case "button-radius":
-                        item.button_border_radius = value;
-                        return { ...item, button_border_radius: value};
-                      break;
-                    case "footer-visibility":
-                        item.footer_visibility = value;
-                        return { ...item, footer_visibility: value};
-                    break;
-                    case "footer-text":
-                        item.footer_message = value;
-                        return { ...item, footer_message: value};
-                    break;
-                    case "form-style":
-                        item.formStyle = value;
-                        return { ...item, formStyle: value};
-                    break;
-                    default:
-                      // code block
-                }
-                return item;
-            }
-            return item;
-        });
-        dispatch(onFormEdit(updatedData));
+    /* For updating each element, we create seperate function */
+    const handleChatArray = (type) => {
+        let updatear = chatReplyType;
+        updatear = updatear.indexOf(type) === -1 ? [...updatear, type] : updatear.filter(elm => elm != type);
+        const updatedData = formUpdater("chat-type", updatear, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
+    const handleChatReplyType = (checked, event, id) => {
+        if (id === "wpwax-vm-reply-video") {
+            handleChatArray("video");
+        } else if (id === "wpwax-vm-reply-s-record") {
+            handleChatArray("screenRecord");
+        } else if (id === "wpwax-vm-reply-voice") {
+            handleChatArray("audio");
+        } else if (id === "wpwax-vm-reply-text") {
+            handleChatArray("text");
+        }
     }
 
-    /* For updating each element, we create seperate function */
-    const changeGreet = (event) =>{
-        let greetMessage = event.target.value;
-        setState({
-            ...state,
-            grettingMessage: greetMessage
-        });
-        updateForm('greet', greetMessage);
+    const handleChangeInputValue = (e) => {
+        const updatedData = formUpdater(e.target.id, e.target.value, formData);
+        dispatch(handleDynamicEdit(updatedData));
     }
-    const changeDescriptionVisibillity = () =>{
-        setState({
-            ...state,
-            descriptionVisibility: !descriptionVisibility
-        });
-        updateForm('des-visibility', !descriptionVisibility);
+
+    const handleChangeSwitchValue = (value, event, id) => {
+        console.log(event, value, id);
+        const updatedData = formUpdater(id, value, formData);
+        dispatch(handleDynamicEdit(updatedData));
     }
-    const changeDescription = (event) =>{
-        let description = event.target.value;
-        setState({
-            ...state,
-            description: description
-        });
-        updateForm('description', description);
-    }
-    const changeChatTitle = (event) =>{
-        let chatTitleText = event.target.value;
-        setState({
-            ...state,
-            chatTitle: chatTitleText
-        });
-        updateForm('chat-title', chatTitleText);
-    }
-    const changeVideoVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeVideo: !replyTypeVideo
-        });
-        updateForm('video-visibility', !replyTypeVideo);
-    }
-    const changeScreenRecordVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeScreenRecord: !replyTypeScreenRecord
-        });
-        updateForm('screen-record-visibility', !replyTypeScreenRecord);
-    }
-    const changeVoiceVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeVoice: !replyTypeVoice
-        });
-        updateForm('voice-visibility', !replyTypeVoice);
-    }
-    const changeReplyTextVisibility = () =>{
-        setState({
-            ...state,
-            replyTypeText: !replyTypeText
-        });
-        updateForm('replyText-visibility', !replyTypeText);
-    }
-    const changeFooterVisibility = () =>{
-        setState({
-            ...state,
-            footerVisibility: !footerVisibility
-        });
-        updateForm('footer-visibility', !footerVisibility);
-    }
-    const changeFooterMessage = (event) =>{
-        let footerMessageText = event.target.value;
-        console.log(footerMessage);
-        setState({
-            ...state,
-            footerMessage: footerMessageText
-        });
-        updateForm('footer-text', footerMessageText);
-    }
-    const changeTitleColor = (event) =>{
-        let titleColor = event.target.value;
-        setState({
-            ...state,
-            titleColor: titleColor
-        });
-        updateForm('title-color', titleColor);
-    }
-    const changeButtonColor = (event) =>{
-        let buttonColor = event.target.value;
-        setState({
-            ...state,
-            buttonColor: buttonColor
-        });
-        updateForm('button-color', buttonColor);
-    }
-    const changeButtonRadius = (event) =>{
-        let buttonRadius = event.target.value;
-        setState({
-            ...state,
-            buttonRadius: buttonRadius
-        });
-        updateForm('button-radius', buttonRadius);
-    }
+
+    const handleChangeSelectValue = (selectEvent, e) => {
+        const updatedData = formUpdater(e.name, selectEvent.value, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    };
 
     /* To handle section toggle */
-    const toogleCollapse = (e)=>{
+    const toogleCollapse = (e) => {
         e.preventDefault();
         setState({
             ...state,
@@ -238,50 +134,79 @@ const FormSettings = ()=>{
         });
     }
 
-    /* To handle changing preview form style */
-    const chagneFormStyle = event =>{
-        let formStyle = event.value;
-        // console.log(formStyle);
-        setState({
-            ...state,
-            formStyle: formStyle
+    let frame;
+    const openUploader = e => {
+        e.preventDefault();
+
+        // If the media frame already exists, reopen it.
+        if (frame) {
+            frame.open()
+            return
+        }
+        // Create a new media frame
+        frame = wp.media({
+            title: 'Select or Upload Media Of Your Chosen Persuasion',
+            button: {
+                text: 'Use this media',
+            },
+            multiple: false, // Set to true to allow multiple files to be selected
+        })
+
+        frame.on('select', function () {
+            let attachment = frame.state().get('selection').first() && frame.state().get('selection').first().toJSON();
+            const attatchmentType = attachment.type
+            const attatchmentUrl = attachment.url
+            if (attatchmentType === "image") {
+                setState({
+                    ...state,
+                    grettingImage: attatchmentUrl,
+                    grettingVideo: '',
+                });
+                const updatedData = formUpdater('greet-media-image', attatchmentUrl, formData);
+                dispatch(handleDynamicEdit(updatedData));
+            } else if (attachment.type === "video") {
+                setState({
+                    ...state,
+                    grettingVideo: attatchmentUrl,
+                    grettingImage: ''
+                });
+                const updatedData = formUpdater('greet-media-video', attatchmentUrl, formData);
+                dispatch(handleDynamicEdit(updatedData));
+            }
+
         });
-        updateForm('form-style', formStyle);
+
+        // Finally, open the modal on click
+        frame.open();
     }
 
-    return(
+    return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Add an image/video or Record a video</span>
                 </div>
-                <div className="wpwax-vm-uploader">
+                <div className={grettingVideo !== '' || grettingImage !== '' ? 'wpwax-vm-uploader wpax-vm-has-src' : 'wpwax-vm-uploader'}>
                     <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
-                        <input type="file" id="wpwax-vm-media-upload"/>
-                        <label htmlFor="wpwax-vm-media-upload">Add image/video</label>
+                        <a href="#" className="wpwax-vm-media-upload" onClick={e => openUploader(e)}>Add image/video</a>
                     </span>
-                    <span className="wpwax-vm-seperation">or</span>
-                    <a href="#" className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-media-recorder">Record a video</a>
+                    {
+                        grettingVideo !== '' || grettingImage !== '' ?
+                            <div className="wpwax-vm-media-preview">
+                                <div className="wpwax-vm-media-preview__src">
+                                    {grettingImage !== '' ? <img src={grettingImage} alt="Wpwax Video Support" /> : null}
+                                    {grettingVideo !== '' ? <video src={grettingVideo}></video> : null}
+                                </div>
+                                <a href="#" className="wpwax-vm-media-preview__replace" onClick={e => openUploader(e)}><div className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></div> Replace</a>
+                            </div> : null
+                    }
                 </div>
-            </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span>Form Style</span>
-                </div>
-                <Select 
-                    classNamePrefix="wpwax-vm-select"
-                    options={formType}
-                    closeMenuOnSelect={true}
-                    hideSelectedOptions={false}
-                    searchable={false}
-                    onChange={chagneFormStyle}
-                />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Greetings message </span>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={grettingMessage} onChange={(e)=>changeGreet(e)}/>
+                <textarea className="wpwax-vm-form__element" id="wpwax-vm-greet-msg" value={grettingMessage} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -290,22 +215,23 @@ const FormSettings = ()=>{
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             handleDiameter={14}
                             height={22}
                             width={40}
+                            id="wpwax-vm-description-visibility"
                             checked={descriptionVisibility}
-                            onChange={changeDescriptionVisibillity}
+                            onChange={handleChangeSwitchValue}
                         />
                     </label>
                 </div>
-                <textarea className="wpwax-vm-form__element" value={description} onChange={changeDescription}/>
+                <textarea className="wpwax-vm-form__element" value={description} id="wpwax-vm-description" onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
-                <input type="text" className="wpwax-vm-form__element" value={chatTitle} onChange={changeChatTitle}/>
+                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-chat-title" value={chatTitle} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -313,19 +239,20 @@ const FormSettings = ()=>{
                 </div>
                 <div className="wpwax-vm-switch-list">
                     <div className="wpwax-vm-switch-single">
-                        <span>Videos</span>
+                        <span>Video</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeVideo}
-                            onChange={changeVideoVisibility}
+                            id="wpwax-vm-reply-video"
+                            checked={chatReplyType.indexOf('video') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -333,15 +260,16 @@ const FormSettings = ()=>{
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeScreenRecord}
-                            onChange={changeScreenRecordVisibility}
+                            id="wpwax-vm-reply-s-record"
+                            checked={chatReplyType.indexOf('screenRecord') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -349,15 +277,16 @@ const FormSettings = ()=>{
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeVoice}
-                            onChange={changeVoiceVisibility}
+                            id="wpwax-vm-reply-voice"
+                            checked={chatReplyType.indexOf('audio') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
@@ -365,15 +294,16 @@ const FormSettings = ()=>{
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={replyTypeText}
-                            onChange={changeReplyTextVisibility}
+                            id="wpwax-vm-reply-text"
+                            checked={chatReplyType.indexOf('text') === -1 ? false : true}
+                            onChange={handleChatReplyType}
                         />
                     </div>
                 </div>
@@ -384,67 +314,138 @@ const FormSettings = ()=>{
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
-                        onColor="#6551F2"
+                        onColor={primaryColor}
                         offColor="#E2E2E2"
                         onHandleColor="#FFFFFF"
                         className="wpwax-vm-switch"
+                        id="wpwax-vm-footer-msg-visibility"
                         handleDiameter={14}
                         height={22}
                         width={40}
                         checked={footerVisibility}
-                        onChange={changeFooterVisibility}
+                        onChange={handleChangeSwitchValue}
                     />
                 </div>
-                <textarea className="wpwax-vm-form__element" value={footerMessage} onChange={(e)=> changeFooterMessage(e)}/>
+                <textarea className="wpwax-vm-form__element" id="wpwax-vm-footer-msg" value={footerMessage} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Customize</span>
-                    <a href="" className={openCollapse? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e=>toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
+                    <a href="" className={openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e => toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
                 </div>
-                <div className={openCollapse? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
-                    <div className="wpwax-vm-form-group__input-single"> 
-                        <span> Font</span>
-                        <Select 
+                <div className={openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Primary color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{primaryColor}</span>
+                            <label htmlFor="wpwax-vm-primary-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryColor }}></label>
+                            <input type="color" id="wpwax-vm-primary-color" className="wpwax-vm-form__element" value={primaryColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Page Background color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{pageBgColor}</span>
+                            <label htmlFor="wpwax-vm-page-bg-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: pageBgColor }}></label>
+                            <input type="color" id="wpwax-vm-page-bg-color" className="wpwax-vm-form__element" value={pageBgColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Font Family</span>
+                        <Select
                             classNamePrefix="wpwax-vm-select"
                             options={fontOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
-                            // onChange={chagneTitleFontSize}
+                            name="wpwax-vm-fontfamily"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontOptions.filter(function (option) {
+                                return option.label === fontFamily;
+                            })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
                         <span> Font Size</span>
-                        <Select 
+                        <Select
                             classNamePrefix="wpwax-vm-select"
                             options={fontSizeOptions}
                             closeMenuOnSelect={true}
                             hideSelectedOptions={false}
                             searchable={false}
-                            // onChange={chagneTitleFontSize}
+                            name="wpwax-vm-fontsize"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Font color</span>
-                        <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{titleColor}</span>
-                            <label htmlFor="wpwax-vm-form-title-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: titleColor}}></label>
-                            <input type="color" id="wpwax-vm-form-title-color" className="wpwax-vm-form__element" value={titleColor} onChange={(e)=>changeTitleColor(e)} />
-                        </div>
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Button color</span>
-                        <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{buttonColor}</span>
-                            <label htmlFor="wpwax-vm-form-button-color" className="wpwax-vm-form__color-ball" style={{backgroundColor: buttonColor}}></label>
-                            <input type="color" id="wpwax-vm-form-button-color" className="wpwax-vm-form__element" value={buttonColor} onChange={(e)=>changeButtonColor(e)} />
-                        </div>
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Button border-radius</span>
+                        <span>Button Radius</span>
                         <div className="wpwax-vm-form__input-radius">
-                            <input type="text" className="wpwax-vm-form__element" value={buttonRadius} onChange={(e)=>changeButtonRadius(e)}/>
+                            <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-btn-radius" value={buttonRadius} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Greet Message Color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{grettingMessageColor}</span>
+                            <label htmlFor="wpwax-vm-greet-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: grettingMessageColor }}></label>
+                            <input type="color" id="wpwax-vm-greet-color" className="wpwax-vm-form__element" value={grettingMessageColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Greet Message Font Size</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-greet-fontsize"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Chat title Color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{grettingMessageColor}</span>
+                            <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: grettingMessageColor }}></label>
+                            <input type="color" id="wpwax-vm-chat-title-color" className="wpwax-vm-form__element" value={grettingMessageColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Chat Title Font Size</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-chat-title-fontsize"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === fontSize;
+                            })[0]}
+                        />
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Primary Button color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{primaryButtonColor}</span>
+                            <label htmlFor="wpwax-vm-form-primray-button-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonColor }}></label>
+                            <input type="color" id="wpwax-vm-form-primray-button-color" className="wpwax-vm-form__element" value={primaryButtonColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Primary Background color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{primaryButtonBackground}</span>
+                            <label htmlFor="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonBackground }}></label>
+                            <input type="color" id="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__element" value={primaryButtonBackground} onChange={(e) => handleChangeInputValue(e)} />
                         </div>
                     </div>
                 </div>

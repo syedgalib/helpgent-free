@@ -3,6 +3,9 @@ import Styled from 'styled-components';
 const AddFormStyle = Styled.div`
     display: flex;
     align-items: flex-start;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--color-text);
     margin-top: 30px;
     .wpwax-vm-add-form{
         position: relative;
@@ -10,9 +13,22 @@ const AddFormStyle = Styled.div`
         border-radius: 14px;
         z-index: 10;
         background-color: var(--color-bg-white);
+        .wpwax-vm-loading-spin{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 100;
+        }
+        &.wpwax-vm-loder-active{
+            &:after{
+                border-radius: 14px;
+            }
+        }
     }
     .wpwax-vm-form-group{
+        margin-bottom: 16px;
         &:not(:last-child){
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--color-border-light);
         }
         .wpwax-vm-form-group__label{
@@ -37,6 +53,12 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-add-form__top{
             margin: 0;
         }
+        .wpwax-vm-text-highlighted {
+            padding: 25px 30px 0;
+        }
+        .wpwax-vm-notice{
+            margin: 20px 30px 20px;
+        }
     }
     .wpwax-vm-add-form__top{
         padding: 20px;
@@ -57,7 +79,7 @@ const AddFormStyle = Styled.div`
                 outline: 0 none;
                 box-shadow: 0 0;
             }
-            &.react-tabs__tab--selected{
+            &.wpwax-vm-add-form__top--btn-selected{
                 font-weight: 700;
                 color: var(--color-white);
                 background-color: var(--color-primary);
@@ -65,7 +87,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-add-form__content{
-        padding: 25px 30px;
+        padding: 15px 30px 25px;
         height: 580px;
         overflow-y: scroll;
         &::-webkit-scrollbar{
@@ -126,6 +148,7 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-form-group__input-single{
             display: flex;
             justify-content: space-between;
+            font-size: 14px;
             &:not(:last-child){
                 margin-bottom: 20px;
             }
@@ -147,51 +170,11 @@ const AddFormStyle = Styled.div`
                 }
             }
         }
-        .wpwax-vm-form__color-plate{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            flex: 1;
-            height: 40px;
-            border-radius: 6px;
-            background-color: var(--color-bg-general);
-            .wpwax-vm-form__color-text{
-                padding-left: 15px;
-                margin: 0;
-            }
-            input[type="color"]{
-                flex: none;
-                appearance: none;
-                padding: 0;
-                width: 26px;
-                min-height: 26px;
-                margin-right: 15px;
-                border-radius: 50%;
-                opacity: 0;
-                cursor: pointer;
-                &::-webkit-color-swatch-wrapper{
-                    padding: 0;
-                }
-                &::-webkit-color-swatch{
-                    border: none
-                }
-            }
-            .wpwax-vm-form__color-ball{
-                position: absolute;
-                right: 12px;
-                top: 6px;
-                width: 26px;
-                height: 26px;
-                border-radius: 50%;
-            }
-            .block-picker{
-                position: absolute !important;
-                left: 5px;
-                top: 50px;
-                z-index: 10;
-            }
+
+        .wpwax-vm-select__control{
+            cursor: pointer;
         }
+        
         .wpwax-vm-select__menu{
             border-radius: 10px;
             border: 0 none;
@@ -213,7 +196,8 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-select__option{
                 font-size: 14px;
                 font-weight: 500;
-                padding: 0;
+                padding: 4px 0;
+                cursor: pointer;
                 color: var(--color-dark);
                 &:not(:last-child){
                     margin-bottom: 8px;
@@ -265,22 +249,46 @@ const AddFormStyle = Styled.div`
             min-width: auto;
             background-color: transparent;
         }
+        .wpwax-vm-notice{
+            margin-bottom: 15px;
+        }
     }
     .wpwax-vm-add-form__bottom{
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 0 0 14px 14px;
-        padding: 16px 0;
+        padding: 12px 0;
         background-color: var(--color-primary);
-        .wpwax-vm-form-save{
+        a{
             display: flex;
+            align-items: center;
             justify-content: center;
             width: 100%;
             font-size: 17px;
             font-weight: 600;
+            min-height: 24px;
             text-decoration: none;
             color: var(--color-white);
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+                border: 0 none;
+            }
+            svg{
+                margin-left: 10px;
+            }
+        }
+        button{
+            font-size: 17px;
+            font-weight: 600;
+            border: 0 none;
+            color: #fff;
+            padding: 0;
+            min-height: 24px;
+            width: 100%;
+            cursor: pointer;
+            background: transparent;
         }
     }
     .wpwax-vm-preview{
@@ -307,6 +315,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-uploader{
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -316,8 +325,8 @@ const AddFormStyle = Styled.div`
         border: 1px dashed #BEBEBE;
         background-color: var(--color-bg-general);
         .wpwax-vm-upload-trigger{
-            input[type=file]{
-                display: none;
+            a{
+                color: var(--color-dark);
             }
         }
         .wpwax-vm-media-btn{
@@ -326,7 +335,6 @@ const AddFormStyle = Styled.div`
             font-size: 14px;
             font-weight: 500;
             border-radius: 8px;
-            min-width: 155px;
             text-align: center;
             color: var(--color-dark);
             background-color: var(--color-white);
@@ -338,9 +346,64 @@ const AddFormStyle = Styled.div`
             color: #898989;
             margin: 7px 0;
         }
+        a{
+            text-decoration: none;
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+        }
+        &.wpax-vm-has-src{
+            border: 0 none;
+            min-height: 200px;
+        }
+    }
+    .wpwax-vm-media-preview{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background-color: var(--color-bg-general);
+        z-index: 10;
+        .wpwax-vm-media-preview__replace{
+            position: absolute;
+            left: 50%;
+            bottom: 15px;
+            transform: translateX(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            min-height: 40px;
+            padding: 0 20px;
+            color: var(--color-dark);
+            background-color: var(--color-white);
+            .wpwax-vm-media-preview__replace--icon{
+                position: relative;
+                top: 2px;
+                margin-right: 8px;
+            }
+        }
+        .wpwax-vm-media-preview__src{
+            height: 100%;
+            img{
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+            }
+            video{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+        }
     }
 `;
 
 export {
     AddFormStyle,
 };
+

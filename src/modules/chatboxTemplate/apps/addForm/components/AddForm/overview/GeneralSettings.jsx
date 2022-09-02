@@ -1,115 +1,142 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from 'react-redux';
-import { default as Select } from 'react-select'
-import { components } from 'react-select'
-import { ReactSVG } from 'react-svg';
-import Switch from "react-switch";
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import Radio from "Components/formFields/Radio.jsx";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { components, default as Select } from 'react-select';
+import { ReactSVG } from 'react-svg';
+import Switch from "react-switch";
+import formUpdater from "../../../../../../../lib/components/FormUpdater";
+import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
 
 export const templateOptions = [
-    {value: "page1", label: "Page Name"},
-    {value: "page2", label: "Page Name"},
-    {value: "page3", label: "Page Name"},
+    { value: "theme-1", label: "Theme One" },
+    { value: "theme-2", label: "Theme Two" },
 ]
 
-export const customPages = [
-    {value: "chat", label: "Chat"},
-    {value: "video", label: "Video"},
-    {value: "Issue", label: "Issue"},
+export const fontOptions = [
+    { value: "roboto", label: "Roboto" },
+    { value: "inter", label: "Inter" },
+    { value: "legend", label: "Legend" },
 ]
-const GeneralSettings = ()=>{
+
+export const fontSizeOptions = [
+    { value: "large", label: "Large" },
+    { value: "larger", label: "Larger" },
+    { value: "x-large", label: "X-large" },
+    { value: "xx-large", label: "XX-large" },
+    { value: "medium", label: "Medium" },
+    { value: "small", label: "Small" },
+    { value: "smaller", label: "Smaller" },
+    { value: "x-small", label: "X-small" },
+]
+
+const GeneralSettings = () => {
     /* initialize Form Data */
-    const { formInitialData } = useSelector(state => {
+    const { formData, primaryColor, diplayAllPage, templateName, templateTheme, displayedCustomPages, chatVisibilityType, sendMail } = useSelector(state => {
         return {
-            formInitialData: state.form.data,
+            formData: state.form.data,
+            pageBackground: state.form.data[0].options.page_background_color,
+            fontColor: state.form.data[0].options.font_family,
+            primaryColor: state.form.data[0].options.primary_color,
+            fontFamily: state.form.data[0].options.font_color,
+            fontSize: state.form.data[0].options.font_size,
+            diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages : false,
+            templateName: state.form.data[0].name,
+            templateTheme: state.form.data[0].options.theme,
+            displayedCustomPages: state.form.data[0].page_ids,
+            chatVisibilityType: state.form.data[0].options.chat_visibility_type,
+            sendMail: state.form.data[0].options.send_mail_upon_message_submission,
+
         };
     });
 
     const [state, setState] = useState({
-        pageVisibility: formInitialData[0].all_page_visibility,
-        accountVisibility: formInitialData[0].all_page_visibility,
-        optionSelected: null
+        openCollapse: true
     });
 
-    const { pageVisibility, accountVisibility, optionSelected } = state;
+    /* Dispasth is used for passing the actions to redux store  */
+    const dispatch = useDispatch();
+
     const Option = (props) => {
         return (
-          <div>
-            <components.Option {...props}>
-              <Checkbox id={`wpwax-vm${props.value}`} label={props.label} isSelected={props.isSelected}/>
-            </components.Option>
-          </div>
+            <div>
+                <components.Option {...props}>
+                    <Checkbox id={`wpwax-vm${props.value}`} label={props.label} isSelected={props.isSelected} />
+                </components.Option>
+            </div>
         );
     };
 
-    /* To Handle Page visibility Option */
-    const changePageVisibility = () =>{
-        setState({
-            ...state,
-            pageVisibility: !pageVisibility,
-        });
-    }
+    const customPages = []
 
-    /* To Handle Account visibility Option */
-    const changeAccountVisibility = () =>{
-        setState({
-            ...state,
-            accountVisibility: !accountVisibility,
+    useEffect(() => {
+        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+            customPages.push({ value: `${item.id}`, label: `${item.title}` })
         });
-    }
+    }, []);
 
     /* To Handle Template Change */
-    const handleSelectChange = (selected) => {
-        setState({
-            ...state,
-            optionSelected: selected
-        });
+    const handleChatVisibility = (e) => {
+        let visiblityType = e.target.value;
+        const updatedData = formUpdater('chat-visibility', visiblityType, formData);
+        dispatch(handleDynamicEdit(updatedData));
     };
 
-    return(
+    const handleChangeInputValue = (e) => {
+        const updatedData = formUpdater(e.target.id, e.target.value, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
+
+    const handleChangeSwitchValue = (value, event, id) => {
+        const updatedData = formUpdater(id, value, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
+
+    const handleChangeSelectValue = (selectEvent, e) => {
+        const updatedData = formUpdater(e.name, selectEvent.value, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    };
+
+    return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Name of Form</span>
+                    <span>Name of Form <span className="wpwax-vm-require-sign">*</span></span>
                 </div>
-                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" placeholder="Name this video form…"/>
+                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name" value={templateName} placeholder="Name this video form…" onChange={e => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label wpwax-vm-has-tooltip">
-                    <span className="wpwax-vm-tooltip-wrap"> 
-                       <span>Template </span>
-                       <span className="wpwax-vm-tooltip">
-                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                    <span className="wpwax-vm-tooltip-wrap">
+                        <span>Theme </span>
+                        <span className="wpwax-vm-tooltip">
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
                             <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
                         </span>
                     </span>
                 </div>
                 <Select
                     classNamePrefix="wpwax-vm-select"
-                    isMulti
                     options={templateOptions}
-                    closeMenuOnSelect={false}
                     hideSelectedOptions={false}
                     searchable={false}
-                    onChange={handleSelectChange}
-                    menuIsOpen={true}
+                    name="wpwax-vm-theme"
+                    onChange={handleChangeSelectValue}
+                    defaultValue={templateOptions.filter(function (option) {
+                        return option.value === templateTheme;
+                    })[0]}
                     allowSelectAll={true}
-                    value={optionSelected}
-                    components={{
-                        Option
-                    }}
                 />
             </div>
             <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
+                <div className="wpwax-vm-form-group__label wpwax-vm-mb-0">
                     <span className="wpwax-vm-tooltip-wrap">
-                        <span>Display on all pages</span> 
+                        <span>Display on all pages</span>
                         <span className="wpwax-vm-tooltip">
-                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
                             <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
                         </span>
                     </span>
@@ -117,76 +144,45 @@ const GeneralSettings = ()=>{
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor="#6551F2"
+                            onColor={primaryColor}
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
+                            id="wpwax-vm-display-all-pages"
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={pageVisibility}
-                            onChange={changePageVisibility}
+                            checked={diplayAllPage}
+                            onChange={handleChangeSwitchValue}
                         />
                     </label>
                 </div>
-                <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-name"/>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span className="wpwax-vm-tooltip-wrap"> 
+                    <span className="wpwax-vm-tooltip-wrap">
                         <span>Display on custom pages</span>
-                       <span className="wpwax-vm-tooltip">
-                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={ questionIcon } /></span>
+                        <span className="wpwax-vm-tooltip">
+                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
                             <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
                         </span>
                     </span>
                 </div>
-                <Select 
+                <Select
                     classNamePrefix="wpwax-vm-select"
-                    options={templateOptions} 
+                    options={customPages}
                     isMulti
-                    closeMenuOnSelect={false}
-                    hideSelectedOptions={false}
                     searchable={false}
                     components={{
                         Option
                     }}
-                    onChange={handleSelectChange}
-                    value={optionSelected}
+                    // defaultValue={customPages.filter(function (page) {
+                    //     return page.value === templateTheme;
+                    // })[0]}
+                    name="wpwax-vm-display-custom-pages"
+                    onChange={handleChangeSelectValue}
                     allowSelectAll={true}
                 />
-            </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span>Create account first</span>
-                    <Switch
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                        onColor="#6551F2"
-                        offColor="#E2E2E2"
-                        onHandleColor="#FFFFFF"
-                        className="wpwax-vm-switch"
-                        handleDiameter={14}
-                        height={22}
-                        width={40}
-                        checked={accountVisibility}
-                        onChange={changeAccountVisibility}
-                    />
-                </div>
-                <div className="wpwax-vm-chekbox-list">
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Name</span>
-                        <Checkbox id="account-name" label=""/>
-                    </div>
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Email</span>
-                        <Checkbox id="account-email" label=""/>
-                    </div>
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Password</span>
-                        <Checkbox id="account-password" label=""/>
-                    </div>
-                </div>
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
@@ -195,12 +191,33 @@ const GeneralSettings = ()=>{
                 <div className="wpwax-vm-radio-list">
                     <div className="wpwax-vm-radio-single">
                         <span>If closed never show again</span>
-                        <Radio id="wpwax-vm-never-show" label="" name="wpwax-vm-close-option"/>
+                        <Radio id="wpwax-vm-never-show" label="" value="never_load" name="wpwax-vm-close-option" onChange={e => handleChatVisibility(e)} checked={chatVisibilityType === "never_load"} />
                     </div>
                     <div className="wpwax-vm-radio-single">
                         <span>Show on reload</span>
-                        <Radio id="wpwax-vm-load-show" label="" name="wpwax-vm-close-option"/>
+                        <Radio id="wpwax-vm-load-show" label="" value="show_on_reload" name="wpwax-vm-close-option" onChange={e => handleChatVisibility(e)} checked={chatVisibilityType === "show_on_reload"} />
                     </div>
+                </div>
+            </div>
+            <div className="wpwax-vm-form-group">
+                <div className="wpwax-vm-form-group__label wpwax-vm-mb-0">
+                    <span>Receive email upon message submission</span>
+                    <label>
+                        <Switch
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor={primaryColor}
+                            offColor="#E2E2E2"
+                            onHandleColor="#FFFFFF"
+                            className="wpwax-vm-switch"
+                            id="wpwax-vm-send-mail"
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            checked={sendMail}
+                            onChange={handleChangeSwitchValue}
+                        />
+                    </label>
                 </div>
             </div>
         </GeneralSettingWrap>

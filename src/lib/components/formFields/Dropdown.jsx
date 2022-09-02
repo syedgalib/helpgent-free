@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, dropdownWidth }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -11,6 +11,12 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
 
     /* State Distructuring */
     const { openDropdown } = state;
+
+    const [selectedState, setSelectedState] = useState({
+        selectedItemText: dropdownList[0].text,
+    });
+
+    const { selectedItemText } = selectedState;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -23,6 +29,8 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
         setState({
             openDropdown: !openDropdown
         });
+
+
 
         allUserMedia.forEach(medaiItem => {
             medaiItem.classList.remove(".wpwax-vm-active");
@@ -38,7 +46,9 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
     /* Handle Dropdown Trigger */
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
-        console.log(btnName);
+        setSelectedState({
+            selectedItemText: event.target.text
+        });
         switch (btnName) {
             case 'mark-read':
                 break;
@@ -71,25 +81,12 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
     /* Focus Input field when search inopen */
     useEffect(() => {
         const checkIfClickedOutside = e => {
-            const modalDoms = document.querySelectorAll('.wpwax-vm-modal.wpwax-vm-show');
-            const overlay = document.querySelector('.wpax-vm-overlay');
-            // If the menu is open and the clicked target is not within the menu,
-            // then close the menu
 
-            if (openDropdown && ref.current && !ref.current.contains(e.target) && !overlay.contains(e.target)) {
+            if (openDropdown && ref.current && !ref.current.contains(e.target)) {
                 setState({
                     openDropdown: false
                 });
             }
-
-            modalDoms.forEach(modalDom => {
-                if (!modalDom.contains(e.target)) {
-                    setState({
-                        openDropdown: false
-                    });
-                }
-            });
-
         }
         document.addEventListener("mousedown", checkIfClickedOutside)
         return () => {
@@ -100,11 +97,8 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
 
 
     return (
-        <div className={dropdownWidth === "full" ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-full wpwax-vm-dropdown-open' :
-            'wpwax-vm-dropdown wpwax-vm-dropdown-full'}` :
-            `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-fixed wpwax-vm-dropdown-open' :
-                'wpwax-vm-dropdown wpwax-vm-dropdown-fixed'}`} ref={ref}>
-            <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"} onClick={handleDropdown}>
+        <div className={selectable ? `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable'}` : `${openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'}`} ref={ref}>
+            <a href="#" className={dropdownText ? "wpwax-vm-dropdown__toggle" : `${selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"}`} onClick={handleDropdown}>
                 {
                     dropdownText ?
                         <span className="wpwax-vm-dropdown__toggle--text">
@@ -113,6 +107,17 @@ const Dropdown = ({ dropdownText, textIcon, dropdownIconOpen, dropdownIconClose,
                             }
                             <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">unread</span></span>
                         </span> : ""
+                }
+
+                {
+                    dropdownSelectedText ?
+                        <span className="wpwax-vm-dropdown__toggle--text">
+                            {
+                                textIcon ? <ReactSVG src={textIcon} /> : ''
+                            }
+                            <span className="wpwax-vm-dropdown__toggle--text-content">{selectedItemText}</span>
+                        </span> : ""
+
                 }
 
                 {

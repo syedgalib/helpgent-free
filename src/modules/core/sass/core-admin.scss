@@ -1,5 +1,6 @@
 :root {
 	--color-primary: #6551f2;
+	--color-secondary: #FC495D;
 	--color-dark: #030308;
 	--color-lighter: #f8f9fb;
 	--color-light: #f4f5f7;
@@ -8,11 +9,21 @@
 	--color-bg-general: #ededed;
 	--color-border-light: #ededed;
 	--color-gray: #868eae;
+	--color-info: #1b83fb;
 	--color-danger: #ef0000;
 	--color-success: #08bf9c;
 	--color-text: #898989;
 	--color-white: #ffffff;
 	--color-black: #000000;
+	--font-family: "Roboto";
+	--font-size: "medium";
+	--font-color: "#898989";
+	--primary-button-color: #FFFFFF;
+	--primary-button-bg-color: #2271b1;
+	--primary-button-border-radius: "15";
+	--secondary-button-color: #FFFFFF;
+	--secondary-button-bg-color: #FC495D;
+	--secondary-button-border-radius: "15";
 }
 
 .wpwax-vm-page-inner {
@@ -21,6 +32,11 @@
 
 .wpwax-vm-text-center {
 	text-align: center;
+}
+
+/* Spacing */
+.wpwax-vm-mb-0 {
+	margin-bottom: 0 !important;
 }
 
 /* Button Style */
@@ -53,8 +69,10 @@
 	}
 
 	&.wpwax-vm-btn-primary {
-		background-color: var(--color-primary);
-		border: 1px solid var(--color-primary);
+		background-color: var(--primary-btn-bg);
+		border-radius: var(--btn-radius);
+		color: var(--primary-btn-color);
+		border: 1px solid var(--primary-btn-bg);
 	}
 
 	&.wpwax-vm-btn-light {
@@ -101,6 +119,7 @@
 .wpwax-vm-btn-block {
 	display: flex;
 	justify-content: center;
+	width: 100%;
 }
 
 /* Form Elements Style */
@@ -229,7 +248,7 @@
 		font-size: 14px;
 		font-weight: 500;
 		position: relative;
-		top: -2px;
+		top: -4px;
 		line-height: 1;
 		color: var(--color-dark);
 	}
@@ -293,7 +312,7 @@
 		padding: 10px 8px;
 		border-radius: 10px;
 		display: none;
-		box-shadow: 0 6px 40px rgba(144, 144, 144, .25);
+		box-shadow: 0 6px 40px rgba(144, 144, 144, 0.25);
 		background-color: var(--color-white);
 
 		li {
@@ -312,8 +331,103 @@
 				&.wpwax-vm-active {
 					background-color: var(--color-bg-general);
 				}
+
+				&:focus {
+					outline: none;
+					box-shadow: 0 0;
+				}
 			}
 		}
+	}
+}
+
+/* Wpwax Dropdown Selectable */
+.wpwax-vm-dropdown {
+	&.wpwax-vm-dropdown-selectable {
+		.wpwax-vm-dropdown__toggle {
+			align-items: center;
+			min-height: 44px;
+			border-radius: 6px;
+			padding: 0 20px;
+			background-color: #ededed;
+
+			.wpwax-vm-dropdown__toggle--text {
+				.wpwax-vm-dropdown__toggle--text-content {
+					margin-left: 0;
+				}
+			}
+		}
+
+		.wpwax-vm-dropdown__content {
+			top: 45px;
+			width: -webkit-fill-available;
+			box-shadow: 0 10px 40px rgba(134, 142, 174, 0.3);
+
+			li {
+				a {
+					padding: 0 15px;
+
+					&:hover {
+						color: var(--color-white);
+						background-color: var(--color-primary);
+					}
+				}
+			}
+		}
+	}
+}
+
+/* Color Plate */
+.wpwax-vm-form__color-plate {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	flex: 1;
+	height: 40px;
+	border-radius: 6px;
+	background-color: var(--color-bg-general);
+
+	.wpwax-vm-form__color-text {
+		padding-left: 15px;
+		margin: 0;
+	}
+
+	input[type="color"] {
+		flex: none;
+		appearance: none;
+		padding: 0;
+		width: 26px;
+		min-height: 26px;
+		margin-right: 15px;
+		border-radius: 50%;
+		opacity: 0;
+		cursor: pointer;
+
+		&::-webkit-color-swatch-wrapper {
+			padding: 0;
+		}
+
+		&::-webkit-color-swatch {
+			border: none;
+		}
+	}
+
+	.wpwax-vm-form__color-ball {
+		position: absolute;
+		right: 12px;
+		top: 6px;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+	}
+
+	.block-picker {
+		position: absolute !important;
+		left: 5px;
+		top: 50px;
+		z-index: 10;
 	}
 }
 
@@ -406,11 +520,13 @@
 	color: var(--color-white);
 
 	&.wpwax-vm-notice-success {
-		background-color: var(--color-success);
+		color: var(--color-success);
+		background-color: rgba(32, 201, 151, 0.15);
 	}
 
 	&.wpwax-vm-notice-danger {
-		background-color: var(--color-danger);
+		color: var(--color-danger);
+		background-color: rgba(245, 34, 45, 0.15);
 	}
 
 	.wpwax-vm-notice__text {
@@ -422,12 +538,23 @@
 		position: absolute;
 		right: 15px;
 		top: 2px;
-		color: var(--color-white);
+		color: var(--color-dark);
 	}
 
 	&.wpwax-vm-hide {
 		display: none;
 	}
+}
+
+.wpwax-vm-text-highlighted {
+	font-size: 16px;
+	margin: 0;
+	color: var(--color-danger);
+}
+
+.wpwax-vm-require-sign,
+.wpwax-vm-form-group .wpwax-vm-form-group__label .wpwax-vm-require-sign {
+	color: var(--color-danger);
 }
 
 /* Tooltip Style */
@@ -511,7 +638,7 @@
 		.wpwax-vm-dropdown__toggle--text-content {
 			display: inline-block;
 			margin-left: 8px;
-			color: #4D4D4D;
+			color: #4d4d4d;
 		}
 	}
 }
@@ -646,12 +773,72 @@
 	height: 100%;
 	left: 0;
 	top: 0;
-	background-color: rgba(0, 0, 0, .50);
+	background-color: rgba(0, 0, 0, 0.5);
 	z-index: 100001;
 	display: none;
 
 	&.wpwax-vm-show {
 		display: block;
+	}
+}
+
+/* Modal Basic */
+.wpwax-vm-modal {
+	&.wpwax-vm-modal-basic {
+		.wpwax-vm-modal__header {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 20px 30px;
+
+			.wpwax-vm-modal-title {
+				margin: 0;
+			}
+		}
+
+		.wpwax-vm-modal-close {
+			position: absolute;
+			right: 20px;
+			top: 15px;
+			text-decoration: none;
+
+			.dashicons {
+				color: var(--color-dark);
+			}
+		}
+
+		.wpax-vm-modal__body {
+			padding: 30px;
+		}
+
+		.wpwax-vm-modal__footer {
+			display: flex;
+			justify-content: flex-end;
+
+			.wpwax-vm-modal-footer__action {
+				margin: -5px;
+
+				a {
+					padding: 0 20px;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					border-radius: 6px;
+					min-height: 34px;
+					text-decoration: none;
+					margin: 5px;
+					color: var(--color-white);
+
+					&.wpwax-vm-modal-footer__action--cancel {
+						background-color: var(--color-danger);
+					}
+
+					&.wpwax-vm-modal-footer__action--ok {
+						background-color: var(--color-success);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -700,6 +887,21 @@
 	}
 }
 
+.wpwax-vm-loder-active {
+	position: relative;
+
+	&:after {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		content: "";
+		z-index: 10;
+		background-color: rgba(255, 255, 255, 0.8);
+	}
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
 	100% {
@@ -728,7 +930,7 @@
 @keyframes wpwaxVmScaling {
 	0% {
 		opacity: 0;
-		transform: scale(.9);
+		transform: scale(0.9);
 	}
 
 	100% {

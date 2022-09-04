@@ -20,7 +20,7 @@ const moreDropdown = [
 ];
 
 const Taglist= props =>  {
-    
+    const overlay = document.querySelector('.wpax-vm-overlay');
     const { sessionState, setSessionState } = props;
     const { activeSessionId, tagListModalOpen } = sessionState;
     /* Dispasth is used for passing the actions to redux store  */
@@ -57,12 +57,6 @@ const Taglist= props =>  {
         currentSession.length !== 0 ? allTerms = currentSession[0].terms : null;
     }
 
-    /* Handle Modal Close */
-    const handleCloseModal = (event) => {
-        event.preventDefault();
-        dispatch(handleTagModal(false));
-    }
-
     /* Handle Add Tag */
     const handleAddTagModal = (event) => {
         event.preventDefault();
@@ -73,7 +67,17 @@ const Taglist= props =>  {
         });
         // dispatch(handleTagFormModal(true));
     }
-    console.log(sessions);
+
+    const handleCloseAllTagModal = (event)=>{
+        event.preventDefault();
+        overlay.classList.remove('wpwax-vm-show');
+        setSessionState({
+            ...sessionState,
+            tagListModalOpen: false,
+            addTagModalOpen: false
+        });
+    }
+
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];
     if(currentSession.length !== 0){
@@ -117,7 +121,7 @@ const Taglist= props =>  {
                     </div>
                     <span className="wpwax-vm-taglist-author__name">Tags {titleString}</span>
                 </div>
-                <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseModal}><span className="dashicons dashicons-no-alt"></span></a>
+                <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseAllTagModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
 
             <div className="wpwax-vm-modal__body">
@@ -146,7 +150,7 @@ const Taglist= props =>  {
                     <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
                     <span className="wpwax-vm-btn-text">New Tag</span>
                 </a>
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Done</a>
+                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={handleCloseAllTagModal}>Done</a>
             </div>
         </TaglistWrap>
     );

@@ -2966,6 +2966,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! MessengerApps/chatDashboard/store/tags/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/tags/actionCreator.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -3024,6 +3032,17 @@ var Dropdown = function Dropdown(_ref) {
       setSelectedState = _useState4[1];
 
   var selectedItemText = selectedState.selectedItemText;
+  /* initialize Form Data */
+
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
+    // console.log(state)
+    return {
+      sessions: state.sessions.sessions
+    };
+  }),
+      sessions = _useSelector.sessions;
+
+  console.log(sessions);
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -3061,10 +3080,22 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'add-tags':
-        overlay.classList.add('wpwax-vm-show'); // console.log(btnName);
+        overlay.classList.add('wpwax-vm-show');
+        var currentSession = sessions.filter(function (singleSession) {
+          return singleSession.session_id === sessionId;
+        });
+        var asignedTerms = [];
 
+        if (currentSession.length !== 0) {
+          for (var i = 0; i < currentSession[0].terms.length; i++) {
+            asignedTerms = [].concat(_toConsumableArray(asignedTerms), [currentSession[0].terms[i].term_id]);
+          }
+        }
+
+        console.log(currentSession[0].terms.length, asignedTerms);
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
+          asignedTerms: _toConsumableArray(asignedTerms),
           tagListModalOpen: true // addTagModalOpen: false
 
         })); // dispatch(handleSetSession(sessionId));

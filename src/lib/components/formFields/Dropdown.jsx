@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
@@ -17,6 +17,15 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     });
 
     const { selectedItemText } = selectedState;
+
+    /* initialize Form Data */
+	const { sessions } = useSelector(state => {
+		// console.log(state)
+        return {
+            sessions: state.sessions.sessions,
+        };
+    });
+    console.log(sessions);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -57,10 +66,21 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');
-                // console.log(btnName);
+                const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
+                let asignedTerms = [];
+                if(currentSession.length !==0){
+                    for(let i =0; i< currentSession[0].terms.length; i++){
+                        asignedTerms = [
+                            ...asignedTerms,
+                            currentSession[0].terms[i].term_id
+                        ]
+                    }
+                }
+                console.log(currentSession[0].terms.length,asignedTerms);
                 setOuterState({
                     ...outerState,
                     activeSessionId: sessionId,
+                    asignedTerms: [...asignedTerms],
                     tagListModalOpen: true,
                     // addTagModalOpen: false
                 });

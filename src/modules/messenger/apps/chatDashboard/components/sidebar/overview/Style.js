@@ -36,6 +36,9 @@ const TaglistWrap = Styled.div`
             li{
                 display: flex;
                 justify-content: space-between;
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
                 .wpwax-vm-taglist-label{
                     font-size: 14px;
                     font-weight: 500;

@@ -68,8 +68,8 @@ const metaList = [
 
 function Sidebar() {
 	const taglistModalOpen = false;
-	 /* initialize Form Data */
-	 const { sessions, loading } = useSelector(state => {
+	/* initialize Form Data */
+	const { sessions, loading } = useSelector(state => {
 		// console.log(state)
         return {
             sessions: state.sessions.sessions,
@@ -82,6 +82,7 @@ function Sidebar() {
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
 		modalSession: {},
+		asignedTerms: [],
 		activeSessionId: "",
 		deleteModalOpen: false,
 		tagListModalOpen: false,
@@ -106,7 +107,6 @@ function Sidebar() {
 
 	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
-	// console.log(sessionState)
 	return (
 		<SidebarWrap className={loading ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">

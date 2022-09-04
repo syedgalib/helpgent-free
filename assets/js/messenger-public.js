@@ -5422,10 +5422,19 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "formatSecondsAsCountdown": function() { return /* binding */ formatSecondsAsCountdown; },
 /* harmony export */   "formatTimeAsCountdown": function() { return /* binding */ formatTimeAsCountdown; }
 /* harmony export */ });
 function formatTimeAsCountdown(timeInSecond) {
   return !isNaN(timeInSecond) ? new Date(timeInSecond * 1000).toISOString().substring(14, 19) : '00:00';
+}
+
+function formatSecondsAsCountdown(timeInSecond) {
+  var second = timeInSecond % 60;
+  second = second < 10 ? '0' + second : second;
+  var min = (timeInSecond - second) / 60;
+  min = min < 10 ? '0' + min : min;
+  return "".concat(min, ":").concat(second);
 }
 
 
@@ -5833,7 +5842,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Assets_svg_icons_check_circle_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/check-circle.svg */ "./src/assets/svg/icons/check-circle.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store_reset__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/reset */ "./src/modules/messenger/apps/chatbox/store/reset.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
 
 
 
@@ -5841,6 +5855,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function Success() {
+  var resetStore = (0,_store_reset__WEBPACK_IMPORTED_MODULE_4__.useResetStore)();
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
       templateOptions: state.chatboxTemplate.template && state.chatboxTemplate.template.options ? state.chatboxTemplate.template.options : {}
@@ -5866,35 +5882,39 @@ function Success() {
       fontColor: templateOptions.thank_page_cta_button_font_color,
       backgroundColor: templateOptions.thank_page_cta_button_background_color
     };
-  }
+  } // Init State
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    resetStore();
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "wpwax-vm-record-send-success__top wpwax-vm-text-white",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
         className: "wpwax-vm-record-send-success__check",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
           src: Assets_svg_icons_check_circle_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h4", {
         className: "wpwax-vm-m-0 wpwax-vm-mt-20 wpwax-vm-font-size-20 wpwax-vm-font-w-bold",
         children: "Success!"
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "wpwax-vm-p-20 wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "wpwax-vm-record-send-success__content wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center wpwax-vm-p-30",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
           className: "wpwax-vm-success__title wpwax-vm-m-0",
           children: templateOptions.thank_page_title
-        }), templateOptions.show_thank_page_description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        }), templateOptions.show_thank_page_description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500",
           children: templateOptions.thank_page_description
         })]
-      }), templateOptions.show_thank_page_cta_button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      }), templateOptions.show_thank_page_cta_button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "wpwax-vm-record-send-success__bottom",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
           href: templateOptions.thank_page_cta_button_url,
           className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
           children: templateOptions.thank_page_cta_button_text
@@ -7335,7 +7355,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/modules/messenger/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -7361,6 +7382,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -7427,7 +7449,12 @@ function Record() {
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
       isPlayingPreview = _useState12[0],
-      setIsPlayingPreview = _useState12[1]; // Init State
+      setIsPlayingPreview = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState14 = _slicedToArray(_useState13, 2),
+      recordedTimeInSecond = _useState14[0],
+      setRecordedTimeInSecond = _useState14[1]; // Init State
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
@@ -7555,47 +7582,62 @@ function Record() {
               });
 
             case 3:
-              window.wpwaxAudioStream = _context3.sent;
-              window.wpwaxRecorder = new RecordRTC(window.wpwaxAudioStream, {
+              window.wpwaxCSAudioStream = _context3.sent;
+              window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                 type: 'audio',
                 mimeType: 'audio/wav',
-                recorderType: RecordRTC.StereoAudioRecorder // disableLogs: true,
-
+                recorderType: RecordRTC.StereoAudioRecorder,
+                disableLogs: true
               });
-              window.wpwaxRecorder.startRecording();
+              window.wpwaxCSRecorder.startRecording();
+              setRecordedTimeInSecond(0);
               setIsRecording(true);
-              _context3.next = 13;
+              startTimer();
+              _context3.next = 15;
               break;
 
-            case 9:
-              _context3.prev = 9;
+            case 11:
+              _context3.prev = 11;
               _context3.t0 = _context3["catch"](0);
               console.log({
                 error: _context3.t0
               });
               setIsRecording(false);
 
-            case 13:
+            case 15:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 9]]);
+      }, _callee3, null, [[0, 11]]);
     }));
     return _startRecording.apply(this, arguments);
   }
 
   function stopRecording() {
-    window.wpwaxRecorder.stopRecording(function (url) {
-      var blob = window.wpwaxRecorder.getBlob();
+    stopTimer();
+    window.wpwaxCSRecorder.stopRecording(function (url) {
+      var blob = window.wpwaxCSRecorder.getBlob();
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setIsRecording(false);
       setCurrentStage(stages.BEFORE_SEND);
     });
-    window.wpwaxAudioStream.getTracks().forEach(function (track) {
+    window.wpwaxCSAudioStream.getTracks().forEach(function (track) {
       return track.stop();
     });
+  }
+
+  function startTimer() {
+    window.wpwaxCSAudioTimer = setInterval(function () {
+      setRecordedTimeInSecond(function (currentValue) {
+        return currentValue + 1;
+      });
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(window.wpwaxCSAudioTimer);
   } // togglePlayPauseAudio
 
 
@@ -7620,6 +7662,7 @@ function Record() {
 
   function prepareRecordAgain(e) {
     e.preventDefault();
+    setRecordedTimeInSecond(0);
     setIsRecording(false);
     setCurrentStage(stages.RECORD);
   }
@@ -7627,63 +7670,57 @@ function Record() {
   var permissionDenied = state.permissionDenied;
 
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record audio, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_4__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
         className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-          className: "wpwax-vm-sec",
-          children: "00"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
-          className: "wpwax-vm-seperator",
-          children: ":"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
           className: "wpwax-vm-min",
-          children: "00"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_13__.formatSecondsAsCountdown)(recordedTimeInSecond)
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-vm-record-staging__bottom",
-        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("p", {
-          children: ["Tap to", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("p", {
+          children: ["Tap to", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
             className: "wpwax-vm-highlighted",
             children: "Start"
           }), ' ', "recording!"]
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: !isRecording ? 'wpwax-vm-record-staging__bottom--action' : 'wpwax-vm-record-staging__bottom--action wpwax-vm-record-start',
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick() {
               return startRecording();
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-pause-btn",
             onClick: function onClick() {
               return stopRecording();
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-close",
             children: "x"
@@ -7692,10 +7729,10 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("audio", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("audio", {
           ref: audioRef,
           src: recordedAudioURL,
           onPlay: function onPlay() {
@@ -7708,35 +7745,35 @@ function Record() {
             return setIsPlayingPreview(false);
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-vm-record-ready__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
           className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
           style: {
             backgroundImage: "url(\"".concat(Assets_img_builder_bg_png__WEBPACK_IMPORTED_MODULE_7__["default"], "\")")
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
           href: "#",
           onClick: togglePlayPauseAudio,
           className: "wpwax-vm-recorded-play",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
             src: isPlayingPreview ? Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_6__["default"] : Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-vm-record-ready__bottom",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
           children: "Ready to Send ?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "wpwax-vm-record-ready__bottom--actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               sendAudio(e);
             },
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary",
             children: "Yes"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               prepareRecordAgain(e);
@@ -7748,21 +7785,21 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
             className: "wpwax-vm-record-send-progress__bar",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
               children: "Uploading"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
               children: "We\u2019re currently uploading your audio"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-text-danger",
               children: "Please don\u2019t leave this page!"
             })]
@@ -8415,39 +8452,32 @@ var submitForm = function submitForm(formData) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              console.log('submitForm: chk-1', {
-                formData: formData
-              });
-              _context.prev = 1;
+              _context.prev = 0;
               dispatch(submitFormBegain());
-              _context.next = 5;
+              _context.next = 4;
               return _api__WEBPACK_IMPORTED_MODULE_1__["default"].createAttachment(formData);
 
-            case 5:
+            case 4:
               response = _context.sent;
               result = response.data;
-              console.log({
-                result: result,
-                formData: formData
-              });
               dispatch(submitFormSuccess(result.data));
-              _context.next = 15;
+              _context.next = 13;
               break;
 
-            case 11:
-              _context.prev = 11;
-              _context.t0 = _context["catch"](1);
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](0);
               console.log({
                 error: _context.t0.response.data
               });
               dispatch(submitFormError(_context.t0.response.data));
 
-            case 15:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 11]]);
+      }, _callee, null, [[0, 9]]);
     }));
 
     return function (_x) {
@@ -8536,7 +8566,7 @@ var createAttachment = /*#__PURE__*/function () {
             formData = new FormData();
 
             for (key in args) {
-              formData.append(key, args[key], 'file');
+              formData.append(key, args[key]);
             }
 
             _context.next = 4;
@@ -8617,9 +8647,6 @@ var reducer = function reducer() {
       });
 
     case SUBMIT_FORM_SUCCESS:
-      console.log('SUBMIT_FORM_SUCCESS', {
-        payload: payload
-      });
       return _objectSpread(_objectSpread({}, state), {}, {
         uploadedAttachment: payload,
         isSubmitting: false,
@@ -9334,6 +9361,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms/user/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/user/actionCreator.js");
 /* harmony import */ var _forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./forms/messenger/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/actionCreator.js");
+/* harmony import */ var _forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./forms/attachment/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/actionCreator.js");
+
 
 
 
@@ -9343,6 +9372,7 @@ function useResetStore() {
   return function () {
     dispatch((0,_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_1__.reset)());
     dispatch((0,_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_2__.reset)());
+    dispatch((0,_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_3__.reset)());
   };
 }
 

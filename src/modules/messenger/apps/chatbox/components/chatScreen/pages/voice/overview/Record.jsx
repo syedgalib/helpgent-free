@@ -17,6 +17,7 @@ import { updateFormData as updateMessengerFormData } from '../../../../../store/
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
+import { formatSecondsAsCountdown } from '../../../../../../../../../helpers/formatter';
 
 function Record() {
     const audioRef = useRef();
@@ -44,6 +45,7 @@ function Record() {
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
     const [isRecording, setIsRecording] = useState(false);
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
+    const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
     // Init State
     useState(function () {
@@ -111,25 +113,27 @@ function Record() {
     // startRecording
     async function startRecording() {
         try {
-            window.wpwaxAudioStream = await navigator.mediaDevices.getUserMedia(
-                {
+            window.wpwaxCSAudioStream =
+                await navigator.mediaDevices.getUserMedia({
                     audio: {
                         echoCancellation: true,
                         noiseSuppression: true,
                         sampleRate: 44100,
                     },
-                }
-            );
+                });
 
-            window.wpwaxRecorder = new RecordRTC(window.wpwaxAudioStream, {
+            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                 type: 'audio',
                 mimeType: 'audio/wav',
                 recorderType: RecordRTC.StereoAudioRecorder,
-                // disableLogs: true,
+                disableLogs: true,
             });
 
-            window.wpwaxRecorder.startRecording();
+            window.wpwaxCSRecorder.startRecording();
+
+            setRecordedTimeInSecond(0);
             setIsRecording(true);
+            startTimer();
         } catch (error) {
             console.log({ error });
 
@@ -139,8 +143,9 @@ function Record() {
 
     // stopRecording
     function stopRecording() {
-        window.wpwaxRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxRecorder.getBlob();
+        stopTimer();
+        window.wpwaxCSRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxCSRecorder.getBlob();
 
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
@@ -148,7 +153,19 @@ function Record() {
             setCurrentStage(stages.BEFORE_SEND);
         });
 
-        window.wpwaxAudioStream.getTracks().forEach((track) => track.stop());
+        window.wpwaxCSAudioStream.getTracks().forEach((track) => track.stop());
+    }
+
+    function startTimer() {
+        window.wpwaxCSAudioTimer = setInterval(function () {
+            setRecordedTimeInSecond(function (currentValue) {
+                return currentValue + 1;
+            });
+        }, 1000);
+    }
+
+    function stopTimer() {
+        clearInterval(window.wpwaxCSAudioTimer);
     }
 
     // togglePlayPauseAudio
@@ -176,6 +193,7 @@ function Record() {
     function prepareRecordAgain(e) {
         e.preventDefault();
 
+        setRecordedTimeInSecond(0);
         setIsRecording(false);
         setCurrentStage(stages.RECORD);
     }
@@ -215,9 +233,9 @@ function Record() {
                             : 'wpwax-vm-timer'
                     }
                 >
-                    <span className='wpwax-vm-sec'>00</span>
-                    <span className='wpwax-vm-seperator'>:</span>
-                    <span className='wpwax-vm-min'>00</span>
+                    <span className='wpwax-vm-min'>
+                        {formatSecondsAsCountdown(recordedTimeInSecond)}
+                    </span>
                 </span>
                 <div className='wpwax-vm-record-staging__bottom'>
                     {!isRecording ? (

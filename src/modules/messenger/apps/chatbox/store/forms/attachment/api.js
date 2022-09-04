@@ -5,7 +5,7 @@ const createAttachment = async ( args ) => {
 	const formData = new FormData();
 
 	for ( let key in args ) {
-		formData.append( key, args[ key ], 'file' );
+		formData.append( key, args[ key ] );
 	}
 
 	return await restRequest.post("/attachments", formData, {

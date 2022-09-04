@@ -11,14 +11,11 @@ const {
 
 const submitForm = ( formData ) => {
     return async dispatch => {
-		console.log('submitForm: chk-1', { formData });
         try {
             dispatch( submitFormBegain() );
 
             let response = await api.createAttachment( formData );
             let result   = response.data;
-
-			console.log( { result, formData } );
 
             dispatch( submitFormSuccess( result.data ) );
         } catch (error) {

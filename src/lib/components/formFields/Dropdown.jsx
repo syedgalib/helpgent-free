@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import apiService from 'apiService/Service.js';
+import { handleReadSessions } from '../../../modules/messenger/apps/chatDashboard/store/sessions/actionCreator';
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
@@ -59,10 +61,53 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
         switch (btnName) {
             case 'mark-read':
-                setOuterState({
-                    ...outerState,
-                    sessions: []
-                });
+                const markRead = async ()=>{
+                    const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-read`);
+                    console.log(response)
+                    return response;
+                }
+                markRead().then( resposne =>{
+                    
+                    
+                })
+                .catch(error=>{})
+
+                const getSessions = async ()  =>{
+                    const sessionResponse = await apiService.getAll('/sessions');
+                    return sessionResponse;
+                }
+
+                getSessions()
+                .then( sessionResponse => {
+                    console.log(sessionResponse)
+                    dispatch(handleReadSessions(sessionResponse.data.data))
+                })
+                .catch(error => {})
+                
+                break;
+            case 'mark-unread':
+                const markUnRead = async ()=>{
+                    const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-unread`);
+                    console.log(response)
+                    return response;
+                }
+                markUnRead().then( resposne =>{
+                    
+                    
+                })
+                .catch(error=>{})
+
+                const getUnreadSessions = async ()  =>{
+                    const sessionResponse = await apiService.getAll('/sessions');
+                    return sessionResponse;
+                }
+
+                getUnreadSessions()
+                .then( sessionResponse => {
+                    console.log(sessionResponse)
+                    dispatch(handleReadSessions(sessionResponse.data.data))
+                })
+                .catch(error => {})
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');

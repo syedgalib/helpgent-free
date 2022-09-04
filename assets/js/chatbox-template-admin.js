@@ -7160,12 +7160,22 @@ var datadelete = function datadelete(path) {
   return axiosInstance.delete(path);
 };
 
+var markRead = function markRead(path) {
+  return axiosInstance.post(path);
+};
+
+var markUnRead = function markUnRead(path) {
+  return axiosInstance.post(path);
+};
+
 var apiService = {
   getAll: getAll,
   getById: getById,
   dataAdd: dataAdd,
   dataUpdate: dataUpdate,
-  datadelete: datadelete
+  datadelete: datadelete,
+  markRead: markRead,
+  markUnRead: markUnRead
 };
 /* harmony default export */ __webpack_exports__["default"] = (apiService);
 

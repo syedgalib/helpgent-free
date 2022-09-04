@@ -440,7 +440,9 @@
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
-	background-color: var(--color-danger);
+	&.wpwax-vm-usermedia-status-unread{
+		background-color: var(--color-danger);
+	}
 }
 
 /* Table Style */

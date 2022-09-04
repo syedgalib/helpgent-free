@@ -29,13 +29,21 @@ const dataAdd = (path, args) => {
 const datadelete = path => {
     return axiosInstance.delete(path);
 };
+const markRead = path => {
+    return axiosInstance.post(path);
+};
+const markUnRead = path => {
+    return axiosInstance.post(path);
+};
 
 const apiService = {
     getAll,
     getById,
     dataAdd,
     dataUpdate,
-    datadelete
+    datadelete,
+    markRead,
+    markUnRead
 }
 
 export default apiService;

@@ -41,24 +41,6 @@ const filterDropdown = [
 	},
 ];
 
-const moreDropdown = [
-	{
-		icon: envelopeOpen,
-		name: "mark-read",
-		text: "Mark as unread"
-	},
-	{
-		icon: tag,
-		name: "add-tags",
-		text: "Add tags"
-	},
-	{
-		icon: trash,
-		name: "delete-conv",
-		text: "Delete Conversation"
-	},
-];
-
 const metaList = [
 	{
 		type: "date",
@@ -157,13 +139,52 @@ function Sidebar() {
 									if(images.length > 1){
 										multiImg = true;
 									}
+									console.log(Math.floor(item.total_unread))
+									if(Number(item.total_unread) > 0){
+										var moreDropdown = [
+											{
+												icon: envelopeOpen,
+												name: "mark-read",
+												text: "Mark as Read"
+											},
+											{
+												icon: tag,
+												name: "add-tags",
+												text: "Add tags"
+											},
+											{
+												icon: trash,
+												name: "delete-conv",
+												text: "Delete Conversation"
+											},
+										];
+									}else{
+										var moreDropdown = [
+											{
+												icon: envelopeOpen,
+												name: "mark-unread",
+												text: "Mark as unread"
+											},
+											{
+												icon: tag,
+												name: "add-tags",
+												text: "Add tags"
+											},
+											{
+												icon: trash,
+												name: "delete-conv",
+												text: "Delete Conversation"
+											},
+										];
+									}
+									// console.log(typeof Number(item.total_unread), typeof 0);
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
 											<div className="wpwax-vm-usermedia__left">
 												<MediaBox img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
 											</div>
 											<div className="wpwax-vm-usermedia__right">
-												<span className={item.totaL_unread > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>
+												<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>
 												<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={item.session_id}/>
 											</div>
 										</li>
@@ -174,9 +195,9 @@ function Sidebar() {
 						</ul>
 					</div>
 			}
-			{/* <ModalContext.Provider value={value}> */}
-				<Taglist sessionState={sessionState} setSessionState={setSessionState} />
-			{/* </ModalContext.Provider> */}
+			
+			<Taglist sessionState={sessionState} setSessionState={setSessionState} />
+
 
 			<AddTag sessionState={sessionState} setSessionState={setSessionState} />
 

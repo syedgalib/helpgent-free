@@ -63,10 +63,10 @@ abstract class Base extends WP_REST_Controller {
 
     /**
      * Prepare item for response
-     * 
+     *
 	 * @param array $item    WordPress representation of the item.
 	 * @param array $request_params Request params.
-     * 
+     *
 	 * @return WP_REST_Response|null Response object on success, or null object on failure.
      */
     public function prepare_item_for_response( $item, $request_params ) {
@@ -99,14 +99,14 @@ abstract class Base extends WP_REST_Controller {
 
     /**
      * Check guest permission
-     * 
+     *
      * @param $request
      * @return mixed
      */
     public function check_guest_permission( $request ) {
 
         $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
-        
+
         if ( $skip_permission ) {
             return true;
         }
@@ -120,18 +120,18 @@ abstract class Base extends WP_REST_Controller {
 
     /**
      * Check admin permission
-     * 
+     *
      * @param $request
      * @return mixed
      */
     public function check_admin_permission( $request ) {
 
         $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
-        
+
         if ( $skip_permission ) {
             return true;
         }
-       
+
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }
@@ -142,14 +142,14 @@ abstract class Base extends WP_REST_Controller {
 
         return true;
     }
-    
+
     /**
      * Convert string to int array
-     * 
+     *
      * @param string $string
      * @param string $separator ,
      * @param string $remove_non_int_items true
-     * 
+     *
      * @return array
      */
     public function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true ) {
@@ -161,17 +161,17 @@ abstract class Base extends WP_REST_Controller {
 
     /**
      * Convert string to array
-     * 
+     *
      * @param string $string
      * @param string $separator ,
-     * 
+     *
      * @return array
      */
     public function convert_string_to_array( $string, $separator = ',' ) {
 
         $string = trim( $string, ',\s' );
         $list   = explode( $separator, $string );
-            
+
         if ( ! is_array( $list ) ) {
             return [];
         }
@@ -181,9 +181,9 @@ abstract class Base extends WP_REST_Controller {
 
     /**
      * Parse array items to int
-     * 
+     *
      * @param array $list
-     * 
+     *
      * @return array
      */
     public function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
@@ -209,9 +209,25 @@ abstract class Base extends WP_REST_Controller {
         return array_values( $list );
     }
 
+	/**
+	 * Check if user is admin
+	 *
+	 * @param WP_User $user
+	 *
+	 */
+	protected function is_user_admin( $user ) {
+		$accepted_roles = apply_filters( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', [ 'administrator' ] );
+
+		$accepted_roles_check = array_unique( array_map( function( $rule ) use( $accepted_roles ) {
+			return in_array( $rule, $accepted_roles ) ? 1 : 0;
+		}, $user->roles ) );
+
+		return in_array( 1, $accepted_roles_check );
+	}
+
     /**
      * Get Formatted Time
-     * 
+     *
      * @param $time
      * @param $timezone
      */

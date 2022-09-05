@@ -2,7 +2,7 @@ import Styled from 'styled-components';
 
 const RecorderWrap = Styled.div`
     text-align: center;
-    padding: 100px 25px;
+    padding: 0 25px;
     min-width: 420px;
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;

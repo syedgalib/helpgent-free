@@ -9,7 +9,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'attachments';
@@ -108,7 +108,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Validate Order
-     * 
+     *
      * @param $value
      * @return array
      */
@@ -118,7 +118,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Get Items
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -146,7 +146,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Get Item
-     * 
+     *
      * @param object $request
      * @return array Response
      */
@@ -160,7 +160,7 @@ class Attachment extends Rest_Base {
         if ( is_wp_error( $data ) ) {
             return $data;
         }
-        
+
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
 
@@ -169,7 +169,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Create Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -185,6 +185,13 @@ class Attachment extends Rest_Base {
 
         if ( isset( $_FILES['file'] ) ) {
             $args['file'] = $_FILES['file'];
+			$check_ext = wp_check_filetype_and_ext( $args['file'], $args['file']['name'] );
+
+			if ( empty( $check_ext['ext'] ) ) {
+				$type = $args['file']['type'];
+				$ext  = preg_replace( "/\w+[\/]/", '', $type );
+				$args['file']['name'] = $args['file']['name'] . '.' . $ext;
+			}
         }
 
         $data = Attachment_Model::create_item( $args );
@@ -201,7 +208,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Update Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -227,7 +234,7 @@ class Attachment extends Rest_Base {
 
     /**
      * Delete Item
-     * 
+     *
      * @param $request
      * @return array Response
      */

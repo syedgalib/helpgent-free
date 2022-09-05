@@ -1,10 +1,12 @@
 import actions from "./actions";
 import api from './api';
 
-const { 
-    submitFormBegain, 
-    submitFormSuccess, 
+const {
+    updateFormData,
+    submitFormBegain,
+    submitFormSuccess,
     submitFormError,
+    reset,
 } = actions;
 
 const submitForm = ( formData ) => {
@@ -15,7 +17,7 @@ const submitForm = ( formData ) => {
             let response = await api.createAttachment( formData );
             let result   = response.data;
 
-            dispatch( submitFormSuccess( result ) );
+            dispatch( submitFormSuccess( result.data ) );
         } catch (error) {
             console.log( { error: error.response.data } );
             dispatch( submitFormError( error.response.data ) );
@@ -23,4 +25,4 @@ const submitForm = ( formData ) => {
     }
 };
 
-export { submitForm as loadTemplate };
+export { updateFormData, submitForm, reset };

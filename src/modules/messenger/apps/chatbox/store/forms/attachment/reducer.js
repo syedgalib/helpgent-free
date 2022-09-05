@@ -1,38 +1,53 @@
 import actions from "./actions";
 
-const { 
-    SUBMIT_FORM_BEGAIN, 
-    SUBMIT_FORM_SUCCESS, 
-    SUBMIT_FORM_ERROR, 
+const {
+    UPDATE_FORM_DATA,
+    RESET,
+    SUBMIT_FORM_BEGAIN,
+    SUBMIT_FORM_SUCCESS,
+    SUBMIT_FORM_ERROR,
 } = actions;
 
 const initialState = {
-    formData: {
-        user_id: 0,
-    },
+    uploadedAttachment: null,
+    formData: {},
 	isSubmitting: false,
 	status: null,
 };
 
 const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
+	const { type, payload } = action;
+
+    switch ( type ) {
+		case UPDATE_FORM_DATA:
+            return {
+                ...state,
+                formData: { ...state.formData, ...payload }
+            };
         case SUBMIT_FORM_BEGAIN:
             return {
                 ...state,
-                isSubmitting: true
+                submited: true,
+                isSubmitting: true,
+                status: null,
             };
         case SUBMIT_FORM_SUCCESS:
             return {
                 ...state,
+				uploadedAttachment: payload,
                 isSubmitting: false,
-                status: action.payload.data,
+                status: true,
             };
         case SUBMIT_FORM_ERROR:
             return {
                 ...state,
                 isSubmitting: false,
-                status: action.payload.data,
+                status: false,
             };
+
+        case RESET:
+            return initialState;
+
         default:
             return state;
     }

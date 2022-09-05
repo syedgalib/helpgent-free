@@ -20,6 +20,7 @@ class Init {
 
     private function get_assets_enqueuers() {
         return [
+            Global_Asset::class,
             Admin_Asset::class,
             Public_Asset::class,
         ];

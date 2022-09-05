@@ -5,8 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './rootReducers';
 
 const store = configureStore(
-    { reducer: rootReducer }, 
-    composeWithDevTools( applyMiddleware( thunk.withExtraArgument() ) )
+    {
+		reducer: rootReducer,
+		middleware: (getDefaultMiddleware) =>
+			getDefaultMiddleware({
+			serializableCheck: false,
+		}),
+	},
+    composeWithDevTools( applyMiddleware( thunk.withExtraArgument() ) ),
 );
 
 export default store;

@@ -22,7 +22,7 @@ const moreDropdown = [
 const Taglist= props =>  {
     const overlay = document.querySelector('.wpax-vm-overlay');
     const { sessionState, setSessionState } = props;
-    const { activeSessionId, tagListModalOpen } = sessionState;
+    const { activeSessionId, tagListModalOpen, loader } = sessionState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -131,18 +131,29 @@ const Taglist= props =>  {
                     <input type="text" placeholder="Search" />
                 </div>
                 <div className="wpawax-vm-taglist-inner">
-                    <ul>
-                        {
-                            allTerms.map( ( term,index ) => {
-                                return(
-                                    <li key={index}>
-                                        <span className="wpwax-vm-taglist-label">{term.name}</span>
-                                        <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} termId={term.term_id}/>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
+                    {
+                        loader ? 
+                        <span className="wpwax-vm-loading-spin">
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                        </span>
+                        : 
+                        <ul>
+                            {
+                                allTerms.map( ( term,index ) => {
+                                    return(
+                                        <li key={index}>
+                                            <span className="wpwax-vm-taglist-label">{term.name}</span>
+                                            <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={activeSessionId} termId={term.term_id}/>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    }
+                    
                 </div>
             </div>
 

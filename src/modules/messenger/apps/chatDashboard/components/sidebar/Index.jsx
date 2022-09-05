@@ -16,6 +16,7 @@ import filterIcon from 'Assets/svg/icons/filter.svg';
 import angleDown from 'Assets/svg/icons/angle-down.svg';
 import angleUp from 'Assets/svg/icons/angle-up.svg';
 import magnifier from 'Assets/svg/icons/magnifier.svg';
+import slider from 'Assets/svg/icons/slider.svg';
 import rotateIcon from 'Assets/svg/icons/rotate-right.svg';
 import tag from 'Assets/svg/icons/tag.svg';
 import trash from 'Assets/svg/icons/trash.svg';
@@ -69,6 +70,7 @@ function Sidebar() {
 		deleteModalOpen: false,
 		tagListModalOpen: false,
 		successMessage: "",
+		deleteTerm: "",
 		rejectMessage: "",
 		editableTermId: "",
 		loader: true
@@ -132,6 +134,7 @@ function Sidebar() {
 					<div className="wpwax-vm-form-group wpwax-vm-form-icon-left">
 						<div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
 						<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-search" placeholder="Search" />
+						<a href="#" className="wpwax-vm-search-toggle"><ReactSVG src={slider} /></a>
 					</div>
 				</div>
 				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />

@@ -9,10 +9,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
+        filterText: ""
     });
 
     /* State Distructuring */
-    const { openDropdown } = state;
+    const { openDropdown, filterText } = state;
 
     const [selectedState, setSelectedState] = useState({
         selectedItemText: dropdownList[0].text,
@@ -27,7 +28,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
             sessions: state.sessions.sessions,
         };
     });
-    console.log(sessions);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -54,12 +54,15 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
+        const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
+        console.log(currentSession)
         const overlay = document.querySelector('.wpax-vm-overlay');
         setSelectedState({
             selectedItemText: event.target.text
         });
         setState({
-            openDropdown: false
+            openDropdown: false,
+            filterText: btnName
         });
 
         switch (btnName) {
@@ -123,7 +126,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');
-                const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
+                
                 let asignedTerms = [];
                 if(currentSession.length !==0){
                     for(let i =0; i< currentSession[0].terms.length; i++){
@@ -162,6 +165,35 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 });
                 break;
             case 'term-delete':
+                setOuterState({
+                    ...outerState,
+                    loder: true
+                });
+                const deleteTerm = async () => {
+                    const deleteResponse = await apiService.datadelete(`messages/terms/${termId}`);
+                    return deleteResponse;
+                }
+                deleteTerm()
+                    .then( deleteResponse => {
+                        let filteredTerms = [];
+                        if(currentSession.length !==0){
+                            filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
+                            console.log(currentSession[0].terms.filter(item => item.term_id !== termId));
+                        }
+
+                        const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
+
+                        sessions[sessionIndex].terms = filteredTerms;
+                        
+                        setOuterState({
+                            ...outerState,
+                            deleteTerm: "Successfully Deleted",
+                            loder: false
+                        });
+                        
+                        dispatch(handleReadSessions(sessions))
+                    })
+                    .catch(error => {})
                 break;
             default:
                 break;
@@ -205,7 +237,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                             {
                                 textIcon ? <ReactSVG src={textIcon} /> : ''
                             }
-                            <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">unread</span></span>
+                            <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">{filterText}</span></span>
                         </span> : ""
                 }
 

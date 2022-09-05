@@ -5551,7 +5551,8 @@ var Dropdown = function Dropdown(_ref) {
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    openDropdown: false
+    openDropdown: false,
+    filterText: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -5559,7 +5560,8 @@ var Dropdown = function Dropdown(_ref) {
   /* State Distructuring */
 
 
-  var openDropdown = state.openDropdown;
+  var openDropdown = state.openDropdown,
+      filterText = state.filterText;
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     selectedItemText: dropdownList[0].text
@@ -5578,9 +5580,8 @@ var Dropdown = function Dropdown(_ref) {
     };
   }),
       sessions = _useSelector.sessions;
-
-  console.log(sessions);
   /* Dispasth is used for passing the actions to redux store  */
+
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   /* Handle Dropdown active inactive */
@@ -5604,12 +5605,17 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
+    var currentSession = sessions.filter(function (singleSession) {
+      return singleSession.session_id === sessionId;
+    });
+    console.log(currentSession);
     var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
       selectedItemText: event.target.text
     });
     setState({
-      openDropdown: false
+      openDropdown: false,
+      filterText: btnName
     });
 
     switch (btnName) {
@@ -5755,9 +5761,6 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'add-tags':
         overlay.classList.add('wpwax-vm-show');
-        var currentSession = sessions.filter(function (singleSession) {
-          return singleSession.session_id === sessionId;
-        });
         var asignedTerms = [];
 
         if (currentSession.length !== 0) {
@@ -5795,6 +5798,59 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'term-delete':
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          loder: true
+        }));
+
+        var deleteTerm = /*#__PURE__*/function () {
+          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+            var deleteResponse;
+            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+              while (1) {
+                switch (_context5.prev = _context5.next) {
+                  case 0:
+                    _context5.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].datadelete("messages/terms/".concat(termId));
+
+                  case 2:
+                    deleteResponse = _context5.sent;
+                    return _context5.abrupt("return", deleteResponse);
+
+                  case 4:
+                  case "end":
+                    return _context5.stop();
+                }
+              }
+            }, _callee5);
+          }));
+
+          return function deleteTerm() {
+            return _ref6.apply(this, arguments);
+          };
+        }();
+
+        deleteTerm().then(function (deleteResponse) {
+          var filteredTerms = [];
+
+          if (currentSession.length !== 0) {
+            filteredTerms = currentSession[0].terms.filter(function (item) {
+              return item.term_id !== termId;
+            });
+            console.log(currentSession[0].terms.filter(function (item) {
+              return item.term_id !== termId;
+            }));
+          }
+
+          var sessionIndex = sessions.findIndex(function (sessionObj) {
+            return sessionObj.session_id === sessionId;
+          });
+          sessions[sessionIndex].terms = filteredTerms;
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            deleteTerm: "Successfully Deleted",
+            loder: false
+          }));
+          dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessions));
+        }).catch(function (error) {});
         break;
 
       default:
@@ -5848,7 +5904,7 @@ var Dropdown = function Dropdown(_ref) {
           className: "wpwax-vm-dropdown__toggle--text-content",
           children: ["Filter by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-selected",
-            children: "unread"
+            children: filterText
           })]
         })]
       }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {

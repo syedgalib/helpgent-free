@@ -9,14 +9,14 @@ class Session_Term_Relationship_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
     public static $table = 'session_term_relationships';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -43,7 +43,7 @@ class Session_Term_Relationship_Model extends DB_Model {
 
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-            
+
             foreach ( $args['where'] as $key => $value ) {
 
                 if ( in_array( $key, $common_fields ) ) {
@@ -70,23 +70,29 @@ class Session_Term_Relationship_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $id
      * @return array|WP_Error
      */
-    public static function get_item( $id ) {
+    public static function get_item( $session_id ) {
 
-        if ( empty( $id ) ) {
+        if ( empty( $session_id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        return Term_Model::get_item( $id );
+		$items = self::get_items( [ 'where' => [ 'session_id' => $session_id ] ] );
+
+		if ( empty( $items ) ) {
+			return [];
+		}
+
+        return $items[0];
     }
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -132,13 +138,13 @@ class Session_Term_Relationship_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
-        
+
         if ( empty( $args['id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -173,7 +179,7 @@ class Session_Term_Relationship_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param int $id
      * @return bool
      */
@@ -200,7 +206,7 @@ class Session_Term_Relationship_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param array $args
      * @return bool
      */

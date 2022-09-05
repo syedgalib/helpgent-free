@@ -94,6 +94,28 @@ class Sessions extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/(?P<session_id>[\w]+)/update-terms',
+            [
+                [
+                    'methods'             => \WP_REST_Server::EDITABLE,
+                    'callback'            => [ $this, 'update_terms' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'args'                => [
+                        'add_term_ids' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                        'remove_term_ids' => [
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
             '/' . $this->rest_base . '/add-terms',
             [
                 [
@@ -345,6 +367,134 @@ class Sessions extends Rest_Base {
 		}
 
 		return $users;
+	}
+
+    /**
+     * Update Terms
+     *
+     * @param $request
+     * @return array Response
+     */
+    public function update_terms( $request ) {
+        $args = $request->get_params();
+
+        $default = [];
+
+        $default['session_id']      = '';
+        $default['add_term_ids']    = '';
+        $default['remove_term_ids'] = '';
+
+        $args = Helper\merge_params( $default, $args );
+
+        if ( empty( $args['session_id'] ) ) {
+            $message = __( 'The session ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+		$add_terms    = ( ! empty( $args['add_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['add_term_ids'] ) : [];
+		$remove_terms = ( ! empty( $args['remove_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['remove_term_ids'] ) : [];
+
+        if ( empty( $add_terms ) && empty( $remove_terms ) ) {
+            $message = __( 'Nothing to add or remove.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        $data = [
+			'add_terms_status'    => [],
+			'remove_terms_status' => [],
+		];
+
+		// Add Terms
+		if ( ! empty( $add_terms ) ) {
+			$data['add_terms_status'] = $this->add_session_terms( $args['session_id'], $add_terms );
+		}
+
+		// Remove Terms
+		if ( ! empty( $remove_terms ) ) {
+			$data['remove_terms_status'] = $this->remove_session_terms( $args['session_id'], $remove_terms );
+		}
+
+		$session_terms_args = [
+			'where' => [
+				'session_id' =>  $args['session_id'],
+			],
+		];
+
+		$data['current_terms'] = Session_Term_Relationship_Model::get_items( $session_terms_args );
+
+        return $this->response( true, $data );
+    }
+
+	/**
+	 * Add Session Terms
+	 *
+	 * @param string $session_id
+	 * @param array $term_ids
+	 *
+	 * @return array Status
+	 */
+	public function add_session_terms( $session_id = '', $term_ids = [] ) {
+		$status = [
+			'failed'  => [],
+			'success' => [],
+		];
+
+		if ( empty( $session_id ) || empty( $term_ids ) ) {
+			return $status;
+		}
+
+		foreach( $term_ids as $term_id ) {
+            $create_status = Session_Term_Relationship_Model::create_item([
+                'session_id' => $session_id,
+                'term_id'    => $term_id,
+            ]);
+
+            if ( is_wp_error( $create_status ) ) {
+                $status['failed'][] = $term_id;
+                continue;
+            }
+
+            $status['success'][] = $term_id;
+
+        }
+
+		return $status;
+	}
+
+	/**
+	 * Remove Session Terms
+	 *
+	 * @param string $session_id
+	 * @param array $term_ids
+	 *
+	 * @return array Status
+	 */
+	public function remove_session_terms( $session_id = '', $term_ids = [] ) {
+        $status = [
+			'failed'  => [],
+			'success' => [],
+		];
+
+		if ( empty( $session_id ) || empty( $term_ids ) ) {
+			return $status;
+		}
+
+		foreach( $term_ids as $term_id ) {
+            $delete_status = Session_Term_Relationship_Model::delete_item_where([
+                'session_id'       => $session_id,
+                'term_taxonomy_id' => $term_id,
+            ]);
+
+            if ( is_wp_error( $delete_status ) ) {
+                $status['failed'][] = $term_id;
+                continue;
+            }
+
+            $status['success'][] = $term_id;
+
+        }
+
+		return $status;
 	}
 
     /**

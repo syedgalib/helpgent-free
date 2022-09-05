@@ -29,17 +29,15 @@ function Record() {
         };
     });
 
-    const [state, setState] = useState({
-        permissionDenied: false,
-    });
-
     const stages = {
         PERMISSION: 'permission',
         RECORD: 'record',
         BEFORE_SEND: 'before_send',
         UPLOADING: 'uploading',
+        UPLOAD_FAILED: 'upload_failed',
     };
 
+    const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
@@ -70,6 +68,8 @@ function Record() {
 
                 // Switch to Contact form
                 dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            } else if (false === attachmentForm.status) {
+                setCurrentStage(stages.UPLOAD_FAILED);
             }
         },
         [attachmentForm.status]
@@ -103,10 +103,7 @@ function Record() {
         } catch (error) {
             console.log({ error });
 
-            setState({
-                ...state,
-                permissionDenied: true,
-            });
+            setPermissionDenied(true);
         }
     }
 
@@ -147,13 +144,15 @@ function Record() {
         window.wpwaxCSRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSRecorder.getBlob();
 
+            window.wpwaxCSAudioStream
+                .getTracks()
+                .forEach((track) => track.stop());
+
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setIsRecording(false);
             setCurrentStage(stages.BEFORE_SEND);
         });
-
-        window.wpwaxCSAudioStream.getTracks().forEach((track) => track.stop());
     }
 
     function startTimer() {
@@ -198,8 +197,6 @@ function Record() {
         setCurrentStage(stages.RECORD);
     }
 
-    const { permissionDenied } = state;
-
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
@@ -233,7 +230,7 @@ function Record() {
                             : 'wpwax-vm-timer'
                     }
                 >
-                    <span className='wpwax-vm-min'>
+                    <span className='wpwax-vm-sec'>
                         {formatSecondsAsCountdown(recordedTimeInSecond)}
                     </span>
                 </span>
@@ -336,6 +333,27 @@ function Record() {
                             <p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
                                 Please don’t leave this page!
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </RecorderWrap>
+        );
+    } else if (currentStage === stages.UPLOAD_FAILED) {
+        return (
+            <RecorderWrap>
+                <div className='wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+                    <div className='wpwax-vm-record-send-progress__content'>
+                        <div className='wpwax-vm-text-center'>
+                            <p className='wpwax-vm-danger-text wpwax-vm-mb-20'>
+                                Couldn't upload the video, please try again.
+                            </p>
+                            <a
+                                href='#'
+                                onClick={(e) => prepareRecordAgain(e)}
+                                className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
+                            >
+                                Try Again
+                            </a>
                         </div>
                     </div>
                 </div>

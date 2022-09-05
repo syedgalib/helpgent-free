@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core;
+namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -26,11 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Hooks\Init::class,
-            Setup\Init::class,
-            Asset\Init::class,
-            Admin\Init::class,
-            Rest_API\Init::class,
+			Attachment::class,
         ];
     }
 

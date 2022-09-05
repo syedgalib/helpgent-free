@@ -17,6 +17,11 @@ const submitForm = ( formData ) => {
             let response = await api.createAttachment( formData );
             let result   = response.data;
 
+			if ( ! result.success ) {
+				dispatch( submitFormError( result.data ) );
+				return;
+			}
+
             dispatch( submitFormSuccess( result.data ) );
         } catch (error) {
             console.log( { error: error.response.data } );

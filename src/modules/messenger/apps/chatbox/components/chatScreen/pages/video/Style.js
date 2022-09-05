@@ -59,7 +59,7 @@ const VideoRecordWrap = Styled.div`
         }
     }
     &.wpwax-vm-record-staging{
-        height: 620px;
+        height: 100%;
         z-index: 101;
         padding: 0;
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
@@ -173,20 +173,14 @@ const VideoRecordWrap = Styled.div`
             margin-top: 30px;
             position: relative;
             .wpwax-vm-recorded-preview{
-                min-height: 240px;
                 border-radius: 15px;
                 background-size: cover;
                 position: relative;
-                &:after{
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 15px;
-                    content: '';
-                    background-color: rgba(3,3,38,.30);
-                }
+				video {
+					width: 100%;
+					border-radius: 15px;
+					box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+				}
             }
             .wpwax-vm-recored-video__play{
                 position: absolute;
@@ -249,7 +243,7 @@ const VideoRecordWrap = Styled.div`
             width: 164px;
             height: 164px;
             border-radius: 50%;
-            margin: 0 auto 40px; 
+            margin: 0 auto 40px;
             &:after{
                 content: "";
                 position: absolute;

@@ -58,56 +58,68 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         setSelectedState({
             selectedItemText: event.target.text
         });
+        setState({
+            openDropdown: false
+        });
 
         switch (btnName) {
             case 'mark-read':
                 const markRead = async ()=>{
+                    setOuterState({
+                        ...outerState,
+                        loder: true
+                    });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-read`);
                     console.log(response)
                     return response;
                 }
                 markRead().then( resposne =>{
-                    
-                    
+                    const getSessions = async ()  =>{
+                        const sessionResponse = await apiService.getAll('/sessions');
+                        return sessionResponse;
+                    }
+    
+                    getSessions()
+                    .then( sessionResponse => {
+                        console.log(sessionResponse)
+                        setOuterState({
+                            ...outerState,
+                            loder: false
+                        });
+                        dispatch(handleReadSessions(sessionResponse.data.data))
+                    })
+                    .catch(error => {})
                 })
                 .catch(error=>{})
-
-                const getSessions = async ()  =>{
-                    const sessionResponse = await apiService.getAll('/sessions');
-                    return sessionResponse;
-                }
-
-                getSessions()
-                .then( sessionResponse => {
-                    console.log(sessionResponse)
-                    dispatch(handleReadSessions(sessionResponse.data.data))
-                })
-                .catch(error => {})
-                
                 break;
             case 'mark-unread':
                 const markUnRead = async ()=>{
+                    setOuterState({
+                        ...outerState,
+                        loder: true
+                    });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-unread`);
                     console.log(response)
                     return response;
                 }
                 markUnRead().then( resposne =>{
-                    
-                    
+                    const getUnreadSessions = async ()  =>{
+                        const sessionResponse = await apiService.getAll('/sessions');
+                        return sessionResponse;
+                    }
+    
+                    getUnreadSessions()
+                    .then( sessionResponse => {
+                        setOuterState({
+                            ...outerState,
+                            loder: false
+                        });
+                        console.log(sessionResponse)
+                        dispatch(handleReadSessions(sessionResponse.data.data))
+                    })
+                    .catch(error => {})
                 })
                 .catch(error=>{})
-
-                const getUnreadSessions = async ()  =>{
-                    const sessionResponse = await apiService.getAll('/sessions');
-                    return sessionResponse;
-                }
-
-                getUnreadSessions()
-                .then( sessionResponse => {
-                    console.log(sessionResponse)
-                    dispatch(handleReadSessions(sessionResponse.data.data))
-                })
-                .catch(error => {})
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');
@@ -144,7 +156,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
             case 'term-edit':
                 setOuterState({
                     ...outerState,
-                    activeTermId: termId,
+                    editableTermId: termId,
                     tagListModalOpen: false,
                     addTagModalOpen: true
                 });

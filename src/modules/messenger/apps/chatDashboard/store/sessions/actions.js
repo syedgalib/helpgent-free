@@ -26,6 +26,7 @@ const actions = {
         err,
       };
     },
+    
     addTagBegin: () => {
       return {
         type: actions.ADD_TAG_BEGIN,

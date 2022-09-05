@@ -22,7 +22,7 @@ const AddTag = props => {
     
     const { sessionState, setSessionState } = props;
     // console.log(sessionState);
-    const { asignedTerms, activeSessionId, activeTermId, addTagModalOpen } = sessionState;
+    const { asignedTerms, activeSessionId, editableTermId, addTagModalOpen } = sessionState;
 
     /* Initialize State */
 	const [tagState, setTagState] = useState({
@@ -37,20 +37,31 @@ const AddTag = props => {
     const dispatch = useDispatch();
     
     useEffect(() => {
+        console.log("te")
         const fetchTerms = async ()=>{
-            const response = await apiService.getAll('/messages/terms');
-            setTagState({
-                ...tagState,
-                allTerms: response.data.data,
-                loading: false
-            });
+            const termResponse = await apiService.getAll('/messages/terms');
+            return termResponse;
         }
 		fetchTerms()
+            .then( termResponse => {
+                let termName = "";
+                console.log(editableTermId);
+                if(editableTermId !== ""){
+                    termName = termResponse.data.data.filter(item=> item.term_id === editableTermId)[0].name;
+                    // console.log(termName[0].name);
+                }
+                
+                setTagState({
+                    ...tagState,
+                    allTerms: termResponse.data.data,
+                    tagInput: termName,
+                    loading: false
+                });
+            })
 			.catch((error) => {
 				console.log(error);
 			})
-        
-	}, [sessionState]);
+	}, [addTagModalOpen]);
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -71,7 +82,7 @@ const AddTag = props => {
             tagInput: e.target.value
         });
     }
-    const handleCreateTerm = (e)=>{
+    const handleCreateTerm = async (e)=>{
         e.preventDefault();
         const termData = {
             taxonomy: "tag",
@@ -81,20 +92,36 @@ const AddTag = props => {
             ...tagState,
             loading: true
         });
-        apiService.dataAdd('/messages/terms',termData)
-        .then(response => {
-            setTagState({
-                ...tagState,
-                loading: false,
-                allTerms: [
-                    ...allTerms,
-                    response.data
-                ]
-            });
-        })
+        if(editableTermId !==''){
+            let termIndex = allTerms.findIndex(obj => obj.term_id === editableTermId);
+            allTerms[termIndex].name = tagInput;
+            await apiService.dataAdd(`/messages/terms/${editableTermId}`,termData)
+            .then(response => {
+                setTagState({
+                    ...tagState,
+                    loading: false,
+                    allTerms: [
+                        ...allTerms,
+                        response.data
+                    ]
+                });
+                console.log(allTerms)
+            })
+        }else{
+            apiService.dataAdd('/messages/terms',termData)
+            .then(response => {
+                setTagState({
+                    ...tagState,
+                    loading: false,
+                    allTerms: [
+                        ...allTerms,
+                        response.data
+                    ]
+                });
+            })
+        }
+        
     }
-
-    console.log(sessionState);
 
     const handleAssignList = (e)=>{
         if(e.target.checked){
@@ -151,8 +178,6 @@ const AddTag = props => {
         console.log(sessions);
     }
 
-    console.log(asignedTerms);
-
     return (
         <React.Fragment>
             <AddTagWrap className={addTagModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
@@ -170,7 +195,7 @@ const AddTag = props => {
                             <div className="wpwax-vm-form-group">
                                 <input type="text" className="wpwax-vm-form__element" placeholder="Ex. Travel" value={tagInput} onChange={e=>handleTagInput(e)}/>
                             </div>
-                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>Add</button>
+                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Edit": "Add"}</button>
                         </div>
                     </form>
                     <div className="wpwax-vm-taglist-box">
@@ -195,7 +220,7 @@ const AddTag = props => {
                                         })
                                     }
                                 </div>
-                                <a href="#" className="wpwax-vm-btnlink" onClick={handleAddTerm}>Add</a>
+                                <a href="#" className="wpwax-vm-btnlink" onClick={handleAddTerm}>Update</a>
                                 {/* <a href="#" className="wpwax-vm-btnlink wpwax-vm-btn-danger">Remove</a> */}
                             </React.Fragment>
                         }

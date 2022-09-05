@@ -14,7 +14,7 @@ const handleReadSessions = data => {
   return async dispatch => {
     try {
       dispatch(sessionReadBegin());
-      dispatch(sessionReadSuccess(data));
+      await dispatch(sessionReadSuccess(data));
     } catch (err) {
       dispatch(sessionReadError(err));
     }

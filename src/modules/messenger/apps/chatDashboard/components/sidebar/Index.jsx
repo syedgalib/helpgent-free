@@ -70,6 +70,7 @@ function Sidebar() {
 		tagListModalOpen: false,
 		successMessage: "",
 		rejectMessage: "",
+		editableTermId: "",
 		loader: true
 	});
 
@@ -78,19 +79,40 @@ function Sidebar() {
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 	useEffect(() => {
-		apiService.getAll('/sessions')
-			.then(response => {
-				dispatch(handleReadSessions(response.data.data));
+		setSessionState({
+			...sessionState,
+			loader: false
+		});
+		const fetchSession = async ()=>{
+			const sessionResponse = await apiService.getAll('/sessions');
+			return sessionResponse;
+		} 
+		fetchSession()
+			.then( sessionResponse => {
+				setSessionState({
+					...sessionState,
+					loader: false
+				});
+				dispatch(handleReadSessions(sessionResponse.data.data));
 			})
 			.catch((error) => {
 				console.log(error);
 			})
+		// apiService.getAll('/sessions')
+		// 	.then(response => {
+				
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	})
 	}, []);
 
 	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
+	console.log(loading);
+
 	return (
-		<SidebarWrap className={loading ? "wpwax-vm-loder-active" : null}>
+		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
 				<h3 className="wpwax-vm-sidebar-title">List of Messages</h3>
 				<a href="#" className="wpwax-vm-sidebar-refresher"><ReactSVG src={rotateIcon} /></a>
@@ -115,7 +137,7 @@ function Sidebar() {
 				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />
 			</div>
 			{
-				loading ?
+				loader ?
 					<span className="wpwax-vm-loading-spin">
 						<span className="wpwax-vm-spin-dot"></span>
 						<span className="wpwax-vm-spin-dot"></span>

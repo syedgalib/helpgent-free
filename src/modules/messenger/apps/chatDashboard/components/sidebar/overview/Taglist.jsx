@@ -62,6 +62,7 @@ const Taglist= props =>  {
         event.preventDefault();
         setSessionState({
             ...sessionState,
+            editableTermId: "",
             tagListModalOpen: false,
             addTagModalOpen: true
         });

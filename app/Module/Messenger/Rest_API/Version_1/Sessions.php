@@ -327,7 +327,13 @@ class Sessions extends Rest_Base {
 		$terms = [];
 
 		foreach( $term_ids as $term_id ) {
-			$terms[] = Term_Model::get_item( $term_id );
+			$term = Term_Model::get_item( $term_id );
+
+			if ( is_wp_error( $term ) ) {
+				continue;
+			}
+
+			$terms[] = $term;
 		}
 
 		return $terms;
@@ -390,6 +396,12 @@ class Sessions extends Rest_Base {
             $message = __( 'The session ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+		$session_exists = $this->session_exists( $args['session_id'] );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
+		}
 
 		$add_terms    = ( ! empty( $args['add_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['add_term_ids'] ) : [];
 		$remove_terms = ( ! empty( $args['remove_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['remove_term_ids'] ) : [];
@@ -518,6 +530,12 @@ class Sessions extends Rest_Base {
             return new WP_Error( 403, $message );
         }
 
+		$session_exists = $this->session_exists( $args['session_id'] );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
+		}
+
         if ( empty( $args['term_id'] ) ) {
             $message = __( 'The term ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -577,6 +595,12 @@ class Sessions extends Rest_Base {
             return new WP_Error( 403, $message );
         }
 
+		$session_exists = $this->session_exists( $args['session_id'] );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
+		}
+
         if ( empty( $args['term_id'] ) ) {
             $message = __( 'The term ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -628,6 +652,12 @@ class Sessions extends Rest_Base {
 
 		if ( empty( $current_user_id ) ) {
 			return new WP_Error( 403, __( 'You must have to be logged in', 'wpwax-customer-support-app' ) );
+		}
+
+		$session_exists = $this->session_exists( $sassion_id );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
 		}
 
 		$log = [];
@@ -702,6 +732,12 @@ class Sessions extends Rest_Base {
 			return new WP_Error( 403, __( 'You must have to be logged in', 'wpwax-customer-support-app' ) );
 		}
 
+		$session_exists = $this->session_exists( $sassion_id );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
+		}
+
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 
 		$log = [];
@@ -768,6 +804,26 @@ class Sessions extends Rest_Base {
 		];
 
 		return $this->response( $data );
+	}
+
+	/**
+	 * Is session exists
+	 *
+	 * @param string $session_id
+	 * @return bool|WP_Error
+	 */
+	public function session_exists( $session_id = '' ) {
+		$session = Message_Model::get_items([
+			'where' => [ 'session_id' => $session_id ],
+			'limit' => 1,
+		]);
+
+		if ( empty( $session ) ) {
+			$message = __( 'The session does not exist.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		return true;
 	}
 
 

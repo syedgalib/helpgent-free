@@ -177,4 +177,79 @@ const DeleteConfirmWrap = Styled.div`
     }
 `;
 
-export  { TaglistWrap, AddTagWrap, DeleteConfirmWrap };
+const TagFilterDropdown = Styled.div`
+    position: absolute;
+    width: calc(100% - 20%);
+    left: 4%;
+    top: 45px;
+    padding: 20px;
+    z-index: 10;
+    display: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
+    background-color: var(--color-white);
+    &.wpwax-vm-tagfilter-show{
+        display: block;
+    }
+    .wpwax-vm-tag-search{
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        border-radius: 10px;
+        margin-bottom: 28px;
+        background-color: var(--color-bg-general);
+        .wpwax-vm-input-icon{
+            position: relative;
+            top: 1px;
+            line-height: 1;
+            svg{
+                width: 12px;
+                height: 12px;
+            }
+        }
+        input{
+            width: 100%;
+            min-height: 38px;
+            background-color: transparent !important;
+            border: 0 none;
+            &:focus{
+                outline: 0;
+                box-shadow: 0 0;
+            }
+        }
+    }
+    .wpwax-vm-tag-filter-list{
+        .wpwax-vm-checkbox{
+            label{
+                top: -2px;
+            }
+            input{
+                margin-right: 12px;
+            }
+        }
+    }
+    .wpwax-vm-tag-filter-action{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 35px;
+        .wpwax-vm-tag-filter-action__clear{
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--font-color);
+            &:hover{
+                color: var(--color-primary)
+            }
+        }
+    }
+    .wpwax-vm-tag-filter-list{
+        .wpwax-vm-tag-filter__check{
+            &:not(:last-child){
+                margin-bottom: 24px;
+            }
+        }
+    }
+`;
+
+export  { TaglistWrap, AddTagWrap, DeleteConfirmWrap, TagFilterDropdown };

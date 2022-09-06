@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from 'react-redux';
 import Dropdown from "Components/formFields/Dropdown.jsx";
@@ -20,7 +20,8 @@ import slider from 'Assets/svg/icons/slider.svg';
 import rotateIcon from 'Assets/svg/icons/rotate-right.svg';
 import tag from 'Assets/svg/icons/tag.svg';
 import trash from 'Assets/svg/icons/trash.svg';
-import SidebarWrap from "./Style";
+import {SidebarWrap, SessionFilterWrap} from "./Style";
+import TagFilter from './overview/TagFilter.jsx';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -51,6 +52,7 @@ const metaList = [
 
 function Sidebar() {
 	const taglistModalOpen = false;
+	const ref = useRef(null);
 	/* initialize Form Data */
 	const { sessions, loading } = useSelector(state => {
 		// console.log(state)
@@ -59,11 +61,11 @@ function Sidebar() {
             loading: state.sessions.loading,
         };
     });
-
-	
-
+	console.log(sessions);
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
+		sessionList: [],
+		filteredSessions:[],
 		modalSession: {},
 		asignedTerms: [],
 		activeSessionId: "",
@@ -73,13 +75,39 @@ function Sidebar() {
 		deleteTerm: "",
 		rejectMessage: "",
 		editableTermId: "",
+		sessionFilterDropdown: false,
+		tagFilterDropdownOpen: false,
 		loader: true
 	});
+	const [tagState, setTagState] = useState({
+		tagList: [],
+		filteredTagList:[],
+		tagLoader: false
+	});
 
-	const { modalSession, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, loader } = sessionState;
+	const { sessionList, filteredSessions, modalSession, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, loader } = sessionState;
 
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+	
+	const handleToggleSearchDropdown = (event)=>{
+		event.preventDefault();
+		setSessionState({
+			...sessionState,
+			tagFilterDropdownOpen: false,
+			sessionFilterDropdown: !sessionFilterDropdown
+		});
+	}
+	const handleTagFilterDropdown = async (event)=>{
+		event.preventDefault();
+		setSessionState({
+			...sessionState,
+			tagFilterDropdownOpen: !tagFilterDropdownOpen
+		});
+	}
+
+	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+
 	useEffect(() => {
 		setSessionState({
 			...sessionState,
@@ -88,11 +116,17 @@ function Sidebar() {
 		const fetchSession = async ()=>{
 			const sessionResponse = await apiService.getAll('/sessions');
 			return sessionResponse;
-		} 
+		}
+		const fetchTerms = async ()=>{
+			const termsResponse = await apiService.getAll('/messages/terms')
+			return termsResponse;
+		}
 		fetchSession()
 			.then( sessionResponse => {
 				setSessionState({
 					...sessionState,
+					sessionList: sessionResponse.data.data,
+					filteredSessions: sessionResponse.data.data,
 					loader: false
 				});
 				dispatch(handleReadSessions(sessionResponse.data.data));
@@ -100,19 +134,40 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-		// apiService.getAll('/sessions')
-		// 	.then(response => {
+		fetchTerms()
+			.then( termsResponse => {
+				setTagState({
+					...tagState,
+					tagList: termsResponse.data.data,
+					filteredTagList: termsResponse.data.data,
+					tagLoader: false
+				})
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		const checkIfClickedOutside = e => {
+            if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
 				
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	})
-	}, []);
+                setSessionState({
+					...sessionState,
+                    tagFilterDropdownOpen: false
+                });
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+	}, [tagFilterDropdownOpen]);
 
-	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
-
-	console.log(loading);
-
+	const handleSessionSearch = event =>{
+		let keyword = event.target.value;
+		const filtered = sessionList.filter(entry => Object.values(entry.users).some(val => typeof val === "string" && val.includes(keyword)));
+        console.log(keyword,filtered)
+	}
+	let test = [];
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -130,13 +185,30 @@ function Sidebar() {
 				:null
 			}
 			<div className="wpwax-vm-sidebar-filter">
-				<div className="wpwax-vm-sidebar-search">
-					<div className="wpwax-vm-form-group wpwax-vm-form-icon-left">
-						<div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
-						<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-search" placeholder="Search" />
-						<a href="#" className="wpwax-vm-search-toggle"><ReactSVG src={slider} /></a>
+				<SessionFilterWrap className={sessionFilterDropdown ? "wpwax-vm-search-dropdown-show" : null}>
+					<div className="wpwax-vm-sidebar-search">
+						<div className="wpwax-vm-form-group wpwax-vm-form-icon-left">
+							<div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
+							<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-search" placeholder="Search" onChange={handleSessionSearch}/>
+							<a href="#" className="wpwax-vm-search-toggle" onClick={handleToggleSearchDropdown}><ReactSVG src={slider} /></a>
+						</div>
+						<ul className="wpwax-vm-search-dropdown">
+							<li ref={ref}>
+								<a href="" onClick={handleTagFilterDropdown}>
+									<span className="wpwax-vm-search-dropdown__text">Search by tags</span>
+									<span className="dashicons dashicons-arrow-down-alt2"></span>
+								</a>
+								<TagFilter outerState={sessionState} setOuterState={setSessionState} tagState={tagState} setTagState={setTagState}/>
+							</li>
+							<li>
+								<a href="">
+									<span className="wpwax-vm-search-dropdown__text">Search by date</span>
+									<span className="dashicons dashicons-arrow-down-alt2"></span>
+								</a>
+							</li>
+						</ul>
 					</div>
-				</div>
+				</SessionFilterWrap>
 				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />
 			</div>
 			{
@@ -152,6 +224,7 @@ function Sidebar() {
 						<ul>
 							{
 								sessions.map((item, index) => {
+									
 									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
 									let images = [];
 									let titleString = [];
@@ -164,7 +237,6 @@ function Sidebar() {
 									if(images.length > 1){
 										multiImg = true;
 									}
-									console.log(Math.floor(item.total_unread))
 									if(Number(item.total_unread) > 0){
 										var moreDropdown = [
 											{
@@ -201,7 +273,17 @@ function Sidebar() {
 												text: "Delete Conversation"
 											},
 										];
+										const tert = {
+											sId: item.session_id,
+											titleString: titleString
+										}
+										test = [
+											...test,
+											tert
+										]
+										
 									}
+									console.log(test);
 									// console.log(typeof Number(item.total_unread), typeof 0);
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>

@@ -25,7 +25,6 @@ const TagReducer = (state = initialState, action) => {
         loading: true,
       };
     case SESSION_READ_SUCCESS:
-      console.log(state);
       return {
         ...state,
         sessions: data,

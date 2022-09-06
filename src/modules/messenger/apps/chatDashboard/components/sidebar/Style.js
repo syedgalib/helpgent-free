@@ -33,9 +33,24 @@ const SidebarWrap = Styled.div`
         }
     }
     .wpwax-vm-sidebar-search{
+        position: relative;
         .wpwax-vm-form__element{
             border-radius: 10px;
             background-color: #DDDDDD;
+        }
+        .wpwax-vm-search-toggle{
+            position: absolute;
+            right: 20px;
+            top: 12px;
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+            svg{
+                path{
+                    fill: var(--font-color);
+                }
+            }
         }
     }
     .wpwax-vm-sidebar-userlist{
@@ -43,7 +58,7 @@ const SidebarWrap = Styled.div`
         >ul {
             height: 800px;
             overflow-x: hidden;
-            overflow-y: scroll;
+            overflow-y: auto;
             scrollbar-width: thin;
             margin: 0 -12px;
             scrollbar-color: var(--color-light);
@@ -200,4 +215,64 @@ const SidebarWrap = Styled.div`
     }
 `;
 
-export default SidebarWrap;
+const SessionFilterWrap = Styled.div`
+    position: relative;
+    &.wpwax-vm-search-dropdown-show{
+        .wpwax-vm-search-dropdown{
+            display: block;
+        }
+        .wpwax-vm-sidebar-search {
+            .wpwax-vm-form__element{
+                margin: 0;
+                border-radius: 10px 10px 0 0;
+                background-color: var(--color-white);
+            }
+        }
+        .wpwax-vm-search-toggle{
+            svg {
+                path{
+                    fill: var(--color-primary);
+                }
+            }
+        }
+    }
+    .wpwax-vm-search-dropdown{
+        position: absolute;
+        left: 0;
+        top: 40px;
+        width: 100%;
+        margin: 0;
+        border-radius: 0 0 10px 10px;
+        z-index: 10;
+        padding: 12px 0px;
+        display: none;
+        border-top: 1px solid var(--color-border-light);
+        box-shadow: 0 20px 40px rgba(144,144,144,.25);
+        background-color: var(--color-white);
+        li{
+            position: relative;
+            margin: 0;
+            cursor: pointer;
+            .dashicons{
+                width: 14px;
+                height: 14px;
+                font-size: 14px;
+            }
+            >a{
+                display: flex;
+                justify-content: space-between;
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 12px 20px;
+                color: var(--color-dark);
+                &:focus{
+                    outline: none;
+                    box-shadow: 0 0;
+                }
+            }
+        }
+    }
+`;
+
+export {SidebarWrap, SessionFilterWrap};

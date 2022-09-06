@@ -1,17 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { VideoRecordWrap } from '../Style';
-import { ContactFormWrap } from '../../../style/Style';
 
 /* Images */
 import permissionImg from 'Assets/img/chatbox/permission.png';
-import play from 'Assets/svg/icons/play.svg';
-import checkCircle from 'Assets/svg/icons/check-circle.svg';
 import expander from 'Assets/svg/icons/expand.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
-import previewBg from 'Assets/img/builder/bg.png';
-import video from 'Assets/videos/arabic.mp4';
-
 import {
     updateFormData as updateAttachmentFormData,
     submitForm as submitAttachmentForm,

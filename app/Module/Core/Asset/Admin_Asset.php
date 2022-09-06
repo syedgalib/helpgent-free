@@ -79,10 +79,12 @@ class Admin_Asset extends Enqueuer {
             'group'     => 'admin',
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => [
-                    'apiEndpoint'  => rest_url( 'wpwax_cs/v1' ),
-                    'apiNonce'     => wp_create_nonce( 'wp_rest' ),
-                    'wp_pages'     => Helper\get_wp_pages(),
-                    'current_user' => Helper\get_current_user(),
+                    'apiEndpoint'                => rest_url( 'wpwax_cs/v1' ),
+                    'apiNonce'                   => wp_create_nonce( 'wp_rest' ),
+                    'wp_pages'                   => Helper\get_wp_pages(),
+                    'current_user'               => Helper\get_current_user(),
+                    'supported_video_extensions' => Helper\get_mime_types( 'video', 'extension' ),
+					'max_upload_size'            => wp_max_upload_size(),
                 ],
             ],
         ];

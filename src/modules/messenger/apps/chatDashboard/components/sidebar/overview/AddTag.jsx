@@ -20,24 +20,15 @@ const AddTag = props => {
         };
     });
     
-    const { sessionState, setSessionState } = props;
+    const { sessionState, setSessionState, tagState, setTagState } = props;
     // console.log(sessionState);
-    const { asignedTerms, activeSessionId, editableTermId, addTagModalOpen } = sessionState;
-
-    /* Initialize State */
-	const [tagState, setTagState] = useState({
-        tagInput: "",
-		allTerms: [],
-        loading: true
-	});
-
-    const { tagInput, allTerms, loading } = tagState;
+    const { asignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
+    const { tagInput, allTags, tagLoader } = tagState;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     
     useEffect(() => {
-        console.log("te")
         const fetchTerms = async ()=>{
             const termResponse = await apiService.getAll('/messages/terms');
             return termResponse;
@@ -53,9 +44,9 @@ const AddTag = props => {
                 
                 setTagState({
                     ...tagState,
-                    allTerms: termResponse.data.data,
+                    allTags: termResponse.data.data,
                     tagInput: termName,
-                    loading: false
+                    tagLoader: false
                 });
             })
 			.catch((error) => {
@@ -69,7 +60,8 @@ const AddTag = props => {
         setSessionState({
             ...sessionState,
             tagListModalOpen: true,
-            addTagModalOpen: false
+            addTagModalOpen: false,
+            taglistWithSession: true
         });
         // dispatch(handleTagFormModal(false));
     }
@@ -90,31 +82,31 @@ const AddTag = props => {
         }
         setTagState({
             ...tagState,
-            loading: true
+            tagLoader: true
         });
         if(editableTermId !==''){
-            let termIndex = allTerms.findIndex(obj => obj.term_id === editableTermId);
-            allTerms[termIndex].name = tagInput;
+            let termIndex = allTags.findIndex(obj => obj.term_id === editableTermId);
+            allTags[termIndex].name = tagInput;
             await apiService.dataAdd(`/messages/terms/${editableTermId}`,termData)
             .then(response => {
                 setTagState({
                     ...tagState,
-                    loading: false,
-                    allTerms: [
-                        ...allTerms,
+                    tagLoader: false,
+                    allTags: [
+                        ...allTags,
                         response.data
                     ]
                 });
-                console.log(allTerms)
+                console.log(allTags)
             })
         }else{
             apiService.dataAdd('/messages/terms',termData)
             .then(response => {
                 setTagState({
                     ...tagState,
-                    loading: false,
-                    allTerms: [
-                        ...allTerms,
+                    tagLoader: false,
+                    allTags: [
+                        ...allTags,
                         response.data
                     ]
                 });
@@ -158,14 +150,14 @@ const AddTag = props => {
         }
         setTagState({
             ...tagState,
-            loading: true
+            tagLoader: true
         });
         await apiService.dataAdd('/sessions/add-terms',updateTermData)
         .then(response => {
             console.log(response)
             setTagState({
                 ...tagState,
-                loading: false,
+                tagLoader: false,
             });
             sessions = {
                 ...sessions,
@@ -175,7 +167,6 @@ const AddTag = props => {
                 }
             }
         });
-        console.log(sessions);
     }
 
     return (
@@ -200,7 +191,7 @@ const AddTag = props => {
                     </form>
                     <div className="wpwax-vm-taglist-box">
                         {
-                            loading ? 
+                            tagLoader ? 
                             <span className="wpwax-vm-loading-spin">
                                 <span className="wpwax-vm-spin-dot"></span>
                                 <span className="wpwax-vm-spin-dot"></span>
@@ -210,7 +201,7 @@ const AddTag = props => {
                             <React.Fragment>
                                 <div className="wpwax-vm-taglist">
                                     {
-                                        allTerms.map((item,index)=>{
+                                        allTags.map((item,index)=>{
                                             
                                             return(
                                                 <div className="wpwax-vm-tag__check" key={index}>

@@ -13,6 +13,11 @@ const getAll = path =>{
     return axiosInstance.get(path);
 }
 
+const getAllByArg = (path,args) =>{
+    console.log(path,args)
+    return axiosInstance.get(path, {params: args});
+}
+
 const getById = (path,args) =>{
     return axiosInstance.get(path, args);
 }
@@ -38,6 +43,7 @@ const markUnRead = path => {
 
 const apiService = {
     getAll,
+    getAllByArg,
     getById,
     dataAdd,
     dataUpdate,

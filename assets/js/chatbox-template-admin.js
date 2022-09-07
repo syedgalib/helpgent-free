@@ -7143,6 +7143,13 @@ var getAll = function getAll(path) {
   return axiosInstance.get(path);
 };
 
+var getAllByArg = function getAllByArg(path, args) {
+  console.log(path, args);
+  return axiosInstance.get(path, {
+    params: args
+  });
+};
+
 var getById = function getById(path, args) {
   return axiosInstance.get(path, args);
 };
@@ -7170,6 +7177,7 @@ var markUnRead = function markUnRead(path) {
 
 var apiService = {
   getAll: getAll,
+  getAllByArg: getAllByArg,
   getById: getById,
   dataAdd: dataAdd,
   dataUpdate: dataUpdate,

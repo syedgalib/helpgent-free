@@ -24,11 +24,32 @@ const SidebarWrap = Styled.div`
     .wpwax-vm-sidebar-filter{
         margin-bottom: 20px;
         .wpwax-vm-dropdown{
+            .wpwax-vm-dropdown__toggle--text{
+                margin-right: 15px;
+            }
             .wpwax-vm-dropdown__content{
                 top: 30px;
                 li{
                     margin-bottom: 0;
                 }
+            }
+        }
+    }
+    .wpwax-vm-sidebar-filter__quick-actions{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .wpwax-vm-btn-all-tags{
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            color: #4D4D4D;
+            >div{
+                line-height: .75;
+                margin-right: 10px;
             }
         }
     }

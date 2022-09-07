@@ -5439,6 +5439,13 @@ var getAll = function getAll(path) {
   return axiosInstance.get(path);
 };
 
+var getAllByArg = function getAllByArg(path, args) {
+  console.log(path, args);
+  return axiosInstance.get(path, {
+    params: args
+  });
+};
+
 var getById = function getById(path, args) {
   return axiosInstance.get(path, args);
 };
@@ -5466,6 +5473,7 @@ var markUnRead = function markUnRead(path) {
 
 var apiService = {
   getAll: getAll,
+  getAllByArg: getAllByArg,
   getById: getById,
   dataAdd: dataAdd,
   dataUpdate: dataUpdate,
@@ -5552,7 +5560,7 @@ var Dropdown = function Dropdown(_ref) {
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     openDropdown: false,
-    filterText: ""
+    filterText: "latest"
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -5615,8 +5623,9 @@ var Dropdown = function Dropdown(_ref) {
     });
     setState({
       openDropdown: false,
-      filterText: btnName
+      filterText: event.target.text
     });
+    var orderByArg = {};
 
     switch (btnName) {
       case 'mark-read':
@@ -5769,11 +5778,11 @@ var Dropdown = function Dropdown(_ref) {
           }
         }
 
-        console.log(currentSession[0].terms.length, asignedTerms);
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
           asignedTerms: _toConsumableArray(asignedTerms),
-          tagListModalOpen: true // addTagModalOpen: false
+          tagListModalOpen: true,
+          taglistWithSession: true // addTagModalOpen: false
 
         })); // dispatch(handleSetSession(sessionId));
         // dispatch(handleTagModal(true));
@@ -5853,6 +5862,150 @@ var Dropdown = function Dropdown(_ref) {
         }).catch(function (error) {});
         break;
 
+      case 'filter-read':
+        var fetchReadSeassion = /*#__PURE__*/function () {
+          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+            var readSession;
+            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
+                  case 0:
+                    _context6.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
+                      order_by: "read"
+                    });
+
+                  case 2:
+                    readSession = _context6.sent;
+                    return _context6.abrupt("return", readSession);
+
+                  case 4:
+                  case "end":
+                    return _context6.stop();
+                }
+              }
+            }, _callee6);
+          }));
+
+          return function fetchReadSeassion() {
+            return _ref7.apply(this, arguments);
+          };
+        }();
+
+        fetchReadSeassion().then(function (readResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            filteredSessions: readResponse.data.data
+          }));
+        }).catch(function (error) {});
+        break;
+
+      case 'filter-unread':
+        var fetchUnReadSeassion = /*#__PURE__*/function () {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+            var readSession;
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+              while (1) {
+                switch (_context7.prev = _context7.next) {
+                  case 0:
+                    _context7.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
+                      order_by: "unread"
+                    });
+
+                  case 2:
+                    readSession = _context7.sent;
+                    return _context7.abrupt("return", readSession);
+
+                  case 4:
+                  case "end":
+                    return _context7.stop();
+                }
+              }
+            }, _callee7);
+          }));
+
+          return function fetchUnReadSeassion() {
+            return _ref8.apply(this, arguments);
+          };
+        }();
+
+        fetchUnReadSeassion().then(function (unReadResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            filteredSessions: unReadResponse.data.data
+          }));
+        }).catch(function (error) {});
+
+      case 'filter-latest':
+        var fetchLatestSeassion = /*#__PURE__*/function () {
+          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+            var latestSession;
+            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    _context8.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll("/sessions");
+
+                  case 2:
+                    latestSession = _context8.sent;
+                    return _context8.abrupt("return", latestSession);
+
+                  case 4:
+                  case "end":
+                    return _context8.stop();
+                }
+              }
+            }, _callee8);
+          }));
+
+          return function fetchLatestSeassion() {
+            return _ref9.apply(this, arguments);
+          };
+        }();
+
+        fetchLatestSeassion().then(function (latestResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            filteredSessions: latestResponse.data.data
+          }));
+        }).catch(function (error) {});
+        break;
+
+      case 'filter-oldest':
+        var fetchOldestSeassion = /*#__PURE__*/function () {
+          var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+            var oldestSession;
+            return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+              while (1) {
+                switch (_context9.prev = _context9.next) {
+                  case 0:
+                    _context9.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
+                      order_by: "oldest"
+                    });
+
+                  case 2:
+                    oldestSession = _context9.sent;
+                    return _context9.abrupt("return", oldestSession);
+
+                  case 4:
+                  case "end":
+                    return _context9.stop();
+                }
+              }
+            }, _callee9);
+          }));
+
+          return function fetchOldestSeassion() {
+            return _ref10.apply(this, arguments);
+          };
+        }();
+
+        fetchOldestSeassion().then(function (oldestResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            filteredSessions: oldestResponse.data.data
+          }));
+        }).catch(function (error) {});
+
       default:
         break;
     }
@@ -5902,7 +6055,7 @@ var Dropdown = function Dropdown(_ref) {
           src: textIcon
         }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
-          children: ["Filter by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-selected",
             children: filterText
           })]

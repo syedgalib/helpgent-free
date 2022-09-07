@@ -7,7 +7,7 @@ import { TagFilterDropdown } from './Style';
 const TagFilter = props =>{
     const { outerState, setOuterState, tagState, setTagState } = props;
     const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
-    const { tagList, filteredTagList, tagLoader } = tagState;
+    const { allTags, filteredTagList, tagLoader } = tagState;
     
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
@@ -22,7 +22,7 @@ const TagFilter = props =>{
     }
     const handleTagSearch = event =>{
         let keyword = event.target.value;
-        const filtered = tagList.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
+        const filtered = allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
         setTagState({
             ...tagState,
             filteredTagList: filtered

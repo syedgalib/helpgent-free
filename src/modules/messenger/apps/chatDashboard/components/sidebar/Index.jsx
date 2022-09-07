@@ -26,19 +26,19 @@ import TagFilter from './overview/TagFilter.jsx';
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
 	{
-		icon: "",
+		name: "filter-read",
 		text: "Read"
 	},
 	{
-		icon: "",
+		name: "filter-unread",
 		text: "Unread"
 	},
 	{
-		icon: "",
+		name: "filter-latest",
 		text: "Latest"
 	},
 	{
-		icon: "",
+		name: "filter-oldest",
 		text: "Oldest"
 	},
 ];
@@ -61,12 +61,10 @@ function Sidebar() {
             loading: state.sessions.loading,
         };
     });
-	console.log(sessions);
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
 		sessionList: [],
 		filteredSessions:[],
-		modalSession: {},
 		asignedTerms: [],
 		activeSessionId: "",
 		deleteModalOpen: false,
@@ -77,15 +75,20 @@ function Sidebar() {
 		editableTermId: "",
 		sessionFilterDropdown: false,
 		tagFilterDropdownOpen: false,
+		taglistWithSession: false,
 		loader: true
 	});
 	const [tagState, setTagState] = useState({
-		tagList: [],
+		editableTerm: "",
+		tagInput: "",
+		allTags: [],
 		filteredTagList:[],
-		tagLoader: false
+		loader: false,
+		tagLoader: false,
+		addTagModalOpen: false,
 	});
 
-	const { sessionList, filteredSessions, modalSession, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, loader } = sessionState;
+	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, loader } = sessionState;
 
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -103,6 +106,16 @@ function Sidebar() {
 		setSessionState({
 			...sessionState,
 			tagFilterDropdownOpen: !tagFilterDropdownOpen
+		});
+	}
+	const handleAllTagActivation = event=>{
+		event.preventDefault();
+		const overlay = document.querySelector('.wpax-vm-overlay');
+		overlay.classList.add('wpwax-vm-show');
+		setSessionState({
+			...sessionState,
+			tagListModalOpen: true,
+			taglistWithSession: false,
 		});
 	}
 
@@ -164,10 +177,13 @@ function Sidebar() {
 
 	const handleSessionSearch = event =>{
 		let keyword = event.target.value;
-		const filtered = sessionList.filter(entry => Object.values(entry.users).some(val => typeof val === "string" && val.includes(keyword)));
-        console.log(keyword,filtered)
+		const generatedSessions = sessionList.filter(entry => entry.users.every(searchableEntry=>  searchableEntry.name.includes(keyword)));
+		setSessionState({
+			...sessionState,
+			filteredSessions: generatedSessions
+		});
 	}
-	let test = [];
+	console.log(filteredSessions);
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -209,7 +225,11 @@ function Sidebar() {
 						</ul>
 					</div>
 				</SessionFilterWrap>
-				<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} />
+				<div className="wpwax-vm-sidebar-filter__quick-actions">
+					<Dropdown dropdownText={true} textIcon={filterIcon} dropdownIconOpen={angleUp} dropdownIconClose={angleDown} dropdownList={filterDropdown} outerState={sessionState} setOuterState={setSessionState}/>
+					<a href="#" className="wpwax-vm-btn-all-tags" onClick={handleAllTagActivation}><ReactSVG src={tag}/><span>Tags</span></a>
+				</div>
+				
 			</div>
 			{
 				loader ?
@@ -223,7 +243,7 @@ function Sidebar() {
 					<div className="wpwax-vm-sidebar-userlist">
 						<ul>
 							{
-								sessions.map((item, index) => {
+								filteredSessions.map((item, index) => {
 									
 									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
 									let images = [];
@@ -273,18 +293,9 @@ function Sidebar() {
 												text: "Delete Conversation"
 											},
 										];
-										const tert = {
-											sId: item.session_id,
-											titleString: titleString
-										}
-										test = [
-											...test,
-											tert
-										]
 										
 									}
-									console.log(test);
-									// console.log(typeof Number(item.total_unread), typeof 0);
+	
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
 											<div className="wpwax-vm-usermedia__left">
@@ -303,10 +314,10 @@ function Sidebar() {
 					</div>
 			}
 			
-			<Taglist sessionState={sessionState} setSessionState={setSessionState} />
+			<Taglist sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 
 
-			<AddTag sessionState={sessionState} setSessionState={setSessionState} />
+			<AddTag sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 
 			<DeleteConfirm deleteBy={activeSessionId} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
 		</SidebarWrap>

@@ -9,7 +9,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
-        filterText: ""
+        filterText: "latest"
     });
 
     /* State Distructuring */
@@ -62,9 +62,9 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         });
         setState({
             openDropdown: false,
-            filterText: btnName
+            filterText: event.target.text
         });
-
+        let orderByArg = {};
         switch (btnName) {
             case 'mark-read':
                 const markRead = async ()=>{
@@ -136,12 +136,12 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                         ]
                     }
                 }
-                console.log(currentSession[0].terms.length,asignedTerms);
                 setOuterState({
                     ...outerState,
                     activeSessionId: sessionId,
                     asignedTerms: [...asignedTerms],
                     tagListModalOpen: true,
+                    taglistWithSession: true,
                     // addTagModalOpen: false
                 });
                 // dispatch(handleSetSession(sessionId));
@@ -195,6 +195,60 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     })
                     .catch(error => {})
                 break;
+            case 'filter-read':
+                const fetchReadSeassion = async ()=>{
+                    const readSession = await apiService.getAllByArg(`/sessions`,{order_by: "read"});
+                    return readSession;
+                }
+                fetchReadSeassion()
+                    .then( readResponse => {
+                        setOuterState({
+                            ...outerState,
+                            filteredSessions: readResponse.data.data
+                        });
+                    })
+                    .catch(error => {})
+                break;
+            case 'filter-unread':
+                const fetchUnReadSeassion = async ()=>{
+                    const readSession = await apiService.getAllByArg(`/sessions`,{order_by: "unread"});
+                    return readSession;
+                }
+                fetchUnReadSeassion()
+                    .then( unReadResponse => {
+                        setOuterState({
+                            ...outerState,
+                            filteredSessions: unReadResponse.data.data
+                        });
+                    })
+                    .catch(error => {})
+            case 'filter-latest':
+                const fetchLatestSeassion = async ()=>{
+                    const latestSession = await apiService.getAll(`/sessions`);
+                    return latestSession;
+                }
+                fetchLatestSeassion()
+                    .then( latestResponse => {
+                        setOuterState({
+                            ...outerState,
+                            filteredSessions: latestResponse.data.data
+                        });
+                    })
+                    .catch(error => {})
+                break;
+                case 'filter-oldest':
+                    const fetchOldestSeassion = async ()=>{
+                        const oldestSession = await apiService.getAllByArg(`/sessions`,{order_by: "oldest"});
+                        return oldestSession;
+                    }
+                    fetchOldestSeassion()
+                        .then( oldestResponse => {
+                            setOuterState({
+                                ...outerState,
+                                filteredSessions: oldestResponse.data.data
+                            });
+                        })
+                        .catch(error => {})
             default:
                 break;
         }
@@ -237,7 +291,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                             {
                                 textIcon ? <ReactSVG src={textIcon} /> : ''
                             }
-                            <span className="wpwax-vm-dropdown__toggle--text-content">Filter by <span className="wpwax-vm-selected">{filterText}</span></span>
+                            <span className="wpwax-vm-dropdown__toggle--text-content">Order by <span className="wpwax-vm-selected">{filterText}</span></span>
                         </span> : ""
                 }
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import apiService from 'apiService/Service.js';
 import { TaglistWrap } from "./Style";
 import userImg from "Assets/img/chatdashboard/user.png";
 import Dropdown from "Components/formFields/Dropdown.jsx";
@@ -21,41 +22,55 @@ const moreDropdown = [
 
 const Taglist= props =>  {
     const overlay = document.querySelector('.wpax-vm-overlay');
-    const { sessionState, setSessionState } = props;
-    const { activeSessionId, tagListModalOpen, loader } = sessionState;
+    const { sessionState, setSessionState, tagState, setTagState } = props;
+    const { editableTerm, allTags, addTagModalOpen, tagLoader } = tagState;
+    const { activeSessionId, tagListModalOpen, taglistWithSession, loader } = sessionState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
     /* initialize Form Data */
-    const { allTags, modalOpen, sessions } = useSelector(state => {
+    const { sessions } = useSelector(state => {
         return {
-            // activeSession: state.tags.activeSessionId,
-            // modalOpen: state.tags.tagsModal,
             sessions: state.sessions.sessions
         };
     });
 
-    // setSessionState({
-    //     ...sessionState,
-        
-    // });
-
-    /* Initialize State */
-	const [tagState, setTagState] = useState({
-        editableTerm: "",
-        // allTagModalOpen: allTagModal,
-		addTagModalOpen: false,
-	});
-
-    const { addTagModalOpen, allTagModalOpen } = tagState;
-
-    let currentSession = []
-    let allTerms = [];
-    if(sessions.length !== 0){
-        currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
-        // console.log(currentSession)
-        currentSession.length !== 0 ? allTerms = currentSession[0].terms : null;
-    }
+    const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
+    useEffect(() => {
+        console.log(taglistWithSession)
+        if(taglistWithSession){
+            if(sessions.length !== 0){
+                
+                console.log(currentSession)
+                currentSession.length !== 0 ?
+                setTagState({
+                    ...tagState,
+                    allTags: currentSession[0].terms,
+                    tagLoader: false
+                }) : null;
+            }
+        }else{
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+            const fetchTerms = async ()=>{
+                const termResponse = await apiService.getAll('/messages/terms');
+                return termResponse;
+            }
+            fetchTerms()
+                .then( termResponse => {
+                    setTagState({
+                        ...tagState,
+                        allTags: termResponse.data.data,
+                        tagLoader: false
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+	}, [tagListModalOpen, taglistWithSession]);
 
     /* Handle Add Tag */
     const handleAddTagModal = (event) => {
@@ -95,32 +110,37 @@ const Taglist= props =>  {
     if(images.length > 1){
         multiImg = true;
     }
+    console.log(allTags);
     return (
         <TaglistWrap className={tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
             <div className="wpwax-vm-modal__header">
                 <div className="wpwax-vm-taglist-author">
-                    <div className="wpwax-vm-taglist-author__img">
-                        {
-                            images.map((src, index) => {
-                                if(index === 0){
-                                    if (src !== '') {
-                                        return (
-                                            <img src={src} alt="" key={index} />
-                                        )
-                                    } else {
-                                        return (
-                                            <img src={userImg} alt="" key={index} />
-                                        )
+                    {
+                        taglistWithSession ? 
+                        <div className="wpwax-vm-taglist-author__img">
+                            {
+                                images.map((src, index) => {
+                                    if(index === 0){
+                                        if (src !== '') {
+                                            return (
+                                                <img src={src} alt="" key={index} />
+                                            )
+                                        } else {
+                                            return (
+                                                <img src={userImg} alt="" key={index} />
+                                            )
+                                        }
                                     }
-                                }
-                                
-                            })
-                        }
-                        {
-                            multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>:null
-                        }
-                    </div>
-                    <span className="wpwax-vm-taglist-author__name">Tags {titleString}</span>
+                                    
+                                })
+                            }
+                            {
+                                multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>:null
+                            }
+                        </div> : null
+                    }
+                    
+                    <span className="wpwax-vm-taglist-author__name"> {taglistWithSession ? `Tags ${titleString}` : "All Tags" } </span>
                 </div>
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseAllTagModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
@@ -132,7 +152,7 @@ const Taglist= props =>  {
                 </div>
                 <div className="wpawax-vm-taglist-inner">
                     {
-                        loader ? 
+                        tagLoader ? 
                         <span className="wpwax-vm-loading-spin">
                             <span className="wpwax-vm-spin-dot"></span>
                             <span className="wpwax-vm-spin-dot"></span>
@@ -142,7 +162,7 @@ const Taglist= props =>  {
                         : 
                         <ul>
                             {
-                                allTerms.map( ( term,index ) => {
+                                allTags.map( ( term,index ) => {
                                     return(
                                         <li key={index}>
                                             <span className="wpwax-vm-taglist-label">{term.name}</span>
@@ -153,17 +173,19 @@ const Taglist= props =>  {
                             }
                         </ul>
                     }
-                    
                 </div>
             </div>
-
-            <div className="wpwax-vm-modal__footer">
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white" onClick={handleAddTagModal}>
-                    <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
-                    <span className="wpwax-vm-btn-text">New Tag</span>
-                </a>
-                <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={handleCloseAllTagModal}>Done</a>
-            </div>
+            {
+                taglistWithSession ? 
+                    <div className="wpwax-vm-modal__footer">
+                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white" onClick={handleAddTagModal}>
+                            <span className="wpwax-vm-btn-icon dashicons dashicons-plus"></span>
+                            <span className="wpwax-vm-btn-text">New Tag</span>
+                        </a>
+                        <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={handleCloseAllTagModal}>Done</a>
+                    </div>: null
+            }
+            
         </TaglistWrap>
     );
 }

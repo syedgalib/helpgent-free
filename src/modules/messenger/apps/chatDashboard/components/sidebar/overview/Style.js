@@ -4,11 +4,13 @@ const TaglistWrap = Styled.div`
     .wpwax-vm-taglist-author{
         display: flex;
         align-items: center;
+        .wpwax-vm-taglist-author__img{
+            margin-right: 12px;
+        }
         .wpwax-vm-taglist-author__name{
             display: inline-block;
             font-size: 18px;
             font-weight: 600;
-            margin-left: 12px;
             color: var(--color-dark);
         }
     }

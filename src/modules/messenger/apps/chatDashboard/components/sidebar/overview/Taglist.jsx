@@ -38,6 +38,10 @@ const Taglist= props =>  {
     const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
 
     useEffect(() => {
+        setTagState({
+            ...tagState,
+            tagLoader: true
+        });
         const fetchTerms = async ()=>{
 			const termsResponse = await apiService.getAll('/messages/terms')
 			return termsResponse;
@@ -54,13 +58,27 @@ const Taglist= props =>  {
 				const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
 				if(taglistWithSession){
 					if(sessionList.length !== 0){
-						currentSession.length !== 0 ?
-						setTagState({
-							...tagState,
-							assignedTags: currentSession[0].terms,
-							filteredTagList: currentSession[0].terms,
-							tagLoader: false
-						}) : null;
+                        if(currentSession.length !== 0){
+                            setTagState({
+                                ...tagState,
+                                assignedTags: currentSession[0].terms,
+                                filteredTagList: currentSession[0].terms,
+                                tagLoader: false
+                            });
+                            // let asignedTermsStore = [];
+                            // if(currentSession.length !==0){
+                            //     for(let i =0; i< currentSession[0].terms.length; i++){
+                            //         asignedTermsStore = [
+                            //             ...asignedTermsStore,
+                            //             currentSession[0].terms[i].term_id
+                            //         ]
+                            //     }
+                            // }
+                            // setSessionState({
+                            //     ...sessionState,
+                            //     asignedTerms: [...asignedTermsStore],
+                            // })
+                        }
 					}
 				}
 			})
@@ -118,8 +136,7 @@ const Taglist= props =>  {
     if(images.length > 1){
         multiImg = true;
     }
-    // console.log(allTags, filteredTagList,assignedTags)
-    console.log(tagState, sessionState)
+    
     return (
         <TaglistWrap className={tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
             <div className="wpwax-vm-modal__header">
@@ -167,7 +184,8 @@ const Taglist= props =>  {
                             <span className="wpwax-vm-spin-dot"></span>
                             <span className="wpwax-vm-spin-dot"></span>
                         </span>
-                        : 
+                        :
+                        filteredTagList.length > 0 ? 
                         <ul>
                             {
                                 taglistWithSession ? 
@@ -190,6 +208,10 @@ const Taglist= props =>  {
                                 })
                             }
                         </ul>
+                        :
+                        <div className="wpwax-vm-empty">
+                            <p>Sorry!! No Assigned Tags Found</p>
+                        </div>
                     }
                 </div>
             </div>

@@ -20,49 +20,43 @@ const AddTag = props => {
     });
 
     const [state, setState] = useState({
+        newAssigned: [],
+        newUnAssinged: [],
+        addTagResponse: "",
+        addTagResponseStatus: "",
 		tagInput: "",
 	});
     
     const { sessionState, setSessionState, tagState, setTagState } = props;
     // console.log(sessionState);
-    const { asignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
+    const { serverAssigned, asignedTerms, unAsignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
     const { allTags, assignedTags, tagLoader } = tagState;
 
-    const { tagInput } = state;
+    const { addTagResponseStatus, addTagResponse, tagInput, newAssigned, newUnAssinged } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     
     useEffect(() => {
         
-        
         if(editableTermId !== ""){
             let termName = tagInput;
             termName = allTags.filter(item=> item.term_id === editableTermId)[0].name;
             // console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
             setState({
-                ...tagState,
+                ...state,
                 tagInput: termName,
             });
         }else{
             setState({
-                ...tagState,
+                ...state,
                 tagInput: "",
             });
         }
-        
-        // const fetchTerms = async ()=>{
-        //     const termResponse = await apiService.getAll('/messages/terms');
-        //     return termResponse;
-        // }
-		// fetchTerms()
-        //     .then( termResponse => {
-        //         let termName = "";
-                
-        //     })
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	})
+        setState({
+            ...state,
+            addTagResponse: "",
+        });
 	}, [addTagModalOpen]);
 
     /* Handle Modal Close */
@@ -94,41 +88,105 @@ const AddTag = props => {
             ...tagState,
             tagLoader: true
         });
-        if(editableTermId !==''){
-            let termIndex = allTags.findIndex(obj => obj.term_id === editableTermId);
-            allTags[termIndex].name = tagInput;
-            await apiService.dataAdd(`/messages/terms/${editableTermId}`,termData)
-            .then(response => {
-                setTagState({
-                    ...tagState,
-                    tagLoader: false,
-                    allTags: [
-                        ...allTags,
-                    ]
-                });
-            })
+        if(tagInput !==""){
+            if(editableTermId !==''){
+                let termIndex = allTags.findIndex(obj => obj.term_id === editableTermId);
+                allTags[termIndex].name = tagInput;
+                await apiService.dataAdd(`/messages/terms/${editableTermId}`,termData)
+                .then(response => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: [
+                            ...allTags,
+                        ]
+                    });
+                    setState({
+                        ...state,
+                        addTagResponseStatus: "success",
+                        addTagResponse: "Successfully Edited",
+                    });
+                })
+            }else{
+                apiService.dataAdd('/messages/terms',termData)
+                .then(response => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: [
+                            ...allTags,
+                            response.data
+                        ]
+                    });
+                    setState({
+                        ...state,
+                        addTagResponseStatus: "success",
+                        addTagResponse: "Successfully Added",
+                    });
+                })
+            }
         }else{
-            apiService.dataAdd('/messages/terms',termData)
-            .then(response => {
-                setTagState({
-                    ...tagState,
-                    tagLoader: false,
-                    allTags: [
-                        ...allTags,
-                        response.data
-                    ]
-                });
-            })
+            setState({
+                ...state,
+                addTagResponseStatus: "danger",
+                addTagResponse: "Please enter Tag",
+            });
+            setTagState({
+                ...tagState,
+                tagLoader: false
+            });
         }
+        
         const fetchSessionTermCreation = await apiService.getAll('/sessions');
         setSessionState({
             ...sessionState,
             sessionList: fetchSessionTermCreation
         });
     }
-
+    
     const handleAssignList = (e)=>{
         if(e.target.checked){
+            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                /* nai */
+                if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                    /* nai */
+                    setState({
+                        ...state,
+                        newAssigned: [
+                            ...state.newAssigned,
+                            e.target.id.replace('wpwax-vm-term-','')
+                        ]
+                    });
+                    if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                        /* achhe */
+                        let virtualArray = [...newUnAssinged];
+                        virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
+                        setState({
+                            ...state,
+                            newUnAssinged: virtualArray
+                        })
+                    }
+                }
+            }else{
+                if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                    /* achhe */
+                    let virtualArray = [...newUnAssinged];
+                    virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
+                    setState({
+                        ...state,
+                        newUnAssinged: virtualArray
+                    })
+                } 
+            }
+            
+            // if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+            //     let virtualArray = [...newUnAssinged];
+            //     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),2);
+            //     setState({
+            //         ...state,
+            //         newUnAssinged: virtualArray
+            //     })
+            // }
             if(asignedTerms.indexOf(e.target.id) === -1){
                 let ids = e.target.id.replace('wpwax-vm-term-','')
                 setSessionState({
@@ -140,12 +198,45 @@ const AddTag = props => {
                 });
             }
         }else{
+            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                /* achhe */
+                if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                    /* nai */
+                    setState({
+                        ...state,
+                        newUnAssinged: [
+                            ...state.newUnAssinged,
+                            e.target.id.replace('wpwax-vm-term-','')
+                        ]
+                    });
+                    if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                        /* achhe */
+                        let virtualArrayT = [...newAssigned];
+                        virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
+                        setState({
+                            ...state,
+                            newAssigned: virtualArrayT
+                        })
+                    }
+                }
+            }else{
+                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                    /* achhe */
+                    let virtualArrayT = [...newAssigned];
+                    virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
+                    setState({
+                        ...state,
+                        newAssigned: virtualArrayT
+                    })
+                }
+            }
+
+
             let ids = e.target.id.replace('wpwax-vm-term-','');
             let array = [...asignedTerms];
-            let index = array.indexOf(ids);
             
-            if(index !== -1){
-                array.splice(index,1);
+            if(array.indexOf(ids) !== -1){
+                array.splice(array.indexOf(ids),1);
                 setSessionState({
                     ...sessionState,
                     asignedTerms: [...array]
@@ -154,16 +245,16 @@ const AddTag = props => {
         }
     }
 
-    const handleAddTerm = async (e) =>{
+    const handleAssignTerm = async (e) =>{
         const updateTermData = {
-            session_id: activeSessionId,
-            term_id: asignedTerms.join(',')
+            add_term_ids: newAssigned.join(','),
+            remove_term_ids: newUnAssinged.join(',')
         }
         setTagState({
             ...tagState,
             tagLoader: true,
         });
-        await apiService.dataAdd('/sessions/add-terms',updateTermData)
+        await apiService.dataAdd(`/sessions/${activeSessionId}/update-terms`,updateTermData)
         .then(response => {
             setTagState({
                 ...tagState,
@@ -173,16 +264,22 @@ const AddTag = props => {
                 ],
                 tagLoader: false,
             });
+            setState({
+                ...state,
+                newAssigned: [],
+                newUnAssinged: []
+            });
         });
 
         const fetchSessionTermAdd = await apiService.getAll('/sessions');
+        console.log(fetchSessionTermAdd)
         setSessionState({
             ...sessionState,
-            sessionList: fetchSessionTermAdd
+            sessionList: fetchSessionTermAdd.data.data
         });
     }
 
-    console.log(tagState,sessionState);
+    console.log(asignedTerms, serverAssigned,newAssigned,newUnAssinged);
 
     return (
         <React.Fragment>
@@ -196,6 +293,12 @@ const AddTag = props => {
                 </div>
 
                 <div className="wpwax-vm-modal__body">
+                    {
+                        addTagResponse !== '' ? 
+                        <div className={`wpwax-vm-notice wpwax-vm-notice-${addTagResponseStatus}`}>
+                            <p>{addTagResponse}</p>
+                        </div> : null
+                    }
                     <form action="">
                         <div className="wpwax-vm-addtag-form">
                             <div className="wpwax-vm-form-group">
@@ -228,8 +331,7 @@ const AddTag = props => {
                                                 })
                                             }
                                         </div>
-                                        <a href="#" className="wpwax-vm-btnlink" onClick={handleAddTerm}>Update</a>
-                                        {/* <a href="#" className="wpwax-vm-btnlink wpwax-vm-btn-danger">Remove</a> */}
+                                        <a href="#" className="wpwax-vm-btnlink" onClick={handleAssignTerm}>Update</a>
                                     </React.Fragment>
                                 }
                             </div> : 

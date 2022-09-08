@@ -5634,18 +5634,15 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      loder: true
-                    }));
+                    setOuterState(_objectSpread({}, outerState));
                     _context.next = 3;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
 
                   case 3:
                     response = _context.sent;
-                    console.log(response);
                     return _context.abrupt("return", response);
 
-                  case 6:
+                  case 5:
                   case "end":
                     return _context.stop();
                 }
@@ -5687,9 +5684,8 @@ var Dropdown = function Dropdown(_ref) {
           }();
 
           getSessions().then(function (sessionResponse) {
-            console.log(sessionResponse);
             setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              loder: false
+              sessionList: sessionResponse.data.data
             }));
             dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
           }).catch(function (error) {});
@@ -5704,9 +5700,7 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      loder: true
-                    }));
+                    setOuterState(_objectSpread({}, outerState));
                     _context3.next = 3;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
 
@@ -5758,7 +5752,7 @@ var Dropdown = function Dropdown(_ref) {
 
           getUnreadSessions().then(function (sessionResponse) {
             setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              loder: false
+              sessionList: sessionResponse.data.data
             }));
             console.log(sessionResponse);
             dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
@@ -5778,6 +5772,7 @@ var Dropdown = function Dropdown(_ref) {
 
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
+          serverAssigned: _toConsumableArray(asignedTerms),
           asignedTerms: _toConsumableArray(asignedTerms),
           tagListModalOpen: true,
           taglistWithSession: true // addTagModalOpen: false

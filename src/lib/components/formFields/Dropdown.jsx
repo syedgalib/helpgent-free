@@ -71,13 +71,12 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 const markRead = async ()=>{
                     setOuterState({
                         ...outerState,
-                        loder: true
                     });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-read`);
-                    console.log(response)
                     return response;
                 }
-                markRead().then( resposne =>{
+                markRead()
+                .then( resposne =>{
                     const getSessions = async ()  =>{
                         const sessionResponse = await apiService.getAll('/sessions');
                         return sessionResponse;
@@ -85,10 +84,9 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     
                     getSessions()
                     .then( sessionResponse => {
-                        console.log(sessionResponse)
                         setOuterState({
                             ...outerState,
-                            loder: false
+                            sessionList: sessionResponse.data.data,
                         });
                         dispatch(handleReadSessions(sessionResponse.data.data))
                     })
@@ -100,7 +98,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 const markUnRead = async ()=>{
                     setOuterState({
                         ...outerState,
-                        loder: true
                     });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-unread`);
                     console.log(response)
@@ -116,7 +113,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( sessionResponse => {
                         setOuterState({
                             ...outerState,
-                            loder: false
+                            sessionList: sessionResponse.data.data,
                         });
                         console.log(sessionResponse)
                         dispatch(handleReadSessions(sessionResponse.data.data))
@@ -140,6 +137,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 setOuterState({
                     ...outerState,
                     activeSessionId: sessionId,
+                    serverAssigned: [...asignedTerms],
                     asignedTerms: [...asignedTerms],
                     tagListModalOpen: true,
                     taglistWithSession: true,

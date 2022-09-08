@@ -43,13 +43,6 @@ const filterDropdown = [
 	},
 ];
 
-const metaList = [
-	{
-		type: "date",
-		text: "19 Jan 22 @ 08:38"
-	}
-];
-
 function Sidebar() {
 	const taglistModalOpen = false;
 	const ref = useRef(null);
@@ -58,6 +51,8 @@ function Sidebar() {
 		sessionList: [],
 		filteredSessions:[],
 		asignedTerms: [],
+		serverAssigned:[],
+		unAsignedTerms: [],
 		activeSessionId: "",
 		deleteModalOpen: false,
 		tagListModalOpen: false,
@@ -160,7 +155,6 @@ function Sidebar() {
 		});
 	}
 
-	console.log(tagState,sessionState);
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -193,12 +187,12 @@ function Sidebar() {
 								</a>
 								<TagFilter outerState={sessionState} setOuterState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 							</li>
-							<li>
+							{/* <li>
 								<a href="">
 									<span className="wpwax-vm-search-dropdown__text">Search by date</span>
 									<span className="dashicons dashicons-arrow-down-alt2"></span>
 								</a>
-							</li>
+							</li> */}
 						</ul>
 					</div>
 				</SessionFilterWrap>
@@ -220,7 +214,7 @@ function Sidebar() {
 					<div className="wpwax-vm-sidebar-userlist">
 						<ul>
 							{
-								filteredSessions.map((item, index) => {
+								sessionList.map((item, index) => {
 									
 									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
 									let images = [];
@@ -272,6 +266,13 @@ function Sidebar() {
 										];
 										
 									}
+
+									const metaList = [
+										{
+											type: "date",
+											text: item.updated_on
+										}
+									]; 
 	
 									return (
 										<li className="wpwax-vm-usermedia" key={index}>
@@ -292,7 +293,6 @@ function Sidebar() {
 			}
 			
 			<Taglist sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
-
 
 			<AddTag sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 

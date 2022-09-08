@@ -41,23 +41,15 @@ const DeleteConfirm = props => {
         
         await apiService.datadelete(`/sessions/${deleteBy}`)
         .then(response => {
-            console.log(response)
-            const sessionlist = sessions.filter(item=> item.session_id !== deleteBy);
-            dispatch(handleReadSessions(sessionlist));
+            const newSessionlist = sessions.filter(item=> item.session_id !== deleteBy);
+            dispatch(handleReadSessions(newSessionlist));
             setOuterState({
                 ...outerState,
+                sessionList: newSessionlist,
                 successMessage: `Session Successfully Deleted`,
                 rejectMessage: "",
                 deleteModalOpen: !modalOpen
             });
-            setTimeout(() => {
-                setOuterState({
-                    ...outerState,
-                    successMessage: "",
-                    rejectMessage: "",
-                    deleteModalOpen: !modalOpen
-                });
-            }, 3000);
         })
         .catch(error => {
             console.log(error)
@@ -68,14 +60,6 @@ const DeleteConfirm = props => {
                     rejectMessage: "Wrong Resource Provided",
                     deleteModalOpen: !modalOpen
                 });
-                setTimeout(() => {
-                    setOuterState({
-                        ...outerState,
-                        successMessage: "",
-                        rejectMessage: "",
-                        deleteModalOpen: !modalOpen
-                    });
-                }, 3000);
                 
             }else{
                 setOuterState({
@@ -84,19 +68,12 @@ const DeleteConfirm = props => {
                     rejectMessage: "Server Not exist",
                     deleteModalOpen: !modalOpen
                 });
-                setTimeout(() => {
-                    setOuterState({
-                        ...outerState,
-                        successMessage: "",
-                        rejectMessage: "",
-                        deleteModalOpen: !modalOpen
-                    });
-                }, 3000);
                 
             }
         })
         const overlay = document.querySelector('.wpax-vm-overlay');
         overlay.classList.remove('wpwax-vm-show');
+
     }
 
     return (

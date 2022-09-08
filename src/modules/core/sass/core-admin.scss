@@ -690,7 +690,8 @@
 }
 
 /* Not Fouond Text Style */
-.wpwax-notfound-text {
+.wpwax-notfound-text,
+.wpwax-vm-empty {
 	display: flex;
 	align-items: center;
 	justify-content: center;

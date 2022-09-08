@@ -5749,18 +5749,15 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      loder: true
-                    }));
+                    setOuterState(_objectSpread({}, outerState));
                     _context.next = 3;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
 
                   case 3:
                     response = _context.sent;
-                    console.log(response);
                     return _context.abrupt("return", response);
 
-                  case 6:
+                  case 5:
                   case "end":
                     return _context.stop();
                 }
@@ -5802,9 +5799,8 @@ var Dropdown = function Dropdown(_ref) {
           }();
 
           getSessions().then(function (sessionResponse) {
-            console.log(sessionResponse);
             setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              loder: false
+              sessionList: sessionResponse.data.data
             }));
             dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
           }).catch(function (error) {});
@@ -5819,9 +5815,7 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      loder: true
-                    }));
+                    setOuterState(_objectSpread({}, outerState));
                     _context3.next = 3;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
 
@@ -5873,7 +5867,7 @@ var Dropdown = function Dropdown(_ref) {
 
           getUnreadSessions().then(function (sessionResponse) {
             setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              loder: false
+              sessionList: sessionResponse.data.data
             }));
             console.log(sessionResponse);
             dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
@@ -5893,6 +5887,7 @@ var Dropdown = function Dropdown(_ref) {
 
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
+          serverAssigned: _toConsumableArray(asignedTerms),
           asignedTerms: _toConsumableArray(asignedTerms),
           tagListModalOpen: true,
           taglistWithSession: true // addTagModalOpen: false
@@ -7463,10 +7458,6 @@ var filterDropdown = [{
   name: "filter-oldest",
   text: "Oldest"
 }];
-var metaList = [{
-  type: "date",
-  text: "19 Jan 22 @ 08:38"
-}];
 
 function Sidebar() {
   var taglistModalOpen = false;
@@ -7477,6 +7468,8 @@ function Sidebar() {
     sessionList: [],
     filteredSessions: [],
     asignedTerms: [],
+    serverAssigned: [],
+    unAsignedTerms: [],
     activeSessionId: "",
     deleteModalOpen: false,
     tagListModalOpen: false,
@@ -7634,7 +7627,6 @@ function Sidebar() {
     }));
   };
 
-  console.log(tagState, sessionState);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_22__.SidebarWrap, {
     className: loader ? "wpwax-vm-loder-active" : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
@@ -7682,9 +7674,9 @@ function Sidebar() {
                 src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("ul", {
             className: "wpwax-vm-search-dropdown",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
               ref: ref,
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
                 href: "",
@@ -7701,17 +7693,7 @@ function Sidebar() {
                 tagState: tagState,
                 setTagState: setTagState
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
-                href: "",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
-                  className: "wpwax-vm-search-dropdown__text",
-                  children: "Search by date"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
-                  className: "dashicons dashicons-arrow-down-alt2"
-                })]
-              })
-            })]
+            })
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
@@ -7749,7 +7731,7 @@ function Sidebar() {
     }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("ul", {
-        children: filteredSessions.map(function (item, index) {
+        children: sessionList.map(function (item, index) {
           var users = item.users.filter(function (p) {
             return p.id !== parseInt(currentUser.ID);
           });
@@ -7796,6 +7778,10 @@ function Sidebar() {
             }];
           }
 
+          var metaList = [{
+            type: "date",
+            text: item.updated_on
+          }];
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("li", {
             className: "wpwax-vm-usermedia",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
@@ -7949,6 +7935,10 @@ var AddTag = function AddTag(props) {
       sessions = _useSelector.sessions;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    newAssigned: [],
+    newUnAssinged: [],
+    addTagResponse: "",
+    addTagResponseStatus: "",
     tagInput: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
@@ -7960,7 +7950,9 @@ var AddTag = function AddTag(props) {
       tagState = props.tagState,
       setTagState = props.setTagState; // console.log(sessionState);
 
-  var asignedTerms = sessionState.asignedTerms,
+  var serverAssigned = sessionState.serverAssigned,
+      asignedTerms = sessionState.asignedTerms,
+      unAsignedTerms = sessionState.unAsignedTerms,
       activeSessionId = sessionState.activeSessionId,
       editableTermId = sessionState.editableTermId,
       addTagModalOpen = sessionState.addTagModalOpen,
@@ -7968,7 +7960,11 @@ var AddTag = function AddTag(props) {
   var allTags = tagState.allTags,
       assignedTags = tagState.assignedTags,
       tagLoader = tagState.tagLoader;
-  var tagInput = state.tagInput;
+  var addTagResponseStatus = state.addTagResponseStatus,
+      addTagResponse = state.addTagResponse,
+      tagInput = state.tagInput,
+      newAssigned = state.newAssigned,
+      newUnAssinged = state.newUnAssinged;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -7979,25 +7975,18 @@ var AddTag = function AddTag(props) {
         return item.term_id === editableTermId;
       })[0].name; // console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
 
-      setState(_objectSpread(_objectSpread({}, tagState), {}, {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
         tagInput: termName
       }));
     } else {
-      setState(_objectSpread(_objectSpread({}, tagState), {}, {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
         tagInput: ""
       }));
-    } // const fetchTerms = async ()=>{
-    //     const termResponse = await apiService.getAll('/messages/terms');
-    //     return termResponse;
-    // }
-    // fetchTerms()
-    //     .then( termResponse => {
-    //         let termName = "";
-    //     })
-    // 	.catch((error) => {
-    // 		console.log(error);
-    // 	})
+    }
 
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      addTagResponse: ""
+    }));
   }, [addTagModalOpen]);
   /* Handle Modal Close */
 
@@ -8033,8 +8022,13 @@ var AddTag = function AddTag(props) {
                 tagLoader: true
               }));
 
+              if (!(tagInput !== "")) {
+                _context.next = 14;
+                break;
+              }
+
               if (!(editableTermId !== '')) {
-                _context.next = 10;
+                _context.next = 11;
                 break;
               }
 
@@ -8042,37 +8036,58 @@ var AddTag = function AddTag(props) {
                 return obj.term_id === editableTermId;
               });
               allTags[termIndex].name = tagInput;
-              _context.next = 8;
+              _context.next = 9;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].dataAdd("/messages/terms/".concat(editableTermId), termData).then(function (response) {
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   tagLoader: false,
                   allTags: _toConsumableArray(allTags)
                 }));
+                setState(_objectSpread(_objectSpread({}, state), {}, {
+                  addTagResponseStatus: "success",
+                  addTagResponse: "Successfully Edited"
+                }));
               });
 
-            case 8:
-              _context.next = 11;
+            case 9:
+              _context.next = 12;
               break;
 
-            case 10:
+            case 11:
               apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].dataAdd('/messages/terms', termData).then(function (response) {
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   tagLoader: false,
                   allTags: [].concat(_toConsumableArray(allTags), [response.data])
                 }));
+                setState(_objectSpread(_objectSpread({}, state), {}, {
+                  addTagResponseStatus: "success",
+                  addTagResponse: "Successfully Added"
+                }));
               });
 
-            case 11:
-              _context.next = 13;
+            case 12:
+              _context.next = 16;
+              break;
+
+            case 14:
+              setState(_objectSpread(_objectSpread({}, state), {}, {
+                addTagResponseStatus: "danger",
+                addTagResponse: "Please enter Tag"
+              }));
+              setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+                tagLoader: false
+              }));
+
+            case 16:
+              _context.next = 18;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].getAll('/sessions');
 
-            case 13:
+            case 18:
               fetchSessionTermCreation = _context.sent;
               setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
                 sessionList: fetchSessionTermCreation
               }));
 
-            case 15:
+            case 20:
             case "end":
               return _context.stop();
           }
@@ -8087,6 +8102,45 @@ var AddTag = function AddTag(props) {
 
   var handleAssignList = function handleAssignList(e) {
     if (e.target.checked) {
+      if (serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) === -1) {
+        /* nai */
+        if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) === -1) {
+          /* nai */
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            newAssigned: [].concat(_toConsumableArray(state.newAssigned), [e.target.id.replace('wpwax-vm-term-', '')])
+          }));
+
+          if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
+            /* achhe */
+            var virtualArray = _toConsumableArray(newUnAssinged);
+
+            virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              newUnAssinged: virtualArray
+            }));
+          }
+        }
+      } else {
+        if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
+          /* achhe */
+          var _virtualArray = _toConsumableArray(newUnAssinged);
+
+          _virtualArray.splice(_virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
+
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            newUnAssinged: _virtualArray
+          }));
+        }
+      } // if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+      //     let virtualArray = [...newUnAssinged];
+      //     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),2);
+      //     setState({
+      //         ...state,
+      //         newUnAssinged: virtualArray
+      //     })
+      // }
+
+
       if (asignedTerms.indexOf(e.target.id) === -1) {
         var ids = e.target.id.replace('wpwax-vm-term-', '');
         setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
@@ -8094,14 +8148,43 @@ var AddTag = function AddTag(props) {
         }));
       }
     } else {
+      if (serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
+        /* achhe */
+        if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-', '')) === -1) {
+          /* nai */
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            newUnAssinged: [].concat(_toConsumableArray(state.newUnAssinged), [e.target.id.replace('wpwax-vm-term-', '')])
+          }));
+
+          if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
+            /* achhe */
+            var virtualArrayT = _toConsumableArray(newAssigned);
+
+            virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              newAssigned: virtualArrayT
+            }));
+          }
+        }
+      } else {
+        if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
+          /* achhe */
+          var _virtualArrayT = _toConsumableArray(newAssigned);
+
+          _virtualArrayT.splice(_virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
+
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            newAssigned: _virtualArrayT
+          }));
+        }
+      }
+
       var _ids = e.target.id.replace('wpwax-vm-term-', '');
 
       var array = _toConsumableArray(asignedTerms);
 
-      var index = array.indexOf(_ids);
-
-      if (index !== -1) {
-        array.splice(index, 1);
+      if (array.indexOf(_ids) !== -1) {
+        array.splice(array.indexOf(_ids), 1);
         setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
           asignedTerms: _toConsumableArray(array)
         }));
@@ -8109,7 +8192,7 @@ var AddTag = function AddTag(props) {
     }
   };
 
-  var handleAddTerm = /*#__PURE__*/function () {
+  var handleAssignTerm = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
       var updateTermData, fetchSessionTermAdd;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -8117,17 +8200,21 @@ var AddTag = function AddTag(props) {
           switch (_context2.prev = _context2.next) {
             case 0:
               updateTermData = {
-                session_id: activeSessionId,
-                term_id: asignedTerms.join(',')
+                add_term_ids: newAssigned.join(','),
+                remove_term_ids: newUnAssinged.join(',')
               };
               setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                 tagLoader: true
               }));
               _context2.next = 4;
-              return apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].dataAdd('/sessions/add-terms', updateTermData).then(function (response) {
+              return apiService_Service_js__WEBPACK_IMPORTED_MODULE_6__["default"].dataAdd("/sessions/".concat(activeSessionId, "/update-terms"), updateTermData).then(function (response) {
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   assignedTags: [].concat(_toConsumableArray(tagState.assignedTags), [response.data.data.success]),
                   tagLoader: false
+                }));
+                setState(_objectSpread(_objectSpread({}, state), {}, {
+                  newAssigned: [],
+                  newUnAssinged: []
                 }));
               });
 
@@ -8137,11 +8224,12 @@ var AddTag = function AddTag(props) {
 
             case 6:
               fetchSessionTermAdd = _context2.sent;
+              console.log(fetchSessionTermAdd);
               setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-                sessionList: fetchSessionTermAdd
+                sessionList: fetchSessionTermAdd.data.data
               }));
 
-            case 8:
+            case 9:
             case "end":
               return _context2.stop();
           }
@@ -8149,12 +8237,12 @@ var AddTag = function AddTag(props) {
       }, _callee2);
     }));
 
-    return function handleAddTerm(_x2) {
+    return function handleAssignTerm(_x2) {
       return _ref2.apply(this, arguments);
     };
   }();
 
-  console.log(tagState, sessionState);
+  console.log(asignedTerms, serverAssigned, newAssigned, newUnAssinged);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.AddTagWrap, {
       className: addTagModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
@@ -8179,7 +8267,12 @@ var AddTag = function AddTag(props) {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-modal__body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("form", {
+        children: [addTagResponse !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+          className: "wpwax-vm-notice wpwax-vm-notice-".concat(addTagResponseStatus),
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+            children: addTagResponse
+          })
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("form", {
           action: "",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
             className: "wpwax-vm-addtag-form",
@@ -8234,7 +8327,7 @@ var AddTag = function AddTag(props) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-btnlink",
-              onClick: handleAddTerm,
+              onClick: handleAssignTerm,
               children: "Update"
             })]
           })
@@ -8345,23 +8438,16 @@ var DeleteConfirm = function DeleteConfirm(props) {
               event.preventDefault();
               _context.next = 3;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].datadelete("/sessions/".concat(deleteBy)).then(function (response) {
-                console.log(response);
-                var sessionlist = sessions.filter(function (item) {
+                var newSessionlist = sessions.filter(function (item) {
                   return item.session_id !== deleteBy;
                 });
-                dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionlist));
+                dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(newSessionlist));
                 setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+                  sessionList: newSessionlist,
                   successMessage: "Session Successfully Deleted",
                   rejectMessage: "",
                   deleteModalOpen: !modalOpen
                 }));
-                setTimeout(function () {
-                  setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                    successMessage: "",
-                    rejectMessage: "",
-                    deleteModalOpen: !modalOpen
-                  }));
-                }, 3000);
               }).catch(function (error) {
                 console.log(error);
 
@@ -8371,26 +8457,12 @@ var DeleteConfirm = function DeleteConfirm(props) {
                     rejectMessage: "Wrong Resource Provided",
                     deleteModalOpen: !modalOpen
                   }));
-                  setTimeout(function () {
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      successMessage: "",
-                      rejectMessage: "",
-                      deleteModalOpen: !modalOpen
-                    }));
-                  }, 3000);
                 } else {
                   setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
                     successMessage: "",
                     rejectMessage: "Server Not exist",
                     deleteModalOpen: !modalOpen
                   }));
-                  setTimeout(function () {
-                    setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-                      successMessage: "",
-                      rejectMessage: "",
-                      deleteModalOpen: !modalOpen
-                    }));
-                  }, 3000);
                 }
               });
 
@@ -8464,7 +8536,7 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            margin-right: 12px;\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        background-color: var(--color-bg-general);\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                border: 0 none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        margin-top: 28px;\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 14px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
+var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            margin-right: 12px;\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        background-color: var(--color-bg-general);\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                border: 0 none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 14px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
 var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        padding-top: 10px;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                border: 0 none;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 0;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n                margin-left: 5px;\n            }\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
 var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20%);\n    left: 4%;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 35px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 24px;\n            }\n        }\n    }\n"])));
@@ -8614,17 +8686,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -8679,6 +8751,10 @@ var Taglist = function Taglist(props) {
     return singleSession.session_id === activeSessionId;
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+      tagLoader: true
+    }));
+
     var fetchTerms = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var termsResponse;
@@ -8718,11 +8794,25 @@ var Taglist = function Taglist(props) {
 
       if (taglistWithSession) {
         if (sessionList.length !== 0) {
-          currentSession.length !== 0 ? setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-            assignedTags: currentSession[0].terms,
-            filteredTagList: currentSession[0].terms,
-            tagLoader: false
-          })) : null;
+          if (currentSession.length !== 0) {
+            setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+              assignedTags: currentSession[0].terms,
+              filteredTagList: currentSession[0].terms,
+              tagLoader: false
+            })); // let asignedTermsStore = [];
+            // if(currentSession.length !==0){
+            //     for(let i =0; i< currentSession[0].terms.length; i++){
+            //         asignedTermsStore = [
+            //             ...asignedTermsStore,
+            //             currentSession[0].terms[i].term_id
+            //         ]
+            //     }
+            // }
+            // setSessionState({
+            //     ...sessionState,
+            //     asignedTerms: [...asignedTermsStore],
+            // })
+          }
         }
       }
     }).catch(function (error) {
@@ -8787,10 +8877,8 @@ var Taglist = function Taglist(props) {
 
   if (images.length > 1) {
     multiImg = true;
-  } // console.log(allTags, filteredTagList,assignedTags)
+  }
 
-
-  console.log(tagState, sessionState);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.TaglistWrap, {
     className: tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -8856,7 +8944,7 @@ var Taglist = function Taglist(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
           })]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("ul", {
+        }) : filteredTagList.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("ul", {
           children: taglistWithSession ? filteredTagList.map(function (term, index) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("li", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
@@ -8889,6 +8977,11 @@ var Taglist = function Taglist(props) {
                 termId: term.term_id
               })]
             }, index);
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "wpwax-vm-empty",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+            children: "Sorry!! No Assigned Tags Found"
           })
         })
       })]

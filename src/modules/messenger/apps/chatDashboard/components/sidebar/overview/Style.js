@@ -33,7 +33,12 @@ const TaglistWrap = Styled.div`
         }
     }
     .wpawax-vm-taglist-inner{
+        position: relative;
         margin-top: 28px;
+        min-height: 120px;
+        .wpwax-vm-loading-spin{
+            top: 30%;
+        }
         ul{
             li{
                 display: flex;

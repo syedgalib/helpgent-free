@@ -58,6 +58,9 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-form__element{
             border-radius: 10px;
             background-color: #DDDDDD;
+            /* &:focus{
+                background-color: var(--color-bg-white);
+            } */
         }
         .wpwax-vm-search-toggle{
             position: absolute;
@@ -211,7 +214,7 @@ const SidebarWrap = Styled.div`
                             opacity: 0;
                             visibility: hidden;
                             transition: .25s ease-in;
-                            background-color: var(--color-bg-general);
+                            background-color: #f0f0f1;
                         }
                         &:hover{
                             background-color: transparent;

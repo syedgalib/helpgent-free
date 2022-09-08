@@ -305,6 +305,9 @@
 			outline: none;
 			box-shadow: 0 0;
 		}
+		.wpwax-vm-dropdown__toggle--text + div{
+			line-height: 1;
+		}
 	}
 
 	.wpwax-vm-dropdown__content {

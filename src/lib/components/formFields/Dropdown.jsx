@@ -38,11 +38,12 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         const allUserMedia = document.querySelectorAll(".wpwax-vm-usermedia");
 
         setState({
+            ...state,
             openDropdown: !openDropdown
         });
 
         allUserMedia.forEach(medaiItem => {
-            medaiItem.classList.remove(".wpwax-vm-active");
+            medaiItem.classList.remove("wpwax-vm-active");
         });
 
         if (!openDropdown) {

@@ -53,14 +53,6 @@ const metaList = [
 function Sidebar() {
 	const taglistModalOpen = false;
 	const ref = useRef(null);
-	/* initialize Form Data */
-	const { sessions, loading } = useSelector(state => {
-		// console.log(state)
-        return {
-            sessions: state.sessions.sessions,
-            loading: state.sessions.loading,
-        };
-    });
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
 		sessionList: [],
@@ -129,10 +121,7 @@ function Sidebar() {
 			const sessionResponse = await apiService.getAll('/sessions');
 			return sessionResponse;
 		}
-		// const fetchTerms = async ()=>{
-		// 	const termsResponse = await apiService.getAll('/messages/terms')
-		// 	return termsResponse;
-		// }
+		
 		fetchSession()
 			.then( sessionResponse => {
 				setSessionState({
@@ -146,31 +135,6 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-		// fetchTerms()
-		// 	.then( termsResponse => {
-				
-		// 		setTagState({
-		// 			...tagState,
-		// 			allTags: termsResponse.data.data,
-		// 			filteredTagList: termsResponse.data.data,
-		// 			tagLoader: false
-		// 		});
-		// 		const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
-		// 		if(taglistWithSession){
-		// 			if(sessions.length !== 0){
-		// 				currentSession.length !== 0 ?
-		// 				setTagState({
-		// 					...tagState,
-		// 					assignedTags: currentSession[0].terms,
-		// 					filteredTagList: currentSession[0].terms,
-		// 					tagLoader: false
-		// 				}) : null;
-		// 			}
-		// 		}
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	})
 		const checkIfClickedOutside = e => {
             if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
 				

@@ -38,17 +38,6 @@ const Taglist= props =>  {
     const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
 
     useEffect(() => {
-        // if(taglistWithSession){
-        //     if(sessions.length !== 0){
-        //         currentSession.length !== 0 ?
-        //         setTagState({
-        //             ...tagState,
-        //             assignedTags: currentSession[0].terms,
-        //             filteredTagList: currentSession[0].terms,
-        //             tagLoader: false
-        //         }) : null;
-        //     }
-        // }
         const fetchTerms = async ()=>{
 			const termsResponse = await apiService.getAll('/messages/terms')
 			return termsResponse;

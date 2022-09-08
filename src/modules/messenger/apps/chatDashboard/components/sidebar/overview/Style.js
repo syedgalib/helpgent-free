@@ -142,6 +142,19 @@ const AddTagWrap = Styled.div`
     .wpwax-vm-modal__footer{
         justify-content: flex-end;
     }
+    .wpwax-vm-tags-readable-list{
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid var(--color-border-light);
+        padding: 15px;
+        border-radius: 10px;
+        li{
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0;
+            color: var(--color-dark);
+        }
+    }
 `;
 
 const DeleteConfirmWrap = Styled.div`

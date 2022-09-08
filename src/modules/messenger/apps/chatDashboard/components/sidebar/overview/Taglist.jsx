@@ -23,8 +23,8 @@ const moreDropdown = [
 const Taglist= props =>  {
     const overlay = document.querySelector('.wpax-vm-overlay');
     const { sessionState, setSessionState, tagState, setTagState } = props;
-    const { editableTerm, allTags, addTagModalOpen, tagLoader } = tagState;
-    const { activeSessionId, tagListModalOpen, taglistWithSession, loader } = sessionState;
+    const { editableTerm, assignedTags, allTags, filteredTagList, addTagModalOpen, tagLoader } = tagState;
+    const { sessionList, activeSessionId, tagListModalOpen, taglistWithSession, loader } = sessionState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -36,41 +36,49 @@ const Taglist= props =>  {
     });
 
     const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
+
     useEffect(() => {
-        console.log(taglistWithSession)
-        if(taglistWithSession){
-            if(sessions.length !== 0){
-                
-                console.log(currentSession)
-                currentSession.length !== 0 ?
-                setTagState({
-                    ...tagState,
-                    allTags: currentSession[0].terms,
-                    tagLoader: false
-                }) : null;
-            }
-        }else{
-            setTagState({
-                ...tagState,
-                tagLoader: true
-            });
-            const fetchTerms = async ()=>{
-                const termResponse = await apiService.getAll('/messages/terms');
-                return termResponse;
-            }
-            fetchTerms()
-                .then( termResponse => {
-                    setTagState({
-                        ...tagState,
-                        allTags: termResponse.data.data,
-                        tagLoader: false
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
-        }
-	}, [tagListModalOpen, taglistWithSession]);
+        // if(taglistWithSession){
+        //     if(sessions.length !== 0){
+        //         currentSession.length !== 0 ?
+        //         setTagState({
+        //             ...tagState,
+        //             assignedTags: currentSession[0].terms,
+        //             filteredTagList: currentSession[0].terms,
+        //             tagLoader: false
+        //         }) : null;
+        //     }
+        // }
+        const fetchTerms = async ()=>{
+			const termsResponse = await apiService.getAll('/messages/terms')
+			return termsResponse;
+		}
+        fetchTerms()
+			.then( termsResponse => {
+				
+				setTagState({
+					...tagState,
+					allTags: termsResponse.data.data,
+					filteredTagList: termsResponse.data.data,
+					tagLoader: false
+				});
+				const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
+				if(taglistWithSession){
+					if(sessionList.length !== 0){
+						currentSession.length !== 0 ?
+						setTagState({
+							...tagState,
+							assignedTags: currentSession[0].terms,
+							filteredTagList: currentSession[0].terms,
+							tagLoader: false
+						}) : null;
+					}
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+	}, [tagListModalOpen]);
 
     /* Handle Add Tag */
     const handleAddTagModal = (event) => {
@@ -79,7 +87,8 @@ const Taglist= props =>  {
             ...sessionState,
             editableTermId: "",
             tagListModalOpen: false,
-            addTagModalOpen: true
+            addTagModalOpen: true,
+            taglistWithSession: true
         });
         // dispatch(handleTagFormModal(true));
     }
@@ -91,6 +100,16 @@ const Taglist= props =>  {
             ...sessionState,
             tagListModalOpen: false,
             addTagModalOpen: false
+        });
+    }
+
+    const handleTagFilter = event =>{
+        let keyword = event.target.value;
+        const filteredTags = taglistWithSession ? assignedTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword))) : allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
+        console.log(filteredTags);
+        setTagState({
+            ...tagState,
+            filteredTagList: filteredTags
         });
     }
 
@@ -110,7 +129,8 @@ const Taglist= props =>  {
     if(images.length > 1){
         multiImg = true;
     }
-    console.log(allTags);
+    // console.log(allTags, filteredTagList,assignedTags)
+    console.log(tagState, sessionState)
     return (
         <TaglistWrap className={tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
             <div className="wpwax-vm-modal__header">
@@ -139,8 +159,7 @@ const Taglist= props =>  {
                             }
                         </div> : null
                     }
-                    
-                    <span className="wpwax-vm-taglist-author__name"> {taglistWithSession ? `Tags ${titleString}` : "All Tags" } </span>
+                    <span className="wpwax-vm-taglist-author__name"> {taglistWithSession ? `Tags of ${titleString}` : "All Tags" } </span>
                 </div>
                 <a href="#" className="wpwax-vm-modal__close" onClick={handleCloseAllTagModal}><span className="dashicons dashicons-no-alt"></span></a>
             </div>
@@ -148,7 +167,7 @@ const Taglist= props =>  {
             <div className="wpwax-vm-modal__body">
                 <div className="wpawax-vm-taglist-search">
                     <span className="dashicons dashicons-search"></span>
-                    <input type="text" placeholder="Search" />
+                    <input type="text" placeholder="Search" id="wpwax-vm-filter-taglist" onChange={handleTagFilter}/>
                 </div>
                 <div className="wpawax-vm-taglist-inner">
                     {
@@ -162,7 +181,17 @@ const Taglist= props =>  {
                         : 
                         <ul>
                             {
-                                allTags.map( ( term,index ) => {
+                                taglistWithSession ? 
+                                filteredTagList.map( ( term,index ) => {
+                                        return(
+                                            <li key={index}>
+                                                <span className="wpwax-vm-taglist-label">{term.name}</span>
+                                                <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={activeSessionId} termId={term.term_id}/>
+                                            </li>
+                                        )
+                                    })
+                                :
+                                filteredTagList.map( ( term,index ) => {
                                     return(
                                         <li key={index}>
                                             <span className="wpwax-vm-taglist-label">{term.name}</span>

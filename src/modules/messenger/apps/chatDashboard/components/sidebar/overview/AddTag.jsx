@@ -14,44 +14,55 @@ const AddTag = props => {
     
     /* initialize Form Data */
 	const { sessions } = useSelector(state => {
-		// console.log(state)
         return {
             sessions: state.sessions.sessions,
         };
     });
+
+    const [state, setState] = useState({
+		tagInput: "",
+	});
     
     const { sessionState, setSessionState, tagState, setTagState } = props;
     // console.log(sessionState);
     const { asignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
-    const { tagInput, allTags, tagLoader } = tagState;
+    const { allTags, assignedTags, tagLoader } = tagState;
+
+    const { tagInput } = state;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     
     useEffect(() => {
-        const fetchTerms = async ()=>{
-            const termResponse = await apiService.getAll('/messages/terms');
-            return termResponse;
+        
+        
+        if(editableTermId !== ""){
+            let termName = tagInput;
+            termName = allTags.filter(item=> item.term_id === editableTermId)[0].name;
+            // console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
+            setState({
+                ...tagState,
+                tagInput: termName,
+            });
+        }else{
+            setState({
+                ...tagState,
+                tagInput: "",
+            });
         }
-		fetchTerms()
-            .then( termResponse => {
-                let termName = "";
-                console.log(editableTermId);
-                if(editableTermId !== ""){
-                    termName = termResponse.data.data.filter(item=> item.term_id === editableTermId)[0].name;
-                    // console.log(termName[0].name);
-                }
+        
+        // const fetchTerms = async ()=>{
+        //     const termResponse = await apiService.getAll('/messages/terms');
+        //     return termResponse;
+        // }
+		// fetchTerms()
+        //     .then( termResponse => {
+        //         let termName = "";
                 
-                setTagState({
-                    ...tagState,
-                    allTags: termResponse.data.data,
-                    tagInput: termName,
-                    tagLoader: false
-                });
-            })
-			.catch((error) => {
-				console.log(error);
-			})
+        //     })
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	})
 	}, [addTagModalOpen]);
 
     /* Handle Modal Close */
@@ -61,15 +72,14 @@ const AddTag = props => {
             ...sessionState,
             tagListModalOpen: true,
             addTagModalOpen: false,
-            taglistWithSession: true
+            taglistWithSession: taglistWithSession
         });
         // dispatch(handleTagFormModal(false));
     }
 
     const handleTagInput = (e)=>{
         const tagName = e.target.value;
-        
-        setTagState({
+        setState({
             ...tagState,
             tagInput: e.target.value
         });
@@ -94,10 +104,8 @@ const AddTag = props => {
                     tagLoader: false,
                     allTags: [
                         ...allTags,
-                        response.data
                     ]
                 });
-                console.log(allTags)
             })
         }else{
             apiService.dataAdd('/messages/terms',termData)
@@ -112,7 +120,11 @@ const AddTag = props => {
                 });
             })
         }
-        
+        const fetchSessionTermCreation = await apiService.getAll('/sessions');
+        setSessionState({
+            ...sessionState,
+            sessionList: fetchSessionTermCreation
+        });
     }
 
     const handleAssignList = (e)=>{
@@ -134,7 +146,6 @@ const AddTag = props => {
             
             if(index !== -1){
                 array.splice(index,1);
-                console.log(array, index);
                 setSessionState({
                     ...sessionState,
                     asignedTerms: [...array]
@@ -150,24 +161,28 @@ const AddTag = props => {
         }
         setTagState({
             ...tagState,
-            tagLoader: true
+            tagLoader: true,
         });
         await apiService.dataAdd('/sessions/add-terms',updateTermData)
         .then(response => {
-            console.log(response)
             setTagState({
                 ...tagState,
+                assignedTags: [
+                    ...tagState.assignedTags,
+                    response.data.data.success
+                ],
                 tagLoader: false,
             });
-            sessions = {
-                ...sessions,
-                terms:{
-                    ...sessions.terms,
-                    ...response.data.data.success
-                }
-            }
+        });
+
+        const fetchSessionTermAdd = await apiService.getAll('/sessions');
+        setSessionState({
+            ...sessionState,
+            sessionList: fetchSessionTermAdd
         });
     }
+
+    console.log(tagState,sessionState);
 
     return (
         <React.Fragment>
@@ -189,34 +204,46 @@ const AddTag = props => {
                             <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Edit": "Add"}</button>
                         </div>
                     </form>
-                    <div className="wpwax-vm-taglist-box">
-                        {
-                            tagLoader ? 
-                            <span className="wpwax-vm-loading-spin">
-                                <span className="wpwax-vm-spin-dot"></span>
-                                <span className="wpwax-vm-spin-dot"></span>
-                                <span className="wpwax-vm-spin-dot"></span>
-                                <span className="wpwax-vm-spin-dot"></span>
-                            </span>: 
-                            <React.Fragment>
-                                <div className="wpwax-vm-taglist">
-                                    {
-                                        allTags.map((item,index)=>{
-                                            
-                                            return(
-                                                <div className="wpwax-vm-tag__check" key={index}>
-                                                    <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={asignedTerms.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleAssignList(e)}/>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <a href="#" className="wpwax-vm-btnlink" onClick={handleAddTerm}>Update</a>
-                                {/* <a href="#" className="wpwax-vm-btnlink wpwax-vm-btn-danger">Remove</a> */}
-                            </React.Fragment>
-                        }
-                    </div>
-                    
+                    {
+                        taglistWithSession ? 
+                            <div className="wpwax-vm-taglist-box">
+                                {
+                                    tagLoader ? 
+                                    <span className="wpwax-vm-loading-spin">
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                    </span>: 
+                                    <React.Fragment>
+                                        <div className="wpwax-vm-taglist">
+                                            {
+                                                allTags.map((item,index)=>{
+                                                    
+                                                    return(
+                                                        <div className="wpwax-vm-tag__check" key={index}>
+                                                            <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={asignedTerms.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleAssignList(e)}/>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        <a href="#" className="wpwax-vm-btnlink" onClick={handleAddTerm}>Update</a>
+                                        {/* <a href="#" className="wpwax-vm-btnlink wpwax-vm-btn-danger">Remove</a> */}
+                                    </React.Fragment>
+                                }
+                            </div> : 
+                            <ul className="wpwax-vm-tags-readable-list">
+                                {
+                                    allTags.map((item,index)=>{
+                                        return(
+                                            <li key={index}>{index ? ', ': ''}{item.name}</li>
+                                        )
+                                    })
+                                }
+                                
+                            </ul>
+                    }
                 </div>
 
                 <div className="wpwax-vm-modal__footer">

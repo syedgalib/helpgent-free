@@ -79,17 +79,16 @@ function Sidebar() {
 		loader: true
 	});
 	const [tagState, setTagState] = useState({
-		editableTerm: "",
-		tagInput: "",
+		// tagInput: "y",
 		allTags: [],
+		assignedTags: [],
 		filteredTagList:[],
 		loader: false,
 		tagLoader: false,
 		addTagModalOpen: false,
 	});
 
-	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, loader } = sessionState;
-
+	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, loader } = sessionState;
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 	
@@ -130,10 +129,10 @@ function Sidebar() {
 			const sessionResponse = await apiService.getAll('/sessions');
 			return sessionResponse;
 		}
-		const fetchTerms = async ()=>{
-			const termsResponse = await apiService.getAll('/messages/terms')
-			return termsResponse;
-		}
+		// const fetchTerms = async ()=>{
+		// 	const termsResponse = await apiService.getAll('/messages/terms')
+		// 	return termsResponse;
+		// }
 		fetchSession()
 			.then( sessionResponse => {
 				setSessionState({
@@ -147,18 +146,31 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-		fetchTerms()
-			.then( termsResponse => {
-				setTagState({
-					...tagState,
-					tagList: termsResponse.data.data,
-					filteredTagList: termsResponse.data.data,
-					tagLoader: false
-				})
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+		// fetchTerms()
+		// 	.then( termsResponse => {
+				
+		// 		setTagState({
+		// 			...tagState,
+		// 			allTags: termsResponse.data.data,
+		// 			filteredTagList: termsResponse.data.data,
+		// 			tagLoader: false
+		// 		});
+		// 		const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
+		// 		if(taglistWithSession){
+		// 			if(sessions.length !== 0){
+		// 				currentSession.length !== 0 ?
+		// 				setTagState({
+		// 					...tagState,
+		// 					assignedTags: currentSession[0].terms,
+		// 					filteredTagList: currentSession[0].terms,
+		// 					tagLoader: false
+		// 				}) : null;
+		// 			}
+		// 		}
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	})
 		const checkIfClickedOutside = e => {
             if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
 				
@@ -173,7 +185,7 @@ function Sidebar() {
             // Cleanup the event listener
             document.removeEventListener("mousedown", checkIfClickedOutside)
         }
-	}, [tagFilterDropdownOpen]);
+	}, []);
 
 	const handleSessionSearch = event =>{
 		let keyword = event.target.value;
@@ -183,7 +195,8 @@ function Sidebar() {
 			filteredSessions: generatedSessions
 		});
 	}
-	console.log(filteredSessions);
+
+	console.log(tagState,sessionState);
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">

@@ -1,5 +1,5 @@
 import axios from 'axios';
-console.log(wpWaxCustomerSupportApp_CoreScriptData);
+// console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 const axiosInstance = axios.create({
     baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
@@ -14,7 +14,6 @@ const getAll = path =>{
 }
 
 const getAllByArg = (path,args) =>{
-    console.log(path,args)
     return axiosInstance.get(path, {params: args});
 }
 
@@ -27,7 +26,6 @@ const dataUpdate = (path, args) => {
 };
 
 const dataAdd = (path, args) => {
-    console.log(args);
     return axiosInstance.post(path, args);
 };
 

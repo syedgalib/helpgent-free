@@ -7127,8 +7127,8 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ // console.log(wpWaxCustomerSupportApp_CoreScriptData);
 
-console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 
 var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
@@ -7144,7 +7144,6 @@ var getAll = function getAll(path) {
 };
 
 var getAllByArg = function getAllByArg(path, args) {
-  console.log(path, args);
   return axiosInstance.get(path, {
     params: args
   });
@@ -7159,7 +7158,6 @@ var dataUpdate = function dataUpdate(path, args) {
 };
 
 var dataAdd = function dataAdd(path, args) {
-  console.log(args);
   return axiosInstance.post(path, args);
 };
 

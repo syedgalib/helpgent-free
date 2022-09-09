@@ -1,12 +1,12 @@
 import actions from "./actions";
 
-const { 
+const {
     UPDATE_STATE,
     UPDATE_FORM_DATA,
     RESET,
     SUBMIT_FORM_BEGAIN,
-    SUBMIT_FORM_SUCCESS, 
-    SUBMIT_FORM_ERROR, 
+    SUBMIT_FORM_SUCCESS,
+    SUBMIT_FORM_ERROR,
 } = actions;
 
 const initialState = {
@@ -63,7 +63,7 @@ const reducer = ( state = initialState, action ) => {
 
         case RESET:
             return initialState;
-            
+
         default:
             return state;
     }

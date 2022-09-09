@@ -87,12 +87,14 @@ class Public_Asset extends Enqueuer {
             'group'     => 'public',
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => [
-                    'apiEndpoint'   => rest_url( 'wpwax_cs/v1' ),
-                    'apiNonce'      => wp_create_nonce( 'wp_rest' ),
-                    'currentPageID' => get_the_ID(),
-                    'isFrontPage'   => is_front_page(),
-                    'isHome'        => is_home(),
-                    'current_user'  => Helper\get_current_user(),
+                    'apiEndpoint'                => rest_url( 'wpwax_cs/v1' ),
+                    'apiNonce'                   => wp_create_nonce( 'wp_rest' ),
+                    'currentPageID'              => get_the_ID(),
+                    'isFrontPage'                => is_front_page(),
+                    'isHome'                     => is_home(),
+                    'current_user'               => Helper\get_current_user(),
+                    'supported_video_extensions' => Helper\get_mime_types( 'video', 'extension' ),
+                    'max_upload_size'            => wp_max_upload_size(),
                 ],
             ],
         ];

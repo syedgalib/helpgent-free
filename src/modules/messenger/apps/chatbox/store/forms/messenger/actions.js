@@ -12,7 +12,7 @@ const actions = {
             payload: data,
         }
     },
-    upateFormData: ( formData ) => {
+    updateFormData: ( formData ) => {
         return {
             type: actions.UPDATE_FORM_DATA,
             payload: formData,

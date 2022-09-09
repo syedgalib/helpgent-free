@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
-import { upateFormData as upateMessengerFormData } from "./messenger/actionCreator.js";
+import { updateFormData as updateMessengerFormData } from "./messenger/actionCreator.js";
 
 function useFormHooks() {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function useFormHooks() {
 	useEffect(() => {
 
 		if ( templateOpions.tag ) {
-			dispatch( upateMessengerFormData( { terms: `${templateOpions.tag}` } ) );
+			dispatch( updateMessengerFormData( { terms: `${templateOpions.tag}` } ) );
 		}
 
 	}, []);

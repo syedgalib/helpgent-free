@@ -68,13 +68,11 @@ const AddTag = props => {
             addTagModalOpen: false,
             taglistWithSession: taglistWithSession
         });
-        // dispatch(handleTagFormModal(false));
     }
 
     const handleTagInput = (e)=>{
-        const tagName = e.target.value;
         setState({
-            ...tagState,
+            ...state,
             tagInput: e.target.value
         });
     }
@@ -140,7 +138,7 @@ const AddTag = props => {
         const fetchSessionTermCreation = await apiService.getAll('/sessions');
         setSessionState({
             ...sessionState,
-            sessionList: fetchSessionTermCreation
+            sessionList: fetchSessionTermCreation.data.data
         });
     }
     

@@ -33,7 +33,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const dispatch = useDispatch();
 
     /* Handle Dropdown active inactive */
-    const handleDropdown = (event) => {
+    const handleDropdown = (event) => { 
         event.preventDefault();
         const allUserMedia = document.querySelectorAll(".wpwax-vm-usermedia");
 
@@ -62,6 +62,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
             selectedItemText: event.target.text
         });
         setState({
+            ...state,
             openDropdown: false,
             filterText: event.target.text
         });
@@ -269,6 +270,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
             if (openDropdown && ref.current && !ref.current.contains(e.target)) {
                 setState({
+                    ...state,
                     openDropdown: false
                 });
             }

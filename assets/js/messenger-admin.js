@@ -5734,10 +5734,10 @@ var Dropdown = function Dropdown(_ref) {
     setSelectedState({
       selectedItemText: event.target.text
     });
-    setState({
+    setState(_objectSpread(_objectSpread({}, state), {}, {
       openDropdown: false,
       filterText: event.target.text
-    });
+    }));
     var orderByArg = {};
 
     switch (btnName) {
@@ -6138,9 +6138,9 @@ var Dropdown = function Dropdown(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (openDropdown && ref.current && !ref.current.contains(e.target)) {
-        setState({
+        setState(_objectSpread(_objectSpread({}, state), {}, {
           openDropdown: false
-        });
+        }));
       }
     };
 
@@ -7996,12 +7996,11 @@ var AddTag = function AddTag(props) {
       tagListModalOpen: true,
       addTagModalOpen: false,
       taglistWithSession: taglistWithSession
-    })); // dispatch(handleTagFormModal(false));
+    }));
   };
 
   var handleTagInput = function handleTagInput(e) {
-    var tagName = e.target.value;
-    setState(_objectSpread(_objectSpread({}, tagState), {}, {
+    setState(_objectSpread(_objectSpread({}, state), {}, {
       tagInput: e.target.value
     }));
   };
@@ -8084,7 +8083,7 @@ var AddTag = function AddTag(props) {
             case 18:
               fetchSessionTermCreation = _context.sent;
               setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-                sessionList: fetchSessionTermCreation
+                sessionList: fetchSessionTermCreation.data.data
               }));
 
             case 20:

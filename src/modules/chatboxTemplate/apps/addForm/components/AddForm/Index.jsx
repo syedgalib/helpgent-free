@@ -19,6 +19,7 @@ const AddForm = () => {
     const id = queryParams.get("id");
     /* initialize Form Data */
     const {
+        name,
         primaryColor,
         fontFamily,
         fontSize,
@@ -34,11 +35,13 @@ const AddForm = () => {
         thankTitleFontSize,
         thankDescColor,
         thankDescFontSize,
+        pageBgColor,
         formInitialData,
         loading,
         response
     } = useSelector(state => {
         return {
+            name: state.form.data[0].name,
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_family,
             fontSize: state.form.data[0].options.font_size,
@@ -54,6 +57,7 @@ const AddForm = () => {
             thankTitleFontSize: state.form.data[0].options.thank_page_title_font_size,
             thankDescColor: state.form.data[0].options.thank_page_description_color,
             thankDescFontSize: state.form.data[0].options.thank_page_description_font_size,
+            pageBgColor: state.form.data[0].options.page_background_color,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
             response: state.form.response,
@@ -66,6 +70,7 @@ const AddForm = () => {
     document.documentElement.style.setProperty("--color-text", fontColor);
     document.documentElement.style.setProperty("--color-text-greet", greetColor);
     document.documentElement.style.setProperty("--color-text-chat", chatColor);
+    document.documentElement.style.setProperty("--color-page-bg", pageBgColor);
     document.documentElement.style.setProperty("--font-size-greet", greetSize);
     document.documentElement.style.setProperty("--font-size-chat", chatSize);
     document.documentElement.style.setProperty("--btn-radius", btnRadius + 'px');
@@ -75,32 +80,95 @@ const AddForm = () => {
     document.documentElement.style.setProperty("--font-size-thank-title", thankTitleFontSize);
     document.documentElement.style.setProperty("--color-thank-desc", thankDescColor);
     document.documentElement.style.setProperty("--font-size-thank-desc", thankDescFontSize);
-
     const [state, setState] = useState({
+        currentStage: "general",
         validation: true,
         fetchStatus: true
     });
+
+    const { currentStage, validation, fetchStatus} = state;
 
     const [formStage, setFormStage] = useState("general");
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
-    const handleFormNext = (e) => {
-        e.preventDefault();
-        if (formStage === "general") {
-            setFormStage("form");
-        } else if (formStage === "form") {
-            setFormStage("thank");
+    const handleFormNext = (event,btnName) => {
+        event.preventDefault();
+        if(btnName === "btn-general"){
+            if(validation === true){
+                setState({
+                    ...state,
+                    currentStage: "general",
+                    validation: true,
+                });
+            }
+        }else if(btnName === "btn-form"){
+            console.log("yes")
+            if(name === ""){
+                
+                setState({
+                    ...state,
+                    validation: false
+                });
+            }else{
+                setState({
+                    ...state,
+                    currentStage: "form",
+                    validation: true
+                });
+            }
+
+        }else if(btnName === "btn-thank"){
+            if(name === ""){
+                setState({
+                    ...state,
+                    validation: false,
+                });
+            }else{
+                setState({
+                    ...state,
+                    currentStage: "thank",
+                    validation: true
+                });
+            }
+
+        }else{
+            if(currentStage === "general"){
+                if(name === ""){
+                    setState({
+                        ...state,
+                        validation: false
+                    });
+                }else{
+                    setState({
+                        ...state,
+                        currentStage: "form",
+                        validation: true
+                    });
+                }
+            }else if(currentStage === "form"){
+                setState({
+                    ...state,
+                    currentStage: "thank",
+                });
+            }else if(currentStage === "thank"){
+                setState({
+                    ...state,
+                });
+            }
         }
+        
+        // if (formStage === "general") {
+        //     setFormStage("form");
+        // } else if (formStage === "form") {
+        //     setFormStage("thank");
+        // }
     }
 
     const handleAddTemplate = (e) => {
         e.preventDefault()
         if (formInitialData.name === '') {
-            setState({
-                validation: false
-            });
             setTimeout(() => {
                 setState({
                     validation: true
@@ -123,18 +191,24 @@ const AddForm = () => {
     }
 
     const getFormContent = () => {
-        if (formStage === "general") {
+        if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
+                {
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                }
                 <GeneralSettings />
             </div>
-        } else if (formStage === "form") {
+        } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
+                {
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                }
                 <FormSettings />
             </div>
         } else {
             return <div className="wpwax-vm-add-form__content">
                 {
-                    !state.validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
                 }
 
                 <ThankSettings />
@@ -166,13 +240,10 @@ const AddForm = () => {
                             <>
                                 <div className="wpwax-vm-add-form__tab">
                                     <ul className="wpwax-vm-add-form__top">
-                                        <li className={formStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("general")}>General</li>
-                                        <li className={formStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("form")}>Form Settings</li>
-                                        <li className={formStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={() => setFormStage("thank")}>Thank You Page</li>
+                                        <li className={currentStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-general")}>General</li>
+                                        <li className={currentStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-form")}>Form Settings</li>
+                                        <li className={currentStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-thank")}>Thank You Page</li>
                                     </ul>
-
-                                    <p className="wpwax-vm-text-highlighted">* required Fields</p>
-
 
                                     {
                                         getFormContent()
@@ -190,10 +261,10 @@ const AddForm = () => {
                                 <div className="wpwax-vm-add-form__bottom">
 
                                     {
-                                        formStage === "form" || formStage === "general" ? <a href="#" className="wpwax-vm-form-next" onClick={e => handleFormNext(e)}>Next <ReactSVG src={arrowLeft} /></a> : null
+                                        currentStage === "form" || currentStage === "general" ? <a href="#" className="wpwax-vm-form-next" onClick={handleFormNext}>Next <ReactSVG src={arrowLeft} /></a> : null
                                     }
                                     {
-                                        formStage === "thank" ? <button type="submit" className="wpwax-vm-form-save">Save</button> : null
+                                        currentStage === "thank" ? <button type="submit" className="wpwax-vm-form-save">Save</button> : null
                                     }
 
                                 </div>
@@ -206,9 +277,9 @@ const AddForm = () => {
                 <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>
                 {
                     formInitialData.options.theme === 'theme-1' ?
-                        <PreviewOne previewStage={formStage} />
+                        <PreviewOne previewStage={currentStage} />
                         :
-                        <PreviewTwo previewStage={formStage} />
+                        <PreviewTwo previewStage={currentStage} />
                 }
             </div>
         </AddFormStyle>

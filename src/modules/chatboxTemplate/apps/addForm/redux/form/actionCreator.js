@@ -23,6 +23,10 @@ const addForm = args => {
       await apiService.dataAdd(`/chatbox-templates`, args)
           .then(response => {
             dispatch(addFormSuccess(JSON.stringify(response)));
+            setTimeout( () => {
+              response = "";
+              dispatch(addFormSuccess(JSON.stringify(response)));
+          }, 3000);
           })
           .catch((error) => {
               console.log(error)

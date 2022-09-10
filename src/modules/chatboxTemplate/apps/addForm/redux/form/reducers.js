@@ -59,7 +59,7 @@ const formData = [
         "primary_button_font_color": "#FFFFFF",
         "primary_button_background_color": "#2271b1",
     },
-    pages: "0,20",
+    pages: "",
     is_default: true,
   }
 ]

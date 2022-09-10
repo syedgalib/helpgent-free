@@ -229,10 +229,10 @@ const PreviewWrap = Styled.div`
         // width: 100%;
         border-radius: 25px;
         padding: 30px;
-        background-color: var(--color-dark);
+        background-color: var(--color-page-bg);
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
-            background-color: var(--color-white);
+            background-color: var(--color-page-bg);
         }
     }
     .wpwax-vm-preview-from{

@@ -85,7 +85,7 @@ const FormUpdater = (label, value,formInitialData) => {
                     ...item,
                     options: {
                         ...item.options,
-                        show_description: value
+                        description: value
                     }
                 }
             case "wpwax-vm-chat-title":
@@ -198,6 +198,14 @@ const FormUpdater = (label, value,formInitialData) => {
                     options: {
                         ...item.options,
                         button_border_radius: value
+                    }
+                }
+            case "wpwax-vm-page-bg-color":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        page_background_color: value
                     }
                 }
             case "wpwax-vm-form-primary-button-bg":

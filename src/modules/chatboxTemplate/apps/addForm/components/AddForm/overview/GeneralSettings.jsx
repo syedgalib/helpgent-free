@@ -43,7 +43,7 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-            diplayAllPage: state.form.data[0].options.display_on_all_pages ? state.form.data[0].options.display_on_all_pages : false,
+            diplayAllPage: state.form.data[0].options.display_on_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].page_ids,
@@ -100,6 +100,7 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
     };
 
+    console.log(formData);
     return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from 'react-redux';
+import InfiniteScroll from "react-infinite-scroll-component";
 import Dropdown from "Components/formFields/Dropdown.jsx";
 import MediaBox from "Components/MediaBox.jsx";
 import Taglist from "./overview/Taglist.jsx";
@@ -155,6 +156,10 @@ function Sidebar() {
 		});
 	}
 
+	const fetchMoreData = ()=>{
+		
+	}
+
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
@@ -213,6 +218,11 @@ function Sidebar() {
 					:
 					<div className="wpwax-vm-sidebar-userlist">
 						<ul>
+						<InfiniteScroll 
+										dataLength={sessionList.length}
+										next={fetchMoreData}
+										hasMore={true}
+										loader={<h4>Loading...</h4>}>
 							{
 								sessionList.map((item, index) => {
 									
@@ -285,9 +295,9 @@ function Sidebar() {
 											</div>
 										</li>
 									)
-
 								})
 							}
+							</InfiniteScroll>
 						</ul>
 					</div>
 			}

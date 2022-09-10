@@ -58,13 +58,13 @@ const FormSettings = () => {
             grettingMessageFontSize: state.form.data[0].options.greet_message_font_size,
             grettingVideo: state.form.data[0].options.greet_video_url,
             grettingImage: state.form.data[0].options.greet_image_url,
-            descriptionVisibility: state.form.data[0].options.show_description ? state.form.data[0].options.show_description : false,
+            descriptionVisibility: state.form.data[0].options.show_description,
             description: state.form.data[0].options.description,
             chatTitle: state.form.data[0].options.chat_options_title,
             chatTitleFontSize: state.form.data[0].options.chat_options_title_font_size,
             chatTitleColor: state.form.data[0].options.chat_options_title_font_color,
             chatReplyType: state.form.data[0].options.can_replay_in,
-            footerVisibility: state.form.data[0].options.show_footer ? state.form.data[0].options.show_footer : false,
+            footerVisibility: state.form.data[0].options.show_footer,
             footerMessage: state.form.data[0].options.footer_message,
             footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
             primaryColor: state.form.data[0].options.primary_color,
@@ -179,6 +179,8 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
+
+    console.log(descriptionVisibility,description)
 
     return (
         <FormSettingsWrap>

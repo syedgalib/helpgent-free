@@ -54,7 +54,7 @@ const AddFormStyle = Styled.div`
             margin: 0;
         }
         .wpwax-vm-text-highlighted {
-            padding: 25px 30px 0;
+            padding: 25px 30px 15px;
         }
         .wpwax-vm-notice{
             margin: 20px 30px 20px;
@@ -84,6 +84,10 @@ const AddFormStyle = Styled.div`
                 color: var(--color-white);
                 background-color: var(--color-primary);
             }
+        }
+        .wpwax-vm-add-form__top--btn[disabled]{
+            opacity: .5;
+            cursor: not-allowed;
         }
     }
     .wpwax-vm-add-form__content{
@@ -250,7 +254,7 @@ const AddFormStyle = Styled.div`
             background-color: transparent;
         }
         .wpwax-vm-notice{
-            margin-bottom: 15px;
+            margin: 0 0 15px;
         }
     }
     .wpwax-vm-add-form__bottom{

@@ -5920,7 +5920,6 @@ var Dropdown = function Dropdown(_ref) {
         setTermState(_objectSpread(_objectSpread({}, termState), {}, {
           tagLoader: true
         }));
-        console.log("cool");
 
         var deleteTerm = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -5960,8 +5959,7 @@ var Dropdown = function Dropdown(_ref) {
             console.log(currentSession[0].terms.filter(function (item) {
               return item.term_id !== termId;
             }));
-          } // const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
-
+          }
 
           setTermState(_objectSpread(_objectSpread({}, termState), {}, {
             filteredTagList: filteredTerms,
@@ -6003,6 +6001,7 @@ var Dropdown = function Dropdown(_ref) {
 
         fetchReadSeassion().then(function (readResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: readResponse.data.data,
             filteredSessions: readResponse.data.data
           }));
         }).catch(function (error) {});
@@ -6040,6 +6039,7 @@ var Dropdown = function Dropdown(_ref) {
 
         fetchUnReadSeassion().then(function (unReadResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: unReadResponse.data.data,
             filteredSessions: unReadResponse.data.data
           }));
         }).catch(function (error) {});
@@ -6074,6 +6074,7 @@ var Dropdown = function Dropdown(_ref) {
 
         fetchLatestSeassion().then(function (latestResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: latestResponse.data.data,
             filteredSessions: latestResponse.data.data
           }));
         }).catch(function (error) {});
@@ -6111,6 +6112,7 @@ var Dropdown = function Dropdown(_ref) {
 
         fetchOldestSeassion().then(function (oldestResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: oldestResponse.data.data,
             filteredSessions: oldestResponse.data.data
           }));
         }).catch(function (error) {});
@@ -8424,13 +8426,6 @@ var DeleteConfirm = function DeleteConfirm(props) {
 
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
-  /* initialize Form Data */
-  // const { modalOpen } = useSelector(state => {
-  //     return {
-  //         modalOpen: state.tags.deleteConversation,
-  //     };
-  // });
-
   /* Handle Modal Close */
 
   var handleCloseModal = function handleCloseModal(event) {

@@ -17,13 +17,6 @@ const DeleteConfirm = props => {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
-    /* initialize Form Data */
-    // const { modalOpen } = useSelector(state => {
-    //     return {
-    //         modalOpen: state.tags.deleteConversation,
-    //     };
-    // });
-
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();

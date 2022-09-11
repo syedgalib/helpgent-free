@@ -7574,7 +7574,7 @@ function Sidebar() {
       loader: false
     }));
     var pageLimit = {
-      limit: "5"
+      limit: "15"
     };
 
     var fetchSession = /*#__PURE__*/function () {
@@ -7647,7 +7647,7 @@ function Sidebar() {
   var fetchMoreData = function fetchMoreData() {
     console.log(pageNumber);
     var pageArg = {
-      limit: "5",
+      limit: "15",
       page: pageNumber
     };
     setPageNumber(pageNumber + 1);
@@ -7803,7 +7803,7 @@ function Sidebar() {
           dataLength: sessionList.length,
           next: fetchMoreData,
           hasMore: true,
-          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("h2", {
+          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
               src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_23__["default"]
             })
@@ -8122,7 +8122,6 @@ var AddTag = function AddTag(props) {
                   allTags: _toConsumableArray(allTags)
                 }));
                 setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
-                  tagInput: "",
                   addTagResponseStatus: "success",
                   addTagResponse: "Successfully Edited"
                 }));
@@ -8373,7 +8372,7 @@ var AddTag = function AddTag(props) {
               onClick: function onClick(e) {
                 return handleCreateTerm(e);
               },
-              children: editableTermId !== '' ? "Edit" : "Apply"
+              children: editableTermId !== '' ? "Apply" : "Apply"
             })]
           })
         }), taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
@@ -10608,7 +10607,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b564694d3e2734631b601f2264d15bb7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f9ea600486a81abba9c17152e421baaa.svg");
 
 /***/ }),
 

@@ -102,7 +102,6 @@ const AddTag = props => {
                     });
                     setAddFormState({
                         ...addFormState,
-                        tagInput: "",
                         addTagResponseStatus: "success",
                         addTagResponse: "Successfully Edited",
                     });
@@ -305,7 +304,7 @@ const AddTag = props => {
                             <div className="wpwax-vm-form-group">
                                 <input type="text" className="wpwax-vm-form__element" placeholder="Ex. Travel" value={tagInput} onChange={e=>handleTagInput(e)}/>
                             </div>
-                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Edit": "Apply"}</button>
+                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Apply": "Apply"}</button>
                         </div>
                     </form>
                     {

@@ -117,7 +117,7 @@ function Sidebar() {
 			loader: false
 		});
 		const pageLimit = {
-			limit: "5"
+			limit: "15"
 		}
 		const fetchSession = async ()=>{
 			const sessionResponse = await apiService.getAllByArg('/sessions', pageLimit);
@@ -166,7 +166,7 @@ function Sidebar() {
 		
 		console.log(pageNumber)
 		const pageArg = {
-			limit: "5",
+			limit: "15",
 			page: pageNumber
 		}
 		setPageNumber(pageNumber + 1);
@@ -256,7 +256,7 @@ function Sidebar() {
 								dataLength={sessionList.length}
 								next={fetchMoreData}
 								hasMore={true}
-								loader={<h2><ReactSVG src={loaders} /></h2>}>
+								loader={<span><ReactSVG src={loaders} /></span>}>
 								{
 									sessionList.map((item, index) => {
 										

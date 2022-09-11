@@ -219,10 +219,10 @@ function Sidebar() {
 					<div className="wpwax-vm-sidebar-userlist">
 						<ul>
 						<InfiniteScroll 
-										dataLength={sessionList.length}
-										next={fetchMoreData}
-										hasMore={true}
-										loader={<h4>Loading...</h4>}>
+									dataLength={sessionList.length}
+									next={fetchMoreData}
+									hasMore={true}
+									loader={<h4>Loading...</h4>}>
 							{
 								sessionList.map((item, index) => {
 									

@@ -24,9 +24,9 @@ const addForm = args => {
           .then(response => {
             dispatch(addFormSuccess(JSON.stringify(response)));
             setTimeout( () => {
-              response = "";
-              dispatch(addFormSuccess(JSON.stringify(response)));
-          }, 3000);
+                response = "";
+                dispatch(addFormSuccess(JSON.stringify(response)));
+            }, 3000);
           })
           .catch((error) => {
               console.log(error)
@@ -44,6 +44,10 @@ const editForm = (id,args) => {
       await apiService.dataAdd(`/chatbox-templates/${id}`, args)
           .then(response => {
             dispatch(addFormSuccess(JSON.stringify(response)));
+            setTimeout( () => {
+              response = "";
+              dispatch(addFormSuccess(JSON.stringify(response)));
+          }, 3000);
           })
           .catch((error) => {
               console.log(error)

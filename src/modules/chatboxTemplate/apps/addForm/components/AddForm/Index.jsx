@@ -158,12 +158,6 @@ const AddForm = () => {
                 });
             }
         }
-        
-        // if (formStage === "general") {
-        //     setFormStage("form");
-        // } else if (formStage === "form") {
-        //     setFormStage("thank");
-        // }
     }
 
     const handleAddTemplate = (e) => {

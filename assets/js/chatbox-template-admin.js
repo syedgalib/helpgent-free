@@ -7893,12 +7893,7 @@ var AddForm = function AddForm() {
       } else if (currentStage === "thank") {
         setState(_objectSpread({}, state));
       }
-    } // if (formStage === "general") {
-    //     setFormStage("form");
-    // } else if (formStage === "form") {
-    //     setFormStage("thank");
-    // }
-
+    }
   };
 
   var handleAddTemplate = function handleAddTemplate(e) {
@@ -10244,6 +10239,10 @@ var editForm = function editForm(id, args) {
               _context2.next = 4;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__["default"].dataAdd("/chatbox-templates/".concat(id), args).then(function (response) {
                 dispatch(addFormSuccess(JSON.stringify(response)));
+                setTimeout(function () {
+                  response = "";
+                  dispatch(addFormSuccess(JSON.stringify(response)));
+                }, 3000);
               }).catch(function (error) {
                 console.log(error);
               });

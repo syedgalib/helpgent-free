@@ -812,16 +812,120 @@ function get_users_data_by_ids( $user_ids = [] ) {
 			continue;
 		}
 
-		$avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+		$user_data_fields = [ 'id', 'email', 'name', 'first_name', 'last_name', 'avater' ];
 
-		$user_info = [];
-
-		$user_info['id']     = $user->ID;
-		$user_info['name']   = $user->display_name;
-		$user_info['avater'] = $avater;
-
-		array_push( $users, $user_info );
+		array_push( $users, prepare_user_data( $user, $user_data_fields ) );
 	}
 
 	return $users;
+}
+
+/**
+ * Search Users
+ *
+ * @param string $keyword
+ * @param array $fields
+ *
+ * @return array Users
+ */
+function search_users( $keyword = '', $fields = [] ) {
+
+	if ( empty( $keyword ) ) {
+		return [];
+	}
+
+	$prepared_args = [];
+
+	if ( is_email( $keyword ) ) {
+		// Search by email.
+		$prepared_args['search']         = $keyword;
+		$prepared_args['search_columns'] = array( 'user_email' );
+	} else {
+		// Search by name.
+		$name_parts = explode( ' ', trim( $keyword ) );
+		$name_query = [ 'relation' => 'OR' ];
+
+		foreach( $name_parts as $name ) {
+			$name_query[] = [
+				'key'     => 'display_name',
+				'value'   => $name,
+				'compare' => 'LIKE',
+			];
+			$name_query[] = [
+				'key'     => 'first_name',
+				'value'   => $name,
+				'compare' => 'LIKE',
+			];
+			$name_query[] = [
+				'key'     => 'last_name',
+				'value'   => $name,
+				'compare' => 'LIKE',
+			];
+			$name_query[] = [
+				'key'     => 'nickname',
+				'value'   => $name,
+				'compare' => 'LIKE',
+			];
+		}
+
+		$prepared_args['meta_query'][] = $name_query;
+	}
+
+	$users_data = [];
+	$users = new \WP_User_Query( $prepared_args );
+
+	foreach( $users->results as $user ) {
+		$user_data = prepare_user_data( $user, $fields );
+
+		if ( ! empty( $user_data ) ) {
+			$users_data[] = $user_data;
+		}
+
+	}
+
+	return $users_data;
+}
+
+
+/**
+ * Prepare User Data
+ *
+ * @param WP_User $user
+ * @return array User
+ */
+function prepare_user_data( $user, $fields = [] ) {
+	$user_info = [];
+
+	$default_fields = [ 'id', 'email','name', 'first_name', 'last_name', 'roles', 'avater' ];
+	$fields = ( ! empty( $fields ) ) ? $fields : $default_fields;
+
+	if ( in_array( 'id', $fields ) ) {
+		$user_info['id'] = $user->ID;
+	}
+
+	if ( in_array( 'name', $fields ) ) {
+		$user_info['name'] = $user->display_name;
+	}
+
+	if ( in_array( 'email', $fields ) ) {
+		$user_info['email'] = $user->user_email;
+	}
+
+	if ( in_array( 'first_name', $fields ) ) {
+		$user_info['first_name'] = get_user_meta( $user->ID, 'first_name', true );
+	}
+
+	if ( in_array( 'last_name', $fields ) ) {
+		$user_info['last_name'] = get_user_meta( $user->ID, 'last_name', true );
+	}
+
+	if ( in_array( 'avater', $fields ) ) {
+		$user_info['avater'] = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+	}
+
+	if ( in_array( 'roles', $fields ) ) {
+		$user_info['roles'] = $user->roles;
+	}
+
+	return $user_info;
 }

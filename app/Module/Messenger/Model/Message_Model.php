@@ -222,8 +222,6 @@ class Message_Model extends DB_Model {
 		$pagination      = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
 		$query           = $select . $where . $group_by . $having . $order . $pagination;
 
-		file_put_contents( dirname( __FILE__ ) . '/log.sql', $query );
-
 		return $wpdb->get_results( $query, ARRAY_A );
 
     }

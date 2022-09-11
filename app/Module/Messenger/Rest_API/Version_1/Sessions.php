@@ -209,6 +209,7 @@ class Sessions extends Rest_Base {
 
         $default = [];
 
+        $default['search']   = '';
         $default['page']     = 1;
         $default['limit']    = 20;
         $default['order_by'] = 'latest';
@@ -237,6 +238,25 @@ class Sessions extends Rest_Base {
 				'condition' => '>',
 				'value'     => 0,
 			];
+		}
+
+		if ( ! empty( $args['search'] ) ) {
+			$users = Helper\search_users( $args['search'], [ 'id' ] );
+
+			if ( ! empty( $users ) ) {
+				$users = array_map( function( $user ) {
+					return $user['id'];
+				}, $users );
+
+				$users_ids = trim( join( ',', $users ) );
+
+				$args['where']['user_id'] = [
+					'field'   => 'user_id',
+					'compare' => 'IN',
+					'value'   => "( $users_ids )",
+				];
+
+			}
 		}
 
         $session_data = Message_Model::get_items( $args );

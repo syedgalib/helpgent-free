@@ -256,6 +256,12 @@ class Sessions extends Rest_Base {
 					'value'   => "( $users_ids )",
 				];
 
+			} else {
+				$args['where']['user_id'] = [
+					'field'   => 'user_id',
+					'compare' => '=',
+					'value'   => 0,
+				];
 			}
 		}
 

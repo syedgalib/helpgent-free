@@ -241,6 +241,7 @@ class Messages extends Rest_Base {
         $where = [];
 
         $where['session_id'] = '';
+        $where['message']    = '';
         $where['user_id']    = '';
         $where['seen']       = '';
 
@@ -256,6 +257,15 @@ class Messages extends Rest_Base {
 
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
+
+		// Filter By Message
+		if ( ! empty( $args['where']['message'] ) ) {
+			$args['where']['message'] = [
+				'field'   => 'message',
+				'compare' => 'LIKE',
+				'value'   => "'%" . $args['where']['message'] . "%'",
+			];
+		}
 
         $data = Message_Model::get_items( $args );
 

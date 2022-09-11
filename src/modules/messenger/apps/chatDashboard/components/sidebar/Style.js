@@ -113,6 +113,12 @@ const SidebarWrap = Styled.div`
                         top: 40px;
                     }
                 }
+                .wpwax-vm-media__body{
+                    top: -3px;
+                }
+                .wpwax-vm-media__title{
+                    line-height: 1.5;
+                }
                 .wpax-vm-imglist{
                     display: flex;
                     align-items: center;

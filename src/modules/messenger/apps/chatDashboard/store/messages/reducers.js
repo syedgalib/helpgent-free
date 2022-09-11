@@ -1,8 +1,9 @@
 import actions from './actions';
 
 const initialState = {
-  messageType: "video",
-  videoStage: "home",
+  sessionID: 'ss',
+  messageType: 'video',
+  videoStage: 'home',
   replyMode: false,
   loading: false,
   error: null,
@@ -23,7 +24,7 @@ const {
 } = actions;
 
 const Reducer = (state = initialState, action) => {
-  const { type, data, err } = action;
+  const { type, data, error } = action;
   switch (type) {
     case REPLY_MODE_UPDATE_BEGIN:
       return {
@@ -39,7 +40,7 @@ const Reducer = (state = initialState, action) => {
     case REPLY_MODE_UPDATE_ERR:
       return {
         ...state,
-        error: err,
+        error: error,
         sLoading: false,
       };
     case MESSAGE_TYPE_UPDATE_BEGIN:
@@ -57,7 +58,7 @@ const Reducer = (state = initialState, action) => {
     case MESSAGE_TYPE_UPDATE_ERR:
       return {
         ...state,
-        error: err,
+        error: error,
         sLoading: false,
       };
     case MESSAGE_STAGE_UPDATE_BEGIN:
@@ -74,7 +75,7 @@ const Reducer = (state = initialState, action) => {
     case MESSAGE_STAGE_UPDATE_ERR:
       return {
         ...state,
-        error: err,
+        error: error,
         sLoading: false,
       };
     default:

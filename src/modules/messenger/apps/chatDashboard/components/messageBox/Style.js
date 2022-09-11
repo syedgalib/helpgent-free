@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const ChatBoxWrap = Styled.div`
+	height: 100%;
     .wpwax-vm-replymode-wrap{
         position: relative;
         &:after{
@@ -256,7 +257,7 @@ const MessageBoxWrap = Styled.div`
                         svg path{
                             fill: var(--color-white);
                         }
-                    } 
+                    }
                 }
                 .wpwax-vm-btn-icon,
                 .wpwax-vm-btn-text{

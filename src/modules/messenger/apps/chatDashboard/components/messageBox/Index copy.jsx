@@ -68,7 +68,7 @@ const messageList = [
 ];
 
 function MessageBox() {
-    const searchInputRef = useRef(null);
+    const ref = useRef(null);
 
     const [state, setState] = useState({
         openSearch: false,
@@ -103,11 +103,7 @@ function MessageBox() {
 
     /* Focus Input field when search inopen */
     useEffect(() => {
-        if (!searchInputRef.current) {
-            return;
-        }
-
-        searchInputRef.current.focus();
+        ref.current.focus();
     }, [openSearch]);
 
     /* Handle Video Message */
@@ -260,7 +256,11 @@ function MessageBox() {
 
     return (
         <ChatBoxWrap>
-            {!sessionID ? (
+            {/* { ( sessionID ) ? : } */}
+
+            {sessionID || 'No conversation is selected'}
+
+            {!sessionID || (
                 <div className=''>
                     <MessageBoxWrap>
                         <div className='wpwax-vm-messagebox-header'>
@@ -283,7 +283,7 @@ function MessageBox() {
                                         >
                                             <input
                                                 type='text'
-                                                ref={searchInputRef}
+                                                ref={ref}
                                                 name='wpwax-vm-messagebox-search'
                                                 id='wpwax-vm-messagebox-search'
                                                 placeholder='Search'
@@ -345,6 +345,7 @@ function MessageBox() {
                         </div>
                         {handleFooterContent()}
                     </MessageBoxWrap>
+
                     {replyMode ? (
                         <div className='wpwax-vm-replymode-wrap'>
                             {haldleReplyMode()}
@@ -352,17 +353,6 @@ function MessageBox() {
                     ) : (
                         ''
                     )}
-                </div>
-            ) : (
-                <div
-                    style={{
-                        height: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <h2>No conversation is selected.</h2>
                 </div>
             )}
         </ChatBoxWrap>

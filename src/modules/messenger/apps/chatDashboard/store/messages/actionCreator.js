@@ -19,8 +19,8 @@ const handleReplyModeChange = status => {
     try {
       dispatch(replyModeUpdateBegin());
       dispatch(replyModeUpdateSuccess(status));
-    } catch (err) {
-      dispatch(replyModeUpdateError(err));
+    } catch (error) {
+      dispatch(replyModeUpdateError(error));
     }
   };
 };
@@ -30,8 +30,8 @@ const handleMessageTypeChange = status => {
     try {
       dispatch(messageTypeUpdateBegin());
       dispatch(messageTypeUpdateSuccess(status));
-    } catch (err) {
-      dispatch(messageTypeUpdateError(err));
+    } catch (error) {
+      dispatch(messageTypeUpdateError(error));
     }
   };
 };
@@ -41,8 +41,8 @@ const handleMessageStageChange = stage => {
     try {
       dispatch(messageStageUpdateBegin());
       dispatch(messageStageUpdateSuccess(stage));
-    } catch (err) {
-      dispatch(messageStageUpdateError(err));
+    } catch (error) {
+      dispatch(messageStageUpdateError(error));
     }
   };
 };

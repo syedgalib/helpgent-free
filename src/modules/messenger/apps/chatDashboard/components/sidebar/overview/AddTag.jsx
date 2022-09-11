@@ -45,7 +45,7 @@ const AddTag = props => {
             console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
             setAddFormState({
                 ...addFormState,
-                newAssigned: [1],
+                newAssigned: [],
                 tagInput: termName,
                 addTagResponse: "",
             });
@@ -102,6 +102,7 @@ const AddTag = props => {
                     });
                     setAddFormState({
                         ...addFormState,
+                        tagInput: "",
                         addTagResponseStatus: "success",
                         addTagResponse: "Successfully Edited",
                     });
@@ -119,6 +120,7 @@ const AddTag = props => {
                     });
                     setAddFormState({
                         ...addFormState,
+                        tagInput: "",
                         addTagResponseStatus: "success",
                         addTagResponse: "Successfully Added",
                     });
@@ -303,14 +305,14 @@ const AddTag = props => {
                             <div className="wpwax-vm-form-group">
                                 <input type="text" className="wpwax-vm-form__element" placeholder="Ex. Travel" value={tagInput} onChange={e=>handleTagInput(e)}/>
                             </div>
-                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Edit": "Add"}</button>
+                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Edit": "Apply"}</button>
                         </div>
                     </form>
                     {
                         taglistWithSession ? 
                             <div className="wpwax-vm-taglist-box">
                                 {
-                                    tagLoader ? 
+                                    tagLoader ?
                                     <span className="wpwax-vm-loading-spin">
                                         <span className="wpwax-vm-spin-dot"></span>
                                         <span className="wpwax-vm-spin-dot"></span>
@@ -320,17 +322,25 @@ const AddTag = props => {
                                     <React.Fragment>
                                         <div className="wpwax-vm-taglist">
                                             {
+                                                allTags.length !== 0 ?
                                                 allTags.map((item,index)=>{
-                                                    
                                                     return(
                                                         <div className="wpwax-vm-tag__check" key={index}>
                                                             <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={asignedTerms.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleAssignList(e)}/>
                                                         </div>
                                                     )
                                                 })
+                                                :
+                                                <div className="wpwax-vm-empty">
+                                                    {
+                                                        <p>Please add tags before assign</p>
+                                                    }
+                                                </div>
                                             }
                                         </div>
-                                        <a href="#" className="wpwax-vm-btnlink" onClick={handleAssignTerm}>Update</a>
+                                        {
+                                            allTags.length !== 0 ? <a href="#" className="wpwax-vm-btnlink" onClick={handleAssignTerm}>Update</a> : null
+                                        }
                                     </React.Fragment>
                                 }
                             </div> : 

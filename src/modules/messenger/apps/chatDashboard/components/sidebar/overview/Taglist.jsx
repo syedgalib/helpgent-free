@@ -197,7 +197,9 @@ const Taglist= props =>  {
                         </ul>
                         :
                         <div className="wpwax-vm-empty">
-                            <p>Sorry!! No Assigned Tags Found</p>
+                            {
+                                taglistWithSession ?<p>Sorry!! No Assigned Tags Found</p> : <p>Sorry!! No Tags Found</p>
+                            }
                         </div>
                     }
                 </div>

@@ -214,7 +214,7 @@
 
 .wpwax-vm-checkbox {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     input[type='checkbox'] {
         min-width: 20px;
@@ -700,6 +700,10 @@
     font-weight: 600;
     min-height: 100px;
     color: var(--color-dark);
+    p{
+        font-size: 15px;
+        margin: 0;
+    }
 }
 
 /* Wpwax Vm Media */

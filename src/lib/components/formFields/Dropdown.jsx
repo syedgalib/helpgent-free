@@ -169,7 +169,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     ...termState,
                     tagLoader: true
                 });
-                console.log("cool");
                 const deleteTerm = async () => {
                     const deleteResponse = await apiService.datadelete(`messages/terms/${termId}`);
                     return deleteResponse;
@@ -182,8 +181,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                             filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
                             console.log(currentSession[0].terms.filter(item => item.term_id !== termId));
                         }
-
-                        // const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
                         
                         setTermState({
                             ...termState,
@@ -204,6 +201,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( readResponse => {
                         setOuterState({
                             ...outerState,
+                            sessionList: readResponse.data.data,
                             filteredSessions: readResponse.data.data
                         });
                     })
@@ -218,6 +216,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( unReadResponse => {
                         setOuterState({
                             ...outerState,
+                            sessionList: unReadResponse.data.data,
                             filteredSessions: unReadResponse.data.data
                         });
                     })
@@ -231,6 +230,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( latestResponse => {
                         setOuterState({
                             ...outerState,
+                            sessionList: latestResponse.data.data,
                             filteredSessions: latestResponse.data.data
                         });
                     })
@@ -245,6 +245,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                         .then( oldestResponse => {
                             setOuterState({
                                 ...outerState,
+                                sessionList: oldestResponse.data.data,
                                 filteredSessions: oldestResponse.data.data
                             });
                         })

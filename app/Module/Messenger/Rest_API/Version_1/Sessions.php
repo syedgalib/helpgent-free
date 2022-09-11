@@ -209,6 +209,7 @@ class Sessions extends Rest_Base {
 
         $default = [];
 
+        $default['page']     = 1;
         $default['limit']    = 20;
         $default['order_by'] = 'latest';
 

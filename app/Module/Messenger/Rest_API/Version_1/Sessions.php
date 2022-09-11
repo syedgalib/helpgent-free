@@ -190,6 +190,21 @@ class Sessions extends Rest_Base {
 		$where = [];
 
         $where['session_id'] = '';
+        $where['term_ids']   = '';
+
+        $where['updated_on'] = '';
+
+        $where['updated_on_compare_day']   = '=';
+        $where['updated_on_compare_month'] = '=';
+        $where['updated_on_compare_year']  = '=';
+
+        $where['updated_on_between'] = '';
+
+        $where['created_on']               = '';
+        $where['created_on_compare_day']   = '=';
+        $where['created_on_compare_month'] = '=';
+        $where['created_on_compare_year']  = '=';
+
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
@@ -235,7 +250,7 @@ class Sessions extends Rest_Base {
         $session_data = array_map( function( $item ) use( $self ) {
 			// Expand user data
             $user_ids = Helper\convert_string_to_int_array( $item['users'] );
-            $item['users'] = $self->get_users_data_by_ids( $user_ids );
+            $item['users'] = Helper\get_users_data_by_ids( $user_ids );
 
 			// Expand term data
             $terms_ids = Helper\convert_string_to_int_array( $item['terms'] );
@@ -337,42 +352,6 @@ class Sessions extends Rest_Base {
 		}
 
 		return $terms;
-	}
-
-	/**
-	 * Get users data by IDs.
-	 *
-	 * @param array $user_ids
-	 *
-	 * @return array Users Data
-	 */
-	protected function get_users_data_by_ids( $user_ids = [] ) {
-
-		if ( empty( $user_ids ) ) {
-			return [];
-		}
-
-		$users = [];
-
-		foreach( $user_ids as $user_id ) {
-			$user = get_user_by( 'id', $user_id );
-
-			if ( empty( $user ) ) {
-				continue;
-			}
-
-			$avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
-
-			$user_info = [];
-
-			$user_info['id']     = $user->ID;
-			$user_info['name']   = $user->display_name;
-			$user_info['avater'] = $avater;
-
-			array_push( $users, $user_info );
-		}
-
-		return $users;
 	}
 
     /**

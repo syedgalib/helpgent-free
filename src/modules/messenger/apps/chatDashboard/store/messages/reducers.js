@@ -22,7 +22,7 @@ const {
   MESSAGE_STAGE_UPDATE_ERR,
 } = actions;
 
-const TagReducer = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   const { type, data, err } = action;
   switch (type) {
     case REPLY_MODE_UPDATE_BEGIN:
@@ -82,4 +82,4 @@ const TagReducer = (state = initialState, action) => {
   }
 };
 
-export default TagReducer;
+export default Reducer;

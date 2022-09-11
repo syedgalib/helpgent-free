@@ -90,16 +90,32 @@ class Message_Model extends DB_Model {
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
 
-			// Seen By
-			if ( isset( $args['where']['seen'] ) ) {
-				self::prepare_seen_by_where_query( $args );
+			// Where Seen By
+			self::prepare_where_seen_by_query( $args );
+
+			// Where Term IDs
+			self::prepare_where_term_ids_query( $args, $term_table );
+
+			// Where Created On
+			if ( isset( $args['where']['created_on'] ) || isset( $args['where']['created_on_between'] ) ) {
+				self::prepare_where_date_time_on_query( 'created_on', $args );
+			}
+
+			// Where Updated On
+			if ( isset( $args['where']['updated_on'] ) || isset( $args['where']['updated_on_between'] ) ) {
+				self::prepare_where_date_time_on_query( 'updated_on', $args );
 			}
 
 			$supported_conditions = [ 'AND', 'OR' ];
+			$conditional_fields   = [ 'term_ids', 'updated_on', 'updated_on_between' ];
 
             foreach ( $args['where'] as $key => $value ) {
 
-				$where_table_name = "{$table_name}.";
+				if ( empty( $value ) ) {
+					continue;
+				}
+
+				$where_table_name = ( ! in_array( $key, $conditional_fields ) ) ? "{$table_name}." : '';
 
 				// ---> C1
 				if ( ! is_array( $value ) ) {
@@ -206,11 +222,24 @@ class Message_Model extends DB_Model {
 		$pagination      = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
 		$query           = $select . $where . $group_by . $having . $order . $pagination;
 
+		file_put_contents( dirname( __FILE__ ) . '/log.sql', $query );
+
 		return $wpdb->get_results( $query, ARRAY_A );
 
     }
 
-	protected static function prepare_seen_by_where_query( &$args = [] ) {
+	/**
+	 * Prepare Where Seen By Query
+	 *
+	 * @param array $args
+	 * @return void
+	 */
+	protected static function prepare_where_seen_by_query( &$args = [] ) {
+
+		if ( ! isset( $args['where']['seen'] ) ) {
+			return;
+		}
+
 		$is_seen = Helper\is_truthy( $args['where']['seen'] );
 
 		if ( $is_seen ) {
@@ -228,6 +257,147 @@ class Message_Model extends DB_Model {
 		}
 
 		unset( $args['where']['seen'] );
+	}
+
+	/**
+	 * Prepare Where Term IDs Query
+	 *
+	 * @param array $args
+	 * @return void
+	 */
+	protected static function prepare_where_term_ids_query( &$args = [], $term_table_name ) {
+
+		if ( ! isset( $args['where']['term_ids'] ) ) {
+			return;
+		}
+
+		$args['where']['term_ids'] = [
+			'field'     => $term_table_name . '.term_taxonomy_id',
+			'compare'   => 'IN',
+			'value'     => '( ' . $args['where']['term_ids'] . ' )',
+		];
+
+	}
+
+	/**
+	 * Prepare Where Updated On Query
+	 *
+	 * @param array $args
+	 * @return void
+	 */
+	protected static function prepare_where_updated_on_query( &$args = [] ) {
+
+		if ( ! ( isset( $args['where']['updated_on'] ) || isset( $args['where']['updated_on_between'] ) ) ) {
+			return;
+		}
+
+		self::prepare_where_date_time_on_query( 'updated_on', $args );
+	}
+
+
+	/**
+	 * Prepare Where Updated On Query
+	 *
+	 * @param array $args
+	 * @return void
+	 */
+	protected static function prepare_where_date_time_on_query( $field_name, &$args = [] ) {
+		// Compare Date Between
+		$field_between_key = $field_name . '_between';
+
+		if ( ! empty( $args['where'][ $field_between_key ] ) ) {
+			$between_dates = $args['where'][ $field_between_key ];
+			$dates         = explode( ',', trim( $between_dates ) );
+
+			if ( count( $dates ) !== 2 ) {
+				unset( $args['where'][ $field_between_key ] );
+				return;
+			}
+
+			$from_date = Helper\format_as_sql_date_time( $dates[0] );
+			$to_date   = Helper\format_as_sql_date_time( $dates[1] );
+
+			if ( empty( $from_date ) || empty( $to_date ) ) {
+				unset( $args['where'][ $field_between_key ] );
+				return;
+			}
+
+			$args['where'][ $field_between_key ] = [
+				'condition' => 'AND',
+				'rules' => [
+					[
+						'field'     => "message.{$field_name}",
+						'compare'   => 'BETWEEN',
+						'value'     => "'{$from_date}' AND '{$to_date}'",
+					]
+				]
+
+			];
+
+			return;
+		}
+
+		// Compare Date
+		$field_date_time = Helper\format_sql_date_time_as_array( $args['where'][ $field_name ] );
+
+		if ( empty( $field_date_time )  ) {
+			unset( $args['where'][ $field_name ] );
+			return;
+		}
+
+		$accepted_comparations = [ 'null', '=', '!=', '>', '<', '>=', '<=' ];
+
+		$compare_day   = '=';
+		$compare_month = '=';
+		$compare_year  = '=';
+
+		if ( isset( $args['where'][ "{$field_name}_compare_day" ] ) ) {
+			$compare_day = ( in_array( $args['where'][ "{$field_name}_compare_day" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_day" ] : '=';
+			unset( $args['where'][ "{$field_name}_compare_day" ] );
+		}
+
+		if ( isset( $args['where'][ "{$field_name}_compare_month" ] ) ) {
+			$compare_month = ( in_array( $args['where'][ "{$field_name}_compare_month" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_month" ] : '=';
+			unset( $args['where'][ "{$field_name}_compare_month" ] );
+		}
+
+		if ( isset( $args['where'][ "{$field_name}_compare_year" ] ) ) {
+			$compare_year = ( in_array( $args['where'][ "{$field_name}_compare_year" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_year" ] : '=';
+			unset( $args['where'][ "{$field_name}_compare_year" ] );
+		}
+
+		file_put_contents( dirname( __FILE__ ) . '/log.json', json_encode( $args ) );
+
+		$rules = [];
+
+		if ( 'null' !== $compare_day ) {
+			$rules[] = [
+				'field'     => "DAY( message.{$field_name} )",
+				'compare'   => $compare_day,
+				'value'     => $field_date_time['day'],
+			];
+		}
+
+		if ( 'null' !== $compare_month ) {
+			$rules[] = [
+				'field'     => "MONTH( message.{$field_name} )",
+				'compare'   => $compare_month,
+				'value'     => $field_date_time['month'],
+			];
+		}
+
+		if ( 'null' !== $compare_year ) {
+			$rules[] = [
+				'field'     => "YEAR( message.{$field_name} )",
+				'compare'   => $compare_year,
+				'value'     => $field_date_time['year'],
+			];
+		}
+
+		$args['where'][ $field_name ] = [
+			'condition' => 'AND',
+			'rules'     => $rules
+		];
 	}
 
     /**

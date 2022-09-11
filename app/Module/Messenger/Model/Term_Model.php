@@ -10,14 +10,14 @@ class Term_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
     public static $table = 'message_terms';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -52,7 +52,7 @@ class Term_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -87,7 +87,7 @@ class Term_Model extends DB_Model {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -167,7 +167,7 @@ class Term_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -214,12 +214,12 @@ class Term_Model extends DB_Model {
             }
 
             if ( ! empty( $terms_args['name'] ) ) {
-                $terms_args['term_key'] = Helper\generate_slug( $terms_args['name'] );  
+                $terms_args['term_key'] = Helper\generate_slug( $terms_args['name'] );
             }
-    
+
             $where  = [ 'term_id' => $id ];
             $result = $wpdb->update( $table, $terms_args, $where, null, '%d' );
-    
+
             if ( empty( $result ) ) {
                 $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
                 return new WP_Error( 403, $message );
@@ -249,7 +249,7 @@ class Term_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param int $id
      * @return bool
      */
@@ -269,7 +269,7 @@ class Term_Model extends DB_Model {
 
 		$table = self::get_table_name( self::$table );
         $where = [ 'term_id' => $id ];
-        
+
         Term_Taxonomy_Model::delete_item_where( $where );
 
 		$status = $wpdb->delete( $table, $where, '%d' );
@@ -279,15 +279,17 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+		do_action( 'wpwax_cs_after_term_deleted', $id );
+
         return true;
     }
 
     /**
      * Term Exists
-     * 
+     *
      * @param string $term_name
      * @param string $taxonomy
-     * 
+     *
      * @return bool
      */
     public static function term_exists( $term_name, $taxonomy ) {

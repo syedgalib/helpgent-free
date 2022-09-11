@@ -111,6 +111,16 @@ class Session_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+		$session = Message_Model::get_items([
+			'where' => [ 'session_id' => $args['session_id'] ],
+			'limit' => 1,
+		]);
+
+		if ( empty( $session ) ) {
+			$message = __( 'The session does not exist.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
         $default = [];
 
         $default['session_id'] = 0;
@@ -145,12 +155,12 @@ class Session_Term_Relationship_Model extends DB_Model {
     public static function update_item( $args = [] ) {
         global $wpdb;
 
-        if ( empty( $args['id'] ) ) {
+        if ( empty( $args['session_id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        $id = $args['id'];
+        $id = $args['session_id'];
 
 		$table    = self::get_table_name( self::$table );
 		$old_data = self::get_item( $id );
@@ -162,10 +172,7 @@ class Session_Term_Relationship_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
 
-        $time = current_time( 'mysql', true );
-        $args['updated_on'] = $time;
-
-        $where = ['id' => $id ];
+        $where = ['session_id' => $id ];
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
@@ -192,7 +199,7 @@ class Session_Term_Relationship_Model extends DB_Model {
         }
 
 		$table = self::get_table_name( self::$table );
-		$where = ['id' => $id ];
+		$where = [ 'session_id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 

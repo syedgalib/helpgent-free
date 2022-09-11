@@ -268,6 +268,72 @@ function convert_string_to_int_array( $string, $separator = ',', $remove_non_int
 }
 
 /**
+ * Format as SQL date time
+ *
+ * @param string $date
+ * @return string $date_time
+ */
+function format_as_sql_date_time( $date = '' ) {
+
+	if ( empty( $date ) ) {
+		return $date;
+	}
+
+	$is_sql_date      = ! empty( preg_match( "/^\d{4}-\d{2}-\d{2}$/", $date ) );
+	$date             = ( $is_sql_date ) ? $date . ' 00:00:00' : $date;
+	$is_sql_date_time = ! empty( preg_match( "/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/", $date ) ) ;
+
+	if ( ! $is_sql_date_time ) {
+		return '';
+	}
+
+	return $date;
+}
+
+/**
+ * Format SQL date time as Array
+ *
+ * @param string $date_time
+ * @return string $date_time
+ */
+function format_sql_date_time_as_array( $date_time = '' ) {
+	$sql_date = format_as_sql_date_time( $date_time );
+
+	if ( empty( $sql_date ) ) {
+		return [];
+	}
+
+	$date_time_array = [
+		'day'    => '',
+		'month'  => '',
+		'year'   => '',
+		'hour'   => '',
+		'minute' => '',
+		'second' => '',
+	];
+
+	if ( empty( $date_time ) ) {
+		return [];
+	}
+
+	$date_time = explode( ' ', $date_time );
+
+	$date = explode( '-', $date_time[0] );
+	$time = explode( ':', $date_time[1] );
+
+
+	$date_time_array['day']  = $date[2];
+	$date_time_array['month'] = $date[1];
+	$date_time_array['year']  = $date[0];
+
+	$date_time_array['hour']   = $time[0];
+	$date_time_array['minute'] = $time[1];
+	$date_time_array['second'] = $time[2];
+
+	return $date_time_array;
+}
+
+/**
  * Convert string to array
  *
  * @param string $string
@@ -472,12 +538,13 @@ function sanitize_list_items( $list = [], $schema = [] ) {
         }
 
         // Sanitize Integer Fields
-        if ( in_array( $key, $schema['integer'] ) ) {
-            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_numeric( $list[ $key ] ) ) ? (int) $list[ $key ] : null;
+        else if ( in_array( $key, $schema['integer'] ) ) {
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_numeric( $list[ $key ] ) ) ? intval( $list[ $key ] ) : null;
+            $list[ $key ] = ( ! empty( $list[ $key ] ) && is_numeric( $list[ $key ] ) ) ? intval( $list[ $key ] ) : null;
         }
 
         // Sanitize Boolean Fields
-        if ( in_array( $key, $schema['boolean'] ) ) {
+        else if ( in_array( $key, $schema['boolean'] ) ) {
             $list[ $key ] = ( ! empty( $list[ $key ] ) && is_truthy( $list[ $key ] ) ) ? true : false;
         }
 
@@ -722,5 +789,39 @@ function get_mime_types( $filter_type = '', $return_type = '' ) {
 	}
 
 	return $supported_mime_types;
+}
 
+/**
+ * Get users data by IDs.
+ *
+ * @param array $user_ids
+ * @return array Users Data
+ */
+function get_users_data_by_ids( $user_ids = [] ) {
+
+	if ( empty( $user_ids ) ) {
+		return [];
+	}
+
+	$users = [];
+
+	foreach( $user_ids as $user_id ) {
+		$user = get_user_by( 'id', $user_id );
+
+		if ( empty( $user ) ) {
+			continue;
+		}
+
+		$avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+
+		$user_info = [];
+
+		$user_info['id']     = $user->ID;
+		$user_info['name']   = $user->display_name;
+		$user_info['avater'] = $avater;
+
+		array_push( $users, $user_info );
+	}
+
+	return $users;
 }

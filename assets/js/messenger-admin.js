@@ -5667,6 +5667,8 @@ var Dropdown = function Dropdown(_ref) {
       dropdownList = _ref.dropdownList,
       outerState = _ref.outerState,
       setOuterState = _ref.setOuterState,
+      termState = _ref.termState,
+      setTermState = _ref.setTermState,
       sessionId = _ref.sessionId,
       termId = _ref.termId;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
@@ -5915,9 +5917,10 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'term-delete':
-        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-          loder: true
+        setTermState(_objectSpread(_objectSpread({}, termState), {}, {
+          tagLoader: true
         }));
+        console.log("cool");
 
         var deleteTerm = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -5947,6 +5950,7 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         deleteTerm().then(function (deleteResponse) {
+          console.log(deleteResponse);
           var filteredTerms = [];
 
           if (currentSession.length !== 0) {
@@ -5956,15 +5960,12 @@ var Dropdown = function Dropdown(_ref) {
             console.log(currentSession[0].terms.filter(function (item) {
               return item.term_id !== termId;
             }));
-          }
+          } // const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
 
-          var sessionIndex = sessions.findIndex(function (sessionObj) {
-            return sessionObj.session_id === sessionId;
-          });
-          sessions[sessionIndex].terms = filteredTerms;
-          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-            deleteTerm: "Successfully Deleted",
-            loder: false
+
+          setTermState(_objectSpread(_objectSpread({}, termState), {}, {
+            filteredTagList: filteredTerms,
+            tagLoader: false
           }));
           dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessions));
         }).catch(function (error) {});
@@ -7954,8 +7955,8 @@ var AddTag = function AddTag(props) {
     tagInput: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
-      state = _useState2[0],
-      setState = _useState2[1];
+      addFormState = _useState2[0],
+      setAddFormState = _useState2[1];
 
   var sessionState = props.sessionState,
       setSessionState = props.setSessionState,
@@ -7972,11 +7973,11 @@ var AddTag = function AddTag(props) {
   var allTags = tagState.allTags,
       assignedTags = tagState.assignedTags,
       tagLoader = tagState.tagLoader;
-  var addTagResponseStatus = state.addTagResponseStatus,
-      addTagResponse = state.addTagResponse,
-      tagInput = state.tagInput,
-      newAssigned = state.newAssigned,
-      newUnAssinged = state.newUnAssinged;
+  var addTagResponseStatus = addFormState.addTagResponseStatus,
+      addTagResponse = addFormState.addTagResponse,
+      tagInput = addFormState.tagInput,
+      newAssigned = addFormState.newAssigned,
+      newUnAssinged = addFormState.newUnAssinged;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -7985,21 +7986,23 @@ var AddTag = function AddTag(props) {
       var termName = tagInput;
       termName = allTags.filter(function (item) {
         return item.term_id === editableTermId;
-      })[0].name; // console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
-
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        tagInput: termName
+      })[0].name;
+      console.log(allTags.filter(function (item) {
+        return item.term_id === editableTermId;
+      })[0].name);
+      setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
+        newAssigned: [1],
+        tagInput: termName,
+        addTagResponse: ""
       }));
     } else {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        tagInput: ""
+      setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
+        tagInput: "",
+        addTagResponse: ""
       }));
     }
-
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      addTagResponse: ""
-    }));
   }, [addTagModalOpen]);
+  console.log(addFormState);
   /* Handle Modal Close */
 
   var handleCloseModal = function handleCloseModal(event) {
@@ -8012,7 +8015,7 @@ var AddTag = function AddTag(props) {
   };
 
   var handleTagInput = function handleTagInput(e) {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
       tagInput: e.target.value
     }));
   };
@@ -8053,7 +8056,7 @@ var AddTag = function AddTag(props) {
                   tagLoader: false,
                   allTags: _toConsumableArray(allTags)
                 }));
-                setState(_objectSpread(_objectSpread({}, state), {}, {
+                setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                   addTagResponseStatus: "success",
                   addTagResponse: "Successfully Edited"
                 }));
@@ -8069,7 +8072,7 @@ var AddTag = function AddTag(props) {
                   tagLoader: false,
                   allTags: [].concat(_toConsumableArray(allTags), [response.data])
                 }));
-                setState(_objectSpread(_objectSpread({}, state), {}, {
+                setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                   addTagResponseStatus: "success",
                   addTagResponse: "Successfully Added"
                 }));
@@ -8080,7 +8083,7 @@ var AddTag = function AddTag(props) {
               break;
 
             case 14:
-              setState(_objectSpread(_objectSpread({}, state), {}, {
+              setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                 addTagResponseStatus: "danger",
                 addTagResponse: "Please enter Tag"
               }));
@@ -8117,8 +8120,8 @@ var AddTag = function AddTag(props) {
         /* nai */
         if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) === -1) {
           /* nai */
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            newAssigned: [].concat(_toConsumableArray(state.newAssigned), [e.target.id.replace('wpwax-vm-term-', '')])
+          setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
+            newAssigned: [].concat(_toConsumableArray(addFormState.newAssigned), [e.target.id.replace('wpwax-vm-term-', '')])
           }));
 
           if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
@@ -8126,7 +8129,7 @@ var AddTag = function AddTag(props) {
             var virtualArray = _toConsumableArray(newUnAssinged);
 
             virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
-            setState(_objectSpread(_objectSpread({}, state), {}, {
+            setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
               newUnAssinged: virtualArray
             }));
           }
@@ -8138,15 +8141,15 @@ var AddTag = function AddTag(props) {
 
           _virtualArray.splice(_virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
 
-          setState(_objectSpread(_objectSpread({}, state), {}, {
+          setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
             newUnAssinged: _virtualArray
           }));
         }
       } // if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
       //     let virtualArray = [...newUnAssinged];
       //     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),2);
-      //     setState({
-      //         ...state,
+      //     setAddFormState({
+      //         ...addFormState,
       //         newUnAssinged: virtualArray
       //     })
       // }
@@ -8163,8 +8166,8 @@ var AddTag = function AddTag(props) {
         /* achhe */
         if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-', '')) === -1) {
           /* nai */
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            newUnAssinged: [].concat(_toConsumableArray(state.newUnAssinged), [e.target.id.replace('wpwax-vm-term-', '')])
+          setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
+            newUnAssinged: [].concat(_toConsumableArray(addFormState.newUnAssinged), [e.target.id.replace('wpwax-vm-term-', '')])
           }));
 
           if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-', '')) !== -1) {
@@ -8172,7 +8175,7 @@ var AddTag = function AddTag(props) {
             var virtualArrayT = _toConsumableArray(newAssigned);
 
             virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
-            setState(_objectSpread(_objectSpread({}, state), {}, {
+            setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
               newAssigned: virtualArrayT
             }));
           }
@@ -8184,7 +8187,7 @@ var AddTag = function AddTag(props) {
 
           _virtualArrayT.splice(_virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
 
-          setState(_objectSpread(_objectSpread({}, state), {}, {
+          setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
             newAssigned: _virtualArrayT
           }));
         }
@@ -8223,7 +8226,7 @@ var AddTag = function AddTag(props) {
                   assignedTags: [].concat(_toConsumableArray(tagState.assignedTags), [response.data.data.success]),
                   tagLoader: false
                 }));
-                setState(_objectSpread(_objectSpread({}, state), {}, {
+                setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                   newAssigned: [],
                   newUnAssinged: []
                 }));
@@ -8548,7 +8551,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            margin-right: 12px;\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        background-color: var(--color-bg-general);\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                border: 0 none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 14px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
-var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        padding-top: 10px;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                border: 0 none;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 0;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n                margin-left: 5px;\n            }\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n"])));
+var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            margin-left: 12px;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        padding-top: 10px;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                border: 0 none;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 0;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n                margin-left: 5px;\n            }\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n    &.wpwax-vm-modal{\n        .wpwax-vm-notice{\n            margin-bottom: 0;\n            p{\n                margin: 0;\n            }\n        }\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
 var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20%);\n    left: 4%;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-checkbox{\n            label{\n                top: -2px;\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 35px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 24px;\n            }\n        }\n    }\n"])));
 
@@ -8810,19 +8813,7 @@ var Taglist = function Taglist(props) {
               assignedTags: currentSession[0].terms,
               filteredTagList: currentSession[0].terms,
               tagLoader: false
-            })); // let asignedTermsStore = [];
-            // if(currentSession.length !==0){
-            //     for(let i =0; i< currentSession[0].terms.length; i++){
-            //         asignedTermsStore = [
-            //             ...asignedTermsStore,
-            //             currentSession[0].terms[i].term_id
-            //         ]
-            //     }
-            // }
-            // setSessionState({
-            //     ...sessionState,
-            //     asignedTerms: [...asignedTermsStore],
-            // })
+            }));
           }
         }
       }
@@ -8968,6 +8959,8 @@ var Taglist = function Taglist(props) {
                 dropdownList: moreDropdown,
                 outerState: sessionState,
                 setOuterState: setSessionState,
+                termState: tagState,
+                setTermState: setTagState,
                 sessionId: activeSessionId,
                 termId: term.term_id
               })]
@@ -8984,6 +8977,8 @@ var Taglist = function Taglist(props) {
                 dropdownList: moreDropdown,
                 outerState: sessionState,
                 setOuterState: setSessionState,
+                termState: tagState,
+                setTermState: setTagState,
                 sessionId: activeSessionId,
                 termId: term.term_id
               })]

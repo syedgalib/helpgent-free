@@ -5,7 +5,7 @@ import { handleReadSessions } from '../../../modules/messenger/apps/chatDashboar
 import { ReactSVG } from 'react-svg';
 import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, sessionId, termId }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -165,30 +165,30 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 });
                 break;
             case 'term-delete':
-                setOuterState({
-                    ...outerState,
-                    loder: true
+                setTermState({
+                    ...termState,
+                    tagLoader: true
                 });
+                console.log("cool");
                 const deleteTerm = async () => {
                     const deleteResponse = await apiService.datadelete(`messages/terms/${termId}`);
                     return deleteResponse;
                 }
                 deleteTerm()
                     .then( deleteResponse => {
+                        console.log(deleteResponse);
                         let filteredTerms = [];
                         if(currentSession.length !==0){
                             filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
                             console.log(currentSession[0].terms.filter(item => item.term_id !== termId));
                         }
 
-                        const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
-
-                        sessions[sessionIndex].terms = filteredTerms;
+                        // const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
                         
-                        setOuterState({
-                            ...outerState,
-                            deleteTerm: "Successfully Deleted",
-                            loder: false
+                        setTermState({
+                            ...termState,
+                            filteredTagList: filteredTerms,
+                            tagLoader: false
                         });
                         
                         dispatch(handleReadSessions(sessions))

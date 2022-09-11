@@ -160,6 +160,14 @@ const AddTagWrap = Styled.div`
             color: var(--color-dark);
         }
     }
+    &.wpwax-vm-modal{
+        .wpwax-vm-notice{
+            margin-bottom: 0;
+            p{
+                margin: 0;
+            }
+        }
+    }
 `;
 
 const DeleteConfirmWrap = Styled.div`

@@ -5552,6 +5552,8 @@ var Dropdown = function Dropdown(_ref) {
       dropdownList = _ref.dropdownList,
       outerState = _ref.outerState,
       setOuterState = _ref.setOuterState,
+      termState = _ref.termState,
+      setTermState = _ref.setTermState,
       sessionId = _ref.sessionId,
       termId = _ref.termId;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
@@ -5800,9 +5802,10 @@ var Dropdown = function Dropdown(_ref) {
         break;
 
       case 'term-delete':
-        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-          loder: true
+        setTermState(_objectSpread(_objectSpread({}, termState), {}, {
+          tagLoader: true
         }));
+        console.log("cool");
 
         var deleteTerm = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -5832,6 +5835,7 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         deleteTerm().then(function (deleteResponse) {
+          console.log(deleteResponse);
           var filteredTerms = [];
 
           if (currentSession.length !== 0) {
@@ -5841,15 +5845,12 @@ var Dropdown = function Dropdown(_ref) {
             console.log(currentSession[0].terms.filter(function (item) {
               return item.term_id !== termId;
             }));
-          }
+          } // const sessionIndex = sessions.findIndex(sessionObj => sessionObj.session_id === sessionId);
 
-          var sessionIndex = sessions.findIndex(function (sessionObj) {
-            return sessionObj.session_id === sessionId;
-          });
-          sessions[sessionIndex].terms = filteredTerms;
-          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-            deleteTerm: "Successfully Deleted",
-            loder: false
+
+          setTermState(_objectSpread(_objectSpread({}, termState), {}, {
+            filteredTagList: filteredTerms,
+            tagLoader: false
           }));
           dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessions));
         }).catch(function (error) {});

@@ -65,19 +65,6 @@ const Taglist= props =>  {
                                 filteredTagList: currentSession[0].terms,
                                 tagLoader: false
                             });
-                            // let asignedTermsStore = [];
-                            // if(currentSession.length !==0){
-                            //     for(let i =0; i< currentSession[0].terms.length; i++){
-                            //         asignedTermsStore = [
-                            //             ...asignedTermsStore,
-                            //             currentSession[0].terms[i].term_id
-                            //         ]
-                            //     }
-                            // }
-                            // setSessionState({
-                            //     ...sessionState,
-                            //     asignedTerms: [...asignedTermsStore],
-                            // })
                         }
 					}
 				}
@@ -193,7 +180,7 @@ const Taglist= props =>  {
                                         return(
                                             <li key={index}>
                                                 <span className="wpwax-vm-taglist-label">{term.name}</span>
-                                                <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={activeSessionId} termId={term.term_id}/>
+                                                <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} termState={tagState} setTermState={setTagState} sessionId={activeSessionId} termId={term.term_id}/>
                                             </li>
                                         )
                                     })
@@ -202,7 +189,7 @@ const Taglist= props =>  {
                                     return(
                                         <li key={index}>
                                             <span className="wpwax-vm-taglist-label">{term.name}</span>
-                                            <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={activeSessionId} termId={term.term_id}/>
+                                            <Dropdown dropdownText={false} dropdownIconOpen={ellipsisH} dropdownIconClose={ellipsisH} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} termState={tagState} setTermState={setTagState} sessionId={activeSessionId} termId={term.term_id}/>
                                         </li>
                                     )
                                 })

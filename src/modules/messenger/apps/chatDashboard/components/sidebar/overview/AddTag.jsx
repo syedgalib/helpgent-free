@@ -19,7 +19,7 @@ const AddTag = props => {
         };
     });
 
-    const [state, setState] = useState({
+    const [addFormState, setAddFormState] = useState({
         newAssigned: [],
         newUnAssinged: [],
         addTagResponse: "",
@@ -32,7 +32,7 @@ const AddTag = props => {
     const { serverAssigned, asignedTerms, unAsignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
     const { allTags, assignedTags, tagLoader } = tagState;
 
-    const { addTagResponseStatus, addTagResponse, tagInput, newAssigned, newUnAssinged } = state;
+    const { addTagResponseStatus, addTagResponse, tagInput, newAssigned, newUnAssinged } = addFormState;
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -42,22 +42,23 @@ const AddTag = props => {
         if(editableTermId !== ""){
             let termName = tagInput;
             termName = allTags.filter(item=> item.term_id === editableTermId)[0].name;
-            // console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
-            setState({
-                ...state,
+            console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
+            setAddFormState({
+                ...addFormState,
+                newAssigned: [1],
                 tagInput: termName,
+                addTagResponse: "",
             });
         }else{
-            setState({
-                ...state,
+            setAddFormState({
+                ...addFormState,
                 tagInput: "",
+                addTagResponse: "",
             });
         }
-        setState({
-            ...state,
-            addTagResponse: "",
-        });
 	}, [addTagModalOpen]);
+
+    console.log(addFormState);
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -71,8 +72,8 @@ const AddTag = props => {
     }
 
     const handleTagInput = (e)=>{
-        setState({
-            ...state,
+        setAddFormState({
+            ...addFormState,
             tagInput: e.target.value
         });
     }
@@ -99,8 +100,8 @@ const AddTag = props => {
                             ...allTags,
                         ]
                     });
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         addTagResponseStatus: "success",
                         addTagResponse: "Successfully Edited",
                     });
@@ -116,16 +117,16 @@ const AddTag = props => {
                             response.data
                         ]
                     });
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         addTagResponseStatus: "success",
                         addTagResponse: "Successfully Added",
                     });
                 })
             }
         }else{
-            setState({
-                ...state,
+            setAddFormState({
+                ...addFormState,
                 addTagResponseStatus: "danger",
                 addTagResponse: "Please enter Tag",
             });
@@ -148,10 +149,10 @@ const AddTag = props => {
                 /* nai */
                 if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                     /* nai */
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         newAssigned: [
-                            ...state.newAssigned,
+                            ...addFormState.newAssigned,
                             e.target.id.replace('wpwax-vm-term-','')
                         ]
                     });
@@ -159,8 +160,8 @@ const AddTag = props => {
                         /* achhe */
                         let virtualArray = [...newUnAssinged];
                         virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setState({
-                            ...state,
+                        setAddFormState({
+                            ...addFormState,
                             newUnAssinged: virtualArray
                         })
                     }
@@ -170,8 +171,8 @@ const AddTag = props => {
                     /* achhe */
                     let virtualArray = [...newUnAssinged];
                     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         newUnAssinged: virtualArray
                     })
                 } 
@@ -180,8 +181,8 @@ const AddTag = props => {
             // if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
             //     let virtualArray = [...newUnAssinged];
             //     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),2);
-            //     setState({
-            //         ...state,
+            //     setAddFormState({
+            //         ...addFormState,
             //         newUnAssinged: virtualArray
             //     })
             // }
@@ -200,10 +201,10 @@ const AddTag = props => {
                 /* achhe */
                 if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                     /* nai */
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         newUnAssinged: [
-                            ...state.newUnAssinged,
+                            ...addFormState.newUnAssinged,
                             e.target.id.replace('wpwax-vm-term-','')
                         ]
                     });
@@ -211,8 +212,8 @@ const AddTag = props => {
                         /* achhe */
                         let virtualArrayT = [...newAssigned];
                         virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setState({
-                            ...state,
+                        setAddFormState({
+                            ...addFormState,
                             newAssigned: virtualArrayT
                         })
                     }
@@ -222,8 +223,8 @@ const AddTag = props => {
                     /* achhe */
                     let virtualArrayT = [...newAssigned];
                     virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                    setState({
-                        ...state,
+                    setAddFormState({
+                        ...addFormState,
                         newAssigned: virtualArrayT
                     })
                 }
@@ -262,8 +263,8 @@ const AddTag = props => {
                 ],
                 tagLoader: false,
             });
-            setState({
-                ...state,
+            setAddFormState({
+                ...addFormState,
                 newAssigned: [],
                 newUnAssinged: []
             });

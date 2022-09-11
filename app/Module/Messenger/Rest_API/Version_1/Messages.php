@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
@@ -266,11 +267,9 @@ class Messages extends Rest_Base {
             return $this->response( true, [] );
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
         // Prepare items for response
         foreach ( $data as $key => $value ) {
-             $item = $this->prepare_item_for_response( $value, $args );
+             $item = $this->prepare_message_item_for_response( $value, $args );
 
              if ( empty( $item ) ) {
                 continue;
@@ -299,10 +298,8 @@ class Messages extends Rest_Base {
             return $data;
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
         $success = true;
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_message_item_for_response( $data, $args );
 
         return $this->response( $success, $data );
     }
@@ -332,9 +329,7 @@ class Messages extends Rest_Base {
             }
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;
 
         // Notify User if requested
@@ -371,9 +366,7 @@ class Messages extends Rest_Base {
             return $data;
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;
 
         return $this->response( $success, $data );
@@ -419,11 +412,9 @@ class Messages extends Rest_Base {
             return $this->response( true, [] );
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
         // Prepare items for response
         foreach ( $data as $key => $value ) {
-             $item = $this->prepare_item_for_response( $value, $args );
+             $item = $this->prepare_message_item_for_response( $value, $args );
 
              if ( empty( $item ) ) {
                 continue;
@@ -465,9 +456,7 @@ class Messages extends Rest_Base {
             return $data;
         }
 
-        $args['sanitize_schema'] = $this->get_sanitize_schema();
-
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;
 
         return $this->response( $success, $data );
@@ -502,6 +491,38 @@ class Messages extends Rest_Base {
         return $this->response( true );
     }
 
+	/**
+     * Prepare message item for response
+     *
+	 * @param array $item    WordPress representation of the item.
+	 * @param array $request_params Request params.
+     *
+	 * @return WP_REST_Response|null Response object on success, or null object on failure.
+     */
+    public function prepare_message_item_for_response( $item, $request_params ) {
+        $request_params['sanitize_schema'] = $this->get_sanitize_schema();
+
+		// Add Attachment URL
+		if ( ! empty( $item['attachment_id'] ) ) {
+			$attachment = Attachment_Model::get_item( $item );
+
+			if ( is_wp_error( $attachment ) ) {
+				$item['attachment_id']    = null;
+				$item[ 'attachment_url' ] = null;
+			} else {
+				$item[ 'attachment_url' ] = $attachment['link'];
+			}
+		}
+
+		// Add Seen by Users Data
+		if ( ! empty( $item['seen_by'] ) ) {
+			$seen_by = Helper\convert_string_to_int_array( $item['seen_by'], ',' );
+			$item[ 'seen_by' ] = Helper\get_users_data_by_ids( $seen_by );
+		}
+
+		return $this->prepare_item_for_response( $item, $request_params );
+    }
+
     /**
      * Get sanitize schema
      *
@@ -511,6 +532,7 @@ class Messages extends Rest_Base {
         return [
             'integer'    => [ 'id', 'message_id', 'user_id', 'attachment_id' ],
             'serialized' => [ 'seen_by' ],
+            'boolean'    => [ 'is_seen' ],
             'datetime'   => [ 'created_on', 'updated_on' ],
         ];
     }

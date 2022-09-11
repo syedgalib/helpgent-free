@@ -128,9 +128,14 @@ const AddTagWrap = Styled.div`
         }
         .wpwax-vm-checkbox{
             label{
-                top: -2px;
+                top: -3px;
+                line-height: 1.15;
                 margin-left: 5px;
             }
+        }
+        .wpwax-vm-empty{
+            width: 100%;
+            margin-bottom: 10px;
         }
     }
     .wpwax-vm-btnlink{
@@ -165,6 +170,13 @@ const AddTagWrap = Styled.div`
             margin-bottom: 0;
             p{
                 margin: 0;
+            }
+        }
+        .wpwax-vm-taglist-box{
+            position: relative;
+            min-height: 100px;
+            .wpwax-vm-loading-spin{
+                top: 40%;
             }
         }
     }

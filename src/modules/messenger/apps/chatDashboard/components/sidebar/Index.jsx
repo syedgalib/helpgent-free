@@ -80,8 +80,6 @@ function Sidebar() {
 
 	const [pageNumber, setPageNumber] = useState(2);
 
-	let [isNext, isNextFunc] = React.useState(false);
-
 	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, hasMore, loader } = sessionState;
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -120,7 +118,8 @@ function Sidebar() {
 			loader: false
 		});
 		const pageLimit = {
-			limit: "15"
+			limit: "8",
+			page: 1
 		}
 		const fetchSession = async ()=>{
 			const sessionResponse = await apiService.getAllByArg('/sessions', pageLimit);
@@ -164,13 +163,14 @@ function Sidebar() {
 			filteredSessions: generatedSessions
 		});
 	}
-	console.log(pageNumber)
+	
 
-	const fetchData = ()=>{
+	const fetchMoreData = ()=>{
 		const pageArg = {
-			limit: "15",
+			limit: "8",
 			page: pageNumber
 		}
+		setPageNumber(pageNumber + 1);
 		const fetchNext = async ()=>{
 			const nextSessionResponse = await apiService.getAllByArg('/sessions', pageArg);
 			return nextSessionResponse;
@@ -178,27 +178,36 @@ function Sidebar() {
 		setTimeout(() => {
 			fetchNext()
 			.then( nextSessionResponse => {
-			console.log(nextSessionResponse)
-				setSessionState({
-					...sessionState,
-					sessionList: sessionList.concat(nextSessionResponse.data.data),
-					filteredSessions: sessionList.concat(nextSessionResponse.data.data),
-					loader: false
-				});
-				dispatch(handleReadSessions(nextSessionResponse.data.data));
-				isNextFunc(true);
+				console.log(nextSessionResponse.data.data.length);
+				if(nextSessionResponse.data.data.length ==0){
+					setSessionState({
+						...sessionState,
+						hasMore: false
+					});
+				}else{
+					setSessionState({
+						...sessionState,
+						sessionList: sessionList.concat(nextSessionResponse.data.data),
+						filteredSessions: sessionList.concat(nextSessionResponse.data.data),
+						loader: false,
+					});
+				}
+				// setSessionState({
+				// 	...sessionState,
+				// 	sessionList: sessionList.concat(nextSessionResponse.data.data),
+				// 	filteredSessions: sessionList.concat(nextSessionResponse.data.data),
+				// 	loader: false,
+				// });
+				
+				dispatch(handleReadSessions(sessionList.concat(nextSessionResponse.data.data)));
 			})
 			.catch((error) => {
 				console.log(error);
 			})
-		}, 2500);	
-	}
-	const fetchMoreData = ()=>{
-		setPageNumber(pageNumber + 1);
-		fetchData();
+		}, 1500);
 	}
 
-	console.log(sessionList.length);
+	
 
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
@@ -257,12 +266,14 @@ function Sidebar() {
 					</span>
 					:
 					<div className="wpwax-vm-sidebar-userlist">
-						<ul>
+						<ul id="scrollableDiv">
 							<InfiniteScroll 
 								dataLength={sessionList.length}
 								next={fetchMoreData}
-								hasMore={isNext}
-								loader={<span><ReactSVG src={loaders} /></span>}>
+								hasMore={hasMore}
+								scrollableTarget='scrollableDiv'
+								loader={<span><ReactSVG src={loaders} /></span>}
+								>
 								{
 									sessionList.map((item, index) => {
 										

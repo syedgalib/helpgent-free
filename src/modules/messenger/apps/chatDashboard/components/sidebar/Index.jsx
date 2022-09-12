@@ -164,7 +164,6 @@ function Sidebar() {
 		});
 	}
 	
-
 	const fetchMoreData = ()=>{
 		const pageArg = {
 			limit: "8",
@@ -178,7 +177,6 @@ function Sidebar() {
 		setTimeout(() => {
 			fetchNext()
 			.then( nextSessionResponse => {
-				console.log(nextSessionResponse.data.data.length);
 				if(nextSessionResponse.data.data.length ==0){
 					setSessionState({
 						...sessionState,
@@ -192,12 +190,6 @@ function Sidebar() {
 						loader: false,
 					});
 				}
-				// setSessionState({
-				// 	...sessionState,
-				// 	sessionList: sessionList.concat(nextSessionResponse.data.data),
-				// 	filteredSessions: sessionList.concat(nextSessionResponse.data.data),
-				// 	loader: false,
-				// });
 				
 				dispatch(handleReadSessions(sessionList.concat(nextSessionResponse.data.data)));
 			})
@@ -206,8 +198,6 @@ function Sidebar() {
 			})
 		}, 1500);
 	}
-
-	
 
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>

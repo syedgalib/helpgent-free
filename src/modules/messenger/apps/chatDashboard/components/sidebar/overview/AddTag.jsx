@@ -42,7 +42,6 @@ const AddTag = props => {
         if(editableTermId !== ""){
             let termName = tagInput;
             termName = allTags.filter(item=> item.term_id === editableTermId)[0].name;
-            console.log(allTags.filter(item=> item.term_id === editableTermId)[0].name);
             setAddFormState({
                 ...addFormState,
                 newAssigned: [],

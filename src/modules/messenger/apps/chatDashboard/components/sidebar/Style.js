@@ -79,6 +79,9 @@ const SidebarWrap = Styled.div`
     }
     .wpwax-vm-sidebar-userlist{
         margin-top: 6px;
+        .infinite-scroll-component {
+            min-height: 340px;
+        }
         >ul {
             height: 800px;
             overflow-x: hidden;

@@ -65,6 +65,7 @@ function Sidebar() {
 		sessionFilterDropdown: false,
 		tagFilterDropdownOpen: false,
 		taglistWithSession: false,
+		hasMore: true,
 		loader: true
 	});
 	const [tagState, setTagState] = useState({
@@ -79,7 +80,9 @@ function Sidebar() {
 
 	const [pageNumber, setPageNumber] = useState(2);
 
-	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, loader } = sessionState;
+	let [isNext, isNextFunc] = React.useState(false);
+
+	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, hasMore, loader } = sessionState;
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 	
@@ -162,14 +165,12 @@ function Sidebar() {
 		});
 	}
 	console.log(pageNumber)
-	const fetchMoreData = ()=>{
-		
-		console.log(pageNumber)
+
+	const fetchData = ()=>{
 		const pageArg = {
 			limit: "15",
 			page: pageNumber
 		}
-		setPageNumber(pageNumber + 1);
 		const fetchNext = async ()=>{
 			const nextSessionResponse = await apiService.getAllByArg('/sessions', pageArg);
 			return nextSessionResponse;
@@ -185,14 +186,19 @@ function Sidebar() {
 					loader: false
 				});
 				dispatch(handleReadSessions(nextSessionResponse.data.data));
+				isNextFunc(true);
 			})
 			.catch((error) => {
 				console.log(error);
 			})
-		}, 2500);		
+		}, 2500);	
+	}
+	const fetchMoreData = ()=>{
+		setPageNumber(pageNumber + 1);
+		fetchData();
 	}
 
-	console.log(sessionList);
+	console.log(sessionList.length);
 
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
@@ -255,7 +261,7 @@ function Sidebar() {
 							<InfiniteScroll 
 								dataLength={sessionList.length}
 								next={fetchMoreData}
-								hasMore={true}
+								hasMore={isNext}
 								loader={<span><ReactSVG src={loaders} /></span>}>
 								{
 									sessionList.map((item, index) => {

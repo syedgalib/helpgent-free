@@ -100,7 +100,7 @@ const Taglist= props =>  {
     const handleTagFilter = event =>{
         let keyword = event.target.value;
         const filteredTags = taglistWithSession ? assignedTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword))) : allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
-        console.log(filteredTags);
+        
         setTagState({
             ...tagState,
             filteredTagList: filteredTags

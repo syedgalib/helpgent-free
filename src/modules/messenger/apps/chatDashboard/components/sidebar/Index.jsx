@@ -143,21 +143,8 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-		const checkIfClickedOutside = e => {
-			console.log(ref.current.contains(e.target))
-            if (tagFilterDropdownOpen && ref.current && ref.current.contains(e.target)) {
-				console.log("yes");
-                setSessionState({
-					...sessionState,
-                    tagFilterDropdownOpen: false
-                });
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-        return () => {
-            // Cleanup the event listener
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
+			console.log(typeof ref.current);
+		
 	}, [refresher]);
 
 	const handleSessionSearch = event =>{
@@ -229,7 +216,6 @@ function Sidebar() {
 		});
 	}
 
-	console.log(sessionState)
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">

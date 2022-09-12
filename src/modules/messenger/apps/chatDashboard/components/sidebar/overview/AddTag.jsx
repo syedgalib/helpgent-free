@@ -28,7 +28,7 @@ const AddTag = props => {
 	});
     
     const { sessionState, setSessionState, tagState, setTagState } = props;
-    // console.log(sessionState);
+    
     const { serverAssigned, asignedTerms, unAsignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
     const { allTags, assignedTags, tagLoader } = tagState;
 
@@ -56,8 +56,6 @@ const AddTag = props => {
             });
         }
 	}, [addTagModalOpen]);
-
-    console.log(addFormState);
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -271,14 +269,12 @@ const AddTag = props => {
         });
 
         const fetchSessionTermAdd = await apiService.getAll('/sessions');
-        console.log(fetchSessionTermAdd)
+        
         setSessionState({
             ...sessionState,
             sessionList: fetchSessionTermAdd.data.data
         });
     }
-
-    console.log(asignedTerms, serverAssigned,newAssigned,newUnAssinged);
 
     return (
         <React.Fragment>

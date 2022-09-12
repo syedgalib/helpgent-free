@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { ReactSVG } from 'react-svg';
 import apiService from 'apiService/Service.js';
 import Checkbox from "Components/formFields/Checkbox.jsx";
@@ -6,6 +6,7 @@ import magnifier from 'Assets/svg/icons/magnifier.svg';
 import { TagFilterDropdown } from './Style';
 
 const TagFilter = props =>{
+    const ref = useRef(null);
     const [state, setState] = useState({
 		searchFilterTags: [],
         checkedForFilter: []
@@ -20,6 +21,21 @@ const TagFilter = props =>{
             ...state,
             searchFilterTags: allTags,
         });
+        const checkIfClickedOutside = e => {
+			
+            if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
+			
+                setOuterState({
+					...outerState,
+                    tagFilterDropdownOpen: false
+                });
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
 	}, [tagFilterDropdownOpen]);
     
     const hadnleTagFilterApply = event =>{
@@ -38,7 +54,7 @@ const TagFilter = props =>{
 		}
         fetchSessionByTerm()
 			.then( sessionByTermsResponse => {
-				console.log(sessionByTermsResponse.data.data);
+				
 				setOuterState({
                     ...outerState,
                     sessionList: sessionByTermsResponse.data.data,
@@ -54,7 +70,7 @@ const TagFilter = props =>{
         
     }
     const handleTagSelection = (e) =>{
-        console.log(e.target.value);
+        
         if(e.target.checked){
             setState({
                 ...state,
@@ -84,17 +100,14 @@ const TagFilter = props =>{
 
     const handleClearChecked = event =>{
         event.preventDefault();
-        console.log(event)
         setState({
             ...state,
             checkedForFilter: []
         });
     }
 
-    console.log(tagFilterDropdownOpen);
-
     return(
-        <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} >
+        <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
 				<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-tag" placeholder="Search" onChange={handleTagSearch}/>

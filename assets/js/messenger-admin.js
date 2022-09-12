@@ -7624,23 +7624,7 @@ function Sidebar() {
     }).catch(function (error) {
       console.log(error);
     });
-
-    var checkIfClickedOutside = function checkIfClickedOutside(e) {
-      console.log(ref.current.contains(e.target));
-
-      if (tagFilterDropdownOpen && ref.current && ref.current.contains(e.target)) {
-        console.log("yes");
-        setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-          tagFilterDropdownOpen: false
-        }));
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-    return function () {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
+    console.log(_typeof(ref.current));
   }, [refresher]);
 
   var handleSessionSearch = function handleSessionSearch(event) {
@@ -7751,7 +7735,6 @@ function Sidebar() {
     }));
   };
 
-  console.log(sessionState);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_24__.SidebarWrap, {
     className: loader ? "wpwax-vm-loder-active" : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
@@ -8091,8 +8074,7 @@ var AddTag = function AddTag(props) {
   var sessionState = props.sessionState,
       setSessionState = props.setSessionState,
       tagState = props.tagState,
-      setTagState = props.setTagState; // console.log(sessionState);
-
+      setTagState = props.setTagState;
   var serverAssigned = sessionState.serverAssigned,
       asignedTerms = sessionState.asignedTerms,
       unAsignedTerms = sessionState.unAsignedTerms,
@@ -8129,7 +8111,6 @@ var AddTag = function AddTag(props) {
       }));
     }
   }, [addTagModalOpen]);
-  console.log(addFormState);
   /* Handle Modal Close */
 
   var handleCloseModal = function handleCloseModal(event) {
@@ -8366,12 +8347,11 @@ var AddTag = function AddTag(props) {
 
             case 6:
               fetchSessionTermAdd = _context2.sent;
-              console.log(fetchSessionTermAdd);
               setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
                 sessionList: fetchSessionTermAdd.data.data
               }));
 
-            case 9:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -8384,7 +8364,6 @@ var AddTag = function AddTag(props) {
     };
   }();
 
-  console.log(asignedTerms, serverAssigned, newAssigned, newUnAssinged);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.AddTagWrap, {
       className: addTagModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
@@ -8744,6 +8723,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var TagFilter = function TagFilter(props) {
+  var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     searchFilterTags: [],
     checkedForFilter: []
@@ -8767,6 +8748,20 @@ var TagFilter = function TagFilter(props) {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       searchFilterTags: allTags
     }));
+
+    var checkIfClickedOutside = function checkIfClickedOutside(e) {
+      if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
+        setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+          tagFilterDropdownOpen: false
+        }));
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+    return function () {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
   }, [tagFilterDropdownOpen]);
 
   var hadnleTagFilterApply = function hadnleTagFilterApply(event) {
@@ -8807,7 +8802,6 @@ var TagFilter = function TagFilter(props) {
     }();
 
     fetchSessionByTerm().then(function (sessionByTermsResponse) {
-      console.log(sessionByTermsResponse.data.data);
       setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
         sessionList: sessionByTermsResponse.data.data,
         tagFilterDropdownOpen: false,
@@ -8821,8 +8815,6 @@ var TagFilter = function TagFilter(props) {
   };
 
   var handleTagSelection = function handleTagSelection(e) {
-    console.log(e.target.value);
-
     if (e.target.checked) {
       setState(_objectSpread(_objectSpread({}, state), {}, {
         checkedForFilter: [].concat(_toConsumableArray(state.checkedForFilter), [e.target.id.replace('wpwax-vm-term-', '')])
@@ -8852,15 +8844,14 @@ var TagFilter = function TagFilter(props) {
 
   var handleClearChecked = function handleClearChecked(event) {
     event.preventDefault();
-    console.log(event);
     setState(_objectSpread(_objectSpread({}, state), {}, {
       checkedForFilter: []
     }));
   };
 
-  console.log(tagFilterDropdownOpen);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.TagFilterDropdown, {
     className: sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show" : null,
+    ref: ref,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-tag-search",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
@@ -9095,7 +9086,6 @@ var Taglist = function Taglist(props) {
         return typeof val === "string" && val.includes(keyword);
       });
     });
-    console.log(filteredTags);
     setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
       filteredTagList: filteredTags
     }));

@@ -79,8 +79,11 @@ const SidebarWrap = Styled.div`
     }
     .wpwax-vm-sidebar-userlist{
         margin-top: 6px;
+        .infinite-scroll-component {
+            min-height: 340px;
+        }
         >ul {
-            height: 800px;
+            height: 600px;
             overflow-x: hidden;
             overflow-y: auto;
             scrollbar-width: thin;
@@ -112,6 +115,12 @@ const SidebarWrap = Styled.div`
                     .wpwax-vm-dropdown__content{
                         top: 40px;
                     }
+                }
+                .wpwax-vm-media__body{
+                    top: -3px;
+                }
+                .wpwax-vm-media__title{
+                    line-height: 1.5;
                 }
                 .wpax-vm-imglist{
                     display: flex;

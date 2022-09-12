@@ -1,3 +1,12 @@
+/*
+
+ -- Title: Root Component
+ --	Description: This component is a hub of all child components of sidebar
+ -- Author: wpWax
+ -- Date: 12/09/2022
+ 
+ */
+
 import React, { useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,9 +17,8 @@ import Taglist from "./overview/Taglist.jsx";
 import AddTag from "./overview/AddTag.jsx";
 import DeleteConfirm from "./overview/DeleteConfirm.jsx";
 import apiService from 'apiService/Service.js';
+import TagFilter from './overview/TagFilter.jsx';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
-import userImg from "Assets/img/chatdashboard/user.png";
-import userIcon from "Assets/svg/icons/users.svg";
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
 import filterIcon from 'Assets/svg/icons/filter.svg';
@@ -23,7 +31,6 @@ import tag from 'Assets/svg/icons/tag.svg';
 import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import {SidebarWrap, SessionFilterWrap} from "./Style";
-import TagFilter from './overview/TagFilter.jsx';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -46,7 +53,6 @@ const filterDropdown = [
 ];
 
 function Sidebar() {
-	const taglistModalOpen = false;
 	const ref = useRef(null);
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
@@ -69,7 +75,6 @@ function Sidebar() {
 		loader: true
 	});
 	const [tagState, setTagState] = useState({
-		// tagInput: "y",
 		allTags: [],
 		assignedTags: [],
 		filteredTagList:[],
@@ -80,38 +85,11 @@ function Sidebar() {
 
 	const [pageNumber, setPageNumber] = useState(2);
 	const [refresher, setRefresher] = useState(false);
+	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
-	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, hasMore, loader } = sessionState;
+	const { sessionList, activeSessionId, deleteModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, hasMore, loader } = sessionState;
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
-	
-	const handleToggleSearchDropdown = (event)=>{
-		event.preventDefault();
-		setSessionState({
-			...sessionState,
-			tagFilterDropdownOpen: false,
-			sessionFilterDropdown: !sessionFilterDropdown
-		});
-	}
-	const handleTagFilterDropdown = async (event)=>{
-		event.preventDefault();
-		setSessionState({
-			...sessionState,
-			tagFilterDropdownOpen: !tagFilterDropdownOpen
-		});
-	}
-	const handleAllTagActivation = event=>{
-		event.preventDefault();
-		const overlay = document.querySelector('.wpax-vm-overlay');
-		overlay.classList.add('wpwax-vm-show');
-		setSessionState({
-			...sessionState,
-			tagListModalOpen: true,
-			taglistWithSession: false,
-		});
-	}
-
-	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
 	useEffect(() => {
 		setSessionState({
@@ -143,9 +121,36 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-			console.log(typeof ref.current);
-		
 	}, [refresher]);
+	
+	const handleToggleSearchDropdown = (event)=>{
+		event.preventDefault();
+		setSessionState({
+			...sessionState,
+			tagFilterDropdownOpen: false,
+			sessionFilterDropdown: !sessionFilterDropdown
+		});
+	}
+
+	const handleTagFilterDropdown = async (event)=>{
+		event.preventDefault();
+		setSessionState({
+			...sessionState,
+			tagFilterDropdownOpen: !tagFilterDropdownOpen
+		});
+	}
+	const handleAllTagActivation = event=>{
+		event.preventDefault();
+		const overlay = document.querySelector('.wpax-vm-overlay');
+		overlay.classList.add('wpwax-vm-show');
+		setSessionState({
+			...sessionState,
+			tagListModalOpen: true,
+			taglistWithSession: false,
+		});
+	}
+
+	
 
 	const handleSessionSearch = event =>{
 		let keyword = event.target.value;
@@ -372,6 +377,7 @@ function Sidebar() {
 			<AddTag sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 
 			<DeleteConfirm deleteBy={activeSessionId} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
+
 		</SidebarWrap>
 	);
 }

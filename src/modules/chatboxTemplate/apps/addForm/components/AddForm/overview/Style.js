@@ -17,13 +17,18 @@ const ThankSettingsWrap = Styled.div`
 `;
 const PreviewWrap = Styled.div`
     width: 480px;
-    /* min-height: 640px; */
     z-index: 10;
     position: relative;
     word-break: break-all;
     padding-top: 0;
     font-family: var(--font-family);
     color: var(--color-text);
+    @media only screen and (max-width: 1199px) {
+        width: 420px;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 360px;
+    }
     &.wpwax-vm-loder-active{
         &:after{
             border-radius: 25px;
@@ -184,6 +189,9 @@ const PreviewWrap = Styled.div`
                 text-transform: capitalize;
                 flex: 0 0 48%;
                 margin: 1%;
+                @media only screen and (max-width: 1199px) {
+                    padding: 0 15px;
+                }
                 >div{
                     line-height: 1;
                 }
@@ -316,6 +324,9 @@ const PreviewWrap = Styled.div`
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
                 background-color: var(--color-white);
+                @media only screen and (max-width: 1199px) {
+                    padding: 0 15px;
+                }
                 .wpwax-vm-preview-footer__title{
                     font-size: var(--font-size-chat);
                     font-weight: 600;
@@ -351,7 +362,11 @@ const PreviewWrap = Styled.div`
         height: 100%;
         padding: 155px 0 30px;
         border-radius: 25px;
+        box-sizing: border-box;
         background-color: var(--color-white);
+        @media only screen and (max-width: 1024px) {
+            padding: 155px 15px 30px;
+        }
         .wpwax-vm-preview-thank__content{
             text-align: center;
             max-width: 370px;

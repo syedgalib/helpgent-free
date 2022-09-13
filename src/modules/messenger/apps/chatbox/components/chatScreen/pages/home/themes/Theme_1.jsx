@@ -128,7 +128,7 @@ function Theme_1() {
                             { templateOptions.greet_message }
                         </h4> 
                     }
-
+                    
                     { 
                         templateOptions.description && 
                         <span className="wpwax-vm-chatbox-subtitle" style={ { color: templateStyles.primaryColor } }>

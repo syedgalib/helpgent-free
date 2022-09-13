@@ -19,14 +19,21 @@ function Success() {
 
     function getContainerStyle() {
         return {
-            backgroundColor: templateOptions.thank_page_background,
+            backgroundColor: templateOptions.thank_page_background_color,
         };
     }
 
     function getTitleStyle() {
         return {
             fontSize: templateOptions.thank_page_title_font_size,
-            fontColor: templateOptions.thank_page_title_font_color,
+            fontColor: templateOptions.thank_page_title_color,
+        };
+    }
+
+    function getDescriptionStyle() {
+        return {
+            fontSize: templateOptions.thank_page_description_font_size,
+            fontColor: templateOptions.thank_page_description_color,
         };
     }
 
@@ -43,8 +50,10 @@ function Success() {
         resetStore();
     }, []);
 
+    console.log( templateOptions );
+
     return (
-        <div className='wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family'>
+        <div style={ getContainerStyle() } className='wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family'>
             <div className='wpwax-vm-record-send-success__top wpwax-vm-text-white'>
                 <span className='wpwax-vm-record-send-success__check'>
                     <ReactSVG src={checkCircle} />
@@ -57,7 +66,7 @@ function Success() {
 
             <div className='wpwax-vm-p-20 wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
                 <div className='wpwax-vm-record-send-success__content wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center wpwax-vm-p-30'>
-                    <h3 className='wpwax-vm-success__title wpwax-vm-m-0'>
+                    <h3 className='wpwax-vm-success__title wpwax-vm-m-0' style={ getTitleStyle() } >
                         {templateOptions.thank_page_title}
                     </h3>
 
@@ -71,6 +80,7 @@ function Success() {
                 {templateOptions.show_thank_page_cta_button && (
                     <div className='wpwax-vm-record-send-success__bottom'>
                         <a
+                            style={ getCTAButtonStyle() }
                             href={templateOptions.thank_page_cta_button_url}
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
                         >

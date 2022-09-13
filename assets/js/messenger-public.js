@@ -5866,14 +5866,21 @@ function Success() {
 
   function getContainerStyle() {
     return {
-      backgroundColor: templateOptions.thank_page_background
+      backgroundColor: templateOptions.thank_page_background_color
     };
   }
 
   function getTitleStyle() {
     return {
       fontSize: templateOptions.thank_page_title_font_size,
-      fontColor: templateOptions.thank_page_title_font_color
+      fontColor: templateOptions.thank_page_title_color
+    };
+  }
+
+  function getDescriptionStyle() {
+    return {
+      fontSize: templateOptions.thank_page_description_font_size,
+      fontColor: templateOptions.thank_page_description_color
     };
   }
 
@@ -5888,7 +5895,9 @@ function Success() {
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     resetStore();
   }, []);
+  console.log(templateOptions);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    style: getContainerStyle(),
     className: "wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "wpwax-vm-record-send-success__top wpwax-vm-text-white",
@@ -5907,6 +5916,7 @@ function Success() {
         className: "wpwax-vm-record-send-success__content wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center wpwax-vm-p-30",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
           className: "wpwax-vm-success__title wpwax-vm-m-0",
+          style: getTitleStyle(),
           children: templateOptions.thank_page_title
         }), templateOptions.show_thank_page_description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500",
@@ -5915,6 +5925,7 @@ function Success() {
       }), templateOptions.show_thank_page_cta_button && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "wpwax-vm-record-send-success__bottom",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+          style: getCTAButtonStyle(),
           href: templateOptions.thank_page_cta_button_url,
           className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
           children: templateOptions.thank_page_cta_button_text
@@ -8900,7 +8911,6 @@ var reducer = function reducer() {
 
     case LOAD_TEMPLATE_SUCCESS:
       var showChatbox = action.payload.data.length;
-      console.log(action.payload.data);
       var options = action.payload.data[0]['options'];
       return _objectSpread(_objectSpread({}, state), {}, {
         isLoading: false,

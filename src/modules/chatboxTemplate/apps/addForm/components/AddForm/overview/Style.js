@@ -138,7 +138,7 @@ const PreviewWrap = Styled.div`
         }
     }
     .wpwax-vm-preview-inner{
-        position: relative;
+        /* position: relative; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -242,18 +242,46 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
+                z-index: 100;
                 background-color: var(--color-primary);
                 .wpwax-vm-preview-title{
-                    font-size: 15px;
+                    font-size: var(--font-size-greet);
                     font-weight: 600;
                     margin: 0;
+                    color: var(--color-text-greet);
+                }
+                .wpwax-vm-preview-subtitle{
+                    display: block;
+                    margin-top: 8px;
                 }
             }
            .wpwax-vm-preview-inner{
-               position: relative;
-               display: block;
                padding: 0;
                min-height: 220px;
+               &:after{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 280px;
+                    opacity: .9;
+                    border-radius: 25px 25px 0 0;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+                    content: '';
+                    z-index: 10;
+                }
+                &:before{
+                    position: absolute;
+                    left: 0;
+                    bottom: 2px;
+                    width: 100%;
+                    height: 250px;
+                    opacity: .9;
+                    border-radius: 0 0 25px 25px;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
+                    content: '';
+                    z-index: 10;
+                }
                .wpwax-vm-btn-play{
                    position: absolute;
                    left: 50%;
@@ -289,10 +317,10 @@ const PreviewWrap = Styled.div`
                 padding: 0 30px;
                 background-color: var(--color-white);
                 .wpwax-vm-preview-footer__title{
-                    font-size: 15px;
+                    font-size: var(--font-size-chat);
                     font-weight: 600;
                     margin: 14px 0 20px;
-                    color: var(--color-dark);
+                    color: var(--color-text-chat);
                 }
                 .wpwax-vm-preview-footer__text{
                     font-size: 13px;

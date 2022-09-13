@@ -114,17 +114,20 @@ function Theme_2() {
                 </div>
 
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
-                    <div className="wpwax-vm-chatbox-inner-action">
-                        <span className="wpwax-vm-timer">
-                            <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
-                            <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
-                        </span>
-                        <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
-                            <ReactSVG src={expander} />
-                        </a>
-                    </div>
+                    {
+                        templateOptions.greet_video_url && 
+                        <div className="wpwax-vm-chatbox-inner-action">
+                            <span className="wpwax-vm-timer">
+                                <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
+                                <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
+                            </span>
+                            <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
+                                <ReactSVG src={expander} />
+                            </a>
+                        </div>
+                    }
 
-                    <div className="wpwax-vm-chatbox-img">
+                    {/* <div className="wpwax-vm-chatbox-img"> */}
                         {  templateOptions.greet_video_url &&
                             <video 
                                 ref={greetVideo} 
@@ -137,9 +140,11 @@ function Theme_2() {
                             >   
                             </video>
                         }
-                    </div>
+                    {/* </div> */}
+                    {
+                        templateOptions.greet_video_url && <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
+                    }
                     
-                    <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
                 </div>
 
                 <div className="wpwax-vm-chatbox-footer" style={ { backgroundColor: templateStyles.pageBackgroundColor } } >

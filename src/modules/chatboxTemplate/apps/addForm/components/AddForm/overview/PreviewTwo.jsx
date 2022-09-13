@@ -66,7 +66,7 @@ const PreviewTwo = ({ previewStage }) => {
                     <>
                         <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
                             <div className="wpwax-vm-preview-header">
-                                <h4 className="wpwax-vm-preview-title" style={{ color: formOption.font_color, fontSize: formOption.font_size }} >{formOption.greet_message}</h4>
+                                <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {
@@ -90,7 +90,7 @@ const PreviewTwo = ({ previewStage }) => {
 
                             </div>
                             <div className="wpwax-vm-preview-footer">
-                                <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_box_title}</h5>
+                                <h5 className="wpwax-vm-preview-footer__title">{formOption.chat_options_title}</h5>
                                 <div className="wpwax-vm-preview-footer__actions">
                                     {
                                         formOption.can_replay_in.map((item, index) =>

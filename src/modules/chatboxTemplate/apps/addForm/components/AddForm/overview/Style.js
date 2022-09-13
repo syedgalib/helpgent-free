@@ -244,9 +244,10 @@ const PreviewWrap = Styled.div`
                 border-radius: 25px 25px 0 0;
                 background-color: var(--color-primary);
                 .wpwax-vm-preview-title{
-                    font-size: 15px;
+                    font-size: var(--font-size-greet);
                     font-weight: 600;
                     margin: 0;
+                    color: var(--color-text-greet);
                 }
             }
            .wpwax-vm-preview-inner{
@@ -287,12 +288,11 @@ const PreviewWrap = Styled.div`
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
-                background-color: var(--color-white);
                 .wpwax-vm-preview-footer__title{
-                    font-size: 15px;
+                    font-size: var(--font-size-chat);
                     font-weight: 600;
                     margin: 14px 0 20px;
-                    color: var(--color-dark);
+                    color: var(--color-text-chat);
                 }
                 .wpwax-vm-preview-footer__text{
                     font-size: 13px;

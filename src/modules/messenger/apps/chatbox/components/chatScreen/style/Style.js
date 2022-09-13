@@ -115,6 +115,7 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-wrap{
         &.wpwax-vm-chatbox-theme-2{
+            height: auto;
             box-shadow: 0 3px 30px rgba(0,0,0,.10);
             border-radius: 25px;
             .wpwax-vm-chatbox-header{

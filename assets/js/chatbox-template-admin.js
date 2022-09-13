@@ -8208,6 +8208,7 @@ var FormSettings = function FormSettings() {
       descriptionVisibility = _useSelector.descriptionVisibility,
       description = _useSelector.description,
       chatTitle = _useSelector.chatTitle,
+      chatTitleColor = _useSelector.chatTitleColor,
       chatReplyType = _useSelector.chatReplyType,
       footerVisibility = _useSelector.footerVisibility,
       footerMessage = _useSelector.footerMessage,
@@ -8705,18 +8706,18 @@ var FormSettings = function FormSettings() {
             className: "wpwax-vm-form__color-plate",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: grettingMessageColor
+              children: chatTitleColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
               htmlFor: "wpwax-vm-chat-title-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: grettingMessageColor
+                backgroundColor: chatTitleColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-chat-title-color",
               className: "wpwax-vm-form__element",
-              value: grettingMessageColor,
+              value: chatTitleColor,
               onChange: function onChange(e) {
                 return handleChangeInputValue(e);
               }

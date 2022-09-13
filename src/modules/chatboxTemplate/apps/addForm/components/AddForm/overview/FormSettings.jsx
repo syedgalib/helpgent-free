@@ -38,6 +38,7 @@ const FormSettings = () => {
         descriptionVisibility,
         description,
         chatTitle,
+        chatTitleColor,
         chatReplyType,
         footerVisibility,
         footerMessage,
@@ -412,9 +413,9 @@ const FormSettings = () => {
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Chat title Color</span>
                         <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{grettingMessageColor}</span>
-                            <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: grettingMessageColor }}></label>
-                            <input type="color" id="wpwax-vm-chat-title-color" className="wpwax-vm-form__element" value={grettingMessageColor} onChange={(e) => handleChangeInputValue(e)} />
+                            <span className="wpwax-vm-form__color-text">{chatTitleColor}</span>
+                            <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: chatTitleColor }}></label>
+                            <input type="color" id="wpwax-vm-chat-title-color" className="wpwax-vm-form__element" value={chatTitleColor} onChange={(e) => handleChangeInputValue(e)} />
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">

@@ -1,12 +1,19 @@
 import Styled from 'styled-components';
 
 const VideoHomeWrap = Styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     text-align: center;
     padding: 180px 25px 180px;
     border-radius: 25px;
     min-width: 420px;
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+    .wpwax-vm-video-home{
+        width: 100%;
+    }
     .wpwax-vm-video-home__title{
         font-size: 18px;
         font-weight: 600;
@@ -53,9 +60,17 @@ const VideoRecordWrap = Styled.div`
         color: var(--color-dark);
     }
     &.wpwax-vm-record-permission{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
         .wpwax-vm-btn{
-            margin-top: 28px;
             border-radius: 10px;
+            margin: 28px 0 20px;
+            min-height: 54px;
+        }
+        .wpwax-video-screen-title{
+            margin-top: 0;
         }
     }
     &.wpwax-vm-record-staging{
@@ -156,7 +171,10 @@ const VideoRecordWrap = Styled.div`
         padding: 25px;
         .wpwax-vm-form{
             position: relative;
-            min-height: 570px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
         .wpwax-vm-text-reply{
             .wpwax-vm-form-group{
@@ -170,16 +188,17 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-recored-video{
-            margin-top: 30px;
+            margin-bottom: 40px;
             position: relative;
             .wpwax-vm-recorded-preview{
+                position: relative;
                 border-radius: 15px;
                 background-size: cover;
-                position: relative;
 				video {
 					width: 100%;
+                    height: 240px;
+                    object-fit: cover;
 					border-radius: 15px;
-					box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 				}
             }
             .wpwax-vm-recored-video__play{
@@ -209,9 +228,6 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-form-bottom{
-            position: absolute;
-            width: 100%;
-            bottom: 25px;
             .wpwax-vm-btn{
                 svg{
                     position: relative;

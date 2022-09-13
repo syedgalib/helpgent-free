@@ -76,7 +76,6 @@ const reducer = ( state = initialState, action ) => {
             };
         case LOAD_TEMPLATE_SUCCESS:
 			const showChatbox = action.payload.data.length;
-            console.log( action.payload.data );
             const options = action.payload.data[0]['options'];
             return {
                 ...state,

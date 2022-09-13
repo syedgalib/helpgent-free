@@ -6437,10 +6437,12 @@ function Theme_2() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
     return {
       templateOptions: state.chatboxTemplate.template.options,
+      templateStyles: state.chatboxTemplate.templateStyles,
       supportedReplayTypes: state.chatboxTemplate.supportedReplayTypes
     };
   }),
       templateOptions = _useSelector.templateOptions,
+      templateStyles = _useSelector.templateStyles,
       supportedReplayTypes = _useSelector.supportedReplayTypes;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('00:00'),
@@ -6524,12 +6526,22 @@ function Theme_2() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_style_Style__WEBPACK_IMPORTED_MODULE_5__.ChatboxForm, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-chatbox-header",
-        children: templateOptions.greet_message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
+        style: {
+          backgroundColor: templateStyles.pageBackgroundColor
+        },
+        children: [templateOptions.greet_message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
           className: "wpwax-vm-chatbox-title",
+          style: templateStyles.greetMessageStyle,
           children: templateOptions.greet_message
-        })
+        }), templateOptions.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          className: "wpwax-vm-chatbox-subtitle",
+          style: {
+            color: templateStyles.primaryColor
+          },
+          children: templateOptions.description
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
@@ -6569,14 +6581,21 @@ function Theme_2() {
           onClick: toggolePlayGreetVideo,
           className: "wpwax-vm-btn-play",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("i", {
+            style: {
+              color: templateStyles.primaryColor
+            },
             className: isPausedGreetVideo() ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause'
           })
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-chatbox-footer",
-        children: [templateOptions.chat_box_title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h5", {
+        style: {
+          backgroundColor: templateStyles.pageBackgroundColor
+        },
+        children: [templateOptions.chat_options_title && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h5", {
+          style: templateStyles.chatTitleStyle,
           className: "wpwax-vm-chatbox-footer__title",
-          children: templateOptions.chat_box_title
+          children: templateOptions.chat_options_title
         }), (0,_store_chatboxTemplate_hooks__WEBPACK_IMPORTED_MODULE_2__.canReplay)() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "wpwax-vm-chatbox-footer__actions",
           children: supportedReplayTypes.map(function (item) {
@@ -6586,6 +6605,7 @@ function Theme_2() {
 
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
               href: "#",
+              style: templateStyles.primaryButtonStyle,
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
               onClick: function onClick() {
                 return handleChatAction(item.type);
@@ -6595,8 +6615,14 @@ function Theme_2() {
           })
         }), templateOptions.show_footer && templateOptions.footer_message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           className: "wpwax-vm-chatbox-footer__text",
+          style: {
+            color: templateStyles.primaryColor
+          },
           children: templateOptions.footer_message
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+          style: {
+            color: templateStyles.primaryColor
+          },
           className: "wpwax-vm-chatbox-footer__bottom",
           children: ["Powered by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
             href: "#",

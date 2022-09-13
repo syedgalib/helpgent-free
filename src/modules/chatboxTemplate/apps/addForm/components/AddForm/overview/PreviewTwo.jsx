@@ -67,6 +67,9 @@ const PreviewTwo = ({ previewStage }) => {
                         <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
                             <div className="wpwax-vm-preview-header">
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
+                                {formOption.show_description ?
+                                    <span className="wpwax-vm-preview-subtitle">{formOption.description}</span> : ''
+                                }
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {

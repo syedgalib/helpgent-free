@@ -4,8 +4,7 @@ const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 15px;
     right: 25px;
-    height: 100%;
-    max-height: 630px;
+    height: auto;
     width: 420px;
     z-index: 100;
     border-radius: 25px;
@@ -20,6 +19,7 @@ const ScreenWrapper = Styled.div`
             height: 100%;
             position: relative;
             z-index: 101;
+            min-height: 620px;
             &:after,
             &:before{
                 position: absolute;

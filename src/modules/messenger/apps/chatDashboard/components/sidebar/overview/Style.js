@@ -1,23 +1,7 @@
 import Styled from 'styled-components';
 
 const TaglistWrap = Styled.div`
-    .wpwax-vm-taglist-author{
-        display: flex;
-        align-items: center;
-        .wpwax-vm-taglist-author__img{
-            margin-right: 12px;
-            line-height: 1;
-            img{
-                max-width: 40px;
-            }
-        }
-        .wpwax-vm-taglist-author__name{
-            display: inline-block;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--color-dark);
-        }
-    }
+    
     .wpawax-vm-taglist-search{
         display: flex;
         align-items: center;
@@ -94,7 +78,6 @@ const AddTagWrap = Styled.div`
         align-items: center;
         .wpwax-vm-taglist-author__name{
             display: inline-block;
-            margin-left: 12px;
             font-size: 18px;
             font-weight: 600;
             color: var(--color-dark);
@@ -168,6 +151,7 @@ const AddTagWrap = Styled.div`
         li{
             font-size: 14px;
             font-weight: 500;
+            line-height: 1.55;
             margin: 0;
             color: var(--color-dark);
         }

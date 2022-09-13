@@ -1,11 +1,12 @@
-/*
+/*--------------------------------
 
- -- Title: Root Component
+ -- Title: Sidebar main component
  --	Description: This component is a hub of all child components of sidebar
  -- Author: wpWax
+ -- Version: 1.0.0
  -- Date: 12/09/2022
  
- */
+--------------------------------*/
 
 import React, { useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg';
@@ -139,6 +140,7 @@ function Sidebar() {
 			tagFilterDropdownOpen: !tagFilterDropdownOpen
 		});
 	}
+	
 	const handleAllTagActivation = event=>{
 		event.preventDefault();
 		const overlay = document.querySelector('.wpax-vm-overlay');
@@ -149,8 +151,6 @@ function Sidebar() {
 			taglistWithSession: false,
 		});
 	}
-
-	
 
 	const handleSessionSearch = event =>{
 		let keyword = event.target.value;
@@ -295,14 +295,20 @@ function Sidebar() {
 											let images = [];
 											let titleString = [];
 											let multiImg = false;
-											for (let i = 0; i < users.length; i++) {
-												images.push(users[i].avater);
-												titleString.push(users[i].name)
+											if(item.users.length === 1){
+												images.push(item.users[0].avater);
+												titleString.push(item.users[0].name)
+											}else{
+												for (let i = 0; i < users.length; i++) {
+													images.push(users[i].avater);
+													titleString.push(users[i].name)
+												}
 											}
 
 											if(images.length > 1){
 												multiImg = true;
 											}
+
 											if(Number(item.total_unread) > 0){
 												var moreDropdown = [
 													{

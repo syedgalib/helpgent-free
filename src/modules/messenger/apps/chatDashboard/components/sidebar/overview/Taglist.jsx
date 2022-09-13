@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { ReactSVG } from 'react-svg';
 import apiService from 'apiService/Service.js';
 import { TaglistWrap } from "./Style";
 import userImg from "Assets/img/chatdashboard/user.png";
+import userIcon from "Assets/svg/icons/users.svg";
 import Dropdown from "Components/formFields/Dropdown.jsx";
 import ellipsisH from "Assets/svg/icons/ellipsis-h.svg";
-
-import { handleTagModal, handleTagFormModal } from '../../../store/tags/actionCreator';
 
 /* Dropdown Array Item Declaration */
 const moreDropdown = [
@@ -100,7 +100,7 @@ const Taglist= props =>  {
     const handleTagFilter = event =>{
         let keyword = event.target.value;
         const filteredTags = taglistWithSession ? assignedTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword))) : allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
-        console.log(filteredTags);
+        
         setTagState({
             ...tagState,
             filteredTagList: filteredTags
@@ -115,11 +115,18 @@ const Taglist= props =>  {
     let images = [];
     let titleString = [];
     let multiImg = false;
-    for (let i = 0; i < users.length; i++) {
-        images.push(users[i].avater);
-        titleString.push(users[i].name)
+    if(currentSession.length !== 0){
+        if(currentSession[0].users.length === 1){
+            images.push(currentSession[0].users[0].avater);
+            titleString.push(currentSession[0].users[0].name)
+        }else{
+            for (let i = 0; i < users.length; i++) {
+                images.push(users[i].avater);
+                titleString.push(users[i].name)
+            }
+        }
     }
-
+    
     if(images.length > 1){
         multiImg = true;
     }

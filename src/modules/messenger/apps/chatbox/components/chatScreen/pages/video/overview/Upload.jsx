@@ -82,6 +82,7 @@ const Upload = ({ file, back }) => {
                         </div>
                     </div>
                     <div className='wpwax-vm-form-bottom'>
+                        <p>Ready to send?</p>
                         <a
                             href='#'
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10'

@@ -38,6 +38,7 @@ const FormSettings = () => {
         descriptionVisibility,
         description,
         chatTitle,
+        chatTitleColor,
         chatReplyType,
         footerVisibility,
         footerMessage,
@@ -180,8 +181,6 @@ const FormSettings = () => {
         frame.open();
     }
 
-    console.log(descriptionVisibility,description)
-
     return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -217,7 +216,7 @@ const FormSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -245,7 +244,7 @@ const FormSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -262,7 +261,7 @@ const FormSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -279,7 +278,7 @@ const FormSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -296,7 +295,7 @@ const FormSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -316,7 +315,7 @@ const FormSettings = () => {
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
-                        onColor={primaryColor}
+                        onColor="#6551f2"
                         offColor="#E2E2E2"
                         onHandleColor="#FFFFFF"
                         className="wpwax-vm-switch"
@@ -341,7 +340,7 @@ const FormSettings = () => {
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{primaryColor}</span>
                             <label htmlFor="wpwax-vm-primary-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryColor }}></label>
-                            <input type="color" id="wpwax-vm-primary-color" className="wpwax-vm-form__element" value={primaryColor} onChange={(e) => handleChangeInputValue(e)} />
+                            <input type="color" id="wpwax-vm-primary-color" className="wpwax-vm-form__element" value="#6551f2" onChange={(e) => handleChangeInputValue(e)} />
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
@@ -414,9 +413,9 @@ const FormSettings = () => {
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Chat title Color</span>
                         <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{grettingMessageColor}</span>
-                            <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: grettingMessageColor }}></label>
-                            <input type="color" id="wpwax-vm-chat-title-color" className="wpwax-vm-form__element" value={grettingMessageColor} onChange={(e) => handleChangeInputValue(e)} />
+                            <span className="wpwax-vm-form__color-text">{chatTitleColor}</span>
+                            <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: chatTitleColor }}></label>
+                            <input type="color" id="wpwax-vm-chat-title-color" className="wpwax-vm-form__element" value={chatTitleColor} onChange={(e) => handleChangeInputValue(e)} />
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">

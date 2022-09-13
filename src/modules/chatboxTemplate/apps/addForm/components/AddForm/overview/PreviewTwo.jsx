@@ -115,9 +115,9 @@ const PreviewTwo = ({ previewStage }) => {
 
                     :
                     previewStage === 'thank' ?
-                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_cta_background }}>
+                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_background_color }}>
                             <div className="wpwax-vm-preview-thank__content">
-                                <h3 style={{ color: formOption.thank_page_cta_font_color, fontSize: `${formOption.thank_page_cta_title_font_size}` }}>{formOption.thank_page_title}</h3>
+                                <h3>{formOption.thank_page_title}</h3>
                                 {
                                     formOption.show_thank_page_description ?
                                         <p>{formOption.thank_page_description}</p> :
@@ -126,14 +126,7 @@ const PreviewTwo = ({ previewStage }) => {
                             </div>
                             <div className="wpwax-vm-preview-thank__botttom">
                                 {formOption.show_thank_page_cta_button ?
-                                    <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block"
-                                        style={{
-                                            borderRadius: `${formOption.thank_page_cta_button_radius}px`,
-                                            backgroundColor: formOption.thank_page_cta_button_text_color,
-                                            borderColor: formOption.thank_page_cta_button_text_color,
-                                            color: formOption.thank_page_cta_font_color,
-                                        }}
-                                    >{formOption.thank_page_cta_button_text}</button> :
+                                    <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block">{formOption.thank_page_cta_button_text}</button> :
                                     ''
                                 }
                             </div>

@@ -108,29 +108,35 @@ const FormReducer = (state = initialState, action) => {
     case FORM_READ_BEGIN:
       return {
         ...state,
+        loading: true,
       };
     case FORM_READ_SUCCESS:
       return {
         ...state,
+        loading: false,
         data,
       };
     case FORM_READ_ERR:
       return {
         ...state,
+        loading: false,
         error: err,
       };
     case FORM_UPDATE_BEGIN:
       return {
         ...state,
+        loading: true,
       };
     case FORM_UPDATE_SUCCESS:
       return {
         ...state,
+        loading: false,
         data,
       };
     case FORM_UPDATE_ERR:
       return {
         ...state,
+        loading: false,
         error: err,
       };
     default:

@@ -226,9 +226,10 @@ const AddForm = () => {
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
-                    </span> : null
-                }
-                <form action="" onSubmit={handleAddTemplate}>
+                    </span> 
+                    : 
+
+                    <form action="" onSubmit={handleAddTemplate}>
                     {
                         state.fetchStatus ?
                             <>
@@ -265,7 +266,9 @@ const AddForm = () => {
                             </>
                             : <p>Sorry !! Server Error. Please Try Again.</p>
                     }
-                </form>
+                    </form>
+                }
+                
             </div>
             <div className="wpwax-vm-preview">
                 <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>

@@ -22,6 +22,7 @@ const PreviewWrap = Styled.div`
     position: relative;
     word-break: break-all;
     padding-top: 0;
+    font-family: var(--font-family);
     color: var(--color-text);
     &.wpwax-vm-loder-active{
         &:after{
@@ -193,7 +194,7 @@ const PreviewWrap = Styled.div`
                     margin-right: 10px;
                     path,
                     circle{
-                        fill: var(--color-white);
+                        fill: var(--primary-btn-color);
                     }
                 }
             }

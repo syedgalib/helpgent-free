@@ -145,7 +145,7 @@ const GeneralSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -177,9 +177,6 @@ const GeneralSettings = () => {
                     components={{
                         Option
                     }}
-                    // defaultValue={customPages.filter(function (page) {
-                    //     return page.value === templateTheme;
-                    // })[0]}
                     name="wpwax-vm-display-custom-pages"
                     onChange={handleChangeSelectValue}
                     allowSelectAll={true}
@@ -207,7 +204,7 @@ const GeneralSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"

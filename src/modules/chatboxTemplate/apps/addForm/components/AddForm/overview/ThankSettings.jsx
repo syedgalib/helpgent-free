@@ -127,7 +127,7 @@ const ThankSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -168,7 +168,7 @@ const ThankSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -189,7 +189,7 @@ const ThankSettings = () => {
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
-                        onColor={primaryColor}
+                        onColor="#6551f2"
                         offColor="#E2E2E2"
                         onHandleColor="#FFFFFF"
                         className="wpwax-vm-switch"

@@ -38,7 +38,7 @@ const AddForm = () => {
         pageBgColor,
         formInitialData,
         // loading,
-        response
+        // response
     } = useSelector(state => {
         console.log(state)
         return {
@@ -61,7 +61,7 @@ const AddForm = () => {
             pageBgColor: state.form.data[0].options.page_background_color,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
-            response: state.form.response,
+            // response: state.form.response,
         };
     });
 
@@ -84,11 +84,12 @@ const AddForm = () => {
     const [state, setState] = useState({
         currentStage: "general",
         validation: true,
-        loading: true,
+        loading: false,
+        response: "",
         fetchStatus: true
     });
 
-    const { currentStage, validation, loading, fetchStatus} = state;
+    const { currentStage, validation, loading, response, fetchStatus} = state;
 
     const [formStage, setFormStage] = useState("general");
 
@@ -178,9 +179,65 @@ const AddForm = () => {
                 is_default: formInitialData.is_default,
             }
             if (id) {
-                dispatch(editForm(id, formData));
+                setState({
+                    ...state,
+                    loading: true
+                });
+                const editSession = async ()=>{
+                    const editSessionResponse = await apiService.dataAdd(`/chatbox-templates/${id}`, formData)
+                    return editSessionResponse;
+                }
+                editSession()
+                    .then( editSessionResponse => {
+                        setState({
+                            ...state,
+                            response: editSessionResponse,
+                            loading: false,
+                        });
+                        setTimeout(() => {
+                            setState({
+                                ...state,
+                                response: ""
+                            });
+                        }, "4000")
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             } else {
-                dispatch(addForm(formData));
+                setState({
+                    ...state,
+                    loading: true
+                });
+                const addSession = async ()=>{
+                    const addSessionResponse = await apiService.dataAdd(`/chatbox-templates`, formData)
+                    return addSessionResponse;
+                }
+                addSession()
+                    .then( addSessionResponse => {
+                        const formResetData = {
+                            id: formInitialData.id,
+                            name: "",
+                            options: formInitialData.options,
+                            page_ids: formInitialData.page_ids,
+                            is_default: formInitialData.is_default,
+                        }
+                        setState({
+                            ...state,
+                            response: addSessionResponse,
+                            loading: false,
+                        });
+                        dispatch(handleReadForm([formResetData]));
+                        setTimeout(() => {
+                            setState({
+                                ...state,
+                                response: ""
+                            });
+                        }, "4000")
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             }
         }
     }
@@ -207,18 +264,16 @@ const AddForm = () => {
                 }
 
                 <ThankSettings />
-                {
-                    response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
-                }
-                {
-                    response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
-                }
             </div>
         }
     }
 
     useEffect(() => {
         if (id) {
+            setState({
+                ...state,
+                loading: true
+            });
             const fetchSessionById = async ()=>{
                 const sessionByIdResponse = await apiService.getAll(`/chatbox-templates/${id}`)
                 return sessionByIdResponse;
@@ -236,7 +291,6 @@ const AddForm = () => {
                 .catch((error) => {
                     console.log(error);
                 })
-            // dispatch(updateDataWithId(id));
         }
     }, []);
 
@@ -267,7 +321,12 @@ const AddForm = () => {
                                     {
                                         getFormContent()
                                     }
-
+                                    {
+                                        response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
+                                    }
+                                    {
+                                        response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
+                                    }
                                 </div>
 
                                 <div className="wpwax-vm-add-form__bottom">

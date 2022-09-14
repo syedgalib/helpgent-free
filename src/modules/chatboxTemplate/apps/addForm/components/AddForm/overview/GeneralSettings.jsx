@@ -49,7 +49,6 @@ const GeneralSettings = () => {
             displayedCustomPages: state.form.data[0].page_ids,
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
             sendMail: state.form.data[0].options.send_mail_upon_message_submission,
-
         };
     });
 
@@ -76,7 +75,9 @@ const GeneralSettings = () => {
         wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
             customPages.push({ value: `${item.id}`, label: `${item.title}` })
         });
-    }, []);
+    }, [diplayAllPage]);
+
+    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
 
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
@@ -100,7 +101,6 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
     };
 
-    console.log(formData);
     return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
@@ -159,29 +159,33 @@ const GeneralSettings = () => {
                     </label>
                 </div>
             </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span className="wpwax-vm-tooltip-wrap">
-                        <span>Display on custom pages</span>
-                        <span className="wpwax-vm-tooltip">
-                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
-                            <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+            {
+                diplayAllPage ? null :
+                <div className="wpwax-vm-form-group">
+                    <div className="wpwax-vm-form-group__label">
+                        <span className="wpwax-vm-tooltip-wrap">
+                            <span>Display on custom pages</span>
+                            <span className="wpwax-vm-tooltip">
+                                <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
+                                <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+                            </span>
                         </span>
-                    </span>
+                    </div>
+                    <Select
+                        classNamePrefix="wpwax-vm-select"
+                        options={customPages}
+                        isMulti
+                        searchable={false}
+                        components={{
+                            Option
+                        }}
+                        name="wpwax-vm-display-custom-pages"
+                        onChange={handleChangeSelectValue}
+                        allowSelectAll={true}
+                    />
                 </div>
-                <Select
-                    classNamePrefix="wpwax-vm-select"
-                    options={customPages}
-                    isMulti
-                    searchable={false}
-                    components={{
-                        Option
-                    }}
-                    name="wpwax-vm-display-custom-pages"
-                    onChange={handleChangeSelectValue}
-                    allowSelectAll={true}
-                />
-            </div>
+            }
+            
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Close chat option</span>

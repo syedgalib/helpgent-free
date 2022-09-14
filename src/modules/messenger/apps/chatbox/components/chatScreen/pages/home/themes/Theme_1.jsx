@@ -93,6 +93,7 @@ function Theme_1() {
         greetVideo.current.pause();
         dispatch( changeChatScreen(type) );
     }
+
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">

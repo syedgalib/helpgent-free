@@ -175,7 +175,7 @@ const AddForm = () => {
                 id: formInitialData.id,
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
-                page_ids: formInitialData.page_ids,
+                pages: formInitialData.pages,
                 is_default: formInitialData.is_default,
             }
             if (id) {
@@ -219,7 +219,7 @@ const AddForm = () => {
                             id: formInitialData.id,
                             name: "",
                             options: formInitialData.options,
-                            page_ids: formInitialData.page_ids,
+                            pages: formInitialData.pages,
                             is_default: formInitialData.is_default,
                         }
                         setState({

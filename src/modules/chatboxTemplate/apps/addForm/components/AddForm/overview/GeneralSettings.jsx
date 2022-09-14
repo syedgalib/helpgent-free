@@ -46,15 +46,32 @@ const GeneralSettings = () => {
             diplayAllPage: state.form.data[0].options.display_on_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
-            displayedCustomPages: state.form.data[0].page_ids,
+            displayedCustomPages: state.form.data[0].pages,
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
             sendMail: state.form.data[0].options.send_mail_upon_message_submission,
         };
     });
 
     const [state, setState] = useState({
-        openCollapse: true
+        openCollapse: true,
+        selectedCustomPages: []
     });
+
+    useEffect(() => {
+        console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
+        var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => !displayedCustomPages.includes(word.id));
+        console.log(filteredKeywords)
+        setState({
+            ...state,
+            selectedCustomPages:[
+                ...state.selectedCustomPages,
+                filteredKeywords
+            ]
+        })
+        // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+        //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
+        // });
+    }, []);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -69,15 +86,12 @@ const GeneralSettings = () => {
         );
     };
 
+    console.log(state.selectedCustomPages);
+
     const customPages = [];
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         customPages.push({ value: `${item.id}`, label: `${item.title}` })
     });
-    useEffect(() => {
-        // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-        //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
-        // });
-    }, [diplayAllPage]);
 
     console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
 
@@ -99,6 +113,15 @@ const GeneralSettings = () => {
     }
 
     const handleChangeSelectValue = (selectEvent, e) => {
+        if(e.name === "wpwax-vm-display-custom-pages"){
+            setState({
+                ...state,
+                selectedCustomPages:[
+                    ...state.selectedCustomPages,
+                    selectEvent.value
+                ]
+            })
+        }
         const updatedData = formUpdater(e.name, selectEvent.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
@@ -181,6 +204,7 @@ const GeneralSettings = () => {
                         components={{
                             Option
                         }}
+                        // defaultValue={state.selectedCustomPages}
                         name="wpwax-vm-display-custom-pages"
                         onChange={handleChangeSelectValue}
                         allowSelectAll={true}
@@ -215,6 +239,7 @@ const GeneralSettings = () => {
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             id="wpwax-vm-send-mail"
+                            value={state.selectedCustomPages}
                             handleDiameter={14}
                             height={22}
                             width={40}

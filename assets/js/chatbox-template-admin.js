@@ -7912,7 +7912,7 @@ var AddForm = function AddForm() {
         id: formInitialData.id,
         name: formInitialData.name,
         options: JSON.stringify(formInitialData.options),
-        page_ids: formInitialData.page_ids,
+        pages: formInitialData.pages,
         is_default: formInitialData.is_default
       };
 
@@ -7998,7 +7998,7 @@ var AddForm = function AddForm() {
             id: formInitialData.id,
             name: "",
             options: formInitialData.options,
-            page_ids: formInitialData.page_ids,
+            pages: formInitialData.pages,
             is_default: formInitialData.is_default
           };
           setState(_objectSpread(_objectSpread({}, state), {}, {
@@ -8942,6 +8942,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9029,7 +9037,7 @@ var GeneralSettings = function GeneralSettings() {
       diplayAllPage: state.form.data[0].options.display_on_all_pages,
       templateName: state.form.data[0].name,
       templateTheme: state.form.data[0].options.theme,
-      displayedCustomPages: state.form.data[0].page_ids,
+      displayedCustomPages: state.form.data[0].pages,
       chatVisibilityType: state.form.data[0].options.chat_visibility_type,
       sendMail: state.form.data[0].options.send_mail_upon_message_submission
     };
@@ -9044,13 +9052,26 @@ var GeneralSettings = function GeneralSettings() {
       sendMail = _useSelector.sendMail;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    openCollapse: true
+    openCollapse: true,
+    selectedCustomPages: []
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
-  /* Dispasth is used for passing the actions to redux store  */
 
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
+    var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter(function (word) {
+      return !displayedCustomPages.includes(word.id);
+    });
+    console.log(filteredKeywords);
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [filteredKeywords])
+    })); // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+    //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
+    // });
+  }, []);
+  /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
 
@@ -9066,6 +9087,7 @@ var GeneralSettings = function GeneralSettings() {
     });
   };
 
+  console.log(state.selectedCustomPages);
   var customPages = [];
   wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map(function (item, index) {
     customPages.push({
@@ -9073,10 +9095,6 @@ var GeneralSettings = function GeneralSettings() {
       label: "".concat(item.title)
     });
   });
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {// wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-    //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
-    // });
-  }, [diplayAllPage]);
   console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
   /* To Handle Template Change */
 
@@ -9097,6 +9115,12 @@ var GeneralSettings = function GeneralSettings() {
   };
 
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
+    if (e.name === "wpwax-vm-display-custom-pages") {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [selectEvent.value])
+      }));
+    }
+
     var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
   };
@@ -9220,7 +9244,8 @@ var GeneralSettings = function GeneralSettings() {
         searchable: false,
         components: {
           Option: Option
-        },
+        } // defaultValue={state.selectedCustomPages}
+        ,
         name: "wpwax-vm-display-custom-pages",
         onChange: handleChangeSelectValue,
         allowSelectAll: true
@@ -9279,6 +9304,7 @@ var GeneralSettings = function GeneralSettings() {
             onHandleColor: "#FFFFFF",
             className: "wpwax-vm-switch",
             id: "wpwax-vm-send-mail",
+            value: state.selectedCustomPages,
             handleDiameter: 14,
             height: 22,
             width: 40,

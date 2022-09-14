@@ -20,8 +20,6 @@ export const fontSizeOptions = [
 const ThankSettings = () => {
     /* initialize Form Data */
     const {
-        collectInfoVisibility,
-        collectableInfo,
         title,
         descriptionVisibility,
         description,
@@ -42,8 +40,6 @@ const ThankSettings = () => {
         formInitialOption
     } = useSelector(state => {
         return {
-            collectInfoVisibility: state.form.data[0].options.collect_info,
-            collectableInfo: state.form.data[0].options.collectable_info,
             title: state.form.data[0].options.thank_page_title,
             descriptionVisibility: state.form.data[0].options.show_thank_page_description,
             description: state.form.data[0].options.thank_page_description,
@@ -120,41 +116,6 @@ const ThankSettings = () => {
 
     return (
         <ThankSettingsWrap>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span>Collect info</span>
-                    <label>
-                        <Switch
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor="#6551f2"
-                            offColor="#E2E2E2"
-                            onHandleColor="#FFFFFF"
-                            className="wpwax-vm-switch"
-                            id="wpwax-vm-cta-info-visibility"
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            checked={collectInfoVisibility}
-                            onChange={handleChangeSwitchValue}
-                        />
-                    </label>
-                </div>
-                <div className="wpwax-vm-chekbox-list">
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Name</span>
-                        <Checkbox id="contact-name" label="" value={collectableInfo.indexOf('name') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
-                    </div>
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Email</span>
-                        <Checkbox id="contact-email" label="" value={collectableInfo.indexOf('email') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
-                    </div>
-                    <div className="wpwax-vm-chekbox-single">
-                        <span>Phone</span>
-                        <Checkbox id="contact-phone" label="" value={collectableInfo.indexOf('phone') === -1 ? false : true} onChange={e => handleCollectableInfo(e)} />
-                    </div>
-                </div>
-            </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Title</span>

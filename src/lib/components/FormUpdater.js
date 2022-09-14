@@ -216,14 +216,6 @@ const FormUpdater = (label, value,formInitialData) => {
                         primary_button_background_color: value
                     }
                 }
-            case "wpwax-vm-cta-info-visibility":
-                return {
-                    ...item,
-                    options: {
-                        ...item.options,
-                        collect_info: value
-                    }
-                }
             case "wpwax-vm-thank-title":
                 return {
                     ...item,

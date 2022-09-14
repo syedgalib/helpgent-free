@@ -19,7 +19,6 @@ const formData = [
         "chat_options_title":"How would you like to chat?",
         "can_replay_in":[
            "video",
-           "screenRecord",
            "audio",
            "text"
         ],
@@ -28,12 +27,6 @@ const formData = [
         "thank_page_title":"Thank You",
         "show_thank_page_description":true,
         "thank_page_description":"Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
-        "collect_info":true,
-        "collectable_info":[
-           "name",
-           "email",
-           "phone"
-        ],
         "show_thank_page_cta_button":true,
         "thank_page_cta_button_text":"Try for Free",
         "thank_page_cta_button_url":"https://dashboardmarket.com/",

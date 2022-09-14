@@ -7393,13 +7393,6 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
           })
         });
 
-      case "wpwax-vm-cta-info-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            collect_info: value
-          })
-        });
-
       case "wpwax-vm-thank-title":
         return _objectSpread(_objectSpread({}, item), {}, {
           options: _objectSpread(_objectSpread({}, item.options), {}, {
@@ -9714,8 +9707,6 @@ var ThankSettings = function ThankSettings() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return {
-      collectInfoVisibility: state.form.data[0].options.collect_info,
-      collectableInfo: state.form.data[0].options.collectable_info,
       title: state.form.data[0].options.thank_page_title,
       descriptionVisibility: state.form.data[0].options.show_thank_page_description,
       description: state.form.data[0].options.thank_page_description,
@@ -9736,8 +9727,6 @@ var ThankSettings = function ThankSettings() {
       formInitialOption: state.form.data[0].options
     };
   }),
-      collectInfoVisibility = _useSelector.collectInfoVisibility,
-      collectableInfo = _useSelector.collectableInfo,
       title = _useSelector.title,
       descriptionVisibility = _useSelector.descriptionVisibility,
       description = _useSelector.description,
@@ -9816,68 +9805,6 @@ var ThankSettings = function ThankSettings() {
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.ThankSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-          children: "Collect info"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            uncheckedIcon: false,
-            checkedIcon: false,
-            onColor: "#6551f2",
-            offColor: "#E2E2E2",
-            onHandleColor: "#FFFFFF",
-            className: "wpwax-vm-switch",
-            id: "wpwax-vm-cta-info-visibility",
-            handleDiameter: 14,
-            height: 22,
-            width: 40,
-            checked: collectInfoVisibility,
-            onChange: handleChangeSwitchValue
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: "wpwax-vm-chekbox-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            id: "contact-name",
-            label: "",
-            value: collectableInfo.indexOf('name') === -1 ? false : true,
-            onChange: function onChange(e) {
-              return handleCollectableInfo(e);
-            }
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: "Email"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            id: "contact-email",
-            label: "",
-            value: collectableInfo.indexOf('email') === -1 ? false : true,
-            onChange: function onChange(e) {
-              return handleCollectableInfo(e);
-            }
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          className: "wpwax-vm-chekbox-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-            children: "Phone"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
-            id: "contact-phone",
-            label: "",
-            value: collectableInfo.indexOf('phone') === -1 ? false : true,
-            onChange: function onChange(e) {
-              return handleCollectableInfo(e);
-            }
-          })]
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
@@ -10428,14 +10355,12 @@ var formData = [{
     "show_description": true,
     "description": "Welcome to Directorist, leave your questions below",
     "chat_options_title": "How would you like to chat?",
-    "can_replay_in": ["video", "screenRecord", "audio", "text"],
+    "can_replay_in": ["video", "audio", "text"],
     "show_footer": true,
     "footer_message": "You can practice before sending",
     "thank_page_title": "Thank You",
     "show_thank_page_description": true,
     "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
-    "collect_info": true,
-    "collectable_info": ["name", "email", "phone"],
     "show_thank_page_cta_button": true,
     "thank_page_cta_button_text": "Try for Free",
     "thank_page_cta_button_url": "https://dashboardmarket.com/",

@@ -1,4 +1,4 @@
-import { restRequest } from 'Helper/http';
+import http from 'Helper/http';
 
 // createUser
 const createUser = async ({ email, name }) => {
@@ -12,7 +12,7 @@ const createUser = async ({ email, name }) => {
 		args.name = name;
 	}
 
-	return await restRequest.post("/users", args);
+	return await http.postData("/users", args);
 };
 
 const api = { createUser }

@@ -2,6 +2,10 @@ import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
     box-sizing: border-box;
+	a:focus, a:active {
+		outline: none !important;
+		box-shadow: none !important;
+	}
     .wpwax-vm-chatbox-bg{
         position: absolute;
         left: 0;
@@ -207,8 +211,8 @@ const ChatboxForm = Styled.div`
             }
         }
     }
-    
-    
+
+
 `;
 
 const ContactFormWrap = Styled.div`
@@ -302,7 +306,7 @@ const MessageBox = Styled.div`
                     border-radius: 0 16px 16px;
                 }
             }
-            
+
         }
         &.wpwax-vm-message-single-video{
             .wpwax-vm-message-content{

@@ -567,10 +567,6 @@ function sanitize_list_items( $list = [], $schema = [] ) {
             $list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? esc_html( get_formatted_time( $list[ $key ], $timezone ) ) : null;
         }
 
-        else {
-            $list[ $key ] = esc_html( $value );
-        }
-
     }
 
     return $list;

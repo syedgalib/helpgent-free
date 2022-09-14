@@ -5431,10 +5431,11 @@ function formatTimeAsCountdown(timeInSecond) {
 
 function formatSecondsAsCountdown(timeInSecond) {
   var second = timeInSecond % 60;
-  second = second < 10 ? '0' + second : second;
+  var fotmatted_second = parseInt(second);
+  fotmatted_second = fotmatted_second < 10 ? '0' + fotmatted_second : fotmatted_second;
   var min = (timeInSecond - second) / 60;
   min = min < 10 ? '0' + min : min;
-  return "".concat(min, ":").concat(second);
+  return "".concat(min, ":").concat(fotmatted_second);
 }
 
 
@@ -5449,13 +5450,10 @@ function formatSecondsAsCountdown(timeInSecond) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "restRequest": function() { return /* binding */ restRequest; }
-/* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var restRequest = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
   headers: {
     "Content-type": "application/json",
@@ -5463,6 +5461,41 @@ var restRequest = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   }
 });
 
+var getData = function getData(path, customArgs) {
+  var args = typeof customArgs !== 'undefined' ? {
+    params: customArgs
+  } : {};
+  return axiosInstance.get(path, args);
+};
+
+var postData = function postData(path, customArgs, customConfig) {
+  var args = typeof customArgs !== 'undefined' ? customArgs : {};
+  var config = typeof config !== 'undefined' ? customConfig : {};
+  return axiosInstance.post(path, args, config);
+};
+
+var updateData = function updateData(path, customArgs, customConfig) {
+  var args = typeof customArgs !== 'undefined' ? customArgs : {};
+  var config = typeof config !== 'undefined' ? customConfig : {};
+  return axiosInstance.post(path, args, config);
+};
+
+var deleteData = function deleteData(path, customArgs, customConfig) {
+  var args = typeof args !== 'undefined' ? {
+    data: customArgs
+  } : {};
+  var config = typeof config !== 'undefined' ? customConfig : {};
+  return axiosInstance.delete(path, args, config);
+};
+
+var http = {
+  axiosInstance: axiosInstance,
+  getData: getData,
+  postData: postData,
+  updateData: updateData,
+  deleteData: deleteData
+};
+/* harmony default export */ __webpack_exports__["default"] = (http);
 
 /***/ }),
 
@@ -6821,20 +6854,20 @@ var Video = function Video() {
     UPLOAD: 'upload'
   };
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.HOME),
       _useState2 = _slicedToArray(_useState, 2),
-      selectedFile = _useState2[0],
-      setSelectedFile = _useState2[1];
+      currentStage = _useState2[0],
+      setCurrentStage = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      selectedFileErrorMessage = _useState4[0],
-      setSelectedFileErrorMessage = _useState4[1];
+      selectedFile = _useState4[0],
+      setSelectedFile = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.HOME),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      currentStage = _useState6[0],
-      setCurrentStage = _useState6[1];
+      selectedFileErrorMessage = _useState6[0],
+      setSelectedFileErrorMessage = _useState6[1];
 
   function prepareForUpload(event) {
     var file = event.target.files.length ? event.target.files[0] : null;
@@ -8565,7 +8598,7 @@ var getChatboxTemplate = /*#__PURE__*/function () {
             args.page_id = pageID;
             args.return_default_if_result_empty = typeof returnDefaultIfResultEmpty === 'boolean' ? returnDefaultIfResultEmpty : true;
             _context.next = 6;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__.restRequest.get("/chatbox-templates", {
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getData("/chatbox-templates", {
               params: args
             });
 
@@ -8601,7 +8634,7 @@ var createChatboxTemplate = /*#__PURE__*/function () {
             args.options = options && _typeof(options) === 'object' ? options : {};
             args.options = JSON.stringify(args.options);
             _context2.next = 9;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__.restRequest.post("/chatbox-templates", args);
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].postData("/chatbox-templates", args);
 
           case 9:
             return _context2.abrupt("return", _context2.sent);
@@ -8993,7 +9026,7 @@ var createAttachment = /*#__PURE__*/function () {
             }
 
             _context.next = 4;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__.restRequest.post("/attachments", formData, {
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].postData("/attachments", formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -9304,7 +9337,7 @@ var sendMessage = /*#__PURE__*/function () {
             };
             args = Object.assign(defaultArgs, args);
             _context.next = 4;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__.restRequest.post("/messages", args);
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].postData("/messages", args);
 
           case 4:
             return _context.abrupt("return", _context.sent);
@@ -9646,7 +9679,7 @@ var createUser = /*#__PURE__*/function () {
             }
 
             _context.next = 6;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__.restRequest.post("/users", args);
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].postData("/users", args);
 
           case 6:
             return _context.abrupt("return", _context.sent);

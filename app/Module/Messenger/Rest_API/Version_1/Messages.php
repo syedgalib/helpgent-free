@@ -245,6 +245,21 @@ class Messages extends Rest_Base {
         $where['user_id']    = '';
         $where['seen']       = '';
 
+		$where['updated_on']                   = '';
+		$where['updated_on_compare_date_time'] = '=';
+		$where['updated_on_compare_day']       = '=';
+		$where['updated_on_compare_month']     = '=';
+		$where['updated_on_compare_year']      = '=';
+		$where['updated_on_between']           = '';
+
+
+        $where['created_on']                   = '';
+        $where['created_on_compare_date_time'] = '=';
+        $where['created_on_compare_day']       = '=';
+        $where['created_on_compare_month']     = '=';
+        $where['created_on_compare_year']      = '=';
+        $where['created_on_between']           = '';
+
         $where = Helper\filter_params( $where, $args );
 
         $default = [];
@@ -322,7 +337,10 @@ class Messages extends Rest_Base {
      */
     public function create_item( $request ) {
         $args = $request->get_params();
-        $data = Message_Model::create_item( $args );
+
+		$args['user_id'] = ( ! empty( $args['user_id'] ) ) ? $args['user_id'] : get_current_user_id();
+
+		$data = Message_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return $data;
@@ -512,9 +530,15 @@ class Messages extends Rest_Base {
     public function prepare_message_item_for_response( $item, $request_params ) {
         $request_params['sanitize_schema'] = $this->get_sanitize_schema();
 
+		// Add Author Data
+		if ( ! empty( $item['user_id'] ) ) {
+			$users = Helper\get_users_data_by_ids( [ $item['user_id'] ] );
+			$item[ 'user' ] = ( ! empty( $users ) ) ? $users[0] : null;
+		}
+
 		// Add Attachment URL
 		if ( ! empty( $item['attachment_id'] ) ) {
-			$attachment = Attachment_Model::get_item( $item );
+			$attachment = Attachment_Model::get_item( $item['attachment_id'] );
 
 			if ( is_wp_error( $attachment ) ) {
 				$item['attachment_id']    = null;

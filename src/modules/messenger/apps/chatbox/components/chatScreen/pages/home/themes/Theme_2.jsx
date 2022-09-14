@@ -89,7 +89,8 @@ function Theme_2() {
         return false;
     }
 
-    function handleChatAction(type) {
+    function handleChatAction(event,type) {
+        event.preventDefault();
         greetVideo.current.pause();
         dispatch(changeChatScreen(type));
     }
@@ -159,7 +160,7 @@ function Theme_2() {
                                     return '';
                                 }
     
-                                return <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction( item.type )}>{item.label}</a>
+                                return <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, item.type )}>{item.label}</a>
                             })
                         } 
                         </div>

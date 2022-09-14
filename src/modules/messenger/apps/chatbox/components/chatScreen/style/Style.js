@@ -216,9 +216,7 @@ const ChatboxForm = Styled.div`
                 }
             }
         }
-    }
-    
-    
+    }  
 `;
 
 const ContactFormWrap = Styled.div`

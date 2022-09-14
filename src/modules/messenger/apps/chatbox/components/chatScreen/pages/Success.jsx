@@ -39,9 +39,10 @@ function Success() {
 
     function getCTAButtonStyle() {
         return {
-            fontColor: templateOptions.thank_page_cta_button_font_color,
-            backgroundColor:
-                templateOptions.thank_page_cta_button_background_color,
+            fontColor: templateOptions.thank_page_cta_button_text_color,
+            backgroundColor: templateOptions.thank_page_cta_button_color,
+            borderRadius: templateOptions.thank_page_cta_button_radius,
+            border: 'hidden',
         };
     }
 
@@ -71,7 +72,7 @@ function Success() {
                     </h3>
 
                     {templateOptions.show_thank_page_description && (
-                        <p className='wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500'>
+                        <p className='wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500' style={ getDescriptionStyle() } >
                             {templateOptions.thank_page_description}
                         </p>
                     )}

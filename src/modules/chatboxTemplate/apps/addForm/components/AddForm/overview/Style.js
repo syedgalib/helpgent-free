@@ -184,22 +184,23 @@ const PreviewWrap = Styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                flex-direction: column;
                 box-sizing: border-box;
-                min-height: 46px;
+                min-height: 100px;
+                height: auto;
                 text-transform: capitalize;
-                flex: 0 0 48%;
-                margin: 1%;
+                flex: 0 0 30.3333%;
+                margin: 1.5%;
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
                 }
                 >div{
-                    line-height: 1;
+                    line-height: 0;
                 }
                 svg{
-                    position: relative;
-                    top: 1px;
                     width: 18px;
-                    margin-right: 10px;
+                    height: 18px;
+                    margin-bottom: 4px;
                     path,
                     circle{
                         fill: var(--primary-btn-color);

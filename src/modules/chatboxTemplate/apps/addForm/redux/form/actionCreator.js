@@ -69,6 +69,17 @@ const handleDynamicEdit = data => {
   };
 };
 
+const handleReadForm = data => {
+  return async dispatch => {
+    try {
+      dispatch(formReadBegin());
+      dispatch(formReadSuccess(data));
+    } catch (err) {
+      dispatch(formReadErr(err));
+    }
+  };
+};
+
 const updateDataWithId = id => {
   console.log('tes')
   return async dispatch => {
@@ -90,5 +101,5 @@ const updateDataWithId = id => {
 
 
 
-export { addForm, editForm, handleDynamicEdit, updateDataWithId };
+export { addForm, editForm, handleDynamicEdit, handleReadForm, updateDataWithId };
 

@@ -101,8 +101,6 @@ const FormSettings = () => {
     const handleChatReplyType = (checked, event, id) => {
         if (id === "wpwax-vm-reply-video") {
             handleChatArray("video");
-        } else if (id === "wpwax-vm-reply-s-record") {
-            handleChatArray("screenRecord");
         } else if (id === "wpwax-vm-reply-voice") {
             handleChatArray("audio");
         } else if (id === "wpwax-vm-reply-text") {
@@ -255,23 +253,6 @@ const FormSettings = () => {
                             width={40}
                             id="wpwax-vm-reply-video"
                             checked={chatReplyType.indexOf('video') === -1 ? false : true}
-                            onChange={handleChatReplyType}
-                        />
-                    </div>
-                    <div className="wpwax-vm-switch-single">
-                        <span>Screen Recording</span>
-                        <Switch
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor="#6551f2"
-                            offColor="#E2E2E2"
-                            onHandleColor="#FFFFFF"
-                            className="wpwax-vm-switch"
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            id="wpwax-vm-reply-s-record"
-                            checked={chatReplyType.indexOf('screenRecord') === -1 ? false : true}
                             onChange={handleChatReplyType}
                         />
                     </div>

@@ -12,7 +12,7 @@ import ThankSettings from "./overview/ThankSettings.jsx";
 import apiService from 'apiService/Service.js';
 import { AddFormStyle } from './Style';
 
-import { addForm, editForm, updateDataWithId } from '../../redux/form/actionCreator';
+import { addForm, editForm, handleReadForm } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -37,9 +37,10 @@ const AddForm = () => {
         thankDescFontSize,
         pageBgColor,
         formInitialData,
-        loading,
+        // loading,
         response
     } = useSelector(state => {
+        console.log(state)
         return {
             name: state.form.data[0].name,
             primaryColor: state.form.data[0].options.primary_color,
@@ -83,10 +84,11 @@ const AddForm = () => {
     const [state, setState] = useState({
         currentStage: "general",
         validation: true,
+        loading: true,
         fetchStatus: true
     });
 
-    const { currentStage, validation, fetchStatus} = state;
+    const { currentStage, validation, loading, fetchStatus} = state;
 
     const [formStage, setFormStage] = useState("general");
 
@@ -104,7 +106,6 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            console.log("yes")
             if(name === ""){
                 
                 setState({
@@ -206,13 +207,36 @@ const AddForm = () => {
                 }
 
                 <ThankSettings />
+                {
+                    response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
+                }
+                {
+                    response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
+                }
             </div>
         }
     }
 
     useEffect(() => {
         if (id) {
-            dispatch(updateDataWithId(id));
+            const fetchSessionById = async ()=>{
+                const sessionByIdResponse = await apiService.getAll(`/chatbox-templates/${id}`)
+                return sessionByIdResponse;
+            }
+
+            fetchSessionById()
+                .then( sessionByIdResponse => {
+                    setState({
+                        ...state,
+                        loading: false
+                    });
+                    console.log(sessionByIdResponse.data.data);
+                    dispatch(handleReadForm([sessionByIdResponse.data.data]));
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+            // dispatch(updateDataWithId(id));
         }
     }, []);
 
@@ -242,13 +266,6 @@ const AddForm = () => {
 
                                     {
                                         getFormContent()
-                                    }
-
-                                    {
-                                        response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
-                                    }
-                                    {
-                                        response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
                                     }
 
                                 </div>

@@ -8,6 +8,7 @@ const AddFormStyle = Styled.div`
     .wpwax-vm-add-form{
         position: relative;
         width: 420px;
+        height: 750px;
         border-radius: 14px;
         z-index: 10;
         background-color: #fff;
@@ -110,7 +111,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-add-form__content{
-        padding: 15px 30px 25px;
+        padding: 15px 30px 45px;
         height: 580px;
         overflow-y: scroll;
         @media only screen and (max-width: 1024px) {

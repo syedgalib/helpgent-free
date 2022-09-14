@@ -16,6 +16,7 @@ const RecorderWrap = Styled.div`
         margin-bottom: 26px;
     }
     &.wpwax-vm-record-staging{
+        padding: 80px 25px;
         .wpwax-vm-timer{
             span{
                 font-size: 50px;

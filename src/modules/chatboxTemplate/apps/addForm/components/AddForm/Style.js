@@ -11,6 +11,21 @@ const AddFormStyle = Styled.div`
         border-radius: 14px;
         z-index: 10;
         background-color: #fff;
+        @media only screen and (max-width: 1199px) {
+            width: 380px;
+        }
+        @media only screen and (max-width: 1024px) {
+            width: 320px;
+        }
+        @media only screen and (max-width: 760px) {
+            width: 420px;
+        }
+        @media only screen and (max-width: 479px) {
+            width: 380px;
+        }
+        @media only screen and (max-width: 375px) {
+            width: 340px;
+        }
         .wpwax-vm-loading-spin{
             position: absolute;
             left: 50%;
@@ -62,6 +77,12 @@ const AddFormStyle = Styled.div`
         padding: 20px;
         border-radius: 14px 14px 0 0;
         background-color: #e2e2e2;
+        @media only screen and (max-width: 991px) {
+            text-align: center;
+        }
+        @media only screen and (max-width: 960px) {
+            text-align: left;
+        }
         .wpwax-vm-add-form__top--btn{
             display: inline-flex;
             align-items: center;
@@ -92,6 +113,9 @@ const AddFormStyle = Styled.div`
         padding: 15px 30px 25px;
         height: 580px;
         overflow-y: scroll;
+        @media only screen and (max-width: 1024px) {
+            padding: 15px 15px 25px;
+        }
         &::-webkit-scrollbar{
             width: 8px;
         }
@@ -298,6 +322,12 @@ const AddFormStyle = Styled.div`
         padding-top: 80px;
         margin-left: -70px;
         z-index: 0;
+        @media only screen and (max-width: 1299px) {
+            margin-left: 0px;
+        }
+        @media only screen and (max-width: 760px) {
+            display: none;
+        }
         .wpwax-vm-preview-label{
             font-size: 14px;
             font-weight: 500;

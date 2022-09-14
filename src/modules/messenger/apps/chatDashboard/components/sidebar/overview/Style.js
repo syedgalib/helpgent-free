@@ -121,6 +121,7 @@ const AddTagWrap = Styled.div`
                 top: -3px;
                 line-height: 1.15;
                 margin-left: 5px;
+                color: var(--color-dark);
             }
         }
         .wpwax-vm-empty{

@@ -181,6 +181,8 @@ const FormSettings = () => {
         frame.open();
     }
 
+    console.log(grettingImage)
+
     return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">

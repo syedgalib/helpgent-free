@@ -432,7 +432,7 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 1.333;
-    margin: 0 0 30px;
+    margin: 38px 0 30px;
     color: var(--color-dark);
 }
 
@@ -482,6 +482,11 @@
 
 .wpwax-vm-p-20 {
     padding: 20px;
+    box-sizing: border-box;
+}
+
+.wpwax-vm-p-25 {
+    padding: 25px;
     box-sizing: border-box;
 }
 

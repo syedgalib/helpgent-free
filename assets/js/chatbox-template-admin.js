@@ -7956,9 +7956,9 @@ var AddForm = function AddForm() {
     }
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.AddFormStyle, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: loading ? "wpwax-vm-add-form wpwax-vm-loder-active" : "wpwax-vm-add-form",
-      children: [loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
+      children: loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
         className: "wpwax-vm-loading-spin",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
@@ -7969,7 +7969,7 @@ var AddForm = function AddForm() {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
         })]
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("form", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("form", {
         action: "",
         onSubmit: handleAddTemplate,
         children: state.fetchStatus ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {
@@ -8021,7 +8021,7 @@ var AddForm = function AddForm() {
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           children: "Sorry !! Server Error. Please Try Again."
         })
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
       className: "wpwax-vm-preview",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("span", {
@@ -9571,15 +9571,11 @@ var PreviewTwo = function PreviewTwo(_ref) {
     }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-preview-thank",
       style: {
-        backgroundColor: formOption.thank_page_cta_background
+        backgroundColor: formOption.thank_page_background_color
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-preview-thank__content",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
-          style: {
-            color: formOption.thank_page_cta_font_color,
-            fontSize: "".concat(formOption.thank_page_cta_title_font_size)
-          },
           children: formOption.thank_page_title
         }), formOption.show_thank_page_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           children: formOption.thank_page_description
@@ -9588,12 +9584,6 @@ var PreviewTwo = function PreviewTwo(_ref) {
         className: "wpwax-vm-preview-thank__botttom",
         children: formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
           className: "wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block",
-          style: {
-            borderRadius: "".concat(formOption.thank_page_cta_button_radius, "px"),
-            backgroundColor: formOption.thank_page_cta_button_text_color,
-            borderColor: formOption.thank_page_cta_button_text_color,
-            color: formOption.thank_page_cta_font_color
-          },
           children: formOption.thank_page_cta_button_text
         }) : ''
       })]
@@ -10515,28 +10505,36 @@ var FormReducer = function FormReducer() {
       });
 
     case FORM_READ_BEGIN:
-      return _objectSpread({}, state);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: true
+      });
 
     case FORM_READ_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
         data: data
       });
 
     case FORM_READ_ERR:
       return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
         error: err
       });
 
     case FORM_UPDATE_BEGIN:
-      return _objectSpread({}, state);
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: true
+      });
 
     case FORM_UPDATE_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
         data: data
       });
 
     case FORM_UPDATE_ERR:
       return _objectSpread(_objectSpread({}, state), {}, {
+        loading: false,
         error: err
       });
 

@@ -167,7 +167,7 @@ function Theme_2() {
 
                     { templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>{templateOptions.footer_message}</p> }
                     
-                    <p style={ { color: templateStyles.primaryColor } } className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
+                    <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>
             </div>
         </ChatboxForm>

@@ -93,6 +93,7 @@ function Theme_1() {
         greetVideo.current.pause();
         dispatch( changeChatScreen(type) );
     }
+
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">
@@ -162,7 +163,7 @@ function Theme_1() {
 
                     {  templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>{templateOptions.footer_message}</p> }
                     
-                    <p className="wpwax-vm-chatbox-footer__bottom" style={ { color: templateStyles.primaryColor } } >Powered by <a href="#">WpWax</a></p>
+                    <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>
             </div>
         </ChatboxForm>

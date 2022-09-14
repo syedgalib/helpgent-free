@@ -229,6 +229,7 @@ const AddFormStyle = Styled.div`
                     color: #4D4D4D;
                 }
                 .wpwax-vm-checkbox{
+                    align-items: center;
                     label{
                         width: 100%;
                         padding: 10px 12px 7px;

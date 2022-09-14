@@ -69,12 +69,14 @@ const GeneralSettings = () => {
         );
     };
 
-    const customPages = []
-
+    const customPages = [];
+    wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+        customPages.push({ value: `${item.id}`, label: `${item.title}` })
+    });
     useEffect(() => {
-        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-            customPages.push({ value: `${item.id}`, label: `${item.title}` })
-        });
+        // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+        //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
+        // });
     }, [diplayAllPage]);
 
     console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);

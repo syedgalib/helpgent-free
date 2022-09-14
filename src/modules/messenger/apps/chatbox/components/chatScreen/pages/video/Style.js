@@ -76,7 +76,6 @@ const VideoRecordWrap = Styled.div`
     &.wpwax-vm-record-staging{
         height: 100%;
         z-index: 101;
-        padding: 0;
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
         &:after,
         &:before{
@@ -168,7 +167,7 @@ const VideoRecordWrap = Styled.div`
         }
     }
     &.wpwax-vm-record-ready{
-        padding: 25px;
+        padding: 80px 25px;
         .wpwax-vm-form{
             position: relative;
             display: flex;
@@ -228,6 +227,10 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-form-bottom{
+            p{
+                font-size: 20px;
+                font-weight: 600;
+            }
             .wpwax-vm-btn{
                 svg{
                     position: relative;

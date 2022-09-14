@@ -11,6 +11,17 @@ const ScreenWrapper = Styled.div`
     background-color: var(--color-white);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
+    .wpwax-vm-chatbox-text{
+        .wpwax-vm-chatbox-text-form-inner{
+            min-height: 580px;
+            .wpwax-vm-form-group textarea.wpwax-vm-form__element{
+                min-height: 400px;
+            }
+        }
+    }
+    .wpwax-vm-chatbox-contact{
+        min-height: 580px;
+    }
     .wpwax-vm-chatbox-container{
         height: 100%;
         position: relative;

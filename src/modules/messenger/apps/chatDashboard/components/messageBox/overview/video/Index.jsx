@@ -17,18 +17,92 @@ const Video = ({ sessionID, onSuccess }) => {
 
     const [currentStage, setCurrentStage] = useState(stages.HOME);
 
+    const [permissionDenied, setPermissionDenied] = useState(null);
+
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
-    function updateStage(event, stage) {
+    const updateStage = (event, stage) => {
         event.preventDefault();
 
         setCurrentStage(stage);
-    }
+    };
+
+    const handleRecord = async (event) => {
+        event.preventDefault();
+
+        const can_record_video = await canRecordVideo();
+
+        if (!can_record_video) {
+            return;
+        }
+
+        setCurrentStage(stages.RECORD);
+    };
+
+    // canRecordVideo
+    const canRecordVideo = async function () {
+        const needPermission = await checkIfNeedPermission();
+
+        if (needPermission) {
+            const hasPermission = await requestPermission();
+
+            if (!hasPermission) {
+                alert(
+                    'Please grant the requested permission to record the video'
+                );
+                return false;
+            }
+
+            return true;
+        }
+
+        return true;
+    };
+
+    // checkIfNeedPermission
+    const checkIfNeedPermission = async function () {
+        try {
+            const microphonePermission = await navigator.permissions.query({
+                name: 'microphone',
+            });
+
+            const cameraPermission = await navigator.permissions.query({
+                name: 'camera',
+            });
+
+            return (
+                microphonePermission.state !== 'granted' ||
+                cameraPermission.state !== 'granted'
+            );
+        } catch (_) {
+            return true;
+        }
+    };
+
+    // requestPermission
+    const requestPermission = async function () {
+        try {
+            await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    sampleRate: 44100,
+                },
+                video: { facingMode: 'user' },
+            });
+
+            return true;
+        } catch (error) {
+            console.log({ error });
+
+            return false;
+        }
+    };
 
     /* Handle Close */
-    const handleClose = (e) => {
-        e.preventDefault();
+    const handleClose = (event) => {
+        event.preventDefault();
         dispatch(handleReplyModeChange(false));
     };
 
@@ -53,7 +127,7 @@ const Video = ({ sessionID, onSuccess }) => {
                     <a
                         href='#'
                         className='wpwax-vm-video-home__action--btn'
-                        onClick={(e) => updateStage(e, stages.RECORD)}
+                        onClick={handleRecord}
                     >
                         <div className='wpwax-vm-video-home__action--icon'>
                             <ReactSVG src={videoCamera} />
@@ -80,16 +154,16 @@ const Video = ({ sessionID, onSuccess }) => {
     } else if (currentStage === stages.RECORD) {
         return (
             <Record
-                backToHome={backToHome}
                 sessionID={sessionID}
+                backToHome={backToHome}
                 onSuccess={onSuccess}
             />
         );
     } else if (currentStage === stages.UPLOAD) {
         return (
             <Upload
-                backToHome={backToHome}
                 sessionID={sessionID}
+                backToHome={backToHome}
                 onSuccess={onSuccess}
             />
         );

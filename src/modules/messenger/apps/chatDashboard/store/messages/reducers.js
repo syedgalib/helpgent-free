@@ -1,9 +1,9 @@
 import actions from './actions';
 
 const initialState = {
-    paginationPerPage: 5,
+    paginationPerPage: 20,
     selectedSession: null,
-    loadedSessions: {},
+    allSessions: {},
     isLoadingSession: false,
     messageType: 'video',
     videoStage: 'home',
@@ -14,7 +14,8 @@ const initialState = {
 
 const {
     UPDATE_SELECTED_SESSION,
-    APPEND_TO_LOADED_SESSION,
+    ADD_SESSION,
+    UPDATE_SESSION_MESSAGES,
 
     REPLY_MODE_UPDATE_BEGIN,
     REPLY_MODE_UPDATE_SUCCESS,
@@ -37,7 +38,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 selectedSession: data,
             };
-        case APPEND_TO_LOADED_SESSION:
+        case ADD_SESSION:
 
             if ( !data.sessionID ) {
                 return state;
@@ -47,13 +48,31 @@ const Reducer = (state = initialState, action) => {
                 return state;
             }
 
-            if ( Object.keys( state.loadedSessions ).includes( data.sessionID ) ){
+            if ( Object.keys( state.allSessions ).includes( data.sessionID ) ){
                 return state;
             }
 
             return {
                 ...state,
-                loadedSessions: { ...state.loadedSessions, [data.sessionID]: data.session },
+                allSessions: { ...state.allSessions, [data.sessionID]: data.session },
+            };
+        case UPDATE_SESSION_MESSAGES:
+
+            if ( !data.sessionID ) {
+                return state;
+            }
+
+            if ( ! data.sessionMessages) {
+                return state;
+            }
+
+            if ( ! Object.keys( state.allSessions ).includes( data.sessionID ) ){
+                return state;
+            }
+
+            return {
+                ...state,
+                allSessions: { ...state.allSessions, [data.sessionID]: data.sessionMessages },
             };
         case REPLY_MODE_UPDATE_BEGIN:
             return {

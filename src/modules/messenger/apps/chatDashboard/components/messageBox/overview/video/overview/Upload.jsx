@@ -17,14 +17,7 @@ const metaList = [
         text: 'sample@gmail.com',
     },
 ];
-const Upload = ({ backToHome, sessionID, onSuccess }) => {
-    // Store Data
-    const { attachmentForm } = useSelector((state) => {
-        return {
-            attachmentForm: state.attachmentForm,
-        };
-    });
-
+const Upload = ({ sessionID, backToHome, onSuccess }) => {
     // Local Data
     const [textMessage, setTextMessage] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);

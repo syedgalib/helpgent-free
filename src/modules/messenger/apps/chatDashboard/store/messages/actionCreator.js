@@ -2,7 +2,8 @@ import actions from './actions';
 
 const {
     updateSelectedSession,
-    appendToLoadedSession,
+    addSession,
+    updateSessionMessages,
     replyModeUpdateBegin,
     replyModeUpdateSuccess,
     replyModeUpdateError,
@@ -51,7 +52,8 @@ const handleMessageStageChange = (stage) => {
 
 export {
     updateSelectedSession,
-    appendToLoadedSession,
+    addSession,
+    updateSessionMessages,
     handleReplyModeChange,
     handleMessageTypeChange,
     handleMessageStageChange,

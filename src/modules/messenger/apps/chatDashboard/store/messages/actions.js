@@ -1,6 +1,7 @@
 const actions = {
     UPDATE_SELECTED_SESSION: 'UPDATE_SELECTED_SESSION',
-    APPEND_TO_LOADED_SESSION: 'APPEND_TO_LOADED_SESSION',
+    ADD_SESSION: 'ADD_SESSION',
+    UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
 
     REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
     REPLY_MODE_UPDATE_SUCCESS: 'REPLY_MODE_UPDATE_SUCCESS',
@@ -21,10 +22,17 @@ const actions = {
       };
     },
 
-    appendToLoadedSession: ( sessionID, session ) => {
+    addSession: ( sessionID, session ) => {
       return {
-        type: actions.APPEND_TO_LOADED_SESSION,
+        type: actions.ADD_SESSION,
         data: { sessionID, session },
+      };
+    },
+
+    updateSessionMessages: ( sessionID, sessionMessages ) => {
+      return {
+        type: actions.UPDATE_SESSION_MESSAGES,
+        data: { sessionID, sessionMessages },
       };
     },
 

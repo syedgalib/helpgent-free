@@ -11,11 +11,13 @@ import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
-    appendToLoadedSession,
+    addSession,
+    updateSessionMessages,
 } from '../../store/messages/actionCreator';
 
 import http from 'Helper/http.js';
@@ -41,6 +43,7 @@ function MessageBox() {
     const [sessionMessages, setSessionMessages] = useState(null);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
 
+    const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
     const [isLoadingSession, setIsLoadingSession] = useState(false);
 
     const [isSendingTextMessage, setIsSendingTextMessage] = useState(false);
@@ -59,14 +62,14 @@ function MessageBox() {
     const {
         paginationPerPage,
         selectedSession,
-        loadedSessions,
+        allSessions,
         replyMode,
         messageType,
     } = useSelector((state) => {
         return {
             paginationPerPage: state.messages.paginationPerPage,
             selectedSession: state.messages.selectedSession,
-            loadedSessions: state.messages.loadedSessions,
+            allSessions: state.messages.allSessions,
             replyMode: state.messages.replyMode,
             messageType: state.messages.messageType,
         };
@@ -86,8 +89,22 @@ function MessageBox() {
             const session_id = selectedSession.session_id;
 
             // Load session data from store if available
-            if (Object.keys(loadedSessions).includes(session_id)) {
-                setSessionMessages(loadedSessions[session_id]);
+            if (Object.keys(allSessions).includes(session_id)) {
+                setSessionMessages(allSessions[session_id]);
+
+                let latest_message_date = latestMessageDate;
+
+                if (allSessions[session_id].length) {
+                    const sessionMessageItems = allSessions[session_id];
+                    const latestSessionItem =
+                        sessionMessageItems[sessionMessageItems.length - 1];
+
+                    latest_message_date = latestSessionItem.created_on;
+
+                    setLatestMessageDate(latest_message_date);
+                }
+
+                // loadLatestMessages(latest_message_date);
                 return;
             }
 
@@ -111,12 +128,10 @@ function MessageBox() {
                     }
 
                     // Reverse The Order
-                    const sessionMessages = response.data.data.reverse();
+                    const sessionMessages = response.data.data;
 
                     // Update The Store
-                    dispatch(
-                        appendToLoadedSession(session_id, sessionMessages)
-                    );
+                    dispatch(addSession(session_id, sessionMessages));
 
                     setSessionMessages(sessionMessages);
                     setIsLoadingSession(false);
@@ -287,6 +302,10 @@ function MessageBox() {
     async function loadLatestMessages(latest_message_date) {
         let args = { limit: -1 };
 
+        latest_message_date = latest_message_date
+            ? latest_message_date
+            : latestMessageDate;
+
         if (latest_message_date) {
             args.created_on = latest_message_date;
             args.created_on_compare_date_time = '>';
@@ -310,18 +329,31 @@ function MessageBox() {
             return;
         }
 
+        const newLatestMessageDate = responseData[0].created_on;
+
         // Update Latest Message Date
-        setLatestMessageDate(responseData[0].created_on);
+        setLatestMessageDate(newLatestMessageDate);
 
         // Update Latest Message
-        let latestItems = responseData.reverse();
+        let latestItems = responseData;
 
-        const updatedSessionMessages = [...sessionMessages, ...latestItems];
+        const updatedSessionMessages = [...latestItems, ...sessionMessages];
 
         setSessionMessages(updatedSessionMessages);
+
+        dispatch(
+            updateSessionMessages(
+                selectedSession.session_id,
+                updatedSessionMessages
+            )
+        );
     }
 
     const loadOlderMessages = async () => {
+        console.log('loadOlderMessages');
+
+        setIsLoadingMoreMessages(true);
+
         // Get Older Messages
         const paginationMeta = getPaginationMeta();
         const nextPage = paginationMeta.nextPage;
@@ -330,6 +362,8 @@ function MessageBox() {
             page: nextPage,
             limit: paginationPerPage,
         });
+
+        setIsLoadingMoreMessages(false);
 
         // Show Alert on Error
         if (!response.success) {
@@ -342,19 +376,22 @@ function MessageBox() {
         }
 
         // Update Loaded Session
-        let latestItems = response.data.data.data.reverse();
+        let latestItems = response.data.data.data;
 
         if (!latestItems.length) {
             return;
         }
 
-        latestItems = latestItems.splice(paginationMeta.reminder);
+        latestItems = latestItems.splice(
+            0,
+            latestItems.length - paginationMeta.reminder
+        );
 
         if (!latestItems.length) {
             return;
         }
 
-        const updatedSessionMessages = [...latestItems, ...sessionMessages];
+        const updatedSessionMessages = [...sessionMessages, ...latestItems];
 
         setSessionMessages(updatedSessionMessages);
     };
@@ -568,19 +605,6 @@ function MessageBox() {
                                                     </span>
                                                 </a>
                                             </div>
-                                            <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-record'>
-                                                <a
-                                                    href='#'
-                                                    className='wpwax-vm-messagebox-header__action--link'
-                                                >
-                                                    <ReactSVG
-                                                        src={screenRecord}
-                                                    />
-                                                    <span className='wpwax-vm-messagebox-header__action--text'>
-                                                        Screen Records
-                                                    </span>
-                                                </a>
-                                            </div>
                                             <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice'>
                                                 <a
                                                     href='#'
@@ -599,16 +623,72 @@ function MessageBox() {
                                     </div>
                                 </div>
 
-                                <div className='wpwax-vm-messagebox-body'>
-                                    {sessionMessages.map((message, index) => {
-                                        return (
-                                            <Message
-                                                data={message}
-                                                key={index}
-                                                currentUser={current_user}
-                                            />
-                                        );
-                                    })}
+                                <div
+                                    id='scrollableDiv'
+                                    className='wpwax-vm-messagebox-body'
+                                    style={{
+                                        overflow: 'auto',
+                                        display: 'flex',
+                                        flexDirection: 'column-reverse',
+                                    }}
+                                >
+                                    <InfiniteScroll
+                                        dataLength={sessionMessages.length}
+                                        next={() => {
+                                            loadOlderMessages();
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column-reverse',
+                                        }}
+                                        inverse={true} //
+                                        hasMore={true}
+                                        loader={
+                                            isLoadingMoreMessages ? (
+                                                <h3
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    Loading...
+                                                </h3>
+                                            ) : (
+                                                ''
+                                            )
+                                        }
+                                        refreshFunction={() => {
+                                            loadOlderMessages();
+                                        }}
+                                        pullDownToRefresh
+                                        pullDownToRefreshThreshold={2}
+                                        pullDownToRefreshContent={
+                                            <h3 style={{ textAlign: 'center' }}>
+                                                &#8595; Pull down to load older
+                                                messages
+                                            </h3>
+                                        }
+                                        releaseToRefreshContent={
+                                            <h3 style={{ textAlign: 'center' }}>
+                                                &#8593; Release to load older
+                                                messages
+                                            </h3>
+                                        }
+                                        scrollableTarget='scrollableDiv'
+                                    >
+                                        {sessionMessages.map(
+                                            (message, index) => {
+                                                return (
+                                                    <Message
+                                                        data={message}
+                                                        key={index}
+                                                        currentUser={
+                                                            current_user
+                                                        }
+                                                    />
+                                                );
+                                            }
+                                        )}
+                                    </InfiniteScroll>
                                 </div>
                                 {handleFooterContent()}
                             </MessageBoxWrap>

@@ -1,35 +1,35 @@
 import { ReactSVG } from 'react-svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
-const UserAvaterList = ({ users }) => {
+const UserAvaterList = ({ users, maxVisibleUsers }) => {
     const userList = Array.isArray(users) ? users : [];
 
     if (!userList.length) {
         return '';
     }
 
-    const maxVisibleUsers = 2;
+    const max_visible_users = maxVisibleUsers ? maxVisibleUsers : 2;
 
     let title = userList
-        .slice(0, maxVisibleUsers)
+        .slice(0, max_visible_users)
         .map((user) => user.name)
         .join(', ');
 
-    if (userList.length > maxVisibleUsers) {
+    if (userList.length > max_visible_users) {
         title = title + ' and more';
     }
 
     return (
         <div className='wpwax-vm-media'>
             <div className='wpax-vm-imglist'>
-                {userList.slice(0, maxVisibleUsers).map((user, index) => {
+                {userList.slice(0, max_visible_users).map((user, index) => {
                     if (user.avater) {
                         return <img src={user.avater} alt='' key={index} />;
                     } else {
                         return <img src={userImg} alt='' key={index} />;
                     }
                 })}
-                {userList.length > maxVisibleUsers ? (
+                {userList.length > max_visible_users ? (
                     <div className='wpwax-vm-more-img'>
                         <ReactSVG src={userIcon} />
                     </div>

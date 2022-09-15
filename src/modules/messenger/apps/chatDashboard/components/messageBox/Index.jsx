@@ -153,6 +153,16 @@ function MessageBox() {
         return sessionUsers;
     }
 
+    function getReplaingToUsers() {
+        let user = {
+            name: 'Admin',
+            email: 'admin@email.com',
+            avater: '',
+        };
+
+        return [user];
+    }
+
     const { openSearch } = state;
 
     /* Handle Search Toggle */
@@ -205,6 +215,7 @@ function MessageBox() {
                 <Video
                     sessionID={selectedSession.session_id}
                     onSuccess={loadLatestMessages}
+                    replayingTo={getReplaingToUsers}
                 />
             );
         }
@@ -350,8 +361,6 @@ function MessageBox() {
     }
 
     const loadOlderMessages = async () => {
-        console.log('loadOlderMessages');
-
         setIsLoadingMoreMessages(true);
 
         // Get Older Messages

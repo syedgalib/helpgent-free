@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useDispatch } from 'react-redux';
-import MediaBox from 'Components/MediaBox.jsx';
+import UserAvaterList from 'Components/UserAvaterList.jsx';
 import { VideoReplyWrap } from '../Style';
-import userImg from 'Assets/img/chatdashboard/user.png';
 import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import { handleReplyModeChange } from '../../../../../store/messages/actionCreator';
@@ -13,14 +12,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
 
-const metaList = [
-    {
-        type: 'email',
-        text: 'sample@gmail.com',
-    },
-];
-
-const Record = ({ sessionID, backToHome, onSuccess }) => {
+const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
         SUBMIT: 'submit',
         RECORD: 'record',
@@ -327,11 +319,8 @@ const Record = ({ sessionID, backToHome, onSuccess }) => {
                 </div>
 
                 <div className='wpwax-vm-reply-ready__content'>
-                    <MediaBox
-                        img={userImg}
-                        title={'Replying to Adnan…'}
-                        metaList={metaList}
-                    />
+                    {replayingTo && <UserAvaterList users={replayingTo} />}
+
                     <div className='wpwax-vm-reply-ready__text-form'>
                         <form action=''>
                             <div className='wpwax-vm-reply-ready__text-form-input'>

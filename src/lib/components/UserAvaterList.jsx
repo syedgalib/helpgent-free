@@ -15,8 +15,14 @@ const UserAvaterList = ({ users, maxVisibleUsers }) => {
         .map((user) => user.name)
         .join(', ');
 
+    let subtitle = userList
+        .slice(0, max_visible_users)
+        .map((user) => user.email)
+        .join(', ');
+
     if (userList.length > max_visible_users) {
         title = title + ' and more';
+        subtitle = subtitle + ' and more';
     }
 
     return (
@@ -38,6 +44,14 @@ const UserAvaterList = ({ users, maxVisibleUsers }) => {
 
             <div className='wpwax-vm-media__body'>
                 <h5 className='wpwax-vm-media__title'>{title}</h5>
+
+                {subtitle && (
+                    <span className='wpwax-vm-media__meta'>
+                        <span className='wpwax-vm-media__meta--email'>
+                            {subtitle}
+                        </span>
+                    </span>
+                )}
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import Record from './overview/Record.jsx';
 import Upload from './overview/Upload.jsx';
@@ -8,7 +8,7 @@ import upload from 'Assets/svg/icons/cloud-upload.svg';
 
 import { handleReplyModeChange } from '../../../../store/messages/actionCreator';
 
-const Video = ({ sessionID, onSuccess }) => {
+const Video = ({ sessionID, onSuccess, replayingTo }) => {
     const stages = {
         HOME: 'home',
         RECORD: 'record',
@@ -16,8 +16,6 @@ const Video = ({ sessionID, onSuccess }) => {
     };
 
     const [currentStage, setCurrentStage] = useState(stages.HOME);
-
-    const [permissionDenied, setPermissionDenied] = useState(null);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -157,6 +155,7 @@ const Video = ({ sessionID, onSuccess }) => {
                 sessionID={sessionID}
                 backToHome={backToHome}
                 onSuccess={onSuccess}
+                replayingTo={replayingTo}
             />
         );
     } else if (currentStage === stages.UPLOAD) {
@@ -165,6 +164,7 @@ const Video = ({ sessionID, onSuccess }) => {
                 sessionID={sessionID}
                 backToHome={backToHome}
                 onSuccess={onSuccess}
+                replayingTo={replayingTo}
             />
         );
     }

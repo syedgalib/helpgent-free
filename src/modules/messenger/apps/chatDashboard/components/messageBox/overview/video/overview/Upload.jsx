@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
-import { useSelector, useDispatch } from 'react-redux';
-import MediaBox from 'Components/MediaBox.jsx';
+import { useDispatch } from 'react-redux';
+import UserAvaterList from 'Components/UserAvaterList.jsx';
 import { VideoReplyWrap } from '../Style';
-import userImg from 'Assets/img/chatdashboard/user.png';
 import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import { handleReplyModeChange } from '../../../../../store/messages/actionCreator';
@@ -11,13 +10,7 @@ import { handleReplyModeChange } from '../../../../../store/messages/actionCreat
 import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
 
-const metaList = [
-    {
-        type: 'email',
-        text: 'sample@gmail.com',
-    },
-];
-const Upload = ({ sessionID, backToHome, onSuccess }) => {
+const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     // Local Data
     const [textMessage, setTextMessage] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
@@ -223,11 +216,7 @@ const Upload = ({ sessionID, backToHome, onSuccess }) => {
             </div>
 
             <div className='wpwax-vm-reply-ready__content'>
-                <MediaBox
-                    img={userImg}
-                    title={'Replying to Adnan…'}
-                    metaList={metaList}
-                />
+                {replayingTo && <UserAvaterList users={replayingTo} />}
                 <div className='wpwax-vm-reply-ready__text-form'>
                     <form action=''>
                         <div className='wpwax-vm-reply-ready__file-input'>

@@ -4,6 +4,7 @@ import { ReactSVG } from 'react-svg';
 import MediaBox from "Components/MediaBox.jsx";
 import Message from "./overview/Message.jsx";
 import Video from "./overview/video/Index.jsx";
+import Voice from "./overview/voice/Index.jsx";
 import userImg from "Assets/img/chatdashboard/user.png";
 import search from "Assets/svg/icons/magnifier.svg";
 import videoPlay from "Assets/svg/icons/video-play.svg";
@@ -72,6 +73,7 @@ function MessageBox() {
 
 	/* initialize Form Data */
 	const { replyMode, messageType } = useSelector(state => {
+		console.log(state);
 		return {
 			replyMode: state.messages.replyMode,
 			messageType: state.messages.messageType,
@@ -116,7 +118,7 @@ function MessageBox() {
 	const handleVoiceMessage = (event) => {
 		event.preventDefault();
 		dispatch(handleMessageTypeChange("voice"));
-		dispatch(handleReplyModeChange(false));
+		// dispatch(handleReplyModeChange(false));
 	}
 
 	/* Handle Reply Mode */
@@ -124,6 +126,11 @@ function MessageBox() {
 		if (messageType === "video") {
 			return (
 				<Video />
+			)
+		}else if(messageType === "voice"){
+			return (
+				// <Voice ?>
+				<Voice />
 			)
 		}
 	}
@@ -169,10 +176,6 @@ function MessageBox() {
 							<div className="wpwax-vm-btn-icon"><ReactSVG src={videoPlay} /></div>
 							<span className="wpwax-vm-btn-text">Video</span>
 						</a>
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray">
-							<div className="wpwax-vm-btn-icon"><ReactSVG src={screenRecord} /></div>
-							<span className="wpwax-vm-btn-text">Screen Record</span>
-						</a>
 						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleVoiceMessage}>
 							<div className="wpwax-vm-btn-icon"><ReactSVG src={mice} /></div>
 							<span className="wpwax-vm-btn-text">Voice</span>
@@ -212,9 +215,6 @@ function MessageBox() {
 							</div>
 							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video">
 								<a href="#" className="wpwax-vm-messagebox-header__action--link" onClick={handleVideoMessage}><ReactSVG src={videoPlay} /><span className="wpwax-vm-messagebox-header__action--text">Videos</span></a>
-							</div>
-							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-record">
-								<a href="#" className="wpwax-vm-messagebox-header__action--link"><ReactSVG src={screenRecord} /><span className="wpwax-vm-messagebox-header__action--text">Screen Records</span></a>
 							</div>
 							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice">
 								<a href="#" className="wpwax-vm-messagebox-header__action--link" onClick={handleVoiceMessage}><ReactSVG src={mice} /><span className="wpwax-vm-messagebox-header__action--text">Voice</span></a>

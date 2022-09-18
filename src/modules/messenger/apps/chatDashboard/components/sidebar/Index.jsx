@@ -358,7 +358,7 @@ function Sidebar() {
 											return (
 												<li className="wpwax-vm-usermedia" key={index}>
 													<div className="wpwax-vm-usermedia__left">
-														<MediaBox img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
+														<MediaBox chatingMedia={true} lastMessage={item.lastMessage} img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
 													</div>
 													<div className="wpwax-vm-usermedia__right">
 														<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>

@@ -289,6 +289,58 @@ class Sessions extends Rest_Base {
 
         }, $session_data );
 
+		// Add Additional Session Data
+		foreach( $session_data as $session_key => $session ) {
+			// First Message Data
+			$first_message_query_args = [
+				'where' => [
+					'session_id' => $session['session_id'],
+				],
+				'order_by' => 'oldest',
+				'limit'    => 1,
+			];
+
+			$first_message = Message_Model::get_items( $first_message_query_args );
+			$first_message = ( ! empty( $first_message ) ) ? $first_message[0] : null;
+
+			$user_ids = [];
+
+			if ( ! empty( $first_message ) ) {
+				$user_ids[] = $first_message['user_id'];
+			}
+
+			// Last Message Data
+			$last_message_query_args = $first_message_query_args;
+			$last_message_query_args['order_by'] = 'latest';
+
+			$last_message = Message_Model::get_items( $last_message_query_args );
+			$last_message = ( ! empty( $last_message ) ) ? $last_message[0] : null;
+
+			if ( ! empty( $last_message ) ) {
+				$user_ids[] = $last_message['user_id'];
+			}
+
+			$message_users = Helper\get_users_data_by_ids( $user_ids );
+
+			$first_message_data = [
+				'user'       => ( ! empty( $message_users ) ) ? $message_users[0] : null,
+				'message_id' => ( ! empty( $first_message ) ) ? $first_message['message_id'] : null,
+				'created_on' => ( ! empty( $first_message ) ) ? $first_message['created_on'] : null,
+				'updated_on' => ( ! empty( $first_message ) ) ? $first_message['updated_on'] : null,
+			];
+
+			$last_message_data = [
+				'user'       => ( count( $message_users ) > 1 ) ? $message_users[1] : null,
+				'message_id' => ( ! empty( $last_message ) ) ? $last_message['message_id'] : null,
+				'created_on' => ( ! empty( $last_message ) ) ? $last_message['created_on'] : null,
+				'updated_on' => ( ! empty( $last_message ) ) ? $last_message['updated_on'] : null,
+			];
+
+			$session_data[ $session_key ]['first_message'] = $first_message_data;
+			$session_data[ $session_key ]['last_message']  = $last_message_data;
+
+		}
+
 		if ( $send_rest_response ) {
 			return $this->response( true, $session_data );
 		}

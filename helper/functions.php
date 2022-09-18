@@ -723,26 +723,39 @@ function delete_options( $option_keys = [] ) {
 }
 
 
-function get_current_user() {
+/**
+ * Get Admin User
+ *
+ * @return array|null
+ */
+function get_admin_user() {
+	$admin_email = get_option( 'admin_email', '' );
+
+	if ( ! is_email( $admin_email ) ) {
+		return null;
+	}
+
+	$admin_user = get_user_by( 'email', $admin_email );
+
+	if ( is_wp_error( $admin_user ) ) {
+		return [];
+	}
+
+	return prepare_user_data( $admin_user );
+}
+
+function get_current_user( $return_wp_user = false ) {
 	$current_user = get_user_by( 'id', get_current_user_id() );
 
 	if ( is_wp_error( $current_user ) ) {
 		return [];
 	}
 
-	$user = json_decode( json_encode( $current_user->data ), true );
-
-	if ( isset( $user['user_pass'] ) ) {
-		unset( $user['user_pass'] );
+	if ( $return_wp_user ) {
+		return $current_user;
 	}
 
-	if ( isset( $user['user_activation_key'] ) ) {
-		unset( $user['user_activation_key'] );
-	}
-
-	$user['roles'] = $current_user->roles;
-
-	return $user;
+	return prepare_user_data( $current_user );
 }
 
 function get_mime_types( $filter_type = '', $return_type = '' ) {
@@ -924,4 +937,30 @@ function prepare_user_data( $user, $fields = [] ) {
 	}
 
 	return $user_info;
+}
+
+/**
+ * Check if user is admin
+ *
+ * @param WP_User $user
+ * @return bool
+ */
+function is_user_admin( $user ) {
+	$accepted_roles = get_admin_roles();
+
+	$accepted_roles_check = array_unique( array_map( function( $rule ) use( $accepted_roles ) {
+		return in_array( $rule, $accepted_roles ) ? 1 : 0;
+	}, $user->roles ) );
+
+	return in_array( 1, $accepted_roles_check ) ? true : false;
+}
+
+
+/**
+ * Get Accepted Admin Roles
+ *
+ * @return array
+ */
+function get_admin_roles() {
+	return apply_filters( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', [ 'administrator' ] );
 }

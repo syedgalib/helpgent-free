@@ -134,6 +134,7 @@ const VideoReplyWrap = Styled.div`
         top: 80px;
         bottom: 0;
         width: 100%;
+		background-color: #000000;
         @media only screen and (max-width: 767px){
             flex-direction: column;
         }

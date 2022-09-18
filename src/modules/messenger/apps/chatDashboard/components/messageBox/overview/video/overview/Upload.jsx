@@ -216,7 +216,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
             </div>
 
             <div className='wpwax-vm-reply-ready__content'>
-                {replayingTo && <UserAvaterList users={replayingTo} />}
+                {replayingTo && <UserAvaterList users={[replayingTo]} />}
                 <div className='wpwax-vm-reply-ready__text-form'>
                     <form action=''>
                         <div className='wpwax-vm-reply-ready__file-input'>

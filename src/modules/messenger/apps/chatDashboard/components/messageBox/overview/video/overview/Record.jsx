@@ -319,7 +319,11 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                 </div>
 
                 <div className='wpwax-vm-reply-ready__content'>
-                    {replayingTo && <UserAvaterList users={replayingTo} />}
+                    {replayingTo && (
+                        <div className=''>
+                            <UserAvaterList users={[replayingTo]} />
+                        </div>
+                    )}
 
                     <div className='wpwax-vm-reply-ready__text-form'>
                         <form action=''>

@@ -213,16 +213,10 @@ abstract class Base extends WP_REST_Controller {
 	 * Check if user is admin
 	 *
 	 * @param WP_User $user
-	 *
+	 * @return bool
 	 */
 	protected function is_user_admin( $user ) {
-		$accepted_roles = apply_filters( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', [ 'administrator' ] );
-
-		$accepted_roles_check = array_unique( array_map( function( $rule ) use( $accepted_roles ) {
-			return in_array( $rule, $accepted_roles ) ? 1 : 0;
-		}, $user->roles ) );
-
-		return in_array( 1, $accepted_roles_check );
+		return Helper\is_user_admin( $user );
 	}
 
     /**

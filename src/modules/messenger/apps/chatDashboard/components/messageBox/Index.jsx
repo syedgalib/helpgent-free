@@ -153,14 +153,38 @@ function MessageBox() {
         return sessionUsers;
     }
 
-    function getReplaingToUsers() {
-        let user = {
-            name: 'Admin',
-            email: 'admin@email.com',
-            avater: '',
-        };
+    function getReplaingToUser() {
+        const scriptData = wpWaxCustomerSupportApp_CoreScriptData;
+        const is_user_admin = scriptData.is_user_admin;
+        const admin_user = scriptData.admin_user
+            ? scriptData.admin_user
+            : {
+                  name: 'Admin',
+                  email: '',
+                  avater: '',
+              };
 
-        return [user];
+        let replayingTo = admin_user;
+
+        if (is_user_admin) {
+            replayingTo =
+                selectedSession.first_message &&
+                selectedSession.first_message.user
+                    ? selectedSession.first_message.user
+                    : null;
+        }
+
+        if (!replayingTo) {
+            replayingTo = {
+                name: 'Unknown User',
+                email: '',
+                avater: '',
+            };
+        }
+
+        replayingTo.name = 'Replaying to ' + replayingTo.name;
+
+        return replayingTo;
     }
 
     const { openSearch } = state;
@@ -215,7 +239,7 @@ function MessageBox() {
                 <Video
                     sessionID={selectedSession.session_id}
                     onSuccess={loadLatestMessages}
-                    replayingTo={getReplaingToUsers}
+                    replayingTo={getReplaingToUser()}
                 />
             );
         }

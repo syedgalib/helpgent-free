@@ -290,7 +290,7 @@ function Sidebar() {
 									>
 									{
 										sessionList.map((item, index) => {
-											
+											console.log(item);
 											const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
 											let images = [];
 											let titleString = [];
@@ -358,7 +358,7 @@ function Sidebar() {
 											return (
 												<li className="wpwax-vm-usermedia" key={index}>
 													<div className="wpwax-vm-usermedia__left">
-														<MediaBox chatingMedia={true} lastMessage={item.lastMessage} img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
+														<MediaBox chatingMedia={true} lastMessage={item.last_message} img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
 													</div>
 													<div className="wpwax-vm-usermedia__right">
 														<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>

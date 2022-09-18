@@ -2,6 +2,7 @@ import { ReactSVG } from "react-svg";
 import userImg from "Assets/img/chatdashboard/user.png";
 import userIcon from "Assets/svg/icons/users.svg";
 const MediaBox = ({ chatingMedia, img, lastMessage, multiImg, title, metaList }) => {
+    console.log(img,lastMessage)
     return (
         
         <div className="wpwax-vm-media">
@@ -21,6 +22,10 @@ const MediaBox = ({ chatingMedia, img, lastMessage, multiImg, title, metaList })
                                                 <img src={userImg} alt="" key={index} />
                                             )
                                         }
+                                    }else{
+                                        <div className="wpwax-vm-img-include-replyer">
+                                            <img src={src} alt="" key={index} />
+                                        </div>
                                     }
                                     
                                 })

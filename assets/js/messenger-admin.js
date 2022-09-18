@@ -5538,6 +5538,7 @@ var MediaBox = function MediaBox(_ref) {
       multiImg = _ref.multiImg,
       title = _ref.title,
       metaList = _ref.metaList;
+  console.log(img, lastMessage);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-media",
     children: [chatingMedia ? _typeof(img) === "object" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -5555,6 +5556,15 @@ var MediaBox = function MediaBox(_ref) {
               alt: ""
             }, index);
           }
+        } else {
+          /*#__PURE__*/
+          (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-img-include-replyer",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+              src: src,
+              alt: ""
+            }, index)
+          });
         }
       }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-more-img",
@@ -6428,7 +6438,6 @@ function MessageBox() {
 
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    console.log(state);
     return {
       replyMode: state.messages.replyMode,
       messageType: state.messages.messageType
@@ -8372,6 +8381,7 @@ function Sidebar() {
             })
           }),
           children: sessionList.map(function (item, index) {
+            console.log(item);
             var users = item.users.filter(function (p) {
               return p.id !== parseInt(currentUser.ID);
             });
@@ -8433,7 +8443,7 @@ function Sidebar() {
                 className: "wpwax-vm-usermedia__left",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
                   chatingMedia: true,
-                  lastMessage: item.lastMessage,
+                  lastMessage: item.last_message,
                   img: images,
                   multiImg: multiImg,
                   title: titleString.join(),

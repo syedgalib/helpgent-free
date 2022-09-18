@@ -73,7 +73,6 @@ function MessageBox() {
 
 	/* initialize Form Data */
 	const { replyMode, messageType } = useSelector(state => {
-		console.log(state);
 		return {
 			replyMode: state.messages.replyMode,
 			messageType: state.messages.messageType,

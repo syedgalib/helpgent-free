@@ -812,9 +812,7 @@ function get_users_data_by_ids( $user_ids = [] ) {
 			continue;
 		}
 
-		$user_data_fields = [ 'id', 'email', 'name', 'first_name', 'last_name', 'avater' ];
-
-		array_push( $users, prepare_user_data( $user, $user_data_fields ) );
+		array_push( $users, prepare_user_data( $user ) );
 	}
 
 	return $users;

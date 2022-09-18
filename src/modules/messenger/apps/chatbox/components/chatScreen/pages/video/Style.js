@@ -1,12 +1,19 @@
 import Styled from 'styled-components';
 
 const VideoHomeWrap = Styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
     text-align: center;
     padding: 180px 25px 180px;
     border-radius: 25px;
     min-width: 420px;
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+    .wpwax-vm-video-home{
+        width: 100%;
+    }
     .wpwax-vm-video-home__title{
         font-size: 18px;
         font-weight: 600;
@@ -53,15 +60,22 @@ const VideoRecordWrap = Styled.div`
         color: var(--color-dark);
     }
     &.wpwax-vm-record-permission{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
         .wpwax-vm-btn{
-            margin-top: 28px;
             border-radius: 10px;
+            margin: 28px 0 20px;
+            min-height: 54px;
+        }
+        .wpwax-video-screen-title{
+            margin-top: 0;
         }
     }
     &.wpwax-vm-record-staging{
         height: 100%;
         z-index: 101;
-        padding: 0;
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
         &:after,
         &:before{
@@ -153,10 +167,13 @@ const VideoRecordWrap = Styled.div`
         }
     }
     &.wpwax-vm-record-ready{
-        padding: 25px;
+        padding: 80px 25px;
         .wpwax-vm-form{
             position: relative;
-            min-height: 570px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
         .wpwax-vm-text-reply{
             .wpwax-vm-form-group{
@@ -170,16 +187,17 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-recored-video{
-            margin-top: 30px;
+            margin-bottom: 40px;
             position: relative;
             .wpwax-vm-recorded-preview{
+                position: relative;
                 border-radius: 15px;
                 background-size: cover;
-                position: relative;
 				video {
 					width: 100%;
+                    height: 240px;
+                    object-fit: cover;
 					border-radius: 15px;
-					box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 				}
             }
             .wpwax-vm-recored-video__play{
@@ -209,9 +227,10 @@ const VideoRecordWrap = Styled.div`
             }
         }
         .wpwax-vm-form-bottom{
-            position: absolute;
-            width: 100%;
-            bottom: 25px;
+            p{
+                font-size: 20px;
+                font-weight: 600;
+            }
             .wpwax-vm-btn{
                 svg{
                     position: relative;
@@ -231,102 +250,6 @@ const VideoRecordWrap = Styled.div`
                     color: var(--color-primary);
                 }
             }
-        }
-    }
-    &.wpwax-vm-record-send-progress{
-        min-height: 620px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        .wpwax-vm-record-send-progress__bar{
-            position: relative;
-            width: 164px;
-            height: 164px;
-            border-radius: 50%;
-            margin: 0 auto 40px;
-            &:after{
-                content: "";
-                position: absolute;
-                top: 3px;
-                left: 3px;
-                width: 158px;
-                height: 158px;
-                border-radius: 50%;
-                background-color: white;
-            }
-            &:before{
-                display: inline-block;
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background-image: linear-gradient(90deg, #6551F2 0%, transparent 0%, transparent), linear-gradient(270deg, #6551F2 50%, #E8E8E8 50%, #E8E8E8);
-                content: "";
-            }
-            span{
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%,-50%);
-                font-size: 16px;
-                font-weight: 600;
-                z-index: 101;
-            }
-        }
-        p{
-            font-size: 16px;
-            font-weight: 500;
-            margin: 0;
-            color: var(--color-dark);
-            &.wpwax-vm-danger-text{
-                color:  var(--color-danger);
-            }
-            &+p{
-                margin-top: 6px;
-            }
-        }
-    }
-    &.wpwax-vm-record-send-success{
-        padding: 0;
-        min-height: 620px;
-        border-radius: 25px;
-        .wpwax-vm-record-send-success__top{
-            padding: 30px 0 40px;
-            background-color: #030308;
-            border-radius: 25px 25px 0 0;
-            .wpwax-vm-record-send-success__check{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 70px;
-                height: 70px;
-                margin: 0 auto;
-                border-radius: 50%:
-                background-color: var(--color-success);
-            }
-            h4{
-                margin: 20px 0 0;
-                font-size: 20px;
-                font-weight: 600;
-                margin: 18px auto 0;
-                line-height: 1.3;
-                color:  var(--color-white);
-            }
-        }
-        .wpwax-vm-record-send-success__content{
-            padding: 50px 30px 0;
-            .wpwax-vm-record-send-success__title{
-                font-size: 24px;
-                font-weight: 600;
-                color: var(--color-dark);
-            }
-            p{
-                font-size: 16px;
-                font-weight: 500;
-                color: var(--color-text);
-            }
-        }
-        .wpwax-vm-record-send-success__bottom{
-            padding: 120px 30px 30px 30px;
         }
     }
 `;

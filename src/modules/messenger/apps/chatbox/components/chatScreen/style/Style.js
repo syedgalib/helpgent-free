@@ -82,10 +82,12 @@ const ChatboxForm = Styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                flex-direction: column;
                 box-sizing: border-box;
-                min-height: 44px;
-                flex: 0 0 48%;
-                margin: 1%;
+                min-height: 100px;
+                height: auto;
+                flex: 0 0 30.3333%;
+                margin: 1.5%;
             }
         }
         .wpwax-vm-chatbox-footer__text{
@@ -115,8 +117,13 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-wrap{
         &.wpwax-vm-chatbox-theme-2{
+            height: auto;
             box-shadow: 0 3px 30px rgba(0,0,0,.10);
             border-radius: 25px;
+            &:before,
+            &:after{
+                display: none;
+            }
             .wpwax-vm-chatbox-header{
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
@@ -129,8 +136,30 @@ const ChatboxForm = Styled.div`
             }
             .wpwax-vm-chatbox-inner{
                 position: relative;
-                display: block;
                 padding: 0;
+                overflow: hidden;
+                &:after{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 280px;
+                    opacity: .9;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+                    content: '';
+                    z-index: 10;
+                }
+                &:before{
+                    position: absolute;
+                    left: 0;
+                    bottom: -210px;
+                    width: 100%;
+                    height: 320px;
+                    opacity: .9;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
+                    content: '';
+                    z-index: 10;
+                }
                 .wpwax-vm-chatbox-inner-action{
                     display: flex;
                     align-items: center;
@@ -151,39 +180,21 @@ const ChatboxForm = Styled.div`
                         line-height: 1;
                     }
                 }
+                video{
+                    height: 280px;
+                }
                 .wpwax-vm-chatbox-img{
                     position: relative;
                     height: 330px;
                     z-index: 10;
-                    &:after{
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 280px;
-                        opacity: .9;
-                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
-                        content: '';
-                        z-index: -1;
-                    }
-                    &:before{
-                        position: absolute;
-                        left: 0;
-                        bottom: -100px;
-                        width: 100%;
-                        height: 250px;
-                        opacity: .9;
-                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
-                        content: '';
-                        z-index: -1;
-                    }
+                    
                 }
                 .wpwax-vm-btn-play{
                     position: absolute;
                     left: 50%;
                     top: 50%;
                     transform: translate(-50%,-50%);
-                    z-index: 10;
+                    z-index: 100;
                 }
             }
             .wpwax-vm-chatbox-footer{
@@ -207,9 +218,7 @@ const ChatboxForm = Styled.div`
                 }
             }
         }
-    }
-    
-    
+    }  
 `;
 
 const ContactFormWrap = Styled.div`

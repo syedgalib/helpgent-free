@@ -4,14 +4,24 @@ const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 15px;
     right: 25px;
-    height: calc(100vh - 85px);
-    max-height: 630px;
+    height: auto;
     width: 420px;
     z-index: 100;
     border-radius: 25px;
     background-color: var(--color-white);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
+    .wpwax-vm-chatbox-text{
+        .wpwax-vm-chatbox-text-form-inner{
+            min-height: 580px;
+            .wpwax-vm-form-group textarea.wpwax-vm-form__element{
+                min-height: 400px;
+            }
+        }
+    }
+    .wpwax-vm-chatbox-contact{
+        min-height: 580px;
+    }
     .wpwax-vm-chatbox-container{
         height: 100%;
         position: relative;
@@ -20,6 +30,7 @@ const ScreenWrapper = Styled.div`
             height: 100%;
             position: relative;
             z-index: 101;
+            min-height: 620px;
             &:after,
             &:before{
                 position: absolute;

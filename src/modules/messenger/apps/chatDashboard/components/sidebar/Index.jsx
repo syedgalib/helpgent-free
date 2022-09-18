@@ -1,3 +1,13 @@
+/*--------------------------------
+
+ -- Title: Sidebar main component
+ --	Description: This component is a hub of all child components of sidebar
+ -- Author: wpWax
+ -- Version: 1.0.0
+ -- Date: 12/09/2022
+ 
+--------------------------------*/
+
 import React, { useState, useEffect, useRef } from 'react'
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,9 +18,8 @@ import Taglist from "./overview/Taglist.jsx";
 import AddTag from "./overview/AddTag.jsx";
 import DeleteConfirm from "./overview/DeleteConfirm.jsx";
 import apiService from 'apiService/Service.js';
+import TagFilter from './overview/TagFilter.jsx';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
-import userImg from "Assets/img/chatdashboard/user.png";
-import userIcon from "Assets/svg/icons/users.svg";
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
 import filterIcon from 'Assets/svg/icons/filter.svg';
@@ -21,8 +30,8 @@ import slider from 'Assets/svg/icons/slider.svg';
 import rotateIcon from 'Assets/svg/icons/rotate-right.svg';
 import tag from 'Assets/svg/icons/tag.svg';
 import trash from 'Assets/svg/icons/trash.svg';
+import loaders from 'Assets/svg/icons/loader.svg';
 import {SidebarWrap, SessionFilterWrap} from "./Style";
-import TagFilter from './overview/TagFilter.jsx';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -45,7 +54,6 @@ const filterDropdown = [
 ];
 
 function Sidebar() {
-	const taglistModalOpen = false;
 	const ref = useRef(null);
 	/* Initialize State */
 	const [sessionState, setSessionState] = useState({
@@ -64,10 +72,10 @@ function Sidebar() {
 		sessionFilterDropdown: false,
 		tagFilterDropdownOpen: false,
 		taglistWithSession: false,
+		hasMore: true,
 		loader: true
 	});
 	const [tagState, setTagState] = useState({
-		// tagInput: "y",
 		allTags: [],
 		assignedTags: [],
 		filteredTagList:[],
@@ -76,45 +84,28 @@ function Sidebar() {
 		addTagModalOpen: false,
 	});
 
-	const { sessionList, filteredSessions, activeSessionId, deleteModalOpen, tagListModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, taglistWithSession, loader } = sessionState;
+	const [pageNumber, setPageNumber] = useState(2);
+	const [refresher, setRefresher] = useState(false);
+	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+
+	const { sessionList, activeSessionId, deleteModalOpen, successMessage, rejectMessage, sessionFilterDropdown, tagFilterDropdownOpen, hasMore, loader } = sessionState;
 	/* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
-	
-	const handleToggleSearchDropdown = (event)=>{
-		event.preventDefault();
-		setSessionState({
-			...sessionState,
-			tagFilterDropdownOpen: false,
-			sessionFilterDropdown: !sessionFilterDropdown
-		});
-	}
-	const handleTagFilterDropdown = async (event)=>{
-		event.preventDefault();
-		setSessionState({
-			...sessionState,
-			tagFilterDropdownOpen: !tagFilterDropdownOpen
-		});
-	}
-	const handleAllTagActivation = event=>{
-		event.preventDefault();
-		const overlay = document.querySelector('.wpax-vm-overlay');
-		overlay.classList.add('wpwax-vm-show');
-		setSessionState({
-			...sessionState,
-			tagListModalOpen: true,
-			taglistWithSession: false,
-		});
-	}
-
-	const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
 	useEffect(() => {
 		setSessionState({
 			...sessionState,
-			loader: false
+			hasMore: true,
+			loader: true
 		});
+		setPageNumber(2);
+
+		const pageLimit = {
+			limit: "15",
+			page: 1
+		}
 		const fetchSession = async ()=>{
-			const sessionResponse = await apiService.getAll('/sessions');
+			const sessionResponse = await apiService.getAllByArg('/sessions', pageLimit);
 			return sessionResponse;
 		}
 		
@@ -131,40 +122,110 @@ function Sidebar() {
 			.catch((error) => {
 				console.log(error);
 			})
-		const checkIfClickedOutside = e => {
-            if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
-				
-                setSessionState({
-					...sessionState,
-                    tagFilterDropdownOpen: false
-                });
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-        return () => {
-            // Cleanup the event listener
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-	}, []);
-
-	const handleSessionSearch = event =>{
-		let keyword = event.target.value;
-		const generatedSessions = sessionList.filter(entry => entry.users.every(searchableEntry=>  searchableEntry.name.includes(keyword)));
+	}, [refresher]);
+	
+	const handleToggleSearchDropdown = (event)=>{
+		event.preventDefault();
 		setSessionState({
 			...sessionState,
-			filteredSessions: generatedSessions
+			tagFilterDropdownOpen: false,
+			sessionFilterDropdown: !sessionFilterDropdown
 		});
 	}
 
+	const handleTagFilterDropdown = async (event)=>{
+		event.preventDefault();
+		setSessionState({
+			...sessionState,
+			tagFilterDropdownOpen: !tagFilterDropdownOpen
+		});
+	}
+	
+	const handleAllTagActivation = event=>{
+		event.preventDefault();
+		const overlay = document.querySelector('.wpax-vm-overlay');
+		overlay.classList.add('wpwax-vm-show');
+		setSessionState({
+			...sessionState,
+			tagListModalOpen: true,
+			taglistWithSession: false,
+		});
+	}
+
+	const handleSessionSearch = event =>{
+		let keyword = event.target.value;
+		const searchArg = {
+			search: keyword
+		}
+		const fetchSearchNameMail = async ()=>{
+			const searchByNameMailResponse = await apiService.getAllByArg('/sessions', searchArg);
+			return searchByNameMailResponse;
+		}
+
+		fetchSearchNameMail()
+			.then( searchByNameMailResponse => {
+				setSessionState({
+					...sessionState,
+					sessionList: searchByNameMailResponse.data.data
+				});
+				dispatch(handleReadSessions(searchByNameMailResponse.data.data));
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+	}
+	
 	const fetchMoreData = ()=>{
-		
+		const pageArg = {
+			limit: "15",
+			page: pageNumber
+		}
+		setPageNumber(pageNumber + 1);
+		const fetchNext = async ()=>{
+			const nextSessionResponse = await apiService.getAllByArg('/sessions', pageArg);
+			return nextSessionResponse;
+		}
+		setTimeout(() => {
+			fetchNext()
+			.then( nextSessionResponse => {
+				if(nextSessionResponse.data.data.length ==0){
+					setSessionState({
+						...sessionState,
+						hasMore: false
+					});
+				}else{
+					setSessionState({
+						...sessionState,
+						sessionList: sessionList.concat(nextSessionResponse.data.data),
+						filteredSessions: sessionList.concat(nextSessionResponse.data.data),
+						loader: false,
+					});
+				}
+				
+				dispatch(handleReadSessions(sessionList.concat(nextSessionResponse.data.data)));
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+		}, 1500);
+	}
+	
+	const handleRefresh = (event)=>{
+		event.preventDefault();
+		setRefresher({
+			refresher: !refresher
+		});
+		setSessionState({
+			...sessionState,
+			hasMore: true,
+		});
 	}
 
 	return (
 		<SidebarWrap className={loader ? "wpwax-vm-loder-active" : null}>
 			<div className="wpwax-vm-sidebar-top">
 				<h3 className="wpwax-vm-sidebar-title">List of Messages</h3>
-				<a href="#" className="wpwax-vm-sidebar-refresher"><ReactSVG src={rotateIcon} /></a>
+				<a href="#" className="wpwax-vm-sidebar-refresher" onClick={handleRefresh}><ReactSVG src={rotateIcon} /></a>
 			</div>
 			{
 				successMessage !== '' ?
@@ -217,88 +278,103 @@ function Sidebar() {
 					</span>
 					:
 					<div className="wpwax-vm-sidebar-userlist">
-						<ul>
-						<InfiniteScroll 
+						{
+							sessionList.length !==0 ? 
+							<ul id="scrollableDiv">
+								<InfiniteScroll 
 									dataLength={sessionList.length}
 									next={fetchMoreData}
-									hasMore={true}
-									loader={<h4>Loading...</h4>}>
-							{
-								sessionList.map((item, index) => {
-									
-									const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
-									let images = [];
-									let titleString = [];
-									let multiImg = false;
-									for (let i = 0; i < users.length; i++) {
-										images.push(users[i].avater);
-										titleString.push(users[i].name)
-									}
+									hasMore={hasMore}
+									scrollableTarget='scrollableDiv'
+									loader={<span><ReactSVG src={loaders} /></span>}
+									>
+									{
+										sessionList.map((item, index) => {
+											
+											const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
+											let images = [];
+											let titleString = [];
+											let multiImg = false;
+											if(item.users.length === 1){
+												images.push(item.users[0].avater);
+												titleString.push(item.users[0].name)
+											}else{
+												for (let i = 0; i < users.length; i++) {
+													images.push(users[i].avater);
+													titleString.push(users[i].name)
+												}
+											}
 
-									if(images.length > 1){
-										multiImg = true;
-									}
-									if(Number(item.total_unread) > 0){
-										var moreDropdown = [
-											{
-												icon: envelopeOpen,
-												name: "mark-read",
-												text: "Mark as Read"
-											},
-											{
-												icon: tag,
-												name: "add-tags",
-												text: "Add tags"
-											},
-											{
-												icon: trash,
-												name: "delete-conv",
-												text: "Delete Conversation"
-											},
-										];
-									}else{
-										var moreDropdown = [
-											{
-												icon: envelopeOpen,
-												name: "mark-unread",
-												text: "Mark as unread"
-											},
-											{
-												icon: tag,
-												name: "add-tags",
-												text: "Add tags"
-											},
-											{
-												icon: trash,
-												name: "delete-conv",
-												text: "Delete Conversation"
-											},
-										];
-										
-									}
+											if(images.length > 1){
+												multiImg = true;
+											}
 
-									const metaList = [
-										{
-											type: "date",
-											text: item.updated_on
-										}
-									]; 
-	
-									return (
-										<li className="wpwax-vm-usermedia" key={index}>
-											<div className="wpwax-vm-usermedia__left">
-												<MediaBox img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
-											</div>
-											<div className="wpwax-vm-usermedia__right">
-												<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>
-												<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={item.session_id}/>
-											</div>
-										</li>
-									)
-								})
-							}
-							</InfiniteScroll>
-						</ul>
+											if(Number(item.total_unread) > 0){
+												var moreDropdown = [
+													{
+														icon: envelopeOpen,
+														name: "mark-read",
+														text: "Mark as Read"
+													},
+													{
+														icon: tag,
+														name: "add-tags",
+														text: "Add tags"
+													},
+													{
+														icon: trash,
+														name: "delete-conv",
+														text: "Delete Conversation"
+													},
+												];
+											}else{
+												var moreDropdown = [
+													{
+														icon: envelopeOpen,
+														name: "mark-unread",
+														text: "Mark as unread"
+													},
+													{
+														icon: tag,
+														name: "add-tags",
+														text: "Add tags"
+													},
+													{
+														icon: trash,
+														name: "delete-conv",
+														text: "Delete Conversation"
+													},
+												];
+												
+											}
+
+											const metaList = [
+												{
+													type: "date",
+													text: item.updated_on
+												}
+											]; 
+			
+											return (
+												<li className="wpwax-vm-usermedia" key={index}>
+													<div className="wpwax-vm-usermedia__left">
+														<MediaBox img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
+													</div>
+													<div className="wpwax-vm-usermedia__right">
+														<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>
+														<Dropdown dropdownText={false} dropdownIconOpen={ellipsisV} dropdownIconClose={ellipsisV} dropdownList={moreDropdown} outerState={sessionState} setOuterState={setSessionState} sessionId={item.session_id}/>
+													</div>
+												</li>
+											)
+										})
+									}
+								</InfiniteScroll>
+							</ul> : 
+							<div className="wpwax-vm-empty">
+								<p>Not Found</p>
+							</div>
+						}
+						
 					</div>
 			}
 			
@@ -307,6 +383,7 @@ function Sidebar() {
 			<AddTag sessionState={sessionState} setSessionState={setSessionState} tagState={tagState} setTagState={setTagState}/>
 
 			<DeleteConfirm deleteBy={activeSessionId} modalOpen={deleteModalOpen} outerState={sessionState} setOuterState={setSessionState}/>
+
 		</SidebarWrap>
 	);
 }

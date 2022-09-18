@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const SidebarWrap = Styled.div`
+    min-height: 600px;
     .wpwax-vm-loading-spin{
         position: absolute;
         left: 50%;
@@ -79,8 +80,11 @@ const SidebarWrap = Styled.div`
     }
     .wpwax-vm-sidebar-userlist{
         margin-top: 6px;
+        .infinite-scroll-component {
+            min-height: 340px;
+        }
         >ul {
-            height: 800px;
+            height: 600px;
             overflow-x: hidden;
             overflow-y: auto;
             scrollbar-width: thin;
@@ -112,6 +116,12 @@ const SidebarWrap = Styled.div`
                     .wpwax-vm-dropdown__content{
                         top: 40px;
                     }
+                }
+                .wpwax-vm-media__body{
+                    top: -3px;
+                }
+                .wpwax-vm-media__title{
+                    line-height: 1.5;
                 }
                 .wpax-vm-imglist{
                     display: flex;
@@ -235,6 +245,45 @@ const SidebarWrap = Styled.div`
                 margin-right: 5px;
 
             }
+        }
+    }
+
+    .wpwax-vm-taglist-author{
+        display: flex;
+        align-items: center;
+        .wpwax-vm-taglist-author__img{
+            display: flex;
+            align-items: center;
+            margin-right: 12px;
+            line-height: 1;
+            img{
+                max-width: 40px;
+            }
+            .wpwax-vm-more-img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: -20px;
+                background-color: var(--color-bg-general);
+                svg{
+                    width: 20px;
+                    fill: var(--color-primary);
+                }
+            }
+        }
+        .wpwax-vm-taglist-author__name{
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.5;
+            width: 240px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--color-dark);
         }
     }
 `;

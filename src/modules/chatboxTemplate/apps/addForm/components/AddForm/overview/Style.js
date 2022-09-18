@@ -17,12 +17,18 @@ const ThankSettingsWrap = Styled.div`
 `;
 const PreviewWrap = Styled.div`
     width: 480px;
-    /* min-height: 640px; */
     z-index: 10;
     position: relative;
     word-break: break-all;
     padding-top: 0;
+    font-family: var(--font-family);
     color: var(--color-text);
+    @media only screen and (max-width: 1199px) {
+        width: 420px;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 360px;
+    }
     &.wpwax-vm-loder-active{
         &:after{
             border-radius: 25px;
@@ -137,7 +143,7 @@ const PreviewWrap = Styled.div`
         }
     }
     .wpwax-vm-preview-inner{
-        position: relative;
+        /* position: relative; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -178,22 +184,26 @@ const PreviewWrap = Styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                flex-direction: column;
                 box-sizing: border-box;
-                min-height: 46px;
+                min-height: 100px;
+                height: auto;
                 text-transform: capitalize;
-                flex: 0 0 48%;
-                margin: 1%;
+                flex: 0 0 30.3333%;
+                margin: 1.5%;
+                @media only screen and (max-width: 1199px) {
+                    padding: 0 15px;
+                }
                 >div{
-                    line-height: 1;
+                    line-height: 0;
                 }
                 svg{
-                    position: relative;
-                    top: 1px;
                     width: 18px;
-                    margin-right: 10px;
+                    height: 18px;
+                    margin-bottom: 4px;
                     path,
                     circle{
-                        fill: var(--color-white);
+                        fill: var(--primary-btn-color);
                     }
                 }
             }
@@ -241,18 +251,46 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
+                z-index: 100;
                 background-color: var(--color-primary);
                 .wpwax-vm-preview-title{
-                    font-size: 15px;
+                    font-size: var(--font-size-greet);
                     font-weight: 600;
                     margin: 0;
+                    color: var(--color-text-greet);
+                }
+                .wpwax-vm-preview-subtitle{
+                    display: block;
+                    margin-top: 8px;
                 }
             }
            .wpwax-vm-preview-inner{
-               position: relative;
-               display: block;
                padding: 0;
                min-height: 220px;
+               &:after{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 280px;
+                    opacity: .9;
+                    border-radius: 25px 25px 0 0;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+                    content: '';
+                    z-index: 10;
+                }
+                &:before{
+                    position: absolute;
+                    left: 0;
+                    bottom: 2px;
+                    width: 100%;
+                    height: 250px;
+                    opacity: .9;
+                    border-radius: 0 0 25px 25px;
+                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
+                    content: '';
+                    z-index: 10;
+                }
                .wpwax-vm-btn-play{
                    position: absolute;
                    left: 50%;
@@ -287,11 +325,14 @@ const PreviewWrap = Styled.div`
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
                 background-color: var(--color-white);
+                @media only screen and (max-width: 1199px) {
+                    padding: 0 15px;
+                }
                 .wpwax-vm-preview-footer__title{
-                    font-size: 15px;
+                    font-size: var(--font-size-chat);
                     font-weight: 600;
                     margin: 14px 0 20px;
-                    color: var(--color-dark);
+                    color: var(--color-text-chat);
                 }
                 .wpwax-vm-preview-footer__text{
                     font-size: 13px;
@@ -322,7 +363,11 @@ const PreviewWrap = Styled.div`
         height: 100%;
         padding: 155px 0 30px;
         border-radius: 25px;
+        box-sizing: border-box;
         background-color: var(--color-white);
+        @media only screen and (max-width: 1024px) {
+            padding: 155px 15px 30px;
+        }
         .wpwax-vm-preview-thank__content{
             text-align: center;
             max-width: 370px;

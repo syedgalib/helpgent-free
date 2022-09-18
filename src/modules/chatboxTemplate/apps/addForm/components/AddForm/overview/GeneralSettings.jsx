@@ -46,16 +46,36 @@ const GeneralSettings = () => {
             diplayAllPage: state.form.data[0].options.display_on_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
-            displayedCustomPages: state.form.data[0].page_ids,
+            displayedCustomPages: state.form.data[0].pages,
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
             sendMail: state.form.data[0].options.send_mail_upon_message_submission,
-
         };
     });
 
     const [state, setState] = useState({
-        openCollapse: true
+        openCollapse: true,
+        selectedCustomPages: []
     });
+
+    useEffect(() => {
+        console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
+        var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
+        let getDisplayPlaces = [];
+        filteredKeywords.map((item,index)=>{
+            getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
+        })
+        console.log(getDisplayPlaces);
+        setState({
+            ...state,
+            selectedCustomPages:[
+                ...state.selectedCustomPages,
+                getDisplayPlaces
+            ]
+        })
+        // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+        //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
+        // });
+    }, []);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -70,13 +90,12 @@ const GeneralSettings = () => {
         );
     };
 
-    const customPages = []
+    console.log(state.selectedCustomPages);
 
-    useEffect(() => {
-        wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-            customPages.push({ value: `${item.id}`, label: `${item.title}` })
-        });
-    }, []);
+    const customPages = [];
+    wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+        customPages.push({ value: `${item.id}`, label: `${item.title}` })
+    });
 
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
@@ -96,11 +115,20 @@ const GeneralSettings = () => {
     }
 
     const handleChangeSelectValue = (selectEvent, e) => {
+        if(e.name === "wpwax-vm-display-custom-pages"){
+            setState({
+                ...state,
+                selectedCustomPages:[
+                    ...state.selectedCustomPages,
+                    selectEvent.value
+                ]
+            })
+        }
+        console.log(state.selectedCustomPages)
         const updatedData = formUpdater(e.name, selectEvent.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
 
-    console.log(formData);
     return (
         <GeneralSettingWrap>
             <div className="wpwax-vm-form-group">
@@ -145,7 +173,7 @@ const GeneralSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
@@ -159,32 +187,34 @@ const GeneralSettings = () => {
                     </label>
                 </div>
             </div>
-            <div className="wpwax-vm-form-group">
-                <div className="wpwax-vm-form-group__label">
-                    <span className="wpwax-vm-tooltip-wrap">
-                        <span>Display on custom pages</span>
-                        <span className="wpwax-vm-tooltip">
-                            <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
-                            <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+            {
+                diplayAllPage ? null :
+                <div className="wpwax-vm-form-group">
+                    <div className="wpwax-vm-form-group__label">
+                        <span className="wpwax-vm-tooltip-wrap">
+                            <span>Display on custom pages</span>
+                            <span className="wpwax-vm-tooltip">
+                                <span className="wpwax-vm-tooltip-icon"><ReactSVG src={questionIcon} /></span>
+                                <span className="wpwax-vm-tooltip-text">Tooltip Text will be here</span>
+                            </span>
                         </span>
-                    </span>
+                    </div>
+                    <Select
+                        classNamePrefix="wpwax-vm-select"
+                        options={customPages}
+                        isMulti
+                        searchable={false}
+                        components={{
+                            Option
+                        }}
+                        // defaultValue={state.selectedCustomPages}
+                        name="wpwax-vm-display-custom-pages"
+                        onChange={handleChangeSelectValue}
+                        allowSelectAll={true}
+                    />
                 </div>
-                <Select
-                    classNamePrefix="wpwax-vm-select"
-                    options={customPages}
-                    isMulti
-                    searchable={false}
-                    components={{
-                        Option
-                    }}
-                    // defaultValue={customPages.filter(function (page) {
-                    //     return page.value === templateTheme;
-                    // })[0]}
-                    name="wpwax-vm-display-custom-pages"
-                    onChange={handleChangeSelectValue}
-                    allowSelectAll={true}
-                />
-            </div>
+            }
+            
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Close chat option</span>
@@ -207,11 +237,12 @@ const GeneralSettings = () => {
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
-                            onColor={primaryColor}
+                            onColor="#6551f2"
                             offColor="#E2E2E2"
                             onHandleColor="#FFFFFF"
                             className="wpwax-vm-switch"
                             id="wpwax-vm-send-mail"
+                            value={state.selectedCustomPages}
                             handleDiameter={14}
                             height={22}
                             width={40}

@@ -23,10 +23,10 @@ function Form() {
     }
 
     return (
-        <form onSubmit={submitHandler} className='wpwax-vm-h-100pr'>
-            <div className='wpwax-vm-d-flex wpwax-vm-h-100pr wpwax-vm-flex-direction-column'>
+        <form onSubmit={submitHandler}>
+            <div className='wpwax-vm-chatbox-text-form-inner wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
                 <div className='wpwax-vm-body wpwax-vm-flex-grow-1'>
-                    <div className='wpwax-vm-form-group wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
+                    <div className='wpwax-vm-form-group wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
                         <textarea
                             className='wpwax-vm-form__element wpwax-vm-transparent-form-control wpwax-vm-flex-grow-1 wpwax-vm-mb-20'
                             required

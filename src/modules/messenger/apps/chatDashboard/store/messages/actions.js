@@ -15,10 +15,10 @@ const actions = {
     MESSAGE_STAGE_UPDATE_SUCCESS: 'MESSAGE_STAGE_UPDATE_SUCCESS',
     MESSAGE_STAGE_UPDATE_ERR: 'MESSAGE_STAGE_UPDATE_ERR',
 
-    updateSelectedSession: ( session_id ) => {
+    updateSelectedSession: ( session ) => {
       return {
         type: actions.UPDATE_SELECTED_SESSION,
-        data: session_id,
+        data: session,
       };
     },
 

@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
-<<<<<<< HEAD
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
@@ -12,20 +11,6 @@ import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
-=======
-import MediaBox from "Components/MediaBox.jsx";
-import Message from "./overview/Message.jsx";
-import Video from "./overview/video/Index.jsx";
-import Voice from "./overview/voice/Index.jsx";
-import userImg from "Assets/img/chatdashboard/user.png";
-import search from "Assets/svg/icons/magnifier.svg";
-import videoPlay from "Assets/svg/icons/video-play.svg";
-import screenRecord from "Assets/svg/icons/s-record.svg";
-import mice from "Assets/svg/icons/mice.svg";
-import textIcon from "Assets/svg/icons/text.svg";
-import paperPlane from "Assets/svg/icons/paper-plane.svg";
-import { ChatBoxWrap, MessageBoxWrap } from "./Style";
->>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
 import {
     handleReplyModeChange,
@@ -54,19 +39,8 @@ function MessageBox() {
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
-<<<<<<< HEAD
-    const [sessionMessages, setSessionMessages] = useState(null);
+    const [sessionMessages, setSessionMessages] = useState([]);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
-=======
-	/* initialize Form Data */
-	const { replyMode, messageType } = useSelector(state => {
-		console.log(state);
-		return {
-			replyMode: state.messages.replyMode,
-			messageType: state.messages.messageType,
-		};
-	});
->>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
     const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
     const [isLoadingSession, setIsLoadingSession] = useState(false);
@@ -111,131 +85,27 @@ function MessageBox() {
                 return;
             }
 
-<<<<<<< HEAD
             const session_id = selectedSession.session_id;
 
             // Load session data from store if available
             if (Object.keys(allSessions).includes(session_id)) {
                 setSessionMessages(allSessions[session_id]);
-=======
-	/* Handle Voice Message */
-	const handleVoiceMessage = (event) => {
-		event.preventDefault();
-		dispatch(handleMessageTypeChange("voice"));
-		// dispatch(handleReplyModeChange(false));
-	}
-
-	/* Handle Reply Mode */
-	const haldleReplyMode = () => {
-		if (messageType === "video") {
-			return (
-				<Video />
-			)
-		}else if(messageType === "voice"){
-			return (
-				// <Voice ?>
-				<Voice />
-			)
-		}
-	}
->>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
                 let latest_message_date = latestMessageDate;
 
-<<<<<<< HEAD
                 if (allSessions[session_id].length) {
                     const sessionMessageItems = allSessions[session_id];
                     const latestSessionItem =
                         sessionMessageItems[sessionMessageItems.length - 1];
-=======
-		if (messageType === "text") {
-			return (
-				<div className="wpwax-vm-messagebox-footer">
-					<a href="#" className="wpwax-vm-messagebox-reply-text-close" onClick={handleTextClose}><span className="dashicons dashicons-no-alt"></span></a>
-					<div className="wpwax-vm-messagebox-reply">
-						<div className="wpwax-vm-messagebox-reply__input">
-							<input type="text" name="wpwax-vm-messagebox-reply-input" id="wpwax-vm-messagebox-reply-input" placeholder="Type a message" />
-						</div>
-						<div className="wpwax-vm-messagebox-reply__action">
-							<a href="#" className="wpwax-vm-messagebox-reply-send"><ReactSVG src={paperPlane} /></a>
-						</div>
-					</div>
-				</div>
-			);
-		} else if (messageType === "voice") {
-			return (
-				<div className="wpwax-vm-messagebox-footer">
-					<div className="wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice">
-						<div className="wpwax-vm-messagebox-reply__input">
-							<a href="#" className="wpwax-vm-messagebox-reply-voice-close" onClick={handleTextClose}><span className="dashicons dashicons-no-alt"></span></a>
-							<span className="wpwax-vm-audio-range">
-								<span className="wpwax-vm-audio-range-inner"></span>
-							</span>
-							<span className="wpwax-vm-timer">02:30</span>
-						</div>
-						<div className="wpwax-vm-messagebox-reply__action"><a href="#" className="wpwax-vm-messagebox-reply-send"><ReactSVG src={paperPlane} /></a></div>
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				<div className="wpwax-vm-messagebox-footer">
-					<span className="wpwax-vm-messagebox-footer__text">How would you like to answer?</span>
-					<div className="wpwax-vm-messagebox-footer__actionlist">
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleVideoMessage}>
-							<div className="wpwax-vm-btn-icon"><ReactSVG src={videoPlay} /></div>
-							<span className="wpwax-vm-btn-text">Video</span>
-						</a>
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleVoiceMessage}>
-							<div className="wpwax-vm-btn-icon"><ReactSVG src={mice} /></div>
-							<span className="wpwax-vm-btn-text">Voice</span>
-						</a>
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleTextMessage}>
-							<div className="wpwax-vm-btn-icon"><ReactSVG src={textIcon} /></div>
-							<span className="wpwax-vm-btn-text">Text</span>
-						</a>
-					</div>
-				</div>
-			);
-		}
-	}
->>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
                     latest_message_date = latestSessionItem.created_on;
 
                     setLatestMessageDate(latest_message_date);
                 }
 
-<<<<<<< HEAD
                 // loadLatestMessages(latest_message_date);
                 return;
             }
-=======
-	return (
-		<ChatBoxWrap>
-			<MessageBoxWrap>
-				<div className="wpwax-vm-messagebox-header">
-					<div className="wpwax-vm-messagebox-header__left">
-						<MediaBox img={userImg} title={"Tanjim"} metaList={metaList} />
-					</div>
-					<div className="wpwax-vm-messagebox-header__right">
-						<div className="wpwax-vm-messagebox-header__actionlist">
-							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search">
-								<div className={openSearch ? "wpwax-vm-searchbox wpwax-vm-show" : "wpwax-vm-searchbox"}>
-									<input type="text" ref={ref} name="wpwax-vm-messagebox-search" id="wpwax-vm-messagebox-search" placeholder="Search" />
-								</div>
-								<a href="#" className="wpwax-vm-search-toggle" onClick={handleSearchToggle}><ReactSVG src={search} /></a>
-							</div>
-							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video">
-								<a href="#" className="wpwax-vm-messagebox-header__action--link" onClick={handleVideoMessage}><ReactSVG src={videoPlay} /><span className="wpwax-vm-messagebox-header__action--text">Videos</span></a>
-							</div>
-							<div className="wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice">
-								<a href="#" className="wpwax-vm-messagebox-header__action--link" onClick={handleVoiceMessage}><ReactSVG src={mice} /><span className="wpwax-vm-messagebox-header__action--text">Voice</span></a>
-							</div>
-						</div>
-					</div>
-				</div>
->>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
             // Otherwise session data load from API
             setIsLoadingSession(true);
@@ -299,7 +169,9 @@ function MessageBox() {
             replayingTo =
                 selectedSession.first_message &&
                 selectedSession.first_message.user
-                    ? selectedSession.first_message.user
+                    ? JSON.parse(
+                          JSON.stringify(selectedSession.first_message.user)
+                      )
                     : null;
         }
 

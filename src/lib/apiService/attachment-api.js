@@ -15,6 +15,6 @@ const createAttachment = async ( args ) => {
 	});
 };
 
-const api = { createAttachment }
+const api = { createAttachment };
 
 export default api;

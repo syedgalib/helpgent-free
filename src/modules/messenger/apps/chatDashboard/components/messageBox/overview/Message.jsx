@@ -1,18 +1,13 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { MessageBox } from './Style';
-import { ReactSVG } from 'react-svg';
 import author from 'Assets/img/chatdashboard/user.png';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
-import audioRange from 'Assets/svg/icons/audio-range.svg';
 import { useRef } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 
-// import classes from "ChatApp/assets/Container.module.scss";
-
 function Message({ data, currentUser }) {
-    const isMine = parseInt(currentUser.ID) === parseInt(data.user.id);
+    const isMine = parseInt(currentUser.id) === parseInt(data.user.id);
 
     const audioRef = useRef();
     const videoRef = useRef();
@@ -22,8 +17,6 @@ function Message({ data, currentUser }) {
     const [audioCurrentTime, setAudioCurrentTime] = useState(0);
 
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
-
-    // console.log('Message', { data });
 
     function togglePlayPauseAudio(e) {
         e.preventDefault();

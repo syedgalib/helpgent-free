@@ -82,6 +82,7 @@ const SidebarWrap = Styled.div`
         margin-top: 6px;
         .infinite-scroll-component {
             min-height: 340px;
+            padding-bottom: 40px;
         }
         >ul {
             height: 600px;
@@ -111,6 +112,13 @@ const SidebarWrap = Styled.div`
                 &.wpwax-vm-active,
                 &:hover{
                     background: var(--color-white);
+                }
+                &:nth-last-child(-n+2){
+                    .wpwax-vm-dropdown{
+                        .wpwax-vm-dropdown__content{
+                            top: -180px;
+                        }
+                    }
                 }
                 .wpwax-vm-dropdown{
                     .wpwax-vm-dropdown__content{

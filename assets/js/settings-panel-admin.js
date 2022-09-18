@@ -5616,7 +5616,6 @@ var Dropdown = function Dropdown(_ref) {
     var currentSession = sessions.filter(function (singleSession) {
       return singleSession.session_id === sessionId;
     });
-    console.log(currentSession);
     var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
       selectedItemText: event.target.text

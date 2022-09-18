@@ -15,6 +15,29 @@ const ChatBoxWrap = Styled.div`
             background-color: rgba(0,0,0,.80);
         }
     }
+    .wpwax-vm-record-home{
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100002;
+        border-radius: 30px 30px 0 0;
+        display: flex;
+        align-items: center;
+        background-color: var(--color-white);
+        .wpwax-vm-record-home__close{
+            position: absolute;
+            right: 40px;
+            top: -50px;
+            text-decoration: none;
+            color: var(--color-white);
+            .dashicons{
+                font-size: 30px;
+            }
+        }
+
+    }
     .wpwax-vm-video-msg{
         position: fixed;
         top: 80px;

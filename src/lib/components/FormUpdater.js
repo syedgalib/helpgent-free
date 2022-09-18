@@ -23,6 +23,7 @@ const FormUpdater = (label, value,formInitialData) => {
                     }
                 }
             case "wpwax-vm-display-custom-pages":
+                console.log(value);
                 return {
                     ...item,
                     options: {
@@ -214,14 +215,6 @@ const FormUpdater = (label, value,formInitialData) => {
                     options: {
                         ...item.options,
                         primary_button_background_color: value
-                    }
-                }
-            case "wpwax-vm-cta-info-visibility":
-                return {
-                    ...item,
-                    options: {
-                        ...item.options,
-                        collect_info: value
                     }
                 }
             case "wpwax-vm-thank-title":

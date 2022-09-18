@@ -1,25 +1,14 @@
 import Styled from 'styled-components';
 
 const TaglistWrap = Styled.div`
-    .wpwax-vm-taglist-author{
-        display: flex;
-        align-items: center;
-        .wpwax-vm-taglist-author__img{
-            margin-right: 12px;
-        }
-        .wpwax-vm-taglist-author__name{
-            display: inline-block;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--color-dark);
-        }
-    }
+    
     .wpawax-vm-taglist-search{
         display: flex;
         align-items: center;
         min-height: 40px;
         padding: 0 16px;
         border-radius: 10px;
+        margin-top: 5px;
         background-color: var(--color-bg-general);
         input{
             width: 100%;
@@ -44,7 +33,7 @@ const TaglistWrap = Styled.div`
                 display: flex;
                 justify-content: space-between;
                 &:not(:last-child){
-                    margin-bottom: 14px;
+                    margin-bottom: 20px;
                 }
                 .wpwax-vm-taglist-label{
                     font-size: 14px;
@@ -57,6 +46,9 @@ const TaglistWrap = Styled.div`
             .wpwax-vm-dropdown__content{
                 min-width: 160px;
                 li{
+                    &:not(:last-child){
+                        margin-bottom: 0;
+                    }
                     a{
                         width: 100%;
                     }
@@ -86,7 +78,6 @@ const AddTagWrap = Styled.div`
         align-items: center;
         .wpwax-vm-taglist-author__name{
             display: inline-block;
-            margin-left: 12px;
             font-size: 18px;
             font-weight: 600;
             color: var(--color-dark);
@@ -95,7 +86,6 @@ const AddTagWrap = Styled.div`
     .wpwax-vm-addtag-form{
         display: flex;
         align-items: flex-start;
-        padding-top: 10px;
         margin: 0 -5px;
         .wpwax-vm-form-group{
             flex: 1;
@@ -119,7 +109,7 @@ const AddTagWrap = Styled.div`
     .wpwax-vm-taglist{
         display: flex;
         flex-wrap: wrap;
-        margin: 20px -7.5px 0;
+        margin: 20px -7.5px 4px;
         .wpwax-vm-tag__check{
             padding: 7.5px;
             flex: 0 0 auto;
@@ -131,6 +121,7 @@ const AddTagWrap = Styled.div`
                 top: -3px;
                 line-height: 1.15;
                 margin-left: 5px;
+                color: var(--color-dark);
             }
         }
         .wpwax-vm-empty{
@@ -161,13 +152,18 @@ const AddTagWrap = Styled.div`
         li{
             font-size: 14px;
             font-weight: 500;
+            line-height: 1.55;
             margin: 0;
             color: var(--color-dark);
         }
     }
     &.wpwax-vm-modal{
+        .wpwax-vm-modal__header,
+        .wpwax-vm-modal__footer{
+            padding: 15px 30px
+        }
         .wpwax-vm-notice{
-            margin-bottom: 0;
+            margin-bottom: 5px;
             p{
                 margin: 0;
             }

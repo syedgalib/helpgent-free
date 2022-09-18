@@ -15,9 +15,10 @@ import expander from "Assets/svg/icons/expand.svg";
 function Theme_2() {
     const dispatch = useDispatch();
 
-    const { templateOptions, supportedReplayTypes } = useSelector( state => {
+    const { templateOptions, templateStyles, supportedReplayTypes } = useSelector( state => {
         return {
 			templateOptions: state.chatboxTemplate.template.options,
+			templateStyles: state.chatboxTemplate.templateStyles,
 			supportedReplayTypes: state.chatboxTemplate.supportedReplayTypes,
         };
     });
@@ -88,7 +89,8 @@ function Theme_2() {
         return false;
     }
 
-    function handleChatAction(type) {
+    function handleChatAction(event,type) {
+        event.preventDefault();
         greetVideo.current.pause();
         dispatch(changeChatScreen(type));
     }
@@ -96,27 +98,37 @@ function Theme_2() {
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
-                <div className="wpwax-vm-chatbox-header">
+                <div className="wpwax-vm-chatbox-header" style={ { backgroundColor: templateStyles.pageBackgroundColor } } >
                     { 
                         templateOptions.greet_message && 
-                        <h4 className="wpwax-vm-chatbox-title">
+                        <h4 className="wpwax-vm-chatbox-title" style={ templateStyles.greetMessageStyle }>
                             { templateOptions.greet_message }
                         </h4> 
+                    }
+
+                    { 
+                        templateOptions.description && 
+                        <span className="wpwax-vm-chatbox-subtitle" style={ { color: templateStyles.primaryColor } }>
+                            { templateOptions.description }
+                        </span> 
                     }
                 </div>
 
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
-                    <div className="wpwax-vm-chatbox-inner-action">
-                        <span className="wpwax-vm-timer">
-                            <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
-                            <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
-                        </span>
-                        <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
-                            <ReactSVG src={expander} />
-                        </a>
-                    </div>
+                    {
+                        templateOptions.greet_video_url && 
+                        <div className="wpwax-vm-chatbox-inner-action">
+                            <span className="wpwax-vm-timer">
+                                <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
+                                <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
+                            </span>
+                            <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
+                                <ReactSVG src={expander} />
+                            </a>
+                        </div>
+                    }
 
-                    <div className="wpwax-vm-chatbox-img">
+                    {/* <div className="wpwax-vm-chatbox-img"> */}
                         {  templateOptions.greet_video_url &&
                             <video 
                                 ref={greetVideo} 
@@ -129,13 +141,15 @@ function Theme_2() {
                             >   
                             </video>
                         }
-                    </div>
+                    {/* </div> */}
+                    {
+                        templateOptions.greet_video_url && <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
+                    }
                     
-                    <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
                 </div>
 
-                <div className="wpwax-vm-chatbox-footer">
-                    { templateOptions.chat_box_title && <h5 className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_box_title }</h5> }
+                <div className="wpwax-vm-chatbox-footer" style={ { backgroundColor: templateStyles.pageBackgroundColor } } >
+                    { templateOptions.chat_options_title && <h5 style={ templateStyles.chatTitleStyle } className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_options_title }</h5> }
                     
                     {
                         canReplay() && 
@@ -146,13 +160,13 @@ function Theme_2() {
                                     return '';
                                 }
     
-                                return <a key={item.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={() => handleChatAction( item.type )}>{item.label}</a>
+                                return <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, item.type )}>{item.label}</a>
                             })
                         } 
                         </div>
                     }
 
-                    { templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text">{templateOptions.footer_message}</p> }
+                    { templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>{templateOptions.footer_message}</p> }
                     
                     <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>

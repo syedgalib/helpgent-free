@@ -12,7 +12,7 @@ import ThankSettings from "./overview/ThankSettings.jsx";
 import apiService from 'apiService/Service.js';
 import { AddFormStyle } from './Style';
 
-import { addForm, editForm, updateDataWithId } from '../../redux/form/actionCreator';
+import { addForm, editForm, handleReadForm } from '../../redux/form/actionCreator';
 
 const AddForm = () => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -37,9 +37,10 @@ const AddForm = () => {
         thankDescFontSize,
         pageBgColor,
         formInitialData,
-        loading,
-        response
+        // loading,
+        // response
     } = useSelector(state => {
+        console.log(state)
         return {
             name: state.form.data[0].name,
             primaryColor: state.form.data[0].options.primary_color,
@@ -60,7 +61,7 @@ const AddForm = () => {
             pageBgColor: state.form.data[0].options.page_background_color,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
-            response: state.form.response,
+            // response: state.form.response,
         };
     });
 
@@ -83,10 +84,12 @@ const AddForm = () => {
     const [state, setState] = useState({
         currentStage: "general",
         validation: true,
+        loading: false,
+        response: "",
         fetchStatus: true
     });
 
-    const { currentStage, validation, fetchStatus} = state;
+    const { currentStage, validation, loading, response, fetchStatus} = state;
 
     const [formStage, setFormStage] = useState("general");
 
@@ -104,7 +107,6 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            console.log("yes")
             if(name === ""){
                 
                 setState({
@@ -173,13 +175,70 @@ const AddForm = () => {
                 id: formInitialData.id,
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
-                page_ids: formInitialData.page_ids,
+                pages: formInitialData.pages,
                 is_default: formInitialData.is_default,
             }
             if (id) {
-                dispatch(editForm(id, formData));
+                setState({
+                    ...state,
+                    loading: true
+                });
+                const editSession = async ()=>{
+                    const editSessionResponse = await apiService.dataAdd(`/chatbox-templates/${id}`, formData)
+                    return editSessionResponse;
+                }
+                editSession()
+                    .then( editSessionResponse => {
+                        console.log(editSessionResponse, formData);
+                        setState({
+                            ...state,
+                            response: editSessionResponse,
+                            loading: false,
+                        });
+                        setTimeout(() => {
+                            setState({
+                                ...state,
+                                response: ""
+                            });
+                        }, "4000")
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             } else {
-                dispatch(addForm(formData));
+                setState({
+                    ...state,
+                    loading: true
+                });
+                const addSession = async ()=>{
+                    const addSessionResponse = await apiService.dataAdd(`/chatbox-templates`, formData)
+                    return addSessionResponse;
+                }
+                addSession()
+                    .then( addSessionResponse => {
+                        const formResetData = {
+                            id: formInitialData.id,
+                            name: "",
+                            options: formInitialData.options,
+                            pages: formInitialData.pages,
+                            is_default: formInitialData.is_default,
+                        }
+                        setState({
+                            ...state,
+                            response: addSessionResponse,
+                            loading: false,
+                        });
+                        dispatch(handleReadForm([formResetData]));
+                        setTimeout(() => {
+                            setState({
+                                ...state,
+                                response: ""
+                            });
+                        }, "4000")
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
             }
         }
     }
@@ -212,7 +271,27 @@ const AddForm = () => {
 
     useEffect(() => {
         if (id) {
-            dispatch(updateDataWithId(id));
+            setState({
+                ...state,
+                loading: true
+            });
+            const fetchSessionById = async ()=>{
+                const sessionByIdResponse = await apiService.getAll(`/chatbox-templates/${id}`)
+                return sessionByIdResponse;
+            }
+
+            fetchSessionById()
+                .then( sessionByIdResponse => {
+                    setState({
+                        ...state,
+                        loading: false
+                    });
+                    console.log(sessionByIdResponse.data.data);
+                    dispatch(handleReadForm([sessionByIdResponse.data.data]));
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
     }, []);
 
@@ -226,9 +305,10 @@ const AddForm = () => {
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
-                    </span> : null
-                }
-                <form action="" onSubmit={handleAddTemplate}>
+                    </span> 
+                    : 
+
+                    <form action="" onSubmit={handleAddTemplate}>
                     {
                         state.fetchStatus ?
                             <>
@@ -242,14 +322,12 @@ const AddForm = () => {
                                     {
                                         getFormContent()
                                     }
-
                                     {
                                         response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
                                     }
                                     {
                                         response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
                                     }
-
                                 </div>
 
                                 <div className="wpwax-vm-add-form__bottom">
@@ -265,7 +343,9 @@ const AddForm = () => {
                             </>
                             : <p>Sorry !! Server Error. Please Try Again.</p>
                     }
-                </form>
+                    </form>
+                }
+                
             </div>
             <div className="wpwax-vm-preview">
                 <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>

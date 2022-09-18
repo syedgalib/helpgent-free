@@ -3,9 +3,10 @@ import Styled from 'styled-components';
 const RecorderWrap = Styled.div`
     text-align: center;
     padding: 0 25px;
-    min-width: 420px;
+    max-width: 450px;
+    margin: 0 auto;
     box-sizing: border-box;
-    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+    /* animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling; */
     .wpwax-video-screen-title{
         font-size: 18px;
         font-weight: 500;
@@ -33,6 +34,7 @@ const RecorderWrap = Styled.div`
             padding-top: 180px;
             .wpwax-vm-record-staging__bottom--action{
                 position: relative;
+                min-width: 380px;
                 .wpwax-vm-pause-btn{
                     display: none;
                     position: relative;

@@ -56,7 +56,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
         const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
-        console.log(currentSession)
         const overlay = document.querySelector('.wpax-vm-overlay');
         setSelectedState({
             selectedItemText: event.target.text

@@ -8,10 +8,17 @@ import {
     handleTagFormModal,
 } from '../../../store/tags/actionCreator';
 import apiService from 'apiService/Service.js';
+<<<<<<< HEAD
 import userImg from 'Assets/img/chatdashboard/user.png';
 import Dropdown from 'Components/formFields/Dropdown.jsx';
 import ellipsisH from 'Assets/svg/icons/ellipsis-h.svg';
 import Taglist from './Taglist.jsx';
+=======
+import userIcon from "Assets/svg/icons/users.svg";
+import userImg from "Assets/img/chatdashboard/user.png";
+import ellipsisH from "Assets/svg/icons/ellipsis-h.svg";
+import Taglist from "./Taglist.jsx";
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
 
 const AddTag = (props) => {
     /* initialize Form Data */
@@ -30,6 +37,7 @@ const AddTag = (props) => {
     });
 
     const { sessionState, setSessionState, tagState, setTagState } = props;
+<<<<<<< HEAD
     // console.log(sessionState);
     const {
         serverAssigned,
@@ -40,6 +48,10 @@ const AddTag = (props) => {
         addTagModalOpen,
         taglistWithSession,
     } = sessionState;
+=======
+    
+    const { sessionList, serverAssigned, asignedTerms, unAsignedTerms, activeSessionId, editableTermId, addTagModalOpen, taglistWithSession } = sessionState;
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
     const { allTags, assignedTags, tagLoader } = tagState;
 
     const {
@@ -50,12 +62,18 @@ const AddTag = (props) => {
         newUnAssinged,
     } = addFormState;
 
+<<<<<<< HEAD
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+=======
+    const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
+    
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
     useEffect(() => {
         if (editableTermId !== '') {
             let termName = tagInput;
+<<<<<<< HEAD
             termName = allTags.filter(
                 (item) => item.term_id === editableTermId
             )[0].name;
@@ -63,6 +81,9 @@ const AddTag = (props) => {
             //     allTags.filter((item) => item.term_id === editableTermId)[0]
             //         .name
             // );
+=======
+            termName = allTags.filter(item=> item.term_id === editableTermId)[0].name;
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
             setAddFormState({
                 ...addFormState,
                 newAssigned: [],
@@ -78,8 +99,11 @@ const AddTag = (props) => {
         }
     }, [addTagModalOpen]);
 
+<<<<<<< HEAD
     // console.log(addFormState);
 
+=======
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
@@ -128,6 +152,7 @@ const AddTag = (props) => {
                             addTagResponse: 'Successfully Edited',
                         });
                     });
+<<<<<<< HEAD
             } else {
                 apiService
                     .dataAdd('/messages/terms', termData)
@@ -143,6 +168,12 @@ const AddTag = (props) => {
                             addTagResponseStatus: 'success',
                             addTagResponse: 'Successfully Added',
                         });
+=======
+                    setAddFormState({
+                        ...addFormState,
+                        addTagResponseStatus: "success",
+                        addTagResponse: "Successfully Edited",
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
                     });
             }
         } else {
@@ -224,6 +255,7 @@ const AddTag = (props) => {
                     });
                 }
             }
+<<<<<<< HEAD
 
             // if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
             //     let virtualArray = [...newUnAssinged];
@@ -235,6 +267,11 @@ const AddTag = (props) => {
             // }
             if (asignedTerms.indexOf(e.target.id) === -1) {
                 let ids = e.target.id.replace('wpwax-vm-term-', '');
+=======
+            
+            if(asignedTerms.indexOf(e.target.id) === -1){
+                let ids = e.target.id.replace('wpwax-vm-term-','')
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
                 setSessionState({
                     ...sessionState,
                     asignedTerms: [...asignedTerms, ids],
@@ -344,13 +381,18 @@ const AddTag = (props) => {
             });
 
         const fetchSessionTermAdd = await apiService.getAll('/sessions');
+<<<<<<< HEAD
         // console.log(fetchSessionTermAdd);
+=======
+        
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
         setSessionState({
             ...sessionState,
             sessionList: fetchSessionTermAdd.data.data,
         });
     };
 
+<<<<<<< HEAD
     // console.log(asignedTerms, serverAssigned, newAssigned, newUnAssinged);
 
     return (
@@ -368,6 +410,63 @@ const AddTag = (props) => {
                         <span className='wpwax-vm-taglist-author__name'>
                             Tags Adnan
                         </span>
+=======
+    const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+    let users = [];
+    if(currentSession.length !== 0){
+        users = currentSession[0].users.filter(p => p.id !== parseInt(currentUser.ID));
+    }
+    let images = [];
+    let titleString = [];
+    let multiImg = false;
+    if(currentSession.length !== 0){
+        if(currentSession[0].users.length === 1){
+            images.push(currentSession[0].users[0].avater);
+            titleString.push(currentSession[0].users[0].name)
+        }else{
+            for (let i = 0; i < users.length; i++) {
+                images.push(users[i].avater);
+                titleString.push(users[i].name)
+            }
+        }
+    }
+
+    if(images.length > 1){
+        multiImg = true;
+    }
+
+    return (
+        <React.Fragment>
+            <AddTagWrap className={addTagModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal"}>
+                <div className="wpwax-vm-modal__header">
+                    <div className="wpwax-vm-taglist-author">
+                        {
+                            taglistWithSession ? 
+                            <div className="wpwax-vm-taglist-author__img">
+                                {
+                                    images.map((src, index) => {
+                                        if(index === 0){
+                                            if (src !== '') {
+                                                return (
+                                                    <img src={src} alt="" key={index} />
+                                                )
+                                            } else {
+                                                return (
+                                                    <img src={userImg} alt="" key={index} />
+                                                )
+                                            }
+                                        }
+                                        
+                                    })
+                                }
+                                {
+                                    multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>:null
+                                }
+                            </div> : null
+                        }
+                        
+                        <span className="wpwax-vm-taglist-author__name">{taglistWithSession ? `${editableTermId !=='' ? "Edit": "Add"} Tags of ${titleString}` : `Edit Tag`}</span>
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
                     </div>
                     <a
                         href='#'
@@ -397,6 +496,7 @@ const AddTag = (props) => {
                                     onChange={(e) => handleTagInput(e)}
                                 />
                             </div>
+<<<<<<< HEAD
                             <button
                                 className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary'
                                 onClick={(e) => handleCreateTerm(e)}
@@ -478,6 +578,58 @@ const AddTag = (props) => {
                             })}
                         </ul>
                     )}
+=======
+                            <button className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={e=>handleCreateTerm(e)}>{editableTermId !=='' ? "Apply": "Apply"}</button>
+                        </div>
+                    </form>
+                    {
+                        taglistWithSession ? 
+                            <div className="wpwax-vm-taglist-box">
+                                {
+                                    tagLoader ?
+                                    <span className="wpwax-vm-loading-spin">
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                        <span className="wpwax-vm-spin-dot"></span>
+                                    </span>: 
+                                    <React.Fragment>
+                                        <div className="wpwax-vm-taglist">
+                                            {
+                                                allTags.length !== 0 ?
+                                                allTags.map((item,index)=>{
+                                                    return(
+                                                        <div className="wpwax-vm-tag__check" key={index}>
+                                                            <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={asignedTerms.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleAssignList(e)}/>
+                                                        </div>
+                                                    )
+                                                })
+                                                :
+                                                <div className="wpwax-vm-empty">
+                                                    {
+                                                        <p>Please add tags before assign</p>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                        {
+                                            allTags.length !== 0 ? <a href="#" className="wpwax-vm-btnlink" onClick={handleAssignTerm}>Update</a> : null
+                                        }
+                                    </React.Fragment>
+                                }
+                            </div> : 
+                            <ul className="wpwax-vm-tags-readable-list">
+                                {
+                                    allTags.map((item,index)=>{
+                                        return(
+                                            <li key={index}>{item.name}{index !== allTags.length -1 ? ' , ': ''}</li>
+                                        )
+                                    })
+                                }
+                                
+                            </ul>
+                    }
+>>>>>>> 83fb9b3e9eb81171751d4dc95c08ec97971b3350
                 </div>
 
                 <div className='wpwax-vm-modal__footer'>

@@ -2571,7 +2571,9 @@ function createListenerMiddleware(middlewareOptions) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/messageBox/Index.jsx */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Index.jsx");
+/* harmony import */ var _components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sidebar/Index.jsx */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Index.jsx");
+/* harmony import */ var _components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -2593,10 +2595,10 @@ function App() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "wpwax-vm-sidebar",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((_components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_2___default()), {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "wpwax-vm-messagebox",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)((_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_1___default()), {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
       className: "wpax-vm-overlay"
     })]

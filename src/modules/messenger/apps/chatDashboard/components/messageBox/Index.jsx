@@ -6,7 +6,6 @@ import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
-import screenRecord from 'Assets/svg/icons/s-record.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';

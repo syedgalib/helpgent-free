@@ -57,6 +57,13 @@ function MessageBox() {
     const [audioMessageContent, setAudioMessageContent] = useState(null);
     const [videoMessageContent, setVideoMessageContent] = useState(null);
 
+    // Search Results
+    const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
+    const [searchResults, setSearchResults] = useState([]);
+    const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
+    const [isLoadingMoreSearchResults, setIsLoadingMoreSearchResults] =
+        useState(false);
+
     /* initialize Form Data */
     const {
         paginationPerPage,
@@ -227,8 +234,20 @@ function MessageBox() {
     };
 
     /* Handle Voice Message */
-    const showReplayViaVoiceMessage = (event) => {
+    const showReplayViaVoiceMessage = async (event) => {
         event.preventDefault();
+
+        // Check Permission
+        const can_record_video = await canRecordAudio();
+
+        if (!can_record_video) {
+            return;
+        }
+
+        // Start Voice Recording;
+        // startVoiceRecording();
+
+        // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
         dispatch(handleReplyModeChange(false));
     };
@@ -335,6 +354,141 @@ function MessageBox() {
         }
     };
 
+    const handleSendVoiceMessage = () => {
+        console.log('handleSendVoiceMessage');
+    };
+
+    // setupVideoStreem
+    async function setupVideoStreem() {
+        try {
+            // Setup Video Streem
+            window.wpwaxCSVideoStream =
+                await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        sampleRate: 44100,
+                    },
+                    video: { facingMode: 'user' },
+                });
+
+            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
+                type: 'video',
+                mimeType: 'video/webm;codecs=vp9',
+                recorderType: RecordRTC.MediaStreamRecorder,
+                disableLogs: true,
+            });
+
+            if (videoStreemRef.current.srcObject) {
+                videoStreemRef.current.srcObject
+                    .getVideoTracks()
+                    .forEach((track) => {
+                        track.stop();
+                        videoStreemRef.current.srcObject.removeTrack(track);
+                    });
+            }
+
+            videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
+            videoStreemRef.current.play();
+        } catch (error) {
+            console.log({ error });
+
+            setIsRecording(false);
+        }
+    }
+
+    // startRecording
+    async function startRecording() {
+        await window.wpwaxCSRecorder.startRecording();
+
+        setRecordedTimeInSecond(0);
+        setIsRecording(true);
+        startVoiceTimer();
+    }
+
+    // stopRecording
+    function stopRecording() {
+        stopVoiceTimer();
+        window.wpwaxCSRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxCSRecorder.getBlob();
+
+            const tracks = window.wpwaxCSVideoStream.getTracks();
+            tracks.forEach((track) => track.stop());
+
+            setRecordedVidioBlob(blob);
+            setRecordedVidioURL(url);
+            setIsRecording(false);
+            setCurrentStage(stages.BEFORE_SEND);
+        });
+
+        const tracks = window.wpwaxCSVideoStream.getTracks();
+        tracks.forEach((track) => track.stop());
+    }
+
+    function startVoiceTimer() {
+        window.wpwaxCSAudioTimer = setInterval(function () {
+            setRecordedTimeInSecond(function (currentValue) {
+                return currentValue + 1;
+            });
+        }, 1000);
+    }
+
+    function stopVoiceTimer() {
+        clearInterval(window.wpwaxCSAudioTimer);
+    }
+
+    // canRecordAudio
+    const canRecordAudio = async function () {
+        const needPermission = await needMediaPermission();
+
+        if (needPermission) {
+            const hasPermission = await requestPermission();
+
+            if (!hasPermission) {
+                alert(
+                    'Please grant the requested permission to record the voice'
+                );
+                return false;
+            }
+
+            return true;
+        }
+
+        return true;
+    };
+
+    // needMediaPermission
+    const needMediaPermission = async function () {
+        try {
+            const microphonePermission = await navigator.permissions.query({
+                name: 'microphone',
+            });
+
+            return microphonePermission.state !== 'granted';
+        } catch (_) {
+            return true;
+        }
+    };
+
+    // requestPermission
+    const requestPermission = async function () {
+        try {
+            await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    sampleRate: 44100,
+                },
+            });
+
+            return true;
+        } catch (error) {
+            console.log({ error });
+
+            return false;
+        }
+    };
+
     async function loadLatestMessages(latest_message_date) {
         let args = { limit: -1 };
 
@@ -430,6 +584,75 @@ function MessageBox() {
         setSessionMessages(updatedSessionMessages);
     };
 
+    const loadSearchResults = async () => {
+        setIsLoadingSearchResults(true);
+
+        // Get Search Results
+        const response = await getMessages({
+            page: 1,
+            limit: paginationPerPage,
+        });
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            setIsLoadingSearchResults(false);
+            return;
+        }
+
+        // Update Loaded Session
+        let searchResults = response.data.data.data;
+
+        if (!searchResults.length) {
+            setIsLoadingMoreSearchResults(false);
+            return;
+        }
+
+        setSearchResults(searchResults);
+        setIsLoadingSearchResults(false);
+    };
+
+    const loadMoreSearchResults = async () => {
+        setIsLoadingMoreSearchResults(true);
+
+        // Get More Search Results
+        const nextPage = currentSearchResultPage + 1;
+
+        const response = await getMessages({
+            page: nextPage,
+            limit: paginationPerPage,
+        });
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            setIsLoadingMoreSearchResults(false);
+            return;
+        }
+
+        // Update Loaded Session
+        let latestItems = response.data.data.data;
+
+        if (!latestItems.length) {
+            setIsLoadingMoreSearchResults(false);
+            return;
+        }
+
+        const newSearchResults = [...searchResults, ...latestItems];
+
+        setSearchResults(newSearchResults);
+        setCurrentSearchResultPage(nextPage);
+        setIsLoadingMoreSearchResults(false);
+    };
+
     const getPaginationMeta = () => {
         const currentSession = sessionMessages;
         const perPage = paginationPerPage;
@@ -514,19 +737,26 @@ function MessageBox() {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-voice-close'
-                                onClick={handleTextClose}
+                                onClick={handleVoiceClose}
                             >
                                 <span className='dashicons dashicons-no-alt'></span>
                             </a>
                             <span className='wpwax-vm-audio-range'>
-                                <span className='wpwax-vm-audio-range-inner'></span>
+                                <span
+                                    style={{ width: '50%' }}
+                                    className='wpwax-vm-audio-range-inner'
+                                ></span>
                             </span>
-                            <span className='wpwax-vm-timer'>02:30</span>
+                            <span className='wpwax-vm-timer'>02:00</span>
                         </div>
                         <div className='wpwax-vm-messagebox-reply__action'>
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleSendVoiceMessage();
+                                }}
                             >
                                 <ReactSVG src={paperPlane} />
                             </a>
@@ -585,11 +815,19 @@ function MessageBox() {
         dispatch(handleReplyModeChange(false));
     };
 
+    /* Handle Text Colse */
+    const handleVoiceClose = (e) => {
+        e.preventDefault();
+
+        dispatch(handleMessageTypeChange(''));
+        dispatch(handleReplyModeChange(false));
+    };
+
     return (
         <ChatBoxWrap>
-            {sessionMessages ? (
+            {sessionMessages.length ? (
                 <div style={{ height: '100%' }}>
-                    {!isLoadingSession ? (
+                    {!isLoadingSession && !isLoadingSearchResults ? (
                         <div>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
@@ -629,9 +867,6 @@ function MessageBox() {
                                                 <a
                                                     href='#'
                                                     className='wpwax-vm-messagebox-header__action--link'
-                                                    onClick={
-                                                        showReplayViaVideoMessage
-                                                    }
                                                 >
                                                     <ReactSVG src={videoPlay} />
                                                     <span className='wpwax-vm-messagebox-header__action--text'>
@@ -643,9 +878,6 @@ function MessageBox() {
                                                 <a
                                                     href='#'
                                                     className='wpwax-vm-messagebox-header__action--link'
-                                                    onClick={
-                                                        showReplayViaVoiceMessage
-                                                    }
                                                 >
                                                     <ReactSVG src={mice} />
                                                     <span className='wpwax-vm-messagebox-header__action--text'>
@@ -666,63 +898,139 @@ function MessageBox() {
                                         flexDirection: 'column-reverse',
                                     }}
                                 >
-                                    <InfiniteScroll
-                                        dataLength={sessionMessages.length}
-                                        next={() => {
-                                            loadOlderMessages();
-                                        }}
-                                        style={{
-                                            display: 'flex',
-                                            flexDirection: 'column-reverse',
-                                        }}
-                                        inverse={true} //
-                                        hasMore={true}
-                                        loader={
-                                            isLoadingMoreMessages ? (
+                                    {!searchResults.length ? (
+                                        <InfiniteScroll
+                                            dataLength={sessionMessages.length}
+                                            next={() => {
+                                                loadOlderMessages();
+                                            }}
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'column-reverse',
+                                            }}
+                                            inverse={true} //
+                                            hasMore={true}
+                                            loader={
+                                                isLoadingMoreMessages ? (
+                                                    <h3
+                                                        style={{
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >
+                                                        Loading...
+                                                    </h3>
+                                                ) : (
+                                                    ''
+                                                )
+                                            }
+                                            refreshFunction={() => {
+                                                loadOlderMessages();
+                                            }}
+                                            pullDownToRefresh
+                                            pullDownToRefreshThreshold={2}
+                                            pullDownToRefreshContent={
                                                 <h3
                                                     style={{
                                                         textAlign: 'center',
                                                     }}
                                                 >
-                                                    Loading...
+                                                    &#8595; Pull down to load
+                                                    older messages
                                                 </h3>
-                                            ) : (
-                                                ''
-                                            )
-                                        }
-                                        refreshFunction={() => {
-                                            loadOlderMessages();
-                                        }}
-                                        pullDownToRefresh
-                                        pullDownToRefreshThreshold={2}
-                                        pullDownToRefreshContent={
-                                            <h3 style={{ textAlign: 'center' }}>
-                                                &#8595; Pull down to load older
-                                                messages
-                                            </h3>
-                                        }
-                                        releaseToRefreshContent={
-                                            <h3 style={{ textAlign: 'center' }}>
-                                                &#8593; Release to load older
-                                                messages
-                                            </h3>
-                                        }
-                                        scrollableTarget='scrollableDiv'
-                                    >
-                                        {sessionMessages.map(
-                                            (message, index) => {
-                                                return (
-                                                    <Message
-                                                        data={message}
-                                                        key={index}
-                                                        currentUser={
-                                                            current_user
-                                                        }
-                                                    />
-                                                );
                                             }
-                                        )}
-                                    </InfiniteScroll>
+                                            releaseToRefreshContent={
+                                                <h3
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    &#8593; Release to load
+                                                    older messages
+                                                </h3>
+                                            }
+                                            scrollableTarget='scrollableDiv'
+                                        >
+                                            {sessionMessages.map(
+                                                (message, index) => {
+                                                    return (
+                                                        <Message
+                                                            data={message}
+                                                            key={index}
+                                                            currentUser={
+                                                                current_user
+                                                            }
+                                                        />
+                                                    );
+                                                }
+                                            )}
+                                        </InfiniteScroll>
+                                    ) : (
+                                        <InfiniteScroll
+                                            dataLength={searchResults.length}
+                                            next={() => {
+                                                loadMoreSearchResults();
+                                            }}
+                                            style={{
+                                                display: 'flex',
+                                                flexDirection: 'column-reverse',
+                                            }}
+                                            inverse={true} //
+                                            hasMore={true}
+                                            loader={
+                                                isLoadingMoreSearchResults ? (
+                                                    <h3
+                                                        style={{
+                                                            textAlign: 'center',
+                                                        }}
+                                                    >
+                                                        Loading...
+                                                    </h3>
+                                                ) : (
+                                                    ''
+                                                )
+                                            }
+                                            refreshFunction={() => {
+                                                loadMoreSearchResults();
+                                            }}
+                                            pullDownToRefresh
+                                            pullDownToRefreshThreshold={2}
+                                            pullDownToRefreshContent={
+                                                <h3
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    &#8595; Pull down to load
+                                                    more results
+                                                </h3>
+                                            }
+                                            releaseToRefreshContent={
+                                                <h3
+                                                    style={{
+                                                        textAlign: 'center',
+                                                    }}
+                                                >
+                                                    &#8593; Release to load more
+                                                    results
+                                                </h3>
+                                            }
+                                            scrollableTarget='scrollableDiv'
+                                        >
+                                            {searchResults.map(
+                                                (message, index) => {
+                                                    return (
+                                                        <Message
+                                                            data={message}
+                                                            key={index}
+                                                            currentUser={
+                                                                current_user
+                                                            }
+                                                        />
+                                                    );
+                                                }
+                                            )}
+                                        </InfiniteScroll>
+                                    )}
                                 </div>
                                 {handleFooterContent()}
                             </MessageBoxWrap>

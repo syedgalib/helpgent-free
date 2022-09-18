@@ -6670,7 +6670,28 @@ function MessageBox() {
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState22 = _slicedToArray(_useState21, 2),
       videoMessageContent = _useState22[0],
-      setVideoMessageContent = _useState22[1];
+      setVideoMessageContent = _useState22[1]; // Search Results
+
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+      _useState24 = _slicedToArray(_useState23, 2),
+      currentSearchResultPage = _useState24[0],
+      setCurrentSearchResultPage = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState26 = _slicedToArray(_useState25, 2),
+      searchResults = _useState26[0],
+      setSearchResults = _useState26[1];
+
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState28 = _slicedToArray(_useState27, 2),
+      isLoadingSearchResults = _useState28[0],
+      setIsLoadingSearchResults = _useState28[1];
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState30 = _slicedToArray(_useState29, 2),
+      isLoadingMoreSearchResults = _useState30[0],
+      setIsLoadingMoreSearchResults = _useState30[1];
   /* initialize Form Data */
 
 
@@ -6838,11 +6859,47 @@ function MessageBox() {
   /* Handle Voice Message */
 
 
-  var showReplayViaVoiceMessage = function showReplayViaVoiceMessage(event) {
-    event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)('voice'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
-  };
+  var showReplayViaVoiceMessage = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+      var can_record_video;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              event.preventDefault(); // Check Permission
+
+              _context2.next = 3;
+              return canRecordAudio();
+
+            case 3:
+              can_record_video = _context2.sent;
+
+              if (can_record_video) {
+                _context2.next = 6;
+                break;
+              }
+
+              return _context2.abrupt("return");
+
+            case 6:
+              // Start Voice Recording;
+              // startVoiceRecording();
+              // Show Recording UI
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function showReplayViaVoiceMessage(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
   /* Handle Reply Mode */
 
 
@@ -6857,39 +6914,39 @@ function MessageBox() {
   };
 
   var sendTextMessage = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
       var response, message;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               e.preventDefault();
 
               if (!isSendingTextMessage) {
-                _context2.next = 3;
+                _context3.next = 3;
                 break;
               }
 
-              return _context2.abrupt("return");
+              return _context3.abrupt("return");
 
             case 3:
               setIsSendingTextMessage(true); // Send Message
 
-              _context2.next = 6;
+              _context3.next = 6;
               return createTextMessage(textMessageContent);
 
             case 6:
-              response = _context2.sent;
+              response = _context3.sent;
               setIsSendingTextMessage(false); // Show Alert on Error
 
               if (response.success) {
-                _context2.next = 12;
+                _context3.next = 12;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
-              return _context2.abrupt("return");
+              return _context3.abrupt("return");
 
             case 12:
               // Reset Input
@@ -6899,24 +6956,24 @@ function MessageBox() {
 
             case 14:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
-    return function sendTextMessage(_x) {
-      return _ref2.apply(this, arguments);
+    return function sendTextMessage(_x2) {
+      return _ref3.apply(this, arguments);
     };
   }();
 
   var createTextMessage = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(text) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(text) {
       var args, status, _response;
 
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               args = {
                 session_id: selectedSession.session_id,
@@ -6927,45 +6984,45 @@ function MessageBox() {
                 success: false,
                 data: null
               };
-              _context3.prev = 2;
-              _context3.next = 5;
+              _context4.prev = 2;
+              _context4.next = 5;
               return Helper_http_js__WEBPACK_IMPORTED_MODULE_14__["default"].postData('/messages', args);
 
             case 5:
-              _response = _context3.sent;
+              _response = _context4.sent;
               status.success = true;
               status.data = _response;
-              return _context3.abrupt("return", status);
+              return _context4.abrupt("return", status);
 
             case 11:
-              _context3.prev = 11;
-              _context3.t0 = _context3["catch"](2);
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](2);
               status.success = false;
               console.error({
-                error: _context3.t0
+                error: _context4.t0
               });
-              return _context3.abrupt("return", status);
+              return _context4.abrupt("return", status);
 
             case 16:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3, null, [[2, 11]]);
+      }, _callee4, null, [[2, 11]]);
     }));
 
-    return function createTextMessage(_x2) {
-      return _ref3.apply(this, arguments);
+    return function createTextMessage(_x3) {
+      return _ref4.apply(this, arguments);
     };
   }();
 
   var getMessages = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(customArgs) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(customArgs) {
       var defaultArgs, args, status, _response2;
 
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               defaultArgs = {
                 session_id: selectedSession.session_id,
@@ -6976,49 +7033,306 @@ function MessageBox() {
                 success: false,
                 data: null
               };
-              _context4.prev = 3;
-              _context4.next = 6;
+              _context5.prev = 3;
+              _context5.next = 6;
               return Helper_http_js__WEBPACK_IMPORTED_MODULE_14__["default"].getData('/messages', args);
 
             case 6:
-              _response2 = _context4.sent;
+              _response2 = _context5.sent;
               status.success = true;
               status.data = _response2;
-              return _context4.abrupt("return", status);
+              return _context5.abrupt("return", status);
 
             case 12:
-              _context4.prev = 12;
-              _context4.t0 = _context4["catch"](3);
+              _context5.prev = 12;
+              _context5.t0 = _context5["catch"](3);
               status.success = false;
               status.data = response;
               console.error({
-                error: _context4.t0
+                error: _context5.t0
               });
-              return _context4.abrupt("return", status);
+              return _context5.abrupt("return", status);
 
             case 18:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4, null, [[3, 12]]);
+      }, _callee5, null, [[3, 12]]);
     }));
 
-    return function getMessages(_x3) {
-      return _ref4.apply(this, arguments);
+    return function getMessages(_x4) {
+      return _ref5.apply(this, arguments);
     };
   }();
 
-  function loadLatestMessages(_x4) {
+  var handleSendVoiceMessage = function handleSendVoiceMessage() {
+    console.log('handleSendVoiceMessage');
+  }; // setupVideoStreem
+
+
+  function setupVideoStreem() {
+    return _setupVideoStreem.apply(this, arguments);
+  } // startRecording
+
+
+  function _setupVideoStreem() {
+    _setupVideoStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              _context12.prev = 0;
+              _context12.next = 3;
+              return navigator.mediaDevices.getUserMedia({
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  sampleRate: 44100
+                },
+                video: {
+                  facingMode: 'user'
+                }
+              });
+
+            case 3:
+              window.wpwaxCSVideoStream = _context12.sent;
+              window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
+                type: 'video',
+                mimeType: 'video/webm;codecs=vp9',
+                recorderType: RecordRTC.MediaStreamRecorder,
+                disableLogs: true
+              });
+
+              if (videoStreemRef.current.srcObject) {
+                videoStreemRef.current.srcObject.getVideoTracks().forEach(function (track) {
+                  track.stop();
+                  videoStreemRef.current.srcObject.removeTrack(track);
+                });
+              }
+
+              videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
+              videoStreemRef.current.play();
+              _context12.next = 14;
+              break;
+
+            case 10:
+              _context12.prev = 10;
+              _context12.t0 = _context12["catch"](0);
+              console.log({
+                error: _context12.t0
+              });
+              setIsRecording(false);
+
+            case 14:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12, null, [[0, 10]]);
+    }));
+    return _setupVideoStreem.apply(this, arguments);
+  }
+
+  function startRecording() {
+    return _startRecording.apply(this, arguments);
+  } // stopRecording
+
+
+  function _startRecording() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+      return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              _context13.next = 2;
+              return window.wpwaxCSRecorder.startRecording();
+
+            case 2:
+              setRecordedTimeInSecond(0);
+              setIsRecording(true);
+              startVoiceTimer();
+
+            case 5:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13);
+    }));
+    return _startRecording.apply(this, arguments);
+  }
+
+  function stopRecording() {
+    stopVoiceTimer();
+    window.wpwaxCSRecorder.stopRecording(function (url) {
+      var blob = window.wpwaxCSRecorder.getBlob();
+      var tracks = window.wpwaxCSVideoStream.getTracks();
+      tracks.forEach(function (track) {
+        return track.stop();
+      });
+      setRecordedVidioBlob(blob);
+      setRecordedVidioURL(url);
+      setIsRecording(false);
+      setCurrentStage(stages.BEFORE_SEND);
+    });
+    var tracks = window.wpwaxCSVideoStream.getTracks();
+    tracks.forEach(function (track) {
+      return track.stop();
+    });
+  }
+
+  function startVoiceTimer() {
+    window.wpwaxCSAudioTimer = setInterval(function () {
+      setRecordedTimeInSecond(function (currentValue) {
+        return currentValue + 1;
+      });
+    }, 1000);
+  }
+
+  function stopVoiceTimer() {
+    clearInterval(window.wpwaxCSAudioTimer);
+  } // canRecordAudio
+
+
+  var canRecordAudio = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      var needPermission, hasPermission;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return needMediaPermission();
+
+            case 2:
+              needPermission = _context6.sent;
+
+              if (!needPermission) {
+                _context6.next = 11;
+                break;
+              }
+
+              _context6.next = 6;
+              return requestPermission();
+
+            case 6:
+              hasPermission = _context6.sent;
+
+              if (hasPermission) {
+                _context6.next = 10;
+                break;
+              }
+
+              alert('Please grant the requested permission to record the voice');
+              return _context6.abrupt("return", false);
+
+            case 10:
+              return _context6.abrupt("return", true);
+
+            case 11:
+              return _context6.abrupt("return", true);
+
+            case 12:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function canRecordAudio() {
+      return _ref6.apply(this, arguments);
+    };
+  }(); // needMediaPermission
+
+
+  var needMediaPermission = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var microphonePermission;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.prev = 0;
+              _context7.next = 3;
+              return navigator.permissions.query({
+                name: 'microphone'
+              });
+
+            case 3:
+              microphonePermission = _context7.sent;
+              return _context7.abrupt("return", microphonePermission.state !== 'granted');
+
+            case 7:
+              _context7.prev = 7;
+              _context7.t0 = _context7["catch"](0);
+              return _context7.abrupt("return", true);
+
+            case 10:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[0, 7]]);
+    }));
+
+    return function needMediaPermission() {
+      return _ref7.apply(this, arguments);
+    };
+  }(); // requestPermission
+
+
+  var requestPermission = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.prev = 0;
+              _context8.next = 3;
+              return navigator.mediaDevices.getUserMedia({
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  sampleRate: 44100
+                }
+              });
+
+            case 3:
+              return _context8.abrupt("return", true);
+
+            case 6:
+              _context8.prev = 6;
+              _context8.t0 = _context8["catch"](0);
+              console.log({
+                error: _context8.t0
+              });
+              return _context8.abrupt("return", false);
+
+            case 10:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, null, [[0, 6]]);
+    }));
+
+    return function requestPermission() {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+
+  function loadLatestMessages(_x5) {
     return _loadLatestMessages.apply(this, arguments);
   }
 
   function _loadLatestMessages() {
-    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(latest_message_date) {
+    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(latest_message_date) {
       var args, response, message, responseData, newLatestMessageDate, latestItems, updatedSessionMessages;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context14.prev = _context14.next) {
             case 0:
               args = {
                 limit: -1
@@ -7030,30 +7344,30 @@ function MessageBox() {
                 args.created_on_compare_date_time = '>';
               }
 
-              _context6.next = 5;
+              _context14.next = 5;
               return getMessages(args);
 
             case 5:
-              response = _context6.sent;
+              response = _context14.sent;
 
               if (response.success) {
-                _context6.next = 10;
+                _context14.next = 10;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
-              return _context6.abrupt("return");
+              return _context14.abrupt("return");
 
             case 10:
               responseData = response.data.data.data;
 
               if (responseData.length) {
-                _context6.next = 13;
+                _context14.next = 13;
                 break;
               }
 
-              return _context6.abrupt("return");
+              return _context14.abrupt("return");
 
             case 13:
               newLatestMessageDate = responseData[0].created_on; // Update Latest Message Date
@@ -7067,64 +7381,64 @@ function MessageBox() {
 
             case 19:
             case "end":
-              return _context6.stop();
+              return _context14.stop();
           }
         }
-      }, _callee6);
+      }, _callee14);
     }));
     return _loadLatestMessages.apply(this, arguments);
   }
 
   var loadOlderMessages = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
       var paginationMeta, nextPage, response, message, latestItems, updatedSessionMessages;
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
               setIsLoadingMoreMessages(true); // Get Older Messages
 
               paginationMeta = getPaginationMeta();
               nextPage = paginationMeta.nextPage;
-              _context5.next = 5;
+              _context9.next = 5;
               return getMessages({
                 page: nextPage,
                 limit: paginationPerPage
               });
 
             case 5:
-              response = _context5.sent;
+              response = _context9.sent;
               setIsLoadingMoreMessages(false); // Show Alert on Error
 
               if (response.success) {
-                _context5.next = 11;
+                _context9.next = 11;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
-              return _context5.abrupt("return");
+              return _context9.abrupt("return");
 
             case 11:
               // Update Loaded Session
               latestItems = response.data.data.data;
 
               if (latestItems.length) {
-                _context5.next = 14;
+                _context9.next = 14;
                 break;
               }
 
-              return _context5.abrupt("return");
+              return _context9.abrupt("return");
 
             case 14:
               latestItems = latestItems.splice(0, latestItems.length - paginationMeta.reminder);
 
               if (latestItems.length) {
-                _context5.next = 17;
+                _context9.next = 17;
                 break;
               }
 
-              return _context5.abrupt("return");
+              return _context9.abrupt("return");
 
             case 17:
               updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(latestItems));
@@ -7132,14 +7446,131 @@ function MessageBox() {
 
             case 19:
             case "end":
-              return _context5.stop();
+              return _context9.stop();
           }
         }
-      }, _callee5);
+      }, _callee9);
     }));
 
     return function loadOlderMessages() {
-      return _ref5.apply(this, arguments);
+      return _ref9.apply(this, arguments);
+    };
+  }();
+
+  var loadSearchResults = /*#__PURE__*/function () {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+      var response, message, searchResults;
+      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+              setIsLoadingSearchResults(true); // Get Search Results
+
+              _context10.next = 3;
+              return getMessages({
+                page: 1,
+                limit: paginationPerPage
+              });
+
+            case 3:
+              response = _context10.sent;
+
+              if (response.success) {
+                _context10.next = 9;
+                break;
+              }
+
+              message = response.message ? response.message : 'Somethong went wrong, please try again.';
+              alert(message);
+              setIsLoadingSearchResults(false);
+              return _context10.abrupt("return");
+
+            case 9:
+              // Update Loaded Session
+              searchResults = response.data.data.data;
+
+              if (searchResults.length) {
+                _context10.next = 13;
+                break;
+              }
+
+              setIsLoadingMoreSearchResults(false);
+              return _context10.abrupt("return");
+
+            case 13:
+              setSearchResults(searchResults);
+              setIsLoadingSearchResults(false);
+
+            case 15:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    return function loadSearchResults() {
+      return _ref10.apply(this, arguments);
+    };
+  }();
+
+  var loadMoreSearchResults = /*#__PURE__*/function () {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+      var nextPage, response, message, latestItems, newSearchResults;
+      return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              setIsLoadingMoreSearchResults(true); // Get More Search Results
+
+              nextPage = currentSearchResultPage + 1;
+              _context11.next = 4;
+              return getMessages({
+                page: nextPage,
+                limit: paginationPerPage
+              });
+
+            case 4:
+              response = _context11.sent;
+
+              if (response.success) {
+                _context11.next = 10;
+                break;
+              }
+
+              message = response.message ? response.message : 'Somethong went wrong, please try again.';
+              alert(message);
+              setIsLoadingMoreSearchResults(false);
+              return _context11.abrupt("return");
+
+            case 10:
+              // Update Loaded Session
+              latestItems = response.data.data.data;
+
+              if (latestItems.length) {
+                _context11.next = 14;
+                break;
+              }
+
+              setIsLoadingMoreSearchResults(false);
+              return _context11.abrupt("return");
+
+            case 14:
+              newSearchResults = [].concat(_toConsumableArray(searchResults), _toConsumableArray(latestItems));
+              setSearchResults(newSearchResults);
+              setCurrentSearchResultPage(nextPage);
+              setIsLoadingMoreSearchResults(false);
+
+            case 18:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }));
+
+    return function loadMoreSearchResults() {
+      return _ref11.apply(this, arguments);
     };
   }();
 
@@ -7221,24 +7652,31 @@ function MessageBox() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-close",
-              onClick: handleTextClose,
+              onClick: handleVoiceClose,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
                 className: "dashicons dashicons-no-alt"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
               className: "wpwax-vm-audio-range",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
+                style: {
+                  width: '50%'
+                },
                 className: "wpwax-vm-audio-range-inner"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: "02:30"
+              children: "02:00"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
+              onClick: function onClick(e) {
+                e.preventDefault();
+                handleSendVoiceMessage();
+              },
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
               })
@@ -7306,13 +7744,21 @@ function MessageBox() {
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)(''));
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
   };
+  /* Handle Text Colse */
+
+
+  var handleVoiceClose = function handleVoiceClose(e) {
+    e.preventDefault();
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+  };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_11__.ChatBoxWrap, {
-    children: sessionMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
+    children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
       style: {
         height: '100%'
       },
-      children: !isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
+      children: !isLoadingSession && !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.MessageBoxWrap, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
@@ -7349,7 +7795,6 @@ function MessageBox() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
-                    onClick: showReplayViaVideoMessage,
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
@@ -7362,7 +7807,6 @@ function MessageBox() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
-                    onClick: showReplayViaVoiceMessage,
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("span", {
@@ -7381,7 +7825,7 @@ function MessageBox() {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: !searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
               dataLength: sessionMessages.length,
               next: function next() {
                 loadOlderMessages();
@@ -7418,6 +7862,48 @@ function MessageBox() {
               }),
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  data: message,
+                  currentUser: current_user
+                }, index);
+              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+              dataLength: searchResults.length,
+              next: function next() {
+                loadMoreSearchResults();
+              },
+              style: {
+                display: 'flex',
+                flexDirection: 'column-reverse'
+              },
+              inverse: true //
+              ,
+              hasMore: true,
+              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h3", {
+                style: {
+                  textAlign: 'center'
+                },
+                children: "Loading..."
+              }) : '',
+              refreshFunction: function refreshFunction() {
+                loadMoreSearchResults();
+              },
+              pullDownToRefresh: true,
+              pullDownToRefreshThreshold: 2,
+              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h3", {
+                style: {
+                  textAlign: 'center'
+                },
+                children: "\u2193 Pull down to load more results"
+              }),
+              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("h3", {
+                style: {
+                  textAlign: 'center'
+                },
+                children: "\u2191 Release to load more results"
+              }),
+              scrollableTarget: "scrollableDiv",
+              children: searchResults.map(function (message, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user

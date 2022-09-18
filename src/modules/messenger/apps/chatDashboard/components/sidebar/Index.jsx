@@ -291,22 +291,21 @@ function Sidebar() {
 									{
 										sessionList.map((item, index) => {
 											console.log(item);
+											console.log(currentUser);
 											const users = item.users.filter(p => p.id !== parseInt(currentUser.ID));
+											const selectedUSer = users.filter(select => select.roles[0] === "subscriber");
+											console.log(selectedUSer);
 											let images = [];
 											let titleString = [];
-											let multiImg = false;
+											let initialConv = false;
+											images.push(selectedUSer[0].avater);
 											if(item.users.length === 1){
-												images.push(item.users[0].avater);
-												titleString.push(item.users[0].name)
+												titleString.push(item.users[0].name);
+												initialConv = true
 											}else{
 												for (let i = 0; i < users.length; i++) {
-													images.push(users[i].avater);
 													titleString.push(users[i].name)
 												}
-											}
-
-											if(images.length > 1){
-												multiImg = true;
 											}
 
 											if(Number(item.total_unread) > 0){
@@ -345,7 +344,6 @@ function Sidebar() {
 														text: "Delete Conversation"
 													},
 												];
-												
 											}
 
 											const metaList = [
@@ -358,7 +356,7 @@ function Sidebar() {
 											return (
 												<li className="wpwax-vm-usermedia" key={index}>
 													<div className="wpwax-vm-usermedia__left">
-														<MediaBox chatingMedia={true} lastMessage={item.last_message} img={images} multiImg={multiImg} title={titleString.join()} metaList={metaList} />
+														<MediaBox chatingMedia={true} lastMessage={item.last_message} img={images} initialConv={initialConv} title={titleString.join()} metaList={metaList} />
 													</div>
 													<div className="wpwax-vm-usermedia__right">
 														<span className={Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'}></span>

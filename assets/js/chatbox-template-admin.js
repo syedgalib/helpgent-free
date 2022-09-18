@@ -7224,6 +7224,7 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
         });
 
       case "wpwax-vm-display-custom-pages":
+        console.log(value);
         return _objectSpread(_objectSpread({}, item), {}, {
           options: _objectSpread(_objectSpread({}, item.options), {}, {
             pages: value
@@ -7949,6 +7950,7 @@ var AddForm = function AddForm() {
         }();
 
         editSession().then(function (editSessionResponse) {
+          console.log(editSessionResponse, formData);
           setState(_objectSpread(_objectSpread({}, state), {}, {
             response: editSessionResponse,
             loading: false
@@ -9062,11 +9064,18 @@ var GeneralSettings = function GeneralSettings() {
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
     var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter(function (word) {
-      return !displayedCustomPages.includes(word.id);
+      return console.log(word.id);
     });
-    console.log(filteredKeywords);
+    var getDisplayPlaces = [];
+    filteredKeywords.map(function (item, index) {
+      getDisplayPlaces.push({
+        value: "".concat(item.id),
+        label: "".concat(item.title)
+      });
+    });
+    console.log(getDisplayPlaces);
     setState(_objectSpread(_objectSpread({}, state), {}, {
-      selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [filteredKeywords])
+      selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [getDisplayPlaces])
     })); // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
     //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
     // });
@@ -9095,7 +9104,6 @@ var GeneralSettings = function GeneralSettings() {
       label: "".concat(item.title)
     });
   });
-  console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
   /* To Handle Template Change */
 
   var handleChatVisibility = function handleChatVisibility(e) {
@@ -9121,6 +9129,7 @@ var GeneralSettings = function GeneralSettings() {
       }));
     }
 
+    console.log(state.selectedCustomPages);
     var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
   };

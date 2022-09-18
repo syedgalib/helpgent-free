@@ -59,13 +59,17 @@ const GeneralSettings = () => {
 
     useEffect(() => {
         console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
-        var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => !displayedCustomPages.includes(word.id));
-        console.log(filteredKeywords)
+        var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
+        let getDisplayPlaces = [];
+        filteredKeywords.map((item,index)=>{
+            getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
+        })
+        console.log(getDisplayPlaces);
         setState({
             ...state,
             selectedCustomPages:[
                 ...state.selectedCustomPages,
-                filteredKeywords
+                getDisplayPlaces
             ]
         })
         // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
@@ -92,8 +96,6 @@ const GeneralSettings = () => {
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         customPages.push({ value: `${item.id}`, label: `${item.title}` })
     });
-
-    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
 
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
@@ -122,6 +124,7 @@ const GeneralSettings = () => {
                 ]
             })
         }
+        console.log(state.selectedCustomPages)
         const updatedData = formUpdater(e.name, selectEvent.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };

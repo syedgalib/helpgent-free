@@ -189,6 +189,7 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
+                        console.log(editSessionResponse, formData);
                         setState({
                             ...state,
                             response: editSessionResponse,

@@ -23,6 +23,7 @@ const FormUpdater = (label, value,formInitialData) => {
                     }
                 }
             case "wpwax-vm-display-custom-pages":
+                console.log(value);
                 return {
                     ...item,
                     options: {

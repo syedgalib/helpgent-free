@@ -142,6 +142,16 @@ const MessageBoxWrap = Styled.div`
             padding: 15px 15px 0;
             margin: 0;
         }
+        .wpwax-vm-media{
+            .wpax-vm-imglist{
+                margin: 3px;
+                img{
+                    margin: 3px;
+                    max-width: 44px;
+                    border-radius: 50%;
+                }
+            }
+        }
     }
     .wpwax-vm-messagebox-header__right{
         padding-right: 30px;
@@ -217,22 +227,24 @@ const MessageBoxWrap = Styled.div`
     }
 
     .wpwax-vm-messagebox-body{
-        height: 700px;
-        overflow-y: auto;
+        /* height: 700px; */
         padding-top: 25px;
-        &::-webkit-scrollbar {
-            width: 11px;
-        }
+        .infinite-scroll-component {
+            &::-webkit-scrollbar {
+                width: 11px;
+            }
 
-        &::-webkit-scrollbar-track {
-            background: var(--color-light);
-        }
+            &::-webkit-scrollbar-track {
+                background: var(--color-light);
+            }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: var(--color-bg-gray);
-            border-radius: 6px;
-            border: 3px solid var(--color-light);
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--color-bg-gray);
+                border-radius: 6px;
+                border: 3px solid var(--color-light);
+            }
         }
+        
     }
     .wpwax-vm-messagebox-footer{
         position: relative;

@@ -56,50 +56,26 @@ const MediaBox = ({
                 ) : null
             ) : typeof img === 'object' ? (
                 <div className='wpax-vm-imglist'>
-                    {img.map((src, index) => {
-                        if (index === 0) {
-                            if (src !== '') {
-                                return <img src={src} alt='' key={index} />;
-                            } else {
-                                return <img src={userImg} alt='' key={index} />;
+                    {
+                        initialConv ? 
+                            img[0] === '' ? (
+                                <img src={userImg} alt='' />
+                            ) : (
+                                <img src={img[0]} alt='' />
+                            )
+                        :
+                        img.map((src, index) => {
+                            if (index === 0) {
+                                if (src !== '') {
+                                    return <img src={src} alt='' key={index} />;
+                                } else {
+                                    return <img src={userImg} alt='' key={index} />;
+                                }
                             }
-                        }
-                    })}
+                        })
+                    }
                 </div>
             ) : null}
-            {/* {
-                if(chatingMedia){
-                    typeof img === "string" ? <img src={img} alt="" /> : null
-                }else{
-                }
-            }
-            {
-
-            }
-            {
-                typeof img === "object" ?
-                    <div className="wpax-vm-imglist">
-                        {
-                            img.map((src, index) => {
-                                if(index === 0){
-                                    if (src !== '') {
-                                        return (
-                                            <img src={src} alt="" key={index} />
-                                        )
-                                    } else {
-                                        return (
-                                            <img src={userImg} alt="" key={index} />
-                                        )
-                                    }
-                                }
-
-                            })
-                        }
-                        {
-                            multiImg ? <div className="wpwax-vm-more-img"><ReactSVG src={userIcon}/></div>: null
-                        }
-                    </div> : null
-            } */}
 
             <div className='wpwax-vm-media__body'>
                 <h5 className='wpwax-vm-media__title'>{title}</h5>

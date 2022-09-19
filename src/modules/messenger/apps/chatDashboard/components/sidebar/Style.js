@@ -4,7 +4,8 @@ const SidebarWrap = Styled.div`
     min-height: 600px;
     &.wpwax-vm-loder-active{
         &:after{
-            background-color: #f0f0f1;
+            background-color: #ffffff;
+            border-radius: 10px;
         }
     }
     .wpwax-vm-loading-spin{
@@ -151,6 +152,7 @@ const SidebarWrap = Styled.div`
                     align-items: center;
                     img{
                         max-width: 35px;
+                        border-radius: 50%;
                     }
                     .wpwax-vm-more-img{
                         display: flex;
@@ -311,6 +313,7 @@ const SidebarWrap = Styled.div`
             line-height: 1;
             img{
                 max-width: 40px;
+                border-radius: 50%;
             }
             .wpwax-vm-more-img{
                 width: 40px;

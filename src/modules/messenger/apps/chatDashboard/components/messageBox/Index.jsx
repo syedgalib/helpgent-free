@@ -831,9 +831,7 @@ function MessageBox() {
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
                                     <div className='wpwax-vm-messagebox-header__left'>
-                                        <UserAvaterList
-                                            users={getSessionUsers()}
-                                        />
+                                        <UserAvaterList users={getSessionUsers()} />
                                     </div>
 
                                     <div className='wpwax-vm-messagebox-header__right'>
@@ -892,7 +890,6 @@ function MessageBox() {
                                     id='scrollableDiv'
                                     className='wpwax-vm-messagebox-body'
                                     style={{
-                                        overflow: 'auto',
                                         display: 'flex',
                                         flexDirection: 'column-reverse',
                                     }}
@@ -907,6 +904,7 @@ function MessageBox() {
                                                 display: 'flex',
                                                 flexDirection: 'column-reverse',
                                             }}
+                                            height={600}
                                             inverse={true} //
                                             hasMore={true}
                                             loader={

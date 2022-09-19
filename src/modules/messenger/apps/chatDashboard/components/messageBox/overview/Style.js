@@ -263,6 +263,10 @@ const MessageBox = Styled.div`
         }
         .wpwax-vm-message-author{
             margin-left: 15px;
+            img{
+                max-width: 44px;
+                border-radius: 50%;
+            }
         }
         .wpwax-vm-message-content{
             .wpwax-vm-message-content__top{

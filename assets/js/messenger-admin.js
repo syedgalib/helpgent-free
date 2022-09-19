@@ -6568,7 +6568,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var Assets_svg_loaders_loading_dots_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/loaders/loading-dots.svg */ "./src/assets/svg/loaders/loading-dots.svg");
+/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
 /* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 /* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! apiService/attachment-api */ "./src/lib/apiService/attachment-api.js");
@@ -6687,70 +6687,56 @@ function MessageBox() {
       setIsSendingVideoMessage = _useState16[1]; //
 
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState18 = _slicedToArray(_useState17, 2),
-      isSendingAudoMessage = _useState18[0],
-      setIsSendingAudoMessage = _useState18[1];
+      recordedAudioBlob = _useState18[0],
+      setRecordedAudioBlob = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState20 = _slicedToArray(_useState19, 2),
-      recordedAudioBlob = _useState20[0],
-      setRecordedAudioBlob = _useState20[1];
+      isRecordingVoice = _useState20[0],
+      setIsRecordingVoice = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState22 = _slicedToArray(_useState21, 2),
-      isRecordingVoice = _useState22[0],
-      setIsRecordingVoice = _useState22[1];
+      recordedVoiceTimeInSecond = _useState22[0],
+      setRecordedVoiceTimeInSecond = _useState22[1];
 
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState24 = _slicedToArray(_useState23, 2),
-      recordedVoiceTimeInSecond = _useState24[0],
-      setRecordedVoiceTimeInSecond = _useState24[1];
+      recordedTimeLength = _useState24[0],
+      setRecordedTimeLength = _useState24[1];
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState26 = _slicedToArray(_useState25, 2),
-      recordedTimeLength = _useState26[0],
-      setRecordedTimeLength = _useState26[1];
-
-  var voiceRecordingLimitInSecond = 10; // Refs
+  var voiceRecordingLimitInSecond = 300; // 5 Minuites
+  // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState26 = _slicedToArray(_useState25, 2),
+      textMessageContent = _useState26[0],
+      setTextMessageContent = _useState26[1]; // Search Results
+
+
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState28 = _slicedToArray(_useState27, 2),
-      textMessageContent = _useState28[0],
-      setTextMessageContent = _useState28[1];
+      currentSearchResultPage = _useState28[0],
+      setCurrentSearchResultPage = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState30 = _slicedToArray(_useState29, 2),
-      audioMessageContent = _useState30[0],
-      setAudioMessageContent = _useState30[1];
+      searchResults = _useState30[0],
+      setSearchResults = _useState30[1];
 
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState32 = _slicedToArray(_useState31, 2),
-      videoMessageContent = _useState32[0],
-      setVideoMessageContent = _useState32[1]; // Search Results
+      isLoadingSearchResults = _useState32[0],
+      setIsLoadingSearchResults = _useState32[1];
 
-
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState34 = _slicedToArray(_useState33, 2),
-      currentSearchResultPage = _useState34[0],
-      setCurrentSearchResultPage = _useState34[1];
-
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState36 = _slicedToArray(_useState35, 2),
-      searchResults = _useState36[0],
-      setSearchResults = _useState36[1];
-
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState38 = _slicedToArray(_useState37, 2),
-      isLoadingSearchResults = _useState38[0],
-      setIsLoadingSearchResults = _useState38[1];
-
-  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState40 = _slicedToArray(_useState39, 2),
-      isLoadingMoreSearchResults = _useState40[0],
-      setIsLoadingMoreSearchResults = _useState40[1];
+      isLoadingMoreSearchResults = _useState34[0],
+      setIsLoadingMoreSearchResults = _useState34[1];
   /* initialize Form Data */
 
 
@@ -7055,10 +7041,17 @@ function MessageBox() {
           switch (_context4.prev = _context4.next) {
             case 0:
               e.preventDefault();
-              console.log('handleSendAudioMessage');
 
+              if (!isSendingAudioMessage) {
+                _context4.next = 3;
+                break;
+              }
+
+              return _context4.abrupt("return");
+
+            case 3:
               if (!isRecordingVoice) {
-                _context4.next = 5;
+                _context4.next = 6;
                 break;
               }
 
@@ -7067,14 +7060,14 @@ function MessageBox() {
               });
               return _context4.abrupt("return");
 
-            case 5:
-              _context4.next = 7;
+            case 6:
+              _context4.next = 8;
               return sendAudioMessage();
 
-            case 7:
+            case 8:
               closeVoiceChat();
 
-            case 8:
+            case 9:
             case "end":
               return _context4.stop();
           }
@@ -7089,13 +7082,13 @@ function MessageBox() {
 
   var sendAudioMessage = /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
-      var attachment, delay, attachmentResponse, message, attachmentID, response, _message;
+      var attachment, attachmentResponse, message, attachmentID, response, _message;
 
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              if (!isSendingAudoMessage) {
+              if (!isSendingAudioMessage) {
                 _context5.next = 2;
                 break;
               }
@@ -7104,44 +7097,26 @@ function MessageBox() {
 
             case 2:
               attachment = blob ? blob : recordedAudioBlob;
-              console.log('sendAudioMessage', {
-                blob: blob,
-                recordedAudioBlob: recordedAudioBlob
-              });
 
               if (attachment) {
-                _context5.next = 7;
+                _context5.next = 6;
                 break;
               }
 
               alert('No recordings found');
               return _context5.abrupt("return");
 
-            case 7:
-              setIsSendingAudioMessage(true);
+            case 6:
+              setIsSendingAudioMessage(true); // Upload The Attachment
 
-              delay = function delay(milisec) {
-                return new Promise(function (resolve) {
-                  setTimeout(function () {
-                    resolve('');
-                  }, milisec);
-                });
-              };
+              _context5.next = 9;
+              return createAttachment(attachment);
 
-              _context5.next = 11;
-              return delay(3000);
-
-            case 11:
-              return _context5.abrupt("return");
-
-            case 14:
+            case 9:
               attachmentResponse = _context5.sent;
-              console.log({
-                attachmentResponse: attachmentResponse
-              }); // Show Alert on Error
 
               if (attachmentResponse.success) {
-                _context5.next = 21;
+                _context5.next = 15;
                 break;
               }
 
@@ -7150,26 +7125,21 @@ function MessageBox() {
               setIsSendingAudioMessage(false);
               return _context5.abrupt("return");
 
-            case 21:
-              attachmentID = attachmentResponse.data.id;
-              console.log({
-                attachmentID: attachmentID
-              }); // Send Message
+            case 15:
+              attachmentID = attachmentResponse.data.id; // Send The Message
 
-              _context5.next = 25;
+              _context5.next = 18;
               return createMessage({
+                message_type: 'audio',
                 attachment_id: attachmentID
               });
 
-            case 25:
+            case 18:
               response = _context5.sent;
-              console.log({
-                response: response
-              });
               setIsSendingAudioMessage(false); // Show Alert on Error
 
               if (response.success) {
-                _context5.next = 32;
+                _context5.next = 24;
                 break;
               }
 
@@ -7177,11 +7147,11 @@ function MessageBox() {
               alert(_message);
               return _context5.abrupt("return");
 
-            case 32:
+            case 24:
               // Load Latest
               loadLatestMessages();
 
-            case 33:
+            case 25:
             case "end":
               return _context5.stop();
           }
@@ -7350,24 +7320,21 @@ function MessageBox() {
             case 0:
               blob = _ref8.blob, sendRecording = _ref8.sendRecording;
 
-              if (!sendRecording) {
-                _context8.next = 8;
+              if (sendRecording) {
+                _context8.next = 3;
                 break;
               }
 
-              console.log('Send The Recording Now');
+              return _context8.abrupt("return");
+
+            case 3:
               _context8.next = 5;
               return sendAudioMessage(blob);
 
             case 5:
               closeVoiceChat();
-              _context8.next = 9;
-              break;
 
-            case 8:
-              console.log('Dont Send The Recording Yet');
-
-            case 9:
+            case 6:
             case "end":
               return _context8.stop();
           }
@@ -7381,7 +7348,6 @@ function MessageBox() {
   }();
 
   var closeVoiceChat = function closeVoiceChat() {
-    console.log('Close');
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
@@ -7685,17 +7651,14 @@ function MessageBox() {
                 args.created_on_compare_date_time = '>';
               }
 
-              console.log('loadLatestMessages', {
-                args: args
-              });
-              _context20.next = 6;
+              _context20.next = 5;
               return getMessages(args);
 
-            case 6:
+            case 5:
               response = _context20.sent;
 
               if (response.success) {
-                _context20.next = 11;
+                _context20.next = 10;
                 break;
               }
 
@@ -7703,17 +7666,17 @@ function MessageBox() {
               alert(message);
               return _context20.abrupt("return");
 
-            case 11:
+            case 10:
               responseData = response.data.data.data;
 
               if (responseData.length) {
-                _context20.next = 14;
+                _context20.next = 13;
                 break;
               }
 
               return _context20.abrupt("return");
 
-            case 14:
+            case 13:
               newLatestMessageDate = responseData[0].created_on; // Update Latest Message Date
 
               setLatestMessageDate(newLatestMessageDate); // Update Latest Message
@@ -7723,7 +7686,7 @@ function MessageBox() {
               setSessionMessages(updatedSessionMessages);
               dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
 
-            case 20:
+            case 19:
             case "end":
               return _context20.stop();
           }
@@ -8018,10 +7981,14 @@ function MessageBox() {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               onClick: handleSendAudioMessage,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-                width: "30px",
-                height: "30px",
-                src: Assets_svg_loaders_loading_dots_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                style: {
+                  width: '50px',
+                  height: '50px'
+                },
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
               })
             })
           })]
@@ -13611,15 +13578,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/assets/svg/loaders/loading-dots.svg":
+/***/ "./src/assets/svg/loaders/loading-spin.svg":
 /*!*************************************************!*\
-  !*** ./src/assets/svg/loaders/loading-dots.svg ***!
+  !*** ./src/assets/svg/loaders/loading-spin.svg ***!
   \*************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e029c659354386f2a648528a3d92d1c1.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 

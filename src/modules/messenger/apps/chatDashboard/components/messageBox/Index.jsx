@@ -9,7 +9,7 @@ import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
-import loadingIcon from 'Assets/svg/loaders/loading-dots.svg';
+import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
@@ -53,7 +53,6 @@ function MessageBox() {
     const [isSendingVideoMessage, setIsSendingVideoMessage] = useState(false);
 
     //
-    const [isSendingAudoMessage, setIsSendingAudoMessage] = useState(false);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
     const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] =
@@ -61,15 +60,13 @@ function MessageBox() {
 
     const [recordedTimeLength, setRecordedTimeLength] = useState(0);
 
-    const voiceRecordingLimitInSecond = 10;
+    const voiceRecordingLimitInSecond = 300; // 5 Minuites
 
     // Refs
     const textMessageContentRef = useRef();
 
     // Message Contents
     const [textMessageContent, setTextMessageContent] = useState('');
-    const [audioMessageContent, setAudioMessageContent] = useState(null);
-    const [videoMessageContent, setVideoMessageContent] = useState(null);
 
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
@@ -334,7 +331,9 @@ function MessageBox() {
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
 
-        console.log('handleSendAudioMessage');
+        if (isSendingAudioMessage) {
+            return;
+        }
 
         if (isRecordingVoice) {
             stopVoiceRecording({ sendRecording: true });
@@ -346,13 +345,11 @@ function MessageBox() {
     };
 
     const sendAudioMessage = async function (blob) {
-        if (isSendingAudoMessage) {
+        if (isSendingAudioMessage) {
             return;
         }
 
         const attachment = blob ? blob : recordedAudioBlob;
-
-        console.log('sendAudioMessage', { blob, recordedAudioBlob });
 
         if (!attachment) {
             alert('No recordings found');
@@ -361,22 +358,8 @@ function MessageBox() {
 
         setIsSendingAudioMessage(true);
 
-        const delay = (milisec) => {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve('');
-                }, milisec);
-            });
-        };
-
-        await delay(3000);
-
-        return;
-
         // Upload The Attachment
         const attachmentResponse = await createAttachment(attachment);
-
-        console.log({ attachmentResponse });
 
         // Show Alert on Error
         if (!attachmentResponse.success) {
@@ -392,12 +375,11 @@ function MessageBox() {
 
         const attachmentID = attachmentResponse.data.id;
 
-        console.log({ attachmentID });
-
-        // Send Message
-        const response = await createMessage({ attachment_id: attachmentID });
-
-        console.log({ response });
+        // Send The Message
+        const response = await createMessage({
+            message_type: 'audio',
+            attachment_id: attachmentID,
+        });
 
         setIsSendingAudioMessage(false);
 
@@ -430,9 +412,7 @@ function MessageBox() {
             return status;
         } catch (error) {
             status.success = false;
-
             console.error({ error });
-
             return status;
         }
     }
@@ -501,19 +481,15 @@ function MessageBox() {
     };
 
     const afterStopVoiceRecording = async ({ blob, sendRecording }) => {
-        if (sendRecording) {
-            console.log('Send The Recording Now');
-
-            await sendAudioMessage(blob);
-
-            closeVoiceChat();
-        } else {
-            console.log('Dont Send The Recording Yet');
+        if (!sendRecording) {
+            return;
         }
+
+        await sendAudioMessage(blob);
+        closeVoiceChat();
     };
 
     const closeVoiceChat = () => {
-        console.log('Close');
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
@@ -670,8 +646,6 @@ function MessageBox() {
             args.created_on = latest_message_date;
             args.created_on_compare_date_time = '>';
         }
-
-        console.log('loadLatestMessages', { args });
 
         const response = await getMessages(args);
 
@@ -933,11 +907,17 @@ function MessageBox() {
                                 className='wpwax-vm-messagebox-reply-send'
                                 onClick={handleSendAudioMessage}
                             >
-                                <ReactSVG
-                                    width='30px'
-                                    height='30px'
-                                    src={loadingIcon}
-                                />
+                                {!isSendingAudioMessage ? (
+                                    <ReactSVG src={paperPlane} />
+                                ) : (
+                                    <ReactSVG
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                        }}
+                                        src={loadingIcon}
+                                    />
+                                )}
                             </a>
                         </div>
                     </div>

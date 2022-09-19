@@ -6652,46 +6652,67 @@ function MessageBox() {
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
       isSendingVideoMessage = _useState16[0],
-      setIsSendingVideoMessage = _useState16[1]; // Refs
+      setIsSendingVideoMessage = _useState16[1]; //
+
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState18 = _slicedToArray(_useState17, 2),
+      recordedAudioBlob = _useState18[0],
+      setRecordedAudioBlob = _useState18[1];
+
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState20 = _slicedToArray(_useState19, 2),
+      recordedAudioURL = _useState20[0],
+      setRecordedAudioURL = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState22 = _slicedToArray(_useState21, 2),
+      isRecordingVoice = _useState22[0],
+      setIsRecordingVoice = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState24 = _slicedToArray(_useState23, 2),
+      recordedVoiceTimeInSecond = _useState24[0],
+      setRecordedVoiceTimeInSecond = _useState24[1]; // Refs
 
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState18 = _slicedToArray(_useState17, 2),
-      textMessageContent = _useState18[0],
-      setTextMessageContent = _useState18[1];
-
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-      _useState20 = _slicedToArray(_useState19, 2),
-      audioMessageContent = _useState20[0],
-      setAudioMessageContent = _useState20[1];
-
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-      _useState22 = _slicedToArray(_useState21, 2),
-      videoMessageContent = _useState22[0],
-      setVideoMessageContent = _useState22[1]; // Search Results
-
-
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
-      _useState24 = _slicedToArray(_useState23, 2),
-      currentSearchResultPage = _useState24[0],
-      setCurrentSearchResultPage = _useState24[1];
-
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState26 = _slicedToArray(_useState25, 2),
-      searchResults = _useState26[0],
-      setSearchResults = _useState26[1];
+      textMessageContent = _useState26[0],
+      setTextMessageContent = _useState26[1];
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState28 = _slicedToArray(_useState27, 2),
-      isLoadingSearchResults = _useState28[0],
-      setIsLoadingSearchResults = _useState28[1];
+      audioMessageContent = _useState28[0],
+      setAudioMessageContent = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState30 = _slicedToArray(_useState29, 2),
-      isLoadingMoreSearchResults = _useState30[0],
-      setIsLoadingMoreSearchResults = _useState30[1];
+      videoMessageContent = _useState30[0],
+      setVideoMessageContent = _useState30[1]; // Search Results
+
+
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+      _useState32 = _slicedToArray(_useState31, 2),
+      currentSearchResultPage = _useState32[0],
+      setCurrentSearchResultPage = _useState32[1];
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState34 = _slicedToArray(_useState33, 2),
+      searchResults = _useState34[0],
+      setSearchResults = _useState34[1];
+
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState36 = _slicedToArray(_useState35, 2),
+      isLoadingSearchResults = _useState36[0],
+      setIsLoadingSearchResults = _useState36[1];
+
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState38 = _slicedToArray(_useState37, 2),
+      isLoadingMoreSearchResults = _useState38[0],
+      setIsLoadingMoreSearchResults = _useState38[1];
   /* initialize Form Data */
 
 
@@ -7133,7 +7154,7 @@ function MessageBox() {
               console.log({
                 error: _context13.t0
               });
-              setIsRecording(false);
+              setIsRecordingVoice(false);
 
             case 11:
             case "end":
@@ -7160,8 +7181,8 @@ function MessageBox() {
               return window.wpwaxCSRecorder.startRecording();
 
             case 2:
-              setRecordedTimeInSecond(0);
-              setIsRecording(true);
+              setRecordedVoiceTimeInSecond(0);
+              setIsRecordingVoice(true);
               startVoiceTimer();
 
             case 5:
@@ -7182,9 +7203,9 @@ function MessageBox() {
       tracks.forEach(function (track) {
         return track.stop();
       });
-      setRecordedVidioBlob(blob);
-      setRecordedVidioURL(url);
-      setIsRecording(false);
+      setRecordedAudioBlob(blob);
+      setRecordedAudioURL(url);
+      setIsRecordingVoice(false);
       setCurrentStage(stages.BEFORE_SEND);
     });
     var tracks = window.wpwaxCSVideoStream.getTracks();
@@ -7195,7 +7216,7 @@ function MessageBox() {
 
   function startVoiceTimer() {
     window.wpwaxCSAudioTimer = setInterval(function () {
-      setRecordedTimeInSecond(function (currentValue) {
+      setRecordedVoiceTimeInSecond(function (currentValue) {
         return currentValue + 1;
       });
     }, 1000);

@@ -49,6 +49,13 @@ function MessageBox() {
     const [isSendingAudioMessage, setIsSendingAudioMessage] = useState(false);
     const [isSendingVideoMessage, setIsSendingVideoMessage] = useState(false);
 
+    //
+    const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
+    const [recordedAudioURL, setRecordedAudioURL] = useState('');
+    const [isRecordingVoice, setIsRecordingVoice] = useState(false);
+    const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] =
+        useState(0);
+
     // Refs
     const textMessageContentRef = useRef();
 
@@ -385,7 +392,7 @@ function MessageBox() {
         } catch (error) {
             console.log({ error });
 
-            setIsRecording(false);
+            setIsRecordingVoice(false);
         }
     }
 
@@ -393,8 +400,8 @@ function MessageBox() {
     async function startRecording() {
         await window.wpwaxCSRecorder.startRecording();
 
-        setRecordedTimeInSecond(0);
-        setIsRecording(true);
+        setRecordedVoiceTimeInSecond(0);
+        setIsRecordingVoice(true);
         startVoiceTimer();
     }
 
@@ -407,9 +414,9 @@ function MessageBox() {
             const tracks = window.wpwaxCSVideoStream.getTracks();
             tracks.forEach((track) => track.stop());
 
-            setRecordedVidioBlob(blob);
-            setRecordedVidioURL(url);
-            setIsRecording(false);
+            setRecordedAudioBlob(blob);
+            setRecordedAudioURL(url);
+            setIsRecordingVoice(false);
             setCurrentStage(stages.BEFORE_SEND);
         });
 
@@ -419,7 +426,7 @@ function MessageBox() {
 
     function startVoiceTimer() {
         window.wpwaxCSAudioTimer = setInterval(function () {
-            setRecordedTimeInSecond(function (currentValue) {
+            setRecordedVoiceTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
         }, 1000);

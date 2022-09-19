@@ -1,4 +1,4 @@
-import { restRequest } from 'Helper/http';
+import http from 'Helper/http';
 
 // getChatboxTemplate
 const getChatboxTemplate = async({ pageID, returnDefaultIfResultEmpty }) => {
@@ -7,7 +7,7 @@ const getChatboxTemplate = async({ pageID, returnDefaultIfResultEmpty }) => {
 	args.page_id = pageID;
 	args.return_default_if_result_empty = ( typeof returnDefaultIfResultEmpty === 'boolean' ) ? returnDefaultIfResultEmpty : true;
 
-	return await restRequest.get("/chatbox-templates", { params: args });
+	return await http.getData("/chatbox-templates", { params: args });
 };
 
 // getChatboxTemplate
@@ -21,7 +21,7 @@ const createChatboxTemplate = async({ name, page_ids, is_default, options }) => 
 
 	args.options = JSON.stringify( args.options );
 
-	return await restRequest.post("/chatbox-templates", args);
+	return await http.postData("/chatbox-templates", args);
 };
 
 const api = {

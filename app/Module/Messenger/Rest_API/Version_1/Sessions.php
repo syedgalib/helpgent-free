@@ -192,18 +192,20 @@ class Sessions extends Rest_Base {
         $where['session_id'] = '';
         $where['term_ids']   = '';
 
-        $where['updated_on'] = '';
+        $where['updated_on']                   = '';
+		$where['updated_on_compare_date_time'] = '=';
+		$where['updated_on_compare_day']       = '=';
+		$where['updated_on_compare_month']     = '=';
+		$where['updated_on_compare_year']      = '=';
+		$where['updated_on_between']           = '';
 
-        $where['updated_on_compare_day']   = '=';
-        $where['updated_on_compare_month'] = '=';
-        $where['updated_on_compare_year']  = '=';
 
-        $where['updated_on_between'] = '';
-
-        $where['created_on']               = '';
-        $where['created_on_compare_day']   = '=';
-        $where['created_on_compare_month'] = '=';
-        $where['created_on_compare_year']  = '=';
+        $where['created_on']                   = '';
+        $where['created_on_compare_date_time'] = '=';
+        $where['created_on_compare_day']       = '=';
+        $where['created_on_compare_month']     = '=';
+        $where['created_on_compare_year']      = '=';
+        $where['created_on_between']           = '';
 
         $where = Helper\filter_params( $where, $args );
 
@@ -294,7 +296,7 @@ class Sessions extends Rest_Base {
 				'where' => [
 					'session_id' => $session['session_id'],
 				],
-				'order_by' => 'oldest', //
+				'order_by' => 'oldest',
 				'limit'    => 1,
 			];
 

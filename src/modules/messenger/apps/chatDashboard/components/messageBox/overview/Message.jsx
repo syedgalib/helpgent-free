@@ -1,62 +1,218 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { MessageBox } from "./Style";
-import { ReactSVG } from 'react-svg';
-import author from "Assets/img/chatdashboard/user.png";
-import replier from "Assets/img/chatdashboard/user2.png";
-import audioRange from "Assets/svg/icons/audio-range.svg";
+import { useState } from 'react';
+import { MessageBox } from './Style';
+import author from 'Assets/img/chatdashboard/user.png';
+import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
+import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
+import { useRef } from 'react';
+import { formatSecondsAsCountdown } from 'Helper/formatter';
 
-// import classes from "ChatApp/assets/Container.module.scss";
+function Message({ data, currentUser }) {
+    const isMine = parseInt(currentUser.id) === parseInt(data.user.id);
 
-function Message({ message }) {
+    const audioRef = useRef();
+    const videoRef = useRef();
 
-	/* Load Message Content */
-	const setMessageContent = () => {
-		if (message.type === "text") {
-			return (
-				<div className="wpwax-vm-message-content__inner--text">
-					<p>Consumers prefer watching a video rather than mere text. Embed your video on any  website using our floating widget. Just copy and paste.</p>
-				</div>
-			);
-		} else if (message.type === "video") {
-			return (
-				<div className="wpwax-vm-message-content__inner--video">
-					<video src=""></video>
-					<a href="#" className="wpwax-vm-btn-play"><span className="dashicons dashicons-controls-play"></span></a>
-				</div>
+    const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+    const [audioDuration, setAudioDuration] = useState(0);
+    const [audioCurrentTime, setAudioCurrentTime] = useState(0);
 
-			)
-		} else if (message.type === "audio") {
-			return (
-				<div className="wpwax-vm-message-content__inner--audio">
-					<a href="#" className="wpwax-vm-btn-play"><span className="dashicons dashicons-controls-play"></span></a>
-					<span className="wpwax-vm-audio-range"><ReactSVG src={audioRange} /><span className="wpwax-vm-timer">06:20</span></span>
-					<audio src=""></audio>
-				</div>
-			)
-		}
-	}
-	return (
-		<MessageBox className={message.reply ? `wpwax-vm-message-single wpwax-vm-message-single-${message.type} wpwax-vm-message-single-replied` : `wpwax-vm-message-single wpwax-vm-message-single-${message.type}`}>
-			<div className="wpwax-vm-message-content">
-				<div className="wpwax-vm-message-content__top">
-					<span className="wpwax-vm-message--authorname">{message.authorName},</span>
-					<span className="wpwax-vm-message-time">{message.sentTime}</span>
-				</div>
-				<div className="wpwax-vm-message-content__inner">
-					{
-						setMessageContent()
-					}
-				</div>
-			</div>
+    const [isPlayingVideo, setIsPlayingVideo] = useState(false);
 
-			<div className="wpwax-vm-message-author">
-				{
-					message.reply ? <img src={replier} alt="Wpwax Video Support" /> : <img src={author} alt="Wpwax Video Support" />
-				}
-			</div>
-		</MessageBox>
-	);
+    function togglePlayPauseAudio(e) {
+        e.preventDefault();
+
+        if (!audioRef.current) {
+            return;
+        }
+
+        if (audioRef.current.paused) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }
+
+    function togglePlayPauseVidio(e) {
+        e.preventDefault();
+
+        if (!videoRef.current) {
+            return;
+        }
+
+        if (videoRef.current.paused) {
+            setIsPlayingVideo(true);
+            videoRef.current.play();
+        } else {
+            videoRef.current.pause();
+            setIsPlayingVideo(false);
+        }
+    }
+
+    function getPlayedTimeInPercent() {
+        const r = audioCurrentTime / audioDuration;
+        return isNaN(r) ? 0 : r * 100;
+    }
+
+    function getAudioTimer() {
+        const remainingTime = audioDuration - audioCurrentTime;
+
+        return formatSecondsAsCountdown(remainingTime);
+    }
+
+    /* Load Message Content */
+    const setMessageContent = () => {
+        if (data.message_type === 'text') {
+            return (
+                <div className='wpwax-vm-message-content__inner--text'>
+                    <p>{data.message}</p>
+                </div>
+            );
+        } else if (data.message_type === 'video') {
+            return (
+                <div className='wpwax-vm-message-content__inner--video'>
+                    <video
+                        ref={videoRef}
+                        src={data.attachment_url}
+                        onPlay={() => {
+                            setIsPlayingVideo(true);
+                        }}
+                        onPause={() => {
+                            setIsPlayingVideo(false);
+                        }}
+                    ></video>
+                    <a
+                        href='#'
+                        className='wpwax-vm-btn-play'
+                        onClick={(e) => {
+                            togglePlayPauseVidio(e);
+                        }}
+                    >
+                        <span
+                            className={
+                                isPlayingVideo
+                                    ? 'dashicons dashicons-controls-pause'
+                                    : 'dashicons dashicons-controls-play'
+                            }
+                        ></span>
+                    </a>
+                </div>
+            );
+        } else if (data.message_type === 'audio') {
+            return (
+                <div className='wpwax-vm-message-content__inner--audio'>
+                    <a
+                        href='#'
+                        onClick={(e) => {
+                            togglePlayPauseAudio(e);
+                        }}
+                        className='wpwax-vm-btn-play'
+                    >
+                        <span
+                            className={
+                                isPlayingAudio
+                                    ? 'dashicons dashicons-controls-pause'
+                                    : 'dashicons dashicons-controls-play'
+                            }
+                        ></span>
+                    </a>
+                    <span className='wpwax-vm-audio-range'>
+                        <div
+                            style={{
+                                position: 'relative',
+                                margin: '5px',
+                                width: '190px',
+                                height: '21px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeInactive + ' )',
+                                    zIndex: 0,
+                                }}
+                            ></div>
+                            <div
+                                style={{
+                                    width: getPlayedTimeInPercent() + '%',
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeActive + ' )',
+                                    zIndex: 1,
+                                    transition: 'all 300ms ease-in-out 0s',
+                                }}
+                            ></div>
+                        </div>
+
+                        <span className='wpwax-vm-timer'>
+                            {getAudioTimer()}
+                        </span>
+                    </span>
+                    <audio
+                        ref={audioRef}
+                        onPlay={() => {
+                            setIsPlayingAudio(true);
+                        }}
+                        onPause={() => {
+                            setIsPlayingAudio(false);
+                        }}
+                        onTimeUpdate={(event) => {
+                            setAudioCurrentTime(event.target.currentTime);
+                        }}
+                        onLoadedData={(event) => {
+                            setAudioDuration(event.target.duration);
+                        }}
+                        src={data.attachment_url}
+                    ></audio>
+                </div>
+            );
+        }
+    };
+
+    return (
+        <MessageBox
+            className={
+                isMine
+                    ? `wpwax-vm-message-single wpwax-vm-message-single-${data.message_type}`
+                    : `wpwax-vm-message-single wpwax-vm-message-single-${data.message_type} wpwax-vm-message-single-replied`
+            }
+        >
+            <div className='wpwax-vm-message-content'>
+                <div className='wpwax-vm-message-content__top'>
+                    <span className='wpwax-vm-message--authorname'>
+                        {data.user.name},
+                    </span>
+                    <span className='wpwax-vm-message-time'>
+                        {data.created_on_formatted}
+                    </span>
+                </div>
+                <div className='wpwax-vm-message-content__inner'>
+                    {setMessageContent()}
+                </div>
+            </div>
+
+            <div className='wpwax-vm-message-author'>
+                <img
+                    src={data.user.avater ? data.user.avater : author}
+                    alt='Author Avater'
+                />
+            </div>
+        </MessageBox>
+    );
 }
 
 export default Message;

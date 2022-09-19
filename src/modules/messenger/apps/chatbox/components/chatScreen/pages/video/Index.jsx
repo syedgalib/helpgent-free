@@ -10,10 +10,10 @@ const Video = () => {
         UPLOAD: 'upload',
     };
 
+    const [currentStage, setCurrentStage] = useState(stages.HOME);
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFileErrorMessage, setSelectedFileErrorMessage] =
         useState('');
-    const [currentStage, setCurrentStage] = useState(stages.HOME);
 
     function prepareForUpload(event) {
         const file = event.target.files.length ? event.target.files[0] : null;

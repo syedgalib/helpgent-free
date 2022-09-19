@@ -1,50 +1,60 @@
 import actions from './actions';
 
 const {
-  replyModeUpdateBegin,
-  replyModeUpdateSuccess,
-  replyModeUpdateError,
+    updateSelectedSession,
+    addSession,
+    updateSessionMessages,
+    replyModeUpdateBegin,
+    replyModeUpdateSuccess,
+    replyModeUpdateError,
 
-  messageTypeUpdateBegin,
-  messageTypeUpdateSuccess,
-  messageTypeUpdateError,
+    messageTypeUpdateBegin,
+    messageTypeUpdateSuccess,
+    messageTypeUpdateError,
 
-  messageStageUpdateBegin,
-  messageStageUpdateSuccess,
-  messageStageUpdateError
+    messageStageUpdateBegin,
+    messageStageUpdateSuccess,
+    messageStageUpdateError,
 } = actions;
 
-const handleReplyModeChange = status => {
-  return async dispatch => {
-    try {
-      dispatch(replyModeUpdateBegin());
-      dispatch(replyModeUpdateSuccess(status));
-    } catch (err) {
-      dispatch(replyModeUpdateError(err));
-    }
-  };
+const handleReplyModeChange = (status) => {
+    return async (dispatch) => {
+        try {
+            dispatch(replyModeUpdateBegin());
+            dispatch(replyModeUpdateSuccess(status));
+        } catch (error) {
+            dispatch(replyModeUpdateError(error));
+        }
+    };
 };
 
-const handleMessageTypeChange = status => {
-  return async dispatch => {
-    try {
-      dispatch(messageTypeUpdateBegin());
-      dispatch(messageTypeUpdateSuccess(status));
-    } catch (err) {
-      dispatch(messageTypeUpdateError(err));
-    }
-  };
+const handleMessageTypeChange = (status) => {
+    return async (dispatch) => {
+        try {
+            dispatch(messageTypeUpdateBegin());
+            dispatch(messageTypeUpdateSuccess(status));
+        } catch (error) {
+            dispatch(messageTypeUpdateError(error));
+        }
+    };
 };
 
-const handleMessageStageChange = stage => {
-  return async dispatch => {
-    try {
-      dispatch(messageStageUpdateBegin());
-      dispatch(messageStageUpdateSuccess(stage));
-    } catch (err) {
-      dispatch(messageStageUpdateError(err));
-    }
-  };
+const handleMessageStageChange = (stage) => {
+    return async (dispatch) => {
+        try {
+            dispatch(messageStageUpdateBegin());
+            dispatch(messageStageUpdateSuccess(stage));
+        } catch (error) {
+            dispatch(messageStageUpdateError(error));
+        }
+    };
 };
 
-export { handleReplyModeChange, handleMessageTypeChange, handleMessageStageChange };
+export {
+    updateSelectedSession,
+    addSession,
+    updateSessionMessages,
+    handleReplyModeChange,
+    handleMessageTypeChange,
+    handleMessageStageChange,
+};

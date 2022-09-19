@@ -1,4 +1,4 @@
-import { restRequest } from 'Helper/http';
+import http from 'Helper/http';
 
 // Send Message
 const sendMessage = async ( args ) => {
@@ -8,7 +8,7 @@ const sendMessage = async ( args ) => {
 
 	args = Object.assign( defaultArgs, args );
 
-	return await restRequest.post("/messages", args);
+	return await http.postData("/messages", args);
 };
 
 const api = { sendMessage };

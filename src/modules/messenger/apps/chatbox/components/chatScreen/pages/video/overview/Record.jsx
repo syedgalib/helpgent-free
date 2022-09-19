@@ -37,7 +37,7 @@ const Record = () => {
         UPLOAD_FAILED: 'upload_failed',
     };
 
-    const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
+    const [permissionDenied, setPermissionDenied] = useState(null);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [recordedVideoBlob, setRecordedVidioBlob] = useState(null);
     const [recordedVidioURL, setRecordedVidioURL] = useState('');
@@ -112,7 +112,7 @@ const Record = () => {
         } catch (error) {
             console.log({ error });
 
-            setPermissionDenied(true);
+            setPermissionDenied !== null(true);
         }
     }
 
@@ -247,7 +247,7 @@ const Record = () => {
                     Request Permission
                 </a>
 
-                {permissionDenied && (
+                {permissionDenied !== null && permissionDenied && (
                     <div className='wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger'>
                         Please grant the requested permission
                     </div>

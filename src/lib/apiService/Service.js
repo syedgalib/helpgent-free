@@ -1,5 +1,4 @@
 import axios from 'axios';
-// console.log(wpWaxCustomerSupportApp_CoreScriptData);
 /* Create Instance */
 const axiosInstance = axios.create({
     baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
@@ -9,34 +8,34 @@ const axiosInstance = axios.create({
     }
 });
 
-const getAll = path =>{
+const getAll = path => {
     return axiosInstance.get(path);
 }
 
-const getAllByArg = (path,args) =>{
-    return axiosInstance.get(path, {params: args});
+const getAllByArg = ( path, args ) => {
+    return axiosInstance.get( path, { params: args } );
 }
 
-const getById = (path,args) =>{
-    return axiosInstance.get(path, args);
+const getById = ( path, args ) => {
+    return axiosInstance.get( path, { params: args } );
 }
 
-const dataUpdate = (path, args) => {
-    return axiosInstance.post(path, args);
+const dataUpdate = ( path, args ) => {
+    return axiosInstance.post( path, args );
 };
 
-const dataAdd = (path, args) => {
-    return axiosInstance.post(path, args);
+const dataAdd = ( path, args ) => {
+    return axiosInstance.post( path, args );
 };
 
 const datadelete = path => {
-    return axiosInstance.delete(path);
+    return axiosInstance.delete( path );
 };
 const markRead = path => {
-    return axiosInstance.post(path);
+    return axiosInstance.post( path );
 };
 const markUnRead = path => {
-    return axiosInstance.post(path);
+    return axiosInstance.post( path );
 };
 
 const apiService = {

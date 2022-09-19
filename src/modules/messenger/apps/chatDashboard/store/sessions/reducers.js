@@ -16,7 +16,7 @@ const {
   ADD_TAG_ERR,
 } = actions;
 
-const TagReducer = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   const { type, data, err } = action;
   switch (type) {
     case SESSION_READ_BEGIN:
@@ -58,4 +58,4 @@ const TagReducer = (state = initialState, action) => {
   }
 };
 
-export default TagReducer;
+export default Reducer;

@@ -125,7 +125,7 @@ const {
   DELETE_CONFIRMATION_MODAL_ERR
 } = actions;
 
-const TagReducer = (state = initialState, action) => {
+const Reducer = (state = initialState, action) => {
   const { type, status, id, data, err } = action;
   switch (type) {
     case TAG_LIST_MODAL_UPDATE_BEGIN:
@@ -224,4 +224,4 @@ const TagReducer = (state = initialState, action) => {
   }
 };
 
-export default TagReducer;
+export default Reducer;

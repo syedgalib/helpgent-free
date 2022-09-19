@@ -39,8 +39,8 @@ class Message_Model extends DB_Model {
         $default['group_by'] = '';
         $default['seen']     = '';
 
-        $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
-		$limit  = $args['limit'];
+        $args  = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
+        $limit = $args['limit'];
 
 		if ( $limit < 0 ) {
 			$limit = null;
@@ -60,7 +60,7 @@ class Message_Model extends DB_Model {
         // Prepare Order
         switch ( $args['order_by'] ) {
             case 'latest':
-                $order_by_field = "updated_on";
+                $order_by_field = "created_on";
                 $order          = " ORDER BY message.$order_by_field DESC";
                 break;
 
@@ -80,7 +80,7 @@ class Message_Model extends DB_Model {
                 break;
 
             default:
-				$order_by_field = "updated_on";
+				$order_by_field = "created_on";
                 $order          = " ORDER BY message.$order_by_field DESC";
                 break;
         }
@@ -344,10 +344,24 @@ class Message_Model extends DB_Model {
 		}
 
 		$accepted_comparations = [ 'null', '=', '!=', '>', '<', '>=', '<=' ];
+		$compare_date_time = '=';
 
-		$compare_day   = '=';
-		$compare_month = '=';
-		$compare_year  = '=';
+		if ( isset( $args['where'][ "{$field_name}_compare_date_time" ] ) ) {
+			$compare_date_time = ( in_array( $args['where'][ "{$field_name}_compare_date_time" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_date_time" ] : '=';
+			unset( $args['where'][ "{$field_name}_compare_date_time" ] );
+
+			$args['where'][ $field_name ] = [
+				'field'     => "message.{$field_name}",
+				'compare'   => $compare_date_time,
+				'value'     => "'" . $args['where'][ $field_name ] . "'",
+			];
+
+			return;
+		}
+
+		$compare_day       = '=';
+		$compare_month     = '=';
+		$compare_year      = '=';
 
 		if ( isset( $args['where'][ "{$field_name}_compare_day" ] ) ) {
 			$compare_day = ( in_array( $args['where'][ "{$field_name}_compare_day" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_day" ] : '=';
@@ -363,8 +377,6 @@ class Message_Model extends DB_Model {
 			$compare_year = ( in_array( $args['where'][ "{$field_name}_compare_year" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_year" ] : '=';
 			unset( $args['where'][ "{$field_name}_compare_year" ] );
 		}
-
-		file_put_contents( dirname( __FILE__ ) . '/log.json', json_encode( $args ) );
 
 		$rules = [];
 
@@ -454,6 +466,11 @@ class Message_Model extends DB_Model {
 
         if ( isset( $args['id'] ) ) {
             unset( $args['id'] );
+        }
+
+        if ( empty( $args['user_id'] ) ) {
+            $message = __( 'User ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
         }
 
 		$result = $wpdb->insert( $table, $args );

@@ -3,13 +3,15 @@ function formatTimeAsCountdown( timeInSecond ) {
 }
 
 function formatSecondsAsCountdown(timeInSecond) {
-	let second = timeInSecond % 60;
-	second = second < 10 ? '0' + second : second;
+	const second = timeInSecond % 60;
+
+	let fotmatted_second = parseInt( second );
+	fotmatted_second = fotmatted_second < 10 ? '0' + fotmatted_second : fotmatted_second;
 
 	let min = (timeInSecond - second) / 60;
 	min = min < 10 ? '0' + min : min;
 
-	return `${min}:${second}`;
+	return `${min}:${fotmatted_second}`;
 }
 
 export { formatSecondsAsCountdown, formatTimeAsCountdown }

@@ -216,9 +216,22 @@ const MessageBoxWrap = Styled.div`
     }
 
     .wpwax-vm-messagebox-body{
-        height: 720px;
+        height: 700px;
         overflow-y: auto;
         padding-top: 25px;
+        &::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--color-light);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--color-bg-gray);
+            border-radius: 6px;
+            border: 3px solid var(--color-light);
+        }
     }
     .wpwax-vm-messagebox-footer{
         position: relative;

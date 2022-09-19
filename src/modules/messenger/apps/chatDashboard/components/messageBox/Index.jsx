@@ -358,6 +358,10 @@ function MessageBox() {
         console.log('handleSendVoiceMessage');
     };
 
+    const startVoiceRecording = async () => {
+        setupVideoStreem();
+    };
+
     // setupVideoStreem
     async function setupVideoStreem() {
         try {
@@ -378,18 +382,6 @@ function MessageBox() {
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true,
             });
-
-            if (videoStreemRef.current.srcObject) {
-                videoStreemRef.current.srcObject
-                    .getVideoTracks()
-                    .forEach((track) => {
-                        track.stop();
-                        videoStreemRef.current.srcObject.removeTrack(track);
-                    });
-            }
-
-            videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
-            videoStreemRef.current.play();
         } catch (error) {
             console.log({ error });
 

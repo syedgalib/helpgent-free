@@ -2,10 +2,16 @@ import Styled from 'styled-components';
 
 const SidebarWrap = Styled.div`
     min-height: 600px;
+    &.wpwax-vm-loder-active{
+        &:after{
+            background-color: #f0f0f1;
+        }
+    }
     .wpwax-vm-loading-spin{
         position: absolute;
         left: 50%;
         top: 50%;
+        z-index: 100;
     }
     .wpwax-vm-sidebar-top{
         display: flex;
@@ -59,6 +65,7 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-form__element{
             border-radius: 10px;
             background-color: #DDDDDD;
+            margin: 0;
             /* &:focus{
                 background-color: var(--color-bg-white);
             } */
@@ -120,6 +127,14 @@ const SidebarWrap = Styled.div`
                         }
                     }
                 }
+                &:nth-child(1),
+                &:nth-child(2){
+                    .wpwax-vm-dropdown{
+                        .wpwax-vm-dropdown__content{
+                            top: 40px !important;
+                        }
+                    }
+                }
                 .wpwax-vm-dropdown{
                     .wpwax-vm-dropdown__content{
                         top: 40px;
@@ -165,6 +180,7 @@ const SidebarWrap = Styled.div`
                             height: 15px;
                             width: 15px;
                             padding: 2px;
+                            line-height: 1;
                             border-radius: 50%;
                             position: absolute;
                             top: 20px;

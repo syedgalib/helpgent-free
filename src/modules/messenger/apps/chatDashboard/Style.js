@@ -27,6 +27,12 @@ const ChatDashboardWrap = Styled.div`
             margin: 0 15px 0 5px;
         }
     }
+    a{
+        &:focus{
+            outline: none;
+            box-shadow: 0 0;
+        }
+    }
 `;
 
 export default ChatDashboardWrap;

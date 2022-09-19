@@ -145,10 +145,31 @@ const MessageBoxWrap = Styled.div`
         .wpwax-vm-media{
             .wpax-vm-imglist{
                 margin: 3px;
+                display: flex;
                 img{
                     margin: 3px;
                     max-width: 44px;
                     border-radius: 50%;
+                }
+                .wpwax-vm-more-img{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    padding: 4px;
+                    margin: 3px;
+                    background-color: var(--color-primary);
+                    >div{
+                        line-height: 1;
+                        width: max-content;
+                    }
+                    svg{
+                        width: 24px;
+                        height: 24px;
+                        fill: var(--color-white);
+                    }
                 }
             }
         }

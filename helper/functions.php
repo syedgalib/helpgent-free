@@ -636,7 +636,7 @@ function get_option( $option_key = '', $default = '' ) {
 	$options = get_options();
 
 	if ( empty( $options ) ) {
-		return [];
+		return '';
 	}
 
 	if ( ! isset( $options[ $option_key ] ) ) {

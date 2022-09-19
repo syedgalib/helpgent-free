@@ -927,7 +927,10 @@ function prepare_user_data( $user, $fields = [] ) {
 	}
 
 	if ( in_array( 'avater', $fields ) ) {
-		$user_info['avater'] = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+		$avater = get_user_meta( $user->ID, '_wpwax_vm_avater', true );
+		$avater = ( ! empty( $avater ) ) ? $avater : get_avatar_url( $user->ID);
+
+		$user_info['avater'] = $avater;
 	}
 
 	if ( in_array( 'roles', $fields ) ) {

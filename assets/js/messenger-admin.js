@@ -6568,14 +6568,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
-/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
-/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
+/* harmony import */ var Assets_svg_loaders_loading_dots_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/loaders/loading-dots.svg */ "./src/assets/svg/loaders/loading-dots.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! apiService/attachment-api */ "./src/lib/apiService/attachment-api.js");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
+/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
+/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6589,6 +6589,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 
@@ -6607,6 +6609,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -6683,75 +6687,70 @@ function MessageBox() {
       setIsSendingVideoMessage = _useState16[1]; //
 
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
-      recordedAudioBlob = _useState18[0],
-      setRecordedAudioBlob = _useState18[1];
+      isSendingAudoMessage = _useState18[0],
+      setIsSendingAudoMessage = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      recordedAudioURL = _useState20[0],
-      setRecordedAudioURL = _useState20[1];
+      recordedAudioBlob = _useState20[0],
+      setRecordedAudioBlob = _useState20[1];
 
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState22 = _slicedToArray(_useState21, 2),
       isRecordingVoice = _useState22[0],
       setIsRecordingVoice = _useState22[1];
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState24 = _slicedToArray(_useState23, 2),
-      cencelRecordingVoice = _useState24[0],
-      setCencelRecordingVoice = _useState24[1];
+      recordedVoiceTimeInSecond = _useState24[0],
+      setRecordedVoiceTimeInSecond = _useState24[1];
 
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState26 = _slicedToArray(_useState25, 2),
-      recordedVoiceTimeInSecond = _useState26[0],
-      setRecordedVoiceTimeInSecond = _useState26[1];
-
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState28 = _slicedToArray(_useState27, 2),
-      recordedTimeLength = _useState28[0],
-      setRecordedTimeLength = _useState28[1];
+      recordedTimeLength = _useState26[0],
+      setRecordedTimeLength = _useState26[1];
 
   var voiceRecordingLimitInSecond = 10; // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState28 = _slicedToArray(_useState27, 2),
+      textMessageContent = _useState28[0],
+      setTextMessageContent = _useState28[1];
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState30 = _slicedToArray(_useState29, 2),
-      textMessageContent = _useState30[0],
-      setTextMessageContent = _useState30[1];
+      audioMessageContent = _useState30[0],
+      setAudioMessageContent = _useState30[1];
 
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState32 = _slicedToArray(_useState31, 2),
-      audioMessageContent = _useState32[0],
-      setAudioMessageContent = _useState32[1];
+      videoMessageContent = _useState32[0],
+      setVideoMessageContent = _useState32[1]; // Search Results
 
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState34 = _slicedToArray(_useState33, 2),
-      videoMessageContent = _useState34[0],
-      setVideoMessageContent = _useState34[1]; // Search Results
+      currentSearchResultPage = _useState34[0],
+      setCurrentSearchResultPage = _useState34[1];
 
-
-  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState36 = _slicedToArray(_useState35, 2),
-      currentSearchResultPage = _useState36[0],
-      setCurrentSearchResultPage = _useState36[1];
+      searchResults = _useState36[0],
+      setSearchResults = _useState36[1];
 
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState38 = _slicedToArray(_useState37, 2),
-      searchResults = _useState38[0],
-      setSearchResults = _useState38[1];
+      isLoadingSearchResults = _useState38[0],
+      setIsLoadingSearchResults = _useState38[1];
 
   var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState40 = _slicedToArray(_useState39, 2),
-      isLoadingSearchResults = _useState40[0],
-      setIsLoadingSearchResults = _useState40[1];
-
-  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState42 = _slicedToArray(_useState41, 2),
-      isLoadingMoreSearchResults = _useState42[0],
-      setIsLoadingMoreSearchResults = _useState42[1];
+      isLoadingMoreSearchResults = _useState40[0],
+      setIsLoadingMoreSearchResults = _useState40[1];
   /* initialize Form Data */
 
 
@@ -6808,7 +6807,7 @@ function MessageBox() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Helper_http_js__WEBPACK_IMPORTED_MODULE_14__["default"].getData('/messages', {
+                return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', {
                   session_id: session_id,
                   limit: paginationPerPage
                 });
@@ -6839,7 +6838,7 @@ function MessageBox() {
 
       var sessionMessages = response.data.data; // Update The Store
 
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.addSession)(session_id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSession)(session_id, sessionMessages));
       setSessionMessages(sessionMessages);
       setIsLoadingSession(false);
     }).catch(function (error) {
@@ -6924,15 +6923,15 @@ function MessageBox() {
 
   var showReplayViaVideoMessage = function showReplayViaVideoMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)('video'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('video'));
   };
   /* Handle Text Message */
 
 
   var showReplayViaTextMessage = function showReplayViaTextMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)('text'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('text'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
   /* Handle Voice Message */
 
@@ -6965,8 +6964,8 @@ function MessageBox() {
 
             case 8:
               // Show Recording UI
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)('voice'));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
 
             case 10:
             case "end":
@@ -6985,7 +6984,7 @@ function MessageBox() {
 
   var haldleReplyMode = function haldleReplyMode() {
     if (messageType === 'video') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         sessionID: selectedSession.session_id,
         onSuccess: loadLatestMessages,
         replayingTo: getReplaingToUser()
@@ -7013,7 +7012,9 @@ function MessageBox() {
               setIsSendingTextMessage(true); // Send Message
 
               _context3.next = 6;
-              return createTextMessage(textMessageContent);
+              return createMessage({
+                message: textMessageContent
+              });
 
             case 6:
               response = _context3.sent;
@@ -7047,62 +7048,256 @@ function MessageBox() {
     };
   }();
 
-  var createTextMessage = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(text) {
-      var args, status, _response;
-
+  var handleSendAudioMessage = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              args = {
-                session_id: selectedSession.session_id,
-                message_type: 'text',
-                message: text
-              };
-              status = {
-                success: false,
-                data: null
-              };
-              _context4.prev = 2;
-              _context4.next = 5;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_14__["default"].postData('/messages', args);
+              e.preventDefault();
+              console.log('handleSendAudioMessage');
+
+              if (!isRecordingVoice) {
+                _context4.next = 5;
+                break;
+              }
+
+              stopVoiceRecording({
+                sendRecording: true
+              });
+              return _context4.abrupt("return");
 
             case 5:
-              _response = _context4.sent;
-              status.success = true;
-              status.data = _response;
-              return _context4.abrupt("return", status);
+              _context4.next = 7;
+              return sendAudioMessage();
 
-            case 11:
-              _context4.prev = 11;
-              _context4.t0 = _context4["catch"](2);
-              status.success = false;
-              console.error({
-                error: _context4.t0
-              });
-              return _context4.abrupt("return", status);
+            case 7:
+              closeVoiceChat();
 
-            case 16:
+            case 8:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[2, 11]]);
+      }, _callee4);
     }));
 
-    return function createTextMessage(_x3) {
+    return function handleSendAudioMessage(_x3) {
       return _ref4.apply(this, arguments);
     };
   }();
 
-  var getMessages = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(customArgs) {
-      var defaultArgs, args, status, _response2;
+  var sendAudioMessage = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
+      var attachment, delay, attachmentResponse, message, attachmentID, response, _message;
 
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!isSendingAudoMessage) {
+                _context5.next = 2;
+                break;
+              }
+
+              return _context5.abrupt("return");
+
+            case 2:
+              attachment = blob ? blob : recordedAudioBlob;
+              console.log('sendAudioMessage', {
+                blob: blob,
+                recordedAudioBlob: recordedAudioBlob
+              });
+
+              if (attachment) {
+                _context5.next = 7;
+                break;
+              }
+
+              alert('No recordings found');
+              return _context5.abrupt("return");
+
+            case 7:
+              setIsSendingAudioMessage(true);
+
+              delay = function delay(milisec) {
+                return new Promise(function (resolve) {
+                  setTimeout(function () {
+                    resolve('');
+                  }, milisec);
+                });
+              };
+
+              _context5.next = 11;
+              return delay(3000);
+
+            case 11:
+              return _context5.abrupt("return");
+
+            case 14:
+              attachmentResponse = _context5.sent;
+              console.log({
+                attachmentResponse: attachmentResponse
+              }); // Show Alert on Error
+
+              if (attachmentResponse.success) {
+                _context5.next = 21;
+                break;
+              }
+
+              message = attachmentResponse.message ? attachmentResponse.message : 'Somethong went wrong, please try again.';
+              alert(message);
+              setIsSendingAudioMessage(false);
+              return _context5.abrupt("return");
+
+            case 21:
+              attachmentID = attachmentResponse.data.id;
+              console.log({
+                attachmentID: attachmentID
+              }); // Send Message
+
+              _context5.next = 25;
+              return createMessage({
+                attachment_id: attachmentID
+              });
+
+            case 25:
+              response = _context5.sent;
+              console.log({
+                response: response
+              });
+              setIsSendingAudioMessage(false); // Show Alert on Error
+
+              if (response.success) {
+                _context5.next = 32;
+                break;
+              }
+
+              _message = response.message ? response.message : 'Somethong went wrong, please try again.';
+              alert(_message);
+              return _context5.abrupt("return");
+
+            case 32:
+              // Load Latest
+              loadLatestMessages();
+
+            case 33:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function sendAudioMessage(_x4) {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  function createAttachment(_x5) {
+    return _createAttachment.apply(this, arguments);
+  }
+
+  function _createAttachment() {
+    _createAttachment = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17(file) {
+      var status, _response3;
+
+      return _regeneratorRuntime().wrap(function _callee17$(_context17) {
+        while (1) {
+          switch (_context17.prev = _context17.next) {
+            case 0:
+              status = {
+                success: false,
+                data: null
+              };
+              _context17.prev = 1;
+              _context17.next = 4;
+              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__["default"].createAttachment({
+                file: file
+              });
+
+            case 4:
+              _response3 = _context17.sent;
+              status.data = _response3.data.data;
+              status.success = true;
+              return _context17.abrupt("return", status);
+
+            case 10:
+              _context17.prev = 10;
+              _context17.t0 = _context17["catch"](1);
+              status.success = false;
+              console.error({
+                error: _context17.t0
+              });
+              return _context17.abrupt("return", status);
+
+            case 15:
+            case "end":
+              return _context17.stop();
+          }
+        }
+      }, _callee17, null, [[1, 10]]);
+    }));
+    return _createAttachment.apply(this, arguments);
+  }
+
+  var createMessage = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args) {
+      var defaultArgs, status, _response;
+
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              defaultArgs = {
+                session_id: selectedSession.session_id,
+                message_type: 'text',
+                message: ''
+              };
+              args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
+              status = {
+                success: false,
+                data: null
+              };
+              _context6.prev = 3;
+              _context6.next = 6;
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].postData('/messages', args);
+
+            case 6:
+              _response = _context6.sent;
+              status.success = true;
+              status.data = _response;
+              return _context6.abrupt("return", status);
+
+            case 12:
+              _context6.prev = 12;
+              _context6.t0 = _context6["catch"](3);
+              status.success = false;
+              console.error({
+                error: _context6.t0
+              });
+              return _context6.abrupt("return", status);
+
+            case 17:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[3, 12]]);
+    }));
+
+    return function createMessage(_x6) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
+
+  var getMessages = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(customArgs) {
+      var defaultArgs, args, status, _response2;
+
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               defaultArgs = {
                 session_id: selectedSession.session_id,
@@ -7113,97 +7308,118 @@ function MessageBox() {
                 success: false,
                 data: null
               };
-              _context5.prev = 3;
-              _context5.next = 6;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_14__["default"].getData('/messages', args);
+              _context7.prev = 3;
+              _context7.next = 6;
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', args);
 
             case 6:
-              _response2 = _context5.sent;
+              _response2 = _context7.sent;
               status.success = true;
               status.data = _response2;
-              return _context5.abrupt("return", status);
+              return _context7.abrupt("return", status);
 
             case 12:
-              _context5.prev = 12;
-              _context5.t0 = _context5["catch"](3);
+              _context7.prev = 12;
+              _context7.t0 = _context7["catch"](3);
               status.success = false;
               status.data = response;
               console.error({
-                error: _context5.t0
+                error: _context7.t0
               });
-              return _context5.abrupt("return", status);
+              return _context7.abrupt("return", status);
 
             case 18:
             case "end":
-              return _context5.stop();
+              return _context7.stop();
           }
         }
-      }, _callee5, null, [[3, 12]]);
+      }, _callee7, null, [[3, 12]]);
     }));
 
-    return function getMessages(_x4) {
-      return _ref5.apply(this, arguments);
+    return function getMessages(_x7) {
+      return _ref7.apply(this, arguments);
     };
   }();
 
-  var afterStopVoiceRecording = function afterStopVoiceRecording(_ref6) {
-    var blob = _ref6.blob;
-    console.log('afterStopVoiceRecording');
-    setCencelRecordingVoice(function (currentValue) {
-      if (currentValue) {
-        console.log('cenceled Recording Voice');
-      } else {
-        console.log('Send The Voice');
-        console.log({
-          blob: blob
-        });
-        closeVoiceChat();
-      }
+  var afterStopVoiceRecording = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(_ref8) {
+      var blob, sendRecording;
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              blob = _ref8.blob, sendRecording = _ref8.sendRecording;
 
-      return currentValue;
-    });
-  };
+              if (!sendRecording) {
+                _context8.next = 8;
+                break;
+              }
+
+              console.log('Send The Recording Now');
+              _context8.next = 5;
+              return sendAudioMessage(blob);
+
+            case 5:
+              closeVoiceChat();
+              _context8.next = 9;
+              break;
+
+            case 8:
+              console.log('Dont Send The Recording Yet');
+
+            case 9:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }));
+
+    return function afterStopVoiceRecording(_x8) {
+      return _ref9.apply(this, arguments);
+    };
+  }();
 
   var closeVoiceChat = function closeVoiceChat() {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+    console.log('Close');
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
 
   var prepareVoiceRecording = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
       var audioStreem;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
-              setCencelRecordingVoice(false);
-              _context6.next = 3;
+              _context9.next = 2;
               return setupAudioStreem();
 
-            case 3:
-              audioStreem = _context6.sent;
+            case 2:
+              audioStreem = _context9.sent;
 
               if (audioStreem) {
-                _context6.next = 7;
+                _context9.next = 6;
                 break;
               }
 
               alert('Something went wrong, please try again.');
-              return _context6.abrupt("return");
+              return _context9.abrupt("return");
 
-            case 7:
+            case 6:
               startVoiceRecording();
 
-            case 8:
+            case 7:
             case "end":
-              return _context6.stop();
+              return _context9.stop();
           }
         }
-      }, _callee6);
+      }, _callee9);
     }));
 
     return function prepareVoiceRecording() {
-      return _ref7.apply(this, arguments);
+      return _ref10.apply(this, arguments);
     };
   }(); // setupAudioStreem
 
@@ -7214,13 +7430,13 @@ function MessageBox() {
 
 
   function _setupAudioStreem() {
-    _setupAudioStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-      return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+    _setupAudioStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
+      return _regeneratorRuntime().wrap(function _callee18$(_context18) {
         while (1) {
-          switch (_context14.prev = _context14.next) {
+          switch (_context18.prev = _context18.next) {
             case 0:
-              _context14.prev = 0;
-              _context14.next = 3;
+              _context18.prev = 0;
+              _context18.next = 3;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -7230,29 +7446,29 @@ function MessageBox() {
               });
 
             case 3:
-              window.wpwaxCSAudioStream = _context14.sent;
+              window.wpwaxCSAudioStream = _context18.sent;
               window.wpwaxCSVoiceRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                 type: 'audio',
                 mimeType: 'audio/wav',
                 recorderType: RecordRTC.StereoAudioRecorder,
                 disableLogs: true
               });
-              return _context14.abrupt("return", true);
+              return _context18.abrupt("return", true);
 
             case 8:
-              _context14.prev = 8;
-              _context14.t0 = _context14["catch"](0);
+              _context18.prev = 8;
+              _context18.t0 = _context18["catch"](0);
               console.log({
-                error: _context14.t0
+                error: _context18.t0
               });
-              return _context14.abrupt("return", false);
+              return _context18.abrupt("return", false);
 
             case 12:
             case "end":
-              return _context14.stop();
+              return _context18.stop();
           }
         }
-      }, _callee14, null, [[0, 8]]);
+      }, _callee18, null, [[0, 8]]);
     }));
     return _setupAudioStreem.apply(this, arguments);
   }
@@ -7263,12 +7479,12 @@ function MessageBox() {
 
 
   function _startVoiceRecording() {
-    _startVoiceRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-      return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+    _startVoiceRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
+      return _regeneratorRuntime().wrap(function _callee19$(_context19) {
         while (1) {
-          switch (_context15.prev = _context15.next) {
+          switch (_context19.prev = _context19.next) {
             case 0:
-              _context15.next = 2;
+              _context19.next = 2;
               return window.wpwaxCSVoiceRecorder.startRecording();
 
             case 2:
@@ -7278,26 +7494,31 @@ function MessageBox() {
 
             case 5:
             case "end":
-              return _context15.stop();
+              return _context19.stop();
           }
         }
-      }, _callee15);
+      }, _callee19);
     }));
     return _startVoiceRecording.apply(this, arguments);
   }
 
-  function stopVoiceRecording() {
+  function stopVoiceRecording(args) {
+    var defaultArgs = {
+      sendRecording: false
+    };
+    args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
     stopVoiceTimer();
-    setRecordedVoiceTimeInSecond(0);
     window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
       var blob = window.wpwaxCSVoiceRecorder.getBlob();
       var tracks = window.wpwaxCSAudioStream.getTracks();
       tracks.forEach(function (track) {
         return track.stop();
       });
+      setRecordedAudioBlob(blob);
       setIsRecordingVoice(false);
       afterStopVoiceRecording({
-        blob: blob
+        blob: blob,
+        sendRecording: args.sendRecording
       });
     });
   }
@@ -7316,101 +7537,101 @@ function MessageBox() {
 
 
   var canRecordAudio = /*#__PURE__*/function () {
-    var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
       var has_permission, accepted_permission;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
-              _context7.next = 2;
+              _context10.next = 2;
               return hasAudioRecordPermission();
 
             case 2:
-              has_permission = _context7.sent;
+              has_permission = _context10.sent;
 
               if (has_permission) {
-                _context7.next = 11;
+                _context10.next = 11;
                 break;
               }
 
-              _context7.next = 6;
+              _context10.next = 6;
               return requestAudioRecordPermission();
 
             case 6:
-              accepted_permission = _context7.sent;
+              accepted_permission = _context10.sent;
 
               if (accepted_permission) {
-                _context7.next = 10;
+                _context10.next = 10;
                 break;
               }
 
               alert('Please grant the requested permission to record the voice');
-              return _context7.abrupt("return", false);
+              return _context10.abrupt("return", false);
 
             case 10:
-              return _context7.abrupt("return", true);
+              return _context10.abrupt("return", true);
 
             case 11:
-              return _context7.abrupt("return", true);
+              return _context10.abrupt("return", true);
 
             case 12:
             case "end":
-              return _context7.stop();
+              return _context10.stop();
           }
         }
-      }, _callee7);
+      }, _callee10);
     }));
 
     return function canRecordAudio() {
-      return _ref8.apply(this, arguments);
+      return _ref11.apply(this, arguments);
     };
   }(); // hasAudioRecordPermission
 
 
   var hasAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
       var microphonePermission;
-      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context11.prev = _context11.next) {
             case 0:
-              _context8.prev = 0;
-              _context8.next = 3;
+              _context11.prev = 0;
+              _context11.next = 3;
               return navigator.permissions.query({
                 name: 'microphone'
               });
 
             case 3:
-              microphonePermission = _context8.sent;
-              return _context8.abrupt("return", microphonePermission.state === 'granted');
+              microphonePermission = _context11.sent;
+              return _context11.abrupt("return", microphonePermission.state === 'granted');
 
             case 7:
-              _context8.prev = 7;
-              _context8.t0 = _context8["catch"](0);
-              return _context8.abrupt("return", true);
+              _context11.prev = 7;
+              _context11.t0 = _context11["catch"](0);
+              return _context11.abrupt("return", true);
 
             case 10:
             case "end":
-              return _context8.stop();
+              return _context11.stop();
           }
         }
-      }, _callee8, null, [[0, 7]]);
+      }, _callee11, null, [[0, 7]]);
     }));
 
     return function hasAudioRecordPermission() {
-      return _ref9.apply(this, arguments);
+      return _ref12.apply(this, arguments);
     };
   }(); // requestAudioRecordPermission
 
 
   var requestAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context12.prev = _context12.next) {
             case 0:
-              _context9.prev = 0;
-              _context9.next = 3;
+              _context12.prev = 0;
+              _context12.next = 3;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -7420,39 +7641,39 @@ function MessageBox() {
               });
 
             case 3:
-              return _context9.abrupt("return", true);
+              return _context12.abrupt("return", true);
 
             case 6:
-              _context9.prev = 6;
-              _context9.t0 = _context9["catch"](0);
+              _context12.prev = 6;
+              _context12.t0 = _context12["catch"](0);
               console.log({
-                error: _context9.t0
+                error: _context12.t0
               });
-              return _context9.abrupt("return", false);
+              return _context12.abrupt("return", false);
 
             case 10:
             case "end":
-              return _context9.stop();
+              return _context12.stop();
           }
         }
-      }, _callee9, null, [[0, 6]]);
+      }, _callee12, null, [[0, 6]]);
     }));
 
     return function requestAudioRecordPermission() {
-      return _ref10.apply(this, arguments);
+      return _ref13.apply(this, arguments);
     };
   }();
 
-  function loadLatestMessages(_x5) {
+  function loadLatestMessages(_x9) {
     return _loadLatestMessages.apply(this, arguments);
   }
 
   function _loadLatestMessages() {
-    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(latest_message_date) {
+    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20(latest_message_date) {
       var args, response, message, responseData, newLatestMessageDate, latestItems, updatedSessionMessages;
-      return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+      return _regeneratorRuntime().wrap(function _callee20$(_context20) {
         while (1) {
-          switch (_context16.prev = _context16.next) {
+          switch (_context20.prev = _context20.next) {
             case 0:
               args = {
                 limit: -1
@@ -7464,32 +7685,35 @@ function MessageBox() {
                 args.created_on_compare_date_time = '>';
               }
 
-              _context16.next = 5;
+              console.log('loadLatestMessages', {
+                args: args
+              });
+              _context20.next = 6;
               return getMessages(args);
 
-            case 5:
-              response = _context16.sent;
+            case 6:
+              response = _context20.sent;
 
               if (response.success) {
-                _context16.next = 10;
+                _context20.next = 11;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
-              return _context16.abrupt("return");
+              return _context20.abrupt("return");
 
-            case 10:
+            case 11:
               responseData = response.data.data.data;
 
               if (responseData.length) {
-                _context16.next = 13;
+                _context20.next = 14;
                 break;
               }
 
-              return _context16.abrupt("return");
+              return _context20.abrupt("return");
 
-            case 13:
+            case 14:
               newLatestMessageDate = responseData[0].created_on; // Update Latest Message Date
 
               setLatestMessageDate(newLatestMessageDate); // Update Latest Message
@@ -7497,68 +7721,68 @@ function MessageBox() {
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
 
-            case 19:
+            case 20:
             case "end":
-              return _context16.stop();
+              return _context20.stop();
           }
         }
-      }, _callee16);
+      }, _callee20);
     }));
     return _loadLatestMessages.apply(this, arguments);
   }
 
   var loadOlderMessages = /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
       var paginationMeta, nextPage, response, message, latestItems, updatedSessionMessages;
-      return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      return _regeneratorRuntime().wrap(function _callee13$(_context13) {
         while (1) {
-          switch (_context10.prev = _context10.next) {
+          switch (_context13.prev = _context13.next) {
             case 0:
               setIsLoadingMoreMessages(true); // Get Older Messages
 
               paginationMeta = getPaginationMeta();
               nextPage = paginationMeta.nextPage;
-              _context10.next = 5;
+              _context13.next = 5;
               return getMessages({
                 page: nextPage,
                 limit: paginationPerPage
               });
 
             case 5:
-              response = _context10.sent;
+              response = _context13.sent;
               setIsLoadingMoreMessages(false); // Show Alert on Error
 
               if (response.success) {
-                _context10.next = 11;
+                _context13.next = 11;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
-              return _context10.abrupt("return");
+              return _context13.abrupt("return");
 
             case 11:
               // Update Loaded Session
               latestItems = response.data.data.data;
 
               if (latestItems.length) {
-                _context10.next = 14;
+                _context13.next = 14;
                 break;
               }
 
-              return _context10.abrupt("return");
+              return _context13.abrupt("return");
 
             case 14:
               latestItems = latestItems.splice(0, latestItems.length - paginationMeta.reminder);
 
               if (latestItems.length) {
-                _context10.next = 17;
+                _context13.next = 17;
                 break;
               }
 
-              return _context10.abrupt("return");
+              return _context13.abrupt("return");
 
             case 17:
               updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(latestItems));
@@ -7566,56 +7790,56 @@ function MessageBox() {
 
             case 19:
             case "end":
-              return _context10.stop();
+              return _context13.stop();
           }
         }
-      }, _callee10);
+      }, _callee13);
     }));
 
     return function loadOlderMessages() {
-      return _ref11.apply(this, arguments);
+      return _ref14.apply(this, arguments);
     };
   }();
 
   var loadSearchResults = /*#__PURE__*/function () {
-    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
       var response, message, searchResults;
-      return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+      return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
-          switch (_context11.prev = _context11.next) {
+          switch (_context14.prev = _context14.next) {
             case 0:
               setIsLoadingSearchResults(true); // Get Search Results
 
-              _context11.next = 3;
+              _context14.next = 3;
               return getMessages({
                 page: 1,
                 limit: paginationPerPage
               });
 
             case 3:
-              response = _context11.sent;
+              response = _context14.sent;
 
               if (response.success) {
-                _context11.next = 9;
+                _context14.next = 9;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
               setIsLoadingSearchResults(false);
-              return _context11.abrupt("return");
+              return _context14.abrupt("return");
 
             case 9:
               // Update Loaded Session
               searchResults = response.data.data.data;
 
               if (searchResults.length) {
-                _context11.next = 13;
+                _context14.next = 13;
                 break;
               }
 
               setIsLoadingMoreSearchResults(false);
-              return _context11.abrupt("return");
+              return _context14.abrupt("return");
 
             case 13:
               setSearchResults(searchResults);
@@ -7623,57 +7847,57 @@ function MessageBox() {
 
             case 15:
             case "end":
-              return _context11.stop();
+              return _context14.stop();
           }
         }
-      }, _callee11);
+      }, _callee14);
     }));
 
     return function loadSearchResults() {
-      return _ref12.apply(this, arguments);
+      return _ref15.apply(this, arguments);
     };
   }();
 
   var loadMoreSearchResults = /*#__PURE__*/function () {
-    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
       var nextPage, response, message, latestItems, newSearchResults;
-      return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+      return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
-          switch (_context12.prev = _context12.next) {
+          switch (_context15.prev = _context15.next) {
             case 0:
               setIsLoadingMoreSearchResults(true); // Get More Search Results
 
               nextPage = currentSearchResultPage + 1;
-              _context12.next = 4;
+              _context15.next = 4;
               return getMessages({
                 page: nextPage,
                 limit: paginationPerPage
               });
 
             case 4:
-              response = _context12.sent;
+              response = _context15.sent;
 
               if (response.success) {
-                _context12.next = 10;
+                _context15.next = 10;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
               setIsLoadingMoreSearchResults(false);
-              return _context12.abrupt("return");
+              return _context15.abrupt("return");
 
             case 10:
               // Update Loaded Session
               latestItems = response.data.data.data;
 
               if (latestItems.length) {
-                _context12.next = 14;
+                _context15.next = 14;
                 break;
               }
 
               setIsLoadingMoreSearchResults(false);
-              return _context12.abrupt("return");
+              return _context15.abrupt("return");
 
             case 14:
               newSearchResults = [].concat(_toConsumableArray(searchResults), _toConsumableArray(latestItems));
@@ -7683,14 +7907,14 @@ function MessageBox() {
 
             case 18:
             case "end":
-              return _context12.stop();
+              return _context15.stop();
           }
         }
-      }, _callee12);
+      }, _callee15);
     }));
 
     return function loadMoreSearchResults() {
-      return _ref13.apply(this, arguments);
+      return _ref16.apply(this, arguments);
     };
   }();
 
@@ -7715,22 +7939,22 @@ function MessageBox() {
 
   var handleFooterContent = function handleFooterContent() {
     if (messageType === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleTextClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("form", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("form", {
               onSubmit: sendTextMessage,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
                 ref: textMessageContentRef,
                 type: "text",
                 disabled: isSendingTextMessage,
@@ -7741,7 +7965,7 @@ function MessageBox() {
                 onChange: function onChange(event) {
                   setTextMessageContent(event.target.value);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
                 type: "submit",
                 style: {
                   display: 'none'
@@ -7749,13 +7973,13 @@ function MessageBox() {
                 hidden: true
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               onClick: sendTextMessage,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
               })
             })
@@ -7763,91 +7987,90 @@ function MessageBox() {
         })]
       });
     } else if (messageType === 'voice') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("a", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-close",
               onClick: handleVoiceClose,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
                 className: "dashicons dashicons-no-alt"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               className: "wpwax-vm-audio-range",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
                 style: {
                   width: recordedTimeLength + '%'
                 },
                 className: "wpwax-vm-audio-range-inner"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_15__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
-              onClick: function onClick(e) {
-                e.preventDefault();
-                stopVoiceRecording();
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              onClick: handleSendAudioMessage,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                width: "30px",
+                height: "30px",
+                src: Assets_svg_loaders_loading_dots_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
               })
             })
           })]
         })
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
           className: "wpwax-vm-messagebox-footer__text",
           children: "How would you like to answer?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-messagebox-footer__actionlist",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVideoMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Video"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVoiceMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Voice"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaTextMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Text"
             })]
@@ -7861,95 +8084,99 @@ function MessageBox() {
 
   var handleTextClose = function handleTextClose(e) {
     e.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
   /* Handle Text Colse */
 
 
   var handleVoiceClose = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(e) {
-      return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+    var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
+      return _regeneratorRuntime().wrap(function _callee16$(_context16) {
         while (1) {
-          switch (_context13.prev = _context13.next) {
+          switch (_context16.prev = _context16.next) {
             case 0:
               e.preventDefault();
-              console.log('handleVoiceClose');
-              setCencelRecordingVoice(true);
-              stopVoiceRecording();
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleMessageTypeChange)(''));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_13__.handleReplyModeChange)(false));
 
-            case 6:
+              if (isRecordingVoice) {
+                stopVoiceRecording();
+              } else {
+                setRecordedAudioBlob(null);
+              }
+
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+
+            case 4:
             case "end":
-              return _context13.stop();
+              return _context16.stop();
           }
         }
-      }, _callee13);
+      }, _callee16);
     }));
 
-    return function handleVoiceClose(_x6) {
-      return _ref14.apply(this, arguments);
+    return function handleVoiceClose(_x10) {
+      return _ref17.apply(this, arguments);
     };
   }();
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_11__.ChatBoxWrap, {
-    children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
+    children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
       style: {
         height: '100%'
       },
-      children: !isLoadingSession && !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.MessageBoxWrap, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+      children: !isLoadingSession && !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.MessageBoxWrap, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                 users: getSessionUsers()
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__right",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
                 className: "wpwax-vm-messagebox-header__actionlist",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
                     className: openSearch ? 'wpwax-vm-searchbox wpwax-vm-show' : 'wpwax-vm-searchbox',
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("input", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
                       type: "text",
                       ref: searchInputRef,
                       name: "wpwax-vm-messagebox-search",
                       id: "wpwax-vm-messagebox-search",
                       placeholder: "Search"
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("a", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleSearchToggle,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
                     })
                   })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Videos"
                     })]
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Voice"
                     })]
@@ -7957,7 +8184,7 @@ function MessageBox() {
                 })]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
@@ -7965,7 +8192,7 @@ function MessageBox() {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: !searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: !searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               dataLength: sessionMessages.length,
               next: function next() {
                 loadOlderMessages();
@@ -7977,7 +8204,7 @@ function MessageBox() {
               inverse: true //
               ,
               hasMore: true,
-              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -7988,13 +8215,13 @@ function MessageBox() {
               },
               pullDownToRefresh: true,
               pullDownToRefreshThreshold: 2,
-              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
                 children: "\u2193 Pull down to load older messages"
               }),
-              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8002,12 +8229,12 @@ function MessageBox() {
               }),
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               dataLength: searchResults.length,
               next: function next() {
                 loadMoreSearchResults();
@@ -8019,7 +8246,7 @@ function MessageBox() {
               inverse: true //
               ,
               hasMore: true,
-              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8030,13 +8257,13 @@ function MessageBox() {
               },
               pullDownToRefresh: true,
               pullDownToRefreshThreshold: 2,
-              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
                 children: "\u2193 Pull down to load more results"
               }),
-              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h3", {
+              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8044,26 +8271,26 @@ function MessageBox() {
               }),
               scrollableTarget: "scrollableDiv",
               children: searchResults.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
             })
           }), handleFooterContent()]
-        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
           className: "wpwax-vm-replymode-wrap",
           children: haldleReplyMode()
         }) : '']
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         style: CenterBoxStyle,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h2", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
           children: "Loading..."
         })
       })
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
       style: CenterBoxStyle,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
         children: "No conversation is selected."
       })
     })
@@ -13381,6 +13608,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6416e1a8516bbcdc4fc97b0f7523b9b4.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/loaders/loading-dots.svg":
+/*!*************************************************!*\
+  !*** ./src/assets/svg/loaders/loading-dots.svg ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e029c659354386f2a648528a3d92d1c1.svg");
 
 /***/ }),
 

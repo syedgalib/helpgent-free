@@ -9,8 +9,10 @@ import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
+import loadingIcon from 'Assets/svg/loaders/loading-dots.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import attachmentAPI from 'apiService/attachment-api';
 
 import {
     handleReplyModeChange,
@@ -51,10 +53,9 @@ function MessageBox() {
     const [isSendingVideoMessage, setIsSendingVideoMessage] = useState(false);
 
     //
+    const [isSendingAudoMessage, setIsSendingAudoMessage] = useState(false);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
-    const [recordedAudioURL, setRecordedAudioURL] = useState('');
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-    const [cencelRecordingVoice, setCencelRecordingVoice] = useState(false);
     const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] =
         useState(0);
 
@@ -309,7 +310,7 @@ function MessageBox() {
         setIsSendingTextMessage(true);
 
         // Send Message
-        const response = await createTextMessage(textMessageContent);
+        const response = await createMessage({ message: textMessageContent });
 
         setIsSendingTextMessage(false);
 
@@ -330,12 +331,123 @@ function MessageBox() {
         loadLatestMessages(latestMessageDate);
     };
 
-    const createTextMessage = async (text) => {
-        const args = {
+    const handleSendAudioMessage = async function (e) {
+        e.preventDefault();
+
+        console.log('handleSendAudioMessage');
+
+        if (isRecordingVoice) {
+            stopVoiceRecording({ sendRecording: true });
+            return;
+        }
+
+        await sendAudioMessage();
+        closeVoiceChat();
+    };
+
+    const sendAudioMessage = async function (blob) {
+        if (isSendingAudoMessage) {
+            return;
+        }
+
+        const attachment = blob ? blob : recordedAudioBlob;
+
+        console.log('sendAudioMessage', { blob, recordedAudioBlob });
+
+        if (!attachment) {
+            alert('No recordings found');
+            return;
+        }
+
+        setIsSendingAudioMessage(true);
+
+        const delay = (milisec) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve('');
+                }, milisec);
+            });
+        };
+
+        await delay(3000);
+
+        return;
+
+        // Upload The Attachment
+        const attachmentResponse = await createAttachment(attachment);
+
+        console.log({ attachmentResponse });
+
+        // Show Alert on Error
+        if (!attachmentResponse.success) {
+            const message = attachmentResponse.message
+                ? attachmentResponse.message
+                : 'Somethong went wrong, please try again.';
+
+            alert(message);
+            setIsSendingAudioMessage(false);
+
+            return;
+        }
+
+        const attachmentID = attachmentResponse.data.id;
+
+        console.log({ attachmentID });
+
+        // Send Message
+        const response = await createMessage({ attachment_id: attachmentID });
+
+        console.log({ response });
+
+        setIsSendingAudioMessage(false);
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            return;
+        }
+
+        // Load Latest
+        loadLatestMessages();
+    };
+
+    async function createAttachment(file) {
+        let status = {
+            success: false,
+            data: null,
+        };
+
+        try {
+            const response = await attachmentAPI.createAttachment({ file });
+
+            status.data = response.data.data;
+            status.success = true;
+
+            return status;
+        } catch (error) {
+            status.success = false;
+
+            console.error({ error });
+
+            return status;
+        }
+    }
+
+    const createMessage = async (args) => {
+        const defaultArgs = {
             session_id: selectedSession.session_id,
             message_type: 'text',
-            message: text,
+            message: '',
         };
+
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
 
         let status = {
             success: false,
@@ -388,33 +500,25 @@ function MessageBox() {
         }
     };
 
-    const afterStopVoiceRecording = ({ blob }) => {
-        console.log('afterStopVoiceRecording');
+    const afterStopVoiceRecording = async ({ blob, sendRecording }) => {
+        if (sendRecording) {
+            console.log('Send The Recording Now');
 
-        setCencelRecordingVoice((currentValue) => {
-            if (currentValue) {
-                console.log('cenceled Recording Voice');
-            } else {
-                console.log('Send The Voice');
-                console.log({
-                    blob,
-                });
+            await sendAudioMessage(blob);
 
-                closeVoiceChat();
-            }
-
-            return currentValue;
-        });
+            closeVoiceChat();
+        } else {
+            console.log('Dont Send The Recording Yet');
+        }
     };
 
     const closeVoiceChat = () => {
+        console.log('Close');
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
 
     const prepareVoiceRecording = async () => {
-        setCencelRecordingVoice(false);
-
         const audioStreem = await setupAudioStreem();
 
         if (!audioStreem) {
@@ -465,9 +569,15 @@ function MessageBox() {
     }
 
     // stopRecording
-    function stopVoiceRecording() {
+    function stopVoiceRecording(args) {
+        const defaultArgs = { sendRecording: false };
+
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
+
         stopVoiceTimer();
-        setRecordedVoiceTimeInSecond(0);
 
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSVoiceRecorder.getBlob();
@@ -475,8 +585,13 @@ function MessageBox() {
             const tracks = window.wpwaxCSAudioStream.getTracks();
             tracks.forEach((track) => track.stop());
 
+            setRecordedAudioBlob(blob);
             setIsRecordingVoice(false);
-            afterStopVoiceRecording({ blob });
+
+            afterStopVoiceRecording({
+                blob,
+                sendRecording: args.sendRecording,
+            });
         });
     }
 
@@ -555,6 +670,8 @@ function MessageBox() {
             args.created_on = latest_message_date;
             args.created_on_compare_date_time = '>';
         }
+
+        console.log('loadLatestMessages', { args });
 
         const response = await getMessages(args);
 
@@ -814,12 +931,13 @@ function MessageBox() {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    stopVoiceRecording();
-                                }}
+                                onClick={handleSendAudioMessage}
                             >
-                                <ReactSVG src={paperPlane} />
+                                <ReactSVG
+                                    width='30px'
+                                    height='30px'
+                                    src={loadingIcon}
+                                />
                             </a>
                         </div>
                     </div>
@@ -880,10 +998,11 @@ function MessageBox() {
     const handleVoiceClose = async (e) => {
         e.preventDefault();
 
-        console.log('handleVoiceClose');
-
-        setCencelRecordingVoice(true);
-        stopVoiceRecording();
+        if (isRecordingVoice) {
+            stopVoiceRecording();
+        } else {
+            setRecordedAudioBlob(null);
+        }
 
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));

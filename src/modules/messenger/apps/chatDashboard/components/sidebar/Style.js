@@ -156,6 +156,35 @@ const SidebarWrap = Styled.div`
                             fill: var(--color-primary);
                         }
                     }
+                    .wpwax-vm-img-include-replyer{
+                        position: relative;
+                        .wpwax-vm-replyer{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            height: 15px;
+                            width: 15px;
+                            padding: 2px;
+                            border-radius: 50%;
+                            position: absolute;
+                            top: 20px;
+                            right: -2px;
+                            background-color: var(--color-white);
+                            img{
+                                max-width: 15px;
+                            }
+                            >div{
+                                width: 12px;
+                                height: 12px;
+                            }
+                            svg{
+                                width: 12px;
+                                height: 12px;
+                                color: #0F5197;
+                                fill: #0F5197;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -1,40 +1,57 @@
 import { ReactSVG } from 'react-svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
+import userMd from 'Assets/svg/icons/user-tie.svg';
 const MediaBox = ({
     chatingMedia,
     img,
     lastMessage,
-    multiImg,
+    initialConv,
     title,
     metaList,
 }) => {
-    console.log(img, lastMessage);
+    const replyerImg = () => {
+        if (lastMessage) {
+            console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
+            if (lastMessage.user.roles[0] === 'administrator') {
+                if (lastMessage.user.avatar) {
+                    return <img src={lastMessage.user.avatar} alt='' />;
+                } else {
+                    return <ReactSVG src={userMd} />;
+                }
+            } else {
+                if (lastMessage.user.avatar) {
+                    return <img src={lastMessage.user.avatar} alt='' />;
+                } else {
+                    return <ReactSVG src={userMd} />;
+                }
+            }
+        }
+    };
+
     return (
         <div className='wpwax-vm-media'>
             {chatingMedia ? (
                 typeof img === 'object' ? (
                     <div className='wpax-vm-imglist'>
-                        {img.map((src, index) => {
-                            if (index === 0) {
-                                if (src !== '') {
-                                    return <img src={src} alt='' key={index} />;
-                                } else {
-                                    return (
-                                        <img src={userImg} alt='' key={index} />
-                                    );
-                                }
-                            } else {
-                                <div className='wpwax-vm-img-include-replyer'>
-                                    <img src={src} alt='' key={index} />
-                                </div>;
-                            }
-                        })}
-                        {multiImg ? (
-                            <div className='wpwax-vm-more-img'>
-                                <ReactSVG src={userIcon} />
+                        {initialConv ? (
+                            img[0] === '' ? (
+                                <img src={userImg} alt='' />
+                            ) : (
+                                <img src={img[0]} alt='' />
+                            )
+                        ) : (
+                            <div className='wpwax-vm-img-include-replyer'>
+                                {img[0] === '' ? (
+                                    <img src={userImg} alt='' />
+                                ) : (
+                                    <img src={img[0]} alt='' />
+                                )}
+                                <span className='wpwax-vm-replyer'>
+                                    {replyerImg()}
+                                </span>
                             </div>
-                        ) : null}
+                        )}
                     </div>
                 ) : null
             ) : typeof img === 'object' ? (
@@ -48,18 +65,12 @@ const MediaBox = ({
                             }
                         }
                     })}
-                    {multiImg ? (
-                        <div className='wpwax-vm-more-img'>
-                            <ReactSVG src={userIcon} />
-                        </div>
-                    ) : null}
                 </div>
             ) : null}
             {/* {
                 if(chatingMedia){
                     typeof img === "string" ? <img src={img} alt="" /> : null
                 }else{
-
                 }
             }
             {

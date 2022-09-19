@@ -5643,8 +5643,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
 /* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/user-tie.svg */ "./src/assets/svg/icons/user-tie.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 
 
 
@@ -5656,80 +5658,95 @@ var MediaBox = function MediaBox(_ref) {
   var chatingMedia = _ref.chatingMedia,
       img = _ref.img,
       lastMessage = _ref.lastMessage,
-      multiImg = _ref.multiImg,
+      initialConv = _ref.initialConv,
       title = _ref.title,
       metaList = _ref.metaList;
-  console.log(img, lastMessage);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "wpwax-vm-media",
-    children: [chatingMedia ? _typeof(img) === 'object' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpax-vm-imglist",
-      children: [img.map(function (src, index) {
-        if (index === 0) {
-          if (src !== '') {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-              src: src,
-              alt: ""
-            }, index);
-          } else {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-              src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
-              alt: ""
-            }, index);
-          }
+
+  var replyerImg = function replyerImg() {
+    if (lastMessage) {
+      console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
+
+      if (lastMessage.user.roles[0] === 'administrator') {
+        if (lastMessage.user.avatar) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            src: lastMessage.user.avatar,
+            alt: ""
+          });
         } else {
-          /*#__PURE__*/
-          (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-img-include-replyer",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-              src: src,
-              alt: ""
-            }, index)
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
+            src: Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
           });
         }
-      }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-more-img",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
-          src: Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
-        })
-      }) : null]
-    }) : null : _typeof(img) === 'object' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      } else {
+        if (lastMessage.user.avatar) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            src: lastMessage.user.avatar,
+            alt: ""
+          });
+        } else {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
+            src: Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+          });
+        }
+      }
+    }
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "wpwax-vm-media",
+    children: [chatingMedia ? _typeof(img) === 'object' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "wpax-vm-imglist",
-      children: [img.map(function (src, index) {
+      children: initialConv ? img[0] === '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+        alt: ""
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+        src: img[0],
+        alt: ""
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "wpwax-vm-img-include-replyer",
+        children: [img[0] === '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+          src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+          alt: ""
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+          src: img[0],
+          alt: ""
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "wpwax-vm-replyer",
+          children: replyerImg()
+        })]
+      })
+    }) : null : _typeof(img) === 'object' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "wpax-vm-imglist",
+      children: img.map(function (src, index) {
         if (index === 0) {
           if (src !== '') {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
               src: src,
               alt: ""
             }, index);
           } else {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
               src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
               alt: ""
             }, index);
           }
         }
-      }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-more-img",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_0__.ReactSVG, {
-          src: Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
-        })
-      }) : null]
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      })
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "wpwax-vm-media__body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h5", {
         className: "wpwax-vm-media__title",
         children: title
       }), metaList.map(function (item, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
           className: "wpwax-vm-media__meta",
-          children: [item.type === 'date' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: [item.type === 'date' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             className: "wpwax-vm-media__meta--date",
             children: item.text
-          }) : '', item.type === 'email' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          }) : '', item.type === 'email' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             className: "wpwax-vm-media__meta--email",
             children: item.text
-          }) : '', item.type === 'name' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          }) : '', item.type === 'name' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
             className: "wpwax-vm-media__meta--name",
             children: item.text
           }) : '']
@@ -10203,6 +10220,11 @@ function Sidebar() {
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_Taglist_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      sessionState: sessionState,
+      setSessionState: setSessionState,
+      tagState: tagState,
+      setTagState: setTagState
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_AddTag_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
@@ -10239,7 +10261,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            >div{\n                line-height: .75;\n                margin-right: 10px;\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 600px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            >div{\n                line-height: .75;\n                margin-right: 10px;\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 600px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 15px;\n                            width: 15px;\n                            padding: 2px;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
 var SessionFilterWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    &.wpwax-vm-search-dropdown-show{\n        .wpwax-vm-search-dropdown{\n            display: block;\n        }\n        .wpwax-vm-sidebar-search {\n            .wpwax-vm-form__element{\n                margin: 0;\n                border-radius: 10px 10px 0 0;\n                background-color: var(--color-white);\n            }\n        }\n        .wpwax-vm-search-toggle{\n            svg {\n                path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-search-dropdown{\n        position: absolute;\n        left: 0;\n        top: 40px;\n        width: 100%;\n        margin: 0;\n        border-radius: 0 0 10px 10px;\n        z-index: 10;\n        padding: 12px 0px;\n        display: none;\n        border-top: 1px solid var(--color-border-light);\n        box-shadow: 0 20px 40px rgba(144,144,144,.25);\n        background-color: var(--color-white);\n        li{\n            position: relative;\n            margin: 0;\n            cursor: pointer;\n            .dashicons{\n                width: 14px;\n                height: 14px;\n                font-size: 14px;\n            }\n            >a{\n                display: flex;\n                justify-content: space-between;\n                text-decoration: none;\n                font-size: 14px;\n                font-weight: 500;\n                padding: 12px 20px;\n                color: var(--color-dark);\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -13230,6 +13252,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3fb6e4f788956a60768f42c91381d1ff.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/user-tie.svg":
+/*!*******************************************!*\
+  !*** ./src/assets/svg/icons/user-tie.svg ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7ffdb3650b30d8e466de9836f875c8f4.svg");
 
 /***/ }),
 

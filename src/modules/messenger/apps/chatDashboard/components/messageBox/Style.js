@@ -158,6 +158,25 @@ const MessageBoxWrap = Styled.div`
         @media only screen and (max-width: 767px){
             padding: 15px;
         }
+        &.wpwax-vm-search-active{
+            width: 100%;
+            padding: 10px 30px;
+            .wpwax-vm-messagebox-header__actionlist{
+                margin: 0;
+                width: 100%;
+                .wpwax-vm-searchbox{
+                    width: 100%;
+                    display: block;
+                }
+                .wpwax-vm-messagebox-header__action-item{
+                    width: 100%;
+                    &.wpwax-vm-messagebox-header-search{
+                        padding: 0;
+                    }
+                }
+            }
+            
+        }
         .wpwax-vm-messagebox-header__actionlist{
             display: flex;
             flex-wrap: wrap;
@@ -169,11 +188,10 @@ const MessageBoxWrap = Styled.div`
             }
         }
         .wpwax-vm-searchbox{
+            width: 100%;
             display: none;
-            &.wpwax-vm-show{
-                display: block;
-            }
             input{
+                width: 100%;
                 border: 0 none;
                 border-radius: 0px;
                 &:focus{
@@ -183,9 +201,13 @@ const MessageBoxWrap = Styled.div`
             }
         }
         .wpwax-vm-search-toggle{
+            text-decoration: none;
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
+            }
+            span{
+                font-size: 24px;
             }
         }
     }

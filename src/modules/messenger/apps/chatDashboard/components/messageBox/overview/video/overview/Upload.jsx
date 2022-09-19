@@ -235,7 +235,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                             >
                                 Choose File
                             </label>
-
+                            <strong>or drag & drop here...</strong>
                             <p>Works with {getSupportedVideoExtensions()}</p>
                             <p>Max size {getFormattedMaxUploadSize()}!</p>
 

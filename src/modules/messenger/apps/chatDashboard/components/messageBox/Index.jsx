@@ -170,15 +170,11 @@ function MessageBox() {
     useEffect(() => {
         const timeLength = calculateRecordedTimeLength();
         setRecordedTimeLength(timeLength);
-    }, [recordedVoiceTimeInSecond]);
 
-    // Check if voice time recording limit is execeeded
-    useEffect(() => {
-        // Stop The Voice Recorder when limit is execeeded
-        if (recordedTimeLength >= 100) {
+        if (recordedVoiceTimeInSecond >= voiceRecordingLimitInSecond) {
             stopVoiceRecording();
         }
-    }, [recordedTimeLength]);
+    }, [recordedVoiceTimeInSecond]);
 
     function getSessionUsers() {
         const sessionUsers =
@@ -1006,7 +1002,9 @@ function MessageBox() {
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
                                     <div className='wpwax-vm-messagebox-header__left'>
-                                        <UserAvaterList users={getSessionUsers()} />
+                                        <UserAvaterList
+                                            users={getSessionUsers()}
+                                        />
                                     </div>
 
                                     <div className='wpwax-vm-messagebox-header__right'>

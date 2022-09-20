@@ -5717,7 +5717,7 @@ function ChatScreen() {
       return '';
     }
 
-    return screens['video'];
+    return screens[currentChatScreen];
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_pages_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {

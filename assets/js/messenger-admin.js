@@ -6638,6 +6638,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var CenterBoxStyle = {
   height: '100%',
+  minHeight: '300px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'
@@ -6895,19 +6896,29 @@ function MessageBox() {
 
   var openSearch = getWindowData('openSearch');
   var searchResults = getWindowData('searchResults');
+  var isSearching = getWindowData('isSearching');
+  var searchQueryArgs = getWindowData('searchQueryArgs');
+  var isShowingVideoSearchResult = getWindowData('isShowingVideoSearchResult');
+  var isShowingVoiceSearchResult = getWindowData('isShowingVoiceSearchResult');
 
   var setSearchResults = function setSearchResults(results) {
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
   };
 
-  var dismisSearchResult = function dismisSearchResult() {
-    console.log('dismisSearchResult');
-    setSearchResults([]);
+  var dismisSearch = function dismisSearch() {
+    console.log('dismisSearch'); // Hide Search Results
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
+
+    setSearchResults([]); // Reset Serch Query Args
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', {}));
   };
   /* Handle Search Toggle */
 
 
   var handleActiveSearch = function handleActiveSearch(event) {
+    console.log('handleActiveSearch');
     event.preventDefault();
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
@@ -6923,7 +6934,7 @@ function MessageBox() {
 
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
 
-    dismisSearchResult();
+    dismisSearch();
   };
 
   var calculateRecordedTimeLength = function calculateRecordedTimeLength() {
@@ -7806,10 +7817,64 @@ function MessageBox() {
   var updateTextSearchResult = function updateTextSearchResult(event) {
     event.preventDefault();
     var text = event.target.value;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text));
-    loadSearchResults({
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
+
+    var newSearchQueryArgs = {
       message: text
-    });
+    };
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+
+    if (text.length) {
+      // Activate Search Mode
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+    } else {
+      // Inactivate Search Mode
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
+    }
+
+    loadSearchResults(newSearchQueryArgs);
+  };
+
+  var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
+    event.preventDefault();
+
+    if (isShowingVideoSearchResult) {
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false)); // Close Search
+
+      dismisSearch();
+      return;
+    } //
+
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', true)); // Update Query Args
+
+    var newSearchQueryArgs = {
+      message_type: 'video'
+    };
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    loadSearchResults(newSearchQueryArgs);
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+  };
+
+  var filterVoiceMessages = function filterVoiceMessages(event) {
+    event.preventDefault();
+
+    if (isShowingVoiceSearchResult) {
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false)); // Close Search
+
+      dismisSearch();
+      return;
+    } //
+
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', true)); // Update Query Args
+
+    var newSearchQueryArgs = {
+      message_type: 'audio'
+    };
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    loadSearchResults(newSearchQueryArgs);
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
   };
 
   var loadSearchResults = /*#__PURE__*/function () {
@@ -7819,7 +7884,8 @@ function MessageBox() {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
-              setIsLoadingSearchResults(true); // Query Args
+              setIsLoadingSearchResults(true);
+              console.log('loadSearchResults', queryArgs); // Query Args
 
               defaultQueryArgs = {
                 page: 1,
@@ -7827,14 +7893,17 @@ function MessageBox() {
               };
               queryArgs = queryArgs && _typeof(queryArgs) === 'object' ? _objectSpread(_objectSpread({}, defaultQueryArgs), queryArgs) : defaultQueryArgs; // Get Search Results
 
-              _context14.next = 5;
+              _context14.next = 6;
               return getMessages(queryArgs);
 
-            case 5:
+            case 6:
               response = _context14.sent;
+              console.log({
+                response: response
+              }); // Show Alert on Error
 
               if (response.success) {
-                _context14.next = 11;
+                _context14.next = 13;
                 break;
               }
 
@@ -7843,23 +7912,14 @@ function MessageBox() {
               setIsLoadingSearchResults(false);
               return _context14.abrupt("return");
 
-            case 11:
+            case 13:
               // Update Loaded Session
-              searchResults = response.data.data.data;
+              searchResults = response.data.data.data; // console.log({ searchResults });
 
-              if (searchResults.length) {
-                _context14.next = 15;
-                break;
-              }
-
-              setIsLoadingMoreSearchResults(false);
-              return _context14.abrupt("return");
-
-            case 15:
               setSearchResults(searchResults);
               setIsLoadingSearchResults(false);
 
-            case 17:
+            case 16:
             case "end":
               return _context14.stop();
           }
@@ -7874,7 +7934,7 @@ function MessageBox() {
 
   var loadMoreSearchResults = /*#__PURE__*/function () {
     var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-      var nextPage, response, message, latestItems, newSearchResults;
+      var nextPage, queryArgs, response, message, latestItems, newSearchResults;
       return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
           switch (_context15.prev = _context15.next) {
@@ -7882,17 +7942,21 @@ function MessageBox() {
               setIsLoadingMoreSearchResults(true); // Get More Search Results
 
               nextPage = currentSearchResultPage + 1;
-              _context15.next = 4;
-              return getMessages({
+              queryArgs = _objectSpread({
                 page: nextPage,
                 limit: paginationPerPage
+              }, searchQueryArgs);
+              console.log('loadMoreSearchResults', {
+                queryArgs: queryArgs
               });
+              _context15.next = 6;
+              return getMessages(queryArgs);
 
-            case 4:
+            case 6:
               response = _context15.sent;
 
               if (response.success) {
-                _context15.next = 10;
+                _context15.next = 12;
                 break;
               }
 
@@ -7901,25 +7965,25 @@ function MessageBox() {
               setIsLoadingMoreSearchResults(false);
               return _context15.abrupt("return");
 
-            case 10:
+            case 12:
               // Update Loaded Session
               latestItems = response.data.data.data;
 
               if (latestItems.length) {
-                _context15.next = 14;
+                _context15.next = 16;
                 break;
               }
 
               setIsLoadingMoreSearchResults(false);
               return _context15.abrupt("return");
 
-            case 14:
+            case 16:
               newSearchResults = [].concat(_toConsumableArray(searchResults), _toConsumableArray(latestItems));
               setSearchResults(newSearchResults);
               setCurrentSearchResultPage(nextPage);
               setIsLoadingMoreSearchResults(false);
 
-            case 18:
+            case 20:
             case "end":
               return _context15.stop();
           }
@@ -8159,7 +8223,7 @@ function MessageBox() {
   }();
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
-    children: sessionMessages.length || searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    children: selectedSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
       style: {
         height: '100%'
       },
@@ -8209,6 +8273,7 @@ function MessageBox() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
+                    onClick: toggleFilterVideoMessages,
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
@@ -8221,6 +8286,7 @@ function MessageBox() {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-messagebox-header__action--link",
+                    onClick: filterVoiceMessages,
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
@@ -8231,14 +8297,15 @@ function MessageBox() {
                 }) : null]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), !isSearching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: !searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              height: 600,
               dataLength: sessionMessages.length,
               next: function next() {
                 loadOlderMessages();
@@ -8247,7 +8314,6 @@ function MessageBox() {
                 display: 'flex',
                 flexDirection: 'column-reverse'
               },
-              height: 600,
               inverse: true //
               ,
               hasMore: true,
@@ -8264,17 +8330,21 @@ function MessageBox() {
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+              style: CenterBoxStyle,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
+                children: "No message found"
+              })
+            })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            id: "scrollableDiv",
+            className: "wpwax-vm-messagebox-body",
+            children: searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              height: 600,
               dataLength: searchResults.length,
               next: function next() {
                 loadMoreSearchResults();
               },
-              style: {
-                display: 'flex',
-                flexDirection: 'column-reverse'
-              },
-              inverse: true //
-              ,
               hasMore: true,
               loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
                 style: {
@@ -8285,26 +8355,17 @@ function MessageBox() {
               refreshFunction: function refreshFunction() {
                 loadMoreSearchResults();
               },
-              pullDownToRefresh: true,
-              pullDownToRefreshThreshold: 2,
-              pullDownToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
-                style: {
-                  textAlign: 'center'
-                },
-                children: "\u2193 Pull down to load more results"
-              }),
-              releaseToRefreshContent: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
-                style: {
-                  textAlign: 'center'
-                },
-                children: "\u2191 Release to load more results"
-              }),
               scrollableTarget: "scrollableDiv",
               children: searchResults.map(function (message, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
+              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+              style: CenterBoxStyle,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
+                children: "No message found"
               })
             })
           }), handleFooterContent()]
@@ -12217,13 +12278,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  paginationPerPage: 6,
+  paginationPerPage: 600,
   selectedSession: null,
   allSessions: {},
   allSessionWindowData: {},
   defaultSessionWindowData: {
     openSearch: false,
+    isSearching: false,
+    isShowingVideoSearchResult: false,
+    isShowingVoiceSearchResult: false,
     searchKeyword: '',
+    searchQueryArgs: {},
     searchResults: [],
     messageType: 'video',
     videoStage: 'home',

@@ -1,14 +1,18 @@
 import actions from './actions';
 
 const initialState = {
-    paginationPerPage: 6,
+    paginationPerPage: 600,
     selectedSession: null,
     allSessions: {},
 
     allSessionWindowData: {},
 	defaultSessionWindowData: {
 		openSearch: false,
+		isSearching: false,
+		isShowingVideoSearchResult: false,
+		isShowingVoiceSearchResult: false,
 		searchKeyword: '',
+		searchQueryArgs: {},
 		searchResults: [],
 		messageType: 'video',
 		videoStage: 'home',

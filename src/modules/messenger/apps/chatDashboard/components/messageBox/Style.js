@@ -181,7 +181,7 @@ const MessageBoxWrap = Styled.div`
         }
         &.wpwax-vm-search-active{
             width: 100%;
-            padding: 10px 30px;
+            padding: 8px 30px;
             .wpwax-vm-messagebox-header__actionlist{
                 margin: 0;
                 width: 100%;
@@ -194,6 +194,14 @@ const MessageBoxWrap = Styled.div`
                     &.wpwax-vm-messagebox-header-search{
                         padding: 0;
                     }
+                }
+            }
+            .wpwax-vm-search-toggle{
+                .dashicons{
+                    font-size: 28px;
+                    width: 28px;
+                    height: 28px;;
+                    color: var(--color-danger);
                 }
             }
             
@@ -212,6 +220,7 @@ const MessageBoxWrap = Styled.div`
             width: 100%;
             display: none;
             input{
+                font-size: 16px;
                 width: 100%;
                 border: 0 none;
                 border-radius: 0px;
@@ -271,8 +280,8 @@ const MessageBoxWrap = Styled.div`
 
     .wpwax-vm-messagebox-body{
         position: relative;
-        padding-top: 25px;
         .infinite-scroll-component {
+            padding-top: 25px;
             &::-webkit-scrollbar {
                 width: 11px;
             }

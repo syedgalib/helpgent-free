@@ -329,7 +329,7 @@ function Record() {
                         </div>
 
                         <div className='wpwax-vm-text-center'>
-                            <p>We’re currently uploading your audio</p>
+                            <h4>We’re currently uploading your audio</h4>
                             <p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
                                 Please don’t leave this page!
                             </p>

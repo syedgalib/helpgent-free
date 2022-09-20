@@ -37,7 +37,7 @@ function ChatScreen() {
             return '';
         }
 
-        return screens[currentChatScreen];
+        return screens['video'];
     }
 
     return <Container>{getCurrentScreen()}</Container>;

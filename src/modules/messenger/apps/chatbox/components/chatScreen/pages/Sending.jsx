@@ -107,7 +107,7 @@ function Sending() {
                 </div>
 
                 <div className='wpwax-vm-text-center'>
-                    <p>We’re currently processing your request</p>
+                    <h4>We’re currently processing your request</h4>
                     <p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
                         Please don’t leave this page!
                     </p>

@@ -376,7 +376,20 @@
 }
 
 // ----------------------------------------
-
+.wpwax-vm-record-send-progress{
+    min-height: 600px;
+    .wpwax-vm-record-send-progress__content{
+        h4,
+        p{
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+        p{
+            margin-top: 12px;
+        }
+    }
+}
 .wpwax-vm-record-send-progress__bar {
     position: relative;
     width: 164px;

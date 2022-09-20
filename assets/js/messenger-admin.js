@@ -8200,32 +8200,7 @@ function MessageBox() {
                   textAlign: 'center'
                 },
                 children: "Loading..."
-              }) : '' // refreshFunction={() => {
-              //     loadOlderMessages();
-              // }}
-              // pullDownToRefresh
-              // pullDownToRefreshThreshold={2}
-              // pullDownToRefreshContent={
-              //     <h3
-              //         style={{
-              //             textAlign: 'center',
-              //         }}
-              //     >
-              //         &#8595; Pull down to load
-              //         older messages
-              //     </h3>
-              // }
-              // releaseToRefreshContent={
-              //     <h3
-              //         style={{
-              //             textAlign: 'center',
-              //         }}
-              //     >
-              //         &#8593; Release to load
-              //         older messages
-              //     </h3>
-              // }
-              ,
+              }) : '',
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {

@@ -58,20 +58,22 @@ const GeneralSettings = () => {
     });
 
     useEffect(() => {
-        console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
-        var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
-        let getDisplayPlaces = [];
-        filteredKeywords.map((item,index)=>{
-            getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
-        })
-        console.log(getDisplayPlaces);
-        setState({
-            ...state,
-            selectedCustomPages:[
-                ...state.selectedCustomPages,
-                getDisplayPlaces
-            ]
-        })
+        console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
+        // for(let i=0; i<customPages.length; i++){
+        //     if(customPages[i].value === )
+        // }
+        // var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
+        // let getDisplayPlaces = [];
+        // filteredKeywords.map((item,index)=>{
+        //     getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
+        // })
+        // setState({
+        //     ...state,
+        //     selectedCustomPages:[
+        //         ...state.selectedCustomPages,
+        //         getDisplayPlaces
+        //     ]
+        // })
         // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
         // });
@@ -79,6 +81,8 @@ const GeneralSettings = () => {
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+    console.log(formData);
 
     const Option = (props) => {
         return (
@@ -89,8 +93,6 @@ const GeneralSettings = () => {
             </div>
         );
     };
-
-    console.log(state.selectedCustomPages);
 
     const customPages = [];
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
@@ -124,10 +126,11 @@ const GeneralSettings = () => {
                 ]
             })
         }
-        console.log(state.selectedCustomPages)
         const updatedData = formUpdater(e.name, selectEvent.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
+
+    console.log(customPages);
 
     return (
         <GeneralSettingWrap>

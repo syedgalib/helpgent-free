@@ -7760,7 +7760,6 @@ var AddForm = function AddForm() {
   /* initialize Form Data */
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-    console.log(state);
     return {
       name: state.form.data[0].name,
       primaryColor: state.form.data[0].options.primary_color,
@@ -7951,7 +7950,6 @@ var AddForm = function AddForm() {
         }();
 
         editSession().then(function (editSessionResponse) {
-          console.log(editSessionResponse, formData);
           setState(_objectSpread(_objectSpread({}, state), {}, {
             response: editSessionResponse,
             loading: false
@@ -8086,7 +8084,6 @@ var AddForm = function AddForm() {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           loading: false
         }));
-        console.log(sessionByIdResponse.data.data);
         dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadForm)([sessionByIdResponse.data.data]));
       }).catch(function (error) {
         console.log(error);
@@ -9063,27 +9060,29 @@ var GeneralSettings = function GeneralSettings() {
       setState = _useState2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages, displayedCustomPages);
-    var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter(function (word) {
-      return console.log(word.id);
-    });
-    var getDisplayPlaces = [];
-    filteredKeywords.map(function (item, index) {
-      getDisplayPlaces.push({
-        value: "".concat(item.id),
-        label: "".concat(item.title)
-      });
-    });
-    console.log(getDisplayPlaces);
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [getDisplayPlaces])
-    })); // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
+    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages); // for(let i=0; i<customPages.length; i++){
+    //     if(customPages[i].value === )
+    // }
+    // var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
+    // let getDisplayPlaces = [];
+    // filteredKeywords.map((item,index)=>{
+    //     getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
+    // })
+    // setState({
+    //     ...state,
+    //     selectedCustomPages:[
+    //         ...state.selectedCustomPages,
+    //         getDisplayPlaces
+    //     ]
+    // })
+    // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
     //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
     // });
   }, []);
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
+  console.log(formData);
 
   var Option = function Option(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -9097,7 +9096,6 @@ var GeneralSettings = function GeneralSettings() {
     });
   };
 
-  console.log(state.selectedCustomPages);
   var customPages = [];
   wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map(function (item, index) {
     customPages.push({
@@ -9130,11 +9128,11 @@ var GeneralSettings = function GeneralSettings() {
       }));
     }
 
-    console.log(state.selectedCustomPages);
     var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
   };
 
+  console.log(customPages);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_8__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",

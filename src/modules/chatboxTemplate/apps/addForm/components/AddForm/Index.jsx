@@ -40,7 +40,6 @@ const AddForm = () => {
         // loading,
         // response
     } = useSelector(state => {
-        console.log(state)
         return {
             name: state.form.data[0].name,
             primaryColor: state.form.data[0].options.primary_color,
@@ -189,7 +188,6 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
-                        console.log(editSessionResponse, formData);
                         setState({
                             ...state,
                             response: editSessionResponse,
@@ -286,7 +284,6 @@ const AddForm = () => {
                         ...state,
                         loading: false
                     });
-                    console.log(sessionByIdResponse.data.data);
                     dispatch(handleReadForm([sessionByIdResponse.data.data]));
                 })
                 .catch((error) => {

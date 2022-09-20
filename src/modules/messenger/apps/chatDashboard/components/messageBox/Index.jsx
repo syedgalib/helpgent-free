@@ -104,6 +104,9 @@ function MessageBox() {
     // Update session on sessionID change
     useEffect(
         function () {
+            // Reset Text Message Content
+            setTextMessageContent('');
+
             if (!selectedSession) {
                 return;
             }
@@ -350,12 +353,14 @@ function MessageBox() {
                 ? response.message
                 : 'Somethong went wrong, please try again.';
             alert(message);
+            textMessageContentRef.current.focus();
 
             return;
         }
 
         // Reset Input
         setTextMessageContent('');
+        textMessageContentRef.current.focus();
 
         // Load Latest
         loadLatestMessages(latestMessageDate);
@@ -902,7 +907,17 @@ function MessageBox() {
                                 className='wpwax-vm-messagebox-reply-send'
                                 onClick={sendTextMessage}
                             >
-                                <ReactSVG src={paperPlane} />
+                                {!isSendingTextMessage ? (
+                                    <ReactSVG src={paperPlane} />
+                                ) : (
+                                    <ReactSVG
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                        }}
+                                        src={loadingIcon}
+                                    />
+                                )}
                             </a>
                         </div>
                     </div>
@@ -1002,6 +1017,11 @@ function MessageBox() {
     /* Handle Text Colse */
     const handleTextClose = (e) => {
         e.preventDefault();
+
+        if (isSendingTextMessage) {
+            console.log('Please wait...');
+            return;
+        }
 
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));

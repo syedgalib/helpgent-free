@@ -947,6 +947,11 @@ function prepare_user_data( $user, $fields = [] ) {
  * @return bool
  */
 function is_user_admin( $user ) {
+
+	if ( empty( $user ) ) {
+		return false;
+	}
+
 	$accepted_roles = get_admin_roles();
 
 	$accepted_roles_check = array_unique( array_map( function( $rule ) use( $accepted_roles ) {

@@ -9,8 +9,10 @@ import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
+import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import attachmentAPI from 'apiService/attachment-api';
 
 import {
     handleReplyModeChange,
@@ -20,6 +22,7 @@ import {
 } from '../../store/messages/actionCreator';
 
 import http from 'Helper/http.js';
+import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 
 const CenterBoxStyle = {
     height: '100%',
@@ -29,6 +32,8 @@ const CenterBoxStyle = {
 };
 
 function MessageBox() {
+    const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
+
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
@@ -47,22 +52,26 @@ function MessageBox() {
 
     const [isSendingTextMessage, setIsSendingTextMessage] = useState(false);
     const [isSendingAudioMessage, setIsSendingAudioMessage] = useState(false);
-    const [isSendingVideoMessage, setIsSendingVideoMessage] = useState(false);
 
     //
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
-    const [recordedAudioURL, setRecordedAudioURL] = useState('');
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
     const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] =
         useState(0);
+
+    const [recordedTimeLength, setRecordedTimeLength] = useState(0);
+
+    const voiceRecordingLimitInSecond =
+        messengerScriptData &&
+        typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
+            ? parseInt(messengerScriptData.voiceRecordTimeLimit)
+            : 300; // 5 Minuites
 
     // Refs
     const textMessageContentRef = useRef();
 
     // Message Contents
     const [textMessageContent, setTextMessageContent] = useState('');
-    const [audioMessageContent, setAudioMessageContent] = useState(null);
-    const [videoMessageContent, setVideoMessageContent] = useState(null);
 
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
@@ -157,6 +166,20 @@ function MessageBox() {
         [selectedSession]
     );
 
+    // Update Recorded Time Length
+    useEffect(() => {
+        const timeLength = calculateRecordedTimeLength();
+        setRecordedTimeLength(timeLength);
+    }, [recordedVoiceTimeInSecond]);
+
+    // Check if voice time recording limit is execeeded
+    useEffect(() => {
+        // Stop The Voice Recorder when limit is execeeded
+        if (recordedTimeLength >= 100) {
+            stopVoiceRecording();
+        }
+    }, [recordedTimeLength]);
+
     function getSessionUsers() {
         const sessionUsers =
             selectedSession && selectedSession.users
@@ -217,6 +240,13 @@ function MessageBox() {
         });
     };
 
+    const calculateRecordedTimeLength = () => {
+        let r = recordedVoiceTimeInSecond / voiceRecordingLimitInSecond;
+        r = isNaN(r) ? 0 : r;
+
+        return r * 100;
+    };
+
     /* Focus Input field when search inopen */
     useEffect(() => {
         if (!searchInputRef.current) {
@@ -245,14 +275,14 @@ function MessageBox() {
         event.preventDefault();
 
         // Check Permission
-        const can_record_video = await canRecordAudio();
+        const can_record_auido = await canRecordAudio();
 
-        if (!can_record_video) {
+        if (!can_record_auido) {
             return;
         }
 
-        // Start Voice Recording;
-        // startVoiceRecording();
+        // Prepare Voice Recording;
+        await prepareVoiceRecording();
 
         // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
@@ -282,7 +312,7 @@ function MessageBox() {
         setIsSendingTextMessage(true);
 
         // Send Message
-        const response = await createTextMessage(textMessageContent);
+        const response = await createMessage({ message: textMessageContent });
 
         setIsSendingTextMessage(false);
 
@@ -303,12 +333,106 @@ function MessageBox() {
         loadLatestMessages(latestMessageDate);
     };
 
-    const createTextMessage = async (text) => {
-        const args = {
+    const handleSendAudioMessage = async function (e) {
+        e.preventDefault();
+
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        if (isRecordingVoice) {
+            stopVoiceRecording({ sendRecording: true });
+            return;
+        }
+
+        await sendAudioMessage();
+        closeVoiceChat();
+    };
+
+    const sendAudioMessage = async function (blob) {
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        const attachment = blob ? blob : recordedAudioBlob;
+
+        if (!attachment) {
+            alert('No recordings found');
+            return;
+        }
+
+        setIsSendingAudioMessage(true);
+
+        // Upload The Attachment
+        const attachmentResponse = await createAttachment(attachment);
+
+        // Show Alert on Error
+        if (!attachmentResponse.success) {
+            const message = attachmentResponse.message
+                ? attachmentResponse.message
+                : 'Somethong went wrong, please try again.';
+
+            alert(message);
+            setIsSendingAudioMessage(false);
+
+            return;
+        }
+
+        const attachmentID = attachmentResponse.data.id;
+
+        // Send The Message
+        const response = await createMessage({
+            message_type: 'audio',
+            attachment_id: attachmentID,
+        });
+
+        setIsSendingAudioMessage(false);
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            return;
+        }
+
+        // Load Latest
+        loadLatestMessages();
+    };
+
+    async function createAttachment(file) {
+        let status = {
+            success: false,
+            data: null,
+        };
+
+        try {
+            const response = await attachmentAPI.createAttachment({ file });
+
+            status.data = response.data.data;
+            status.success = true;
+
+            return status;
+        } catch (error) {
+            status.success = false;
+            console.error({ error });
+            return status;
+        }
+    }
+
+    const createMessage = async (args) => {
+        const defaultArgs = {
             session_id: selectedSession.session_id,
             message_type: 'text',
-            message: text,
+            message: '',
         };
+
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
 
         let status = {
             success: false,
@@ -361,44 +485,64 @@ function MessageBox() {
         }
     };
 
-    const handleSendVoiceMessage = () => {
-        console.log('handleSendVoiceMessage');
+    const afterStopVoiceRecording = async ({ blob, sendRecording }) => {
+        if (!sendRecording) {
+            return;
+        }
+
+        await sendAudioMessage(blob);
+        closeVoiceChat();
     };
 
-    const startVoiceRecording = async () => {
-        setupVideoStreem();
+    const closeVoiceChat = () => {
+        dispatch(handleMessageTypeChange(''));
+        dispatch(handleReplyModeChange(false));
     };
 
-    // setupVideoStreem
-    async function setupVideoStreem() {
+    const prepareVoiceRecording = async () => {
+        const audioStreem = await setupAudioStreem();
+
+        if (!audioStreem) {
+            alert('Something went wrong, please try again.');
+            return;
+        }
+
+        startVoiceRecording();
+    };
+
+    // setupAudioStreem
+    async function setupAudioStreem() {
         try {
-            // Setup Video Streem
-            window.wpwaxCSVideoStream =
+            // Setup Audio Streem
+            window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
                     audio: {
                         echoCancellation: true,
                         noiseSuppression: true,
                         sampleRate: 44100,
                     },
-                    video: { facingMode: 'user' },
                 });
 
-            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true,
-            });
+            window.wpwaxCSVoiceRecorder = new RecordRTC(
+                window.wpwaxCSAudioStream,
+                {
+                    type: 'audio',
+                    mimeType: 'audio/wav',
+                    recorderType: RecordRTC.StereoAudioRecorder,
+                    disableLogs: true,
+                }
+            );
+
+            return true;
         } catch (error) {
             console.log({ error });
-
-            setIsRecordingVoice(false);
+            return false;
         }
     }
 
     // startRecording
-    async function startRecording() {
-        await window.wpwaxCSRecorder.startRecording();
+    async function startVoiceRecording() {
+        await window.wpwaxCSVoiceRecorder.startRecording();
 
         setRecordedVoiceTimeInSecond(0);
         setIsRecordingVoice(true);
@@ -406,22 +550,30 @@ function MessageBox() {
     }
 
     // stopRecording
-    function stopRecording() {
-        stopVoiceTimer();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSRecorder.getBlob();
+    function stopVoiceRecording(args) {
+        const defaultArgs = { sendRecording: false };
 
-            const tracks = window.wpwaxCSVideoStream.getTracks();
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
+
+        stopVoiceTimer();
+
+        window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxCSVoiceRecorder.getBlob();
+
+            const tracks = window.wpwaxCSAudioStream.getTracks();
             tracks.forEach((track) => track.stop());
 
             setRecordedAudioBlob(blob);
-            setRecordedAudioURL(url);
             setIsRecordingVoice(false);
-            setCurrentStage(stages.BEFORE_SEND);
-        });
 
-        const tracks = window.wpwaxCSVideoStream.getTracks();
-        tracks.forEach((track) => track.stop());
+            afterStopVoiceRecording({
+                blob,
+                sendRecording: args.sendRecording,
+            });
+        });
     }
 
     function startVoiceTimer() {
@@ -438,12 +590,12 @@ function MessageBox() {
 
     // canRecordAudio
     const canRecordAudio = async function () {
-        const needPermission = await needMediaPermission();
+        const has_permission = await hasAudioRecordPermission();
 
-        if (needPermission) {
-            const hasPermission = await requestPermission();
+        if (!has_permission) {
+            const accepted_permission = await requestAudioRecordPermission();
 
-            if (!hasPermission) {
+            if (!accepted_permission) {
                 alert(
                     'Please grant the requested permission to record the voice'
                 );
@@ -456,21 +608,21 @@ function MessageBox() {
         return true;
     };
 
-    // needMediaPermission
-    const needMediaPermission = async function () {
+    // hasAudioRecordPermission
+    const hasAudioRecordPermission = async function () {
         try {
             const microphonePermission = await navigator.permissions.query({
                 name: 'microphone',
             });
 
-            return microphonePermission.state !== 'granted';
+            return microphonePermission.state === 'granted';
         } catch (_) {
             return true;
         }
     };
 
-    // requestPermission
-    const requestPermission = async function () {
+    // requestAudioRecordPermission
+    const requestAudioRecordPermission = async function () {
         try {
             await navigator.mediaDevices.getUserMedia({
                 audio: {
@@ -742,22 +894,35 @@ function MessageBox() {
                             </a>
                             <span className='wpwax-vm-audio-range'>
                                 <span
-                                    style={{ width: '50%' }}
+                                    style={{
+                                        width: recordedTimeLength + '%',
+                                    }}
                                     className='wpwax-vm-audio-range-inner'
                                 ></span>
                             </span>
-                            <span className='wpwax-vm-timer'>02:00</span>
+                            <span className='wpwax-vm-timer'>
+                                {formatSecondsAsCountdown(
+                                    recordedVoiceTimeInSecond
+                                )}
+                            </span>
                         </div>
                         <div className='wpwax-vm-messagebox-reply__action'>
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    handleSendVoiceMessage();
-                                }}
+                                onClick={handleSendAudioMessage}
                             >
-                                <ReactSVG src={paperPlane} />
+                                {!isSendingAudioMessage ? (
+                                    <ReactSVG src={paperPlane} />
+                                ) : (
+                                    <ReactSVG
+                                        style={{
+                                            width: '50px',
+                                            height: '50px',
+                                        }}
+                                        src={loadingIcon}
+                                    />
+                                )}
                             </a>
                         </div>
                     </div>
@@ -815,8 +980,18 @@ function MessageBox() {
     };
 
     /* Handle Text Colse */
-    const handleVoiceClose = (e) => {
+    const handleVoiceClose = async (e) => {
         e.preventDefault();
+
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        if (isRecordingVoice) {
+            stopVoiceRecording();
+        } else {
+            setRecordedAudioBlob(null);
+        }
 
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));

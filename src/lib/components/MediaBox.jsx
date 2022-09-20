@@ -12,7 +12,7 @@ const MediaBox = ({
 }) => {
     const replyerImg = () => {
         if (lastMessage) {
-            console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
+            // console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
             if (lastMessage.user.roles[0] === 'administrator') {
                 if (lastMessage.user.avatar) {
                     return <img src={lastMessage.user.avatar} alt='' />;

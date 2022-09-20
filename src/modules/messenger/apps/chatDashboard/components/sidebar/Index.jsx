@@ -367,8 +367,8 @@ function Sidebar() {
                                 }
                             >
                                 {sessionList.map((item, index) => {
-                                    console.log(item);
-                                    console.log(currentUser);
+                                    // console.log(item);
+                                    // console.log(currentUser);
                                     const users = item.users.filter(
                                         (p) => p.id !== parseInt(currentUser.ID)
                                     );
@@ -376,7 +376,7 @@ function Sidebar() {
                                         (select) =>
                                             select.roles[0] === 'subscriber'
                                     );
-                                    console.log(selectedUSer);
+                                    // console.log(selectedUSer);
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;

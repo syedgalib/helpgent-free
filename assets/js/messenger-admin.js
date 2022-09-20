@@ -6649,97 +6649,84 @@ function MessageBox() {
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    openSearch: false
-  }),
-      _useState2 = _slicedToArray(_useState, 2),
-      searchState = _useState2[0],
-      setSearchState = _useState2[1];
-
   var current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      sessionMessages = _useState4[0],
-      setSessionMessages = _useState4[1];
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      sessionMessages = _useState2[0],
+      setSessionMessages = _useState2[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      latestMessageDate = _useState4[0],
+      setLatestMessageDate = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
-      latestMessageDate = _useState6[0],
-      setLatestMessageDate = _useState6[1];
+      isLoadingMoreMessages = _useState6[0],
+      setIsLoadingMoreMessages = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      isLoadingMoreMessages = _useState8[0],
-      setIsLoadingMoreMessages = _useState8[1];
+      isLoadingSession = _useState8[0],
+      setIsLoadingSession = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoadingSession = _useState10[0],
-      setIsLoadingSession = _useState10[1];
+      isSendingTextMessage = _useState10[0],
+      setIsSendingTextMessage = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      isSendingTextMessage = _useState12[0],
-      setIsSendingTextMessage = _useState12[1];
+      isSendingAudioMessage = _useState12[0],
+      setIsSendingAudioMessage = _useState12[1]; //
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState14 = _slicedToArray(_useState13, 2),
-      isSendingAudioMessage = _useState14[0],
-      setIsSendingAudioMessage = _useState14[1]; //
+      recordedAudioBlob = _useState14[0],
+      setRecordedAudioBlob = _useState14[1];
 
-
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      recordedAudioBlob = _useState16[0],
-      setRecordedAudioBlob = _useState16[1];
+      isRecordingVoice = _useState16[0],
+      setIsRecordingVoice = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState18 = _slicedToArray(_useState17, 2),
-      isRecordingVoice = _useState18[0],
-      setIsRecordingVoice = _useState18[1];
+      recordedVoiceTimeInSecond = _useState18[0],
+      setRecordedVoiceTimeInSecond = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState20 = _slicedToArray(_useState19, 2),
-      recordedVoiceTimeInSecond = _useState20[0],
-      setRecordedVoiceTimeInSecond = _useState20[1];
-
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-      _useState22 = _slicedToArray(_useState21, 2),
-      recordedTimeLength = _useState22[0],
-      setRecordedTimeLength = _useState22[1];
+      recordedTimeLength = _useState20[0],
+      setRecordedTimeLength = _useState20[1];
 
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
   // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState22 = _slicedToArray(_useState21, 2),
+      textMessageContent = _useState22[0],
+      setTextMessageContent = _useState22[1]; // Search Results
+
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState24 = _slicedToArray(_useState23, 2),
-      textMessageContent = _useState24[0],
-      setTextMessageContent = _useState24[1]; // Search Results
+      currentSearchResultPage = _useState24[0],
+      setCurrentSearchResultPage = _useState24[1];
 
-
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState26 = _slicedToArray(_useState25, 2),
-      currentSearchResultPage = _useState26[0],
-      setCurrentSearchResultPage = _useState26[1];
+      isLoadingSearchResults = _useState26[0],
+      setIsLoadingSearchResults = _useState26[1];
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState28 = _slicedToArray(_useState27, 2),
-      searchResults = _useState28[0],
-      setSearchResults = _useState28[1];
-
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState30 = _slicedToArray(_useState29, 2),
-      isLoadingSearchResults = _useState30[0],
-      setIsLoadingSearchResults = _useState30[1];
-
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState32 = _slicedToArray(_useState31, 2),
-      isLoadingMoreSearchResults = _useState32[0],
-      setIsLoadingMoreSearchResults = _useState32[1];
+      isLoadingMoreSearchResults = _useState28[0],
+      setIsLoadingMoreSearchResults = _useState28[1];
   /* initialize Form Data */
 
 
@@ -6748,6 +6735,8 @@ function MessageBox() {
       paginationPerPage: state.messages.paginationPerPage,
       selectedSession: state.messages.selectedSession,
       allSessions: state.messages.allSessions,
+      allSessionWindowData: state.messages.allSessionWindowData,
+      defaultSessionWindowData: state.messages.defaultSessionWindowData,
       replyMode: state.messages.replyMode,
       messageType: state.messages.messageType
     };
@@ -6755,8 +6744,32 @@ function MessageBox() {
       paginationPerPage = _useSelector.paginationPerPage,
       selectedSession = _useSelector.selectedSession,
       allSessions = _useSelector.allSessions,
+      allSessionWindowData = _useSelector.allSessionWindowData,
+      defaultSessionWindowData = _useSelector.defaultSessionWindowData,
       replyMode = _useSelector.replyMode,
-      messageType = _useSelector.messageType; // Update session on sessionID change
+      messageType = _useSelector.messageType;
+
+  var getWindowData = function getWindowData(key) {
+    var selectedSessionID = selectedSession ? selectedSession.session_id : null;
+
+    if (!selectedSessionID) {
+      return defaultSessionWindowData[key];
+    }
+
+    var selectedWindow = typeof allSessionWindowData[selectedSessionID] !== 'undefined' ? allSessionWindowData[selectedSessionID] : null;
+
+    if (!selectedWindow) {
+      return defaultSessionWindowData[key];
+    }
+
+    var selectedWindowData = typeof allSessionWindowData[selectedSessionID][key] !== 'undefined' ? allSessionWindowData[selectedSessionID][key] : null;
+
+    if (!selectedWindowData) {
+      return defaultSessionWindowData[key];
+    }
+
+    return selectedWindowData;
+  }; // Update session on sessionID change
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -6782,8 +6795,7 @@ function MessageBox() {
         var latestSessionItem = sessionMessageItems[sessionMessageItems.length - 1];
         latest_message_date = latestSessionItem.created_on;
         setLatestMessageDate(latest_message_date);
-      } // loadLatestMessages(latest_message_date);
-
+      }
 
       return;
     } // Otherwise session data load from API
@@ -6825,12 +6837,12 @@ function MessageBox() {
       // Update Latest Message Date
       if (response.data.data.length) {
         setLatestMessageDate(response.data.data[0].created_on);
-      } // Reverse The Order
-
+      }
 
       var sessionMessages = response.data.data; // Update The Store
 
       dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSession)(session_id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSessionWindowData)(session_id));
       setSessionMessages(sessionMessages);
       setIsLoadingSession(false);
     }).catch(function (error) {
@@ -6881,25 +6893,37 @@ function MessageBox() {
     return replayingTo;
   }
 
-  var openSearch = searchState.openSearch;
+  var openSearch = getWindowData('openSearch');
+  var searchResults = getWindowData('searchResults');
+
+  var setSearchResults = function setSearchResults(results) {
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
+  };
+
+  var dismisSearchResult = function dismisSearchResult() {
+    console.log('dismisSearchResult');
+    setSearchResults([]);
+  };
   /* Handle Search Toggle */
+
 
   var handleActiveSearch = function handleActiveSearch(event) {
     event.preventDefault();
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
-    setSearchState({
-      openSearch: true
-    });
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', true));
   };
 
   var handleDiactiveSearch = function handleDiactiveSearch(event) {
     event.preventDefault();
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
-    searchInput.setSelectionRange(0, 0);
-    setSearchState({
-      openSearch: false
-    });
+    searchInput.setSelectionRange(0, 0); // Close search bar
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', false)); // Reset search input
+
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
+
+    dismisSearchResult();
   };
 
   var calculateRecordedTimeLength = function calculateRecordedTimeLength() {
@@ -7287,7 +7311,8 @@ function MessageBox() {
                 session_id: selectedSession.session_id,
                 page: 1
               };
-              args = _objectSpread(_objectSpread({}, defaultArgs), customArgs);
+              args = _objectSpread(_objectSpread({}, defaultArgs), customArgs); // console.log('getMessages', args);
+
               status = {
                 success: false,
                 data: null
@@ -7778,26 +7803,38 @@ function MessageBox() {
     };
   }();
 
+  var updateTextSearchResult = function updateTextSearchResult(event) {
+    event.preventDefault();
+    var text = event.target.value;
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text));
+    loadSearchResults({
+      message: text
+    });
+  };
+
   var loadSearchResults = /*#__PURE__*/function () {
-    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-      var response, message, searchResults;
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(queryArgs) {
+      var defaultQueryArgs, response, message, searchResults;
       return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
-              setIsLoadingSearchResults(true); // Get Search Results
+              setIsLoadingSearchResults(true); // Query Args
 
-              _context14.next = 3;
-              return getMessages({
+              defaultQueryArgs = {
                 page: 1,
                 limit: paginationPerPage
-              });
+              };
+              queryArgs = queryArgs && _typeof(queryArgs) === 'object' ? _objectSpread(_objectSpread({}, defaultQueryArgs), queryArgs) : defaultQueryArgs; // Get Search Results
 
-            case 3:
+              _context14.next = 5;
+              return getMessages(queryArgs);
+
+            case 5:
               response = _context14.sent;
 
               if (response.success) {
-                _context14.next = 9;
+                _context14.next = 11;
                 break;
               }
 
@@ -7806,23 +7843,23 @@ function MessageBox() {
               setIsLoadingSearchResults(false);
               return _context14.abrupt("return");
 
-            case 9:
+            case 11:
               // Update Loaded Session
               searchResults = response.data.data.data;
 
               if (searchResults.length) {
-                _context14.next = 13;
+                _context14.next = 15;
                 break;
               }
 
               setIsLoadingMoreSearchResults(false);
               return _context14.abrupt("return");
 
-            case 13:
+            case 15:
               setSearchResults(searchResults);
               setIsLoadingSearchResults(false);
 
-            case 15:
+            case 17:
             case "end":
               return _context14.stop();
           }
@@ -7830,7 +7867,7 @@ function MessageBox() {
       }, _callee14);
     }));
 
-    return function loadSearchResults() {
+    return function loadSearchResults(_x10) {
       return _ref15.apply(this, arguments);
     };
   }();
@@ -8116,17 +8153,17 @@ function MessageBox() {
       }, _callee16);
     }));
 
-    return function handleVoiceClose(_x10) {
+    return function handleVoiceClose(_x11) {
       return _ref17.apply(this, arguments);
     };
   }();
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
-    children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    children: sessionMessages.length || searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
       style: {
         height: '100%'
       },
-      children: !isLoadingSession && !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      children: !isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.MessageBoxWrap, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
@@ -8147,8 +8184,10 @@ function MessageBox() {
                       type: "text",
                       ref: searchInputRef,
                       name: "wpwax-vm-messagebox-search",
+                      value: getWindowData('searchKeyword'),
                       id: "wpwax-vm-messagebox-search",
-                      placeholder: "Search"
+                      placeholder: "Search",
+                      onChange: updateTextSearchResult
                     })
                   }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
                     href: "#",
@@ -11921,11 +11960,13 @@ document.addEventListener("DOMContentLoaded", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "addSession": function() { return /* binding */ addSession; },
+/* harmony export */   "addSessionWindowData": function() { return /* binding */ addSessionWindowData; },
 /* harmony export */   "handleMessageStageChange": function() { return /* binding */ handleMessageStageChange; },
 /* harmony export */   "handleMessageTypeChange": function() { return /* binding */ handleMessageTypeChange; },
 /* harmony export */   "handleReplyModeChange": function() { return /* binding */ handleReplyModeChange; },
 /* harmony export */   "updateSelectedSession": function() { return /* binding */ updateSelectedSession; },
-/* harmony export */   "updateSessionMessages": function() { return /* binding */ updateSessionMessages; }
+/* harmony export */   "updateSessionMessages": function() { return /* binding */ updateSessionMessages; },
+/* harmony export */   "updateSessionWindowData": function() { return /* binding */ updateSessionWindowData; }
 /* harmony export */ });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/modules/messenger/apps/chatDashboard/store/messages/actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -11940,6 +11981,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var updateSelectedSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSelectedSession,
     addSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSession,
     updateSessionMessages = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessages,
+    addSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSessionWindowData,
+    updateSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionWindowData,
     replyModeUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateBegin,
     replyModeUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateSuccess,
     replyModeUpdateError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateError,
@@ -12050,6 +12093,8 @@ var actions = {
   UPDATE_SELECTED_SESSION: 'UPDATE_SELECTED_SESSION',
   ADD_SESSION: 'ADD_SESSION',
   UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
+  ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
+  UPDATE_SESSION_WINDOW_DATA: 'UPDATE_SESSION_WINDOW_DATA',
   REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
   REPLY_MODE_UPDATE_SUCCESS: 'REPLY_MODE_UPDATE_SUCCESS',
   REPLY_MODE_UPDATE_ERR: 'REPLY_MODE_UPDATE_ERR',
@@ -12080,6 +12125,22 @@ var actions = {
       data: {
         sessionID: sessionID,
         sessionMessages: sessionMessages
+      }
+    };
+  },
+  addSessionWindowData: function addSessionWindowData(sessionID) {
+    return {
+      type: actions.ADD_SESSION_WINDOW_DATA,
+      data: sessionID
+    };
+  },
+  updateSessionWindowData: function updateSessionWindowData(sessionID, key, value) {
+    return {
+      type: actions.UPDATE_SESSION_WINDOW_DATA,
+      data: {
+        sessionID: sessionID,
+        key: key,
+        value: value
       }
     };
   },
@@ -12159,7 +12220,15 @@ var initialState = {
   paginationPerPage: 6,
   selectedSession: null,
   allSessions: {},
-  isLoadingSession: false,
+  allSessionWindowData: {},
+  defaultSessionWindowData: {
+    openSearch: false,
+    searchKeyword: '',
+    searchResults: [],
+    messageType: 'video',
+    videoStage: 'home',
+    replyMode: false
+  },
   messageType: 'video',
   videoStage: 'home',
   replyMode: false,
@@ -12169,6 +12238,8 @@ var initialState = {
 var UPDATE_SELECTED_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SELECTED_SESSION,
     ADD_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION,
     UPDATE_SESSION_MESSAGES = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGES,
+    ADD_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION_WINDOW_DATA,
+    UPDATE_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_WINDOW_DATA,
     REPLY_MODE_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_BEGIN,
     REPLY_MODE_UPDATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_SUCCESS,
     REPLY_MODE_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_ERR,
@@ -12224,6 +12295,47 @@ var Reducer = function Reducer() {
 
       return _objectSpread(_objectSpread({}, state), {}, {
         allSessions: _objectSpread(_objectSpread({}, state.allSessions), {}, _defineProperty({}, data.sessionID, data.sessionMessages))
+      });
+
+    case ADD_SESSION_WINDOW_DATA:
+      if (!data) {
+        return state;
+      }
+
+      if (Object.keys(state.allSessionWindowData).includes(data)) {
+        return state;
+      }
+
+      var newWindowData = JSON.parse(JSON.stringify(state.defaultSessionWindowData));
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessionWindowData: _objectSpread(_objectSpread({}, state.allSessionWindowData), {}, _defineProperty({}, data, newWindowData))
+      });
+
+    case UPDATE_SESSION_WINDOW_DATA:
+      // console.log( 'UPDATE_SESSION_WINDOW_DATA', data );
+      if (!data.sessionID) {
+        return state;
+      }
+
+      if (typeof data.key === 'undefined') {
+        return state;
+      }
+
+      if (typeof data.value === 'undefined') {
+        return state;
+      }
+
+      if (!Object.keys(state.allSessionWindowData).includes(data.sessionID)) {
+        return state;
+      }
+
+      if (!Object.keys(state.allSessionWindowData[data.sessionID]).includes(data.key)) {
+        return state;
+      } // console.log( 'Chk-1' );
+
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessionWindowData: _objectSpread(_objectSpread({}, state.allSessionWindowData), {}, _defineProperty({}, data.sessionID, _objectSpread(_objectSpread({}, state.allSessionWindowData[data.sessionID]), {}, _defineProperty({}, data.key, data.value))))
       });
 
     case REPLY_MODE_UPDATE_BEGIN:

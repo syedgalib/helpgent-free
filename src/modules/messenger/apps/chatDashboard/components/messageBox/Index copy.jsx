@@ -19,8 +19,6 @@ import {
     handleMessageTypeChange,
     addSession,
     updateSessionMessages,
-    addSessionWindowData,
-    updateSessionWindowData,
 } from '../../store/messages/actionCreator';
 
 import http from 'Helper/http.js';
@@ -39,6 +37,10 @@ function MessageBox() {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
+
+    const [searchState, setSearchState] = useState({
+        openSearch: false,
+    });
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -72,7 +74,9 @@ function MessageBox() {
     const [textMessageContent, setTextMessageContent] = useState('');
 
     // Search Results
+    const [searchKeyword, setSearchKeyword] = useState('');
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
+    const [searchResults, setSearchResults] = useState([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [isLoadingMoreSearchResults, setIsLoadingMoreSearchResults] =
         useState(false);
@@ -82,8 +86,6 @@ function MessageBox() {
         paginationPerPage,
         selectedSession,
         allSessions,
-        allSessionWindowData,
-        defaultSessionWindowData,
         replyMode,
         messageType,
     } = useSelector((state) => {
@@ -91,42 +93,10 @@ function MessageBox() {
             paginationPerPage: state.messages.paginationPerPage,
             selectedSession: state.messages.selectedSession,
             allSessions: state.messages.allSessions,
-            allSessionWindowData: state.messages.allSessionWindowData,
-            defaultSessionWindowData: state.messages.defaultSessionWindowData,
             replyMode: state.messages.replyMode,
             messageType: state.messages.messageType,
         };
     });
-
-    const getWindowData = (key) => {
-        const selectedSessionID = selectedSession
-            ? selectedSession.session_id
-            : null;
-
-        if (!selectedSessionID) {
-            return defaultSessionWindowData[key];
-        }
-
-        const selectedWindow =
-            typeof allSessionWindowData[selectedSessionID] !== 'undefined'
-                ? allSessionWindowData[selectedSessionID]
-                : null;
-
-        if (!selectedWindow) {
-            return defaultSessionWindowData[key];
-        }
-
-        const selectedWindowData =
-            typeof allSessionWindowData[selectedSessionID][key] !== 'undefined'
-                ? allSessionWindowData[selectedSessionID][key]
-                : null;
-
-        if (!selectedWindowData) {
-            return defaultSessionWindowData[key];
-        }
-
-        return selectedWindowData;
-    };
 
     // Update session on sessionID change
     useEffect(
@@ -160,6 +130,7 @@ function MessageBox() {
                     setLatestMessageDate(latest_message_date);
                 }
 
+                // loadLatestMessages(latest_message_date);
                 return;
             }
 
@@ -182,11 +153,11 @@ function MessageBox() {
                         setLatestMessageDate(response.data.data[0].created_on);
                     }
 
+                    // Reverse The Order
                     const sessionMessages = response.data.data;
 
                     // Update The Store
                     dispatch(addSession(session_id, sessionMessages));
-                    dispatch(addSessionWindowData(session_id));
 
                     setSessionMessages(sessionMessages);
                     setIsLoadingSession(false);
@@ -254,24 +225,7 @@ function MessageBox() {
         return replayingTo;
     }
 
-    const openSearch = getWindowData('openSearch');
-    const searchResults = getWindowData('searchResults');
-
-    const setSearchResults = function (results) {
-        dispatch(
-            updateSessionWindowData(
-                selectedSession.session_id,
-                'searchResults',
-                results
-            )
-        );
-    };
-
-    const dismisSearchResult = () => {
-        console.log('dismisSearchResult');
-
-        setSearchResults([]);
-    };
+    const { openSearch } = searchState;
 
     /* Handle Search Toggle */
     const handleActiveSearch = (event) => {
@@ -281,15 +235,10 @@ function MessageBox() {
         );
         searchInput.setSelectionRange(0, 0);
 
-        dispatch(
-            updateSessionWindowData(
-                selectedSession.session_id,
-                'openSearch',
-                true
-            )
-        );
+        setSearchState({
+            openSearch: true,
+        });
     };
-
     const handleDiactiveSearch = (event) => {
         event.preventDefault();
         const searchInput = document.getElementById(
@@ -297,26 +246,9 @@ function MessageBox() {
         );
         searchInput.setSelectionRange(0, 0);
 
-        // Close search bar
-        dispatch(
-            updateSessionWindowData(
-                selectedSession.session_id,
-                'openSearch',
-                false
-            )
-        );
-
-        // Reset search input
-        dispatch(
-            updateSessionWindowData(
-                selectedSession.session_id,
-                'searchKeyword',
-                ''
-            )
-        );
-
-        // Reset Search Result
-        dismisSearchResult();
+        setSearchState({
+            openSearch: false,
+        });
     };
 
     const calculateRecordedTimeLength = () => {
@@ -543,8 +475,6 @@ function MessageBox() {
         };
 
         const args = { ...defaultArgs, ...customArgs };
-
-        // console.log('getMessages', args);
 
         let status = {
             success: false,
@@ -820,35 +750,24 @@ function MessageBox() {
 
     const updateTextSearchResult = (event) => {
         event.preventDefault();
+
+        console.log('updateTextSearchResult');
+
         const text = event.target.value;
 
-        dispatch(
-            updateSessionWindowData(
-                selectedSession.session_id,
-                'searchKeyword',
-                text
-            )
-        );
+        setSearchKeyword(text);
 
-        loadSearchResults({ message: text });
+        console.log({ text });
     };
 
-    const loadSearchResults = async (queryArgs) => {
+    const loadSearchResults = async () => {
         setIsLoadingSearchResults(true);
 
-        // Query Args
-        const defaultQueryArgs = {
+        // Get Search Results
+        const response = await getMessages({
             page: 1,
             limit: paginationPerPage,
-        };
-
-        queryArgs =
-            queryArgs && typeof queryArgs === 'object'
-                ? { ...defaultQueryArgs, ...queryArgs }
-                : defaultQueryArgs;
-
-        // Get Search Results
-        const response = await getMessages(queryArgs);
+        });
 
         // Show Alert on Error
         if (!response.success) {
@@ -1120,9 +1039,9 @@ function MessageBox() {
 
     return (
         <ChatBoxWrap>
-            {sessionMessages.length || searchResults.length ? (
+            {sessionMessages.length ? (
                 <div style={{ height: '100%' }}>
-                    {!isLoadingSession ? (
+                    {!isLoadingSession && !isLoadingSearchResults ? (
                         <div>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
@@ -1148,9 +1067,6 @@ function MessageBox() {
                                                         type='text'
                                                         ref={searchInputRef}
                                                         name='wpwax-vm-messagebox-search'
-                                                        value={getWindowData(
-                                                            'searchKeyword'
-                                                        )}
                                                         id='wpwax-vm-messagebox-search'
                                                         placeholder='Search'
                                                         onChange={

@@ -4,6 +4,10 @@ const {
     updateSelectedSession,
     addSession,
     updateSessionMessages,
+
+	addSessionWindowData,
+	updateSessionWindowData,
+
     replyModeUpdateBegin,
     replyModeUpdateSuccess,
     replyModeUpdateError,
@@ -53,6 +57,8 @@ const handleMessageStageChange = (stage) => {
 export {
     updateSelectedSession,
     addSession,
+    addSessionWindowData,
+	updateSessionWindowData,
     updateSessionMessages,
     handleReplyModeChange,
     handleMessageTypeChange,

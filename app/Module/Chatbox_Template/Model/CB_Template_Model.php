@@ -10,14 +10,14 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
     public static $table = 'chatbox_templates';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -42,7 +42,7 @@ class CB_Template_Model extends DB_Model {
 
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-            
+
             foreach ( $args['where'] as $key => $value ) {
 
                 if ( is_array( $value ) ) {
@@ -69,8 +69,8 @@ class CB_Template_Model extends DB_Model {
         $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? array_merge( $default_fields, $args['fields'] ) : $default_fields;
         $fields = implode( ', ', $fields );
         $fields = trim( $fields, ', ' );
-        
-		$select = "SELECT $fields FROM $template_table 
+
+		$select = "SELECT $fields FROM $template_table
         LEFT JOIN $page_relationship_table ON $template_table.id = $page_relationship_table.template_id
         ";
 
@@ -82,7 +82,7 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $id
      * @return array|WP_Error
      */
@@ -97,7 +97,7 @@ class CB_Template_Model extends DB_Model {
 		$page_relationship_table = self::get_table_name( CB_Template_Page_Relationship_Model::$table );
 
         $fields = "$template_table.*, GROUP_CONCAT(page_id) as pages";
-        $select = "SELECT $fields FROM $template_table 
+        $select = "SELECT $fields FROM $template_table
         LEFT JOIN $page_relationship_table ON $template_table.id = $page_relationship_table.template_id
         ";
 
@@ -114,7 +114,7 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return int|WP_Error
      */
@@ -126,7 +126,7 @@ class CB_Template_Model extends DB_Model {
         $default = [];
 
         $default['name']       = '';
-        $default['page_ids']   = '';
+        $default['pages']   = '';
         $default['is_default'] = 0;
         $default['options']    = '';
 
@@ -145,13 +145,13 @@ class CB_Template_Model extends DB_Model {
 
         $args = Helper\merge_params( $default, $args );
 
-        $page_ids = [];
+        $pages = [];
 
-        if ( isset( $args['page_ids'] ) ) {
-            $page_ids = Helper\convert_string_to_int_array( $args['page_ids'] );
-            unset( $args['page_ids'] );
+        if ( isset( $args['pages'] ) ) {
+            $pages = Helper\convert_string_to_int_array( $args['pages'] );
+            unset( $args['pages'] );
         }
-        
+
         if ( self::name_exists( $args['name'] ) ) {
             $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -167,15 +167,15 @@ class CB_Template_Model extends DB_Model {
         $template_id = $wpdb->insert_id;
 
         // Assign Page IDs
-        if ( ! empty( $page_ids ) ) {
+        if ( ! empty( $pages ) ) {
 
-            foreach( $page_ids as $page_id ) {
+            foreach( $pages as $page_id ) {
                 CB_Template_Page_Relationship_Model::create_item([
                     'template_id' => $template_id,
                     'page_id'     => $page_id,
                 ]);
             }
-            
+
         }
 
 		return  self::get_item( $template_id );
@@ -183,13 +183,13 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
-        
+
         if ( empty( $args['id'] ) ) {
             $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -221,30 +221,31 @@ class CB_Template_Model extends DB_Model {
             $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
         }
 
-        $page_ids = [];
+        $pages = [];
 
-        if ( isset( $args['page_ids'] ) ) {
-            $page_ids = Helper\convert_string_to_int_array( $args['page_ids'] );
+        if ( isset( $args['pages'] ) ) {
+            $pages = Helper\convert_string_to_int_array( $args['pages'] );
+			unset( $args['pages'] );
         }
 
         // Assign Page IDs
-        if ( ! empty( $page_ids ) ) {
+        if ( ! empty( $pages ) ) {
             // Delete old page IDs before new assignment
             CB_Template_Page_Relationship_Model::delete_item_where([
                 'template_id' => $args['id']
             ]);
 
-            foreach( $page_ids as $page_id ) {
+            foreach( $pages as $page_id ) {
                 CB_Template_Page_Relationship_Model::create_item([
                     'template_id' => $args['id'],
                     'page_id'     => $page_id,
                 ]);
             }
-            
+
         }
 
         // Delete page IDs if empty
-        if ( isset( $args['page_ids'] ) && ! count( $page_ids ) ) {
+        if ( isset( $args['pages'] ) && ! count( $pages ) ) {
             CB_Template_Page_Relationship_Model::delete_item_where([
                 'template_id' => $args['id']
             ]);
@@ -260,7 +261,7 @@ class CB_Template_Model extends DB_Model {
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource as.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -269,7 +270,7 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param array $args
      * @return bool
      */
@@ -297,7 +298,7 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Delete Item Where
-     * 
+     *
      * @param array $args
      * @return bool
      */
@@ -312,9 +313,9 @@ class CB_Template_Model extends DB_Model {
 
     /**
      * Name Exists
-     * 
+     *
      * @param string $template_name
-     * 
+     *
      * @return bool
      */
     public static function name_exists( $template_name ) {

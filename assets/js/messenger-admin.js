@@ -6760,6 +6760,9 @@ function MessageBox() {
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Reset Text Message Content
+    setTextMessageContent('');
+
     if (!selectedSession) {
       return;
     }
@@ -7016,22 +7019,23 @@ function MessageBox() {
               setIsSendingTextMessage(false); // Show Alert on Error
 
               if (response.success) {
-                _context3.next = 12;
+                _context3.next = 13;
                 break;
               }
 
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
+              textMessageContentRef.current.focus();
               return _context3.abrupt("return");
 
-            case 12:
+            case 13:
               // Reset Input
               setTextMessageContent('');
               textMessageContentRef.current.focus(); // Load Latest
 
               loadLatestMessages(latestMessageDate);
 
-            case 15:
+            case 16:
             case "end":
               return _context3.stop();
           }
@@ -7952,8 +7956,14 @@ function MessageBox() {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               onClick: sendTextMessage,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                style: {
+                  width: '50px',
+                  height: '50px'
+                },
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
               })
             })
           })]
@@ -8061,6 +8071,12 @@ function MessageBox() {
 
   var handleTextClose = function handleTextClose(e) {
     e.preventDefault();
+
+    if (isSendingTextMessage) {
+      console.log('Please wait...');
+      return;
+    }
+
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };

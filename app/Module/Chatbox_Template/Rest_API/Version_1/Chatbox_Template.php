@@ -10,7 +10,7 @@ class Chatbox_Template extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'chatbox-templates';
@@ -45,7 +45,7 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => true,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'page_ids' => [
+                        'pages' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
@@ -86,7 +86,7 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'page_ids' => [
+                        'pages' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
@@ -181,7 +181,7 @@ class Chatbox_Template extends Rest_Base {
 
     /**
      * Get Item
-     * 
+     *
      * @param object $request
      * @return array Response
      */
@@ -194,13 +194,13 @@ class Chatbox_Template extends Rest_Base {
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
-                [ 'success' => false, 'message' => $data->get_error_message() ], 
-                $data->get_error_code() 
+                [ 'success' => false, 'message' => $data->get_error_message() ],
+                $data->get_error_code()
             );
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
-        
+
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
 
@@ -209,7 +209,7 @@ class Chatbox_Template extends Rest_Base {
 
     /**
      * Create Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -217,10 +217,10 @@ class Chatbox_Template extends Rest_Base {
         $args = $request->get_params();
 
         $default = [];
-    
+
         $default['id']         = '';
         $default['name']       = '';
-        $default['page_ids']   = '';
+        $default['pages']      = '';
         $default['is_default'] = false;
         $default['options']    = '';
 
@@ -229,8 +229,8 @@ class Chatbox_Template extends Rest_Base {
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
-                [ 'success' => false, 'message' => $data->get_error_message() ], 
-                $data->get_error_code() 
+                [ 'success' => false, 'message' => $data->get_error_message() ],
+                $data->get_error_code()
             );
         }
 
@@ -251,7 +251,7 @@ class Chatbox_Template extends Rest_Base {
 
         $default['id']         = '';
         $default['name']       = '';
-        $default['page_ids']   = '';
+        $default['pages']      = '';
         $default['is_default'] = false;
         $default['options']    = '';
 
@@ -260,8 +260,8 @@ class Chatbox_Template extends Rest_Base {
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
-                [ 'success' => false, 'message' => $data->get_error_message() ], 
-                $data->get_error_code() 
+                [ 'success' => false, 'message' => $data->get_error_message() ],
+                $data->get_error_code()
             );
         }
 
@@ -287,7 +287,7 @@ class Chatbox_Template extends Rest_Base {
 
     /**
      * Get sanitize schema
-     * 
+     *
      * @return array
      */
     public function get_sanitize_schema() {

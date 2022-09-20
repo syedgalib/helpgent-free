@@ -3,7 +3,6 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
-use WPWaxCustomerSupportApp\Base\Helper;
 
 class Admin_Asset extends Enqueuer {
 
@@ -78,17 +77,7 @@ class Admin_Asset extends Enqueuer {
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'admin',
             'data'      => [
-                'wpWaxCustomerSupportApp_CoreScriptData' => [
-                    'apiEndpoint'                => rest_url( 'wpwax_cs/v1' ),
-                    'apiNonce'                   => wp_create_nonce( 'wp_rest' ),
-                    'wp_pages'                   => Helper\get_wp_pages(),
-					'admin_roles'                => Helper\get_admin_roles(),
-                    'is_user_admin'              => Helper\is_user_admin( Helper\get_current_user( true ) ),
-                    'current_user'               => Helper\get_current_user(),
-                    'admin_user'                 => Helper\get_admin_user(),
-                    'supported_video_extensions' => Helper\get_mime_types( 'video', 'extension' ),
-					'max_upload_size'            => wp_max_upload_size(),
-                ],
+                'wpWaxCustomerSupportApp_CoreScriptData' => Script_Data::get_base_data(),
             ],
         ];
 

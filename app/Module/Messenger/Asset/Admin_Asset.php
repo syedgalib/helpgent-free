@@ -36,12 +36,12 @@ class Admin_Asset extends Enqueuer {
           'ver'       => $this->script_version,
           'group'     => 'admin',
       ];
-     * 
+     *
      * @return void
      */
     public function add_css_scripts() {
         $scripts = [];
-        
+
         $scripts           = array_merge( $this->css_scripts, $scripts );
         $this->css_scripts = $scripts;
     }
@@ -57,7 +57,7 @@ class Admin_Asset extends Enqueuer {
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
-     * 
+     *
      * @return void
      */
     public function add_js_scripts() {
@@ -68,6 +68,9 @@ class Admin_Asset extends Enqueuer {
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'admin',
+			'data'      => [
+                'wpWaxCustomerSupportApp_MessengerScriptData' => Script_Data::get_base_data(),
+            ],
         ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );

@@ -38,7 +38,7 @@ function MessageBox() {
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
 
-    const [state, setState] = useState({
+    const [searchState, setSearchState] = useState({
         openSearch: false,
     });
 
@@ -221,18 +221,29 @@ function MessageBox() {
         return replayingTo;
     }
 
-    const { openSearch } = state;
+    const { openSearch } = searchState;
 
     /* Handle Search Toggle */
-    const handleSearchToggle = (event) => {
+    const handleActiveSearch = (event) => {
         event.preventDefault();
         const searchInput = document.getElementById(
             'wpwax-vm-messagebox-search'
         );
         searchInput.setSelectionRange(0, 0);
 
-        setState({
-            openSearch: !openSearch,
+        setSearchState({
+            openSearch: true,
+        });
+    };
+    const handleDiactiveSearch = (event) => {
+        event.preventDefault();
+        const searchInput = document.getElementById(
+            'wpwax-vm-messagebox-search'
+        );
+        searchInput.setSelectionRange(0, 0);
+
+        setSearchState({
+            openSearch: false,
         });
     };
 
@@ -1001,22 +1012,24 @@ function MessageBox() {
                         <div>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
-                                    <div className='wpwax-vm-messagebox-header__left'>
-                                        <UserAvaterList
-                                            users={getSessionUsers()}
-                                        />
-                                    </div>
+                                    {!openSearch ? (
+                                        <div className='wpwax-vm-messagebox-header__left'>
+                                            <UserAvaterList
+                                                users={getSessionUsers()}
+                                            />
+                                        </div>
+                                    ) : null}
 
-                                    <div className='wpwax-vm-messagebox-header__right'>
+                                    <div
+                                        className={
+                                            openSearch
+                                                ? 'wpwax-vm-messagebox-header__right wpwax-vm-search-active'
+                                                : 'wpwax-vm-messagebox-header__right'
+                                        }
+                                    >
                                         <div className='wpwax-vm-messagebox-header__actionlist'>
                                             <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search'>
-                                                <div
-                                                    className={
-                                                        openSearch
-                                                            ? 'wpwax-vm-searchbox wpwax-vm-show'
-                                                            : 'wpwax-vm-searchbox'
-                                                    }
-                                                >
+                                                <div className='wpwax-vm-searchbox'>
                                                     <input
                                                         type='text'
                                                         ref={searchInputRef}
@@ -1025,36 +1038,59 @@ function MessageBox() {
                                                         placeholder='Search'
                                                     />
                                                 </div>
-                                                <a
-                                                    href='#'
-                                                    className='wpwax-vm-search-toggle'
-                                                    onClick={handleSearchToggle}
-                                                >
-                                                    <ReactSVG src={search} />
-                                                </a>
+                                                {!openSearch ? (
+                                                    <a
+                                                        href='#'
+                                                        className='wpwax-vm-search-toggle'
+                                                        onClick={
+                                                            handleActiveSearch
+                                                        }
+                                                    >
+                                                        <ReactSVG
+                                                            src={search}
+                                                        />
+                                                    </a>
+                                                ) : (
+                                                    <a
+                                                        href='#'
+                                                        className='wpwax-vm-search-toggle'
+                                                        onClick={
+                                                            handleDiactiveSearch
+                                                        }
+                                                    >
+                                                        <span className='dashicons dashicons-no-alt'></span>
+                                                    </a>
+                                                )}
                                             </div>
-                                            <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video'>
-                                                <a
-                                                    href='#'
-                                                    className='wpwax-vm-messagebox-header__action--link'
-                                                >
-                                                    <ReactSVG src={videoPlay} />
-                                                    <span className='wpwax-vm-messagebox-header__action--text'>
-                                                        Videos
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice'>
-                                                <a
-                                                    href='#'
-                                                    className='wpwax-vm-messagebox-header__action--link'
-                                                >
-                                                    <ReactSVG src={mice} />
-                                                    <span className='wpwax-vm-messagebox-header__action--text'>
-                                                        Voice
-                                                    </span>
-                                                </a>
-                                            </div>
+                                            {!openSearch ? (
+                                                <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video'>
+                                                    <a
+                                                        href='#'
+                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                    >
+                                                        <ReactSVG
+                                                            src={videoPlay}
+                                                        />
+                                                        <span className='wpwax-vm-messagebox-header__action--text'>
+                                                            Videos
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            ) : null}
+
+                                            {!openSearch ? (
+                                                <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice'>
+                                                    <a
+                                                        href='#'
+                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                    >
+                                                        <ReactSVG src={mice} />
+                                                        <span className='wpwax-vm-messagebox-header__action--text'>
+                                                            Voice
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            ) : null}
                                         </div>
                                     </div>
                                 </div>
@@ -1093,31 +1129,31 @@ function MessageBox() {
                                                     ''
                                                 )
                                             }
-                                            refreshFunction={() => {
-                                                loadOlderMessages();
-                                            }}
-                                            pullDownToRefresh
-                                            pullDownToRefreshThreshold={2}
-                                            pullDownToRefreshContent={
-                                                <h3
-                                                    style={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    &#8595; Pull down to load
-                                                    older messages
-                                                </h3>
-                                            }
-                                            releaseToRefreshContent={
-                                                <h3
-                                                    style={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    &#8593; Release to load
-                                                    older messages
-                                                </h3>
-                                            }
+                                            // refreshFunction={() => {
+                                            //     loadOlderMessages();
+                                            // }}
+                                            // pullDownToRefresh
+                                            // pullDownToRefreshThreshold={2}
+                                            // pullDownToRefreshContent={
+                                            //     <h3
+                                            //         style={{
+                                            //             textAlign: 'center',
+                                            //         }}
+                                            //     >
+                                            //         &#8595; Pull down to load
+                                            //         older messages
+                                            //     </h3>
+                                            // }
+                                            // releaseToRefreshContent={
+                                            //     <h3
+                                            //         style={{
+                                            //             textAlign: 'center',
+                                            //         }}
+                                            //     >
+                                            //         &#8593; Release to load
+                                            //         older messages
+                                            //     </h3>
+                                            // }
                                             scrollableTarget='scrollableDiv'
                                         >
                                             {sessionMessages.map(

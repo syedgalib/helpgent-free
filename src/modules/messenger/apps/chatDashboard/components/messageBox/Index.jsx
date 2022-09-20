@@ -335,6 +335,7 @@ function MessageBox() {
 
         // Reset Input
         setTextMessageContent('');
+        textMessageContentRef.current.focus();
 
         // Load Latest
         loadLatestMessages(latestMessageDate);

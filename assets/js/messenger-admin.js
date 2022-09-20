@@ -7026,11 +7026,12 @@ function MessageBox() {
 
             case 12:
               // Reset Input
-              setTextMessageContent(''); // Load Latest
+              setTextMessageContent('');
+              textMessageContentRef.current.focus(); // Load Latest
 
               loadLatestMessages(latestMessageDate);
 
-            case 14:
+            case 15:
             case "end":
               return _context3.stop();
           }

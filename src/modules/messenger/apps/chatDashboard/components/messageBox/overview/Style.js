@@ -282,7 +282,7 @@ const MessageBox = Styled.div`
                 }
             }
             .wpwax-vm-message-content__inner{
-                padding: 18px;
+                padding: 12px 18px 14px;
                 border-radius: 16px 0 16px 16px;
                 background-color: var(--color-bg-general);
                 p{

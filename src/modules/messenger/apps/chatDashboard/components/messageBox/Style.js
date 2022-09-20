@@ -270,7 +270,7 @@ const MessageBoxWrap = Styled.div`
     }
 
     .wpwax-vm-messagebox-body{
-        /* height: 700px; */
+        position: relative;
         padding-top: 25px;
         .infinite-scroll-component {
             &::-webkit-scrollbar {
@@ -287,7 +287,25 @@ const MessageBoxWrap = Styled.div`
                 border: 3px solid var(--color-light);
             }
         }
-        
+        .wpwax-vm-scroll-bottom{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 5px 50px rgba(0,0,0,.15);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            text-decoration: none;
+            color: var(--color-dark);
+            background-color: var(--color-white);
+            &.wpwax-vm-show{
+                display: flex;
+            }
+        }
     }
     .wpwax-vm-messagebox-footer{
         position: relative;
@@ -379,7 +397,7 @@ const MessageBoxWrap = Styled.div`
                 width: 100%;
                 min-height: 52px;
                 border-radius: 26px;
-                padding: 0 25px;
+                padding: 0 30px 0 25px;
                 background-color: var(--color-bg-general);
                 form{
                     width: 100%;
@@ -402,7 +420,7 @@ const MessageBoxWrap = Styled.div`
                     width: 100%;
                     min-height: 10px;
                     border-radius: 100px;
-                    margin: 0 30px;
+                    margin: 0 25px;
                     background-color: #C4C4C4;
                     .wpwax-vm-audio-range-inner{
                         position: absolute;
@@ -411,7 +429,7 @@ const MessageBoxWrap = Styled.div`
                         width: 100%;
                         height: 10px;
                         display: block;
-                        border-radius: 100px;
+                        border-radius: 100px 0 0 100px;
                         background-color: var(--color-dark);
                     }
                 }
@@ -450,6 +468,9 @@ const MessageBoxWrap = Styled.div`
             color: var(--color-dark);
             .dashicons{
                 font-size: 25px;
+                width: 25px;
+                height: 25px;
+                line-height: 1;
             }
         }
     }

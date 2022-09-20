@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
@@ -44,6 +44,7 @@ function MessageBox() {
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
+    const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
     const [sessionMessages, setSessionMessages] = useState([]);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
 
@@ -96,6 +97,9 @@ function MessageBox() {
             messageType: state.messages.messageType,
         };
     });
+    
+    
+    
 
     // Update session on sessionID change
     useEffect(
@@ -162,9 +166,26 @@ function MessageBox() {
                     console.error({ error });
                     setIsLoadingSession(false);
                 });
-        },
-        [selectedSession]
-    );
+                
+
+        },[selectedSession]);
+
+    useEffect(() => {
+
+        const messageBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
+        
+        messageBody && messageBody.addEventListener('scroll', function(){
+
+            const scrolled = messageBody.scrollTop;
+
+            if(scrolled <-350){
+                setScrollBtnVisibility(true);
+            }else{
+                setScrollBtnVisibility(false);
+            }
+        });
+        
+    }, [sessionMessages]);
 
     // Update Recorded Time Length
     useEffect(() => {
@@ -1004,10 +1025,19 @@ function MessageBox() {
         dispatch(handleReplyModeChange(false));
     };
 
+    const handleScrollBottom = (event)=>{
+        event.preventDefault();
+        const scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
+        scrollingBody.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }
+
     return (
         <ChatBoxWrap>
             {sessionMessages.length ? (
-                <div style={{ height: '100%' }}>
+                <div className='wpwax-vm-messagebox-container' style={{ height: '100%' }}>
                     {!isLoadingSession && !isLoadingSearchResults ? (
                         <div>
                             <MessageBoxWrap>
@@ -1129,31 +1159,6 @@ function MessageBox() {
                                                     ''
                                                 )
                                             }
-                                            // refreshFunction={() => {
-                                            //     loadOlderMessages();
-                                            // }}
-                                            // pullDownToRefresh
-                                            // pullDownToRefreshThreshold={2}
-                                            // pullDownToRefreshContent={
-                                            //     <h3
-                                            //         style={{
-                                            //             textAlign: 'center',
-                                            //         }}
-                                            //     >
-                                            //         &#8595; Pull down to load
-                                            //         older messages
-                                            //     </h3>
-                                            // }
-                                            // releaseToRefreshContent={
-                                            //     <h3
-                                            //         style={{
-                                            //             textAlign: 'center',
-                                            //         }}
-                                            //     >
-                                            //         &#8593; Release to load
-                                            //         older messages
-                                            //     </h3>
-                                            // }
                                             scrollableTarget='scrollableDiv'
                                         >
                                             {sessionMessages.map(
@@ -1198,28 +1203,6 @@ function MessageBox() {
                                             refreshFunction={() => {
                                                 loadMoreSearchResults();
                                             }}
-                                            pullDownToRefresh
-                                            pullDownToRefreshThreshold={2}
-                                            pullDownToRefreshContent={
-                                                <h3
-                                                    style={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    &#8595; Pull down to load
-                                                    more results
-                                                </h3>
-                                            }
-                                            releaseToRefreshContent={
-                                                <h3
-                                                    style={{
-                                                        textAlign: 'center',
-                                                    }}
-                                                >
-                                                    &#8593; Release to load more
-                                                    results
-                                                </h3>
-                                            }
                                             scrollableTarget='scrollableDiv'
                                         >
                                             {searchResults.map(
@@ -1237,6 +1220,7 @@ function MessageBox() {
                                             )}
                                         </InfiniteScroll>
                                     )}
+                                    <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
                                 </div>
                                 {handleFooterContent()}
                             </MessageBoxWrap>

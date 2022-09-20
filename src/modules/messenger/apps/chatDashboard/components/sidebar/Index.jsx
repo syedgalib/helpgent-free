@@ -85,6 +85,7 @@ function Sidebar() {
     });
 
     const [pageNumber, setPageNumber] = useState(2);
+    const [activeSession, setaAtiveSession] = useState("");
     const [refresher, setRefresher] = useState(false);
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -239,6 +240,11 @@ function Sidebar() {
         }, 1500);
     };
 
+    const handeSelectSession = (e,item,index) =>{
+        setaAtiveSession(`wpwax-vm-session-${index}`);
+        dispatch(updateSelectedSession(item));
+    }
+
     const handleRefresh = (event) => {
         event.preventDefault();
         setRefresher({
@@ -249,7 +255,7 @@ function Sidebar() {
             hasMore: true,
         });
     };
-
+    console.log(activeSession);
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
@@ -367,8 +373,6 @@ function Sidebar() {
                                 }
                             >
                                 {sessionList.map((item, index) => {
-                                    // console.log(item);
-                                    // console.log(currentUser);
                                     const users = item.users.filter(
                                         (p) => p.id !== parseInt(currentUser.ID)
                                     );
@@ -376,7 +380,6 @@ function Sidebar() {
                                         (select) =>
                                             select.roles[0] === 'subscriber'
                                     );
-                                    // console.log(selectedUSer);
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
@@ -434,17 +437,12 @@ function Sidebar() {
                                             text: item.updated_on,
                                         },
                                     ];
-
+                                    
                                     return (
                                         <li
-                                            className='wpwax-vm-usermedia'
+                                            className={`wpwax-vm-session-${index}` === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active': 'wpwax-vm-usermedia'}
                                             key={index}
-                                            onClick={() => {
-                                                dispatch(
-                                                    updateSelectedSession(item)
-                                                );
-                                            }}
-                                        >
+                                            onClick={e=>handeSelectSession(e,item,index)}>
                                             <div className='wpwax-vm-usermedia__left'>
                                                 <MediaBox
                                                     chatingMedia={true}

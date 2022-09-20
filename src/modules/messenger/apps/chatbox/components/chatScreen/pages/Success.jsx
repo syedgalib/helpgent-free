@@ -81,7 +81,7 @@ function Success() {
                     </div>
 
                     {templateOptions.show_thank_page_cta_button && (
-                        <div className='wpwax-vm-record-send-success__bottom'>
+                        <div className='wpwax-vm-record-send-success__bottom wpwax-vm-p-25'>
                             <a
                                 style={ getCTAButtonStyle() }
                                 href={templateOptions.thank_page_cta_button_url}

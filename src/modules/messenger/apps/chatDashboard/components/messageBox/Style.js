@@ -381,10 +381,14 @@ const MessageBoxWrap = Styled.div`
                 border-radius: 26px;
                 padding: 0 25px;
                 background-color: var(--color-bg-general);
+                form{
+                    width: 100%;
+                }
                 input{
                     font-size: 18px;
                     border: 0 none;
                     padding: 0;
+                    width: 100%;
                     background-color: transparent;
                     &:focus{
                         outline: none;

@@ -337,7 +337,7 @@ const Record = () => {
                     <div className='wpwax-vm-record-send-progress__bar'>
                         <span>Uploading</span>
                     </div>
-                    <p>We’re currently uploading your response.</p>
+                    <h4>We’re currently uploading your response.</h4>
                     <p className='wpwax-vm-danger-text'>
                         Please don’t leave this page!
                     </p>

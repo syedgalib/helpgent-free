@@ -76,6 +76,9 @@ const ScreenWrapper = Styled.div`
             z-index: 100
         }
     }
+    .wpwax-vm-record-send-success__content {
+        min-height: 300px;
+    }
 `;
 
 export default ScreenWrapper;

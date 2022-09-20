@@ -32,6 +32,8 @@ const CenterBoxStyle = {
 };
 
 function MessageBox() {
+    const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
+
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
@@ -50,7 +52,6 @@ function MessageBox() {
 
     const [isSendingTextMessage, setIsSendingTextMessage] = useState(false);
     const [isSendingAudioMessage, setIsSendingAudioMessage] = useState(false);
-    const [isSendingVideoMessage, setIsSendingVideoMessage] = useState(false);
 
     //
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
@@ -60,7 +61,11 @@ function MessageBox() {
 
     const [recordedTimeLength, setRecordedTimeLength] = useState(0);
 
-    const voiceRecordingLimitInSecond = 300; // 5 Minuites
+    const voiceRecordingLimitInSecond =
+        messengerScriptData &&
+        typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
+            ? parseInt(messengerScriptData.voiceRecordTimeLimit)
+            : 300; // 5 Minuites
 
     // Refs
     const textMessageContentRef = useRef();
@@ -977,6 +982,10 @@ function MessageBox() {
     /* Handle Text Colse */
     const handleVoiceClose = async (e) => {
         e.preventDefault();
+
+        if (isSendingAudioMessage) {
+            return;
+        }
 
         if (isRecordingVoice) {
             stopVoiceRecording();

@@ -158,7 +158,6 @@ const Table = () => {
                     data: response.data.data,
                     loader: false,
                 });
-                console.log(response);
             })
             .catch((error) => {
                 setState({
@@ -173,13 +172,6 @@ const Table = () => {
     return (
         <TemplateBox className={loader ? "wpwax-vm-loder-active" : null}>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
-                {message ?
-                    <p className={`${responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'}`}>
-                        <span className="wpwax-vm-notice__text">{message}</span>
-                        <a href="#" className="wpwax-vm-notice__close" onClick={removeNotice}>x</a>
-                    </p>
-                    : ''
-                }
                 {
                     loader ? <span className="wpwax-vm-loading-spin">
                         <span className="wpwax-vm-spin-dot"></span>

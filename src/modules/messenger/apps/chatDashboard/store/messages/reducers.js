@@ -1,7 +1,7 @@
 import actions from './actions';
 
 const initialState = {
-    paginationPerPage: 600,
+    paginationPerPage: 6,
     selectedSession: null,
     allSessions: {},
 

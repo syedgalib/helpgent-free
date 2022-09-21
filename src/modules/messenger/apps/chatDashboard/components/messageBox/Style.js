@@ -196,7 +196,7 @@ const MessageBoxWrap = Styled.div`
                     }
                 }
             }
-            
+
         }
         .wpwax-vm-messagebox-header__actionlist{
             display: flex;
@@ -257,6 +257,15 @@ const MessageBoxWrap = Styled.div`
                     fill: var(--color-primary);
                 }
             }
+            &.active{
+				color: var(--color-primary);
+                svg path,
+                svg circle,
+                span{
+                    color: var(--color-primary);
+                    fill: var(--color-primary);
+                }
+            }
             svg path,
             span{
                 transition: .3s;
@@ -287,7 +296,7 @@ const MessageBoxWrap = Styled.div`
                 border: 3px solid var(--color-light);
             }
         }
-        
+
     }
     .wpwax-vm-messagebox-footer{
         position: relative;

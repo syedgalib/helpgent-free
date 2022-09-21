@@ -278,7 +278,7 @@ function MessageBox() {
     };
 
     const dismisSearch = () => {
-        console.log('dismisSearch');
+        // console.log('dismisSearch');
 
         // Hide Search Results
         dispatch(
@@ -302,15 +302,35 @@ function MessageBox() {
         );
     };
 
+    const dismissFilters = () => {
+        dismisSearch();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVideoSearchResult',
+                false
+            )
+        );
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVoiceSearchResult',
+                false
+            )
+        );
+    };
+
     /* Handle Search Toggle */
     const handleActiveSearch = (event) => {
-        console.log('handleActiveSearch');
-
         event.preventDefault();
         const searchInput = document.getElementById(
             'wpwax-vm-messagebox-search'
         );
         searchInput.setSelectionRange(0, 0);
+
+        dismissFilters();
 
         dispatch(
             updateSessionWindowData(
@@ -575,8 +595,6 @@ function MessageBox() {
 
         const args = { ...defaultArgs, ...customArgs };
 
-        // console.log('getMessages', args);
-
         let status = {
             success: false,
             data: null,
@@ -649,7 +667,7 @@ function MessageBox() {
 
             return true;
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
             return false;
         }
     }
@@ -748,7 +766,7 @@ function MessageBox() {
 
             return true;
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
 
             return false;
         }
@@ -897,6 +915,14 @@ function MessageBox() {
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
 
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVoiceSearchResult',
+                false
+            )
+        );
+
         if (isShowingVideoSearchResult) {
             dispatch(
                 updateSessionWindowData(
@@ -943,6 +969,14 @@ function MessageBox() {
 
     const filterVoiceMessages = (event) => {
         event.preventDefault();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVideoSearchResult',
+                false
+            )
+        );
 
         if (isShowingVoiceSearchResult) {
             dispatch(
@@ -1022,8 +1056,6 @@ function MessageBox() {
 
         // Update Loaded Session
         const searchResults = response.data.data.data;
-
-        // console.log({ searchResults });
 
         setSearchResults(searchResults);
         setIsLoadingSearchResults(false);
@@ -1253,7 +1285,6 @@ function MessageBox() {
         e.preventDefault();
 
         if (isSendingTextMessage) {
-            console.log('Please wait...');
             return;
         }
 
@@ -1347,7 +1378,12 @@ function MessageBox() {
                                                 <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video'>
                                                     <a
                                                         href='#'
-                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                        className={
+                                                            'wpwax-vm-messagebox-header__action--link' +
+                                                            (isShowingVideoSearchResult
+                                                                ? ' active'
+                                                                : '')
+                                                        }
                                                         onClick={
                                                             toggleFilterVideoMessages
                                                         }
@@ -1366,7 +1402,12 @@ function MessageBox() {
                                                 <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice'>
                                                     <a
                                                         href='#'
-                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                        className={
+                                                            'wpwax-vm-messagebox-header__action--link' +
+                                                            (isShowingVoiceSearchResult
+                                                                ? ' active'
+                                                                : '')
+                                                        }
                                                         onClick={
                                                             filterVoiceMessages
                                                         }
@@ -1444,56 +1485,73 @@ function MessageBox() {
                                         )}
                                     </div>
                                 ) : (
-                                    <div
-                                        id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body'
-                                    >
-                                        {searchResults.length ? (
-                                            <InfiniteScroll
-                                                height={600}
-                                                dataLength={
-                                                    searchResults.length
-                                                }
-                                                next={() => {
-                                                    loadMoreSearchResults();
-                                                }}
-                                                hasMore={true}
-                                                loader={
-                                                    isLoadingMoreSearchResults ? (
-                                                        <h3
-                                                            style={{
-                                                                textAlign:
-                                                                    'center',
-                                                            }}
-                                                        >
-                                                            Loading...
-                                                        </h3>
-                                                    ) : (
-                                                        ''
-                                                    )
-                                                }
-                                                refreshFunction={() => {
-                                                    loadMoreSearchResults();
-                                                }}
-                                                scrollableTarget='scrollableDiv'
+                                    <div>
+                                        {!isLoadingSearchResults ? (
+                                            <div
+                                                id='scrollableDiv'
+                                                className='wpwax-vm-messagebox-body'
                                             >
-                                                {searchResults.map(
-                                                    (message, index) => {
-                                                        return (
-                                                            <Message
-                                                                data={message}
-                                                                key={index}
-                                                                currentUser={
-                                                                    current_user
-                                                                }
-                                                            />
-                                                        );
-                                                    }
+                                                {searchResults.length ? (
+                                                    <InfiniteScroll
+                                                        height={600}
+                                                        dataLength={
+                                                            searchResults.length
+                                                        }
+                                                        next={() => {
+                                                            loadMoreSearchResults();
+                                                        }}
+                                                        hasMore={true}
+                                                        loader={
+                                                            isLoadingMoreSearchResults ? (
+                                                                <h3
+                                                                    style={{
+                                                                        textAlign:
+                                                                            'center',
+                                                                    }}
+                                                                >
+                                                                    Loading...
+                                                                </h3>
+                                                            ) : (
+                                                                ''
+                                                            )
+                                                        }
+                                                        refreshFunction={() => {
+                                                            loadMoreSearchResults();
+                                                        }}
+                                                        scrollableTarget='scrollableDiv'
+                                                    >
+                                                        {searchResults.map(
+                                                            (
+                                                                message,
+                                                                index
+                                                            ) => {
+                                                                return (
+                                                                    <Message
+                                                                        data={
+                                                                            message
+                                                                        }
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        currentUser={
+                                                                            current_user
+                                                                        }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </InfiniteScroll>
+                                                ) : (
+                                                    <div style={CenterBoxStyle}>
+                                                        <h2>
+                                                            No message found
+                                                        </h2>
+                                                    </div>
                                                 )}
-                                            </InfiniteScroll>
+                                            </div>
                                         ) : (
                                             <div style={CenterBoxStyle}>
-                                                <h2>No message found</h2>
+                                                <h2>Loading...</h2>
                                             </div>
                                         )}
                                     </div>

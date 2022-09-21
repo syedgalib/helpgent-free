@@ -1504,6 +1504,7 @@ function MessageBox() {
                                                 <h2>No message found</h2>
                                             </div>
                                         )}
+                                        <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
                                     </div>
                                 ) : (
                                     <div>
@@ -1569,6 +1570,7 @@ function MessageBox() {
                                                         </h2>
                                                     </div>
                                                 )}
+                                                <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
                                             </div>
                                         ) : (
                                             <div style={CenterBoxStyle}>

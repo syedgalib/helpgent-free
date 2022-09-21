@@ -147,7 +147,7 @@ function Sidebar() {
         });
     };
 
-    const handleTagFilterDropdown = async (event) => {
+    const handleTagFilterDropdown = (event) => {
         event.preventDefault();
         setSessionState({
             ...sessionState,

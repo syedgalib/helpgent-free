@@ -8320,14 +8320,14 @@ function MessageBox() {
                 }) : null]
               })
             })]
-          }), !isSearching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), !isSearching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               height: 600,
               dataLength: sessionMessages.length,
               next: function next() {
@@ -8358,12 +8358,19 @@ function MessageBox() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
                 children: "No message found"
               })
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+              href: "#",
+              className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
+              onClick: handleScrollBottom,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                className: "dashicons dashicons-arrow-down-alt"
+              })
+            })]
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-            children: !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            children: !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
               id: "scrollableDiv",
               className: "wpwax-vm-messagebox-body",
-              children: searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+              children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
                 height: 600,
                 dataLength: searchResults.length,
                 next: function next() {
@@ -8391,7 +8398,14 @@ function MessageBox() {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
                   children: "No message found"
                 })
-              })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+                href: "#",
+                className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
+                onClick: handleScrollBottom,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                  className: "dashicons dashicons-arrow-down-alt"
+                })
+              })]
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
               style: CenterBoxStyle,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
@@ -10342,29 +10356,12 @@ function Sidebar() {
     }));
   };
 
-  var handleTagFilterDropdown = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              event.preventDefault();
-              setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-                tagFilterDropdownOpen: !tagFilterDropdownOpen
-              }));
-
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
+  var handleTagFilterDropdown = function handleTagFilterDropdown(event) {
+    event.preventDefault();
+    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+      tagFilterDropdownOpen: !tagFilterDropdownOpen
     }));
-
-    return function handleTagFilterDropdown(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
+  };
 
   var handleAllTagActivation = function handleAllTagActivation(event) {
     event.preventDefault();
@@ -10383,29 +10380,29 @@ function Sidebar() {
     };
 
     var fetchSearchNameMail = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var searchByNameMailResponse;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context3.next = 2;
+                _context2.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_9__["default"].getAllByArg('/sessions', searchArg);
 
               case 2:
-                searchByNameMailResponse = _context3.sent;
-                return _context3.abrupt("return", searchByNameMailResponse);
+                searchByNameMailResponse = _context2.sent;
+                return _context2.abrupt("return", searchByNameMailResponse);
 
               case 4:
               case "end":
-                return _context3.stop();
+                return _context2.stop();
             }
           }
-        }, _callee3);
+        }, _callee2);
       }));
 
       return function fetchSearchNameMail() {
-        return _ref3.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -10427,29 +10424,29 @@ function Sidebar() {
     setPageNumber(pageNumber + 1);
 
     var fetchNext = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var nextSessionResponse;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context4.next = 2;
+                _context3.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_9__["default"].getAllByArg('/sessions', pageArg);
 
               case 2:
-                nextSessionResponse = _context4.sent;
-                return _context4.abrupt("return", nextSessionResponse);
+                nextSessionResponse = _context3.sent;
+                return _context3.abrupt("return", nextSessionResponse);
 
               case 4:
               case "end":
-                return _context4.stop();
+                return _context3.stop();
             }
           }
-        }, _callee4);
+        }, _callee3);
       }));
 
       return function fetchNext() {
-        return _ref4.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
 

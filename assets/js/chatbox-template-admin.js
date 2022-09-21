@@ -7227,9 +7227,7 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
       case "wpwax-vm-display-custom-pages":
         console.log(value);
         return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            pages: value
-          })
+          pages: value
         });
 
       case "chat-visibility":
@@ -7823,23 +7821,26 @@ var AddForm = function AddForm() {
     currentStage: "general",
     validation: true,
     loading: false,
-    response: "",
     fetchStatus: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      response = _useState4[0],
+      setResponse = _useState4[1];
+
   var currentStage = state.currentStage,
       validation = state.validation,
       loading = state.loading,
-      response = state.response,
       fetchStatus = state.fetchStatus;
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("general"),
-      _useState4 = _slicedToArray(_useState3, 2),
-      formStage = _useState4[0],
-      setFormStage = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("general"),
+      _useState6 = _slicedToArray(_useState5, 2),
+      formStage = _useState6[0],
+      setFormStage = _useState6[1];
   /* Dispasth is used for passing the actions to redux store  */
 
 
@@ -7904,9 +7905,9 @@ var AddForm = function AddForm() {
 
     if (formInitialData.name === '') {
       setTimeout(function () {
-        setState({
+        setState(_objectSpread(_objectSpread({}, state), {}, {
           validation: true
-        });
+        }));
       }, "4000");
     } else {
       var formData = {
@@ -7951,13 +7952,11 @@ var AddForm = function AddForm() {
 
         editSession().then(function (editSessionResponse) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
-            response: editSessionResponse,
             loading: false
           }));
+          setResponse(editSessionResponse);
           setTimeout(function () {
-            setState(_objectSpread(_objectSpread({}, state), {}, {
-              response: ""
-            }));
+            setResponse(editSessionResponse);
           }, "4000");
         }).catch(function (error) {
           console.log(error);
@@ -8003,14 +8002,12 @@ var AddForm = function AddForm() {
             is_default: formInitialData.is_default
           };
           setState(_objectSpread(_objectSpread({}, state), {}, {
-            response: addSessionResponse,
             loading: false
           }));
+          setResponse(addSessionResponse);
           dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadForm)([formResetData]));
           setTimeout(function () {
-            setState(_objectSpread(_objectSpread({}, state), {}, {
-              response: ""
-            }));
+            setResponse("");
           }, "4000");
         }).catch(function (error) {
           console.log(error);
@@ -8942,14 +8939,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9037,7 +9026,7 @@ var GeneralSettings = function GeneralSettings() {
       diplayAllPage: state.form.data[0].options.display_on_all_pages,
       templateName: state.form.data[0].name,
       templateTheme: state.form.data[0].options.theme,
-      displayedCustomPages: state.form.data[0].pages,
+      displayedCustomPages: state.form.data[0].pages.split(","),
       chatVisibilityType: state.form.data[0].options.chat_visibility_type,
       sendMail: state.form.data[0].options.send_mail_upon_message_submission
     };
@@ -9052,37 +9041,15 @@ var GeneralSettings = function GeneralSettings() {
       sendMail = _useSelector.sendMail;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-    openCollapse: true,
-    selectedCustomPages: []
+    openCollapse: true
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages); // for(let i=0; i<customPages.length; i++){
-    //     if(customPages[i].value === )
-    // }
-    // var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
-    // let getDisplayPlaces = [];
-    // filteredKeywords.map((item,index)=>{
-    //     getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
-    // })
-    // setState({
-    //     ...state,
-    //     selectedCustomPages:[
-    //         ...state.selectedCustomPages,
-    //         getDisplayPlaces
-    //     ]
-    // })
-    // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-    //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
-    // });
-  }, []);
   /* Dispasth is used for passing the actions to redux store  */
 
+
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
-  console.log(formData);
 
   var Option = function Option(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
@@ -9122,17 +9089,41 @@ var GeneralSettings = function GeneralSettings() {
   };
 
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
+    var customPageIds = "";
+    var updatedData = "";
+
     if (e.name === "wpwax-vm-display-custom-pages") {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        selectedCustomPages: [].concat(_toConsumableArray(state.selectedCustomPages), [selectEvent.value])
-      }));
+      var newPageIdsArray = [];
+      selectEvent.map(function (item) {
+        newPageIdsArray.push(item.value);
+      });
+      customPageIds = newPageIdsArray.join(',');
+      updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, customPageIds, formData);
+    } else {
+      updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formData);
     }
 
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_6__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_7__.handleDynamicEdit)(updatedData));
   };
 
-  console.log(customPages);
+  function getSelectedPageDefault() {
+    var newArray = [];
+
+    if (displayedCustomPages.length !== 0) {
+      displayedCustomPages.map(function (previousSelected) {
+        console.log(previousSelected);
+        var filteredPage = customPages.filter(function (item) {
+          return item.value === previousSelected;
+        });
+        console.log(filteredPage);
+        newArray.push(filteredPage[0]);
+      });
+    }
+
+    return newArray;
+  }
+
+  console.log(formData);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_8__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9252,8 +9243,8 @@ var GeneralSettings = function GeneralSettings() {
         searchable: false,
         components: {
           Option: Option
-        } // defaultValue={state.selectedCustomPages}
-        ,
+        },
+        defaultValue: getSelectedPageDefault(),
         name: "wpwax-vm-display-custom-pages",
         onChange: handleChangeSelectValue,
         allowSelectAll: true
@@ -9799,14 +9790,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9926,32 +9909,12 @@ var ThankSettings = function ThankSettings() {
     }));
   };
 
-  var handleContactInfoArray = function handleContactInfoArray(type) {
-    var newInfoArray = chatReplyType;
-    newInfoArray = newInfoArray.indexOf(type) === -1 ? [].concat(_toConsumableArray(newInfoArray), [type]) : newInfoArray.filter(function (elm) {
-      return elm != type;
-    });
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])("collectable-info", newInfoArray, formData);
-    dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
-  };
-
-  var handleCollectableInfo = function handleCollectableInfo(e) {
-    if (e.target.id === "contact-name") {
-      handleContactInfoArray("name");
-    } else if (e.target.id === "contact-email") {
-      handleContactInfoArray("email");
-    } else if (e.target.id === "contact-phone") {
-      handleContactInfoArray("phone");
-    }
-  };
-
   var handleChangeInputValue = function handleChangeInputValue(e) {
     var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.target.id, e.target.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
 
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
-    console.log(event, value, id);
     var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(id, value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };

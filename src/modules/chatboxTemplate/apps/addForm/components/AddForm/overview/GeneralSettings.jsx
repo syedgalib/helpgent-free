@@ -46,7 +46,7 @@ const GeneralSettings = () => {
             diplayAllPage: state.form.data[0].options.display_on_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
-            displayedCustomPages: state.form.data[0].pages,
+            displayedCustomPages: state.form.data[0].pages.split(","),
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
             sendMail: state.form.data[0].options.send_mail_upon_message_submission,
         };
@@ -54,35 +54,10 @@ const GeneralSettings = () => {
 
     const [state, setState] = useState({
         openCollapse: true,
-        selectedCustomPages: []
     });
-
-    useEffect(() => {
-        console.log(wpWaxCustomerSupportApp_CoreScriptData.wp_pages);
-        // for(let i=0; i<customPages.length; i++){
-        //     if(customPages[i].value === )
-        // }
-        // var filteredKeywords = wpWaxCustomerSupportApp_CoreScriptData.wp_pages.filter((word) => console.log(word.id));
-        // let getDisplayPlaces = [];
-        // filteredKeywords.map((item,index)=>{
-        //     getDisplayPlaces.push({ value: `${item.id}`, label: `${item.title}` })
-        // })
-        // setState({
-        //     ...state,
-        //     selectedCustomPages:[
-        //         ...state.selectedCustomPages,
-        //         getDisplayPlaces
-        //     ]
-        // })
-        // wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
-        //     customPages.push({ value: `${item.id}`, label: `${item.title}` })
-        // });
-    }, []);
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
-
-    console.log(formData);
 
     const Option = (props) => {
         return (
@@ -117,20 +92,35 @@ const GeneralSettings = () => {
     }
 
     const handleChangeSelectValue = (selectEvent, e) => {
+        let customPageIds = "";
+        let updatedData = "";
         if(e.name === "wpwax-vm-display-custom-pages"){
-            setState({
-                ...state,
-                selectedCustomPages:[
-                    ...state.selectedCustomPages,
-                    selectEvent.value
-                ]
-            })
+            let newPageIdsArray = [];
+            selectEvent.map(item=>{
+                newPageIdsArray.push(item.value);
+            });
+            customPageIds = newPageIdsArray.join(',');
+            updatedData = formUpdater(e.name, customPageIds, formData);
+        }else{
+            updatedData = formUpdater(e.name, selectEvent.value, formData);
         }
-        const updatedData = formUpdater(e.name, selectEvent.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
 
-    console.log(customPages);
+    function getSelectedPageDefault() {
+        let newArray = []
+        if(displayedCustomPages.length !==0){
+            displayedCustomPages.map(previousSelected=>{
+                console.log(previousSelected)
+                const filteredPage = customPages.filter(item => item.value === previousSelected);
+                console.log(filteredPage)
+                newArray.push(filteredPage[0]);
+            })
+        }
+        return newArray;
+    }
+
+    console.log(formData);
 
     return (
         <GeneralSettingWrap>
@@ -210,7 +200,7 @@ const GeneralSettings = () => {
                         components={{
                             Option
                         }}
-                        // defaultValue={state.selectedCustomPages}
+                        defaultValue={getSelectedPageDefault()}
                         name="wpwax-vm-display-custom-pages"
                         onChange={handleChangeSelectValue}
                         allowSelectAll={true}

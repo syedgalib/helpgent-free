@@ -84,11 +84,12 @@ const AddForm = () => {
         currentStage: "general",
         validation: true,
         loading: false,
-        response: "",
         fetchStatus: true
     });
 
-    const { currentStage, validation, loading, response, fetchStatus} = state;
+    const [response, setResponse] = useState("");
+
+    const { currentStage, validation, loading, fetchStatus} = state;
 
     const [formStage, setFormStage] = useState("general");
 
@@ -166,6 +167,7 @@ const AddForm = () => {
         if (formInitialData.name === '') {
             setTimeout(() => {
                 setState({
+                    ...state,
                     validation: true
                 });
             }, "4000")
@@ -190,14 +192,11 @@ const AddForm = () => {
                     .then( editSessionResponse => {
                         setState({
                             ...state,
-                            response: editSessionResponse,
                             loading: false,
                         });
+                        setResponse(editSessionResponse)
                         setTimeout(() => {
-                            setState({
-                                ...state,
-                                response: ""
-                            });
+                            setResponse(editSessionResponse)
                         }, "4000")
                     })
                     .catch((error) => {
@@ -223,15 +222,12 @@ const AddForm = () => {
                         }
                         setState({
                             ...state,
-                            response: addSessionResponse,
                             loading: false,
                         });
+                        setResponse(addSessionResponse)
                         dispatch(handleReadForm([formResetData]));
                         setTimeout(() => {
-                            setState({
-                                ...state,
-                                response: ""
-                            });
+                            setResponse("")
                         }, "4000")
                     })
                     .catch((error) => {

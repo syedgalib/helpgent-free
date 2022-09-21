@@ -26,10 +26,7 @@ const FormUpdater = (label, value,formInitialData) => {
                 console.log(value);
                 return {
                     ...item,
-                    options: {
-                        ...item.options,
-                        pages: value
-                    }
+                    pages: value,
                 }
             case "chat-visibility":
                 return {

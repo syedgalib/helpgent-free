@@ -81,30 +81,12 @@ const ThankSettings = () => {
         });
     }
 
-    const handleContactInfoArray = (type) => {
-        let newInfoArray = chatReplyType;
-        newInfoArray = newInfoArray.indexOf(type) === -1 ? [...newInfoArray, type] : newInfoArray.filter(elm => elm != type);
-        const updatedData = formUpdater("collectable-info", newInfoArray, formData);
-        dispatch(handleDynamicEdit(updatedData));
-    }
-
-    const handleCollectableInfo = (e) => {
-        if (e.target.id === "contact-name") {
-            handleContactInfoArray("name");
-        } else if (e.target.id === "contact-email") {
-            handleContactInfoArray("email");
-        } else if (e.target.id === "contact-phone") {
-            handleContactInfoArray("phone");
-        }
-    }
-
     const handleChangeInputValue = (e) => {
         const updatedData = formUpdater(e.target.id, e.target.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     }
 
     const handleChangeSwitchValue = (value, event, id) => {
-        console.log(event, value, id);
         const updatedData = formUpdater(id, value, formData);
         dispatch(handleDynamicEdit(updatedData));
     }

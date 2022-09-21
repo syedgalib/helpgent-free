@@ -255,7 +255,7 @@ function Sidebar() {
             hasMore: true,
         });
     };
-    console.log(activeSession);
+    console.log(sessionList);
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
@@ -380,10 +380,14 @@ function Sidebar() {
                                         (select) =>
                                             select.roles[0] === 'subscriber'
                                     );
+                                    // console.log(selectedUSer);
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
-                                    images.push(selectedUSer[0].avater);
+                                    if(selectedUSer.length !==0){
+                                        images.push(selectedUSer[0].avater);
+                                    }
+                                    
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);
                                         initialConv = true;

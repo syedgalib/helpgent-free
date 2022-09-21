@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MessageBox } from './Style';
 import author from 'Assets/img/chatdashboard/user.png';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
+import expander from 'Assets/svg/icons/expand.svg';
 import { useRef } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
+import { ReactSVG } from 'react-svg';
 
 function Message({ data, currentUser }) {
     const isMine = parseInt(currentUser.id) === parseInt(data.user.id);
@@ -69,7 +71,7 @@ function Message({ data, currentUser }) {
             );
         } else if (data.message_type === 'video') {
             return (
-                <div>
+                <React.Fragment>
                     <div className='wpwax-vm-message-content__inner--video'>
                         <video
                             ref={videoRef}
@@ -96,13 +98,16 @@ function Message({ data, currentUser }) {
                                 }
                             ></span>
                         </a>
+                        <a href="#" className="wpwax-vm-btn-expander">
+                            <ReactSVG src={expander} />
+                        </a>
                     </div>
                     {data.message && (
                         <div className='wpwax-vm-message-content__inner--text wpwax-vm-mt-20'>
                             <p>{data.message}</p>
                         </div>
                     )}
-                </div>
+                </React.Fragment>
             );
         } else if (data.message_type === 'audio') {
             return (

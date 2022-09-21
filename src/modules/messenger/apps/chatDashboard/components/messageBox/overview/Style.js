@@ -354,6 +354,16 @@ const MessageBox = Styled.div`
                 }
             }
         }
+        .wpwax-vm-message-content__inner--video{
+            .wpwax-vm-btn-expander{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                >div{
+                    line-height: 1;
+                }
+            }
+        }
         &.wpwax-vm-message-single-audio{
             .wpwax-vm-message-content__inner--audio{
                 display: flex;

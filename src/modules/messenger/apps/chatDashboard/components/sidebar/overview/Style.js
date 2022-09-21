@@ -258,6 +258,7 @@ const TagFilterDropdown = Styled.div`
         .wpwax-vm-checkbox{
             label{
                 top: -2px;
+                color: var(--color-dark);
             }
             input{
                 margin-right: 12px;

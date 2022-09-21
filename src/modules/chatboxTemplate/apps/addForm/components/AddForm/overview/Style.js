@@ -143,7 +143,7 @@ const PreviewWrap = Styled.div`
         }
     }
     .wpwax-vm-preview-inner{
-        /* position: relative; */
+        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -265,14 +265,15 @@ const PreviewWrap = Styled.div`
                 }
             }
            .wpwax-vm-preview-inner{
-               padding: 0;
-               min-height: 220px;
-               &:after{
+                position: static;
+                padding: 0;
+                min-height: 260px;
+                &:after{
                     position: absolute;
                     left: 0;
                     top: 0;
                     width: 100%;
-                    height: 280px;
+                    height: 360px;
                     opacity: .9;
                     border-radius: 25px 25px 0 0;
                     background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
@@ -284,7 +285,7 @@ const PreviewWrap = Styled.div`
                     left: 0;
                     bottom: 2px;
                     width: 100%;
-                    height: 250px;
+                    height: 300px;
                     opacity: .9;
                     border-radius: 0 0 25px 25px;
                     background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
@@ -296,7 +297,7 @@ const PreviewWrap = Styled.div`
                    left: 50%;
                    top: 50%;
                    transform: translate(-50%,-50%);
-                   z-index: 10;
+                   z-index: 100;
                }
                .wpwax-vm-preview-img{  
                     position: relative;

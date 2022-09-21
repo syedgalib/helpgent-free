@@ -196,7 +196,7 @@ const AddForm = () => {
                         });
                         setResponse(editSessionResponse)
                         setTimeout(() => {
-                            setResponse(editSessionResponse)
+                            setResponse("")
                         }, "4000")
                     })
                     .catch((error) => {

@@ -254,9 +254,16 @@ const AddFormStyle = Styled.div`
         }
         .wpwax-vm-select__control{
             border: 0 none;
+            border-radius: 6px;
             background-color: #ededed;
             .wpwax-vm-select__indicator-separator{
                 display: none;
+            }
+            .wpwax-vm-select__value-container{
+                padding: 2px 8px 2px 12px;
+            }
+            .wpwax-vm-select__indicator{
+                padding: 8px 10px 8px 8px;
             }
         }
         .wpwax-vm-select__single-value{

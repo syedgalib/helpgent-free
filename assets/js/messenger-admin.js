@@ -8328,12 +8328,6 @@ function MessageBox() {
               flexDirection: 'column-reverse'
             },
             children: sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
-              onScroll: function onScroll(event) {
-                var scrollTop = event.target.scrollTop;
-                console.log({
-                  scrollTop: scrollTop
-                });
-              },
               height: 600,
               dataLength: sessionMessages.length,
               next: function next() {

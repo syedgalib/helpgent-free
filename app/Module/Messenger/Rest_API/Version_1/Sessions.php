@@ -222,7 +222,6 @@ class Sessions extends Rest_Base {
         $args['group_by'] = 'session_id';
         $args['fields']   =  [
 			'session_id',
-			'users',
 			'total_message',
 			'total_unread',
 			'updated_on',
@@ -277,10 +276,6 @@ class Sessions extends Rest_Base {
 
         // Expand session data
         $session_data = array_map( function( $item ) use( $self ) {
-			// Expand user data
-            $user_ids = Helper\convert_string_to_int_array( $item['users'] );
-            $item['users'] = Helper\get_users_data_by_ids( $user_ids );
-
 			// Expand term data
             $terms_ids = Helper\convert_string_to_int_array( $item['terms'] );
             $item['terms'] = $self->get_terms_data_by_ids( $terms_ids );
@@ -291,6 +286,11 @@ class Sessions extends Rest_Base {
 
 		// Add Additional Session Data
 		foreach( $session_data as $session_key => $session ) {
+
+			// Add Users Data
+			$users = $this->get_users_by_session_id( $session['session_id'] );
+			$session_data[ $session_key ]['users']  = $users;
+
 			// First Message Data
 			$first_message_query_args = [
 				'where' => [
@@ -347,6 +347,39 @@ class Sessions extends Rest_Base {
 
         return $session_data;
     }
+
+	/**
+	 * Get users by session ID
+	 *
+	 * @param string $session_id
+	 *
+	 * @return array Users
+	 */
+	public function get_users_by_session_id( $session_id ) {
+		$args = [];
+
+		$where = [];
+		$where['session_id'] = $session_id;
+		$args['where'] = $where;
+
+		$args['limit']    = -1;
+		$args['group_by'] = 'user_id';
+		$args['fields']   = 'user_id';
+
+		$messages = Message_Model::get_items( $args );
+
+		if ( empty( $messages ) ) {
+			return [];
+		}
+
+		$users_ids = array_map( function( $message ) {
+
+			return (int) $message['user_id'];
+
+		}, $messages );
+
+		return Helper\get_users_data_by_ids( $users_ids );
+	}
 
     /**
      * Get Item

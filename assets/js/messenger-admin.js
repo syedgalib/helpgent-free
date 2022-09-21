@@ -6923,7 +6923,6 @@ function MessageBox() {
   };
 
   var dismisSearch = function dismisSearch() {
-    // console.log('dismisSearch');
     // Hide Search Results
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
 
@@ -7908,8 +7907,7 @@ function MessageBox() {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
-              setIsLoadingSearchResults(true);
-              console.log('loadSearchResults', queryArgs); // Query Args
+              setIsLoadingSearchResults(true); // Query Args
 
               defaultQueryArgs = {
                 page: 1,
@@ -7917,17 +7915,14 @@ function MessageBox() {
               };
               queryArgs = queryArgs && _typeof(queryArgs) === 'object' ? _objectSpread(_objectSpread({}, defaultQueryArgs), queryArgs) : defaultQueryArgs; // Get Search Results
 
-              _context14.next = 6;
+              _context14.next = 5;
               return getMessages(queryArgs);
 
-            case 6:
+            case 5:
               response = _context14.sent;
-              console.log({
-                response: response
-              }); // Show Alert on Error
 
               if (response.success) {
-                _context14.next = 13;
+                _context14.next = 11;
                 break;
               }
 
@@ -7936,13 +7931,13 @@ function MessageBox() {
               setIsLoadingSearchResults(false);
               return _context14.abrupt("return");
 
-            case 13:
+            case 11:
               // Update Loaded Session
               searchResults = response.data.data.data;
               setSearchResults(searchResults);
               setIsLoadingSearchResults(false);
 
-            case 16:
+            case 14:
             case "end":
               return _context14.stop();
           }
@@ -7969,17 +7964,14 @@ function MessageBox() {
                 page: nextPage,
                 limit: paginationPerPage
               }, searchQueryArgs);
-              console.log('loadMoreSearchResults', {
-                queryArgs: queryArgs
-              });
-              _context15.next = 6;
+              _context15.next = 5;
               return getMessages(queryArgs);
 
-            case 6:
+            case 5:
               response = _context15.sent;
 
               if (response.success) {
-                _context15.next = 12;
+                _context15.next = 11;
                 break;
               }
 
@@ -7988,25 +7980,25 @@ function MessageBox() {
               setIsLoadingMoreSearchResults(false);
               return _context15.abrupt("return");
 
-            case 12:
+            case 11:
               // Update Loaded Session
               latestItems = response.data.data.data;
 
               if (latestItems.length) {
-                _context15.next = 16;
+                _context15.next = 15;
                 break;
               }
 
               setIsLoadingMoreSearchResults(false);
               return _context15.abrupt("return");
 
-            case 16:
+            case 15:
               newSearchResults = [].concat(_toConsumableArray(searchResults), _toConsumableArray(latestItems));
               setSearchResults(newSearchResults);
               setCurrentSearchResultPage(nextPage);
               setIsLoadingMoreSearchResults(false);
 
-            case 20:
+            case 19:
             case "end":
               return _context15.stop();
           }

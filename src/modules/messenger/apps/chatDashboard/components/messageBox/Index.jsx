@@ -296,8 +296,6 @@ function MessageBox() {
     };
 
     const dismisSearch = () => {
-        // console.log('dismisSearch');
-
         // Hide Search Results
         dispatch(
             updateSessionWindowData(
@@ -1043,8 +1041,6 @@ function MessageBox() {
     const loadSearchResults = async (queryArgs) => {
         setIsLoadingSearchResults(true);
 
-        console.log('loadSearchResults', queryArgs);
-
         // Query Args
         const defaultQueryArgs = {
             page: 1,
@@ -1058,8 +1054,6 @@ function MessageBox() {
 
         // Get Search Results
         const response = await getMessages(queryArgs);
-
-        console.log({ response });
 
         // Show Alert on Error
         if (!response.success) {
@@ -1090,8 +1084,6 @@ function MessageBox() {
             limit: paginationPerPage,
             ...searchQueryArgs,
         };
-
-        console.log('loadMoreSearchResults', { queryArgs });
 
         const response = await getMessages(queryArgs);
 

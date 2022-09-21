@@ -8459,7 +8459,6 @@ var FormSettings = function FormSettings() {
     frame.open();
   };
 
-  console.log(grettingImage);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.FormSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -9111,11 +9110,9 @@ var GeneralSettings = function GeneralSettings() {
 
     if (displayedCustomPages.length !== 0) {
       displayedCustomPages.map(function (previousSelected) {
-        console.log(previousSelected);
         var filteredPage = customPages.filter(function (item) {
           return item.value === previousSelected;
         });
-        console.log(filteredPage);
         newArray.push(filteredPage[0]);
       });
     }
@@ -9123,7 +9120,6 @@ var GeneralSettings = function GeneralSettings() {
     return newArray;
   }
 
-  console.log(formData);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_8__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-form-group",

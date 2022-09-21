@@ -111,16 +111,12 @@ const GeneralSettings = () => {
         let newArray = []
         if(displayedCustomPages.length !==0){
             displayedCustomPages.map(previousSelected=>{
-                console.log(previousSelected)
                 const filteredPage = customPages.filter(item => item.value === previousSelected);
-                console.log(filteredPage)
                 newArray.push(filteredPage[0]);
             })
         }
         return newArray;
     }
-
-    console.log(formData);
 
     return (
         <GeneralSettingWrap>

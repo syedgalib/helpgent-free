@@ -295,6 +295,11 @@ const MessageBox = Styled.div`
                 }
             }
         }
+        &.wpwax-vm-message-single-video{
+            .wpwax-vm-message-content__inner{
+                padding: 18px;
+            }
+        }
         &.wpwax-vm-message-single-replied{
             justify-content: flex-start;
             .wpwax-vm-message-author{
@@ -355,10 +360,12 @@ const MessageBox = Styled.div`
             }
         }
         .wpwax-vm-message-content__inner--video{
+            display: flex;
+            align-items: center;
             .wpwax-vm-btn-expander{
                 position: absolute;
-                top: 10px;
-                right: 10px;
+                top: 30px;
+                right: 40px;
                 >div{
                     line-height: 1;
                 }

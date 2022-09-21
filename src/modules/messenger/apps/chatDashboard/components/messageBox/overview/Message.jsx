@@ -61,6 +61,17 @@ function Message({ data, currentUser }) {
         return formatSecondsAsCountdown(remainingTime);
     }
 
+    function handleExpandVideo(event){
+        event.preventDefault();
+        if (videoRef.current.requestFullscreen) {
+            videoRef.current.requestFullscreen();
+        } else if (videoRef.current.webkitRequestFullscreen) { /* Safari */
+            videoRef.current.webkitRequestFullscreen();
+        } else if (videoRef.current.msRequestFullscreen) { /* IE11 */
+            videoRef.current.msRequestFullscreen();
+        }
+    }
+
     /* Load Message Content */
     const setMessageContent = () => {
         if (data.message_type === 'text') {
@@ -82,6 +93,7 @@ function Message({ data, currentUser }) {
                             onPause={() => {
                                 setIsPlayingVideo(false);
                             }}
+                            style={{ height: '247.5px', backgroundColor: '#000', borderRadius: '16px' }}
                         ></video>
                         <a
                             href='#'
@@ -98,7 +110,7 @@ function Message({ data, currentUser }) {
                                 }
                             ></span>
                         </a>
-                        <a href="#" className="wpwax-vm-btn-expander">
+                        <a href="#" className="wpwax-vm-btn-expander" onClick={handleExpandVideo}>
                             <ReactSVG src={expander} />
                         </a>
                     </div>

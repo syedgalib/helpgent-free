@@ -8484,6 +8484,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Message(_ref) {
   var data = _ref.data,
       currentUser = _ref.currentUser;
@@ -8563,96 +8564,110 @@ function Message(_ref) {
       });
     } else if (data.message_type === 'video') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "wpwax-vm-message-content__inner--video",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("video", {
-          ref: videoRef,
-          src: data.attachment_url,
-          onPlay: function onPlay() {
-            setIsPlayingVideo(true);
-          },
-          onPause: function onPause() {
-            setIsPlayingVideo(false);
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-          href: "#",
-          className: "wpwax-vm-btn-play",
-          onClick: function onClick(e) {
-            togglePlayPauseVidio(e);
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: isPlayingVideo ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-message-content__inner--video",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("video", {
+            ref: videoRef,
+            src: data.attachment_url,
+            onPlay: function onPlay() {
+              setIsPlayingVideo(true);
+            },
+            onPause: function onPause() {
+              setIsPlayingVideo(false);
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-btn-play",
+            onClick: function onClick(e) {
+              togglePlayPauseVidio(e);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: isPlayingVideo ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+            })
+          })]
+        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            children: data.message
           })
         })]
       });
     } else if (data.message_type === 'audio') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "wpwax-vm-message-content__inner--audio",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-          href: "#",
-          onClick: function onClick(e) {
-            togglePlayPauseAudio(e);
-          },
-          className: "wpwax-vm-btn-play",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: isPlayingAudio ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-          className: "wpwax-vm-audio-range",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-            style: {
-              position: 'relative',
-              margin: '5px',
-              width: '190px',
-              height: '21px'
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-message-content__inner--audio",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "#",
+            onClick: function onClick(e) {
+              togglePlayPauseAudio(e);
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "wpwax-vm-btn-play",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: isPlayingAudio ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+            className: "wpwax-vm-audio-range",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
               style: {
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                display: 'inline-block',
-                backgroundPositionX: '0px',
-                backgroundRepeat: 'no-repeat',
-                backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_4__["default"] + ' )',
-                zIndex: 0
-              }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              style: {
-                width: getPlayedTimeInPercent() + '%',
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                display: 'inline-block',
-                backgroundPositionX: '0px',
-                backgroundRepeat: 'no-repeat',
-                backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_3__["default"] + ' )',
-                zIndex: 1,
-                transition: 'all 300ms ease-in-out 0s'
-              }
+                position: 'relative',
+                margin: '5px',
+                width: '190px',
+                height: '21px'
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                style: {
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  display: 'inline-block',
+                  backgroundPositionX: '0px',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_4__["default"] + ' )',
+                  zIndex: 0
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                style: {
+                  width: getPlayedTimeInPercent() + '%',
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
+                  display: 'inline-block',
+                  backgroundPositionX: '0px',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_3__["default"] + ' )',
+                  zIndex: 1,
+                  transition: 'all 300ms ease-in-out 0s'
+                }
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+              className: "wpwax-vm-timer",
+              children: getAudioTimer()
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-            className: "wpwax-vm-timer",
-            children: getAudioTimer()
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("audio", {
+            ref: audioRef,
+            onPlay: function onPlay() {
+              setIsPlayingAudio(true);
+            },
+            onPause: function onPause() {
+              setIsPlayingAudio(false);
+            },
+            onTimeUpdate: function onTimeUpdate(event) {
+              setAudioCurrentTime(event.target.currentTime);
+            },
+            onLoadedData: function onLoadedData(event) {
+              setAudioDuration(event.target.duration);
+            },
+            src: data.attachment_url
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("audio", {
-          ref: audioRef,
-          onPlay: function onPlay() {
-            setIsPlayingAudio(true);
-          },
-          onPause: function onPause() {
-            setIsPlayingAudio(false);
-          },
-          onTimeUpdate: function onTimeUpdate(event) {
-            setAudioCurrentTime(event.target.currentTime);
-          },
-          onLoadedData: function onLoadedData(event) {
-            setAudioDuration(event.target.duration);
-          },
-          src: data.attachment_url
+        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            children: data.message
+          })
         })]
       });
     }

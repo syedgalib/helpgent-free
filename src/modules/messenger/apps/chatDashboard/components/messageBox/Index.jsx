@@ -19,6 +19,8 @@ import {
     handleMessageTypeChange,
     addSession,
     updateSessionMessages,
+    addSessionWindowData,
+    updateSessionWindowData,
 } from '../../store/messages/actionCreator';
 
 import http from 'Helper/http.js';
@@ -26,6 +28,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 
 const CenterBoxStyle = {
     height: '100%',
+    minHeight: '300px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -37,10 +40,6 @@ function MessageBox() {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
-
-    const [searchState, setSearchState] = useState({
-        openSearch: false,
-    });
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -76,7 +75,6 @@ function MessageBox() {
 
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
-    const [searchResults, setSearchResults] = useState([]);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
     const [isLoadingMoreSearchResults, setIsLoadingMoreSearchResults] =
         useState(false);
@@ -86,6 +84,8 @@ function MessageBox() {
         paginationPerPage,
         selectedSession,
         allSessions,
+        allSessionWindowData,
+        defaultSessionWindowData,
         replyMode,
         messageType,
     } = useSelector((state) => {
@@ -93,13 +93,42 @@ function MessageBox() {
             paginationPerPage: state.messages.paginationPerPage,
             selectedSession: state.messages.selectedSession,
             allSessions: state.messages.allSessions,
+            allSessionWindowData: state.messages.allSessionWindowData,
+            defaultSessionWindowData: state.messages.defaultSessionWindowData,
             replyMode: state.messages.replyMode,
             messageType: state.messages.messageType,
         };
     });
-    
-    
-    
+
+    const getWindowData = (key) => {
+        const selectedSessionID = selectedSession
+            ? selectedSession.session_id
+            : null;
+
+        if (!selectedSessionID) {
+            return defaultSessionWindowData[key];
+        }
+
+        const selectedWindow =
+            typeof allSessionWindowData[selectedSessionID] !== 'undefined'
+                ? allSessionWindowData[selectedSessionID]
+                : null;
+
+        if (!selectedWindow) {
+            return defaultSessionWindowData[key];
+        }
+
+        const selectedWindowData =
+            typeof allSessionWindowData[selectedSessionID][key] !== 'undefined'
+                ? allSessionWindowData[selectedSessionID][key]
+                : null;
+
+        if (!selectedWindowData) {
+            return defaultSessionWindowData[key];
+        }
+
+        return selectedWindowData;
+    };
 
     // Update session on sessionID change
     useEffect(
@@ -133,7 +162,6 @@ function MessageBox() {
                     setLatestMessageDate(latest_message_date);
                 }
 
-                // loadLatestMessages(latest_message_date);
                 return;
             }
 
@@ -156,11 +184,11 @@ function MessageBox() {
                         setLatestMessageDate(response.data.data[0].created_on);
                     }
 
-                    // Reverse The Order
                     const sessionMessages = response.data.data;
 
                     // Update The Store
                     dispatch(addSession(session_id, sessionMessages));
+                    dispatch(addSessionWindowData(session_id));
 
                     setSessionMessages(sessionMessages);
                     setIsLoadingSession(false);
@@ -169,25 +197,25 @@ function MessageBox() {
                     console.error({ error });
                     setIsLoadingSession(false);
                 });
-                
-
-        },[selectedSession]);
+        },
+        [selectedSession]
+    );
 
     useEffect(() => {
+        const messageBody = document.querySelector(
+            '.wpwax-vm-messagebox-body .infinite-scroll-component '
+        );
 
-        const messageBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
-        
-        messageBody && messageBody.addEventListener('scroll', function(){
+        messageBody &&
+            messageBody.addEventListener('scroll', function () {
+                const scrolled = messageBody.scrollTop;
 
-            const scrolled = messageBody.scrollTop;
-
-            if(scrolled <-350){
-                setScrollBtnVisibility(true);
-            }else{
-                setScrollBtnVisibility(false);
-            }
-        });
-        
+                if (scrolled < -350) {
+                    setScrollBtnVisibility(true);
+                } else {
+                    setScrollBtnVisibility(false);
+                }
+            });
     }, [sessionMessages]);
 
     // Update Recorded Time Length
@@ -245,7 +273,70 @@ function MessageBox() {
         return replayingTo;
     }
 
-    const { openSearch } = searchState;
+    const openSearch = getWindowData('openSearch');
+    const searchResults = getWindowData('searchResults');
+    const isSearching = getWindowData('isSearching');
+    const searchQueryArgs = getWindowData('searchQueryArgs');
+
+    const isShowingVideoSearchResult = getWindowData(
+        'isShowingVideoSearchResult'
+    );
+    const isShowingVoiceSearchResult = getWindowData(
+        'isShowingVoiceSearchResult'
+    );
+
+    const setSearchResults = function (results) {
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchResults',
+                results
+            )
+        );
+    };
+
+    const dismisSearch = () => {
+        // Hide Search Results
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isSearching',
+                false
+            )
+        );
+
+        // Reset Serch Result
+        setSearchResults([]);
+
+        // Reset Serch Query Args
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchQueryArgs',
+                {}
+            )
+        );
+    };
+
+    const dismissFilters = () => {
+        dismisSearch();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVideoSearchResult',
+                false
+            )
+        );
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVoiceSearchResult',
+                false
+            )
+        );
+    };
 
     /* Handle Search Toggle */
     const handleActiveSearch = (event) => {
@@ -255,10 +346,17 @@ function MessageBox() {
         );
         searchInput.setSelectionRange(0, 0);
 
-        setSearchState({
-            openSearch: true,
-        });
+        dismissFilters();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'openSearch',
+                true
+            )
+        );
     };
+
     const handleDiactiveSearch = (event) => {
         event.preventDefault();
         const searchInput = document.getElementById(
@@ -266,9 +364,26 @@ function MessageBox() {
         );
         searchInput.setSelectionRange(0, 0);
 
-        setSearchState({
-            openSearch: false,
-        });
+        // Close search bar
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'openSearch',
+                false
+            )
+        );
+
+        // Reset search input
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchKeyword',
+                ''
+            )
+        );
+
+        // Reset Search Result
+        dismisSearch();
     };
 
     const calculateRecordedTimeLength = () => {
@@ -568,7 +683,7 @@ function MessageBox() {
 
             return true;
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
             return false;
         }
     }
@@ -667,7 +782,7 @@ function MessageBox() {
 
             return true;
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
 
             return false;
         }
@@ -768,14 +883,177 @@ function MessageBox() {
         setSessionMessages(updatedSessionMessages);
     };
 
-    const loadSearchResults = async () => {
+    const updateTextSearchResult = (event) => {
+        event.preventDefault();
+        const text = event.target.value;
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchKeyword',
+                text
+            )
+        );
+
+        // Update Query Args
+        const newSearchQueryArgs = { message: text };
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchQueryArgs',
+                newSearchQueryArgs
+            )
+        );
+
+        if (text.length) {
+            // Activate Search Mode
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'isSearching',
+                    true
+                )
+            );
+        } else {
+            // Inactivate Search Mode
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'isSearching',
+                    false
+                )
+            );
+        }
+
+        loadSearchResults(newSearchQueryArgs);
+    };
+
+    const toggleFilterVideoMessages = (event) => {
+        event.preventDefault();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVoiceSearchResult',
+                false
+            )
+        );
+
+        if (isShowingVideoSearchResult) {
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'isShowingVideoSearchResult',
+                    false
+                )
+            );
+
+            // Close Search
+            dismisSearch();
+            return;
+        }
+
+        //
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVideoSearchResult',
+                true
+            )
+        );
+
+        // Update Query Args
+        const newSearchQueryArgs = { message_type: 'video' };
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchQueryArgs',
+                newSearchQueryArgs
+            )
+        );
+
+        loadSearchResults(newSearchQueryArgs);
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isSearching',
+                true
+            )
+        );
+    };
+
+    const filterVoiceMessages = (event) => {
+        event.preventDefault();
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVideoSearchResult',
+                false
+            )
+        );
+
+        if (isShowingVoiceSearchResult) {
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'isShowingVoiceSearchResult',
+                    false
+                )
+            );
+
+            // Close Search
+            dismisSearch();
+            return;
+        }
+
+        //
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isShowingVoiceSearchResult',
+                true
+            )
+        );
+
+        // Update Query Args
+        const newSearchQueryArgs = { message_type: 'audio' };
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'searchQueryArgs',
+                newSearchQueryArgs
+            )
+        );
+
+        loadSearchResults(newSearchQueryArgs);
+
+        dispatch(
+            updateSessionWindowData(
+                selectedSession.session_id,
+                'isSearching',
+                true
+            )
+        );
+    };
+
+    const loadSearchResults = async (queryArgs) => {
         setIsLoadingSearchResults(true);
 
-        // Get Search Results
-        const response = await getMessages({
+        // Query Args
+        const defaultQueryArgs = {
             page: 1,
             limit: paginationPerPage,
-        });
+        };
+
+        queryArgs =
+            queryArgs && typeof queryArgs === 'object'
+                ? { ...defaultQueryArgs, ...queryArgs }
+                : defaultQueryArgs;
+
+        // Get Search Results
+        const response = await getMessages(queryArgs);
 
         // Show Alert on Error
         if (!response.success) {
@@ -789,12 +1067,7 @@ function MessageBox() {
         }
 
         // Update Loaded Session
-        let searchResults = response.data.data.data;
-
-        if (!searchResults.length) {
-            setIsLoadingMoreSearchResults(false);
-            return;
-        }
+        const searchResults = response.data.data.data;
 
         setSearchResults(searchResults);
         setIsLoadingSearchResults(false);
@@ -806,10 +1079,13 @@ function MessageBox() {
         // Get More Search Results
         const nextPage = currentSearchResultPage + 1;
 
-        const response = await getMessages({
+        const queryArgs = {
             page: nextPage,
             limit: paginationPerPage,
-        });
+            ...searchQueryArgs,
+        };
+
+        const response = await getMessages(queryArgs);
 
         // Show Alert on Error
         if (!response.success) {
@@ -1019,7 +1295,6 @@ function MessageBox() {
         e.preventDefault();
 
         if (isSendingTextMessage) {
-            console.log('Please wait...');
             return;
         }
 
@@ -1045,20 +1320,22 @@ function MessageBox() {
         dispatch(handleReplyModeChange(false));
     };
 
-    const handleScrollBottom = (event)=>{
+    const handleScrollBottom = (event) => {
         event.preventDefault();
-        const scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
+        const scrollingBody = document.querySelector(
+            '.wpwax-vm-messagebox-body .infinite-scroll-component '
+        );
         scrollingBody.scrollTo({
             top: 0,
-            behavior: "smooth",
+            behavior: 'smooth',
         });
-    }
+    };
 
     return (
         <ChatBoxWrap>
-            {sessionMessages.length ? (
-                <div className='wpwax-vm-messagebox-container' style={{ height: '100%' }}>
-                    {!isLoadingSession && !isLoadingSearchResults ? (
+            {selectedSession ? (
+                <div style={{ height: '100%' }}>
+                    {!isLoadingSession ? (
                         <div>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
@@ -1084,8 +1361,14 @@ function MessageBox() {
                                                         type='text'
                                                         ref={searchInputRef}
                                                         name='wpwax-vm-messagebox-search'
+                                                        value={getWindowData(
+                                                            'searchKeyword'
+                                                        )}
                                                         id='wpwax-vm-messagebox-search'
                                                         placeholder='Search'
+                                                        onChange={
+                                                            updateTextSearchResult
+                                                        }
                                                     />
                                                 </div>
                                                 {!openSearch ? (
@@ -1116,7 +1399,15 @@ function MessageBox() {
                                                 <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video'>
                                                     <a
                                                         href='#'
-                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                        className={
+                                                            'wpwax-vm-messagebox-header__action--link' +
+                                                            (isShowingVideoSearchResult
+                                                                ? ' active'
+                                                                : '')
+                                                        }
+                                                        onClick={
+                                                            toggleFilterVideoMessages
+                                                        }
                                                     >
                                                         <ReactSVG
                                                             src={videoPlay}
@@ -1132,7 +1423,15 @@ function MessageBox() {
                                                 <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice'>
                                                     <a
                                                         href='#'
-                                                        className='wpwax-vm-messagebox-header__action--link'
+                                                        className={
+                                                            'wpwax-vm-messagebox-header__action--link' +
+                                                            (isShowingVoiceSearchResult
+                                                                ? ' active'
+                                                                : '')
+                                                        }
+                                                        onClick={
+                                                            filterVoiceMessages
+                                                        }
                                                     >
                                                         <ReactSVG src={mice} />
                                                         <span className='wpwax-vm-messagebox-header__action--text'>
@@ -1145,103 +1444,140 @@ function MessageBox() {
                                     </div>
                                 </div>
 
-                                <div
-                                    id='scrollableDiv'
-                                    className='wpwax-vm-messagebox-body'
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column-reverse',
-                                    }}
-                                >
-                                    {!searchResults.length ? (
-                                        <InfiniteScroll
-                                            dataLength={sessionMessages.length}
-                                            next={() => {
-                                                loadOlderMessages();
-                                            }}
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column-reverse',
-                                            }}
-                                            height={600}
-                                            inverse={true} //
-                                            hasMore={true}
-                                            loader={
-                                                isLoadingMoreMessages ? (
-                                                    <h3
-                                                        style={{
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        Loading...
-                                                    </h3>
-                                                ) : (
-                                                    ''
-                                                )
-                                            }
-                                            scrollableTarget='scrollableDiv'
-                                        >
-                                            {sessionMessages.map(
-                                                (message, index) => {
-                                                    return (
-                                                        <Message
-                                                            data={message}
-                                                            key={index}
-                                                            currentUser={
-                                                                current_user
-                                                            }
-                                                        />
-                                                    );
+                                {!isSearching ? (
+                                    <div
+                                        id='scrollableDiv'
+                                        className='wpwax-vm-messagebox-body'
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column-reverse',
+                                        }}
+                                    >
+                                        {sessionMessages.length ? (
+                                            <InfiniteScroll
+                                                height={600}
+                                                dataLength={
+                                                    sessionMessages.length
                                                 }
-                                            )}
-                                        </InfiniteScroll>
-                                    ) : (
-                                        <InfiniteScroll
-                                            dataLength={searchResults.length}
-                                            next={() => {
-                                                loadMoreSearchResults();
-                                            }}
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column-reverse',
-                                            }}
-                                            inverse={true} //
-                                            hasMore={true}
-                                            loader={
-                                                isLoadingMoreSearchResults ? (
-                                                    <h3
-                                                        style={{
-                                                            textAlign: 'center',
-                                                        }}
-                                                    >
-                                                        Loading...
-                                                    </h3>
-                                                ) : (
-                                                    ''
-                                                )
-                                            }
-                                            refreshFunction={() => {
-                                                loadMoreSearchResults();
-                                            }}
-                                            scrollableTarget='scrollableDiv'
-                                        >
-                                            {searchResults.map(
-                                                (message, index) => {
-                                                    return (
-                                                        <Message
-                                                            data={message}
-                                                            key={index}
-                                                            currentUser={
-                                                                current_user
-                                                            }
-                                                        />
-                                                    );
+                                                next={() => {
+                                                    loadOlderMessages();
+                                                }}
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection:
+                                                        'column-reverse',
+                                                }}
+                                                inverse={true} //
+                                                hasMore={true}
+                                                loader={
+                                                    isLoadingMoreMessages ? (
+                                                        <h3
+                                                            style={{
+                                                                textAlign:
+                                                                    'center',
+                                                            }}
+                                                        >
+                                                            Loading...
+                                                        </h3>
+                                                    ) : (
+                                                        ''
+                                                    )
                                                 }
-                                            )}
-                                        </InfiniteScroll>
-                                    )}
-                                    <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
-                                </div>
+                                                scrollableTarget='scrollableDiv'
+                                            >
+                                                {sessionMessages.map(
+                                                    (message, index) => {
+                                                        return (
+                                                            <Message
+                                                                data={message}
+                                                                key={index}
+                                                                currentUser={
+                                                                    current_user
+                                                                }
+                                                            />
+                                                        );
+                                                    }
+                                                )}
+                                            </InfiniteScroll>
+                                        ) : (
+                                            <div style={CenterBoxStyle}>
+                                                <h2>No message found</h2>
+                                            </div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {!isLoadingSearchResults ? (
+                                            <div
+                                                id='scrollableDiv'
+                                                className='wpwax-vm-messagebox-body'
+                                            >
+                                                {searchResults.length ? (
+                                                    <InfiniteScroll
+                                                        height={600}
+                                                        dataLength={
+                                                            searchResults.length
+                                                        }
+                                                        next={() => {
+                                                            loadMoreSearchResults();
+                                                        }}
+                                                        hasMore={true}
+                                                        loader={
+                                                            isLoadingMoreSearchResults ? (
+                                                                <h3
+                                                                    style={{
+                                                                        textAlign:
+                                                                            'center',
+                                                                    }}
+                                                                >
+                                                                    Loading...
+                                                                </h3>
+                                                            ) : (
+                                                                ''
+                                                            )
+                                                        }
+                                                        refreshFunction={() => {
+                                                            loadMoreSearchResults();
+                                                        }}
+                                                        scrollableTarget='scrollableDiv'
+                                                    >
+                                                        {searchResults.map(
+                                                            (
+                                                                message,
+                                                                index
+                                                            ) => {
+                                                                return (
+                                                                    <Message
+                                                                        data={
+                                                                            message
+                                                                        }
+                                                                        key={
+                                                                            index
+                                                                        }
+                                                                        currentUser={
+                                                                            current_user
+                                                                        }
+                                                                    />
+                                                                );
+                                                            }
+                                                        )}
+                                                    </InfiniteScroll>
+                                                ) : (
+                                                    <div style={CenterBoxStyle}>
+                                                        <h2>
+                                                            No message found
+                                                        </h2>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <div style={CenterBoxStyle}>
+                                                <h2>Loading...</h2>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
                                 {handleFooterContent()}
                             </MessageBoxWrap>
 

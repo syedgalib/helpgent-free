@@ -240,10 +240,11 @@ class Messages extends Rest_Base {
 
         $where = [];
 
-        $where['session_id'] = '';
-        $where['message']    = '';
-        $where['user_id']    = '';
-        $where['seen']       = '';
+        $where['session_id']   = '';
+        $where['message']      = '';
+        $where['message_type'] = '';
+        $where['user_id']      = '';
+        $where['seen']         = '';
 
 		$where['updated_on']                   = '';
 		$where['updated_on_compare_date_time'] = '=';

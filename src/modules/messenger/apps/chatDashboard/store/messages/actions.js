@@ -3,6 +3,9 @@ const actions = {
     ADD_SESSION: 'ADD_SESSION',
     UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
 
+    ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
+    UPDATE_SESSION_WINDOW_DATA: 'UPDATE_SESSION_WINDOW_DATA',
+
     REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
     REPLY_MODE_UPDATE_SUCCESS: 'REPLY_MODE_UPDATE_SUCCESS',
     REPLY_MODE_UPDATE_ERR: 'REPLY_MODE_UPDATE_ERR',
@@ -33,6 +36,20 @@ const actions = {
       return {
         type: actions.UPDATE_SESSION_MESSAGES,
         data: { sessionID, sessionMessages },
+      };
+    },
+
+    addSessionWindowData: ( sessionID ) => {
+      return {
+        type: actions.ADD_SESSION_WINDOW_DATA,
+        data: sessionID,
+      };
+    },
+
+    updateSessionWindowData: ( sessionID, key, value ) => {
+      return {
+        type: actions.UPDATE_SESSION_WINDOW_DATA,
+        data: { sessionID, key, value },
       };
     },
 

@@ -4,10 +4,25 @@ const initialState = {
     paginationPerPage: 10,
     selectedSession: null,
     allSessions: {},
-    isLoadingSession: false,
+
+    allSessionWindowData: {},
+	defaultSessionWindowData: {
+		openSearch: false,
+		isSearching: false,
+		isShowingVideoSearchResult: false,
+		isShowingVoiceSearchResult: false,
+		searchKeyword: '',
+		searchQueryArgs: {},
+		searchResults: [],
+		messageType: 'video',
+		videoStage: 'home',
+		replyMode: false,
+	},
+
     messageType: 'video',
     videoStage: 'home',
     replyMode: false,
+
     loading: false,
     error: null,
 };
@@ -16,6 +31,9 @@ const {
     UPDATE_SELECTED_SESSION,
     ADD_SESSION,
     UPDATE_SESSION_MESSAGES,
+
+    ADD_SESSION_WINDOW_DATA,
+    UPDATE_SESSION_WINDOW_DATA,
 
     REPLY_MODE_UPDATE_BEGIN,
     REPLY_MODE_UPDATE_SUCCESS,
@@ -38,6 +56,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 selectedSession: data,
             };
+
         case ADD_SESSION:
 
             if ( !data.sessionID ) {
@@ -56,6 +75,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 allSessions: { ...state.allSessions, [data.sessionID]: data.session },
             };
+
         case UPDATE_SESSION_MESSAGES:
 
             if ( !data.sessionID ) {
@@ -74,6 +94,60 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 allSessions: { ...state.allSessions, [data.sessionID]: data.sessionMessages },
             };
+
+        case ADD_SESSION_WINDOW_DATA:
+
+            if ( !data ) {
+                return state;
+            }
+
+            if ( Object.keys( state.allSessionWindowData ).includes( data ) ){
+                return state;
+            }
+
+			const newWindowData = JSON.parse( JSON.stringify( state.defaultSessionWindowData ) );
+            return {
+                ...state,
+                allSessionWindowData: { ...state.allSessionWindowData, [data]: newWindowData },
+            };
+
+        case UPDATE_SESSION_WINDOW_DATA:
+
+			// console.log( 'UPDATE_SESSION_WINDOW_DATA', data );
+
+            if ( !data.sessionID ) {
+                return state;
+            }
+
+            if ( typeof data.key === 'undefined' ) {
+                return state;
+            }
+
+            if ( typeof data.value === 'undefined' ) {
+                return state;
+            }
+
+            if ( ! Object.keys( state.allSessionWindowData ).includes( data.sessionID ) ){
+                return state;
+            }
+
+            if ( ! Object.keys( state.allSessionWindowData[ data.sessionID ] ).includes( data.key ) ){
+                return state;
+            }
+
+			// console.log( 'Chk-1' );
+
+            return {
+                ...state,
+                allSessionWindowData: {
+					...state.allSessionWindowData,
+					[data.sessionID]: {
+						...state.allSessionWindowData[ data.sessionID ],
+						[ data.key ]: data.value,
+					}
+				},
+            };
+
         case REPLY_MODE_UPDATE_BEGIN:
             return {
                 ...state,

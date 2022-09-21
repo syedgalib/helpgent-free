@@ -204,7 +204,7 @@ const MessageBoxWrap = Styled.div`
                     color: var(--color-danger);
                 }
             }
-            
+
         }
         .wpwax-vm-messagebox-header__actionlist{
             display: flex;
@@ -259,6 +259,15 @@ const MessageBoxWrap = Styled.div`
             color: #4D4D4D;
             text-decoration: none;
             &:hover{
+                svg path,
+                svg circle,
+                span{
+                    color: var(--color-primary);
+                    fill: var(--color-primary);
+                }
+            }
+            &.active{
+				color: var(--color-primary);
                 svg path,
                 svg circle,
                 span{

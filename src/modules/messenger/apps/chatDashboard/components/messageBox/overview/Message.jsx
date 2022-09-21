@@ -70,7 +70,10 @@ function Message({ data, currentUser }) {
         } else if (data.message_type === 'video') {
             return (
                 <div>
-                    <div className='wpwax-vm-message-content__inner--video'>
+                    <div
+                        style={{ height: '247.5px', backgroundColor: '#000' }}
+                        className='wpwax-vm-message-content__inner--video'
+                    >
                         <video
                             ref={videoRef}
                             src={data.attachment_url}

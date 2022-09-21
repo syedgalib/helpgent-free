@@ -8565,6 +8565,10 @@ function Message(_ref) {
     } else if (data.message_type === 'video') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          style: {
+            height: '247.5px',
+            backgroundColor: '#000'
+          },
           className: "wpwax-vm-message-content__inner--video",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("video", {
             ref: videoRef,

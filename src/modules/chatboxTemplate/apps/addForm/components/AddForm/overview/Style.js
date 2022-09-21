@@ -131,7 +131,7 @@ const PreviewWrap = Styled.div`
             font-weight: 600;
             line-height: 1.25;
             margin: 0 0 15px;
-            max-width: 320px;
+            word-break: break-word;
             font-size: var(--font-size-greet);
             color: var(--color-text-greet);
         }
@@ -200,7 +200,7 @@ const PreviewWrap = Styled.div`
                 svg{
                     width: 18px;
                     height: 18px;
-                    margin-bottom: 4px;
+                    margin: 0 0 4px;
                     path,
                     circle{
                         fill: var(--primary-btn-color);

@@ -17,11 +17,11 @@ msgstr ""
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:202, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:434, ../app/Module/Messenger/Model/Message_Model.php:513, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
+#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:434, ../app/Module/Messenger/Model/Message_Model.php:513, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
 msgid "Could not find the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:163, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Model/Message_Model.php:479, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
+#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Model/Message_Model.php:479, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
 msgid "Could not create the resource."
 msgstr ""
 
@@ -37,19 +37,23 @@ msgstr ""
 msgid "Could not delete the resource."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:138, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:216
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:134, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:260
+msgid "Template name is required."
+msgstr ""
+
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:141, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:219
 msgid "Options is not valid JSON data."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:156, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:211
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:159, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:214
 msgid "The template name already exists."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:194, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:505
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:505
 msgid "Resource ID is required."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:264
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:272
 msgid "Could not update the resource as."
 msgstr ""
 

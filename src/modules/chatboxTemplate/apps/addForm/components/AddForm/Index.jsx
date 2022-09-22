@@ -200,7 +200,14 @@ const AddForm = () => {
                         }, "4000")
                     })
                     .catch((error) => {
-                        console.log(error);
+                        setState({
+                            ...state,
+                            loading: false,
+                        });
+                        setResponse(error.response);
+                        setTimeout(() => {
+                            setResponse("")
+                        }, "4000");
                     })
             } else {
                 setState({
@@ -239,7 +246,7 @@ const AddForm = () => {
                         setTimeout(() => {
                             setResponse("")
                         }, "4000");
-                    })
+                    });
             }
         }
     }

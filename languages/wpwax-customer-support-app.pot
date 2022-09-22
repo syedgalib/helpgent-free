@@ -73,14 +73,6 @@ msgstr ""
 msgid "Forms"
 msgstr ""
 
-#: ../app/Module/Core/Admin/Admin_Menu.php:21, ../app/Module/Core/Admin/Admin_Menu.php:21
-msgid "Settings"
-msgstr ""
-
-#: ../app/Module/Core/Admin/Admin_Menu.php:23, ../app/Module/Core/Admin/Admin_Menu.php:23
-msgid "Integrations"
-msgstr ""
-
 #: ../app/Module/Core/Model/Attachment_Model.php:98
 msgid "Required file or link is missing"
 msgstr ""

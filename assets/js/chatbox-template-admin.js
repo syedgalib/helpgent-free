@@ -9023,46 +9023,46 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var templateOptions = [{
-  value: "theme-1",
-  label: "Theme One"
+  value: 'theme-1',
+  label: 'Theme One'
 }, {
-  value: "theme-2",
-  label: "Theme Two"
+  value: 'theme-2',
+  label: 'Theme Two'
 }];
 var fontOptions = [{
-  value: "roboto",
-  label: "Roboto"
+  value: 'roboto',
+  label: 'Roboto'
 }, {
-  value: "inter",
-  label: "Inter"
+  value: 'inter',
+  label: 'Inter'
 }, {
-  value: "legend",
-  label: "Legend"
+  value: 'legend',
+  label: 'Legend'
 }];
 var fontSizeOptions = [{
-  value: "large",
-  label: "Large"
+  value: 'large',
+  label: 'Large'
 }, {
-  value: "larger",
-  label: "Larger"
+  value: 'larger',
+  label: 'Larger'
 }, {
-  value: "x-large",
-  label: "X-large"
+  value: 'x-large',
+  label: 'X-large'
 }, {
-  value: "xx-large",
-  label: "XX-large"
+  value: 'xx-large',
+  label: 'XX-large'
 }, {
-  value: "medium",
-  label: "Medium"
+  value: 'medium',
+  label: 'Medium'
 }, {
-  value: "small",
-  label: "Small"
+  value: 'small',
+  label: 'Small'
 }, {
-  value: "smaller",
-  label: "Smaller"
+  value: 'smaller',
+  label: 'Smaller'
 }, {
-  value: "x-small",
-  label: "X-small"
+  value: 'x-small',
+  label: 'X-small'
 }];
 
 var GeneralSettings = function GeneralSettings() {
@@ -9078,7 +9078,7 @@ var GeneralSettings = function GeneralSettings() {
       diplayAllPage: state.form.data[0].options.display_on_all_pages,
       templateName: state.form.data[0].name,
       templateTheme: state.form.data[0].options.theme,
-      displayedCustomPages: state.form.data[0].pages.split(","),
+      displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
       chatVisibilityType: state.form.data[0].options.chat_visibility_type,
       sendMail: state.form.data[0].options.send_mail_upon_message_submission
     };
@@ -9141,10 +9141,10 @@ var GeneralSettings = function GeneralSettings() {
   };
 
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
-    var customPageIds = "";
-    var updatedData = "";
+    var customPageIds = '';
+    var updatedData = '';
 
-    if (e.name === "wpwax-vm-display-custom-pages") {
+    if (e.name === 'wpwax-vm-display-custom-pages') {
       var newPageIdsArray = [];
       selectEvent.map(function (item) {
         newPageIdsArray.push(item.value);
@@ -9179,7 +9179,7 @@ var GeneralSettings = function GeneralSettings() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
-          children: ["Name of Form ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+          children: ["Name of Form", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-require-sign",
             children: "*"
           })]
@@ -9319,7 +9319,7 @@ var GeneralSettings = function GeneralSettings() {
             onChange: function onChange(e) {
               return handleChatVisibility(e);
             },
-            checked: chatVisibilityType === "never_load"
+            checked: chatVisibilityType === 'never_load'
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-radio-single",
@@ -9333,7 +9333,7 @@ var GeneralSettings = function GeneralSettings() {
             onChange: function onChange(e) {
               return handleChatVisibility(e);
             },
-            checked: chatVisibilityType === "show_on_reload"
+            checked: chatVisibilityType === 'show_on_reload'
           })]
         })]
       })]

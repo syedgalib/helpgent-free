@@ -274,6 +274,8 @@ class Messages extends Rest_Base {
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
+        $args['current_user_id'] = get_current_user_id();
+
 		// Filter By Message
 		if ( ! empty( $args['where']['message'] ) ) {
 			$args['where']['message'] = [
@@ -466,7 +468,7 @@ class Messages extends Rest_Base {
 
 		$default = [];
 
-        $default['user_id']    = 0;
+        $default['user_id']    = get_current_user_id();
         $default['message_id'] = 0;
 
         $args = Helper\filter_params( $default, $args );
@@ -500,7 +502,7 @@ class Messages extends Rest_Base {
     public function delete_seen_by_item( $request ) {
         $args = $request->get_params();
 
-		$default['user_id']    = 0;
+		$default['user_id']    = get_current_user_id();
         $default['message_id'] = 0;
 
 		$message = Message_Model::get_item( $args['message_id'] );

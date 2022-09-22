@@ -8010,7 +8010,13 @@ var AddForm = function AddForm() {
             setResponse("");
           }, "4000");
         }).catch(function (error) {
-          console.log(error);
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            loading: false
+          }));
+          setResponse(error.response);
+          setTimeout(function () {
+            setResponse("");
+          }, "4000");
         });
       }
     }

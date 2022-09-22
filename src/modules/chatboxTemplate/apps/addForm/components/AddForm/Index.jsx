@@ -228,10 +228,17 @@ const AddForm = () => {
                         dispatch(handleReadForm([formResetData]));
                         setTimeout(() => {
                             setResponse("")
-                        }, "4000")
+                        }, "4000");
                     })
                     .catch((error) => {
-                        console.log(error);
+                        setState({
+                            ...state,
+                            loading: false,
+                        });
+                        setResponse(error.response);
+                        setTimeout(() => {
+                            setResponse("")
+                        }, "4000");
                     })
             }
         }

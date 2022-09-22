@@ -36,6 +36,7 @@ const AddForm = () => {
         thankDescColor,
         thankDescFontSize,
         pageBgColor,
+        pageHeaderBgColor,
         formInitialData,
         // loading,
         // response
@@ -58,13 +59,14 @@ const AddForm = () => {
             thankDescColor: state.form.data[0].options.thank_page_description_color,
             thankDescFontSize: state.form.data[0].options.thank_page_description_font_size,
             pageBgColor: state.form.data[0].options.page_background_color,
+            pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
             // response: state.form.response,
         };
     });
 
-    document.documentElement.style.setProperty("--color-primary", primaryColor);
+    document.documentElement.style.setProperty("--color-page-header-bg", pageHeaderBgColor);
     document.documentElement.style.setProperty("--font-family", fontFamily);
     document.documentElement.style.setProperty("--font-size", fontSize);
     document.documentElement.style.setProperty("--color-text", fontColor);

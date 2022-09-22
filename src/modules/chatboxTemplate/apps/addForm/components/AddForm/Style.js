@@ -146,12 +146,22 @@ const AddFormStyle = Styled.div`
                     margin-bottom: 20px;
                 }
                 span{
+                    display: inline-flex;
+                    align-items: center;
                     font-size: 14px;
                     font-weight: 500;
                     position: relative;
                     top: -2px;
                     line-height: 1;
                     color: #030308;
+                    svg{
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 10px;
+                        path{
+                            fill: rgb(137, 137, 137)
+                        }
+                    }
                 }
             }
         }

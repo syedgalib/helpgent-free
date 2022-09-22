@@ -118,12 +118,12 @@ const FormUpdater = (label, value,formInitialData) => {
                         footer_message: value
                     }
                 }
-            case "wpwax-vm-primary-color":
+            case "wpwax-vm-play-btn-bg":
                 return {
                     ...item,
                     options: {
                         ...item.options,
-                        primary_color: value
+                        play_btn_background: value
                     }
                 }
             case "wpwax-vm-fontfamily":
@@ -204,6 +204,14 @@ const FormUpdater = (label, value,formInitialData) => {
                     options: {
                         ...item.options,
                         page_background_color: value
+                    }
+                }
+            case "wpwax-vm-pageheader-bg":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        page_header_background_color: value
                     }
                 }
             case "wpwax-vm-form-primary-button-bg":

@@ -6,6 +6,9 @@ import { ReactSVG } from "react-svg";
 import Switch from "react-switch";
 import formUpdater from "../../../../../../../lib/components/FormUpdater";
 import { handleDynamicEdit } from '../../../redux/form/actionCreator';
+import miceIcon from 'Assets/svg/icons/mice.svg';
+import textIcon from 'Assets/svg/icons/text.svg';
+import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -33,24 +36,27 @@ const FormSettings = () => {
         formInitialData,
         grettingMessage,
         grettingMessageColor,
+        grettingMessageFontSize,
         grettingVideo,
         grettingImage,
         descriptionVisibility,
         description,
         chatTitle,
+        chatTitleFontSize,
         chatTitleColor,
         chatReplyType,
         footerVisibility,
         footerMessage,
-        primaryColor,
+        playBtnBackground,
         pageBgColor,
+        pageHeaderBgColor,
         fontFamily,
-        fontSize,
         fontColor,
         buttonRadius,
         primaryButtonColor,
         primaryButtonBackground,
         formData,
+        templateTheme
     } = useSelector(state => {
         return {
             id: state.form.data.id,
@@ -68,14 +74,15 @@ const FormSettings = () => {
             footerVisibility: state.form.data[0].options.show_footer,
             footerMessage: state.form.data[0].options.footer_message,
             footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
-            primaryColor: state.form.data[0].options.primary_color,
+            playBtnBackground: state.form.data[0].options.play_btn_background,
             pageBgColor: state.form.data[0].options.page_background_color,
+            pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
             fontFamily: state.form.data[0].options.font_family,
-            fontSize: state.form.data[0].options.font_size,
             fontColor: state.form.data[0].options.font_color,
             buttonRadius: state.form.data[0].options.button_border_radius,
             primaryButtonColor: state.form.data[0].options.primary_button_font_color,
             primaryButtonBackground: state.form.data[0].options.primary_button_background_color,
+            templateTheme: state.form.data[0].options.theme,
             formData: state.form.data,
             formInitialData: state.form.data[0],
             formInitialOption: state.form.data[0].options,
@@ -178,7 +185,7 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
-
+    console.log(grettingVideo,grettingImage);
     return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">
@@ -241,7 +248,7 @@ const FormSettings = () => {
                 </div>
                 <div className="wpwax-vm-switch-list">
                     <div className="wpwax-vm-switch-single">
-                        <span>Video</span>
+                        <span><ReactSVG src={videoIcon}/> Video</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -258,7 +265,7 @@ const FormSettings = () => {
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
-                        <span>Voice</span>
+                        <span><ReactSVG src={miceIcon}/>Audio</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -275,7 +282,7 @@ const FormSettings = () => {
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
-                        <span>Text</span>
+                        <span><ReactSVG src={textIcon}/>Text</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -319,58 +326,28 @@ const FormSettings = () => {
                     <a href="" className={openCollapse ? "wpwax-vm-btn-collapsable wpwax-vm-open" : "wpwax-vm-btn-collapsable"} onClick={e => toogleCollapse(e)}><span className="dashicons-arrow-down-alt2 dashicons"></span></a>
                 </div>
                 <div className={openCollapse ? "wpwax-vm-form-group__input-list wpwax-vm-show" : "wpwax-vm-form-group__input-list wpwax-vm-hide"}>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Primary color</span>
-                        <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{primaryColor}</span>
-                            <label htmlFor="wpwax-vm-primary-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryColor }}></label>
-                            <input type="color" id="wpwax-vm-primary-color" className="wpwax-vm-form__element" value="#6551f2" onChange={(e) => handleChangeInputValue(e)} />
-                        </div>
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Page Background color</span>
-                        <div className="wpwax-vm-form__color-plate">
-                            <span className="wpwax-vm-form__color-text">{pageBgColor}</span>
-                            <label htmlFor="wpwax-vm-page-bg-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: pageBgColor }}></label>
-                            <input type="color" id="wpwax-vm-page-bg-color" className="wpwax-vm-form__element" value={pageBgColor} onChange={(e) => handleChangeInputValue(e)} />
-                        </div>
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Font Family</span>
-                        <Select
-                            classNamePrefix="wpwax-vm-select"
-                            options={fontOptions}
-                            closeMenuOnSelect={true}
-                            hideSelectedOptions={false}
-                            searchable={false}
-                            name="wpwax-vm-fontfamily"
-                            onChange={handleChangeSelectValue}
-                            defaultValue={fontOptions.filter(function (option) {
-                                return option.label === fontFamily;
-                            })[0]}
-                        />
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span> Font Size</span>
-                        <Select
-                            classNamePrefix="wpwax-vm-select"
-                            options={fontSizeOptions}
-                            closeMenuOnSelect={true}
-                            hideSelectedOptions={false}
-                            searchable={false}
-                            name="wpwax-vm-fontsize"
-                            onChange={handleChangeSelectValue}
-                            defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === fontSize;
-                            })[0]}
-                        />
-                    </div>
-                    <div className="wpwax-vm-form-group__input-single">
-                        <span>Button Radius</span>
-                        <div className="wpwax-vm-form__input-radius">
-                            <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-form-btn-radius" value={buttonRadius} onChange={(e) => handleChangeInputValue(e)} />
-                        </div>
-                    </div>
+                    {
+                        templateTheme === 'theme-2' ?
+                        <div className="wpwax-vm-form-group__input-single">
+                            <span>Page Background</span>
+                            <div className="wpwax-vm-form__color-plate">
+                                <span className="wpwax-vm-form__color-text">{pageBgColor}</span>
+                                <label htmlFor="wpwax-vm-page-bg-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: pageBgColor }}></label>
+                                <input type="color" id="wpwax-vm-page-bg-color" className="wpwax-vm-form__element" value={pageBgColor} onChange={(e) => handleChangeInputValue(e)} />
+                            </div>
+                        </div> : null
+                    }
+                    {
+                        templateTheme === 'theme-2' ?
+                        <div className="wpwax-vm-form-group__input-single">
+                            <span>Page Header Background</span>
+                            <div className="wpwax-vm-form__color-plate">
+                                <span className="wpwax-vm-form__color-text">{pageHeaderBgColor}</span>
+                                <label htmlFor="wpwax-vm-pageheader-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: pageHeaderBgColor }}></label>
+                                <input type="color" id="wpwax-vm-pageheader-bg" className="wpwax-vm-form__element" value={pageHeaderBgColor} onChange={(e) => handleChangeInputValue(e)} />
+                            </div>
+                        </div> : null
+                    }
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Greet Message Color</span>
                         <div className="wpwax-vm-form__color-plate">
@@ -390,12 +367,23 @@ const FormSettings = () => {
                             name="wpwax-vm-greet-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === fontSize;
+                                return option.label === grettingMessageFontSize;
                             })[0]}
                         />
                     </div>
+                    {
+                        grettingVideo !=='' ?
+                        <div className="wpwax-vm-form-group__input-single">
+                            <span>Play Button Background</span>
+                            <div className="wpwax-vm-form__color-plate">
+                                <span className="wpwax-vm-form__color-text">{playBtnBackground}</span>
+                                <label htmlFor="wpwax-vm-play-btn-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: playBtnBackground }}></label>
+                                <input type="color" id="wpwax-vm-play-btn-bg" className="wpwax-vm-form__element" value="#6551f2" onChange={(e) => handleChangeInputValue(e)} />
+                            </div>
+                        </div>:null
+                    }
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Chat title Color</span>
+                        <span>Chat Title Color</span>
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{chatTitleColor}</span>
                             <label htmlFor="wpwax-vm-chat-title-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: chatTitleColor }}></label>
@@ -413,12 +401,35 @@ const FormSettings = () => {
                             name="wpwax-vm-chat-title-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === fontSize;
+                                return option.label === chatTitleFontSize;
                             })[0]}
                         />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Primary Button color</span>
+                        <span>Font Family</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-fontfamily"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontOptions.filter(function (option) {
+                                return option.label === fontFamily;
+                            })[0]}
+                        />
+                    </div>
+
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Button Radius</span>
+                        <div className="wpwax-vm-form__input-radius">
+                            <input min="0" type="number" className="wpwax-vm-form__element" id="wpwax-vm-form-btn-radius" value={buttonRadius} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Primary Button Color</span>
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{primaryButtonColor}</span>
                             <label htmlFor="wpwax-vm-form-primray-button-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonColor }}></label>
@@ -426,7 +437,7 @@ const FormSettings = () => {
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Button Background color</span>
+                        <span>Button Background Color</span>
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{primaryButtonBackground}</span>
                             <label htmlFor="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonBackground }}></label>

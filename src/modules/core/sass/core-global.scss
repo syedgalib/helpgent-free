@@ -602,6 +602,23 @@
     background-color: #ffd2d2;
 }
 
+/* Empty Table Box */
+.wpwax-empty-table-box{
+    text-align: center;
+    padding-top: 30px;
+    .wpwax-empty-table-box__img{
+        margin-bottom: 20px;
+    }
+    .wpwax-empty-table-box__content{
+        p{
+            font-weight: 500;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+    }
+    
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

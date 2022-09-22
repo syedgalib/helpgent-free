@@ -252,7 +252,7 @@ const PreviewWrap = Styled.div`
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
                 z-index: 100;
-                background-color: var(--color-primary);
+                background-color: var(--color-page-header-bg);
                 .wpwax-vm-preview-title{
                     font-size: var(--font-size-greet);
                     font-weight: 600;
@@ -276,7 +276,10 @@ const PreviewWrap = Styled.div`
                     height: 360px;
                     opacity: .9;
                     border-radius: 25px 25px 0 0;
-                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
+                    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+                    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+                    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );
                     content: '';
                     z-index: 10;
                 }
@@ -325,7 +328,7 @@ const PreviewWrap = Styled.div`
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
-                background-color: var(--color-white);
+                background-color: var(--color-page-bg);
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
                 }

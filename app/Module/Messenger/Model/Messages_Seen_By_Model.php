@@ -162,11 +162,18 @@ class Messages_Seen_By_Model extends DB_Model {
 
         $default = [];
 
-        $default['user_id']    = 0;
+        $default['user_id']    = get_current_user_id();
         $default['session_id'] = '';
         $default['message_id'] = 0;
 
 		$args = Helper\merge_params( $default, $args );
+
+		$existing_item = self::get_item_where( $args );
+
+		if ( ! is_wp_error( $existing_item ) ) {
+			$message = __( 'The entry already exists.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
 
 		if ( empty( $args['user_id'] ) ) {
 			$message = __( 'User ID is required.', 'wpwax-customer-support-app' );

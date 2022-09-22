@@ -44,6 +44,7 @@ function MessageBox() {
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
+
     const [sessionMessages, setSessionMessages] = useState([]);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
 
@@ -277,6 +278,9 @@ function MessageBox() {
     const searchResults = getWindowData('searchResults');
     const isSearching = getWindowData('isSearching');
     const searchQueryArgs = getWindowData('searchQueryArgs');
+    const messagesContainerScrollMeta = getWindowData(
+        'messagesContainerScrollMeta'
+    );
 
     const isShowingVideoSearchResult = getWindowData(
         'isShowingVideoSearchResult'
@@ -1455,6 +1459,26 @@ function MessageBox() {
                                     >
                                         {sessionMessages.length ? (
                                             <InfiniteScroll
+                                                onScroll={(event) => {
+                                                    const scrollMeta = {
+                                                        viewPortTop:
+                                                            event.target
+                                                                .scrollTop,
+                                                        viewPortBottom:
+                                                            event.target
+                                                                .scrollTop +
+                                                            event.target
+                                                                .offsetHeight,
+                                                    };
+
+                                                    dispatch(
+                                                        updateSessionWindowData(
+                                                            selectedSession.session_id,
+                                                            'messagesContainerScrollMeta',
+                                                            scrollMeta
+                                                        )
+                                                    );
+                                                }}
                                                 height={600}
                                                 dataLength={
                                                     sessionMessages.length
@@ -1493,6 +1517,9 @@ function MessageBox() {
                                                                 key={index}
                                                                 currentUser={
                                                                     current_user
+                                                                }
+                                                                containerScrollMeta={
+                                                                    messagesContainerScrollMeta
                                                                 }
                                                             />
                                                         );

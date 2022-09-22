@@ -5,18 +5,82 @@ import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
 import { useRef } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
+import { useEffect } from 'react';
+import http from 'Helper/http.js';
 
-function Message({ data, currentUser }) {
+function Message({ data, currentUser, containerScrollMeta }) {
     const isMine = parseInt(currentUser.id) === parseInt(data.user.id);
 
     const audioRef = useRef();
     const videoRef = useRef();
+    const container = useRef();
 
     const [isPlayingAudio, setIsPlayingAudio] = useState(false);
     const [audioDuration, setAudioDuration] = useState(0);
     const [audioCurrentTime, setAudioCurrentTime] = useState(0);
 
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+    const [isSeen, setIsSeen] = useState(data.is_seen);
+
+    const [updatingIsSeen, setUpdatingIsSeen] = useState(false);
+
+    // @Init State
+    useEffect(
+        function () {
+            if (updatingIsSeen) {
+                return;
+            }
+
+            if (isSeen) {
+                return;
+            }
+
+            const self = container.current;
+
+            let parentScrollMeta = containerScrollMeta;
+
+            if (!parentScrollMeta) {
+                const offsetParent = self.offsetParent;
+
+                parentScrollMeta = {
+                    viewPortTop: offsetParent.scrollTop,
+                    viewPortBottom:
+                        offsetParent.scrollTop + offsetParent.offsetHeight,
+                };
+            }
+
+            if (!Object.keys(parentScrollMeta).length) {
+                return;
+            }
+
+            if (!self) {
+                return;
+            }
+
+            const viewPortTop = parentScrollMeta.viewPortTop;
+            const viewPortBottom = parentScrollMeta.viewPortBottom;
+
+            const selfTop = self.offsetTop;
+            const selfBottom = selfTop + self.offsetHeight;
+            const isVisible =
+                selfTop >= viewPortTop && selfBottom <= viewPortBottom;
+
+            if (isVisible) {
+                setUpdatingIsSeen(true);
+
+                createSeenBy(data.id)
+                    .then(() => {
+                        setIsSeen(true);
+                        setUpdatingIsSeen(false);
+                    })
+                    .catch((error) => {
+                        console.error({ error });
+                        setUpdatingIsSeen(false);
+                    });
+            }
+        },
+        [containerScrollMeta]
+    );
 
     function togglePlayPauseAudio(e) {
         e.preventDefault();
@@ -58,6 +122,31 @@ function Message({ data, currentUser }) {
 
         return formatSecondsAsCountdown(remainingTime);
     }
+
+    const createSeenBy = async (id, args) => {
+        let status = {
+            success: false,
+            data: null,
+        };
+
+        try {
+            const response = await http.postData(
+                `/messages/${id}/seen-by`,
+                args
+            );
+
+            status.success = true;
+            status.data = response;
+
+            return status;
+        } catch (error) {
+            status.success = false;
+
+            console.error({ error });
+
+            return status;
+        }
+    };
 
     /* Load Message Content */
     const setMessageContent = () => {
@@ -203,6 +292,7 @@ function Message({ data, currentUser }) {
 
     return (
         <MessageBox
+            ref={container}
             className={
                 isMine
                     ? `wpwax-vm-message-single wpwax-vm-message-single-${data.message_type}`

@@ -17,6 +17,7 @@ const initialState = {
 		messageType: 'video',
 		videoStage: 'home',
 		replyMode: false,
+		messagesContainerScrollMeta: null,
 	},
 
     messageType: 'video',

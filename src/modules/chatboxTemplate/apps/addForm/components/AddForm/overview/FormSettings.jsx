@@ -230,6 +230,9 @@ const FormSettings = () => {
                 <textarea className="wpwax-vm-form__element" value={description} id="wpwax-vm-description" onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
+                <div className="wpwax-vm-form-group__label">
+                    <span>Chat Title </span>
+                </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-chat-title" value={chatTitle} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
@@ -423,7 +426,7 @@ const FormSettings = () => {
                         </div>
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Primary Background color</span>
+                        <span>Button Background color</span>
                         <div className="wpwax-vm-form__color-plate">
                             <span className="wpwax-vm-form__color-text">{primaryButtonBackground}</span>
                             <label htmlFor="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonBackground }}></label>

@@ -10400,7 +10400,7 @@ function Sidebar() {
       pageNumber = _useState6[0],
       setPageNumber = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
       activeSession = _useState8[0],
       setaAtiveSession = _useState8[1];
@@ -10611,7 +10611,6 @@ function Sidebar() {
     }));
   };
 
-  console.log(sessionList);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {

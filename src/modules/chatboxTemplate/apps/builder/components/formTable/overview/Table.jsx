@@ -172,6 +172,13 @@ const Table = () => {
     return (
         <TemplateBox className={loader ? "wpwax-vm-loder-active" : null}>
             <div className="wpwax-vm-table-wrap wpwax-vm-table-responsive">
+                {message ?
+                    <p className={`${responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'}`}>
+                        <span className="wpwax-vm-notice__text">{message}</span>
+                        <a href="#" className="wpwax-vm-notice__close" onClick={removeNotice}>x</a>
+                    </p>
+                    : ''
+                }
                 {
                     loader ? <span className="wpwax-vm-loading-spin">
                         <span className="wpwax-vm-spin-dot"></span>
@@ -227,7 +234,7 @@ const Table = () => {
                                         :
                                         <tr>
                                             <td colSpan={2}>
-                                                <span className="wpwax-notfound-text wpwax-vm-text-center">Sorry!! Data Not Found :(</span>
+                                                <span className="wpwax-notfound-text wpwax-vm-text-center">No template available. Please <a href={location.href+'&mode=edit'}>create</a> a new template</span>
                                             </td>
                                         </tr>
                                 }

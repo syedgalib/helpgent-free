@@ -188,6 +188,7 @@ const AddFormStyle = Styled.div`
                 display: inline-block;
                 margin-right: 15px;
                 min-width: 130px;
+                width: 130px;
                 color: #030308;
             }
             .wpwax-vm-form__element{

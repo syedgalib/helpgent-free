@@ -17,11 +17,11 @@ msgstr ""
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:434, ../app/Module/Messenger/Model/Message_Model.php:513, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
+#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:445, ../app/Module/Messenger/Model/Message_Model.php:524, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
 msgid "Could not find the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Model/Message_Model.php:479, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
+#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../app/Module/Messenger/Model/Message_Model.php:490, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
 msgid "Could not create the resource."
 msgstr ""
 
@@ -29,11 +29,11 @@ msgstr ""
 msgid "The resource not found."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:217, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:219, ../app/Module/Messenger/Model/Message_Model.php:531, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:224, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
+#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:217, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:226, ../app/Module/Messenger/Model/Message_Model.php:542, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:224, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
 msgid "Could not update the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:563, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:278, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
+#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:574, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:278, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
 msgid "Could not delete the resource."
 msgstr ""
 
@@ -49,7 +49,7 @@ msgstr ""
 msgid "The template name already exists."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:505
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:516
 msgid "Resource ID is required."
 msgstr ""
 
@@ -125,16 +125,20 @@ msgstr ""
 msgid "Link:"
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:172, ../app/Module/Messenger/Model/Message_Model.php:472
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:483
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:177
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:182
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189
 msgid "Session ID is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:174
+msgid "The entry already exists."
 msgstr ""
 
 #: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:489, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:622, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:687

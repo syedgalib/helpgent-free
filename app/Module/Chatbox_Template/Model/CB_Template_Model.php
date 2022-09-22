@@ -131,7 +131,7 @@ class CB_Template_Model extends DB_Model {
         $default['options']    = '';
 
         if ( empty( $args['name'] ) ) {
-            $message = __( 'Template name is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Template name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -254,12 +254,14 @@ class CB_Template_Model extends DB_Model {
             ]);
         }
 
-        $args = Helper\filter_params( $old_data, $args );
-
-		if ( empty( $args['name'] ) ) {
-            $message = __( 'Template name is required.', 'wpwax-customer-support-app' );
+		if ( isset( $args['name'] ) && empty( $args['name'] ) ) {
+            $message = __( 'Template name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+        $args = Helper\filter_params( $old_data, $args );
+
+
 
         if ( Helper\list_has_same_data( $old_data, $args ) ) {
             return self::get_item( $args['id'] );

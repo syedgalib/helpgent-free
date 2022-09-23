@@ -13,343 +13,344 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/Model/DB_Model.php:64, ../app/Model/DB_Model.php:126, ../app/Model/DB_Model.php:167, ../app/Module/Core/Model/Attachment_Model.php:65, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:80, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:159, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:197, ../app/Module/Messenger/Model/Term_Model.php:63, ../app/Module/Messenger/Model/Term_Model.php:178, ../app/Module/Messenger/Model/Term_Model.php:260, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:74, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:197
+#: ../app/Model/DB_Model.php:64, ../app/Model/DB_Model.php:126, ../app/Model/DB_Model.php:167, ../app/Module/Core/Model/Attachment_Model.php:65, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:80, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:159, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:197, ../app/Module/Messenger/Model/Term_Model.php:63, ../app/Module/Messenger/Model/Term_Model.php:178, ../app/Module/Messenger/Model/Term_Model.php:260, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:74, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:197, ../__build/wpwax-video-message/app/Model/DB_Model.php:64, ../__build/wpwax-video-message/app/Model/DB_Model.php:126, ../__build/wpwax-video-message/app/Model/DB_Model.php:167, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:65, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:153, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:80, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:159, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:197, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:63, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:178, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:260, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:74, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:197
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:445, ../app/Module/Messenger/Model/Message_Model.php:524, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
+#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:445, ../app/Module/Messenger/Model/Message_Model.php:524, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85, ../__build/wpwax-video-message/app/Model/DB_Model.php:75, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:76, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:143, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:445, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:524, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:81, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
 msgid "Could not find the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../app/Module/Messenger/Model/Message_Model.php:490, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
+#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../app/Module/Messenger/Model/Message_Model.php:490, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125, ../__build/wpwax-video-message/app/Model/DB_Model.php:109, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:187, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:490, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:134, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
 msgid "Could not create the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:136, ../app/Module/Core/Model/Attachment_Model.php:163, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:169, ../app/Module/Messenger/Model/Term_Model.php:191, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:166
+#: ../app/Model/DB_Model.php:136, ../app/Module/Core/Model/Attachment_Model.php:163, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:169, ../app/Module/Messenger/Model/Term_Model.php:191, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:166, ../__build/wpwax-video-message/app/Model/DB_Model.php:136, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:163, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:169, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:191, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:166
 msgid "The resource not found."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:217, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:226, ../app/Module/Messenger/Model/Message_Model.php:542, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:224, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
+#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:217, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:226, ../app/Module/Messenger/Model/Message_Model.php:542, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:224, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179, ../__build/wpwax-video-message/app/Model/DB_Model.php:150, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:188, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:217, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:226, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:542, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:224, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
 msgid "Could not update the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:574, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:278, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
+#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:574, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:278, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219, ../__build/wpwax-video-message/app/Model/DB_Model.php:177, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:218, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:574, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:278, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
 msgid "Could not delete the resource."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:134, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:258
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:134, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:258, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:134, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:258
 msgid "Template name can not be empty."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:141, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:219
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:141, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:219, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:141, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:219
 msgid "Options is not valid JSON data."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:159, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:214
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:159, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:214, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:159, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:214
 msgid "The template name already exists."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:516
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../app/Module/Messenger/Model/Message_Model.php:423, ../app/Module/Messenger/Model/Message_Model.php:516, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:197, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:423, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:516
 msgid "Resource ID is required."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:274
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:274, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Model.php:274
 msgid "Could not update the resource as."
 msgstr ""
 
-#: ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:138
+#: ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:138, ../__build/wpwax-video-message/app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:138
 msgid "Template ID is required."
 msgstr ""
 
-#: ../app/Module/Core/Admin/Admin_Menu.php:15, ../app/Module/Core/Admin/Admin_Menu.php:15
+#: ../app/Module/Core/Admin/Admin_Menu.php:15, ../app/Module/Core/Admin/Admin_Menu.php:15, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:15, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:15
 msgid "Video Message"
 msgstr ""
 
-#: ../app/Module/Core/Admin/Admin_Menu.php:17, ../app/Module/Core/Admin/Admin_Menu.php:17
+#: ../app/Module/Core/Admin/Admin_Menu.php:17, ../app/Module/Core/Admin/Admin_Menu.php:17, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:17, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:17
 msgid "All Messages"
 msgstr ""
 
-#: ../app/Module/Core/Admin/Admin_Menu.php:19, ../app/Module/Core/Admin/Admin_Menu.php:19
+#: ../app/Module/Core/Admin/Admin_Menu.php:19, ../app/Module/Core/Admin/Admin_Menu.php:19, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:19, ../__build/wpwax-video-message/app/Module/Core/Admin/Admin_Menu.php:19
 msgid "Forms"
 msgstr ""
 
-#: ../app/Module/Core/Model/Attachment_Model.php:98
+#: ../app/Module/Core/Model/Attachment_Model.php:98, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:98
 msgid "Required file or link is missing"
 msgstr ""
 
-#: ../app/Module/Core/Model/Attachment_Model.php:136
+#: ../app/Module/Core/Model/Attachment_Model.php:136, ../__build/wpwax-video-message/app/Module/Core/Model/Attachment_Model.php:136
 msgid "Could not create the attachment."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Base.php:52
+#: ../app/Module/Core/Rest_API/Base.php:52, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Base.php:52
 msgid "Operation Successful"
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Base.php:52
+#: ../app/Module/Core/Rest_API/Base.php:52, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Base.php:52
 msgid "Operation Failed"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:57
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:57, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:57
 msgid "Wellcome to Support"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:99
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:99, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:99
 msgid "Your chosen password"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:102
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:102, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:102
 msgid "A new conversation has starterd"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:124
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:124, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:124
 msgid "Login Credentials"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:126
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:126, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:126
 msgid "Email:"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:127
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:127, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:127
 msgid "Password:"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:128
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:128, ../__build/wpwax-video-message/app/Module/Messenger/Email/Message_Notification_Emails.php:128
 msgid "Link:"
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:483
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:483, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../__build/wpwax-video-message/app/Module/Messenger/Model/Message_Model.php:483
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:184
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../__build/wpwax-video-message/app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:189
 msgid "Session ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:174
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:174, ../__build/wpwax-video-message/app/Module/Messenger/Model/Messages_Seen_By_Model.php:174
 msgid "The entry already exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:489, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:622, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:687
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:489, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:622, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:687, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:489, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:622, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:687
 msgid "The session ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:633, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:640, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:698, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:705
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:633, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:640, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:698, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:705, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:633, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:640, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:698, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:705
 msgid "The term ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:915
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:915, ../__build/wpwax-video-message/app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:915
 msgid "The session does not exist."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:108
+#: ../app/Module/Messenger/Model/Term_Model.php:108, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:108
 msgid "The term name is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:113, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:117
+#: ../app/Module/Messenger/Model/Term_Model.php:113, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:117, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:113, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:117
 msgid "The taxonomy is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:120, ../app/Module/Messenger/Model/Term_Model.php:212
+#: ../app/Module/Messenger/Model/Term_Model.php:120, ../app/Module/Messenger/Model/Term_Model.php:212, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:120, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:212
 msgid "The resource already exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:196
+#: ../app/Module/Messenger/Model/Term_Model.php:196, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Model.php:196
 msgid "The resource is not valid."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:151
+#: ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:151, ../__build/wpwax-video-message/app/Module/Messenger/Model/Term_Taxonomy_Model.php:151
 msgid "The resource identifier is missing."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:38
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:38, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:38
 msgid "New user email address."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:42
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:42, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:42
 msgid "New user username."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:47
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:47, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:47
 msgid "New user password."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:58, ../app/Module/Core/Rest_API/Version_1/Users.php:721
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:58, ../app/Module/Core/Rest_API/Version_1/Users.php:721, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:58, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:721
 msgid "Unique identifier for the resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:84
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:84, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:84
 msgid "Required to be true, as resource does not support trashing."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:89
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:89, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:89
 msgid "ID to reassign posts to."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:197
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:197, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:197
 msgid "Cannot create existing resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:294, ../app/Module/Core/Rest_API/Version_1/Users.php:314
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:294, ../app/Module/Core/Rest_API/Version_1/Users.php:314, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:294, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:314
 msgid "Invalid resource ID."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:318
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:318, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:318
 msgid "Email address is invalid."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:322
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:322, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:322
 msgid "Username isn't editable."
 msgstr ""
 
 #. translators: %s: force=true
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:381
+#. translators: %s: force=true
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:381, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:381
 msgid "Users do not support trashing. Set '%s' to delete."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:388
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:388, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:388
 msgid "Invalid resource id."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:393
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:393, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:393
 msgid "Invalid resource id for reassignment."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:408
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:408, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:408
 msgid "The resource cannot be deleted."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:602
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:602, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:602
 msgid "Sorry, you cannot list resources."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:621
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:621, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:621
 msgid "Sorry, you are not allowed to create resources."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:640
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:640, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:640
 msgid "Sorry, you cannot view this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:659
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:659, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:659
 msgid "Sorry, you are not allowed to edit this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:678
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:678, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:678
 msgid "Sorry, you are not allowed to delete this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:700
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:700, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:700
 msgid "Resource does not exist."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:727
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:727, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:727
 msgid "The date the user was created, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:734
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:734, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:734
 msgid "The display name for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:739
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:739, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:739
 msgid "User login name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:747
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:747, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:747
 msgid "The nickname for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:752
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:752, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:752
 msgid "User first name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:760
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:760, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:760
 msgid "User last name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:768
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:768, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:768
 msgid "Description of the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:773
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:773, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:773
 msgid "The email address for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:779
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:779, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:779
 msgid "User password."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:784
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:784, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:784
 msgid "User avater image data."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:789
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:789, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:789
 msgid "Image ID."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:794
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:794, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:794
 msgid "The date the image was created, in the site's timezone."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:800
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:800, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:800
 msgid "The date the image was created, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:806
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:806, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:806
 msgid "The date the image was last modified, in the site's timezone."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:812
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:812, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:812
 msgid "The date the image was last modified, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:818
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:818, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:818
 msgid "Image URL."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:853
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:853, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:853
 msgid "Ensure result set excludes specific IDs."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:862
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:862, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:862
 msgid "Limit result set to specific IDs."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:871
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:871, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:871
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:878
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:878, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:878
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:886
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:886, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:886
 msgid "Sort collection by object attribute."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:893
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:893, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:893
 msgid "Limit result set to resources with a specific email."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:899
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:899, ../__build/wpwax-video-message/app/Module/Core/Rest_API/Version_1/Users.php:899
 msgid "Limit result set to resources with a specific role."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:421
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:421, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:421
 msgid "No resource exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:503
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:503, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:503
 msgid "Nothing to add or remove."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:747, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:825
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:747, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:825, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:747, ../__build/wpwax-video-message/app/Module/Messenger/Rest_API/Version_1/Sessions.php:825
 msgid "You must have to be logged in"
 msgstr ""
 
-#: ../app.php:70, ../app.php:79
+#: ../app.php:70, ../app.php:79, ../__build/wpwax-video-message/app.php:70, ../__build/wpwax-video-message/app.php:79
 msgid "Cheatin&#8217; huh?"
 msgstr ""

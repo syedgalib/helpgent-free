@@ -6638,7 +6638,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var CenterBoxStyle = {
   height: '100%',
-  minHeight: '300px',
+  minHeight: '520px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center'
@@ -6657,82 +6657,87 @@ function MessageBox() {
       scrollBtnVisibility = _useState2[0],
       setScrollBtnVisibility = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
       _useState4 = _slicedToArray(_useState3, 2),
-      sessionMessages = _useState4[0],
-      setSessionMessages = _useState4[1];
+      messageDirection = _useState4[0],
+      setMessageDirection = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      latestMessageDate = _useState6[0],
-      setLatestMessageDate = _useState6[1];
+      sessionMessages = _useState6[0],
+      setSessionMessages = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState8 = _slicedToArray(_useState7, 2),
-      isLoadingMoreMessages = _useState8[0],
-      setIsLoadingMoreMessages = _useState8[1];
+      latestMessageDate = _useState8[0],
+      setLatestMessageDate = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoadingSession = _useState10[0],
-      setIsLoadingSession = _useState10[1];
+      isLoadingMoreMessages = _useState10[0],
+      setIsLoadingMoreMessages = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      isSendingTextMessage = _useState12[0],
-      setIsSendingTextMessage = _useState12[1];
+      isLoadingSession = _useState12[0],
+      setIsLoadingSession = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      isSendingAudioMessage = _useState14[0],
-      setIsSendingAudioMessage = _useState14[1]; //
+      isSendingTextMessage = _useState14[0],
+      setIsSendingTextMessage = _useState14[1];
 
-
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      recordedAudioBlob = _useState16[0],
-      setRecordedAudioBlob = _useState16[1];
+      isSendingAudioMessage = _useState16[0],
+      setIsSendingAudioMessage = _useState16[1]; //
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState18 = _slicedToArray(_useState17, 2),
-      isRecordingVoice = _useState18[0],
-      setIsRecordingVoice = _useState18[1];
+      recordedAudioBlob = _useState18[0],
+      setRecordedAudioBlob = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState20 = _slicedToArray(_useState19, 2),
-      recordedVoiceTimeInSecond = _useState20[0],
-      setRecordedVoiceTimeInSecond = _useState20[1];
+      isRecordingVoice = _useState20[0],
+      setIsRecordingVoice = _useState20[1];
 
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState22 = _slicedToArray(_useState21, 2),
-      recordedTimeLength = _useState22[0],
-      setRecordedTimeLength = _useState22[1];
+      recordedVoiceTimeInSecond = _useState22[0],
+      setRecordedVoiceTimeInSecond = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState24 = _slicedToArray(_useState23, 2),
+      recordedTimeLength = _useState24[0],
+      setRecordedTimeLength = _useState24[1];
 
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
   // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState24 = _slicedToArray(_useState23, 2),
-      textMessageContent = _useState24[0],
-      setTextMessageContent = _useState24[1]; // Search Results
-
-
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState26 = _slicedToArray(_useState25, 2),
-      currentSearchResultPage = _useState26[0],
-      setCurrentSearchResultPage = _useState26[1];
+      textMessageContent = _useState26[0],
+      setTextMessageContent = _useState26[1]; // Search Results
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState28 = _slicedToArray(_useState27, 2),
-      isLoadingSearchResults = _useState28[0],
-      setIsLoadingSearchResults = _useState28[1];
+      currentSearchResultPage = _useState28[0],
+      setCurrentSearchResultPage = _useState28[1];
 
   var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState30 = _slicedToArray(_useState29, 2),
-      isLoadingMoreSearchResults = _useState30[0],
-      setIsLoadingMoreSearchResults = _useState30[1];
+      isLoadingSearchResults = _useState30[0],
+      setIsLoadingSearchResults = _useState30[1];
+
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState32 = _slicedToArray(_useState31, 2),
+      isLoadingMoreSearchResults = _useState32[0],
+      setIsLoadingMoreSearchResults = _useState32[1];
   /* initialize Form Data */
 
 
@@ -6858,18 +6863,17 @@ function MessageBox() {
       setIsLoadingSession(false);
     });
   }, [selectedSession]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var messageBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
-    messageBody && messageBody.addEventListener('scroll', function () {
-      var scrolled = messageBody.scrollTop;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [sessionMessages]);
+  var messageBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
+  messageBody && messageBody.addEventListener('scroll', function () {
+    var scrolled = messageBody.scrollTop;
 
-      if (scrolled < -350) {
-        setScrollBtnVisibility(true);
-      } else {
-        setScrollBtnVisibility(false);
-      }
-    });
-  }, [sessionMessages]); // Update Recorded Time Length
+    if (scrolled < -350) {
+      setScrollBtnVisibility(true);
+    } else {
+      setScrollBtnVisibility(false);
+    }
+  }); // Update Recorded Time Length
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timeLength = calculateRecordedTimeLength();
@@ -7315,12 +7319,9 @@ function MessageBox() {
               _context6.prev = 12;
               _context6.t0 = _context6["catch"](3);
               status.success = false;
-              console.error({
-                error: _context6.t0
-              });
               return _context6.abrupt("return", status);
 
-            case 17:
+            case 16:
             case "end":
               return _context6.stop();
           }
@@ -7859,6 +7860,7 @@ function MessageBox() {
 
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
+    setMessageDirection("top");
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
 
     if (isShowingVideoSearchResult) {
@@ -8240,10 +8242,18 @@ function MessageBox() {
   var handleScrollBottom = function handleScrollBottom(event) {
     event.preventDefault();
     var scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
-    scrollingBody.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+
+    if (messageDirection === "bottom") {
+      scrollingBody.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      scrollingBody.scrollTo({
+        bottom: 0,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
@@ -8464,7 +8474,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            right: 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            background-color: #F0F0F0;\n            border-radius: 30px 30px 0 0;\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                right: 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 22px;\n                font-weight: 600;\n                color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    flex-direction: column;\n                    min-width: 300px;\n                    min-height: 150px;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    background-color: var(--color-white);\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        margin-bottom: 12px;\n                        svg{\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])));
-var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    background-color: var(--color-white);\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 767px){\n            padding: 15px 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        @media only screen and (max-width: 767px){\n            padding: 15px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                flex-direction: column;\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 18px;\n                    }\n                    @media only screen and (max-width: 1299px){\n                        padding: 0 15px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
+var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    background-color: var(--color-white);\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 767px){\n            padding: 15px 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        @media only screen and (max-width: 767px){\n            padding: 15px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                flex-direction: column;\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 18px;\n                    }\n                    @media only screen and (max-width: 1299px){\n                        padding: 0 15px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),

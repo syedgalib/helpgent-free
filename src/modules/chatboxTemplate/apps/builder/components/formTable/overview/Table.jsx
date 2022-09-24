@@ -187,42 +187,53 @@ const Table = () => {
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
                     </span> :
-                    
                     data.length > 0 ? 
-                        data.map((value, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td>
-                                        <div className="wpwax-vm-titlebox">
-                                            <div className="wpwax-vm-titlebox-inner">
-                                                <span className={editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
-                                                    {value.name}
-                                                    <span className="wpwax-vm-titlebox__id">ID: {value.id}</span>
-                                                </span>
-                                                <div className={editElementIndex === key ? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
-                                                    <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName} />
-                                                </div>
-                                                <div className="wpwax-vm-titlebox__editor-action">
-                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
-                                                        <span className="dashicons dashicons-no"></span>
-                                                    </a>
-                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={() => saveTableName(value.id)}>
-                                                        <span className="dashicons dashicons-yes"></span>
-                                                    </a>
-                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={(e) => activateeditElementIndex(e, value.name, key)}></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="wpwax-vm-table-action">
-                                            <a href={`${location.href}&mode=edit&id=${value.id}`} className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={() => deleteForm(value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            );
-                        }) 
+                        <table  className="wpwax-vm-table">
+                            <thead>
+                                    <tr>
+                                        <th className="wpwax-vm-head-name">Title</th>
+                                        <th className="wpwax-vm-head-action">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        data.map((value, key) => {
+                                            return (
+                                                <tr key={key}>
+                                                    <td>
+                                                        <div className="wpwax-vm-titlebox">
+                                                            <div className="wpwax-vm-titlebox-inner">
+                                                                <span className={editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show'}>
+                                                                    {value.name}
+                                                                    <span className="wpwax-vm-titlebox__id">ID: {value.id}</span>
+                                                                </span>
+                                                                <div className={editElementIndex === key ? `wpwax-vm-titlebox__editor wpwax-vm-show` : `wpwax-vm-titlebox__editor`}>
+                                                                    <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName} />
+                                                                </div>
+                                                                <div className="wpwax-vm-titlebox__editor-action">
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
+                                                                        <span className="dashicons dashicons-no"></span>
+                                                                    </a>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={() => saveTableName(value.id)}>
+                                                                        <span className="dashicons dashicons-yes"></span>
+                                                                    </a>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={(e) => activateeditElementIndex(e, value.name, key)}></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="wpwax-vm-table-action">
+                                                            <a href={`${location.href}&mode=edit&id=${value.id}`} className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
+                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={() => deleteForm(value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }) 
+                                    }
+                                </tbody>
+                        </table>
                         :
                         <div className="wpwax-empty-table-box">
                             <div className="wpwax-empty-table-box__img">

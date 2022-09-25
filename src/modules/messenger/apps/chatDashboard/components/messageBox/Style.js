@@ -132,13 +132,14 @@ const MessageBoxWrap = Styled.div`
         justify-content: space-between;
         padding: 20px 0;
         border-bottom: 1px solid var(--color-bg-general);
-        @media only screen and (max-width: 767px){
+        @media only screen and (max-width: 1199px){
             flex-direction: column;
+            align-items: flex-start;
         }
     }
     .wpwax-vm-messagebox-header__left{
         padding-left: 30px;
-        @media only screen and (max-width: 767px){
+        @media only screen and (max-width: 1199px){
             padding: 15px 15px 0;
             margin: 0;
         }
@@ -176,8 +177,8 @@ const MessageBoxWrap = Styled.div`
     }
     .wpwax-vm-messagebox-header__right{
         padding-right: 30px;
-        @media only screen and (max-width: 767px){
-            padding: 15px;
+        @media only screen and (max-width: 1199px){
+            padding: 15px 15px 5px 25px;
         }
         &.wpwax-vm-search-active{
             width: 100%;
@@ -211,7 +212,7 @@ const MessageBoxWrap = Styled.div`
             flex-wrap: wrap;
             margin: 0 -15px;
             @media only screen and (max-width: 767px){
-                flex-direction: column;
+                /* flex-direction: column; */
                 align-items: center;
                 margin: -15px;
             }

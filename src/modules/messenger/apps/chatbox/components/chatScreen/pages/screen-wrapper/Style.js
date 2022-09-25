@@ -63,9 +63,11 @@ const ScreenWrapper = Styled.div`
             justify-content: center;
             width: 38px;
             height: 38px;
+            padding: 0;
             border-radius: 50%;
             cursor: pointer;
             z-index: 102;
+            border-color: transparent;
             background-color: var(--color-dark);
             color: var(--color-white);
         }

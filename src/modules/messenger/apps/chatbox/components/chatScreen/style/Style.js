@@ -12,6 +12,10 @@ const ChatboxForm = Styled.div`
         border-radius: 25px;
         overflow: hidden;
         z-index: -1;
+        img{
+            height: 100%;
+            object-fit: cover;
+        }
     }
     .wpwax-vm-chatbox-header{
         padding: 25px;
@@ -181,13 +185,12 @@ const ChatboxForm = Styled.div`
                     }
                 }
                 video{
-                    height: 280px;
+                    object-fit: cover;
                 }
                 .wpwax-vm-chatbox-img{
                     position: relative;
                     height: 330px;
                     z-index: 10;
-                    
                 }
                 .wpwax-vm-btn-play{
                     position: absolute;
@@ -195,6 +198,12 @@ const ChatboxForm = Styled.div`
                     top: 50%;
                     transform: translate(-50%,-50%);
                     z-index: 100;
+                }
+                .wpwax-vm-chatbox-img{
+                    img{
+                        height: 100%;
+                        object-fit: cover;
+                    }
                 }
             }
             .wpwax-vm-chatbox-footer{

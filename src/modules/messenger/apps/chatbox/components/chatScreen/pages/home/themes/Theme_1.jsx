@@ -27,6 +27,7 @@ function Theme_1() {
     const [ greetVideoPlayedDuration, setGreetVideoPlayedDuration ] = useState( '00:00' );
 
     const greetVideo = useRef();
+    console.log(templateOptions.greet_image_url)
 
     // Greet Video
     function handleLoadedGreetVideoMetadata() {
@@ -91,7 +92,9 @@ function Theme_1() {
 
     function handleChatAction(event,type) {
         event.preventDefault();
-        greetVideo.current.pause();
+        if(greetVideo.current){
+            greetVideo.current.pause();
+        }
         dispatch( changeChatScreen(type) );
     }
 
@@ -111,18 +114,22 @@ function Theme_1() {
                     >   
                     </video>
                 }
+                {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
                 </div>
                 
                 <div className="wpwax-vm-chatbox-header">
-                    <div className="wpwax-vm-chatbox-header__top">
-                        <span className="wpwax-vm-timer">
-                            <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
-                            <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
-                        </span>
-                        <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
-                            <ReactSVG src={expander} />
-                        </a>
-                    </div>
+                    {
+                        templateOptions.greet_video_url !== "" ? 
+                        <div className="wpwax-vm-chatbox-header__top">
+                            <span className="wpwax-vm-timer">
+                                <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
+                                <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
+                            </span>
+                            <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
+                                <ReactSVG src={expander} />
+                            </a>
+                        </div> : null
+                    }
 
                     { 
                         templateOptions.greet_message && 
@@ -141,7 +148,11 @@ function Theme_1() {
                 </div>
 
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
-                    <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
+
+                    {
+                        templateOptions.greet_video_url !== "" ? <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a> : null
+                    }
+
                 </div>
 
                 <div className="wpwax-vm-chatbox-footer">

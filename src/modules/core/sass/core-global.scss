@@ -23,10 +23,10 @@
     --font-color: '#898989';
     --btn-radius: 8px;
     --primary-button-color: #ffffff;
-    --primary-button-bg-color: #2271b1;
+    --primary-button-bg: #2271b1;
     --primary-button-border-radius: '15';
     --secondary-button-color: #ffffff;
-    --secondary-button-bg-color: #fc495d;
+    --secondary-button-bg: #fc495d;
     --primary-btn-bg: #6551f2;
     --primary-btn-color: #ffffff;
     --secondary-button-border-radius: '15';
@@ -106,10 +106,13 @@
     }
 
     &.wpwax-vm-btn-primary {
-        background-color: var(--primary-btn-bg);
+        background-color: var(--primary-button-bg);
         border-radius: var(--btn-radius);
-        color: var(--primary-btn-color);
-        border: 1px solid var(--primary-btn-bg);
+        color: var(--primary-button-color);
+        border: 1px solid var(--primary-button-bg);
+        &:not(:hover):not(:active):not(.has-background){
+            background-color: var(--primary-button-bg);
+        }
     }
 
     &.wpwax-vm-btn-light {
@@ -152,6 +155,7 @@
 .wpwax-vm-btn-block {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 /* Form Elements Style */

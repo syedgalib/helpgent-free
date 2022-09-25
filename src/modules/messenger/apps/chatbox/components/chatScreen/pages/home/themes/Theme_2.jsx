@@ -128,7 +128,7 @@ function Theme_2() {
                         </div>
                     }
 
-                    {/* <div className="wpwax-vm-chatbox-img"> */}
+                    <div className="wpwax-vm-chatbox-img">
                         {  templateOptions.greet_video_url &&
                             <video 
                                 ref={greetVideo} 
@@ -141,7 +141,8 @@ function Theme_2() {
                             >   
                             </video>
                         }
-                    {/* </div> */}
+                        {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
+                    </div>
                     {
                         templateOptions.greet_video_url && <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
                     }

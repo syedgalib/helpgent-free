@@ -1460,7 +1460,7 @@ function MessageBox() {
                                 {!isSearching ? (
                                     <div
                                         id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body'
+                                        className='wpwax-vm-messagebox-body r'
                                         style={{
                                             display: 'flex',
                                             flexDirection: 'column-reverse',
@@ -1547,7 +1547,7 @@ function MessageBox() {
                                         {!isLoadingSearchResults ? (
                                             <div
                                                 id='scrollableDiv'
-                                                className='wpwax-vm-messagebox-body'
+                                                className='wpwax-vm-messagebox-body l'
                                             >
                                                 {searchResults.length ? (
                                                     <InfiniteScroll

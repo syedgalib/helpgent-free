@@ -18,9 +18,9 @@ class Admin_Menu {
 
         add_submenu_page( 'video-message', __( 'Forms', 'wpwax-customer-support-app' ), __( 'Forms', 'wpwax-customer-support-app' ), 'manage_options', 'vm-forms', [$this, 'forms'] );
 
-        add_submenu_page( 'video-message', __( 'Settings', 'wpwax-customer-support-app' ), __( 'Settings', 'wpwax-customer-support-app' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
+        // add_submenu_page( 'video-message', __( 'Settings', 'wpwax-customer-support-app' ), __( 'Settings', 'wpwax-customer-support-app' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
 
-        add_submenu_page( 'video-message', __( 'Integrations', 'wpwax-customer-support-app' ), __( 'Integrations', 'wpwax-customer-support-app' ), 'manage_options', 'vm-integrations', [$this, 'integrations'] );
+        // add_submenu_page( 'video-message', __( 'Integrations', 'wpwax-customer-support-app' ), __( 'Integrations', 'wpwax-customer-support-app' ), 'manage_options', 'vm-integrations', [$this, 'integrations'] );
     }
 
     public function all_messages() {

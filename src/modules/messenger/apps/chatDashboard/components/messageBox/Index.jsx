@@ -28,7 +28,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 
 const CenterBoxStyle = {
     height: '100%',
-    minHeight: '300px',
+    minHeight: '520px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -44,6 +44,8 @@ function MessageBox() {
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
+    const [messageDirection, setMessageDirection] = useState('bottom');
+
     const [sessionMessages, setSessionMessages] = useState([]);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
 
@@ -202,21 +204,23 @@ function MessageBox() {
     );
 
     useEffect(() => {
-        const messageBody = document.querySelector(
-            '.wpwax-vm-messagebox-body .infinite-scroll-component '
-        );
+        
+    }, [sessionMessages]);
 
-        messageBody &&
-            messageBody.addEventListener('scroll', function () {
-                const scrolled = messageBody.scrollTop;
-                
-                if (scrolled < -350) {
-                    setScrollBtnVisibility(true);
-                } else {
-                    setScrollBtnVisibility(false);
-                }
-            });
-    }, [sessionMessages,isSearching]);
+    const messageBody = document.querySelector(
+        '.wpwax-vm-messagebox-body .infinite-scroll-component '
+    );
+
+    messageBody &&
+        messageBody.addEventListener('scroll', function () {
+            const scrolled = messageBody.scrollTop;
+
+            if (scrolled < -350) {
+                setScrollBtnVisibility(true);
+            } else {
+                setScrollBtnVisibility(false);
+            }
+        });
 
     // Update Recorded Time Length
     useEffect(() => {
@@ -277,6 +281,9 @@ function MessageBox() {
     const searchResults = getWindowData('searchResults');
     const isSearching = getWindowData('isSearching');
     const searchQueryArgs = getWindowData('searchQueryArgs');
+    const messagesContainerScrollMeta = getWindowData(
+        'messagesContainerScrollMeta'
+    );
 
     const isShowingVideoSearchResult = getWindowData(
         'isShowingVideoSearchResult'
@@ -596,8 +603,6 @@ function MessageBox() {
             return status;
         } catch (error) {
             status.success = false;
-
-            console.error({ error });
 
             return status;
         }
@@ -930,7 +935,7 @@ function MessageBox() {
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
-
+        setMessageDirection("top");
         dispatch(
             updateSessionWindowData(
                 selectedSession.session_id,
@@ -1325,10 +1330,18 @@ function MessageBox() {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
-        scrollingBody.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        });
+        if(messageDirection === "bottom"){
+            scrollingBody.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+        }else{
+            scrollingBody.scrollTo({
+                bottom: 0,
+                behavior: 'smooth',
+            });
+        }
+        
     };
 
     return (
@@ -1455,6 +1468,26 @@ function MessageBox() {
                                     >
                                         {sessionMessages.length ? (
                                             <InfiniteScroll
+                                                onScroll={(event) => {
+                                                    const scrollMeta = {
+                                                        viewPortTop:
+                                                            event.target
+                                                                .scrollTop,
+                                                        viewPortBottom:
+                                                            event.target
+                                                                .scrollTop +
+                                                            event.target
+                                                                .offsetHeight,
+                                                    };
+
+                                                    dispatch(
+                                                        updateSessionWindowData(
+                                                            selectedSession.session_id,
+                                                            'messagesContainerScrollMeta',
+                                                            scrollMeta
+                                                        )
+                                                    );
+                                                }}
                                                 height={600}
                                                 dataLength={
                                                     sessionMessages.length
@@ -1493,6 +1526,9 @@ function MessageBox() {
                                                                 key={index}
                                                                 currentUser={
                                                                     current_user
+                                                                }
+                                                                containerScrollMeta={
+                                                                    messagesContainerScrollMeta
                                                                 }
                                                             />
                                                         );

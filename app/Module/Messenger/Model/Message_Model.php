@@ -424,9 +424,20 @@ class Message_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		$table = self::get_table_name( self::$table );
+		$messages_table = self::get_table_name( self::$table );
+		$seen_by_table  = self::get_table_name( 'messages_seen_by' );
 
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE id = %d", array( $id ) );
+		$current_user_id = get_current_user_id();
+
+		$message_table_fields = [
+			"$messages_table.*",
+			"$seen_by_table.message_id",
+			"GROUP_CONCAT( DISTINCT $seen_by_table.user_id ) as seen_by",
+			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen",
+		];
+
+		$message_table_fields = join( ',', $message_table_fields );
+		$query = $wpdb->prepare( "SELECT $message_table_fields FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id WHERE $messages_table.id = %d", array( $id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 

@@ -85,7 +85,7 @@ function Sidebar() {
     });
 
     const [pageNumber, setPageNumber] = useState(2);
-    const [activeSession, setaAtiveSession] = useState("");
+    const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -240,10 +240,10 @@ function Sidebar() {
         }, 1500);
     };
 
-    const handeSelectSession = (e,item,index) =>{
+    const handeSelectSession = (e, item, index) => {
         setaAtiveSession(`wpwax-vm-session-${index}`);
         dispatch(updateSelectedSession(item));
-    }
+    };
 
     const handleRefresh = (event) => {
         event.preventDefault();
@@ -384,10 +384,10 @@ function Sidebar() {
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
-                                    if(selectedUSer.length !==0){
+                                    if (selectedUSer.length !== 0) {
                                         images.push(selectedUSer[0].avater);
                                     }
-                                    
+
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);
                                         initialConv = true;
@@ -441,12 +441,24 @@ function Sidebar() {
                                             text: item.updated_on,
                                         },
                                     ];
-                                    
+
                                     return (
                                         <li
-                                            className={`wpwax-vm-session-${index}` === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active': 'wpwax-vm-usermedia'}
+                                            className={
+                                                `wpwax-vm-session-${index}` ===
+                                                activeSession
+                                                    ? 'wpwax-vm-usermedia wpwax-vm-active'
+                                                    : 'wpwax-vm-usermedia'
+                                            }
                                             key={index}
-                                            onClick={e=>handeSelectSession(e,item,index)}>
+                                            onClick={(e) =>
+                                                handeSelectSession(
+                                                    e,
+                                                    item,
+                                                    index
+                                                )
+                                            }
+                                        >
                                             <div className='wpwax-vm-usermedia__left'>
                                                 <MediaBox
                                                     chatingMedia={true}

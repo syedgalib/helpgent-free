@@ -308,6 +308,7 @@ const MessageBoxWrap = Styled.div`
         .wpwax-vm-scroll-bottom{
             position: absolute;
             left: 50%;
+            bottom: 0;
             transform: translateX(-50%);
             display: none;
             align-items: center;

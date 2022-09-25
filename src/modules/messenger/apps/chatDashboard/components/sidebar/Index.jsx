@@ -255,7 +255,7 @@ function Sidebar() {
             hasMore: true,
         });
     };
-    console.log(sessionList);
+
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
@@ -380,7 +380,7 @@ function Sidebar() {
                                         (select) =>
                                             select.roles[0] === 'subscriber'
                                     );
-                                    // console.log(selectedUSer);
+                                    
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;

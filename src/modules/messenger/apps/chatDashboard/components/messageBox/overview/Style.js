@@ -321,7 +321,6 @@ const MessageBox = Styled.div`
             .wpwax-vm-message-content{
                 .wpwax-vm-message-content__inner{
                     background-color: #F3F3F3;
-                    min-height: 280px;
                     width: 440px;
                     position: relative;
                     @media only screen and (max-width: 767px){

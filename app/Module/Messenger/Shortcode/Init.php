@@ -26,7 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            User_Dashboard::class,
+            User_Messenger::class,
         ];
     }
 

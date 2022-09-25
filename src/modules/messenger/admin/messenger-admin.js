@@ -1,1 +1,1 @@
-import '../apps/chatDashboard/index.jsx';
+import 'MessengerApps/chatDashboard/index.jsx';

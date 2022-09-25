@@ -27,7 +27,7 @@ class Public_Asset extends Enqueuer {
 
     /**
      * Load Public CSS Scripts
-     * 
+     *
      * @Example
       $scripts['wpwax-customer-support-app-messenger-public-style'] = [
           'file_name' => 'public',
@@ -48,7 +48,7 @@ class Public_Asset extends Enqueuer {
 
     /**
      * Load Public JS Scripts
-     * 
+     *
      * @Example
       $scripts['wpwax-customer-support-app-messenger-public-script'] = [
           'file_name' => 'public',
@@ -67,6 +67,9 @@ class Public_Asset extends Enqueuer {
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/public/',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'public',
+			'data'      => [
+                'wpWaxCustomerSupportApp_MessengerScriptData' => Script_Data::get_base_data(),
+            ],
         ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );

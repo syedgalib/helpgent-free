@@ -11,6 +11,8 @@
     --color-gray: #868eae;
     --color-info: #1b83fb;
     --color-danger: #ef0000;
+    --color-warning-deep: #ff7300;
+    --color-warning-light: #f9dfac;
     --color-success: #08bf9c;
     --color-text: #898989;
     --color-white: #ffffff;
@@ -296,6 +298,11 @@
 
     &.wpwax-vm-notice-success {
         background-color: var(--color-success);
+    }
+
+    &.wpwax-vm-notice-warning {
+		color:  var(--color-warning-deep);
+        background-color: var(--color-warning-light);
     }
 
     &.wpwax-vm-notice-danger {
@@ -616,7 +623,7 @@
             margin-bottom: 18px;
         }
     }
-    
+
 }
 
 /* Animation Keyframe */

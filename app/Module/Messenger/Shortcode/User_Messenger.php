@@ -24,7 +24,7 @@ class User_Messenger {
 			return "<div class='wpwax-vm-notice-container'><p class='wpwax-vm-notice wpwax-vm-notice-warning wpwax-vm-text-center'>${message}</p></div>";
 		}
 
-        return '<div id="wpwax-vm-chatboard"></div>';
+        return '<div id="wpwax-vm-chatboard" class="wpwax-vm-app-container-full"></div>';
     }
 
 }

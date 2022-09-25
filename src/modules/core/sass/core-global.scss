@@ -626,6 +626,12 @@
 
 }
 
+// App Containers
+.wpwax-vm-app-container-full {
+	width: 100% !important;
+	max-width: unset !important;
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

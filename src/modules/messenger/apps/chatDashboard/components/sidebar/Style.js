@@ -117,6 +117,7 @@ const SidebarWrap = Styled.div`
                 border-radius: 10px;
                 background-color: transparent;
                 transition: background .3s ease-in;
+                margin-left: 0;
                 &.wpwax-vm-active,
                 &:hover{
                     background: var(--color-white);
@@ -381,6 +382,7 @@ const SessionFilterWrap = Styled.div`
         li{
             position: relative;
             margin: 0;
+            list-style: none;
             cursor: pointer;
             .dashicons{
                 width: 14px;

@@ -1,2 +1,27 @@
 @import './core-global.scss';
-@import './core-admin.scss';
+// @import './core-admin.scss';
+
+/* Style For Public User Dashboard */
+#wpwax-vm-chatboard{
+    padding: 0 25px 35px;
+    border-radius: 8px;
+    background-color: var(--color-bg-page);
+    .wpwax-vm-messagebox{
+        margin: 0 10px 0 30px;
+    }
+}
+.wpwax-vm-sidebar{
+    .wpwax-vm-sidebar-top .wpwax-vm-sidebar-title{
+        font-size: 18px;
+        font-weight: 600;
+    }
+    ul{
+        padding: 0;
+    }
+}
+
+.wpwax-vm-messagebox{
+    h2{
+        font-size: 24px;
+    }
+}

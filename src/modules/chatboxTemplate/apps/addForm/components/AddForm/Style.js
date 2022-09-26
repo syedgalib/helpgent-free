@@ -39,6 +39,43 @@ const AddFormStyle = Styled.div`
                 border-radius: 14px;
             }
         }
+        .wpwax-vm-add-form__tab{
+            .wpwax-vm-notice{
+                display: block;
+                /* position: absolute;
+                left: 0;
+                top: 0; */
+                /* height: 675px; */
+                bottom: -14px;
+                font-size: 18px;
+                font-weight: 500;
+                border-radius: 0px;
+                line-height: 1.4;
+                margin: 0;
+                padding: 30px;
+                text-align: center;
+                z-index: 101;
+                color: var(--color-dark);
+                &.wpwax-vm-notice-success{
+                    background-color: rgba(32,201,151,.15);
+                }
+                .wpwax-vm-notice-close{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    text-decoration: none;
+                    span{
+                        font-size: 18px;
+                        color: var(--color-danger);
+                    }
+                }
+                a{
+                    color: rgba(32,201,151,1);
+                    font-weight: 600;
+                    margin: 0 4px;
+                }
+            }
+        }
     }
     .wpwax-vm-form-group{
         margin-bottom: 16px;

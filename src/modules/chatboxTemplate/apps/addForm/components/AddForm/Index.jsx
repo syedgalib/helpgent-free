@@ -197,9 +197,9 @@ const AddForm = () => {
                             loading: false,
                         });
                         setResponse(editSessionResponse)
-                        setTimeout(() => {
-                            setResponse("")
-                        }, "4000")
+                        // setTimeout(() => {
+                        //     setResponse("")
+                        // }, "4000")
                     })
                     .catch((error) => {
                         setState({
@@ -207,9 +207,9 @@ const AddForm = () => {
                             loading: false,
                         });
                         setResponse(error.response);
-                        setTimeout(() => {
-                            setResponse("")
-                        }, "4000");
+                        // setTimeout(() => {
+                        //     setResponse("")
+                        // }, "4000");
                     })
             } else {
                 setState({
@@ -235,9 +235,9 @@ const AddForm = () => {
                         });
                         setResponse(addSessionResponse)
                         dispatch(handleReadForm([formResetData]));
-                        setTimeout(() => {
-                            setResponse("")
-                        }, "4000");
+                        // setTimeout(() => {
+                        //     setResponse("")
+                        // }, "4000");
                     })
                     .catch((error) => {
                         setState({
@@ -245,9 +245,9 @@ const AddForm = () => {
                             loading: false,
                         });
                         setResponse(error.response);
-                        setTimeout(() => {
-                            setResponse("")
-                        }, "4000");
+                        // setTimeout(() => {
+                        //     setResponse("")
+                        // }, "4000");
                     });
             }
         }
@@ -276,6 +276,22 @@ const AddForm = () => {
 
                 <ThankSettings />
             </div>
+        }
+    }
+
+    const getFormResponse = () =>{
+        
+        if(id){
+            if(response){
+                return response.status === 200 ? 
+                <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. Go to <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Form </a> table page.
+                    <a href="#" className="wpwax-vm-notice-close"><span className="dashicons dashicons-no-alt"></span></a>
+                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">try again</a> </span>  
+            }
+        }else{
+            if(response){
+                return response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. Are you want to <a href="">Create</a> ? Or, going to <a href="#">Form </a> table page.</span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">try again</a> </span>
+            }
         }
     }
 
@@ -332,11 +348,15 @@ const AddForm = () => {
                                         getFormContent()
                                     }
                                     {
+                                        // console.log(getFormResponse())
+                                        getFormResponse()
+                                    }
+                                    {/* {
                                         response && response.status === 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-success">{response.data.message}</span> : null
                                     }
                                     {
                                         response && response.status !== 200 ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.data.message}</span> : null
-                                    }
+                                    } */}
                                 </div>
 
                                 <div className="wpwax-vm-add-form__bottom">

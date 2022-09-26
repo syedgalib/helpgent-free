@@ -6056,6 +6056,11 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markRead().then(function (resposne) {
+          var sessionWithMark = outerState.map(function (item, index) {
+            item.total_unread = 0;
+          });
+          console.log(sessionWithMark);
+
           var getSessions = /*#__PURE__*/function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
               var sessionResponse;
@@ -6135,9 +6140,10 @@ var Dropdown = function Dropdown(_ref) {
 
                     case 2:
                       sessionResponse = _context4.sent;
+                      console.log(sessionResponse);
                       return _context4.abrupt("return", sessionResponse);
 
-                    case 4:
+                    case 5:
                     case "end":
                       return _context4.stop();
                   }

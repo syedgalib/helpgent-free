@@ -77,6 +77,10 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 }
                 markRead()
                 .then( resposne =>{
+                    const sessionWithMark = outerState.map((item,index)=>{
+                        item.total_unread = 0;
+                    });
+                    console.log(sessionWithMark);
                     const getSessions = async ()  =>{
                         const sessionResponse = await apiService.getAll('/sessions');
                         return sessionResponse;
@@ -106,6 +110,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 markUnRead().then( resposne =>{
                     const getUnreadSessions = async ()  =>{
                         const sessionResponse = await apiService.getAll('/sessions');
+                        console.log(sessionResponse);
                         return sessionResponse;
                     }
     

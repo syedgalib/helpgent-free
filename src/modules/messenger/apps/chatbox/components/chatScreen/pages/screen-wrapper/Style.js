@@ -17,6 +17,9 @@ const ScreenWrapper = Styled.div`
             .wpwax-vm-form-group textarea.wpwax-vm-form__element{
                 min-height: 400px;
             }
+            .wpwax-vm-btn-block{
+                width: 100%;
+            }
         }
     }
     .wpwax-vm-chatbox-contact{

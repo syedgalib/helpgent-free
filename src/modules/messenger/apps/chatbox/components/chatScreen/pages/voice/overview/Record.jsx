@@ -30,6 +30,7 @@ function Record() {
     });
 
     const stages = {
+        HOME: 'home',
         PERMISSION: 'permission',
         RECORD: 'record',
         BEFORE_SEND: 'before_send',
@@ -197,6 +198,12 @@ function Record() {
         setCurrentStage(stages.RECORD);
     }
 
+    function handleCancelRecording(e,type){
+        e.preventDefault();
+        dispatch(changeChatScreen(type));
+        // setCurrentStage(stages.HOME);
+    }
+
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
@@ -261,8 +268,8 @@ function Record() {
                             className='wpwax-vm-pause-btn'
                             onClick={() => stopRecording()}
                         ></a>
-                        <a href='#' className='wpwax-vm-btn-close'>
-                            x
+                        <a href='#' className='wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
+                            <span className="dashicons dashicons-no-alt"></span>
                         </a>
                     </div>
                 </div>

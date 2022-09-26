@@ -17,7 +17,7 @@ function Container(props) {
 			<div className="wpwax-vm-chatbox-container">
 				<div className="wpwax-vm-chatbox-btnlist">
 					<button onClick={handleClose} className="wpwax-vm-chatbox-btn-close">
-						x
+						<span className="dashicons dashicons-no-alt"></span>
 					</button>
 				</div>
 

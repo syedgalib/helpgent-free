@@ -14742,7 +14742,9 @@ function Container(props) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
           onClick: handleClose,
           className: "wpwax-vm-chatbox-btn-close",
-          children: "x"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "dashicons dashicons-no-alt"
+          })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "wpwax-vm-h-100pr",
@@ -15899,6 +15901,7 @@ function Record() {
       attachmentForm = _useSelector.attachmentForm;
 
   var stages = {
+    HOME: 'home',
     PERMISSION: 'permission',
     RECORD: 'record',
     BEFORE_SEND: 'before_send',
@@ -16152,6 +16155,11 @@ function Record() {
     setCurrentStage(stages.RECORD);
   }
 
+  function handleCancelRecording(e, type) {
+    e.preventDefault();
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_10__.changeChatScreen)(type)); // setCurrentStage(stages.HOME);
+  }
+
   if (currentStage === stages.PERMISSION) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
@@ -16206,7 +16214,12 @@ function Record() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-close",
-            children: "x"
+            onClick: function onClick(e) {
+              return handleCancelRecording(e, 'home');
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+              className: "dashicons dashicons-no-alt"
+            })
           })]
         })]
       })]

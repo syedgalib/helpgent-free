@@ -14565,7 +14565,11 @@ function Theme_2() {
 
   function handleChatAction(event, type) {
     event.preventDefault();
-    greetVideo.current.pause();
+
+    if (greetVideo.current) {
+      greetVideo.current.pause();
+    }
+
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_4__.changeChatScreen)(type));
   }
 

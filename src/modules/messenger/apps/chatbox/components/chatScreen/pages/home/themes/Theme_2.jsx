@@ -91,7 +91,9 @@ function Theme_2() {
 
     function handleChatAction(event,type) {
         event.preventDefault();
-        greetVideo.current.pause();
+        if(greetVideo.current){
+            greetVideo.current.pause();
+        }
         dispatch(changeChatScreen(type));
     }
 

@@ -77,6 +77,9 @@ const ScreenWrapper = Styled.div`
             position: relative;
             z-index: 100
         }
+        .wpwax-vm-btn-block{
+            width: auto;
+        }
     }
     .wpwax-vm-record-send-success__content {
         min-height: 300px;

@@ -133,15 +133,15 @@ msgstr ""
 msgid "The entry already exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:489, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:622, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:687
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:495, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:629, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:694
 msgid "The session ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:633, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:640, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:698, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:705
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:640, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:647, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:705, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:712
 msgid "The term ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:915
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:927
 msgid "The session does not exist."
 msgstr ""
 
@@ -338,15 +338,15 @@ msgstr ""
 msgid "Limit result set to resources with a specific role."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:421
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:425
 msgid "No resource exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:503
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:509
 msgid "Nothing to add or remove."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:747, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:825
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:754, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:835
 msgid "You must have to be logged in"
 msgstr ""
 

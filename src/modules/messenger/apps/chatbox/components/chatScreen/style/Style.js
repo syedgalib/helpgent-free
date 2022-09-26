@@ -162,7 +162,7 @@ const ChatboxForm = Styled.div`
                     opacity: .9;
                     background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
                     content: '';
-                    z-index: 10;
+                    z-index: 101;
                 }
                 .wpwax-vm-chatbox-inner-action{
                     display: flex;
@@ -190,6 +190,7 @@ const ChatboxForm = Styled.div`
                 .wpwax-vm-chatbox-img{
                     position: relative;
                     height: 330px;
+                    width: 100%;
                     z-index: 10;
                 }
                 .wpwax-vm-btn-play{

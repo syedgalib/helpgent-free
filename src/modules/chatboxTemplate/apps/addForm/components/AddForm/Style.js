@@ -47,12 +47,12 @@ const AddFormStyle = Styled.div`
                 top: 0; */
                 /* height: 675px; */
                 bottom: -14px;
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 500;
                 border-radius: 0px;
-                line-height: 1.4;
+                line-height: 1.5;
                 margin: 0;
-                padding: 30px;
+                padding: 20px 30px;
                 text-align: center;
                 z-index: 101;
                 color: var(--color-dark);
@@ -61,9 +61,11 @@ const AddFormStyle = Styled.div`
                 }
                 .wpwax-vm-notice-close{
                     position: absolute;
-                    top: 10px;
+                    top: 12px;
                     right: 10px;
                     text-decoration: none;
+                    margin: 0;
+                    line-height: 1;
                     span{
                         font-size: 18px;
                         color: var(--color-danger);
@@ -334,6 +336,21 @@ const AddFormStyle = Styled.div`
         }
         .wpwax-vm-notice{
             margin: 0 0 15px;
+        }
+    }
+    .wpwax-vm-add-form__tab{
+        .wpwax-vm-add-form__content{
+            .wpwax-vm-notice{
+                display: flex;
+                font-size: 14px;
+                border-radius: 8px;
+                padding: 0 15px;
+                margin: 0 0 15px;
+                bottom: 0;
+                &.wpwax-vm-notice-danger{
+                    color: var(--color-danger);
+                }
+            }
         }
     }
     .wpwax-vm-add-form__bottom{

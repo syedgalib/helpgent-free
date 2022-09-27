@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
+import { WaveformVisualizer, WaveformVisualizerTheme } from 'react-audio-visualizers';
 import { RecorderWrap } from '../Style';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import play from 'Assets/svg/icons/play.svg';
 import pause from 'Assets/svg/icons/pause.svg';
+import audioRangeActive from 'Assets/svg/audio-active.svg';
+import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
@@ -41,7 +44,10 @@ function Record() {
     const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
+    const [recordedAudioSteam, setRecordedAudioSteam] = useState(null);
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
+    const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+    const [audioDuration, setAudioDuration] = useState(0);
     const [isRecording, setIsRecording] = useState(false);
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
@@ -128,10 +134,17 @@ function Record() {
             });
 
             window.wpwaxCSRecorder.startRecording();
+            
+            
+            // videoStreemRef.current.play();
+
+            console.log(window.wpwaxCSRecorder)
 
             setRecordedTimeInSecond(0);
+            setRecordedAudioSteam(window.wpwaxCSAudioStream);
             setIsRecording(true);
             startTimer();
+            
         } catch (error) {
             console.log({ error });
 
@@ -156,12 +169,20 @@ function Record() {
         });
     }
 
-    function startTimer() {
+    async function startTimer() {
         window.wpwaxCSAudioTimer = setInterval(function () {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
+            
         }, 1000);
+        
+        // setInterval(function () {
+        //     window.wpwaxCSRecorder.stopRecording(function (url) {
+        //         let blob = window.wpwaxCSRecorder.getBlob();
+        //         console.log(blob)
+        //     });
+        // }, 1000);
     }
 
     function stopTimer() {
@@ -204,6 +225,11 @@ function Record() {
         // setCurrentStage(stages.HOME);
     }
 
+    const getPlayedTimeInPercent = ()=>{
+        const r = audioCurrentTime / audioDuration;
+        return isNaN(r) ? 0 : r * 100;
+    }
+
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
@@ -241,6 +267,13 @@ function Record() {
                         {formatSecondsAsCountdown(recordedTimeInSecond)}
                     </span>
                 </span>
+                {/* {
+                    isRecording ? 
+                    <WaveformVisualizer
+                        audio={recordedAudioSteam}
+                        theme={WaveformVisualizerTheme.squaredBars}
+                    /> : null
+                } */}
                 <div className='wpwax-vm-record-staging__bottom'>
                     {!isRecording ? (
                         <p>
@@ -277,7 +310,7 @@ function Record() {
         );
     } else if (currentStage === stages.BEFORE_SEND) {
         return (
-            <RecorderWrap>
+            <RecorderWrap className='wpwax-vm-record-ready'>
                 <div className=''>
                     <audio
                         ref={audioRef}
@@ -285,21 +318,73 @@ function Record() {
                         onPlay={() => setIsPlayingPreview(true)}
                         onPause={() => setIsPlayingPreview(false)}
                         onEnded={() => setIsPlayingPreview(false)}
+                        onTimeUpdate={(event) => {
+                            setAudioCurrentTime(event.target.currentTime);
+                        }}
+                        onLoadedData={(event) => {
+                            setAudioDuration(event.target.duration);
+                        }}
                     ></audio>
                 </div>
 
                 <div className='wpwax-vm-record-ready__top'>
-                    <div
-                        className='wpwax-vm-recorded-preview wpax-vm-preview-bg'
-                        style={{ backgroundImage: `url("${previewBg}")` }}
-                    ></div>
                     <a
                         href='#'
                         onClick={togglePlayPauseAudio}
-                        className='wpwax-vm-recorded-play'
+                        className={isPlayingPreview? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn'}
                     >
                         <ReactSVG src={isPlayingPreview ? pause : play} />
                     </a>
+                    {/* <WaveformVisualizer
+                        audio={recordedAudioURL}
+                        colors={['#009688', '#26a69a']}
+                        backgroundColor="white"
+                        theme={WaveformVisualizerTheme.squaredBars}
+                    /> */}
+                    <span className="wpwax-vm-audio-range">
+                        <span
+                            style={{
+                                display: 'block',
+                                position: 'relative',
+                                margin: '5px',
+                                width: '100%',
+                                height: '60px',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeInactive + ' )',
+                                    zIndex: 0,
+                                }}
+                            ></span>
+                            <span
+                                style={{
+                                    width: getPlayedTimeInPercent() + '%',
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeActive + ' )',
+                                    zIndex: 1,
+                                    transition: 'all 300ms ease-in-out 0s',
+                                }}
+                            ></span>
+                        </span>
+                    </span>
                 </div>
                 <div className='wpwax-vm-record-ready__bottom'>
                     <h4>Ready to Send ?</h4>

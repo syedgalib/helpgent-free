@@ -135,14 +135,13 @@ function Record() {
                 disableLogs: true,
             });
 
-            console.log(isRecording);
 
             if(isRecording){
                 window.wpwaxCSRecorder.pauseRecording();
                 setIsRecording(false);
                 stopTimer();
             }else{
-                window.wpwaxCSRecorder.startRecording();
+                await window.wpwaxCSRecorder.startRecording();
                 setIsRecording(true);
                 startTimer();
             }
@@ -174,9 +173,8 @@ function Record() {
         });
     }
 
-    async function startTimer() {
+    function startTimer() {
         window.wpwaxCSAudioTimer = setInterval(function () {
-            
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
@@ -228,6 +226,21 @@ function Record() {
         const r = audioCurrentTime / audioDuration;
         return isNaN(r) ? 0 : r * 100;
     }
+
+    const getRightBtnContent = ()=>{
+        if(!isRecording && recordedTimeInSecond === 0){
+            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
+                <span className="dashicons dashicons-no-alt"></span>
+            </a>
+        }else if(isRecording && recordedTimeInSecond === 0){
+            return null;
+        }else if(isRecording && recordedTimeInSecond > 0){
+            return null;
+        }else if(!isRecording && recordedTimeInSecond > 0){
+            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-send' onClick={e=>handleCancelRecording(e,'home')}></a>
+        }
+    }
+
 
     if (currentStage === stages.PERMISSION) {
         return (
@@ -298,13 +311,16 @@ function Record() {
                             className='wpwax-vm-pause-btn'
                             onClick={() => stopRecording()}
                         ></a>
-                        <a href='#' className={recordedTimeInSecond >= 0 ? 'wpwax-vm-record-btn-right wpwax-vm-btn-close' : 'wpwax-vm-record-btn-rightwpwax-vm-btn-send'} onClick={e=>handleCancelRecording(e,'home')}>
+                        {
+                            getRightBtnContent()
+                        }
+                        {/* <a href='#' className={recordedTimeInSecond <= 0 ? 'wpwax-vm-record-btn-right wpwax-vm-btn-close' : 'wpwax-vm-record-btn-right wpwax-vm-btn-send'} onClick={e=>handleCancelRecording(e,'home')}>
                             
                             {
-                                recordedTimeInSecond >= 0 ? <span className="dashicons dashicons-no-alt"></span> : null
+                                recordedTimeInSecond <= 0 ? <span className="dashicons dashicons-no-alt"></span> : null
                             }
                             
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             </RecorderWrap>

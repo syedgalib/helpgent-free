@@ -76,7 +76,8 @@ const RecorderWrap = Styled.div`
                     border-radius: 50%;
                     background-color: #FC495D;
                 }
-                .wpwax-vm-btn-close{
+                .wpwax-vm-record-btn-right{
+                    position: relative;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -90,6 +91,20 @@ const RecorderWrap = Styled.div`
                     background-color: #B4B4B4;
                     text-decoration: none;
                     color: var(--color-white);
+                    &.wpwax-vm-btn-send{
+                        background-color: #FC495D;
+                        &:after{
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%,-50%);
+                            width: 16px;
+                            height: 16px;
+                            border-radius: 4px;
+                            content: '';
+                            background-color: var(--color-white);
+                        }
+                    }
                 }
                 &.wpwax-vm-record-start{
                     .wpwax-vm-record-btn{

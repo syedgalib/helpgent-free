@@ -17,6 +17,7 @@ const RecorderWrap = Styled.div`
     }
     &.wpwax-vm-record-staging{
         padding: 80px 25px;
+        min-height: 595px;
         .wpwax-vm-timer{
             span{
                 font-size: 50px;
@@ -25,12 +26,15 @@ const RecorderWrap = Styled.div`
             }
             &.wpwax-vm-timer-start{
                 span{
-                    color: var(--color-danger);
+                    color: #FC495D;
                 }
             }
         }
         .wpwax-vm-record-staging__bottom{
             padding-top: 180px;
+            p{
+                min-height: 32px;
+            }
             .wpwax-vm-record-staging__bottom--action{
                 position: relative;
                 .wpwax-vm-pause-btn{
@@ -50,7 +54,19 @@ const RecorderWrap = Styled.div`
                     }
                 }
                 .wpwax-vm-record-btn{
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    >div{
+                        line-height: 1;
+                        svg{
+                            width: 36px;
+                            height: 36px;
+                            path{
+                                fill: var(--color-white);
+                            }
+                        }
+                    }
                 }
                 .wpwax-vm-record-btn,
                 .wpwax-vm-pause-btn{
@@ -58,7 +74,7 @@ const RecorderWrap = Styled.div`
                     height: 110px;
                     margin: 0 auto;
                     border-radius: 50%;
-                    background-color: var(--color-danger);
+                    background-color: #FC495D;
                 }
                 .wpwax-vm-btn-close{
                     display: flex;

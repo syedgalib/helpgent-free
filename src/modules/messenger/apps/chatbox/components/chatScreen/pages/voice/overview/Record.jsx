@@ -8,6 +8,8 @@ import play from 'Assets/svg/icons/play.svg';
 import pause from 'Assets/svg/icons/pause.svg';
 import audioRangeActive from 'Assets/svg/audio-active.svg';
 import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
+import mic from 'Assets/svg/icons/mice.svg';
+import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
 import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
@@ -114,8 +116,8 @@ function Record() {
         }
     }
 
-    // startRecording
-    async function startRecording() {
+    // Toggle Recording
+    async function toggleRecording() {
         try {
             window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
@@ -133,17 +135,20 @@ function Record() {
                 disableLogs: true,
             });
 
-            window.wpwaxCSRecorder.startRecording();
-            
-            
-            // videoStreemRef.current.play();
+            console.log(isRecording);
 
-            console.log(window.wpwaxCSRecorder)
+            if(isRecording){
+                window.wpwaxCSRecorder.pauseRecording();
+                setIsRecording(false);
+                stopTimer();
+            }else{
+                window.wpwaxCSRecorder.startRecording();
+                setIsRecording(true);
+                startTimer();
+            }
 
-            setRecordedTimeInSecond(0);
+            setRecordedTimeInSecond(recordedTimeInSecond);
             setRecordedAudioSteam(window.wpwaxCSAudioStream);
-            setIsRecording(true);
-            startTimer();
             
         } catch (error) {
             console.log({ error });
@@ -171,18 +176,12 @@ function Record() {
 
     async function startTimer() {
         window.wpwaxCSAudioTimer = setInterval(function () {
+            
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
             
         }, 1000);
-        
-        // setInterval(function () {
-        //     window.wpwaxCSRecorder.stopRecording(function (url) {
-        //         let blob = window.wpwaxCSRecorder.getBlob();
-        //         console.log(blob)
-        //     });
-        // }, 1000);
     }
 
     function stopTimer() {
@@ -282,27 +281,29 @@ function Record() {
                             recording!
                         </p>
                     ) : (
-                        ''
+                        <p></p>
                     )}
                     <div
-                        className={
-                            !isRecording
-                                ? 'wpwax-vm-record-staging__bottom--action'
-                                : 'wpwax-vm-record-staging__bottom--action wpwax-vm-record-start'
-                        }
+                        className='wpwax-vm-record-staging__bottom--action'
                     >
                         <a
                             href='#'
                             className='wpwax-vm-record-btn'
-                            onClick={() => startRecording()}
-                        ></a>
+                            onClick={() => toggleRecording()}
+                        >
+                            <ReactSVG src={!isRecording ? mic : pauseSolid} />
+                        </a>
                         <a
                             href='#'
                             className='wpwax-vm-pause-btn'
                             onClick={() => stopRecording()}
                         ></a>
-                        <a href='#' className='wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
-                            <span className="dashicons dashicons-no-alt"></span>
+                        <a href='#' className={recordedTimeInSecond >= 0 ? 'wpwax-vm-record-btn-right wpwax-vm-btn-close' : 'wpwax-vm-record-btn-rightwpwax-vm-btn-send'} onClick={e=>handleCancelRecording(e,'home')}>
+                            
+                            {
+                                recordedTimeInSecond >= 0 ? <span className="dashicons dashicons-no-alt"></span> : null
+                            }
+                            
                         </a>
                     </div>
                 </div>

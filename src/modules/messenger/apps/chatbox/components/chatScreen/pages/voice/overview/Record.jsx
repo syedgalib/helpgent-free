@@ -117,7 +117,9 @@ function Record() {
     }
 
     // Toggle Recording
-    async function toggleRecording() {
+    async function toggleRecording(e) {
+        e.preventDefault();
+        
         try {
             window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
@@ -132,22 +134,34 @@ function Record() {
                 type: 'audio',
                 mimeType: 'audio/wav',
                 recorderType: RecordRTC.StereoAudioRecorder,
-                disableLogs: true,
+                timeSlice: 1000, // pass this parameter
+                ondataavailable: function(blob) {
+                    console.log(blob);
+                }
+                // disableLogs: true,
+                // onStateChanged: function(state) {
+                //     console.log('ondataavailable', state);
+                // },
             });
-
-
-            if(isRecording){
-                window.wpwaxCSRecorder.pauseRecording();
-                setIsRecording(false);
-                stopTimer();
-            }else{
+            console.log(window.wpwaxCSRecorder)
+            // await window.wpwaxCSRecorder.startRecording();
+            if(recordedTimeInSecond === 0){
                 await window.wpwaxCSRecorder.startRecording();
                 setIsRecording(true);
                 startTimer();
+                console.log(window.wpwaxCSRecorder);
+            }else{
+                //await window.wpwaxCSRecorder.startRecording();
+                if(isRecording){
+                    // console.log(RecordRTC.pauseRecording());
+                    setIsRecording(false);
+                    stopTimer();
+                }else{
+                   window.wpwaxCSRecorder.resumeRecording();
+                    setIsRecording(true);
+                    startTimer();
+                }
             }
-
-            setRecordedTimeInSecond(recordedTimeInSecond);
-            setRecordedAudioSteam(window.wpwaxCSAudioStream);
             
         } catch (error) {
             console.log({ error });
@@ -156,21 +170,26 @@ function Record() {
         }
     }
 
-    // stopRecording
-    function stopRecording() {
-        stopTimer();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSRecorder.getBlob();
+    // handle Send recording
+    async function handleSendRecording(e) {
+        // stopTimer();
+        e.preventDefault();
+        // window.wpwaxCSRecorder.resumeRecording();
+        const test = window.wpwaxCSRecorder.getBlob();
+        console.log(test);
+        // window.wpwaxCSRecorder.stopRecording(function (url) {
+        //     let blob = window.wpwaxCSRecorder.getBlob();
 
-            window.wpwaxCSAudioStream
-                .getTracks()
-                .forEach((track) => track.stop());
+        //     console.log(blob,url);
+        //     window.wpwaxCSAudioStream
+        //         .getTracks()
+        //         .forEach((track) => track.stop());
 
-            setRecordedAudioBlob(blob);
-            setRecordedAudioURL(url);
-            setIsRecording(false);
-            setCurrentStage(stages.BEFORE_SEND);
-        });
+        //     setRecordedAudioBlob(blob);
+        //     setRecordedAudioURL(url);
+        //     // setIsRecording(false);
+        //     setCurrentStage(stages.BEFORE_SEND);
+        // });
     }
 
     function startTimer() {
@@ -237,7 +256,7 @@ function Record() {
         }else if(isRecording && recordedTimeInSecond > 0){
             return null;
         }else if(!isRecording && recordedTimeInSecond > 0){
-            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-send' onClick={e=>handleCancelRecording(e,'home')}></a>
+            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-send' onClick={e=>handleSendRecording(e)}></a>
         }
     }
 
@@ -289,8 +308,8 @@ function Record() {
                 <div className='wpwax-vm-record-staging__bottom'>
                     {!isRecording ? (
                         <p>
-                            Tap to{' '}
-                            <span className='wpwax-vm-highlighted'>Start</span>{' '}
+                            Tap to
+                            <span className='wpwax-vm-highlighted'>Start</span>
                             recording!
                         </p>
                     ) : (
@@ -302,15 +321,10 @@ function Record() {
                         <a
                             href='#'
                             className='wpwax-vm-record-btn'
-                            onClick={() => toggleRecording()}
+                            onClick={(e) => toggleRecording(e)}
                         >
                             <ReactSVG src={!isRecording ? mic : pauseSolid} />
                         </a>
-                        <a
-                            href='#'
-                            className='wpwax-vm-pause-btn'
-                            onClick={() => stopRecording()}
-                        ></a>
                         {
                             getRightBtnContent()
                         }

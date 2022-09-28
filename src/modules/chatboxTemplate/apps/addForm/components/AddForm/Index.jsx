@@ -31,6 +31,7 @@ const AddForm = () => {
         btnRadius,
         primaryBtnColor,
         primaryBtnBg,
+        playBtnBg,
         thankTitleColor,
         thankTitleFontSize,
         thankDescColor,
@@ -54,6 +55,7 @@ const AddForm = () => {
             btnRadius: state.form.data[0].options.button_border_radius,
             primaryBtnColor: state.form.data[0].options.primary_button_font_color,
             primaryBtnBg: state.form.data[0].options.primary_button_background_color,
+            playBtnBg: state.form.data[0].options.play_btn_background,
             thankTitleColor: state.form.data[0].options.thank_page_title_color,
             thankTitleFontSize: state.form.data[0].options.thank_page_title_font_size,
             thankDescColor: state.form.data[0].options.thank_page_description_color,
@@ -76,8 +78,9 @@ const AddForm = () => {
     document.documentElement.style.setProperty("--font-size-greet", greetSize);
     document.documentElement.style.setProperty("--font-size-chat", chatSize);
     document.documentElement.style.setProperty("--btn-radius", btnRadius + 'px');
-    document.documentElement.style.setProperty("--primary-btn-color", primaryBtnColor);
-    document.documentElement.style.setProperty("--primary-btn-bg", primaryBtnBg);
+    document.documentElement.style.setProperty("--primary-button-color", primaryBtnColor);
+    document.documentElement.style.setProperty("--primary-button-bg", primaryBtnBg);
+    document.documentElement.style.setProperty("--play-button-bg", playBtnBg);
     document.documentElement.style.setProperty("--color-thank-title", thankTitleColor);
     document.documentElement.style.setProperty("--font-size-thank-title", thankTitleFontSize);
     document.documentElement.style.setProperty("--color-thank-desc", thankDescColor);

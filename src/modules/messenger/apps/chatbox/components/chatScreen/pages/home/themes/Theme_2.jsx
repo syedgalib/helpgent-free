@@ -190,8 +190,11 @@ function Theme_2() {
                         } 
                         </div>
                     }
-
-                    { templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>{templateOptions.footer_message}</p> }
+                    <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>
+                        {
+                            templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
+                        }
+                    </p>
                     
                     <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>

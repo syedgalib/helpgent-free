@@ -35,7 +35,7 @@ const formData = [
         "thank_page_title_font_size":"XX-large",
         "thank_page_description_font_size":"Medium",
         "thank_page_description_color":"#000000",
-        "play_btn_background": "#2271b1",
+        "play_btn_background": "#ffffff",
         "page_background_color": "#ffffff",
         "page_header_background_color": "#6551f2",
         "thank_page_cta_font_color":"#23030308",

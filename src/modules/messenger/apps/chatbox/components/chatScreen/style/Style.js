@@ -109,6 +109,7 @@ const ChatboxForm = Styled.div`
             opacity: .8;
             margin: 12px 0 8px;
             text-align: center;
+            min-height: 20px;
             color: var(--color-white);
         }
         .wpwax-vm-chatbox-footer__bottom{

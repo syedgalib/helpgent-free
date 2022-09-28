@@ -79,6 +79,9 @@ const ScreenWrapper = Styled.div`
             border-color: transparent;
             background-color: var(--color-dark);
             color: var(--color-white);
+            >div{
+                line-height: 1;
+            }
         }
         .wpwax-vm-chatbox-header,
         .wpwax-vm-chatbox-inner,

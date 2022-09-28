@@ -104,11 +104,7 @@ const PreviewOne = ({ previewStage }) => {
                                             </a>)
                                     }
                                 </div>
-                                {
-                                    formOption.show_footer ?
-                                        <p className="wpwax-vm-preview-footer__text">{formOption.footer_message}</p>
-                                        : null
-                                }
+                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
                             </div>
                         </div>
                     </>

@@ -73,7 +73,7 @@ const PreviewTwo = ({ previewStage }) => {
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {
-                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img" style={{ backgroundImage: `url("${formOption.greet_image_url}")` }}></div> : null
+                                    formOption.greet_image_url !== '' ? <div className="wpwax-vm-preview-img"></div> : null
                                 }
                                 {
                                     formOption.greet_video_url !== '' ?
@@ -97,18 +97,13 @@ const PreviewTwo = ({ previewStage }) => {
                                 <div className="wpwax-vm-preview-footer__actions">
                                     {
                                         formOption.can_replay_in.map((item, index) =>
-                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" style={{ borderRadius: `${formOption.button_border_radius}px`, backgroundColor: `${formOption.button_color}`, borderColor: `${formOption.button_color}` }} key={index}>
+                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" key={index}>
                                                 {iconContent(item)}
                                                 {item === "screen_recording" ? "Screen Recording" : item}
                                             </a>)
                                     }
                                 </div>
-                                {
-                                    formOption.show_footer ?
-                                        <p className="wpwax-vm-preview-footer__text">{formOption.footer_message}</p>
-                                        :
-                                        ''
-                                }
+                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
                             </div>
                         </div>
                     </>

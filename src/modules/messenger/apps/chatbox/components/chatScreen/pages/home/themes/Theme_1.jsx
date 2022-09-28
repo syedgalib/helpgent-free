@@ -10,6 +10,10 @@ import { formatTimeAsCountdown } from 'Helper/formatter';
 
 import { ChatboxForm } from '../../../style/Style';
 import expander from "Assets/svg/icons/expand.svg";
+import miceIcon from 'Assets/svg/icons/mice.svg';
+import recordIcon from 'Assets/svg/icons/s-record.svg';
+import textIcon from 'Assets/svg/icons/text.svg';
+import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
 
 function Theme_1() {
@@ -98,6 +102,18 @@ function Theme_1() {
         dispatch( changeChatScreen(type) );
     }
 
+    const iconContent = (button) => {
+        if (button === 'video') {
+            return <ReactSVG src={videoIcon} />
+        } else if (button === 'screenRecord') {
+            return <ReactSVG src={recordIcon} />
+        } else if (button === 'audio') {
+            return <ReactSVG src={miceIcon} />
+        } else if (button === 'text') {
+            return <ReactSVG src={textIcon} />
+        }
+    }
+
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">
@@ -167,13 +183,23 @@ function Theme_1() {
                                     return '';
                                 }
     
-                                return <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>{item.label}</a>
+                                return (
+                                    <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>
+                                        {iconContent(item.type)}
+                                        {item.label}
+                                    </a>
+                                )
+                                
                             })
                         } 
                         </div>
                     }
 
-                    {  templateOptions.show_footer && templateOptions.footer_message && <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>{templateOptions.footer_message}</p> }
+                    <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>
+                        {
+                            templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
+                        }
+                    </p>
                     
                     <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                 </div>

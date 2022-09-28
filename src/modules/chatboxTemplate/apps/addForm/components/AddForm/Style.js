@@ -213,6 +213,7 @@ const AddFormStyle = Styled.div`
                         min-width: 70px;
                     }
                     input{
+                        min-width: 208px;
                         text-align: center;
                     }
                 }

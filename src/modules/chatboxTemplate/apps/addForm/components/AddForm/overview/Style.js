@@ -158,7 +158,7 @@ const PreviewWrap = Styled.div`
         margin: 0 auto;
         border-radius: 50%;
         text-decoration: none;
-        background-color: var(--color-white);
+        background-color: var(--play-button-bg);
         i{
             width: 30px;
             height: 30px;
@@ -203,7 +203,7 @@ const PreviewWrap = Styled.div`
                     margin: 0 0 4px;
                     path,
                     circle{
-                        fill: var(--primary-btn-color);
+                        fill: var(--primary-button-color);
                     }
                 }
             }
@@ -213,6 +213,7 @@ const PreviewWrap = Styled.div`
             font-weight: 500;
             opacity: .8;
             margin: 18px 0 0;
+            min-height: 20px;
             text-align: center;
         }
     }
@@ -328,6 +329,7 @@ const PreviewWrap = Styled.div`
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
+                min-height: 198px;
                 background-color: var(--color-page-bg);
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;

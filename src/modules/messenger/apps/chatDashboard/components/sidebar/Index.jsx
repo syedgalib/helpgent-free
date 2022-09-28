@@ -9,6 +9,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ReactSVG } from 'react-svg';
+import { DebounceInput } from 'react-debounce-input';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Dropdown from 'Components/formFields/Dropdown.jsx';
@@ -63,6 +64,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         tagLoader: false,
         addTagModalOpen: false,
     });
+
+	const [sessionSearchTerm, setSessionSearchTerm] = useState('');
 
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
@@ -147,10 +150,15 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     };
 
     const handleSessionSearch = (event) => {
-        let keyword = event.target.value;
-        const searchArg = {
-            search: keyword,
+		setSessionSearchTerm(event.target.value)
+    };
+
+	// Session search query.
+	useEffect(() => {
+		const searchArg = {
+            search: sessionSearchTerm,
         };
+
         const fetchSearchNameMail = async () => {
             const searchByNameMailResponse = await apiService.getAllByArg(
                 '/sessions',
@@ -172,7 +180,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
-    };
+	}, [sessionSearchTerm]);
 
     const fetchMoreData = () => {
         const pageArg = {
@@ -271,13 +279,21 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             <div className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
                             </div>
-                            <input
+							<DebounceInput
+								className='wpwax-vm-form__element'
+								id='wpwax-vm-filter-search'
+								placeholder='Search'
+								minLength={2}
+								debounceTimeout={300}
+								value={sessionSearchTerm}
+								onChange={handleSessionSearch} />
+
+                            {/* <input
                                 type='text'
-                                className='wpwax-vm-form__element'
-                                id='wpwax-vm-filter-search'
-                                placeholder='Search'
+
+								value={sessionSearchTerm}
                                 onChange={handleSessionSearch}
-                            />
+                            /> */}
                             <a
                                 href='#'
                                 className='wpwax-vm-search-toggle'

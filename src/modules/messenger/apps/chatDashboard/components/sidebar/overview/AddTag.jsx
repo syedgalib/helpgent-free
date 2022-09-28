@@ -332,7 +332,7 @@ const AddTag = (props) => {
     let users = [];
     if (currentSession.length !== 0) {
         users = currentSession[0].users.filter(
-            (p) => p.id !== parseInt(currentUser.ID)
+            (p) => currentUser && p.id !== parseInt(currentUser.ID)
         );
     }
     let images = [];

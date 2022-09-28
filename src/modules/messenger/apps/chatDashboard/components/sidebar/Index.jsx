@@ -53,7 +53,7 @@ const filterDropdown = [
     },
 ];
 
-const Sidebar = ({sessionState,setSessionState})=> {
+const Sidebar = ({ sessionState, setSessionState }) => {
     const ref = useRef(null);
     const [tagState, setTagState] = useState({
         allTags: [],
@@ -354,13 +354,15 @@ const Sidebar = ({sessionState,setSessionState})=> {
                             >
                                 {sessionList.map((item, index) => {
                                     const users = item.users.filter(
-                                        (p) => p.id !== parseInt(currentUser.ID)
+                                        (p) =>
+                                            currentUser &&
+                                            p.id !== parseInt(currentUser.ID)
                                     );
                                     const selectedUSer = users.filter(
                                         (select) =>
                                             select.roles[0] === 'subscriber'
                                     );
-                                    
+
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
@@ -517,6 +519,6 @@ const Sidebar = ({sessionState,setSessionState})=> {
             />
         </SidebarWrap>
     );
-}
+};
 
 export default Sidebar;

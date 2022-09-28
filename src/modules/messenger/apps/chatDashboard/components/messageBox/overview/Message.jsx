@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 import http from 'Helper/http.js';
 
 function Message({ data, currentUser, containerScrollMeta }) {
-    const isMine = parseInt(currentUser.id) === parseInt(data.user.id);
-
+    const isMine =
+        currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
     const audioRef = useRef();
     const videoRef = useRef();
     const container = useRef();

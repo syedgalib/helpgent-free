@@ -747,8 +747,8 @@ function get_admin_user() {
 function get_current_user( $return_wp_user = false ) {
 	$current_user = get_user_by( 'id', get_current_user_id() );
 
-	if ( is_wp_error( $current_user ) ) {
-		return [];
+	if ( empty( $current_user ) ) {
+		return false;
 	}
 
 	if ( $return_wp_user ) {
@@ -898,9 +898,14 @@ function search_users( $keyword = '', $fields = [] ) {
  * Prepare User Data
  *
  * @param WP_User $user
- * @return array User
+ * @return array|false User
  */
 function prepare_user_data( $user, $fields = [] ) {
+
+	if ( empty( $user ) ) {
+		return false;
+	}
+
 	$user_info = [];
 
 	$default_fields = [ 'id', 'email','name', 'first_name', 'last_name', 'roles', 'avater' ];

@@ -124,7 +124,7 @@ class Message_Model extends DB_Model {
 				}
 
 				// ---> C2
-                if ( ! empty( $value['condition'] && ! empty( $value['rules'] ) ) ) {
+                if ( ! empty( $value['condition'] ) && ! empty( $value['rules'] ) ) {
 
 					$_where     = '';
 					$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';

@@ -19,10 +19,9 @@ import videoIcon from 'Assets/svg/icons/video-camera.svg';
 function Theme_1() {
     const dispatch = useDispatch();
 
-    const { templateOptions, templateStyles, supportedReplayTypes } = useSelector( state => {
+    const { templateOptions, supportedReplayTypes } = useSelector( state => {
         return {
 			templateOptions: state.chatboxTemplate.template.options,
-			templateStyles: state.chatboxTemplate.templateStyles,
 			supportedReplayTypes: state.chatboxTemplate.supportedReplayTypes,
         };
     });
@@ -149,14 +148,14 @@ function Theme_1() {
 
                     { 
                         templateOptions.greet_message && 
-                        <h4 className="wpwax-vm-chatbox-title" style={ templateStyles.greetMessageStyle }>
+                        <h4 className="wpwax-vm-chatbox-title">
                             { templateOptions.greet_message }
                         </h4> 
                     }
                     
                     { 
                         templateOptions.description && 
-                        <span className="wpwax-vm-chatbox-subtitle" style={ { color: templateStyles.primaryColor } }>
+                        <span className="wpwax-vm-chatbox-subtitle">
                             { templateOptions.description }
                         </span> 
                     }
@@ -166,13 +165,13 @@ function Theme_1() {
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
 
                     {
-                        templateOptions.greet_video_url !== "" ? <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i style={ { color: templateStyles.primaryColor } } className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a> : null
+                        templateOptions.greet_video_url !== "" ? <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a> : null
                     }
 
                 </div>
 
                 <div className="wpwax-vm-chatbox-footer">
-                    { templateOptions.chat_options_title && <h5 style={ templateStyles.chatTitleStyle } className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_options_title }</h5> }
+                    { templateOptions.chat_options_title && <h5 className="wpwax-vm-chatbox-footer__title">{ templateOptions.chat_options_title }</h5> }
 
                     {
                         canReplay() && 
@@ -184,7 +183,7 @@ function Theme_1() {
                                 }
     
                                 return (
-                                    <a key={item.type} href="#" style={ templateStyles.primaryButtonStyle } className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>
+                                    <a key={item.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>
                                         {iconContent(item.type)}
                                         {item.label}
                                     </a>
@@ -195,7 +194,7 @@ function Theme_1() {
                         </div>
                     }
 
-                    <p className="wpwax-vm-chatbox-footer__text" style={ { color: templateStyles.primaryColor } }>
+                    <p className="wpwax-vm-chatbox-footer__text">
                         {
                             templateOptions.show_footer && templateOptions.footer_message && templateOptions.footer_message
                         }

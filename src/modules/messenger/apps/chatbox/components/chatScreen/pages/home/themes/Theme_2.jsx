@@ -125,7 +125,7 @@ function Theme_2() {
 
                     { 
                         templateOptions.description && 
-                        <span className="wpwax-vm-chatbox-subtitle">
+                        <span className="wpwax-vm-chatbox-description">
                             { templateOptions.description }
                         </span> 
                     }

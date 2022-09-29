@@ -77,8 +77,12 @@ const ScreenWrapper = Styled.div`
             cursor: pointer;
             z-index: 102;
             border-color: transparent;
+            transition: background-color .3s ease-in-out;
             background-color: var(--color-dark);
             color: var(--color-white);
+            &:hover{
+                background-color: var(--color-danger);
+            }
             >div{
                 line-height: 0;
             }

@@ -145,7 +145,11 @@ const AddFormStyle = Styled.div`
             &.wpwax-vm-add-form__top--btn-selected{
                 font-weight: 700;
                 color: #fff;
+                transition: background-color .3s ease-in-out;
                 background-color: #6551f2;
+                &:hover{
+                    background-color: #3e2bc5;
+                }
             }
         }
         .wpwax-vm-add-form__top--btn[disabled]{
@@ -385,7 +389,11 @@ const AddFormStyle = Styled.div`
         align-items: center;
         border-radius: 0 0 14px 14px;
         padding: 12px 0;
+        transition: background-color .3s ease-in-out;
         background-color: #6551f2;
+        &:hover{
+            background-color: #3e2bc5;
+        }
         a{
             display: flex;
             align-items: center;

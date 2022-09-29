@@ -97,6 +97,14 @@ abstract class Base extends WP_REST_Controller {
         );
     }
 
+    public function error_auth_check_failed() {
+        return new \WP_Error(
+            'auth_check_failed',
+            __( 'You are not allowed to perform this operation.' ),
+            ['status' => rest_authorization_required_code()]
+        );
+    }
+
     /**
      * Check guest permission
      *
@@ -113,6 +121,31 @@ abstract class Base extends WP_REST_Controller {
 
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
+        }
+
+        return true;
+    }
+
+    /**
+     * Check auth permission
+     *
+     * @param $request
+     * @return mixed
+     */
+    public function check_auth_permission( $request ) {
+
+        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+
+        if ( $skip_permission ) {
+            return true;
+        }
+
+        if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
+            return $this->error_nonce_missing();
+        }
+
+        if ( ! current_user_can( 'wpwax_vm_client' ) && ! current_user_can( 'edit_posts' ) ) {
+            return $this->error_auth_check_failed();
         }
 
         return true;

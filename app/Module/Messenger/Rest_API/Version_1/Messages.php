@@ -29,8 +29,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [$this, 'get_items'],
-                    'permission_callback' => '__return_true',
-                    // 'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'timezone'    => [
                             'default'           => '',
@@ -112,7 +111,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [$this, 'get_item'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -123,7 +122,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [$this, 'update_item'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'user_id'         => [
                             'required'          => false,
@@ -162,7 +161,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
                     'callback'            => [$this, 'delete_item'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                 ],
             ]
         );
@@ -182,7 +181,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [$this, 'get_seen_by_items'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'message_id' => [
                             'type' => 'integer',
@@ -192,7 +191,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [$this, 'create_seen_by_item'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'message_id' => [
                             'type' => 'integer',
@@ -205,7 +204,7 @@ class Messages extends Rest_Base
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
                     'callback'            => [$this, 'delete_seen_by_item'],
-                    'permission_callback' => [$this, 'check_admin_permission'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'message_id' => [
                             'type' => 'integer',

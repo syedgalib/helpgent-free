@@ -31,8 +31,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => [$this, 'get_items'],
-					'permission_callback' => '__return_true',
-					// 'permission_callback' => [ $this, 'check_admin_permission' ],
+					'permission_callback' => [$this, 'check_auth_permission'],
 					'args'                => [
 						'page'        => [
 							'default'           => 1,
@@ -54,7 +53,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => [$this, 'get_item'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -66,7 +65,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::DELETABLE,
 					'callback'            => [$this, 'delete_item'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -78,7 +77,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'mark_as_read'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -90,7 +89,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'mark_as_unread'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -102,7 +101,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'update_terms'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 					'args'                => [
 						'add_term_ids' => [
 							'required'          => false,
@@ -124,7 +123,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [$this, 'add_terms'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 					'args'                => [
 						'session_id' => [
 							'required'          => true,
@@ -146,7 +145,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'remove_terms'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 					'args'                => [
 						'session_id' => [
 							'required'          => true,

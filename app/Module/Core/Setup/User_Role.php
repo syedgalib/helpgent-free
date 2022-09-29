@@ -24,8 +24,7 @@ class User_Role {
 
 		add_role( 'wpwax_vm_client', 'Client', [
 			// WP Capabilities
-			'read'         => true,
-			'upload_files' => true,
+			'read' => true,
 
 			// Attachment Capabilities
 			'wpwax_vm_read_attachment'   => true,

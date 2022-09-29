@@ -37,7 +37,7 @@ class Terms extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'check_auth_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'name' => [
                             'required'          => true,
@@ -79,7 +79,7 @@ class Terms extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update_item' ],
-                    'permission_callback' => [ $this, 'check_auth_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
                         'name' => [
                             'required'          => false,
@@ -97,7 +97,7 @@ class Terms extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
                     'callback'            => [ $this, 'delete_item' ],
-                    'permission_callback' => [ $this, 'check_auth_permission' ],
+                    'permission_callback' => [ $this, 'check_admin_permission' ],
                 ],
             ]
         );

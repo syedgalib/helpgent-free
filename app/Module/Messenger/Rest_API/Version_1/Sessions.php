@@ -23,7 +23,6 @@ class Sessions extends Rest_Base
 
 	public function register_routes()
 	{
-
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base,

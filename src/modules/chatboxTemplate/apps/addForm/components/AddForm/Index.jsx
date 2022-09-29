@@ -31,16 +31,17 @@ const AddForm = () => {
         btnRadius,
         primaryBtnColor,
         primaryBtnBg,
+        footerMessageColor,
+        footerMessageFontSize,
         playBtnBg,
         thankTitleColor,
+        thankPageBg,
         thankTitleFontSize,
         thankDescColor,
         thankDescFontSize,
         pageBgColor,
         pageHeaderBgColor,
         formInitialData,
-        // loading,
-        // response
     } = useSelector(state => {
         return {
             name: state.form.data[0].name,
@@ -55,8 +56,11 @@ const AddForm = () => {
             btnRadius: state.form.data[0].options.button_border_radius,
             primaryBtnColor: state.form.data[0].options.primary_button_font_color,
             primaryBtnBg: state.form.data[0].options.primary_button_background_color,
+            footerMessageColor: state.form.data[0].options.footer_message_color,
+            footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
             playBtnBg: state.form.data[0].options.play_btn_background,
             thankTitleColor: state.form.data[0].options.thank_page_title_color,
+            thankPageBg: state.form.data[0].options.thank_page_background_color,
             thankTitleFontSize: state.form.data[0].options.thank_page_title_font_size,
             thankDescColor: state.form.data[0].options.thank_page_description_color,
             thankDescFontSize: state.form.data[0].options.thank_page_description_font_size,
@@ -64,23 +68,22 @@ const AddForm = () => {
             pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
             formInitialData: state.form.data[0],
             loading: state.form.loading,
-            // response: state.form.response,
         };
     });
-
-    document.documentElement.style.setProperty("--color-page-header-bg", pageHeaderBgColor);
-    document.documentElement.style.setProperty("--font-family", fontFamily);
-    document.documentElement.style.setProperty("--font-size", fontSize);
-    document.documentElement.style.setProperty("--color-text", fontColor);
-    document.documentElement.style.setProperty("--color-text-greet", greetColor);
-    document.documentElement.style.setProperty("--color-text-chat", chatColor);
     document.documentElement.style.setProperty("--color-page-bg", pageBgColor);
+    document.documentElement.style.setProperty("--color-page-header-bg", pageHeaderBgColor);
+    document.documentElement.style.setProperty("--color-text-greet", greetColor);
     document.documentElement.style.setProperty("--font-size-greet", greetSize);
+    document.documentElement.style.setProperty("--play-button-bg", playBtnBg);
+    document.documentElement.style.setProperty("--color-text-chat", chatColor);
     document.documentElement.style.setProperty("--font-size-chat", chatSize);
+    document.documentElement.style.setProperty("--font-family", fontFamily);
     document.documentElement.style.setProperty("--btn-radius", btnRadius + 'px');
     document.documentElement.style.setProperty("--primary-button-color", primaryBtnColor);
     document.documentElement.style.setProperty("--primary-button-bg", primaryBtnBg);
-    document.documentElement.style.setProperty("--play-button-bg", playBtnBg);
+    document.documentElement.style.setProperty("--color-footer-text", footerMessageColor);
+    document.documentElement.style.setProperty("--footer-text-font-size", footerMessageFontSize);
+    document.documentElement.style.setProperty("--color-thank-page-bg", thankPageBg);
     document.documentElement.style.setProperty("--color-thank-title", thankTitleColor);
     document.documentElement.style.setProperty("--font-size-thank-title", thankTitleFontSize);
     document.documentElement.style.setProperty("--color-thank-desc", thankDescColor);
@@ -101,6 +104,10 @@ const AddForm = () => {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+    function onlySpaces(str) {
+    return str.trim().length === 0;
+    }
+
     const handleFormNext = (event,btnName) => {
         event.preventDefault();
         if(btnName === "btn-general"){
@@ -112,8 +119,7 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(name === ""){
-                
+            if(onlySpaces(name)){
                 setState({
                     ...state,
                     validation: false
@@ -199,10 +205,7 @@ const AddForm = () => {
                             ...state,
                             loading: false,
                         });
-                        setResponse(editSessionResponse)
-                        // setTimeout(() => {
-                        //     setResponse("")
-                        // }, "4000")
+                        setResponse(editSessionResponse);
                     })
                     .catch((error) => {
                         setState({
@@ -259,21 +262,21 @@ const AddForm = () => {
         if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
                 {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Empty required field or only spaces are not allowed</span> : null
                 }
                 <GeneralSettings />
             </div>
         } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
                 {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Empty required field or only spaces are not allowed</span> : null
                 }
                 <FormSettings />
             </div>
         } else {
             return <div className="wpwax-vm-add-form__content">
                 {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please fill the required fields</span> : null
+                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Empty required field or only spaces are not allowed</span> : null
                 }
 
                 <ThankSettings />
@@ -286,7 +289,7 @@ const AddForm = () => {
             return response.status === 200 ? 
                 <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> Are you going to forms page? <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Click Here </a>
                     <a href="#" className="wpwax-vm-notice-close" onClick={handleNoticeClose}><span className="dashicons dashicons-no-alt"></span></a>
-                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">try again</a> </span>  
+                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>  
         }
     }
 

@@ -80,7 +80,7 @@ const ScreenWrapper = Styled.div`
             background-color: var(--color-dark);
             color: var(--color-white);
             >div{
-                line-height: 1;
+                line-height: 0;
             }
         }
         .wpwax-vm-chatbox-header,

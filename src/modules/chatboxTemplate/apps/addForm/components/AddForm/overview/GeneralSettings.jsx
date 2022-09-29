@@ -72,13 +72,14 @@ const GeneralSettings = () => {
     const dispatch = useDispatch();
 
     const Option = (props) => {
+        console.log(props);
         return (
             <div>
                 <components.Option {...props}>
                     <Checkbox
                         id={`wpwax-vm${props.value}`}
                         label={props.label}
-                        isSelected={props.isSelected}
+                        value={props.isSelected}
                     />
                 </components.Option>
             </div>
@@ -145,7 +146,7 @@ const GeneralSettings = () => {
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span>
-                        Name of Form{' '}
+                        Form Name 
                         <span className='wpwax-vm-require-sign'>*</span>
                     </span>
                 </div>
@@ -154,7 +155,7 @@ const GeneralSettings = () => {
                     className='wpwax-vm-form__element'
                     id='wpwax-vm-form-name'
                     value={templateName}
-                    placeholder='Name this video form…'
+                    placeholder='Enter form name (eg. Support Form)'
                     onChange={(e) => handleChangeInputValue(e)}
                 />
             </div>
@@ -238,6 +239,7 @@ const GeneralSettings = () => {
                         options={customPages}
                         isMulti
                         searchable={false}
+                        hideSelectedOptions={false}
                         components={{
                             Option,
                         }}

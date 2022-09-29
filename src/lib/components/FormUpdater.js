@@ -23,7 +23,6 @@ const FormUpdater = (label, value,formInitialData) => {
                     }
                 }
             case "wpwax-vm-display-custom-pages":
-                console.log(value);
                 return {
                     ...item,
                     pages: value,
@@ -220,6 +219,22 @@ const FormUpdater = (label, value,formInitialData) => {
                     options: {
                         ...item.options,
                         primary_button_background_color: value
+                    }
+                }
+            case "wpwax-vm-footer-text-color":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        footer_message_color: value
+                    }
+                }
+            case "wpwax-vm-chat-footer-text-fontsize":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        footer_message_font_size: value
                     }
                 }
             case "wpwax-vm-thank-title":

@@ -77,7 +77,7 @@ class Attachment extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_auth_permission' ],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',

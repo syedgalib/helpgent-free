@@ -27,6 +27,7 @@ class Init {
     protected function get_controllers() {
         return [
             Activation::class,
+            User_Role::class,
         ];
     }
 

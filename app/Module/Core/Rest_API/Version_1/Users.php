@@ -13,7 +13,7 @@ class Users extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'users';
@@ -233,7 +233,7 @@ class Users extends Rest_Base {
 		$user_data = array(
 			'user_email' => $request['email'],
 			'user_pass'  => $request['password'],
-			'role'       => 'subscriber',
+			'role'       => 'wpwax_vm_client',
 		);
 
 		if ( isset( $request['username'] ) ) {
@@ -486,7 +486,7 @@ class Users extends Rest_Base {
 
     /**
      * User Custom Metas
-     * 
+     *
      * @return array
      */
     protected function user_custom_meta_schema() {
@@ -692,7 +692,7 @@ class Users extends Rest_Base {
 
 		// Check permissions for a single user.
 		$id = intval( $request['id'] );
-        
+
 		if ( $id ) {
 			$user = get_userdata( $id );
 

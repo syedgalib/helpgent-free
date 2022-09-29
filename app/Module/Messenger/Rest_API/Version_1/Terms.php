@@ -8,7 +8,7 @@ class Terms extends Rest_Base {
 
     /**
      * Rest Base
-     * 
+     *
      * @var string
      */
     public $rest_base = 'messages/terms';
@@ -22,7 +22,7 @@ class Terms extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_auth_permission' ],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -68,7 +68,7 @@ class Terms extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_auth_permission' ],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -106,7 +106,7 @@ class Terms extends Rest_Base {
 
     /**
      * Get Items
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -134,7 +134,7 @@ class Terms extends Rest_Base {
 
     /**
      * Get Item
-     * 
+     *
      * @param object $request
      * @return array Response
      */
@@ -148,7 +148,7 @@ class Terms extends Rest_Base {
         if ( is_wp_error( $data ) ) {
             return $data;
         }
-        
+
         $success = true;
         $data    = $this->prepare_item_for_response( $data, $args );
 
@@ -157,7 +157,7 @@ class Terms extends Rest_Base {
 
     /**
      * Create Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -182,7 +182,7 @@ class Terms extends Rest_Base {
 
     /**
      * Update Item
-     * 
+     *
      * @param $request
      * @return array Response
      */
@@ -203,7 +203,7 @@ class Terms extends Rest_Base {
 
     /**
      * Delete Item
-     * 
+     *
      * @param $request
      * @return array Response
      */

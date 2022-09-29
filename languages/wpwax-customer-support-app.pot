@@ -117,15 +117,15 @@ msgstr ""
 msgid "Link:"
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:483
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:126, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:170, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:483, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:603
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:131, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:175, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:608
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189
+#: ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:136, ../app/Module/Messenger/Model/Cache_Messages_Marked_As_Read_Model.php:180, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:613
 msgid "Session ID is required."
 msgstr ""
 
@@ -141,7 +141,7 @@ msgstr ""
 msgid "The term ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:927
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:964
 msgid "The session does not exist."
 msgstr ""
 
@@ -338,16 +338,12 @@ msgstr ""
 msgid "Limit result set to resources with a specific role."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:425
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:421
 msgid "No resource exists."
 msgstr ""
 
 #: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:509
 msgid "Nothing to add or remove."
-msgstr ""
-
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:754, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:835
-msgid "You must have to be logged in"
 msgstr ""
 
 #: ../app.php:70, ../app.php:79

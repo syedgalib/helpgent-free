@@ -8586,7 +8586,7 @@ function Message(_ref) {
   var data = _ref.data,
       currentUser = _ref.currentUser,
       containerScrollMeta = _ref.containerScrollMeta;
-  var isMine = parseInt(currentUser.id) === parseInt(data.user.id);
+  var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var videoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var container = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -10766,7 +10766,7 @@ var Sidebar = function Sidebar(_ref) {
           }),
           children: sessionList.map(function (item, index) {
             var users = item.users.filter(function (p) {
-              return p.id !== parseInt(currentUser.ID);
+              return currentUser && p.id !== parseInt(currentUser.ID);
             });
             var selectedUSer = users.filter(function (select) {
               return select.roles[0] === 'subscriber';
@@ -11282,7 +11282,7 @@ var AddTag = function AddTag(props) {
 
   if (currentSession.length !== 0) {
     users = currentSession[0].users.filter(function (p) {
-      return p.id !== parseInt(currentUser.ID);
+      return currentUser && p.id !== parseInt(currentUser.ID);
     });
   }
 
@@ -11921,11 +11921,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var moreDropdown = [{
-  name: "term-edit",
-  text: "Edit"
+  name: 'term-edit',
+  text: 'Edit'
 }, {
-  name: "term-delete",
-  text: "Delete"
+  name: 'term-delete',
+  text: 'Delete'
 }];
 
 var Taglist = function Taglist(props) {
@@ -12022,7 +12022,7 @@ var Taglist = function Taglist(props) {
   var handleAddTagModal = function handleAddTagModal(event) {
     event.preventDefault();
     setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-      editableTermId: "",
+      editableTermId: '',
       tagListModalOpen: false,
       addTagModalOpen: true,
       taglistWithSession: true
@@ -12042,11 +12042,11 @@ var Taglist = function Taglist(props) {
     var keyword = event.target.value;
     var filteredTags = taglistWithSession ? assignedTags.filter(function (entry) {
       return Object.values(entry).some(function (val) {
-        return typeof val === "string" && val.includes(keyword);
+        return typeof val === 'string' && val.includes(keyword);
       });
     }) : allTags.filter(function (entry) {
       return Object.values(entry).some(function (val) {
-        return typeof val === "string" && val.includes(keyword);
+        return typeof val === 'string' && val.includes(keyword);
       });
     });
     setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
@@ -12059,7 +12059,7 @@ var Taglist = function Taglist(props) {
 
   if (currentSession.length !== 0) {
     users = currentSession[0].users.filter(function (p) {
-      return p.id !== parseInt(currentUser.ID);
+      return currentUser && p.id !== parseInt(currentUser.ID);
     });
   }
 
@@ -12084,7 +12084,7 @@ var Taglist = function Taglist(props) {
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.TaglistWrap, {
-    className: tagListModalOpen ? "wpwax-vm-modal wpwax-vm-show" : "wpwax-vm-modal",
+    className: tagListModalOpen ? 'wpwax-vm-modal wpwax-vm-show' : 'wpwax-vm-modal',
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-modal__header",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
@@ -12113,7 +12113,7 @@ var Taglist = function Taglist(props) {
           }) : null]
         }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-taglist-author__name",
-          children: [" ", taglistWithSession ? "Tags of ".concat(titleString) : "All Tags", " "]
+          children: [' ', taglistWithSession ? "Tags of ".concat(titleString) : 'All Tags', ' ']
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
         href: "#",

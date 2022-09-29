@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
+import { ReactSVG } from "react-svg";
 import { hideChatbox } from '../../../../store/chatbox/actionCreator.js';
 import { useResetStore } from "../../../../store/reset.js";
+import crossSmall from 'Assets/svg/icons/cross-small.svg'
 import ScreenWrapper from "./Style";
 
 function Container(props) {
@@ -17,7 +19,7 @@ function Container(props) {
 			<div className="wpwax-vm-chatbox-container">
 				<div className="wpwax-vm-chatbox-btnlist">
 					<button onClick={handleClose} className="wpwax-vm-chatbox-btn-close">
-						<span className="dashicons dashicons-no-alt"></span>
+						<ReactSVG src={crossSmall} />
 					</button>
 				</div>
 

@@ -53,28 +53,8 @@ const filterDropdown = [
     },
 ];
 
-function Sidebar() {
+const Sidebar = ({sessionState,setSessionState})=> {
     const ref = useRef(null);
-    /* Initialize State */
-    const [sessionState, setSessionState] = useState({
-        sessionList: [],
-        filteredSessions: [],
-        asignedTerms: [],
-        serverAssigned: [],
-        unAsignedTerms: [],
-        activeSessionId: '',
-        deleteModalOpen: false,
-        tagListModalOpen: false,
-        successMessage: '',
-        deleteTerm: '',
-        rejectMessage: '',
-        editableTermId: '',
-        sessionFilterDropdown: false,
-        tagFilterDropdownOpen: false,
-        taglistWithSession: false,
-        hasMore: true,
-        loader: true,
-    });
     const [tagState, setTagState] = useState({
         allTags: [],
         assignedTags: [],

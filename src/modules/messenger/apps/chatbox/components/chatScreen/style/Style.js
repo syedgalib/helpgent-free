@@ -92,6 +92,15 @@ const ChatboxForm = Styled.div`
                 height: auto;
                 flex: 0 0 30.3333%;
                 margin: 1.5%;
+                svg{
+                    width: 18px;
+                    height: 18px;
+                    margin: 0 0 4px;
+                    fill: var(--color-white);
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
             }
         }
         .wpwax-vm-chatbox-footer__text{
@@ -100,6 +109,7 @@ const ChatboxForm = Styled.div`
             opacity: .8;
             margin: 12px 0 8px;
             text-align: center;
+            min-height: 20px;
             color: var(--color-white);
         }
         .wpwax-vm-chatbox-footer__bottom{

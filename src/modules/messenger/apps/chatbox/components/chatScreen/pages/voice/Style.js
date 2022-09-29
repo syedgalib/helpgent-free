@@ -17,6 +17,7 @@ const RecorderWrap = Styled.div`
     }
     &.wpwax-vm-record-staging{
         padding: 80px 25px;
+        min-height: 595px;
         .wpwax-vm-timer{
             span{
                 font-size: 50px;
@@ -25,12 +26,15 @@ const RecorderWrap = Styled.div`
             }
             &.wpwax-vm-timer-start{
                 span{
-                    color: var(--color-danger);
+                    color: #FC495D;
                 }
             }
         }
         .wpwax-vm-record-staging__bottom{
             padding-top: 180px;
+            p{
+                min-height: 32px;
+            }
             .wpwax-vm-record-staging__bottom--action{
                 position: relative;
                 .wpwax-vm-pause-btn{
@@ -50,7 +54,19 @@ const RecorderWrap = Styled.div`
                     }
                 }
                 .wpwax-vm-record-btn{
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    >div{
+                        line-height: 1;
+                        svg{
+                            width: 36px;
+                            height: 36px;
+                            path{
+                                fill: var(--color-white);
+                            }
+                        }
+                    }
                 }
                 .wpwax-vm-record-btn,
                 .wpwax-vm-pause-btn{
@@ -58,9 +74,10 @@ const RecorderWrap = Styled.div`
                     height: 110px;
                     margin: 0 auto;
                     border-radius: 50%;
-                    background-color: var(--color-danger);
+                    background-color: #FC495D;
                 }
-                .wpwax-vm-btn-close{
+                .wpwax-vm-record-btn-right{
+                    position: relative;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -74,6 +91,20 @@ const RecorderWrap = Styled.div`
                     background-color: #B4B4B4;
                     text-decoration: none;
                     color: var(--color-white);
+                    &.wpwax-vm-btn-send{
+                        background-color: #FC495D;
+                        &:after{
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%,-50%);
+                            width: 16px;
+                            height: 16px;
+                            border-radius: 4px;
+                            content: '';
+                            background-color: var(--color-white);
+                        }
+                    }
                 }
                 &.wpwax-vm-record-start{
                     .wpwax-vm-record-btn{
@@ -98,11 +129,14 @@ const RecorderWrap = Styled.div`
             }
         }
     }
+    &.wpwax-vm-record-before-send{
+        padding: 80px 25px;
+    }
     &.wpwax-vm-record-ready{
-        padding: 90px 25px 90px;
+        padding: 160px 25px 25px;
         .wpwax-vm-record-ready__top{
             position: relative;
-            .wpwax-vm-recorded-preview{
+            /* .wpwax-vm-recorded-preview{
                 min-height: 240px;
                 position: relative;
                 z-index: 101;
@@ -121,12 +155,12 @@ const RecorderWrap = Styled.div`
                 &.wpax-vm-preview-bg{
                     background-size: cover;
                 }
-            }
-            .wpwax-vm-recorded-play{
-                position: absolute;
+            } */
+            .wpwax-vm-recorded-btn{
+                /* position: absolute;
                 left: 50%;
                 top: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%); */
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -137,16 +171,26 @@ const RecorderWrap = Styled.div`
                 z-index: 101;
                 background-color: var(--color-white);
                 box-shadow: 0 5px 50px rgba(0,0,0,.15);
-                div{
+                >div{
+                    width: 25px;
+                    height: 25px;
                     line-height: 1;
                     svg{
+                        width: 25px;
+                        height: 25px;
                         position: relative;
-                        left: 2px;
+                        left: 0;
                         path{
-                            fill: var(--color-danger);
+                            fill: var(--color-primary);
                         }
                     }
                 }
+            }
+            
+            .wpwax-vm-audio-range{
+                width: calc(100% + 50px);
+                display: block;
+                margin: 100px 0 0 -30px;
             }
         }
         .wpwax-vm-record-ready__bottom{

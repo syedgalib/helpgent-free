@@ -84,7 +84,7 @@ const PreviewOne = ({ previewStage }) => {
                             <div className="wpwax-vm-preview-header">
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
-                                    <span className="wpwax-vm-preview-subtitle">{formOption.description}</span> : ''
+                                    <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
                                 }
 
                             </div>
@@ -104,17 +104,13 @@ const PreviewOne = ({ previewStage }) => {
                                             </a>)
                                     }
                                 </div>
-                                {
-                                    formOption.show_footer ?
-                                        <p className="wpwax-vm-preview-footer__text">{formOption.footer_message}</p>
-                                        : null
-                                }
+                                <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
                             </div>
                         </div>
                     </>
                     :
                     previewStage === 'thank' ?
-                        <div className="wpwax-vm-preview-thank" style={{ backgroundColor: formOption.thank_page_background_color }}>
+                        <div className="wpwax-vm-preview-thank">
                             <div className="wpwax-vm-preview-thank__content">
                                 <h3>{formOption.thank_page_title}</h3>
                                 {

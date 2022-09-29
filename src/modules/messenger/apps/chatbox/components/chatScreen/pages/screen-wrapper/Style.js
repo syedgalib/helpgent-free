@@ -24,6 +24,12 @@ const ScreenWrapper = Styled.div`
     }
     .wpwax-vm-chatbox-contact{
         min-height: 580px;
+        
+        .wpwax-vm-footer{
+            .wpwax-vm-btn-block{
+                width: 100%;
+            }
+        }
     }
     .wpwax-vm-chatbox-container{
         height: 100%;
@@ -73,6 +79,9 @@ const ScreenWrapper = Styled.div`
             border-color: transparent;
             background-color: var(--color-dark);
             color: var(--color-white);
+            >div{
+                line-height: 0;
+            }
         }
         .wpwax-vm-chatbox-header,
         .wpwax-vm-chatbox-inner,

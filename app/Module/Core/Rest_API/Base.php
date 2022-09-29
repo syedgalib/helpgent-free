@@ -53,9 +53,10 @@ abstract class Base extends WP_REST_Controller {
         $message = ( ! empty( $message ) ) ? $message : $default_message;
 
         $response = [
-            'success' => $is_success,
-            'message' => $message,
-            'data'    => $data,
+            'success'     => $is_success,
+            'message'     => $message,
+            'data_length' => ( is_array( $data ) ) ? count( $data ) : null,
+            'data'        => $data,
         ];
 
         return rest_ensure_response( $response );

@@ -7,9 +7,8 @@
 
 --------------------------------*/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ReactSVG } from 'react-svg';
-import { DebounceInput } from 'react-debounce-input';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Dropdown from 'Components/formFields/Dropdown.jsx';
@@ -33,6 +32,7 @@ import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
+import { debounce } from '../../../../../../helpers/utils.js';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -64,8 +64,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         tagLoader: false,
         addTagModalOpen: false,
     });
-
-	const [sessionSearchTerm, setSessionSearchTerm] = useState('');
 
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
@@ -149,14 +147,10 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
+	// Session search.
     const handleSessionSearch = (event) => {
-		setSessionSearchTerm(event.target.value)
-    };
-
-	// Session search query.
-	useEffect(() => {
 		const searchArg = {
-            search: sessionSearchTerm,
+            search: event.target.value,
         };
 
         const fetchSearchNameMail = async () => {
@@ -171,6 +165,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .then((searchByNameMailResponse) => {
                 setSessionState({
                     ...sessionState,
+					loader: false,
                     sessionList: searchByNameMailResponse.data.data,
                 });
                 dispatch(
@@ -180,7 +175,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
-	}, [sessionSearchTerm]);
+    };
+
+	const onSessionSearch = useCallback( debounce( handleSessionSearch, 300 ), [] );
 
     const fetchMoreData = () => {
         const pageArg = {
@@ -279,21 +276,14 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             <div className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
                             </div>
-							<DebounceInput
+
+                            <input
+                                type='text'
 								className='wpwax-vm-form__element'
 								id='wpwax-vm-filter-search'
 								placeholder='Search'
-								minLength={2}
-								debounceTimeout={300}
-								value={sessionSearchTerm}
-								onChange={handleSessionSearch} />
-
-                            {/* <input
-                                type='text'
-
-								value={sessionSearchTerm}
-                                onChange={handleSessionSearch}
-                            /> */}
+                                onChange={onSessionSearch}
+                            />
                             <a
                                 href='#'
                                 className='wpwax-vm-search-toggle'

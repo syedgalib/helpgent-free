@@ -5934,6 +5934,7 @@ var Dropdown = function Dropdown(_ref) {
             filteredSessions: unReadResponse.data.data
           }));
         }).catch(function (error) {});
+        break;
 
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {

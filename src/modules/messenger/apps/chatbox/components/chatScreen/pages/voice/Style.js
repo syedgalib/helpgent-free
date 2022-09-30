@@ -201,8 +201,12 @@ const RecorderWrap = Styled.div`
                 margin: 0 auto;
                 border-radius: 50%;
                 z-index: 101;
+                transition: box-shadow .2s ease-in;
                 background-color: var(--color-white);
                 box-shadow: 0 5px 50px rgba(0,0,0,.15);
+                &:hover{
+                    box-shadow: 0 20px 60px rgba(0,0,0,.20);
+                }
                 >div{
                     width: 25px;
                     height: 25px;

@@ -42,36 +42,39 @@ const Taglist= props =>  {
             ...tagState,
             tagLoader: true
         });
-        const fetchTerms = async ()=>{
-			const termsResponse = await apiService.getAll('/messages/terms')
-			return termsResponse;
-		}
-        fetchTerms()
-			.then( termsResponse => {
-				
-				setTagState({
-					...tagState,
-					allTags: termsResponse.data.data,
-					filteredTagList: termsResponse.data.data,
-					tagLoader: false
-				});
-				const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
-				if(taglistWithSession){
-					if(sessionList.length !== 0){
-                        if(currentSession.length !== 0){
-                            setTagState({
-                                ...tagState,
-                                assignedTags: currentSession[0].terms,
-                                filteredTagList: currentSession[0].terms,
-                                tagLoader: false
-                            });
+        if(tagListModalOpen){
+            const fetchTerms = async ()=>{
+                const termsResponse = await apiService.getAll('/messages/terms')
+                return termsResponse;
+            }
+            fetchTerms()
+                .then( termsResponse => {
+                    
+                    setTagState({
+                        ...tagState,
+                        allTags: termsResponse.data.data,
+                        filteredTagList: termsResponse.data.data,
+                        tagLoader: false
+                    });
+                    const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
+                    if(taglistWithSession){
+                        if(sessionList.length !== 0){
+                            if(currentSession.length !== 0){
+                                setTagState({
+                                    ...tagState,
+                                    assignedTags: currentSession[0].terms,
+                                    filteredTagList: currentSession[0].terms,
+                                    tagLoader: false
+                                });
+                            }
                         }
-					}
-				}
-			})
-			.catch((error) => {
-				console.log(error);
-			})
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+        
 	}, [tagListModalOpen]);
 
     /* Handle Add Tag */
@@ -84,7 +87,6 @@ const Taglist= props =>  {
             addTagModalOpen: true,
             taglistWithSession: true
         });
-        // dispatch(handleTagFormModal(true));
     }
 
     const handleCloseAllTagModal = (event)=>{

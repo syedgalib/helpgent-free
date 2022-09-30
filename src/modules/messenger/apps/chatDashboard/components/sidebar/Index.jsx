@@ -495,13 +495,6 @@ const Sidebar = ({sessionState,setSessionState})=> {
                 setTagState={setTagState}
             />
 
-            <Taglist
-                sessionState={sessionState}
-                setSessionState={setSessionState}
-                tagState={tagState}
-                setTagState={setTagState}
-            />
-
             <AddTag
                 sessionState={sessionState}
                 setSessionState={setSessionState}

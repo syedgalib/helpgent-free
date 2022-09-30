@@ -225,6 +225,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                         });
                     })
                     .catch(error => {})
+                break;
             case 'filter-latest':
                 const fetchLatestSeassion = async ()=>{
                     const latestSession = await apiService.getAll(`/sessions`);

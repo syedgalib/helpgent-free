@@ -9,14 +9,17 @@ const TaglistWrap = Styled.div`
         padding: 0 16px;
         border-radius: 10px;
         margin-top: 5px;
+        border: 2px solid transparent;
         background-color: var(--color-bg-general);
+        &:focus{
+            border-color: var(--color-dark);
+        }
         input{
             width: 100%;
             border: 0 none;
             background-color: transparent;
             &:focus{
                 outline: none;
-                border: 0 none;
                 box-shadow: 0 0;
             }
         }
@@ -93,7 +96,6 @@ const AddTagWrap = Styled.div`
                 font-size: 14px;
                 font-weight: 500;
                 width: 100%;
-                border: 0 none;
                 padding: 0 20px;
                 min-height: 40px;
                 color: var(--color-dark);

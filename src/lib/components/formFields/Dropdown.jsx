@@ -179,11 +179,13 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 }
                 deleteTerm()
                     .then( deleteResponse => {
-                        console.log(deleteResponse);
+                        
                         let filteredTerms = [];
                         if(currentSession.length !==0){
                             filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
                             console.log(currentSession[0].terms.filter(item => item.term_id !== termId));
+                        }else{
+                            filteredTerms = termState.allTags.filter(item => item.term_id !== termId);
                         }
                         
                         setTermState({
@@ -191,10 +193,8 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                             filteredTagList: filteredTerms,
                             tagLoader: false
                         });
-                        
-                        dispatch(handleReadSessions(sessions))
                     })
-                    .catch(error => {})
+                    .catch(error => {console.log(error)})
                 break;
             case 'filter-read':
                 const fetchReadSeassion = async ()=>{

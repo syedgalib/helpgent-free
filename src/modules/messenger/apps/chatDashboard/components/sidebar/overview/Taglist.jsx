@@ -38,36 +38,38 @@ const Taglist= props =>  {
     const currentSession = sessions.filter(singleSession => singleSession.session_id === activeSessionId);
 
     useEffect(() => {
-        setTagState({
-            ...tagState,
-            tagLoader: true
-        });
+        
         if(tagListModalOpen){
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
             const fetchTerms = async ()=>{
                 const termsResponse = await apiService.getAll('/messages/terms')
                 return termsResponse;
             }
             fetchTerms()
                 .then( termsResponse => {
-                    
-                    setTagState({
-                        ...tagState,
-                        allTags: termsResponse.data.data,
-                        filteredTagList: termsResponse.data.data,
-                        tagLoader: false
-                    });
                     const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
                     if(taglistWithSession){
                         if(sessionList.length !== 0){
                             if(currentSession.length !== 0){
                                 setTagState({
                                     ...tagState,
+                                    allTags: termsResponse.data.data,
                                     assignedTags: currentSession[0].terms,
                                     filteredTagList: currentSession[0].terms,
                                     tagLoader: false
                                 });
                             }
                         }
+                    }else{
+                        setTagState({
+                            ...tagState,
+                            allTags: termsResponse.data.data,
+                            filteredTagList: termsResponse.data.data,
+                            tagLoader: false
+                        });
                     }
                 })
                 .catch((error) => {

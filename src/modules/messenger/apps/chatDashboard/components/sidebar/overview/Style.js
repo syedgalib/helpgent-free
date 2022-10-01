@@ -120,9 +120,9 @@ const AddTagWrap = Styled.div`
         }
         .wpwax-vm-checkbox{
             label{
-                top: -3px;
+                top: 0px;
                 line-height: 1.15;
-                margin-left: 5px;
+                margin-left: 8px;
                 color: var(--color-dark);
             }
         }

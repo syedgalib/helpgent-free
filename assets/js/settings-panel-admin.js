@@ -5840,7 +5840,6 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         deleteTerm().then(function (deleteResponse) {
-          console.log(deleteResponse);
           var filteredTerms = [];
 
           if (currentSession.length !== 0) {
@@ -5850,14 +5849,19 @@ var Dropdown = function Dropdown(_ref) {
             console.log(currentSession[0].terms.filter(function (item) {
               return item.term_id !== termId;
             }));
+          } else {
+            filteredTerms = termState.allTags.filter(function (item) {
+              return item.term_id !== termId;
+            });
           }
 
           setTermState(_objectSpread(_objectSpread({}, termState), {}, {
             filteredTagList: filteredTerms,
             tagLoader: false
           }));
-          dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessions));
-        }).catch(function (error) {});
+        }).catch(function (error) {
+          console.log(error);
+        });
         break;
 
       case 'filter-read':

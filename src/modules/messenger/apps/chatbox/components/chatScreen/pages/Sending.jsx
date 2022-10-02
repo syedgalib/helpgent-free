@@ -54,7 +54,9 @@ function Sending() {
         }
 
         if (userForm.status === false) {
-            dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            setTimeout(() => {
+                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            }, "2000");
             return;
         }
 
@@ -92,11 +94,15 @@ function Sending() {
         }
 
         if (messengerForm.status === false) {
-            dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            setTimeout(() => {
+                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+            }, "2000");
             return;
         }
-
-        dispatch(changeChatScreen(screenTypes.SUCCESS));
+        setTimeout(() => {
+            dispatch(changeChatScreen(screenTypes.SUCCESS));
+        }, "2000");       
+        
     }, [messengerForm.status]);
 
     return (

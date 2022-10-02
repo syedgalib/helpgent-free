@@ -91,6 +91,8 @@ const FormSettings = () => {
         };
     });
 
+    console.log(footerMessageColor);
+
     const [state, setState] = useState({
         openCollapse: true,
     });
@@ -124,7 +126,6 @@ const FormSettings = () => {
     }
 
     const handleChangeSwitchValue = (value, event, id) => {
-        console.log(event, value, id);
         const updatedData = formUpdater(id, value, formData);
         dispatch(handleDynamicEdit(updatedData));
     }

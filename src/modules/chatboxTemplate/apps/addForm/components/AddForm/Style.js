@@ -145,7 +145,11 @@ const AddFormStyle = Styled.div`
             &.wpwax-vm-add-form__top--btn-selected{
                 font-weight: 700;
                 color: #fff;
+                transition: background-color .3s ease-in-out;
                 background-color: #6551f2;
+                &:hover{
+                    background-color: #3e2bc5;
+                }
             }
         }
         .wpwax-vm-add-form__top--btn[disabled]{
@@ -323,9 +327,12 @@ const AddFormStyle = Styled.div`
             }
         }
         .wpwax-vm-select__control{
-            border: 0 none;
+            border: 2px solid transparent;
             border-radius: 6px;
             background-color: #ededed;
+            &.wpwax-vm-select__control--is-focused{
+                border-color: var(--color-dark);
+            }
             .wpwax-vm-select__indicator-separator{
                 display: none;
             }
@@ -346,12 +353,12 @@ const AddFormStyle = Styled.div`
             color: #4D4D4D;
         }
         .css-1pahdxg-control{
-            border: 0 none;
+            // border: 0 none;
             box-shadow: 0 0;
             background-color: #ededed;
-            &:hover{
-                border: 0 none;
-            }
+            // &:hover{
+            //     border-color: transparent;
+            // }
         }
         .css-1okebmr-indicatorSeparator{
             min-width: auto;
@@ -385,7 +392,11 @@ const AddFormStyle = Styled.div`
         align-items: center;
         border-radius: 0 0 14px 14px;
         padding: 12px 0;
+        transition: background-color .3s ease-in-out;
         background-color: #6551f2;
+        &:hover{
+            background-color: #3e2bc5;
+        }
         a{
             display: flex;
             align-items: center;

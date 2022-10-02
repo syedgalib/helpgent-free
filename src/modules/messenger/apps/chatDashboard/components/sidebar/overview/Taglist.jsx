@@ -53,43 +53,46 @@ const Taglist = (props) => {
     );
 
     useEffect(() => {
-        setTagState({
-            ...tagState,
-            tagLoader: true,
-        });
-        const fetchTerms = async () => {
-            const termsResponse = await apiService.getAll('/messages/terms');
-            return termsResponse;
-        };
-        fetchTerms()
-            .then((termsResponse) => {
-                setTagState({
-                    ...tagState,
-                    allTags: termsResponse.data.data,
-                    filteredTagList: termsResponse.data.data,
-                    tagLoader: false,
-                });
-                const currentSession = sessionList.filter(
-                    (singleSession) =>
-                        singleSession.session_id === activeSessionId
-                );
-                if (taglistWithSession) {
-                    if (sessionList.length !== 0) {
-                        if (currentSession.length !== 0) {
-                            setTagState({
-                                ...tagState,
-                                assignedTags: currentSession[0].terms,
-                                filteredTagList: currentSession[0].terms,
-                                tagLoader: false,
-                            });
-                        }
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
+        
+        if(tagListModalOpen){
+            setTagState({
+                ...tagState,
+                tagLoader: true
             });
-    }, [tagListModalOpen]);
+            const fetchTerms = async ()=>{
+                const termsResponse = await apiService.getAll('/messages/terms')
+                return termsResponse;
+            }
+            fetchTerms()
+                .then( termsResponse => {
+                    const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
+                    if(taglistWithSession){
+                        if(sessionList.length !== 0){
+                            if(currentSession.length !== 0){
+                                setTagState({
+                                    ...tagState,
+                                    allTags: termsResponse.data.data,
+                                    assignedTags: currentSession[0].terms,
+                                    filteredTagList: currentSession[0].terms,
+                                    tagLoader: false
+                                });
+                            }
+                        }
+                    }else{
+                        setTagState({
+                            ...tagState,
+                            allTags: termsResponse.data.data,
+                            filteredTagList: termsResponse.data.data,
+                            tagLoader: false
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }
+        
+	}, [tagListModalOpen]);
 
     /* Handle Add Tag */
     const handleAddTagModal = (event) => {
@@ -101,8 +104,7 @@ const Taglist = (props) => {
             addTagModalOpen: true,
             taglistWithSession: true,
         });
-        // dispatch(handleTagFormModal(true));
-    };
+    }
 
     const handleCloseAllTagModal = (event) => {
         event.preventDefault();

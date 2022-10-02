@@ -37,6 +37,10 @@ const VideoHomeWrap = Styled.div`
         &.wpwax-vm-btn-light{
             color: var(--color-dark);
             background-color: var(--color-border-light);
+            &:hover{
+                color: var(--color-dark);
+                background-color: #cfd1d4;
+            }
         }
     }
     .wpwax-vm-short-text{

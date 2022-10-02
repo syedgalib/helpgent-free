@@ -29,8 +29,8 @@
     --secondary-button-bg: #fc495d;
     --secondary-button-border-radius: '15';
     --color-page-bg: '#030308';
-    --color-description: rgba(255,255,255,.80);
-    --color-footer-text: rgba(255,255,255,.80);
+    --color-description: rgba(255, 255, 255, 0.8);
+    --color-footer-text: rgba(255, 255, 255, 0.8);
     --footer-text-font-size: 'medium';
 }
 
@@ -93,6 +93,7 @@
     padding: 0 25px;
     border-radius: 8px;
     text-decoration: none;
+    transition: background-color 0.3s ease-out;
     cursor: pointer;
     color: var(--color-white);
 
@@ -104,6 +105,13 @@
     &.wpwax-vm-btn-dark {
         background-color: var(--color-dark);
         border: 1px solid var(--color-dark);
+        &:hover {
+            color: var(--color-dark);
+            background-color: var(--color-white);
+            svg path {
+                fill: var(--color-dark);
+            }
+        }
     }
 
     &.wpwax-vm-btn-primary {
@@ -114,30 +122,56 @@
         &:not(:hover):not(:active):not(.has-background) {
             background-color: var(--primary-button-bg);
         }
+        &:hover {
+            color: var(--primary-button-bg);
+            background-color: var(--color-white);
+            svg path {
+                fill: var(--primary-button-bg);
+            }
+        }
     }
 
     &.wpwax-vm-btn-light {
         color: var(--color-text);
         background-color: var(--color-light);
         border: 1px solid var(--color-light);
+        &:hover {
+            color: var(--color-dark);
+            background-color: #cfd1d4;
+        }
     }
 
     &.wpwax-vm-btn-gray {
         color: var(--color-dark);
         background-color: var(--color-bg-general);
         border: 1px solid var(--color-bg-general);
+        &:hover {
+            background-color: var(--color-white);
+        }
     }
 
     &.wpwax-vm-btn-danger {
         color: var(--color-white);
         background-color: var(--color-danger);
         border: 1px solid var(--color-danger);
+        &:hover {
+            color: var(--color-danger);
+            background-color: var(--color-white);
+            svg path {
+                fill: var(--color-danger);
+            }
+        }
     }
 
     &.wpwax-vm-btn-white {
+        transition: color 0.2s ease-in;
         color: var(--color-dark);
         background-color: var(--color-white);
         border: 1px solid var(--color-white);
+        &:hover {
+            color: var(--color-primary);
+            background-color: var(--color-white);
+        }
     }
 }
 
@@ -174,7 +208,11 @@
         border: 0 none;
         box-sizing: border-box;
         color: var(--color-dark);
+        border: 2px solid transparent;
         background-color: var(--color-bg-general);
+        &:focus {
+            border-color: var(--color-dark);
+        }
     }
 
     textarea {
@@ -195,7 +233,7 @@
             font-weight: 500;
             color: #4d4d4d;
         }
-        .wpwax-vm-require-sign{
+        .wpwax-vm-require-sign {
             margin: 0 0 0 6px;
         }
     }
@@ -639,7 +677,14 @@
         top: 50%;
         transform: translateY(-50%);
         color: var(--color-dark);
+        transition: 0.3s;
         text-decoration: none;
+
+        &:hover {
+            .dashicons {
+                color: var(--color-danger);
+            }
+        }
 
         .dashicons {
             font-size: 20px;
@@ -926,9 +971,10 @@
 }
 
 .wpwax-vm-success__title {
-    font-size: 24px;
+    font-size: var(--color-thank-title);
     font-weight: 600;
-    color: var(--color-dark);
+    margin-bottom: 16px;
+    color: var(--color-thank-title);
 }
 
 .wpwax-vm-d-block {

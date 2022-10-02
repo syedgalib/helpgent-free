@@ -35,6 +35,10 @@ const RecorderWrap = Styled.div`
             p{
                 min-height: 32px;
             }
+            .wpwax-vm-highlighted{
+                display: inline-block;
+                margin: 0 6px;
+            }
             .wpwax-vm-record-staging__bottom--action{
                 position: relative;
                 .wpwax-vm-pause-btn{
@@ -57,6 +61,15 @@ const RecorderWrap = Styled.div`
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    &:hover{
+                        >div{
+                            svg{
+                                path{
+                                    fill: #FC495D;
+                                }
+                            }
+                        }
+                    }
                     >div{
                         line-height: 1;
                         svg{
@@ -74,7 +87,13 @@ const RecorderWrap = Styled.div`
                     height: 110px;
                     margin: 0 auto;
                     border-radius: 50%;
+                    transition: background-color .3s ease-in-out;
                     background-color: #FC495D;
+                    border: 2px solid #FC495D;
+                    &:hover{
+                        color: #FC495D;
+                        background-color: #fff;
+                    }
                 }
                 .wpwax-vm-record-btn-right{
                     position: relative;
@@ -90,8 +109,15 @@ const RecorderWrap = Styled.div`
                     border-radius: 50%;
                     background-color: #B4B4B4;
                     text-decoration: none;
+                    transition: background-color .3s ease-in-out;
                     color: var(--color-white);
+                    &.wpwax-vm-btn-close{
+                        &:hover{
+                            background-color: var(--color-danger);
+                        }
+                    }
                     &.wpwax-vm-btn-send{
+                        border: 2px solid #FC495D;
                         background-color: #FC495D;
                         &:after{
                             position: absolute;
@@ -103,6 +129,12 @@ const RecorderWrap = Styled.div`
                             border-radius: 4px;
                             content: '';
                             background-color: var(--color-white);
+                        }
+                        &:hover{
+                            background-color: var(--color-white);
+                            &:after{
+                                background-color: #FC495D;
+                            }
                         }
                     }
                 }
@@ -169,8 +201,12 @@ const RecorderWrap = Styled.div`
                 margin: 0 auto;
                 border-radius: 50%;
                 z-index: 101;
+                transition: box-shadow .2s ease-in;
                 background-color: var(--color-white);
                 box-shadow: 0 5px 50px rgba(0,0,0,.15);
+                &:hover{
+                    box-shadow: 0 20px 60px rgba(0,0,0,.20);
+                }
                 >div{
                     width: 25px;
                     height: 25px;

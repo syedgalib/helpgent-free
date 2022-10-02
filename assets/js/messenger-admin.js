@@ -5664,7 +5664,6 @@ var MediaBox = function MediaBox(_ref) {
 
   var replyerImg = function replyerImg() {
     if (lastMessage) {
-      // console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
       if (lastMessage.user.roles[0] === 'administrator') {
         if (lastMessage.user.avatar) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
@@ -6034,15 +6033,14 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    setOuterState(_objectSpread({}, outerState));
-                    _context.next = 3;
+                    _context.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
 
-                  case 3:
+                  case 2:
                     response = _context.sent;
                     return _context.abrupt("return", response);
 
-                  case 5:
+                  case 4:
                   case "end":
                     return _context.stop();
                 }
@@ -6056,114 +6054,112 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markRead().then(function (resposne) {
-          var sessionWithMark = outerState.map(function (item, index) {
+          // console.log(resposne)
+          var sessionWithMark = outerState.sessionList.map(function (item, index) {
             item.total_unread = 0;
           });
           console.log(sessionWithMark);
-
-          var getSessions = /*#__PURE__*/function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-              var sessionResponse;
-              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll('/sessions');
-
-                    case 2:
-                      sessionResponse = _context2.sent;
-                      return _context2.abrupt("return", sessionResponse);
-
-                    case 4:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2);
-            }));
-
-            return function getSessions() {
-              return _ref3.apply(this, arguments);
-            };
-          }();
-
-          getSessions().then(function (sessionResponse) {
-            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              sessionList: sessionResponse.data.data
-            }));
-            dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
-          }).catch(function (error) {});
-        }).catch(function (error) {});
+          outerState.sessionList.map(function (item, index) {
+            if (item.id === sessionId) {
+              item.total_unread = resposne.data.success.total_unread;
+            }
+          }); // console.log(outerState);
+          // const getSessions = async ()  =>{
+          //     const sessionResponse = await apiService.getAll('/sessions');
+          //     return sessionResponse;
+          // }
+          // getSessions()
+          // .then( sessionResponse => {
+          //     setOuterState({
+          //         ...outerState,
+          //         sessionList: sessionResponse.data.data,
+          //     });
+          //     dispatch(handleReadSessions(sessionResponse.data.data))
+          // })
+          // .catch(error => {})
+        }).catch(function (error) {
+          console.log(error);
+        });
         break;
 
       case 'mark-unread':
         var markUnRead = /*#__PURE__*/function () {
-          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+          var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
             var response;
-            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
-                    setOuterState(_objectSpread({}, outerState));
-                    _context3.next = 3;
+                    _context2.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
 
-                  case 3:
-                    response = _context3.sent;
-                    console.log(response);
-                    return _context3.abrupt("return", response);
+                  case 2:
+                    response = _context2.sent;
+                    return _context2.abrupt("return", response);
 
-                  case 6:
+                  case 4:
                   case "end":
-                    return _context3.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee3);
+            }, _callee2);
           }));
 
           return function markUnRead() {
-            return _ref4.apply(this, arguments);
+            return _ref3.apply(this, arguments);
           };
         }();
 
         markUnRead().then(function (resposne) {
-          var getUnreadSessions = /*#__PURE__*/function () {
-            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-              var sessionResponse;
-              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-                while (1) {
-                  switch (_context4.prev = _context4.next) {
-                    case 0:
-                      _context4.next = 2;
-                      return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll('/sessions');
+          var sessionWithMarky = outerState.sessionList.filter(function (item, index) {
+            return item.session_id === sessionId;
+          })[0].total_unread = '1'; //sessionWithMarky[0].total_unread = '1';
 
-                    case 2:
-                      sessionResponse = _context4.sent;
-                      console.log(sessionResponse);
-                      return _context4.abrupt("return", sessionResponse);
+          var nrrarr = _toConsumableArray(sessionWithMarky); // let test = [...sessionWithMark,sessionWithMark.total_unread = 1]
 
-                    case 5:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee4);
-            }));
 
-            return function getUnreadSessions() {
-              return _ref5.apply(this, arguments);
-            };
-          }();
+          console.log(sessionWithMarky);
 
-          getUnreadSessions().then(function (sessionResponse) {
-            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              sessionList: sessionResponse.data.data
-            }));
-            console.log(sessionResponse);
-            dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
-          }).catch(function (error) {});
-        }).catch(function (error) {});
+          var virtualArray = _toConsumableArray(outerState.sessionList);
+
+          var indexh = virtualArray.map(function (item) {
+            return item.session_id;
+          }).indexOf(sessionId); // virtualArray[indexh] = [...sessionWithMarky,sessionWithMarky[0].total_unread = 1]
+          // setOuterState({
+          //     ...outerState,
+          //     sessionList: [
+          //         ...outerState.sessionList,
+          //         outerState.sessionList[indexh] = {
+          //             ...outerState.sessionList[indexh].total_unread = '1'
+          //         }
+          //     ]
+          // })
+
+          console.log(virtualArray, indexh); // const getUnreadSessions = async ()  =>{
+          //     const sessionResponse = await apiService.getAll('/sessions');
+          //     console.log(sessionResponse);
+          //     return sessionResponse;
+          // }
+          // console.log(resposne)
+          // outerState.sessionList.map((item,index)=>{
+          //     if(item.id === sessionId){
+          //         item.total_unread = 2
+          //     }
+          // })
+          // console.log(outerState);
+          // getUnreadSessions()
+          // .then( sessionResponse => {
+          //     setOuterState({
+          //         ...outerState,
+          //         sessionList: sessionResponse.data.data,
+          //     });
+          //     console.log(sessionResponse)
+          //     dispatch(handleReadSessions(sessionResponse.data.data))
+          // })
+          // .catch(error => {})
+        }).catch(function (error) {
+          console.log(error);
+        });
         break;
 
       case 'add-tags':
@@ -6211,29 +6207,29 @@ var Dropdown = function Dropdown(_ref) {
         }));
 
         var deleteTerm = /*#__PURE__*/function () {
-          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
             var deleteResponse;
-            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context5.next = 2;
+                    _context3.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].datadelete("messages/terms/".concat(termId));
 
                   case 2:
-                    deleteResponse = _context5.sent;
-                    return _context5.abrupt("return", deleteResponse);
+                    deleteResponse = _context3.sent;
+                    return _context3.abrupt("return", deleteResponse);
 
                   case 4:
                   case "end":
-                    return _context5.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee5);
+            }, _callee3);
           }));
 
           return function deleteTerm() {
-            return _ref6.apply(this, arguments);
+            return _ref4.apply(this, arguments);
           };
         }();
 
@@ -6264,31 +6260,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
-          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            return _regeneratorRuntime().wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context4.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "read"
                     });
 
                   case 2:
-                    readSession = _context6.sent;
-                    return _context6.abrupt("return", readSession);
+                    readSession = _context4.sent;
+                    return _context4.abrupt("return", readSession);
 
                   case 4:
                   case "end":
-                    return _context6.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee6);
+            }, _callee4);
           }));
 
           return function fetchReadSeassion() {
-            return _ref7.apply(this, arguments);
+            return _ref5.apply(this, arguments);
           };
         }();
 
@@ -6302,31 +6298,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-unread':
         var fetchUnReadSeassion = /*#__PURE__*/function () {
-          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context7.next = 2;
+                    _context5.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "unread"
                     });
 
                   case 2:
-                    readSession = _context7.sent;
-                    return _context7.abrupt("return", readSession);
+                    readSession = _context5.sent;
+                    return _context5.abrupt("return", readSession);
 
                   case 4:
                   case "end":
-                    return _context7.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee7);
+            }, _callee5);
           }));
 
           return function fetchUnReadSeassion() {
-            return _ref8.apply(this, arguments);
+            return _ref6.apply(this, arguments);
           };
         }();
 
@@ -6340,29 +6336,29 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
-          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
             var latestSession;
-            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
-                    _context8.next = 2;
+                    _context6.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll("/sessions");
 
                   case 2:
-                    latestSession = _context8.sent;
-                    return _context8.abrupt("return", latestSession);
+                    latestSession = _context6.sent;
+                    return _context6.abrupt("return", latestSession);
 
                   case 4:
                   case "end":
-                    return _context8.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee8);
+            }, _callee6);
           }));
 
           return function fetchLatestSeassion() {
-            return _ref9.apply(this, arguments);
+            return _ref7.apply(this, arguments);
           };
         }();
 
@@ -6376,31 +6372,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
-          var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
             var oldestSession;
-            return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context9.next = 2;
+                    _context7.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "oldest"
                     });
 
                   case 2:
-                    oldestSession = _context9.sent;
-                    return _context9.abrupt("return", oldestSession);
+                    oldestSession = _context7.sent;
+                    return _context7.abrupt("return", oldestSession);
 
                   case 4:
                   case "end":
-                    return _context9.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee9);
+            }, _callee7);
           }));
 
           return function fetchOldestSeassion() {
-            return _ref10.apply(this, arguments);
+            return _ref8.apply(this, arguments);
           };
         }();
 
@@ -10653,7 +10649,7 @@ var Sidebar = function Sidebar(_ref) {
     }));
   };
 
-  console.log(wpWaxCustomerSupportApp_CoreScriptData.admin_user);
+  console.log(sessionList);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
@@ -10794,15 +10790,22 @@ var Sidebar = function Sidebar(_ref) {
               images.push(users[0].avater);
             } else if (users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
               /* je login korchhe se Admin */
-              users.map(function (userSingle) {
-                images.push(userSingle.avatar);
+              var selectClient = users.filter(function (client) {
+                return client.roles[0] === 'subscriber';
               });
-            } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {// Not Possible
-            }
 
-            console.log(users, images); // if (selectedUSer.length !== 0) {
+              if (selectClient.length !== 0) {
+                images.push(selectClient[0].avater);
+              } else {
+                images.push(users[0].avater);
+              }
+            } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } // console.log(users.length,images);
+            // if (selectedUSer.length !== 0) {
             //     images.push(selectedUSer[0].avater);
             // }
+
 
             if (item.users.length === 1) {
               titleString.push(item.users[0].name);

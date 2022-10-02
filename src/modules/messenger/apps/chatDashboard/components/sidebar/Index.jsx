@@ -236,7 +236,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(wpWaxCustomerSupportApp_CoreScriptData.admin_user)
+    console.log(sessionList)
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -381,13 +381,16 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                         images.push(users[0].avater)
                                     }else if(users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
                                         /* je login korchhe se Admin */
-                                        users.map(userSingle=> {
-                                            images.push(userSingle.avatar)
-                                        });
+                                        const selectClient = users.filter(client => client.roles[0]==='subscriber');
+                                        if(selectClient.length !==0){
+                                            images.push(selectClient[0].avater);
+                                        }else{
+                                            images.push(users[0].avater);
+                                        }
                                     }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        // Not Possible
+                                        images.push(users[0].avater);
                                     }
-                                    console.log(users,images);
+                                    // console.log(users.length,images);
                                     // if (selectedUSer.length !== 0) {
                                     //     images.push(selectedUSer[0].avater);
                                     // }

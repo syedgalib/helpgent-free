@@ -6566,6 +6566,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function App() {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -6600,6 +6601,11 @@ function App() {
       sessionState = _useState2[0],
       setSessionState = _useState2[1];
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('Updated Session State', {
+      sessionState: sessionState
+    });
+  }, [sessionState]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "wpwax-vm-sidebar",
@@ -6609,7 +6615,10 @@ function App() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "wpwax-vm-messagebox",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        sessionState: sessionState,
+        setSessionState: setSessionState
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
       className: "wpax-vm-overlay"
     })]
@@ -6729,7 +6738,8 @@ var CenterBoxStyle = {
   alignItems: 'center'
 };
 
-function MessageBox() {
+function MessageBox(_ref) {
+  var setSessionState = _ref.setSessionState;
   var messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
   /* Dispasth is used for passing the actions to redux store  */
 
@@ -6900,7 +6910,7 @@ function MessageBox() {
     setIsLoadingSession(true); // Fetch session data from API
 
     var fetchSession = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var sessionResponse;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -6925,7 +6935,7 @@ function MessageBox() {
       }));
 
       return function fetchSession() {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -7082,7 +7092,7 @@ function MessageBox() {
 
 
   var showReplayViaVoiceMessage = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
       var can_record_auido;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
@@ -7121,7 +7131,7 @@ function MessageBox() {
     }));
 
     return function showReplayViaVoiceMessage(_x) {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
   /* Handle Reply Mode */
@@ -7138,7 +7148,7 @@ function MessageBox() {
   };
 
   var sendTextMessage = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
       var response, message;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
@@ -7191,12 +7201,12 @@ function MessageBox() {
     }));
 
     return function sendTextMessage(_x2) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
 
   var handleSendAudioMessage = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -7237,12 +7247,12 @@ function MessageBox() {
     }));
 
     return function handleSendAudioMessage(_x3) {
-      return _ref4.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
 
   var sendAudioMessage = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
       var attachment, attachmentResponse, message, attachmentID, response, _message;
 
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -7321,7 +7331,7 @@ function MessageBox() {
     }));
 
     return function sendAudioMessage(_x4) {
-      return _ref5.apply(this, arguments);
+      return _ref6.apply(this, arguments);
     };
   }();
 
@@ -7373,7 +7383,7 @@ function MessageBox() {
   }
 
   var createMessage = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args) {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args) {
       var defaultArgs, status, _response;
 
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
@@ -7415,12 +7425,12 @@ function MessageBox() {
     }));
 
     return function createMessage(_x6) {
-      return _ref6.apply(this, arguments);
+      return _ref7.apply(this, arguments);
     };
   }();
 
   var getMessages = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(customArgs) {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(customArgs) {
       var defaultArgs, args, status, _response2;
 
       return _regeneratorRuntime().wrap(function _callee7$(_context7) {
@@ -7465,18 +7475,18 @@ function MessageBox() {
     }));
 
     return function getMessages(_x7) {
-      return _ref7.apply(this, arguments);
+      return _ref8.apply(this, arguments);
     };
   }();
 
   var afterStopVoiceRecording = /*#__PURE__*/function () {
-    var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(_ref8) {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(_ref9) {
       var blob, sendRecording;
       return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
-              blob = _ref8.blob, sendRecording = _ref8.sendRecording;
+              blob = _ref9.blob, sendRecording = _ref9.sendRecording;
 
               if (sendRecording) {
                 _context8.next = 3;
@@ -7501,7 +7511,7 @@ function MessageBox() {
     }));
 
     return function afterStopVoiceRecording(_x8) {
-      return _ref9.apply(this, arguments);
+      return _ref10.apply(this, arguments);
     };
   }();
 
@@ -7511,7 +7521,7 @@ function MessageBox() {
   };
 
   var prepareVoiceRecording = /*#__PURE__*/function () {
-    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
       var audioStreem;
       return _regeneratorRuntime().wrap(function _callee9$(_context9) {
         while (1) {
@@ -7543,7 +7553,7 @@ function MessageBox() {
     }));
 
     return function prepareVoiceRecording() {
-      return _ref10.apply(this, arguments);
+      return _ref11.apply(this, arguments);
     };
   }(); // setupAudioStreem
 
@@ -7661,7 +7671,7 @@ function MessageBox() {
 
 
   var canRecordAudio = /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
       var has_permission, accepted_permission;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
@@ -7707,13 +7717,13 @@ function MessageBox() {
     }));
 
     return function canRecordAudio() {
-      return _ref11.apply(this, arguments);
+      return _ref12.apply(this, arguments);
     };
   }(); // hasAudioRecordPermission
 
 
   var hasAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
       var microphonePermission;
       return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) {
@@ -7743,13 +7753,13 @@ function MessageBox() {
     }));
 
     return function hasAudioRecordPermission() {
-      return _ref12.apply(this, arguments);
+      return _ref13.apply(this, arguments);
     };
   }(); // requestAudioRecordPermission
 
 
   var requestAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
       return _regeneratorRuntime().wrap(function _callee12$(_context12) {
         while (1) {
           switch (_context12.prev = _context12.next) {
@@ -7784,7 +7794,7 @@ function MessageBox() {
     }));
 
     return function requestAudioRecordPermission() {
-      return _ref13.apply(this, arguments);
+      return _ref14.apply(this, arguments);
     };
   }();
 
@@ -7855,7 +7865,7 @@ function MessageBox() {
   }
 
   var loadOlderMessages = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
       var paginationMeta, nextPage, response, message, latestItems, updatedSessionMessages;
       return _regeneratorRuntime().wrap(function _callee13$(_context13) {
         while (1) {
@@ -7918,7 +7928,7 @@ function MessageBox() {
     }));
 
     return function loadOlderMessages() {
-      return _ref14.apply(this, arguments);
+      return _ref15.apply(this, arguments);
     };
   }();
 
@@ -7945,7 +7955,7 @@ function MessageBox() {
 
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
-    setMessageDirection("top");
+    setMessageDirection('top');
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
 
     if (isShowingVideoSearchResult) {
@@ -7989,7 +7999,7 @@ function MessageBox() {
   };
 
   var loadSearchResults = /*#__PURE__*/function () {
-    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(queryArgs) {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(queryArgs) {
       var defaultQueryArgs, response, message, searchResults;
       return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
@@ -8034,12 +8044,12 @@ function MessageBox() {
     }));
 
     return function loadSearchResults(_x10) {
-      return _ref15.apply(this, arguments);
+      return _ref16.apply(this, arguments);
     };
   }();
 
   var loadMoreSearchResults = /*#__PURE__*/function () {
-    var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+    var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
       var nextPage, queryArgs, response, message, latestItems, newSearchResults;
       return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
@@ -8095,7 +8105,7 @@ function MessageBox() {
     }));
 
     return function loadMoreSearchResults() {
-      return _ref16.apply(this, arguments);
+      return _ref17.apply(this, arguments);
     };
   }();
 
@@ -8114,6 +8124,32 @@ function MessageBox() {
       nextPage: nextPage,
       reminder: currentPageItemsReminder
     };
+  };
+
+  var updateUnreadMessagesCount = function updateUnreadMessagesCount() {
+    var session_id = selectedSession.session_id;
+    setSessionState(function (currentState) {
+      var total_unread = currentState.filteredSessions.filter(function (session) {
+        return session.session_id === session_id;
+      })[0].total_unread;
+      var new_count = parseInt(total_unread) - 1;
+      new_count = new_count < 0 ? '0' : "".concat(new_count);
+
+      var newState = _objectSpread(_objectSpread({}, currentState), {}, {
+        sessionList: currentState.sessionList.map(function (session) {
+          return session.session_id === session_id ? _objectSpread(_objectSpread({}, session), {}, {
+            total_unread: new_count
+          }) : session;
+        }),
+        filteredSessions: currentState.filteredSessions.map(function (session) {
+          return session.session_id === selectedSession.session_id ? _objectSpread(_objectSpread({}, session), {}, {
+            total_unread: new_count
+          }) : session;
+        })
+      });
+
+      return newState;
+    });
   };
   /* Handle Load Footer Content */
 
@@ -8287,7 +8323,7 @@ function MessageBox() {
 
 
   var handleVoiceClose = /*#__PURE__*/function () {
-    var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
+    var _ref18 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
       return _regeneratorRuntime().wrap(function _callee16$(_context16) {
         while (1) {
           switch (_context16.prev = _context16.next) {
@@ -8320,7 +8356,7 @@ function MessageBox() {
     }));
 
     return function handleVoiceClose(_x11) {
-      return _ref17.apply(this, arguments);
+      return _ref18.apply(this, arguments);
     };
   }();
 
@@ -8328,7 +8364,7 @@ function MessageBox() {
     event.preventDefault();
     var scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
 
-    if (messageDirection === "bottom") {
+    if (messageDirection === 'bottom') {
       scrollingBody.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -8454,7 +8490,8 @@ function MessageBox() {
                 return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user,
-                  containerScrollMeta: messagesContainerScrollMeta
+                  containerScrollMeta: messagesContainerScrollMeta,
+                  onMarkedAsRead: updateUnreadMessagesCount
                 }, index);
               })
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
@@ -8621,7 +8658,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Message(_ref) {
   var data = _ref.data,
       currentUser = _ref.currentUser,
-      containerScrollMeta = _ref.containerScrollMeta;
+      containerScrollMeta = _ref.containerScrollMeta,
+      onMarkedAsRead = _ref.onMarkedAsRead;
   var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var videoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -8697,6 +8735,7 @@ function Message(_ref) {
       createSeenBy(data.id).then(function () {
         setIsSeen(true);
         setUpdatingIsSeen(false);
+        onMarkedAsRead();
       }).catch(function (error) {
         console.error({
           error: error

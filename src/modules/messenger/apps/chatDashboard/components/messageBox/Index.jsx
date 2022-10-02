@@ -34,7 +34,7 @@ const CenterBoxStyle = {
     alignItems: 'center',
 };
 
-function MessageBox() {
+function MessageBox({ setSessionState }) {
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -203,9 +203,7 @@ function MessageBox() {
         [selectedSession]
     );
 
-    useEffect(() => {
-        
-    }, [sessionMessages]);
+    useEffect(() => {}, [sessionMessages]);
 
     const messageBody = document.querySelector(
         '.wpwax-vm-messagebox-body .infinite-scroll-component '
@@ -935,7 +933,7 @@ function MessageBox() {
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
-        setMessageDirection("top");
+        setMessageDirection('top');
         dispatch(
             updateSessionWindowData(
                 selectedSession.session_id,
@@ -1145,6 +1143,35 @@ function MessageBox() {
         };
     };
 
+    const updateUnreadMessagesCount = function () {
+        const session_id = selectedSession.session_id;
+
+        setSessionState((currentState) => {
+            const total_unread = currentState.filteredSessions.filter(
+                (session) => session.session_id === session_id
+            )[0].total_unread;
+
+            let new_count = parseInt(total_unread) - 1;
+            new_count = new_count < 0 ? '0' : `${new_count}`;
+
+            const newState = {
+                ...currentState,
+                sessionList: currentState.sessionList.map((session) =>
+                    session.session_id === session_id
+                        ? { ...session, total_unread: new_count }
+                        : session
+                ),
+                filteredSessions: currentState.filteredSessions.map((session) =>
+                    session.session_id === selectedSession.session_id
+                        ? { ...session, total_unread: new_count }
+                        : session
+                ),
+            };
+
+            return newState;
+        });
+    };
+
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
         if (messageType === 'text') {
@@ -1330,18 +1357,17 @@ function MessageBox() {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
-        if(messageDirection === "bottom"){
+        if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,
                 behavior: 'smooth',
             });
-        }else{
+        } else {
             scrollingBody.scrollTo({
                 bottom: 0,
                 behavior: 'smooth',
             });
         }
-        
     };
 
     return (
@@ -1530,6 +1556,9 @@ function MessageBox() {
                                                                 containerScrollMeta={
                                                                     messagesContainerScrollMeta
                                                                 }
+                                                                onMarkedAsRead={
+                                                                    updateUnreadMessagesCount
+                                                                }
                                                             />
                                                         );
                                                     }
@@ -1540,7 +1569,17 @@ function MessageBox() {
                                                 <h2>No message found</h2>
                                             </div>
                                         )}
-                                        <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
+                                        <a
+                                            href='#'
+                                            className={
+                                                scrollBtnVisibility
+                                                    ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
+                                                    : 'wpwax-vm-scroll-bottom'
+                                            }
+                                            onClick={handleScrollBottom}
+                                        >
+                                            <span className='dashicons dashicons-arrow-down-alt'></span>
+                                        </a>
                                     </div>
                                 ) : (
                                     <div>
@@ -1606,7 +1645,17 @@ function MessageBox() {
                                                         </h2>
                                                     </div>
                                                 )}
-                                                <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
+                                                <a
+                                                    href='#'
+                                                    className={
+                                                        scrollBtnVisibility
+                                                            ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
+                                                            : 'wpwax-vm-scroll-bottom'
+                                                    }
+                                                    onClick={handleScrollBottom}
+                                                >
+                                                    <span className='dashicons dashicons-arrow-down-alt'></span>
+                                                </a>
                                             </div>
                                         ) : (
                                             <div style={CenterBoxStyle}>

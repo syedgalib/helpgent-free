@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MessageBox from './components/messageBox/Index.jsx';
@@ -35,14 +35,24 @@ function App() {
         loader: true,
     });
 
+    useEffect(() => {
+        console.log('Updated Session State', { sessionState });
+    }, [sessionState]);
+
     return (
         <ChatDashboardWrap>
             <div className='wpwax-vm-sidebar'>
-                <Sidebar sessionState={sessionState} setSessionState={setSessionState}/>
+                <Sidebar
+                    sessionState={sessionState}
+                    setSessionState={setSessionState}
+                />
             </div>
 
             <div className='wpwax-vm-messagebox'>
-                <MessageBox />
+                <MessageBox
+                    sessionState={sessionState}
+                    setSessionState={setSessionState}
+                />
             </div>
 
             {/* <span className={modalOverlay ? "wpax-vm-overlay wpwax-vm-show" : "wpax-vm-overlay"}></span> */}

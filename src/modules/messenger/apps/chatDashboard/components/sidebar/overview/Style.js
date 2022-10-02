@@ -225,6 +225,7 @@ const TagFilterDropdown = Styled.div`
     display: none;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
+    cursor: auto;
     background-color: var(--color-white);
     &.wpwax-vm-tagfilter-show{
         display: block;
@@ -259,7 +260,7 @@ const TagFilterDropdown = Styled.div`
     .wpwax-vm-tag-filter-list{
         .wpwax-vm-checkbox{
             label{
-                top: -2px;
+                top: 0px;
                 color: var(--color-dark);
             }
             input{
@@ -281,12 +282,24 @@ const TagFilterDropdown = Styled.div`
                 color: var(--color-primary)
             }
         }
+        &.wpwax-vm-tag-filter-action-disabled{
+            cursor: not-allowed;
+            a{
+                opacity: .4;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+        }
     }
     .wpwax-vm-tag-filter-list{
         .wpwax-vm-tag-filter__check{
             &:not(:last-child){
                 margin-bottom: 24px;
             }
+        }
+        .wpwax-vm-empty{
+            font-size: 14px;
+            min-height: 60px;
         }
     }
 `;

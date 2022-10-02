@@ -36,7 +36,6 @@ const prepareGreetMessageStyle = ( options ) => {
 }
 
 function loadTemplateStyle( options ) {
-    console.log(options);
 
     const chatBoxDom = document.querySelector('#wpwax-vm-chatbox');
     chatBoxDom.style.setProperty("--color-page-bg", options.page_background_color);

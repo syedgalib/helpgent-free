@@ -15,7 +15,7 @@ const ScreenWrapper = Styled.div`
         .wpwax-vm-chatbox-text-form-inner{
             min-height: 580px;
             .wpwax-vm-form-group textarea.wpwax-vm-form__element{
-                min-height: 400px;
+                min-height: 300px;
             }
             .wpwax-vm-btn-block{
                 width: 100%;
@@ -28,6 +28,9 @@ const ScreenWrapper = Styled.div`
         .wpwax-vm-footer{
             .wpwax-vm-btn-block{
                 width: 100%;
+                &:not(:hover):not(:active):not(.has-text-color){
+                    color: var(--color-white);
+                }
             }
         }
     }
@@ -97,8 +100,16 @@ const ScreenWrapper = Styled.div`
             width: auto;
         }
     }
+    .wpwax-vm-record-send-success{
+        border-radius: 25px;
+        background-color: var(--color-thank-page-bg);
+    }
     .wpwax-vm-record-send-success__content {
         min-height: 300px;
+        .wpwax-vm-text-color{
+            font-size: var(--font-size-thank-desc);
+            color: var(--color-thank-desc);
+        }
     }
 `;
 

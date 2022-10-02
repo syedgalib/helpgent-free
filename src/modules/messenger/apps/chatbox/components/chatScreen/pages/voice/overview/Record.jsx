@@ -254,9 +254,6 @@ function Record() {
         }
     }
 
-    console.log(getPlayedTimeInPercent());
-
-
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>

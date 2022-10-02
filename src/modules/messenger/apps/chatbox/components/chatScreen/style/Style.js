@@ -94,9 +94,9 @@ const ChatboxForm = Styled.div`
                 flex: 0 0 30.3333%;
                 margin: 1.5%;
                 &:hover{
-                    fill: var(--color-primary);
+                    fill: var(--primary-button-bg);
                     path{
-                        fill: var(--color-primary);
+                        fill: var(--primary-button-bg);
                     }
                 }
                 svg{

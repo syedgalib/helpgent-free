@@ -123,10 +123,10 @@
             background-color: var(--primary-button-bg);
         }
         &:hover {
-            color: var(--color-primary);
+            color: var(--primary-button-bg);
             background-color: var(--color-white);
             svg path {
-                fill: var(--color-primary);
+                fill: var(--primary-button-bg);
             }
         }
     }
@@ -971,9 +971,10 @@
 }
 
 .wpwax-vm-success__title {
-    font-size: 24px;
+    font-size: var(--color-thank-title);
     font-weight: 600;
-    color: var(--color-dark);
+    margin-bottom: 16px;
+    color: var(--color-thank-title);
 }
 
 .wpwax-vm-d-block {

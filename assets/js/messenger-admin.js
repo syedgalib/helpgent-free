@@ -10653,6 +10653,7 @@ var Sidebar = function Sidebar(_ref) {
     }));
   };
 
+  console.log(wpWaxCustomerSupportApp_CoreScriptData.admin_user);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
@@ -10770,19 +10771,38 @@ var Sidebar = function Sidebar(_ref) {
             })
           }),
           children: sessionList.map(function (item, index) {
+            // console.log(currentUser);
             var users = item.users.filter(function (p) {
-              return currentUser && p.id !== parseInt(currentUser.ID);
-            });
-            var selectedUSer = users.filter(function (select) {
-              return select.roles[0] === 'subscriber';
-            });
+              return currentUser && p.id !== parseInt(currentUser.id);
+            }); // console.log(currentUser.id,users.length, users);
+            // const selectedUSer = users.filter(
+            //     (select) =>
+            //         select.roles[0] === 'subscriber'
+            // );
+
             var images = [];
             var titleString = [];
             var initialConv = false;
 
-            if (selectedUSer.length !== 0) {
-              images.push(selectedUSer[0].avater);
+            if (users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
+            } else if (users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
+            } else if (users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } else if (users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } else if (users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              /* je login korchhe se Admin */
+              users.map(function (userSingle) {
+                images.push(userSingle.avatar);
+              });
+            } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {// Not Possible
             }
+
+            console.log(users, images); // if (selectedUSer.length !== 0) {
+            //     images.push(selectedUSer[0].avater);
+            // }
 
             if (item.users.length === 1) {
               titleString.push(item.users[0].name);

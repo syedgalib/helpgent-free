@@ -35,10 +35,6 @@ function App() {
         loader: true,
     });
 
-    useEffect(() => {
-        console.log('Updated Session State', { sessionState });
-    }, [sessionState]);
-
     return (
         <ChatDashboardWrap>
             <div className='wpwax-vm-sidebar'>

@@ -462,7 +462,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                             ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'
                                                             : 'wpwax-vm-usermedia-status'
                                                     }
-                                                ></span>
+                                                >
+                                                    {item.total_unread}
+                                                </span>
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}

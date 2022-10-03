@@ -242,8 +242,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(sessionList)
-
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>

@@ -28,11 +28,12 @@ import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 
 const CenterBoxStyle = {
-    height: '100%',
-    minHeight: '520px',
+    minHeight: '620px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: '20px'
 };
 
 function MessageBox() {
@@ -1376,10 +1377,14 @@ function MessageBox() {
 
     };
 
-    console.log(getMessageBoxHeight())
+    console.log(getMessageBoxHeight(),selectedSession)
 
     return (
         <ChatBoxWrap>
+        {/* {
+            selectedSession ? 
+        } */}
+
             {selectedSession ? (
                 <div style={{ height: '100%' }}>
                     {!isLoadingSession ? (
@@ -1630,18 +1635,21 @@ function MessageBox() {
                                                         )}
                                                     </InfiniteScroll>
                                                 ) : (
-                                                    <div style={CenterBoxStyle}>
+                                                    
                                                         <h2>
                                                             No message found
                                                         </h2>
-                                                    </div>
+                                                    
                                                 )}
                                                 <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
                                             </div>
                                         ) : (
-                                            <div style={CenterBoxStyle}>
-                                                <h2>Loading...</h2>
-                                            </div>
+                                            <span className='wpwax-vm-loading-spin'>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                            </span>
                                         )}
                                     </div>
                                 )}
@@ -1658,9 +1666,12 @@ function MessageBox() {
                             )}
                         </div>
                     ) : (
-                        <div style={CenterBoxStyle}>
-                            <h2>Loading...</h2>
-                        </div>
+                        <span className='wpwax-vm-loading-spin'>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                        </span>
                     )}
                 </div>
             ) : (

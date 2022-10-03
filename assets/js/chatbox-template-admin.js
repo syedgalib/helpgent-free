@@ -11031,7 +11031,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n        tr{\n            th{\n                &.wpwax-vm-head-name{\n                    width: 80%;\n                }\n            }\n        }\n        .wpwax-vm-table-action{\n            margin: -8px;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            .dashicons{\n                width: 15px;\n                height: 15px;\n                margin-right: 8px;\n                position: relative;\n                top: -4px;\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-titlebox-inner{\n            display: flex;\n            align-items: center;\n            min-width: 240px;\n        }\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            min-width: 240px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        \n    }\n    .wpwax-vm-titlebox__editor-action{\n        margin-left: 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            background-color: #fff;\n            box-shadow: 0 5px 10px #adb4d260;\n            margin: 2px;\n            transition: 0.3s ease;\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-titlebox__editor--cancel{\n                background-color: var(--color-danger);\n                border: 1px solid var(--color-danger);\n                display: none;\n                &:hover{\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-danger);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes{\n                background-color: var(--color-success);\n                border: 1px solid var(--color-success);\n                display: none;\n                &:hover{\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-success);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--edit{\n                font-size: 15px;\n                display: none;\n                margin-left: 15px;\n                &:before{\n                    color: #2C99FF;\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;\n                }\n            }\n            .dashicons{\n                line-height: 1;\n                position: relative;\n                top: -2px;\n                &:before{\n                    font-size: 15px;\n                    color: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
+var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n        tr{\n            th{\n                &.wpwax-vm-head-name{\n                    width: 80%;\n                }\n            }\n        }\n        .wpwax-vm-table-action{\n            margin: -8px;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            .dashicons{\n                width: 15px;\n                height: 15px;\n                margin-right: 8px;\n                position: relative;\n                top: -4px;\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-titlebox-inner{\n            display: flex;\n            align-items: center;\n            min-width: 240px;\n        }\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            min-width: 240px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        \n    }\n    .wpwax-vm-titlebox__editor-action{\n        margin-left: 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            background-color: #fff;\n            box-shadow: 0 5px 10px #adb4d260;\n            margin: 2px;\n            transition: 0.3s ease;\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-titlebox__editor--cancel{\n                background-color: var(--color-danger);\n                border: 1px solid var(--color-danger);\n                display: none;\n                &:hover{\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-danger);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes{\n                background-color: var(--color-success);\n                border: 1px solid var(--color-success);\n                display: none;\n                &:hover{\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-success);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--edit{\n                font-size: 15px;\n                display: none;\n                margin-left: 15px;\n                &:before{\n                    color: #2C99FF;\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;\n                }\n            }\n            .dashicons{\n                line-height: 1;\n                position: relative;\n                top: -2px;\n                &:before{\n                    font-size: 15px;\n                    color: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (TemplateBox);
 
 /***/ }),
@@ -11125,7 +11125,8 @@ var Table = function Table() {
   /* Edit Mode Cancelation */
 
 
-  var canceleditElementIndex = function canceleditElementIndex() {
+  var canceleditElementIndex = function canceleditElementIndex(e) {
+    e.preventDefault();
     seteditElementIndexState({
       editElementIndex: ''
     });
@@ -11150,7 +11151,8 @@ var Table = function Table() {
   /* Update Table Name */
 
 
-  var saveTableName = function saveTableName(id) {
+  var saveTableName = function saveTableName(e, id) {
+    e.preventDefault();
     data.filter(function (item) {
       return item.id === id;
     }).map(function (item) {
@@ -11225,7 +11227,8 @@ var Table = function Table() {
   /* Delete Form */
 
 
-  var deleteForm = function deleteForm(id) {
+  var deleteForm = function deleteForm(e, id) {
+    e.preventDefault();
     setState(_objectSpread(_objectSpread({}, state), {}, {
       modalStatus: "open",
       deleteId: id
@@ -11314,15 +11317,17 @@ var Table = function Table() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
                         href: "#",
                         className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel',
-                        onClick: canceleditElementIndex,
+                        onClick: function onClick(e) {
+                          return canceleditElementIndex(e);
+                        },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                           className: "dashicons dashicons-no"
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
                         href: "#",
                         className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes',
-                        onClick: function onClick() {
-                          return saveTableName(value.id);
+                        onClick: function onClick(e) {
+                          return saveTableName(e, value.id);
                         },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                           className: "dashicons dashicons-yes"
@@ -11349,8 +11354,8 @@ var Table = function Table() {
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-btn wpwax-vm-btn-danger",
-                    onClick: function onClick() {
-                      return deleteForm(value.id);
+                    onClick: function onClick(e) {
+                      return deleteForm(e, value.id);
                     },
                     children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
                       className: "dashicons dashicons-trash"

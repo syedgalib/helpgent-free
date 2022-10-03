@@ -13,6 +13,7 @@ import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
+import { debounce } from '../../../../../../helpers/utils.js';
 
 import {
     handleReplyModeChange,
@@ -204,7 +205,7 @@ function MessageBox() {
     );
 
     useEffect(() => {
-        
+
     }, [sessionMessages]);
 
     const messageBody = document.querySelector(
@@ -933,6 +934,8 @@ function MessageBox() {
         loadSearchResults(newSearchQueryArgs);
     };
 
+	const onMessageSearch = debounce( updateTextSearchResult, 250 );
+
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
         setMessageDirection("top");
@@ -1341,7 +1344,7 @@ function MessageBox() {
                 behavior: 'smooth',
             });
         }
-        
+
     };
 
     return (
@@ -1370,19 +1373,15 @@ function MessageBox() {
                                         <div className='wpwax-vm-messagebox-header__actionlist'>
                                             <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search'>
                                                 <div className='wpwax-vm-searchbox'>
-                                                    <input
-                                                        type='text'
-                                                        ref={searchInputRef}
-                                                        name='wpwax-vm-messagebox-search'
-                                                        value={getWindowData(
-                                                            'searchKeyword'
-                                                        )}
-                                                        id='wpwax-vm-messagebox-search'
-                                                        placeholder='Search'
-                                                        onChange={
-                                                            updateTextSearchResult
-                                                        }
-                                                    />
+												<input
+													type='text'
+													ref={searchInputRef}
+													name='wpwax-vm-messagebox-search'
+													// value={getWindowData('searchKeyword')}
+													id='wpwax-vm-messagebox-search'
+													placeholder='Search'
+													onChange={onMessageSearch}
+												/>
                                                 </div>
                                                 {!openSearch ? (
                                                     <a

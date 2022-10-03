@@ -55,7 +55,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
-        const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
+        const currentSession = outerState.sessionList.filter(singleSession => singleSession.session_id === sessionId);
         const overlay = document.querySelector('.wpax-vm-overlay');
         setSelectedState({
             selectedItemText: event.target.text
@@ -73,97 +73,41 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     return response;
                 }
                 markRead()
-                .then( resposne =>{
-                    // console.log(resposne)
-                    const sessionWithMark = outerState.sessionList.map((item,index)=>{
-                        item.total_unread = 0;
-                    });
-                    console.log(sessionWithMark);
+                    .then( resposne =>{
+                        const sessionWithMarkRread = outerState.sessionList.map((item,index)=>{
+                            if(item.session_id === sessionId){
+                                return {...item,total_unread: '1'}
+                            }
 
-                    outerState.sessionList.map((item,index)=>{
-                        if(item.id === sessionId){
-                            item.total_unread = resposne.data.success.total_unread
-                        }
+                            return item;
+                        });
+
+                        setOuterState({
+                            ...outerState,
+                            sessionList: sessionWithMarkRread,
+                        });
                     })
-
-                    // console.log(outerState);
-
-                    // const getSessions = async ()  =>{
-                    //     const sessionResponse = await apiService.getAll('/sessions');
-                    //     return sessionResponse;
-                    // }
-    
-                    // getSessions()
-                    // .then( sessionResponse => {
-                    //     setOuterState({
-                    //         ...outerState,
-                    //         sessionList: sessionResponse.data.data,
-                    //     });
-                    //     dispatch(handleReadSessions(sessionResponse.data.data))
-                    // })
-                    // .catch(error => {})
-                })
-                .catch(error=>{console.log(error)})
+                    .catch(error=>{console.log(error)})
                 break;
             case 'mark-unread':
                 const markUnRead = async ()=>{
-                    // setOuterState({
-                    //     ...outerState,
-                    // });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-unread`);
-                    //console.log(response)
                     return response;
                 }
                 markUnRead()
                     .then( resposne =>{
-                        const sessionWithMarky = outerState.sessionList.filter((item,index)=> item.session_id === sessionId)[0].total_unread = '1'
-                        //sessionWithMarky[0].total_unread = '1';
-                        const nrrarr = [
-                            ...sessionWithMarky,
-                        ]
-                        // let test = [...sessionWithMark,sessionWithMark.total_unread = 1]
-                        console.log(sessionWithMarky);
+                        const sessionWithMarkUnread = outerState.sessionList.map((item,index)=>{
+                            if(item.session_id === sessionId){
+                                return {...item,total_unread: '0'}
+                            }
 
-                        const virtualArray = [...outerState.sessionList];
-                        let indexh = virtualArray.map(item=> item.session_id ).indexOf(sessionId);
-                        
-                        // virtualArray[indexh] = [...sessionWithMarky,sessionWithMarky[0].total_unread = 1]
-                        // setOuterState({
-                        //     ...outerState,
-                        //     sessionList: [
-                        //         ...outerState.sessionList,
-                        //         outerState.sessionList[indexh] = {
-                        //             ...outerState.sessionList[indexh].total_unread = '1'
-                        //         }
-                        //     ]
-                        // })
-                        console.log(virtualArray,indexh);
-                        
-                        // const getUnreadSessions = async ()  =>{
-                        //     const sessionResponse = await apiService.getAll('/sessions');
-                        //     console.log(sessionResponse);
-                        //     return sessionResponse;
-                        // }
-                        // console.log(resposne)
+                            return item;
+                        });
 
-                        // outerState.sessionList.map((item,index)=>{
-                        //     if(item.id === sessionId){
-                        //         item.total_unread = 2
-                        //     }
-                        // })
-
-                        // console.log(outerState);
-        
-                        // getUnreadSessions()
-                        // .then( sessionResponse => {
-                        //     setOuterState({
-                        //         ...outerState,
-                        //         sessionList: sessionResponse.data.data,
-                        //     });
-                        //     console.log(sessionResponse)
-                        //     dispatch(handleReadSessions(sessionResponse.data.data))
-                        // })
-                        // .catch(error => {})
+                        setOuterState({
+                            ...outerState,
+                            sessionList: sessionWithMarkUnread,
+                        });
                     })
                     .catch(error=>{console.log(error)})
                 break;

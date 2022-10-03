@@ -5614,7 +5614,7 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
-    var currentSession = sessions.filter(function (singleSession) {
+    var currentSession = outerState.sessionList.filter(function (singleSession) {
       return singleSession.session_id === sessionId;
     });
     var overlay = document.querySelector('.wpax-vm-overlay');
@@ -5657,29 +5657,18 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markRead().then(function (resposne) {
-          // console.log(resposne)
-          var sessionWithMark = outerState.sessionList.map(function (item, index) {
-            item.total_unread = 0;
-          });
-          console.log(sessionWithMark);
-          outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              item.total_unread = resposne.data.success.total_unread;
+          var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: '1'
+              });
             }
-          }); // console.log(outerState);
-          // const getSessions = async ()  =>{
-          //     const sessionResponse = await apiService.getAll('/sessions');
-          //     return sessionResponse;
-          // }
-          // getSessions()
-          // .then( sessionResponse => {
-          //     setOuterState({
-          //         ...outerState,
-          //         sessionList: sessionResponse.data.data,
-          //     });
-          //     dispatch(handleReadSessions(sessionResponse.data.data))
-          // })
-          // .catch(error => {})
+
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkRread
+          }));
         }).catch(function (error) {
           console.log(error);
         });
@@ -5714,52 +5703,18 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markUnRead().then(function (resposne) {
-          var sessionWithMarky = outerState.sessionList.filter(function (item, index) {
-            return item.session_id === sessionId;
-          })[0].total_unread = '1'; //sessionWithMarky[0].total_unread = '1';
+          var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: '0'
+              });
+            }
 
-          var nrrarr = _toConsumableArray(sessionWithMarky); // let test = [...sessionWithMark,sessionWithMark.total_unread = 1]
-
-
-          console.log(sessionWithMarky);
-
-          var virtualArray = _toConsumableArray(outerState.sessionList);
-
-          var indexh = virtualArray.map(function (item) {
-            return item.session_id;
-          }).indexOf(sessionId); // virtualArray[indexh] = [...sessionWithMarky,sessionWithMarky[0].total_unread = 1]
-          // setOuterState({
-          //     ...outerState,
-          //     sessionList: [
-          //         ...outerState.sessionList,
-          //         outerState.sessionList[indexh] = {
-          //             ...outerState.sessionList[indexh].total_unread = '1'
-          //         }
-          //     ]
-          // })
-
-          console.log(virtualArray, indexh); // const getUnreadSessions = async ()  =>{
-          //     const sessionResponse = await apiService.getAll('/sessions');
-          //     console.log(sessionResponse);
-          //     return sessionResponse;
-          // }
-          // console.log(resposne)
-          // outerState.sessionList.map((item,index)=>{
-          //     if(item.id === sessionId){
-          //         item.total_unread = 2
-          //     }
-          // })
-          // console.log(outerState);
-          // getUnreadSessions()
-          // .then( sessionResponse => {
-          //     setOuterState({
-          //         ...outerState,
-          //         sessionList: sessionResponse.data.data,
-          //     });
-          //     console.log(sessionResponse)
-          //     dispatch(handleReadSessions(sessionResponse.data.data))
-          // })
-          // .catch(error => {})
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkUnread
+          }));
         }).catch(function (error) {
           console.log(error);
         });

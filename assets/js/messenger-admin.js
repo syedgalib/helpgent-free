@@ -6011,7 +6011,7 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
-    var currentSession = sessions.filter(function (singleSession) {
+    var currentSession = outerState.sessionList.filter(function (singleSession) {
       return singleSession.session_id === sessionId;
     });
     var overlay = document.querySelector('.wpax-vm-overlay');
@@ -6054,29 +6054,18 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markRead().then(function (resposne) {
-          // console.log(resposne)
-          var sessionWithMark = outerState.sessionList.map(function (item, index) {
-            item.total_unread = 0;
-          });
-          console.log(sessionWithMark);
-          outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              item.total_unread = resposne.data.success.total_unread;
+          var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: '1'
+              });
             }
-          }); // console.log(outerState);
-          // const getSessions = async ()  =>{
-          //     const sessionResponse = await apiService.getAll('/sessions');
-          //     return sessionResponse;
-          // }
-          // getSessions()
-          // .then( sessionResponse => {
-          //     setOuterState({
-          //         ...outerState,
-          //         sessionList: sessionResponse.data.data,
-          //     });
-          //     dispatch(handleReadSessions(sessionResponse.data.data))
-          // })
-          // .catch(error => {})
+
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkRread
+          }));
         }).catch(function (error) {
           console.log(error);
         });
@@ -6111,52 +6100,18 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markUnRead().then(function (resposne) {
-          var sessionWithMarky = outerState.sessionList.filter(function (item, index) {
-            return item.session_id === sessionId;
-          })[0].total_unread = '1'; //sessionWithMarky[0].total_unread = '1';
+          var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: '0'
+              });
+            }
 
-          var nrrarr = _toConsumableArray(sessionWithMarky); // let test = [...sessionWithMark,sessionWithMark.total_unread = 1]
-
-
-          console.log(sessionWithMarky);
-
-          var virtualArray = _toConsumableArray(outerState.sessionList);
-
-          var indexh = virtualArray.map(function (item) {
-            return item.session_id;
-          }).indexOf(sessionId); // virtualArray[indexh] = [...sessionWithMarky,sessionWithMarky[0].total_unread = 1]
-          // setOuterState({
-          //     ...outerState,
-          //     sessionList: [
-          //         ...outerState.sessionList,
-          //         outerState.sessionList[indexh] = {
-          //             ...outerState.sessionList[indexh].total_unread = '1'
-          //         }
-          //     ]
-          // })
-
-          console.log(virtualArray, indexh); // const getUnreadSessions = async ()  =>{
-          //     const sessionResponse = await apiService.getAll('/sessions');
-          //     console.log(sessionResponse);
-          //     return sessionResponse;
-          // }
-          // console.log(resposne)
-          // outerState.sessionList.map((item,index)=>{
-          //     if(item.id === sessionId){
-          //         item.total_unread = 2
-          //     }
-          // })
-          // console.log(outerState);
-          // getUnreadSessions()
-          // .then( sessionResponse => {
-          //     setOuterState({
-          //         ...outerState,
-          //         sessionList: sessionResponse.data.data,
-          //     });
-          //     console.log(sessionResponse)
-          //     dispatch(handleReadSessions(sessionResponse.data.data))
-          // })
-          // .catch(error => {})
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkUnread
+          }));
         }).catch(function (error) {
           console.log(error);
         });
@@ -10636,6 +10591,7 @@ var Sidebar = function Sidebar(_ref) {
 
   var handeSelectSession = function handeSelectSession(e, item, index) {
     setaAtiveSession("wpwax-vm-session-".concat(index));
+    console.log(item);
     dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__.updateSelectedSession)(item));
   };
 
@@ -10647,9 +10603,9 @@ var Sidebar = function Sidebar(_ref) {
     setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
       hasMore: true
     }));
-  };
+  }; //console.log(sessionList)
 
-  console.log(sessionList);
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
@@ -12560,7 +12516,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   paginationPerPage: 10,
-  selectedSession: null,
+  selectedSession: {},
   allSessions: {},
   allSessionWindowData: {},
   defaultSessionWindowData: {

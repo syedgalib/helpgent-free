@@ -222,6 +222,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handeSelectSession = (e, item, index) => {
         setaAtiveSession(`wpwax-vm-session-${index}`);
+        console.log(item);
         dispatch(updateSelectedSession(item));
     };
 
@@ -236,7 +237,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(sessionList)
+    //console.log(sessionList)
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>

@@ -59,15 +59,6 @@ class Prepare_Database {
 			KEY session_id (session_id)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_cache_messages_marked_as_read (
-			user_id bigint(20) unsigned NOT NULL,
-			message_id bigint(20) unsigned NOT NULL,
-			session_id varchar(255) NOT NULL,
-			KEY user_id (user_id),
-			KEY message_id (message_id),
-			KEY session_id (session_id)
-		) $collate;
-
 		CREATE TABLE {$table_prefix}_message_terms (
 			term_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(200) NOT NULL DEFAULT '',

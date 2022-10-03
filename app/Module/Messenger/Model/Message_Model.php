@@ -124,7 +124,7 @@ class Message_Model extends DB_Model {
 				}
 
 				// ---> C2
-                if ( ! empty( $value['condition'] && ! empty( $value['rules'] ) ) ) {
+                if ( ! empty( $value['condition'] ) && ! empty( $value['rules'] ) ) {
 
 					$_where     = '';
 					$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
@@ -160,7 +160,7 @@ class Message_Model extends DB_Model {
 		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
 		$having   = '';
 
-		if ( is_array( $args['having'] ) ) {
+		if ( isset( $args['having'] ) && is_array( $args['having'] ) ) {
 			$having_field     = isset( $args['having']['field'] ) ? $args['having']['field'] : '';
 			$having_field     = in_array( $having_field, array_keys( $computed_fields ) ) ? $having_field : 'message.' . $having_field;
 			$having_condition = isset( $args['having']['condition'] ) ? $args['having']['condition'] : '=';

@@ -23,7 +23,6 @@ class Sessions extends Rest_Base
 
 	public function register_routes()
 	{
-
 		register_rest_route(
 			$this->namespace,
 			'/' . $this->rest_base,
@@ -31,8 +30,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => [$this, 'get_items'],
-					'permission_callback' => '__return_true',
-					// 'permission_callback' => [ $this, 'check_admin_permission' ],
+					'permission_callback' => [$this, 'check_auth_permission'],
 					'args'                => [
 						'page'        => [
 							'default'           => 1,
@@ -54,7 +52,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => [$this, 'get_item'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -66,7 +64,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::DELETABLE,
 					'callback'            => [$this, 'delete_item'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -78,7 +76,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'mark_as_read'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -90,7 +88,7 @@ class Sessions extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'mark_as_unread'],
-					'permission_callback' => [$this, 'check_admin_permission'],
+					'permission_callback' => [$this, 'check_auth_permission'],
 				],
 			]
 		);
@@ -235,10 +233,10 @@ class Sessions extends Rest_Base
 			'my_message_count',
 		];
 
-		$user = wp_get_current_user();
-		$args['current_user_id'] = $user->ID;
+		$args['current_user_id'] = get_current_user_id();
 
-		if (!$this->is_user_admin($user)) {
+		// Validate Capability
+		if ( current_user_can( 'wpwax_vm_client' ) ) {
 			$args['having'] = [
 				'field'     => 'my_message_count',
 				'condition' => '>',
@@ -246,10 +244,10 @@ class Sessions extends Rest_Base
 			];
 		}
 
-		if (!empty($args['search'])) {
+		if ( ! empty( $args['search'] ) ) {
 			$users = Helper\search_users($args['search'], ['id']);
 
-			if (!empty($users)) {
+			if ( ! empty( $users ) ) {
 				$users = array_map(function ($user) {
 					return $user['id'];
 				}, $users);
@@ -270,28 +268,27 @@ class Sessions extends Rest_Base
 			}
 		}
 
-		$session_data = Message_Model::get_items($args);
+		$session_data = Message_Model::get_items( $args );
 
-		if (empty($session_data)) {
-			return ($send_rest_response) ? $this->response(true, []) : [];
+		if ( empty( $session_data ) ) {
+			return ( $send_rest_response ) ? $this->response( true, [] ) : [];
 		}
 
 		$self = $this;
 
 		// Expand session data
-		$session_data = array_map(function ($item) use ($self) {
+		$session_data = array_map( function ( $item ) use ( $self ) {
 			// Expand term data
 			$terms_ids = Helper\convert_string_to_int_array($item['terms']);
 			$item['terms'] = $self->get_terms_data_by_ids($terms_ids);
 
 			return $item;
-		}, $session_data);
+		}, $session_data );
 
 		// Add Additional Session Data
-		foreach ($session_data as $session_key => $session) {
-
+		foreach ( $session_data as $session_key => $session ) {
 			// Add Users Data
-			$users = $this->get_users_by_session_id($session['session_id']);
+			$users = $this->get_users_by_session_id( $session['session_id'] );
 			$session_data[$session_key]['users']  = $users;
 
 			// First Message Data
@@ -304,11 +301,11 @@ class Sessions extends Rest_Base
 			];
 
 			$first_message = Message_Model::get_items($first_message_query_args);
-			$first_message = (!empty($first_message)) ? $first_message[0] : null;
+			$first_message = ( ! empty( $first_message ) ) ? $first_message[0] : null;
 
 			$user_ids = [];
 
-			if (!empty($first_message)) {
+			if ( ! empty( $first_message ) ) {
 				$user_ids[] = $first_message['user_id'];
 			}
 
@@ -317,33 +314,33 @@ class Sessions extends Rest_Base
 			$last_message_query_args['order_by'] = 'latest';
 
 			$last_message = Message_Model::get_items($last_message_query_args);
-			$last_message = (!empty($last_message)) ? $last_message[0] : null;
+			$last_message = ( ! empty( $last_message ) ) ? $last_message[0] : null;
 
-			if (!empty($last_message)) {
+			if ( ! empty( $last_message ) ) {
 				$user_ids[] = $last_message['user_id'];
 			}
 
 			$message_users = Helper\get_users_data_by_ids($user_ids);
 
 			$first_message_data = [
-				'user'       => (!empty($message_users)) ? $message_users[0] : null,
-				'message_id' => (!empty($first_message)) ? $first_message['message_id'] : null,
-				'created_on' => (!empty($first_message)) ? $first_message['created_on'] : null,
-				'updated_on' => (!empty($first_message)) ? $first_message['updated_on'] : null,
+				'user'       => ( ! empty( $message_users ) ) ? $message_users[0] : null,
+				'message_id' => ( ! empty( $first_message ) ) ? $first_message['message_id'] : null,
+				'created_on' => ( ! empty( $first_message ) ) ? $first_message['created_on'] : null,
+				'updated_on' => ( ! empty( $first_message ) ) ? $first_message['updated_on'] : null,
 			];
 
 			$last_message_data = [
-				'user'       => (count($message_users) > 1) ? $message_users[1] : null,
-				'message_id' => (!empty($last_message)) ? $last_message['message_id'] : null,
-				'created_on' => (!empty($last_message)) ? $last_message['created_on'] : null,
-				'updated_on' => (!empty($last_message)) ? $last_message['updated_on'] : null,
+				'user'       => ( count( $message_users ) > 1 ) ? $message_users[1] : null,
+				'message_id' => ( ! empty( $last_message ) ) ? $last_message['message_id'] : null,
+				'created_on' => ( ! empty( $last_message ) ) ? $last_message['created_on'] : null,
+				'updated_on' => ( ! empty( $last_message ) ) ? $last_message['updated_on'] : null,
 			];
 
-			$session_data[$session_key]['first_message'] = $first_message_data;
-			$session_data[$session_key]['last_message']  = $last_message_data;
+			$session_data[ $session_key ]['first_message'] = $first_message_data;
+			$session_data[ $session_key ]['last_message']  = $last_message_data;
 		}
 
-		if ($send_rest_response) {
+		if ( $send_rest_response ) {
 			return $this->response(true, $session_data);
 		}
 
@@ -357,7 +354,7 @@ class Sessions extends Rest_Base
 	 *
 	 * @return array Users
 	 */
-	public function get_users_by_session_id($session_id)
+	public function get_users_by_session_id( $session_id )
 	{
 		$args = [];
 
@@ -371,14 +368,13 @@ class Sessions extends Rest_Base
 
 		$messages = Message_Model::get_items($args);
 
-		if (empty($messages)) {
+		if ( empty( $messages ) ) {
 			return [];
 		}
 
-		$users_ids = array_map(function ($message) {
-
+		$users_ids = array_map( function ($message) {
 			return (int) $message['user_id'];
-		}, $messages);
+		}, $messages );
 
 		return Helper\get_users_data_by_ids($users_ids);
 	}
@@ -389,20 +385,20 @@ class Sessions extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function get_item($request)
+	public function get_item( $request )
 	{
-		$request->set_param('limit', 1);
-		$request->set_param('session_id', $request->get_param('session_id'));
+		$request->set_param( 'limit', 1 );
+		$request->set_param( 'session_id', $request->get_param('session_id') );
 
-		$session_data = $this->get_items($request, false);
+		$session_data = $this->get_items( $request, false );
 
-		if (is_wp_error($session_data)) {
+		if ( is_wp_error( $session_data) ) {
 			return $session_data;
 		}
 
-		$session_data = !empty($session_data) && is_array($session_data) ? $session_data[0] : [];
+		$session_data = ! empty( $session_data ) && is_array( $session_data ) ? $session_data[0] : null;
 
-		return $this->response(true, $session_data);
+		return $this->response( true, $session_data );
 	}
 
 	/**
@@ -411,37 +407,42 @@ class Sessions extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function delete_item($request)
+	public function delete_item( $request )
 	{
 		$args  = $request->get_params();
-		$where = ['session_id' => $args['session_id']];
+		$where = [ 'session_id' => $args['session_id'] ];
 
 		$messages_args = [];
 		$messages_args['where']  = $where;
 
-		$messages = Message_Model::get_items($messages_args);
+		$messages = Message_Model::get_items( $messages_args );
 
-		if (empty($messages)) {
+		if ( empty( $messages ) ) {
 			$message = __('No resource exists.', 'wpwax-customer-support-app');
 			return new WP_Error(403, $message);
 		}
 
-		$operation = Message_Model::delete_item_where($where);
+		// Validate Capability
+		if ( ! $this->can_current_user_view_session( $args['session_id'] ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
+		}
+
+		$operation = Message_Model::delete_item_where( $where );
 		$success   = $operation ? true : false;
 
-		if (!$success) {
-			$this->response($success);
+		if ( ! $success ) {
+			$this->response( $success );
 		}
 
 		// Delete Attachment
 		foreach ($messages as $message) {
-			Attachment_Model::delete_item($message['attachment_id']);
+			Attachment_Model::delete_item( $message['attachment_id'] );
 		}
 
 		// Delete Terms
-		Session_Term_Relationship_Model::delete_item_where($where);
+		Session_Term_Relationship_Model::delete_item_where( $where );
 
-		return $this->response($success);
+		return $this->response( $success );
 	}
 
 	/**
@@ -453,17 +454,16 @@ class Sessions extends Rest_Base
 	 */
 	protected function get_terms_data_by_ids($term_ids = [])
 	{
-
-		if (empty($term_ids)) {
+		if ( empty( $term_ids ) ) {
 			return [];
 		}
 
 		$terms = [];
 
-		foreach ($term_ids as $term_id) {
-			$term = Term_Model::get_item($term_id);
+		foreach ( $term_ids as $term_id ) {
+			$term = Term_Model::get_item( $term_id );
 
-			if (is_wp_error($term)) {
+			if ( is_wp_error( $term ) ) {
 				continue;
 			}
 
@@ -479,7 +479,7 @@ class Sessions extends Rest_Base
 	 * @param $request
 	 * @return array Response
 	 */
-	public function update_terms($request)
+	public function update_terms( $request )
 	{
 		$args = $request->get_params();
 
@@ -491,7 +491,7 @@ class Sessions extends Rest_Base
 
 		$args = Helper\merge_params($default, $args);
 
-		if (empty($args['session_id'])) {
+		if ( empty( $args['session_id'] ) ) {
 			$message = __('The session ID is required.', 'wpwax-customer-support-app');
 			return new WP_Error(403, $message);
 		}
@@ -750,14 +750,15 @@ class Sessions extends Rest_Base
 		$sassion_id      = $args['session_id'];
 		$current_user_id = get_current_user_id();
 
-		if (empty($current_user_id)) {
-			return new WP_Error(403, __('You must have to be logged in', 'wpwax-customer-support-app'));
+		$session_exists = $this->session_exists( $sassion_id );
+
+		if ( is_wp_error( $session_exists ) ) {
+			return $session_exists;
 		}
 
-		$session_exists = $this->session_exists($sassion_id);
-
-		if (is_wp_error($session_exists)) {
-			return $session_exists;
+		// Validate Capability
+		if ( ! $this->can_current_user_view_session( $args['session_id'] ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
 		$log = [];
@@ -831,14 +832,15 @@ class Sessions extends Rest_Base
 		$sassion_id      = $args['session_id'];
 		$current_user_id = get_current_user_id();
 
-		if (empty($current_user_id)) {
-			return new WP_Error(403, __('You must have to be logged in', 'wpwax-customer-support-app'));
-		}
-
 		$session_exists = $this->session_exists($sassion_id);
 
-		if (is_wp_error($session_exists)) {
+		if ( is_wp_error( $session_exists ) ) {
 			return $session_exists;
+		}
+
+		// Validate Capability
+		if ( ! $this->can_current_user_view_session( $args['session_id'] ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
 		$unread_messages = $this->get_unread_messages($sassion_id, $current_user_id);
@@ -911,15 +913,50 @@ class Sessions extends Rest_Base
 	}
 
 	/**
+	 * Can Current User View Session
+	 *
+	 * @param string $session_id
+	 * @return bool
+	 */
+	public function can_current_user_view_session( $session_id ) {
+
+		if ( current_user_can( 'edit_posts' ) ) {
+			return true;
+		}
+
+		if ( current_user_can( 'wpwax_vm_client' ) ) {
+
+			$query_args = [
+				'where' => [
+					'user_id' => get_current_user_id(),
+				]
+			];
+
+			// Get All Client Sessions
+			$client_sessions = Message_Model::get_items( $query_args );
+
+			if ( empty( $client_sessions ) ) {
+				return false;
+			}
+
+			$client_sessions = array_map( function( $message ) { return $message['session_id']; }, $client_sessions );
+
+			return in_array( $session_id, $client_sessions );
+		}
+
+		return false;
+	}
+
+	/**
 	 * Is session exists
 	 *
 	 * @param string $session_id
 	 * @return bool|WP_Error
 	 */
-	public function session_exists($session_id = '')
+	public function session_exists( $session_id = '' )
 	{
 		$session = Message_Model::get_items([
-			'where' => ['session_id' => $session_id],
+			'where' => [ 'session_id' => $session_id ],
 			'limit' => 1,
 		]);
 

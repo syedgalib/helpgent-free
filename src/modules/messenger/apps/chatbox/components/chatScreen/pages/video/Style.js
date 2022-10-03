@@ -37,6 +37,10 @@ const VideoHomeWrap = Styled.div`
         &.wpwax-vm-btn-light{
             color: var(--color-dark);
             background-color: var(--color-border-light);
+            &:hover{
+                color: var(--color-dark);
+                background-color: #cfd1d4;
+            }
         }
     }
     .wpwax-vm-short-text{
@@ -230,11 +234,12 @@ const VideoRecordWrap = Styled.div`
             p{
                 font-size: 20px;
                 font-weight: 600;
+                margin-bottom: 18px;
             }
             .wpwax-vm-btn{
                 svg{
                     position: relative;
-                    top: 3px;
+                    top: 0;
                     margin-left: 10px;
                     width: 16px;
                     height: 16px;

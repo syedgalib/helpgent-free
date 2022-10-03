@@ -9,14 +9,17 @@ const TaglistWrap = Styled.div`
         padding: 0 16px;
         border-radius: 10px;
         margin-top: 5px;
+        border: 2px solid transparent;
         background-color: var(--color-bg-general);
+        &:focus{
+            border-color: var(--color-dark);
+        }
         input{
             width: 100%;
             border: 0 none;
             background-color: transparent;
             &:focus{
                 outline: none;
-                border: 0 none;
                 box-shadow: 0 0;
             }
         }
@@ -93,7 +96,6 @@ const AddTagWrap = Styled.div`
                 font-size: 14px;
                 font-weight: 500;
                 width: 100%;
-                border: 0 none;
                 padding: 0 20px;
                 min-height: 40px;
                 color: var(--color-dark);
@@ -118,9 +120,9 @@ const AddTagWrap = Styled.div`
         }
         .wpwax-vm-checkbox{
             label{
-                top: -3px;
+                top: 0px;
                 line-height: 1.15;
-                margin-left: 5px;
+                margin-left: 8px;
                 color: var(--color-dark);
             }
         }
@@ -223,6 +225,7 @@ const TagFilterDropdown = Styled.div`
     display: none;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
+    cursor: auto;
     background-color: var(--color-white);
     &.wpwax-vm-tagfilter-show{
         display: block;
@@ -257,7 +260,7 @@ const TagFilterDropdown = Styled.div`
     .wpwax-vm-tag-filter-list{
         .wpwax-vm-checkbox{
             label{
-                top: -2px;
+                top: 0px;
                 color: var(--color-dark);
             }
             input{
@@ -279,12 +282,24 @@ const TagFilterDropdown = Styled.div`
                 color: var(--color-primary)
             }
         }
+        &.wpwax-vm-tag-filter-action-disabled{
+            cursor: not-allowed;
+            a{
+                opacity: .4;
+                cursor: not-allowed;
+                pointer-events: none;
+            }
+        }
     }
     .wpwax-vm-tag-filter-list{
         .wpwax-vm-tag-filter__check{
             &:not(:last-child){
                 margin-bottom: 24px;
             }
+        }
+        .wpwax-vm-empty{
+            font-size: 14px;
+            min-height: 60px;
         }
     }
 `;

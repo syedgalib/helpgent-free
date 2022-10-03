@@ -113,14 +113,32 @@ const TemplateBox = Styled.div`
             }
             &.wpwax-vm-titlebox__editor--cancel{
                 background-color: var(--color-danger);
+                border: 1px solid var(--color-danger);
                 display: none;
+                &:hover{
+                    color: var(--color-danger);
+                    border-color: var(--color-danger);
+                    background-color: var(--color-white);
+                    .dashicons:before{
+                        color: var(--color-danger);
+                    }
+                }
                 &.wpwax-vm-show{
                     display: inline-flex;;
                 }
             }
             &.wpwax-vm-titlebox__editor--yes{
                 background-color: var(--color-success);
+                border: 1px solid var(--color-success);
                 display: none;
+                &:hover{
+                    color: var(--color-success);
+                    border-color: var(--color-success);
+                    background-color: var(--color-white);
+                    .dashicons:before{
+                        color: var(--color-success);
+                    }
+                }
                 &.wpwax-vm-show{
                     display: inline-flex;;
                 }

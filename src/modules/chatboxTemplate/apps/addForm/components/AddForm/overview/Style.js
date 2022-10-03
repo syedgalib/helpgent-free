@@ -105,7 +105,7 @@ const PreviewWrap = Styled.div`
             left: 0;
             top: 0;
             width: 100%;
-            height: 280px;
+            height: 360px;
             opacity: .9;
             border-radius: 25px 25px 0 0;
             background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));
@@ -117,7 +117,7 @@ const PreviewWrap = Styled.div`
             left: 0;
             bottom: 0;
             width: 100%;
-            height: 250px;
+            height: 340px;
             opacity: .9;
             border-radius: 0 0 25px 25px;
             background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
@@ -135,11 +135,11 @@ const PreviewWrap = Styled.div`
             font-size: var(--font-size-greet);
             color: var(--color-text-greet);
         }
-        .wpwax-vm-preview-subtitle{
+        .wpwax-vm-preview-description{
             font-size: 15px;
             font-weight: 500;
             line-height: 1.5;
-            opacity: .8;
+            color: var(--color-description);
         }
     }
     .wpwax-vm-preview-inner{
@@ -158,7 +158,7 @@ const PreviewWrap = Styled.div`
         margin: 0 auto;
         border-radius: 50%;
         text-decoration: none;
-        background-color: var(--color-white);
+        background-color: var(--play-button-bg);
         i{
             width: 30px;
             height: 30px;
@@ -191,6 +191,7 @@ const PreviewWrap = Styled.div`
                 text-transform: capitalize;
                 flex: 0 0 30.3333%;
                 margin: 1.5%;
+                pointer-events: none;
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
                 }
@@ -203,7 +204,7 @@ const PreviewWrap = Styled.div`
                     margin: 0 0 4px;
                     path,
                     circle{
-                        fill: var(--primary-btn-color);
+                        fill: var(--primary-button-color);
                     }
                 }
             }
@@ -211,9 +212,11 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-footer__text{
             font-size: 13px;
             font-weight: 500;
-            opacity: .8;
             margin: 18px 0 0;
+            min-height: 20px;
+            opacity: .8;
             text-align: center;
+            color: var(--color-footer-text);
         }
     }
     .wpwax-vm-preview-general{
@@ -237,6 +240,7 @@ const PreviewWrap = Styled.div`
         justify-content: space-between;
         height: 100%;
         // width: 100%;
+        min-height: 560px;
         border-radius: 25px;
         padding: 30px;
         background-color: var(--color-page-bg);
@@ -247,6 +251,7 @@ const PreviewWrap = Styled.div`
     }
     .wpwax-vm-preview-from{
         &.wpwax-vm-preview-form-theme-2{
+            /* min-height: 620px; */
             .wpwax-vm-preview-header{
                 position: relative;
                 padding: 20px;
@@ -259,7 +264,7 @@ const PreviewWrap = Styled.div`
                     margin: 0;
                     color: var(--color-text-greet);
                 }
-                .wpwax-vm-preview-subtitle{
+                .wpwax-vm-preview-description{
                     display: block;
                     margin-top: 8px;
                 }
@@ -267,7 +272,7 @@ const PreviewWrap = Styled.div`
            .wpwax-vm-preview-inner{
                 position: static;
                 padding: 0;
-                min-height: 260px;
+                min-height: 290px;
                 &:after{
                     position: absolute;
                     left: 0;
@@ -288,7 +293,7 @@ const PreviewWrap = Styled.div`
                     left: 0;
                     bottom: 2px;
                     width: 100%;
-                    height: 300px;
+                    height: 340px;
                     opacity: .9;
                     border-radius: 0 0 25px 25px;
                     background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
@@ -304,17 +309,12 @@ const PreviewWrap = Styled.div`
                }
                .wpwax-vm-preview-img{  
                     position: relative;
-                    z-index: 10; 
-                    min-height: 355px;
+                    z-index: 10;
+                    min-height: 290px;
                     background-size: cover;
-                    &:before{
-                        border-radius: 0px;
-                        bottom: -100px;
-                        z-index: -1;
-                    }
+                    &:before,
                     &:after{
-                        border-radius: 0px;
-                        z-index: -1;
+                        display: none
                     }
                }
                video{
@@ -328,6 +328,7 @@ const PreviewWrap = Styled.div`
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
                 padding: 0 30px;
+                min-height: 198px;
                 background-color: var(--color-page-bg);
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
@@ -342,7 +343,8 @@ const PreviewWrap = Styled.div`
                     font-size: 13px;
                     font-weight: 500;
                     margin-bottom: 15px;
-                    color: #4D4D4D;
+                    opacity: .8;
+                    color: var(--color-footer-text);
                 }
            }
            .wpwax-vmpreview-video{
@@ -368,7 +370,7 @@ const PreviewWrap = Styled.div`
         padding: 155px 0 30px;
         border-radius: 25px;
         box-sizing: border-box;
-        background-color: var(--color-white);
+        background-color: var(--color-thank-page-bg);
         @media only screen and (max-width: 1024px) {
             padding: 155px 15px 30px;
         }

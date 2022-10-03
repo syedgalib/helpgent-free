@@ -145,7 +145,11 @@ const AddFormStyle = Styled.div`
             &.wpwax-vm-add-form__top--btn-selected{
                 font-weight: 700;
                 color: #fff;
+                transition: background-color .3s ease-in-out;
                 background-color: #6551f2;
+                &:hover{
+                    background-color: #3e2bc5;
+                }
             }
         }
         .wpwax-vm-add-form__top--btn[disabled]{
@@ -154,7 +158,7 @@ const AddFormStyle = Styled.div`
         }
     }
     .wpwax-vm-add-form__content{
-        padding: 15px 30px 20px;
+        padding: 22px 30px 20px;
         height: 555px;
         overflow-y: scroll;
         @media only screen and (max-width: 1024px) {
@@ -213,6 +217,7 @@ const AddFormStyle = Styled.div`
                         min-width: 70px;
                     }
                     input{
+                        min-width: 208px;
                         text-align: center;
                     }
                 }
@@ -260,7 +265,7 @@ const AddFormStyle = Styled.div`
             border-radius: 10px;
             border: 0 none;
             border-radius: 10px;
-            padding: 8px 15px;
+            padding: 8px 10px;
             margin: 0;
             background-color: #fff;
             box-shadow: 0 5px 10px rgba(0,0,0,.16);
@@ -268,30 +273,48 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-select__option{
                 font-size: 14px;
                 font-weight: 500;
-                padding: 4px 0;
+                padding: 8px 10px;
                 cursor: pointer;
+                border-radius: 8px;
                 color: #000;
                 &:not(:last-child){
-                    margin-bottom: 8px;
+                    margin-bottom: 6px;
                 }
                 .wpwax-vm-checkbox label{
                     font-size: 13px;
                     font-weight: 400;
-                    color: #4D4D4D;
+                    color: var(--color-dark);
                 }
                 .wpwax-vm-checkbox{
                     align-items: center;
                     label{
                         width: 100%;
-                        padding: 10px 12px 7px;
+                        padding: 0 12px 0;
                     }
                 }
+                &:hover,
                 &.wpwax-vm-select__option--is-focused,
                 &.wpwax-vm-select__option--is-selected{
-                    background-color: transparent;
+                    background-color: var(--color-bg-general);
                 }
             }
         }
+        .wpwax-vm-select__control{
+            .wpwax-vm-select__value-container{
+                &.wpwax-vm-select__value-container--is-multi{
+                    padding: 8px 8px 8px 12px;
+                    .wpwax-vm-select__input-container{
+                        .wpwax-vm-select__input{
+                            min-height: auto;
+                        }
+                    }
+                    .wpwax-vm-select__option{
+                        margin: 3px 0;
+                    }
+                }
+            }
+        }
+        
         .css-b62m3t-container{
             width: 100%;
             .wpwax-vm-select__input-container{
@@ -304,9 +327,12 @@ const AddFormStyle = Styled.div`
             }
         }
         .wpwax-vm-select__control{
-            border: 0 none;
+            border: 2px solid transparent;
             border-radius: 6px;
             background-color: #ededed;
+            &.wpwax-vm-select__control--is-focused{
+                border-color: var(--color-dark);
+            }
             .wpwax-vm-select__indicator-separator{
                 display: none;
             }
@@ -315,6 +341,10 @@ const AddFormStyle = Styled.div`
             }
             .wpwax-vm-select__indicator{
                 padding: 8px 10px 8px 8px;
+                svg{
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
         .wpwax-vm-select__single-value{
@@ -323,12 +353,12 @@ const AddFormStyle = Styled.div`
             color: #4D4D4D;
         }
         .css-1pahdxg-control{
-            border: 0 none;
+            // border: 0 none;
             box-shadow: 0 0;
             background-color: #ededed;
-            &:hover{
-                border: 0 none;
-            }
+            // &:hover{
+            //     border-color: transparent;
+            // }
         }
         .css-1okebmr-indicatorSeparator{
             min-width: auto;
@@ -343,10 +373,13 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-notice{
                 display: flex;
                 font-size: 14px;
+                line-height: 1.25;
+                text-align: left;
                 border-radius: 8px;
                 padding: 0 15px;
                 margin: 0 0 15px;
                 bottom: 0;
+                min-height: 46px;
                 &.wpwax-vm-notice-danger{
                     color: var(--color-danger);
                 }
@@ -359,7 +392,11 @@ const AddFormStyle = Styled.div`
         align-items: center;
         border-radius: 0 0 14px 14px;
         padding: 12px 0;
+        transition: background-color .3s ease-in-out;
         background-color: #6551f2;
+        &:hover{
+            background-color: #3e2bc5;
+        }
         a{
             display: flex;
             align-items: center;

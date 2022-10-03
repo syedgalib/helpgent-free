@@ -122,20 +122,23 @@ const TagFilter = props =>{
                 </span>
                 :
                 <div className="wpwax-vm-tag-filter-list">
+
                     {
-                        searchFilterTags.map((item,index)=>{
-                                                
-                            return(
-                                <div className="wpwax-vm-tag-filter__check" key={index}>
-                                    <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
-                                </div>
-                            )
-                        })
+                        searchFilterTags.length !== 0 ?
+                            searchFilterTags.map((item,index)=>{
+                                                    
+                                return(
+                                    <div className="wpwax-vm-tag-filter__check" key={index}>
+                                        <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
+                                    </div>
+                                )
+                            })
+                            : <span className='wpwax-vm-empty'>Sorry!! No Tag Found</span>
                     }
                 </div>
             }
             
-            <div className="wpwax-vm-tag-filter-action">
+            <div className={searchFilterTags.length ===0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={hadnleTagFilterApply}>Apply</a>
             </div>

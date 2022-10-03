@@ -1,10 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
+import { WaveformVisualizer, WaveformVisualizerTheme } from 'react-audio-visualizers';
 import { RecorderWrap } from '../Style';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import play from 'Assets/svg/icons/play.svg';
 import pause from 'Assets/svg/icons/pause.svg';
+import audioRangeActive from 'Assets/svg/audio-active.svg';
+import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
+import mic from 'Assets/svg/icons/mice.svg';
+import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
 import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
@@ -41,7 +46,10 @@ function Record() {
     const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
+    const [recordedAudioSteam, setRecordedAudioSteam] = useState(null);
     const [recordedAudioURL, setRecordedAudioURL] = useState('');
+    const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+    const [audioDuration, setAudioDuration] = useState(0);
     const [isRecording, setIsRecording] = useState(false);
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
@@ -68,7 +76,10 @@ function Record() {
                 );
 
                 // Switch to Contact form
-                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+                setTimeout(() => {
+                    dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+                }, "2000");                
+                
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }
@@ -108,8 +119,9 @@ function Record() {
         }
     }
 
-    // startRecording
-    async function startRecording() {
+    // Toggle Recording
+    async function startRecording(e) {
+        e.preventDefault();
         try {
             window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
@@ -120,18 +132,23 @@ function Record() {
                     },
                 });
 
-            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
-                type: 'audio',
-                mimeType: 'audio/wav',
-                recorderType: RecordRTC.StereoAudioRecorder,
-                disableLogs: true,
-            });
-
-            window.wpwaxCSRecorder.startRecording();
-
-            setRecordedTimeInSecond(0);
+                window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
+                    type: 'audio',
+                    mimeType: 'audio/wav',
+                    recorderType: RecordRTC.StereoAudioRecorder,
+                    disableLogs: true,
+                    ondataavailable: function(blob) {
+                        console.log()
+                    },
+                });
+                window.wpwaxCSRecorder.startRecording()
+            
+            
             setIsRecording(true);
             startTimer();
+            setRecordedTimeInSecond(recordedTimeInSecond);
+            setRecordedAudioSteam(window.wpwaxCSAudioStream);
+            
         } catch (error) {
             console.log({ error });
 
@@ -139,19 +156,30 @@ function Record() {
         }
     }
 
-    // stopRecording
-    function stopRecording() {
-        stopTimer();
+    const pauseRecording = (e)=>{
+        e.preventDefault();
+        if(isRecording){
+            window.wpwaxCSRecorder.pauseRecording();
+            setIsRecording(false);
+            stopTimer();
+        }else{
+            window.wpwaxCSRecorder.resumeRecording();
+            setIsRecording(true);
+            startTimer();
+        }
+        
+    }
+    // handle Send recording
+    async function handleSendRecording(e) {
+        e.preventDefault();
         window.wpwaxCSRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSRecorder.getBlob();
-
             window.wpwaxCSAudioStream
                 .getTracks()
                 .forEach((track) => track.stop());
 
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
-            setIsRecording(false);
             setCurrentStage(stages.BEFORE_SEND);
         });
     }
@@ -161,6 +189,7 @@ function Record() {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
+            
         }, 1000);
     }
 
@@ -194,6 +223,8 @@ function Record() {
         e.preventDefault();
 
         setRecordedTimeInSecond(0);
+        setAudioDuration(0);
+        setAudioCurrentTime(0);
         setIsRecording(false);
         setCurrentStage(stages.RECORD);
     }
@@ -202,6 +233,25 @@ function Record() {
         e.preventDefault();
         dispatch(changeChatScreen(type));
         // setCurrentStage(stages.HOME);
+    }
+
+    const getPlayedTimeInPercent = ()=>{
+        const r = audioCurrentTime / audioDuration;
+        return isNaN(r) ? 0 : r * 100;
+    }
+
+    const getRightBtnContent = ()=>{
+        if(!isRecording && recordedTimeInSecond === 0){
+            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
+                <span className="dashicons dashicons-no-alt"></span>
+            </a>
+        }else if(isRecording && recordedTimeInSecond === 0){
+            return null;
+        }else if(isRecording && recordedTimeInSecond > 0){
+            return null;
+        }else if(!isRecording && recordedTimeInSecond > 0){
+            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-send' onClick={e=>handleSendRecording(e)}></a>
+        }
     }
 
     if (currentStage === stages.PERMISSION) {
@@ -241,43 +291,45 @@ function Record() {
                         {formatSecondsAsCountdown(recordedTimeInSecond)}
                     </span>
                 </span>
+                {/* {
+                    isRecording ? 
+                    <WaveformVisualizer
+                        audio={recordedAudioSteam}
+                        theme={WaveformVisualizerTheme.squaredBars}
+                    /> : null
+                } */}
                 <div className='wpwax-vm-record-staging__bottom'>
                     {!isRecording ? (
                         <p>
-                            Tap to{' '}
-                            <span className='wpwax-vm-highlighted'>Start</span>{' '}
+                            Tap to
+                            <span className='wpwax-vm-highlighted'>Start</span>
                             recording!
                         </p>
                     ) : (
-                        ''
+                        <p></p>
                     )}
                     <div
-                        className={
-                            !isRecording
-                                ? 'wpwax-vm-record-staging__bottom--action'
-                                : 'wpwax-vm-record-staging__bottom--action wpwax-vm-record-start'
-                        }
+                        className='wpwax-vm-record-staging__bottom--action'
                     >
-                        <a
-                            href='#'
-                            className='wpwax-vm-record-btn'
-                            onClick={() => startRecording()}
-                        ></a>
-                        <a
-                            href='#'
-                            className='wpwax-vm-pause-btn'
-                            onClick={() => stopRecording()}
-                        ></a>
-                        <a href='#' className='wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
-                            <span className="dashicons dashicons-no-alt"></span>
-                        </a>
+                        {
+                            isRecording ? <a href='#' className='wpwax-vm-record-btn' onClick={(e) => pauseRecording(e)}>
+                                <ReactSVG src={pauseSolid} />
+                            </a> :
+                            <a href='#' className='wpwax-vm-record-btn' onClick={(e) => startRecording(e)}>
+                                <ReactSVG src={mic} />
+                            </a>
+                        }
+                        
+                        {
+                            getRightBtnContent()
+                        }
                     </div>
                 </div>
             </RecorderWrap>
         );
     } else if (currentStage === stages.BEFORE_SEND) {
         return (
-            <RecorderWrap>
+            <RecorderWrap className='wpwax-vm-record-ready'>
                 <div className=''>
                     <audio
                         ref={audioRef}
@@ -285,21 +337,73 @@ function Record() {
                         onPlay={() => setIsPlayingPreview(true)}
                         onPause={() => setIsPlayingPreview(false)}
                         onEnded={() => setIsPlayingPreview(false)}
+                        onTimeUpdate={(event) => {
+                            setAudioCurrentTime(event.target.currentTime);
+                        }}
+                        onLoadedData={(event) => {
+                            setAudioDuration(event.target.duration);
+                        }}
                     ></audio>
                 </div>
 
                 <div className='wpwax-vm-record-ready__top'>
-                    <div
-                        className='wpwax-vm-recorded-preview wpax-vm-preview-bg'
-                        style={{ backgroundImage: `url("${previewBg}")` }}
-                    ></div>
                     <a
                         href='#'
                         onClick={togglePlayPauseAudio}
-                        className='wpwax-vm-recorded-play'
+                        className={isPlayingPreview? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn'}
                     >
                         <ReactSVG src={isPlayingPreview ? pause : play} />
                     </a>
+                    {/* <WaveformVisualizer
+                        audio={recordedAudioURL}
+                        colors={['#009688', '#26a69a']}
+                        backgroundColor="white"
+                        theme={WaveformVisualizerTheme.squaredBars}
+                    /> */}
+                    <span className="wpwax-vm-audio-range">
+                        <span
+                            style={{
+                                display: 'block',
+                                position: 'relative',
+                                margin: '5px',
+                                width: '100%',
+                                height: '60px',
+                            }}
+                        >
+                            <span
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeInactive + ' )',
+                                    zIndex: 0,
+                                }}
+                            ></span>
+                            <span
+                                style={{
+                                    width: getPlayedTimeInPercent() + '%',
+                                    position: 'absolute',
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    display: 'inline-block',
+                                    backgroundPositionX: '0px',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundImage:
+                                        'url( ' + audioRangeActive + ' )',
+                                    zIndex: 1,
+                                    transition: 'all 300ms ease-in-out 0s',
+                                }}
+                            ></span>
+                        </span>
+                    </span>
                 </div>
                 <div className='wpwax-vm-record-ready__bottom'>
                     <h4>Ready to Send ?</h4>
@@ -329,7 +433,7 @@ function Record() {
     } else if (currentStage === stages.UPLOADING) {
         return (
             <RecorderWrap>
-                <div className='wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+                <div className='wpwax-vm-record-send-progress wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
                     <div className='wpwax-vm-record-send-progress__content'>
                         <div className='wpwax-vm-record-send-progress__bar'>
                             <span>Uploading</span>

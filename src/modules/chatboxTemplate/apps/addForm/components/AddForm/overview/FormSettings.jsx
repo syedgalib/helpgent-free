@@ -21,14 +21,13 @@ export const formType = [
     { value: "theme-2", label: "Theme 2" }
 ]
 export const fontSizeOptions = [
-    { value: "large", label: "Large" },
-    { value: "larger", label: "Larger" },
-    { value: "x-large", label: "X-large" },
-    { value: "xx-large", label: "XX-large" },
-    { value: "medium", label: "Medium" },
-    { value: "small", label: "Small" },
-    { value: "smaller", label: "Smaller" },
-    { value: "x-small", label: "X-small" },
+    { value: "large", label: "large" },
+    { value: "x-large", label: "x-large" },
+    { value: "xx-large", label: "xx-large" },
+    { value: "medium", label: "medium" },
+    { value: "small", label: "small" },
+    { value: "smaller", label: "smaller" },
+    { value: "x-small", label: "x-small" },
 ]
 const FormSettings = () => {
     /* initialize Form Data */
@@ -47,6 +46,8 @@ const FormSettings = () => {
         chatReplyType,
         footerVisibility,
         footerMessage,
+        footerMessageColor,
+        footerMessageFontSize,
         playBtnBackground,
         pageBgColor,
         pageHeaderBgColor,
@@ -74,6 +75,7 @@ const FormSettings = () => {
             footerVisibility: state.form.data[0].options.show_footer,
             footerMessage: state.form.data[0].options.footer_message,
             footerMessageFontSize: state.form.data[0].options.footer_message_font_size,
+            footerMessageColor: state.form.data[0].options.footer_message_color,
             playBtnBackground: state.form.data[0].options.play_btn_background,
             pageBgColor: state.form.data[0].options.page_background_color,
             pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
@@ -88,6 +90,9 @@ const FormSettings = () => {
             formInitialOption: state.form.data[0].options,
         };
     });
+
+    console.log(footerMessageColor);
+
     const [state, setState] = useState({
         openCollapse: true,
     });
@@ -121,7 +126,6 @@ const FormSettings = () => {
     }
 
     const handleChangeSwitchValue = (value, event, id) => {
-        console.log(event, value, id);
         const updatedData = formUpdater(id, value, formData);
         dispatch(handleDynamicEdit(updatedData));
     }
@@ -443,6 +447,29 @@ const FormSettings = () => {
                             <label htmlFor="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__color-ball" style={{ backgroundColor: primaryButtonBackground }}></label>
                             <input type="color" id="wpwax-vm-form-primary-button-bg" className="wpwax-vm-form__element" value={primaryButtonBackground} onChange={(e) => handleChangeInputValue(e)} />
                         </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Footer Text Color</span>
+                        <div className="wpwax-vm-form__color-plate">
+                            <span className="wpwax-vm-form__color-text">{footerMessageColor}</span>
+                            <label htmlFor="wpwax-vm-chat-footer-text-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: footerMessageColor }}></label>
+                            <input type="color" id="wpwax-vm-footer-text-color" className="wpwax-vm-form__element" value={footerMessageColor} onChange={(e) => handleChangeInputValue(e)} />
+                        </div>
+                    </div>
+                    <div className="wpwax-vm-form-group__input-single">
+                        <span>Footer Text Font Size</span>
+                        <Select
+                            classNamePrefix="wpwax-vm-select"
+                            options={fontSizeOptions}
+                            closeMenuOnSelect={true}
+                            hideSelectedOptions={false}
+                            searchable={false}
+                            name="wpwax-vm-chat-footer-text-fontsize"
+                            onChange={handleChangeSelectValue}
+                            defaultValue={fontSizeOptions.filter(function (option) {
+                                return option.label === footerMessageFontSize;
+                            })[0]}
+                        />
                     </div>
                 </div>
             </div>

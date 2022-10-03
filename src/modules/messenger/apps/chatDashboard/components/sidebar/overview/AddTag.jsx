@@ -76,6 +76,8 @@ const AddTag = (props) => {
         }
     }, [addTagModalOpen]);
 
+    // console.log(tagLoader,allTags);
+
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
@@ -103,6 +105,7 @@ const AddTag = (props) => {
             ...tagState,
             tagLoader: true,
         });
+        console.log(tagInput,editableTermId);
         if (tagInput !== '') {
             if (editableTermId !== '') {
                 let termIndex = allTags.findIndex(
@@ -129,6 +132,24 @@ const AddTag = (props) => {
                     addTagResponseStatus: 'success',
                     addTagResponse: 'Successfully Edited',
                 });
+            }else{
+                apiService.dataAdd('/messages/terms',termData)
+                .then(response => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: [
+                            ...allTags,
+                            response.data
+                        ]
+                    });
+                    setAddFormState({
+                        ...addFormState,
+                        tagInput: "",
+                        addTagResponseStatus: "success",
+                        addTagResponse: "Successfully Added",
+                    });
+                })
             }
         } else {
             setAddFormState({
@@ -142,191 +163,139 @@ const AddTag = (props) => {
             });
         }
 
-        const fetchSessionTermCreation = await apiService.getAll('/sessions');
-        setSessionState({
-            ...sessionState,
-            sessionList: fetchSessionTermCreation.data.data,
-        });
+        // const fetchSessionTermCreation = await apiService.getAll('/sessions');
+        // setSessionState({
+        //     ...sessionState,
+        //     sessionList: fetchSessionTermCreation.data.data,
+        // });
     };
 
-    const handleAssignList = (e) => {
-        if (e.target.checked) {
-            if (
-                serverAssigned.indexOf(
-                    e.target.id.replace('wpwax-vm-term-', '')
-                ) === -1
-            ) {
+    const handleAssignList = (e)=>{
+        if(e.target.checked){
+            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                 /* nai */
-                if (
-                    newAssigned.indexOf(
-                        e.target.id.replace('wpwax-vm-term-', '')
-                    ) === -1
-                ) {
+                if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                     /* nai */
                     setAddFormState({
                         ...addFormState,
                         newAssigned: [
                             ...addFormState.newAssigned,
-                            e.target.id.replace('wpwax-vm-term-', ''),
-                        ],
+                            e.target.id.replace('wpwax-vm-term-','')
+                        ]
                     });
-                    if (
-                        newUnAssinged.indexOf(
-                            e.target.id.replace('wpwax-vm-term-', '')
-                        ) !== -1
-                    ) {
+                    if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                         /* achhe */
                         let virtualArray = [...newUnAssinged];
-                        virtualArray.splice(
-                            virtualArray.indexOf(
-                                e.target.id.replace('wpwax-vm-term-', '')
-                            ),
-                            1
-                        );
+                        virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                         setAddFormState({
                             ...addFormState,
-                            newUnAssinged: virtualArray,
-                        });
+                            newUnAssinged: virtualArray
+                        })
                     }
                 }
-            } else {
-                if (
-                    newUnAssinged.indexOf(
-                        e.target.id.replace('wpwax-vm-term-', '')
-                    ) !== -1
-                ) {
+            }else{
+                if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                     /* achhe */
                     let virtualArray = [...newUnAssinged];
-                    virtualArray.splice(
-                        virtualArray.indexOf(
-                            e.target.id.replace('wpwax-vm-term-', '')
-                        ),
-                        1
-                    );
+                    virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
-                        newUnAssinged: virtualArray,
-                    });
-                }
+                        newUnAssinged: virtualArray
+                    })
+                } 
             }
-
-            if (asignedTerms.indexOf(e.target.id) === -1) {
-                let ids = e.target.id.replace('wpwax-vm-term-', '');
+            
+            if(asignedTerms.indexOf(e.target.id) === -1){
+                let ids = e.target.id.replace('wpwax-vm-term-','')
                 setSessionState({
                     ...sessionState,
-                    asignedTerms: [...asignedTerms, ids],
+                    asignedTerms: [
+                        ...asignedTerms,
+                        ids
+                    ],
                 });
             }
-        } else {
-            if (
-                serverAssigned.indexOf(
-                    e.target.id.replace('wpwax-vm-term-', '')
-                ) !== -1
-            ) {
+        }else{
+            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                 /* achhe */
-                if (
-                    newUnAssinged.indexOf(
-                        e.target.id.replace('wpwax-vm-term-', '')
-                    ) === -1
-                ) {
+                if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                     /* nai */
                     setAddFormState({
                         ...addFormState,
                         newUnAssinged: [
                             ...addFormState.newUnAssinged,
-                            e.target.id.replace('wpwax-vm-term-', ''),
-                        ],
+                            e.target.id.replace('wpwax-vm-term-','')
+                        ]
                     });
-                    if (
-                        newAssigned.indexOf(
-                            e.target.id.replace('wpwax-vm-term-', '')
-                        ) !== -1
-                    ) {
+                    if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                         /* achhe */
                         let virtualArrayT = [...newAssigned];
-                        virtualArrayT.splice(
-                            virtualArrayT.indexOf(
-                                e.target.id.replace('wpwax-vm-term-', '')
-                            ),
-                            1
-                        );
+                        virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                         setAddFormState({
                             ...addFormState,
-                            newAssigned: virtualArrayT,
-                        });
+                            newAssigned: virtualArrayT
+                        })
                     }
                 }
-            } else {
-                if (
-                    newAssigned.indexOf(
-                        e.target.id.replace('wpwax-vm-term-', '')
-                    ) !== -1
-                ) {
+            }else{
+                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                     /* achhe */
                     let virtualArrayT = [...newAssigned];
-                    virtualArrayT.splice(
-                        virtualArrayT.indexOf(
-                            e.target.id.replace('wpwax-vm-term-', '')
-                        ),
-                        1
-                    );
+                    virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
-                        newAssigned: virtualArrayT,
-                    });
+                        newAssigned: virtualArrayT
+                    })
                 }
             }
 
-            let ids = e.target.id.replace('wpwax-vm-term-', '');
-            let array = [...asignedTerms];
 
-            if (array.indexOf(ids) !== -1) {
-                array.splice(array.indexOf(ids), 1);
+            let ids = e.target.id.replace('wpwax-vm-term-','');
+            let array = [...asignedTerms];
+            
+            if(array.indexOf(ids) !== -1){
+                array.splice(array.indexOf(ids),1);
                 setSessionState({
                     ...sessionState,
-                    asignedTerms: [...array],
+                    asignedTerms: [...array]
                 });
             }
         }
-    };
+    }
 
-    const handleAssignTerm = async (e) => {
+    const handleAssignTerm = async (e) =>{
         const updateTermData = {
             add_term_ids: newAssigned.join(','),
-            remove_term_ids: newUnAssinged.join(','),
-        };
+            remove_term_ids: newUnAssinged.join(',')
+        }
         setTagState({
             ...tagState,
             tagLoader: true,
         });
-        await apiService
-            .dataAdd(
-                `/sessions/${activeSessionId}/update-terms`,
-                updateTermData
-            )
-            .then((response) => {
-                setTagState({
-                    ...tagState,
-                    assignedTags: [
-                        ...tagState.assignedTags,
-                        response.data.data.success,
-                    ],
-                    tagLoader: false,
-                });
-                setAddFormState({
-                    ...addFormState,
-                    newAssigned: [],
-                    newUnAssinged: [],
-                });
+        await apiService.dataAdd(`/sessions/${activeSessionId}/update-terms`,updateTermData)
+        .then(response => {
+            setTagState({
+                ...tagState,
+                assignedTags: [
+                    ...tagState.assignedTags,
+                    response.data.data.success
+                ],
+                tagLoader: false,
             });
+            setAddFormState({
+                ...addFormState,
+                newAssigned: [],
+                newUnAssinged: []
+            });
+        });
 
         const fetchSessionTermAdd = await apiService.getAll('/sessions');
-
+        
         setSessionState({
             ...sessionState,
-            sessionList: fetchSessionTermAdd.data.data,
+            sessionList: fetchSessionTermAdd.data.data
         });
-    };
+    }
 
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];

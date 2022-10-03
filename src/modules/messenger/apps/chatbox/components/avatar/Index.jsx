@@ -21,7 +21,7 @@ function Avatar() {
 		<AvatarWrap onClick={ clickHandler }>
 			{
 				( templateOptions.greet_video_url ) ?
-				<video style={{objectFit: 'cover'}} width='100%' height='100%' src={templateOptions.greet_video_url} loop autoPlay muted></video>
+				<video style={{width: '120px'}} src={templateOptions.greet_video_url} loop autoPlay muted></video>
 				: 
 				<img className="wpwwax-vm-avatar" src={ avater } alt="Avatar" />
 			}

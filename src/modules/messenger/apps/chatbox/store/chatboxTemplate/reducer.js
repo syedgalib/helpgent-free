@@ -41,21 +41,21 @@ function loadTemplateStyle( options ) {
     chatBoxDom.style.setProperty("--color-page-bg", options.page_background_color);
     chatBoxDom.style.setProperty("--color-page-header-bg", options.page_header_background_color);
     chatBoxDom.style.setProperty("--color-text-greet", options.greet_message_font_color);
-    chatBoxDom.style.setProperty("--font-size-greet", options.greet_message_font_size);
+    chatBoxDom.style.setProperty("--font-size-greet", options.greet_message_font_size+'em');
     chatBoxDom.style.setProperty("--play-button-bg", options.play_btn_background);
     chatBoxDom.style.setProperty("--color-text-chat", options.chat_options_title_font_color);
-    chatBoxDom.style.setProperty("--font-size-chat", options.chat_options_title_font_size);
+    chatBoxDom.style.setProperty("--font-size-chat", options.chat_options_title_font_size+'em');
     chatBoxDom.style.setProperty("--font-family", options.font_family);
     chatBoxDom.style.setProperty("--btn-radius", options.button_border_radius + 'px');
     chatBoxDom.style.setProperty("--primary-button-color", options.primary_button_font_color);
     chatBoxDom.style.setProperty("--primary-button-bg", options.primary_button_background_color);
     chatBoxDom.style.setProperty("--color-footer-text", options.footer_message_color);
-    chatBoxDom.style.setProperty("--footer-text-font-size", options.footer_message_font_size);
+    chatBoxDom.style.setProperty("--footer-text-font-size", options.footer_message_font_size+'em');
     chatBoxDom.style.setProperty("--color-thank-page-bg", options.thank_page_background_color);
     chatBoxDom.style.setProperty("--color-thank-title", options.thank_page_title_color);
-    chatBoxDom.style.setProperty("--font-size-thank-title", options.thank_page_title_font_size);
+    chatBoxDom.style.setProperty("--font-size-thank-title", options.thank_page_title_font_size+'em');
     chatBoxDom.style.setProperty("--color-thank-desc", options.thank_page_description_color);
-    chatBoxDom.style.setProperty("--font-size-thank-desc", options.thank_page_description_font_size);
+    chatBoxDom.style.setProperty("--font-size-thank-desc", options.thank_page_description_font_size+'em');
 }
 
 const initialState = {

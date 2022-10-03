@@ -8,13 +8,13 @@ import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 
 export const fontSizeOptions = [
-    { value: "large", label: "large" },
-    { value: "x-large", label: "x-large" },
-    { value: "xx-large", label: "xx-large" },
-    { value: "medium", label: "medium" },
-    { value: "small", label: "small" },
-    { value: "smaller", label: "smaller" },
-    { value: "x-small", label: "x-small" },
+    { value: "1.3", label: "large" },
+    { value: "1.5", label: "x-large" },
+    { value: "2", label: "xx-large" },
+    { value: "1.2", label: "medium" },
+    { value: "1", label: "small" },
+    { value: ".85", label: "smaller" },
+    { value: ".80", label: "x-small" },
 ]
 const ThankSettings = () => {
     /* initialize Form Data */

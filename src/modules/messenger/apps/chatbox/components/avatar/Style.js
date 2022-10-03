@@ -18,6 +18,10 @@ const AvatarWrap = Styled.div`
         border-radius: 50%;
     }
     video{
+        width: 100%;
+        height: 100%;
+        max-width: 118px;
+        object-fit: cover;
         border-radius: 50%;
     }
 `;

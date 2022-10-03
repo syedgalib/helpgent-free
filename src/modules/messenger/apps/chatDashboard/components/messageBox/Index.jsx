@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
@@ -45,6 +45,7 @@ function MessageBox() {
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
+    const [windowSize, setWindowSize] = useState('large');
     const [messageDirection, setMessageDirection] = useState('bottom');
 
     const [sessionMessages, setSessionMessages] = useState([]);
@@ -222,6 +223,34 @@ function MessageBox() {
                 setScrollBtnVisibility(false);
             }
         });
+        useLayoutEffect(() => {
+            function updateSize(){
+                if(window.innerWidth > 1400 && windowSize !== 'large'){
+                    setWindowSize('large');
+                }else if(window.innerWidth > 1200 && window.innerWidth < 1400 && windowSize !== 'medium'){
+                    setWindowSize('medium');
+                }else if(window.innerWidth >992 && window.innerWidth < 1200 && windowSize !== 'tab'){
+                    setWindowSize('tab');
+                }else if(window.innerWidth > 768 && window.innerWidth < 992 && windowSize !== 'mobile'){
+                    setWindowSize('mobile');
+                }
+            }
+            updateSize();
+            window.addEventListener('resize',updateSize);
+        }, []);
+
+    const getMessageBoxHeight = ()=>{
+        switch(windowSize){
+            case 'large':
+                return 500;
+            case 'medium':
+                return 400;
+            case 'tab':
+                return 300;
+            case 'mobile':
+                return 300;
+        }
+    }
 
     // Update Recorded Time Length
     useEffect(() => {
@@ -1347,6 +1376,8 @@ function MessageBox() {
 
     };
 
+    console.log(getMessageBoxHeight())
+
     return (
         <ChatBoxWrap>
             {selectedSession ? (
@@ -1459,7 +1490,7 @@ function MessageBox() {
                                 {!isSearching ? (
                                     <div
                                         id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body r'
+                                        className='wpwax-vm-messagebox-body'
                                         style={{
                                             display: 'flex',
                                             flexDirection: 'column-reverse',
@@ -1487,7 +1518,7 @@ function MessageBox() {
                                                         )
                                                     );
                                                 }}
-                                                height={600}
+                                                height={getMessageBoxHeight()}
                                                 dataLength={
                                                     sessionMessages.length
                                                 }
@@ -1550,7 +1581,7 @@ function MessageBox() {
                                             >
                                                 {searchResults.length ? (
                                                     <InfiniteScroll
-                                                        height={600}
+                                                        height={getMessageBoxHeight()}
                                                         dataLength={
                                                             searchResults.length
                                                         }

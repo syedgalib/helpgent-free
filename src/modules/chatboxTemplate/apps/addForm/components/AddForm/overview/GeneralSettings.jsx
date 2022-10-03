@@ -23,15 +23,14 @@ export const fontOptions = [
 ];
 
 export const fontSizeOptions = [
-    { value: 'large', label: 'Large' },
-    { value: 'larger', label: 'Larger' },
-    { value: 'x-large', label: 'X-large' },
-    { value: 'xx-large', label: 'XX-large' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'small', label: 'Small' },
-    { value: 'smaller', label: 'Smaller' },
-    { value: 'x-small', label: 'X-small' },
-];
+    { value: "1.3", label: "large" },
+    { value: "1.5", label: "x-large" },
+    { value: "2", label: "xx-large" },
+    { value: "1.2", label: "medium" },
+    { value: "1", label: "small" },
+    { value: ".85", label: "smaller" },
+    { value: ".80", label: "x-small" },
+]
 
 const GeneralSettings = () => {
     /* initialize Form Data */

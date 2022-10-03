@@ -7,7 +7,7 @@
 
 --------------------------------*/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ReactSVG } from 'react-svg';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -32,6 +32,7 @@ import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
+import { debounce } from '../../../../../../helpers/utils.js';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -146,11 +147,12 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
+	// Session search.
     const handleSessionSearch = (event) => {
-        let keyword = event.target.value;
-        const searchArg = {
-            search: keyword,
+		const searchArg = {
+            search: event.target.value,
         };
+
         const fetchSearchNameMail = async () => {
             const searchByNameMailResponse = await apiService.getAllByArg(
                 '/sessions',
@@ -163,6 +165,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .then((searchByNameMailResponse) => {
                 setSessionState({
                     ...sessionState,
+					loader: false,
                     sessionList: searchByNameMailResponse.data.data,
                 });
                 dispatch(
@@ -173,6 +176,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 console.log(error);
             });
     };
+
+	const onSessionSearch = useCallback( debounce( handleSessionSearch, 300 ), [] );
 
     const fetchMoreData = () => {
         const pageArg = {
@@ -271,12 +276,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             <div className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
                             </div>
+
                             <input
                                 type='text'
-                                className='wpwax-vm-form__element'
-                                id='wpwax-vm-filter-search'
-                                placeholder='Search'
-                                onChange={handleSessionSearch}
+								className='wpwax-vm-form__element'
+								id='wpwax-vm-filter-search'
+								placeholder='Search'
+                                onChange={onSessionSearch}
                             />
                             <a
                                 href='#'

@@ -39,7 +39,8 @@ const Table = () => {
     };
 
     /* Edit Mode Cancelation */
-    const canceleditElementIndex = () => {
+    const canceleditElementIndex = (e) => {
+        e.preventDefault();
         seteditElementIndexState({
             editElementIndex: '',
         });
@@ -63,8 +64,8 @@ const Table = () => {
     };
 
     /* Update Table Name */
-    const saveTableName = (id) => {
-
+    const saveTableName = (e,id) => {
+        e.preventDefault();
         data.filter(item => item.id === id).map(item => {
             let args = {};
             args.name = (titleInput) ? titleInput : '';
@@ -141,7 +142,8 @@ const Table = () => {
     };
 
     /* Delete Form */
-    const deleteForm = id => {
+    const deleteForm = (e,id) => {
+        e.preventDefault();
         setState({
             ...state,
             modalStatus: "open",
@@ -211,13 +213,13 @@ const Table = () => {
                                                                     <input type="text" name="wpwax-vm-title-input" value={titleInput || ''} onChange={updateTableName} />
                                                                 </div>
                                                                 <div className="wpwax-vm-titlebox__editor-action">
-                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={canceleditElementIndex}>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel'} onClick={e => canceleditElementIndex(e)}>
                                                                         <span className="dashicons dashicons-no"></span>
                                                                     </a>
-                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={() => saveTableName(value.id)}>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes'} onClick={e => saveTableName(e,value.id)}>
                                                                         <span className="dashicons dashicons-yes"></span>
                                                                     </a>
-                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={(e) => activateeditElementIndex(e, value.name, key)}></a>
+                                                                    <a href="#" className={editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show'} onClick={e => activateeditElementIndex(e, value.name, key)}></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -225,7 +227,7 @@ const Table = () => {
                                                     <td>
                                                         <div className="wpwax-vm-table-action">
                                                             <a href={`${location.href}&mode=edit&id=${value.id}`} className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
-                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={() => deleteForm(value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={e => deleteForm(e,value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
                                                         </div>
                                                     </td>
                                                 </tr>

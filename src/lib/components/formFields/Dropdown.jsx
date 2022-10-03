@@ -55,7 +55,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
     const handleDropdownTrigger = (event, btnName) => {
         event.preventDefault();
-        const currentSession = sessions.filter(singleSession => singleSession.session_id === sessionId);
+        const currentSession = outerState.sessionList.filter(singleSession => singleSession.session_id === sessionId);
         const overlay = document.querySelector('.wpax-vm-overlay');
         setSelectedState({
             selectedItemText: event.target.text
@@ -69,63 +69,47 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         switch (btnName) {
             case 'mark-read':
                 const markRead = async ()=>{
-                    setOuterState({
-                        ...outerState,
-                    });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-read`);
                     return response;
                 }
                 markRead()
-                .then( resposne =>{
-                    const sessionWithMark = outerState.map((item,index)=>{
-                        item.total_unread = 0;
-                    });
-                    console.log(sessionWithMark);
-                    const getSessions = async ()  =>{
-                        const sessionResponse = await apiService.getAll('/sessions');
-                        return sessionResponse;
-                    }
-    
-                    getSessions()
-                    .then( sessionResponse => {
+                    .then( resposne =>{
+                        const sessionWithMarkRread = outerState.sessionList.map((item,index)=>{
+                            if(item.session_id === sessionId){
+                                return {...item,total_unread: '1'}
+                            }
+
+                            return item;
+                        });
+
                         setOuterState({
                             ...outerState,
-                            sessionList: sessionResponse.data.data,
+                            sessionList: sessionWithMarkRread,
                         });
-                        dispatch(handleReadSessions(sessionResponse.data.data))
                     })
-                    .catch(error => {})
-                })
-                .catch(error=>{})
+                    .catch(error=>{console.log(error)})
                 break;
             case 'mark-unread':
                 const markUnRead = async ()=>{
-                    setOuterState({
-                        ...outerState,
-                    });
                     const response = await apiService.markRead(`/sessions/${sessionId}/mark-as-unread`);
-                    console.log(response)
                     return response;
                 }
-                markUnRead().then( resposne =>{
-                    const getUnreadSessions = async ()  =>{
-                        const sessionResponse = await apiService.getAll('/sessions');
-                        console.log(sessionResponse);
-                        return sessionResponse;
-                    }
-    
-                    getUnreadSessions()
-                    .then( sessionResponse => {
+                markUnRead()
+                    .then( resposne =>{
+                        const sessionWithMarkUnread = outerState.sessionList.map((item,index)=>{
+                            if(item.session_id === sessionId){
+                                return {...item,total_unread: '0'}
+                            }
+
+                            return item;
+                        });
+
                         setOuterState({
                             ...outerState,
-                            sessionList: sessionResponse.data.data,
+                            sessionList: sessionWithMarkUnread,
                         });
-                        console.log(sessionResponse)
-                        dispatch(handleReadSessions(sessionResponse.data.data))
                     })
-                    .catch(error => {})
-                })
-                .catch(error=>{})
+                    .catch(error=>{console.log(error)})
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');

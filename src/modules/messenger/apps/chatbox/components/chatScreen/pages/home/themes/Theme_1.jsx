@@ -154,10 +154,10 @@ function Theme_1() {
                     }
                     
                     { 
-                        templateOptions.description && 
-                        <span className="wpwax-vm-chatbox-description">
-                            { templateOptions.description }
-                        </span> 
+                        templateOptions.show_description ?
+                            <span className="wpwax-vm-chatbox-description">
+                                { templateOptions.description }
+                            </span> : null
                     }
                     
                 </div>

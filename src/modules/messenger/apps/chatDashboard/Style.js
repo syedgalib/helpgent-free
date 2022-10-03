@@ -20,7 +20,7 @@ const ChatDashboardWrap = Styled.div`
         flex: auto;
         margin: 0 40px 0 30px;
         border-radius: 20px;
-        background-color: var(--color-white);
+        /* background-color: var(--color-white); */
         @media only screen and (max-width: 1199px){
             margin: 0 15px 0 15px;
         }

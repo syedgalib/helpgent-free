@@ -2,6 +2,7 @@ import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
     font-family: var(--font-family);
+    font-size: 18px;
     height: 100%;
     box-sizing: border-box;
     .wpwax-vm-chatbox-bg{

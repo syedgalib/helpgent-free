@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
@@ -13,6 +13,7 @@ import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
+import { debounce } from '../../../../../../helpers/utils.js';
 
 import {
     handleReplyModeChange,
@@ -45,6 +46,7 @@ function MessageBox({ setSessionState }) {
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
+    const [windowSize, setWindowSize] = useState('large');
     const [messageDirection, setMessageDirection] = useState('bottom');
 
     const [sessionMessages, setSessionMessages] = useState([]);
@@ -204,8 +206,6 @@ function MessageBox({ setSessionState }) {
         [selectedSession]
     );
 
-    useEffect(() => {}, [sessionMessages]);
-
     const messageBody = document.querySelector(
         '.wpwax-vm-messagebox-body .infinite-scroll-component '
     );
@@ -220,6 +220,46 @@ function MessageBox({ setSessionState }) {
                 setScrollBtnVisibility(false);
             }
         });
+    useLayoutEffect(() => {
+        function updateSize() {
+            if (window.innerWidth > 1400 && windowSize !== 'large') {
+                setWindowSize('large');
+            } else if (
+                window.innerWidth > 1200 &&
+                window.innerWidth < 1400 &&
+                windowSize !== 'medium'
+            ) {
+                setWindowSize('medium');
+            } else if (
+                window.innerWidth > 992 &&
+                window.innerWidth < 1200 &&
+                windowSize !== 'tab'
+            ) {
+                setWindowSize('tab');
+            } else if (
+                window.innerWidth > 768 &&
+                window.innerWidth < 992 &&
+                windowSize !== 'mobile'
+            ) {
+                setWindowSize('mobile');
+            }
+        }
+        updateSize();
+        window.addEventListener('resize', updateSize);
+    }, []);
+
+    const getMessageBoxHeight = () => {
+        switch (windowSize) {
+            case 'large':
+                return 500;
+            case 'medium':
+                return 400;
+            case 'tab':
+                return 300;
+            case 'mobile':
+                return 300;
+        }
+    };
 
     // Update Recorded Time Length
     useEffect(() => {
@@ -932,6 +972,8 @@ function MessageBox({ setSessionState }) {
         loadSearchResults(newSearchQueryArgs);
     };
 
+    const onMessageSearch = debounce(updateTextSearchResult, 250);
+
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
         setMessageDirection('top');
@@ -1392,6 +1434,8 @@ function MessageBox({ setSessionState }) {
         }
     };
 
+    console.log(getMessageBoxHeight());
+
     return (
         <ChatBoxWrap>
             {selectedSession ? (
@@ -1422,13 +1466,11 @@ function MessageBox({ setSessionState }) {
                                                         type='text'
                                                         ref={searchInputRef}
                                                         name='wpwax-vm-messagebox-search'
-                                                        value={getWindowData(
-                                                            'searchKeyword'
-                                                        )}
+                                                        // value={getWindowData('searchKeyword')}
                                                         id='wpwax-vm-messagebox-search'
                                                         placeholder='Search'
                                                         onChange={
-                                                            updateTextSearchResult
+                                                            onMessageSearch
                                                         }
                                                     />
                                                 </div>
@@ -1508,7 +1550,7 @@ function MessageBox({ setSessionState }) {
                                 {!isSearching ? (
                                     <div
                                         id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body r'
+                                        className='wpwax-vm-messagebox-body'
                                         style={{
                                             display: 'flex',
                                             flexDirection: 'column-reverse',
@@ -1536,7 +1578,7 @@ function MessageBox({ setSessionState }) {
                                                         )
                                                     );
                                                 }}
-                                                height={600}
+                                                height={getMessageBoxHeight()}
                                                 dataLength={
                                                     sessionMessages.length
                                                 }
@@ -1614,7 +1656,7 @@ function MessageBox({ setSessionState }) {
                                             >
                                                 {searchResults.length ? (
                                                     <InfiniteScroll
-                                                        height={600}
+                                                        height={getMessageBoxHeight()}
                                                         dataLength={
                                                             searchResults.length
                                                         }

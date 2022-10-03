@@ -112,6 +112,8 @@ function Theme_2() {
         }
     }
 
+    console.log(templateOptions)
+
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
@@ -124,10 +126,10 @@ function Theme_2() {
                     }
 
                     { 
-                        templateOptions.description && 
-                        <span className="wpwax-vm-chatbox-description">
-                            { templateOptions.description }
-                        </span> 
+                        templateOptions.show_description ?
+                            <span className="wpwax-vm-chatbox-description">
+                                { templateOptions.description }
+                            </span> : null
                     }
                 </div>
 

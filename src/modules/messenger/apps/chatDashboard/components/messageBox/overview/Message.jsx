@@ -10,7 +10,7 @@ import { ReactSVG } from 'react-svg';
 import { useEffect } from 'react';
 import http from 'Helper/http.js';
 
-function Message({ data, currentUser, containerScrollMeta }) {
+function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
     const isMine =
         currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
     const audioRef = useRef();
@@ -22,8 +22,6 @@ function Message({ data, currentUser, containerScrollMeta }) {
     const [audioCurrentTime, setAudioCurrentTime] = useState(0);
 
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
-    const [isSeen, setIsSeen] = useState(data.is_seen);
-
     const [updatingIsSeen, setUpdatingIsSeen] = useState(false);
 
     // @Init State
@@ -33,7 +31,7 @@ function Message({ data, currentUser, containerScrollMeta }) {
                 return;
             }
 
-            if (isSeen) {
+            if (data.is_seen) {
                 return;
             }
 
@@ -72,8 +70,8 @@ function Message({ data, currentUser, containerScrollMeta }) {
 
                 createSeenBy(data.id)
                     .then(() => {
-                        setIsSeen(true);
                         setUpdatingIsSeen(false);
+                        onMarkedAsRead();
                     })
                     .catch((error) => {
                         console.error({ error });

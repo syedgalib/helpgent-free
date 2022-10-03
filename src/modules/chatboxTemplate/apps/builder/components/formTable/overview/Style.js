@@ -4,6 +4,12 @@ const TemplateBox = Styled.div`
     border-radius: 10px;
     padding: 20px;
     background-color: var(--color-white);
+    a{
+        &:focus{
+            outline: none;
+            box-shadow: 0 0;
+        }
+    }
     .wpwax-vm-table-wrap{
         position: relative;
         min-height: 200px;

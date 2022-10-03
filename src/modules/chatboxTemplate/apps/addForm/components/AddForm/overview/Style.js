@@ -16,19 +16,13 @@ const ThankSettingsWrap = Styled.div`
     }
 `;
 const PreviewWrap = Styled.div`
-    width: 480px;
     z-index: 10;
     position: relative;
     word-break: break-all;
     padding-top: 0;
     font-family: var(--font-family);
     color: var(--color-text);
-    @media only screen and (max-width: 1199px) {
-        width: 420px;
-    }
-    @media only screen and (max-width: 1024px) {
-        width: 360px;
-    }
+    
     &.wpwax-vm-loder-active{
         &:after{
             border-radius: 25px;
@@ -148,6 +142,9 @@ const PreviewWrap = Styled.div`
         justify-content: center;
         align-items: center;
         padding: 140px 0 50px;
+        @media only screen and (max-width: 1199px) {
+            padding: 100px 0 40px;
+        }
     }
     .wpwax-vm-btn-play{
         display: flex;
@@ -186,13 +183,14 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 100px;
+                min-height: 110px;
                 height: auto;
                 text-transform: capitalize;
                 flex: 0 0 30.3333%;
                 margin: 1.5%;
                 pointer-events: none;
                 @media only screen and (max-width: 1199px) {
+                    min-height: 85px;
                     padding: 0 15px;
                 }
                 >div{
@@ -210,7 +208,7 @@ const PreviewWrap = Styled.div`
             }
         }
         .wpwax-vm-preview-footer__text{
-            font-size: 13px;
+            font-size: var(--footer-text-font-size);
             font-weight: 500;
             margin: 18px 0 0;
             min-height: 20px;
@@ -220,7 +218,7 @@ const PreviewWrap = Styled.div`
         }
     }
     .wpwax-vm-preview-general{
-        // width: 100%;
+        width: 420px;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -228,6 +226,12 @@ const PreviewWrap = Styled.div`
         border-radius: 25px;
         padding: 270px 30px;
         background-color: var(--color-dark);
+        @media only screen and (max-width: 1399px) {
+            padding: 240px 30px;
+        }
+        @media only screen and (max-width: 1199px) {
+            padding: 220px 30px;
+        }
         p{
             font-size: 20px;
             font-weight: 500;
@@ -239,14 +243,31 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        // width: 100%;
+        width: 460px;
         min-height: 560px;
         border-radius: 25px;
         padding: 30px;
+        font-size: 18px;
         background-color: var(--color-page-bg);
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
             background-color: var(--color-page-bg);
+        }
+        @media only screen and (max-width: 1399px) {
+            width: 450px;
+            font-size: 16px;
+            min-height: 480px;
+        }
+        @media only screen and (max-width: 1199px) {
+            width: 420px;
+        }
+        @media only screen and (max-width: 1024px) {
+            width: 360px;
+            font-size: 14px;
+            min-height: 480px;
+        }
+        @media only screen and (max-width: 760px) {
+            width: 380px;
         }
     }
     .wpwax-vm-preview-from{
@@ -340,7 +361,7 @@ const PreviewWrap = Styled.div`
                     color: var(--color-text-chat);
                 }
                 .wpwax-vm-preview-footer__text{
-                    font-size: 13px;
+                    font-size: var(--footer-text-font-size);
                     font-weight: 500;
                     margin-bottom: 15px;
                     opacity: .8;
@@ -367,12 +388,25 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         width: 100%;
         height: 100%;
-        padding: 155px 0 30px;
+        padding: 155px 30px 30px;
         border-radius: 25px;
         box-sizing: border-box;
+        width: 480px;
         background-color: var(--color-thank-page-bg);
-        @media only screen and (max-width: 1024px) {
+        @media only screen and (max-width: 1399px) {
+            width: 450px;
+            padding: 75px 15px 30px;
+        }
+        @media only screen and (max-width: 1199px) {
+            width: 420px;
             padding: 155px 15px 30px;
+        }
+        @media only screen and (max-width: 1024px) {
+            width: 360px;
+            padding: 155px 15px 30px;
+        }
+        @media only screen and (max-width: 760px) {
+            width: 380px;
         }
         .wpwax-vm-preview-thank__content{
             text-align: center;
@@ -393,7 +427,10 @@ const PreviewWrap = Styled.div`
         }
         .wpwax-vm-preview-thank__botttom{
             margin-top: 200px;
-            padding: 0 20px;
+            padding: 0;
+            @media only screen and (max-width: 1024px) {
+                margin-top: 100px;
+            }
         }
     }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ReactSVG } from 'react-svg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
@@ -20,6 +20,7 @@ import {
     handleMessageTypeChange,
     addSession,
     updateSessionMessages,
+    updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';
@@ -28,14 +29,15 @@ import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 
 const CenterBoxStyle = {
-    height: '100%',
-    minHeight: '520px',
+    minHeight: '620px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: '20px'
 };
 
-function MessageBox() {
+function MessageBox({ setSessionState }) {
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -45,6 +47,7 @@ function MessageBox() {
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
+    const [windowSize, setWindowSize] = useState('large');
     const [messageDirection, setMessageDirection] = useState('bottom');
 
     const [sessionMessages, setSessionMessages] = useState([]);
@@ -204,10 +207,6 @@ function MessageBox() {
         [selectedSession]
     );
 
-    useEffect(() => {
-
-    }, [sessionMessages]);
-
     const messageBody = document.querySelector(
         '.wpwax-vm-messagebox-body .infinite-scroll-component '
     );
@@ -222,6 +221,46 @@ function MessageBox() {
                 setScrollBtnVisibility(false);
             }
         });
+    useLayoutEffect(() => {
+        function updateSize() {
+            if (window.innerWidth > 1400 && windowSize !== 'large') {
+                setWindowSize('large');
+            } else if (
+                window.innerWidth > 1200 &&
+                window.innerWidth < 1400 &&
+                windowSize !== 'medium'
+            ) {
+                setWindowSize('medium');
+            } else if (
+                window.innerWidth > 992 &&
+                window.innerWidth < 1200 &&
+                windowSize !== 'tab'
+            ) {
+                setWindowSize('tab');
+            } else if (
+                window.innerWidth > 768 &&
+                window.innerWidth < 992 &&
+                windowSize !== 'mobile'
+            ) {
+                setWindowSize('mobile');
+            }
+        }
+        updateSize();
+        window.addEventListener('resize', updateSize);
+    }, []);
+
+    const getMessageBoxHeight = () => {
+        switch (windowSize) {
+            case 'large':
+                return 500;
+            case 'medium':
+                return 400;
+            case 'tab':
+                return 300;
+            case 'mobile':
+                return 300;
+        }
+    };
 
     // Update Recorded Time Length
     useEffect(() => {
@@ -934,11 +973,11 @@ function MessageBox() {
         loadSearchResults(newSearchQueryArgs);
     };
 
-	const onMessageSearch = debounce( updateTextSearchResult, 250 );
+    const onMessageSearch = debounce(updateTextSearchResult, 250);
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
-        setMessageDirection("top");
+        setMessageDirection('top');
         dispatch(
             updateSessionWindowData(
                 selectedSession.session_id,
@@ -1148,6 +1187,35 @@ function MessageBox() {
         };
     };
 
+    const updateUnreadMessagesCount = function () {
+        const session_id = selectedSession.session_id;
+
+        setSessionState((currentState) => {
+            const total_unread = currentState.filteredSessions.filter(
+                (session) => session.session_id === session_id
+            )[0].total_unread;
+
+            let new_count = parseInt(total_unread) - 1;
+            new_count = new_count < 0 ? '0' : `${new_count}`;
+
+            const newState = {
+                ...currentState,
+                sessionList: currentState.sessionList.map((session) =>
+                    session.session_id === session_id
+                        ? { ...session, total_unread: new_count }
+                        : session
+                ),
+                filteredSessions: currentState.filteredSessions.map((session) =>
+                    session.session_id === selectedSession.session_id
+                        ? { ...session, total_unread: new_count }
+                        : session
+                ),
+            };
+
+            return newState;
+        });
+    };
+
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
         if (messageType === 'text') {
@@ -1328,23 +1396,43 @@ function MessageBox() {
         dispatch(handleReplyModeChange(false));
     };
 
+    // handleOnMarkedAsRead
+    const handleOnMarkedAsRead = (message) => {
+        // Update Seen Status
+        setSessionMessages((currentState) => {
+            return currentState.map((messageItem) =>
+                messageItem.id === message.id
+                    ? { ...messageItem, is_seen: true }
+                    : messageItem
+            );
+        });
+
+        dispatch(
+            updateSessionMessageItem(selectedSession.session_id, message.id, {
+                is_seen: true,
+            })
+        );
+
+        // Update Unread Message Count
+        updateUnreadMessagesCount();
+    };
+
     const handleScrollBottom = (event) => {
         event.preventDefault();
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
-        if(messageDirection === "bottom"){
+        if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,
                 behavior: 'smooth',
             });
-        }else{
+        } else {
             scrollingBody.scrollTo({
                 bottom: 0,
                 behavior: 'smooth',
             });
         }
-
     };
 
     return (
@@ -1373,15 +1461,17 @@ function MessageBox() {
                                         <div className='wpwax-vm-messagebox-header__actionlist'>
                                             <div className='wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search'>
                                                 <div className='wpwax-vm-searchbox'>
-												<input
-													type='text'
-													ref={searchInputRef}
-													name='wpwax-vm-messagebox-search'
-													// value={getWindowData('searchKeyword')}
-													id='wpwax-vm-messagebox-search'
-													placeholder='Search'
-													onChange={onMessageSearch}
-												/>
+                                                    <input
+                                                        type='text'
+                                                        ref={searchInputRef}
+                                                        name='wpwax-vm-messagebox-search'
+                                                        // value={getWindowData('searchKeyword')}
+                                                        id='wpwax-vm-messagebox-search'
+                                                        placeholder='Search'
+                                                        onChange={
+                                                            onMessageSearch
+                                                        }
+                                                    />
                                                 </div>
                                                 {!openSearch ? (
                                                     <a
@@ -1459,7 +1549,7 @@ function MessageBox() {
                                 {!isSearching ? (
                                     <div
                                         id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body r'
+                                        className='wpwax-vm-messagebox-body'
                                         style={{
                                             display: 'flex',
                                             flexDirection: 'column-reverse',
@@ -1487,7 +1577,7 @@ function MessageBox() {
                                                         )
                                                     );
                                                 }}
-                                                height={600}
+                                                height={getMessageBoxHeight()}
                                                 dataLength={
                                                     sessionMessages.length
                                                 }
@@ -1529,6 +1619,11 @@ function MessageBox() {
                                                                 containerScrollMeta={
                                                                     messagesContainerScrollMeta
                                                                 }
+                                                                onMarkedAsRead={() => {
+                                                                    handleOnMarkedAsRead(
+                                                                        message
+                                                                    );
+                                                                }}
                                                             />
                                                         );
                                                     }
@@ -1539,7 +1634,17 @@ function MessageBox() {
                                                 <h2>No message found</h2>
                                             </div>
                                         )}
-                                        <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
+                                        <a
+                                            href='#'
+                                            className={
+                                                scrollBtnVisibility
+                                                    ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
+                                                    : 'wpwax-vm-scroll-bottom'
+                                            }
+                                            onClick={handleScrollBottom}
+                                        >
+                                            <span className='dashicons dashicons-arrow-down-alt'></span>
+                                        </a>
                                     </div>
                                 ) : (
                                     <div>
@@ -1550,7 +1655,7 @@ function MessageBox() {
                                             >
                                                 {searchResults.length ? (
                                                     <InfiniteScroll
-                                                        height={600}
+                                                        height={getMessageBoxHeight()}
                                                         dataLength={
                                                             searchResults.length
                                                         }
@@ -1599,18 +1704,31 @@ function MessageBox() {
                                                         )}
                                                     </InfiniteScroll>
                                                 ) : (
-                                                    <div style={CenterBoxStyle}>
+                                                    
                                                         <h2>
                                                             No message found
                                                         </h2>
-                                                    </div>
+                                                    
                                                 )}
-                                                <a href="#" className={scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom'} onClick={handleScrollBottom}><span className="dashicons dashicons-arrow-down-alt"></span></a>
+                                                <a
+                                                    href='#'
+                                                    className={
+                                                        scrollBtnVisibility
+                                                            ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
+                                                            : 'wpwax-vm-scroll-bottom'
+                                                    }
+                                                    onClick={handleScrollBottom}
+                                                >
+                                                    <span className='dashicons dashicons-arrow-down-alt'></span>
+                                                </a>
                                             </div>
                                         ) : (
-                                            <div style={CenterBoxStyle}>
-                                                <h2>Loading...</h2>
-                                            </div>
+                                            <span className='wpwax-vm-loading-spin'>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                                <span className='wpwax-vm-spin-dot'></span>
+                                            </span>
                                         )}
                                     </div>
                                 )}
@@ -1627,9 +1745,12 @@ function MessageBox() {
                             )}
                         </div>
                     ) : (
-                        <div style={CenterBoxStyle}>
-                            <h2>Loading...</h2>
-                        </div>
+                        <span className='wpwax-vm-loading-spin'>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                            <span className='wpwax-vm-spin-dot'></span>
+                        </span>
                     )}
                 </div>
             ) : (

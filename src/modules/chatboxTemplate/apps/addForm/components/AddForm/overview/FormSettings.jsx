@@ -12,22 +12,22 @@ import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
-    { value: "roboto", label: "Roboto" },
-    { value: "inter", label: "Inter" },
-    { value: "legend", label: "Legend" },
+    { value: "Roboto,sans-serif", label: "Roboto" },
+    { value: "Inter,sans-serif", label: "Inter" },
+    { value: "Legend,sans-serif", label: "Legend" },
 ]
 export const formType = [
     { value: "theme-1", label: "Theme 1" },
     { value: "theme-2", label: "Theme 2" }
 ]
 export const fontSizeOptions = [
-    { value: "large", label: "large" },
-    { value: "x-large", label: "x-large" },
-    { value: "xx-large", label: "xx-large" },
-    { value: "medium", label: "medium" },
-    { value: "small", label: "small" },
-    { value: "smaller", label: "smaller" },
-    { value: "x-small", label: "x-small" },
+    { value: "1.3", label: "large" },
+    { value: "1.5", label: "x-large" },
+    { value: "2", label: "xx-large" },
+    { value: "1.2", label: "medium" },
+    { value: "1", label: "small" },
+    { value: ".85", label: "smaller" },
+    { value: ".80", label: "x-small" },
 ]
 const FormSettings = () => {
     /* initialize Form Data */
@@ -371,7 +371,7 @@ const FormSettings = () => {
                             name="wpwax-vm-greet-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === grettingMessageFontSize;
+                                return option.value === grettingMessageFontSize;
                             })[0]}
                         />
                     </div>
@@ -405,7 +405,7 @@ const FormSettings = () => {
                             name="wpwax-vm-chat-title-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === chatTitleFontSize;
+                                return option.value === chatTitleFontSize;
                             })[0]}
                         />
                     </div>
@@ -420,7 +420,7 @@ const FormSettings = () => {
                             name="wpwax-vm-fontfamily"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontOptions.filter(function (option) {
-                                return option.label === fontFamily;
+                                return option.value === fontFamily;
                             })[0]}
                         />
                     </div>
@@ -467,7 +467,7 @@ const FormSettings = () => {
                             name="wpwax-vm-chat-footer-text-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === footerMessageFontSize;
+                                return option.value === footerMessageFontSize;
                             })[0]}
                         />
                     </div>

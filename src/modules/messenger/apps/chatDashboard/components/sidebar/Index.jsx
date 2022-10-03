@@ -227,6 +227,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handeSelectSession = (e, item, index) => {
         setaAtiveSession(`wpwax-vm-session-${index}`);
+        console.log(item);
         dispatch(updateSelectedSession(item));
     };
 
@@ -240,6 +241,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             hasMore: true,
         });
     };
+
+    console.log(sessionList)
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -359,22 +362,45 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                 }
                             >
                                 {sessionList.map((item, index) => {
+                                    // console.log(currentUser);
                                     const users = item.users.filter(
                                         (p) =>
                                             currentUser &&
-                                            p.id !== parseInt(currentUser.ID)
+                                            p.id !== parseInt(currentUser.id)
                                     );
-                                    const selectedUSer = users.filter(
-                                        (select) =>
-                                            select.roles[0] === 'subscriber'
-                                    );
+                                    // console.log(currentUser.id,users.length, users);
+                                    
+                                    // const selectedUSer = users.filter(
+                                    //     (select) =>
+                                    //         select.roles[0] === 'subscriber'
+                                    // );
 
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
-                                    if (selectedUSer.length !== 0) {
-                                        images.push(selectedUSer[0].avater);
+                                    if(users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
+                                    }else if(users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater)
+                                    }else if(users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        images.push(users[0].avater)
+                                    }else if(users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        images.push(users[0].avater)
+                                    }else if(users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        /* je login korchhe se Admin */
+                                        const selectClient = users.filter(client => client.roles[0]==='subscriber');
+                                        if(selectClient.length !==0){
+                                            images.push(selectClient[0].avater);
+                                        }else{
+                                            images.push(users[0].avater);
+                                        }
+                                    }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
+                                        images.push(users[0].avater);
                                     }
+                                    // console.log(users.length,images);
+                                    // if (selectedUSer.length !== 0) {
+                                    //     images.push(selectedUSer[0].avater);
+                                    // }
 
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);
@@ -460,15 +486,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                 />
                                             </div>
                                             <div className='wpwax-vm-usermedia__right'>
-                                                <span
-                                                    className={
-                                                        Number(
-                                                            item.total_unread
-                                                        ) > 0
-                                                            ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'
-                                                            : 'wpwax-vm-usermedia-status'
-                                                    }
-                                                ></span>
+                                                {Number(item.total_unread) >
+                                                    0 && (
+                                                    <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'>
+                                                        {item.total_unread}
+                                                    </span>
+                                                )}
+
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}

@@ -89,7 +89,6 @@ class Message_Model extends DB_Model {
 
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-
 			// Where Seen By
 			self::prepare_where_seen_by_query( $args );
 
@@ -106,55 +105,8 @@ class Message_Model extends DB_Model {
 				self::prepare_where_date_time_on_query( 'updated_on', $args );
 			}
 
-			$supported_conditions = [ 'AND', 'OR' ];
-			$conditional_fields   = [ 'term_ids', 'updated_on', 'updated_on_between' ];
-
-            foreach ( $args['where'] as $key => $value ) {
-
-				if ( empty( $value ) ) {
-					continue;
-				}
-
-				$where_table_name = ( ! in_array( $key, $conditional_fields ) ) ? "{$table_name}." : '';
-
-				// ---> C1
-				if ( ! is_array( $value ) ) {
-					$where .= " AND {$where_table_name}{$key}='{$value}'";
-					continue;
-				}
-
-				// ---> C2
-                if ( ! empty( $value['condition'] ) && ! empty( $value['rules'] ) ) {
-
-					$_where     = '';
-					$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
-
-                    foreach ( $value['rules'] as $index => $rule ) {
-						$_key       = $where_table_name . $rule['field'];
-						$_compare   = $rule['compare'];
-						$_value     = $rule['value'];
-
-						if ( $index === 0 ) {
-							$_where .= " {$_key} {$_compare} {$_value}";
-						} else {
-							$_where .= " {$_condition} {$_key} {$_compare} {$_value}";
-						}
-					}
-
-					$_where = trim( $_where );
-					$where .= " AND ( $_where )";
-
-                    continue;
-                }
-
-				// ---> C3
-				$_key     = $where_table_name . $value['field'];
-				$_compare = $value['compare'];
-				$_value   = $value['value'];
-
-				$where .= " AND {$_key} {$_compare} {$_value}";
-            }
-
+			$conditional_fields = [ 'term_ids', 'updated_on', 'updated_on_between' ];
+			$where = self::prepare_where_query( $args[ 'where' ], $table_name, $conditional_fields );
         }
 
 		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
@@ -493,12 +445,24 @@ class Message_Model extends DB_Model {
 
 		$message = self::get_item( $wpdb->insert_id );
 
-		// Mark as seen by author
+		// Mark as seen by the author
 		Messages_Seen_By_Model::create_item([
 			'user_id'    => $message['user_id'],
 			'message_id' => $message['id'],
 			'session_id' => $message['session_id'],
 		]);
+
+		// Freez Previous Seen Messages
+		Messages_Seen_By_Model::update_item_where(
+			[
+				'user_id'              => $message['user_id'],
+				'session_id'           => $message['session_id'],
+				'freez_mark_as_unread' => 0,
+			],
+			[
+				'freez_mark_as_unread' => 1,
+			],
+		);
 
 		return $message;
     }
@@ -530,10 +494,6 @@ class Message_Model extends DB_Model {
         $time = current_time( 'mysql', true );
         $args['updated_on'] = $time;
 
-        if ( ! empty( $args['seen_by'] ) ) {
-            $args['seen_by'] = maybe_serialize( $args['seen_by'] );
-        }
-
         $where = ['id' => $args['id'] ];
 
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
@@ -544,6 +504,44 @@ class Message_Model extends DB_Model {
         }
 
         return self::get_item( $args['id'] );
+    }
+
+    /**
+     * Update Item Where
+     *
+     * @param array $where
+     * @param array $update_fields
+	 *
+     * @return bool|WP_Error
+     */
+    public static function update_item_where( $where = [], $update_fields = [] ) {
+        global $wpdb;
+
+		if ( empty( $where ) || empty( $update_fields ) ) {
+			$message = __( 'Nothing to update.', 'wpwax-customer-support-app' );
+			return new WP_Error( 403, $message );
+		}
+
+		$table = self::get_table_name( self::$table );
+		$where = self::prepare_where_query( $where );
+
+		$fields = '';
+
+		foreach( $update_fields as $field_key => $field_value ) {
+			$fields .= "$field_key = '$field_value', ";
+		}
+
+		$fields = trim( $fields, ', ' );
+
+		$query  = "UPDATE $table SET $fields $where";
+		$result = $wpdb->query( $query );
+
+		if ( false === $result ) {
+			$message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+			return new WP_Error( 403, $message );
+		}
+
+        return true;
     }
 
     /**

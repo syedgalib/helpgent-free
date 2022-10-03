@@ -13844,7 +13844,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    overflow: hidden;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n    video{\n        width: 100%;\n        height: 100%;\n        max-width: 118px;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])));
+var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    overflow: hidden;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (AvatarWrap);
 
 /***/ }),

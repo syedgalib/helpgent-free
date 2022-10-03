@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactSVG } from 'react-svg';
-import { WaveformVisualizer, WaveformVisualizerTheme } from 'react-audio-visualizers';
 import { RecorderWrap } from '../Style';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import play from 'Assets/svg/icons/play.svg';
@@ -10,7 +9,6 @@ import audioRangeActive from 'Assets/svg/audio-active.svg';
 import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
-import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
 import {
@@ -78,8 +76,7 @@ function Record() {
                 // Switch to Contact form
                 setTimeout(() => {
                     dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-                }, "2000");                
-                
+                }, '2000');
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }
@@ -132,23 +129,21 @@ function Record() {
                     },
                 });
 
-                window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
-                    type: 'audio',
-                    mimeType: 'audio/wav',
-                    recorderType: RecordRTC.StereoAudioRecorder,
-                    disableLogs: true,
-                    ondataavailable: function(blob) {
-                        console.log()
-                    },
-                });
-                window.wpwaxCSRecorder.startRecording()
-            
-            
+            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
+                type: 'audio',
+                mimeType: 'audio/wav',
+                recorderType: RecordRTC.StereoAudioRecorder,
+                disableLogs: true,
+                ondataavailable: function (blob) {
+                    console.log();
+                },
+            });
+            window.wpwaxCSRecorder.startRecording();
+
             setIsRecording(true);
             startTimer();
             setRecordedTimeInSecond(recordedTimeInSecond);
             setRecordedAudioSteam(window.wpwaxCSAudioStream);
-            
         } catch (error) {
             console.log({ error });
 
@@ -156,19 +151,18 @@ function Record() {
         }
     }
 
-    const pauseRecording = (e)=>{
+    const pauseRecording = (e) => {
         e.preventDefault();
-        if(isRecording){
+        if (isRecording) {
             window.wpwaxCSRecorder.pauseRecording();
             setIsRecording(false);
             stopTimer();
-        }else{
+        } else {
             window.wpwaxCSRecorder.resumeRecording();
             setIsRecording(true);
             startTimer();
         }
-        
-    }
+    };
     // handle Send recording
     async function handleSendRecording(e) {
         e.preventDefault();
@@ -189,7 +183,6 @@ function Record() {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
-            
         }, 1000);
     }
 
@@ -229,30 +222,42 @@ function Record() {
         setCurrentStage(stages.RECORD);
     }
 
-    function handleCancelRecording(e,type){
+    function handleCancelRecording(e, type) {
         e.preventDefault();
         dispatch(changeChatScreen(type));
         // setCurrentStage(stages.HOME);
     }
 
-    const getPlayedTimeInPercent = ()=>{
+    const getPlayedTimeInPercent = () => {
         const r = audioCurrentTime / audioDuration;
         return isNaN(r) ? 0 : r * 100;
-    }
+    };
 
-    const getRightBtnContent = ()=>{
-        if(!isRecording && recordedTimeInSecond === 0){
-            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-close' onClick={e=>handleCancelRecording(e,'home')}>
-                <span className="dashicons dashicons-no-alt"></span>
-            </a>
-        }else if(isRecording && recordedTimeInSecond === 0){
+    const getRightBtnContent = () => {
+        if (!isRecording && recordedTimeInSecond === 0) {
+            return (
+                <a
+                    href='#'
+                    className='wpwax-vm-record-btn-right wpwax-vm-btn-close'
+                    onClick={(e) => handleCancelRecording(e, 'home')}
+                >
+                    <span className='dashicons dashicons-no-alt'></span>
+                </a>
+            );
+        } else if (isRecording && recordedTimeInSecond === 0) {
             return null;
-        }else if(isRecording && recordedTimeInSecond > 0){
+        } else if (isRecording && recordedTimeInSecond > 0) {
             return null;
-        }else if(!isRecording && recordedTimeInSecond > 0){
-            return <a href='#' className='wpwax-vm-record-btn-right wpwax-vm-btn-send' onClick={e=>handleSendRecording(e)}></a>
+        } else if (!isRecording && recordedTimeInSecond > 0) {
+            return (
+                <a
+                    href='#'
+                    className='wpwax-vm-record-btn-right wpwax-vm-btn-send'
+                    onClick={(e) => handleSendRecording(e)}
+                ></a>
+            );
         }
-    }
+    };
 
     if (currentStage === stages.PERMISSION) {
         return (
@@ -292,7 +297,7 @@ function Record() {
                     </span>
                 </span>
                 {/* {
-                    isRecording ? 
+                    isRecording ?
                     <WaveformVisualizer
                         audio={recordedAudioSteam}
                         theme={WaveformVisualizerTheme.squaredBars}
@@ -308,21 +313,26 @@ function Record() {
                     ) : (
                         <p></p>
                     )}
-                    <div
-                        className='wpwax-vm-record-staging__bottom--action'
-                    >
-                        {
-                            isRecording ? <a href='#' className='wpwax-vm-record-btn' onClick={(e) => pauseRecording(e)}>
+                    <div className='wpwax-vm-record-staging__bottom--action'>
+                        {isRecording ? (
+                            <a
+                                href='#'
+                                className='wpwax-vm-record-btn'
+                                onClick={(e) => pauseRecording(e)}
+                            >
                                 <ReactSVG src={pauseSolid} />
-                            </a> :
-                            <a href='#' className='wpwax-vm-record-btn' onClick={(e) => startRecording(e)}>
+                            </a>
+                        ) : (
+                            <a
+                                href='#'
+                                className='wpwax-vm-record-btn'
+                                onClick={(e) => startRecording(e)}
+                            >
                                 <ReactSVG src={mic} />
                             </a>
-                        }
-                        
-                        {
-                            getRightBtnContent()
-                        }
+                        )}
+
+                        {getRightBtnContent()}
                     </div>
                 </div>
             </RecorderWrap>
@@ -350,7 +360,11 @@ function Record() {
                     <a
                         href='#'
                         onClick={togglePlayPauseAudio}
-                        className={isPlayingPreview? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn'}
+                        className={
+                            isPlayingPreview
+                                ? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn'
+                                : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn'
+                        }
                     >
                         <ReactSVG src={isPlayingPreview ? pause : play} />
                     </a>
@@ -360,7 +374,7 @@ function Record() {
                         backgroundColor="white"
                         theme={WaveformVisualizerTheme.squaredBars}
                     /> */}
-                    <span className="wpwax-vm-audio-range">
+                    <span className='wpwax-vm-audio-range'>
                         <span
                             style={{
                                 display: 'block',

@@ -242,7 +242,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    //console.log(sessionList)
+    console.log(sessionList)
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -486,15 +486,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                 />
                                             </div>
                                             <div className='wpwax-vm-usermedia__right'>
-                                                <span
-                                                    className={
-                                                        Number(
-                                                            item.total_unread
-                                                        ) > 0
-                                                            ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'
-                                                            : 'wpwax-vm-usermedia-status'
-                                                    }
-                                                ></span>
+                                                {Number(item.total_unread) >
+                                                    0 && (
+                                                    <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'>
+                                                        {item.total_unread}
+                                                    </span>
+                                                )}
+
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}

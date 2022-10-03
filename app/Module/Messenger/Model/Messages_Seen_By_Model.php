@@ -212,22 +212,15 @@ class Messages_Seen_By_Model extends DB_Model {
     public static function update_item_where( $where = [], $new_data = [] ) {
         global $wpdb;
 
-		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item_where( $where );
+		$table  = self::get_table_name( self::$table );
+		$result = $wpdb->update( $table, $new_data, $where );
 
-        if ( is_wp_error( $old_data ) ) {
-            return $old_data;
-        }
-
-        $new_data = Helper\filter_params( $old_data, $new_data );
-        $result   = $wpdb->update( $table, $new_data, $where, null );
-
-        if ( empty( $result ) ) {
+        if ( false === $result ) {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item_where( $new_data );
+        return true;
     }
 
     /**

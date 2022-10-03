@@ -5660,7 +5660,7 @@ var Dropdown = function Dropdown(_ref) {
           var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: '1'
+                total_unread: resposne.data.success.total_unread
               });
             }
 
@@ -5706,12 +5706,13 @@ var Dropdown = function Dropdown(_ref) {
           var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: '0'
+                total_unread: resposne.data.success.total_unread
               });
             }
 
             return item;
           });
+          console.log(sessionWithMarkUnread);
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));

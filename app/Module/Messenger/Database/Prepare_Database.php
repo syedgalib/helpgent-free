@@ -43,6 +43,7 @@ class Prepare_Database {
 			message longtext NOT NULL DEFAULT '',
 			attachment_id int(20) DEFAULT NULL,
 			message_type varchar(100) NOT NULL DEFAULT 'text',
+			freez_mark_as_unread tinyint(1) unsigned NOT NULL DEFAULT 0,
 			PRIMARY KEY (id),
 			KEY user_id (user_id),
 			KEY created_on (created_on),

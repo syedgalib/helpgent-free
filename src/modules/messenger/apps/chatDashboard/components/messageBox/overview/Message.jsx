@@ -22,8 +22,6 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
     const [audioCurrentTime, setAudioCurrentTime] = useState(0);
 
     const [isPlayingVideo, setIsPlayingVideo] = useState(false);
-    const [isSeen, setIsSeen] = useState(data.is_seen);
-
     const [updatingIsSeen, setUpdatingIsSeen] = useState(false);
 
     // @Init State
@@ -33,7 +31,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
                 return;
             }
 
-            if (isSeen) {
+            if (data.is_seen) {
                 return;
             }
 
@@ -72,7 +70,6 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
 
                 createSeenBy(data.id)
                     .then(() => {
-                        setIsSeen(true);
                         setUpdatingIsSeen(false);
                         onMarkedAsRead();
                     })

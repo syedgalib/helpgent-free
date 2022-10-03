@@ -8321,7 +8321,24 @@ function MessageBox(_ref) {
     return function handleVoiceClose(_x11) {
       return _ref18.apply(this, arguments);
     };
-  }();
+  }(); // handleOnMarkedAsRead
+
+
+  var handleOnMarkedAsRead = function handleOnMarkedAsRead(message) {
+    // Update Seen Status
+    setSessionMessages(function (currentState) {
+      return currentState.map(function (messageItem) {
+        return messageItem.id === message.id ? _objectSpread(_objectSpread({}, messageItem), {}, {
+          is_seen: true
+        }) : messageItem;
+      });
+    });
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessageItem)(selectedSession.session_id, message.id, {
+      is_seen: true
+    })); // Update Unread Message Count
+
+    updateUnreadMessagesCount();
+  };
 
   var handleScrollBottom = function handleScrollBottom(event) {
     event.preventDefault();
@@ -8454,7 +8471,9 @@ function MessageBox(_ref) {
                   data: message,
                   currentUser: current_user,
                   containerScrollMeta: messagesContainerScrollMeta,
-                  onMarkedAsRead: updateUnreadMessagesCount
+                  onMarkedAsRead: function onMarkedAsRead() {
+                    handleOnMarkedAsRead(message);
+                  }
                 }, index);
               })
             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
@@ -8648,15 +8667,10 @@ function Message(_ref) {
       isPlayingVideo = _useState8[0],
       setIsPlayingVideo = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data.is_seen),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      isSeen = _useState10[0],
-      setIsSeen = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      updatingIsSeen = _useState12[0],
-      setUpdatingIsSeen = _useState12[1]; // @Init State
+      updatingIsSeen = _useState10[0],
+      setUpdatingIsSeen = _useState10[1]; // @Init State
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -8664,7 +8678,7 @@ function Message(_ref) {
       return;
     }
 
-    if (isSeen) {
+    if (data.is_seen) {
       return;
     }
 
@@ -8696,7 +8710,6 @@ function Message(_ref) {
     if (isVisible) {
       setUpdatingIsSeen(true);
       createSeenBy(data.id).then(function () {
-        setIsSeen(true);
         setUpdatingIsSeen(false);
         onMarkedAsRead();
       }).catch(function (error) {
@@ -10877,8 +10890,8 @@ var Sidebar = function Sidebar(_ref) {
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
                 className: "wpwax-vm-usermedia__right",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
-                  className: Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status',
+                children: [Number(item.total_unread) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+                  className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread",
                   children: item.total_unread
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   dropdownText: false,
@@ -12318,6 +12331,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handleMessageTypeChange": function() { return /* binding */ handleMessageTypeChange; },
 /* harmony export */   "handleReplyModeChange": function() { return /* binding */ handleReplyModeChange; },
 /* harmony export */   "updateSelectedSession": function() { return /* binding */ updateSelectedSession; },
+/* harmony export */   "updateSessionMessageItem": function() { return /* binding */ updateSessionMessageItem; },
 /* harmony export */   "updateSessionMessages": function() { return /* binding */ updateSessionMessages; },
 /* harmony export */   "updateSessionWindowData": function() { return /* binding */ updateSessionWindowData; }
 /* harmony export */ });
@@ -12334,6 +12348,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var updateSelectedSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSelectedSession,
     addSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSession,
     updateSessionMessages = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessages,
+    updateSessionMessageItem = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessageItem,
     addSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSessionWindowData,
     updateSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionWindowData,
     replyModeUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateBegin,
@@ -12446,6 +12461,7 @@ var actions = {
   UPDATE_SELECTED_SESSION: 'UPDATE_SELECTED_SESSION',
   ADD_SESSION: 'ADD_SESSION',
   UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
+  UPDATE_SESSION_MESSAGE_ITEM: 'UPDATE_SESSION_MESSAGES_ITEM',
   ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
   UPDATE_SESSION_WINDOW_DATA: 'UPDATE_SESSION_WINDOW_DATA',
   REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
@@ -12478,6 +12494,16 @@ var actions = {
       data: {
         sessionID: sessionID,
         sessionMessages: sessionMessages
+      }
+    };
+  },
+  updateSessionMessageItem: function updateSessionMessageItem(sessionID, messageID, updatedMessage) {
+    return {
+      type: actions.UPDATE_SESSION_MESSAGE_ITEM,
+      data: {
+        sessionID: sessionID,
+        messageID: messageID,
+        updatedMessage: updatedMessage
       }
     };
   },
@@ -12596,6 +12622,7 @@ var initialState = {
 var UPDATE_SELECTED_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SELECTED_SESSION,
     ADD_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION,
     UPDATE_SESSION_MESSAGES = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGES,
+    UPDATE_SESSION_MESSAGE_ITEM = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGE_ITEM,
     ADD_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION_WINDOW_DATA,
     UPDATE_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_WINDOW_DATA,
     REPLY_MODE_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_BEGIN,
@@ -12655,6 +12682,29 @@ var Reducer = function Reducer() {
         allSessions: _objectSpread(_objectSpread({}, state.allSessions), {}, _defineProperty({}, data.sessionID, data.sessionMessages))
       });
 
+    case UPDATE_SESSION_MESSAGE_ITEM:
+      if (!data.sessionID) {
+        return state;
+      }
+
+      if (!data.messageID) {
+        return state;
+      }
+
+      if (!data.updatedMessage) {
+        return state;
+      }
+
+      if (!Object.keys(state.allSessions).includes(data.sessionID)) {
+        return state;
+      }
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessions: _objectSpread(_objectSpread({}, state.allSessions), {}, _defineProperty({}, data.sessionID, state.allSessions[data.sessionID].map(function (message) {
+          return message.id === data.messageID ? _objectSpread(_objectSpread({}, message), data.updatedMessage) : message;
+        })))
+      });
+
     case ADD_SESSION_WINDOW_DATA:
       if (!data) {
         return state;
@@ -12670,7 +12720,6 @@ var Reducer = function Reducer() {
       });
 
     case UPDATE_SESSION_WINDOW_DATA:
-      // console.log( 'UPDATE_SESSION_WINDOW_DATA', data );
       if (!data.sessionID) {
         return state;
       }
@@ -12689,8 +12738,7 @@ var Reducer = function Reducer() {
 
       if (!Object.keys(state.allSessionWindowData[data.sessionID]).includes(data.key)) {
         return state;
-      } // console.log( 'Chk-1' );
-
+      }
 
       return _objectSpread(_objectSpread({}, state), {}, {
         allSessionWindowData: _objectSpread(_objectSpread({}, state.allSessionWindowData), {}, _defineProperty({}, data.sessionID, _objectSpread(_objectSpread({}, state.allSessionWindowData[data.sessionID]), {}, _defineProperty({}, data.key, data.value))))

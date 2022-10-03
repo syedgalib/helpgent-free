@@ -32,6 +32,7 @@ const {
     UPDATE_SELECTED_SESSION,
     ADD_SESSION,
     UPDATE_SESSION_MESSAGES,
+    UPDATE_SESSION_MESSAGE_ITEM,
 
     ADD_SESSION_WINDOW_DATA,
     UPDATE_SESSION_WINDOW_DATA,
@@ -96,6 +97,34 @@ const Reducer = (state = initialState, action) => {
                 allSessions: { ...state.allSessions, [data.sessionID]: data.sessionMessages },
             };
 
+        case UPDATE_SESSION_MESSAGE_ITEM:
+
+            if ( ! data.sessionID ) {
+                return state;
+            }
+
+            if ( ! data.messageID ) {
+                return state;
+            }
+
+            if ( ! data.updatedMessage ) {
+                return state;
+            }
+
+            if ( ! Object.keys( state.allSessions ).includes( data.sessionID ) ){
+                return state;
+            }
+
+            return {
+                ...state,
+                allSessions: {
+					...state.allSessions,
+					[data.sessionID]: state.allSessions[data.sessionID].map(
+						message => ( message.id === data.messageID ) ? { ...message, ...data.updatedMessage } : message
+					)
+				},
+            };
+
         case ADD_SESSION_WINDOW_DATA:
 
             if ( !data ) {
@@ -113,8 +142,6 @@ const Reducer = (state = initialState, action) => {
             };
 
         case UPDATE_SESSION_WINDOW_DATA:
-
-			// console.log( 'UPDATE_SESSION_WINDOW_DATA', data );
 
             if ( !data.sessionID ) {
                 return state;
@@ -135,8 +162,6 @@ const Reducer = (state = initialState, action) => {
             if ( ! Object.keys( state.allSessionWindowData[ data.sessionID ] ).includes( data.key ) ){
                 return state;
             }
-
-			// console.log( 'Chk-1' );
 
             return {
                 ...state,

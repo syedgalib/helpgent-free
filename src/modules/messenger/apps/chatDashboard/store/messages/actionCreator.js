@@ -4,6 +4,7 @@ const {
     updateSelectedSession,
     addSession,
     updateSessionMessages,
+    updateSessionMessageItem,
 
 	addSessionWindowData,
 	updateSessionWindowData,
@@ -60,6 +61,7 @@ export {
     addSessionWindowData,
 	updateSessionWindowData,
     updateSessionMessages,
+    updateSessionMessageItem,
     handleReplyModeChange,
     handleMessageTypeChange,
     handleMessageStageChange,

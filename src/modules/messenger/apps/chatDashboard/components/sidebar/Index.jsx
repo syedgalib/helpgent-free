@@ -454,17 +454,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                 />
                                             </div>
                                             <div className='wpwax-vm-usermedia__right'>
-                                                <span
-                                                    className={
-                                                        Number(
-                                                            item.total_unread
-                                                        ) > 0
-                                                            ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'
-                                                            : 'wpwax-vm-usermedia-status'
-                                                    }
-                                                >
-                                                    {item.total_unread}
-                                                </span>
+                                                {Number(item.total_unread) >
+                                                    0 && (
+                                                    <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'>
+                                                        {item.total_unread}
+                                                    </span>
+                                                )}
+
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}

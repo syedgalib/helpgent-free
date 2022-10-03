@@ -19,6 +19,7 @@ import {
     handleMessageTypeChange,
     addSession,
     updateSessionMessages,
+    updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';
@@ -1352,6 +1353,27 @@ function MessageBox({ setSessionState }) {
         dispatch(handleReplyModeChange(false));
     };
 
+    // handleOnMarkedAsRead
+    const handleOnMarkedAsRead = (message) => {
+        // Update Seen Status
+        setSessionMessages((currentState) => {
+            return currentState.map((messageItem) =>
+                messageItem.id === message.id
+                    ? { ...messageItem, is_seen: true }
+                    : messageItem
+            );
+        });
+
+        dispatch(
+            updateSessionMessageItem(selectedSession.session_id, message.id, {
+                is_seen: true,
+            })
+        );
+
+        // Update Unread Message Count
+        updateUnreadMessagesCount();
+    };
+
     const handleScrollBottom = (event) => {
         event.preventDefault();
         const scrollingBody = document.querySelector(
@@ -1556,9 +1578,11 @@ function MessageBox({ setSessionState }) {
                                                                 containerScrollMeta={
                                                                     messagesContainerScrollMeta
                                                                 }
-                                                                onMarkedAsRead={
-                                                                    updateUnreadMessagesCount
-                                                                }
+                                                                onMarkedAsRead={() => {
+                                                                    handleOnMarkedAsRead(
+                                                                        message
+                                                                    );
+                                                                }}
                                                             />
                                                         );
                                                     }

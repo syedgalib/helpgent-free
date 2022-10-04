@@ -16,11 +16,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Serializer.js");
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Enum.js");
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Parser.js");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
 
 
 
+
+
+var last = function last(arr) {
+  return arr.length ? arr[arr.length - 1] : null;
+}; // based on https://github.com/thysultan/stylis.js/blob/e6843c373ebcbbfade25ebcc23f540ed8508da0a/src/Tokenizer.js#L239-L244
 
 
 var identifierWithPointTracking = function identifierWithPointTracking(begin, points, index) {
@@ -150,64 +155,19 @@ var removeLabel = function removeLabel(element) {
 var ignoreFlag = 'emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason';
 
 var isIgnoringComment = function isIgnoringComment(element) {
-  return element.type === 'comm' && element.children.indexOf(ignoreFlag) > -1;
+  return !!element && element.type === 'comm' && element.children.indexOf(ignoreFlag) > -1;
 };
 
 var createUnsafeSelectorsAlarm = function createUnsafeSelectorsAlarm(cache) {
   return function (element, index, children) {
-    if (element.type !== 'rule' || cache.compat) return;
+    if (element.type !== 'rule') return;
     var unsafePseudoClasses = element.value.match(/(:first|:nth|:nth-last)-child/g);
 
-    if (unsafePseudoClasses) {
-      var isNested = element.parent === children[0]; // in nested rules comments become children of the "auto-inserted" rule
-      //
-      // considering this input:
-      // .a {
-      //   .b /* comm */ {}
-      //   color: hotpink;
-      // }
-      // we get output corresponding to this:
-      // .a {
-      //   & {
-      //     /* comm */
-      //     color: hotpink;
-      //   }
-      //   .b {}
-      // }
+    if (unsafePseudoClasses && cache.compat !== true) {
+      var prevElement = index > 0 ? children[index - 1] : null;
 
-      var commentContainer = isNested ? children[0].children : // global rule at the root level
-      children;
-
-      for (var i = commentContainer.length - 1; i >= 0; i--) {
-        var node = commentContainer[i];
-
-        if (node.line < element.line) {
-          break;
-        } // it is quite weird but comments are *usually* put at `column: element.column - 1`
-        // so we seek *from the end* for the node that is earlier than the rule's `element` and check that
-        // this will also match inputs like this:
-        // .a {
-        //   /* comm */
-        //   .b {}
-        // }
-        //
-        // but that is fine
-        //
-        // it would be the easiest to change the placement of the comment to be the first child of the rule:
-        // .a {
-        //   .b { /* comm */ }
-        // }
-        // with such inputs we wouldn't have to search for the comment at all
-        // TODO: consider changing this comment placement in the next major version
-
-
-        if (node.column < element.column) {
-          if (isIgnoringComment(node)) {
-            return;
-          }
-
-          break;
-        }
+      if (prevElement && isIgnoringComment(last(prevElement.children))) {
+        return;
       }
 
       unsafePseudoClasses.forEach(function (unsafePseudoClass) {
@@ -297,7 +257,8 @@ var createCache = function createCache(options) {
     }
   }
 
-  var inserted = {};
+  var inserted = {}; // $FlowFixMe
+
   var container;
   var nodesToHydrate = [];
 
@@ -391,58 +352,9 @@ var createCache = function createCache(options) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js ***!
-  \***********************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (memoize);
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js ***!
-  \*********************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var weakMemoize = function weakMemoize(func) {
-  // $FlowFixMe flow doesn't include all non-primitive types as allowed for weakmaps
-  var cache = new WeakMap();
-  return function (arg) {
-    if (cache.has(arg)) {
-      // $FlowFixMe
-      return cache.get(arg);
-    }
-
-    var ret = func(arg);
-    cache.set(arg, ret);
-    return ret;
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (weakMemoize);
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/hash/dist/emotion-hash.esm.js":
+/***/ "./node_modules/@emotion/hash/dist/hash.browser.esm.js":
 /*!*************************************************************!*\
-  !*** ./node_modules/@emotion/hash/dist/emotion-hash.esm.js ***!
+  !*** ./node_modules/@emotion/hash/dist/hash.browser.esm.js ***!
   \*************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1264,9 +1176,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "serializeStyles": function() { return /* binding */ serializeStyles; }
 /* harmony export */ });
-/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/hash */ "./node_modules/@emotion/hash/dist/emotion-hash.esm.js");
-/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
+/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/hash */ "./node_modules/@emotion/hash/dist/hash.browser.esm.js");
+/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/unitless/dist/unitless.browser.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
 
 
 
@@ -1341,8 +1253,6 @@ if (true) {
   };
 }
 
-var noComponentSelectorMessage = 'Component selectors can only be used in conjunction with ' + '@emotion/babel-plugin, the swc Emotion plugin, or another Emotion-aware ' + 'compiler transform.';
-
 function handleInterpolation(mergedProps, registered, interpolation) {
   if (interpolation == null) {
     return '';
@@ -1350,7 +1260,7 @@ function handleInterpolation(mergedProps, registered, interpolation) {
 
   if (interpolation.__emotion_styles !== undefined) {
     if ( true && interpolation.toString() === 'NO_COMPONENT_SELECTOR') {
-      throw new Error(noComponentSelectorMessage);
+      throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
     }
 
     return interpolation;
@@ -1460,7 +1370,7 @@ function createStringFromObject(mergedProps, registered, obj) {
         }
       } else {
         if (_key === 'NO_COMPONENT_SELECTOR' && "development" !== 'production') {
-          throw new Error(noComponentSelectorMessage);
+          throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
         }
 
         if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
@@ -1587,89 +1497,6 @@ var serializeStyles = function serializeStyles(args, registered, mergedProps) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js ***!
-  \***************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (memoize);
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js ***!
-  \*****************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var unitlessKeys = {
-  animationIterationCount: 1,
-  borderImageOutset: 1,
-  borderImageSlice: 1,
-  borderImageWidth: 1,
-  boxFlex: 1,
-  boxFlexGroup: 1,
-  boxOrdinalGroup: 1,
-  columnCount: 1,
-  columns: 1,
-  flex: 1,
-  flexGrow: 1,
-  flexPositive: 1,
-  flexShrink: 1,
-  flexNegative: 1,
-  flexOrder: 1,
-  gridRow: 1,
-  gridRowEnd: 1,
-  gridRowSpan: 1,
-  gridRowStart: 1,
-  gridColumn: 1,
-  gridColumnEnd: 1,
-  gridColumnSpan: 1,
-  gridColumnStart: 1,
-  msGridRow: 1,
-  msGridRowSpan: 1,
-  msGridColumn: 1,
-  msGridColumnSpan: 1,
-  fontWeight: 1,
-  lineHeight: 1,
-  opacity: 1,
-  order: 1,
-  orphans: 1,
-  tabSize: 1,
-  widows: 1,
-  zIndex: 1,
-  zoom: 1,
-  WebkitLineClamp: 1,
-  // SVG-related properties
-  fillOpacity: 1,
-  floodOpacity: 1,
-  stopOpacity: 1,
-  strokeDasharray: 1,
-  strokeDashoffset: 1,
-  strokeMiterlimit: 1,
-  strokeOpacity: 1,
-  strokeWidth: 1
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (unitlessKeys);
-
-
-/***/ }),
-
 /***/ "./node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js":
 /*!***********************************************************************!*\
   !*** ./node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js ***!
@@ -1735,7 +1562,6 @@ function createStyleElement(options) {
 }
 
 var StyleSheet = /*#__PURE__*/function () {
-  // Using Node instead of HTMLElement since container may be a ShadowRoot
   function StyleSheet(options) {
     var _this = this;
 
@@ -11732,7 +11558,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
 
 /***/ }),
 
@@ -11744,7 +11570,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -11768,7 +11594,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -11780,7 +11606,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
 
 /***/ }),
 
@@ -11816,7 +11642,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 

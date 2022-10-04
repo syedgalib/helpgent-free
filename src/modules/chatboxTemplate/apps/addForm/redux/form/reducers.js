@@ -5,7 +5,6 @@ const formData = [
     name: "",
     "options":{
         "theme":"theme-1",
-        "display_on_all_pages": false,
         "chat_visibility_type":"show_on_reload",
         "tag": 1,
         "send_mail_upon_message_submission": true,

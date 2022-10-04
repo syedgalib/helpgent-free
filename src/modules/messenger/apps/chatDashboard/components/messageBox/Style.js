@@ -292,6 +292,7 @@ const MessageBoxWrap = Styled.div`
         position: relative;
         .infinite-scroll-component {
             padding-top: 25px;
+            /* max-height: 600px; */
             &::-webkit-scrollbar {
                 width: 11px;
             }

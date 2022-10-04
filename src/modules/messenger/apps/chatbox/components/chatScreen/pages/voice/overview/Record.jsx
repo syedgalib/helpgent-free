@@ -9,7 +9,6 @@ import audioRangeActive from 'Assets/svg/audio-active.svg';
 import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
-import previewBg from 'Assets/img/builder/bg.png';
 import { useEffect } from 'react';
 
 import {

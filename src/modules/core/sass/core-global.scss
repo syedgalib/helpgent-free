@@ -204,12 +204,17 @@
         line-height: 1.57;
         min-height: 40px;
         border-radius: 6px;
-        padding: 9px 16px;
+        padding: 7px 16px;
         border: 0 none;
         box-sizing: border-box;
         color: var(--color-dark);
         border: 2px solid transparent;
+        margin: 0;
         background-color: var(--color-bg-general);
+        @media only screen and (max-width: 1199px) {
+            padding: 6px 16px;
+            min-height: 38px;
+        }
         &:focus {
             border-color: var(--color-dark);
         }
@@ -232,6 +237,9 @@
             font-size: 16px;
             font-weight: 500;
             color: #4d4d4d;
+            @media only screen and (max-width: 1199px) {
+                font-size: 14px !important;
+            }
         }
         .wpwax-vm-require-sign {
             margin: 0 0 0 6px;

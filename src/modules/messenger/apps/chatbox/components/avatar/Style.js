@@ -18,6 +18,9 @@ const AvatarWrap = Styled.div`
         border-radius: 50%;
     }
     video{
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
         border-radius: 50%;
     }
 `;

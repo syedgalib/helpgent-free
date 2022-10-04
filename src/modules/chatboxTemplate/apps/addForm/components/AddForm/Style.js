@@ -5,10 +5,13 @@ const AddFormStyle = Styled.div`
     align-items: flex-start;
     color: #4D4D4D;
     margin-top: 30px;
+    @media only screen and (max-width: 760px) {
+        flex-direction: column;
+        align-items: center
+    }
     .wpwax-vm-add-form{
         position: relative;
         width: 420px;
-        min-height: 720px;
         border-radius: 14px;
         z-index: 10;
         font-family: 'Inter', sans-serif;
@@ -121,6 +124,9 @@ const AddFormStyle = Styled.div`
         padding: 20px;
         border-radius: 14px 14px 0 0;
         background-color: #e2e2e2;
+        @media only screen and (max-width: 1199px) {
+            padding: 14px;
+        }
         @media only screen and (max-width: 991px) {
             text-align: center;
         }
@@ -138,6 +144,13 @@ const AddFormStyle = Styled.div`
             border-radius: 8px;
             cursor: pointer;
             color: #000;
+            @media only screen and (max-width: 1199px) {
+                font-size: 13px;
+                padding: 0 8px;
+            }
+            @media only screen and (max-width: 767px) {
+                padding: 0 16px;
+            }
             &:focus{
                 outline: 0 none;
                 box-shadow: 0 0;
@@ -161,6 +174,9 @@ const AddFormStyle = Styled.div`
         padding: 22px 30px 20px;
         height: 555px;
         overflow-y: scroll;
+        @media only screen and (max-width: 1399px) {
+            height: 480px;
+        }
         @media only screen and (max-width: 1024px) {
             padding: 15px 15px 25px;
         }
@@ -215,10 +231,16 @@ const AddFormStyle = Styled.div`
                     span{
                         margin-right: 45px;
                         min-width: 70px;
+                        @media only screen and (max-width: 1199px) {
+                            margin-right: 10px;
+                        }
                     }
                     input{
                         min-width: 208px;
                         text-align: center;
+                        @media only screen and (max-width: 1199px) {
+                            min-width: 168px;
+                        }
                     }
                 }
             }
@@ -245,6 +267,11 @@ const AddFormStyle = Styled.div`
                 min-width: 130px;
                 width: 130px;
                 color: #030308;
+                @media only screen and (max-width: 1199px) {
+                    min-width: 95px;
+                    width: 95px;
+                    margin-right: 10px;
+                }
             }
             .wpwax-vm-form__element{
                 flex: 1;
@@ -302,7 +329,7 @@ const AddFormStyle = Styled.div`
         .wpwax-vm-select__control{
             .wpwax-vm-select__value-container{
                 &.wpwax-vm-select__value-container--is-multi{
-                    padding: 8px 8px 8px 12px;
+                    padding: 5px 8px 5px 12px;
                     .wpwax-vm-select__input-container{
                         .wpwax-vm-select__input{
                             min-height: auto;
@@ -320,6 +347,7 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-select__input-container{
                 input{
                     color: #898989;
+                    min-height: 22px;
                     &:focus{
                         box-shadow: 0 0;
                     }
@@ -330,6 +358,7 @@ const AddFormStyle = Styled.div`
             border: 2px solid transparent;
             border-radius: 6px;
             background-color: #ededed;
+            min-height: 40px;
             &.wpwax-vm-select__control--is-focused{
                 border-color: var(--color-dark);
             }
@@ -373,7 +402,7 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-notice{
                 display: flex;
                 font-size: 14px;
-                line-height: 1.25;
+                line-height: 1.35;
                 text-align: left;
                 border-radius: 8px;
                 padding: 0 15px;
@@ -437,12 +466,15 @@ const AddFormStyle = Styled.div`
         padding-top: 80px;
         margin-left: -70px;
         z-index: 0;
+        @media only screen and (max-width: 1399px) {
+            padding-top: 60px;
+        }
         @media only screen and (max-width: 1299px) {
             margin-left: 0px;
         }
-        @media only screen and (max-width: 760px) {
+        /* @media only screen and (max-width: 760px) {
             display: none;
-        }
+        } */
         .wpwax-vm-preview-label{
             font-size: 14px;
             font-weight: 500;

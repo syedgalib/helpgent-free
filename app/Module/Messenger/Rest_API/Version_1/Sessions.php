@@ -744,7 +744,7 @@ class Sessions extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function mark_as_read($request)
+	public function mark_as_read( $request )
 	{
 		$args            = $request->get_params();
 		$sassion_id      = $args['session_id'];
@@ -761,15 +761,12 @@ class Sessions extends Rest_Base
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
-		$log = [];
-
 		$unread_messages = $this->get_unread_messages($sassion_id, $current_user_id);
 
-		if (empty($unread_messages)) {
+		if ( empty( $unread_messages ) ) {
 			$response_data = [
 				'messages_marked_as_read' => [],
 				'total_unread'            => 0,
-				'log'                     => $log,
 			];
 
 			return $this->response($response_data);
@@ -778,7 +775,7 @@ class Sessions extends Rest_Base
 		$messages_marked_as_read = [];
 
 		// Set Mark as Read
-		foreach ($unread_messages as $message) {
+		foreach ( $unread_messages as $message ) {
 			$args = [
 				'user_id'    => $current_user_id,
 				'session_id' => $message['session_id'],
@@ -786,35 +783,25 @@ class Sessions extends Rest_Base
 			];
 
 			// Mark as Read
-			$mark_as_read = Messages_Seen_By_Model::create_item($args);
+			$mark_as_read = Messages_Seen_By_Model::create_item( $args );
 
-			// Cache marked as read
-			$cache_mark_as_read = Cache_Messages_Marked_As_Read_Model::create_item($args);
-
-			if (!is_wp_error($mark_as_read)) {
+			if ( ! is_wp_error( $mark_as_read ) ) {
 				$messages_marked_as_read[] = $message['id'];
 			}
-
-			$log[] = [
-				'message_id'         => $message['id'],
-				'marked_as_read'     => !is_wp_error($mark_as_read),
-				'cache_mark_as_read' => !is_wp_error($cache_mark_as_read),
-			];
 		}
 
-		if (!empty($messages_marked_as_read)) {
-			$messages_marked_as_read = array_map(function ($item) {
+		if ( ! empty( $messages_marked_as_read ) ) {
+			$messages_marked_as_read = array_map( function( $item ) {
 				return (int) $item;
 			}, $messages_marked_as_read);
 		}
 
-		$unread_messages = $this->get_unread_messages($sassion_id, $current_user_id);
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 
 		// Response Data
 		$data = [
 			'messages_marked_as_read' => $messages_marked_as_read,
-			'total_unread'            => count($unread_messages),
-			'log'                     => $log,
+			'total_unread'            => count( $unread_messages ),
 		];
 
 		return $this->response($data);
@@ -826,13 +813,13 @@ class Sessions extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function mark_as_unread($request)
+	public function mark_as_unread( $request )
 	{
 		$args            = $request->get_params();
 		$sassion_id      = $args['session_id'];
 		$current_user_id = get_current_user_id();
 
-		$session_exists = $this->session_exists($sassion_id);
+		$session_exists = $this->session_exists( $sassion_id );
 
 		if ( is_wp_error( $session_exists ) ) {
 			return $session_exists;
@@ -843,73 +830,21 @@ class Sessions extends Rest_Base
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
-		$unread_messages = $this->get_unread_messages($sassion_id, $current_user_id);
+		// Delete Recent Read Messages
+		Messages_Seen_By_Model::delete_item_where([
+			'user_id'              => $current_user_id,
+			'session_id'           => $sassion_id,
+			'freez_mark_as_unread' => 0,
+		]);
 
-		$log = [];
-
-		// Get all messages marked read
-		$query_args = [
-			'where' => [
-				'user_id'    => $current_user_id,
-				'session_id' => $sassion_id,
-			]
-		];
-
-		$marked_as_read_messages = Cache_Messages_Marked_As_Read_Model::get_items($query_args);
-
-		if (empty($marked_as_read_messages)) {
-			$response_data = [
-				'messages_marked_as_unread' => [],
-				'total_unread'              => count($unread_messages),
-				'log'                       => $log,
-			];
-
-			return $this->response($response_data);
-		}
-
-		$messages_marked_as_unread = [];
-
-		// Set Mark as Unread
-		foreach ($marked_as_read_messages as $message) {
-			$args = [
-				'user_id'    => $message['user_id'],
-				'session_id' => $message['session_id'],
-				'message_id' => $message['message_id'],
-			];
-
-			// Mark as Read
-			$mark_as_unread = Messages_Seen_By_Model::delete_item_where($args);
-
-			// Cache marked as read
-			$cache_mark_as_unread = Cache_Messages_Marked_As_Read_Model::delete_item_where($args);
-
-			if (!is_wp_error($mark_as_unread)) {
-				$messages_marked_as_unread[] = $message['message_id'];
-			}
-
-			$log[] = [
-				'message_id'             => $message['message_id'],
-				'marked_as_unread'       => !is_wp_error($mark_as_unread),
-				'cache_marked_as_unread' => !is_wp_error($cache_mark_as_unread)
-			];
-		}
-
-		if (!empty($messages_marked_as_unread)) {
-			$messages_marked_as_unread = array_map(function ($item) {
-				return (int) $item;
-			}, $messages_marked_as_unread);
-		}
-
-		$unread_messages = $this->get_unread_messages($sassion_id, $current_user_id);
+		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
 
 		// Response Data
 		$data = [
-			'messages_marked_as_unread' => $messages_marked_as_unread,
-			'total_unread'              => count($unread_messages),
-			'log'                       => $log,
+			'total_unread' => count( $unread_messages ),
 		];
 
-		return $this->response($data);
+		return $this->response( $data );
 	}
 
 	/**

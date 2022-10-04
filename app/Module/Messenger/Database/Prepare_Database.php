@@ -43,6 +43,7 @@ class Prepare_Database {
 			message longtext NOT NULL DEFAULT '',
 			attachment_id int(20) DEFAULT NULL,
 			message_type varchar(100) NOT NULL DEFAULT 'text',
+			freez_mark_as_unread tinyint(1) unsigned NOT NULL DEFAULT 0,
 			PRIMARY KEY (id),
 			KEY user_id (user_id),
 			KEY created_on (created_on),
@@ -55,15 +56,6 @@ class Prepare_Database {
 			session_id varchar(255) NOT NULL,
 			KEY message_id (message_id),
 			KEY user_id (user_id),
-			KEY session_id (session_id)
-		) $collate;
-
-		CREATE TABLE {$table_prefix}_cache_messages_marked_as_read (
-			user_id bigint(20) unsigned NOT NULL,
-			message_id bigint(20) unsigned NOT NULL,
-			session_id varchar(255) NOT NULL,
-			KEY user_id (user_id),
-			KEY message_id (message_id),
 			KEY session_id (session_id)
 		) $collate;
 

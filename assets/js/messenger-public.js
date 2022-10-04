@@ -5530,6 +5530,47 @@ function parseInteger(value, fallback) {
 
 /***/ }),
 
+/***/ "./src/helpers/utils.js":
+/*!******************************!*\
+  !*** ./src/helpers/utils.js ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "debounce": function() { return /* binding */ debounce; }
+/* harmony export */ });
+/**
+ *
+ * @see https://davidwalsh.name/javascript-debounce-function
+ *
+ * @param {function} func
+ * @param {number} wait
+ * @param {boolean} immediate
+ * @returns Debounced function
+ */
+function debounce(func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+        args = arguments;
+
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+;
+
+/***/ }),
+
 /***/ "./src/lib/apiService/Service.js":
 /*!***************************************!*\
   !*** ./src/lib/apiService/Service.js ***!
@@ -5695,7 +5736,6 @@ var MediaBox = function MediaBox(_ref) {
 
   var replyerImg = function replyerImg() {
     if (lastMessage) {
-      // console.log(chatingMedia, lastMessage.user.roles[0], img[0] === '');
       if (lastMessage.user.roles[0] === 'administrator') {
         if (lastMessage.user.avatar) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
@@ -6043,7 +6083,7 @@ var Dropdown = function Dropdown(_ref) {
 
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
-    var currentSession = sessions.filter(function (singleSession) {
+    var currentSession = outerState.sessionList.filter(function (singleSession) {
       return singleSession.session_id === sessionId;
     });
     var overlay = document.querySelector('.wpax-vm-overlay');
@@ -6065,15 +6105,14 @@ var Dropdown = function Dropdown(_ref) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    setOuterState(_objectSpread({}, outerState));
-                    _context.next = 3;
+                    _context.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
 
-                  case 3:
+                  case 2:
                     response = _context.sent;
                     return _context.abrupt("return", response);
 
-                  case 5:
+                  case 4:
                   case "end":
                     return _context.stop();
                 }
@@ -6087,114 +6126,68 @@ var Dropdown = function Dropdown(_ref) {
         }();
 
         markRead().then(function (resposne) {
-          var sessionWithMark = outerState.map(function (item, index) {
-            item.total_unread = 0;
+          var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: resposne.data.success.total_unread
+              });
+            }
+
+            return item;
           });
-          console.log(sessionWithMark);
-
-          var getSessions = /*#__PURE__*/function () {
-            var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-              var sessionResponse;
-              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll('/sessions');
-
-                    case 2:
-                      sessionResponse = _context2.sent;
-                      return _context2.abrupt("return", sessionResponse);
-
-                    case 4:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2);
-            }));
-
-            return function getSessions() {
-              return _ref3.apply(this, arguments);
-            };
-          }();
-
-          getSessions().then(function (sessionResponse) {
-            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              sessionList: sessionResponse.data.data
-            }));
-            dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
-          }).catch(function (error) {});
-        }).catch(function (error) {});
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkRread
+          }));
+        }).catch(function (error) {
+          console.log(error);
+        });
         break;
 
       case 'mark-unread':
         var markUnRead = /*#__PURE__*/function () {
-          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+          var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
             var response;
-            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context2.prev = _context2.next) {
                   case 0:
-                    setOuterState(_objectSpread({}, outerState));
-                    _context3.next = 3;
+                    _context2.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
 
-                  case 3:
-                    response = _context3.sent;
-                    console.log(response);
-                    return _context3.abrupt("return", response);
+                  case 2:
+                    response = _context2.sent;
+                    return _context2.abrupt("return", response);
 
-                  case 6:
+                  case 4:
                   case "end":
-                    return _context3.stop();
+                    return _context2.stop();
                 }
               }
-            }, _callee3);
+            }, _callee2);
           }));
 
           return function markUnRead() {
-            return _ref4.apply(this, arguments);
+            return _ref3.apply(this, arguments);
           };
         }();
 
         markUnRead().then(function (resposne) {
-          var getUnreadSessions = /*#__PURE__*/function () {
-            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-              var sessionResponse;
-              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-                while (1) {
-                  switch (_context4.prev = _context4.next) {
-                    case 0:
-                      _context4.next = 2;
-                      return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll('/sessions');
+          var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
+            if (item.session_id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                total_unread: resposne.data.success.total_unread
+              });
+            }
 
-                    case 2:
-                      sessionResponse = _context4.sent;
-                      console.log(sessionResponse);
-                      return _context4.abrupt("return", sessionResponse);
-
-                    case 5:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee4);
-            }));
-
-            return function getUnreadSessions() {
-              return _ref5.apply(this, arguments);
-            };
-          }();
-
-          getUnreadSessions().then(function (sessionResponse) {
-            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-              sessionList: sessionResponse.data.data
-            }));
-            console.log(sessionResponse);
-            dispatch((0,_modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__.handleReadSessions)(sessionResponse.data.data));
-          }).catch(function (error) {});
-        }).catch(function (error) {});
+            return item;
+          });
+          console.log(sessionWithMarkUnread);
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithMarkUnread
+          }));
+        }).catch(function (error) {
+          console.log(error);
+        });
         break;
 
       case 'add-tags':
@@ -6242,29 +6235,29 @@ var Dropdown = function Dropdown(_ref) {
         }));
 
         var deleteTerm = /*#__PURE__*/function () {
-          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
             var deleteResponse;
-            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context5.next = 2;
+                    _context3.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].datadelete("messages/terms/".concat(termId));
 
                   case 2:
-                    deleteResponse = _context5.sent;
-                    return _context5.abrupt("return", deleteResponse);
+                    deleteResponse = _context3.sent;
+                    return _context3.abrupt("return", deleteResponse);
 
                   case 4:
                   case "end":
-                    return _context5.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee5);
+            }, _callee3);
           }));
 
           return function deleteTerm() {
-            return _ref6.apply(this, arguments);
+            return _ref4.apply(this, arguments);
           };
         }();
 
@@ -6295,31 +6288,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
-          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            return _regeneratorRuntime().wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context4.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "read"
                     });
 
                   case 2:
-                    readSession = _context6.sent;
-                    return _context6.abrupt("return", readSession);
+                    readSession = _context4.sent;
+                    return _context4.abrupt("return", readSession);
 
                   case 4:
                   case "end":
-                    return _context6.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee6);
+            }, _callee4);
           }));
 
           return function fetchReadSeassion() {
-            return _ref7.apply(this, arguments);
+            return _ref5.apply(this, arguments);
           };
         }();
 
@@ -6333,31 +6326,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-unread':
         var fetchUnReadSeassion = /*#__PURE__*/function () {
-          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context7.next = 2;
+                    _context5.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "unread"
                     });
 
                   case 2:
-                    readSession = _context7.sent;
-                    return _context7.abrupt("return", readSession);
+                    readSession = _context5.sent;
+                    return _context5.abrupt("return", readSession);
 
                   case 4:
                   case "end":
-                    return _context7.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee7);
+            }, _callee5);
           }));
 
           return function fetchUnReadSeassion() {
-            return _ref8.apply(this, arguments);
+            return _ref6.apply(this, arguments);
           };
         }();
 
@@ -6371,29 +6364,29 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
-          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
             var latestSession;
-            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
-                    _context8.next = 2;
+                    _context6.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll("/sessions");
 
                   case 2:
-                    latestSession = _context8.sent;
-                    return _context8.abrupt("return", latestSession);
+                    latestSession = _context6.sent;
+                    return _context6.abrupt("return", latestSession);
 
                   case 4:
                   case "end":
-                    return _context8.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee8);
+            }, _callee6);
           }));
 
           return function fetchLatestSeassion() {
-            return _ref9.apply(this, arguments);
+            return _ref7.apply(this, arguments);
           };
         }();
 
@@ -6407,31 +6400,31 @@ var Dropdown = function Dropdown(_ref) {
 
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
-          var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
             var oldestSession;
-            return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context9.prev = _context9.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context9.next = 2;
+                    _context7.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "oldest"
                     });
 
                   case 2:
-                    oldestSession = _context9.sent;
-                    return _context9.abrupt("return", oldestSession);
+                    oldestSession = _context7.sent;
+                    return _context7.abrupt("return", oldestSession);
 
                   case 4:
                   case "end":
-                    return _context9.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee9);
+            }, _callee7);
           }));
 
           return function fetchOldestSeassion() {
-            return _ref10.apply(this, arguments);
+            return _ref8.apply(this, arguments);
           };
         }();
 
@@ -6609,7 +6602,10 @@ function App() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "wpwax-vm-messagebox",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_messageBox_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        sessionState: sessionState,
+        setSessionState: setSessionState
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
       className: "wpax-vm-overlay"
     })]
@@ -6634,7 +6630,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var ChatDashboardWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    padding-top: 40px;\n    font-family: 'Inter', sans-serif;\n    @media only screen and (max-width: 991px){\n        flex-direction: column;\n        align-items: center;\n    }\n    .wpwax-vm-sidebar{\n        width: 340px;\n        padding-left: 10px;\n        @media only screen and (max-width: 991px){\n            margin-bottom: 6px;\n            padding-left: 0;\n        }\n    }\n    .wpwax-vm-messagebox{\n        flex: auto;\n        margin: 0 40px 0 30px;\n        border-radius: 20px;\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1199px){\n            margin: 0 15px 0 15px;\n        }\n        @media only screen and (max-width: 767px){\n            margin: 0 15px 0 5px;\n        }\n    }\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n"])));
+var ChatDashboardWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    padding-top: 40px;\n    font-family: 'Inter', sans-serif;\n    @media only screen and (max-width: 991px){\n        flex-direction: column;\n        align-items: center;\n    }\n    .wpwax-vm-sidebar{\n        width: 340px;\n        padding-left: 10px;\n        @media only screen and (max-width: 991px){\n            margin-bottom: 6px;\n            padding-left: 0;\n        }\n    }\n    .wpwax-vm-messagebox{\n        flex: auto;\n        margin: 0 40px 0 30px;\n        border-radius: 20px;\n        /* background-color: var(--color-white); */\n        @media only screen and (max-width: 1199px){\n            margin: 0 15px 0 15px;\n        }\n        @media only screen and (max-width: 767px){\n            margin: 0 15px 0 5px;\n        }\n    }\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (ChatDashboardWrap);
 
 /***/ }),
@@ -6663,10 +6659,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
 /* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 /* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! apiService/attachment-api */ "./src/lib/apiService/attachment-api.js");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
-/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _helpers_utils_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../../helpers/utils.js */ "./src/helpers/utils.js");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
+/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
+/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6721,15 +6718,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var CenterBoxStyle = {
-  height: '100%',
-  minHeight: '520px',
+  minHeight: '620px',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  backgroundColor: '#fff',
+  borderRadius: '20px'
 };
 
-function MessageBox() {
+function MessageBox(_ref) {
+  var setSessionState = _ref.setSessionState;
   var messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
   /* Dispasth is used for passing the actions to redux store  */
 
@@ -6742,87 +6742,92 @@ function MessageBox() {
       scrollBtnVisibility = _useState2[0],
       setScrollBtnVisibility = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('large'),
       _useState4 = _slicedToArray(_useState3, 2),
-      messageDirection = _useState4[0],
-      setMessageDirection = _useState4[1];
+      windowSize = _useState4[0],
+      setWindowSize = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
       _useState6 = _slicedToArray(_useState5, 2),
-      sessionMessages = _useState6[0],
-      setSessionMessages = _useState6[1];
+      messageDirection = _useState6[0],
+      setMessageDirection = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      latestMessageDate = _useState8[0],
-      setLatestMessageDate = _useState8[1];
+      sessionMessages = _useState8[0],
+      setSessionMessages = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoadingMoreMessages = _useState10[0],
-      setIsLoadingMoreMessages = _useState10[1];
+      latestMessageDate = _useState10[0],
+      setLatestMessageDate = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      isLoadingSession = _useState12[0],
-      setIsLoadingSession = _useState12[1];
+      isLoadingMoreMessages = _useState12[0],
+      setIsLoadingMoreMessages = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      isSendingTextMessage = _useState14[0],
-      setIsSendingTextMessage = _useState14[1];
+      isLoadingSession = _useState14[0],
+      setIsLoadingSession = _useState14[1];
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      isSendingAudioMessage = _useState16[0],
-      setIsSendingAudioMessage = _useState16[1]; //
+      isSendingTextMessage = _useState16[0],
+      setIsSendingTextMessage = _useState16[1];
 
-
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
-      recordedAudioBlob = _useState18[0],
-      setRecordedAudioBlob = _useState18[1];
+      isSendingAudioMessage = _useState18[0],
+      setIsSendingAudioMessage = _useState18[1]; //
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      isRecordingVoice = _useState20[0],
-      setIsRecordingVoice = _useState20[1];
+      recordedAudioBlob = _useState20[0],
+      setRecordedAudioBlob = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState22 = _slicedToArray(_useState21, 2),
-      recordedVoiceTimeInSecond = _useState22[0],
-      setRecordedVoiceTimeInSecond = _useState22[1];
+      isRecordingVoice = _useState22[0],
+      setIsRecordingVoice = _useState22[1];
 
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState24 = _slicedToArray(_useState23, 2),
-      recordedTimeLength = _useState24[0],
-      setRecordedTimeLength = _useState24[1];
+      recordedVoiceTimeInSecond = _useState24[0],
+      setRecordedVoiceTimeInSecond = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState26 = _slicedToArray(_useState25, 2),
+      recordedTimeLength = _useState26[0],
+      setRecordedTimeLength = _useState26[1];
 
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
   // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState26 = _slicedToArray(_useState25, 2),
-      textMessageContent = _useState26[0],
-      setTextMessageContent = _useState26[1]; // Search Results
-
-
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState28 = _slicedToArray(_useState27, 2),
-      currentSearchResultPage = _useState28[0],
-      setCurrentSearchResultPage = _useState28[1];
+      textMessageContent = _useState28[0],
+      setTextMessageContent = _useState28[1]; // Search Results
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState30 = _slicedToArray(_useState29, 2),
-      isLoadingSearchResults = _useState30[0],
-      setIsLoadingSearchResults = _useState30[1];
+      currentSearchResultPage = _useState30[0],
+      setCurrentSearchResultPage = _useState30[1];
 
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState32 = _slicedToArray(_useState31, 2),
-      isLoadingMoreSearchResults = _useState32[0],
-      setIsLoadingMoreSearchResults = _useState32[1];
+      isLoadingSearchResults = _useState32[0],
+      setIsLoadingSearchResults = _useState32[1];
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState34 = _slicedToArray(_useState33, 2),
+      isLoadingMoreSearchResults = _useState34[0],
+      setIsLoadingMoreSearchResults = _useState34[1];
   /* initialize Form Data */
 
 
@@ -6900,14 +6905,14 @@ function MessageBox() {
     setIsLoadingSession(true); // Fetch session data from API
 
     var fetchSession = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var sessionResponse;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', {
+                return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].getData('/messages', {
                   session_id: session_id,
                   limit: paginationPerPage
                 });
@@ -6925,7 +6930,7 @@ function MessageBox() {
       }));
 
       return function fetchSession() {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
 
@@ -6937,8 +6942,8 @@ function MessageBox() {
 
       var sessionMessages = response.data.data; // Update The Store
 
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSession)(session_id, sessionMessages));
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSessionWindowData)(session_id));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.addSession)(session_id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.addSessionWindowData)(session_id));
       setSessionMessages(sessionMessages);
       setIsLoadingSession(false);
     }).catch(function (error) {
@@ -6948,7 +6953,6 @@ function MessageBox() {
       setIsLoadingSession(false);
     });
   }, [selectedSession]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {}, [sessionMessages]);
   var messageBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
   messageBody && messageBody.addEventListener('scroll', function () {
     var scrolled = messageBody.scrollTop;
@@ -6958,7 +6962,40 @@ function MessageBox() {
     } else {
       setScrollBtnVisibility(false);
     }
-  }); // Update Recorded Time Length
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () {
+    function updateSize() {
+      if (window.innerWidth > 1400 && windowSize !== 'large') {
+        setWindowSize('large');
+      } else if (window.innerWidth > 1200 && window.innerWidth < 1400 && windowSize !== 'medium') {
+        setWindowSize('medium');
+      } else if (window.innerWidth > 992 && window.innerWidth < 1200 && windowSize !== 'tab') {
+        setWindowSize('tab');
+      } else if (window.innerWidth > 768 && window.innerWidth < 992 && windowSize !== 'mobile') {
+        setWindowSize('mobile');
+      }
+    }
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+  }, []);
+
+  var getMessageBoxHeight = function getMessageBoxHeight() {
+    switch (windowSize) {
+      case 'large':
+        return 500;
+
+      case 'medium':
+        return 400;
+
+      case 'tab':
+        return 300;
+
+      case 'mobile':
+        return 300;
+    }
+  }; // Update Recorded Time Length
+
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var timeLength = calculateRecordedTimeLength();
@@ -7009,22 +7046,22 @@ function MessageBox() {
   var isShowingVoiceSearchResult = getWindowData('isShowingVoiceSearchResult');
 
   var setSearchResults = function setSearchResults(results) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
   };
 
   var dismisSearch = function dismisSearch() {
     // Hide Search Results
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
 
     setSearchResults([]); // Reset Serch Query Args
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', {}));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', {}));
   };
 
   var dismissFilters = function dismissFilters() {
     dismisSearch();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
   };
   /* Handle Search Toggle */
 
@@ -7034,7 +7071,7 @@ function MessageBox() {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
     dismissFilters();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', true));
   };
 
   var handleDiactiveSearch = function handleDiactiveSearch(event) {
@@ -7042,9 +7079,9 @@ function MessageBox() {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0); // Close search bar
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', false)); // Reset search input
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', false)); // Reset search input
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
 
     dismisSearch();
   };
@@ -7068,21 +7105,21 @@ function MessageBox() {
 
   var showReplayViaVideoMessage = function showReplayViaVideoMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('video'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('video'));
   };
   /* Handle Text Message */
 
 
   var showReplayViaTextMessage = function showReplayViaTextMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('text'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('text'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
   };
   /* Handle Voice Message */
 
 
   var showReplayViaVoiceMessage = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(event) {
       var can_record_auido;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
@@ -7109,8 +7146,8 @@ function MessageBox() {
 
             case 8:
               // Show Recording UI
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('voice'));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
 
             case 10:
             case "end":
@@ -7121,7 +7158,7 @@ function MessageBox() {
     }));
 
     return function showReplayViaVoiceMessage(_x) {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
   /* Handle Reply Mode */
@@ -7129,7 +7166,7 @@ function MessageBox() {
 
   var haldleReplyMode = function haldleReplyMode() {
     if (messageType === 'video') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         sessionID: selectedSession.session_id,
         onSuccess: loadLatestMessages,
         replayingTo: getReplaingToUser()
@@ -7138,7 +7175,7 @@ function MessageBox() {
   };
 
   var sendTextMessage = /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
       var response, message;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
@@ -7191,12 +7228,12 @@ function MessageBox() {
     }));
 
     return function sendTextMessage(_x2) {
-      return _ref3.apply(this, arguments);
+      return _ref4.apply(this, arguments);
     };
   }();
 
   var handleSendAudioMessage = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -7237,12 +7274,12 @@ function MessageBox() {
     }));
 
     return function handleSendAudioMessage(_x3) {
-      return _ref4.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
   }();
 
   var sendAudioMessage = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(blob) {
       var attachment, attachmentResponse, message, attachmentID, response, _message;
 
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -7321,7 +7358,7 @@ function MessageBox() {
     }));
 
     return function sendAudioMessage(_x4) {
-      return _ref5.apply(this, arguments);
+      return _ref6.apply(this, arguments);
     };
   }();
 
@@ -7373,7 +7410,7 @@ function MessageBox() {
   }
 
   var createMessage = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args) {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args) {
       var defaultArgs, status, _response;
 
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
@@ -7392,7 +7429,7 @@ function MessageBox() {
               };
               _context6.prev = 3;
               _context6.next = 6;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].postData('/messages', args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].postData('/messages', args);
 
             case 6:
               _response = _context6.sent;
@@ -7415,12 +7452,12 @@ function MessageBox() {
     }));
 
     return function createMessage(_x6) {
-      return _ref6.apply(this, arguments);
+      return _ref7.apply(this, arguments);
     };
   }();
 
   var getMessages = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(customArgs) {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(customArgs) {
       var defaultArgs, args, status, _response2;
 
       return _regeneratorRuntime().wrap(function _callee7$(_context7) {
@@ -7438,7 +7475,7 @@ function MessageBox() {
               };
               _context7.prev = 3;
               _context7.next = 6;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].getData('/messages', args);
 
             case 6:
               _response2 = _context7.sent;
@@ -7465,18 +7502,18 @@ function MessageBox() {
     }));
 
     return function getMessages(_x7) {
-      return _ref7.apply(this, arguments);
+      return _ref8.apply(this, arguments);
     };
   }();
 
   var afterStopVoiceRecording = /*#__PURE__*/function () {
-    var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(_ref8) {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(_ref9) {
       var blob, sendRecording;
       return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
-              blob = _ref8.blob, sendRecording = _ref8.sendRecording;
+              blob = _ref9.blob, sendRecording = _ref9.sendRecording;
 
               if (sendRecording) {
                 _context8.next = 3;
@@ -7501,17 +7538,17 @@ function MessageBox() {
     }));
 
     return function afterStopVoiceRecording(_x8) {
-      return _ref9.apply(this, arguments);
+      return _ref10.apply(this, arguments);
     };
   }();
 
   var closeVoiceChat = function closeVoiceChat() {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
   };
 
   var prepareVoiceRecording = /*#__PURE__*/function () {
-    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
       var audioStreem;
       return _regeneratorRuntime().wrap(function _callee9$(_context9) {
         while (1) {
@@ -7543,7 +7580,7 @@ function MessageBox() {
     }));
 
     return function prepareVoiceRecording() {
-      return _ref10.apply(this, arguments);
+      return _ref11.apply(this, arguments);
     };
   }(); // setupAudioStreem
 
@@ -7661,7 +7698,7 @@ function MessageBox() {
 
 
   var canRecordAudio = /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
       var has_permission, accepted_permission;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
@@ -7707,13 +7744,13 @@ function MessageBox() {
     }));
 
     return function canRecordAudio() {
-      return _ref11.apply(this, arguments);
+      return _ref12.apply(this, arguments);
     };
   }(); // hasAudioRecordPermission
 
 
   var hasAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
       var microphonePermission;
       return _regeneratorRuntime().wrap(function _callee11$(_context11) {
         while (1) {
@@ -7743,13 +7780,13 @@ function MessageBox() {
     }));
 
     return function hasAudioRecordPermission() {
-      return _ref12.apply(this, arguments);
+      return _ref13.apply(this, arguments);
     };
   }(); // requestAudioRecordPermission
 
 
   var requestAudioRecordPermission = /*#__PURE__*/function () {
-    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
       return _regeneratorRuntime().wrap(function _callee12$(_context12) {
         while (1) {
           switch (_context12.prev = _context12.next) {
@@ -7784,7 +7821,7 @@ function MessageBox() {
     }));
 
     return function requestAudioRecordPermission() {
-      return _ref13.apply(this, arguments);
+      return _ref14.apply(this, arguments);
     };
   }();
 
@@ -7842,7 +7879,7 @@ function MessageBox() {
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
 
             case 19:
             case "end":
@@ -7855,7 +7892,7 @@ function MessageBox() {
   }
 
   var loadOlderMessages = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
       var paginationMeta, nextPage, response, message, latestItems, updatedSessionMessages;
       return _regeneratorRuntime().wrap(function _callee13$(_context13) {
         while (1) {
@@ -7918,78 +7955,80 @@ function MessageBox() {
     }));
 
     return function loadOlderMessages() {
-      return _ref14.apply(this, arguments);
+      return _ref15.apply(this, arguments);
     };
   }();
 
   var updateTextSearchResult = function updateTextSearchResult(event) {
     event.preventDefault();
     var text = event.target.value;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
 
     var newSearchQueryArgs = {
       message: text
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
 
     if (text.length) {
       // Activate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
     } else {
       // Inactivate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
     }
 
     loadSearchResults(newSearchQueryArgs);
   };
 
+  var onMessageSearch = (0,_helpers_utils_js__WEBPACK_IMPORTED_MODULE_15__.debounce)(updateTextSearchResult, 250);
+
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
-    setMessageDirection("top");
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
+    setMessageDirection('top');
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
 
     if (isShowingVideoSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false)); // Close Search
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false)); // Close Search
 
       dismisSearch();
       return;
     } //
 
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', true)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', true)); // Update Query Args
 
     var newSearchQueryArgs = {
       message_type: 'video'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
   };
 
   var filterVoiceMessages = function filterVoiceMessages(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
 
     if (isShowingVoiceSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false)); // Close Search
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false)); // Close Search
 
       dismisSearch();
       return;
     } //
 
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', true)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', true)); // Update Query Args
 
     var newSearchQueryArgs = {
       message_type: 'audio'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
   };
 
   var loadSearchResults = /*#__PURE__*/function () {
-    var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(queryArgs) {
+    var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(queryArgs) {
       var defaultQueryArgs, response, message, searchResults;
       return _regeneratorRuntime().wrap(function _callee14$(_context14) {
         while (1) {
@@ -8034,12 +8073,12 @@ function MessageBox() {
     }));
 
     return function loadSearchResults(_x10) {
-      return _ref15.apply(this, arguments);
+      return _ref16.apply(this, arguments);
     };
   }();
 
   var loadMoreSearchResults = /*#__PURE__*/function () {
-    var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+    var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
       var nextPage, queryArgs, response, message, latestItems, newSearchResults;
       return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
@@ -8095,7 +8134,7 @@ function MessageBox() {
     }));
 
     return function loadMoreSearchResults() {
-      return _ref16.apply(this, arguments);
+      return _ref17.apply(this, arguments);
     };
   }();
 
@@ -8115,27 +8154,53 @@ function MessageBox() {
       reminder: currentPageItemsReminder
     };
   };
+
+  var updateUnreadMessagesCount = function updateUnreadMessagesCount() {
+    var session_id = selectedSession.session_id;
+    setSessionState(function (currentState) {
+      var total_unread = currentState.filteredSessions.filter(function (session) {
+        return session.session_id === session_id;
+      })[0].total_unread;
+      var new_count = parseInt(total_unread) - 1;
+      new_count = new_count < 0 ? '0' : "".concat(new_count);
+
+      var newState = _objectSpread(_objectSpread({}, currentState), {}, {
+        sessionList: currentState.sessionList.map(function (session) {
+          return session.session_id === session_id ? _objectSpread(_objectSpread({}, session), {}, {
+            total_unread: new_count
+          }) : session;
+        }),
+        filteredSessions: currentState.filteredSessions.map(function (session) {
+          return session.session_id === selectedSession.session_id ? _objectSpread(_objectSpread({}, session), {}, {
+            total_unread: new_count
+          }) : session;
+        })
+      });
+
+      return newState;
+    });
+  };
   /* Handle Load Footer Content */
 
 
   var handleFooterContent = function handleFooterContent() {
     if (messageType === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleTextClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("form", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("form", {
               onSubmit: sendTextMessage,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                 ref: textMessageContentRef,
                 type: "text",
                 disabled: isSendingTextMessage,
@@ -8146,7 +8211,7 @@ function MessageBox() {
                 onChange: function onChange(event) {
                   setTextMessageContent(event.target.value);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                 type: "submit",
                 style: {
                   display: 'none'
@@ -8154,15 +8219,15 @@ function MessageBox() {
                 hidden: true
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               onClick: sendTextMessage,
-              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 style: {
                   width: '50px',
                   height: '50px'
@@ -8174,40 +8239,40 @@ function MessageBox() {
         })]
       });
     } else if (messageType === 'voice') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-close",
               onClick: handleVoiceClose,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 className: "dashicons dashicons-no-alt"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-audio-range",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 style: {
                   width: recordedTimeLength + '%'
                 },
                 className: "wpwax-vm-audio-range-inner"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_18__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               onClick: handleSendAudioMessage,
-              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 style: {
                   width: '50px',
                   height: '50px'
@@ -8219,49 +8284,49 @@ function MessageBox() {
         })
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
           className: "wpwax-vm-messagebox-footer__text",
           children: "How would you like to answer?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-footer__actionlist",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVideoMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Video"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVoiceMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Voice"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaTextMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                 src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Text"
             })]
@@ -8280,14 +8345,14 @@ function MessageBox() {
       return;
     }
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
   };
   /* Handle Text Colse */
 
 
   var handleVoiceClose = /*#__PURE__*/function () {
-    var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
+    var _ref18 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(e) {
       return _regeneratorRuntime().wrap(function _callee16$(_context16) {
         while (1) {
           switch (_context16.prev = _context16.next) {
@@ -8308,8 +8373,8 @@ function MessageBox() {
                 setRecordedAudioBlob(null);
               }
 
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
 
             case 6:
             case "end":
@@ -8320,15 +8385,32 @@ function MessageBox() {
     }));
 
     return function handleVoiceClose(_x11) {
-      return _ref17.apply(this, arguments);
+      return _ref18.apply(this, arguments);
     };
-  }();
+  }(); // handleOnMarkedAsRead
+
+
+  var handleOnMarkedAsRead = function handleOnMarkedAsRead(message) {
+    // Update Seen Status
+    setSessionMessages(function (currentState) {
+      return currentState.map(function (messageItem) {
+        return messageItem.id === message.id ? _objectSpread(_objectSpread({}, messageItem), {}, {
+          is_seen: true
+        }) : messageItem;
+      });
+    });
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionMessageItem)(selectedSession.session_id, message.id, {
+      is_seen: true
+    })); // Update Unread Message Count
+
+    updateUnreadMessagesCount();
+  };
 
   var handleScrollBottom = function handleScrollBottom(event) {
     event.preventDefault();
     var scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
 
-    if (messageDirection === "bottom") {
+    if (messageDirection === 'bottom') {
       scrollingBody.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -8341,74 +8423,74 @@ function MessageBox() {
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
-    children: selectedSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
+    children: selectedSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
       style: {
         height: '100%'
       },
-      children: !isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.MessageBoxWrap, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      children: !isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.MessageBoxWrap, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
-            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                 users: getSessionUsers()
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: openSearch ? 'wpwax-vm-messagebox-header__right wpwax-vm-search-active' : 'wpwax-vm-messagebox-header__right',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                 className: "wpwax-vm-messagebox-header__actionlist",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                     className: "wpwax-vm-searchbox",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("input", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                       type: "text",
                       ref: searchInputRef,
-                      name: "wpwax-vm-messagebox-search",
-                      value: getWindowData('searchKeyword'),
+                      name: "wpwax-vm-messagebox-search" // value={getWindowData('searchKeyword')}
+                      ,
                       id: "wpwax-vm-messagebox-search",
                       placeholder: "Search",
-                      onChange: updateTextSearchResult
+                      onChange: onMessageSearch
                     })
-                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleActiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleDiactiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "dashicons dashicons-no-alt"
                     })
                   })]
-                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVideoSearchResult ? ' active' : ''),
                     onClick: toggleFilterVideoMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Videos"
                     })]
                   })
-                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVoiceSearchResult ? ' active' : ''),
                     onClick: filterVoiceMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
                       src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Voice"
                     })]
@@ -8416,22 +8498,22 @@ function MessageBox() {
                 }) : null]
               })
             })]
-          }), !isSearching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          }), !isSearching ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             id: "scrollableDiv",
-            className: "wpwax-vm-messagebox-body r",
+            className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               onScroll: function onScroll(event) {
                 var scrollMeta = {
                   viewPortTop: event.target.scrollTop,
                   viewPortBottom: event.target.scrollTop + event.target.offsetHeight
                 };
-                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'messagesContainerScrollMeta', scrollMeta));
+                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'messagesContainerScrollMeta', scrollMeta));
               },
-              height: 600,
+              height: getMessageBoxHeight(),
               dataLength: sessionMessages.length,
               next: function next() {
                 loadOlderMessages();
@@ -8443,7 +8525,7 @@ function MessageBox() {
               inverse: true //
               ,
               hasMore: true,
-              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
+              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8451,37 +8533,40 @@ function MessageBox() {
               }) : '',
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   data: message,
                   currentUser: current_user,
-                  containerScrollMeta: messagesContainerScrollMeta
+                  containerScrollMeta: messagesContainerScrollMeta,
+                  onMarkedAsRead: function onMarkedAsRead() {
+                    handleOnMarkedAsRead(message);
+                  }
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               style: CenterBoxStyle,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-            children: !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
+            children: !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
               id: "scrollableDiv",
               className: "wpwax-vm-messagebox-body l",
-              children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                height: 600,
+              children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                height: getMessageBoxHeight(),
                 dataLength: searchResults.length,
                 next: function next() {
                   loadMoreSearchResults();
                 },
                 hasMore: true,
-                loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h3", {
+                loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h3", {
                   style: {
                     textAlign: 'center'
                   },
@@ -8492,44 +8577,53 @@ function MessageBox() {
                 },
                 scrollableTarget: "scrollableDiv",
                 children: searchResults.map(function (message, index) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                     data: message,
                     currentUser: current_user
                   }, index);
                 })
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-                style: CenterBoxStyle,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
-                  children: "No message found"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
+                children: "No message found"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                 href: "#",
                 className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
                 onClick: handleScrollBottom,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                   className: "dashicons dashicons-arrow-down-alt"
                 })
               })]
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-              style: CenterBoxStyle,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
-                children: "Loading..."
-              })
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("span", {
+              className: "wpwax-vm-loading-spin",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+                className: "wpwax-vm-spin-dot"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+                className: "wpwax-vm-spin-dot"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+                className: "wpwax-vm-spin-dot"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+                className: "wpwax-vm-spin-dot"
+              })]
             })
           }), handleFooterContent()]
-        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
           className: "wpwax-vm-replymode-wrap",
           children: haldleReplyMode()
         }) : '']
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-        style: CenterBoxStyle,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
-          children: "Loading..."
-        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("span", {
+        className: "wpwax-vm-loading-spin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        })]
       })
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
       style: CenterBoxStyle,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
         children: "No conversation is selected."
       })
     })
@@ -8559,7 +8653,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            right: 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            background-color: #F0F0F0;\n            border-radius: 30px 30px 0 0;\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                right: 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 22px;\n                font-weight: 600;\n                color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    flex-direction: column;\n                    min-width: 300px;\n                    min-height: 150px;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    background-color: var(--color-white);\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        margin-bottom: 12px;\n                        svg{\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])));
-var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    background-color: var(--color-white);\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 15px 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 15px 15px 5px 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 18px;\n                    }\n                    @media only screen and (max-width: 1299px){\n                        padding: 0 15px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
+var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    background-color: var(--color-white);\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 15px 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 15px 15px 5px 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            /* max-height: 600px; */\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 18px;\n                    }\n                    @media only screen and (max-width: 1299px){\n                        padding: 0 15px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -8621,7 +8715,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Message(_ref) {
   var data = _ref.data,
       currentUser = _ref.currentUser,
-      containerScrollMeta = _ref.containerScrollMeta;
+      containerScrollMeta = _ref.containerScrollMeta,
+      onMarkedAsRead = _ref.onMarkedAsRead;
   var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var videoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -8647,15 +8742,10 @@ function Message(_ref) {
       isPlayingVideo = _useState8[0],
       setIsPlayingVideo = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data.is_seen),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState10 = _slicedToArray(_useState9, 2),
-      isSeen = _useState10[0],
-      setIsSeen = _useState10[1];
-
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-      _useState12 = _slicedToArray(_useState11, 2),
-      updatingIsSeen = _useState12[0],
-      setUpdatingIsSeen = _useState12[1]; // @Init State
+      updatingIsSeen = _useState10[0],
+      setUpdatingIsSeen = _useState10[1]; // @Init State
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -8663,7 +8753,7 @@ function Message(_ref) {
       return;
     }
 
-    if (isSeen) {
+    if (data.is_seen) {
       return;
     }
 
@@ -8695,8 +8785,8 @@ function Message(_ref) {
     if (isVisible) {
       setUpdatingIsSeen(true);
       createSeenBy(data.id).then(function () {
-        setIsSeen(true);
         setUpdatingIsSeen(false);
+        onMarkedAsRead();
       }).catch(function (error) {
         console.error({
           error: error
@@ -10373,7 +10463,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Style.js");
 /* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _helpers_utils_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../../../../../../helpers/utils.js */ "./src/helpers/utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -10408,6 +10499,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  -- Date: 12/09/2022
 
 --------------------------------*/
+
 
 
 
@@ -10569,12 +10661,12 @@ var Sidebar = function Sidebar(_ref) {
       tagListModalOpen: true,
       taglistWithSession: false
     }));
-  };
+  }; // Session search.
+
 
   var handleSessionSearch = function handleSessionSearch(event) {
-    var keyword = event.target.value;
     var searchArg = {
-      search: keyword
+      search: event.target.value
     };
 
     var fetchSearchNameMail = /*#__PURE__*/function () {
@@ -10606,6 +10698,7 @@ var Sidebar = function Sidebar(_ref) {
 
     fetchSearchNameMail().then(function (searchByNameMailResponse) {
       setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+        loader: false,
         sessionList: searchByNameMailResponse.data.data
       }));
       dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadSessions)(searchByNameMailResponse.data.data));
@@ -10613,6 +10706,8 @@ var Sidebar = function Sidebar(_ref) {
       console.log(error);
     });
   };
+
+  var onSessionSearch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((0,_helpers_utils_js__WEBPACK_IMPORTED_MODULE_25__.debounce)(handleSessionSearch, 300), []);
 
   var fetchMoreData = function fetchMoreData() {
     var pageArg = {
@@ -10671,6 +10766,7 @@ var Sidebar = function Sidebar(_ref) {
 
   var handeSelectSession = function handeSelectSession(e, item, index) {
     setaAtiveSession("wpwax-vm-session-".concat(index));
+    console.log(item);
     dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__.updateSelectedSession)(item));
   };
 
@@ -10684,68 +10780,68 @@ var Sidebar = function Sidebar(_ref) {
     }));
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
       className: "wpwax-vm-sidebar-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h3", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("h3", {
         className: "wpwax-vm-sidebar-title",
         children: "List of Messages"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-sidebar-refresher",
         onClick: handleRefresh,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
           src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_19__["default"]
         })
       })]
-    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-success",
       children: successMessage
-    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-danger",
       children: rejectMessage
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_23__.SessionFilterWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_23__.SessionFilterWrap, {
         className: sessionFilterDropdown ? 'wpwax-vm-search-dropdown-show' : null,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
           className: "wpwax-vm-sidebar-search",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
             className: "wpwax-vm-form-group wpwax-vm-form-icon-left",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
               className: "wpwax-vm-input-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
                 src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-filter-search",
               placeholder: "Search",
-              onChange: handleSessionSearch
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
+              onChange: onSessionSearch
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-search-toggle",
               onClick: handleToggleSearchDropdown,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
                 src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("ul", {
             className: "wpwax-vm-search-dropdown",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("li", {
               ref: ref,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("a", {
                 href: "",
                 onClick: handleTagFilterDropdown,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
                   className: "wpwax-vm-search-dropdown__text",
                   children: "Search by tags"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
                   className: "dashicons dashicons-arrow-down-alt2"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_overview_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {
                 outerState: sessionState,
                 setOuterState: setSessionState,
                 tagState: tagState,
@@ -10754,9 +10850,9 @@ var Sidebar = function Sidebar(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
         className: "wpwax-vm-sidebar-filter__quick-actions",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
           dropdownText: true,
           textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
           dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__["default"],
@@ -10764,56 +10860,82 @@ var Sidebar = function Sidebar(_ref) {
           dropdownList: filterDropdown,
           outerState: sessionState,
           setOuterState: setSessionState
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-btn-all-tags",
           onClick: handleAllTagActivation,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
             src: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__["default"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
             children: "Tags"
           })]
         })]
       })]
-    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
+    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
-      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("ul", {
+      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("ul", {
         id: "scrollableDiv",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_3__["default"], {
           dataLength: sessionList.length,
           next: fetchMoreData,
           hasMore: hasMore,
           scrollableTarget: "scrollableDiv",
-          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
+          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
               src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__["default"]
             })
           }),
           children: sessionList.map(function (item, index) {
+            // console.log(currentUser);
             var users = item.users.filter(function (p) {
-              return currentUser && p.id !== parseInt(currentUser.ID);
-            });
-            var selectedUSer = users.filter(function (select) {
-              return select.roles[0] === 'subscriber';
-            });
+              return currentUser && p.id !== parseInt(currentUser.id);
+            }); // console.log(currentUser.id,users.length, users);
+            // const selectedUSer = users.filter(
+            //     (select) =>
+            //         select.roles[0] === 'subscriber'
+            // );
+
             var images = [];
             var titleString = [];
             var initialConv = false;
 
-            if (selectedUSer.length !== 0) {
-              images.push(selectedUSer[0].avater);
-            }
+            if (users.length === 0 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
+            } else if (users.length === 0 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(wpWaxCustomerSupportApp_CoreScriptData.admin_user.avater);
+            } else if (users.length === 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } else if (users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } else if (users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              /* je login korchhe se Admin */
+              var selectClient = users.filter(function (client) {
+                return client.roles[0] === 'subscriber';
+              });
+
+              if (selectClient.length !== 0) {
+                images.push(selectClient[0].avater);
+              } else {
+                images.push(users[0].avater);
+              }
+            } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
+              images.push(users[0].avater);
+            } // console.log(users.length,images);
+            // if (selectedUSer.length !== 0) {
+            //     images.push(selectedUSer[0].avater);
+            // }
+
 
             if (item.users.length === 1) {
               titleString.push(item.users[0].name);
@@ -10858,14 +10980,14 @@ var Sidebar = function Sidebar(_ref) {
               type: 'date',
               text: item.updated_on
             }];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("li", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("li", {
               className: "wpwax-vm-session-".concat(index) === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active' : 'wpwax-vm-usermedia',
               onClick: function onClick(e) {
                 return handeSelectSession(e, item, index);
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
                 className: "wpwax-vm-usermedia__left",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
                   chatingMedia: true,
                   lastMessage: item.last_message,
                   img: images,
@@ -10873,11 +10995,12 @@ var Sidebar = function Sidebar(_ref) {
                   title: titleString.join(),
                   metaList: metaList
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
                 className: "wpwax-vm-usermedia__right",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
-                  className: Number(item.total_unread) > 0 ? 'wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread' : 'wpwax-vm-usermedia-status'
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                children: [Number(item.total_unread) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+                  className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread",
+                  children: item.total_unread
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   dropdownText: false,
                   dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
                   dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -10890,23 +11013,23 @@ var Sidebar = function Sidebar(_ref) {
             }, index);
           })
         })
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
         className: "wpwax-vm-empty",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("p", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("p", {
           children: "Not Found"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_Taglist_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_overview_Taglist_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_AddTag_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_overview_AddTag_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_overview_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_overview_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {
       deleteBy: activeSessionId,
       modalOpen: deleteModalOpen,
       outerState: sessionState,
@@ -12315,6 +12438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handleMessageTypeChange": function() { return /* binding */ handleMessageTypeChange; },
 /* harmony export */   "handleReplyModeChange": function() { return /* binding */ handleReplyModeChange; },
 /* harmony export */   "updateSelectedSession": function() { return /* binding */ updateSelectedSession; },
+/* harmony export */   "updateSessionMessageItem": function() { return /* binding */ updateSessionMessageItem; },
 /* harmony export */   "updateSessionMessages": function() { return /* binding */ updateSessionMessages; },
 /* harmony export */   "updateSessionWindowData": function() { return /* binding */ updateSessionWindowData; }
 /* harmony export */ });
@@ -12331,6 +12455,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var updateSelectedSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSelectedSession,
     addSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSession,
     updateSessionMessages = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessages,
+    updateSessionMessageItem = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessageItem,
     addSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSessionWindowData,
     updateSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionWindowData,
     replyModeUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateBegin,
@@ -12443,6 +12568,7 @@ var actions = {
   UPDATE_SELECTED_SESSION: 'UPDATE_SELECTED_SESSION',
   ADD_SESSION: 'ADD_SESSION',
   UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
+  UPDATE_SESSION_MESSAGE_ITEM: 'UPDATE_SESSION_MESSAGES_ITEM',
   ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
   UPDATE_SESSION_WINDOW_DATA: 'UPDATE_SESSION_WINDOW_DATA',
   REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
@@ -12475,6 +12601,16 @@ var actions = {
       data: {
         sessionID: sessionID,
         sessionMessages: sessionMessages
+      }
+    };
+  },
+  updateSessionMessageItem: function updateSessionMessageItem(sessionID, messageID, updatedMessage) {
+    return {
+      type: actions.UPDATE_SESSION_MESSAGE_ITEM,
+      data: {
+        sessionID: sessionID,
+        messageID: messageID,
+        updatedMessage: updatedMessage
       }
     };
   },
@@ -12593,6 +12729,7 @@ var initialState = {
 var UPDATE_SELECTED_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SELECTED_SESSION,
     ADD_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION,
     UPDATE_SESSION_MESSAGES = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGES,
+    UPDATE_SESSION_MESSAGE_ITEM = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGE_ITEM,
     ADD_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION_WINDOW_DATA,
     UPDATE_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_WINDOW_DATA,
     REPLY_MODE_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_BEGIN,
@@ -12652,6 +12789,29 @@ var Reducer = function Reducer() {
         allSessions: _objectSpread(_objectSpread({}, state.allSessions), {}, _defineProperty({}, data.sessionID, data.sessionMessages))
       });
 
+    case UPDATE_SESSION_MESSAGE_ITEM:
+      if (!data.sessionID) {
+        return state;
+      }
+
+      if (!data.messageID) {
+        return state;
+      }
+
+      if (!data.updatedMessage) {
+        return state;
+      }
+
+      if (!Object.keys(state.allSessions).includes(data.sessionID)) {
+        return state;
+      }
+
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessions: _objectSpread(_objectSpread({}, state.allSessions), {}, _defineProperty({}, data.sessionID, state.allSessions[data.sessionID].map(function (message) {
+          return message.id === data.messageID ? _objectSpread(_objectSpread({}, message), data.updatedMessage) : message;
+        })))
+      });
+
     case ADD_SESSION_WINDOW_DATA:
       if (!data) {
         return state;
@@ -12667,7 +12827,6 @@ var Reducer = function Reducer() {
       });
 
     case UPDATE_SESSION_WINDOW_DATA:
-      // console.log( 'UPDATE_SESSION_WINDOW_DATA', data );
       if (!data.sessionID) {
         return state;
       }
@@ -12686,8 +12845,7 @@ var Reducer = function Reducer() {
 
       if (!Object.keys(state.allSessionWindowData[data.sessionID]).includes(data.key)) {
         return state;
-      } // console.log( 'Chk-1' );
-
+      }
 
       return _objectSpread(_objectSpread({}, state), {}, {
         allSessionWindowData: _objectSpread(_objectSpread({}, state.allSessionWindowData), {}, _defineProperty({}, data.sessionID, _objectSpread(_objectSpread({}, state.allSessionWindowData[data.sessionID]), {}, _defineProperty({}, data.key, data.value))))
@@ -13654,10 +13812,8 @@ function Avatar() {
     onClick: clickHandler,
     children: templateOptions.greet_video_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
       style: {
-        objectFit: 'cover'
+        width: '120px'
       },
-      width: "100%",
-      height: "100%",
       src: templateOptions.greet_video_url,
       loop: true,
       autoPlay: true,
@@ -13688,7 +13844,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    overflow: hidden;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n    video{\n        border-radius: 50%;\n    }\n"])));
+var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    overflow: hidden;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (AvatarWrap);
 
 /***/ }),
@@ -14407,10 +14563,10 @@ function Theme_1() {
         }) : null, templateOptions.greet_message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
           className: "wpwax-vm-chatbox-title",
           children: templateOptions.greet_message
-        }), templateOptions.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        }), templateOptions.show_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
           className: "wpwax-vm-chatbox-description",
           children: templateOptions.description
-        })]
+        }) : null]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1",
         children: templateOptions.greet_video_url !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
@@ -14626,6 +14782,7 @@ function Theme_2() {
     }
   };
 
+  console.log(templateOptions);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_style_Style__WEBPACK_IMPORTED_MODULE_5__.ChatboxForm, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column",
@@ -14634,10 +14791,10 @@ function Theme_2() {
         children: [templateOptions.greet_message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
           className: "wpwax-vm-chatbox-title",
           children: templateOptions.greet_message
-        }), templateOptions.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        }), templateOptions.show_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
           className: "wpwax-vm-chatbox-description",
           children: templateOptions.description
-        })]
+        }) : null]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
         className: "wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1",
         children: [templateOptions.greet_video_url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -15890,14 +16047,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_audio_inactive_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/audio-inactive.svg */ "./src/assets/svg/audio-inactive.svg");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/pause-solid.svg */ "./src/assets/svg/icons/pause-solid.svg");
-/* harmony import */ var Assets_img_builder_bg_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/img/builder/bg.png */ "./src/assets/img/builder/bg.png");
-/* harmony import */ var _store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/forms/attachment/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/actionCreator.js");
-/* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../store/forms/messenger/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/actionCreator.js");
-/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
-/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/modules/messenger/apps/chatbox/store/chatbox/screenTypes.js");
-/* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
-/* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../store/forms/attachment/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/actionCreator.js");
+/* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../store/forms/messenger/actionCreator */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/actionCreator.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/modules/messenger/apps/chatbox/store/chatbox/screenTypes.js");
+/* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
+/* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -15917,7 +16073,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -16022,13 +16177,13 @@ function Record() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (true === attachmentForm.status) {
       // Update Messenger Form Data
-      dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_13__.updateFormData)({
-        message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_16__["default"].AUDIO,
+      dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_12__.updateFormData)({
+        message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_15__["default"].AUDIO,
         attachment_id: attachmentForm.uploadedAttachment.id
       })); // Switch to Contact form
 
       setTimeout(function () {
-        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_14__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_15__["default"].CONTACT_FORM));
+        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__["default"].CONTACT_FORM));
       }, '2000');
     } else if (false === attachmentForm.status) {
       setCurrentStage(stages.UPLOAD_FAILED);
@@ -16248,8 +16403,8 @@ function Record() {
     var formData = {
       file: recordedAudioBlob
     };
-    dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_12__.updateFormData)(formData));
-    dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_12__.submitForm)(formData));
+    dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_11__.updateFormData)(formData));
+    dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_11__.submitForm)(formData));
   }
 
   function prepareRecordAgain(e) {
@@ -16263,7 +16418,7 @@ function Record() {
 
   function handleCancelRecording(e, type) {
     e.preventDefault();
-    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_14__.changeChatScreen)(type)); // setCurrentStage(stages.HOME);
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(type)); // setCurrentStage(stages.HOME);
   }
 
   var getPlayedTimeInPercent = function getPlayedTimeInPercent() {
@@ -16273,13 +16428,13 @@ function Record() {
 
   var getRightBtnContent = function getRightBtnContent() {
     if (!isRecording && recordedTimeInSecond === 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-close",
         onClick: function onClick(e) {
           return handleCancelRecording(e, 'home');
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
           className: "dashicons dashicons-no-alt"
         })
       });
@@ -16288,7 +16443,7 @@ function Record() {
     } else if (isRecording && recordedTimeInSecond > 0) {
       return null;
     } else if (!isRecording && recordedTimeInSecond > 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-send",
         onClick: function onClick(e) {
@@ -16299,60 +16454,60 @@ function Record() {
   };
 
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record audio, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_4__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
         className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
           className: "wpwax-vm-sec",
-          children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_17__.formatSecondsAsCountdown)(recordedTimeInSecond)
+          children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_16__.formatSecondsAsCountdown)(recordedTimeInSecond)
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "wpwax-vm-record-staging__bottom",
-        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("p", {
-          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("p", {
+          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
             className: "wpwax-vm-highlighted",
             children: "Start"
           }), "recording!"]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "wpwax-vm-record-staging__bottom--action",
-          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return pauseRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
               src: Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
             })
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return startRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
             })
           }), getRightBtnContent()]
@@ -16360,11 +16515,11 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
       className: "wpwax-vm-record-ready",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("audio", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("audio", {
           ref: audioRef,
           src: recordedAudioURL,
           onPlay: function onPlay() {
@@ -16383,18 +16538,18 @@ function Record() {
             setAudioDuration(event.target.duration);
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "wpwax-vm-record-ready__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
           href: "#",
           onClick: togglePlayPauseAudio,
           className: isPlayingPreview ? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn',
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
             src: isPlayingPreview ? Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_6__["default"] : Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
           className: "wpwax-vm-audio-range",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("span", {
             style: {
               display: 'block',
               position: 'relative',
@@ -16402,7 +16557,7 @@ function Record() {
               width: '100%',
               height: '60px'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
               style: {
                 position: 'absolute',
                 left: 0,
@@ -16415,7 +16570,7 @@ function Record() {
                 backgroundImage: 'url( ' + Assets_svg_audio_inactive_svg__WEBPACK_IMPORTED_MODULE_8__["default"] + ' )',
                 zIndex: 0
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
               style: {
                 width: getPlayedTimeInPercent() + '%',
                 position: 'absolute',
@@ -16433,20 +16588,20 @@ function Record() {
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
         className: "wpwax-vm-record-ready__bottom",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
           children: "Ready to Send ?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "wpwax-vm-record-ready__bottom--actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               sendAudio(e);
             },
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary",
             children: "Yes"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               prepareRecordAgain(e);
@@ -16458,21 +16613,21 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "wpwax-vm-record-send-progress wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
             className: "wpwax-vm-record-send-progress__bar",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
               children: "Uploading"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
               children: "We\u2019re currently uploading your audio"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-text-danger",
               children: "Please don\u2019t leave this page!"
             })]
@@ -16481,17 +16636,17 @@ function Record() {
       })
     });
   } else if (currentStage === stages.UPLOAD_FAILED) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-mb-20",
               children: "Couldn't upload the video, please try again."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
               href: "#",
               onClick: function onClick(e) {
                 return prepareRecordAgain(e);
@@ -16530,7 +16685,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    height: 100%;\n    box-sizing: border-box;\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.33;\n            color: var(--color-text-greet);\n            margin: 15px 0 15px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: capitalize;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                min-height: 100px;\n                height: auto;\n                flex: 0 0 30.3333%;\n                margin: 1.5%;\n                &:hover{\n                    fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    }\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-chatbox-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 330px;\n                    width: 100%;\n                    z-index: 10;\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 100;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-white);\n                .wpwax-vm-chatbox-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
+var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    font-size: 18px;\n    height: 100%;\n    box-sizing: border-box;\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.33;\n            color: var(--color-text-greet);\n            margin: 15px 0 15px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: capitalize;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                min-height: 100px;\n                height: auto;\n                flex: 0 0 30.3333%;\n                margin: 1.5%;\n                &:hover{\n                    fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    }\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-primary);\n                .wpwax-vm-chatbox-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 330px;\n                    width: 100%;\n                    z-index: 10;\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 100;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-white);\n                .wpwax-vm-chatbox-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
 var ContactFormWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-contact-form{\n        padding: 60px 25px 25px;\n        position: relative;\n        min-height: 595px;\n        .wpwax-vm-contact-form__title{\n            font-size: 18px;\n            font-weight: 500;\n            line-height: 1.333;\n            margin: 0 0 30px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n            .wpwax-vm-form__element{\n                min-height: 46px;\n                border-radius: 8px;\n            }\n        }\n        .wpwax-vm-form__bottom{\n            position: absolute;\n            width: calc( 100% - 50px );\n            bottom: 25px;\n            left: 25px;\n            .wpwax-vm-btn{\n                border-radius: 10px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                    margin-left: 10px;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -17090,21 +17245,21 @@ function loadTemplateStyle(options) {
   chatBoxDom.style.setProperty("--color-page-bg", options.page_background_color);
   chatBoxDom.style.setProperty("--color-page-header-bg", options.page_header_background_color);
   chatBoxDom.style.setProperty("--color-text-greet", options.greet_message_font_color);
-  chatBoxDom.style.setProperty("--font-size-greet", options.greet_message_font_size);
+  chatBoxDom.style.setProperty("--font-size-greet", options.greet_message_font_size + 'em');
   chatBoxDom.style.setProperty("--play-button-bg", options.play_btn_background);
   chatBoxDom.style.setProperty("--color-text-chat", options.chat_options_title_font_color);
-  chatBoxDom.style.setProperty("--font-size-chat", options.chat_options_title_font_size);
+  chatBoxDom.style.setProperty("--font-size-chat", options.chat_options_title_font_size + 'em');
   chatBoxDom.style.setProperty("--font-family", options.font_family);
   chatBoxDom.style.setProperty("--btn-radius", options.button_border_radius + 'px');
   chatBoxDom.style.setProperty("--primary-button-color", options.primary_button_font_color);
   chatBoxDom.style.setProperty("--primary-button-bg", options.primary_button_background_color);
   chatBoxDom.style.setProperty("--color-footer-text", options.footer_message_color);
-  chatBoxDom.style.setProperty("--footer-text-font-size", options.footer_message_font_size);
+  chatBoxDom.style.setProperty("--footer-text-font-size", options.footer_message_font_size + 'em');
   chatBoxDom.style.setProperty("--color-thank-page-bg", options.thank_page_background_color);
   chatBoxDom.style.setProperty("--color-thank-title", options.thank_page_title_color);
-  chatBoxDom.style.setProperty("--font-size-thank-title", options.thank_page_title_font_size);
+  chatBoxDom.style.setProperty("--font-size-thank-title", options.thank_page_title_font_size + 'em');
   chatBoxDom.style.setProperty("--color-thank-desc", options.thank_page_description_color);
-  chatBoxDom.style.setProperty("--font-size-thank-desc", options.thank_page_description_font_size);
+  chatBoxDom.style.setProperty("--font-size-thank-desc", options.thank_page_description_font_size + 'em');
 }
 
 var initialState = {
@@ -18554,18 +18709,6 @@ function ContentType (type) {
   this.type = type
 }
 
-
-/***/ }),
-
-/***/ "./src/assets/img/builder/bg.png":
-/*!***************************************!*\
-  !*** ./src/assets/img/builder/bg.png ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7b8abeb73376d721cd46caa270624c6f.png");
 
 /***/ }),
 

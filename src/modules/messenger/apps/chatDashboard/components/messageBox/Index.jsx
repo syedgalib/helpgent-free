@@ -27,6 +27,7 @@ import {
 
 import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
+import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 
 const CenterBoxStyle = {
     minHeight: '620px',
@@ -34,7 +35,7 @@ const CenterBoxStyle = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: '20px'
+    borderRadius: '20px',
 };
 
 function MessageBox({ setSessionState }) {
@@ -1704,11 +1705,7 @@ function MessageBox({ setSessionState }) {
                                                         )}
                                                     </InfiniteScroll>
                                                 ) : (
-                                                    
-                                                        <h2>
-                                                            No message found
-                                                        </h2>
-                                                    
+                                                    <h2>No message found</h2>
                                                 )}
                                                 <a
                                                     href='#'
@@ -1723,12 +1720,7 @@ function MessageBox({ setSessionState }) {
                                                 </a>
                                             </div>
                                         ) : (
-                                            <span className='wpwax-vm-loading-spin'>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                            </span>
+                                            <LoadingSpinDot />
                                         )}
                                     </div>
                                 )}
@@ -1745,12 +1737,7 @@ function MessageBox({ setSessionState }) {
                             )}
                         </div>
                     ) : (
-                        <span className='wpwax-vm-loading-spin'>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                        </span>
+                        <LoadingSpinDot />
                     )}
                 </div>
             ) : (

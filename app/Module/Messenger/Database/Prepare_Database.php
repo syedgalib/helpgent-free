@@ -54,6 +54,7 @@ class Prepare_Database {
 			user_id bigint(20) unsigned NOT NULL,
 			message_id bigint(20) NOT NULL,
 			session_id varchar(255) NOT NULL,
+			freez_mark_as_unread tinyint(1) unsigned NOT NULL DEFAULT 0,
 			KEY message_id (message_id),
 			KEY user_id (user_id),
 			KEY session_id (session_id)

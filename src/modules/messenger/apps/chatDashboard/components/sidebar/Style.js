@@ -93,7 +93,7 @@ const SidebarWrap = Styled.div`
             padding-bottom: 40px;
         }
         >ul {
-            height: 600px;
+            height: 470px;
             overflow-x: hidden;
             overflow-y: auto;
             scrollbar-width: thin;

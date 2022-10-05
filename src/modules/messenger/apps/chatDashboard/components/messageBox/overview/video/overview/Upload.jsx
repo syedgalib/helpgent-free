@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg'
 import { useDispatch } from 'react-redux';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import { VideoReplyWrap } from '../Style';

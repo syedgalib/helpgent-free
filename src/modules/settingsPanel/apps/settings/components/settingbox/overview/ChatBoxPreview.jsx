@@ -1,5 +1,6 @@
 import React from 'react';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { ChatBoxPreviewWrap } from '../Style';
 import largeLine from 'Assets/svg/large-line.svg';
 import smallLine from 'Assets/svg/small-line.svg';

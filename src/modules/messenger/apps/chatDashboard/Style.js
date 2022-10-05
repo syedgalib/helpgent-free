@@ -27,6 +27,21 @@ const ChatDashboardWrap = Styled.div`
         @media only screen and (max-width: 767px){
             margin: 0 15px 0 5px;
         }
+        .wpwax-vm-loder-active{
+            &:after{
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 20px;
+                background-color: var(--color-white)
+            }
+        }
+        .wpwax-vm-loading-spin{
+            top: -50%;
+            left: 50%;
+            z-index: 100;
+        }
     }
     a{
         &:focus{

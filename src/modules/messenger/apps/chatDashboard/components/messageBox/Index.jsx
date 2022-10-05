@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
@@ -1436,12 +1437,14 @@ function MessageBox({ setSessionState }) {
         }
     };
 
+    console.log(isLoadingSession);
+
     return (
         <ChatBoxWrap>
             {selectedSession && (
-                <div style={{ height: '100%' }}>
+                <div style={{ height: '100%' }} className={isLoadingSession ? 'wpwax-vm-loder-active': ''}>
                     {!isLoadingSession && (
-                        <div>
+                        <React.Fragment>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
                                     {!openSearch ? (
@@ -1732,7 +1735,7 @@ function MessageBox({ setSessionState }) {
                             ) : (
                                 ''
                             )}
-                        </div>
+                        </React.Fragment>
                     )}
 
                     {isLoadingSession && <LoadingSpinDot />}

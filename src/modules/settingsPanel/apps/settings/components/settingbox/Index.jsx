@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import Sidebar from "./overview/Sidebar.jsx";
 import SettingContent from "./overview/SettingContent.jsx";
 import File from 'Assets/svg/icons/file.svg';
@@ -14,12 +15,12 @@ const SettingBox = () => {
 
                 <div className="wpwax-vm-settings-top__links">
                     <a href="#">
-                        <div className="wpwax-vm-settings-top__link-icon"><ReactSVG src={File} /></div>
-                        <span className="wpwax-vm-settings-top__link-text">Documentation </span>
+                        <span className="wpwax-vm-settings-top__link-icon"><ReactSVG src={File} /></span>
+                        <span className="wpwax-vm-settings-top__link-text">Documentation</span>
                     </a>
                     <a href="#">
-                        <div className="wpwax-vm-settings-top__link-icon"><ReactSVG src={QuestonCircle} /></div>
-                        <span className="wpwax-vm-settings-top__link-text">Support </span>
+                        <span className="wpwax-vm-settings-top__link-icon"><ReactSVG src={QuestonCircle} /></span>
+                        <span className="wpwax-vm-settings-top__link-text">Support</span>
                     </a>
                 </div>
             </div>

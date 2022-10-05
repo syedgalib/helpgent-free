@@ -1,4 +1,5 @@
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { useSelector } from 'react-redux';
 import checkCircle from 'Assets/svg/icons/check-circle.svg';
 import { useEffect } from 'react';
@@ -25,7 +26,7 @@ function Success() {
     console.log( templateOptions );
 
     return (
-        
+
             <div className='wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family'>
                 <div className='wpwax-vm-record-send-success__top wpwax-vm-text-white'>
                     <span className='wpwax-vm-record-send-success__check'>
@@ -62,8 +63,8 @@ function Success() {
                     )}
                 </div>
             </div>
-        
-        
+
+
     );
 }
 

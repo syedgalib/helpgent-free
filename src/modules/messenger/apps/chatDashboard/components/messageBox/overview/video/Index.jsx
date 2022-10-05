@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import Record from './overview/Record.jsx';
 import Upload from './overview/Upload.jsx';
 import videoCamera from 'Assets/svg/icons/video-camera.svg';
@@ -127,9 +128,9 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
                         className='wpwax-vm-video-home__action--btn'
                         onClick={handleRecord}
                     >
-                        <div className='wpwax-vm-video-home__action--icon'>
+                        <span className='wpwax-vm-video-home__action--icon'>
                             <ReactSVG src={videoCamera} />
-                        </div>
+                        </span>
                         <span className='wpwax-vm-video-home__action--text'>
                             Record Video
                         </span>

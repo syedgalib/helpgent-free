@@ -14593,19 +14593,24 @@ function Theme_1() {
           children: templateOptions.chat_options_title
         }), (0,_store_chatboxTemplate_hooks__WEBPACK_IMPORTED_MODULE_4__.canReplay)() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "wpwax-vm-chatbox-footer__actions",
-          children: supportedReplayTypes.map(function (item) {
-            if (!templateOptions.can_replay_in.includes(item.type)) {
+          children: templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(function (item) {
+            if (!supportedReplayTypes.map(function (item) {
+              return item.type;
+            }).includes(item)) {
               return '';
             }
 
+            var replayType = supportedReplayTypes.filter(function (replayTypesitem) {
+              return replayTypesitem.type === item;
+            })[0];
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
               href: "#",
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
               onClick: function onClick(event) {
                 return handleChatAction(event, item.type);
               },
-              children: [iconContent(item.type), item.label]
-            }, item.type);
+              children: [iconContent(replayType.type), replayType.label]
+            }, replayType.type);
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
           className: "wpwax-vm-chatbox-footer__text",
@@ -14780,7 +14785,7 @@ function Theme_2() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_6__.ReactSVG, {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
       });
-    } else if (button === 'audio') {
+    } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_6__.ReactSVG, {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
       });
@@ -14791,7 +14796,12 @@ function Theme_2() {
     }
   };
 
-  console.log(supportedReplayTypes);
+  console.log({
+    supportedReplayTypes: supportedReplayTypes
+  });
+  console.log({
+    can_replay_in: templateOptions.can_replay_in
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_style_Style__WEBPACK_IMPORTED_MODULE_5__.ChatboxForm, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column",
@@ -14856,19 +14866,24 @@ function Theme_2() {
           children: templateOptions.chat_options_title
         }), (0,_store_chatboxTemplate_hooks__WEBPACK_IMPORTED_MODULE_2__.canReplay)() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "wpwax-vm-chatbox-footer__actions",
-          children: supportedReplayTypes.map(function (item) {
-            if (!templateOptions.can_replay_in.includes(item.type)) {
+          children: templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(function (item) {
+            if (!supportedReplayTypes.map(function (item) {
+              return item.type;
+            }).includes(item)) {
               return '';
             }
 
+            var replayType = supportedReplayTypes.filter(function (replayTypesitem) {
+              return replayTypesitem.type === item;
+            })[0];
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
               href: "#",
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
               onClick: function onClick(event) {
                 return handleChatAction(event, item.type);
               },
-              children: [iconContent(item.type), item.label]
-            }, item.type);
+              children: [iconContent(replayType.type), replayType.label]
+            }, replayType.type);
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
           className: "wpwax-vm-chatbox-footer__text",
@@ -17139,17 +17154,14 @@ var initialState = {
   showChatbox: false,
   template: _defaultChatboxTemplate__WEBPACK_IMPORTED_MODULE_1__["default"],
   supportedReplayTypes: [{
-    type: _chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_2__["default"].TEXT,
-    label: 'Text'
-  }, {
     type: _chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_2__["default"].VIDEO,
     label: 'Video'
   }, {
     type: _chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_2__["default"].AUDIO,
     label: 'Voice'
   }, {
-    type: _chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_2__["default"].SCREEN_RECORD,
-    label: 'Screen Record'
+    type: _chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_2__["default"].TEXT,
+    label: 'Text'
   }],
   primaryButton: {
     color: '#FFFFFF',
@@ -17335,9 +17347,8 @@ __webpack_require__.r(__webpack_exports__);
 var screenTypes = {
   HOME: 'home',
   VIDEO: 'video',
-  AUDIO: 'audio',
+  AUDIO: 'voice',
   TEXT: 'text',
-  SCREEN_RECORD: 'screenRecord',
   CONTACT_FORM: 'contactForm',
   SENDING: 'sending',
   SUCCESS: 'success'

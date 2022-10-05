@@ -11875,6 +11875,7 @@ var TagFilter = function TagFilter(props) {
       tagLoader = tagState.tagLoader;
   var searchFilterTags = state.searchFilterTags,
       checkedForFilter = state.checkedForFilter;
+  var filterTextFiled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       searchFilterTags: allTags
@@ -11954,7 +11955,6 @@ var TagFilter = function TagFilter(props) {
       var temporaryArray = _toConsumableArray(checkedForFilter);
 
       temporaryArray.splice(temporaryArray.indexOf(e.target.id.replace('wpwax-vm-term-', '')), 1);
-      console.log(temporaryArray);
       setState(_objectSpread(_objectSpread({}, state), {}, {
         checkedForFilter: temporaryArray
       }));
@@ -11978,6 +11978,7 @@ var TagFilter = function TagFilter(props) {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       checkedForFilter: []
     }));
+    filterTextFiled.current.value = '';
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.TagFilterDropdown, {
@@ -11993,7 +11994,7 @@ var TagFilter = function TagFilter(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
-        id: "wpwax-vm-filter-tag",
+        ref: filterTextFiled,
         placeholder: "Search",
         onChange: handleTagSearch
       })]

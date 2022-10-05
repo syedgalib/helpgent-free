@@ -16,15 +16,17 @@ const TagFilter = props =>{
     const { allTags, filteredTagList, tagLoader } = tagState;
     const { searchFilterTags, checkedForFilter } = state;
 
+	const filterTextFiled = useRef(null);
+
     useEffect(() => {
         setState({
             ...state,
             searchFilterTags: allTags,
         });
         const checkIfClickedOutside = e => {
-			
+
             if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
-			
+
                 setOuterState({
 					...outerState,
                     tagFilterDropdownOpen: false
@@ -37,7 +39,7 @@ const TagFilter = props =>{
             document.removeEventListener("mousedown", checkIfClickedOutside)
         }
 	}, [tagFilterDropdownOpen]);
-    
+
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
         setOuterState({
@@ -54,7 +56,7 @@ const TagFilter = props =>{
 		}
         fetchSessionByTerm()
 			.then( sessionByTermsResponse => {
-				
+
 				setOuterState({
                     ...outerState,
                     sessionList: sessionByTermsResponse.data.data,
@@ -67,10 +69,10 @@ const TagFilter = props =>{
 			.catch((error) => {
 				console.log(error);
 			})
-        
+
     }
     const handleTagSelection = (e) =>{
-        
+
         if(e.target.checked){
             setState({
                 ...state,
@@ -82,7 +84,6 @@ const TagFilter = props =>{
         }else{
             let temporaryArray = [...checkedForFilter];
             temporaryArray.splice(temporaryArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-            console.log(temporaryArray);
             setState({
                 ...state,
                 checkedForFilter: temporaryArray
@@ -104,16 +105,18 @@ const TagFilter = props =>{
             ...state,
             checkedForFilter: []
         });
+
+		filterTextFiled.current.value = '';
     }
 
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
-				<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-tag" placeholder="Search" onChange={handleTagSearch}/>
+				<input type="text" className="wpwax-vm-form__element" ref={filterTextFiled} placeholder="Search" onChange={handleTagSearch}/>
             </div>
             {
-                tagLoader ? 
+                tagLoader ?
                 <span className="wpwax-vm-loading-spin">
                     <span className="wpwax-vm-spin-dot"></span>
                     <span className="wpwax-vm-spin-dot"></span>
@@ -126,7 +129,7 @@ const TagFilter = props =>{
                     {
                         searchFilterTags.length !== 0 ?
                             searchFilterTags.map((item,index)=>{
-                                                    
+
                                 return(
                                     <div className="wpwax-vm-tag-filter__check" key={index}>
                                         <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
@@ -137,7 +140,7 @@ const TagFilter = props =>{
                     }
                 </div>
             }
-            
+
             <div className={searchFilterTags.length ===0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={hadnleTagFilterApply}>Apply</a>

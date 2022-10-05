@@ -6,7 +6,8 @@ import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
 import expander from 'Assets/svg/icons/expand.svg';
 import { useRef } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { useEffect } from 'react';
 import http from 'Helper/http.js';
 

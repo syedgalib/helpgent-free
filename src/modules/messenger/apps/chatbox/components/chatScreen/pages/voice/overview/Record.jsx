@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { RecorderWrap } from '../Style';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 import play from 'Assets/svg/icons/play.svg';

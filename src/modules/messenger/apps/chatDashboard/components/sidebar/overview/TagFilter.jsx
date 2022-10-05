@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';

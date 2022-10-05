@@ -1,7 +1,8 @@
 import propTypes from 'prop-types';
 import React, { useState, useRef } from "react";
 import { useSelector } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { PreviewWrap } from './Style';
 
 import miceIcon from 'Assets/svg/icons/mice.svg';

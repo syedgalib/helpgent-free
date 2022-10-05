@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // import apiService  from "../../../../../apiService/Service";
 import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
 import handsDown from 'Assets/svg/icons/hand-down.svg';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import FormSettings from "./overview/FormSettings.jsx";
 import GeneralSettings from "./overview/GeneralSettings.jsx";
 import PreviewOne from "./overview/PreviewOne.jsx";
@@ -286,10 +287,10 @@ const AddForm = () => {
 
     const getFormResponse = () =>{
         if(response){
-            return response.status === 200 ? 
+            return response.status === 200 ?
                 <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> Are you going to forms page? <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Click Here </a>
                     <a href="#" className="wpwax-vm-notice-close" onClick={handleNoticeClose}><span className="dashicons dashicons-no-alt"></span></a>
-                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>  
+                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>
         }
     }
 
@@ -328,8 +329,8 @@ const AddForm = () => {
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
                         <span className="wpwax-vm-spin-dot"></span>
-                    </span> 
-                    : 
+                    </span>
+                    :
 
                     <form action="" onSubmit={handleAddTemplate}>
                     {
@@ -365,7 +366,7 @@ const AddForm = () => {
                     }
                     </form>
                 }
-                
+
             </div>
             <div className="wpwax-vm-preview">
                 <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>

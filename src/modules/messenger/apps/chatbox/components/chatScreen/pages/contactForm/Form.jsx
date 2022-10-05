@@ -1,4 +1,5 @@
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeChatScreen } from '../../../../store/chatbox/actionCreator';

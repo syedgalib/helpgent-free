@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';

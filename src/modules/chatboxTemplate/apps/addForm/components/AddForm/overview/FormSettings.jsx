@@ -2,7 +2,8 @@ import replaceIcon from 'Assets/svg/icons/replace.svg';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
-import { ReactSVG } from "react-svg";
+// import { ReactSVG } from "react-svg";
+import ReactSVG from 'react-inlinesvg';
 import Switch from "react-switch";
 import formUpdater from "../../../../../../../lib/components/FormUpdater";
 import { handleDynamicEdit } from '../../../redux/form/actionCreator';
@@ -207,7 +208,7 @@ const FormSettings = () => {
                                     {grettingImage !== '' ? <img src={grettingImage} alt="Wpwax Video Support" /> : null}
                                     {grettingVideo !== '' ? <video src={grettingVideo}></video> : null}
                                 </div>
-                                <a href="#" className="wpwax-vm-media-preview__replace" onClick={e => openUploader(e)}><div className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></div> Replace</a>
+                                <a href="#" className="wpwax-vm-media-preview__replace" onClick={e => openUploader(e)}><span className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></span> Replace</a>
                             </div> : null
                     }
                 </div>
@@ -431,7 +432,7 @@ const FormSettings = () => {
                             <input min="0" type="number" className="wpwax-vm-form__element" id="wpwax-vm-form-btn-radius" value={buttonRadius} onChange={(e) => handleChangeInputValue(e)} />
                         </div>
                     </div>
-                    
+
                     <div className="wpwax-vm-form-group__input-single">
                         <span>Primary Button Color</span>
                         <div className="wpwax-vm-form__color-plate">

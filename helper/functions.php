@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Base\Helper;
 
 use WP_Query;
 use WP_User;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 
 /**
  * Get The Public Template
@@ -1028,4 +1029,15 @@ function is_user_admin($user)
 function get_admin_roles()
 {
 	return apply_filters(WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', ['administrator']);
+}
+
+/**
+ * Get Terms
+ *
+ * @return array
+ */
+function get_terms() {
+
+	return Term_Model::get_items( [ 'limit' => -1 ] );
+
 }

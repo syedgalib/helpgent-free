@@ -2561,397 +2561,6 @@ function createListenerMiddleware(middlewareOptions) {
 
 /***/ }),
 
-/***/ "./node_modules/@tanem/svg-injector/dist/svg-injector.esm.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@tanem/svg-injector/dist/svg-injector.esm.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SVGInjector": function() { return /* binding */ SVGInjector; }
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var content_type__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! content-type */ "./node_modules/content-type/index.js");
-
-
-
-var cache = new Map();
-
-var cloneSvg = function cloneSvg(sourceSvg) {
-  return sourceSvg.cloneNode(true);
-};
-
-var isLocal = function isLocal() {
-  return window.location.protocol === 'file:';
-};
-
-var makeAjaxRequest = function makeAjaxRequest(url, httpRequestWithCredentials, callback) {
-  var httpRequest = new XMLHttpRequest();
-
-  httpRequest.onreadystatechange = function () {
-    try {
-      if (!/\.svg/i.test(url) && httpRequest.readyState === 2) {
-        var contentType = httpRequest.getResponseHeader('Content-Type');
-
-        if (!contentType) {
-          throw new Error('Content type not found');
-        }
-
-        var type = (0,content_type__WEBPACK_IMPORTED_MODULE_0__.parse)(contentType).type;
-
-        if (!(type === 'image/svg+xml' || type === 'text/plain')) {
-          throw new Error("Invalid content type: ".concat(type));
-        }
-      }
-
-      if (httpRequest.readyState === 4) {
-        if (httpRequest.status === 404 || httpRequest.responseXML === null) {
-          throw new Error(isLocal() ? 'Note: SVG injection ajax calls do not work locally without ' + 'adjusting security settings in your browser. Or consider ' + 'using a local webserver.' : 'Unable to load SVG file: ' + url);
-        }
-
-        if (httpRequest.status === 200 || isLocal() && httpRequest.status === 0) {
-          callback(null, httpRequest);
-        } else {
-          throw new Error('There was a problem injecting the SVG: ' + httpRequest.status + ' ' + httpRequest.statusText);
-        }
-      }
-    } catch (error) {
-      httpRequest.abort();
-
-      if (error instanceof Error) {
-        callback(error, httpRequest);
-      } else {
-        throw error;
-      }
-    }
-  };
-
-  httpRequest.open('GET', url);
-  httpRequest.withCredentials = httpRequestWithCredentials;
-
-  if (httpRequest.overrideMimeType) {
-    httpRequest.overrideMimeType('text/xml');
-  }
-
-  httpRequest.send();
-};
-
-var requestQueue = {};
-var queueRequest = function queueRequest(url, callback) {
-  requestQueue[url] = requestQueue[url] || [];
-  requestQueue[url].push(callback);
-};
-var processRequestQueue = function processRequestQueue(url) {
-  var _loop_1 = function _loop_1(i, len) {
-    setTimeout(function () {
-      if (Array.isArray(requestQueue[url])) {
-        var cacheValue = cache.get(url);
-        var callback = requestQueue[url][i];
-
-        if (cacheValue instanceof SVGSVGElement) {
-          callback(null, cloneSvg(cacheValue));
-        }
-
-        if (cacheValue instanceof Error) {
-          callback(cacheValue);
-        }
-
-        if (i === requestQueue[url].length - 1) {
-          delete requestQueue[url];
-        }
-      }
-    }, 0);
-  };
-
-  for (var i = 0, len = requestQueue[url].length; i < len; i++) {
-    _loop_1(i);
-  }
-};
-
-var loadSvgCached = function loadSvgCached(url, httpRequestWithCredentials, callback) {
-  if (cache.has(url)) {
-    var cacheValue = cache.get(url);
-
-    if (cacheValue === undefined) {
-      queueRequest(url, callback);
-      return;
-    }
-
-    if (cacheValue instanceof SVGSVGElement) {
-      callback(null, cloneSvg(cacheValue));
-      return;
-    }
-  }
-
-  cache.set(url, undefined);
-  queueRequest(url, callback);
-  makeAjaxRequest(url, httpRequestWithCredentials, function (error, httpRequest) {
-    if (error) {
-      cache.set(url, error);
-    } else if (httpRequest.responseXML instanceof Document && httpRequest.responseXML.documentElement && httpRequest.responseXML.documentElement instanceof SVGSVGElement) {
-      cache.set(url, httpRequest.responseXML.documentElement);
-    }
-
-    processRequestQueue(url);
-  });
-};
-
-var loadSvgUncached = function loadSvgUncached(url, httpRequestWithCredentials, callback) {
-  makeAjaxRequest(url, httpRequestWithCredentials, function (error, httpRequest) {
-    if (error) {
-      callback(error);
-    } else if (httpRequest.responseXML instanceof Document && httpRequest.responseXML.documentElement && httpRequest.responseXML.documentElement instanceof SVGSVGElement) {
-      callback(null, httpRequest.responseXML.documentElement);
-    }
-  });
-};
-
-var idCounter = 0;
-
-var uniqueId = function uniqueId() {
-  return ++idCounter;
-};
-
-var injectedElements = [];
-var ranScripts = {};
-var svgNamespace = 'http://www.w3.org/2000/svg';
-var xlinkNamespace = 'http://www.w3.org/1999/xlink';
-
-var injectElement = function injectElement(el, evalScripts, renumerateIRIElements, cacheRequests, httpRequestWithCredentials, beforeEach, callback) {
-  var elUrl = el.getAttribute('data-src') || el.getAttribute('src');
-
-  if (!elUrl) {
-    callback(new Error('Invalid data-src or src attribute'));
-    return;
-  }
-
-  if (injectedElements.indexOf(el) !== -1) {
-    injectedElements.splice(injectedElements.indexOf(el), 1);
-    el = null;
-    return;
-  }
-
-  injectedElements.push(el);
-  el.setAttribute('src', '');
-  var loadSvg = cacheRequests ? loadSvgCached : loadSvgUncached;
-  loadSvg(elUrl, httpRequestWithCredentials, function (error, svg) {
-    if (!svg) {
-      injectedElements.splice(injectedElements.indexOf(el), 1);
-      el = null;
-      callback(error);
-      return;
-    }
-
-    var elId = el.getAttribute('id');
-
-    if (elId) {
-      svg.setAttribute('id', elId);
-    }
-
-    var elTitle = el.getAttribute('title');
-
-    if (elTitle) {
-      svg.setAttribute('title', elTitle);
-    }
-
-    var elWidth = el.getAttribute('width');
-
-    if (elWidth) {
-      svg.setAttribute('width', elWidth);
-    }
-
-    var elHeight = el.getAttribute('height');
-
-    if (elHeight) {
-      svg.setAttribute('height', elHeight);
-    }
-
-    var mergedClasses = Array.from(new Set((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (svg.getAttribute('class') || '').split(' '), true), ['injected-svg'], false), (el.getAttribute('class') || '').split(' '), true))).join(' ').trim();
-    svg.setAttribute('class', mergedClasses);
-    var elStyle = el.getAttribute('style');
-
-    if (elStyle) {
-      svg.setAttribute('style', elStyle);
-    }
-
-    svg.setAttribute('data-src', elUrl);
-    var elData = [].filter.call(el.attributes, function (at) {
-      return /^data-\w[\w-]*$/.test(at.name);
-    });
-    Array.prototype.forEach.call(elData, function (dataAttr) {
-      if (dataAttr.name && dataAttr.value) {
-        svg.setAttribute(dataAttr.name, dataAttr.value);
-      }
-    });
-
-    if (renumerateIRIElements) {
-      var iriElementsAndProperties_1 = {
-        clipPath: ['clip-path'],
-        'color-profile': ['color-profile'],
-        cursor: ['cursor'],
-        filter: ['filter'],
-        linearGradient: ['fill', 'stroke'],
-        marker: ['marker', 'marker-start', 'marker-mid', 'marker-end'],
-        mask: ['mask'],
-        path: [],
-        pattern: ['fill', 'stroke'],
-        radialGradient: ['fill', 'stroke']
-      };
-      var element_1;
-      var elements_1;
-      var properties_1;
-      var currentId_1;
-      var newId_1;
-      Object.keys(iriElementsAndProperties_1).forEach(function (key) {
-        element_1 = key;
-        properties_1 = iriElementsAndProperties_1[key];
-        elements_1 = svg.querySelectorAll(element_1 + '[id]');
-
-        var _loop_1 = function _loop_1(a, elementsLen) {
-          currentId_1 = elements_1[a].id;
-          newId_1 = currentId_1 + '-' + uniqueId();
-          var referencingElements;
-          Array.prototype.forEach.call(properties_1, function (property) {
-            referencingElements = svg.querySelectorAll('[' + property + '*="' + currentId_1 + '"]');
-
-            for (var b = 0, referencingElementLen = referencingElements.length; b < referencingElementLen; b++) {
-              var attrValue = referencingElements[b].getAttribute(property);
-
-              if (attrValue && !attrValue.match(new RegExp('url\\("?#' + currentId_1 + '"?\\)'))) {
-                continue;
-              }
-
-              referencingElements[b].setAttribute(property, 'url(#' + newId_1 + ')');
-            }
-          });
-          var allLinks = svg.querySelectorAll('[*|href]');
-          var links = [];
-
-          for (var c = 0, allLinksLen = allLinks.length; c < allLinksLen; c++) {
-            var href = allLinks[c].getAttributeNS(xlinkNamespace, 'href');
-
-            if (href && href.toString() === '#' + elements_1[a].id) {
-              links.push(allLinks[c]);
-            }
-          }
-
-          for (var d = 0, linksLen = links.length; d < linksLen; d++) {
-            links[d].setAttributeNS(xlinkNamespace, 'href', '#' + newId_1);
-          }
-
-          elements_1[a].id = newId_1;
-        };
-
-        for (var a = 0, elementsLen = elements_1.length; a < elementsLen; a++) {
-          _loop_1(a);
-        }
-      });
-    }
-
-    svg.removeAttribute('xmlns:a');
-    var scripts = svg.querySelectorAll('script');
-    var scriptsToEval = [];
-    var script;
-    var scriptType;
-
-    for (var i = 0, scriptsLen = scripts.length; i < scriptsLen; i++) {
-      scriptType = scripts[i].getAttribute('type');
-
-      if (!scriptType || scriptType === 'application/ecmascript' || scriptType === 'application/javascript' || scriptType === 'text/javascript') {
-        script = scripts[i].innerText || scripts[i].textContent;
-
-        if (script) {
-          scriptsToEval.push(script);
-        }
-
-        svg.removeChild(scripts[i]);
-      }
-    }
-
-    if (scriptsToEval.length > 0 && (evalScripts === 'always' || evalScripts === 'once' && !ranScripts[elUrl])) {
-      for (var l = 0, scriptsToEvalLen = scriptsToEval.length; l < scriptsToEvalLen; l++) {
-        new Function(scriptsToEval[l])(window);
-      }
-
-      ranScripts[elUrl] = true;
-    }
-
-    var styleTags = svg.querySelectorAll('style');
-    Array.prototype.forEach.call(styleTags, function (styleTag) {
-      styleTag.textContent += '';
-    });
-    svg.setAttribute('xmlns', svgNamespace);
-    svg.setAttribute('xmlns:xlink', xlinkNamespace);
-    beforeEach(svg);
-
-    if (!el.parentNode) {
-      injectedElements.splice(injectedElements.indexOf(el), 1);
-      el = null;
-      callback(new Error('Parent node is null'));
-      return;
-    }
-
-    el.parentNode.replaceChild(svg, el);
-    injectedElements.splice(injectedElements.indexOf(el), 1);
-    el = null;
-    callback(null, svg);
-  });
-};
-
-var SVGInjector = function SVGInjector(elements, _a) {
-  var _b = _a === void 0 ? {} : _a,
-      _c = _b.afterAll,
-      afterAll = _c === void 0 ? function () {
-    return undefined;
-  } : _c,
-      _d = _b.afterEach,
-      afterEach = _d === void 0 ? function () {
-    return undefined;
-  } : _d,
-      _e = _b.beforeEach,
-      beforeEach = _e === void 0 ? function () {
-    return undefined;
-  } : _e,
-      _f = _b.cacheRequests,
-      cacheRequests = _f === void 0 ? true : _f,
-      _g = _b.evalScripts,
-      evalScripts = _g === void 0 ? 'never' : _g,
-      _h = _b.httpRequestWithCredentials,
-      httpRequestWithCredentials = _h === void 0 ? false : _h,
-      _j = _b.renumerateIRIElements,
-      renumerateIRIElements = _j === void 0 ? true : _j;
-
-  if (elements && 'length' in elements) {
-    var elementsLoaded_1 = 0;
-
-    for (var i = 0, j = elements.length; i < j; i++) {
-      injectElement(elements[i], evalScripts, renumerateIRIElements, cacheRequests, httpRequestWithCredentials, beforeEach, function (error, svg) {
-        afterEach(error, svg);
-
-        if (elements && 'length' in elements && elements.length === ++elementsLoaded_1) {
-          afterAll(elementsLoaded_1);
-        }
-      });
-    }
-  } else if (elements) {
-    injectElement(elements, evalScripts, renumerateIRIElements, cacheRequests, httpRequestWithCredentials, beforeEach, function (error, svg) {
-      afterEach(error, svg);
-      afterAll(1);
-      elements = null;
-    });
-  } else {
-    afterAll(0);
-  }
-};
-
-
-//# sourceMappingURL=svg-injector.esm.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -5497,9 +5106,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
 /* harmony import */ var _modules_messenger_apps_chatDashboard_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../modules/messenger/apps/chatDashboard/store/sessions/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/sessions/actionCreator.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! MessengerApps/chatDashboard/store/tags/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/tags/actionCreator.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var MessengerApps_chatDashboard_store_tags_actionCreator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! MessengerApps/chatDashboard/store/tags/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/tags/actionCreator.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -5537,6 +5146,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+ // import { ReactSVG } from 'react-svg';
 
 
 
@@ -5975,11 +5585,11 @@ var Dropdown = function Dropdown(_ref) {
 
   var renderDropdownIcon = function renderDropdownIcon() {
     if (openDropdown) {
-      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
         src: dropdownIconOpen
       }) : '';
     } else {
-      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
         src: dropdownIconClose
       }) : '';
     }
@@ -6002,45 +5612,47 @@ var Dropdown = function Dropdown(_ref) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [openDropdown]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: selectable ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'),
     ref: ref,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
       href: "#",
       className: dropdownText ? "wpwax-vm-dropdown__toggle" : "".concat(selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"),
       onClick: handleDropdown,
-      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
-          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "wpwax-vm-selected",
             children: filterText
           })]
         })]
-      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
           children: selectedItemText
         })]
-      }) : "", renderDropdownIcon()]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
+      }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: renderDropdownIcon()
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("ul", {
       className: openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show" : "wpwax-vm-dropdown__content",
       children: dropdownList.map(function (item, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
             href: "#",
             onClick: function onClick(e) {
               return handleDropdownTrigger(e, item.name);
             },
-            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "wpwax-vm-dropdown-item-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_4__.ReactSVG, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
                 src: item.icon
               })
             }) : '', item.text]
@@ -6584,13 +6196,14 @@ function App() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var _overview_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overview/Sidebar.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/Sidebar.jsx");
-/* harmony import */ var _overview_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./overview/SettingContent.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/SettingContent.jsx");
-/* harmony import */ var Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/file.svg */ "./src/assets/svg/icons/file.svg");
-/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _overview_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./overview/Sidebar.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/Sidebar.jsx");
+/* harmony import */ var _overview_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./overview/SettingContent.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/SettingContent.jsx");
+/* harmony import */ var Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/file.svg */ "./src/assets/svg/icons/file.svg");
+/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+ // import { ReactSVG } from 'react-svg';
 
 
 
@@ -6602,89 +6215,89 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SettingBox = function SettingBox() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.SetingBoxWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.SetingBoxWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-settings-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
         className: "wpwax-vm-settings-top__title",
         children: "Settings"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-settings-top__links",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
           href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-              src: Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              src: Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-text",
-            children: "Documentation "
+            children: "Documentation"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
           href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-              src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-text",
-            children: "Support "
+            children: "Support"
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-seetings-box",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-seetings-box__header",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           className: "wpwax-vm-seetings-box__breadcrumb",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("ul", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
                 href: "#",
-                children: ["Settings ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                children: ["Settings ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                   className: "dashicons dashicons-arrow-right-alt2"
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
                 href: "#",
-                children: ["General ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                children: ["General ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
                   className: "dashicons dashicons-arrow-right-alt2"
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
                 href: "#",
                 className: "wpwax-vm-active",
                 children: "General Settings"
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "wpwax-vm-seetings-box__actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "wpwax-vm-seetings-box-search",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
               type: "text",
               name: "wpwax-vm-settings-search",
               id: "wpwax-vm-settings-search",
               placeholder: "Search settings here..."
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
             children: "Save Changes"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "wpwax-vm-seetings-box__body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_overview_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_overview_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_overview_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_overview_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "wpwax-vm-seetings-box__footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
           children: "Save Changes"
@@ -6732,96 +6345,9 @@ var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default
 /*!***************************************************************************************************!*\
   !*** ./src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx ***!
   \***************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function() {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
-/* harmony import */ var Assets_svg_large_line_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/large-line.svg */ "./src/assets/svg/large-line.svg");
-/* harmony import */ var Assets_svg_small_line_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/small-line.svg */ "./src/assets/svg/small-line.svg");
-/* harmony import */ var Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/img.svg */ "./src/assets/svg/img.svg");
-/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var Assets_img_settings_user_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/img/settings/user.png */ "./src/assets/img/settings/user.png");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-
-
-
-
-
-
-
-var ChatBoxPreview = function ChatBoxPreview() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.ChatBoxPreviewWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "wpwax-vm-chatbox-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "wpwax-vm-chatbox-top__title",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_large_line_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "wpwax-vm-chatbox-top__imglist",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
-        href: "#",
-        className: "wpwax-vm-chatbox-btn-close",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-          className: "dashicons dashicons-no"
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-      className: "wpwax-vm-chatbox-content",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "wpwax-vm-chatbox-content___inner",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-          className: "wpwax-vm-chatbox-content__img",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
-            src: Assets_img_settings_user_png__WEBPACK_IMPORTED_MODULE_7__["default"],
-            alt: "Wpwax Video Support"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-          className: "wpwax-vm-chatbox-content__text",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-            children: "Leave your questions below and we will get back to you asap."
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
-            children: "Get Started"
-          })]
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-      className: "wpwax-vm-chatbox-bottom",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
-        className: "wpwax-vm-chatbox-bottom__text",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_small_line_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
-        href: "#",
-        className: "wpwax-vm-btn-send",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-          src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
-        })
-      })]
-    })]
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (ChatBoxPreview);
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx: Identifier 'ReactSVG' has already been declared. (3:7)\n\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[33mReact\u001b[39m \u001b[36mfrom\u001b[39m \u001b[32m'react'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mReactSVG\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 3 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[33mReactSVG\u001b[39m \u001b[36mfrom\u001b[39m \u001b[32m'react-inlinesvg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mChatBoxPreviewWrap\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'../Style'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m \u001b[36mimport\u001b[39m largeLine \u001b[36mfrom\u001b[39m \u001b[32m'Assets/svg/large-line.svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m \u001b[36mimport\u001b[39m smallLine \u001b[36mfrom\u001b[39m \u001b[32m'Assets/svg/small-line.svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at instantiate (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:359:12)\n    at Object.raise (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3339:19)\n    at ScopeHandler.checkRedeclarationInScope (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3523:19)\n    at ScopeHandler.declareName (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3489:12)\n    at Object.declareNameFromIdentifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12152:16)\n    at Object.checkIdentifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12147:12)\n    at Object.checkLVal (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12073:12)\n    at Object.finishImportSpecifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:16346:10)\n    at Object.parseImportSpecifierLocal (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:16342:31)");
 
 /***/ }),
 
@@ -6904,17 +6430,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
-/* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
-/* harmony import */ var _ChatBoxPreview_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ChatBoxPreview.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx");
-/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
-/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
-/* harmony import */ var Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/hand-right.svg */ "./src/assets/svg/icons/hand-right.svg");
-/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
-/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
+/* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
+/* harmony import */ var _ChatBoxPreview_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ChatBoxPreview.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx");
+/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
+/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
+/* harmony import */ var Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/hand-right.svg */ "./src/assets/svg/icons/hand-right.svg");
+/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/index.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -6934,6 +6460,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+ // import { ReactSVG } from 'react-svg';
 
 
 
@@ -6989,7 +6516,7 @@ var SettingContent = function SettingContent() {
     key: "language",
     content: [{
       label: "Receive email upon message submission",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_9__["default"], {
         uncheckedIcon: false,
         checkedIcon: false,
         onColor: "#6551F2",
@@ -7003,7 +6530,7 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Send user an email",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_9__["default"], {
         uncheckedIcon: false,
         checkedIcon: false,
         onColor: "#6551F2",
@@ -7017,12 +6544,12 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Email template",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         selectable: true,
         dropdownText: false,
         dropdownSelectedText: true,
-        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
         dropdownList: emailTemplate,
         dropdownWidth: "full"
       })
@@ -7031,20 +6558,20 @@ var SettingContent = function SettingContent() {
     key: "live-chat",
     content: [{
       label: "Select the form to integrate",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         selectable: true,
         dropdownText: false,
         dropdownSelectedText: true,
-        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
+        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_5__["default"],
         dropdownList: emailTemplate,
         dropdownWidth: "full"
       })
     }, {
       label: "Activate Chat Button",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-setting-has-info",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_9__["default"], {
           uncheckedIcon: false,
           checkedIcon: false,
           onColor: "#6551F2",
@@ -7055,12 +6582,12 @@ var SettingContent = function SettingContent() {
           width: 40,
           checked: messageSubmission,
           onChange: handleMessageSubmission
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("a", {
           className: "wpwax-vm-setting-info",
           href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-            src: Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            src: Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
             className: "wpwax-vm-setting-has-info__text",
             children: "See, what would it look like!"
           })]
@@ -7068,25 +6595,25 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Chat Button Position",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-radio-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
           className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
             id: "wpwax-vm-btn-position-one",
             label: "Position one",
             name: "wpwax-vm-btn-position"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
           className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
             id: "wpwax-vm-btn-position-two",
             label: "Position two",
             name: "wpwax-vm-btn-position"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
           className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
             id: "wpwax-vm-btn-position-three",
             label: "Position three",
             name: "wpwax-vm-btn-position"
@@ -7095,18 +6622,18 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Chat Button Color",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-form__color-plate",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
           className: "wpwax-vm-form__color-text",
           children: "#6551f2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("label", {
           htmlFor: "wpwax-vm-form-button-color",
           className: "wpwax-vm-form__color-ball",
           style: {
             backgroundColor: "#6551f2"
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
           type: "color",
           id: "wpwax-vm-form-button-color",
           className: "wpwax-vm-form__element",
@@ -7115,9 +6642,9 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Chat Box Text",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
           type: "text",
           className: "wpwax-vm-form__element",
           id: "wpwax-vm-chat-btn-text",
@@ -7126,9 +6653,9 @@ var SettingContent = function SettingContent() {
       })
     }, {
       label: "Chat Button Text",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("textarea", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("textarea", {
           type: "text",
           className: "wpwax-vm-form__element",
           id: "wpwax-vm-chat-btn-text",
@@ -7137,34 +6664,34 @@ var SettingContent = function SettingContent() {
       })
     }]
   }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_11__.SettingContentWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_10__.SettingContentWrap, {
     className: "wpwax-vm-settings-inner",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("form", {
       action: "",
       children: [SettingContentData.filter(function (item) {
         return item.key == "live-chat";
       })[0].content.map(function (settingItem, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
           className: "wpwax-vm-settings__single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h4", {
             className: "wpwax-vm-settings__single--label",
             children: settingItem.label
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
             className: "wpwax-vm-settings__single--element",
             children: settingItem.component
           })]
         }, index);
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-setting-preview-wrap",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
           className: "wpwax-vm-indicator",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
-            src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
-          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
             className: "wpwax-vm-indicator__text",
             children: "See, what would it look like!"
           }), " "]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_ChatBoxPreview_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_ChatBoxPreview_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
       })]
     })
   });
@@ -7183,13 +6710,14 @@ var SettingContent = function SettingContent() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-svg */ "./node_modules/react-svg/dist/react-svg.esm.js");
-/* harmony import */ var _NavItem_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NavItem.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/NavItem.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
-/* harmony import */ var Assets_svg_icons_globe_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/globe.svg */ "./src/assets/svg/icons/globe.svg");
-/* harmony import */ var Assets_svg_icons_envelope_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/envelope.svg */ "./src/assets/svg/icons/envelope.svg");
-/* harmony import */ var Assets_svg_icons_link_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/link.svg */ "./src/assets/svg/icons/link.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _NavItem_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavItem.jsx */ "./src/modules/settingsPanel/apps/settings/components/settingbox/overview/NavItem.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
+/* harmony import */ var Assets_svg_icons_globe_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/globe.svg */ "./src/assets/svg/icons/globe.svg");
+/* harmony import */ var Assets_svg_icons_envelope_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/envelope.svg */ "./src/assets/svg/icons/envelope.svg");
+/* harmony import */ var Assets_svg_icons_link_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/link.svg */ "./src/assets/svg/icons/link.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+ // import { ReactSVG } from 'react-svg';
 
 
 
@@ -7200,13 +6728,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var SidebarData = [{
   label: "Language",
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-    src: Assets_svg_icons_globe_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    src: Assets_svg_icons_globe_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
   }),
-  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-down"
   }),
-  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-up"
   }),
   subNav: [{
@@ -7224,13 +6752,13 @@ var SidebarData = [{
   }]
 }, {
   label: "Email",
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-    src: Assets_svg_icons_envelope_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    src: Assets_svg_icons_envelope_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
   }),
-  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-down"
   }),
-  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-up"
   }),
   subNav: [{
@@ -7248,13 +6776,13 @@ var SidebarData = [{
   }]
 }, {
   label: "Integration",
-  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_1__.ReactSVG, {
-    src: Assets_svg_icons_link_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
+  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    src: Assets_svg_icons_link_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
   }),
-  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconClosed: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-down"
   }),
-  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+  iconOpened: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
     className: "dashicons dashicons-arrow-up"
   }),
   subNav: [{
@@ -7273,11 +6801,11 @@ var SidebarData = [{
 }];
 
 var Sidebar = function Sidebar() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.SidebarWrap, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("ul", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.SidebarWrap, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
       className: "wpwax-vm-sidebar-nav",
       children: SidebarData.map(function (menuItem, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_NavItem_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_NavItem_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           item: menuItem
         }, index);
       })
@@ -7460,248 +6988,50 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 
 /***/ }),
 
-/***/ "./node_modules/content-type/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/content-type/index.js ***!
-  \********************************************/
-/***/ (function(__unused_webpack_module, exports) {
+/***/ "./node_modules/exenv/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/exenv/index.js ***!
+  \*************************************/
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/*!
- * content-type
- * Copyright(c) 2015 Douglas Christopher Wilson
- * MIT Licensed
- */
+var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2015 Jed Watson.
+  Based on code that is Copyright 2013-2015, Facebook, Inc.
+  All rights reserved.
+*/
+/* global define */
 
+(function () {
+	'use strict';
 
+	var canUseDOM = !!(
+		typeof window !== 'undefined' &&
+		window.document &&
+		window.document.createElement
+	);
 
-/**
- * RegExp to match *( ";" parameter ) in RFC 7231 sec 3.1.1.1
- *
- * parameter     = token "=" ( token / quoted-string )
- * token         = 1*tchar
- * tchar         = "!" / "#" / "$" / "%" / "&" / "'" / "*"
- *               / "+" / "-" / "." / "^" / "_" / "`" / "|" / "~"
- *               / DIGIT / ALPHA
- *               ; any VCHAR, except delimiters
- * quoted-string = DQUOTE *( qdtext / quoted-pair ) DQUOTE
- * qdtext        = HTAB / SP / %x21 / %x23-5B / %x5D-7E / obs-text
- * obs-text      = %x80-FF
- * quoted-pair   = "\" ( HTAB / SP / VCHAR / obs-text )
- */
-var PARAM_REGEXP = /; *([!#$%&'*+.^_`|~0-9A-Za-z-]+) *= *("(?:[\u000b\u0020\u0021\u0023-\u005b\u005d-\u007e\u0080-\u00ff]|\\[\u000b\u0020-\u00ff])*"|[!#$%&'*+.^_`|~0-9A-Za-z-]+) */g
-var TEXT_REGEXP = /^[\u000b\u0020-\u007e\u0080-\u00ff]+$/
-var TOKEN_REGEXP = /^[!#$%&'*+.^_`|~0-9A-Za-z-]+$/
+	var ExecutionEnvironment = {
 
-/**
- * RegExp to match quoted-pair in RFC 7230 sec 3.2.6
- *
- * quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text )
- * obs-text    = %x80-FF
- */
-var QESC_REGEXP = /\\([\u000b\u0020-\u00ff])/g
+		canUseDOM: canUseDOM,
 
-/**
- * RegExp to match chars that must be quoted-pair in RFC 7230 sec 3.2.6
- */
-var QUOTE_REGEXP = /([\\"])/g
+		canUseWorkers: typeof Worker !== 'undefined',
 
-/**
- * RegExp to match type in RFC 7231 sec 3.1.1.1
- *
- * media-type = type "/" subtype
- * type       = token
- * subtype    = token
- */
-var TYPE_REGEXP = /^[!#$%&'*+.^_`|~0-9A-Za-z-]+\/[!#$%&'*+.^_`|~0-9A-Za-z-]+$/
+		canUseEventListeners:
+			canUseDOM && !!(window.addEventListener || window.attachEvent),
 
-/**
- * Module exports.
- * @public
- */
+		canUseViewport: canUseDOM && !!window.screen
 
-exports.format = format
-exports.parse = parse
+	};
 
-/**
- * Format object to media type.
- *
- * @param {object} obj
- * @return {string}
- * @public
- */
+	if (true) {
+		!(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return ExecutionEnvironment;
+		}).call(exports, __webpack_require__, exports, module),
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
 
-function format (obj) {
-  if (!obj || typeof obj !== 'object') {
-    throw new TypeError('argument obj is required')
-  }
+}());
 
-  var parameters = obj.parameters
-  var type = obj.type
-
-  if (!type || !TYPE_REGEXP.test(type)) {
-    throw new TypeError('invalid type')
-  }
-
-  var string = type
-
-  // append parameters
-  if (parameters && typeof parameters === 'object') {
-    var param
-    var params = Object.keys(parameters).sort()
-
-    for (var i = 0; i < params.length; i++) {
-      param = params[i]
-
-      if (!TOKEN_REGEXP.test(param)) {
-        throw new TypeError('invalid parameter name')
-      }
-
-      string += '; ' + param + '=' + qstring(parameters[param])
-    }
-  }
-
-  return string
-}
-
-/**
- * Parse media type to object.
- *
- * @param {string|object} string
- * @return {Object}
- * @public
- */
-
-function parse (string) {
-  if (!string) {
-    throw new TypeError('argument string is required')
-  }
-
-  // support req/res-like objects as argument
-  var header = typeof string === 'object'
-    ? getcontenttype(string)
-    : string
-
-  if (typeof header !== 'string') {
-    throw new TypeError('argument string is required to be a string')
-  }
-
-  var index = header.indexOf(';')
-  var type = index !== -1
-    ? header.substr(0, index).trim()
-    : header.trim()
-
-  if (!TYPE_REGEXP.test(type)) {
-    throw new TypeError('invalid media type')
-  }
-
-  var obj = new ContentType(type.toLowerCase())
-
-  // parse parameters
-  if (index !== -1) {
-    var key
-    var match
-    var value
-
-    PARAM_REGEXP.lastIndex = index
-
-    while ((match = PARAM_REGEXP.exec(header))) {
-      if (match.index !== index) {
-        throw new TypeError('invalid parameter format')
-      }
-
-      index += match[0].length
-      key = match[1].toLowerCase()
-      value = match[2]
-
-      if (value[0] === '"') {
-        // remove quotes and escapes
-        value = value
-          .substr(1, value.length - 2)
-          .replace(QESC_REGEXP, '$1')
-      }
-
-      obj.parameters[key] = value
-    }
-
-    if (index !== header.length) {
-      throw new TypeError('invalid parameter format')
-    }
-  }
-
-  return obj
-}
-
-/**
- * Get content-type from req/res objects.
- *
- * @param {object}
- * @return {Object}
- * @private
- */
-
-function getcontenttype (obj) {
-  var header
-
-  if (typeof obj.getHeader === 'function') {
-    // res-like
-    header = obj.getHeader('content-type')
-  } else if (typeof obj.headers === 'object') {
-    // req-like
-    header = obj.headers && obj.headers['content-type']
-  }
-
-  if (typeof header !== 'string') {
-    throw new TypeError('content-type header is missing from object')
-  }
-
-  return header
-}
-
-/**
- * Quote a string if necessary.
- *
- * @param {string} val
- * @return {string}
- * @private
- */
-
-function qstring (val) {
-  var str = String(val)
-
-  // no need to quote tokens
-  if (TOKEN_REGEXP.test(str)) {
-    return str
-  }
-
-  if (str.length > 0 && !TEXT_REGEXP.test(str)) {
-    throw new TypeError('invalid parameter value')
-  }
-
-  return '"' + str.replace(QUOTE_REGEXP, '\\$1') + '"'
-}
-
-/**
- * Class to represent a content type.
- * @private
- */
-function ContentType (type) {
-  this.parameters = Object.create(null)
-  this.type = type
-}
-
-
-/***/ }),
-
-/***/ "./src/assets/img/settings/user.png":
-/*!******************************************!*\
-  !*** ./src/assets/img/settings/user.png ***!
-  \******************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6ad33d0b83fa7aa6b8deca0d75748d7c.png");
 
 /***/ }),
 
@@ -7801,18 +7131,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/assets/svg/icons/paper-plane.svg":
-/*!**********************************************!*\
-  !*** ./src/assets/svg/icons/paper-plane.svg ***!
-  \**********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
-
-/***/ }),
-
 /***/ "./src/assets/svg/icons/question-circle.svg":
 /*!**************************************************!*\
   !*** ./src/assets/svg/icons/question-circle.svg ***!
@@ -7822,42 +7140,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
-
-/***/ }),
-
-/***/ "./src/assets/svg/img.svg":
-/*!********************************!*\
-  !*** ./src/assets/svg/img.svg ***!
-  \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
-
-/***/ }),
-
-/***/ "./src/assets/svg/large-line.svg":
-/*!***************************************!*\
-  !*** ./src/assets/svg/large-line.svg ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
-
-/***/ }),
-
-/***/ "./src/assets/svg/small-line.svg":
-/*!***************************************!*\
-  !*** ./src/assets/svg/small-line.svg ***!
-  \***************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
 
 /***/ }),
 
@@ -39139,6 +38421,1189 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-from-dom/esm/helpers.js":
+/*!****************************************************!*\
+  !*** ./node_modules/react-from-dom/esm/helpers.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "noTextChildNodes": function() { return /* binding */ noTextChildNodes; },
+/* harmony export */   "possibleStandardNames": function() { return /* binding */ possibleStandardNames; },
+/* harmony export */   "randomString": function() { return /* binding */ randomString; },
+/* harmony export */   "styleToObject": function() { return /* binding */ styleToObject; }
+/* harmony export */ });
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var styleToObject = function (input) {
+    var attributes = input.split(/ ?; ?/);
+    return attributes.reduce(function (acc, d) {
+        var _a = __read(d.split(/ ?: ?/), 2), key = _a[0], value = _a[1];
+        if (key && value) {
+            acc[key.replace(/-(\w)/g, function (_$0, $1) { return $1.toUpperCase(); })] = Number.isNaN(Number(value))
+                ? value
+                : Number(value);
+        }
+        return acc;
+    }, {});
+};
+/* istanbul ignore next */
+function randomString(length) {
+    if (length === void 0) { length = 6; }
+    var characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var index = length; index > 0; --index) {
+        result += characters[Math.round(Math.random() * (characters.length - 1))];
+    }
+    return result;
+}
+var noTextChildNodes = [
+    'br',
+    'col',
+    'colgroup',
+    'dl',
+    'hr',
+    'iframe',
+    'img',
+    'input',
+    'link',
+    'menuitem',
+    'meta',
+    'ol',
+    'param',
+    'select',
+    'table',
+    'tbody',
+    'tfoot',
+    'thead',
+    'tr',
+    'ul',
+    'wbr',
+];
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+// Taken from https://raw.githubusercontent.com/facebook/react/baff5cc2f69d30589a5dc65b089e47765437294b/packages/react-dom/src/shared/possibleStandardNames.js
+// tslint:disable:object-literal-sort-keys
+var possibleStandardNames = {
+    // HTML
+    'accept-charset': 'acceptCharset',
+    acceptcharset: 'acceptCharset',
+    accesskey: 'accessKey',
+    allowfullscreen: 'allowFullScreen',
+    autocapitalize: 'autoCapitalize',
+    autocomplete: 'autoComplete',
+    autocorrect: 'autoCorrect',
+    autofocus: 'autoFocus',
+    autoplay: 'autoPlay',
+    autosave: 'autoSave',
+    cellpadding: 'cellPadding',
+    cellspacing: 'cellSpacing',
+    charset: 'charSet',
+    class: 'className',
+    classid: 'classID',
+    classname: 'className',
+    colspan: 'colSpan',
+    contenteditable: 'contentEditable',
+    contextmenu: 'contextMenu',
+    controlslist: 'controlsList',
+    crossorigin: 'crossOrigin',
+    dangerouslysetinnerhtml: 'dangerouslySetInnerHTML',
+    datetime: 'dateTime',
+    defaultchecked: 'defaultChecked',
+    defaultvalue: 'defaultValue',
+    enctype: 'encType',
+    for: 'htmlFor',
+    formmethod: 'formMethod',
+    formaction: 'formAction',
+    formenctype: 'formEncType',
+    formnovalidate: 'formNoValidate',
+    formtarget: 'formTarget',
+    frameborder: 'frameBorder',
+    hreflang: 'hrefLang',
+    htmlfor: 'htmlFor',
+    httpequiv: 'httpEquiv',
+    'http-equiv': 'httpEquiv',
+    icon: 'icon',
+    innerhtml: 'innerHTML',
+    inputmode: 'inputMode',
+    itemid: 'itemID',
+    itemprop: 'itemProp',
+    itemref: 'itemRef',
+    itemscope: 'itemScope',
+    itemtype: 'itemType',
+    keyparams: 'keyParams',
+    keytype: 'keyType',
+    marginwidth: 'marginWidth',
+    marginheight: 'marginHeight',
+    maxlength: 'maxLength',
+    mediagroup: 'mediaGroup',
+    minlength: 'minLength',
+    nomodule: 'noModule',
+    novalidate: 'noValidate',
+    playsinline: 'playsInline',
+    radiogroup: 'radioGroup',
+    readonly: 'readOnly',
+    referrerpolicy: 'referrerPolicy',
+    rowspan: 'rowSpan',
+    spellcheck: 'spellCheck',
+    srcdoc: 'srcDoc',
+    srclang: 'srcLang',
+    srcset: 'srcSet',
+    tabindex: 'tabIndex',
+    typemustmatch: 'typeMustMatch',
+    usemap: 'useMap',
+    // SVG
+    accentheight: 'accentHeight',
+    'accent-height': 'accentHeight',
+    alignmentbaseline: 'alignmentBaseline',
+    'alignment-baseline': 'alignmentBaseline',
+    allowreorder: 'allowReorder',
+    arabicform: 'arabicForm',
+    'arabic-form': 'arabicForm',
+    attributename: 'attributeName',
+    attributetype: 'attributeType',
+    autoreverse: 'autoReverse',
+    basefrequency: 'baseFrequency',
+    baselineshift: 'baselineShift',
+    'baseline-shift': 'baselineShift',
+    baseprofile: 'baseProfile',
+    calcmode: 'calcMode',
+    capheight: 'capHeight',
+    'cap-height': 'capHeight',
+    clippath: 'clipPath',
+    'clip-path': 'clipPath',
+    clippathunits: 'clipPathUnits',
+    cliprule: 'clipRule',
+    'clip-rule': 'clipRule',
+    colorinterpolation: 'colorInterpolation',
+    'color-interpolation': 'colorInterpolation',
+    colorinterpolationfilters: 'colorInterpolationFilters',
+    'color-interpolation-filters': 'colorInterpolationFilters',
+    colorprofile: 'colorProfile',
+    'color-profile': 'colorProfile',
+    colorrendering: 'colorRendering',
+    'color-rendering': 'colorRendering',
+    contentscripttype: 'contentScriptType',
+    contentstyletype: 'contentStyleType',
+    diffuseconstant: 'diffuseConstant',
+    dominantbaseline: 'dominantBaseline',
+    'dominant-baseline': 'dominantBaseline',
+    edgemode: 'edgeMode',
+    enablebackground: 'enableBackground',
+    'enable-background': 'enableBackground',
+    externalresourcesrequired: 'externalResourcesRequired',
+    fillopacity: 'fillOpacity',
+    'fill-opacity': 'fillOpacity',
+    fillrule: 'fillRule',
+    'fill-rule': 'fillRule',
+    filterres: 'filterRes',
+    filterunits: 'filterUnits',
+    floodopacity: 'floodOpacity',
+    'flood-opacity': 'floodOpacity',
+    floodcolor: 'floodColor',
+    'flood-color': 'floodColor',
+    fontfamily: 'fontFamily',
+    'font-family': 'fontFamily',
+    fontsize: 'fontSize',
+    'font-size': 'fontSize',
+    fontsizeadjust: 'fontSizeAdjust',
+    'font-size-adjust': 'fontSizeAdjust',
+    fontstretch: 'fontStretch',
+    'font-stretch': 'fontStretch',
+    fontstyle: 'fontStyle',
+    'font-style': 'fontStyle',
+    fontvariant: 'fontVariant',
+    'font-variant': 'fontVariant',
+    fontweight: 'fontWeight',
+    'font-weight': 'fontWeight',
+    glyphname: 'glyphName',
+    'glyph-name': 'glyphName',
+    glyphorientationhorizontal: 'glyphOrientationHorizontal',
+    'glyph-orientation-horizontal': 'glyphOrientationHorizontal',
+    glyphorientationvertical: 'glyphOrientationVertical',
+    'glyph-orientation-vertical': 'glyphOrientationVertical',
+    glyphref: 'glyphRef',
+    gradienttransform: 'gradientTransform',
+    gradientunits: 'gradientUnits',
+    horizadvx: 'horizAdvX',
+    'horiz-adv-x': 'horizAdvX',
+    horizoriginx: 'horizOriginX',
+    'horiz-origin-x': 'horizOriginX',
+    imagerendering: 'imageRendering',
+    'image-rendering': 'imageRendering',
+    kernelmatrix: 'kernelMatrix',
+    kernelunitlength: 'kernelUnitLength',
+    keypoints: 'keyPoints',
+    keysplines: 'keySplines',
+    keytimes: 'keyTimes',
+    lengthadjust: 'lengthAdjust',
+    letterspacing: 'letterSpacing',
+    'letter-spacing': 'letterSpacing',
+    lightingcolor: 'lightingColor',
+    'lighting-color': 'lightingColor',
+    limitingconeangle: 'limitingConeAngle',
+    markerend: 'markerEnd',
+    'marker-end': 'markerEnd',
+    markerheight: 'markerHeight',
+    markermid: 'markerMid',
+    'marker-mid': 'markerMid',
+    markerstart: 'markerStart',
+    'marker-start': 'markerStart',
+    markerunits: 'markerUnits',
+    markerwidth: 'markerWidth',
+    maskcontentunits: 'maskContentUnits',
+    maskunits: 'maskUnits',
+    numoctaves: 'numOctaves',
+    overlineposition: 'overlinePosition',
+    'overline-position': 'overlinePosition',
+    overlinethickness: 'overlineThickness',
+    'overline-thickness': 'overlineThickness',
+    paintorder: 'paintOrder',
+    'paint-order': 'paintOrder',
+    'panose-1': 'panose1',
+    pathlength: 'pathLength',
+    patterncontentunits: 'patternContentUnits',
+    patterntransform: 'patternTransform',
+    patternunits: 'patternUnits',
+    pointerevents: 'pointerEvents',
+    'pointer-events': 'pointerEvents',
+    pointsatx: 'pointsAtX',
+    pointsaty: 'pointsAtY',
+    pointsatz: 'pointsAtZ',
+    preservealpha: 'preserveAlpha',
+    preserveaspectratio: 'preserveAspectRatio',
+    primitiveunits: 'primitiveUnits',
+    refx: 'refX',
+    refy: 'refY',
+    renderingintent: 'renderingIntent',
+    'rendering-intent': 'renderingIntent',
+    repeatcount: 'repeatCount',
+    repeatdur: 'repeatDur',
+    requiredextensions: 'requiredExtensions',
+    requiredfeatures: 'requiredFeatures',
+    shaperendering: 'shapeRendering',
+    'shape-rendering': 'shapeRendering',
+    specularconstant: 'specularConstant',
+    specularexponent: 'specularExponent',
+    spreadmethod: 'spreadMethod',
+    startoffset: 'startOffset',
+    stddeviation: 'stdDeviation',
+    stitchtiles: 'stitchTiles',
+    stopcolor: 'stopColor',
+    'stop-color': 'stopColor',
+    stopopacity: 'stopOpacity',
+    'stop-opacity': 'stopOpacity',
+    strikethroughposition: 'strikethroughPosition',
+    'strikethrough-position': 'strikethroughPosition',
+    strikethroughthickness: 'strikethroughThickness',
+    'strikethrough-thickness': 'strikethroughThickness',
+    strokedasharray: 'strokeDasharray',
+    'stroke-dasharray': 'strokeDasharray',
+    strokedashoffset: 'strokeDashoffset',
+    'stroke-dashoffset': 'strokeDashoffset',
+    strokelinecap: 'strokeLinecap',
+    'stroke-linecap': 'strokeLinecap',
+    strokelinejoin: 'strokeLinejoin',
+    'stroke-linejoin': 'strokeLinejoin',
+    strokemiterlimit: 'strokeMiterlimit',
+    'stroke-miterlimit': 'strokeMiterlimit',
+    strokewidth: 'strokeWidth',
+    'stroke-width': 'strokeWidth',
+    strokeopacity: 'strokeOpacity',
+    'stroke-opacity': 'strokeOpacity',
+    suppresscontenteditablewarning: 'suppressContentEditableWarning',
+    suppresshydrationwarning: 'suppressHydrationWarning',
+    surfacescale: 'surfaceScale',
+    systemlanguage: 'systemLanguage',
+    tablevalues: 'tableValues',
+    targetx: 'targetX',
+    targety: 'targetY',
+    textanchor: 'textAnchor',
+    'text-anchor': 'textAnchor',
+    textdecoration: 'textDecoration',
+    'text-decoration': 'textDecoration',
+    textlength: 'textLength',
+    textrendering: 'textRendering',
+    'text-rendering': 'textRendering',
+    underlineposition: 'underlinePosition',
+    'underline-position': 'underlinePosition',
+    underlinethickness: 'underlineThickness',
+    'underline-thickness': 'underlineThickness',
+    unicodebidi: 'unicodeBidi',
+    'unicode-bidi': 'unicodeBidi',
+    unicoderange: 'unicodeRange',
+    'unicode-range': 'unicodeRange',
+    unitsperem: 'unitsPerEm',
+    'units-per-em': 'unitsPerEm',
+    unselectable: 'unselectable',
+    valphabetic: 'vAlphabetic',
+    'v-alphabetic': 'vAlphabetic',
+    vectoreffect: 'vectorEffect',
+    'vector-effect': 'vectorEffect',
+    vertadvy: 'vertAdvY',
+    'vert-adv-y': 'vertAdvY',
+    vertoriginx: 'vertOriginX',
+    'vert-origin-x': 'vertOriginX',
+    vertoriginy: 'vertOriginY',
+    'vert-origin-y': 'vertOriginY',
+    vhanging: 'vHanging',
+    'v-hanging': 'vHanging',
+    videographic: 'vIdeographic',
+    'v-ideographic': 'vIdeographic',
+    viewbox: 'viewBox',
+    viewtarget: 'viewTarget',
+    vmathematical: 'vMathematical',
+    'v-mathematical': 'vMathematical',
+    wordspacing: 'wordSpacing',
+    'word-spacing': 'wordSpacing',
+    writingmode: 'writingMode',
+    'writing-mode': 'writingMode',
+    xchannelselector: 'xChannelSelector',
+    xheight: 'xHeight',
+    'x-height': 'xHeight',
+    xlinkactuate: 'xlinkActuate',
+    'xlink:actuate': 'xlinkActuate',
+    xlinkarcrole: 'xlinkArcrole',
+    'xlink:arcrole': 'xlinkArcrole',
+    xlinkhref: 'xlinkHref',
+    'xlink:href': 'xlinkHref',
+    xlinkrole: 'xlinkRole',
+    'xlink:role': 'xlinkRole',
+    xlinkshow: 'xlinkShow',
+    'xlink:show': 'xlinkShow',
+    xlinktitle: 'xlinkTitle',
+    'xlink:title': 'xlinkTitle',
+    xlinktype: 'xlinkType',
+    'xlink:type': 'xlinkType',
+    xmlbase: 'xmlBase',
+    'xml:base': 'xmlBase',
+    xmllang: 'xmlLang',
+    'xml:lang': 'xmlLang',
+    'xml:space': 'xmlSpace',
+    xmlnsxlink: 'xmlnsXlink',
+    'xmlns:xlink': 'xmlnsXlink',
+    xmlspace: 'xmlSpace',
+    ychannelselector: 'yChannelSelector',
+    zoomandpan: 'zoomAndPan',
+    // event handlers
+    onblur: 'onBlur',
+    onchange: 'onChange',
+    onclick: 'onClick',
+    oncontextmenu: 'onContextMenu',
+    ondoubleclick: 'onDoubleClick',
+    ondrag: 'onDrag',
+    ondragend: 'onDragEnd',
+    ondragenter: 'onDragEnter',
+    ondragexit: 'onDragExit',
+    ondragleave: 'onDragLeave',
+    ondragover: 'onDragOver',
+    ondragstart: 'onDragStart',
+    ondrop: 'onDrop',
+    onerror: 'onError',
+    onfocus: 'onFocus',
+    oninput: 'onInput',
+    oninvalid: 'onInvalid',
+    onkeydown: 'onKeyDown',
+    onkeypress: 'onKeyPress',
+    onkeyup: 'onKeyUp',
+    onload: 'onLoad',
+    onmousedown: 'onMouseDown',
+    onmouseenter: 'onMouseEnter',
+    onmouseleave: 'onMouseLeave',
+    onmousemove: 'onMouseMove',
+    onmouseout: 'onMouseOut',
+    onmouseover: 'onMouseOver',
+    onmouseup: 'onMouseUp',
+    onscroll: 'onScroll',
+    onsubmit: 'onSubmit',
+    ontouchcancel: 'onTouchCancel',
+    ontouchend: 'onTouchEnd',
+    ontouchmove: 'onTouchMove',
+    ontouchstart: 'onTouchStart',
+    onwheel: 'onWheel',
+};
+//# sourceMappingURL=helpers.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-from-dom/esm/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-from-dom/esm/index.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "convertFromNode": function() { return /* binding */ convertFromNode; },
+/* harmony export */   "convertFromString": function() { return /* binding */ convertFromString; },
+/* harmony export */   "default": function() { return /* binding */ convert; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers */ "./node_modules/react-from-dom/esm/helpers.js");
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
+
+function parseAttributes(node, reactKey) {
+    var attributes = {
+        key: reactKey,
+    };
+    /* istanbul ignore else */
+    if (node instanceof Element) {
+        var nodeClassNames = node.getAttribute('class');
+        if (nodeClassNames) {
+            attributes.className = nodeClassNames;
+        }
+        __spreadArray([], __read(node.attributes), false).forEach(function (d) {
+            switch (d.name) {
+                // this is manually handled above, so break;
+                case 'class':
+                    break;
+                case 'style':
+                    attributes[d.name] = (0,_helpers__WEBPACK_IMPORTED_MODULE_1__.styleToObject)(d.value);
+                    break;
+                case 'allowfullscreen':
+                case 'allowpaymentrequest':
+                case 'async':
+                case 'autofocus':
+                case 'autoplay':
+                case 'checked':
+                case 'controls':
+                case 'default':
+                case 'defer':
+                case 'disabled':
+                case 'formnovalidate':
+                case 'hidden':
+                case 'ismap':
+                case 'itemscope':
+                case 'loop':
+                case 'multiple':
+                case 'muted':
+                case 'nomodule':
+                case 'novalidate':
+                case 'open':
+                case 'readonly':
+                case 'required':
+                case 'reversed':
+                case 'selected':
+                case 'typemustmatch':
+                    attributes[_helpers__WEBPACK_IMPORTED_MODULE_1__.possibleStandardNames[d.name] || d.name] = true;
+                    break;
+                default:
+                    attributes[_helpers__WEBPACK_IMPORTED_MODULE_1__.possibleStandardNames[d.name] || d.name] = d.value;
+            }
+        });
+    }
+    return attributes;
+}
+function parseChildren(childNodeList, level, options) {
+    var children = __spreadArray([], __read(childNodeList), false).map(function (node, index) {
+        return convertFromNode(node, __assign(__assign({}, options), { index: index, level: level + 1 }));
+    })
+        .filter(Boolean);
+    if (!children.length) {
+        return null;
+    }
+    return children;
+}
+function parseName(nodeName) {
+    if (/[a-z]+[A-Z]+[a-z]+/.test(nodeName)) {
+        return nodeName;
+    }
+    return nodeName.toLowerCase();
+}
+function convertFromNode(input, options) {
+    var _a;
+    if (options === void 0) { options = {}; }
+    if (!input || !(input instanceof Node)) {
+        return null;
+    }
+    var _b = options.actions, actions = _b === void 0 ? [] : _b, _c = options.index, index = _c === void 0 ? 0 : _c, _d = options.level, level = _d === void 0 ? 0 : _d, randomKey = options.randomKey;
+    var node = input;
+    var key = "".concat(level, "-").concat(index);
+    var result = [];
+    if (randomKey && level === 0) {
+        key = "".concat((0,_helpers__WEBPACK_IMPORTED_MODULE_1__.randomString)(), "-").concat(key);
+    }
+    /* istanbul ignore else */
+    if (Array.isArray(actions)) {
+        actions.forEach(function (action) {
+            if (action.condition(node, key, level)) {
+                if (typeof action.pre === 'function') {
+                    node = action.pre(node, key, level);
+                    if (!(node instanceof Node)) {
+                        node = input;
+                        /* istanbul ignore else */
+                        if (true) {
+                            // eslint-disable-next-line no-console
+                            console.warn('The `pre` method always must return a valid DomNode (instanceof Node) - your modification will be ignored (Hint: if you want to render a React-component, use the `post` method instead)');
+                        }
+                    }
+                }
+                if (typeof action.post === 'function') {
+                    result.push(action.post(node, key, level));
+                }
+            }
+        });
+    }
+    if (result.length) {
+        return result;
+    }
+    switch (node.nodeType) {
+        case 1: {
+            // regular dom-node
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(parseName(node.nodeName), parseAttributes(node, key), parseChildren(node.childNodes, level, options));
+        }
+        case 3: {
+            // textnode
+            var nodeText = ((_a = node.nodeValue) === null || _a === void 0 ? void 0 : _a.toString()) || '';
+            /* istanbul ignore else */
+            if (/^\s+$/.test(nodeText) && !/[\u00A0\u202F]/.test(nodeText)) {
+                return null;
+            }
+            /* istanbul ignore next */
+            if (!node.parentNode) {
+                return nodeText;
+            }
+            var parentNodeName = node.parentNode.nodeName.toLowerCase();
+            if (_helpers__WEBPACK_IMPORTED_MODULE_1__.noTextChildNodes.includes(parentNodeName)) {
+                /* istanbul ignore else */
+                if (/\S/.test(nodeText)) {
+                    // eslint-disable-next-line no-console
+                    console.warn("A textNode is not allowed inside '".concat(parentNodeName, "'. Your text \"").concat(nodeText, "\" will be ignored"));
+                }
+                return null;
+            }
+            return nodeText;
+        }
+        case 8: {
+            // html-comment
+            return null;
+        }
+        /* istanbul ignore next */
+        default: {
+            return null;
+        }
+    }
+}
+function convertFromString(input, options) {
+    if (options === void 0) { options = {}; }
+    if (!input || typeof input !== 'string') {
+        return null;
+    }
+    var _a = options.nodeOnly, nodeOnly = _a === void 0 ? false : _a, _b = options.selector, selector = _b === void 0 ? 'body > *' : _b, _c = options.type, type = _c === void 0 ? 'text/html' : _c;
+    try {
+        var parser = new DOMParser();
+        var document_1 = parser.parseFromString(input, type);
+        var node = document_1.querySelector(selector);
+        if (!(node instanceof Node)) {
+            throw new TypeError('Error parsing input');
+        }
+        if (nodeOnly) {
+            return node;
+        }
+        return convertFromNode(node, options);
+    }
+    catch (error) {
+        /* istanbul ignore else */
+        if (true) {
+            // eslint-disable-next-line no-console
+            console.error(error);
+        }
+    }
+    return null;
+}
+function convert(input, options) {
+    if (options === void 0) { options = {}; }
+    if (typeof input === 'string') {
+        return convertFromString(input, options);
+    }
+    if (input instanceof Node) {
+        return convertFromNode(input, options);
+    }
+    return null;
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-inlinesvg/esm/helpers.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-inlinesvg/esm/helpers.js ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "STATUS": function() { return /* binding */ STATUS; },
+/* harmony export */   "canUseDOM": function() { return /* binding */ canUseDOM; },
+/* harmony export */   "isSupportedEnvironment": function() { return /* binding */ isSupportedEnvironment; },
+/* harmony export */   "omit": function() { return /* binding */ omit; },
+/* harmony export */   "randomString": function() { return /* binding */ randomString; },
+/* harmony export */   "supportsInlineSVG": function() { return /* binding */ supportsInlineSVG; }
+/* harmony export */ });
+/* harmony import */ var exenv__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! exenv */ "./node_modules/exenv/index.js");
+/* harmony import */ var exenv__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(exenv__WEBPACK_IMPORTED_MODULE_0__);
+
+var STATUS = {
+    FAILED: 'failed',
+    LOADED: 'loaded',
+    LOADING: 'loading',
+    PENDING: 'pending',
+    READY: 'ready',
+    UNSUPPORTED: 'unsupported',
+};
+function canUseDOM() {
+    return exenv__WEBPACK_IMPORTED_MODULE_0__.canUseDOM;
+}
+function isSupportedEnvironment() {
+    return supportsInlineSVG() && typeof window !== 'undefined' && window !== null;
+}
+function supportsInlineSVG() {
+    /* istanbul ignore next */
+    if (!document) {
+        return false;
+    }
+    var div = document.createElement('div');
+    div.innerHTML = '<svg />';
+    var svg = div.firstChild;
+    return !!svg && svg.namespaceURI === 'http://www.w3.org/2000/svg';
+}
+function randomCharacter(character) {
+    return character[Math.floor(Math.random() * character.length)];
+}
+function randomString(length) {
+    var letters = 'abcdefghijklmnopqrstuvwxyz';
+    var numbers = '1234567890';
+    var charset = "".concat(letters).concat(letters.toUpperCase()).concat(numbers);
+    var R = '';
+    for (var index = 0; index < length; index++) {
+        R += randomCharacter(charset);
+    }
+    return R;
+}
+/**
+ *  Remove properties from an object
+ */
+function omit(input) {
+    var filter = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        filter[_i - 1] = arguments[_i];
+    }
+    var output = {};
+    for (var key in input) {
+        /* istanbul ignore else */
+        if ({}.hasOwnProperty.call(input, key)) {
+            if (!filter.includes(key)) {
+                output[key] = input[key];
+            }
+        }
+    }
+    return output;
+}
+//# sourceMappingURL=helpers.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-inlinesvg/esm/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-inlinesvg/esm/index.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cacheStore": function() { return /* binding */ cacheStore; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_from_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-from-dom */ "./node_modules/react-from-dom/esm/index.js");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers */ "./node_modules/react-inlinesvg/esm/helpers.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __read = (undefined && undefined.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+
+
+var cacheStore = Object.create(null);
+var InlineSVG = /** @class */ (function (_super) {
+    __extends(InlineSVG, _super);
+    function InlineSVG(props) {
+        var _this = _super.call(this, props) || this;
+        Object.defineProperty(_this, "isInitialized", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: false
+        });
+        Object.defineProperty(_this, "isActive", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: false
+        });
+        Object.defineProperty(_this, "hash", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: void 0
+        });
+        Object.defineProperty(_this, "handleLoad", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: function (content) {
+                /* istanbul ignore else */
+                if (_this.isActive) {
+                    _this.setState({
+                        content: content,
+                        status: _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADED,
+                    }, _this.getElement);
+                }
+            }
+        });
+        Object.defineProperty(_this, "handleError", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: function (error) {
+                var onError = _this.props.onError;
+                var status = error.message === 'Browser does not support SVG' ? _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.UNSUPPORTED : _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.FAILED;
+                /* istanbul ignore else */
+                if (_this.isActive) {
+                    _this.setState({ status: status }, function () {
+                        /* istanbul ignore else */
+                        if (typeof onError === 'function') {
+                            onError(error);
+                        }
+                    });
+                }
+            }
+        });
+        Object.defineProperty(_this, "request", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: function () {
+                var _a = _this.props, cacheRequests = _a.cacheRequests, fetchOptions = _a.fetchOptions, src = _a.src;
+                try {
+                    if (cacheRequests) {
+                        cacheStore[src] = { content: '', status: _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADING };
+                    }
+                    return fetch(src, fetchOptions)
+                        .then(function (response) {
+                        var contentType = response.headers.get('content-type');
+                        var _a = __read((contentType || '').split(/ ?; ?/), 1), fileType = _a[0];
+                        if (response.status > 299) {
+                            throw new Error('Not found');
+                        }
+                        if (!['image/svg+xml', 'text/plain'].some(function (d) { return fileType.includes(d); })) {
+                            throw new Error("Content type isn't valid: ".concat(fileType));
+                        }
+                        return response.text();
+                    })
+                        .then(function (content) {
+                        var currentSrc = _this.props.src;
+                        // the current src don't match the previous one, skipping...
+                        if (src !== currentSrc) {
+                            if (cacheStore[src].status === _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADING) {
+                                delete cacheStore[src];
+                            }
+                            return;
+                        }
+                        _this.handleLoad(content);
+                        /* istanbul ignore else */
+                        if (cacheRequests) {
+                            var cache = cacheStore[src];
+                            /* istanbul ignore else */
+                            if (cache) {
+                                cache.content = content;
+                                cache.status = _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADED;
+                            }
+                        }
+                    })
+                        .catch(function (error) {
+                        _this.handleError(error);
+                        /* istanbul ignore else */
+                        if (cacheRequests) {
+                            var cache = cacheStore[src];
+                            /* istanbul ignore else */
+                            if (cache) {
+                                delete cacheStore[src];
+                            }
+                        }
+                    });
+                }
+                catch (error) {
+                    return _this.handleError(new Error(error.message));
+                }
+            }
+        });
+        _this.state = {
+            content: '',
+            element: null,
+            hasCache: !!props.cacheRequests && !!cacheStore[props.src],
+            status: _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.PENDING,
+        };
+        _this.hash = props.uniqueHash || (0,_helpers__WEBPACK_IMPORTED_MODULE_1__.randomString)(8);
+        return _this;
+    }
+    Object.defineProperty(InlineSVG.prototype, "componentDidMount", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            this.isActive = true;
+            if (!(0,_helpers__WEBPACK_IMPORTED_MODULE_1__.canUseDOM)() || this.isInitialized) {
+                return;
+            }
+            var status = this.state.status;
+            var src = this.props.src;
+            try {
+                /* istanbul ignore else */
+                if (status === _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.PENDING) {
+                    /* istanbul ignore else */
+                    if (!(0,_helpers__WEBPACK_IMPORTED_MODULE_1__.isSupportedEnvironment)()) {
+                        throw new Error('Browser does not support SVG');
+                    }
+                    /* istanbul ignore else */
+                    if (!src) {
+                        throw new Error('Missing src');
+                    }
+                    this.load();
+                }
+            }
+            catch (error) {
+                this.handleError(error);
+            }
+            this.isInitialized = true;
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "componentDidUpdate", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (previousProps, previousState) {
+            if (!(0,_helpers__WEBPACK_IMPORTED_MODULE_1__.canUseDOM)()) {
+                return;
+            }
+            var _a = this.state, hasCache = _a.hasCache, status = _a.status;
+            var _b = this.props, onLoad = _b.onLoad, src = _b.src;
+            if (previousState.status !== _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.READY && status === _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.READY) {
+                /* istanbul ignore else */
+                if (onLoad) {
+                    onLoad(src, hasCache);
+                }
+            }
+            if (previousProps.src !== src) {
+                if (!src) {
+                    this.handleError(new Error('Missing src'));
+                    return;
+                }
+                this.load();
+            }
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "componentWillUnmount", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            this.isActive = false;
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "getNode", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var _a = this.props, description = _a.description, title = _a.title;
+            try {
+                var svgText = this.processSVG();
+                var node = (0,react_from_dom__WEBPACK_IMPORTED_MODULE_2__["default"])(svgText, { nodeOnly: true });
+                if (!node || !(node instanceof SVGSVGElement)) {
+                    throw new Error('Could not convert the src to a DOM Node');
+                }
+                var svg = this.updateSVGAttributes(node);
+                if (description) {
+                    var originalDesc = svg.querySelector('desc');
+                    if (originalDesc && originalDesc.parentNode) {
+                        originalDesc.parentNode.removeChild(originalDesc);
+                    }
+                    var descElement = document.createElement('desc');
+                    descElement.innerHTML = description;
+                    svg.prepend(descElement);
+                }
+                if (title) {
+                    var originalTitle = svg.querySelector('title');
+                    if (originalTitle && originalTitle.parentNode) {
+                        originalTitle.parentNode.removeChild(originalTitle);
+                    }
+                    var titleElement = document.createElement('title');
+                    titleElement.innerHTML = title;
+                    svg.prepend(titleElement);
+                }
+                return svg;
+            }
+            catch (error) {
+                return this.handleError(error);
+            }
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "getElement", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            try {
+                var node = this.getNode();
+                var element = (0,react_from_dom__WEBPACK_IMPORTED_MODULE_2__["default"])(node);
+                if (!element || !react__WEBPACK_IMPORTED_MODULE_0__.isValidElement(element)) {
+                    throw new Error('Could not convert the src to a React element');
+                }
+                this.setState({
+                    element: element,
+                    status: _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.READY,
+                });
+            }
+            catch (error) {
+                this.handleError(new Error(error.message));
+            }
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "load", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var _this = this;
+            /* istanbul ignore else */
+            if (this.isActive) {
+                this.setState({
+                    content: '',
+                    element: null,
+                    status: _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADING,
+                }, function () {
+                    var _a = _this.props, cacheRequests = _a.cacheRequests, src = _a.src;
+                    var cache = cacheRequests && cacheStore[src];
+                    if (cache && cache.status === _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.LOADED) {
+                        _this.handleLoad(cache.content);
+                        return;
+                    }
+                    var dataURI = src.match(/data:image\/svg[^,]*?(;base64)?,(.*)/);
+                    var inlineSrc;
+                    if (dataURI) {
+                        inlineSrc = dataURI[1] ? window.atob(dataURI[2]) : decodeURIComponent(dataURI[2]);
+                    }
+                    else if (src.includes('<svg')) {
+                        inlineSrc = src;
+                    }
+                    if (inlineSrc) {
+                        _this.handleLoad(inlineSrc);
+                        return;
+                    }
+                    _this.request();
+                });
+            }
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "updateSVGAttributes", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (node) {
+            var _this = this;
+            var _a = this.props, _b = _a.baseURL, baseURL = _b === void 0 ? '' : _b, uniquifyIDs = _a.uniquifyIDs;
+            var replaceableAttributes = ['id', 'href', 'xlink:href', 'xlink:role', 'xlink:arcrole'];
+            var linkAttributes = ['href', 'xlink:href'];
+            var isDataValue = function (name, value) {
+                return linkAttributes.includes(name) && (value ? !value.includes('#') : false);
+            };
+            if (!uniquifyIDs) {
+                return node;
+            }
+            __spreadArray([], __read(node.children), false).map(function (d) {
+                if (d.attributes && d.attributes.length) {
+                    var attributes_1 = Object.values(d.attributes).map(function (a) {
+                        var attribute = a;
+                        var match = a.value.match(/url\((.*?)\)/);
+                        if (match && match[1]) {
+                            attribute.value = a.value.replace(match[0], "url(".concat(baseURL).concat(match[1], "__").concat(_this.hash, ")"));
+                        }
+                        return attribute;
+                    });
+                    replaceableAttributes.forEach(function (r) {
+                        var attribute = attributes_1.find(function (a) { return a.name === r; });
+                        if (attribute && !isDataValue(r, attribute.value)) {
+                            attribute.value = "".concat(attribute.value, "__").concat(_this.hash);
+                        }
+                    });
+                }
+                if (d.children.length) {
+                    return _this.updateSVGAttributes(d);
+                }
+                return d;
+            });
+            return node;
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "processSVG", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var content = this.state.content;
+            var preProcessor = this.props.preProcessor;
+            if (preProcessor) {
+                return preProcessor(content);
+            }
+            return content;
+        }
+    });
+    Object.defineProperty(InlineSVG.prototype, "render", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function () {
+            var _a = this.state, element = _a.element, status = _a.status;
+            var _b = this.props, _c = _b.children, children = _c === void 0 ? null : _c, innerRef = _b.innerRef, _d = _b.loader, loader = _d === void 0 ? null : _d;
+            var elementProps = (0,_helpers__WEBPACK_IMPORTED_MODULE_1__.omit)(this.props, 'baseURL', 'cacheRequests', 'children', 'description', 'fetchOptions', 'innerRef', 'loader', 'onError', 'onLoad', 'preProcessor', 'src', 'title', 'uniqueHash', 'uniquifyIDs');
+            if (!(0,_helpers__WEBPACK_IMPORTED_MODULE_1__.canUseDOM)()) {
+                return loader;
+            }
+            if (element) {
+                return react__WEBPACK_IMPORTED_MODULE_0__.cloneElement(element, __assign({ ref: innerRef }, elementProps));
+            }
+            if ([_helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.UNSUPPORTED, _helpers__WEBPACK_IMPORTED_MODULE_1__.STATUS.FAILED].includes(status)) {
+                return children;
+            }
+            return loader;
+        }
+    });
+    Object.defineProperty(InlineSVG, "defaultProps", {
+        enumerable: true,
+        configurable: true,
+        writable: true,
+        value: {
+            cacheRequests: true,
+            uniquifyIDs: false,
+        }
+    });
+    return InlineSVG;
+}(react__WEBPACK_IMPORTED_MODULE_0__.PureComponent));
+/* harmony default export */ __webpack_exports__["default"] = (InlineSVG);
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "./node_modules/react-is/cjs/react-is.development.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-is/cjs/react-is.development.js ***!
@@ -40984,247 +41449,6 @@ function warning(message) {
   /* eslint-enable no-empty */
 
 }
-
-/***/ }),
-
-/***/ "./node_modules/react-svg/dist/react-svg.esm.js":
-/*!******************************************************!*\
-  !*** ./node_modules/react-svg/dist/react-svg.esm.js ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ReactSVG": function() { return /* binding */ ReactSVG; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
-/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
-/* harmony import */ var _tanem_svg_injector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tanem/svg-injector */ "./node_modules/@tanem/svg-injector/dist/svg-injector.esm.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-
-
-
-
-
-
-
-// Hat-tip: https://github.com/developit/preact-compat/blob/master/src/index.js#L402.
-var shallowDiffers = function shallowDiffers(a, b) {
-  for (var i in a) {
-    if (!(i in b)) {
-      return true;
-    }
-  }
-
-  for (var _i in b) {
-    if (a[_i] !== b[_i]) {
-      return true;
-    }
-  }
-
-  return false;
-};
-
-var _excluded = ["afterInjection", "beforeInjection", "evalScripts", "fallback", "httpRequestWithCredentials", "loading", "renumerateIRIElements", "src", "useRequestCache", "wrapper"];
-var svgNamespace = 'http://www.w3.org/2000/svg';
-var xlinkNamespace = 'http://www.w3.org/1999/xlink';
-var ReactSVG = /*#__PURE__*/function (_React$Component) {
-  (0,_babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__["default"])(ReactSVG, _React$Component);
-
-  function ReactSVG() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
-    _this.initialState = {
-      hasError: false,
-      isLoading: true
-    };
-    _this.state = _this.initialState;
-    _this._isMounted = false;
-    _this.reactWrapper = void 0;
-    _this.nonReactWrapper = void 0;
-
-    _this.refCallback = function (reactWrapper) {
-      _this.reactWrapper = reactWrapper;
-    };
-
-    return _this;
-  }
-
-  var _proto = ReactSVG.prototype;
-
-  _proto.renderSVG = function renderSVG() {
-    var _this2 = this;
-
-    /* istanbul ignore else */
-    if (this.reactWrapper instanceof Node) {
-      var _this$props = this.props,
-          beforeInjection = _this$props.beforeInjection,
-          evalScripts = _this$props.evalScripts,
-          httpRequestWithCredentials = _this$props.httpRequestWithCredentials,
-          renumerateIRIElements = _this$props.renumerateIRIElements,
-          src = _this$props.src,
-          useRequestCache = _this$props.useRequestCache;
-      /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-      var afterInjection = this.props.afterInjection;
-      var wrapper = this.props.wrapper;
-      /* eslint-enable @typescript-eslint/no-non-null-assertion */
-
-      var nonReactWrapper;
-      var nonReactTarget;
-
-      if (wrapper === 'svg') {
-        nonReactWrapper = document.createElementNS(svgNamespace, wrapper);
-        nonReactWrapper.setAttribute('xmlns', svgNamespace);
-        nonReactWrapper.setAttribute('xmlns:xlink', xlinkNamespace);
-        nonReactTarget = document.createElementNS(svgNamespace, wrapper);
-      } else {
-        nonReactWrapper = document.createElement(wrapper);
-        nonReactTarget = document.createElement(wrapper);
-      }
-
-      nonReactWrapper.appendChild(nonReactTarget);
-      nonReactTarget.dataset.src = src;
-      this.nonReactWrapper = this.reactWrapper.appendChild(nonReactWrapper);
-
-      var afterEach = function afterEach(error, svg) {
-        if (error) {
-          _this2.removeSVG();
-
-          if (!_this2._isMounted) {
-            afterInjection(error);
-            return;
-          }
-        } // TODO (Tane): It'd be better to cleanly unsubscribe from SVGInjector
-        // callbacks instead of tracking a property like this.
-
-
-        if (_this2._isMounted) {
-          _this2.setState(function () {
-            return {
-              hasError: !!error,
-              isLoading: false
-            };
-          }, function () {
-            afterInjection(error, svg);
-          });
-        }
-      };
-
-      (0,_tanem_svg_injector__WEBPACK_IMPORTED_MODULE_3__.SVGInjector)(nonReactTarget, {
-        afterEach: afterEach,
-        beforeEach: beforeInjection,
-        cacheRequests: useRequestCache,
-        evalScripts: evalScripts,
-        httpRequestWithCredentials: httpRequestWithCredentials,
-        renumerateIRIElements: renumerateIRIElements
-      });
-    }
-  };
-
-  _proto.removeSVG = function removeSVG() {
-    var _this$nonReactWrapper;
-
-    if ((_this$nonReactWrapper = this.nonReactWrapper) != null && _this$nonReactWrapper.parentNode) {
-      this.nonReactWrapper.parentNode.removeChild(this.nonReactWrapper);
-      this.nonReactWrapper = null;
-    }
-  };
-
-  _proto.componentDidMount = function componentDidMount() {
-    this._isMounted = true;
-    this.renderSVG();
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
-    var _this3 = this;
-
-    if (shallowDiffers(prevProps, this.props)) {
-      this.setState(function () {
-        return _this3.initialState;
-      }, function () {
-        _this3.removeSVG();
-
-        _this3.renderSVG();
-      });
-    }
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this._isMounted = false;
-    this.removeSVG();
-  };
-
-  _proto.render = function render() {
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    var _this$props2 = this.props;
-        _this$props2.afterInjection;
-        _this$props2.beforeInjection;
-        _this$props2.evalScripts;
-        var Fallback = _this$props2.fallback;
-        _this$props2.httpRequestWithCredentials;
-        var Loading = _this$props2.loading;
-        _this$props2.renumerateIRIElements;
-        _this$props2.src;
-        _this$props2.useRequestCache;
-        var wrapper = _this$props2.wrapper,
-        rest = (0,_babel_runtime_helpers_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_this$props2, _excluded);
-    /* eslint-enable @typescript-eslint/no-unused-vars */
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
-
-    var Wrapper = wrapper;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(Wrapper, (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, rest, {
-      ref: this.refCallback
-    }, wrapper === 'svg' ? {
-      xmlns: svgNamespace,
-      xmlnsXlink: xlinkNamespace
-    } : {}), this.state.isLoading && Loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(Loading, null), this.state.hasError && Fallback && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4__.createElement(Fallback, null));
-  };
-
-  return ReactSVG;
-}(react__WEBPACK_IMPORTED_MODULE_4__.Component);
-ReactSVG.defaultProps = {
-  afterInjection: function afterInjection() {
-    return undefined;
-  },
-  beforeInjection: function beforeInjection() {
-    return undefined;
-  },
-  evalScripts: 'never',
-  fallback: null,
-  httpRequestWithCredentials: false,
-  loading: null,
-  renumerateIRIElements: true,
-  useRequestCache: true,
-  wrapper: 'div'
-};
-ReactSVG.propTypes = {
-  afterInjection: prop_types__WEBPACK_IMPORTED_MODULE_5__.func,
-  beforeInjection: prop_types__WEBPACK_IMPORTED_MODULE_5__.func,
-  evalScripts: prop_types__WEBPACK_IMPORTED_MODULE_5__.oneOf(['always', 'once', 'never']),
-  fallback: prop_types__WEBPACK_IMPORTED_MODULE_5__.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_5__.func, prop_types__WEBPACK_IMPORTED_MODULE_5__.object, prop_types__WEBPACK_IMPORTED_MODULE_5__.string]),
-  httpRequestWithCredentials: prop_types__WEBPACK_IMPORTED_MODULE_5__.bool,
-  loading: prop_types__WEBPACK_IMPORTED_MODULE_5__.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_5__.func, prop_types__WEBPACK_IMPORTED_MODULE_5__.object, prop_types__WEBPACK_IMPORTED_MODULE_5__.string]),
-  renumerateIRIElements: prop_types__WEBPACK_IMPORTED_MODULE_5__.bool,
-  src: prop_types__WEBPACK_IMPORTED_MODULE_5__.string.isRequired,
-  useRequestCache: prop_types__WEBPACK_IMPORTED_MODULE_5__.bool,
-  wrapper: prop_types__WEBPACK_IMPORTED_MODULE_5__.oneOf(['div', 'span', 'svg'])
-} ;
-
-
-//# sourceMappingURL=react-svg.esm.js.map
-
 
 /***/ }),
 
@@ -47807,293 +48031,6 @@ function v(){return(v=Object.assign||function(e){for(var t=1;t<arguments.length;
 
 /***/ }),
 
-/***/ "./node_modules/tslib/tslib.es6.js":
-/*!*****************************************!*\
-  !*** ./node_modules/tslib/tslib.es6.js ***!
-  \*****************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__assign": function() { return /* binding */ __assign; },
-/* harmony export */   "__asyncDelegator": function() { return /* binding */ __asyncDelegator; },
-/* harmony export */   "__asyncGenerator": function() { return /* binding */ __asyncGenerator; },
-/* harmony export */   "__asyncValues": function() { return /* binding */ __asyncValues; },
-/* harmony export */   "__await": function() { return /* binding */ __await; },
-/* harmony export */   "__awaiter": function() { return /* binding */ __awaiter; },
-/* harmony export */   "__classPrivateFieldGet": function() { return /* binding */ __classPrivateFieldGet; },
-/* harmony export */   "__classPrivateFieldIn": function() { return /* binding */ __classPrivateFieldIn; },
-/* harmony export */   "__classPrivateFieldSet": function() { return /* binding */ __classPrivateFieldSet; },
-/* harmony export */   "__createBinding": function() { return /* binding */ __createBinding; },
-/* harmony export */   "__decorate": function() { return /* binding */ __decorate; },
-/* harmony export */   "__exportStar": function() { return /* binding */ __exportStar; },
-/* harmony export */   "__extends": function() { return /* binding */ __extends; },
-/* harmony export */   "__generator": function() { return /* binding */ __generator; },
-/* harmony export */   "__importDefault": function() { return /* binding */ __importDefault; },
-/* harmony export */   "__importStar": function() { return /* binding */ __importStar; },
-/* harmony export */   "__makeTemplateObject": function() { return /* binding */ __makeTemplateObject; },
-/* harmony export */   "__metadata": function() { return /* binding */ __metadata; },
-/* harmony export */   "__param": function() { return /* binding */ __param; },
-/* harmony export */   "__read": function() { return /* binding */ __read; },
-/* harmony export */   "__rest": function() { return /* binding */ __rest; },
-/* harmony export */   "__spread": function() { return /* binding */ __spread; },
-/* harmony export */   "__spreadArray": function() { return /* binding */ __spreadArray; },
-/* harmony export */   "__spreadArrays": function() { return /* binding */ __spreadArrays; },
-/* harmony export */   "__values": function() { return /* binding */ __values; }
-/* harmony export */ });
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    }
-    return __assign.apply(this, arguments);
-}
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
-function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-function __param(paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-}
-
-function __metadata(metadataKey, metadataValue) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-}
-
-function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-}
-
-function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-}
-
-var __createBinding = Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-});
-
-function __exportStar(m, o) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
-}
-
-function __values(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-}
-
-function __read(o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-}
-
-/** @deprecated */
-function __spread() {
-    for (var ar = [], i = 0; i < arguments.length; i++)
-        ar = ar.concat(__read(arguments[i]));
-    return ar;
-}
-
-/** @deprecated */
-function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-}
-
-function __spreadArray(to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-}
-
-function __await(v) {
-    return this instanceof __await ? (this.v = v, this) : new __await(v);
-}
-
-function __asyncGenerator(thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-}
-
-function __asyncDelegator(o) {
-    var i, p;
-    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-}
-
-function __asyncValues(o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-}
-
-function __makeTemplateObject(cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
-
-var __setModuleDefault = Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-};
-
-function __importStar(mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-}
-
-function __importDefault(mod) {
-    return (mod && mod.__esModule) ? mod : { default: mod };
-}
-
-function __classPrivateFieldGet(receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-}
-
-function __classPrivateFieldSet(receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-}
-
-function __classPrivateFieldIn(state, receiver) {
-    if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
-    return typeof state === "function" ? receiver === state : state.has(receiver);
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js":
 /*!**********************************************************************************************!*\
   !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js ***!
@@ -48610,27 +48547,6 @@ function _extends() {
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _inheritsLoose; }
-/* harmony export */ });
-/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setPrototypeOf.js */ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js");
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  (0,_setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__["default"])(subClass, superClass);
-}
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/esm/objectSpread2.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js ***!
@@ -48697,27 +48613,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   }
 
   return target;
-}
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _setPrototypeOf; }
-/* harmony export */ });
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
 }
 
 /***/ }),

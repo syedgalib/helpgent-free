@@ -11586,11 +11586,9 @@ var TagFilter = function TagFilter(props) {
   };
 
   var handleTagSearch = function handleTagSearch(event) {
-    var keyword = event.target.value;
-    var filtered = allTags.filter(function (entry) {
-      return Object.values(entry).some(function (val) {
-        return typeof val === "string" && val.includes(keyword);
-      });
+    var keyword = event.target.value.trim().toLowerCase();
+    var filtered = allTags.filter(function (tag) {
+      return tag.name.toLowerCase().includes(keyword);
     });
     setState(_objectSpread(_objectSpread({}, state), {}, {
       searchFilterTags: filtered

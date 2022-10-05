@@ -90,9 +90,10 @@ const TagFilter = props =>{
             })
         }
     }
-    const handleTagSearch = event =>{
-        let keyword = event.target.value;
-        const filtered = allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
+    const handleTagSearch = event => {
+        let keyword = event.target.value.trim().toLowerCase();
+        const filtered = allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
+
         setState({
             ...state,
             searchFilterTags: filtered

@@ -18,7 +18,7 @@ const formData = [
         "chat_options_title":"How would you like to chat?",
         "can_replay_in":[
            "video",
-           "audio",
+           "voice",
            "text"
         ],
         "show_footer":true,

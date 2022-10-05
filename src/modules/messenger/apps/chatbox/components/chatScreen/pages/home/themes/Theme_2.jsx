@@ -112,7 +112,7 @@ function Theme_2() {
         }
     }
 
-    console.log(templateOptions)
+    console.log(supportedReplayTypes)
 
     return (
         <ChatboxForm>

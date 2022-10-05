@@ -30,7 +30,7 @@ const PreviewTwo = ({ previewStage }) => {
             return <ReactSVG src={videoIcon} />
         } else if (button === 'screenRecord') {
             return <ReactSVG src={recordIcon} />
-        } else if (button === 'audio') {
+        } else if (button === 'voice') {
             return <ReactSVG src={miceIcon} />
         } else if (button === 'text') {
             return <ReactSVG src={textIcon} />
@@ -54,6 +54,8 @@ const PreviewTwo = ({ previewStage }) => {
             isPaused: false
         });
     }
+
+    console.log(formOption.can_replay_in);
 
     return (
         <PreviewWrap>

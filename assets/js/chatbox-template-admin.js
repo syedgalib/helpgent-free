@@ -8605,8 +8605,6 @@ var FormSettings = function FormSettings() {
       formData = _useSelector.formData,
       templateTheme = _useSelector.templateTheme;
 
-  console.log(footerMessageColor);
-
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     openCollapse: true
   }),
@@ -8623,11 +8621,11 @@ var FormSettings = function FormSettings() {
   /* For updating each element, we create seperate function */
 
   var handleChatArray = function handleChatArray(type) {
-    var updatear = chatReplyType;
-    updatear = updatear.indexOf(type) === -1 ? [].concat(_toConsumableArray(updatear), [type]) : updatear.filter(function (elm) {
+    var updater = chatReplyType;
+    updater = updater.indexOf(type) === -1 ? [].concat(_toConsumableArray(updater), [type]) : updater.filter(function (elm) {
       return elm != type;
     });
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])("chat-type", updatear, formData);
+    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])("chat-type", updater, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
 
@@ -8635,7 +8633,7 @@ var FormSettings = function FormSettings() {
     if (id === "wpwax-vm-reply-video") {
       handleChatArray("video");
     } else if (id === "wpwax-vm-reply-voice") {
-      handleChatArray("audio");
+      handleChatArray("voice");
     } else if (id === "wpwax-vm-reply-text") {
       handleChatArray("text");
     }
@@ -8854,7 +8852,7 @@ var FormSettings = function FormSettings() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_3__.ReactSVG, {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
-            }), "Audio"]
+            }), "Voice"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
             uncheckedIcon: false,
             checkedIcon: false,
@@ -8866,7 +8864,7 @@ var FormSettings = function FormSettings() {
             height: 22,
             width: 40,
             id: "wpwax-vm-reply-voice",
-            checked: chatReplyType.indexOf('audio') === -1 ? false : true,
+            checked: chatReplyType.indexOf('voice') === -1 ? false : true,
             onChange: handleChatReplyType
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
@@ -9697,7 +9695,7 @@ var PreviewOne = function PreviewOne(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
-    } else if (button === 'audio') {
+    } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
       });
@@ -9906,7 +9904,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
-    } else if (button === 'audio') {
+    } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_svg__WEBPACK_IMPORTED_MODULE_2__.ReactSVG, {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
       });
@@ -9937,6 +9935,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
     });
   };
 
+  console.log(formOption.can_replay_in);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.PreviewWrap, {
     children: previewStage === 'general' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "wpwax-vm-preview-general",
@@ -10793,7 +10792,7 @@ var formData = [{
     "show_description": true,
     "description": "Welcome to Directorist, leave your questions below",
     "chat_options_title": "How would you like to chat?",
-    "can_replay_in": ["video", "audio", "text"],
+    "can_replay_in": ["video", "voice", "text"],
     "show_footer": true,
     "footer_message": "You can practice before sending",
     "thank_page_title": "Thank You",

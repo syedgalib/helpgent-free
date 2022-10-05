@@ -91,8 +91,6 @@ const FormSettings = () => {
         };
     });
 
-    console.log(footerMessageColor);
-
     const [state, setState] = useState({
         openCollapse: true,
     });
@@ -105,16 +103,16 @@ const FormSettings = () => {
 
     /* For updating each element, we create seperate function */
     const handleChatArray = (type) => {
-        let updatear = chatReplyType;
-        updatear = updatear.indexOf(type) === -1 ? [...updatear, type] : updatear.filter(elm => elm != type);
-        const updatedData = formUpdater("chat-type", updatear, formData);
+        let updater = chatReplyType;
+        updater = updater.indexOf(type) === -1 ? [...updater, type] : updater.filter(elm => elm != type);
+        const updatedData = formUpdater("chat-type", updater, formData);
         dispatch(handleDynamicEdit(updatedData));
     }
     const handleChatReplyType = (checked, event, id) => {
         if (id === "wpwax-vm-reply-video") {
             handleChatArray("video");
         } else if (id === "wpwax-vm-reply-voice") {
-            handleChatArray("audio");
+            handleChatArray("voice");
         } else if (id === "wpwax-vm-reply-text") {
             handleChatArray("text");
         }
@@ -268,7 +266,7 @@ const FormSettings = () => {
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
-                        <span><ReactSVG src={miceIcon}/>Audio</span>
+                        <span><ReactSVG src={miceIcon}/>Voice</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -280,7 +278,7 @@ const FormSettings = () => {
                             height={22}
                             width={40}
                             id="wpwax-vm-reply-voice"
-                            checked={chatReplyType.indexOf('audio') === -1 ? false : true}
+                            checked={chatReplyType.indexOf('voice') === -1 ? false : true}
                             onChange={handleChatReplyType}
                         />
                     </div>

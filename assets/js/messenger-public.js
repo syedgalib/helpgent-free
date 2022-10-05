@@ -17003,9 +17003,7 @@ var getChatboxTemplate = /*#__PURE__*/function () {
             args.page_id = pageID;
             args.return_default_if_result_empty = typeof returnDefaultIfResultEmpty === 'boolean' ? returnDefaultIfResultEmpty : true;
             _context.next = 6;
-            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getData("/chatbox-templates", {
-              params: args
-            });
+            return Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getData("/chatbox-templates", args);
 
           case 6:
             return _context.abrupt("return", _context.sent);
@@ -17312,19 +17310,16 @@ var reducer = function reducer() {
 
     case LOAD_TEMPLATE_SUCCESS:
       var showChatbox = action.payload.data.length;
-      var options = action.payload.data[0]['options'];
-      loadTemplateStyle(options);
+      var options = showChatbox ? action.payload.data[0]['options'] : {};
+
+      if (showChatbox) {
+        loadTemplateStyle(options);
+      }
+
       return _objectSpread(_objectSpread({}, state), {}, {
         isLoading: false,
         showChatbox: showChatbox,
-        template: showChatbox ? action.payload.data[0] : null,
-        templateStyles: {
-          primaryButtonStyle: preparePrimaryButtonStyle(options),
-          chatTitleStyle: prepareChatTitleStyle(options),
-          greetMessageStyle: prepareGreetMessageStyle(options),
-          primaryColor: options['primary_color'],
-          pageBackgroundColor: options['page_background_color']
-        }
+        template: showChatbox ? action.payload.data[0] : null
       });
 
     case LOAD_TEMPLATE_ERROR:

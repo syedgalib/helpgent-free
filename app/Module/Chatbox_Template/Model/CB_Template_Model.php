@@ -74,7 +74,7 @@ class CB_Template_Model extends DB_Model {
         LEFT JOIN $page_relationship_table ON $template_table.id = $page_relationship_table.template_id
         ";
 
-		$query = $select . $where . " GROUP BY id LIMIT $limit OFFSET $offset";
+		$query = $select . $where . " GROUP BY id ORDER BY id DESC LIMIT $limit OFFSET $offset";
 
 		return $wpdb->get_results( $query, ARRAY_A );
 

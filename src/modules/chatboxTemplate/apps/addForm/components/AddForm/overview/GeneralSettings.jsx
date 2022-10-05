@@ -71,13 +71,13 @@ const GeneralSettings = () => {
     const dispatch = useDispatch();
 
     const Option = (props) => {
-        console.log(props);
         return (
             <div>
                 <components.Option {...props}>
                     <Checkbox
                         id={`wpwax-vm${props.value}`}
                         label={props.label}
+                        onChange={handleCustomPageCheckbox}
                         value={props.isSelected}
                     />
                 </components.Option>
@@ -89,6 +89,8 @@ const GeneralSettings = () => {
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         customPages.push({ value: `${item.id}`, label: `${item.title}` });
     });
+
+    const handleCustomPageCheckbox = ()=>{}
 
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
@@ -107,9 +109,10 @@ const GeneralSettings = () => {
     };
 
     const handleChangeSwitchValue = (value, event, id) => {
+        if(id === 'wpwax-vm-display-default'){
+            value = !value;
+        }
         const updatedData = formUpdater(id, value, formData);
-        
-        console.log(value);
         dispatch(handleDynamicEdit(updatedData));
     };
 
@@ -215,7 +218,7 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={displayDefault ? false : true}
+                            checked={!displayDefault}
                             onChange={handleChangeSwitchValue}
                         />
                     </label>
@@ -237,7 +240,6 @@ const GeneralSettings = () => {
                         allowSelectAll={true}
                     />
                 }
-                
             </div>
 
             <div className='wpwax-vm-form-group'>
@@ -281,7 +283,6 @@ const GeneralSettings = () => {
                             onHandleColor='#FFFFFF'
                             className='wpwax-vm-switch'
                             id='wpwax-vm-send-mail'
-                            value={state.selectedCustomPages}
                             handleDiameter={14}
                             height={22}
                             width={40}

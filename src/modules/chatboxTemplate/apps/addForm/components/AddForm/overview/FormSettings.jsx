@@ -189,7 +189,6 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
-    console.log(grettingVideo,grettingImage);
     return (
         <FormSettingsWrap>
             <div className="wpwax-vm-form-group">

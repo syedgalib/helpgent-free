@@ -15,9 +15,17 @@ const FormUpdater = (label, value,formInitialData) => {
                     }
                 }
             case "wpwax-vm-display-default":
-                return {
-                    ...item,
-                    is_default: value
+                if(value){
+                    return {
+                        ...item,
+                        pages: "",
+                        is_default: value
+                    }
+                }else{
+                    return {
+                        ...item,
+                        is_default: value
+                    }
                 }
             case "wpwax-vm-display-custom-pages":
                 return {

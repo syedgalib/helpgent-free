@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import Dropdown from "Components/formFields/Dropdown.jsx"
 import Radio from "Components/formFields/Radio.jsx"
 import ChatBoxPreview from "./ChatBoxPreview.jsx";

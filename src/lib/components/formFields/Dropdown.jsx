@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import apiService from 'apiService/Service.js';
 import { handleReadSessions } from '../../../modules/messenger/apps/chatDashboard/store/sessions/actionCreator';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
 const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId }) => {
@@ -33,7 +34,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const dispatch = useDispatch();
 
     /* Handle Dropdown active inactive */
-    const handleDropdown = (event) => { 
+    const handleDropdown = (event) => {
         event.preventDefault();
         const allUserMedia = document.querySelectorAll(".wpwax-vm-usermedia");
 
@@ -112,7 +113,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');
-                
+
                 let asignedTerms = [];
                 if(currentSession.length !==0){
                     for(let i =0; i< currentSession[0].terms.length; i++){
@@ -162,7 +163,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 }
                 deleteTerm()
                     .then( deleteResponse => {
-                        
+
                         let filteredTerms = [];
                         if(currentSession.length !==0){
                             filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
@@ -170,7 +171,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                         }else{
                             filteredTerms = termState.allTags.filter(item => item.term_id !== termId);
                         }
-                        
+
                         setTermState({
                             ...termState,
                             filteredTagList: filteredTerms,
@@ -296,17 +297,14 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
                 }
 
-                {
-                    renderDropdownIcon()
-                }
-
+                <div>{renderDropdownIcon()}</div>
             </a>
             <ul className={openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show" : "wpwax-vm-dropdown__content"}>
                 {
                     dropdownList.map((item, i) => {
                         return (
                             <li key={i}>
-                                <a href="#" onClick={(e) => handleDropdownTrigger(e, item.name)}>{item.icon ? <div className="wpwax-vm-dropdown-item-icon"><ReactSVG src={item.icon} /></div> : ''}{item.text}</a>
+                                <a href="#" onClick={(e) => handleDropdownTrigger(e, item.name)}>{item.icon ? <span className="wpwax-vm-dropdown-item-icon"><ReactSVG src={item.icon} /></span> : ''}{item.text}</a>
                             </li>
                         );
                     })

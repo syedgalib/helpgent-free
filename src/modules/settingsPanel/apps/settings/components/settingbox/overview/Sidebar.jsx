@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import NavItem from "./NavItem.jsx";
 import { SidebarWrap } from '../Style';
 import globe from 'Assets/svg/icons/globe.svg';

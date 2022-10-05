@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddTagWrap } from './Style';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import Checkbox from 'Components/formFields/Checkbox.jsx';
 import {
     handleTagModal,
@@ -202,9 +203,9 @@ const AddTag = (props) => {
                         ...addFormState,
                         newUnAssinged: virtualArray
                     })
-                } 
+                }
             }
-            
+
             if(asignedTerms.indexOf(e.target.id) === -1){
                 let ids = e.target.id.replace('wpwax-vm-term-','')
                 setSessionState({
@@ -252,7 +253,7 @@ const AddTag = (props) => {
 
             let ids = e.target.id.replace('wpwax-vm-term-','');
             let array = [...asignedTerms];
-            
+
             if(array.indexOf(ids) !== -1){
                 array.splice(array.indexOf(ids),1);
                 setSessionState({
@@ -290,7 +291,7 @@ const AddTag = (props) => {
         });
 
         const fetchSessionTermAdd = await apiService.getAll('/sessions');
-        
+
         setSessionState({
             ...sessionState,
             sessionList: fetchSessionTermAdd.data.data

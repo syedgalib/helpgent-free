@@ -8,7 +8,8 @@
 --------------------------------*/
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Dropdown from 'Components/formFields/Dropdown.jsx';
@@ -274,9 +275,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 >
                     <div className='wpwax-vm-sidebar-search'>
                         <div className='wpwax-vm-form-group wpwax-vm-form-icon-left'>
-                            <div className='wpwax-vm-input-icon'>
+                            <span className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
-                            </div>
+                            </span>
 
                             <input
                                 type='text'
@@ -332,7 +333,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         className='wpwax-vm-btn-all-tags'
                         onClick={handleAllTagActivation}
                     >
-                        <ReactSVG src={tag} />
+                        <div><ReactSVG src={tag} /></div>
                         <span>Tags</span>
                     </a>
                 </div>
@@ -367,7 +368,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             p.id !== parseInt(currentUser.id)
                                     );
                                     // console.log(currentUser.id,users.length, users);
-                                    
+
                                     // const selectedUSer = users.filter(
                                     //     (select) =>
                                     //         select.roles[0] === 'subscriber'

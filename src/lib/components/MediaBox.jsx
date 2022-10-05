@@ -1,4 +1,5 @@
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
 import userMd from 'Assets/svg/icons/user-tie.svg';
@@ -12,6 +13,7 @@ const MediaBox = ({
 }) => {
     const replyerImg = () => {
         if (lastMessage) {
+			// Didn't understand the logic here!
             if (lastMessage.user.roles[0] === 'administrator') {
                 if (lastMessage.user.avatar) {
                     return <img src={lastMessage.user.avatar} alt='' />;
@@ -56,7 +58,7 @@ const MediaBox = ({
             ) : typeof img === 'object' ? (
                 <div className='wpax-vm-imglist'>
                     {
-                        initialConv ? 
+                        initialConv ?
                             img[0] === '' ? (
                                 <img src={userImg} alt='' />
                             ) : (

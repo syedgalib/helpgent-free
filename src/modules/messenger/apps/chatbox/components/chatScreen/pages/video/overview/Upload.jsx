@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import { VideoRecordWrap } from '../Style';
 
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';

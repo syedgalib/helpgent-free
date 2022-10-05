@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { ReactSVG } from "react-svg";
+// import { ReactSVG } from "react-svg";
+import ReactSVG from 'react-inlinesvg';
 import { hideChatbox } from '../../../../store/chatbox/actionCreator.js';
 import { useResetStore } from "../../../../store/reset.js";
 import crossSmall from 'Assets/svg/icons/cross-small.svg'

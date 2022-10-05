@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
 import { TaglistWrap } from './Style';
 import userImg from 'Assets/img/chatdashboard/user.png';
@@ -53,7 +54,7 @@ const Taglist = (props) => {
     );
 
     useEffect(() => {
-        
+
         if(tagListModalOpen){
             setTagState({
                 ...tagState,
@@ -91,7 +92,7 @@ const Taglist = (props) => {
                     console.log(error);
                 })
         }
-        
+
 	}, [tagListModalOpen]);
 
     /* Handle Add Tag */

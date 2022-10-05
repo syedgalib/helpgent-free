@@ -1,4 +1,5 @@
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
 const UserAvaterList = ({ users, maxVisibleUsers }) => {

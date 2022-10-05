@@ -3,7 +3,8 @@ import Radio from 'Components/formFields/Radio.jsx';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { components, default as Select } from 'react-select';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
+import ReactSVG from 'react-inlinesvg';
 import Switch from 'react-switch';
 import formUpdater from '../../../../../../../lib/components/FormUpdater';
 import { handleDynamicEdit } from '../../../redux/form/actionCreator';
@@ -145,7 +146,7 @@ const GeneralSettings = () => {
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span>
-                        Form Name 
+                        Form Name
                         <span className='wpwax-vm-require-sign'>*</span>
                     </span>
                 </div>

@@ -16,7 +16,7 @@ const TagFilter = props =>{
     const { allTags, filteredTagList, tagLoader } = tagState;
     const { searchFilterTags, checkedForFilter } = state;
 
-	const filterTextFiled = useRef(null);
+	const filterTextFieldRef = useRef(null);
 
     useEffect(() => {
         setState({
@@ -106,14 +106,14 @@ const TagFilter = props =>{
             checkedForFilter: []
         });
 
-		filterTextFiled.current.value = '';
+		filterTextFieldRef.current.value = '';
     }
 
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
-				<input type="text" className="wpwax-vm-form__element" ref={filterTextFiled} placeholder="Search" onChange={handleTagSearch}/>
+				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={handleTagSearch}/>
             </div>
             {
                 tagLoader ?

@@ -11468,7 +11468,7 @@ var TagFilter = function TagFilter(props) {
       tagLoader = tagState.tagLoader;
   var searchFilterTags = state.searchFilterTags,
       checkedForFilter = state.checkedForFilter;
-  var filterTextFiled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var filterTextFieldRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       searchFilterTags: allTags
@@ -11571,7 +11571,7 @@ var TagFilter = function TagFilter(props) {
     setState(_objectSpread(_objectSpread({}, state), {}, {
       checkedForFilter: []
     }));
-    filterTextFiled.current.value = '';
+    filterTextFieldRef.current.value = '';
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.TagFilterDropdown, {
@@ -11587,7 +11587,7 @@ var TagFilter = function TagFilter(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
-        ref: filterTextFiled,
+        ref: filterTextFieldRef,
         placeholder: "Search",
         onChange: handleTagSearch
       })]

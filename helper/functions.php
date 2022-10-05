@@ -127,13 +127,13 @@ function handle_media_upload($file, $overrides = array('test_form' => false))
  *
  * @return array Merged Params
  */
-function filter_params($default = [], $args = [])
+function filter_params( $default = [], $args = [] )
 {
 
-	foreach ($args as $key => $value) {
+	foreach ( $args as $key => $value ) {
 
-		if (!isset($default[$key])) {
-			unset($args[$key]);
+		if ( ! isset( $default[ $key ] ) ) {
+			unset( $args[ $key ] );
 		}
 	}
 
@@ -608,6 +608,8 @@ function get_formatted_time($time, $timezone)
  */
 function get_wp_pages()
 {
+	$homepage = [ [ 'id' => 0, 'title' => __( 'Homepage', 'wpwax-customer-support-app' ), ] ];
+
 	$query = new WP_Query([
 		'post_type'     => 'page',
 		'post_status'   => 'publish',
@@ -615,20 +617,20 @@ function get_wp_pages()
 		'fields'        => 'ids',
 	]);
 
-	if (!$query->have_posts()) {
-		return [];
+	if ( ! $query->have_posts() ) {
+		return $homepage;
 	}
 
 	$pages = [];
 
-	foreach ($query->posts as $id) {
+	foreach ( $query->posts as $id ) {
 		$pages[] = [
 			'id'    => $id,
-			'title' => get_the_title($id),
+			'title' => get_the_title( $id ),
 		];
 	}
 
-	return $pages;
+	return array_merge( $homepage, $pages );
 }
 
 /**

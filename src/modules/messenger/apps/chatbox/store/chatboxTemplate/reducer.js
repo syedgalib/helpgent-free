@@ -99,22 +99,17 @@ const reducer = ( state = initialState, action ) => {
             };
         case LOAD_TEMPLATE_SUCCESS:
 			const showChatbox = action.payload.data.length;
-            const options = action.payload.data[0]['options'];
+            const options = ( showChatbox ) ? action.payload.data[0]['options'] : {};
 
-            loadTemplateStyle( options );
+			if ( showChatbox ) {
+				loadTemplateStyle( options );
+			}
 
             return {
                 ...state,
                 isLoading: false,
-                showChatbox: showChatbox,
-                template: showChatbox ? action.payload.data[0] : null,
-                templateStyles: {
-                    primaryButtonStyle: preparePrimaryButtonStyle( options ),
-                    chatTitleStyle: prepareChatTitleStyle( options ),
-                    greetMessageStyle: prepareGreetMessageStyle( options ),
-                    primaryColor: options['primary_color'],
-                    pageBackgroundColor: options['page_background_color'],
-                }
+                showChatbox,
+                template: ( showChatbox ) ? action.payload.data[0] : null,
             };
         case LOAD_TEMPLATE_ERROR:
             return {

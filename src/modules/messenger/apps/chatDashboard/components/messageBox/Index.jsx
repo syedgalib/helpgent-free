@@ -27,6 +27,7 @@ import {
 
 import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
+import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 
 const CenterBoxStyle = {
     minHeight: '620px',
@@ -34,7 +35,7 @@ const CenterBoxStyle = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: '20px'
+    borderRadius: '20px',
 };
 
 function MessageBox({ setSessionState }) {
@@ -150,6 +151,8 @@ function MessageBox({ setSessionState }) {
                 return;
             }
 
+            setIsLoadingSession(true);
+
             const session_id = selectedSession.session_id;
 
             // Load session data from store if available
@@ -168,11 +171,9 @@ function MessageBox({ setSessionState }) {
                     setLatestMessageDate(latest_message_date);
                 }
 
+                setIsLoadingSession(false);
                 return;
             }
-
-            // Otherwise session data load from API
-            setIsLoadingSession(true);
 
             // Fetch session data from API
             const fetchSession = async () => {
@@ -1437,9 +1438,9 @@ function MessageBox({ setSessionState }) {
 
     return (
         <ChatBoxWrap>
-            {selectedSession ? (
+            {selectedSession && (
                 <div style={{ height: '100%' }}>
-                    {!isLoadingSession ? (
+                    {!isLoadingSession && (
                         <div>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
@@ -1546,7 +1547,9 @@ function MessageBox({ setSessionState }) {
                                     </div>
                                 </div>
 
-                                {!isSearching ? (
+                                {/* Sessions Messages List  */}
+                                {/* If not loading session && If not loading search results && If not searching */}
+                                {!isLoadingSearchResults && !isSearching && (
                                     <div
                                         id='scrollableDiv'
                                         className='wpwax-vm-messagebox-body'
@@ -1646,92 +1649,78 @@ function MessageBox({ setSessionState }) {
                                             <span className='dashicons dashicons-arrow-down-alt'></span>
                                         </a>
                                     </div>
-                                ) : (
-                                    <div>
-                                        {!isLoadingSearchResults ? (
-                                            <div
-                                                id='scrollableDiv'
-                                                className='wpwax-vm-messagebox-body l'
+                                )}
+
+                                {/* Sessions Search Results  */}
+                                {/* If not loading session && If not loading search results && If searching */}
+                                {!isLoadingSearchResults && isSearching && (
+                                    <div
+                                        id='scrollableDiv'
+                                        className='wpwax-vm-messagebox-body l'
+                                    >
+                                        {searchResults.length ? (
+                                            <InfiniteScroll
+                                                height={getMessageBoxHeight()}
+                                                dataLength={
+                                                    searchResults.length
+                                                }
+                                                next={() => {
+                                                    loadMoreSearchResults();
+                                                }}
+                                                hasMore={true}
+                                                loader={
+                                                    isLoadingMoreSearchResults ? (
+                                                        <h3
+                                                            style={{
+                                                                textAlign:
+                                                                    'center',
+                                                            }}
+                                                        >
+                                                            Loading...
+                                                        </h3>
+                                                    ) : (
+                                                        ''
+                                                    )
+                                                }
+                                                refreshFunction={() => {
+                                                    loadMoreSearchResults();
+                                                }}
+                                                scrollableTarget='scrollableDiv'
                                             >
-                                                {searchResults.length ? (
-                                                    <InfiniteScroll
-                                                        height={getMessageBoxHeight()}
-                                                        dataLength={
-                                                            searchResults.length
-                                                        }
-                                                        next={() => {
-                                                            loadMoreSearchResults();
-                                                        }}
-                                                        hasMore={true}
-                                                        loader={
-                                                            isLoadingMoreSearchResults ? (
-                                                                <h3
-                                                                    style={{
-                                                                        textAlign:
-                                                                            'center',
-                                                                    }}
-                                                                >
-                                                                    Loading...
-                                                                </h3>
-                                                            ) : (
-                                                                ''
-                                                            )
-                                                        }
-                                                        refreshFunction={() => {
-                                                            loadMoreSearchResults();
-                                                        }}
-                                                        scrollableTarget='scrollableDiv'
-                                                    >
-                                                        {searchResults.map(
-                                                            (
-                                                                message,
-                                                                index
-                                                            ) => {
-                                                                return (
-                                                                    <Message
-                                                                        data={
-                                                                            message
-                                                                        }
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        currentUser={
-                                                                            current_user
-                                                                        }
-                                                                    />
-                                                                );
-                                                            }
-                                                        )}
-                                                    </InfiniteScroll>
-                                                ) : (
-                                                    
-                                                        <h2>
-                                                            No message found
-                                                        </h2>
-                                                    
-                                                )}
-                                                <a
-                                                    href='#'
-                                                    className={
-                                                        scrollBtnVisibility
-                                                            ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
-                                                            : 'wpwax-vm-scroll-bottom'
+                                                {searchResults.map(
+                                                    (message, index) => {
+                                                        return (
+                                                            <Message
+                                                                data={message}
+                                                                key={index}
+                                                                currentUser={
+                                                                    current_user
+                                                                }
+                                                            />
+                                                        );
                                                     }
-                                                    onClick={handleScrollBottom}
-                                                >
-                                                    <span className='dashicons dashicons-arrow-down-alt'></span>
-                                                </a>
-                                            </div>
+                                                )}
+                                            </InfiniteScroll>
                                         ) : (
-                                            <span className='wpwax-vm-loading-spin'>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                                <span className='wpwax-vm-spin-dot'></span>
-                                            </span>
+                                            <h2>No message found</h2>
                                         )}
+                                        <a
+                                            href='#'
+                                            className={
+                                                scrollBtnVisibility
+                                                    ? 'wpwax-vm-scroll-bottom wpwax-vm-show'
+                                                    : 'wpwax-vm-scroll-bottom'
+                                            }
+                                            onClick={handleScrollBottom}
+                                        >
+                                            <span className='dashicons dashicons-arrow-down-alt'></span>
+                                        </a>
                                     </div>
                                 )}
+
+                                {/* Loading  */}
+                                {/* If loading search results */}
+                                {isLoadingSearchResults && <LoadingSpinDot />}
 
                                 {handleFooterContent()}
                             </MessageBoxWrap>
@@ -1744,16 +1733,13 @@ function MessageBox({ setSessionState }) {
                                 ''
                             )}
                         </div>
-                    ) : (
-                        <span className='wpwax-vm-loading-spin'>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                            <span className='wpwax-vm-spin-dot'></span>
-                        </span>
                     )}
+
+                    {isLoadingSession && <LoadingSpinDot />}
                 </div>
-            ) : (
+            )}
+
+            {!selectedSession && (
                 <div style={CenterBoxStyle}>
                     <h2>No conversation is selected.</h2>
                 </div>

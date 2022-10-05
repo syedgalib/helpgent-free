@@ -85,7 +85,7 @@ class Public_Asset extends Enqueuer {
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'group'     => 'public',
             'data'      => [
-                'wpWaxCustomerSupportApp_CoreScriptData' => Script_Data::get_base_data(),
+                'wpWaxCustomerSupportApp_CoreScriptData' => Script_Data::get_public_data(),
             ],
         ];
 

@@ -7,7 +7,7 @@ const getChatboxTemplate = async({ pageID, returnDefaultIfResultEmpty }) => {
 	args.page_id = pageID;
 	args.return_default_if_result_empty = ( typeof returnDefaultIfResultEmpty === 'boolean' ) ? returnDefaultIfResultEmpty : true;
 
-	return await http.getData("/chatbox-templates", { params: args });
+	return await http.getData("/chatbox-templates", args);
 };
 
 // getChatboxTemplate

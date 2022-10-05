@@ -9,6 +9,7 @@ use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 
 class Messages extends Rest_Base
 {
@@ -405,6 +406,13 @@ class Messages extends Rest_Base
         if (isset($args['terms'])) {
             $terms = Helper\convert_string_to_int_array($args['terms']);
             foreach ($terms as $term_id) {
+
+				$term = Term_Model::get_item( $term_id );
+
+				if ( is_wp_error( $term ) ) {
+					continue;
+				}
+
                 Session_Term_Relationship_Model::create_item([
                     'session_id' => $data['session_id'],
                     'term_id'    => $term_id,

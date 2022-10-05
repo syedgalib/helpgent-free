@@ -37,11 +37,19 @@ class Term_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
+		$limit  = "LIMIT ${limit}";
+		$offset = "OFFSET ${offset}";
+
+		if ( $args['limit'] < 0 ) {
+			$limit  = '';
+			$offset = '';
+		}
+
         $sql = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
         FROM {$term_table}
         INNER JOIN {$term_taxonomy_table}
         ON {$term_table}.term_id = {$term_taxonomy_table}.term_id
-        LIMIT $limit OFFSET $offset
+		$limit $offset
         ";
 
         $query = $wpdb->prepare( $sql );

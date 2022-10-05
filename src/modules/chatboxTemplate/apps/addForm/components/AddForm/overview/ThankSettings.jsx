@@ -179,7 +179,7 @@ const ThankSettings = () => {
                             name="wpwax-vm-thank-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === ctaTitleFontSize;
+                                return option.value === ctaTitleFontSize;
                             })[0]}
                         />
                     </div>
@@ -202,7 +202,7 @@ const ThankSettings = () => {
                             name="wpwax-vm-thank-description-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === ctaDescFontSize;
+                                return option.value === ctaDescFontSize;
                             })[0]}
                         />
                     </div>

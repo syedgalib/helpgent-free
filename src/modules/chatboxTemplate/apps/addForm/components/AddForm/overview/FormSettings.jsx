@@ -9,6 +9,7 @@ import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import questionIcon from 'Assets/svg/icons/question-circle.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -16,10 +17,12 @@ export const fontOptions = [
     { value: "Inter,sans-serif", label: "Inter" },
     { value: "Legend,sans-serif", label: "Legend" },
 ]
-export const formType = [
-    { value: "theme-1", label: "Theme 1" },
-    { value: "theme-2", label: "Theme 2" }
-]
+
+export const templateOptions = [
+    { value: 'theme-1', label: 'Theme One' },
+    { value: 'theme-2', label: 'Theme Two' },
+];
+
 export const fontSizeOptions = [
     { value: "1.3", label: "large" },
     { value: "1.5", label: "x-large" },
@@ -189,6 +192,28 @@ const FormSettings = () => {
     }
     return (
         <FormSettingsWrap>
+            <div className='wpwax-vm-form-group'>
+                <div className='wpwax-vm-form-group__label wpwax-vm-has-tooltip'>
+                    <span className='wpwax-vm-tooltip-wrap'>
+                        <label htmlFor='wpwax-vm-theme'>Theme </label>
+                    </span>
+                </div>
+                <Select
+                    classNamePrefix='wpwax-vm-select'
+                    options={templateOptions}
+                    hideSelectedOptions={false}
+                    searchable={false}
+                    name='wpwax-vm-theme'
+                    onChange={handleChangeSelectValue}
+                    defaultValue={
+                        templateOptions.filter(function (option) {
+                            return option.value === templateTheme;
+                        })[0]
+                    }
+                    allowSelectAll={true}
+                />
+            </div>
+
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Add an image/video or Record a video</span>

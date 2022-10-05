@@ -28,7 +28,7 @@ const formData = [
         "thank_page_description":"Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
         "show_thank_page_cta_button":true,
         "thank_page_cta_button_text":"Try for Free",
-        "thank_page_cta_button_url":"https://dashboardmarket.com/",
+        "thank_page_cta_button_url":"https://wpwax.com/",
         "thank_page_background_color":"#ffffff",
         "thank_page_title_color":"#000000",
         "thank_page_title_font_size":"2",

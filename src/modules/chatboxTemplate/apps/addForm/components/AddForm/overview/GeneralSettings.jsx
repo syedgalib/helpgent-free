@@ -11,11 +11,6 @@ import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
 
-export const templateOptions = [
-    { value: 'theme-1', label: 'Theme One' },
-    { value: 'theme-2', label: 'Theme Two' },
-];
-
 export const fontOptions = [
     { value: 'roboto', label: 'Roboto' },
     { value: 'inter', label: 'Inter' },
@@ -163,35 +158,7 @@ const GeneralSettings = () => {
                     onChange={(e) => handleChangeInputValue(e)}
                 />
             </div>
-            <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label wpwax-vm-has-tooltip'>
-                    <span className='wpwax-vm-tooltip-wrap'>
-                        <label htmlFor='wpwax-vm-theme'>Theme </label>
-                        <span className='wpwax-vm-tooltip'>
-                            <span className='wpwax-vm-tooltip-icon'>
-                                <ReactSVG src={questionIcon} />
-                            </span>
-                            <span className='wpwax-vm-tooltip-text'>
-                                Tooltip Text will be here
-                            </span>
-                        </span>
-                    </span>
-                </div>
-                <Select
-                    classNamePrefix='wpwax-vm-select'
-                    options={templateOptions}
-                    hideSelectedOptions={false}
-                    searchable={false}
-                    name='wpwax-vm-theme'
-                    onChange={handleChangeSelectValue}
-                    defaultValue={
-                        templateOptions.filter(function (option) {
-                            return option.value === templateTheme;
-                        })[0]
-                    }
-                    allowSelectAll={true}
-                />
-            </div>
+            
             
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>

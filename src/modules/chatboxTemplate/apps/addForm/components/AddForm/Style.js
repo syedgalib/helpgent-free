@@ -297,6 +297,7 @@ const AddFormStyle = Styled.div`
             padding: 8px 10px;
             margin: 0;
             background-color: #fff;
+            z-index: 100;
             box-shadow: 0 5px 10px rgba(0,0,0,.16);
             
             .wpwax-vm-select__option{

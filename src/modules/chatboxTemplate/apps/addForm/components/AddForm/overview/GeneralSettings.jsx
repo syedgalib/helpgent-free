@@ -149,10 +149,10 @@ const GeneralSettings = () => {
         <GeneralSettingWrap>
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
-                    <span>
+                    <label htmlFor='wpwax-vm-form-name'>
                         Form Name 
                         <span className='wpwax-vm-require-sign'>*</span>
-                    </span>
+                    </label>
                 </div>
                 <input
                     type='text'
@@ -166,7 +166,7 @@ const GeneralSettings = () => {
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label wpwax-vm-has-tooltip'>
                     <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Theme </span>
+                        <label htmlFor='wpwax-vm-theme'>Theme </label>
                         <span className='wpwax-vm-tooltip'>
                             <span className='wpwax-vm-tooltip-icon'>
                                 <ReactSVG src={questionIcon} />

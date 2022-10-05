@@ -228,7 +228,8 @@ const AddFormStyle = Styled.div`
             margin-top: 14px;
             &.wpwax-vm-addbtn-style{
                 .wpwax-vm-form-group__input-single{
-                    span{
+                    span,
+                    >label{
                         margin-right: 45px;
                         min-width: 70px;
                         @media only screen and (max-width: 1199px) {
@@ -259,7 +260,8 @@ const AddFormStyle = Styled.div`
             &:not(:last-child){
                 margin-bottom: 20px;
             }
-            span{
+            span,
+            >label{
                 font-size: 14px;
                 font-weight: 500;
                 display: inline-block;

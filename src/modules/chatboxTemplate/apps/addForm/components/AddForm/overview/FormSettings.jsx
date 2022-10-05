@@ -213,13 +213,13 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Greetings message </span>
+                    <label htmlFor='wpwax-vm-greet-msg'>Greetings message </label>
                 </div>
                 <textarea className="wpwax-vm-form__element" id="wpwax-vm-greet-msg" value={grettingMessage} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Description</span>
+                    <label htmlFor='wpwax-vm-description'>Description</label>
                     <label>
                         <Switch
                             uncheckedIcon={false}
@@ -241,7 +241,7 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Chat Title </span>
+                    <label htmlFor='wpwax-vm-chat-title'>Chat Title </label>
                 </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-chat-title" value={chatTitle} onChange={(e) => handleChangeInputValue(e)} />
             </div>
@@ -305,7 +305,7 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Footer Message </span>
+                    <label htmlFor='wpwax-vm-footer-msg'>Footer Message </label>
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}

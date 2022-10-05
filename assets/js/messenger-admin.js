@@ -11811,15 +11811,11 @@ var Taglist = function Taglist(props) {
   };
 
   var handleTagFilter = function handleTagFilter(event) {
-    var keyword = event.target.value;
-    var filteredTags = taglistWithSession ? assignedTags.filter(function (entry) {
-      return Object.values(entry).some(function (val) {
-        return typeof val === 'string' && val.includes(keyword);
-      });
-    }) : allTags.filter(function (entry) {
-      return Object.values(entry).some(function (val) {
-        return typeof val === 'string' && val.includes(keyword);
-      });
+    var keyword = event.target.value.trim().toLowerCase();
+    var filteredTags = taglistWithSession ? assignedTags.filter(function (tag) {
+      return tag.name.toLowerCase().includes(keyword);
+    }) : allTags.filter(function (tag) {
+      return tag.name.toLowerCase().includes(keyword);
     });
     setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
       filteredTagList: filteredTags

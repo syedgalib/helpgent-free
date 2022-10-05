@@ -6345,9 +6345,97 @@ var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default
 /*!***************************************************************************************************!*\
   !*** ./src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx ***!
   \***************************************************************************************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/src/modules/settingsPanel/apps/settings/components/settingbox/overview/ChatBoxPreview.jsx: Identifier 'ReactSVG' has already been declared. (3:7)\n\n\u001b[0m \u001b[90m 1 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[33mReact\u001b[39m \u001b[36mfrom\u001b[39m \u001b[32m'react'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 2 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mReactSVG\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'react-svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 3 |\u001b[39m \u001b[36mimport\u001b[39m \u001b[33mReactSVG\u001b[39m \u001b[36mfrom\u001b[39m \u001b[32m'react-inlinesvg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m   |\u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 4 |\u001b[39m \u001b[36mimport\u001b[39m { \u001b[33mChatBoxPreviewWrap\u001b[39m } \u001b[36mfrom\u001b[39m \u001b[32m'../Style'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 5 |\u001b[39m \u001b[36mimport\u001b[39m largeLine \u001b[36mfrom\u001b[39m \u001b[32m'Assets/svg/large-line.svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 6 |\u001b[39m \u001b[36mimport\u001b[39m smallLine \u001b[36mfrom\u001b[39m \u001b[32m'Assets/svg/small-line.svg'\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n    at instantiate (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:359:12)\n    at Object.raise (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3339:19)\n    at ScopeHandler.checkRedeclarationInScope (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3523:19)\n    at ScopeHandler.declareName (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:3489:12)\n    at Object.declareNameFromIdentifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12152:16)\n    at Object.checkIdentifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12147:12)\n    at Object.checkLVal (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:12073:12)\n    at Object.finishImportSpecifier (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:16346:10)\n    at Object.parseImportSpecifierLocal (/Users/obiplabon/Sites/gutenberg/wp-content/plugins/wpwax-video-message/node_modules/@babel/parser/lib/index.js:16342:31)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Style */ "./src/modules/settingsPanel/apps/settings/components/settingbox/Style.js");
+/* harmony import */ var Assets_svg_large_line_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/large-line.svg */ "./src/assets/svg/large-line.svg");
+/* harmony import */ var Assets_svg_small_line_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/small-line.svg */ "./src/assets/svg/small-line.svg");
+/* harmony import */ var Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/img.svg */ "./src/assets/svg/img.svg");
+/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
+/* harmony import */ var Assets_img_settings_user_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/img/settings/user.png */ "./src/assets/img/settings/user.png");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+ // import { ReactSVG } from 'react-svg';
+
+
+
+
+
+
+
+
+
+
+
+var ChatBoxPreview = function ChatBoxPreview() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.ChatBoxPreviewWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "wpwax-vm-chatbox-top",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "wpwax-vm-chatbox-top__title",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_large_line_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "wpwax-vm-chatbox-top__imglist",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_img_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+        href: "#",
+        className: "wpwax-vm-chatbox-btn-close",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "dashicons dashicons-no"
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "wpwax-vm-chatbox-content",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "wpwax-vm-chatbox-content___inner",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "wpwax-vm-chatbox-content__img",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+            src: Assets_img_settings_user_png__WEBPACK_IMPORTED_MODULE_6__["default"],
+            alt: "Wpwax Video Support"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "wpwax-vm-chatbox-content__text",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+            children: "Leave your questions below and we will get back to you asap."
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
+            children: "Get Started"
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "wpwax-vm-chatbox-bottom",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "wpwax-vm-chatbox-bottom__text",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_small_line_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+        href: "#",
+        className: "wpwax-vm-btn-send",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+        })
+      })]
+    })]
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (ChatBoxPreview);
 
 /***/ }),
 
@@ -7035,6 +7123,18 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
+/***/ "./src/assets/img/settings/user.png":
+/*!******************************************!*\
+  !*** ./src/assets/img/settings/user.png ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6ad33d0b83fa7aa6b8deca0d75748d7c.png");
+
+/***/ }),
+
 /***/ "./src/assets/svg/icons/angle-down.svg":
 /*!*********************************************!*\
   !*** ./src/assets/svg/icons/angle-down.svg ***!
@@ -7131,6 +7231,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/assets/svg/icons/paper-plane.svg":
+/*!**********************************************!*\
+  !*** ./src/assets/svg/icons/paper-plane.svg ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
+
+/***/ }),
+
 /***/ "./src/assets/svg/icons/question-circle.svg":
 /*!**************************************************!*\
   !*** ./src/assets/svg/icons/question-circle.svg ***!
@@ -7140,6 +7252,42 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/img.svg":
+/*!********************************!*\
+  !*** ./src/assets/svg/img.svg ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/large-line.svg":
+/*!***************************************!*\
+  !*** ./src/assets/svg/large-line.svg ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/small-line.svg":
+/*!***************************************!*\
+  !*** ./src/assets/svg/small-line.svg ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
 
 /***/ }),
 

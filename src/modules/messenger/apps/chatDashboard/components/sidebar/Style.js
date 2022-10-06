@@ -55,9 +55,18 @@ const SidebarWrap = Styled.div`
             text-decoration: none;
             white-space: nowrap;
             color: #4D4D4D;
-            >div{
-                line-height: .75;
+            transition: color .25s ease-in;
+            svg{
                 margin-right: 10px;
+                path{
+                    transition: color .25s ease-in; 
+                }
+            }
+            &:hover{
+                color: var(--color-primary);
+                svg path{
+                    fill: var(--color-primary);
+                }
             }
         }
     }
@@ -352,6 +361,11 @@ const SessionFilterWrap = Styled.div`
             display: block;
         }
         .wpwax-vm-sidebar-search {
+            >.wpwax-vm-form-group {
+                .wpwax-vm-form__element{
+                    pointer-events: none;
+                }
+            }
             .wpwax-vm-form__element{
                 margin: 0;
                 border-radius: 10px 10px 0 0;

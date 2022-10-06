@@ -118,6 +118,23 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
+            
+            const fetchTags = async () =>{
+                const tagsResponse = apiService.getAll('/messages/terms');
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setTagState({
+                        ...tagState,
+                        allTags: tagsResponse.data.data,
+                        filteredTagList: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
@@ -333,7 +350,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         className='wpwax-vm-btn-all-tags'
                         onClick={handleAllTagActivation}
                     >
-                        <div><ReactSVG src={tag} /></div>
+                        <ReactSVG src={tag} />
                         <span>Tags</span>
                     </a>
                 </div>

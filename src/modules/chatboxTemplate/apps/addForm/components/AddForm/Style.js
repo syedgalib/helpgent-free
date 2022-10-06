@@ -12,12 +12,14 @@ const AddFormStyle = Styled.div`
     .wpwax-vm-add-form{
         position: relative;
         width: 420px;
+        min-height: 660px;
         border-radius: 14px;
         z-index: 10;
         font-family: 'Inter', sans-serif;
         background-color: #fff;
         @media only screen and (max-width: 1199px) {
             width: 380px;
+            min-height: 600px;
         }
         @media only screen and (max-width: 1024px) {
             width: 320px;
@@ -39,6 +41,10 @@ const AddFormStyle = Styled.div`
         }
         &.wpwax-vm-loder-active{
             &:after{
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
                 border-radius: 14px;
             }
         }

@@ -62,24 +62,21 @@ const RecorderWrap = Styled.div`
                     align-items: center;
                     justify-content: center;
                     &:hover{
-                        >div{
-                            svg{
-                                path{
-                                    fill: #FC495D;
-                                }
-                            }
-                        }
-                    }
-                    >div{
-                        line-height: 1;
                         svg{
-                            width: 36px;
-                            height: 36px;
                             path{
-                                fill: var(--color-white);
+                                fill: #FC495D;
                             }
                         }
+                        
                     }
+                    svg{
+                        width: 36px;
+                        height: 36px;
+                        path{
+                            fill: var(--color-white);
+                        }
+                    }
+                    
                 }
                 .wpwax-vm-record-btn,
                 .wpwax-vm-pause-btn{

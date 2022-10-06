@@ -33,6 +33,14 @@ const ScreenWrapper = Styled.div`
                 }
             }
         }
+        .wpwax-vm-form-group{
+            .wpwax-vm-form__element{
+                min-height: 46px;
+            }
+        }
+        .wpwax-vm-footer{
+            margin-top: 40px;
+        }
     }
     .wpwax-vm-chatbox-container{
         height: 100%;
@@ -66,6 +74,14 @@ const ScreenWrapper = Styled.div`
                 background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));
             }
         }
+        .wpwax-vm-chatbox-btnlist{
+            .wpwax-vm-chatbox-btn-close{
+                svg{
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
         .wpwax-vm-chatbox-btn-close{
             position: absolute;
             right: -18px;
@@ -86,8 +102,9 @@ const ScreenWrapper = Styled.div`
             &:hover{
                 background-color: var(--color-danger);
             }
-            >div{
-                line-height: 0;
+            svg{
+                width: 16px;
+                height: 16px;
             }
         }
         .wpwax-vm-chatbox-header,

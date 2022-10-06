@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
@@ -10,7 +10,7 @@ import audioRangeActive from 'Assets/svg/audio-active.svg';
 import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
-import { useEffect } from 'react';
+import crossSmall from 'Assets/svg/icons/cross-small.svg'
 
 import {
     updateFormData as updateAttachmentFormData,
@@ -242,7 +242,7 @@ function Record() {
                     className='wpwax-vm-record-btn-right wpwax-vm-btn-close'
                     onClick={(e) => handleCancelRecording(e, 'home')}
                 >
-                    <span className='dashicons dashicons-no-alt'></span>
+                    <ReactSVG src={crossSmall} />
                 </a>
             );
         } else if (isRecording && recordedTimeInSecond === 0) {

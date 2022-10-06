@@ -72,8 +72,8 @@ function Form() {
 
     return (
         <form onSubmit={submitHandler} className='wpwax-vm-h-100pr'>
-            <div className='wpwax-vm-chatbox-contact wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
-                <div className='wpwax-vm-body wpwax-vm-flex-grow-1'>
+            <div className='wpwax-vm-chatbox-contact wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+                <div className='wpwax-vm-body'>
                     <h4 className='wpwax-vm-contact-form__title'>
                         Before you go, please leave your contact details so we
                         can get back to you…

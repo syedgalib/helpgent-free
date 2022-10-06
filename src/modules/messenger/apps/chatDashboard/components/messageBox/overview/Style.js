@@ -361,13 +361,26 @@ const MessageBox = Styled.div`
         .wpwax-vm-message-content__inner--video{
             display: flex;
             align-items: center;
+            position: relative;
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+                content: '';
+                z-index: 0;
+                background-color: rgba(3,3,8,.30);
+            }
             .wpwax-vm-btn-expander{
                 position: absolute;
                 top: 30px;
                 right: 40px;
-                >div{
-                    line-height: 1;
-                }
+                z-index: 10;
+            }
+            .wpwax-vm-btn-play{
+                z-index: 10;
             }
         }
         &.wpwax-vm-message-single-audio{

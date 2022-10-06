@@ -5,6 +5,13 @@ const ChatboxForm = Styled.div`
     font-size: 18px;
     height: 100%;
     box-sizing: border-box;
+    &:hover{
+        .wpwax-vm-btn-play{
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+    }
     .wpwax-vm-chatbox-bg{
         position: absolute;
         left: 0;
@@ -37,13 +44,15 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-title{
             font-size: var(--font-size-greet);
             font-weight: 600;
-            line-height: 1.33;
+            line-height: 1.2;
             color: var(--color-text-greet);
             margin: 15px 0 15px;
         }
         .wpwax-vm-chatbox-description{
             font-size: 15px;
             font-weight: 500;
+            display: inline-block;
+            margin-top: 8px;
             color: var(--color-description)
         }
     }
@@ -61,6 +70,9 @@ const ChatboxForm = Styled.div`
         margin: 0 auto;
         border-radius: 50%;
         text-decoration: none;
+        opacity: 0;
+        visibility: visible;
+        z-index: -1;
         background-color: var(--color-white);
         i{
             width: 30px;
@@ -161,6 +173,13 @@ const ChatboxForm = Styled.div`
                 position: relative;
                 padding: 0;
                 overflow: hidden;
+                &:hover{
+                    .wpwax-vm-btn-play{
+                        opacity: 1;
+                        z-index: 100;
+                        visibility: visible;
+                    }
+                }
                 &:after{
                     position: absolute;
                     left: 0;
@@ -217,7 +236,10 @@ const ChatboxForm = Styled.div`
                     left: 50%;
                     top: 50%;
                     transform: translate(-50%,-50%);
-                    z-index: 100;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: .3s;
+                    z-index: 10;
                 }
                 .wpwax-vm-chatbox-img{
                     img{

@@ -16,8 +16,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Serializer.js");
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Enum.js");
 /* harmony import */ var stylis__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! stylis */ "./node_modules/stylis/src/Parser.js");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
 
 
 
@@ -391,55 +391,6 @@ var createCache = function createCache(options) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/@emotion/cache/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js ***!
-  \***********************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (memoize);
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js":
-/*!*********************************************************************************************************!*\
-  !*** ./node_modules/@emotion/cache/node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js ***!
-  \*********************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var weakMemoize = function weakMemoize(func) {
-  // $FlowFixMe flow doesn't include all non-primitive types as allowed for weakmaps
-  var cache = new WeakMap();
-  return function (arg) {
-    if (cache.has(arg)) {
-      // $FlowFixMe
-      return cache.get(arg);
-    }
-
-    var ret = func(arg);
-    cache.set(arg, ret);
-    return ret;
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (weakMemoize);
-
-
-/***/ }),
-
 /***/ "./node_modules/@emotion/hash/dist/emotion-hash.esm.js":
 /*!*************************************************************!*\
   !*** ./node_modules/@emotion/hash/dist/emotion-hash.esm.js ***!
@@ -507,15 +458,15 @@ function murmur2(str) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js ***!
-  \***************************************************************************************/
+/***/ "./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js ***!
+  \*******************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
 
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|abbr|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
@@ -535,10 +486,10 @@ var isPropValid = /* #__PURE__ */(0,_emotion_memoize__WEBPACK_IMPORTED_MODULE_0_
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/@emotion/memoize/dist/emotion-memoize.esm.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@emotion/memoize/dist/emotion-memoize.esm.js ***!
+  \*******************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -581,9 +532,9 @@ var hoistNonReactStatics = (function (targetComponent, sourceComponent) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js":
+/***/ "./node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js":
 /*!**********************************************************************************!*\
-  !*** ./node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js ***!
+  !*** ./node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js ***!
   \**********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -594,22 +545,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "E": function() { return /* binding */ Emotion; },
 /* harmony export */   "T": function() { return /* binding */ ThemeContext; },
 /* harmony export */   "_": function() { return /* binding */ __unsafe_useEmotionCache; },
-/* harmony export */   "a": function() { return /* binding */ useTheme; },
-/* harmony export */   "b": function() { return /* binding */ ThemeProvider; },
+/* harmony export */   "a": function() { return /* binding */ ThemeProvider; },
+/* harmony export */   "b": function() { return /* binding */ withTheme; },
 /* harmony export */   "c": function() { return /* binding */ createEmotionProps; },
-/* harmony export */   "d": function() { return /* binding */ withTheme; },
 /* harmony export */   "h": function() { return /* binding */ hasOwnProperty; },
-/* harmony export */   "u": function() { return /* binding */ useInsertionEffectMaybe; },
+/* harmony export */   "u": function() { return /* binding */ useTheme; },
 /* harmony export */   "w": function() { return /* binding */ withEmotionCache; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
-/* harmony import */ var _isolated_hnrs_dist_emotion_react_isolated_hnrs_browser_esm_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js */ "./node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js");
+/* harmony import */ var _isolated_hnrs_dist_emotion_react_isolated_hnrs_browser_esm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js */ "./node_modules/@emotion/react/_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js");
 /* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
 /* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
+/* harmony import */ var _emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/use-insertion-effect-with-fallbacks */ "./node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.browser.esm.js");
 
 
 
@@ -707,7 +658,7 @@ function withTheme(Component) {
 
   var WithTheme = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(render);
   WithTheme.displayName = "WithTheme(" + componentName + ")";
-  return (0,_isolated_hnrs_dist_emotion_react_isolated_hnrs_browser_esm_js__WEBPACK_IMPORTED_MODULE_6__["default"])(WithTheme, Component);
+  return (0,_isolated_hnrs_dist_emotion_react_isolated_hnrs_browser_esm_js__WEBPACK_IMPORTED_MODULE_7__["default"])(WithTheme, Component);
 }
 
 var getLastPart = function getLastPart(functionName) {
@@ -753,14 +704,6 @@ var getLabelFromStackTrace = function getLabelFromStackTrace(stackTrace) {
   return undefined;
 };
 
-var useInsertionEffect = react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] ? react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] : function useInsertionEffect(create) {
-  create();
-};
-function useInsertionEffectMaybe(create) {
-
-  useInsertionEffect(create);
-}
-
 var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
 var labelPropName = '__EMOTION_LABEL_PLEASE_DO_NOT_USE__';
 var createEmotionProps = function createEmotionProps(type, props) {
@@ -793,7 +736,7 @@ var Insertion = function Insertion(_ref) {
       serialized = _ref.serialized,
       isStringTag = _ref.isStringTag;
   (0,_emotion_utils__WEBPACK_IMPORTED_MODULE_4__.registerStyles)(cache, serialized, isStringTag);
-  var rules = useInsertionEffectMaybe(function () {
+  var rules = (0,_emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_6__.useInsertionEffectAlwaysWithSyncFallback)(function () {
     return (0,_emotion_utils__WEBPACK_IMPORTED_MODULE_4__.insertStyles)(cache, serialized, isStringTag);
   });
 
@@ -865,30 +808,31 @@ if (true) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CacheProvider": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.C; },
+/* harmony export */   "CacheProvider": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.C; },
 /* harmony export */   "ClassNames": function() { return /* binding */ ClassNames; },
 /* harmony export */   "Global": function() { return /* binding */ Global; },
-/* harmony export */   "ThemeContext": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T; },
-/* harmony export */   "ThemeProvider": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.b; },
-/* harmony export */   "__unsafe_useEmotionCache": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__._; },
+/* harmony export */   "ThemeContext": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T; },
+/* harmony export */   "ThemeProvider": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.a; },
+/* harmony export */   "__unsafe_useEmotionCache": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__._; },
 /* harmony export */   "createElement": function() { return /* binding */ jsx; },
 /* harmony export */   "css": function() { return /* binding */ css; },
 /* harmony export */   "jsx": function() { return /* binding */ jsx; },
 /* harmony export */   "keyframes": function() { return /* binding */ keyframes; },
-/* harmony export */   "useTheme": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.a; },
-/* harmony export */   "withEmotionCache": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w; },
-/* harmony export */   "withTheme": function() { return /* reexport safe */ _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.d; }
+/* harmony export */   "useTheme": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.u; },
+/* harmony export */   "withEmotionCache": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w; },
+/* harmony export */   "withTheme": function() { return /* reexport safe */ _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.b; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
-/* harmony import */ var _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./emotion-element-cbed451f.browser.esm.js */ "./node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js");
+/* harmony import */ var _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./emotion-element-6a883da9.browser.esm.js */ "./node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js");
+/* harmony import */ var _emotion_weak_memoize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/weak-memoize */ "./node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js");
 /* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js");
+/* harmony import */ var _emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/use-insertion-effect-with-fallbacks */ "./node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.browser.esm.js");
 
 
 
@@ -903,12 +847,48 @@ __webpack_require__.r(__webpack_exports__);
 
 var pkg = {
 	name: "@emotion/react",
-	version: "11.9.0",
+	version: "11.10.4",
 	main: "dist/emotion-react.cjs.js",
 	module: "dist/emotion-react.esm.js",
 	browser: {
-		"./dist/emotion-react.cjs.js": "./dist/emotion-react.browser.cjs.js",
 		"./dist/emotion-react.esm.js": "./dist/emotion-react.browser.esm.js"
+	},
+	exports: {
+		".": {
+			module: {
+				worker: "./dist/emotion-react.worker.esm.js",
+				browser: "./dist/emotion-react.browser.esm.js",
+				"default": "./dist/emotion-react.esm.js"
+			},
+			"default": "./dist/emotion-react.cjs.js"
+		},
+		"./jsx-runtime": {
+			module: {
+				worker: "./jsx-runtime/dist/emotion-react-jsx-runtime.worker.esm.js",
+				browser: "./jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js",
+				"default": "./jsx-runtime/dist/emotion-react-jsx-runtime.esm.js"
+			},
+			"default": "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"
+		},
+		"./_isolated-hnrs": {
+			module: {
+				worker: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.worker.esm.js",
+				browser: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js",
+				"default": "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.esm.js"
+			},
+			"default": "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.js"
+		},
+		"./jsx-dev-runtime": {
+			module: {
+				worker: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.worker.esm.js",
+				browser: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js",
+				"default": "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.esm.js"
+			},
+			"default": "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.js"
+		},
+		"./package.json": "./package.json",
+		"./types/css-prop": "./types/css-prop.d.ts",
+		"./macro": "./macro.js"
 	},
 	types: "types/index.d.ts",
 	files: [
@@ -929,12 +909,13 @@ var pkg = {
 		"test:typescript": "dtslint types"
 	},
 	dependencies: {
-		"@babel/runtime": "^7.13.10",
-		"@emotion/babel-plugin": "^11.7.1",
-		"@emotion/cache": "^11.7.1",
-		"@emotion/serialize": "^1.0.3",
-		"@emotion/utils": "^1.1.0",
-		"@emotion/weak-memoize": "^0.2.5",
+		"@babel/runtime": "^7.18.3",
+		"@emotion/babel-plugin": "^11.10.0",
+		"@emotion/cache": "^11.10.0",
+		"@emotion/serialize": "^1.1.0",
+		"@emotion/use-insertion-effect-with-fallbacks": "^1.0.0",
+		"@emotion/utils": "^1.2.0",
+		"@emotion/weak-memoize": "^0.3.0",
 		"hoist-non-react-statics": "^3.3.1"
 	},
 	peerDependencies: {
@@ -950,13 +931,12 @@ var pkg = {
 		}
 	},
 	devDependencies: {
-		"@babel/core": "^7.13.10",
-		"@emotion/css": "11.9.0",
-		"@emotion/css-prettifier": "1.0.1",
-		"@emotion/server": "11.4.0",
-		"@emotion/styled": "11.8.1",
-		"@types/react": "^16.9.11",
-		dtslint: "^4.2.1",
+		"@babel/core": "^7.18.5",
+		"@definitelytyped/dtslint": "0.0.112",
+		"@emotion/css": "11.10.0",
+		"@emotion/css-prettifier": "1.1.0",
+		"@emotion/server": "11.10.0",
+		"@emotion/styled": "11.10.4",
 		"html-tag-names": "^1.1.2",
 		react: "16.14.0",
 		"svg-tag-names": "^1.1.1",
@@ -974,22 +954,32 @@ var pkg = {
 			"./jsx-dev-runtime.js",
 			"./_isolated-hnrs.js"
 		],
-		umdName: "emotionReact"
+		umdName: "emotionReact",
+		exports: {
+			envConditions: [
+				"browser",
+				"worker"
+			],
+			extra: {
+				"./types/css-prop": "./types/css-prop.d.ts",
+				"./macro": "./macro.js"
+			}
+		}
 	}
 };
 
 var jsx = function jsx(type, props) {
   var args = arguments;
 
-  if (props == null || !_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.h.call(props, 'css')) {
+  if (props == null || !_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.h.call(props, 'css')) {
     // $FlowFixMe
     return react__WEBPACK_IMPORTED_MODULE_0__.createElement.apply(undefined, args);
   }
 
   var argsLength = args.length;
   var createElementArgArray = new Array(argsLength);
-  createElementArgArray[0] = _emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.E;
-  createElementArgArray[1] = (0,_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.c)(type, props);
+  createElementArgArray[0] = _emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.E;
+  createElementArgArray[1] = (0,_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.c)(type, props);
 
   for (var i = 2; i < argsLength; i++) {
     createElementArgArray[i] = args[i];
@@ -999,12 +989,11 @@ var jsx = function jsx(type, props) {
   return react__WEBPACK_IMPORTED_MODULE_0__.createElement.apply(null, createElementArgArray);
 };
 
-var useInsertionEffect = react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] ? react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] : react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect;
 var warnedAboutCssPropForGlobal = false; // maintain place over rerenders.
 // initial render from browser, insertBefore context.sheet.tags[0] or if a style hasn't been inserted there yet, appendChild
 // initial client-side render from SSR, use place of hydrating tag
 
-var Global = /* #__PURE__ */(0,_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w)(function (props, cache) {
+var Global = /* #__PURE__ */(0,_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w)(function (props, cache) {
   if ( true && !warnedAboutCssPropForGlobal && ( // check for className as well since the user is
   // probably using the custom createElement which
   // means it will be turned into a className prop
@@ -1015,14 +1004,14 @@ var Global = /* #__PURE__ */(0,_emotion_element_cbed451f_browser_esm_js__WEBPACK
   }
 
   var styles = props.styles;
-  var serialized = (0,_emotion_serialize__WEBPACK_IMPORTED_MODULE_7__.serializeStyles)([styles], undefined, (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T));
+  var serialized = (0,_emotion_serialize__WEBPACK_IMPORTED_MODULE_7__.serializeStyles)([styles], undefined, (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T));
   // but it is based on a constant that will never change at runtime
   // it's effectively like having two implementations and switching them out
   // so it's not actually breaking anything
 
 
   var sheetRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  useInsertionEffect(function () {
+  (0,_emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_8__.useInsertionEffectWithLayoutFallback)(function () {
     var key = cache.key + "-global"; // use case of https://github.com/emotion-js/emotion/issues/2675
 
     var sheet = new cache.sheet.constructor({
@@ -1051,7 +1040,7 @@ var Global = /* #__PURE__ */(0,_emotion_element_cbed451f_browser_esm_js__WEBPACK
       sheet.flush();
     };
   }, [cache]);
-  useInsertionEffect(function () {
+  (0,_emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_8__.useInsertionEffectWithLayoutFallback)(function () {
     var sheetRefCurrent = sheetRef.current;
     var sheet = sheetRefCurrent[0],
         rehydrating = sheetRefCurrent[1];
@@ -1169,7 +1158,7 @@ function merge(registered, css, className) {
 var Insertion = function Insertion(_ref) {
   var cache = _ref.cache,
       serializedArr = _ref.serializedArr;
-  var rules = (0,_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.u)(function () {
+  var rules = (0,_emotion_use_insertion_effect_with_fallbacks__WEBPACK_IMPORTED_MODULE_8__.useInsertionEffectAlwaysWithSyncFallback)(function () {
 
     for (var i = 0; i < serializedArr.length; i++) {
       var res = (0,_emotion_utils__WEBPACK_IMPORTED_MODULE_6__.insertStyles)(cache, serializedArr[i], false);
@@ -1179,7 +1168,7 @@ var Insertion = function Insertion(_ref) {
   return null;
 };
 
-var ClassNames = /* #__PURE__ */(0,_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w)(function (props, cache) {
+var ClassNames = /* #__PURE__ */(0,_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.w)(function (props, cache) {
   var hasRendered = false;
   var serializedArr = [];
 
@@ -1214,7 +1203,7 @@ var ClassNames = /* #__PURE__ */(0,_emotion_element_cbed451f_browser_esm_js__WEB
   var content = {
     css: css,
     cx: cx,
-    theme: (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_emotion_element_cbed451f_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T)
+    theme: (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_emotion_element_6a883da9_browser_esm_js__WEBPACK_IMPORTED_MODULE_2__.T)
   };
   var ele = props.children(content);
   hasRendered = true;
@@ -1265,8 +1254,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "serializeStyles": function() { return /* binding */ serializeStyles; }
 /* harmony export */ });
 /* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @emotion/hash */ "./node_modules/@emotion/hash/dist/emotion-hash.esm.js");
-/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js");
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
+/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/unitless/dist/emotion-unitless.esm.js");
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/memoize */ "./node_modules/@emotion/memoize/dist/emotion-memoize.esm.js");
 
 
 
@@ -1583,89 +1572,6 @@ var serializeStyles = function serializeStyles(args, registered, mergedProps) {
 };
 
 
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/@emotion/serialize/node_modules/@emotion/memoize/dist/emotion-memoize.esm.js ***!
-  \***************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (memoize);
-
-
-/***/ }),
-
-/***/ "./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@emotion/serialize/node_modules/@emotion/unitless/dist/emotion-unitless.esm.js ***!
-  \*****************************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var unitlessKeys = {
-  animationIterationCount: 1,
-  borderImageOutset: 1,
-  borderImageSlice: 1,
-  borderImageWidth: 1,
-  boxFlex: 1,
-  boxFlexGroup: 1,
-  boxOrdinalGroup: 1,
-  columnCount: 1,
-  columns: 1,
-  flex: 1,
-  flexGrow: 1,
-  flexPositive: 1,
-  flexShrink: 1,
-  flexNegative: 1,
-  flexOrder: 1,
-  gridRow: 1,
-  gridRowEnd: 1,
-  gridRowSpan: 1,
-  gridRowStart: 1,
-  gridColumn: 1,
-  gridColumnEnd: 1,
-  gridColumnSpan: 1,
-  gridColumnStart: 1,
-  msGridRow: 1,
-  msGridRowSpan: 1,
-  msGridColumn: 1,
-  msGridColumnSpan: 1,
-  fontWeight: 1,
-  lineHeight: 1,
-  opacity: 1,
-  order: 1,
-  orphans: 1,
-  tabSize: 1,
-  widows: 1,
-  zIndex: 1,
-  zoom: 1,
-  WebkitLineClamp: 1,
-  // SVG-related properties
-  fillOpacity: 1,
-  floodOpacity: 1,
-  stopOpacity: 1,
-  strokeDasharray: 1,
-  strokeDashoffset: 1,
-  strokeMiterlimit: 1,
-  strokeOpacity: 1,
-  strokeWidth: 1
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (unitlessKeys);
 
 
 /***/ }),
@@ -2466,9 +2372,9 @@ function stylis_min (W) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/unitless/dist/unitless.browser.esm.js":
+/***/ "./node_modules/@emotion/unitless/dist/emotion-unitless.esm.js":
 /*!*********************************************************************!*\
-  !*** ./node_modules/@emotion/unitless/dist/unitless.browser.esm.js ***!
+  !*** ./node_modules/@emotion/unitless/dist/emotion-unitless.esm.js ***!
   \*********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -2524,6 +2430,36 @@ var unitlessKeys = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (unitlessKeys);
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.browser.esm.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.browser.esm.js ***!
+  \***********************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useInsertionEffectAlwaysWithSyncFallback": function() { return /* binding */ useInsertionEffectAlwaysWithSyncFallback; },
+/* harmony export */   "useInsertionEffectWithLayoutFallback": function() { return /* binding */ useInsertionEffectWithLayoutFallback; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+var syncFallback = function syncFallback(create) {
+  return create();
+};
+
+var useInsertionEffect = react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] ? react__WEBPACK_IMPORTED_MODULE_0__['useInsertion' + 'Effect'] : false;
+var useInsertionEffectAlwaysWithSyncFallback =  useInsertionEffect || syncFallback;
+var useInsertionEffectWithLayoutFallback = useInsertionEffect || react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect;
+
+
 
 
 /***/ }),
@@ -2589,9 +2525,9 @@ var insertStyles = function insertStyles(cache, serialized, isStringTag) {
 
 /***/ }),
 
-/***/ "./node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js":
+/***/ "./node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js":
 /*!*****************************************************************************!*\
-  !*** ./node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js ***!
+  !*** ./node_modules/@emotion/weak-memoize/dist/emotion-weak-memoize.esm.js ***!
   \*****************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -2819,6 +2755,7 @@ function isPlainObject(value) {
 // src/getDefaultMiddleware.ts
 
 // src/utils.ts
+
 function getTimeMeasureUtils(maxDelay, fnName) {
     var elapsed = 0;
     return {
@@ -2876,6 +2813,10 @@ var MiddlewareArray = /** @class */ (function (_super) {
     };
     return MiddlewareArray;
 }(Array));
+function freezeDraftable(val) {
+    return (0,immer__WEBPACK_IMPORTED_MODULE_2__.isDraftable)(val) ? (0,immer__WEBPACK_IMPORTED_MODULE_2__["default"])(val, function () {
+    }) : val;
+}
 // src/immutableStateInvariantMiddleware.ts
 var isProduction = "development" === "production";
 var prefix = "Invariant failed";
@@ -2913,7 +2854,7 @@ function getSerialize(serializer, decycler) {
     };
 }
 function isImmutableDefault(value) {
-    return typeof value !== "object" || value === null || typeof value === "undefined" || Object.isFrozen(value);
+    return typeof value !== "object" || value == null || Object.isFrozen(value);
 }
 function trackForMutations(isImmutable, ignorePaths, obj) {
     var trackedProperties = trackProperties(isImmutable, ignorePaths, obj);
@@ -3004,7 +2945,7 @@ function createImmutableStateInvariantMiddleware(options) {
 // src/serializableStateInvariantMiddleware.ts
 function isPlain(val) {
     var type = typeof val;
-    return type === "undefined" || val === null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || isPlainObject(val);
+    return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || isPlainObject(val);
 }
 function findNonSerializableValue(value, path, isSerializable, getEntries, ignoredPaths) {
     if (path === void 0) { path = ""; }
@@ -3242,12 +3183,10 @@ function createReducer(initialState, mapOrBuilderCallback, actionMatchers, defau
     var _c = typeof mapOrBuilderCallback === "function" ? executeReducerBuilderCallback(mapOrBuilderCallback) : [mapOrBuilderCallback, actionMatchers, defaultCaseReducer], actionsMap = _c[0], finalActionMatchers = _c[1], finalDefaultCaseReducer = _c[2];
     var getInitialState;
     if (isStateFunction(initialState)) {
-        getInitialState = function () { return (0,immer__WEBPACK_IMPORTED_MODULE_2__["default"])(initialState(), function () {
-        }); };
+        getInitialState = function () { return freezeDraftable(initialState()); };
     }
     else {
-        var frozenInitialState_1 = (0,immer__WEBPACK_IMPORTED_MODULE_2__["default"])(initialState, function () {
-        });
+        var frozenInitialState_1 = freezeDraftable(initialState);
         getInitialState = function () { return frozenInitialState_1; };
     }
     function reducer(state, action) {
@@ -3269,14 +3208,14 @@ function createReducer(initialState, mapOrBuilderCallback, actionMatchers, defau
                 if ((0,immer__WEBPACK_IMPORTED_MODULE_2__.isDraft)(previousState)) {
                     var draft = previousState;
                     var result = caseReducer(draft, action);
-                    if (typeof result === "undefined") {
+                    if (result === void 0) {
                         return previousState;
                     }
                     return result;
                 }
                 else if (!(0,immer__WEBPACK_IMPORTED_MODULE_2__.isDraftable)(previousState)) {
                     var result = caseReducer(previousState, action);
-                    if (typeof result === "undefined") {
+                    if (result === void 0) {
                         if (previousState === null) {
                             return previousState;
                         }
@@ -3305,8 +3244,12 @@ function createSlice(options) {
     if (!name) {
         throw new Error("`name` is a required option for createSlice");
     }
-    var initialState = typeof options.initialState == "function" ? options.initialState : (0,immer__WEBPACK_IMPORTED_MODULE_2__["default"])(options.initialState, function () {
-    });
+    if (typeof process !== "undefined" && "development" === "development") {
+        if (options.initialState === void 0) {
+            console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
+        }
+    }
+    var initialState = typeof options.initialState == "function" ? options.initialState : freezeDraftable(options.initialState);
     var reducers = options.reducers || {};
     var reducerNames = Object.keys(reducers);
     var sliceCaseReducersByName = {};
@@ -3542,7 +3485,7 @@ function createUnsortedStateAdapter(selectId) {
         if (didMutateEntities) {
             var didMutateIds = updates.filter(function (update) { return takeNewKey(newKeys, update, state); }).length > 0;
             if (didMutateIds) {
-                state.ids = state.ids.map(function (id) { return newKeys[id] || id; });
+                state.ids = Object.keys(state.entities);
             }
         }
     }
@@ -3600,22 +3543,24 @@ function createSortedStateAdapter(selectId, sort) {
     function updateOneMutably(update, state) {
         return updateManyMutably([update], state);
     }
-    function takeUpdatedModel(models, update, state) {
-        if (!(update.id in state.entities)) {
-            return false;
-        }
-        var original2 = state.entities[update.id];
-        var updated = Object.assign({}, original2, update.changes);
-        var newKey = selectIdValue(updated, selectId);
-        delete state.entities[update.id];
-        models.push(updated);
-        return newKey !== update.id;
-    }
     function updateManyMutably(updates, state) {
-        var models = [];
-        updates.forEach(function (update) { return takeUpdatedModel(models, update, state); });
-        if (models.length !== 0) {
-            merge(models, state);
+        var appliedUpdates = false;
+        for (var _i = 0, updates_1 = updates; _i < updates_1.length; _i++) {
+            var update = updates_1[_i];
+            var entity = state.entities[update.id];
+            if (!entity) {
+                continue;
+            }
+            appliedUpdates = true;
+            Object.assign(entity, update.changes);
+            var newId = selectId(entity);
+            if (update.id !== newId) {
+                delete state.entities[update.id];
+                state.entities[newId] = entity;
+            }
+        }
+        if (appliedUpdates) {
+            resortEntities(state);
         }
     }
     function upsertOneMutably(entity, state) {
@@ -3642,6 +3587,9 @@ function createSortedStateAdapter(selectId, sort) {
         models.forEach(function (model) {
             state.entities[selectId(model)] = model;
         });
+        resortEntities(state);
+    }
+    function resortEntities(state) {
         var allEntities = Object.values(state.entities);
         allEntities.sort(sort);
         var newSortedIds = allEntities.map(selectId);
@@ -3767,6 +3715,9 @@ function createAsyncThunk(typePrefix, payloadCreator, options) {
                 onabort: function () {
                 },
                 removeEventListener: function () {
+                },
+                reason: void 0,
+                throwIfAborted: function () {
                 }
             };
         }
@@ -8042,7 +7993,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    color: #4D4D4D;\n    margin-top: 30px;\n    @media only screen and (max-width: 760px) {\n        flex-direction: column;\n        align-items: center\n    }\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        font-family: 'Inter', sans-serif;\n        background-color: #fff;\n        @media only screen and (max-width: 1199px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 420px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 340px;\n        }\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n        .wpwax-vm-add-form__tab{\n            .wpwax-vm-notice{\n                display: block;\n                /* position: absolute;\n                left: 0;\n                top: 0; */\n                /* height: 675px; */\n                bottom: -14px;\n                font-size: 16px;\n                font-weight: 500;\n                border-radius: 0px;\n                line-height: 1.5;\n                margin: 0;\n                padding: 20px 30px;\n                text-align: center;\n                z-index: 101;\n                color: var(--color-dark);\n                &.wpwax-vm-notice-success{\n                    background-color: rgba(32,201,151,.15);\n                }\n                .wpwax-vm-notice-close{\n                    position: absolute;\n                    top: 12px;\n                    right: 10px;\n                    text-decoration: none;\n                    margin: 0;\n                    line-height: 1;\n                    span{\n                        font-size: 18px;\n                        color: var(--color-danger);\n                    }\n                }\n                a{\n                    color: rgba(32,201,151,1);\n                    font-weight: 600;\n                    margin: 0 4px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid #ededed;\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        padding-bottom: 15px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-white);\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 15px;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 5px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: #e2e2e2;\n        @media only screen and (max-width: 1199px) {\n            padding: 14px;\n        }\n        @media only screen and (max-width: 991px) {\n            text-align: center;\n        }\n        @media only screen and (max-width: 960px) {\n            text-align: left;\n        }\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: #000;\n            @media only screen and (max-width: 1199px) {\n                font-size: 13px;\n                padding: 0 8px;\n            }\n            @media only screen and (max-width: 767px) {\n                padding: 0 16px;\n            }\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: #fff;\n                transition: background-color .3s ease-in-out;\n                background-color: #6551f2;\n                &:hover{\n                    background-color: #3e2bc5;\n                }\n            }\n        }\n        .wpwax-vm-add-form__top--btn[disabled]{\n            opacity: .5;\n            cursor: not-allowed;\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 22px 30px 20px;\n        height: 555px;\n        overflow-y: scroll;\n        @media only screen and (max-width: 1399px) {\n            height: 480px;\n        }\n        @media only screen and (max-width: 1024px) {\n            padding: 15px 15px 25px;\n        }\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: #fff;\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: #e2e2e2;\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    display: inline-flex;\n                    align-items: center;\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: #030308;\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-right: 10px;\n                        path{\n                            fill: rgb(137, 137, 137)\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span,\n                    >label{\n                        margin-right: 45px;\n                        min-width: 70px;\n                        @media only screen and (max-width: 1199px) {\n                            margin-right: 10px;\n                        }\n                    }\n                    input{\n                        min-width: 208px;\n                        text-align: center;\n                        @media only screen and (max-width: 1199px) {\n                            min-width: 168px;\n                        }\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            font-size: 14px;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span,\n            >label{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                width: 130px;\n                color: #030308;\n                @media only screen and (max-width: 1199px) {\n                    min-width: 95px;\n                    width: 95px;\n                    margin-right: 10px;\n                }\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 10px;\n            margin: 0;\n            background-color: #fff;\n            z-index: 100;\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            \n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 8px 10px;\n                cursor: pointer;\n                border-radius: 8px;\n                color: #000;\n                &:not(:last-child){\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-checkbox{\n                    align-items: center;\n                    label{\n                        width: 100%;\n                        padding: 0 12px 0;\n                    }\n                }\n                &:hover,\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: var(--color-bg-general);\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            .wpwax-vm-select__value-container{\n                &.wpwax-vm-select__value-container--is-multi{\n                    padding: 5px 8px 5px 12px;\n                    .wpwax-vm-select__input-container{\n                        .wpwax-vm-select__input{\n                            min-height: auto;\n                        }\n                    }\n                    .wpwax-vm-select__option{\n                        margin: 3px 0;\n                    }\n                }\n            }\n        }\n        \n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    min-height: 22px;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 2px solid transparent;\n            border-radius: 6px;\n            background-color: #ededed;\n            min-height: 40px;\n            &.wpwax-vm-select__control--is-focused{\n                border-color: var(--color-dark);\n            }\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n            .wpwax-vm-select__value-container{\n                padding: 2px 8px 2px 12px;\n            }\n            .wpwax-vm-select__indicator{\n                padding: 8px 10px 8px 8px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n        .wpwax-vm-select__single-value{\n            font-size: 14px;\n            font-weight: 500;\n            color: #4D4D4D;\n        }\n        .css-1pahdxg-control{\n            // border: 0 none;\n            box-shadow: 0 0;\n            background-color: #ededed;\n            // &:hover{\n            //     border-color: transparent;\n            // }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin: 0 0 15px;\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__content{\n            .wpwax-vm-notice{\n                display: flex;\n                font-size: 14px;\n                line-height: 1.35;\n                text-align: left;\n                border-radius: 8px;\n                padding: 0 15px;\n                margin: 0 0 15px;\n                bottom: 0;\n                min-height: 46px;\n                &.wpwax-vm-notice-danger{\n                    color: var(--color-danger);\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        transition: background-color .3s ease-in-out;\n        background-color: #6551f2;\n        &:hover{\n            background-color: #3e2bc5;\n        }\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: #ffffff;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        @media only screen and (max-width: 1399px) {\n            padding-top: 60px;\n        }\n        @media only screen and (max-width: 1299px) {\n            margin-left: 0px;\n        }\n        /* @media only screen and (max-width: 760px) {\n            display: none;\n        } */\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: #ededed;\n        .wpwax-vm-upload-trigger{\n            a{\n                color: #000000;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: #000000;\n            background-color: #ffffff;\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: #ededed;\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: #000000;\n            background-color: #ffffff;\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    color: #4D4D4D;\n    margin-top: 30px;\n    @media only screen and (max-width: 760px) {\n        flex-direction: column;\n        align-items: center\n    }\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        font-family: 'Inter', sans-serif;\n        background-color: #fff;\n        @media only screen and (max-width: 1199px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 420px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 340px;\n        }\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n        .wpwax-vm-add-form__tab{\n            .wpwax-vm-notice{\n                display: block;\n                /* position: absolute;\n                left: 0;\n                top: 0; */\n                /* height: 675px; */\n                bottom: -14px;\n                font-size: 16px;\n                font-weight: 500;\n                border-radius: 0px;\n                line-height: 1.5;\n                margin: 0;\n                padding: 20px 30px;\n                text-align: center;\n                z-index: 101;\n                color: var(--color-dark);\n                &.wpwax-vm-notice-success{\n                    background-color: rgba(32,201,151,.15);\n                }\n                .wpwax-vm-notice-close{\n                    position: absolute;\n                    top: 12px;\n                    right: 10px;\n                    text-decoration: none;\n                    margin: 0;\n                    line-height: 1;\n                    span{\n                        font-size: 18px;\n                        color: var(--color-danger);\n                    }\n                }\n                a{\n                    color: rgba(32,201,151,1);\n                    font-weight: 600;\n                    margin: 0 4px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid #ededed;\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        padding-bottom: 15px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-white);\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 15px;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 5px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: #e2e2e2;\n        @media only screen and (max-width: 1199px) {\n            padding: 14px;\n        }\n        @media only screen and (max-width: 991px) {\n            text-align: center;\n        }\n        @media only screen and (max-width: 960px) {\n            text-align: left;\n        }\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: #000;\n            @media only screen and (max-width: 1199px) {\n                font-size: 13px;\n                padding: 0 8px;\n            }\n            @media only screen and (max-width: 767px) {\n                padding: 0 16px;\n            }\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: #fff;\n                transition: background-color .3s ease-in-out;\n                background-color: #6551f2;\n                &:hover{\n                    background-color: #3e2bc5;\n                }\n            }\n        }\n        .wpwax-vm-add-form__top--btn[disabled]{\n            opacity: .5;\n            cursor: not-allowed;\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 22px 30px 20px;\n        height: 555px;\n        overflow-y: scroll;\n        @media only screen and (max-width: 1399px) {\n            height: 480px;\n        }\n        @media only screen and (max-width: 1024px) {\n            padding: 15px 15px 25px;\n        }\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: #fff;\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: #e2e2e2;\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    display: inline-flex;\n                    align-items: center;\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: #030308;\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-right: 10px;\n                        path{\n                            fill: rgb(137, 137, 137)\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span,\n                    >label{\n                        margin-right: 45px;\n                        min-width: 70px;\n                        @media only screen and (max-width: 1199px) {\n                            margin-right: 10px;\n                        }\n                    }\n                    input{\n                        min-width: 208px;\n                        text-align: center;\n                        @media only screen and (max-width: 1199px) {\n                            min-width: 168px;\n                        }\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            font-size: 14px;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span,\n            >label{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                width: 130px;\n                color: #030308;\n                @media only screen and (max-width: 1199px) {\n                    min-width: 95px;\n                    width: 95px;\n                    margin-right: 10px;\n                }\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 10px;\n            margin: 0;\n            background-color: #fff;\n            z-index: 100;\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            \n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 8px 10px;\n                cursor: pointer;\n                border-radius: 8px;\n                color: #000;\n                &:not(:last-child){\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-checkbox{\n                    align-items: center;\n                    label{\n                        width: 100%;\n                        padding: 0 12px 0;\n                    }\n                }\n                &:hover,\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: var(--color-bg-general);\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            .wpwax-vm-select__value-container{\n                &.wpwax-vm-select__value-container--is-multi{\n                    padding: 5px 8px 5px 12px;\n                    .wpwax-vm-select__input-container{\n                        .wpwax-vm-select__input{\n                            min-height: auto;\n                        }\n                    }\n                    .wpwax-vm-select__option{\n                        margin: 3px 0;\n                    }\n                }\n            }\n        }\n        \n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    min-height: 22px;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 2px solid transparent;\n            border-radius: 6px;\n            background-color: #ededed;\n            min-height: 40px;\n            &.wpwax-vm-select__control--is-focused{\n                border-color: var(--color-dark);\n            }\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n            .wpwax-vm-select__value-container{\n                padding: 2px 8px 2px 12px;\n            }\n            .wpwax-vm-select__indicator{\n                padding: 8px 10px 8px 8px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n        .wpwax-vm-select__single-value{\n            font-size: 14px;\n            font-weight: 500;\n            color: #4D4D4D;\n        }\n        .css-1pahdxg-control{\n            // border: 0 none;\n            box-shadow: 0 0;\n            background-color: #ededed;\n            // &:hover{\n            //     border-color: transparent;\n            // }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin: 0 0 15px;\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__content{\n            .wpwax-vm-notice{\n                display: flex;\n                font-size: 14px;\n                line-height: 1.35;\n                text-align: left;\n                border-radius: 8px;\n                padding: 0 15px;\n                margin: 0 0 15px;\n                bottom: 0;\n                min-height: 46px;\n                &.wpwax-vm-notice-danger{\n                    color: var(--color-danger);\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        transition: background-color .3s ease-in-out;\n        background-color: #6551f2;\n        &:hover{\n            background-color: #3e2bc5;\n        }\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: #ffffff;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        @media only screen and (max-width: 1399px) {\n            padding-top: 60px;\n        }\n        @media only screen and (max-width: 1299px) {\n            margin-left: 0px;\n        }\n        /* @media only screen and (max-width: 760px) {\n            display: none;\n        } */\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: #ededed;\n        .wpwax-vm-upload-trigger{\n            a{\n                color: #000000;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: #000000;\n            background-color: #ffffff;\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: #ededed;\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: #000000;\n            background-color: #ffffff;\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"])));
+var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: flex-start;\n    color: #4D4D4D;\n    margin-top: 30px;\n    @media only screen and (max-width: 760px) {\n        flex-direction: column;\n        align-items: center\n    }\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        font-family: 'Inter';\n        background-color: #fff;\n        @media only screen and (max-width: 1199px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 420px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 340px;\n        }\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n        .wpwax-vm-add-form__tab{\n            .wpwax-vm-notice{\n                display: block;\n                /* position: absolute;\n                left: 0;\n                top: 0; */\n                /* height: 675px; */\n                bottom: -14px;\n                font-size: 16px;\n                font-weight: 500;\n                border-radius: 0px;\n                line-height: 1.5;\n                margin: 0;\n                padding: 20px 30px;\n                text-align: center;\n                z-index: 101;\n                color: var(--color-dark);\n                &.wpwax-vm-notice-success{\n                    background-color: rgba(32,201,151,.15);\n                }\n                .wpwax-vm-notice-close{\n                    position: absolute;\n                    top: 12px;\n                    right: 10px;\n                    text-decoration: none;\n                    margin: 0;\n                    line-height: 1;\n                    span{\n                        font-size: 18px;\n                        color: var(--color-danger);\n                    }\n                }\n                a{\n                    color: rgba(32,201,151,1);\n                    font-weight: 600;\n                    margin: 0 4px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid #ededed;\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        padding-bottom: 15px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-white);\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 15px;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 5px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: #e2e2e2;\n        @media only screen and (max-width: 1199px) {\n            padding: 14px;\n        }\n        @media only screen and (max-width: 991px) {\n            text-align: center;\n        }\n        @media only screen and (max-width: 960px) {\n            text-align: left;\n        }\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: #000;\n            @media only screen and (max-width: 1199px) {\n                font-size: 13px;\n                padding: 0 8px;\n            }\n            @media only screen and (max-width: 767px) {\n                padding: 0 16px;\n            }\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: #fff;\n                transition: background-color .3s ease-in-out;\n                background-color: #6551f2;\n                &:hover{\n                    background-color: #3e2bc5;\n                }\n            }\n        }\n        .wpwax-vm-add-form__top--btn[disabled]{\n            opacity: .5;\n            cursor: not-allowed;\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 22px 30px 20px;\n        height: 555px;\n        overflow-y: scroll;\n        @media only screen and (max-width: 1399px) {\n            height: 480px;\n        }\n        @media only screen and (max-width: 1024px) {\n            padding: 15px 15px 25px;\n        }\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: #fff;\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: #e2e2e2;\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    display: inline-flex;\n                    align-items: center;\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: #030308;\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-right: 10px;\n                        path{\n                            fill: rgb(137, 137, 137)\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span,\n                    >label{\n                        margin-right: 45px;\n                        min-width: 70px;\n                        @media only screen and (max-width: 1199px) {\n                            margin-right: 10px;\n                        }\n                    }\n                    input{\n                        min-width: 208px;\n                        text-align: center;\n                        @media only screen and (max-width: 1199px) {\n                            min-width: 168px;\n                        }\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            font-size: 14px;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span,\n            >label{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                width: 130px;\n                color: #030308;\n                @media only screen and (max-width: 1199px) {\n                    min-width: 95px;\n                    width: 95px;\n                    margin-right: 10px;\n                }\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 10px;\n            margin: 0;\n            background-color: #fff;\n            z-index: 100;\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            \n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 8px 10px;\n                cursor: pointer;\n                border-radius: 8px;\n                color: #000;\n                &:not(:last-child){\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-checkbox{\n                    align-items: center;\n                    label{\n                        width: 100%;\n                        padding: 0 12px 0;\n                    }\n                }\n                &:hover,\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: var(--color-bg-general);\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            .wpwax-vm-select__value-container{\n                &.wpwax-vm-select__value-container--is-multi{\n                    padding: 5px 8px 5px 12px;\n                    .wpwax-vm-select__input-container{\n                        .wpwax-vm-select__input{\n                            min-height: auto;\n                        }\n                    }\n                    .wpwax-vm-select__option{\n                        margin: 3px 0;\n                    }\n                }\n            }\n        }\n        \n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    min-height: 22px;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 2px solid transparent;\n            border-radius: 6px;\n            background-color: #ededed;\n            min-height: 40px;\n            &.wpwax-vm-select__control--is-focused{\n                border-color: var(--color-dark);\n            }\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n            .wpwax-vm-select__value-container{\n                padding: 2px 8px 2px 12px;\n            }\n            .wpwax-vm-select__indicator{\n                padding: 8px 10px 8px 8px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n        .wpwax-vm-select__single-value{\n            font-size: 14px;\n            font-weight: 500;\n            color: #4D4D4D;\n        }\n        .css-1pahdxg-control{\n            // border: 0 none;\n            box-shadow: 0 0;\n            background-color: #ededed;\n            // &:hover{\n            //     border-color: transparent;\n            // }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin: 0 0 15px;\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__content{\n            .wpwax-vm-notice{\n                display: flex;\n                font-size: 14px;\n                line-height: 1.35;\n                text-align: left;\n                border-radius: 8px;\n                padding: 0 15px;\n                margin: 0 0 15px;\n                bottom: 0;\n                min-height: 46px;\n                &.wpwax-vm-notice-danger{\n                    color: var(--color-danger);\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        transition: background-color .3s ease-in-out;\n        background-color: #6551f2;\n        &:hover{\n            background-color: #3e2bc5;\n        }\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: #ffffff;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        @media only screen and (max-width: 1399px) {\n            padding-top: 60px;\n        }\n        @media only screen and (max-width: 1299px) {\n            margin-left: 0px;\n        }\n        /* @media only screen and (max-width: 760px) {\n            display: none;\n        } */\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: #ededed;\n        .wpwax-vm-upload-trigger{\n            a{\n                color: #000000;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: #000000;\n            background-color: #ffffff;\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: #ededed;\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: #000000;\n            background-color: #ffffff;\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"], ["\n    display: flex;\n    align-items: flex-start;\n    color: #4D4D4D;\n    margin-top: 30px;\n    @media only screen and (max-width: 760px) {\n        flex-direction: column;\n        align-items: center\n    }\n    .wpwax-vm-add-form{\n        position: relative;\n        width: 420px;\n        border-radius: 14px;\n        z-index: 10;\n        font-family: 'Inter';\n        background-color: #fff;\n        @media only screen and (max-width: 1199px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 420px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 340px;\n        }\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 100;\n        }\n        &.wpwax-vm-loder-active{\n            &:after{\n                border-radius: 14px;\n            }\n        }\n        .wpwax-vm-add-form__tab{\n            .wpwax-vm-notice{\n                display: block;\n                /* position: absolute;\n                left: 0;\n                top: 0; */\n                /* height: 675px; */\n                bottom: -14px;\n                font-size: 16px;\n                font-weight: 500;\n                border-radius: 0px;\n                line-height: 1.5;\n                margin: 0;\n                padding: 20px 30px;\n                text-align: center;\n                z-index: 101;\n                color: var(--color-dark);\n                &.wpwax-vm-notice-success{\n                    background-color: rgba(32,201,151,.15);\n                }\n                .wpwax-vm-notice-close{\n                    position: absolute;\n                    top: 12px;\n                    right: 10px;\n                    text-decoration: none;\n                    margin: 0;\n                    line-height: 1;\n                    span{\n                        font-size: 18px;\n                        color: var(--color-danger);\n                    }\n                }\n                a{\n                    color: rgba(32,201,151,1);\n                    font-weight: 600;\n                    margin: 0 4px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-form-group{\n        margin-bottom: 16px;\n        &:not(:last-child){\n            padding-bottom: 20px;\n            border-bottom: 1px solid #ededed;\n        }\n        .wpwax-vm-form-group__label{\n            .wpwax-vm-btn-collapsable{\n                text-decoration: none;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &.wpwax-vm-open{\n                    .dashicons-arrow-down-alt2 {\n                        &:before{\n                            content: '\\f343';\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        padding-bottom: 15px;\n        border-radius: 14px 14px 0 0;\n        background-color: var(--color-white);\n        .wpwax-vm-add-form__top{\n            margin: 0;\n        }\n        .wpwax-vm-text-highlighted {\n            padding: 25px 30px 15px;\n        }\n        .wpwax-vm-notice{\n            margin: 20px 30px 5px;\n        }\n    }\n    .wpwax-vm-add-form__top{\n        padding: 20px;\n        border-radius: 14px 14px 0 0;\n        background-color: #e2e2e2;\n        @media only screen and (max-width: 1199px) {\n            padding: 14px;\n        }\n        @media only screen and (max-width: 991px) {\n            text-align: center;\n        }\n        @media only screen and (max-width: 960px) {\n            text-align: left;\n        }\n        .wpwax-vm-add-form__top--btn{\n            display: inline-flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            min-height: 36px;\n            padding: 0 16px;\n            text-decoration: none;\n            border-radius: 8px;\n            cursor: pointer;\n            color: #000;\n            @media only screen and (max-width: 1199px) {\n                font-size: 13px;\n                padding: 0 8px;\n            }\n            @media only screen and (max-width: 767px) {\n                padding: 0 16px;\n            }\n            &:focus{\n                outline: 0 none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-add-form__top--btn-selected{\n                font-weight: 700;\n                color: #fff;\n                transition: background-color .3s ease-in-out;\n                background-color: #6551f2;\n                &:hover{\n                    background-color: #3e2bc5;\n                }\n            }\n        }\n        .wpwax-vm-add-form__top--btn[disabled]{\n            opacity: .5;\n            cursor: not-allowed;\n        }\n    }\n    .wpwax-vm-add-form__content{\n        padding: 22px 30px 20px;\n        height: 555px;\n        overflow-y: scroll;\n        @media only screen and (max-width: 1399px) {\n            height: 480px;\n        }\n        @media only screen and (max-width: 1024px) {\n            padding: 15px 15px 25px;\n        }\n        &::-webkit-scrollbar{\n            width: 8px;\n        }\n        &::-webkit-scrollbar-track{\n            background-color: #fff;\n        }\n        &::-webkit-scrollbar-thumb{\n            border-radius: 5px;\n            height: 200px;\n            background-color: #e2e2e2;\n        }\n        .wpwax-vm-switch-list,\n        .wpwax-vm-chekbox-list,\n        .wpwax-vm-radio-list{\n            margin-top: 18px;\n            .wpwax-vm-switch-single,\n            .wpwax-vm-chekbox-single,\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                span{\n                    display: inline-flex;\n                    align-items: center;\n                    font-size: 14px;\n                    font-weight: 500;\n                    position: relative;\n                    top: -2px;\n                    line-height: 1;\n                    color: #030308;\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-right: 10px;\n                        path{\n                            fill: rgb(137, 137, 137)\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-group__input-list {\n            margin-top: 14px;\n            &.wpwax-vm-addbtn-style{\n                .wpwax-vm-form-group__input-single{\n                    span,\n                    >label{\n                        margin-right: 45px;\n                        min-width: 70px;\n                        @media only screen and (max-width: 1199px) {\n                            margin-right: 10px;\n                        }\n                    }\n                    input{\n                        min-width: 208px;\n                        text-align: center;\n                        @media only screen and (max-width: 1199px) {\n                            min-width: 168px;\n                        }\n                    }\n                }\n            }\n            \n            &.wpwax-vm-hide{\n                display: none;\n            }\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n        .wpwax-vm-form-group__input-single{\n            display: flex;\n            justify-content: space-between;\n            font-size: 14px;\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n            span,\n            >label{\n                font-size: 14px;\n                font-weight: 500;\n                display: inline-block;\n                margin-right: 15px;\n                min-width: 130px;\n                width: 130px;\n                color: #030308;\n                @media only screen and (max-width: 1199px) {\n                    min-width: 95px;\n                    width: 95px;\n                    margin-right: 10px;\n                }\n            }\n            .wpwax-vm-form__element{\n                flex: 1;\n            }\n            .wpwax-vm-form__input-radius{\n                input{\n                    max-width: 70px;\n                    text-align: center;\n                }\n            }\n        }\n\n        .wpwax-vm-select__control{\n            cursor: pointer;\n        }\n        \n        .wpwax-vm-select__menu{\n            border-radius: 10px;\n            border: 0 none;\n            border-radius: 10px;\n            padding: 8px 10px;\n            margin: 0;\n            background-color: #fff;\n            z-index: 100;\n            box-shadow: 0 5px 10px rgba(0,0,0,.16);\n            \n            .wpwax-vm-select__option{\n                font-size: 14px;\n                font-weight: 500;\n                padding: 8px 10px;\n                cursor: pointer;\n                border-radius: 8px;\n                color: #000;\n                &:not(:last-child){\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-checkbox label{\n                    font-size: 13px;\n                    font-weight: 400;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-checkbox{\n                    align-items: center;\n                    label{\n                        width: 100%;\n                        padding: 0 12px 0;\n                    }\n                }\n                &:hover,\n                &.wpwax-vm-select__option--is-focused,\n                &.wpwax-vm-select__option--is-selected{\n                    background-color: var(--color-bg-general);\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            .wpwax-vm-select__value-container{\n                &.wpwax-vm-select__value-container--is-multi{\n                    padding: 5px 8px 5px 12px;\n                    .wpwax-vm-select__input-container{\n                        .wpwax-vm-select__input{\n                            min-height: auto;\n                        }\n                    }\n                    .wpwax-vm-select__option{\n                        margin: 3px 0;\n                    }\n                }\n            }\n        }\n        \n        .css-b62m3t-container{\n            width: 100%;\n            .wpwax-vm-select__input-container{\n                input{\n                    color: #898989;\n                    min-height: 22px;\n                    &:focus{\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-select__control{\n            border: 2px solid transparent;\n            border-radius: 6px;\n            background-color: #ededed;\n            min-height: 40px;\n            &.wpwax-vm-select__control--is-focused{\n                border-color: var(--color-dark);\n            }\n            .wpwax-vm-select__indicator-separator{\n                display: none;\n            }\n            .wpwax-vm-select__value-container{\n                padding: 2px 8px 2px 12px;\n            }\n            .wpwax-vm-select__indicator{\n                padding: 8px 10px 8px 8px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n        .wpwax-vm-select__single-value{\n            font-size: 14px;\n            font-weight: 500;\n            color: #4D4D4D;\n        }\n        .css-1pahdxg-control{\n            // border: 0 none;\n            box-shadow: 0 0;\n            background-color: #ededed;\n            // &:hover{\n            //     border-color: transparent;\n            // }\n        }\n        .css-1okebmr-indicatorSeparator{\n            min-width: auto;\n            background-color: transparent;\n        }\n        .wpwax-vm-notice{\n            margin: 0 0 15px;\n        }\n    }\n    .wpwax-vm-add-form__tab{\n        .wpwax-vm-add-form__content{\n            .wpwax-vm-notice{\n                display: flex;\n                font-size: 14px;\n                line-height: 1.35;\n                text-align: left;\n                border-radius: 8px;\n                padding: 0 15px;\n                margin: 0 0 15px;\n                bottom: 0;\n                min-height: 46px;\n                &.wpwax-vm-notice-danger{\n                    color: var(--color-danger);\n                }\n            }\n        }\n    }\n    .wpwax-vm-add-form__bottom{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 0 0 14px 14px;\n        padding: 12px 0;\n        transition: background-color .3s ease-in-out;\n        background-color: #6551f2;\n        &:hover{\n            background-color: #3e2bc5;\n        }\n        a{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 100%;\n            font-size: 17px;\n            font-weight: 600;\n            min-height: 24px;\n            text-decoration: none;\n            color: #ffffff;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            svg{\n                margin-left: 10px;\n            }\n        }\n        button{\n            font-size: 17px;\n            font-weight: 600;\n            border: 0 none;\n            color: #fff;\n            padding: 0;\n            min-height: 24px;\n            width: 100%;\n            cursor: pointer;\n            background: transparent;\n        }\n    }\n    .wpwax-vm-preview{\n        flex: auto;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        padding-top: 80px;\n        margin-left: -70px;\n        z-index: 0;\n        @media only screen and (max-width: 1399px) {\n            padding-top: 60px;\n        }\n        @media only screen and (max-width: 1299px) {\n            margin-left: 0px;\n        }\n        /* @media only screen and (max-width: 760px) {\n            display: none;\n        } */\n        .wpwax-vm-preview-label{\n            font-size: 14px;\n            font-weight: 500;\n            display: inline-flex;\n            align-items: center;\n            margin-bottom: 22px;\n            color: #7C7C7C;\n            svg{\n                position: relative;\n                top: 3px;\n                margin-right: 5px;\n            }\n        }\n    }\n    .wpwax-vm-uploader{\n        position: relative;\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n        justify-content: center;\n        min-height: 210px;\n        border-radius: 12px;\n        border: 1px dashed #BEBEBE;\n        background-color: #ededed;\n        .wpwax-vm-upload-trigger{\n            a{\n                color: #000000;\n            }\n        }\n        .wpwax-vm-media-btn{\n            display: flex;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            text-align: center;\n            color: #000000;\n            background-color: #ffffff;\n        }\n        .wpwax-vm-seperation{\n            display: block;\n            font-size: 13px;\n            font-weight: 500;\n            color: #898989;\n            margin: 7px 0;\n        }\n        a{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        &.wpax-vm-has-src{\n            border: 0 none;\n            min-height: 200px;\n        }\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 12px;\n        background-color: #ededed;\n        z-index: 10;\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            bottom: 15px;\n            transform: translateX(-50%);\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            font-size: 14px;\n            font-weight: 500;\n            border-radius: 8px;\n            min-height: 40px;\n            padding: 0 20px;\n            color: #000000;\n            background-color: #ffffff;\n            .wpwax-vm-media-preview__replace--icon{\n                position: relative;\n                top: 2px;\n                margin-right: 8px;\n            }\n        }\n        .wpwax-vm-media-preview__src{\n            height: 100%;\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 12px;\n            }\n            video{\n                height: 100%;\n                width: 100%;\n                object-fit: cover;\n                border-radius: 12px;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -8121,7 +8072,7 @@ var fontOptions = [{
   value: "Roboto,sans-serif",
   label: "Roboto"
 }, {
-  value: "Inter,sans-serif",
+  value: "Inter",
   label: "Inter"
 }, {
   value: "Legend,sans-serif",
@@ -10410,7 +10361,7 @@ var formData = [{
     "thank_page_cta_button_color": "#236551F2",
     "thank_page_cta_button_text_color": "#23ffffff",
     "thank_page_cta_button_radius": "10",
-    "font_family": "Inter,sans-serif",
+    "font_family": "Inter",
     "font_color": "#23ffffff",
     "button_color": "#6551f2",
     "button_border_radius": "10",
@@ -11141,7 +11092,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
 
 /***/ }),
 
@@ -11153,7 +11104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -11177,7 +11128,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -11189,7 +11140,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
 
 /***/ }),
 
@@ -11225,7 +11176,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -13150,6 +13101,7 @@ function shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag) 
   }
 
   if (isCustomComponentTag) {
+
     return false;
   }
 
@@ -13464,7 +13416,7 @@ function getValueForProperty(node, name, expected, propertyInfo) {
  * attributes have multiple equivalent values.
  */
 
-function getValueForAttribute(node, name, expected) {
+function getValueForAttribute(node, name, expected, isCustomComponentTag) {
   {
     if (!isAttributeNameSafe(name)) {
       return;
@@ -13504,7 +13456,7 @@ function setValueForProperty(node, name, value, isCustomComponentTag) {
 
   if (shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag)) {
     value = null;
-  } // If the prop isn't in the special list, treat it as a simple attribute.
+  }
 
 
   if (isCustomComponentTag || propertyInfo === null) {
@@ -13581,26 +13533,28 @@ function setValueForProperty(node, name, value, isCustomComponentTag) {
 }
 
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_SCOPE_TYPE =  Symbol.for('react.scope');
-var REACT_DEBUG_TRACING_MODE_TYPE =  Symbol.for('react.debug_trace_mode');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var REACT_LEGACY_HIDDEN_TYPE =  Symbol.for('react.legacy_hidden');
-var REACT_CACHE_TYPE =  Symbol.for('react.cache');
-var REACT_TRACING_MARKER_TYPE =  Symbol.for('react.tracing_marker');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_SCOPE_TYPE = Symbol.for('react.scope');
+var REACT_DEBUG_TRACING_MODE_TYPE = Symbol.for('react.debug_trace_mode');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var REACT_LEGACY_HIDDEN_TYPE = Symbol.for('react.legacy_hidden');
+var REACT_CACHE_TYPE = Symbol.for('react.cache');
+var REACT_TRACING_MARKER_TYPE = Symbol.for('react.tracing_marker');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -23899,10 +23853,8 @@ function clearContainer(container) {
   if (container.nodeType === ELEMENT_NODE) {
     container.textContent = '';
   } else if (container.nodeType === DOCUMENT_NODE) {
-    var body = container.body;
-
-    if (body != null) {
-      body.textContent = '';
+    if (container.documentElement) {
+      container.removeChild(container.documentElement);
     }
   }
 } // -------------------
@@ -23937,6 +23889,38 @@ function isSuspenseInstancePending(instance) {
 }
 function isSuspenseInstanceFallback(instance) {
   return instance.data === SUSPENSE_FALLBACK_START_DATA;
+}
+function getSuspenseInstanceFallbackErrorDetails(instance) {
+  var dataset = instance.nextSibling && instance.nextSibling.dataset;
+  var digest, message, stack;
+
+  if (dataset) {
+    digest = dataset.dgst;
+
+    {
+      message = dataset.msg;
+      stack = dataset.stck;
+    }
+  }
+
+  {
+    return {
+      message: message,
+      digest: digest,
+      stack: stack
+    };
+  } // let value = {message: undefined, hash: undefined};
+  // const nextSibling = instance.nextSibling;
+  // if (nextSibling) {
+  //   const dataset = ((nextSibling: any): HTMLTemplateElement).dataset;
+  //   value.message = dataset.msg;
+  //   value.hash = dataset.hash;
+  //   if (true) {
+  //     value.stack = dataset.stack;
+  //   }
+  // }
+  // return value;
+
 }
 function registerSuspenseInstanceRetry(instance, callback) {
   instance._reactRetry = callback;
@@ -24754,6 +24738,682 @@ function flushSyncCallbacks() {
   return null;
 }
 
+// TODO: Use the unified fiber stack module instead of this local one?
+// Intentionally not using it yet to derisk the initial implementation, because
+// the way we push/pop these values is a bit unusual. If there's a mistake, I'd
+// rather the ids be wrong than crash the whole reconciler.
+var forkStack = [];
+var forkStackIndex = 0;
+var treeForkProvider = null;
+var treeForkCount = 0;
+var idStack = [];
+var idStackIndex = 0;
+var treeContextProvider = null;
+var treeContextId = 1;
+var treeContextOverflow = '';
+function isForkedChild(workInProgress) {
+  warnIfNotHydrating();
+  return (workInProgress.flags & Forked) !== NoFlags;
+}
+function getForksAtLevel(workInProgress) {
+  warnIfNotHydrating();
+  return treeForkCount;
+}
+function getTreeId() {
+  var overflow = treeContextOverflow;
+  var idWithLeadingBit = treeContextId;
+  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
+  return id.toString(32) + overflow;
+}
+function pushTreeFork(workInProgress, totalChildren) {
+  // This is called right after we reconcile an array (or iterator) of child
+  // fibers, because that's the only place where we know how many children in
+  // the whole set without doing extra work later, or storing addtional
+  // information on the fiber.
+  //
+  // That's why this function is separate from pushTreeId — it's called during
+  // the render phase of the fork parent, not the child, which is where we push
+  // the other context values.
+  //
+  // In the Fizz implementation this is much simpler because the child is
+  // rendered in the same callstack as the parent.
+  //
+  // It might be better to just add a `forks` field to the Fiber type. It would
+  // make this module simpler.
+  warnIfNotHydrating();
+  forkStack[forkStackIndex++] = treeForkCount;
+  forkStack[forkStackIndex++] = treeForkProvider;
+  treeForkProvider = workInProgress;
+  treeForkCount = totalChildren;
+}
+function pushTreeId(workInProgress, totalChildren, index) {
+  warnIfNotHydrating();
+  idStack[idStackIndex++] = treeContextId;
+  idStack[idStackIndex++] = treeContextOverflow;
+  idStack[idStackIndex++] = treeContextProvider;
+  treeContextProvider = workInProgress;
+  var baseIdWithLeadingBit = treeContextId;
+  var baseOverflow = treeContextOverflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
+  // of the id; we use it to account for leading 0s.
+
+  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
+  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
+  var slot = index + 1;
+  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
+  // consideration the leading 1 we use to mark the end of the sequence.
+
+  if (length > 30) {
+    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
+    // This branch assumes the length of the base id is greater than 5; it won't
+    // work for smaller ids, because you need 5 bits per character.
+    //
+    // We encode the id in multiple steps: first the base id, then the
+    // remaining digits.
+    //
+    // Each 5 bit sequence corresponds to a single base 32 character. So for
+    // example, if the current id is 23 bits long, we can convert 20 of those
+    // bits into a string of 4 characters, with 3 bits left over.
+    //
+    // First calculate how many bits in the base id represent a complete
+    // sequence of characters.
+    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
+
+    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
+
+    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
+
+    var restOfBaseId = baseId >> numberOfOverflowBits;
+    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
+    // we made more room, this time it won't overflow.
+
+    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
+    var restOfNewBits = slot << restOfBaseLength;
+    var id = restOfNewBits | restOfBaseId;
+    var overflow = newOverflow + baseOverflow;
+    treeContextId = 1 << restOfLength | id;
+    treeContextOverflow = overflow;
+  } else {
+    // Normal path
+    var newBits = slot << baseLength;
+
+    var _id = newBits | baseId;
+
+    var _overflow = baseOverflow;
+    treeContextId = 1 << length | _id;
+    treeContextOverflow = _overflow;
+  }
+}
+function pushMaterializedTreeId(workInProgress) {
+  warnIfNotHydrating(); // This component materialized an id. This will affect any ids that appear
+  // in its children.
+
+  var returnFiber = workInProgress.return;
+
+  if (returnFiber !== null) {
+    var numberOfForks = 1;
+    var slotIndex = 0;
+    pushTreeFork(workInProgress, numberOfForks);
+    pushTreeId(workInProgress, numberOfForks, slotIndex);
+  }
+}
+
+function getBitLength(number) {
+  return 32 - clz32(number);
+}
+
+function getLeadingBit(id) {
+  return 1 << getBitLength(id) - 1;
+}
+
+function popTreeContext(workInProgress) {
+  // Restore the previous values.
+  // This is a bit more complicated than other context-like modules in Fiber
+  // because the same Fiber may appear on the stack multiple times and for
+  // different reasons. We have to keep popping until the work-in-progress is
+  // no longer at the top of the stack.
+  while (workInProgress === treeForkProvider) {
+    treeForkProvider = forkStack[--forkStackIndex];
+    forkStack[forkStackIndex] = null;
+    treeForkCount = forkStack[--forkStackIndex];
+    forkStack[forkStackIndex] = null;
+  }
+
+  while (workInProgress === treeContextProvider) {
+    treeContextProvider = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+    treeContextOverflow = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+    treeContextId = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+  }
+}
+function getSuspendedTreeContext() {
+  warnIfNotHydrating();
+
+  if (treeContextProvider !== null) {
+    return {
+      id: treeContextId,
+      overflow: treeContextOverflow
+    };
+  } else {
+    return null;
+  }
+}
+function restoreSuspendedTreeContext(workInProgress, suspendedContext) {
+  warnIfNotHydrating();
+  idStack[idStackIndex++] = treeContextId;
+  idStack[idStackIndex++] = treeContextOverflow;
+  idStack[idStackIndex++] = treeContextProvider;
+  treeContextId = suspendedContext.id;
+  treeContextOverflow = suspendedContext.overflow;
+  treeContextProvider = workInProgress;
+}
+
+function warnIfNotHydrating() {
+  {
+    if (!getIsHydrating()) {
+      error('Expected to be hydrating. This is a bug in React. Please file ' + 'an issue.');
+    }
+  }
+}
+
+// This may have been an insertion or a hydration.
+
+var hydrationParentFiber = null;
+var nextHydratableInstance = null;
+var isHydrating = false; // This flag allows for warning supression when we expect there to be mismatches
+// due to earlier mismatches or a suspended fiber.
+
+var didSuspendOrErrorDEV = false; // Hydration errors that were thrown inside this boundary
+
+var hydrationErrors = null;
+
+function warnIfHydrating() {
+  {
+    if (isHydrating) {
+      error('We should not be hydrating here. This is a bug in React. Please file a bug.');
+    }
+  }
+}
+
+function markDidThrowWhileHydratingDEV() {
+  {
+    didSuspendOrErrorDEV = true;
+  }
+}
+function didSuspendOrErrorWhileHydratingDEV() {
+  {
+    return didSuspendOrErrorDEV;
+  }
+}
+
+function enterHydrationState(fiber) {
+
+  var parentInstance = fiber.stateNode.containerInfo;
+  nextHydratableInstance = getFirstHydratableChildWithinContainer(parentInstance);
+  hydrationParentFiber = fiber;
+  isHydrating = true;
+  hydrationErrors = null;
+  didSuspendOrErrorDEV = false;
+  return true;
+}
+
+function reenterHydrationStateFromDehydratedSuspenseInstance(fiber, suspenseInstance, treeContext) {
+
+  nextHydratableInstance = getFirstHydratableChildWithinSuspenseInstance(suspenseInstance);
+  hydrationParentFiber = fiber;
+  isHydrating = true;
+  hydrationErrors = null;
+  didSuspendOrErrorDEV = false;
+
+  if (treeContext !== null) {
+    restoreSuspendedTreeContext(fiber, treeContext);
+  }
+
+  return true;
+}
+
+function warnUnhydratedInstance(returnFiber, instance) {
+  {
+    switch (returnFiber.tag) {
+      case HostRoot:
+        {
+          didNotHydrateInstanceWithinContainer(returnFiber.stateNode.containerInfo, instance);
+          break;
+        }
+
+      case HostComponent:
+        {
+          var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+          didNotHydrateInstance(returnFiber.type, returnFiber.memoizedProps, returnFiber.stateNode, instance, // TODO: Delete this argument when we remove the legacy root API.
+          isConcurrentMode);
+          break;
+        }
+
+      case SuspenseComponent:
+        {
+          var suspenseState = returnFiber.memoizedState;
+          if (suspenseState.dehydrated !== null) didNotHydrateInstanceWithinSuspenseInstance(suspenseState.dehydrated, instance);
+          break;
+        }
+    }
+  }
+}
+
+function deleteHydratableInstance(returnFiber, instance) {
+  warnUnhydratedInstance(returnFiber, instance);
+  var childToDelete = createFiberFromHostInstanceForDeletion();
+  childToDelete.stateNode = instance;
+  childToDelete.return = returnFiber;
+  var deletions = returnFiber.deletions;
+
+  if (deletions === null) {
+    returnFiber.deletions = [childToDelete];
+    returnFiber.flags |= ChildDeletion;
+  } else {
+    deletions.push(childToDelete);
+  }
+}
+
+function warnNonhydratedInstance(returnFiber, fiber) {
+  {
+    if (didSuspendOrErrorDEV) {
+      // Inside a boundary that already suspended. We're currently rendering the
+      // siblings of a suspended node. The mismatch may be due to the missing
+      // data, so it's probably a false positive.
+      return;
+    }
+
+    switch (returnFiber.tag) {
+      case HostRoot:
+        {
+          var parentContainer = returnFiber.stateNode.containerInfo;
+
+          switch (fiber.tag) {
+            case HostComponent:
+              var type = fiber.type;
+              var props = fiber.pendingProps;
+              didNotFindHydratableInstanceWithinContainer(parentContainer, type);
+              break;
+
+            case HostText:
+              var text = fiber.pendingProps;
+              didNotFindHydratableTextInstanceWithinContainer(parentContainer, text);
+              break;
+          }
+
+          break;
+        }
+
+      case HostComponent:
+        {
+          var parentType = returnFiber.type;
+          var parentProps = returnFiber.memoizedProps;
+          var parentInstance = returnFiber.stateNode;
+
+          switch (fiber.tag) {
+            case HostComponent:
+              {
+                var _type = fiber.type;
+                var _props = fiber.pendingProps;
+                var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+                didNotFindHydratableInstance(parentType, parentProps, parentInstance, _type, _props, // TODO: Delete this argument when we remove the legacy root API.
+                isConcurrentMode);
+                break;
+              }
+
+            case HostText:
+              {
+                var _text = fiber.pendingProps;
+
+                var _isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+
+                didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, _text, // TODO: Delete this argument when we remove the legacy root API.
+                _isConcurrentMode);
+                break;
+              }
+          }
+
+          break;
+        }
+
+      case SuspenseComponent:
+        {
+          var suspenseState = returnFiber.memoizedState;
+          var _parentInstance = suspenseState.dehydrated;
+          if (_parentInstance !== null) switch (fiber.tag) {
+            case HostComponent:
+              var _type2 = fiber.type;
+              var _props2 = fiber.pendingProps;
+              didNotFindHydratableInstanceWithinSuspenseInstance(_parentInstance, _type2);
+              break;
+
+            case HostText:
+              var _text2 = fiber.pendingProps;
+              didNotFindHydratableTextInstanceWithinSuspenseInstance(_parentInstance, _text2);
+              break;
+          }
+          break;
+        }
+
+      default:
+        return;
+    }
+  }
+}
+
+function insertNonHydratedInstance(returnFiber, fiber) {
+  fiber.flags = fiber.flags & ~Hydrating | Placement;
+  warnNonhydratedInstance(returnFiber, fiber);
+}
+
+function tryHydrate(fiber, nextInstance) {
+  switch (fiber.tag) {
+    case HostComponent:
+      {
+        var type = fiber.type;
+        var props = fiber.pendingProps;
+        var instance = canHydrateInstance(nextInstance, type);
+
+        if (instance !== null) {
+          fiber.stateNode = instance;
+          hydrationParentFiber = fiber;
+          nextHydratableInstance = getFirstHydratableChild(instance);
+          return true;
+        }
+
+        return false;
+      }
+
+    case HostText:
+      {
+        var text = fiber.pendingProps;
+        var textInstance = canHydrateTextInstance(nextInstance, text);
+
+        if (textInstance !== null) {
+          fiber.stateNode = textInstance;
+          hydrationParentFiber = fiber; // Text Instances don't have children so there's nothing to hydrate.
+
+          nextHydratableInstance = null;
+          return true;
+        }
+
+        return false;
+      }
+
+    case SuspenseComponent:
+      {
+        var suspenseInstance = canHydrateSuspenseInstance(nextInstance);
+
+        if (suspenseInstance !== null) {
+          var suspenseState = {
+            dehydrated: suspenseInstance,
+            treeContext: getSuspendedTreeContext(),
+            retryLane: OffscreenLane
+          };
+          fiber.memoizedState = suspenseState; // Store the dehydrated fragment as a child fiber.
+          // This simplifies the code for getHostSibling and deleting nodes,
+          // since it doesn't have to consider all Suspense boundaries and
+          // check if they're dehydrated ones or not.
+
+          var dehydratedFragment = createFiberFromDehydratedFragment(suspenseInstance);
+          dehydratedFragment.return = fiber;
+          fiber.child = dehydratedFragment;
+          hydrationParentFiber = fiber; // While a Suspense Instance does have children, we won't step into
+          // it during the first pass. Instead, we'll reenter it later.
+
+          nextHydratableInstance = null;
+          return true;
+        }
+
+        return false;
+      }
+
+    default:
+      return false;
+  }
+}
+
+function shouldClientRenderOnMismatch(fiber) {
+  return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
+}
+
+function throwOnHydrationMismatch(fiber) {
+  throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
+}
+
+function tryToClaimNextHydratableInstance(fiber) {
+  if (!isHydrating) {
+    return;
+  }
+
+  var nextInstance = nextHydratableInstance;
+
+  if (!nextInstance) {
+    if (shouldClientRenderOnMismatch(fiber)) {
+      warnNonhydratedInstance(hydrationParentFiber, fiber);
+      throwOnHydrationMismatch();
+    } // Nothing to hydrate. Make it an insertion.
+
+
+    insertNonHydratedInstance(hydrationParentFiber, fiber);
+    isHydrating = false;
+    hydrationParentFiber = fiber;
+    return;
+  }
+
+  var firstAttemptedInstance = nextInstance;
+
+  if (!tryHydrate(fiber, nextInstance)) {
+    if (shouldClientRenderOnMismatch(fiber)) {
+      warnNonhydratedInstance(hydrationParentFiber, fiber);
+      throwOnHydrationMismatch();
+    } // If we can't hydrate this instance let's try the next one.
+    // We use this as a heuristic. It's based on intuition and not data so it
+    // might be flawed or unnecessary.
+
+
+    nextInstance = getNextHydratableSibling(firstAttemptedInstance);
+    var prevHydrationParentFiber = hydrationParentFiber;
+
+    if (!nextInstance || !tryHydrate(fiber, nextInstance)) {
+      // Nothing to hydrate. Make it an insertion.
+      insertNonHydratedInstance(hydrationParentFiber, fiber);
+      isHydrating = false;
+      hydrationParentFiber = fiber;
+      return;
+    } // We matched the next one, we'll now assume that the first one was
+    // superfluous and we'll delete it. Since we can't eagerly delete it
+    // we'll have to schedule a deletion. To do that, this node needs a dummy
+    // fiber associated with it.
+
+
+    deleteHydratableInstance(prevHydrationParentFiber, firstAttemptedInstance);
+  }
+}
+
+function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
+
+  var instance = fiber.stateNode;
+  var shouldWarnIfMismatchDev = !didSuspendOrErrorDEV;
+  var updatePayload = hydrateInstance(instance, fiber.type, fiber.memoizedProps, rootContainerInstance, hostContext, fiber, shouldWarnIfMismatchDev); // TODO: Type this specific to this type of component.
+
+  fiber.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
+  // is a new ref we mark this as an update.
+
+  if (updatePayload !== null) {
+    return true;
+  }
+
+  return false;
+}
+
+function prepareToHydrateHostTextInstance(fiber) {
+
+  var textInstance = fiber.stateNode;
+  var textContent = fiber.memoizedProps;
+  var shouldUpdate = hydrateTextInstance(textInstance, textContent, fiber);
+
+  if (shouldUpdate) {
+    // We assume that prepareToHydrateHostTextInstance is called in a context where the
+    // hydration parent is the parent host component of this host text.
+    var returnFiber = hydrationParentFiber;
+
+    if (returnFiber !== null) {
+      switch (returnFiber.tag) {
+        case HostRoot:
+          {
+            var parentContainer = returnFiber.stateNode.containerInfo;
+            var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+            didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
+            isConcurrentMode);
+            break;
+          }
+
+        case HostComponent:
+          {
+            var parentType = returnFiber.type;
+            var parentProps = returnFiber.memoizedProps;
+            var parentInstance = returnFiber.stateNode;
+
+            var _isConcurrentMode2 = (returnFiber.mode & ConcurrentMode) !== NoMode;
+
+            didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
+            _isConcurrentMode2);
+            break;
+          }
+      }
+    }
+  }
+
+  return shouldUpdate;
+}
+
+function prepareToHydrateHostSuspenseInstance(fiber) {
+
+  var suspenseState = fiber.memoizedState;
+  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
+
+  if (!suspenseInstance) {
+    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
+  }
+
+  hydrateSuspenseInstance(suspenseInstance, fiber);
+}
+
+function skipPastDehydratedSuspenseInstance(fiber) {
+
+  var suspenseState = fiber.memoizedState;
+  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
+
+  if (!suspenseInstance) {
+    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
+  }
+
+  return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
+}
+
+function popToNextHostParent(fiber) {
+  var parent = fiber.return;
+
+  while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
+    parent = parent.return;
+  }
+
+  hydrationParentFiber = parent;
+}
+
+function popHydrationState(fiber) {
+
+  if (fiber !== hydrationParentFiber) {
+    // We're deeper than the current hydration context, inside an inserted
+    // tree.
+    return false;
+  }
+
+  if (!isHydrating) {
+    // If we're not currently hydrating but we're in a hydration context, then
+    // we were an insertion and now need to pop up reenter hydration of our
+    // siblings.
+    popToNextHostParent(fiber);
+    isHydrating = true;
+    return false;
+  } // If we have any remaining hydratable nodes, we need to delete them now.
+  // We only do this deeper than head and body since they tend to have random
+  // other nodes in them. We also ignore components with pure text content in
+  // side of them. We also don't delete anything inside the root container.
+
+
+  if (fiber.tag !== HostRoot && (fiber.tag !== HostComponent || shouldDeleteUnhydratedTailInstances(fiber.type) && !shouldSetTextContent(fiber.type, fiber.memoizedProps))) {
+    var nextInstance = nextHydratableInstance;
+
+    if (nextInstance) {
+      if (shouldClientRenderOnMismatch(fiber)) {
+        warnIfUnhydratedTailNodes(fiber);
+        throwOnHydrationMismatch();
+      } else {
+        while (nextInstance) {
+          deleteHydratableInstance(fiber, nextInstance);
+          nextInstance = getNextHydratableSibling(nextInstance);
+        }
+      }
+    }
+  }
+
+  popToNextHostParent(fiber);
+
+  if (fiber.tag === SuspenseComponent) {
+    nextHydratableInstance = skipPastDehydratedSuspenseInstance(fiber);
+  } else {
+    nextHydratableInstance = hydrationParentFiber ? getNextHydratableSibling(fiber.stateNode) : null;
+  }
+
+  return true;
+}
+
+function hasUnhydratedTailNodes() {
+  return isHydrating && nextHydratableInstance !== null;
+}
+
+function warnIfUnhydratedTailNodes(fiber) {
+  var nextInstance = nextHydratableInstance;
+
+  while (nextInstance) {
+    warnUnhydratedInstance(fiber, nextInstance);
+    nextInstance = getNextHydratableSibling(nextInstance);
+  }
+}
+
+function resetHydrationState() {
+
+  hydrationParentFiber = null;
+  nextHydratableInstance = null;
+  isHydrating = false;
+  didSuspendOrErrorDEV = false;
+}
+
+function upgradeHydrationErrorsToRecoverable() {
+  if (hydrationErrors !== null) {
+    // Successfully completed a forced client render. The errors that occurred
+    // during the hydration attempt are now recovered. We will log them in
+    // commit phase, once the entire tree has finished.
+    queueRecoverableErrors(hydrationErrors);
+    hydrationErrors = null;
+  }
+}
+
+function getIsHydrating() {
+  return isHydrating;
+}
+
+function queueHydrationError(error) {
+  if (hydrationErrors === null) {
+    hydrationErrors = [error];
+  } else {
+    hydrationErrors.push(error);
+  }
+}
+
 var ReactCurrentBatchConfig$1 = ReactSharedInternals.ReactCurrentBatchConfig;
 var NoTransition = null;
 function requestCurrentTransition() {
@@ -25299,30 +25959,27 @@ function readContext(context) {
   return value;
 }
 
-// An array of all update queues that received updates during the current
 // render. When this render exits, either because it finishes or because it is
 // interrupted, the interleaved updates will be transferred onto the main part
 // of the queue.
-var interleavedQueues = null;
-function pushInterleavedQueue(queue) {
-  if (interleavedQueues === null) {
-    interleavedQueues = [queue];
+
+var concurrentQueues = null;
+function pushConcurrentUpdateQueue(queue) {
+  if (concurrentQueues === null) {
+    concurrentQueues = [queue];
   } else {
-    interleavedQueues.push(queue);
+    concurrentQueues.push(queue);
   }
 }
-function hasInterleavedUpdates() {
-  return interleavedQueues !== null;
-}
-function enqueueInterleavedUpdates() {
+function finishQueueingConcurrentUpdates() {
   // Transfer the interleaved updates onto the main queue. Each queue has a
   // `pending` field and an `interleaved` field. When they are not null, they
   // point to the last node in a circular linked list. We need to append the
   // interleaved list to the end of the pending list by joining them into a
   // single, circular list.
-  if (interleavedQueues !== null) {
-    for (var i = 0; i < interleavedQueues.length; i++) {
-      var queue = interleavedQueues[i];
+  if (concurrentQueues !== null) {
+    for (var i = 0; i < concurrentQueues.length; i++) {
+      var queue = concurrentQueues[i];
       var lastInterleavedUpdate = queue.interleaved;
 
       if (lastInterleavedUpdate !== null) {
@@ -25340,7 +25997,108 @@ function enqueueInterleavedUpdates() {
       }
     }
 
-    interleavedQueues = null;
+    concurrentQueues = null;
+  }
+}
+function enqueueConcurrentHookUpdate(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+}
+function enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+}
+function enqueueConcurrentClassUpdate(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+}
+function enqueueConcurrentRenderForLane(fiber, lane) {
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+} // Calling this function outside this module should only be done for backwards
+// compatibility and should always be accompanied by a warning.
+
+var unsafe_markUpdateLaneFromFiberToRoot = markUpdateLaneFromFiberToRoot;
+
+function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
+  // Update the source fiber's lanes
+  sourceFiber.lanes = mergeLanes(sourceFiber.lanes, lane);
+  var alternate = sourceFiber.alternate;
+
+  if (alternate !== null) {
+    alternate.lanes = mergeLanes(alternate.lanes, lane);
+  }
+
+  {
+    if (alternate === null && (sourceFiber.flags & (Placement | Hydrating)) !== NoFlags) {
+      warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
+    }
+  } // Walk the parent path to the root and update the child lanes.
+
+
+  var node = sourceFiber;
+  var parent = sourceFiber.return;
+
+  while (parent !== null) {
+    parent.childLanes = mergeLanes(parent.childLanes, lane);
+    alternate = parent.alternate;
+
+    if (alternate !== null) {
+      alternate.childLanes = mergeLanes(alternate.childLanes, lane);
+    } else {
+      {
+        if ((parent.flags & (Placement | Hydrating)) !== NoFlags) {
+          warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
+        }
+      }
+    }
+
+    node = parent;
+    parent = parent.return;
+  }
+
+  if (node.tag === HostRoot) {
+    var root = node.stateNode;
+    return root;
+  } else {
+    return null;
   }
 }
 
@@ -25406,27 +26164,22 @@ function enqueueUpdate(fiber, update, lane) {
 
   if (updateQueue === null) {
     // Only occurs if the fiber has been unmounted.
-    return;
+    return null;
   }
 
   var sharedQueue = updateQueue.shared;
 
-  if (isInterleavedUpdate(fiber)) {
-    var interleaved = sharedQueue.interleaved;
+  {
+    if (currentlyProcessingQueue === sharedQueue && !didWarnUpdateInsideUpdate) {
+      error('An update (setState, replaceState, or forceUpdate) was scheduled ' + 'from inside an update function. Update functions should be pure, ' + 'with zero side-effects. Consider using componentDidUpdate or a ' + 'callback.');
 
-    if (interleaved === null) {
-      // This is the first update. Create a circular list.
-      update.next = update; // At the end of the current render, this queue's interleaved updates will
-      // be transferred to the pending queue.
-
-      pushInterleavedQueue(sharedQueue);
-    } else {
-      update.next = interleaved.next;
-      interleaved.next = update;
+      didWarnUpdateInsideUpdate = true;
     }
+  }
 
-    sharedQueue.interleaved = update;
-  } else {
+  if (isUnsafeClassRenderPhaseUpdate()) {
+    // This is an unsafe render phase update. Add directly to the update
+    // queue so we can process it immediately during the current render.
     var pending = sharedQueue.pending;
 
     if (pending === null) {
@@ -25437,15 +26190,14 @@ function enqueueUpdate(fiber, update, lane) {
       pending.next = update;
     }
 
-    sharedQueue.pending = update;
-  }
+    sharedQueue.pending = update; // Update the childLanes even though we're most likely already rendering
+    // this fiber. This is for backwards compatibility in the case where you
+    // update a different component during render phase than the one that is
+    // currently renderings (a pattern that is accompanied by a warning).
 
-  {
-    if (currentlyProcessingQueue === sharedQueue && !didWarnUpdateInsideUpdate) {
-      error('An update (setState, replaceState, or forceUpdate) was scheduled ' + 'from inside an update function. Update functions should be pure, ' + 'with zero side-effects. Consider using componentDidUpdate or a ' + 'callback.');
-
-      didWarnUpdateInsideUpdate = true;
-    }
+    return unsafe_markUpdateLaneFromFiberToRoot(fiber, lane);
+  } else {
+    return enqueueConcurrentClassUpdate(fiber, sharedQueue, update, lane);
   }
 }
 function entangleTransitions(root, fiber, lane) {
@@ -25984,10 +26736,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -26011,10 +26763,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -26037,10 +26789,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -26671,677 +27423,6 @@ function updateClassInstance(current, workInProgress, ctor, newProps, renderLane
   instance.state = newState;
   instance.context = nextContext;
   return shouldUpdate;
-}
-
-// TODO: Use the unified fiber stack module instead of this local one?
-// Intentionally not using it yet to derisk the initial implementation, because
-// the way we push/pop these values is a bit unusual. If there's a mistake, I'd
-// rather the ids be wrong than crash the whole reconciler.
-var forkStack = [];
-var forkStackIndex = 0;
-var treeForkProvider = null;
-var treeForkCount = 0;
-var idStack = [];
-var idStackIndex = 0;
-var treeContextProvider = null;
-var treeContextId = 1;
-var treeContextOverflow = '';
-function isForkedChild(workInProgress) {
-  warnIfNotHydrating();
-  return (workInProgress.flags & Forked) !== NoFlags;
-}
-function getForksAtLevel(workInProgress) {
-  warnIfNotHydrating();
-  return treeForkCount;
-}
-function getTreeId() {
-  var overflow = treeContextOverflow;
-  var idWithLeadingBit = treeContextId;
-  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
-  return id.toString(32) + overflow;
-}
-function pushTreeFork(workInProgress, totalChildren) {
-  // This is called right after we reconcile an array (or iterator) of child
-  // fibers, because that's the only place where we know how many children in
-  // the whole set without doing extra work later, or storing addtional
-  // information on the fiber.
-  //
-  // That's why this function is separate from pushTreeId — it's called during
-  // the render phase of the fork parent, not the child, which is where we push
-  // the other context values.
-  //
-  // In the Fizz implementation this is much simpler because the child is
-  // rendered in the same callstack as the parent.
-  //
-  // It might be better to just add a `forks` field to the Fiber type. It would
-  // make this module simpler.
-  warnIfNotHydrating();
-  forkStack[forkStackIndex++] = treeForkCount;
-  forkStack[forkStackIndex++] = treeForkProvider;
-  treeForkProvider = workInProgress;
-  treeForkCount = totalChildren;
-}
-function pushTreeId(workInProgress, totalChildren, index) {
-  warnIfNotHydrating();
-  idStack[idStackIndex++] = treeContextId;
-  idStack[idStackIndex++] = treeContextOverflow;
-  idStack[idStackIndex++] = treeContextProvider;
-  treeContextProvider = workInProgress;
-  var baseIdWithLeadingBit = treeContextId;
-  var baseOverflow = treeContextOverflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
-  // of the id; we use it to account for leading 0s.
-
-  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
-  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-  var slot = index + 1;
-  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
-  // consideration the leading 1 we use to mark the end of the sequence.
-
-  if (length > 30) {
-    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
-    // This branch assumes the length of the base id is greater than 5; it won't
-    // work for smaller ids, because you need 5 bits per character.
-    //
-    // We encode the id in multiple steps: first the base id, then the
-    // remaining digits.
-    //
-    // Each 5 bit sequence corresponds to a single base 32 character. So for
-    // example, if the current id is 23 bits long, we can convert 20 of those
-    // bits into a string of 4 characters, with 3 bits left over.
-    //
-    // First calculate how many bits in the base id represent a complete
-    // sequence of characters.
-    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
-
-    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
-
-    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
-
-    var restOfBaseId = baseId >> numberOfOverflowBits;
-    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
-    // we made more room, this time it won't overflow.
-
-    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
-    var restOfNewBits = slot << restOfBaseLength;
-    var id = restOfNewBits | restOfBaseId;
-    var overflow = newOverflow + baseOverflow;
-    treeContextId = 1 << restOfLength | id;
-    treeContextOverflow = overflow;
-  } else {
-    // Normal path
-    var newBits = slot << baseLength;
-
-    var _id = newBits | baseId;
-
-    var _overflow = baseOverflow;
-    treeContextId = 1 << length | _id;
-    treeContextOverflow = _overflow;
-  }
-}
-function pushMaterializedTreeId(workInProgress) {
-  warnIfNotHydrating(); // This component materialized an id. This will affect any ids that appear
-  // in its children.
-
-  var returnFiber = workInProgress.return;
-
-  if (returnFiber !== null) {
-    var numberOfForks = 1;
-    var slotIndex = 0;
-    pushTreeFork(workInProgress, numberOfForks);
-    pushTreeId(workInProgress, numberOfForks, slotIndex);
-  }
-}
-
-function getBitLength(number) {
-  return 32 - clz32(number);
-}
-
-function getLeadingBit(id) {
-  return 1 << getBitLength(id) - 1;
-}
-
-function popTreeContext(workInProgress) {
-  // Restore the previous values.
-  // This is a bit more complicated than other context-like modules in Fiber
-  // because the same Fiber may appear on the stack multiple times and for
-  // different reasons. We have to keep popping until the work-in-progress is
-  // no longer at the top of the stack.
-  while (workInProgress === treeForkProvider) {
-    treeForkProvider = forkStack[--forkStackIndex];
-    forkStack[forkStackIndex] = null;
-    treeForkCount = forkStack[--forkStackIndex];
-    forkStack[forkStackIndex] = null;
-  }
-
-  while (workInProgress === treeContextProvider) {
-    treeContextProvider = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-    treeContextOverflow = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-    treeContextId = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-  }
-}
-function getSuspendedTreeContext() {
-  warnIfNotHydrating();
-
-  if (treeContextProvider !== null) {
-    return {
-      id: treeContextId,
-      overflow: treeContextOverflow
-    };
-  } else {
-    return null;
-  }
-}
-function restoreSuspendedTreeContext(workInProgress, suspendedContext) {
-  warnIfNotHydrating();
-  idStack[idStackIndex++] = treeContextId;
-  idStack[idStackIndex++] = treeContextOverflow;
-  idStack[idStackIndex++] = treeContextProvider;
-  treeContextId = suspendedContext.id;
-  treeContextOverflow = suspendedContext.overflow;
-  treeContextProvider = workInProgress;
-}
-
-function warnIfNotHydrating() {
-  {
-    if (!getIsHydrating()) {
-      error('Expected to be hydrating. This is a bug in React. Please file ' + 'an issue.');
-    }
-  }
-}
-
-// This may have been an insertion or a hydration.
-
-var hydrationParentFiber = null;
-var nextHydratableInstance = null;
-var isHydrating = false; // This flag allows for warning supression when we expect there to be mismatches
-// due to earlier mismatches or a suspended fiber.
-
-var didSuspendOrErrorDEV = false; // Hydration errors that were thrown inside this boundary
-
-var hydrationErrors = null;
-
-function warnIfHydrating() {
-  {
-    if (isHydrating) {
-      error('We should not be hydrating here. This is a bug in React. Please file a bug.');
-    }
-  }
-}
-
-function markDidThrowWhileHydratingDEV() {
-  {
-    didSuspendOrErrorDEV = true;
-  }
-}
-
-function enterHydrationState(fiber) {
-
-  var parentInstance = fiber.stateNode.containerInfo;
-  nextHydratableInstance = getFirstHydratableChildWithinContainer(parentInstance);
-  hydrationParentFiber = fiber;
-  isHydrating = true;
-  hydrationErrors = null;
-  didSuspendOrErrorDEV = false;
-  return true;
-}
-
-function reenterHydrationStateFromDehydratedSuspenseInstance(fiber, suspenseInstance, treeContext) {
-
-  nextHydratableInstance = getFirstHydratableChildWithinSuspenseInstance(suspenseInstance);
-  hydrationParentFiber = fiber;
-  isHydrating = true;
-  hydrationErrors = null;
-  didSuspendOrErrorDEV = false;
-
-  if (treeContext !== null) {
-    restoreSuspendedTreeContext(fiber, treeContext);
-  }
-
-  return true;
-}
-
-function warnUnhydratedInstance(returnFiber, instance) {
-  {
-    switch (returnFiber.tag) {
-      case HostRoot:
-        {
-          didNotHydrateInstanceWithinContainer(returnFiber.stateNode.containerInfo, instance);
-          break;
-        }
-
-      case HostComponent:
-        {
-          var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-          didNotHydrateInstance(returnFiber.type, returnFiber.memoizedProps, returnFiber.stateNode, instance, // TODO: Delete this argument when we remove the legacy root API.
-          isConcurrentMode);
-          break;
-        }
-
-      case SuspenseComponent:
-        {
-          var suspenseState = returnFiber.memoizedState;
-          if (suspenseState.dehydrated !== null) didNotHydrateInstanceWithinSuspenseInstance(suspenseState.dehydrated, instance);
-          break;
-        }
-    }
-  }
-}
-
-function deleteHydratableInstance(returnFiber, instance) {
-  warnUnhydratedInstance(returnFiber, instance);
-  var childToDelete = createFiberFromHostInstanceForDeletion();
-  childToDelete.stateNode = instance;
-  childToDelete.return = returnFiber;
-  var deletions = returnFiber.deletions;
-
-  if (deletions === null) {
-    returnFiber.deletions = [childToDelete];
-    returnFiber.flags |= ChildDeletion;
-  } else {
-    deletions.push(childToDelete);
-  }
-}
-
-function warnNonhydratedInstance(returnFiber, fiber) {
-  {
-    if (didSuspendOrErrorDEV) {
-      // Inside a boundary that already suspended. We're currently rendering the
-      // siblings of a suspended node. The mismatch may be due to the missing
-      // data, so it's probably a false positive.
-      return;
-    }
-
-    switch (returnFiber.tag) {
-      case HostRoot:
-        {
-          var parentContainer = returnFiber.stateNode.containerInfo;
-
-          switch (fiber.tag) {
-            case HostComponent:
-              var type = fiber.type;
-              var props = fiber.pendingProps;
-              didNotFindHydratableInstanceWithinContainer(parentContainer, type);
-              break;
-
-            case HostText:
-              var text = fiber.pendingProps;
-              didNotFindHydratableTextInstanceWithinContainer(parentContainer, text);
-              break;
-          }
-
-          break;
-        }
-
-      case HostComponent:
-        {
-          var parentType = returnFiber.type;
-          var parentProps = returnFiber.memoizedProps;
-          var parentInstance = returnFiber.stateNode;
-
-          switch (fiber.tag) {
-            case HostComponent:
-              {
-                var _type = fiber.type;
-                var _props = fiber.pendingProps;
-                var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-                didNotFindHydratableInstance(parentType, parentProps, parentInstance, _type, _props, // TODO: Delete this argument when we remove the legacy root API.
-                isConcurrentMode);
-                break;
-              }
-
-            case HostText:
-              {
-                var _text = fiber.pendingProps;
-
-                var _isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-
-                didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, _text, // TODO: Delete this argument when we remove the legacy root API.
-                _isConcurrentMode);
-                break;
-              }
-          }
-
-          break;
-        }
-
-      case SuspenseComponent:
-        {
-          var suspenseState = returnFiber.memoizedState;
-          var _parentInstance = suspenseState.dehydrated;
-          if (_parentInstance !== null) switch (fiber.tag) {
-            case HostComponent:
-              var _type2 = fiber.type;
-              var _props2 = fiber.pendingProps;
-              didNotFindHydratableInstanceWithinSuspenseInstance(_parentInstance, _type2);
-              break;
-
-            case HostText:
-              var _text2 = fiber.pendingProps;
-              didNotFindHydratableTextInstanceWithinSuspenseInstance(_parentInstance, _text2);
-              break;
-          }
-          break;
-        }
-
-      default:
-        return;
-    }
-  }
-}
-
-function insertNonHydratedInstance(returnFiber, fiber) {
-  fiber.flags = fiber.flags & ~Hydrating | Placement;
-  warnNonhydratedInstance(returnFiber, fiber);
-}
-
-function tryHydrate(fiber, nextInstance) {
-  switch (fiber.tag) {
-    case HostComponent:
-      {
-        var type = fiber.type;
-        var props = fiber.pendingProps;
-        var instance = canHydrateInstance(nextInstance, type);
-
-        if (instance !== null) {
-          fiber.stateNode = instance;
-          hydrationParentFiber = fiber;
-          nextHydratableInstance = getFirstHydratableChild(instance);
-          return true;
-        }
-
-        return false;
-      }
-
-    case HostText:
-      {
-        var text = fiber.pendingProps;
-        var textInstance = canHydrateTextInstance(nextInstance, text);
-
-        if (textInstance !== null) {
-          fiber.stateNode = textInstance;
-          hydrationParentFiber = fiber; // Text Instances don't have children so there's nothing to hydrate.
-
-          nextHydratableInstance = null;
-          return true;
-        }
-
-        return false;
-      }
-
-    case SuspenseComponent:
-      {
-        var suspenseInstance = canHydrateSuspenseInstance(nextInstance);
-
-        if (suspenseInstance !== null) {
-          var suspenseState = {
-            dehydrated: suspenseInstance,
-            treeContext: getSuspendedTreeContext(),
-            retryLane: OffscreenLane
-          };
-          fiber.memoizedState = suspenseState; // Store the dehydrated fragment as a child fiber.
-          // This simplifies the code for getHostSibling and deleting nodes,
-          // since it doesn't have to consider all Suspense boundaries and
-          // check if they're dehydrated ones or not.
-
-          var dehydratedFragment = createFiberFromDehydratedFragment(suspenseInstance);
-          dehydratedFragment.return = fiber;
-          fiber.child = dehydratedFragment;
-          hydrationParentFiber = fiber; // While a Suspense Instance does have children, we won't step into
-          // it during the first pass. Instead, we'll reenter it later.
-
-          nextHydratableInstance = null;
-          return true;
-        }
-
-        return false;
-      }
-
-    default:
-      return false;
-  }
-}
-
-function shouldClientRenderOnMismatch(fiber) {
-  return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
-}
-
-function throwOnHydrationMismatch(fiber) {
-  throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
-}
-
-function tryToClaimNextHydratableInstance(fiber) {
-  if (!isHydrating) {
-    return;
-  }
-
-  var nextInstance = nextHydratableInstance;
-
-  if (!nextInstance) {
-    if (shouldClientRenderOnMismatch(fiber)) {
-      warnNonhydratedInstance(hydrationParentFiber, fiber);
-      throwOnHydrationMismatch();
-    } // Nothing to hydrate. Make it an insertion.
-
-
-    insertNonHydratedInstance(hydrationParentFiber, fiber);
-    isHydrating = false;
-    hydrationParentFiber = fiber;
-    return;
-  }
-
-  var firstAttemptedInstance = nextInstance;
-
-  if (!tryHydrate(fiber, nextInstance)) {
-    if (shouldClientRenderOnMismatch(fiber)) {
-      warnNonhydratedInstance(hydrationParentFiber, fiber);
-      throwOnHydrationMismatch();
-    } // If we can't hydrate this instance let's try the next one.
-    // We use this as a heuristic. It's based on intuition and not data so it
-    // might be flawed or unnecessary.
-
-
-    nextInstance = getNextHydratableSibling(firstAttemptedInstance);
-    var prevHydrationParentFiber = hydrationParentFiber;
-
-    if (!nextInstance || !tryHydrate(fiber, nextInstance)) {
-      // Nothing to hydrate. Make it an insertion.
-      insertNonHydratedInstance(hydrationParentFiber, fiber);
-      isHydrating = false;
-      hydrationParentFiber = fiber;
-      return;
-    } // We matched the next one, we'll now assume that the first one was
-    // superfluous and we'll delete it. Since we can't eagerly delete it
-    // we'll have to schedule a deletion. To do that, this node needs a dummy
-    // fiber associated with it.
-
-
-    deleteHydratableInstance(prevHydrationParentFiber, firstAttemptedInstance);
-  }
-}
-
-function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
-
-  var instance = fiber.stateNode;
-  var shouldWarnIfMismatchDev = !didSuspendOrErrorDEV;
-  var updatePayload = hydrateInstance(instance, fiber.type, fiber.memoizedProps, rootContainerInstance, hostContext, fiber, shouldWarnIfMismatchDev); // TODO: Type this specific to this type of component.
-
-  fiber.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
-  // is a new ref we mark this as an update.
-
-  if (updatePayload !== null) {
-    return true;
-  }
-
-  return false;
-}
-
-function prepareToHydrateHostTextInstance(fiber) {
-
-  var textInstance = fiber.stateNode;
-  var textContent = fiber.memoizedProps;
-  var shouldUpdate = hydrateTextInstance(textInstance, textContent, fiber);
-
-  if (shouldUpdate) {
-    // We assume that prepareToHydrateHostTextInstance is called in a context where the
-    // hydration parent is the parent host component of this host text.
-    var returnFiber = hydrationParentFiber;
-
-    if (returnFiber !== null) {
-      switch (returnFiber.tag) {
-        case HostRoot:
-          {
-            var parentContainer = returnFiber.stateNode.containerInfo;
-            var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-            didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
-            isConcurrentMode);
-            break;
-          }
-
-        case HostComponent:
-          {
-            var parentType = returnFiber.type;
-            var parentProps = returnFiber.memoizedProps;
-            var parentInstance = returnFiber.stateNode;
-
-            var _isConcurrentMode2 = (returnFiber.mode & ConcurrentMode) !== NoMode;
-
-            didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
-            _isConcurrentMode2);
-            break;
-          }
-      }
-    }
-  }
-
-  return shouldUpdate;
-}
-
-function prepareToHydrateHostSuspenseInstance(fiber) {
-
-  var suspenseState = fiber.memoizedState;
-  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
-
-  if (!suspenseInstance) {
-    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
-  }
-
-  hydrateSuspenseInstance(suspenseInstance, fiber);
-}
-
-function skipPastDehydratedSuspenseInstance(fiber) {
-
-  var suspenseState = fiber.memoizedState;
-  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
-
-  if (!suspenseInstance) {
-    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
-  }
-
-  return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
-}
-
-function popToNextHostParent(fiber) {
-  var parent = fiber.return;
-
-  while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
-    parent = parent.return;
-  }
-
-  hydrationParentFiber = parent;
-}
-
-function popHydrationState(fiber) {
-
-  if (fiber !== hydrationParentFiber) {
-    // We're deeper than the current hydration context, inside an inserted
-    // tree.
-    return false;
-  }
-
-  if (!isHydrating) {
-    // If we're not currently hydrating but we're in a hydration context, then
-    // we were an insertion and now need to pop up reenter hydration of our
-    // siblings.
-    popToNextHostParent(fiber);
-    isHydrating = true;
-    return false;
-  } // If we have any remaining hydratable nodes, we need to delete them now.
-  // We only do this deeper than head and body since they tend to have random
-  // other nodes in them. We also ignore components with pure text content in
-  // side of them. We also don't delete anything inside the root container.
-
-
-  if (fiber.tag !== HostRoot && (fiber.tag !== HostComponent || shouldDeleteUnhydratedTailInstances(fiber.type) && !shouldSetTextContent(fiber.type, fiber.memoizedProps))) {
-    var nextInstance = nextHydratableInstance;
-
-    if (nextInstance) {
-      if (shouldClientRenderOnMismatch(fiber)) {
-        warnIfUnhydratedTailNodes(fiber);
-        throwOnHydrationMismatch();
-      } else {
-        while (nextInstance) {
-          deleteHydratableInstance(fiber, nextInstance);
-          nextInstance = getNextHydratableSibling(nextInstance);
-        }
-      }
-    }
-  }
-
-  popToNextHostParent(fiber);
-
-  if (fiber.tag === SuspenseComponent) {
-    nextHydratableInstance = skipPastDehydratedSuspenseInstance(fiber);
-  } else {
-    nextHydratableInstance = hydrationParentFiber ? getNextHydratableSibling(fiber.stateNode) : null;
-  }
-
-  return true;
-}
-
-function hasUnhydratedTailNodes() {
-  return isHydrating && nextHydratableInstance !== null;
-}
-
-function warnIfUnhydratedTailNodes(fiber) {
-  var nextInstance = nextHydratableInstance;
-
-  while (nextInstance) {
-    warnUnhydratedInstance(fiber, nextInstance);
-    nextInstance = getNextHydratableSibling(nextInstance);
-  }
-}
-
-function resetHydrationState() {
-
-  hydrationParentFiber = null;
-  nextHydratableInstance = null;
-  isHydrating = false;
-  didSuspendOrErrorDEV = false;
-}
-
-function upgradeHydrationErrorsToRecoverable() {
-  if (hydrationErrors !== null) {
-    // Successfully completed a forced client render. The errors that occurred
-    // during the hydration attempt are now recovered. We will log them in
-    // commit phase, once the entire tree has finished.
-    queueRecoverableErrors(hydrationErrors);
-    hydrationErrors = null;
-  }
-}
-
-function getIsHydrating() {
-  return isHydrating;
-}
-
-function queueHydrationError(error) {
-  if (hydrationErrors === null) {
-    hydrationErrors = [error];
-  } else {
-    hydrationErrors.push(error);
-  }
 }
 
 var didWarnAboutMaps;
@@ -29565,7 +29646,11 @@ function checkIfSnapshotChanged(inst) {
 }
 
 function forceStoreRerender(fiber) {
-  scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+  var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+  if (root !== null) {
+    scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+  }
 }
 
 function mountState(initialState) {
@@ -30035,11 +30120,11 @@ function dispatchReducerAction(fiber, queue, action) {
   if (isRenderPhaseUpdate(fiber)) {
     enqueueRenderPhaseUpdate(queue, update);
   } else {
-    enqueueUpdate$1(fiber, queue, update);
-    var eventTime = requestEventTime();
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueConcurrentHookUpdate(fiber, queue, update, lane);
 
     if (root !== null) {
+      var eventTime = requestEventTime();
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitionUpdate(root, queue, lane);
     }
   }
@@ -30066,7 +30151,6 @@ function dispatchSetState(fiber, queue, action) {
   if (isRenderPhaseUpdate(fiber)) {
     enqueueRenderPhaseUpdate(queue, update);
   } else {
-    enqueueUpdate$1(fiber, queue, update);
     var alternate = fiber.alternate;
 
     if (fiber.lanes === NoLanes && (alternate === null || alternate.lanes === NoLanes)) {
@@ -30098,6 +30182,8 @@ function dispatchSetState(fiber, queue, action) {
             // It's still possible that we'll need to rebase this update later,
             // if the component re-renders for a different reason and by that
             // time the reducer has changed.
+            // TODO: Do we still need to entangle transitions in this case?
+            enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane);
             return;
           }
         } catch (error) {// Suppress the error. It will throw again in the render phase.
@@ -30109,10 +30195,11 @@ function dispatchSetState(fiber, queue, action) {
       }
     }
 
-    var eventTime = requestEventTime();
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueConcurrentHookUpdate(fiber, queue, update, lane);
 
     if (root !== null) {
+      var eventTime = requestEventTime();
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitionUpdate(root, queue, lane);
     }
   }
@@ -30141,38 +30228,8 @@ function enqueueRenderPhaseUpdate(queue, update) {
   }
 
   queue.pending = update;
-}
+} // TODO: Move to ReactFiberConcurrentUpdates?
 
-function enqueueUpdate$1(fiber, queue, update, lane) {
-  if (isInterleavedUpdate(fiber)) {
-    var interleaved = queue.interleaved;
-
-    if (interleaved === null) {
-      // This is the first update. Create a circular list.
-      update.next = update; // At the end of the current render, this queue's interleaved updates will
-      // be transferred to the pending queue.
-
-      pushInterleavedQueue(queue);
-    } else {
-      update.next = interleaved.next;
-      interleaved.next = update;
-    }
-
-    queue.interleaved = update;
-  } else {
-    var pending = queue.pending;
-
-    if (pending === null) {
-      // This is the first update. Create a circular list.
-      update.next = update;
-    } else {
-      update.next = pending.next;
-      pending.next = update;
-    }
-
-    queue.pending = update;
-  }
-}
 
 function entangleTransitionUpdate(root, queue, lane) {
   if (isTransitionLane(lane)) {
@@ -31225,13 +31282,22 @@ function transferActualDuration(fiber) {
   }
 }
 
-function createCapturedValue(value, source) {
+function createCapturedValueAtFiber(value, source) {
   // If the value is an error, call this function immediately after it is thrown
   // so the stack is accurate.
   return {
     value: value,
     source: source,
-    stack: getStackByFiberInDevAndProd(source)
+    stack: getStackByFiberInDevAndProd(source),
+    digest: null
+  };
+}
+function createCapturedValue(value, digest, stack) {
+  return {
+    value: value,
+    source: null,
+    stack: stack != null ? stack : null,
+    digest: digest != null ? digest : null
   };
 }
 
@@ -31542,7 +31608,7 @@ function markSuspenseBoundaryShouldCapture(suspenseBoundary, returnFiber, source
           // prevent a bail out.
           var update = createUpdate(NoTimestamp, SyncLane);
           update.tag = ForceUpdate;
-          enqueueUpdate(sourceFiber, update);
+          enqueueUpdate(sourceFiber, update, SyncLane);
         }
       } // The source fiber did not complete. Mark it with Sync priority to
       // indicate that it still has pending work.
@@ -31682,17 +31748,17 @@ function throwException(root, returnFiber, sourceFiber, value, rootRenderLanes) 
         markSuspenseBoundaryShouldCapture(_suspenseBoundary, returnFiber, sourceFiber, root, rootRenderLanes); // Even though the user may not be affected by this error, we should
         // still log it so it can be fixed.
 
-        queueHydrationError(value);
+        queueHydrationError(createCapturedValueAtFiber(value, sourceFiber));
         return;
       }
     }
-  } // We didn't find a boundary that could handle this type of exception. Start
+  }
+
+  value = createCapturedValueAtFiber(value, sourceFiber);
+  renderDidError(value); // We didn't find a boundary that could handle this type of exception. Start
   // over and traverse parent path again, this time treating the exception
   // as an error.
 
-
-  renderDidError(value);
-  value = createCapturedValue(value, sourceFiber);
   var workInProgress = returnFiber;
 
   do {
@@ -31738,918 +31804,6 @@ function getSuspendedCache() {
   {
     return null;
   } // This function is called when a Suspense boundary suspends. It returns the
-}
-
-function markUpdate(workInProgress) {
-  // Tag the fiber with an update effect. This turns a Placement into
-  // a PlacementAndUpdate.
-  workInProgress.flags |= Update;
-}
-
-function markRef(workInProgress) {
-  workInProgress.flags |= Ref;
-
-  {
-    workInProgress.flags |= RefStatic;
-  }
-}
-
-var appendAllChildren;
-var updateHostContainer;
-var updateHostComponent;
-var updateHostText;
-
-{
-  // Mutation mode
-  appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
-    // We only have the top Fiber that was created but we need recurse down its
-    // children to find all the terminal nodes.
-    var node = workInProgress.child;
-
-    while (node !== null) {
-      if (node.tag === HostComponent || node.tag === HostText) {
-        appendInitialChild(parent, node.stateNode);
-      } else if (node.tag === HostPortal) ; else if (node.child !== null) {
-        node.child.return = node;
-        node = node.child;
-        continue;
-      }
-
-      if (node === workInProgress) {
-        return;
-      }
-
-      while (node.sibling === null) {
-        if (node.return === null || node.return === workInProgress) {
-          return;
-        }
-
-        node = node.return;
-      }
-
-      node.sibling.return = node.return;
-      node = node.sibling;
-    }
-  };
-
-  updateHostContainer = function (current, workInProgress) {// Noop
-  };
-
-  updateHostComponent = function (current, workInProgress, type, newProps, rootContainerInstance) {
-    // If we have an alternate, that means this is an update and we need to
-    // schedule a side-effect to do the updates.
-    var oldProps = current.memoizedProps;
-
-    if (oldProps === newProps) {
-      // In mutation mode, this is sufficient for a bailout because
-      // we won't touch this node even if children changed.
-      return;
-    } // If we get updated because one of our children updated, we don't
-    // have newProps so we'll have to reuse them.
-    // TODO: Split the update API as separate for the props vs. children.
-    // Even better would be if children weren't special cased at all tho.
-
-
-    var instance = workInProgress.stateNode;
-    var currentHostContext = getHostContext(); // TODO: Experiencing an error where oldProps is null. Suggests a host
-    // component is hitting the resume path. Figure out why. Possibly
-    // related to `hidden`.
-
-    var updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext); // TODO: Type this specific to this type of component.
-
-    workInProgress.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
-    // is a new ref we mark this as an update. All the work is done in commitWork.
-
-    if (updatePayload) {
-      markUpdate(workInProgress);
-    }
-  };
-
-  updateHostText = function (current, workInProgress, oldText, newText) {
-    // If the text differs, mark it as an update. All the work in done in commitWork.
-    if (oldText !== newText) {
-      markUpdate(workInProgress);
-    }
-  };
-}
-
-function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
-  if (getIsHydrating()) {
-    // If we're hydrating, we should consume as many items as we can
-    // so we don't leave any behind.
-    return;
-  }
-
-  switch (renderState.tailMode) {
-    case 'hidden':
-      {
-        // Any insertions at the end of the tail list after this point
-        // should be invisible. If there are already mounted boundaries
-        // anything before them are not considered for collapsing.
-        // Therefore we need to go through the whole tail to find if
-        // there are any.
-        var tailNode = renderState.tail;
-        var lastTailNode = null;
-
-        while (tailNode !== null) {
-          if (tailNode.alternate !== null) {
-            lastTailNode = tailNode;
-          }
-
-          tailNode = tailNode.sibling;
-        } // Next we're simply going to delete all insertions after the
-        // last rendered item.
-
-
-        if (lastTailNode === null) {
-          // All remaining items in the tail are insertions.
-          renderState.tail = null;
-        } else {
-          // Detach the insertion after the last node that was already
-          // inserted.
-          lastTailNode.sibling = null;
-        }
-
-        break;
-      }
-
-    case 'collapsed':
-      {
-        // Any insertions at the end of the tail list after this point
-        // should be invisible. If there are already mounted boundaries
-        // anything before them are not considered for collapsing.
-        // Therefore we need to go through the whole tail to find if
-        // there are any.
-        var _tailNode = renderState.tail;
-        var _lastTailNode = null;
-
-        while (_tailNode !== null) {
-          if (_tailNode.alternate !== null) {
-            _lastTailNode = _tailNode;
-          }
-
-          _tailNode = _tailNode.sibling;
-        } // Next we're simply going to delete all insertions after the
-        // last rendered item.
-
-
-        if (_lastTailNode === null) {
-          // All remaining items in the tail are insertions.
-          if (!hasRenderedATailFallback && renderState.tail !== null) {
-            // We suspended during the head. We want to show at least one
-            // row at the tail. So we'll keep on and cut off the rest.
-            renderState.tail.sibling = null;
-          } else {
-            renderState.tail = null;
-          }
-        } else {
-          // Detach the insertion after the last node that was already
-          // inserted.
-          _lastTailNode.sibling = null;
-        }
-
-        break;
-      }
-  }
-}
-
-function bubbleProperties(completedWork) {
-  var didBailout = completedWork.alternate !== null && completedWork.alternate.child === completedWork.child;
-  var newChildLanes = NoLanes;
-  var subtreeFlags = NoFlags;
-
-  if (!didBailout) {
-    // Bubble up the earliest expiration time.
-    if ( (completedWork.mode & ProfileMode) !== NoMode) {
-      // In profiling mode, resetChildExpirationTime is also used to reset
-      // profiler durations.
-      var actualDuration = completedWork.actualDuration;
-      var treeBaseDuration = completedWork.selfBaseDuration;
-      var child = completedWork.child;
-
-      while (child !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(child.lanes, child.childLanes));
-        subtreeFlags |= child.subtreeFlags;
-        subtreeFlags |= child.flags; // When a fiber is cloned, its actualDuration is reset to 0. This value will
-        // only be updated if work is done on the fiber (i.e. it doesn't bailout).
-        // When work is done, it should bubble to the parent's actualDuration. If
-        // the fiber has not been cloned though, (meaning no work was done), then
-        // this value will reflect the amount of time spent working on a previous
-        // render. In that case it should not bubble. We determine whether it was
-        // cloned by comparing the child pointer.
-
-        actualDuration += child.actualDuration;
-        treeBaseDuration += child.treeBaseDuration;
-        child = child.sibling;
-      }
-
-      completedWork.actualDuration = actualDuration;
-      completedWork.treeBaseDuration = treeBaseDuration;
-    } else {
-      var _child = completedWork.child;
-
-      while (_child !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child.lanes, _child.childLanes));
-        subtreeFlags |= _child.subtreeFlags;
-        subtreeFlags |= _child.flags; // Update the return pointer so the tree is consistent. This is a code
-        // smell because it assumes the commit phase is never concurrent with
-        // the render phase. Will address during refactor to alternate model.
-
-        _child.return = completedWork;
-        _child = _child.sibling;
-      }
-    }
-
-    completedWork.subtreeFlags |= subtreeFlags;
-  } else {
-    // Bubble up the earliest expiration time.
-    if ( (completedWork.mode & ProfileMode) !== NoMode) {
-      // In profiling mode, resetChildExpirationTime is also used to reset
-      // profiler durations.
-      var _treeBaseDuration = completedWork.selfBaseDuration;
-      var _child2 = completedWork.child;
-
-      while (_child2 !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child2.lanes, _child2.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
-        // so we should bubble those up even during a bailout. All the other
-        // flags have a lifetime only of a single render + commit, so we should
-        // ignore them.
-
-        subtreeFlags |= _child2.subtreeFlags & StaticMask;
-        subtreeFlags |= _child2.flags & StaticMask;
-        _treeBaseDuration += _child2.treeBaseDuration;
-        _child2 = _child2.sibling;
-      }
-
-      completedWork.treeBaseDuration = _treeBaseDuration;
-    } else {
-      var _child3 = completedWork.child;
-
-      while (_child3 !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child3.lanes, _child3.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
-        // so we should bubble those up even during a bailout. All the other
-        // flags have a lifetime only of a single render + commit, so we should
-        // ignore them.
-
-        subtreeFlags |= _child3.subtreeFlags & StaticMask;
-        subtreeFlags |= _child3.flags & StaticMask; // Update the return pointer so the tree is consistent. This is a code
-        // smell because it assumes the commit phase is never concurrent with
-        // the render phase. Will address during refactor to alternate model.
-
-        _child3.return = completedWork;
-        _child3 = _child3.sibling;
-      }
-    }
-
-    completedWork.subtreeFlags |= subtreeFlags;
-  }
-
-  completedWork.childLanes = newChildLanes;
-  return didBailout;
-}
-
-function completeWork(current, workInProgress, renderLanes) {
-  var newProps = workInProgress.pendingProps; // Note: This intentionally doesn't check if we're hydrating because comparing
-  // to the current tree provider fiber is just as fast and less error-prone.
-  // Ideally we would have a special version of the work loop only
-  // for hydration.
-
-  popTreeContext(workInProgress);
-
-  switch (workInProgress.tag) {
-    case IndeterminateComponent:
-    case LazyComponent:
-    case SimpleMemoComponent:
-    case FunctionComponent:
-    case ForwardRef:
-    case Fragment:
-    case Mode:
-    case Profiler:
-    case ContextConsumer:
-    case MemoComponent:
-      bubbleProperties(workInProgress);
-      return null;
-
-    case ClassComponent:
-      {
-        var Component = workInProgress.type;
-
-        if (isContextProvider(Component)) {
-          popContext(workInProgress);
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case HostRoot:
-      {
-        var fiberRoot = workInProgress.stateNode;
-        popHostContainer(workInProgress);
-        popTopLevelContextObject(workInProgress);
-        resetWorkInProgressVersions();
-
-        if (fiberRoot.pendingContext) {
-          fiberRoot.context = fiberRoot.pendingContext;
-          fiberRoot.pendingContext = null;
-        }
-
-        if (current === null || current.child === null) {
-          // If we hydrated, pop so that we can delete any remaining children
-          // that weren't hydrated.
-          var wasHydrated = popHydrationState(workInProgress);
-
-          if (wasHydrated) {
-            // If we hydrated, then we'll need to schedule an update for
-            // the commit side-effects on the root.
-            markUpdate(workInProgress);
-          } else {
-            if (current !== null) {
-              var prevState = current.memoizedState;
-
-              if ( // Check if this is a client root
-              !prevState.isDehydrated || // Check if we reverted to client rendering (e.g. due to an error)
-              (workInProgress.flags & ForceClientRender) !== NoFlags) {
-                // Schedule an effect to clear this container at the start of the
-                // next commit. This handles the case of React rendering into a
-                // container with previous children. It's also safe to do for
-                // updates too, because current.child would only be null if the
-                // previous render was null (so the container would already
-                // be empty).
-                workInProgress.flags |= Snapshot; // If this was a forced client render, there may have been
-                // recoverable errors during first hydration attempt. If so, add
-                // them to a queue so we can log them in the commit phase.
-
-                upgradeHydrationErrorsToRecoverable();
-              }
-            }
-          }
-        }
-
-        updateHostContainer(current, workInProgress);
-        bubbleProperties(workInProgress);
-
-        return null;
-      }
-
-    case HostComponent:
-      {
-        popHostContext(workInProgress);
-        var rootContainerInstance = getRootHostContainer();
-        var type = workInProgress.type;
-
-        if (current !== null && workInProgress.stateNode != null) {
-          updateHostComponent(current, workInProgress, type, newProps, rootContainerInstance);
-
-          if (current.ref !== workInProgress.ref) {
-            markRef(workInProgress);
-          }
-        } else {
-          if (!newProps) {
-            if (workInProgress.stateNode === null) {
-              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
-            } // This can happen when we abort work.
-
-
-            bubbleProperties(workInProgress);
-            return null;
-          }
-
-          var currentHostContext = getHostContext(); // TODO: Move createInstance to beginWork and keep it on a context
-          // "stack" as the parent. Then append children as we go in beginWork
-          // or completeWork depending on whether we want to add them top->down or
-          // bottom->up. Top->down is faster in IE11.
-
-          var _wasHydrated = popHydrationState(workInProgress);
-
-          if (_wasHydrated) {
-            // TODO: Move this and createInstance step into the beginPhase
-            // to consolidate.
-            if (prepareToHydrateHostInstance(workInProgress, rootContainerInstance, currentHostContext)) {
-              // If changes to the hydrated node need to be applied at the
-              // commit-phase we mark this as such.
-              markUpdate(workInProgress);
-            }
-          } else {
-            var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress);
-            appendAllChildren(instance, workInProgress, false, false);
-            workInProgress.stateNode = instance; // Certain renderers require commit-time effects for initial mount.
-            // (eg DOM renderer supports auto-focus for certain elements).
-            // Make sure such renderers get scheduled for later work.
-
-            if (finalizeInitialChildren(instance, type, newProps, rootContainerInstance)) {
-              markUpdate(workInProgress);
-            }
-          }
-
-          if (workInProgress.ref !== null) {
-            // If there is a ref on a host node we need to schedule a callback
-            markRef(workInProgress);
-          }
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case HostText:
-      {
-        var newText = newProps;
-
-        if (current && workInProgress.stateNode != null) {
-          var oldText = current.memoizedProps; // If we have an alternate, that means this is an update and we need
-          // to schedule a side-effect to do the updates.
-
-          updateHostText(current, workInProgress, oldText, newText);
-        } else {
-          if (typeof newText !== 'string') {
-            if (workInProgress.stateNode === null) {
-              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
-            } // This can happen when we abort work.
-
-          }
-
-          var _rootContainerInstance = getRootHostContainer();
-
-          var _currentHostContext = getHostContext();
-
-          var _wasHydrated2 = popHydrationState(workInProgress);
-
-          if (_wasHydrated2) {
-            if (prepareToHydrateHostTextInstance(workInProgress)) {
-              markUpdate(workInProgress);
-            }
-          } else {
-            workInProgress.stateNode = createTextInstance(newText, _rootContainerInstance, _currentHostContext, workInProgress);
-          }
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case SuspenseComponent:
-      {
-        popSuspenseContext(workInProgress);
-        var nextState = workInProgress.memoizedState;
-
-        if (hasUnhydratedTailNodes() && (workInProgress.mode & ConcurrentMode) !== NoMode && (workInProgress.flags & DidCapture) === NoFlags) {
-          warnIfUnhydratedTailNodes(workInProgress);
-          resetHydrationState();
-          workInProgress.flags |= ForceClientRender | Incomplete | ShouldCapture;
-          return workInProgress;
-        }
-
-        if (nextState !== null && nextState.dehydrated !== null) {
-          // We might be inside a hydration state the first time we're picking up this
-          // Suspense boundary, and also after we've reentered it for further hydration.
-          var _wasHydrated3 = popHydrationState(workInProgress);
-
-          if (current === null) {
-            if (!_wasHydrated3) {
-              throw new Error('A dehydrated suspense component was completed without a hydrated node. ' + 'This is probably a bug in React.');
-            }
-
-            prepareToHydrateHostSuspenseInstance(workInProgress);
-            bubbleProperties(workInProgress);
-
-            {
-              if ((workInProgress.mode & ProfileMode) !== NoMode) {
-                var isTimedOutSuspense = nextState !== null;
-
-                if (isTimedOutSuspense) {
-                  // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-                  var primaryChildFragment = workInProgress.child;
-
-                  if (primaryChildFragment !== null) {
-                    // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                    workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
-                  }
-                }
-              }
-            }
-
-            return null;
-          } else {
-            // We might have reentered this boundary to hydrate it. If so, we need to reset the hydration
-            // state since we're now exiting out of it. popHydrationState doesn't do that for us.
-            resetHydrationState();
-
-            if ((workInProgress.flags & DidCapture) === NoFlags) {
-              // This boundary did not suspend so it's now hydrated and unsuspended.
-              workInProgress.memoizedState = null;
-            } // If nothing suspended, we need to schedule an effect to mark this boundary
-            // as having hydrated so events know that they're free to be invoked.
-            // It's also a signal to replay events and the suspense callback.
-            // If something suspended, schedule an effect to attach retry listeners.
-            // So we might as well always mark this.
-
-
-            workInProgress.flags |= Update;
-            bubbleProperties(workInProgress);
-
-            {
-              if ((workInProgress.mode & ProfileMode) !== NoMode) {
-                var _isTimedOutSuspense = nextState !== null;
-
-                if (_isTimedOutSuspense) {
-                  // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-                  var _primaryChildFragment = workInProgress.child;
-
-                  if (_primaryChildFragment !== null) {
-                    // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                    workInProgress.treeBaseDuration -= _primaryChildFragment.treeBaseDuration;
-                  }
-                }
-              }
-            }
-
-            return null;
-          }
-        } // Successfully completed this tree. If this was a forced client render,
-        // there may have been recoverable errors during first hydration
-        // attempt. If so, add them to a queue so we can log them in the
-        // commit phase.
-
-
-        upgradeHydrationErrorsToRecoverable();
-
-        if ((workInProgress.flags & DidCapture) !== NoFlags) {
-          // Something suspended. Re-render with the fallback children.
-          workInProgress.lanes = renderLanes; // Do not reset the effect list.
-
-          if ( (workInProgress.mode & ProfileMode) !== NoMode) {
-            transferActualDuration(workInProgress);
-          } // Don't bubble properties in this case.
-
-
-          return workInProgress;
-        }
-
-        var nextDidTimeout = nextState !== null;
-        var prevDidTimeout = false;
-
-        if (current === null) {
-          popHydrationState(workInProgress);
-        } else {
-          var _prevState = current.memoizedState;
-          prevDidTimeout = _prevState !== null;
-        }
-        // a passive effect, which is when we process the transitions
-
-
-        if (nextDidTimeout !== prevDidTimeout) {
-          // an effect to toggle the subtree's visibility. When we switch from
-          // fallback -> primary, the inner Offscreen fiber schedules this effect
-          // as part of its normal complete phase. But when we switch from
-          // primary -> fallback, the inner Offscreen fiber does not have a complete
-          // phase. So we need to schedule its effect here.
-          //
-          // We also use this flag to connect/disconnect the effects, but the same
-          // logic applies: when re-connecting, the Offscreen fiber's complete
-          // phase will handle scheduling the effect. It's only when the fallback
-          // is active that we have to do anything special.
-
-
-          if (nextDidTimeout) {
-            var _offscreenFiber2 = workInProgress.child;
-            _offscreenFiber2.flags |= Visibility; // TODO: This will still suspend a synchronous tree if anything
-            // in the concurrent tree already suspended during this render.
-            // This is a known bug.
-
-            if ((workInProgress.mode & ConcurrentMode) !== NoMode) {
-              // TODO: Move this back to throwException because this is too late
-              // if this is a large tree which is common for initial loads. We
-              // don't know if we should restart a render or not until we get
-              // this marker, and this is too late.
-              // If this render already had a ping or lower pri updates,
-              // and this is the first time we know we're going to suspend we
-              // should be able to immediately restart from within throwException.
-              var hasInvisibleChildContext = current === null && (workInProgress.memoizedProps.unstable_avoidThisFallback !== true || !enableSuspenseAvoidThisFallback);
-
-              if (hasInvisibleChildContext || hasSuspenseContext(suspenseStackCursor.current, InvisibleParentSuspenseContext)) {
-                // If this was in an invisible tree or a new render, then showing
-                // this boundary is ok.
-                renderDidSuspend();
-              } else {
-                // Otherwise, we're going to have to hide content so we should
-                // suspend for longer if possible.
-                renderDidSuspendDelayIfPossible();
-              }
-            }
-          }
-        }
-
-        var wakeables = workInProgress.updateQueue;
-
-        if (wakeables !== null) {
-          // Schedule an effect to attach a retry listener to the promise.
-          // TODO: Move to passive phase
-          workInProgress.flags |= Update;
-        }
-
-        bubbleProperties(workInProgress);
-
-        {
-          if ((workInProgress.mode & ProfileMode) !== NoMode) {
-            if (nextDidTimeout) {
-              // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-              var _primaryChildFragment2 = workInProgress.child;
-
-              if (_primaryChildFragment2 !== null) {
-                // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                workInProgress.treeBaseDuration -= _primaryChildFragment2.treeBaseDuration;
-              }
-            }
-          }
-        }
-
-        return null;
-      }
-
-    case HostPortal:
-      popHostContainer(workInProgress);
-      updateHostContainer(current, workInProgress);
-
-      if (current === null) {
-        preparePortalMount(workInProgress.stateNode.containerInfo);
-      }
-
-      bubbleProperties(workInProgress);
-      return null;
-
-    case ContextProvider:
-      // Pop provider fiber
-      var context = workInProgress.type._context;
-      popProvider(context, workInProgress);
-      bubbleProperties(workInProgress);
-      return null;
-
-    case IncompleteClassComponent:
-      {
-        // Same as class component case. I put it down here so that the tags are
-        // sequential to ensure this switch is compiled to a jump table.
-        var _Component = workInProgress.type;
-
-        if (isContextProvider(_Component)) {
-          popContext(workInProgress);
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case SuspenseListComponent:
-      {
-        popSuspenseContext(workInProgress);
-        var renderState = workInProgress.memoizedState;
-
-        if (renderState === null) {
-          // We're running in the default, "independent" mode.
-          // We don't do anything in this mode.
-          bubbleProperties(workInProgress);
-          return null;
-        }
-
-        var didSuspendAlready = (workInProgress.flags & DidCapture) !== NoFlags;
-        var renderedTail = renderState.rendering;
-
-        if (renderedTail === null) {
-          // We just rendered the head.
-          if (!didSuspendAlready) {
-            // This is the first pass. We need to figure out if anything is still
-            // suspended in the rendered set.
-            // If new content unsuspended, but there's still some content that
-            // didn't. Then we need to do a second pass that forces everything
-            // to keep showing their fallbacks.
-            // We might be suspended if something in this render pass suspended, or
-            // something in the previous committed pass suspended. Otherwise,
-            // there's no chance so we can skip the expensive call to
-            // findFirstSuspended.
-            var cannotBeSuspended = renderHasNotSuspendedYet() && (current === null || (current.flags & DidCapture) === NoFlags);
-
-            if (!cannotBeSuspended) {
-              var row = workInProgress.child;
-
-              while (row !== null) {
-                var suspended = findFirstSuspended(row);
-
-                if (suspended !== null) {
-                  didSuspendAlready = true;
-                  workInProgress.flags |= DidCapture;
-                  cutOffTailIfNeeded(renderState, false); // If this is a newly suspended tree, it might not get committed as
-                  // part of the second pass. In that case nothing will subscribe to
-                  // its thenables. Instead, we'll transfer its thenables to the
-                  // SuspenseList so that it can retry if they resolve.
-                  // There might be multiple of these in the list but since we're
-                  // going to wait for all of them anyway, it doesn't really matter
-                  // which ones gets to ping. In theory we could get clever and keep
-                  // track of how many dependencies remain but it gets tricky because
-                  // in the meantime, we can add/remove/change items and dependencies.
-                  // We might bail out of the loop before finding any but that
-                  // doesn't matter since that means that the other boundaries that
-                  // we did find already has their listeners attached.
-
-                  var newThenables = suspended.updateQueue;
-
-                  if (newThenables !== null) {
-                    workInProgress.updateQueue = newThenables;
-                    workInProgress.flags |= Update;
-                  } // Rerender the whole list, but this time, we'll force fallbacks
-                  // to stay in place.
-                  // Reset the effect flags before doing the second pass since that's now invalid.
-                  // Reset the child fibers to their original state.
-
-
-                  workInProgress.subtreeFlags = NoFlags;
-                  resetChildFibers(workInProgress, renderLanes); // Set up the Suspense Context to force suspense and immediately
-                  // rerender the children.
-
-                  pushSuspenseContext(workInProgress, setShallowSuspenseContext(suspenseStackCursor.current, ForceSuspenseFallback)); // Don't bubble properties in this case.
-
-                  return workInProgress.child;
-                }
-
-                row = row.sibling;
-              }
-            }
-
-            if (renderState.tail !== null && now() > getRenderTargetTime()) {
-              // We have already passed our CPU deadline but we still have rows
-              // left in the tail. We'll just give up further attempts to render
-              // the main content and only render fallbacks.
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true;
-              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
-              // to get it started back up to attempt the next item. While in terms
-              // of priority this work has the same priority as this current render,
-              // it's not part of the same transition once the transition has
-              // committed. If it's sync, we still want to yield so that it can be
-              // painted. Conceptually, this is really the same as pinging.
-              // We can use any RetryLane even if it's the one currently rendering
-              // since we're leaving it behind on this node.
-
-              workInProgress.lanes = SomeRetryLane;
-            }
-          } else {
-            cutOffTailIfNeeded(renderState, false);
-          } // Next we're going to render the tail.
-
-        } else {
-          // Append the rendered row to the child list.
-          if (!didSuspendAlready) {
-            var _suspended = findFirstSuspended(renderedTail);
-
-            if (_suspended !== null) {
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true; // Ensure we transfer the update queue to the parent so that it doesn't
-              // get lost if this row ends up dropped during a second pass.
-
-              var _newThenables = _suspended.updateQueue;
-
-              if (_newThenables !== null) {
-                workInProgress.updateQueue = _newThenables;
-                workInProgress.flags |= Update;
-              }
-
-              cutOffTailIfNeeded(renderState, true); // This might have been modified.
-
-              if (renderState.tail === null && renderState.tailMode === 'hidden' && !renderedTail.alternate && !getIsHydrating() // We don't cut it if we're hydrating.
-              ) {
-                  // We're done.
-                  bubbleProperties(workInProgress);
-                  return null;
-                }
-            } else if ( // The time it took to render last row is greater than the remaining
-            // time we have to render. So rendering one more row would likely
-            // exceed it.
-            now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
-              // We have now passed our CPU deadline and we'll just give up further
-              // attempts to render the main content and only render fallbacks.
-              // The assumption is that this is usually faster.
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true;
-              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
-              // to get it started back up to attempt the next item. While in terms
-              // of priority this work has the same priority as this current render,
-              // it's not part of the same transition once the transition has
-              // committed. If it's sync, we still want to yield so that it can be
-              // painted. Conceptually, this is really the same as pinging.
-              // We can use any RetryLane even if it's the one currently rendering
-              // since we're leaving it behind on this node.
-
-              workInProgress.lanes = SomeRetryLane;
-            }
-          }
-
-          if (renderState.isBackwards) {
-            // The effect list of the backwards tail will have been added
-            // to the end. This breaks the guarantee that life-cycles fire in
-            // sibling order but that isn't a strong guarantee promised by React.
-            // Especially since these might also just pop in during future commits.
-            // Append to the beginning of the list.
-            renderedTail.sibling = workInProgress.child;
-            workInProgress.child = renderedTail;
-          } else {
-            var previousSibling = renderState.last;
-
-            if (previousSibling !== null) {
-              previousSibling.sibling = renderedTail;
-            } else {
-              workInProgress.child = renderedTail;
-            }
-
-            renderState.last = renderedTail;
-          }
-        }
-
-        if (renderState.tail !== null) {
-          // We still have tail rows to render.
-          // Pop a row.
-          var next = renderState.tail;
-          renderState.rendering = next;
-          renderState.tail = next.sibling;
-          renderState.renderingStartTime = now();
-          next.sibling = null; // Restore the context.
-          // TODO: We can probably just avoid popping it instead and only
-          // setting it the first time we go from not suspended to suspended.
-
-          var suspenseContext = suspenseStackCursor.current;
-
-          if (didSuspendAlready) {
-            suspenseContext = setShallowSuspenseContext(suspenseContext, ForceSuspenseFallback);
-          } else {
-            suspenseContext = setDefaultShallowSuspenseContext(suspenseContext);
-          }
-
-          pushSuspenseContext(workInProgress, suspenseContext); // Do a pass over the next row.
-          // Don't bubble properties in this case.
-
-          return next;
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case ScopeComponent:
-      {
-
-        break;
-      }
-
-    case OffscreenComponent:
-    case LegacyHiddenComponent:
-      {
-        popRenderLanes(workInProgress);
-        var _nextState = workInProgress.memoizedState;
-        var nextIsHidden = _nextState !== null;
-
-        if (current !== null) {
-          var _prevState2 = current.memoizedState;
-          var prevIsHidden = _prevState2 !== null;
-
-          if (prevIsHidden !== nextIsHidden && ( // LegacyHidden doesn't do any hiding — it only pre-renders.
-          !enableLegacyHidden )) {
-            workInProgress.flags |= Visibility;
-          }
-        }
-
-        if (!nextIsHidden || (workInProgress.mode & ConcurrentMode) === NoMode) {
-          bubbleProperties(workInProgress);
-        } else {
-          // Don't bubble properties for hidden children unless we're rendering
-          // at offscreen priority.
-          if (includesSomeLane(subtreeRenderLanes, OffscreenLane)) {
-            bubbleProperties(workInProgress);
-
-            {
-              // Check if there was an insertion or update in the hidden subtree.
-              // If so, we need to hide those nodes in the commit phase, so
-              // schedule a visibility effect.
-              if ( workInProgress.subtreeFlags & (Placement | Update)) {
-                workInProgress.flags |= Visibility;
-              }
-            }
-          }
-        }
-        return null;
-      }
-
-    case CacheComponent:
-      {
-
-        return null;
-      }
-
-    case TracingMarkerComponent:
-      {
-
-        return null;
-      }
-  }
-
-  throw new Error("Unknown unit of work tag (" + workInProgress.tag + "). This error is likely caused by a bug in " + 'React. Please file an issue.');
 }
 
 var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
@@ -33021,11 +32175,9 @@ function updateOffscreenComponent(current, workInProgress, renderLanes) {
     pushRenderLanes(workInProgress, _subtreeRenderLanes);
   }
 
-  {
-    reconcileChildren(current, workInProgress, nextChildren, renderLanes);
-    return workInProgress.child;
-  }
-}
+  reconcileChildren(current, workInProgress, nextChildren, renderLanes);
+  return workInProgress.child;
+} // Note: These happen to have identical begin phases, for now. We shouldn't hold
 
 function updateFragment(current, workInProgress, renderLanes) {
   var nextChildren = workInProgress.pendingProps;
@@ -33058,7 +32210,7 @@ function updateProfiler(current, workInProgress, renderLanes) {
   return workInProgress.child;
 }
 
-function markRef$1(current, workInProgress) {
+function markRef(current, workInProgress) {
   var ref = workInProgress.ref;
 
   if (current === null && ref !== null || current !== null && current.ref !== ref) {
@@ -33166,7 +32318,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
           var lane = pickArbitraryLane(renderLanes);
           workInProgress.lanes = mergeLanes(workInProgress.lanes, lane); // Schedule the error boundary to re-render using updated state
 
-          var update = createClassErrorUpdate(workInProgress, createCapturedValue(error$1, workInProgress), lane);
+          var update = createClassErrorUpdate(workInProgress, createCapturedValueAtFiber(error$1, workInProgress), lane);
           enqueueCapturedUpdate(workInProgress, update);
           break;
         }
@@ -33201,17 +32353,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
   var shouldUpdate;
 
   if (instance === null) {
-    if (current !== null) {
-      // A class component without an instance only mounts if it suspended
-      // inside a non-concurrent tree, in an inconsistent state. We want to
-      // treat it like a new mount, even though an empty version of it already
-      // committed. Disconnect the alternate pointers.
-      current.alternate = null;
-      workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-      workInProgress.flags |= Placement;
-    } // In the initial pass we might need to construct the instance.
-
+    resetSuspendedCurrentOnMountInLegacyMode(current, workInProgress); // In the initial pass we might need to construct the instance.
 
     constructClassInstance(workInProgress, Component, nextProps);
     mountClassInstance(workInProgress, Component, nextProps, renderLanes);
@@ -33242,7 +32384,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
 
 function finishClassComponent(current, workInProgress, Component, shouldUpdate, hasContext, renderLanes) {
   // Refs should update even if shouldComponentUpdate returns false
-  markRef$1(current, workInProgress);
+  markRef(current, workInProgress);
   var didCaptureError = (workInProgress.flags & DidCapture) !== NoFlags;
 
   if (!shouldUpdate && !didCaptureError) {
@@ -33374,10 +32516,10 @@ function updateHostRoot(current, workInProgress, renderLanes) {
     if (workInProgress.flags & ForceClientRender) {
       // Something errored during a previous attempt to hydrate the shell, so we
       // forced a client render.
-      var recoverableError = new Error('There was an error while hydrating. Because the error happened outside ' + 'of a Suspense boundary, the entire root will switch to ' + 'client rendering.');
+      var recoverableError = createCapturedValueAtFiber(new Error('There was an error while hydrating. Because the error happened outside ' + 'of a Suspense boundary, the entire root will switch to ' + 'client rendering.'), workInProgress);
       return mountHostRootWithoutHydrating(current, workInProgress, nextChildren, renderLanes, recoverableError);
     } else if (nextChildren !== prevChildren) {
-      var _recoverableError = new Error('This root received an early update, before anything was able ' + 'hydrate. Switched the entire root to client rendering.');
+      var _recoverableError = createCapturedValueAtFiber(new Error('This root received an early update, before anything was able ' + 'hydrate. Switched the entire root to client rendering.'), workInProgress);
 
       return mountHostRootWithoutHydrating(current, workInProgress, nextChildren, renderLanes, _recoverableError);
     } else {
@@ -33423,7 +32565,7 @@ function mountHostRootWithoutHydrating(current, workInProgress, nextChildren, re
   return workInProgress.child;
 }
 
-function updateHostComponent$1(current, workInProgress, renderLanes) {
+function updateHostComponent(current, workInProgress, renderLanes) {
   pushHostContext(workInProgress);
 
   if (current === null) {
@@ -33448,12 +32590,12 @@ function updateHostComponent$1(current, workInProgress, renderLanes) {
     workInProgress.flags |= ContentReset;
   }
 
-  markRef$1(current, workInProgress);
+  markRef(current, workInProgress);
   reconcileChildren(current, workInProgress, nextChildren, renderLanes);
   return workInProgress.child;
 }
 
-function updateHostText$1(current, workInProgress) {
+function updateHostText(current, workInProgress) {
   if (current === null) {
     tryToClaimNextHydratableInstance(workInProgress);
   } // Nothing to do here. This is terminal. We'll do the completion step
@@ -33464,17 +32606,7 @@ function updateHostText$1(current, workInProgress) {
 }
 
 function mountLazyComponent(_current, workInProgress, elementType, renderLanes) {
-  if (_current !== null) {
-    // A lazy component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  }
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress);
   var props = workInProgress.pendingProps;
   var lazyComponent = elementType;
   var payload = lazyComponent._payload;
@@ -33552,17 +32684,7 @@ function mountLazyComponent(_current, workInProgress, elementType, renderLanes) 
 }
 
 function mountIncompleteClassComponent(_current, workInProgress, Component, nextProps, renderLanes) {
-  if (_current !== null) {
-    // An incomplete component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  } // Promote the fiber to a class and try rendering again.
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress); // Promote the fiber to a class and try rendering again.
 
   workInProgress.tag = ClassComponent; // The rest of this function is a fork of `updateClassComponent`
   // Push context providers early to prevent context stack mismatches.
@@ -33585,17 +32707,7 @@ function mountIncompleteClassComponent(_current, workInProgress, Component, next
 }
 
 function mountIndeterminateComponent(_current, workInProgress, Component, renderLanes) {
-  if (_current !== null) {
-    // An indeterminate component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  }
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress);
   var props = workInProgress.pendingProps;
   var context;
 
@@ -33881,6 +32993,7 @@ function updateSuspenseComponent(current, workInProgress, renderLanes) {
 
   if (current === null) {
     // Initial mount
+    // Special path for hydration
     // If we're currently hydrating, try to hydrate this boundary.
     tryToClaimNextHydratableInstance(workInProgress); // This could've been a dehydrated suspense component.
 
@@ -33909,92 +33022,35 @@ function updateSuspenseComponent(current, workInProgress, renderLanes) {
     }
   } else {
     // This is an update.
-    // If the current fiber has a SuspenseState, that means it's already showing
-    // a fallback.
+    // Special path for hydration
     var prevState = current.memoizedState;
 
     if (prevState !== null) {
-      // The current tree is already showing a fallback
-      // Special path for hydration
       var _dehydrated = prevState.dehydrated;
 
       if (_dehydrated !== null) {
-        if (!didSuspend) {
-          return updateDehydratedSuspenseComponent(current, workInProgress, _dehydrated, prevState, renderLanes);
-        } else if (workInProgress.flags & ForceClientRender) {
-          // Something errored during hydration. Try again without hydrating.
-          workInProgress.flags &= ~ForceClientRender;
-          return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, new Error('There was an error while hydrating this Suspense boundary. ' + 'Switched to client rendering.'));
-        } else if (workInProgress.memoizedState !== null) {
-          // Something suspended and we should still be in dehydrated mode.
-          // Leave the existing child in place.
-          workInProgress.child = current.child; // The dehydrated completion pass expects this flag to be there
-          // but the normal suspense pass doesn't.
-
-          workInProgress.flags |= DidCapture;
-          return null;
-        } else {
-          // Suspended but we should no longer be in dehydrated mode.
-          // Therefore we now have to render the fallback.
-          var _nextPrimaryChildren = nextProps.children;
-          var _nextFallbackChildren = nextProps.fallback;
-          var fallbackChildFragment = mountSuspenseFallbackAfterRetryWithoutHydrating(current, workInProgress, _nextPrimaryChildren, _nextFallbackChildren, renderLanes);
-          var _primaryChildFragment2 = workInProgress.child;
-          _primaryChildFragment2.memoizedState = mountSuspenseOffscreenState(renderLanes);
-          workInProgress.memoizedState = SUSPENDED_MARKER;
-          return fallbackChildFragment;
-        }
+        return updateDehydratedSuspenseComponent(current, workInProgress, didSuspend, nextProps, _dehydrated, prevState, renderLanes);
       }
+    }
 
-      if (showFallback) {
-        var _nextFallbackChildren2 = nextProps.fallback;
-        var _nextPrimaryChildren2 = nextProps.children;
+    if (showFallback) {
+      var _nextFallbackChildren = nextProps.fallback;
+      var _nextPrimaryChildren = nextProps.children;
+      var fallbackChildFragment = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren, _nextFallbackChildren, renderLanes);
+      var _primaryChildFragment2 = workInProgress.child;
+      var prevOffscreenState = current.child.memoizedState;
+      _primaryChildFragment2.memoizedState = prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(prevOffscreenState, renderLanes);
 
-        var _fallbackChildFragment = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren2, _nextFallbackChildren2, renderLanes);
-
-        var _primaryChildFragment3 = workInProgress.child;
-        var prevOffscreenState = current.child.memoizedState;
-        _primaryChildFragment3.memoizedState = prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(prevOffscreenState, renderLanes);
-
-        _primaryChildFragment3.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
-        workInProgress.memoizedState = SUSPENDED_MARKER;
-        return _fallbackChildFragment;
-      } else {
-        var _nextPrimaryChildren3 = nextProps.children;
-
-        var _primaryChildFragment4 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren3, renderLanes);
-
-        workInProgress.memoizedState = null;
-        return _primaryChildFragment4;
-      }
+      _primaryChildFragment2.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
+      workInProgress.memoizedState = SUSPENDED_MARKER;
+      return fallbackChildFragment;
     } else {
-      // The current tree is not already showing a fallback.
-      if (showFallback) {
-        // Timed out.
-        var _nextFallbackChildren3 = nextProps.fallback;
-        var _nextPrimaryChildren4 = nextProps.children;
+      var _nextPrimaryChildren2 = nextProps.children;
 
-        var _fallbackChildFragment2 = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren4, _nextFallbackChildren3, renderLanes);
+      var _primaryChildFragment3 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren2, renderLanes);
 
-        var _primaryChildFragment5 = workInProgress.child;
-        var _prevOffscreenState = current.child.memoizedState;
-        _primaryChildFragment5.memoizedState = _prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(_prevOffscreenState, renderLanes);
-        _primaryChildFragment5.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
-        // fallback children.
-
-
-        workInProgress.memoizedState = SUSPENDED_MARKER;
-        return _fallbackChildFragment2;
-      } else {
-        // Still haven't timed out. Continue rendering the children, like we
-        // normally do.
-        var _nextPrimaryChildren5 = nextProps.children;
-
-        var _primaryChildFragment6 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren5, renderLanes);
-
-        workInProgress.memoizedState = null;
-        return _primaryChildFragment6;
-      }
+      workInProgress.memoizedState = null;
+      return _primaryChildFragment3;
     }
   }
 }
@@ -34128,17 +33184,16 @@ function updateSuspenseFallbackChildren(current, workInProgress, primaryChildren
       primaryChildFragment.actualStartTime = -1;
       primaryChildFragment.selfBaseDuration = currentPrimaryChildFragment.selfBaseDuration;
       primaryChildFragment.treeBaseDuration = currentPrimaryChildFragment.treeBaseDuration;
-    }
+    } // The fallback fiber was added as a deletion during the first pass.
     // However, since we're going to remain on the fallback, we no longer want
     // to delete it.
 
 
     workInProgress.deletions = null;
   } else {
-    primaryChildFragment = updateWorkInProgressOffscreenFiber(currentPrimaryChildFragment, primaryChildProps);
+    primaryChildFragment = updateWorkInProgressOffscreenFiber(currentPrimaryChildFragment, primaryChildProps); // Since we're reusing a current tree, we need to reuse the flags, too.
     // (We don't do this in legacy mode, because in legacy mode we don't re-use
     // the current tree; see previous branch.)
-
 
     primaryChildFragment.subtreeFlags = currentPrimaryChildFragment.subtreeFlags & StaticMask;
   }
@@ -34242,89 +33297,141 @@ function mountDehydratedSuspenseComponent(workInProgress, suspenseInstance, rend
   return null;
 }
 
-function updateDehydratedSuspenseComponent(current, workInProgress, suspenseInstance, suspenseState, renderLanes) {
-  // We should never be hydrating at this point because it is the first pass,
-  // but after we've already committed once.
-  warnIfHydrating();
+function updateDehydratedSuspenseComponent(current, workInProgress, didSuspend, nextProps, suspenseInstance, suspenseState, renderLanes) {
+  if (!didSuspend) {
+    // This is the first render pass. Attempt to hydrate.
+    // We should never be hydrating at this point because it is the first pass,
+    // but after we've already committed once.
+    warnIfHydrating();
 
-  if ((workInProgress.mode & ConcurrentMode) === NoMode) {
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: When we delete legacy mode, we should make this error argument
-    // required — every concurrent mode path that causes hydration to
-    // de-opt to client rendering should have an error message.
-    null);
-  }
+    if ((workInProgress.mode & ConcurrentMode) === NoMode) {
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: When we delete legacy mode, we should make this error argument
+      // required — every concurrent mode path that causes hydration to
+      // de-opt to client rendering should have an error message.
+      null);
+    }
 
-  if (isSuspenseInstanceFallback(suspenseInstance)) {
-    // This boundary is in a permanent fallback state. In this case, we'll never
-    // get an update and we'll never be able to hydrate the final content. Let's just try the
-    // client side render instead.
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: The server should serialize the error message so we can log it
-    // here on the client. Or, in production, a hash/id that corresponds to
-    // the error.
-    new Error('The server could not finish this Suspense boundary, likely ' + 'due to an error during server rendering. Switched to ' + 'client rendering.'));
-  }
-  // any context has changed, we need to treat is as if the input might have changed.
+    if (isSuspenseInstanceFallback(suspenseInstance)) {
+      // This boundary is in a permanent fallback state. In this case, we'll never
+      // get an update and we'll never be able to hydrate the final content. Let's just try the
+      // client side render instead.
+      var digest, message, stack;
 
+      {
+        var _getSuspenseInstanceF = getSuspenseInstanceFallbackErrorDetails(suspenseInstance);
 
-  var hasContextChanged = includesSomeLane(renderLanes, current.childLanes);
-
-  if (didReceiveUpdate || hasContextChanged) {
-    // This boundary has changed since the first render. This means that we are now unable to
-    // hydrate it. We might still be able to hydrate it using a higher priority lane.
-    var root = getWorkInProgressRoot();
-
-    if (root !== null) {
-      var attemptHydrationAtLane = getBumpedLaneForHydration(root, renderLanes);
-
-      if (attemptHydrationAtLane !== NoLane && attemptHydrationAtLane !== suspenseState.retryLane) {
-        // Intentionally mutating since this render will get interrupted. This
-        // is one of the very rare times where we mutate the current tree
-        // during the render phase.
-        suspenseState.retryLane = attemptHydrationAtLane; // TODO: Ideally this would inherit the event time of the current render
-
-        var eventTime = NoTimestamp;
-        scheduleUpdateOnFiber(current, attemptHydrationAtLane, eventTime);
+        digest = _getSuspenseInstanceF.digest;
+        message = _getSuspenseInstanceF.message;
+        stack = _getSuspenseInstanceF.stack;
       }
-    } // If we have scheduled higher pri work above, this will probably just abort the render
-    // since we now have higher priority work, but in case it doesn't, we need to prepare to
-    // render something, if we time out. Even if that requires us to delete everything and
-    // skip hydration.
-    // Delay having to do this as long as the suspense timeout allows us.
+
+      var error;
+
+      if (message) {
+        // eslint-disable-next-line react-internal/prod-error-codes
+        error = new Error(message);
+      } else {
+        error = new Error('The server could not finish this Suspense boundary, likely ' + 'due to an error during server rendering. Switched to ' + 'client rendering.');
+      }
+
+      var capturedValue = createCapturedValue(error, digest, stack);
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, capturedValue);
+    }
+    // any context has changed, we need to treat is as if the input might have changed.
 
 
-    renderDidSuspendDelayIfPossible();
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, new Error('This Suspense boundary received an update before it finished ' + 'hydrating. This caused the boundary to switch to client rendering. ' + 'The usual way to fix this is to wrap the original update ' + 'in startTransition.'));
-  } else if (isSuspenseInstancePending(suspenseInstance)) {
-    // This component is still pending more data from the server, so we can't hydrate its
-    // content. We treat it as if this component suspended itself. It might seem as if
-    // we could just try to render it client-side instead. However, this will perform a
-    // lot of unnecessary work and is unlikely to complete since it often will suspend
-    // on missing data anyway. Additionally, the server might be able to render more
-    // than we can on the client yet. In that case we'd end up with more fallback states
-    // on the client than if we just leave it alone. If the server times out or errors
-    // these should update this boundary to the permanent Fallback state instead.
-    // Mark it as having captured (i.e. suspended).
-    workInProgress.flags |= DidCapture; // Leave the child in place. I.e. the dehydrated fragment.
+    var hasContextChanged = includesSomeLane(renderLanes, current.childLanes);
 
-    workInProgress.child = current.child; // Register a callback to retry this boundary once the server has sent the result.
+    if (didReceiveUpdate || hasContextChanged) {
+      // This boundary has changed since the first render. This means that we are now unable to
+      // hydrate it. We might still be able to hydrate it using a higher priority lane.
+      var root = getWorkInProgressRoot();
 
-    var retry = retryDehydratedSuspenseBoundary.bind(null, current);
-    registerSuspenseInstanceRetry(suspenseInstance, retry);
-    return null;
+      if (root !== null) {
+        var attemptHydrationAtLane = getBumpedLaneForHydration(root, renderLanes);
+
+        if (attemptHydrationAtLane !== NoLane && attemptHydrationAtLane !== suspenseState.retryLane) {
+          // Intentionally mutating since this render will get interrupted. This
+          // is one of the very rare times where we mutate the current tree
+          // during the render phase.
+          suspenseState.retryLane = attemptHydrationAtLane; // TODO: Ideally this would inherit the event time of the current render
+
+          var eventTime = NoTimestamp;
+          enqueueConcurrentRenderForLane(current, attemptHydrationAtLane);
+          scheduleUpdateOnFiber(root, current, attemptHydrationAtLane, eventTime);
+        }
+      } // If we have scheduled higher pri work above, this will probably just abort the render
+      // since we now have higher priority work, but in case it doesn't, we need to prepare to
+      // render something, if we time out. Even if that requires us to delete everything and
+      // skip hydration.
+      // Delay having to do this as long as the suspense timeout allows us.
+
+
+      renderDidSuspendDelayIfPossible();
+
+      var _capturedValue = createCapturedValue(new Error('This Suspense boundary received an update before it finished ' + 'hydrating. This caused the boundary to switch to client rendering. ' + 'The usual way to fix this is to wrap the original update ' + 'in startTransition.'));
+
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, _capturedValue);
+    } else if (isSuspenseInstancePending(suspenseInstance)) {
+      // This component is still pending more data from the server, so we can't hydrate its
+      // content. We treat it as if this component suspended itself. It might seem as if
+      // we could just try to render it client-side instead. However, this will perform a
+      // lot of unnecessary work and is unlikely to complete since it often will suspend
+      // on missing data anyway. Additionally, the server might be able to render more
+      // than we can on the client yet. In that case we'd end up with more fallback states
+      // on the client than if we just leave it alone. If the server times out or errors
+      // these should update this boundary to the permanent Fallback state instead.
+      // Mark it as having captured (i.e. suspended).
+      workInProgress.flags |= DidCapture; // Leave the child in place. I.e. the dehydrated fragment.
+
+      workInProgress.child = current.child; // Register a callback to retry this boundary once the server has sent the result.
+
+      var retry = retryDehydratedSuspenseBoundary.bind(null, current);
+      registerSuspenseInstanceRetry(suspenseInstance, retry);
+      return null;
+    } else {
+      // This is the first attempt.
+      reenterHydrationStateFromDehydratedSuspenseInstance(workInProgress, suspenseInstance, suspenseState.treeContext);
+      var primaryChildren = nextProps.children;
+      var primaryChildFragment = mountSuspensePrimaryChildren(workInProgress, primaryChildren); // Mark the children as hydrating. This is a fast path to know whether this
+      // tree is part of a hydrating tree. This is used to determine if a child
+      // node has fully mounted yet, and for scheduling event replaying.
+      // Conceptually this is similar to Placement in that a new subtree is
+      // inserted into the React tree here. It just happens to not need DOM
+      // mutations because it already exists.
+
+      primaryChildFragment.flags |= Hydrating;
+      return primaryChildFragment;
+    }
   } else {
-    // This is the first attempt.
-    reenterHydrationStateFromDehydratedSuspenseInstance(workInProgress, suspenseInstance, suspenseState.treeContext);
-    var nextProps = workInProgress.pendingProps;
-    var primaryChildren = nextProps.children;
-    var primaryChildFragment = mountSuspensePrimaryChildren(workInProgress, primaryChildren); // Mark the children as hydrating. This is a fast path to know whether this
-    // tree is part of a hydrating tree. This is used to determine if a child
-    // node has fully mounted yet, and for scheduling event replaying.
-    // Conceptually this is similar to Placement in that a new subtree is
-    // inserted into the React tree here. It just happens to not need DOM
-    // mutations because it already exists.
+    // This is the second render pass. We already attempted to hydrated, but
+    // something either suspended or errored.
+    if (workInProgress.flags & ForceClientRender) {
+      // Something errored during hydration. Try again without hydrating.
+      workInProgress.flags &= ~ForceClientRender;
 
-    primaryChildFragment.flags |= Hydrating;
-    return primaryChildFragment;
+      var _capturedValue2 = createCapturedValue(new Error('There was an error while hydrating this Suspense boundary. ' + 'Switched to client rendering.'));
+
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, _capturedValue2);
+    } else if (workInProgress.memoizedState !== null) {
+      // Something suspended and we should still be in dehydrated mode.
+      // Leave the existing child in place.
+      workInProgress.child = current.child; // The dehydrated completion pass expects this flag to be there
+      // but the normal suspense pass doesn't.
+
+      workInProgress.flags |= DidCapture;
+      return null;
+    } else {
+      // Suspended but we should no longer be in dehydrated mode.
+      // Therefore we now have to render the fallback.
+      var nextPrimaryChildren = nextProps.children;
+      var nextFallbackChildren = nextProps.fallback;
+      var fallbackChildFragment = mountSuspenseFallbackAfterRetryWithoutHydrating(current, workInProgress, nextPrimaryChildren, nextFallbackChildren, renderLanes);
+      var _primaryChildFragment4 = workInProgress.child;
+      _primaryChildFragment4.memoizedState = mountSuspenseOffscreenState(renderLanes);
+      workInProgress.memoizedState = SUSPENDED_MARKER;
+      return fallbackChildFragment;
+    }
   }
 }
 
@@ -34785,6 +33892,21 @@ function markWorkInProgressReceivedUpdate() {
   didReceiveUpdate = true;
 }
 
+function resetSuspendedCurrentOnMountInLegacyMode(current, workInProgress) {
+  if ((workInProgress.mode & ConcurrentMode) === NoMode) {
+    if (current !== null) {
+      // A lazy component only mounts if it suspended inside a non-
+      // concurrent tree, in an inconsistent state. We want to treat it like
+      // a new mount, even though an empty version of it already committed.
+      // Disconnect the alternate pointers.
+      current.alternate = null;
+      workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
+
+      workInProgress.flags |= Placement;
+    }
+  }
+}
+
 function bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes) {
   if (current !== null) {
     // Reuse previous dependencies
@@ -35163,10 +34285,10 @@ function beginWork(current, workInProgress, renderLanes) {
       return updateHostRoot(current, workInProgress, renderLanes);
 
     case HostComponent:
-      return updateHostComponent$1(current, workInProgress, renderLanes);
+      return updateHostComponent(current, workInProgress, renderLanes);
 
     case HostText:
-      return updateHostText$1(current, workInProgress);
+      return updateHostText(current, workInProgress);
 
     case SuspenseComponent:
       return updateSuspenseComponent(current, workInProgress, renderLanes);
@@ -35250,6 +34372,936 @@ function beginWork(current, workInProgress, renderLanes) {
     case OffscreenComponent:
       {
         return updateOffscreenComponent(current, workInProgress, renderLanes);
+      }
+  }
+
+  throw new Error("Unknown unit of work tag (" + workInProgress.tag + "). This error is likely caused by a bug in " + 'React. Please file an issue.');
+}
+
+function markUpdate(workInProgress) {
+  // Tag the fiber with an update effect. This turns a Placement into
+  // a PlacementAndUpdate.
+  workInProgress.flags |= Update;
+}
+
+function markRef$1(workInProgress) {
+  workInProgress.flags |= Ref;
+
+  {
+    workInProgress.flags |= RefStatic;
+  }
+}
+
+var appendAllChildren;
+var updateHostContainer;
+var updateHostComponent$1;
+var updateHostText$1;
+
+{
+  // Mutation mode
+  appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
+    // We only have the top Fiber that was created but we need recurse down its
+    // children to find all the terminal nodes.
+    var node = workInProgress.child;
+
+    while (node !== null) {
+      if (node.tag === HostComponent || node.tag === HostText) {
+        appendInitialChild(parent, node.stateNode);
+      } else if (node.tag === HostPortal) ; else if (node.child !== null) {
+        node.child.return = node;
+        node = node.child;
+        continue;
+      }
+
+      if (node === workInProgress) {
+        return;
+      }
+
+      while (node.sibling === null) {
+        if (node.return === null || node.return === workInProgress) {
+          return;
+        }
+
+        node = node.return;
+      }
+
+      node.sibling.return = node.return;
+      node = node.sibling;
+    }
+  };
+
+  updateHostContainer = function (current, workInProgress) {// Noop
+  };
+
+  updateHostComponent$1 = function (current, workInProgress, type, newProps, rootContainerInstance) {
+    // If we have an alternate, that means this is an update and we need to
+    // schedule a side-effect to do the updates.
+    var oldProps = current.memoizedProps;
+
+    if (oldProps === newProps) {
+      // In mutation mode, this is sufficient for a bailout because
+      // we won't touch this node even if children changed.
+      return;
+    } // If we get updated because one of our children updated, we don't
+    // have newProps so we'll have to reuse them.
+    // TODO: Split the update API as separate for the props vs. children.
+    // Even better would be if children weren't special cased at all tho.
+
+
+    var instance = workInProgress.stateNode;
+    var currentHostContext = getHostContext(); // TODO: Experiencing an error where oldProps is null. Suggests a host
+    // component is hitting the resume path. Figure out why. Possibly
+    // related to `hidden`.
+
+    var updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext); // TODO: Type this specific to this type of component.
+
+    workInProgress.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
+    // is a new ref we mark this as an update. All the work is done in commitWork.
+
+    if (updatePayload) {
+      markUpdate(workInProgress);
+    }
+  };
+
+  updateHostText$1 = function (current, workInProgress, oldText, newText) {
+    // If the text differs, mark it as an update. All the work in done in commitWork.
+    if (oldText !== newText) {
+      markUpdate(workInProgress);
+    }
+  };
+}
+
+function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
+  if (getIsHydrating()) {
+    // If we're hydrating, we should consume as many items as we can
+    // so we don't leave any behind.
+    return;
+  }
+
+  switch (renderState.tailMode) {
+    case 'hidden':
+      {
+        // Any insertions at the end of the tail list after this point
+        // should be invisible. If there are already mounted boundaries
+        // anything before them are not considered for collapsing.
+        // Therefore we need to go through the whole tail to find if
+        // there are any.
+        var tailNode = renderState.tail;
+        var lastTailNode = null;
+
+        while (tailNode !== null) {
+          if (tailNode.alternate !== null) {
+            lastTailNode = tailNode;
+          }
+
+          tailNode = tailNode.sibling;
+        } // Next we're simply going to delete all insertions after the
+        // last rendered item.
+
+
+        if (lastTailNode === null) {
+          // All remaining items in the tail are insertions.
+          renderState.tail = null;
+        } else {
+          // Detach the insertion after the last node that was already
+          // inserted.
+          lastTailNode.sibling = null;
+        }
+
+        break;
+      }
+
+    case 'collapsed':
+      {
+        // Any insertions at the end of the tail list after this point
+        // should be invisible. If there are already mounted boundaries
+        // anything before them are not considered for collapsing.
+        // Therefore we need to go through the whole tail to find if
+        // there are any.
+        var _tailNode = renderState.tail;
+        var _lastTailNode = null;
+
+        while (_tailNode !== null) {
+          if (_tailNode.alternate !== null) {
+            _lastTailNode = _tailNode;
+          }
+
+          _tailNode = _tailNode.sibling;
+        } // Next we're simply going to delete all insertions after the
+        // last rendered item.
+
+
+        if (_lastTailNode === null) {
+          // All remaining items in the tail are insertions.
+          if (!hasRenderedATailFallback && renderState.tail !== null) {
+            // We suspended during the head. We want to show at least one
+            // row at the tail. So we'll keep on and cut off the rest.
+            renderState.tail.sibling = null;
+          } else {
+            renderState.tail = null;
+          }
+        } else {
+          // Detach the insertion after the last node that was already
+          // inserted.
+          _lastTailNode.sibling = null;
+        }
+
+        break;
+      }
+  }
+}
+
+function bubbleProperties(completedWork) {
+  var didBailout = completedWork.alternate !== null && completedWork.alternate.child === completedWork.child;
+  var newChildLanes = NoLanes;
+  var subtreeFlags = NoFlags;
+
+  if (!didBailout) {
+    // Bubble up the earliest expiration time.
+    if ( (completedWork.mode & ProfileMode) !== NoMode) {
+      // In profiling mode, resetChildExpirationTime is also used to reset
+      // profiler durations.
+      var actualDuration = completedWork.actualDuration;
+      var treeBaseDuration = completedWork.selfBaseDuration;
+      var child = completedWork.child;
+
+      while (child !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(child.lanes, child.childLanes));
+        subtreeFlags |= child.subtreeFlags;
+        subtreeFlags |= child.flags; // When a fiber is cloned, its actualDuration is reset to 0. This value will
+        // only be updated if work is done on the fiber (i.e. it doesn't bailout).
+        // When work is done, it should bubble to the parent's actualDuration. If
+        // the fiber has not been cloned though, (meaning no work was done), then
+        // this value will reflect the amount of time spent working on a previous
+        // render. In that case it should not bubble. We determine whether it was
+        // cloned by comparing the child pointer.
+
+        actualDuration += child.actualDuration;
+        treeBaseDuration += child.treeBaseDuration;
+        child = child.sibling;
+      }
+
+      completedWork.actualDuration = actualDuration;
+      completedWork.treeBaseDuration = treeBaseDuration;
+    } else {
+      var _child = completedWork.child;
+
+      while (_child !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child.lanes, _child.childLanes));
+        subtreeFlags |= _child.subtreeFlags;
+        subtreeFlags |= _child.flags; // Update the return pointer so the tree is consistent. This is a code
+        // smell because it assumes the commit phase is never concurrent with
+        // the render phase. Will address during refactor to alternate model.
+
+        _child.return = completedWork;
+        _child = _child.sibling;
+      }
+    }
+
+    completedWork.subtreeFlags |= subtreeFlags;
+  } else {
+    // Bubble up the earliest expiration time.
+    if ( (completedWork.mode & ProfileMode) !== NoMode) {
+      // In profiling mode, resetChildExpirationTime is also used to reset
+      // profiler durations.
+      var _treeBaseDuration = completedWork.selfBaseDuration;
+      var _child2 = completedWork.child;
+
+      while (_child2 !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child2.lanes, _child2.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
+        // so we should bubble those up even during a bailout. All the other
+        // flags have a lifetime only of a single render + commit, so we should
+        // ignore them.
+
+        subtreeFlags |= _child2.subtreeFlags & StaticMask;
+        subtreeFlags |= _child2.flags & StaticMask;
+        _treeBaseDuration += _child2.treeBaseDuration;
+        _child2 = _child2.sibling;
+      }
+
+      completedWork.treeBaseDuration = _treeBaseDuration;
+    } else {
+      var _child3 = completedWork.child;
+
+      while (_child3 !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child3.lanes, _child3.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
+        // so we should bubble those up even during a bailout. All the other
+        // flags have a lifetime only of a single render + commit, so we should
+        // ignore them.
+
+        subtreeFlags |= _child3.subtreeFlags & StaticMask;
+        subtreeFlags |= _child3.flags & StaticMask; // Update the return pointer so the tree is consistent. This is a code
+        // smell because it assumes the commit phase is never concurrent with
+        // the render phase. Will address during refactor to alternate model.
+
+        _child3.return = completedWork;
+        _child3 = _child3.sibling;
+      }
+    }
+
+    completedWork.subtreeFlags |= subtreeFlags;
+  }
+
+  completedWork.childLanes = newChildLanes;
+  return didBailout;
+}
+
+function completeDehydratedSuspenseBoundary(current, workInProgress, nextState) {
+  if (hasUnhydratedTailNodes() && (workInProgress.mode & ConcurrentMode) !== NoMode && (workInProgress.flags & DidCapture) === NoFlags) {
+    warnIfUnhydratedTailNodes(workInProgress);
+    resetHydrationState();
+    workInProgress.flags |= ForceClientRender | Incomplete | ShouldCapture;
+    return false;
+  }
+
+  var wasHydrated = popHydrationState(workInProgress);
+
+  if (nextState !== null && nextState.dehydrated !== null) {
+    // We might be inside a hydration state the first time we're picking up this
+    // Suspense boundary, and also after we've reentered it for further hydration.
+    if (current === null) {
+      if (!wasHydrated) {
+        throw new Error('A dehydrated suspense component was completed without a hydrated node. ' + 'This is probably a bug in React.');
+      }
+
+      prepareToHydrateHostSuspenseInstance(workInProgress);
+      bubbleProperties(workInProgress);
+
+      {
+        if ((workInProgress.mode & ProfileMode) !== NoMode) {
+          var isTimedOutSuspense = nextState !== null;
+
+          if (isTimedOutSuspense) {
+            // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+            var primaryChildFragment = workInProgress.child;
+
+            if (primaryChildFragment !== null) {
+              // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+              workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
+            }
+          }
+        }
+      }
+
+      return false;
+    } else {
+      // We might have reentered this boundary to hydrate it. If so, we need to reset the hydration
+      // state since we're now exiting out of it. popHydrationState doesn't do that for us.
+      resetHydrationState();
+
+      if ((workInProgress.flags & DidCapture) === NoFlags) {
+        // This boundary did not suspend so it's now hydrated and unsuspended.
+        workInProgress.memoizedState = null;
+      } // If nothing suspended, we need to schedule an effect to mark this boundary
+      // as having hydrated so events know that they're free to be invoked.
+      // It's also a signal to replay events and the suspense callback.
+      // If something suspended, schedule an effect to attach retry listeners.
+      // So we might as well always mark this.
+
+
+      workInProgress.flags |= Update;
+      bubbleProperties(workInProgress);
+
+      {
+        if ((workInProgress.mode & ProfileMode) !== NoMode) {
+          var _isTimedOutSuspense = nextState !== null;
+
+          if (_isTimedOutSuspense) {
+            // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+            var _primaryChildFragment = workInProgress.child;
+
+            if (_primaryChildFragment !== null) {
+              // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+              workInProgress.treeBaseDuration -= _primaryChildFragment.treeBaseDuration;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+  } else {
+    // Successfully completed this tree. If this was a forced client render,
+    // there may have been recoverable errors during first hydration
+    // attempt. If so, add them to a queue so we can log them in the
+    // commit phase.
+    upgradeHydrationErrorsToRecoverable(); // Fall through to normal Suspense path
+
+    return true;
+  }
+}
+
+function completeWork(current, workInProgress, renderLanes) {
+  var newProps = workInProgress.pendingProps; // Note: This intentionally doesn't check if we're hydrating because comparing
+  // to the current tree provider fiber is just as fast and less error-prone.
+  // Ideally we would have a special version of the work loop only
+  // for hydration.
+
+  popTreeContext(workInProgress);
+
+  switch (workInProgress.tag) {
+    case IndeterminateComponent:
+    case LazyComponent:
+    case SimpleMemoComponent:
+    case FunctionComponent:
+    case ForwardRef:
+    case Fragment:
+    case Mode:
+    case Profiler:
+    case ContextConsumer:
+    case MemoComponent:
+      bubbleProperties(workInProgress);
+      return null;
+
+    case ClassComponent:
+      {
+        var Component = workInProgress.type;
+
+        if (isContextProvider(Component)) {
+          popContext(workInProgress);
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case HostRoot:
+      {
+        var fiberRoot = workInProgress.stateNode;
+        popHostContainer(workInProgress);
+        popTopLevelContextObject(workInProgress);
+        resetWorkInProgressVersions();
+
+        if (fiberRoot.pendingContext) {
+          fiberRoot.context = fiberRoot.pendingContext;
+          fiberRoot.pendingContext = null;
+        }
+
+        if (current === null || current.child === null) {
+          // If we hydrated, pop so that we can delete any remaining children
+          // that weren't hydrated.
+          var wasHydrated = popHydrationState(workInProgress);
+
+          if (wasHydrated) {
+            // If we hydrated, then we'll need to schedule an update for
+            // the commit side-effects on the root.
+            markUpdate(workInProgress);
+          } else {
+            if (current !== null) {
+              var prevState = current.memoizedState;
+
+              if ( // Check if this is a client root
+              !prevState.isDehydrated || // Check if we reverted to client rendering (e.g. due to an error)
+              (workInProgress.flags & ForceClientRender) !== NoFlags) {
+                // Schedule an effect to clear this container at the start of the
+                // next commit. This handles the case of React rendering into a
+                // container with previous children. It's also safe to do for
+                // updates too, because current.child would only be null if the
+                // previous render was null (so the container would already
+                // be empty).
+                workInProgress.flags |= Snapshot; // If this was a forced client render, there may have been
+                // recoverable errors during first hydration attempt. If so, add
+                // them to a queue so we can log them in the commit phase.
+
+                upgradeHydrationErrorsToRecoverable();
+              }
+            }
+          }
+        }
+
+        updateHostContainer(current, workInProgress);
+        bubbleProperties(workInProgress);
+
+        return null;
+      }
+
+    case HostComponent:
+      {
+        popHostContext(workInProgress);
+        var rootContainerInstance = getRootHostContainer();
+        var type = workInProgress.type;
+
+        if (current !== null && workInProgress.stateNode != null) {
+          updateHostComponent$1(current, workInProgress, type, newProps, rootContainerInstance);
+
+          if (current.ref !== workInProgress.ref) {
+            markRef$1(workInProgress);
+          }
+        } else {
+          if (!newProps) {
+            if (workInProgress.stateNode === null) {
+              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
+            } // This can happen when we abort work.
+
+
+            bubbleProperties(workInProgress);
+            return null;
+          }
+
+          var currentHostContext = getHostContext(); // TODO: Move createInstance to beginWork and keep it on a context
+          // "stack" as the parent. Then append children as we go in beginWork
+          // or completeWork depending on whether we want to add them top->down or
+          // bottom->up. Top->down is faster in IE11.
+
+          var _wasHydrated = popHydrationState(workInProgress);
+
+          if (_wasHydrated) {
+            // TODO: Move this and createInstance step into the beginPhase
+            // to consolidate.
+            if (prepareToHydrateHostInstance(workInProgress, rootContainerInstance, currentHostContext)) {
+              // If changes to the hydrated node need to be applied at the
+              // commit-phase we mark this as such.
+              markUpdate(workInProgress);
+            }
+          } else {
+            var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress);
+            appendAllChildren(instance, workInProgress, false, false);
+            workInProgress.stateNode = instance; // Certain renderers require commit-time effects for initial mount.
+            // (eg DOM renderer supports auto-focus for certain elements).
+            // Make sure such renderers get scheduled for later work.
+
+            if (finalizeInitialChildren(instance, type, newProps, rootContainerInstance)) {
+              markUpdate(workInProgress);
+            }
+          }
+
+          if (workInProgress.ref !== null) {
+            // If there is a ref on a host node we need to schedule a callback
+            markRef$1(workInProgress);
+          }
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case HostText:
+      {
+        var newText = newProps;
+
+        if (current && workInProgress.stateNode != null) {
+          var oldText = current.memoizedProps; // If we have an alternate, that means this is an update and we need
+          // to schedule a side-effect to do the updates.
+
+          updateHostText$1(current, workInProgress, oldText, newText);
+        } else {
+          if (typeof newText !== 'string') {
+            if (workInProgress.stateNode === null) {
+              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
+            } // This can happen when we abort work.
+
+          }
+
+          var _rootContainerInstance = getRootHostContainer();
+
+          var _currentHostContext = getHostContext();
+
+          var _wasHydrated2 = popHydrationState(workInProgress);
+
+          if (_wasHydrated2) {
+            if (prepareToHydrateHostTextInstance(workInProgress)) {
+              markUpdate(workInProgress);
+            }
+          } else {
+            workInProgress.stateNode = createTextInstance(newText, _rootContainerInstance, _currentHostContext, workInProgress);
+          }
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case SuspenseComponent:
+      {
+        popSuspenseContext(workInProgress);
+        var nextState = workInProgress.memoizedState; // Special path for dehydrated boundaries. We may eventually move this
+        // to its own fiber type so that we can add other kinds of hydration
+        // boundaries that aren't associated with a Suspense tree. In anticipation
+        // of such a refactor, all the hydration logic is contained in
+        // this branch.
+
+        if (current === null || current.memoizedState !== null && current.memoizedState.dehydrated !== null) {
+          var fallthroughToNormalSuspensePath = completeDehydratedSuspenseBoundary(current, workInProgress, nextState);
+
+          if (!fallthroughToNormalSuspensePath) {
+            if (workInProgress.flags & ShouldCapture) {
+              // Special case. There were remaining unhydrated nodes. We treat
+              // this as a mismatch. Revert to client rendering.
+              return workInProgress;
+            } else {
+              // Did not finish hydrating, either because this is the initial
+              // render or because something suspended.
+              return null;
+            }
+          } // Continue with the normal Suspense path.
+
+        }
+
+        if ((workInProgress.flags & DidCapture) !== NoFlags) {
+          // Something suspended. Re-render with the fallback children.
+          workInProgress.lanes = renderLanes; // Do not reset the effect list.
+
+          if ( (workInProgress.mode & ProfileMode) !== NoMode) {
+            transferActualDuration(workInProgress);
+          } // Don't bubble properties in this case.
+
+
+          return workInProgress;
+        }
+
+        var nextDidTimeout = nextState !== null;
+        var prevDidTimeout = current !== null && current.memoizedState !== null;
+        // a passive effect, which is when we process the transitions
+
+
+        if (nextDidTimeout !== prevDidTimeout) {
+          // an effect to toggle the subtree's visibility. When we switch from
+          // fallback -> primary, the inner Offscreen fiber schedules this effect
+          // as part of its normal complete phase. But when we switch from
+          // primary -> fallback, the inner Offscreen fiber does not have a complete
+          // phase. So we need to schedule its effect here.
+          //
+          // We also use this flag to connect/disconnect the effects, but the same
+          // logic applies: when re-connecting, the Offscreen fiber's complete
+          // phase will handle scheduling the effect. It's only when the fallback
+          // is active that we have to do anything special.
+
+
+          if (nextDidTimeout) {
+            var _offscreenFiber2 = workInProgress.child;
+            _offscreenFiber2.flags |= Visibility; // TODO: This will still suspend a synchronous tree if anything
+            // in the concurrent tree already suspended during this render.
+            // This is a known bug.
+
+            if ((workInProgress.mode & ConcurrentMode) !== NoMode) {
+              // TODO: Move this back to throwException because this is too late
+              // if this is a large tree which is common for initial loads. We
+              // don't know if we should restart a render or not until we get
+              // this marker, and this is too late.
+              // If this render already had a ping or lower pri updates,
+              // and this is the first time we know we're going to suspend we
+              // should be able to immediately restart from within throwException.
+              var hasInvisibleChildContext = current === null && (workInProgress.memoizedProps.unstable_avoidThisFallback !== true || !enableSuspenseAvoidThisFallback);
+
+              if (hasInvisibleChildContext || hasSuspenseContext(suspenseStackCursor.current, InvisibleParentSuspenseContext)) {
+                // If this was in an invisible tree or a new render, then showing
+                // this boundary is ok.
+                renderDidSuspend();
+              } else {
+                // Otherwise, we're going to have to hide content so we should
+                // suspend for longer if possible.
+                renderDidSuspendDelayIfPossible();
+              }
+            }
+          }
+        }
+
+        var wakeables = workInProgress.updateQueue;
+
+        if (wakeables !== null) {
+          // Schedule an effect to attach a retry listener to the promise.
+          // TODO: Move to passive phase
+          workInProgress.flags |= Update;
+        }
+
+        bubbleProperties(workInProgress);
+
+        {
+          if ((workInProgress.mode & ProfileMode) !== NoMode) {
+            if (nextDidTimeout) {
+              // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+              var primaryChildFragment = workInProgress.child;
+
+              if (primaryChildFragment !== null) {
+                // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+                workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
+              }
+            }
+          }
+        }
+
+        return null;
+      }
+
+    case HostPortal:
+      popHostContainer(workInProgress);
+      updateHostContainer(current, workInProgress);
+
+      if (current === null) {
+        preparePortalMount(workInProgress.stateNode.containerInfo);
+      }
+
+      bubbleProperties(workInProgress);
+      return null;
+
+    case ContextProvider:
+      // Pop provider fiber
+      var context = workInProgress.type._context;
+      popProvider(context, workInProgress);
+      bubbleProperties(workInProgress);
+      return null;
+
+    case IncompleteClassComponent:
+      {
+        // Same as class component case. I put it down here so that the tags are
+        // sequential to ensure this switch is compiled to a jump table.
+        var _Component = workInProgress.type;
+
+        if (isContextProvider(_Component)) {
+          popContext(workInProgress);
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case SuspenseListComponent:
+      {
+        popSuspenseContext(workInProgress);
+        var renderState = workInProgress.memoizedState;
+
+        if (renderState === null) {
+          // We're running in the default, "independent" mode.
+          // We don't do anything in this mode.
+          bubbleProperties(workInProgress);
+          return null;
+        }
+
+        var didSuspendAlready = (workInProgress.flags & DidCapture) !== NoFlags;
+        var renderedTail = renderState.rendering;
+
+        if (renderedTail === null) {
+          // We just rendered the head.
+          if (!didSuspendAlready) {
+            // This is the first pass. We need to figure out if anything is still
+            // suspended in the rendered set.
+            // If new content unsuspended, but there's still some content that
+            // didn't. Then we need to do a second pass that forces everything
+            // to keep showing their fallbacks.
+            // We might be suspended if something in this render pass suspended, or
+            // something in the previous committed pass suspended. Otherwise,
+            // there's no chance so we can skip the expensive call to
+            // findFirstSuspended.
+            var cannotBeSuspended = renderHasNotSuspendedYet() && (current === null || (current.flags & DidCapture) === NoFlags);
+
+            if (!cannotBeSuspended) {
+              var row = workInProgress.child;
+
+              while (row !== null) {
+                var suspended = findFirstSuspended(row);
+
+                if (suspended !== null) {
+                  didSuspendAlready = true;
+                  workInProgress.flags |= DidCapture;
+                  cutOffTailIfNeeded(renderState, false); // If this is a newly suspended tree, it might not get committed as
+                  // part of the second pass. In that case nothing will subscribe to
+                  // its thenables. Instead, we'll transfer its thenables to the
+                  // SuspenseList so that it can retry if they resolve.
+                  // There might be multiple of these in the list but since we're
+                  // going to wait for all of them anyway, it doesn't really matter
+                  // which ones gets to ping. In theory we could get clever and keep
+                  // track of how many dependencies remain but it gets tricky because
+                  // in the meantime, we can add/remove/change items and dependencies.
+                  // We might bail out of the loop before finding any but that
+                  // doesn't matter since that means that the other boundaries that
+                  // we did find already has their listeners attached.
+
+                  var newThenables = suspended.updateQueue;
+
+                  if (newThenables !== null) {
+                    workInProgress.updateQueue = newThenables;
+                    workInProgress.flags |= Update;
+                  } // Rerender the whole list, but this time, we'll force fallbacks
+                  // to stay in place.
+                  // Reset the effect flags before doing the second pass since that's now invalid.
+                  // Reset the child fibers to their original state.
+
+
+                  workInProgress.subtreeFlags = NoFlags;
+                  resetChildFibers(workInProgress, renderLanes); // Set up the Suspense Context to force suspense and immediately
+                  // rerender the children.
+
+                  pushSuspenseContext(workInProgress, setShallowSuspenseContext(suspenseStackCursor.current, ForceSuspenseFallback)); // Don't bubble properties in this case.
+
+                  return workInProgress.child;
+                }
+
+                row = row.sibling;
+              }
+            }
+
+            if (renderState.tail !== null && now() > getRenderTargetTime()) {
+              // We have already passed our CPU deadline but we still have rows
+              // left in the tail. We'll just give up further attempts to render
+              // the main content and only render fallbacks.
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true;
+              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
+              // to get it started back up to attempt the next item. While in terms
+              // of priority this work has the same priority as this current render,
+              // it's not part of the same transition once the transition has
+              // committed. If it's sync, we still want to yield so that it can be
+              // painted. Conceptually, this is really the same as pinging.
+              // We can use any RetryLane even if it's the one currently rendering
+              // since we're leaving it behind on this node.
+
+              workInProgress.lanes = SomeRetryLane;
+            }
+          } else {
+            cutOffTailIfNeeded(renderState, false);
+          } // Next we're going to render the tail.
+
+        } else {
+          // Append the rendered row to the child list.
+          if (!didSuspendAlready) {
+            var _suspended = findFirstSuspended(renderedTail);
+
+            if (_suspended !== null) {
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true; // Ensure we transfer the update queue to the parent so that it doesn't
+              // get lost if this row ends up dropped during a second pass.
+
+              var _newThenables = _suspended.updateQueue;
+
+              if (_newThenables !== null) {
+                workInProgress.updateQueue = _newThenables;
+                workInProgress.flags |= Update;
+              }
+
+              cutOffTailIfNeeded(renderState, true); // This might have been modified.
+
+              if (renderState.tail === null && renderState.tailMode === 'hidden' && !renderedTail.alternate && !getIsHydrating() // We don't cut it if we're hydrating.
+              ) {
+                  // We're done.
+                  bubbleProperties(workInProgress);
+                  return null;
+                }
+            } else if ( // The time it took to render last row is greater than the remaining
+            // time we have to render. So rendering one more row would likely
+            // exceed it.
+            now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
+              // We have now passed our CPU deadline and we'll just give up further
+              // attempts to render the main content and only render fallbacks.
+              // The assumption is that this is usually faster.
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true;
+              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
+              // to get it started back up to attempt the next item. While in terms
+              // of priority this work has the same priority as this current render,
+              // it's not part of the same transition once the transition has
+              // committed. If it's sync, we still want to yield so that it can be
+              // painted. Conceptually, this is really the same as pinging.
+              // We can use any RetryLane even if it's the one currently rendering
+              // since we're leaving it behind on this node.
+
+              workInProgress.lanes = SomeRetryLane;
+            }
+          }
+
+          if (renderState.isBackwards) {
+            // The effect list of the backwards tail will have been added
+            // to the end. This breaks the guarantee that life-cycles fire in
+            // sibling order but that isn't a strong guarantee promised by React.
+            // Especially since these might also just pop in during future commits.
+            // Append to the beginning of the list.
+            renderedTail.sibling = workInProgress.child;
+            workInProgress.child = renderedTail;
+          } else {
+            var previousSibling = renderState.last;
+
+            if (previousSibling !== null) {
+              previousSibling.sibling = renderedTail;
+            } else {
+              workInProgress.child = renderedTail;
+            }
+
+            renderState.last = renderedTail;
+          }
+        }
+
+        if (renderState.tail !== null) {
+          // We still have tail rows to render.
+          // Pop a row.
+          var next = renderState.tail;
+          renderState.rendering = next;
+          renderState.tail = next.sibling;
+          renderState.renderingStartTime = now();
+          next.sibling = null; // Restore the context.
+          // TODO: We can probably just avoid popping it instead and only
+          // setting it the first time we go from not suspended to suspended.
+
+          var suspenseContext = suspenseStackCursor.current;
+
+          if (didSuspendAlready) {
+            suspenseContext = setShallowSuspenseContext(suspenseContext, ForceSuspenseFallback);
+          } else {
+            suspenseContext = setDefaultShallowSuspenseContext(suspenseContext);
+          }
+
+          pushSuspenseContext(workInProgress, suspenseContext); // Do a pass over the next row.
+          // Don't bubble properties in this case.
+
+          return next;
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case ScopeComponent:
+      {
+
+        break;
+      }
+
+    case OffscreenComponent:
+    case LegacyHiddenComponent:
+      {
+        popRenderLanes(workInProgress);
+        var _nextState = workInProgress.memoizedState;
+        var nextIsHidden = _nextState !== null;
+
+        if (current !== null) {
+          var _prevState = current.memoizedState;
+          var prevIsHidden = _prevState !== null;
+
+          if (prevIsHidden !== nextIsHidden && ( // LegacyHidden doesn't do any hiding — it only pre-renders.
+          !enableLegacyHidden )) {
+            workInProgress.flags |= Visibility;
+          }
+        }
+
+        if (!nextIsHidden || (workInProgress.mode & ConcurrentMode) === NoMode) {
+          bubbleProperties(workInProgress);
+        } else {
+          // Don't bubble properties for hidden children unless we're rendering
+          // at offscreen priority.
+          if (includesSomeLane(subtreeRenderLanes, OffscreenLane)) {
+            bubbleProperties(workInProgress);
+
+            {
+              // Check if there was an insertion or update in the hidden subtree.
+              // If so, we need to hide those nodes in the commit phase, so
+              // schedule a visibility effect.
+              if ( workInProgress.subtreeFlags & (Placement | Update)) {
+                workInProgress.flags |= Visibility;
+              }
+            }
+          }
+        }
+        return null;
+      }
+
+    case CacheComponent:
+      {
+
+        return null;
+      }
+
+    case TracingMarkerComponent:
+      {
+
+        return null;
       }
   }
 
@@ -36105,6 +36157,7 @@ function commitLayoutEffectOnFiber(finishedRoot, current, finishedWork, committe
       case ScopeComponent:
       case OffscreenComponent:
       case LegacyHiddenComponent:
+      case TracingMarkerComponent:
         {
           break;
         }
@@ -37083,8 +37136,12 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
         var offscreenFiber = finishedWork.child;
 
         if (offscreenFiber.flags & Visibility) {
+          var offscreenInstance = offscreenFiber.stateNode;
           var newState = offscreenFiber.memoizedState;
-          var isHidden = newState !== null;
+          var isHidden = newState !== null; // Track the current state on the Offscreen instance so we can
+          // read it during an event
+
+          offscreenInstance.isHidden = isHidden;
 
           if (isHidden) {
             var wasHidden = offscreenFiber.alternate !== null && offscreenFiber.alternate.memoizedState !== null;
@@ -37129,17 +37186,15 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
         commitReconciliationEffects(finishedWork);
 
         if (flags & Visibility) {
+          var _offscreenInstance = finishedWork.stateNode;
           var _newState = finishedWork.memoizedState;
 
           var _isHidden = _newState !== null;
 
-          var offscreenBoundary = finishedWork;
+          var offscreenBoundary = finishedWork; // Track the current state on the Offscreen instance so we can
+          // read it during an event
 
-          {
-            // TODO: This needs to run whenever there's an insertion or update
-            // inside a hidden Offscreen tree.
-            hideOrUnhideAllChildren(offscreenBoundary, _isHidden);
-          }
+          _offscreenInstance.isHidden = _isHidden;
 
           {
             if (_isHidden) {
@@ -37156,6 +37211,12 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
                 }
               }
             }
+          }
+
+          {
+            // TODO: This needs to run whenever there's an insertion or update
+            // inside a hidden Offscreen tree.
+            hideOrUnhideAllChildren(offscreenBoundary, _isHidden);
           }
         }
 
@@ -38080,19 +38141,13 @@ function requestRetryLane(fiber) {
   return claimNextRetryLane();
 }
 
-function scheduleUpdateOnFiber(fiber, lane, eventTime) {
+function scheduleUpdateOnFiber(root, fiber, lane, eventTime) {
   checkForNestedUpdates();
 
   {
     if (isRunningInsertionEffect) {
       error('useInsertionEffect must not schedule updates.');
     }
-  }
-
-  var root = markUpdateLaneFromFiberToRoot(fiber, lane);
-
-  if (root === null) {
-    return null;
   }
 
   {
@@ -38123,7 +38178,6 @@ function scheduleUpdateOnFiber(fiber, lane, eventTime) {
     warnIfUpdatesNotWrappedWithActDEV(fiber);
 
     if (root === workInProgressRoot) {
-      // TODO: Consolidate with `isInterleavedUpdate` check
       // Received an update to a tree that's in the middle of rendering. Mark
       // that there was an interleaved update work on this root. Unless the
       // `deferRenderPhaseUpdateToNextBatch` flag is off and this is a render
@@ -38157,8 +38211,6 @@ function scheduleUpdateOnFiber(fiber, lane, eventTime) {
       flushSyncCallbacksOnlyInLegacyMode();
     }
   }
-
-  return root;
 }
 function scheduleInitialHydrationOnRoot(root, lane, eventTime) {
   // This is a special fork of scheduleUpdateOnFiber that is only used to
@@ -38174,70 +38226,13 @@ function scheduleInitialHydrationOnRoot(root, lane, eventTime) {
   current.lanes = lane;
   markRootUpdated(root, lane, eventTime);
   ensureRootIsScheduled(root, eventTime);
-} // This is split into a separate function so we can mark a fiber with pending
-// work without treating it as a typical update that originates from an event;
-// e.g. retrying a Suspense boundary isn't an update, but it does schedule work
-// on a fiber.
-
-function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
-  // Update the source fiber's lanes
-  sourceFiber.lanes = mergeLanes(sourceFiber.lanes, lane);
-  var alternate = sourceFiber.alternate;
-
-  if (alternate !== null) {
-    alternate.lanes = mergeLanes(alternate.lanes, lane);
-  }
-
-  {
-    if (alternate === null && (sourceFiber.flags & (Placement | Hydrating)) !== NoFlags) {
-      warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-    }
-  } // Walk the parent path to the root and update the child lanes.
-
-
-  var node = sourceFiber;
-  var parent = sourceFiber.return;
-
-  while (parent !== null) {
-    parent.childLanes = mergeLanes(parent.childLanes, lane);
-    alternate = parent.alternate;
-
-    if (alternate !== null) {
-      alternate.childLanes = mergeLanes(alternate.childLanes, lane);
-    } else {
-      {
-        if ((parent.flags & (Placement | Hydrating)) !== NoFlags) {
-          warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-        }
-      }
-    }
-
-    node = parent;
-    parent = parent.return;
-  }
-
-  if (node.tag === HostRoot) {
-    var root = node.stateNode;
-    return root;
-  } else {
-    return null;
-  }
 }
-
-function isInterleavedUpdate(fiber, lane) {
-  return (// TODO: Optimize slightly by comparing to root that fiber belongs to.
-    // Requires some refactoring. Not a big deal though since it's rare for
-    // concurrent apps to have more than a single root.
-    (workInProgressRoot !== null || // If the interleaved updates queue hasn't been cleared yet, then
-    // we should treat this as an interleaved update, too. This is also a
-    // defensive coding measure in case a new update comes in between when
-    // rendering has finished and when the interleaved updates are transferred
-    // to the main queue.
-    hasInterleavedUpdates()) && (fiber.mode & ConcurrentMode) !== NoMode && ( // If this is a render phase update (i.e. UNSAFE_componentWillReceiveProps),
-    // then don't treat this as an interleaved update. This pattern is
-    // accompanied by a warning but we haven't fully deprecated it yet. We can
-    // remove once the deferRenderPhaseUpdateToNextBatch flag is enabled.
-     (executionContext & RenderContext) === NoContext)
+function isUnsafeClassRenderPhaseUpdate(fiber) {
+  // Check if this is a render phase update. Only called by class components,
+  // which special (deprecated) behavior for UNSAFE_componentWillReceive props.
+  return (// TODO: Remove outdated deferRenderPhaseUpdateToNextBatch experiment. We
+    // decided not to enable it.
+     (executionContext & RenderContext) !== NoContext
   );
 } // Use this function to schedule a task for a root. There's only one task per
 // root; if a task was already scheduled, we'll check to make sure the priority
@@ -38320,9 +38315,9 @@ function ensureRootIsScheduled(root, currentTime) {
           // https://github.com/facebook/react/issues/22459
           // We don't support running callbacks in the middle of render
           // or commit so we need to check against that.
-          if (executionContext === NoContext) {
-            // It's only safe to do this conditionally because we always
-            // check for pending work before we exit the task.
+          if ((executionContext & (RenderContext | CommitContext)) === NoContext) {
+            // Note that this would still prematurely flush the callbacks
+            // if this happens outside render or commit phase (e.g. in an event).
             flushSyncCallbacks();
           }
         });
@@ -38926,7 +38921,7 @@ function prepareFreshStack(root, lanes) {
   workInProgressRootPingedLanes = NoLanes;
   workInProgressRootConcurrentErrors = null;
   workInProgressRootRecoverableErrors = null;
-  enqueueInterleavedUpdates();
+  finishQueueingConcurrentUpdates();
 
   {
     ReactStrictModeWarnings.discardPendingWarnings();
@@ -39582,7 +39577,12 @@ function commitRootImpl(root, recoverableErrors, transitions, renderPriorityLeve
 
     for (var i = 0; i < recoverableErrors.length; i++) {
       var recoverableError = recoverableErrors[i];
-      onRecoverableError(recoverableError);
+      var componentStack = recoverableError.stack;
+      var digest = recoverableError.digest;
+      onRecoverableError(recoverableError.value, {
+        componentStack: componentStack,
+        digest: digest
+      });
     }
   }
 
@@ -39780,11 +39780,10 @@ function prepareToThrowUncaughtError(error) {
 var onUncaughtError = prepareToThrowUncaughtError;
 
 function captureCommitPhaseErrorOnRoot(rootFiber, sourceFiber, error) {
-  var errorInfo = createCapturedValue(error, sourceFiber);
+  var errorInfo = createCapturedValueAtFiber(error, sourceFiber);
   var update = createRootErrorUpdate(rootFiber, errorInfo, SyncLane);
-  enqueueUpdate(rootFiber, update);
+  var root = enqueueUpdate(rootFiber, update, SyncLane);
   var eventTime = requestEventTime();
-  var root = markUpdateLaneFromFiberToRoot(rootFiber, SyncLane);
 
   if (root !== null) {
     markRootUpdated(root, SyncLane, eventTime);
@@ -39820,11 +39819,10 @@ function captureCommitPhaseError(sourceFiber, nearestMountedAncestor, error$1) {
       var instance = fiber.stateNode;
 
       if (typeof ctor.getDerivedStateFromError === 'function' || typeof instance.componentDidCatch === 'function' && !isAlreadyFailedLegacyErrorBoundary(instance)) {
-        var errorInfo = createCapturedValue(error$1, sourceFiber);
+        var errorInfo = createCapturedValueAtFiber(error$1, sourceFiber);
         var update = createClassErrorUpdate(fiber, errorInfo, SyncLane);
-        enqueueUpdate(fiber, update);
+        var root = enqueueUpdate(fiber, update, SyncLane);
         var eventTime = requestEventTime();
-        var root = markUpdateLaneFromFiberToRoot(fiber, SyncLane);
 
         if (root !== null) {
           markRootUpdated(root, SyncLane, eventTime);
@@ -39894,7 +39892,7 @@ function retryTimedOutBoundary(boundaryFiber, retryLane) {
 
 
   var eventTime = requestEventTime();
-  var root = markUpdateLaneFromFiberToRoot(boundaryFiber, retryLane);
+  var root = enqueueConcurrentRenderForLane(boundaryFiber, retryLane);
 
   if (root !== null) {
     markRootUpdated(root, retryLane, eventTime);
@@ -40034,7 +40032,6 @@ function invokeEffectsInDev(firstChild, fiberFlags, invokeEffectFn) {
 }
 
 var didWarnStateUpdateForNotYetMountedComponent = null;
-
 function warnAboutUpdateOnNotYetMountedFiberInDEV(fiber) {
   {
     if ((executionContext & RenderContext) !== NoContext) {
@@ -40082,7 +40079,6 @@ function warnAboutUpdateOnNotYetMountedFiberInDEV(fiber) {
     }
   }
 }
-
 var beginWork$1;
 
 {
@@ -40099,8 +40095,9 @@ var beginWork$1;
     try {
       return beginWork(current, unitOfWork, lanes);
     } catch (originalError) {
-      if (originalError !== null && typeof originalError === 'object' && typeof originalError.then === 'function') {
-        // Don't replay promises. Treat everything else like an error.
+      if (didSuspendOrErrorWhileHydratingDEV() || originalError !== null && typeof originalError === 'object' && typeof originalError.then === 'function') {
+        // Don't replay promises.
+        // Don't replay errors if we are hydrating and have already suspended or handled an error
         throw originalError;
       } // Keep this code in sync with handleError; any changes here must have
       // corresponding changes there.
@@ -40541,7 +40538,11 @@ function scheduleFibersWithFamiliesRecursively(fiber, updatedFamilies, staleFami
     }
 
     if (needsRemount || needsRender) {
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var _root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (_root !== null) {
+        scheduleUpdateOnFiber(_root, fiber, SyncLane, NoTimestamp);
+      }
     }
 
     if (child !== null && !needsRemount) {
@@ -41183,7 +41184,9 @@ function createFiberFromOffscreen(pendingProps, mode, lanes, key) {
   var fiber = createFiber(OffscreenComponent, pendingProps, key, mode);
   fiber.elementType = REACT_OFFSCREEN_TYPE;
   fiber.lanes = lanes;
-  var primaryChildInstance = {};
+  var primaryChildInstance = {
+    isHidden: false
+  };
   fiber.stateNode = primaryChildInstance;
   return fiber;
 }
@@ -41349,7 +41352,7 @@ identifierPrefix, onRecoverableError, transitionCallbacks) {
   return root;
 }
 
-var ReactVersion = '18.1.0';
+var ReactVersion = '18.2.0';
 
 function createPortal(children, containerInfo, // TODO: figure out the API for cross-renderer implementation.
 implementation) {
@@ -41468,7 +41471,7 @@ callback, containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdate
   var lane = requestUpdateLane(current);
   var update = createUpdate(eventTime, lane);
   update.callback = callback !== undefined && callback !== null ? callback : null;
-  enqueueUpdate(current, update);
+  enqueueUpdate(current, update, lane);
   scheduleInitialHydrationOnRoot(root, lane, eventTime);
   return root;
 }
@@ -41519,10 +41522,10 @@ function updateContainer(element, container, parentComponent, callback) {
     update.callback = callback;
   }
 
-  enqueueUpdate(current$1, update);
-  var root = scheduleUpdateOnFiber(current$1, lane, eventTime);
+  var root = enqueueUpdate(current$1, update, lane);
 
   if (root !== null) {
+    scheduleUpdateOnFiber(root, current$1, lane, eventTime);
     entangleTransitions(root, current$1, lane);
   }
 
@@ -41546,27 +41549,35 @@ function getPublicRootInstance(container) {
 function attemptSynchronousHydration$1(fiber) {
   switch (fiber.tag) {
     case HostRoot:
-      var root = fiber.stateNode;
+      {
+        var root = fiber.stateNode;
 
-      if (isRootDehydrated(root)) {
-        // Flush the first scheduled "update".
-        var lanes = getHighestPriorityPendingLanes(root);
-        flushRoot(root, lanes);
+        if (isRootDehydrated(root)) {
+          // Flush the first scheduled "update".
+          var lanes = getHighestPriorityPendingLanes(root);
+          flushRoot(root, lanes);
+        }
+
+        break;
       }
 
-      break;
-
     case SuspenseComponent:
-      var eventTime = requestEventTime();
-      flushSync(function () {
-        return scheduleUpdateOnFiber(fiber, SyncLane, eventTime);
-      }); // If we're still blocked after this, we need to increase
-      // the priority of any promises resolving within this
-      // boundary so that they next attempt also has higher pri.
+      {
+        flushSync(function () {
+          var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
 
-      var retryLane = SyncLane;
-      markRetryLaneIfNotHydrated(fiber, retryLane);
-      break;
+          if (root !== null) {
+            var eventTime = requestEventTime();
+            scheduleUpdateOnFiber(root, fiber, SyncLane, eventTime);
+          }
+        }); // If we're still blocked after this, we need to increase
+        // the priority of any promises resolving within this
+        // boundary so that they next attempt also has higher pri.
+
+        var retryLane = SyncLane;
+        markRetryLaneIfNotHydrated(fiber, retryLane);
+        break;
+      }
   }
 }
 
@@ -41596,9 +41607,14 @@ function attemptContinuousHydration$1(fiber) {
     return;
   }
 
-  var eventTime = requestEventTime();
   var lane = SelectiveHydrationLane;
-  scheduleUpdateOnFiber(fiber, lane, eventTime);
+  var root = enqueueConcurrentRenderForLane(fiber, lane);
+
+  if (root !== null) {
+    var eventTime = requestEventTime();
+    scheduleUpdateOnFiber(root, fiber, lane, eventTime);
+  }
+
   markRetryLaneIfNotHydrated(fiber, lane);
 }
 function attemptHydrationAtCurrentPriority$1(fiber) {
@@ -41608,9 +41624,14 @@ function attemptHydrationAtCurrentPriority$1(fiber) {
     return;
   }
 
-  var eventTime = requestEventTime();
   var lane = requestUpdateLane(fiber);
-  scheduleUpdateOnFiber(fiber, lane, eventTime);
+  var root = enqueueConcurrentRenderForLane(fiber, lane);
+
+  if (root !== null) {
+    var eventTime = requestEventTime();
+    scheduleUpdateOnFiber(root, fiber, lane, eventTime);
+  }
+
   markRetryLaneIfNotHydrated(fiber, lane);
 }
 function findHostInstanceWithNoPortals(fiber) {
@@ -41756,7 +41777,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   };
 
@@ -41773,7 +41798,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   };
 
@@ -41790,7 +41819,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   }; // Support DevTools props for function components, forwardRef, memo, host components, etc.
 
@@ -41802,7 +41835,11 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   overridePropsDeletePath = function (fiber, path) {
@@ -41812,7 +41849,11 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   overridePropsRenamePath = function (fiber, oldPath, newPath) {
@@ -41822,11 +41863,19 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   scheduleUpdate = function (fiber) {
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   setErrorHandler = function (newShouldErrorImpl) {
@@ -43774,6 +43823,25 @@ if (true) {
   (function() {
 'use strict';
 
+// ATTENTION
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_SERVER_CONTEXT_TYPE = Symbol.for('react.server_context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+
 // -----------------------------------------------------------------------------
 
 var enableScopeAPI = false; // Experimental Create Event Handle API.
@@ -43785,23 +43853,6 @@ var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in
 // issues in DEV builds.
 
 var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
-
-// ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_SERVER_CONTEXT_TYPE =  Symbol.for('react.server_context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
 
 var REACT_MODULE_REFERENCE;
 
@@ -44011,7 +44062,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-const ReactReduxContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createContext(null);
+const ReactReduxContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
 
 if (true) {
   ReactReduxContext.displayName = 'ReactRedux';
@@ -44704,7 +44755,7 @@ function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, merg
 
   function handleSubsequentCalls(nextState, nextOwnProps) {
     const propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
-    const stateChanged = !areStatesEqual(nextState, state);
+    const stateChanged = !areStatesEqual(nextState, state, nextOwnProps, ownProps);
     state = nextState;
     ownProps = nextOwnProps;
     if (propsChanged && stateChanged) return handleNewPropsAndNewState();
@@ -45599,9 +45650,9 @@ function warning(message) {
 
 /***/ }),
 
-/***/ "./node_modules/react-select/dist/Select-e6f4af24.esm.js":
+/***/ "./node_modules/react-select/dist/Select-54ac8379.esm.js":
 /*!***************************************************************!*\
-  !*** ./node_modules/react-select/dist/Select-e6f4af24.esm.js ***!
+  !*** ./node_modules/react-select/dist/Select-54ac8379.esm.js ***!
   \***************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -47477,7 +47528,7 @@ var Select = /*#__PURE__*/function (_Component) {
       }
 
       if (isFocused && isDisabled && !prevProps.isDisabled) {
-        // ensure select state gets blurred in case Select is programatically disabled while focused
+        // ensure select state gets blurred in case Select is programmatically disabled while focused
         // eslint-disable-next-line react/no-did-update-set-state
         this.setState({
           isFocused: false
@@ -50050,21 +50101,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "NonceProvider": function() { return /* binding */ NonceProvider; },
 /* harmony export */   "components": function() { return /* reexport safe */ _index_a7690a33_esm_js__WEBPACK_IMPORTED_MODULE_7__.c; },
-/* harmony export */   "createFilter": function() { return /* reexport safe */ _Select_e6f4af24_esm_js__WEBPACK_IMPORTED_MODULE_3__.c; },
-/* harmony export */   "defaultTheme": function() { return /* reexport safe */ _Select_e6f4af24_esm_js__WEBPACK_IMPORTED_MODULE_3__.d; },
-/* harmony export */   "mergeStyles": function() { return /* reexport safe */ _Select_e6f4af24_esm_js__WEBPACK_IMPORTED_MODULE_3__.m; },
+/* harmony export */   "createFilter": function() { return /* reexport safe */ _Select_54ac8379_esm_js__WEBPACK_IMPORTED_MODULE_3__.c; },
+/* harmony export */   "defaultTheme": function() { return /* reexport safe */ _Select_54ac8379_esm_js__WEBPACK_IMPORTED_MODULE_3__.d; },
+/* harmony export */   "mergeStyles": function() { return /* reexport safe */ _Select_54ac8379_esm_js__WEBPACK_IMPORTED_MODULE_3__.m; },
 /* harmony export */   "useStateManager": function() { return /* reexport safe */ _useStateManager_68425271_esm_js__WEBPACK_IMPORTED_MODULE_0__.u; }
 /* harmony export */ });
 /* harmony import */ var _useStateManager_68425271_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useStateManager-68425271.esm.js */ "./node_modules/react-select/dist/useStateManager-68425271.esm.js");
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Select_e6f4af24_esm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select-e6f4af24.esm.js */ "./node_modules/react-select/dist/Select-e6f4af24.esm.js");
+/* harmony import */ var _Select_54ac8379_esm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Select-54ac8379.esm.js */ "./node_modules/react-select/dist/Select-54ac8379.esm.js");
 /* harmony import */ var _babel_runtime_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime/helpers/esm/classCallCheck.js");
 /* harmony import */ var _babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/esm/createClass */ "./node_modules/@babel/runtime/helpers/esm/createClass.js");
 /* harmony import */ var _babel_runtime_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inherits */ "./node_modules/@babel/runtime/helpers/esm/inherits.js");
 /* harmony import */ var _index_a7690a33_esm_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index-a7690a33.esm.js */ "./node_modules/react-select/dist/index-a7690a33.esm.js");
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @emotion/react */ "./node_modules/@emotion/react/dist/emotion-element-cbed451f.browser.esm.js");
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @emotion/react */ "./node_modules/@emotion/react/dist/emotion-element-6a883da9.browser.esm.js");
 /* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js");
 /* harmony import */ var memoize_one__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! memoize-one */ "./node_modules/memoize-one/dist/memoize-one.esm.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
@@ -50099,7 +50150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var StateManagedSelect = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(function (props, ref) {
   var baseSelectProps = (0,_useStateManager_68425271_esm_js__WEBPACK_IMPORTED_MODULE_0__.u)(props);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Select_e6f4af24_esm_js__WEBPACK_IMPORTED_MODULE_3__.S, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Select_54ac8379_esm_js__WEBPACK_IMPORTED_MODULE_3__.S, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
     ref: ref
   }, baseSelectProps));
 });
@@ -50273,34 +50324,24 @@ if (true) {
 
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
-
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -50354,6 +50395,18 @@ function printWarning(level, format, args) {
     Function.prototype.apply.call(console[level], console, argsWithFormat);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+var enableCacheElement = false;
+var enableTransitionTracing = false; // No known bugs, but needs performance testing
+
+var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
+// stuff. Intended to enable React core members to more easily debug scheduling
+// issues in DEV builds.
+
+var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
 
 var REACT_MODULE_REFERENCE;
 
@@ -51604,36 +51657,26 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
 }
-          var ReactVersion = '18.1.0';
-
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
+          var ReactVersion = '18.2.0';
 
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -51724,6 +51767,18 @@ function setExtraStackFrame(stack) {
     return stack;
   };
 }
+
+// -----------------------------------------------------------------------------
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+var enableCacheElement = false;
+var enableTransitionTracing = false; // No known bugs, but needs performance testing
+
+var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
+// stuff. Intended to enable React core members to more easily debug scheduling
+// issues in DEV builds.
+
+var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
 
 var ReactSharedInternals = {
   ReactCurrentDispatcher: ReactCurrentDispatcher,
@@ -56226,12 +56281,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var shallowequal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
 /* harmony import */ var shallowequal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(shallowequal__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _emotion_stylis__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/stylis */ "./node_modules/@emotion/stylis/dist/stylis.browser.esm.js");
-/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/@emotion/unitless/dist/unitless.browser.esm.js");
-/* harmony import */ var _emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/is-prop-valid */ "./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js");
+/* harmony import */ var _emotion_unitless__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/unitless */ "./node_modules/styled-components/node_modules/@emotion/unitless/dist/unitless.browser.esm.js");
+/* harmony import */ var _emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/is-prop-valid */ "./node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.esm.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6__);
-function v(){return(v=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}var g=function(e,t){for(var n=[e[0]],r=0,o=t.length;r<o;r+=1)n.push(t[r],e[r+1]);return n},S=function(t){return null!==t&&"object"==typeof t&&"[object Object]"===(t.toString?t.toString():Object.prototype.toString.call(t))&&!(0,react_is__WEBPACK_IMPORTED_MODULE_0__.typeOf)(t)},w=Object.freeze([]),E=Object.freeze({});function b(e){return"function"==typeof e}function _(e){return true&&"string"==typeof e&&e||e.displayName||e.name||"Component"}function N(e){return e&&"string"==typeof e.styledComponentId}var A="undefined"!=typeof process&&(process.env.REACT_APP_SC_ATTR||process.env.SC_ATTR)||"data-styled",C="5.3.5",I="undefined"!=typeof window&&"HTMLElement"in window,P=Boolean("boolean"==typeof SC_DISABLE_SPEEDY?SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&""!==process.env.REACT_APP_SC_DISABLE_SPEEDY?"false"!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&process.env.REACT_APP_SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.SC_DISABLE_SPEEDY&&""!==process.env.SC_DISABLE_SPEEDY?"false"!==process.env.SC_DISABLE_SPEEDY&&process.env.SC_DISABLE_SPEEDY:"production"!=="development"),O={},R= true?{1:"Cannot create styled-component for component: %s.\n\n",2:"Can't collect styles once you've consumed a `ServerStyleSheet`'s styles! `ServerStyleSheet` is a one off instance for each server-side render cycle.\n\n- Are you trying to reuse it across renders?\n- Are you accidentally calling collectStyles twice?\n\n",3:"Streaming SSR is only supported in a Node.js environment; Please do not try to call this method in the browser.\n\n",4:"The `StyleSheetManager` expects a valid target or sheet prop!\n\n- Does this error occur on the client and is your target falsy?\n- Does this error occur on the server and is the sheet falsy?\n\n",5:"The clone method cannot be used on the client!\n\n- Are you running in a client-like environment on the server?\n- Are you trying to run SSR on the client?\n\n",6:"Trying to insert a new style tag, but the given Node is unmounted!\n\n- Are you using a custom target that isn't mounted?\n- Does your document not have a valid head element?\n- Have you accidentally removed a style tag manually?\n\n",7:'ThemeProvider: Please return an object from your "theme" prop function, e.g.\n\n```js\ntheme={() => ({})}\n```\n\n',8:'ThemeProvider: Please make your "theme" prop an object.\n\n',9:"Missing document `<head>`\n\n",10:"Cannot find a StyleSheet instance. Usually this happens if there are multiple copies of styled-components loaded at once. Check out this issue for how to troubleshoot and fix the common cases where this situation can happen: https://github.com/styled-components/styled-components/issues/1941#issuecomment-417862021\n\n",11:"_This error was replaced with a dev-time warning, it will be deleted for v4 final._ [createGlobalStyle] received children which will not be rendered. Please use the component without passing children elements.\n\n",12:"It seems you are interpolating a keyframe declaration (%s) into an untagged string. This was supported in styled-components v3, but is not longer supported in v4 as keyframes are now injected on-demand. Please wrap your string in the css\\`\\` helper which ensures the styles are injected correctly. See https://www.styled-components.com/docs/api#css\n\n",13:"%s is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.\n\n",14:'ThemeProvider: "theme" prop is required.\n\n',15:"A stylis plugin has been supplied that is not named. We need a name for each plugin to be able to prevent styling collisions between different stylis configurations within the same app. Before you pass your plugin to `<StyleSheetManager stylisPlugins={[]}>`, please make sure each plugin is uniquely-named, e.g.\n\n```js\nObject.defineProperty(importedPlugin, 'name', { value: 'some-unique-name' });\n```\n\n",16:"Reached the limit of how many styled components may be created at group %s.\nYou may only create up to 1,073,741,824 components. If you're creating components dynamically,\nas for instance in your render method then you may be running into this limitation.\n\n",17:"CSSStyleSheet could not be found on HTMLStyleElement.\nHas styled-components' style tag been unmounted or altered by another script?\n"}:0;function D(){for(var e=arguments.length<=0?void 0:arguments[0],t=[],n=1,r=arguments.length;n<r;n+=1)t.push(n<0||arguments.length<=n?void 0:arguments[n]);return t.forEach((function(t){e=e.replace(/%[a-z]/,t)})),e}function j(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];throw false?0:new Error(D.apply(void 0,[R[e]].concat(n)).trim())}var T=function(){function e(e){this.groupSizes=new Uint32Array(512),this.length=512,this.tag=e}var t=e.prototype;return t.indexOfGroup=function(e){for(var t=0,n=0;n<e;n++)t+=this.groupSizes[n];return t},t.insertRules=function(e,t){if(e>=this.groupSizes.length){for(var n=this.groupSizes,r=n.length,o=r;e>=o;)(o<<=1)<0&&j(16,""+e);this.groupSizes=new Uint32Array(o),this.groupSizes.set(n),this.length=o;for(var s=r;s<o;s++)this.groupSizes[s]=0}for(var i=this.indexOfGroup(e+1),a=0,c=t.length;a<c;a++)this.tag.insertRule(i,t[a])&&(this.groupSizes[e]++,i++)},t.clearGroup=function(e){if(e<this.length){var t=this.groupSizes[e],n=this.indexOfGroup(e),r=n+t;this.groupSizes[e]=0;for(var o=n;o<r;o++)this.tag.deleteRule(n)}},t.getGroup=function(e){var t="";if(e>=this.length||0===this.groupSizes[e])return t;for(var n=this.groupSizes[e],r=this.indexOfGroup(e),o=r+n,s=r;s<o;s++)t+=this.tag.getRule(s)+"/*!sc*/\n";return t},e}(),x=new Map,k=new Map,V=1,B=function(e){if(x.has(e))return x.get(e);for(;k.has(V);)V++;var t=V++;return true&&((0|t)<0||t>1<<30)&&j(16,""+t),x.set(e,t),k.set(t,e),t},z=function(e){return k.get(e)},M=function(e,t){t>=V&&(V=t+1),x.set(e,t),k.set(t,e)},G="style["+A+'][data-styled-version="5.3.5"]',L=new RegExp("^"+A+'\\.g(\\d+)\\[id="([\\w\\d-]+)"\\].*?"([^"]*)'),F=function(e,t,n){for(var r,o=n.split(","),s=0,i=o.length;s<i;s++)(r=o[s])&&e.registerName(t,r)},Y=function(e,t){for(var n=(t.textContent||"").split("/*!sc*/\n"),r=[],o=0,s=n.length;o<s;o++){var i=n[o].trim();if(i){var a=i.match(L);if(a){var c=0|parseInt(a[1],10),u=a[2];0!==c&&(M(u,c),F(e,u,a[3]),e.getTag().insertRules(c,r)),r.length=0}else r.push(i)}}},q=function(){return"undefined"!=typeof window&&void 0!==window.__webpack_nonce__?window.__webpack_nonce__:null},H=function(e){var t=document.head,n=e||t,r=document.createElement("style"),o=function(e){for(var t=e.childNodes,n=t.length;n>=0;n--){var r=t[n];if(r&&1===r.nodeType&&r.hasAttribute(A))return r}}(n),s=void 0!==o?o.nextSibling:null;r.setAttribute(A,"active"),r.setAttribute("data-styled-version","5.3.5");var i=q();return i&&r.setAttribute("nonce",i),n.insertBefore(r,s),r},$=function(){function e(e){var t=this.element=H(e);t.appendChild(document.createTextNode("")),this.sheet=function(e){if(e.sheet)return e.sheet;for(var t=document.styleSheets,n=0,r=t.length;n<r;n++){var o=t[n];if(o.ownerNode===e)return o}j(17)}(t),this.length=0}var t=e.prototype;return t.insertRule=function(e,t){try{return this.sheet.insertRule(t,e),this.length++,!0}catch(e){return!1}},t.deleteRule=function(e){this.sheet.deleteRule(e),this.length--},t.getRule=function(e){var t=this.sheet.cssRules[e];return void 0!==t&&"string"==typeof t.cssText?t.cssText:""},e}(),W=function(){function e(e){var t=this.element=H(e);this.nodes=t.childNodes,this.length=0}var t=e.prototype;return t.insertRule=function(e,t){if(e<=this.length&&e>=0){var n=document.createTextNode(t),r=this.nodes[e];return this.element.insertBefore(n,r||null),this.length++,!0}return!1},t.deleteRule=function(e){this.element.removeChild(this.nodes[e]),this.length--},t.getRule=function(e){return e<this.length?this.nodes[e].textContent:""},e}(),U=function(){function e(e){this.rules=[],this.length=0}var t=e.prototype;return t.insertRule=function(e,t){return e<=this.length&&(this.rules.splice(e,0,t),this.length++,!0)},t.deleteRule=function(e){this.rules.splice(e,1),this.length--},t.getRule=function(e){return e<this.length?this.rules[e]:""},e}(),J=I,X={isServer:!I,useCSSOMInjection:!P},Z=function(){function e(e,t,n){void 0===e&&(e=E),void 0===t&&(t={}),this.options=v({},X,{},e),this.gs=t,this.names=new Map(n),this.server=!!e.isServer,!this.server&&I&&J&&(J=!1,function(e){for(var t=document.querySelectorAll(G),n=0,r=t.length;n<r;n++){var o=t[n];o&&"active"!==o.getAttribute(A)&&(Y(e,o),o.parentNode&&o.parentNode.removeChild(o))}}(this))}e.registerId=function(e){return B(e)};var t=e.prototype;return t.reconstructWithOptions=function(t,n){return void 0===n&&(n=!0),new e(v({},this.options,{},t),this.gs,n&&this.names||void 0)},t.allocateGSInstance=function(e){return this.gs[e]=(this.gs[e]||0)+1},t.getTag=function(){return this.tag||(this.tag=(n=(t=this.options).isServer,r=t.useCSSOMInjection,o=t.target,e=n?new U(o):r?new $(o):new W(o),new T(e)));var e,t,n,r,o},t.hasNameForId=function(e,t){return this.names.has(e)&&this.names.get(e).has(t)},t.registerName=function(e,t){if(B(e),this.names.has(e))this.names.get(e).add(t);else{var n=new Set;n.add(t),this.names.set(e,n)}},t.insertRules=function(e,t,n){this.registerName(e,t),this.getTag().insertRules(B(e),n)},t.clearNames=function(e){this.names.has(e)&&this.names.get(e).clear()},t.clearRules=function(e){this.getTag().clearGroup(B(e)),this.clearNames(e)},t.clearTag=function(){this.tag=void 0},t.toString=function(){return function(e){for(var t=e.getTag(),n=t.length,r="",o=0;o<n;o++){var s=z(o);if(void 0!==s){var i=e.names.get(s),a=t.getGroup(o);if(i&&a&&i.size){var c=A+".g"+o+'[id="'+s+'"]',u="";void 0!==i&&i.forEach((function(e){e.length>0&&(u+=e+",")})),r+=""+a+c+'{content:"'+u+'"}/*!sc*/\n'}}}return r}(this)},e}(),K=/(a)(d)/gi,Q=function(e){return String.fromCharCode(e+(e>25?39:97))};function ee(e){var t,n="";for(t=Math.abs(e);t>52;t=t/52|0)n=Q(t%52)+n;return(Q(t%52)+n).replace(K,"$1-$2")}var te=function(e,t){for(var n=t.length;n;)e=33*e^t.charCodeAt(--n);return e},ne=function(e){return te(5381,e)};function re(e){for(var t=0;t<e.length;t+=1){var n=e[t];if(b(n)&&!N(n))return!1}return!0}var oe=ne("5.3.5"),se=function(){function e(e,t,n){this.rules=e,this.staticRulesId="",this.isStatic= false&&0,this.componentId=t,this.baseHash=te(oe,t),this.baseStyle=n,Z.registerId(t)}return e.prototype.generateAndInjectStyles=function(e,t,n){var r=this.componentId,o=[];if(this.baseStyle&&o.push(this.baseStyle.generateAndInjectStyles(e,t,n)),this.isStatic&&!n.hash)if(this.staticRulesId&&t.hasNameForId(r,this.staticRulesId))o.push(this.staticRulesId);else{var s=Ne(this.rules,e,t,n).join(""),i=ee(te(this.baseHash,s)>>>0);if(!t.hasNameForId(r,i)){var a=n(s,"."+i,void 0,r);t.insertRules(r,i,a)}o.push(i),this.staticRulesId=i}else{for(var c=this.rules.length,u=te(this.baseHash,n.hash),l="",d=0;d<c;d++){var h=this.rules[d];if("string"==typeof h)l+=h, true&&(u=te(u,h+d));else if(h){var p=Ne(h,e,t,n),f=Array.isArray(p)?p.join(""):p;u=te(u,f+d),l+=f}}if(l){var m=ee(u>>>0);if(!t.hasNameForId(r,m)){var y=n(l,"."+m,void 0,r);t.insertRules(r,m,y)}o.push(m)}}return o.join(" ")},e}(),ie=/^\s*\/\/.*$/gm,ae=[":","[",".","#"];function ce(e){var t,n,r,o,s=void 0===e?E:e,i=s.options,a=void 0===i?E:i,c=s.plugins,u=void 0===c?w:c,l=new _emotion_stylis__WEBPACK_IMPORTED_MODULE_3__["default"](a),d=[],h=function(e){function t(t){if(t)try{e(t+"}")}catch(e){}}return function(n,r,o,s,i,a,c,u,l,d){switch(n){case 1:if(0===l&&64===r.charCodeAt(0))return e(r+";"),"";break;case 2:if(0===u)return r+"/*|*/";break;case 3:switch(u){case 102:case 112:return e(o[0]+r),"";default:return r+(0===d?"/*|*/":"")}case-2:r.split("/*|*/}").forEach(t)}}}((function(e){d.push(e)})),f=function(e,r,s){return 0===r&&-1!==ae.indexOf(s[n.length])||s.match(o)?e:"."+t};function m(e,s,i,a){void 0===a&&(a="&");var c=e.replace(ie,""),u=s&&i?i+" "+s+" { "+c+" }":c;return t=a,n=s,r=new RegExp("\\"+n+"\\b","g"),o=new RegExp("(\\"+n+"\\b){2,}"),l(i||!s?"":s,u)}return l.use([].concat(u,[function(e,t,o){2===e&&o.length&&o[0].lastIndexOf(n)>0&&(o[0]=o[0].replace(r,f))},h,function(e){if(-2===e){var t=d;return d=[],t}}])),m.hash=u.length?u.reduce((function(e,t){return t.name||j(15),te(e,t.name)}),5381).toString():"",m}var ue=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),le=ue.Consumer,de=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),he=(de.Consumer,new Z),pe=ce();function fe(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(ue)||he}function me(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(de)||pe}function ye(e){var t=(0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(e.stylisPlugins),n=t[0],s=t[1],c=fe(),u=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){var t=c;return e.sheet?t=e.sheet:e.target&&(t=t.reconstructWithOptions({target:e.target},!1)),e.disableCSSOMInjection&&(t=t.reconstructWithOptions({useCSSOMInjection:!1})),t}),[e.disableCSSOMInjection,e.sheet,e.target]),l=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){return ce({options:{prefix:!e.disableVendorPrefixes},plugins:n})}),[e.disableVendorPrefixes,n]);return (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)((function(){shallowequal__WEBPACK_IMPORTED_MODULE_2___default()(n,e.stylisPlugins)||s(e.stylisPlugins)}),[e.stylisPlugins]),react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ue.Provider,{value:u},react__WEBPACK_IMPORTED_MODULE_1___default().createElement(de.Provider,{value:l}, true?react__WEBPACK_IMPORTED_MODULE_1___default().Children.only(e.children):0))}var ve=function(){function e(e,t){var n=this;this.inject=function(e,t){void 0===t&&(t=pe);var r=n.name+t.hash;e.hasNameForId(n.id,r)||e.insertRules(n.id,r,t(n.rules,r,"@keyframes"))},this.toString=function(){return j(12,String(n.name))},this.name=e,this.id="sc-keyframes-"+e,this.rules=t}return e.prototype.getName=function(e){return void 0===e&&(e=pe),this.name+e.hash},e}(),ge=/([A-Z])/,Se=/([A-Z])/g,we=/^ms-/,Ee=function(e){return"-"+e.toLowerCase()};function be(e){return ge.test(e)?e.replace(Se,Ee).replace(we,"-ms-"):e}var _e=function(e){return null==e||!1===e||""===e};function Ne(e,n,r,o){if(Array.isArray(e)){for(var s,i=[],a=0,c=e.length;a<c;a+=1)""!==(s=Ne(e[a],n,r,o))&&(Array.isArray(s)?i.push.apply(i,s):i.push(s));return i}if(_e(e))return"";if(N(e))return"."+e.styledComponentId;if(b(e)){if("function"!=typeof(l=e)||l.prototype&&l.prototype.isReactComponent||!n)return e;var u=e(n);return true&&(0,react_is__WEBPACK_IMPORTED_MODULE_0__.isElement)(u)&&console.warn(_(e)+" is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details."),Ne(u,n,r,o)}var l;return e instanceof ve?r?(e.inject(r,o),e.getName(o)):e:S(e)?function e(t,n){var r,o,s=[];for(var i in t)t.hasOwnProperty(i)&&!_e(t[i])&&(Array.isArray(t[i])&&t[i].isCss||b(t[i])?s.push(be(i)+":",t[i],";"):S(t[i])?s.push.apply(s,e(t[i],i)):s.push(be(i)+": "+(r=i,null==(o=t[i])||"boolean"==typeof o||""===o?"":"number"!=typeof o||0===o||r in _emotion_unitless__WEBPACK_IMPORTED_MODULE_4__["default"]?String(o).trim():o+"px")+";"));return n?[n+" {"].concat(s,["}"]):s}(e):e.toString()}var Ae=function(e){return Array.isArray(e)&&(e.isCss=!0),e};function Ce(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];return b(e)||S(e)?Ae(Ne(g(w,[e].concat(n)))):0===n.length&&1===e.length&&"string"==typeof e[0]?e:Ae(Ne(g(e,n)))}var Ie=/invalid hook call/i,Pe=new Set,Oe=function(e,t){if(true){var n="The component "+e+(t?' with the id of "'+t+'"':"")+" has been created dynamically.\nYou may see this warning because you've called styled inside another component.\nTo resolve this only create new StyledComponents outside of any render method and function component.",r=console.error;try{var o=!0;console.error=function(e){if(Ie.test(e))o=!1,Pe.delete(n);else{for(var t=arguments.length,s=new Array(t>1?t-1:0),i=1;i<t;i++)s[i-1]=arguments[i];r.apply(void 0,[e].concat(s))}},(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(),o&&!Pe.has(n)&&(console.warn(n),Pe.add(n))}catch(e){Ie.test(e.message)&&Pe.delete(n)}finally{console.error=r}}},Re=function(e,t,n){return void 0===n&&(n=E),e.theme!==n.theme&&e.theme||t||n.theme},De=/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~-]+/g,je=/(^-|-$)/g;function Te(e){return e.replace(De,"-").replace(je,"")}var xe=function(e){return ee(ne(e)>>>0)};function ke(e){return"string"==typeof e&&( false||e.charAt(0)===e.charAt(0).toLowerCase())}var Ve=function(e){return"function"==typeof e||"object"==typeof e&&null!==e&&!Array.isArray(e)},Be=function(e){return"__proto__"!==e&&"constructor"!==e&&"prototype"!==e};function ze(e,t,n){var r=e[n];Ve(t)&&Ve(r)?Me(r,t):e[n]=t}function Me(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];for(var o=0,s=n;o<s.length;o++){var i=s[o];if(Ve(i))for(var a in i)Be(a)&&ze(e,i[a],a)}return e}var Ge=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),Le=Ge.Consumer;function Fe(e){var t=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),n=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){return function(e,t){if(!e)return j(14);if(b(e)){var n=e(t);return false||null!==n&&!Array.isArray(n)&&"object"==typeof n?n:j(7)}return Array.isArray(e)||"object"!=typeof e?j(8):t?v({},t,{},e):e}(e.theme,t)}),[e.theme,t]);return e.children?react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Ge.Provider,{value:n},e.children):null}var Ye={};function qe(e,t,n){var o=N(e),i=!ke(e),a=t.attrs,c=void 0===a?w:a,d=t.componentId,h=void 0===d?function(e,t){var n="string"!=typeof e?"sc":Te(e);Ye[n]=(Ye[n]||0)+1;var r=n+"-"+xe("5.3.5"+n+Ye[n]);return t?t+"-"+r:r}(t.displayName,t.parentComponentId):d,p=t.displayName,f=void 0===p?function(e){return ke(e)?"styled."+e:"Styled("+_(e)+")"}(e):p,g=t.displayName&&t.componentId?Te(t.displayName)+"-"+t.componentId:t.componentId||h,S=o&&e.attrs?Array.prototype.concat(e.attrs,c).filter(Boolean):c,A=t.shouldForwardProp;o&&e.shouldForwardProp&&(A=t.shouldForwardProp?function(n,r,o){return e.shouldForwardProp(n,r,o)&&t.shouldForwardProp(n,r,o)}:e.shouldForwardProp);var C,I=new se(n,g,o?e.componentStyle:void 0),P=I.isStatic&&0===c.length,O=function(e,t){return function(e,t,n,r){var o=e.attrs,i=e.componentStyle,a=e.defaultProps,c=e.foldedComponentIds,d=e.shouldForwardProp,h=e.styledComponentId,p=e.target; true&&(0,react__WEBPACK_IMPORTED_MODULE_1__.useDebugValue)(h);var f=function(e,t,n){void 0===e&&(e=E);var r=v({},t,{theme:e}),o={};return n.forEach((function(e){var t,n,s,i=e;for(t in b(i)&&(i=i(r)),i)r[t]=o[t]="className"===t?(n=o[t],s=i[t],n&&s?n+" "+s:n||s):i[t]})),[r,o]}(Re(t,(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),a)||E,t,o),y=f[0],g=f[1],S=function(e,t,n,r){var o=fe(),s=me(),i=t?e.generateAndInjectStyles(E,o,s):e.generateAndInjectStyles(n,o,s);return true&&(0,react__WEBPACK_IMPORTED_MODULE_1__.useDebugValue)(i), true&&!t&&r&&r(i),i}(i,r,y, true?e.warnTooManyClasses:0),w=n,_=g.$as||t.$as||g.as||t.as||p,N=ke(_),A=g!==t?v({},t,{},g):t,C={};for(var I in A)"$"!==I[0]&&"as"!==I&&("forwardedAs"===I?C.as=A[I]:(d?d(I,_emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__["default"],_):!N||(0,_emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__["default"])(I))&&(C[I]=A[I]));return t.style&&g.style!==t.style&&(C.style=v({},t.style,{},g.style)),C.className=Array.prototype.concat(c,h,S!==h?S:null,t.className,g.className).filter(Boolean).join(" "),C.ref=w,(0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_,C)}(C,e,t,P)};return O.displayName=f,(C=react__WEBPACK_IMPORTED_MODULE_1___default().forwardRef(O)).attrs=S,C.componentStyle=I,C.displayName=f,C.shouldForwardProp=A,C.foldedComponentIds=o?Array.prototype.concat(e.foldedComponentIds,e.styledComponentId):w,C.styledComponentId=g,C.target=o?e.target:e,C.withComponent=function(e){var r=t.componentId,o=function(e,t){if(null==e)return{};var n,r,o={},s=Object.keys(e);for(r=0;r<s.length;r++)n=s[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(t,["componentId"]),s=r&&r+"-"+(ke(e)?e:Te(_(e)));return qe(e,v({},o,{attrs:S,componentId:s}),n)},Object.defineProperty(C,"defaultProps",{get:function(){return this._foldedDefaultProps},set:function(t){this._foldedDefaultProps=o?Me({},e.defaultProps,t):t}}), true&&(Oe(f,g),C.warnTooManyClasses=function(e,t){var n={},r=!1;return function(o){if(!r&&(n[o]=!0,Object.keys(n).length>=200)){var s=t?' with the id of "'+t+'"':"";console.warn("Over 200 classes were generated for component "+e+s+".\nConsider using the attrs method, together with a style object for frequently changed styles.\nExample:\n  const Component = styled.div.attrs(props => ({\n    style: {\n      background: props.background,\n    },\n  }))`width: 100%;`\n\n  <Component />"),r=!0,n={}}}}(f,g)),C.toString=function(){return"."+C.styledComponentId},i&&hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6___default()(C,e,{attrs:!0,componentStyle:!0,displayName:!0,foldedComponentIds:!0,shouldForwardProp:!0,styledComponentId:!0,target:!0,withComponent:!0}),C}var He=function(e){return function e(t,r,o){if(void 0===o&&(o=E),!(0,react_is__WEBPACK_IMPORTED_MODULE_0__.isValidElementType)(r))return j(1,String(r));var s=function(){return t(r,o,Ce.apply(void 0,arguments))};return s.withConfig=function(n){return e(t,r,v({},o,{},n))},s.attrs=function(n){return e(t,r,v({},o,{attrs:Array.prototype.concat(o.attrs,n).filter(Boolean)}))},s}(qe,e)};["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","big","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","marquee","menu","menuitem","meta","meter","nav","noscript","object","ol","optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","u","ul","var","video","wbr","circle","clipPath","defs","ellipse","foreignObject","g","image","line","linearGradient","marker","mask","path","pattern","polygon","polyline","radialGradient","rect","stop","svg","text","textPath","tspan"].forEach((function(e){He[e]=He(e)}));var $e=function(){function e(e,t){this.rules=e,this.componentId=t,this.isStatic=re(e),Z.registerId(this.componentId+1)}var t=e.prototype;return t.createStyles=function(e,t,n,r){var o=r(Ne(this.rules,t,n,r).join(""),""),s=this.componentId+e;n.insertRules(s,s,o)},t.removeStyles=function(e,t){t.clearRules(this.componentId+e)},t.renderStyles=function(e,t,n,r){e>2&&Z.registerId(this.componentId+e),this.removeStyles(e,n),this.createStyles(e,t,n,r)},e}();function We(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),o=1;o<t;o++)n[o-1]=arguments[o];var i=Ce.apply(void 0,[e].concat(n)),a="sc-global-"+xe(JSON.stringify(i)),u=new $e(i,a);function l(e){var t=fe(),n=me(),o=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),l=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(t.allocateGSInstance(a)).current;return true&&react__WEBPACK_IMPORTED_MODULE_1___default().Children.count(e.children)&&console.warn("The global style component "+a+" was given child JSX. createGlobalStyle does not render children."), true&&i.some((function(e){return"string"==typeof e&&-1!==e.indexOf("@import")}))&&console.warn("Please do not use @import CSS syntax in createGlobalStyle at this time, as the CSSOM APIs we use in production do not handle it well. Instead, we recommend using a library such as react-helmet to inject a typical <link> meta tag to the stylesheet, or simply embedding it manually in your index.html <head> section for a simpler app."),t.server&&h(l,e,t,o,n),(0,react__WEBPACK_IMPORTED_MODULE_1__.useLayoutEffect)((function(){if(!t.server)return h(l,e,t,o,n),function(){return u.removeStyles(l,t)}}),[l,e,t,o,n]),null}function h(e,t,n,r,o){if(u.isStatic)u.renderStyles(e,O,n,o);else{var s=v({},t,{theme:Re(t,r,l.defaultProps)});u.renderStyles(e,s,n,o)}}return true&&Oe(a),react__WEBPACK_IMPORTED_MODULE_1___default().memo(l)}function Ue(e){ true&&"undefined"!=typeof navigator&&"ReactNative"===navigator.product&&console.warn("`keyframes` cannot be used on ReactNative, only on the web. To do animation in ReactNative please use Animated.");for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];var o=Ce.apply(void 0,[e].concat(n)).join(""),s=xe(o);return new ve(s,o)}var Je=function(){function e(){var e=this;this._emitSheetCSS=function(){var t=e.instance.toString();if(!t)return"";var n=q();return"<style "+[n&&'nonce="'+n+'"',A+'="true"','data-styled-version="5.3.5"'].filter(Boolean).join(" ")+">"+t+"</style>"},this.getStyleTags=function(){return e.sealed?j(2):e._emitSheetCSS()},this.getStyleElement=function(){var t;if(e.sealed)return j(2);var n=((t={})[A]="",t["data-styled-version"]="5.3.5",t.dangerouslySetInnerHTML={__html:e.instance.toString()},t),o=q();return o&&(n.nonce=o),[react__WEBPACK_IMPORTED_MODULE_1___default().createElement("style",v({},n,{key:"sc-0-0"}))]},this.seal=function(){e.sealed=!0},this.instance=new Z({isServer:!0}),this.sealed=!1}var t=e.prototype;return t.collectStyles=function(e){return this.sealed?j(2):react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ye,{sheet:this.instance},e)},t.interleaveWithNodeStream=function(e){return j(3)},e}(),Xe=function(e){var t=react__WEBPACK_IMPORTED_MODULE_1___default().forwardRef((function(t,n){var o=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),i=e.defaultProps,a=Re(t,o,i);return true&&void 0===a&&console.warn('[withTheme] You are not using a ThemeProvider nor passing a theme prop or a theme in defaultProps in component class "'+_(e)+'"'),react__WEBPACK_IMPORTED_MODULE_1___default().createElement(e,v({},t,{theme:a,ref:n}))}));return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6___default()(t,e),t.displayName="WithTheme("+_(e)+")",t},Ze=function(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge)},Ke={StyleSheet:Z,masterSheet:he}; true&&"undefined"!=typeof navigator&&"ReactNative"===navigator.product&&console.warn("It looks like you've imported 'styled-components' on React Native.\nPerhaps you're looking to import 'styled-components/native'?\nRead more about this at https://www.styled-components.com/docs/basics#react-native"), true&&"undefined"!=typeof window&&(window["__styled-components-init__"]=window["__styled-components-init__"]||0,1===window["__styled-components-init__"]&&console.warn("It looks like there are several instances of 'styled-components' initialized in this application. This may cause dynamic styles to not render properly, errors during the rehydration process, a missing theme prop, and makes your application bigger without good reason.\n\nSee https://s-c.sh/2BAXzed for more info."),window["__styled-components-init__"]+=1);/* harmony default export */ __webpack_exports__["default"] = (He);
+function v(){return(v=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}var g=function(e,t){for(var n=[e[0]],r=0,o=t.length;r<o;r+=1)n.push(t[r],e[r+1]);return n},S=function(t){return null!==t&&"object"==typeof t&&"[object Object]"===(t.toString?t.toString():Object.prototype.toString.call(t))&&!(0,react_is__WEBPACK_IMPORTED_MODULE_0__.typeOf)(t)},w=Object.freeze([]),E=Object.freeze({});function b(e){return"function"==typeof e}function _(e){return true&&"string"==typeof e&&e||e.displayName||e.name||"Component"}function N(e){return e&&"string"==typeof e.styledComponentId}var A="undefined"!=typeof process&&(process.env.REACT_APP_SC_ATTR||process.env.SC_ATTR)||"data-styled",C="5.3.6",I="undefined"!=typeof window&&"HTMLElement"in window,P=Boolean("boolean"==typeof SC_DISABLE_SPEEDY?SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&""!==process.env.REACT_APP_SC_DISABLE_SPEEDY?"false"!==process.env.REACT_APP_SC_DISABLE_SPEEDY&&process.env.REACT_APP_SC_DISABLE_SPEEDY:"undefined"!=typeof process&&void 0!==process.env.SC_DISABLE_SPEEDY&&""!==process.env.SC_DISABLE_SPEEDY?"false"!==process.env.SC_DISABLE_SPEEDY&&process.env.SC_DISABLE_SPEEDY:"production"!=="development"),O={},R= true?{1:"Cannot create styled-component for component: %s.\n\n",2:"Can't collect styles once you've consumed a `ServerStyleSheet`'s styles! `ServerStyleSheet` is a one off instance for each server-side render cycle.\n\n- Are you trying to reuse it across renders?\n- Are you accidentally calling collectStyles twice?\n\n",3:"Streaming SSR is only supported in a Node.js environment; Please do not try to call this method in the browser.\n\n",4:"The `StyleSheetManager` expects a valid target or sheet prop!\n\n- Does this error occur on the client and is your target falsy?\n- Does this error occur on the server and is the sheet falsy?\n\n",5:"The clone method cannot be used on the client!\n\n- Are you running in a client-like environment on the server?\n- Are you trying to run SSR on the client?\n\n",6:"Trying to insert a new style tag, but the given Node is unmounted!\n\n- Are you using a custom target that isn't mounted?\n- Does your document not have a valid head element?\n- Have you accidentally removed a style tag manually?\n\n",7:'ThemeProvider: Please return an object from your "theme" prop function, e.g.\n\n```js\ntheme={() => ({})}\n```\n\n',8:'ThemeProvider: Please make your "theme" prop an object.\n\n',9:"Missing document `<head>`\n\n",10:"Cannot find a StyleSheet instance. Usually this happens if there are multiple copies of styled-components loaded at once. Check out this issue for how to troubleshoot and fix the common cases where this situation can happen: https://github.com/styled-components/styled-components/issues/1941#issuecomment-417862021\n\n",11:"_This error was replaced with a dev-time warning, it will be deleted for v4 final._ [createGlobalStyle] received children which will not be rendered. Please use the component without passing children elements.\n\n",12:"It seems you are interpolating a keyframe declaration (%s) into an untagged string. This was supported in styled-components v3, but is not longer supported in v4 as keyframes are now injected on-demand. Please wrap your string in the css\\`\\` helper which ensures the styles are injected correctly. See https://www.styled-components.com/docs/api#css\n\n",13:"%s is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.\n\n",14:'ThemeProvider: "theme" prop is required.\n\n',15:"A stylis plugin has been supplied that is not named. We need a name for each plugin to be able to prevent styling collisions between different stylis configurations within the same app. Before you pass your plugin to `<StyleSheetManager stylisPlugins={[]}>`, please make sure each plugin is uniquely-named, e.g.\n\n```js\nObject.defineProperty(importedPlugin, 'name', { value: 'some-unique-name' });\n```\n\n",16:"Reached the limit of how many styled components may be created at group %s.\nYou may only create up to 1,073,741,824 components. If you're creating components dynamically,\nas for instance in your render method then you may be running into this limitation.\n\n",17:"CSSStyleSheet could not be found on HTMLStyleElement.\nHas styled-components' style tag been unmounted or altered by another script?\n"}:0;function D(){for(var e=arguments.length<=0?void 0:arguments[0],t=[],n=1,r=arguments.length;n<r;n+=1)t.push(n<0||arguments.length<=n?void 0:arguments[n]);return t.forEach((function(t){e=e.replace(/%[a-z]/,t)})),e}function j(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];throw false?0:new Error(D.apply(void 0,[R[e]].concat(n)).trim())}var T=function(){function e(e){this.groupSizes=new Uint32Array(512),this.length=512,this.tag=e}var t=e.prototype;return t.indexOfGroup=function(e){for(var t=0,n=0;n<e;n++)t+=this.groupSizes[n];return t},t.insertRules=function(e,t){if(e>=this.groupSizes.length){for(var n=this.groupSizes,r=n.length,o=r;e>=o;)(o<<=1)<0&&j(16,""+e);this.groupSizes=new Uint32Array(o),this.groupSizes.set(n),this.length=o;for(var s=r;s<o;s++)this.groupSizes[s]=0}for(var i=this.indexOfGroup(e+1),a=0,c=t.length;a<c;a++)this.tag.insertRule(i,t[a])&&(this.groupSizes[e]++,i++)},t.clearGroup=function(e){if(e<this.length){var t=this.groupSizes[e],n=this.indexOfGroup(e),r=n+t;this.groupSizes[e]=0;for(var o=n;o<r;o++)this.tag.deleteRule(n)}},t.getGroup=function(e){var t="";if(e>=this.length||0===this.groupSizes[e])return t;for(var n=this.groupSizes[e],r=this.indexOfGroup(e),o=r+n,s=r;s<o;s++)t+=this.tag.getRule(s)+"/*!sc*/\n";return t},e}(),x=new Map,k=new Map,V=1,B=function(e){if(x.has(e))return x.get(e);for(;k.has(V);)V++;var t=V++;return true&&((0|t)<0||t>1<<30)&&j(16,""+t),x.set(e,t),k.set(t,e),t},z=function(e){return k.get(e)},M=function(e,t){t>=V&&(V=t+1),x.set(e,t),k.set(t,e)},G="style["+A+'][data-styled-version="5.3.6"]',L=new RegExp("^"+A+'\\.g(\\d+)\\[id="([\\w\\d-]+)"\\].*?"([^"]*)'),F=function(e,t,n){for(var r,o=n.split(","),s=0,i=o.length;s<i;s++)(r=o[s])&&e.registerName(t,r)},Y=function(e,t){for(var n=(t.textContent||"").split("/*!sc*/\n"),r=[],o=0,s=n.length;o<s;o++){var i=n[o].trim();if(i){var a=i.match(L);if(a){var c=0|parseInt(a[1],10),u=a[2];0!==c&&(M(u,c),F(e,u,a[3]),e.getTag().insertRules(c,r)),r.length=0}else r.push(i)}}},q=function(){return true?__webpack_require__.nc:0},H=function(e){var t=document.head,n=e||t,r=document.createElement("style"),o=function(e){for(var t=e.childNodes,n=t.length;n>=0;n--){var r=t[n];if(r&&1===r.nodeType&&r.hasAttribute(A))return r}}(n),s=void 0!==o?o.nextSibling:null;r.setAttribute(A,"active"),r.setAttribute("data-styled-version","5.3.6");var i=q();return i&&r.setAttribute("nonce",i),n.insertBefore(r,s),r},$=function(){function e(e){var t=this.element=H(e);t.appendChild(document.createTextNode("")),this.sheet=function(e){if(e.sheet)return e.sheet;for(var t=document.styleSheets,n=0,r=t.length;n<r;n++){var o=t[n];if(o.ownerNode===e)return o}j(17)}(t),this.length=0}var t=e.prototype;return t.insertRule=function(e,t){try{return this.sheet.insertRule(t,e),this.length++,!0}catch(e){return!1}},t.deleteRule=function(e){this.sheet.deleteRule(e),this.length--},t.getRule=function(e){var t=this.sheet.cssRules[e];return void 0!==t&&"string"==typeof t.cssText?t.cssText:""},e}(),W=function(){function e(e){var t=this.element=H(e);this.nodes=t.childNodes,this.length=0}var t=e.prototype;return t.insertRule=function(e,t){if(e<=this.length&&e>=0){var n=document.createTextNode(t),r=this.nodes[e];return this.element.insertBefore(n,r||null),this.length++,!0}return!1},t.deleteRule=function(e){this.element.removeChild(this.nodes[e]),this.length--},t.getRule=function(e){return e<this.length?this.nodes[e].textContent:""},e}(),U=function(){function e(e){this.rules=[],this.length=0}var t=e.prototype;return t.insertRule=function(e,t){return e<=this.length&&(this.rules.splice(e,0,t),this.length++,!0)},t.deleteRule=function(e){this.rules.splice(e,1),this.length--},t.getRule=function(e){return e<this.length?this.rules[e]:""},e}(),J=I,X={isServer:!I,useCSSOMInjection:!P},Z=function(){function e(e,t,n){void 0===e&&(e=E),void 0===t&&(t={}),this.options=v({},X,{},e),this.gs=t,this.names=new Map(n),this.server=!!e.isServer,!this.server&&I&&J&&(J=!1,function(e){for(var t=document.querySelectorAll(G),n=0,r=t.length;n<r;n++){var o=t[n];o&&"active"!==o.getAttribute(A)&&(Y(e,o),o.parentNode&&o.parentNode.removeChild(o))}}(this))}e.registerId=function(e){return B(e)};var t=e.prototype;return t.reconstructWithOptions=function(t,n){return void 0===n&&(n=!0),new e(v({},this.options,{},t),this.gs,n&&this.names||void 0)},t.allocateGSInstance=function(e){return this.gs[e]=(this.gs[e]||0)+1},t.getTag=function(){return this.tag||(this.tag=(n=(t=this.options).isServer,r=t.useCSSOMInjection,o=t.target,e=n?new U(o):r?new $(o):new W(o),new T(e)));var e,t,n,r,o},t.hasNameForId=function(e,t){return this.names.has(e)&&this.names.get(e).has(t)},t.registerName=function(e,t){if(B(e),this.names.has(e))this.names.get(e).add(t);else{var n=new Set;n.add(t),this.names.set(e,n)}},t.insertRules=function(e,t,n){this.registerName(e,t),this.getTag().insertRules(B(e),n)},t.clearNames=function(e){this.names.has(e)&&this.names.get(e).clear()},t.clearRules=function(e){this.getTag().clearGroup(B(e)),this.clearNames(e)},t.clearTag=function(){this.tag=void 0},t.toString=function(){return function(e){for(var t=e.getTag(),n=t.length,r="",o=0;o<n;o++){var s=z(o);if(void 0!==s){var i=e.names.get(s),a=t.getGroup(o);if(i&&a&&i.size){var c=A+".g"+o+'[id="'+s+'"]',u="";void 0!==i&&i.forEach((function(e){e.length>0&&(u+=e+",")})),r+=""+a+c+'{content:"'+u+'"}/*!sc*/\n'}}}return r}(this)},e}(),K=/(a)(d)/gi,Q=function(e){return String.fromCharCode(e+(e>25?39:97))};function ee(e){var t,n="";for(t=Math.abs(e);t>52;t=t/52|0)n=Q(t%52)+n;return(Q(t%52)+n).replace(K,"$1-$2")}var te=function(e,t){for(var n=t.length;n;)e=33*e^t.charCodeAt(--n);return e},ne=function(e){return te(5381,e)};function re(e){for(var t=0;t<e.length;t+=1){var n=e[t];if(b(n)&&!N(n))return!1}return!0}var oe=ne("5.3.6"),se=function(){function e(e,t,n){this.rules=e,this.staticRulesId="",this.isStatic= false&&0,this.componentId=t,this.baseHash=te(oe,t),this.baseStyle=n,Z.registerId(t)}return e.prototype.generateAndInjectStyles=function(e,t,n){var r=this.componentId,o=[];if(this.baseStyle&&o.push(this.baseStyle.generateAndInjectStyles(e,t,n)),this.isStatic&&!n.hash)if(this.staticRulesId&&t.hasNameForId(r,this.staticRulesId))o.push(this.staticRulesId);else{var s=Ne(this.rules,e,t,n).join(""),i=ee(te(this.baseHash,s)>>>0);if(!t.hasNameForId(r,i)){var a=n(s,"."+i,void 0,r);t.insertRules(r,i,a)}o.push(i),this.staticRulesId=i}else{for(var c=this.rules.length,u=te(this.baseHash,n.hash),l="",d=0;d<c;d++){var h=this.rules[d];if("string"==typeof h)l+=h, true&&(u=te(u,h+d));else if(h){var p=Ne(h,e,t,n),f=Array.isArray(p)?p.join(""):p;u=te(u,f+d),l+=f}}if(l){var m=ee(u>>>0);if(!t.hasNameForId(r,m)){var y=n(l,"."+m,void 0,r);t.insertRules(r,m,y)}o.push(m)}}return o.join(" ")},e}(),ie=/^\s*\/\/.*$/gm,ae=[":","[",".","#"];function ce(e){var t,n,r,o,s=void 0===e?E:e,i=s.options,a=void 0===i?E:i,c=s.plugins,u=void 0===c?w:c,l=new _emotion_stylis__WEBPACK_IMPORTED_MODULE_3__["default"](a),d=[],h=function(e){function t(t){if(t)try{e(t+"}")}catch(e){}}return function(n,r,o,s,i,a,c,u,l,d){switch(n){case 1:if(0===l&&64===r.charCodeAt(0))return e(r+";"),"";break;case 2:if(0===u)return r+"/*|*/";break;case 3:switch(u){case 102:case 112:return e(o[0]+r),"";default:return r+(0===d?"/*|*/":"")}case-2:r.split("/*|*/}").forEach(t)}}}((function(e){d.push(e)})),f=function(e,r,s){return 0===r&&-1!==ae.indexOf(s[n.length])||s.match(o)?e:"."+t};function m(e,s,i,a){void 0===a&&(a="&");var c=e.replace(ie,""),u=s&&i?i+" "+s+" { "+c+" }":c;return t=a,n=s,r=new RegExp("\\"+n+"\\b","g"),o=new RegExp("(\\"+n+"\\b){2,}"),l(i||!s?"":s,u)}return l.use([].concat(u,[function(e,t,o){2===e&&o.length&&o[0].lastIndexOf(n)>0&&(o[0]=o[0].replace(r,f))},h,function(e){if(-2===e){var t=d;return d=[],t}}])),m.hash=u.length?u.reduce((function(e,t){return t.name||j(15),te(e,t.name)}),5381).toString():"",m}var ue=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),le=ue.Consumer,de=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),he=(de.Consumer,new Z),pe=ce();function fe(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(ue)||he}function me(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(de)||pe}function ye(e){var t=(0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(e.stylisPlugins),n=t[0],s=t[1],c=fe(),u=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){var t=c;return e.sheet?t=e.sheet:e.target&&(t=t.reconstructWithOptions({target:e.target},!1)),e.disableCSSOMInjection&&(t=t.reconstructWithOptions({useCSSOMInjection:!1})),t}),[e.disableCSSOMInjection,e.sheet,e.target]),l=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){return ce({options:{prefix:!e.disableVendorPrefixes},plugins:n})}),[e.disableVendorPrefixes,n]);return (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)((function(){shallowequal__WEBPACK_IMPORTED_MODULE_2___default()(n,e.stylisPlugins)||s(e.stylisPlugins)}),[e.stylisPlugins]),react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ue.Provider,{value:u},react__WEBPACK_IMPORTED_MODULE_1___default().createElement(de.Provider,{value:l}, true?react__WEBPACK_IMPORTED_MODULE_1___default().Children.only(e.children):0))}var ve=function(){function e(e,t){var n=this;this.inject=function(e,t){void 0===t&&(t=pe);var r=n.name+t.hash;e.hasNameForId(n.id,r)||e.insertRules(n.id,r,t(n.rules,r,"@keyframes"))},this.toString=function(){return j(12,String(n.name))},this.name=e,this.id="sc-keyframes-"+e,this.rules=t}return e.prototype.getName=function(e){return void 0===e&&(e=pe),this.name+e.hash},e}(),ge=/([A-Z])/,Se=/([A-Z])/g,we=/^ms-/,Ee=function(e){return"-"+e.toLowerCase()};function be(e){return ge.test(e)?e.replace(Se,Ee).replace(we,"-ms-"):e}var _e=function(e){return null==e||!1===e||""===e};function Ne(e,n,r,o){if(Array.isArray(e)){for(var s,i=[],a=0,c=e.length;a<c;a+=1)""!==(s=Ne(e[a],n,r,o))&&(Array.isArray(s)?i.push.apply(i,s):i.push(s));return i}if(_e(e))return"";if(N(e))return"."+e.styledComponentId;if(b(e)){if("function"!=typeof(l=e)||l.prototype&&l.prototype.isReactComponent||!n)return e;var u=e(n);return true&&(0,react_is__WEBPACK_IMPORTED_MODULE_0__.isElement)(u)&&console.warn(_(e)+" is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details."),Ne(u,n,r,o)}var l;return e instanceof ve?r?(e.inject(r,o),e.getName(o)):e:S(e)?function e(t,n){var r,o,s=[];for(var i in t)t.hasOwnProperty(i)&&!_e(t[i])&&(Array.isArray(t[i])&&t[i].isCss||b(t[i])?s.push(be(i)+":",t[i],";"):S(t[i])?s.push.apply(s,e(t[i],i)):s.push(be(i)+": "+(r=i,null==(o=t[i])||"boolean"==typeof o||""===o?"":"number"!=typeof o||0===o||r in _emotion_unitless__WEBPACK_IMPORTED_MODULE_4__["default"]?String(o).trim():o+"px")+";"));return n?[n+" {"].concat(s,["}"]):s}(e):e.toString()}var Ae=function(e){return Array.isArray(e)&&(e.isCss=!0),e};function Ce(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];return b(e)||S(e)?Ae(Ne(g(w,[e].concat(n)))):0===n.length&&1===e.length&&"string"==typeof e[0]?e:Ae(Ne(g(e,n)))}var Ie=/invalid hook call/i,Pe=new Set,Oe=function(e,t){if(true){var n="The component "+e+(t?' with the id of "'+t+'"':"")+" has been created dynamically.\nYou may see this warning because you've called styled inside another component.\nTo resolve this only create new StyledComponents outside of any render method and function component.",r=console.error;try{var o=!0;console.error=function(e){if(Ie.test(e))o=!1,Pe.delete(n);else{for(var t=arguments.length,s=new Array(t>1?t-1:0),i=1;i<t;i++)s[i-1]=arguments[i];r.apply(void 0,[e].concat(s))}},(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(),o&&!Pe.has(n)&&(console.warn(n),Pe.add(n))}catch(e){Ie.test(e.message)&&Pe.delete(n)}finally{console.error=r}}},Re=function(e,t,n){return void 0===n&&(n=E),e.theme!==n.theme&&e.theme||t||n.theme},De=/[!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~-]+/g,je=/(^-|-$)/g;function Te(e){return e.replace(De,"-").replace(je,"")}var xe=function(e){return ee(ne(e)>>>0)};function ke(e){return"string"==typeof e&&( false||e.charAt(0)===e.charAt(0).toLowerCase())}var Ve=function(e){return"function"==typeof e||"object"==typeof e&&null!==e&&!Array.isArray(e)},Be=function(e){return"__proto__"!==e&&"constructor"!==e&&"prototype"!==e};function ze(e,t,n){var r=e[n];Ve(t)&&Ve(r)?Me(r,t):e[n]=t}function Me(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];for(var o=0,s=n;o<s.length;o++){var i=s[o];if(Ve(i))for(var a in i)Be(a)&&ze(e,i[a],a)}return e}var Ge=react__WEBPACK_IMPORTED_MODULE_1___default().createContext(),Le=Ge.Consumer;function Fe(e){var t=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),n=(0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)((function(){return function(e,t){if(!e)return j(14);if(b(e)){var n=e(t);return false||null!==n&&!Array.isArray(n)&&"object"==typeof n?n:j(7)}return Array.isArray(e)||"object"!=typeof e?j(8):t?v({},t,{},e):e}(e.theme,t)}),[e.theme,t]);return e.children?react__WEBPACK_IMPORTED_MODULE_1___default().createElement(Ge.Provider,{value:n},e.children):null}var Ye={};function qe(e,t,n){var o=N(e),i=!ke(e),a=t.attrs,c=void 0===a?w:a,d=t.componentId,h=void 0===d?function(e,t){var n="string"!=typeof e?"sc":Te(e);Ye[n]=(Ye[n]||0)+1;var r=n+"-"+xe("5.3.6"+n+Ye[n]);return t?t+"-"+r:r}(t.displayName,t.parentComponentId):d,p=t.displayName,f=void 0===p?function(e){return ke(e)?"styled."+e:"Styled("+_(e)+")"}(e):p,g=t.displayName&&t.componentId?Te(t.displayName)+"-"+t.componentId:t.componentId||h,S=o&&e.attrs?Array.prototype.concat(e.attrs,c).filter(Boolean):c,A=t.shouldForwardProp;o&&e.shouldForwardProp&&(A=t.shouldForwardProp?function(n,r,o){return e.shouldForwardProp(n,r,o)&&t.shouldForwardProp(n,r,o)}:e.shouldForwardProp);var C,I=new se(n,g,o?e.componentStyle:void 0),P=I.isStatic&&0===c.length,O=function(e,t){return function(e,t,n,r){var o=e.attrs,i=e.componentStyle,a=e.defaultProps,c=e.foldedComponentIds,d=e.shouldForwardProp,h=e.styledComponentId,p=e.target; true&&(0,react__WEBPACK_IMPORTED_MODULE_1__.useDebugValue)(h);var f=function(e,t,n){void 0===e&&(e=E);var r=v({},t,{theme:e}),o={};return n.forEach((function(e){var t,n,s,i=e;for(t in b(i)&&(i=i(r)),i)r[t]=o[t]="className"===t?(n=o[t],s=i[t],n&&s?n+" "+s:n||s):i[t]})),[r,o]}(Re(t,(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),a)||E,t,o),y=f[0],g=f[1],S=function(e,t,n,r){var o=fe(),s=me(),i=t?e.generateAndInjectStyles(E,o,s):e.generateAndInjectStyles(n,o,s);return true&&(0,react__WEBPACK_IMPORTED_MODULE_1__.useDebugValue)(i), true&&!t&&r&&r(i),i}(i,r,y, true?e.warnTooManyClasses:0),w=n,_=g.$as||t.$as||g.as||t.as||p,N=ke(_),A=g!==t?v({},t,{},g):t,C={};for(var I in A)"$"!==I[0]&&"as"!==I&&("forwardedAs"===I?C.as=A[I]:(d?d(I,_emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__["default"],_):!N||(0,_emotion_is_prop_valid__WEBPACK_IMPORTED_MODULE_5__["default"])(I))&&(C[I]=A[I]));return t.style&&g.style!==t.style&&(C.style=v({},t.style,{},g.style)),C.className=Array.prototype.concat(c,h,S!==h?S:null,t.className,g.className).filter(Boolean).join(" "),C.ref=w,(0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(_,C)}(C,e,t,P)};return O.displayName=f,(C=react__WEBPACK_IMPORTED_MODULE_1___default().forwardRef(O)).attrs=S,C.componentStyle=I,C.displayName=f,C.shouldForwardProp=A,C.foldedComponentIds=o?Array.prototype.concat(e.foldedComponentIds,e.styledComponentId):w,C.styledComponentId=g,C.target=o?e.target:e,C.withComponent=function(e){var r=t.componentId,o=function(e,t){if(null==e)return{};var n,r,o={},s=Object.keys(e);for(r=0;r<s.length;r++)n=s[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(t,["componentId"]),s=r&&r+"-"+(ke(e)?e:Te(_(e)));return qe(e,v({},o,{attrs:S,componentId:s}),n)},Object.defineProperty(C,"defaultProps",{get:function(){return this._foldedDefaultProps},set:function(t){this._foldedDefaultProps=o?Me({},e.defaultProps,t):t}}), true&&(Oe(f,g),C.warnTooManyClasses=function(e,t){var n={},r=!1;return function(o){if(!r&&(n[o]=!0,Object.keys(n).length>=200)){var s=t?' with the id of "'+t+'"':"";console.warn("Over 200 classes were generated for component "+e+s+".\nConsider using the attrs method, together with a style object for frequently changed styles.\nExample:\n  const Component = styled.div.attrs(props => ({\n    style: {\n      background: props.background,\n    },\n  }))`width: 100%;`\n\n  <Component />"),r=!0,n={}}}}(f,g)),C.toString=function(){return"."+C.styledComponentId},i&&hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6___default()(C,e,{attrs:!0,componentStyle:!0,displayName:!0,foldedComponentIds:!0,shouldForwardProp:!0,styledComponentId:!0,target:!0,withComponent:!0}),C}var He=function(e){return function e(t,r,o){if(void 0===o&&(o=E),!(0,react_is__WEBPACK_IMPORTED_MODULE_0__.isValidElementType)(r))return j(1,String(r));var s=function(){return t(r,o,Ce.apply(void 0,arguments))};return s.withConfig=function(n){return e(t,r,v({},o,{},n))},s.attrs=function(n){return e(t,r,v({},o,{attrs:Array.prototype.concat(o.attrs,n).filter(Boolean)}))},s}(qe,e)};["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","big","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","dialog","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","marquee","menu","menuitem","meta","meter","nav","noscript","object","ol","optgroup","option","output","p","param","picture","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","u","ul","var","video","wbr","circle","clipPath","defs","ellipse","foreignObject","g","image","line","linearGradient","marker","mask","path","pattern","polygon","polyline","radialGradient","rect","stop","svg","text","textPath","tspan"].forEach((function(e){He[e]=He(e)}));var $e=function(){function e(e,t){this.rules=e,this.componentId=t,this.isStatic=re(e),Z.registerId(this.componentId+1)}var t=e.prototype;return t.createStyles=function(e,t,n,r){var o=r(Ne(this.rules,t,n,r).join(""),""),s=this.componentId+e;n.insertRules(s,s,o)},t.removeStyles=function(e,t){t.clearRules(this.componentId+e)},t.renderStyles=function(e,t,n,r){e>2&&Z.registerId(this.componentId+e),this.removeStyles(e,n),this.createStyles(e,t,n,r)},e}();function We(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),o=1;o<t;o++)n[o-1]=arguments[o];var i=Ce.apply(void 0,[e].concat(n)),a="sc-global-"+xe(JSON.stringify(i)),u=new $e(i,a);function l(e){var t=fe(),n=me(),o=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),l=(0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(t.allocateGSInstance(a)).current;return true&&react__WEBPACK_IMPORTED_MODULE_1___default().Children.count(e.children)&&console.warn("The global style component "+a+" was given child JSX. createGlobalStyle does not render children."), true&&i.some((function(e){return"string"==typeof e&&-1!==e.indexOf("@import")}))&&console.warn("Please do not use @import CSS syntax in createGlobalStyle at this time, as the CSSOM APIs we use in production do not handle it well. Instead, we recommend using a library such as react-helmet to inject a typical <link> meta tag to the stylesheet, or simply embedding it manually in your index.html <head> section for a simpler app."),t.server&&h(l,e,t,o,n),(0,react__WEBPACK_IMPORTED_MODULE_1__.useLayoutEffect)((function(){if(!t.server)return h(l,e,t,o,n),function(){return u.removeStyles(l,t)}}),[l,e,t,o,n]),null}function h(e,t,n,r,o){if(u.isStatic)u.renderStyles(e,O,n,o);else{var s=v({},t,{theme:Re(t,r,l.defaultProps)});u.renderStyles(e,s,n,o)}}return true&&Oe(a),react__WEBPACK_IMPORTED_MODULE_1___default().memo(l)}function Ue(e){ true&&"undefined"!=typeof navigator&&"ReactNative"===navigator.product&&console.warn("`keyframes` cannot be used on ReactNative, only on the web. To do animation in ReactNative please use Animated.");for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];var o=Ce.apply(void 0,[e].concat(n)).join(""),s=xe(o);return new ve(s,o)}var Je=function(){function e(){var e=this;this._emitSheetCSS=function(){var t=e.instance.toString();if(!t)return"";var n=q();return"<style "+[n&&'nonce="'+n+'"',A+'="true"','data-styled-version="5.3.6"'].filter(Boolean).join(" ")+">"+t+"</style>"},this.getStyleTags=function(){return e.sealed?j(2):e._emitSheetCSS()},this.getStyleElement=function(){var t;if(e.sealed)return j(2);var n=((t={})[A]="",t["data-styled-version"]="5.3.6",t.dangerouslySetInnerHTML={__html:e.instance.toString()},t),o=q();return o&&(n.nonce=o),[react__WEBPACK_IMPORTED_MODULE_1___default().createElement("style",v({},n,{key:"sc-0-0"}))]},this.seal=function(){e.sealed=!0},this.instance=new Z({isServer:!0}),this.sealed=!1}var t=e.prototype;return t.collectStyles=function(e){return this.sealed?j(2):react__WEBPACK_IMPORTED_MODULE_1___default().createElement(ye,{sheet:this.instance},e)},t.interleaveWithNodeStream=function(e){return j(3)},e}(),Xe=function(e){var t=react__WEBPACK_IMPORTED_MODULE_1___default().forwardRef((function(t,n){var o=(0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge),i=e.defaultProps,a=Re(t,o,i);return true&&void 0===a&&console.warn('[withTheme] You are not using a ThemeProvider nor passing a theme prop or a theme in defaultProps in component class "'+_(e)+'"'),react__WEBPACK_IMPORTED_MODULE_1___default().createElement(e,v({},t,{theme:a,ref:n}))}));return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_6___default()(t,e),t.displayName="WithTheme("+_(e)+")",t},Ze=function(){return (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(Ge)},Ke={StyleSheet:Z,masterSheet:he}; true&&"undefined"!=typeof navigator&&"ReactNative"===navigator.product&&console.warn("It looks like you've imported 'styled-components' on React Native.\nPerhaps you're looking to import 'styled-components/native'?\nRead more about this at https://www.styled-components.com/docs/basics#react-native"), true&&"undefined"!=typeof window&&(window["__styled-components-init__"]=window["__styled-components-init__"]||0,1===window["__styled-components-init__"]&&console.warn("It looks like there are several instances of 'styled-components' initialized in this application. This may cause dynamic styles to not render properly, errors during the rehydration process, a missing theme prop, and makes your application bigger without good reason.\n\nSee https://s-c.sh/2BAXzed for more info."),window["__styled-components-init__"]+=1);/* harmony default export */ __webpack_exports__["default"] = (He);
 //# sourceMappingURL=styled-components.browser.esm.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/styled-components/node_modules/@emotion/unitless/dist/unitless.browser.esm.js":
+/*!****************************************************************************************************!*\
+  !*** ./node_modules/styled-components/node_modules/@emotion/unitless/dist/unitless.browser.esm.js ***!
+  \****************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var unitlessKeys = {
+  animationIterationCount: 1,
+  borderImageOutset: 1,
+  borderImageSlice: 1,
+  borderImageWidth: 1,
+  boxFlex: 1,
+  boxFlexGroup: 1,
+  boxOrdinalGroup: 1,
+  columnCount: 1,
+  columns: 1,
+  flex: 1,
+  flexGrow: 1,
+  flexPositive: 1,
+  flexShrink: 1,
+  flexNegative: 1,
+  flexOrder: 1,
+  gridRow: 1,
+  gridRowEnd: 1,
+  gridRowSpan: 1,
+  gridRowStart: 1,
+  gridColumn: 1,
+  gridColumnEnd: 1,
+  gridColumnSpan: 1,
+  gridColumnStart: 1,
+  msGridRow: 1,
+  msGridRowSpan: 1,
+  msGridColumn: 1,
+  msGridColumnSpan: 1,
+  fontWeight: 1,
+  lineHeight: 1,
+  opacity: 1,
+  order: 1,
+  orphans: 1,
+  tabSize: 1,
+  widows: 1,
+  zIndex: 1,
+  zoom: 1,
+  WebkitLineClamp: 1,
+  // SVG-related properties
+  fillOpacity: 1,
+  floodOpacity: 1,
+  stopOpacity: 1,
+  strokeDasharray: 1,
+  strokeDashoffset: 1,
+  strokeMiterlimit: 1,
+  strokeOpacity: 1,
+  strokeWidth: 1
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (unitlessKeys);
 
 
 /***/ }),
@@ -58978,6 +59095,11 @@ function combine (array, callback) {
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
 /******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/nonce */
+/******/ 	!function() {
+/******/ 		__webpack_require__.nc = undefined;
 /******/ 	}();
 /******/ 	
 /************************************************************************/

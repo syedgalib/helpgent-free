@@ -50,6 +50,14 @@ class Public_Asset extends Enqueuer {
         //     'group'     => 'public',
         // ];
 
+        $scripts['wpwax-customer-support-app-core-fonts'] = [
+            'file_name' => 'core-fonts',
+            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'public',
+        ];
+        
         $scripts['wpwax-customer-support-app-core-public-style'] = [
             'file_name' => 'core-public',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,

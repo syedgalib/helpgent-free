@@ -15,7 +15,7 @@ import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
     { value: "Roboto,sans-serif", label: "Roboto" },
-    { value: "Inter,sans-serif", label: "Inter" },
+    { value: "Inter", label: "Inter" },
     { value: "Legend,sans-serif", label: "Legend" },
 ]
 

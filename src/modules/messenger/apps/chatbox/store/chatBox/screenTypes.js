@@ -1,9 +1,8 @@
 const screenTypes = {
     HOME: 'home',
     VIDEO: 'video',
-    AUDIO: 'audio',
+    AUDIO: 'voice',
     TEXT: 'text',
-    SCREEN_RECORD: 'screenRecord',
     CONTACT_FORM: 'contactForm',
     SENDING: 'sending',
     SUCCESS: 'success',

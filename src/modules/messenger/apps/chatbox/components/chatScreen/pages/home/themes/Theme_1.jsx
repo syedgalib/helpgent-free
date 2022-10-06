@@ -178,19 +178,22 @@ function Theme_1() {
                         canReplay() &&
                         <div className="wpwax-vm-chatbox-footer__actions">
                         {
-                            supportedReplayTypes.map( item => {
-                                if ( ! templateOptions.can_replay_in.includes( item.type )  ) {
-                                    return '';
-                                }
+                            templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
+                                item => {
+                                    if ( 
+                                        ! supportedReplayTypes.map( item => item.type ).includes( item ) 
+                                    ) {
+                                        return '';
+                                    }
 
-                                return (
-                                    <a key={item.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>
-                                        {iconContent(item.type)}
-                                        {item.label}
+                                    const replayType = supportedReplayTypes.filter( replayTypesitem => replayTypesitem.type === item )[0];
+
+                                    return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, item.type )}>
+                                        { iconContent(replayType.type) }
+                                        { replayType.label }
                                     </a>
-                                )
-
-                            })
+                                }
+                            )
                         }
                         </div>
                     }

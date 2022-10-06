@@ -182,7 +182,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const fetchMoreData = () => {
         const pageArg = {
-            limit: '15',
+            limit: '12',
             page: pageNumber,
         };
         setPageNumber(pageNumber + 1);

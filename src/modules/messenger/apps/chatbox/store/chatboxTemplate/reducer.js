@@ -63,10 +63,9 @@ const initialState = {
 	showChatbox: false,
 	template: defaultTemplateData,
     supportedReplayTypes: [
-        { type: screenTypes.TEXT, label: 'Text' },
         { type: screenTypes.VIDEO, label: 'Video' },
         { type: screenTypes.AUDIO, label: 'Voice' },
-        { type: screenTypes.SCREEN_RECORD, label: 'Screen Record' },
+        { type: screenTypes.TEXT, label: 'Text' },
     ],
     primaryButton: {
         color: '#FFFFFF',

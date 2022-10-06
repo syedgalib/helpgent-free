@@ -10,6 +10,7 @@ import { handleDynamicEdit } from '../../../redux/form/actionCreator';
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import questionIcon from 'Assets/svg/icons/question-circle.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -17,10 +18,12 @@ export const fontOptions = [
     { value: "Inter,sans-serif", label: "Inter" },
     { value: "Legend,sans-serif", label: "Legend" },
 ]
-export const formType = [
-    { value: "theme-1", label: "Theme 1" },
-    { value: "theme-2", label: "Theme 2" }
-]
+
+export const templateOptions = [
+    { value: 'theme-1', label: 'Theme One' },
+    { value: 'theme-2', label: 'Theme Two' },
+];
+
 export const fontSizeOptions = [
     { value: "1.3", label: "large" },
     { value: "1.5", label: "x-large" },
@@ -92,8 +95,6 @@ const FormSettings = () => {
         };
     });
 
-    console.log(footerMessageColor);
-
     const [state, setState] = useState({
         openCollapse: true,
     });
@@ -106,16 +107,16 @@ const FormSettings = () => {
 
     /* For updating each element, we create seperate function */
     const handleChatArray = (type) => {
-        let updatear = chatReplyType;
-        updatear = updatear.indexOf(type) === -1 ? [...updatear, type] : updatear.filter(elm => elm != type);
-        const updatedData = formUpdater("chat-type", updatear, formData);
+        let updater = chatReplyType;
+        updater = updater.indexOf(type) === -1 ? [...updater, type] : updater.filter(elm => elm != type);
+        const updatedData = formUpdater("chat-type", updater, formData);
         dispatch(handleDynamicEdit(updatedData));
     }
     const handleChatReplyType = (checked, event, id) => {
         if (id === "wpwax-vm-reply-video") {
             handleChatArray("video");
         } else if (id === "wpwax-vm-reply-voice") {
-            handleChatArray("audio");
+            handleChatArray("voice");
         } else if (id === "wpwax-vm-reply-text") {
             handleChatArray("text");
         }
@@ -190,9 +191,30 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
-    console.log(grettingVideo,grettingImage);
     return (
         <FormSettingsWrap>
+            <div className='wpwax-vm-form-group'>
+                <div className='wpwax-vm-form-group__label wpwax-vm-has-tooltip'>
+                    <span className='wpwax-vm-tooltip-wrap'>
+                        <label htmlFor='wpwax-vm-theme'>Theme </label>
+                    </span>
+                </div>
+                <Select
+                    classNamePrefix='wpwax-vm-select'
+                    options={templateOptions}
+                    hideSelectedOptions={false}
+                    searchable={false}
+                    name='wpwax-vm-theme'
+                    onChange={handleChangeSelectValue}
+                    defaultValue={
+                        templateOptions.filter(function (option) {
+                            return option.value === templateTheme;
+                        })[0]
+                    }
+                    allowSelectAll={true}
+                />
+            </div>
+
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
                     <span>Add an image/video or Record a video</span>
@@ -215,13 +237,13 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Greetings message </span>
+                    <label htmlFor='wpwax-vm-greet-msg'>Greetings message </label>
                 </div>
                 <textarea className="wpwax-vm-form__element" id="wpwax-vm-greet-msg" value={grettingMessage} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Description</span>
+                    <label htmlFor='wpwax-vm-description'>Description</label>
                     <label>
                         <Switch
                             uncheckedIcon={false}
@@ -243,7 +265,7 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Chat Title </span>
+                    <label htmlFor='wpwax-vm-chat-title'>Chat Title </label>
                 </div>
                 <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-chat-title" value={chatTitle} onChange={(e) => handleChangeInputValue(e)} />
             </div>
@@ -270,7 +292,7 @@ const FormSettings = () => {
                         />
                     </div>
                     <div className="wpwax-vm-switch-single">
-                        <span><ReactSVG src={miceIcon}/>Audio</span>
+                        <span><ReactSVG src={miceIcon}/>Voice</span>
                         <Switch
                             uncheckedIcon={false}
                             checkedIcon={false}
@@ -282,7 +304,7 @@ const FormSettings = () => {
                             height={22}
                             width={40}
                             id="wpwax-vm-reply-voice"
-                            checked={chatReplyType.indexOf('audio') === -1 ? false : true}
+                            checked={chatReplyType.indexOf('voice') === -1 ? false : true}
                             onChange={handleChatReplyType}
                         />
                     </div>
@@ -307,7 +329,7 @@ const FormSettings = () => {
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Footer Message </span>
+                    <label htmlFor='wpwax-vm-footer-msg'>Footer Message </label>
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}

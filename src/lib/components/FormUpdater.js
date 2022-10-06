@@ -14,12 +14,17 @@ const FormUpdater = (label, value,formInitialData) => {
                         theme: value
                     }
                 }
-            case "wpwax-vm-display-all-pages":
-                return {
-                    ...item,
-                    options: {
-                        ...item.options,
-                        display_on_all_pages: value
+            case "wpwax-vm-display-default":
+                if(value){
+                    return {
+                        ...item,
+                        pages: "",
+                        is_default: value
+                    }
+                }else{
+                    return {
+                        ...item,
+                        is_default: value
                     }
                 }
             case "wpwax-vm-display-custom-pages":

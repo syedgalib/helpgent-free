@@ -23,6 +23,7 @@ const ChatboxForm = Styled.div`
         padding: 25px;
         .wpwax-vm-chatbox-header__top{
             display: flex;
+            align-items: center;
             justify-content: flex-end;
             span{
                 font-size: 14px;

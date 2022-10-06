@@ -12,11 +12,6 @@ import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
 
-export const templateOptions = [
-    { value: 'theme-1', label: 'Theme One' },
-    { value: 'theme-2', label: 'Theme Two' },
-];
-
 export const fontOptions = [
     { value: 'roboto', label: 'Roboto' },
     { value: 'inter', label: 'Inter' },
@@ -38,7 +33,7 @@ const GeneralSettings = () => {
     const {
         formData,
         primaryColor,
-        diplayAllPage,
+        displayDefault,
         templateName,
         templateTheme,
         displayedCustomPages,
@@ -52,7 +47,7 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-            diplayAllPage: state.form.data[0].options.display_on_all_pages,
+            displayDefault: state.form.data[0].is_default,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].pages
@@ -72,13 +67,13 @@ const GeneralSettings = () => {
     const dispatch = useDispatch();
 
     const Option = (props) => {
-        console.log(props);
         return (
             <div>
                 <components.Option {...props}>
                     <Checkbox
                         id={`wpwax-vm${props.value}`}
                         label={props.label}
+                        onChange={handleCustomPageCheckbox}
                         value={props.isSelected}
                     />
                 </components.Option>
@@ -90,6 +85,8 @@ const GeneralSettings = () => {
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         customPages.push({ value: `${item.id}`, label: `${item.title}` });
     });
+
+    const handleCustomPageCheckbox = ()=>{}
 
     /* To Handle Template Change */
     const handleChatVisibility = (e) => {
@@ -108,6 +105,9 @@ const GeneralSettings = () => {
     };
 
     const handleChangeSwitchValue = (value, event, id) => {
+        if(id === 'wpwax-vm-display-default'){
+            value = !value;
+        }
         const updatedData = formUpdater(id, value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
@@ -145,10 +145,10 @@ const GeneralSettings = () => {
         <GeneralSettingWrap>
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
-                    <span>
-                        Form Name
+                    <label htmlFor='wpwax-vm-form-name'>
+                        Form Name 
                         <span className='wpwax-vm-require-sign'>*</span>
-                    </span>
+                    </label>
                 </div>
                 <input
                     type='text'
@@ -159,39 +159,12 @@ const GeneralSettings = () => {
                     onChange={(e) => handleChangeInputValue(e)}
                 />
             </div>
+            
+            
             <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label wpwax-vm-has-tooltip'>
+                <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Theme </span>
-                        <span className='wpwax-vm-tooltip'>
-                            <span className='wpwax-vm-tooltip-icon'>
-                                <ReactSVG src={questionIcon} />
-                            </span>
-                            <span className='wpwax-vm-tooltip-text'>
-                                Tooltip Text will be here
-                            </span>
-                        </span>
-                    </span>
-                </div>
-                <Select
-                    classNamePrefix='wpwax-vm-select'
-                    options={templateOptions}
-                    hideSelectedOptions={false}
-                    searchable={false}
-                    name='wpwax-vm-theme'
-                    onChange={handleChangeSelectValue}
-                    defaultValue={
-                        templateOptions.filter(function (option) {
-                            return option.value === templateTheme;
-                        })[0]
-                    }
-                    allowSelectAll={true}
-                />
-            </div>
-            <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label wpwax-vm-mb-0'>
-                    <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Display on all pages</span>
+                        <span>Display on custom pages</span>
                         <span className='wpwax-vm-tooltip'>
                             <span className='wpwax-vm-tooltip-icon'>
                                 <ReactSVG src={questionIcon} />
@@ -209,31 +182,17 @@ const GeneralSettings = () => {
                             offColor='#E2E2E2'
                             onHandleColor='#FFFFFF'
                             className='wpwax-vm-switch'
-                            id='wpwax-vm-display-all-pages'
+                            id='wpwax-vm-display-default'
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={diplayAllPage}
+                            checked={!displayDefault}
                             onChange={handleChangeSwitchValue}
                         />
                     </label>
                 </div>
-            </div>
-            {diplayAllPage ? null : (
-                <div className='wpwax-vm-form-group'>
-                    <div className='wpwax-vm-form-group__label'>
-                        <span className='wpwax-vm-tooltip-wrap'>
-                            <span>Display on custom pages</span>
-                            <span className='wpwax-vm-tooltip'>
-                                <span className='wpwax-vm-tooltip-icon'>
-                                    <ReactSVG src={questionIcon} />
-                                </span>
-                                <span className='wpwax-vm-tooltip-text'>
-                                    Tooltip Text will be here
-                                </span>
-                            </span>
-                        </span>
-                    </div>
+                {
+                    displayDefault ? null : 
                     <Select
                         classNamePrefix='wpwax-vm-select'
                         options={customPages}
@@ -248,8 +207,8 @@ const GeneralSettings = () => {
                         onChange={handleChangeSelectValue}
                         allowSelectAll={true}
                     />
-                </div>
-            )}
+                }
+            </div>
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
@@ -292,7 +251,6 @@ const GeneralSettings = () => {
                             onHandleColor='#FFFFFF'
                             className='wpwax-vm-switch'
                             id='wpwax-vm-send-mail'
-                            value={state.selectedCustomPages}
                             handleDiameter={14}
                             height={22}
                             width={40}

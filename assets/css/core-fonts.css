@@ -1,3 +1,11 @@
+/* Berkshire Swash */
+@font-face {
+    font-family: "BerkshireSwash";
+    src: url("../fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 /* Roboto regular */
 @font-face {
     font-family: "Roboto";

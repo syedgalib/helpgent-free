@@ -5352,7 +5352,6 @@ function LoadingSpinDot() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
 /* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
 /* harmony import */ var Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/user-tie.svg */ "./src/assets/svg/icons/user-tie.svg");
@@ -5376,31 +5375,33 @@ var MediaBox = function MediaBox(_ref) {
       metaList = _ref.metaList;
 
   var replyerImg = function replyerImg() {
+    console.log(lastMessage);
+
     if (lastMessage) {
-      // Didn't understand the logic here!
-      if (lastMessage.user.roles[0] === 'administrator') {
-        if (lastMessage.user.avatar) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: lastMessage.user.avatar,
-            alt: ""
-          });
-        } else {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            src: Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
-          });
-        }
+      if (lastMessage.user.avatar) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+          src: lastMessage.user.avatar,
+          alt: ""
+        });
       } else {
-        if (lastMessage.user.avatar) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-            src: lastMessage.user.avatar,
-            alt: ""
-          });
-        } else {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            src: Assets_svg_icons_user_tie_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
-          });
-        }
-      }
+        var userString = lastMessage.user.name.slice(0, 2);
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          children: userString
+        });
+      } // if (lastMessage.user.roles[0] === 'administrator') {
+      //     if (lastMessage.user.avatar) {
+      //         return <img src={lastMessage.user.avatar} alt='' />;
+      //     } else {
+      //         return <ReactSVG src={userMd} />;
+      //     }
+      // } else {
+      //     if (lastMessage.user.avatar) {
+      //         return <img src={lastMessage.user.avatar} alt='' />;
+      //     } else {
+      //         return <ReactSVG src={userMd} />;
+      //     }
+      // }
+
     }
   };
 
@@ -10564,12 +10565,7 @@ var Sidebar = function Sidebar(_ref) {
             // console.log(currentUser);
             var users = item.users.filter(function (p) {
               return currentUser && p.id !== parseInt(currentUser.id);
-            }); // console.log(currentUser.id,users.length, users);
-            // const selectedUSer = users.filter(
-            //     (select) =>
-            //         select.roles[0] === 'subscriber'
-            // );
-
+            });
             var images = [];
             var titleString = [];
             var initialConv = false;
@@ -10595,11 +10591,7 @@ var Sidebar = function Sidebar(_ref) {
               }
             } else if (users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin) {
               images.push(users[0].avater);
-            } // console.log(users.length,images);
-            // if (selectedUSer.length !== 0) {
-            //     images.push(selectedUSer[0].avater);
-            // }
-
+            }
 
             if (item.users.length === 1) {
               titleString.push(item.users[0].name);
@@ -10644,6 +10636,7 @@ var Sidebar = function Sidebar(_ref) {
               type: 'date',
               text: item.updated_on
             }];
+            console.log(item.last_message);
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("li", {
               className: "wpwax-vm-session-".concat(index) === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active' : 'wpwax-vm-usermedia',
               onClick: function onClick(e) {

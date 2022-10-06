@@ -12,21 +12,27 @@ const MediaBox = ({
     metaList,
 }) => {
     const replyerImg = () => {
+        console.log(lastMessage);
         if (lastMessage) {
-			// Didn't understand the logic here!
-            if (lastMessage.user.roles[0] === 'administrator') {
-                if (lastMessage.user.avatar) {
-                    return <img src={lastMessage.user.avatar} alt='' />;
-                } else {
-                    return <ReactSVG src={userMd} />;
-                }
-            } else {
-                if (lastMessage.user.avatar) {
-                    return <img src={lastMessage.user.avatar} alt='' />;
-                } else {
-                    return <ReactSVG src={userMd} />;
-                }
+            if(lastMessage.user.avatar){
+                return <img src={lastMessage.user.avatar} alt='' />;
+            }else{
+                const userString = lastMessage.user.name.slice(0,2);
+                return <span>{userString}</span>
             }
+            // if (lastMessage.user.roles[0] === 'administrator') {
+            //     if (lastMessage.user.avatar) {
+            //         return <img src={lastMessage.user.avatar} alt='' />;
+            //     } else {
+            //         return <ReactSVG src={userMd} />;
+            //     }
+            // } else {
+            //     if (lastMessage.user.avatar) {
+            //         return <img src={lastMessage.user.avatar} alt='' />;
+            //     } else {
+            //         return <ReactSVG src={userMd} />;
+            //     }
+            // }
         }
     };
 

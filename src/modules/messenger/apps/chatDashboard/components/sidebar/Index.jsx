@@ -384,12 +384,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             currentUser &&
                                             p.id !== parseInt(currentUser.id)
                                     );
-                                    // console.log(currentUser.id,users.length, users);
-
-                                    // const selectedUSer = users.filter(
-                                    //     (select) =>
-                                    //         select.roles[0] === 'subscriber'
-                                    // );
 
                                     let images = [];
                                     let titleString = [];
@@ -413,10 +407,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
                                         images.push(users[0].avater);
                                     }
-                                    // console.log(users.length,images);
-                                    // if (selectedUSer.length !== 0) {
-                                    //     images.push(selectedUSer[0].avater);
-                                    // }
 
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);
@@ -471,6 +461,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             text: item.updated_on,
                                         },
                                     ];
+
+                                    console.log(item.last_message)
 
                                     return (
                                         <li

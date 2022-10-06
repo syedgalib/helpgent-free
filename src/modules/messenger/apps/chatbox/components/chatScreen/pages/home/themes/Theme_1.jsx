@@ -180,15 +180,15 @@ function Theme_1() {
                         {
                             templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
                                 item => {
-                                    if ( 
-                                        ! supportedReplayTypes.map( item => item.type ).includes( item ) 
+                                    if (
+                                        ! supportedReplayTypes.map( item => item.type ).includes( item )
                                     ) {
                                         return '';
                                     }
 
                                     const replayType = supportedReplayTypes.filter( replayTypesitem => replayTypesitem.type === item )[0];
 
-                                    return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, item.type )}>
+                                    return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, replayType.type )}>
                                         { iconContent(replayType.type) }
                                         { replayType.label }
                                     </a>

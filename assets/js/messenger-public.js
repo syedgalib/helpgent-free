@@ -14191,7 +14191,7 @@ function Theme_1() {
               href: "#",
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
               onClick: function onClick(event) {
-                return handleChatAction(event, item.type);
+                return handleChatAction(event, replayType.type);
               },
               children: [iconContent(replayType.type), replayType.label]
             }, replayType.type);
@@ -14465,7 +14465,7 @@ function Theme_2() {
               href: "#",
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
               onClick: function onClick(event) {
-                return handleChatAction(event, item.type);
+                return handleChatAction(event, replayType.type);
               },
               children: [iconContent(replayType.type), replayType.label]
             }, replayType.type);

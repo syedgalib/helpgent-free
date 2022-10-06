@@ -14180,7 +14180,7 @@ function Theme_1() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
         src: Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
       });
-    } else if (button === 'audio') {
+    } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
         src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
       });

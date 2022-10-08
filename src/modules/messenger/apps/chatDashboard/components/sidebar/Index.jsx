@@ -462,8 +462,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                         },
                                     ];
 
-                                    console.log(item.last_message)
-
                                     return (
                                         <li
                                             className={

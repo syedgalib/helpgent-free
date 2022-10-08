@@ -31,7 +31,6 @@ function Theme_1() {
     const [ greetVideoPlayedDuration, setGreetVideoPlayedDuration ] = useState( '00:00' );
 
     const greetVideo = useRef();
-    console.log(templateOptions.greet_image_url)
 
     // Greet Video
     function handleLoadedGreetVideoMetadata() {

@@ -12,7 +12,6 @@ const MediaBox = ({
     metaList,
 }) => {
     const replyerImg = () => {
-        console.log(lastMessage);
         if (lastMessage) {
             if(lastMessage.user.avatar){
                 return (

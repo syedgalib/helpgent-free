@@ -8,12 +8,16 @@ const ScreenWrapper = Styled.div`
     width: 420px;
     z-index: 100;
     border-radius: 25px;
+    font-family: var(--font-family);
     background-color: var(--color-white);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
     .wpwax-vm-chatbox-text{
         .wpwax-vm-chatbox-text-form-inner{
             min-height: 580px;
+            input{
+                font-family: var(--font-family);
+            }
             .wpwax-vm-form-group textarea.wpwax-vm-form__element{
                 min-height: 300px;
             }
@@ -24,8 +28,12 @@ const ScreenWrapper = Styled.div`
     }
     .wpwax-vm-chatbox-contact{
         min-height: 580px;
+        font-family: var(--font-family);
         
         .wpwax-vm-footer{
+            button{
+                font-family: var(--font-family);
+            }
             .wpwax-vm-btn-block{
                 width: 100%;
                 &:not(:hover):not(:active):not(.has-text-color){
@@ -45,6 +53,7 @@ const ScreenWrapper = Styled.div`
     .wpwax-vm-chatbox-container{
         height: 100%;
         position: relative;
+        font-size: 18px;
         height: 100%;
         .wpwax-vm-chatbox-wrap{
             height: 100%;
@@ -118,14 +127,30 @@ const ScreenWrapper = Styled.div`
         }
     }
     .wpwax-vm-record-send-success{
+        font-family: var(--font-family);
         border-radius: 25px;
         background-color: var(--color-thank-page-bg);
+        h4{
+            font-family: var(--font-family);
+        }
     }
     .wpwax-vm-record-send-success__content {
         min-height: 300px;
+        font-family: var(--font-family);
+        font-size: var(--font-size);
         .wpwax-vm-text-color{
             font-size: var(--font-size-thank-desc);
             color: var(--color-thank-desc);
+        }
+        p{
+            margin: 0;
+            font-family: var(--font-family);
+        }
+    }
+
+    .wpwax-vm-record-send-success__bottom{
+        a{
+            font-family: var(--font-family);
         }
     }
 `;

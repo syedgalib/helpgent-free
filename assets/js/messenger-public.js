@@ -11026,6 +11026,8 @@ var AddTag = function AddTag(props) {
                   tagLoader: false
                 }));
                 setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
+                  addTagResponseStatus: 'success',
+                  addTagResponse: "Successfully Updated",
                   newAssigned: [],
                   newUnAssinged: []
                 }));

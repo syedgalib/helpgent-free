@@ -283,6 +283,8 @@ const AddTag = (props) => {
                 });
                 setAddFormState({
                     ...addFormState,
+                    addTagResponseStatus: 'success',
+                    addTagResponse: "Successfully Updated",
                     newAssigned: [],
                     newUnAssinged: []
                 });

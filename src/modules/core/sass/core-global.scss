@@ -1042,6 +1042,14 @@
     justify-content: space-between;
 }
 
+.wpwax-vm-empty-messagebox{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white);
+}
+
 // Alerts
 .wpwax-vm-alert {
     padding: 8px 15px;

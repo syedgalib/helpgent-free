@@ -127,6 +127,12 @@ const ChatBoxWrap = Styled.div`
 const MessageBoxWrap = Styled.div`
     border-radius: 20px;
     background-color: var(--color-white);
+    &.wpwax-vm-loder-active{
+        min-height: 500px;
+    }
+    .wpwax-vm-loading-spin{
+        /* transform: translate(-50%, -50%) rotate(45deg); */
+    }
     .wpwax-vm-messagebox-header{
         display: flex;
         align-items: center;

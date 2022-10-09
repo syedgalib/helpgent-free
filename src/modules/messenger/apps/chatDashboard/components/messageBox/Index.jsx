@@ -1437,11 +1437,13 @@ function MessageBox({ setSessionState }) {
         }
     };
 
+    console.log(isLoadingSearchResults,isLoadingSession)
+
     return (
         <ChatBoxWrap>
             {selectedSession && (
-                <div style={{ height: '100%' }} className={isLoadingSession ? 'wpwax-vm-loder-active': ''}>
-                    {!isLoadingSession && (
+                <div style={{ height: '100%' }} className={isLoadingSearchResults || isLoadingSession ? 'wpwax-vm-loder-active': ''}>
+                    {!isLoadingSession || !isLoadingSearchResults ? (
                         <React.Fragment>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
@@ -1634,7 +1636,7 @@ function MessageBox({ setSessionState }) {
                                                 )}
                                             </InfiniteScroll>
                                         ) : (
-                                            <div style={CenterBoxStyle}>
+                                            <div className="wpwax-vm-empty-messagebox">
                                                 <h2>No message found</h2>
                                             </div>
                                         )}
@@ -1657,7 +1659,7 @@ function MessageBox({ setSessionState }) {
                                 {!isLoadingSearchResults && isSearching && (
                                     <div
                                         id='scrollableDiv'
-                                        className='wpwax-vm-messagebox-body l'
+                                        className='wpwax-vm-messagebox-body'
                                     >
                                         {searchResults.length ? (
                                             <InfiniteScroll
@@ -1703,7 +1705,10 @@ function MessageBox({ setSessionState }) {
                                                 )}
                                             </InfiniteScroll>
                                         ) : (
-                                            <h2>No message found</h2>
+                                            <div className="wpwax-vm-empty-messagebox">
+                                                <h2>No message found</h2>
+                                            </div>
+                                            
                                         )}
                                         <a
                                             href='#'
@@ -1721,7 +1726,7 @@ function MessageBox({ setSessionState }) {
 
                                 {/* Loading  */}
                                 {/* If loading search results */}
-                                {isLoadingSearchResults && <LoadingSpinDot />}
+                                {/* {isLoadingSearchResults ? <LoadingSpinDot /> : null} */}
 
                                 {handleFooterContent()}
                             </MessageBoxWrap>
@@ -1734,9 +1739,8 @@ function MessageBox({ setSessionState }) {
                                 ''
                             )}
                         </React.Fragment>
-                    )}
-
-                    {isLoadingSession && <LoadingSpinDot />}
+                    ) : null}
+                    {isLoadingSearchResults || isLoadingSession ?  <LoadingSpinDot /> : null}
                 </div>
             )}
 

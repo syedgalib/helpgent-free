@@ -5345,9 +5345,9 @@ var Dropdown = function Dropdown(_ref) {
           activeSessionId: sessionId,
           serverAssigned: _toConsumableArray(asignedTerms),
           asignedTerms: _toConsumableArray(asignedTerms),
-          tagListModalOpen: true,
-          taglistWithSession: true // addTagModalOpen: false
-
+          tagListModalOpen: false,
+          taglistWithSession: true,
+          addTagModalOpen: true
         })); // dispatch(handleSetSession(sessionId));
         // dispatch(handleTagModal(true));
 

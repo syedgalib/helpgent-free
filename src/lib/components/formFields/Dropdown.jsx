@@ -128,9 +128,9 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     activeSessionId: sessionId,
                     serverAssigned: [...asignedTerms],
                     asignedTerms: [...asignedTerms],
-                    tagListModalOpen: true,
+                    tagListModalOpen: false,
                     taglistWithSession: true,
-                    // addTagModalOpen: false
+                    addTagModalOpen: true
                 });
                 // dispatch(handleSetSession(sessionId));
                 // dispatch(handleTagModal(true));

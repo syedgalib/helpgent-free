@@ -65,6 +65,7 @@ const ChatBoxWrap = Styled.div`
             .wpwax-vm-video-home__title{
                 font-size: 22px;
                 font-weight: 600;
+                font-family: var(--font-family);
                 color: var(--color-dark);
                 @media only screen and (max-width: 767px){
                     text-align: center;

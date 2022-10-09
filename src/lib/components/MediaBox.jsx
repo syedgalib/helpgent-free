@@ -13,19 +13,19 @@ const MediaBox = ({
 }) => {
     const replyerImg = () => {
         if (lastMessage) {
-			// Didn't understand the logic here!
-            if (lastMessage.user.roles[0] === 'administrator') {
-                if (lastMessage.user.avatar) {
-                    return <img src={lastMessage.user.avatar} alt='' />;
-                } else {
-                    return <ReactSVG src={userMd} />;
-                }
-            } else {
-                if (lastMessage.user.avatar) {
-                    return <img src={lastMessage.user.avatar} alt='' />;
-                } else {
-                    return <ReactSVG src={userMd} />;
-                }
+            if(lastMessage.user.avatar){
+                return (
+                    <span className='wpwax-vm-replyer'>
+                        <img src={lastMessage.user.avatar} alt='' />
+                    </span>
+                );
+            }else{
+                const userString = lastMessage.user.name.slice(0,2);
+                return (
+                    <span className='wpwax-vm-replyer wpwax-vm-replyer-letter'>
+                        <span>{userString}</span>
+                    </span>
+                ) 
             }
         }
     };
@@ -35,24 +35,14 @@ const MediaBox = ({
             {chatingMedia ? (
                 typeof img === 'object' ? (
                     <div className='wpax-vm-imglist'>
-                        {initialConv ? (
-                            img[0] === '' ? (
+                        <div className='wpwax-vm-img-include-replyer'>
+                            {img[0] === '' ? (
                                 <img src={userImg} alt='' />
                             ) : (
                                 <img src={img[0]} alt='' />
-                            )
-                        ) : (
-                            <div className='wpwax-vm-img-include-replyer'>
-                                {img[0] === '' ? (
-                                    <img src={userImg} alt='' />
-                                ) : (
-                                    <img src={img[0]} alt='' />
-                                )}
-                                <span className='wpwax-vm-replyer'>
-                                    {replyerImg()}
-                                </span>
-                            </div>
-                        )}
+                            )}
+                            {replyerImg()}
+                        </div>
                     </div>
                 ) : null
             ) : typeof img === 'object' ? (

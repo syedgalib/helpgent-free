@@ -325,7 +325,7 @@ const PreviewWrap = Styled.div`
                    position: absolute;
                    left: 50%;
                    top: 50%;
-                   transform: translate(-50%,-50%);
+                   transform: translate(-50%,-100%);
                    z-index: 100;
                }
                .wpwax-vm-preview-img{  
@@ -386,6 +386,7 @@ const PreviewWrap = Styled.div`
     .wpwax-vm-preview-thank{
         display: flex; 
         flex-direction: column;
+        font-size: 18px;
         width: 100%;
         height: 100%;
         padding: 155px 30px 30px;

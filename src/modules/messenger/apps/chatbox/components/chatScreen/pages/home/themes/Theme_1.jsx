@@ -31,7 +31,6 @@ function Theme_1() {
     const [ greetVideoPlayedDuration, setGreetVideoPlayedDuration ] = useState( '00:00' );
 
     const greetVideo = useRef();
-    console.log(templateOptions.greet_image_url)
 
     // Greet Video
     function handleLoadedGreetVideoMetadata() {
@@ -107,7 +106,7 @@ function Theme_1() {
             return <ReactSVG src={videoIcon} />
         } else if (button === 'screenRecord') {
             return <ReactSVG src={recordIcon} />
-        } else if (button === 'audio') {
+        } else if (button === 'voice') {
             return <ReactSVG src={miceIcon} />
         } else if (button === 'text') {
             return <ReactSVG src={textIcon} />
@@ -178,19 +177,22 @@ function Theme_1() {
                         canReplay() &&
                         <div className="wpwax-vm-chatbox-footer__actions">
                         {
-                            supportedReplayTypes.map( item => {
-                                if ( ! templateOptions.can_replay_in.includes( item.type )  ) {
-                                    return '';
-                                }
+                            templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
+                                item => {
+                                    if (
+                                        ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item )
+                                    ) {
+                                        return '';
+                                    }
 
-                                return (
-                                    <a key={item.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={(event) => handleChatAction( event, item.type )}>
-                                        {iconContent(item.type)}
-                                        {item.label}
+                                    const replayType = supportedReplayTypes.filter( replayTypeItem => replayTypeItem.type === item )[0];
+
+                                    return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, replayType.type )}>
+                                        { iconContent(replayType.type) }
+                                        { replayType.label }
                                     </a>
-                                )
-
-                            })
+                                }
+                            )
                         }
                         </div>
                     }

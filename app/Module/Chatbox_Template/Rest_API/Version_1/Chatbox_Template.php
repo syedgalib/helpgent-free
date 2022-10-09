@@ -256,9 +256,6 @@ class Chatbox_Template extends Rest_Base {
         $default['options']    = '';
 
         $args = Helper\filter_params( $default, $args );
-
-		file_put_contents( dirname( __FILE__ ) . '/log.json', json_encode( $args ) );
-
         $data = CB_Template_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {

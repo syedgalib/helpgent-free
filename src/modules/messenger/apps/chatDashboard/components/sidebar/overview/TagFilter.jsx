@@ -61,6 +61,7 @@ const TagFilter = props =>{
                     ...outerState,
                     sessionList: sessionByTermsResponse.data.data,
                     tagFilterDropdownOpen: false,
+                    sessionFilterDropdown: false,
                     hasMore: false,
                     loader: false
                     // addTagModalOpen: false
@@ -142,7 +143,7 @@ const TagFilter = props =>{
                 </div>
             }
 
-            <div className={searchFilterTags.length ===0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
+            <div className={searchFilterTags.length ===0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={hadnleTagFilterApply}>Apply</a>
             </div>

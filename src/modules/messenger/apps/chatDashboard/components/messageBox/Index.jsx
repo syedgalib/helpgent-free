@@ -1440,9 +1440,9 @@ function MessageBox({ setSessionState }) {
     return (
         <ChatBoxWrap>
             {selectedSession && (
-                <div style={{ height: '100%' }}>
+                <div style={{ height: '100%' }} className={isLoadingSession ? 'wpwax-vm-loder-active': ''}>
                     {!isLoadingSession && (
-                        <div>
+                        <React.Fragment>
                             <MessageBoxWrap>
                                 <div className='wpwax-vm-messagebox-header'>
                                     {!openSearch ? (
@@ -1733,7 +1733,7 @@ function MessageBox({ setSessionState }) {
                             ) : (
                                 ''
                             )}
-                        </div>
+                        </React.Fragment>
                     )}
 
                     {isLoadingSession && <LoadingSpinDot />}

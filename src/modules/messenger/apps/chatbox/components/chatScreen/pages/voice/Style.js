@@ -5,6 +5,7 @@ const RecorderWrap = Styled.div`
     padding: 0 25px;
     min-width: 420px;
     box-sizing: border-box;
+    font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-video-screen-title{
         font-size: 18px;
@@ -62,24 +63,21 @@ const RecorderWrap = Styled.div`
                     align-items: center;
                     justify-content: center;
                     &:hover{
-                        >div{
-                            svg{
-                                path{
-                                    fill: #FC495D;
-                                }
-                            }
-                        }
-                    }
-                    >div{
-                        line-height: 1;
                         svg{
-                            width: 36px;
-                            height: 36px;
                             path{
-                                fill: var(--color-white);
+                                fill: #FC495D;
                             }
                         }
+                        
                     }
+                    svg{
+                        width: 36px;
+                        height: 36px;
+                        path{
+                            fill: var(--color-white);
+                        }
+                    }
+                    
                 }
                 .wpwax-vm-record-btn,
                 .wpwax-vm-pause-btn{

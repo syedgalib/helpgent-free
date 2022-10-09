@@ -55,9 +55,18 @@ const SidebarWrap = Styled.div`
             text-decoration: none;
             white-space: nowrap;
             color: #4D4D4D;
-            >div{
-                line-height: .75;
+            transition: color .25s ease-in;
+            svg{
                 margin-right: 10px;
+                path{
+                    transition: color .25s ease-in; 
+                }
+            }
+            &:hover{
+                color: var(--color-primary);
+                svg path{
+                    fill: var(--color-primary);
+                }
             }
         }
     }
@@ -93,7 +102,7 @@ const SidebarWrap = Styled.div`
             padding-bottom: 40px;
         }
         >ul {
-            height: 600px;
+            height: 470px;
             overflow-x: hidden;
             overflow-y: auto;
             scrollbar-width: thin;
@@ -180,8 +189,8 @@ const SidebarWrap = Styled.div`
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            height: 15px;
-                            width: 15px;
+                            height: 14px;
+                            width: 14px;
                             padding: 2px;
                             line-height: 1;
                             border-radius: 50%;
@@ -201,6 +210,12 @@ const SidebarWrap = Styled.div`
                                 height: 12px;
                                 color: #0F5197;
                                 fill: #0F5197;
+                            }
+                            &.wpwax-vm-replyer-letter{
+                                font-size: 12px;
+                                border: 2px solid var(--color-white);
+                                color: var(--color-primary);
+                                background-color: #E5E4E8;
                             }
                         }
                     }
@@ -352,6 +367,11 @@ const SessionFilterWrap = Styled.div`
             display: block;
         }
         .wpwax-vm-sidebar-search {
+            >.wpwax-vm-form-group {
+                .wpwax-vm-form__element{
+                    pointer-events: none;
+                }
+            }
             .wpwax-vm-form__element{
                 margin: 0;
                 border-radius: 10px 10px 0 0;

@@ -118,6 +118,23 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
+            
+            const fetchTags = async () =>{
+                const tagsResponse = apiService.getAll('/messages/terms');
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setTagState({
+                        ...tagState,
+                        allTags: tagsResponse.data.data,
+                        filteredTagList: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
@@ -182,7 +199,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const fetchMoreData = () => {
         const pageArg = {
-            limit: '15',
+            limit: '12',
             page: pageNumber,
         };
         setPageNumber(pageNumber + 1);
@@ -333,7 +350,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         className='wpwax-vm-btn-all-tags'
                         onClick={handleAllTagActivation}
                     >
-                        <div><ReactSVG src={tag} /></div>
+                        <ReactSVG src={tag} />
                         <span>Tags</span>
                     </a>
                 </div>
@@ -367,12 +384,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             currentUser &&
                                             p.id !== parseInt(currentUser.id)
                                     );
-                                    // console.log(currentUser.id,users.length, users);
-
-                                    // const selectedUSer = users.filter(
-                                    //     (select) =>
-                                    //         select.roles[0] === 'subscriber'
-                                    // );
 
                                     let images = [];
                                     let titleString = [];
@@ -396,10 +407,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
                                         images.push(users[0].avater);
                                     }
-                                    // console.log(users.length,images);
-                                    // if (selectedUSer.length !== 0) {
-                                    //     images.push(selectedUSer[0].avater);
-                                    // }
 
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);

@@ -73,7 +73,7 @@ const ChatboxForm = Styled.div`
             font-weight: 600;
             text-align: center;
             margin-bottom: 15px;
-            text-transform: capitalize;
+            text-transform: inherit;
             color: var(--color-white);
         }
         .wpwax-vm-chatbox-footer__actions{
@@ -223,6 +223,7 @@ const ContactFormWrap = Styled.div`
         .wpwax-vm-contact-form__title{
             font-size: 18px;
             font-weight: 500;
+            font-family: var(--font-family);
             line-height: 1.333;
             margin: 0 0 30px;
             color: var(--color-dark);
@@ -361,13 +362,26 @@ const MessageBox = Styled.div`
         .wpwax-vm-message-content__inner--video{
             display: flex;
             align-items: center;
+            position: relative;
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+                content: '';
+                z-index: 0;
+                background-color: rgba(3,3,8,.30);
+            }
             .wpwax-vm-btn-expander{
                 position: absolute;
                 top: 30px;
                 right: 40px;
-                >div{
-                    line-height: 1;
-                }
+                z-index: 10;
+            }
+            .wpwax-vm-btn-play{
+                z-index: 10;
             }
         }
         &.wpwax-vm-message-single-audio{

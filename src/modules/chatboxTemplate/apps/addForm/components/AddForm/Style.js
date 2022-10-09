@@ -12,12 +12,14 @@ const AddFormStyle = Styled.div`
     .wpwax-vm-add-form{
         position: relative;
         width: 420px;
+        min-height: 660px;
         border-radius: 14px;
         z-index: 10;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter';
         background-color: #fff;
         @media only screen and (max-width: 1199px) {
             width: 380px;
+            min-height: 600px;
         }
         @media only screen and (max-width: 1024px) {
             width: 320px;
@@ -39,6 +41,10 @@ const AddFormStyle = Styled.div`
         }
         &.wpwax-vm-loder-active{
             &:after{
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
                 border-radius: 14px;
             }
         }
@@ -228,7 +234,8 @@ const AddFormStyle = Styled.div`
             margin-top: 14px;
             &.wpwax-vm-addbtn-style{
                 .wpwax-vm-form-group__input-single{
-                    span{
+                    span,
+                    >label{
                         margin-right: 45px;
                         min-width: 70px;
                         @media only screen and (max-width: 1199px) {
@@ -259,7 +266,8 @@ const AddFormStyle = Styled.div`
             &:not(:last-child){
                 margin-bottom: 20px;
             }
-            span{
+            span,
+            >label{
                 font-size: 14px;
                 font-weight: 500;
                 display: inline-block;
@@ -295,6 +303,7 @@ const AddFormStyle = Styled.div`
             padding: 8px 10px;
             margin: 0;
             background-color: #fff;
+            z-index: 100;
             box-shadow: 0 5px 10px rgba(0,0,0,.16);
             
             .wpwax-vm-select__option{

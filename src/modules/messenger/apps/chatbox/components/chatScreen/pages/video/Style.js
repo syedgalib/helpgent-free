@@ -13,16 +13,19 @@ const VideoHomeWrap = Styled.div`
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-vm-video-home{
         width: 100%;
+        font-family: var(--font-family);
     }
     .wpwax-vm-video-home__title{
         font-size: 18px;
         font-weight: 600;
+        font-family: var(--font-family);
         margin: 0 0 30px;
         color: var(--color-dark);
     }
     .wpwax-vm-video-home__btns{
         a,
         span{
+            font-family: var(--font-family);
             display: flex;
             justify-content: center;
         }
@@ -46,6 +49,7 @@ const VideoHomeWrap = Styled.div`
     .wpwax-vm-short-text{
         font-size: 12px;
         font-weight: 500;
+        font-family: var(--font-family);
         color: #898989;
         margin: 0;
     }
@@ -57,6 +61,7 @@ const VideoRecordWrap = Styled.div`
     min-width: 420px;
     box-sizing: border-box;
     text-align: center;
+    font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-video-screen-title{
         font-size: 18px;

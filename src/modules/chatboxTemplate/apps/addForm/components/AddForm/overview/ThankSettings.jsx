@@ -99,13 +99,13 @@ const ThankSettings = () => {
         <ThankSettingsWrap>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Title</span>
+                    <label htmlFor="wpwax-vm-thank-title">Title</label>
                 </div>
                 <textarea className="wpwax-vm-form__element" id="wpwax-vm-thank-title" value={title} onChange={(e) => handleChangeInputValue(e)} />
             </div>
             <div className="wpwax-vm-form-group">
                 <div className="wpwax-vm-form-group__label">
-                    <span>Description</span>
+                    <label htmlFor="wpwax-vm-thank-description">Description</label>
                     <label>
                         <Switch
                             uncheckedIcon={false}
@@ -145,11 +145,11 @@ const ThankSettings = () => {
                 </div>
                 <div className="wpwax-vm-form-group__input-list wpwax-vm-addbtn-style">
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Button text</span>
+                        <label htmlFor="wpwax-vm-cta-btn-text">Button text</label>
                         <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-cta-btn-text" value={ctaButtonText} onChange={(e) => handleChangeInputValue(e)} />
                     </div>
                     <div className="wpwax-vm-form-group__input-single">
-                        <span>Button URL</span>
+                        <label htmlFor="wpwax-vm-cta-btn-url">Button URL</label>
                         <input type="url" className="wpwax-vm-form__element" id="wpwax-vm-cta-btn-url" value={ctaButtonUrl} onChange={(e) => handleChangeInputValue(e)} />
                     </div>
                 </div>
@@ -179,7 +179,7 @@ const ThankSettings = () => {
                             name="wpwax-vm-thank-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === ctaTitleFontSize;
+                                return option.value === ctaTitleFontSize;
                             })[0]}
                         />
                     </div>
@@ -202,7 +202,7 @@ const ThankSettings = () => {
                             name="wpwax-vm-thank-description-fontsize"
                             onChange={handleChangeSelectValue}
                             defaultValue={fontSizeOptions.filter(function (option) {
-                                return option.label === ctaDescFontSize;
+                                return option.value === ctaDescFontSize;
                             })[0]}
                         />
                     </div>

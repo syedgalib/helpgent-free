@@ -68,6 +68,7 @@ const ChatboxForm = Styled.div`
         }
     }
     .wpwax-vm-chatbox-footer{
+        background-color: var(--color-page-bg);
         .wpwax-vm-chatbox-footer__title{
             font-size: 16px;
             font-weight: 600;
@@ -123,7 +124,7 @@ const ChatboxForm = Styled.div`
             .wpwax-vm-chatbox-header{
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
-                background-color: var(--color-primary);
+                background-color: var(--color-page-header-bg);
                 .wpwax-vm-chatbox-title{
                     font-size: 15px;
                     font-weight: 600;
@@ -194,7 +195,7 @@ const ChatboxForm = Styled.div`
                 z-index: 101;
                 border-radius: 0 0 25px 25px;
                 padding: 0;
-                background-color: var(--color-white);
+                background-color: var(--color-page-bg);
                 .wpwax-vm-chatbox-footer__title{
                     font-size: 15px;
                     font-weight: 600;

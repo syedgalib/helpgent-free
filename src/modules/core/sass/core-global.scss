@@ -1,3 +1,5 @@
+// @import './core-fonts.scss';
+
 :root {
     --color-primary: #6551f2;
     --color-secondary: #fc495d;
@@ -1038,6 +1040,14 @@
 
 .wpwax-vm-space-between {
     justify-content: space-between;
+}
+
+.wpwax-vm-empty-messagebox{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-white);
 }
 
 // Alerts

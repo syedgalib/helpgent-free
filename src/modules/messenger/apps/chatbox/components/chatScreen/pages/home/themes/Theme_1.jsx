@@ -106,7 +106,7 @@ function Theme_1() {
             return <ReactSVG src={videoIcon} />
         } else if (button === 'screenRecord') {
             return <ReactSVG src={recordIcon} />
-        } else if (button === 'audio') {
+        } else if (button === 'voice') {
             return <ReactSVG src={miceIcon} />
         } else if (button === 'text') {
             return <ReactSVG src={textIcon} />
@@ -179,8 +179,8 @@ function Theme_1() {
                         {
                             templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
                                 item => {
-                                    if ( 
-                                        ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item ) 
+                                    if (
+                                        ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item )
                                     ) {
                                         return '';
                                     }

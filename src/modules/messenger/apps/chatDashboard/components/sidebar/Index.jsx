@@ -378,7 +378,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                 }
                             >
                                 {sessionList.map((item, index) => {
-                                    // console.log(currentUser);
                                     const users = item.users.filter(
                                         (p) =>
                                             currentUser &&
@@ -397,7 +396,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }else if(users.length === 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
                                         images.push(users[0].avater)
                                     }else if(users.length >= 1 && wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
-                                        /* je login korchhe se Admin */
                                         const selectClient = users.filter(client => client.roles[0]==='subscriber');
                                         if(selectClient.length !==0){
                                             images.push(selectClient[0].avater);

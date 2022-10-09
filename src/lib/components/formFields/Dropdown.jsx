@@ -128,10 +128,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     activeSessionId: sessionId,
                     serverAssigned: [...asignedTerms],
                     asignedTerms: [...asignedTerms],
-                    tagListModalOpen: true,
+                    tagListModalOpen: false,
                     taglistWithSession: true,
-                    // addTagModalOpen: false
+                    addTagModalOpen: true
                 });
+                console.log(asignedTerms);
                 // dispatch(handleSetSession(sessionId));
                 // dispatch(handleTagModal(true));
                 break;
@@ -163,17 +164,12 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 }
                 deleteTerm()
                     .then( deleteResponse => {
-
                         let filteredTerms = [];
-                        if(currentSession.length !==0){
-                            filteredTerms = currentSession[0].terms.filter(item => item.term_id !== termId);
-                            console.log(currentSession[0].terms.filter(item => item.term_id !== termId));
-                        }else{
-                            filteredTerms = termState.allTags.filter(item => item.term_id !== termId);
-                        }
+                        filteredTerms = termState.allTags.filter(item => item.term_id !== termId);
 
                         setTermState({
                             ...termState,
+                            allTags: filteredTerms,
                             filteredTagList: filteredTerms,
                             tagLoader: false
                         });

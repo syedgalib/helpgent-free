@@ -294,7 +294,7 @@ const TagFilterDropdown = Styled.div`
     .wpwax-vm-tag-filter-list{
         .wpwax-vm-tag-filter__check{
             &:not(:last-child){
-                margin-bottom: 24px;
+                margin-bottom: 20px;
             }
         }
         .wpwax-vm-empty{

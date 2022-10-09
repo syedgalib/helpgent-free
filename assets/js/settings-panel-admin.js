@@ -5345,10 +5345,11 @@ var Dropdown = function Dropdown(_ref) {
           activeSessionId: sessionId,
           serverAssigned: _toConsumableArray(asignedTerms),
           asignedTerms: _toConsumableArray(asignedTerms),
-          tagListModalOpen: true,
-          taglistWithSession: true // addTagModalOpen: false
-
-        })); // dispatch(handleSetSession(sessionId));
+          tagListModalOpen: false,
+          taglistWithSession: true,
+          addTagModalOpen: true
+        }));
+        console.log(asignedTerms); // dispatch(handleSetSession(sessionId));
         // dispatch(handleTagModal(true));
 
         break;
@@ -5404,21 +5405,11 @@ var Dropdown = function Dropdown(_ref) {
 
         deleteTerm().then(function (deleteResponse) {
           var filteredTerms = [];
-
-          if (currentSession.length !== 0) {
-            filteredTerms = currentSession[0].terms.filter(function (item) {
-              return item.term_id !== termId;
-            });
-            console.log(currentSession[0].terms.filter(function (item) {
-              return item.term_id !== termId;
-            }));
-          } else {
-            filteredTerms = termState.allTags.filter(function (item) {
-              return item.term_id !== termId;
-            });
-          }
-
+          filteredTerms = termState.allTags.filter(function (item) {
+            return item.term_id !== termId;
+          });
           setTermState(_objectSpread(_objectSpread({}, termState), {}, {
+            allTags: filteredTerms,
             filteredTagList: filteredTerms,
             tagLoader: false
           }));

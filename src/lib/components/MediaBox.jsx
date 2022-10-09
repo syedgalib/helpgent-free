@@ -1,8 +1,4 @@
-// import { ReactSVG } from 'react-svg';
-import ReactSVG from 'react-inlinesvg';
 import userImg from 'Assets/img/chatdashboard/user.png';
-import userIcon from 'Assets/svg/icons/users.svg';
-import userMd from 'Assets/svg/icons/user-tie.svg';
 const MediaBox = ({
     chatingMedia,
     img,
@@ -13,10 +9,10 @@ const MediaBox = ({
 }) => {
     const replyerImg = () => {
         if (lastMessage) {
-            if(lastMessage.user.avatar){
+            if(lastMessage.user.avater){
                 return (
                     <span className='wpwax-vm-replyer'>
-                        <img src={lastMessage.user.avatar} alt='' />
+                        <img src={lastMessage.user.avater} alt='' />
                     </span>
                 );
             }else{

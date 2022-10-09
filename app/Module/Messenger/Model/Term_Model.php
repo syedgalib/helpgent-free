@@ -45,14 +45,11 @@ class Term_Model extends DB_Model {
 			$offset = '';
 		}
 
-        $sql = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
+        $query = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
         FROM {$term_table}
         INNER JOIN {$term_taxonomy_table}
-        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id
-		$limit $offset
+        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id $limit $offset
         ";
-
-        $query = $wpdb->prepare( $sql );
 
 		return $wpdb->get_results( $query, ARRAY_A );
 

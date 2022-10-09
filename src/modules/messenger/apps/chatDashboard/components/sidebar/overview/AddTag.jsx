@@ -15,6 +15,7 @@ import ellipsisH from 'Assets/svg/icons/ellipsis-h.svg';
 import Taglist from './Taglist.jsx';
 
 const AddTag = (props) => {
+    const overlay = document.querySelector('.wpax-vm-overlay');
     /* initialize Form Data */
     const { sessions } = useSelector((state) => {
         return {
@@ -57,7 +58,7 @@ const AddTag = (props) => {
     );
 
     useEffect(() => {
-        if (editableTermId !== '') {
+        if (editableTermId !== '' && addTagModalOpen) {
             let termName = tagInput;
             termName = allTags.filter(
                 (item) => item.term_id === editableTermId
@@ -82,11 +83,28 @@ const AddTag = (props) => {
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
-        setSessionState({
-            ...sessionState,
-            tagListModalOpen: true,
-            addTagModalOpen: false,
-            taglistWithSession: taglistWithSession,
+        if(taglistWithSession){
+            overlay.classList.remove('wpwax-vm-show');
+            setSessionState({
+                ...sessionState,
+                tagListModalOpen: false,
+                addTagModalOpen: false,
+                editableTermId: '',
+                taglistWithSession: taglistWithSession,
+            });
+            
+        }else{
+            setSessionState({
+                ...sessionState,
+                tagListModalOpen: true,
+                addTagModalOpen: false,
+                editableTermId: '',
+                taglistWithSession: taglistWithSession,
+            });
+        }
+        setAddFormState({
+            ...addFormState,
+            tagInput: '',
         });
     };
 
@@ -106,7 +124,6 @@ const AddTag = (props) => {
             ...tagState,
             tagLoader: true,
         });
-        console.log(tagInput,editableTermId);
         if (tagInput !== '') {
             if (editableTermId !== '') {
                 let termIndex = allTags.findIndex(
@@ -163,44 +180,27 @@ const AddTag = (props) => {
                 tagLoader: false,
             });
         }
-
-        // const fetchSessionTermCreation = await apiService.getAll('/sessions');
-        // setSessionState({
-        //     ...sessionState,
-        //     sessionList: fetchSessionTermCreation.data.data,
-        // });
     };
 
     const handleAssignList = (e)=>{
         if(e.target.checked){
-            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                /* nai */
-                if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                    /* nai */
+            if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                setAddFormState({
+                    ...addFormState,
+                    newAssigned: [
+                        ...addFormState.newAssigned,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
+                if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                    let virtualArray = [...newUnAssinged];
+                    virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
                         newAssigned: [
                             ...addFormState.newAssigned,
                             e.target.id.replace('wpwax-vm-term-','')
-                        ]
-                    });
-                    if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                        /* achhe */
-                        let virtualArray = [...newUnAssinged];
-                        virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setAddFormState({
-                            ...addFormState,
-                            newUnAssinged: virtualArray
-                        })
-                    }
-                }
-            }else{
-                if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                    /* achhe */
-                    let virtualArray = [...newUnAssinged];
-                    virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                    setAddFormState({
-                        ...addFormState,
+                        ],
                         newUnAssinged: virtualArray
                     })
                 }
@@ -217,37 +217,34 @@ const AddTag = (props) => {
                 });
             }
         }else{
-            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                /* achhe */
-                if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                    /* nai */
+            if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                setAddFormState({
+                    ...addFormState,
+                    newUnAssinged: [
+                        ...addFormState.newUnAssinged,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
+                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                    let virtualArrayT = [...newAssigned];
+                    virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
                         newUnAssinged: [
                             ...addFormState.newUnAssinged,
                             e.target.id.replace('wpwax-vm-term-','')
-                        ]
-                    });
-                    if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                        /* achhe */
-                        let virtualArrayT = [...newAssigned];
-                        virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setAddFormState({
-                            ...addFormState,
-                            newAssigned: virtualArrayT
-                        })
-                    }
-                }
-            }else{
-                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                    /* achhe */
-                    let virtualArrayT = [...newAssigned];
-                    virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                    setAddFormState({
-                        ...addFormState,
+                        ],
                         newAssigned: virtualArrayT
                     })
                 }
+            }else{
+                setAddFormState({
+                    ...addFormState,
+                    newUnAssinged: [
+                        ...addFormState.newUnAssinged,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
             }
 
 
@@ -261,6 +258,7 @@ const AddTag = (props) => {
                     asignedTerms: [...array]
                 });
             }
+
         }
     }
 
@@ -274,29 +272,50 @@ const AddTag = (props) => {
             tagLoader: true,
         });
         await apiService.dataAdd(`/sessions/${activeSessionId}/update-terms`,updateTermData)
-        .then(response => {
-            setTagState({
-                ...tagState,
-                assignedTags: [
-                    ...tagState.assignedTags,
-                    response.data.data.success
-                ],
-                tagLoader: false,
-            });
-            setAddFormState({
-                ...addFormState,
-                newAssigned: [],
-                newUnAssinged: []
-            });
-        });
+            .then(response => {
+                setTagState({
+                    ...tagState,
+                    assignedTags: [
+                        ...tagState.assignedTags,
+                        response.data.data.success
+                    ],
+                    tagLoader: false,
+                });
+                setAddFormState({
+                    ...addFormState,
+                    addTagResponseStatus: 'success',
+                    addTagResponse: "Successfully Updated",
+                    newAssigned: [],
+                    newUnAssinged: []
+                });
+            })
+            .catch(error =>{
+                if(error.response.data.code === 403){
+                    setAddFormState({
+                        ...addFormState,
+                        addTagResponseStatus: 'danger',
+                        addTagResponse: error.response.data.message,
+                    });
+                }
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
+                });
+            })
 
-        const fetchSessionTermAdd = await apiService.getAll('/sessions');
+        await apiService.getAll('/sessions')
+            .then(response =>{
+                setSessionState({
+                    ...sessionState,
+                    sessionList: response.data.data
+                });
+            })
+            .catch(error =>{
 
-        setSessionState({
-            ...sessionState,
-            sessionList: fetchSessionTermAdd.data.data
-        });
+            })
     }
+
+    console.log(newAssigned,newUnAssinged)
 
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];

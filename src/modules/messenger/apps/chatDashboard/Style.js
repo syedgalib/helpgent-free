@@ -25,6 +25,7 @@ const ChatDashboardWrap = Styled.div`
             margin: 0 15px 0 15px;
         }
         @media only screen and (max-width: 767px){
+            width: 100%;
             margin: 0 15px 0 5px;
         }
         .wpwax-vm-loder-active{

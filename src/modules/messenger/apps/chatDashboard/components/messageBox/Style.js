@@ -2,6 +2,11 @@ import Styled from 'styled-components';
 
 const ChatBoxWrap = Styled.div`
 	height: 100%;
+    >div{
+        @media only screen and (max-width: 1399px) {
+            min-height: 520px !important;
+        }
+    }
     .wpwax-vm-replymode-wrap{
         position: relative;
         &:after{
@@ -141,7 +146,7 @@ const MessageBoxWrap = Styled.div`
     .wpwax-vm-messagebox-header__left{
         padding-left: 30px;
         @media only screen and (max-width: 1199px){
-            padding: 15px 15px 0;
+            padding: 0 15px 0;
             margin: 0;
         }
         .wpwax-vm-media{
@@ -152,6 +157,10 @@ const MessageBoxWrap = Styled.div`
                     margin: 3px;
                     max-width: 44px;
                     border-radius: 50%;
+                    @media only screen and (max-width: 1399px){
+                        max-width: 34px;
+                        height: 34px;
+                    }
                 }
                 .wpwax-vm-more-img{
                     display: flex;
@@ -163,6 +172,10 @@ const MessageBoxWrap = Styled.div`
                     padding: 4px;
                     margin: 3px;
                     background-color: var(--color-primary);
+                    @media only screen and (max-width: 1399px){
+                        width: 26px;
+                        height: 26px;
+                    }
                     >div{
                         line-height: 1;
                         width: max-content;
@@ -171,6 +184,10 @@ const MessageBoxWrap = Styled.div`
                         width: 24px;
                         height: 24px;
                         fill: var(--color-white);
+                        @media only screen and (max-width: 1399px){
+                            width: 20px;
+                            height: 20px;
+                        }
                     }
                 }
             }
@@ -178,8 +195,9 @@ const MessageBoxWrap = Styled.div`
     }
     .wpwax-vm-messagebox-header__right{
         padding-right: 30px;
+        box-sizing: border-box;
         @media only screen and (max-width: 1199px){
-            padding: 15px 15px 5px 25px;
+            padding: 5px 15px 0 25px;
         }
         &.wpwax-vm-search-active{
             width: 100%;
@@ -277,6 +295,9 @@ const MessageBoxWrap = Styled.div`
                     fill: var(--color-primary);
                 }
             }
+            @media only screen and (max-width: 1399px){
+                font-size: 13px;
+            }
             svg path,
             span{
                 transition: .3s;
@@ -285,6 +306,12 @@ const MessageBoxWrap = Styled.div`
                 font-weight: 500;
                 display: inline-block;
                 margin-left: 8px;
+            }
+            svg{
+                @media only screen and (max-width: 1399px){
+                    width: 16px;
+                    height: 16px;
+                }
             }
         }
     }
@@ -339,6 +366,9 @@ const MessageBoxWrap = Styled.div`
         @media only screen and (max-width: 1199px){
             flex-direction: column;
         }
+        @media only screen and (max-width: 1299px){
+            padding: 20px;
+        }
         .wpwax-vm-btn{
             border-radius: 10px;
             &:hover{
@@ -379,7 +409,9 @@ const MessageBoxWrap = Styled.div`
                         padding: 0 18px;
                     }
                     @media only screen and (max-width: 1299px){
-                        padding: 0 15px;
+                        font-size: 14px;
+                        padding: 0 10px;
+                        margin: 5px;
                     }
                 }
                 &:hover{
@@ -402,6 +434,10 @@ const MessageBoxWrap = Styled.div`
                     svg circle,
                     svg path{
                         fill: var(--color-dark);
+                    }
+
+                    svg{
+                        margin-left: 0;
                     }
                 }
             }

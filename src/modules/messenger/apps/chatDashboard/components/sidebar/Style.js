@@ -2,6 +2,9 @@ import Styled from 'styled-components';
 
 const SidebarWrap = Styled.div`
     min-height: 600px;
+    @media only screen and (max-width: 767px){
+        min-height: 560px;
+    }
     &.wpwax-vm-loder-active{
         &:after{
             background-color: #ffffff;
@@ -108,6 +111,9 @@ const SidebarWrap = Styled.div`
             scrollbar-width: thin;
             margin: 0 -12px;
             scrollbar-color: var(--color-light);
+            @media only screen and (max-width: 767px){
+                height: 400px;
+            }
             &::-webkit-scrollbar {
                 width: 11px;
             }

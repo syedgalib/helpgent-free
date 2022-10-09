@@ -184,30 +184,23 @@ const AddTag = (props) => {
 
     const handleAssignList = (e)=>{
         if(e.target.checked){
-            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                    setAddFormState({
-                        ...addFormState,
-                        newAssigned: [
-                            ...addFormState.newAssigned,
-                            e.target.id.replace('wpwax-vm-term-','')
-                        ]
-                    });
-                    if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                        let virtualArray = [...newUnAssinged];
-                        virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setAddFormState({
-                            ...addFormState,
-                            newUnAssinged: virtualArray
-                        })
-                    }
-                }
-            }else{
+            if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                setAddFormState({
+                    ...addFormState,
+                    newAssigned: [
+                        ...addFormState.newAssigned,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
                 if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                     let virtualArray = [...newUnAssinged];
                     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
+                        newAssigned: [
+                            ...addFormState.newAssigned,
+                            e.target.id.replace('wpwax-vm-term-','')
+                        ],
                         newUnAssinged: virtualArray
                     })
                 }
@@ -224,36 +217,34 @@ const AddTag = (props) => {
                 });
             }
         }else{
-            if(serverAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
-                    console.log('nai')
+            if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
+                setAddFormState({
+                    ...addFormState,
+                    newUnAssinged: [
+                        ...addFormState.newUnAssinged,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
+                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
+                    let virtualArrayT = [...newAssigned];
+                    virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
                     setAddFormState({
                         ...addFormState,
                         newUnAssinged: [
                             ...addFormState.newUnAssinged,
                             e.target.id.replace('wpwax-vm-term-','')
-                        ]
-                    });
-                    if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                        let virtualArrayT = [...newAssigned];
-                        virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                        setAddFormState({
-                            ...addFormState,
-                            newAssigned: virtualArrayT
-                        })
-                    }
+                        ],
+                        newAssigned: virtualArrayT
+                    })
                 }
             }else{
-                if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
-                    let virtualArrayT2 = [...newAssigned];
-                    virtualArrayT2.splice(virtualArrayT2.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-                    setAddFormState({
-                        ...addFormState,
-                        newAssigned: virtualArrayT2
-                    })
-                }else{
-                    //jodi thake new assign er vitor
-                }
+                setAddFormState({
+                    ...addFormState,
+                    newUnAssinged: [
+                        ...addFormState.newUnAssinged,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                });
             }
 
 
@@ -268,11 +259,8 @@ const AddTag = (props) => {
                 });
             }
 
-            console.log(newUnAssinged);
         }
     }
-
-    console.log(newAssigned,newUnAssinged,tagInput, editableTermId);
 
     const handleAssignTerm = async (e) =>{
         const updateTermData = {
@@ -293,11 +281,11 @@ const AddTag = (props) => {
                     ],
                     tagLoader: false,
                 });
-                // setAddFormState({
-                //     ...addFormState,
-                //     newAssigned: [],
-                //     newUnAssinged: []
-                // });
+                setAddFormState({
+                    ...addFormState,
+                    newAssigned: [],
+                    newUnAssinged: []
+                });
             })
             .catch(error =>{
                 if(error.response.data.code === 403){
@@ -324,6 +312,8 @@ const AddTag = (props) => {
 
             })
     }
+
+    console.log(newAssigned,newUnAssinged)
 
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];

@@ -118,18 +118,10 @@ const Taglist = (props) => {
     };
 
     const handleTagFilter = (event) => {
-        let keyword = event.target.value;
+        let keyword = event.target.value.trim().toLowerCase();
         const filteredTags = taglistWithSession
-            ? assignedTags.filter((entry) =>
-                  Object.values(entry).some(
-                      (val) => typeof val === 'string' && val.includes(keyword)
-                  )
-              )
-            : allTags.filter((entry) =>
-                  Object.values(entry).some(
-                      (val) => typeof val === 'string' && val.includes(keyword)
-                  )
-              );
+            ? assignedTags.filter(tag => tag.name.toLowerCase().includes(keyword))
+            : allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
 
         setTagState({
             ...tagState,

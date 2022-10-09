@@ -41,7 +41,7 @@ const formData = [
         "thank_page_cta_button_color":"#236551F2",
         "thank_page_cta_button_text_color":"#23ffffff",
         "thank_page_cta_button_radius":"10",
-        "font_family":"Inter,sans-serif",
+        "font_family":"Inter",
         "font_color":"#23ffffff",
         "button_color":"#6551f2",
         "button_border_radius":"10",

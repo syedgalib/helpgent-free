@@ -15,7 +15,7 @@ const AddFormStyle = Styled.div`
         min-height: 660px;
         border-radius: 14px;
         z-index: 10;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter';
         background-color: #fff;
         @media only screen and (max-width: 1199px) {
             width: 380px;

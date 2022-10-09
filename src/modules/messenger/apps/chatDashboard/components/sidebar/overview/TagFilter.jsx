@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import SVG from 'react-inlinesvg';
+import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';
@@ -15,6 +15,8 @@ const TagFilter = props =>{
     const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
     const { allTags, filteredTagList, tagLoader } = tagState;
     const { searchFilterTags, checkedForFilter } = state;
+
+	const filterTextFieldRef = useRef(null);
 
     useEffect(() => {
         setState({
@@ -83,16 +85,16 @@ const TagFilter = props =>{
         }else{
             let temporaryArray = [...checkedForFilter];
             temporaryArray.splice(temporaryArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
-            console.log(temporaryArray);
             setState({
                 ...state,
                 checkedForFilter: temporaryArray
             })
         }
     }
-    const handleTagSearch = event =>{
-        let keyword = event.target.value;
-        const filtered = allTags.filter(entry => Object.values(entry).some(val => typeof val === "string" && val.includes(keyword)));
+    const handleTagSearch = event => {
+        let keyword = event.target.value.trim().toLowerCase();
+        const filtered = allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
+
         setState({
             ...state,
             searchFilterTags: filtered
@@ -105,13 +107,15 @@ const TagFilter = props =>{
             ...state,
             checkedForFilter: []
         });
+
+		filterTextFieldRef.current.value = '';
     }
 
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
-                <span className="wpwax-vm-input-icon"><SVG title='Search icon' src={magnifier} /></span>
-				<input type="text" className="wpwax-vm-form__element" id="wpwax-vm-filter-tag" placeholder="Search" onChange={handleTagSearch}/>
+                <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
+				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={handleTagSearch}/>
             </div>
             {
                 tagLoader ?

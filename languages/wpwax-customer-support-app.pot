@@ -13,27 +13,27 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/Model/DB_Model.php:64, ../app/Model/DB_Model.php:126, ../app/Model/DB_Model.php:167, ../app/Module/Core/Model/Attachment_Model.php:65, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:80, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:159, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:197, ../app/Module/Messenger/Model/Term_Model.php:63, ../app/Module/Messenger/Model/Term_Model.php:178, ../app/Module/Messenger/Model/Term_Model.php:260, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:74, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:197
+#: ../app/Model/DB_Model.php:64, ../app/Model/DB_Model.php:126, ../app/Model/DB_Model.php:167, ../app/Module/Core/Model/Attachment_Model.php:65, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:80, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:159, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:197, ../app/Module/Messenger/Model/Term_Model.php:68, ../app/Module/Messenger/Model/Term_Model.php:183, ../app/Module/Messenger/Model/Term_Model.php:265, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:74, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:197
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:397, ../app/Module/Messenger/Model/Message_Model.php:488, ../app/Module/Messenger/Model/Term_Model.php:81, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
+#: ../app/Model/DB_Model.php:75, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:108, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:205, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:94, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:146, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:145, ../app/Module/Messenger/Model/Message_Model.php:397, ../app/Module/Messenger/Model/Message_Model.php:488, ../app/Module/Messenger/Model/Term_Model.php:86, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:85
 msgid "Could not find the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../app/Module/Messenger/Model/Message_Model.php:442, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:134, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
+#: ../app/Model/DB_Model.php:109, ../app/Module/Chatbox_Template/Model/CB_Template_Model.php:166, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:196, ../app/Module/Messenger/Model/Message_Model.php:442, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:142, ../app/Module/Messenger/Model/Term_Model.php:139, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:125
 msgid "Could not create the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:136, ../app/Module/Core/Model/Attachment_Model.php:163, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:169, ../app/Module/Messenger/Model/Term_Model.php:191, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:166
+#: ../app/Model/DB_Model.php:136, ../app/Module/Core/Model/Attachment_Model.php:163, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:169, ../app/Module/Messenger/Model/Term_Model.php:196, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:166
 msgid "The resource not found."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:219, ../app/Module/Messenger/Model/Message_Model.php:502, ../app/Module/Messenger/Model/Message_Model.php:540, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:224, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
+#: ../app/Model/DB_Model.php:150, ../app/Module/Chatbox_Template/Model/CB_Template_Page_Relationship_Model.php:160, ../app/Module/Core/Model/Attachment_Model.php:188, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:219, ../app/Module/Messenger/Model/Message_Model.php:502, ../app/Module/Messenger/Model/Message_Model.php:540, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:180, ../app/Module/Messenger/Model/Term_Model.php:229, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:179
 msgid "Could not update the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:572, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:278, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
+#: ../app/Model/DB_Model.php:177, ../app/Module/Core/Model/Attachment_Model.php:218, ../app/Module/Messenger/Model/Message_Model.php:572, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:207, ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:227, ../app/Module/Messenger/Model/Term_Model.php:283, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:219
 msgid "Could not delete the resource."
 msgstr ""
 
@@ -117,15 +117,15 @@ msgstr ""
 msgid "Link:"
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:606
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:179, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:614
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:611
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:184, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:619
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:616
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:189, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:624
 msgid "Session ID is required."
 msgstr ""
 
@@ -149,19 +149,19 @@ msgstr ""
 msgid "The session does not exist."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:108
+#: ../app/Module/Messenger/Model/Term_Model.php:113
 msgid "The term name is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:113, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:117
+#: ../app/Module/Messenger/Model/Term_Model.php:118, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:117
 msgid "The taxonomy is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:120, ../app/Module/Messenger/Model/Term_Model.php:212
+#: ../app/Module/Messenger/Model/Term_Model.php:125, ../app/Module/Messenger/Model/Term_Model.php:217
 msgid "The resource already exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Term_Model.php:196
+#: ../app/Module/Messenger/Model/Term_Model.php:201
 msgid "The resource is not valid."
 msgstr ""
 
@@ -352,4 +352,8 @@ msgstr ""
 
 #: ../app.php:70, ../app.php:79
 msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../helper/functions.php:612
+msgid "Homepage"
 msgstr ""

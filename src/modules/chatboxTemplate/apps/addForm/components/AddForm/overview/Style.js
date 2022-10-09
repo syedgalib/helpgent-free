@@ -386,6 +386,7 @@ const PreviewWrap = Styled.div`
     .wpwax-vm-preview-thank{
         display: flex; 
         flex-direction: column;
+        font-size: 18px;
         width: 100%;
         height: 100%;
         padding: 155px 30px 30px;

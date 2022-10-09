@@ -236,7 +236,7 @@
         margin-bottom: 8px;
 
         span,
-        >label {
+        > label {
             font-size: 16px;
             font-weight: 500;
             color: #4d4d4d;
@@ -858,9 +858,11 @@
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
     min-height: 600px;
+    font-family: var(--font-family);
     .wpwax-vm-record-send-progress__content {
         h4,
         p {
+            font-family: var(--font-family);
             font-size: 16px;
             font-weight: 500;
             margin-bottom: 0;
@@ -928,6 +930,7 @@
 .wpwax-vm-contact-form__title {
     font-size: 18px;
     font-weight: 500;
+    font-family: var(--font-family);
     line-height: 1.333;
     margin: 0 0 30px;
     color: var(--color-dark);
@@ -982,8 +985,9 @@
 }
 
 .wpwax-vm-success__title {
-    font-size: var(--color-thank-title);
+    font-size: var(--font-size-thank-title);
     font-weight: 600;
+    font-family: var(--font-family);
     margin-bottom: 16px;
     color: var(--color-thank-title);
 }
@@ -1028,7 +1032,7 @@
     padding: 30px 0 40px;
     background-color: #030308;
     border-radius: 25px 25px 0 0;
-    .wpwax-vm-record-send-success__check{
+    .wpwax-vm-record-send-success__check {
         display: flex;
         justify-content: center;
     }

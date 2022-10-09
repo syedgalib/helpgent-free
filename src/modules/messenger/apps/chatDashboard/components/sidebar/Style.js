@@ -189,8 +189,8 @@ const SidebarWrap = Styled.div`
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            height: 15px;
-                            width: 15px;
+                            height: 14px;
+                            width: 14px;
                             padding: 2px;
                             line-height: 1;
                             border-radius: 50%;
@@ -210,6 +210,12 @@ const SidebarWrap = Styled.div`
                                 height: 12px;
                                 color: #0F5197;
                                 fill: #0F5197;
+                            }
+                            &.wpwax-vm-replyer-letter{
+                                font-size: 12px;
+                                border: 2px solid var(--color-white);
+                                color: var(--color-primary);
+                                background-color: #E5E4E8;
                             }
                         }
                     }

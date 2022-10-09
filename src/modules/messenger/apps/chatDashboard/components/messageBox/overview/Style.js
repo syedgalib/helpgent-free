@@ -73,7 +73,7 @@ const ChatboxForm = Styled.div`
             font-weight: 600;
             text-align: center;
             margin-bottom: 15px;
-            text-transform: capitalize;
+            text-transform: inherit;
             color: var(--color-white);
         }
         .wpwax-vm-chatbox-footer__actions{
@@ -223,6 +223,7 @@ const ContactFormWrap = Styled.div`
         .wpwax-vm-contact-form__title{
             font-size: 18px;
             font-weight: 500;
+            font-family: var(--font-family);
             line-height: 1.333;
             margin: 0 0 30px;
             color: var(--color-dark);

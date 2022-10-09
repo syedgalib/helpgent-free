@@ -32,7 +32,7 @@ const formData = [
         "thank_page_background_color":"#ffffff",
         "thank_page_title_color":"#000000",
         "thank_page_title_font_size":"2",
-        "thank_page_description_font_size":"1.2",
+        "thank_page_description_font_size":"1.5",
         "thank_page_description_color":"#000000",
         "play_btn_background": "#ffffff",
         "page_background_color": "#ffffff",

@@ -5,6 +5,7 @@ const RecorderWrap = Styled.div`
     padding: 0 25px;
     min-width: 420px;
     box-sizing: border-box;
+    font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-video-screen-title{
         font-size: 18px;

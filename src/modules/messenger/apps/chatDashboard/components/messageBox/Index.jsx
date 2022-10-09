@@ -1437,8 +1437,6 @@ function MessageBox({ setSessionState }) {
         }
     };
 
-    console.log(isLoadingSession);
-
     return (
         <ChatBoxWrap>
             {selectedSession && (

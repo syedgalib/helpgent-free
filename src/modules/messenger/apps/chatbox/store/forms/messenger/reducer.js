@@ -36,6 +36,10 @@ const reducer = ( state = initialState, action ) => {
                 ...payload,
             };
         case UPDATE_FORM_DATA:
+
+			console.log( '' );
+			console.log( 'UPDATE_FORM_DATA', payload );
+
             return {
                 ...state,
                 formData: { ...state.formData, ...payload }

@@ -222,7 +222,9 @@ function MessageBox({ setSessionState }) {
             } else {
                 setScrollBtnVisibility(false);
             }
+            console.log(scrolled)
         });
+    
     useLayoutEffect(() => {
         function updateSize() {
             if (window.innerWidth > 1400 && windowSize !== 'large') {
@@ -1424,6 +1426,7 @@ function MessageBox({ setSessionState }) {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
+        console.log(scrollingBody,messageDirection);
         if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,
@@ -1436,8 +1439,6 @@ function MessageBox({ setSessionState }) {
             });
         }
     };
-
-    console.log(isLoadingSearchResults,isLoadingSession)
 
     return (
         <ChatBoxWrap>

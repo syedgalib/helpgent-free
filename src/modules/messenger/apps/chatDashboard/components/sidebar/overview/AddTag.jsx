@@ -341,8 +341,6 @@ const AddTag = (props) => {
             })
     }
 
-    console.log(newAssigned,newUnAssinged)
-
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];
     if (currentSession.length !== 0) {

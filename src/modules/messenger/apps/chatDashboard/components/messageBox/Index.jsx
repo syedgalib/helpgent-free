@@ -504,7 +504,11 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
+		console.log(textMessageContent)
+		return;
+
         setIsSendingTextMessage(true);
+
 
         // Send Message
         const response = await createMessage({ message: textMessageContent });
@@ -1232,7 +1236,7 @@ function MessageBox({ setSessionState }) {
                     </a>
                     <div className='wpwax-vm-messagebox-reply'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            <form onSubmit={sendTextMessage}>
+                            <form onSubmit={sendTextMessage} autoComplete='off'>
                                 <input
                                     ref={textMessageContentRef}
                                     type='text'
@@ -1708,7 +1712,7 @@ function MessageBox({ setSessionState }) {
                                             <div className="wpwax-vm-empty-messagebox">
                                                 <h2>No message found</h2>
                                             </div>
-                                            
+
                                         )}
                                         <a
                                             href='#'

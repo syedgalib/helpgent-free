@@ -217,12 +217,13 @@ const DeleteConfirmWrap = Styled.div`
 
 const TagFilterDropdown = Styled.div`
     position: absolute;
-    width: calc(100% - 20%);
-    left: 4%;
+    width: calc(100% - 20px);
+    left: 10px;
     top: 45px;
     padding: 20px;
     z-index: 10;
     display: none;
+    box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
     cursor: auto;

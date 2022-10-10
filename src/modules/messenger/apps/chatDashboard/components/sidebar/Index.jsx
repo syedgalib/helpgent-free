@@ -345,14 +345,18 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         outerState={sessionState}
                         setOuterState={setSessionState}
                     />
-                    <a
-                        href='#'
-                        className='wpwax-vm-btn-all-tags'
-                        onClick={handleAllTagActivation}
-                    >
-                        <ReactSVG src={tag} />
-                        <span>Tags</span>
-                    </a>
+                    {
+                        wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? 
+                        <a
+                            href='#'
+                            className='wpwax-vm-btn-all-tags'
+                            onClick={handleAllTagActivation}
+                        >
+                            <ReactSVG src={tag} />
+                            <span>Tags</span>
+                        </a> : null
+                    }
+                    
                 </div>
             </div>
             {loader ? (
@@ -416,41 +420,60 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }
 
                                     if (Number(item.total_unread) > 0) {
-                                        var moreDropdown = [
-                                            {
-                                                icon: envelopeOpen,
-                                                name: 'mark-read',
-                                                text: 'Mark as Read',
-                                            },
-                                            {
-                                                icon: tag,
-                                                name: 'add-tags',
-                                                text: 'Add tags',
-                                            },
-                                            {
-                                                icon: trash,
-                                                name: 'delete-conv',
-                                                text: 'Delete Conversation',
-                                            },
-                                        ];
+                                        var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-read',
+                                                    text: 'Mark as Read',
+                                                },
+                                                {
+                                                    icon: tag,
+                                                    name: 'add-tags',
+                                                    text: 'Add tags',
+                                                },
+                                                {
+                                                    icon: trash,
+                                                    name: 'delete-conv',
+                                                    text: 'Delete Conversation',
+                                                },
+                                            ] 
+                                        :
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-read',
+                                                    text: 'Mark as Read',
+                                                }
+                                            ];
                                     } else {
-                                        var moreDropdown = [
+                                        var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
+                                                },
+                                                {
+                                                    icon: tag,
+                                                    name: 'add-tags',
+                                                    text: 'Add tags',
+                                                },
+                                                {
+                                                    icon: trash,
+                                                    name: 'delete-conv',
+                                                    text: 'Delete Conversation',
+                                                },
+                                            ]
+                                        : 
+
+                                        [
                                             {
                                                 icon: envelopeOpen,
                                                 name: 'mark-unread',
                                                 text: 'Mark as unread',
-                                            },
-                                            {
-                                                icon: tag,
-                                                name: 'add-tags',
-                                                text: 'Add tags',
-                                            },
-                                            {
-                                                icon: trash,
-                                                name: 'delete-conv',
-                                                text: 'Delete Conversation',
-                                            },
-                                        ];
+                                            }
+                                        ]
                                     }
 
                                     const metaList = [

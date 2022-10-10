@@ -35,6 +35,7 @@ const SidebarWrap = Styled.div`
     .wpwax-vm-sidebar-filter{
         margin-bottom: 20px;
         .wpwax-vm-dropdown{
+            width: 100%;
             .wpwax-vm-dropdown__toggle--text{
                 margin-right: 15px;
             }
@@ -58,6 +59,8 @@ const SidebarWrap = Styled.div`
             text-decoration: none;
             white-space: nowrap;
             color: #4D4D4D;
+            min-width: 56px;
+            margin-left: 30px;
             transition: color .25s ease-in;
             svg{
                 margin-right: 10px;
@@ -282,6 +285,23 @@ const SidebarWrap = Styled.div`
                                 }
                                 &:after{
                                     display: none;
+                                }
+                            }
+                        }
+                    }
+                    &:first-child{
+                        a{
+                            padding-top: 0;
+                            border-radius: 8px;
+                            border: 0 none;
+                            margin: 0;
+                            &:hover{
+                                color: var(--color-dark);
+                                svg path{
+                                    fill: var(--color-dark);
+                                }
+                                &:after{
+                                    display: block;
                                 }
                             }
                         }

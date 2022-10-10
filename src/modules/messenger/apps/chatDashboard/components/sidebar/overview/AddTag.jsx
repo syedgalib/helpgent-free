@@ -144,6 +144,19 @@ const AddTag = (props) => {
                             addTagResponseStatus: 'success',
                             addTagResponse: 'Successfully Edited',
                         });
+                    })
+                    .catch(error =>{
+                        if(error.response.data.code === 403){
+                            setAddFormState({
+                                ...addFormState,
+                                addTagResponseStatus: 'danger',
+                                addTagResponse: error.response.data.message,
+                            });
+                        }
+                        setTagState({
+                            ...tagState,
+                            tagLoader: false,
+                        });
                     });
                 setAddFormState({
                     ...addFormState,
@@ -168,6 +181,19 @@ const AddTag = (props) => {
                         addTagResponse: "Successfully Added",
                     });
                 })
+                .catch(error =>{
+                    if(error.response.data.code === 403){
+                        setAddFormState({
+                            ...addFormState,
+                            addTagResponseStatus: 'danger',
+                            addTagResponse: error.response.data.message,
+                        });
+                    }
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                });
             }
         } else {
             setAddFormState({

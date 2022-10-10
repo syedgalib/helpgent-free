@@ -111,6 +111,9 @@ const SidebarWrap = Styled.div`
             scrollbar-width: thin;
             margin: 0 -12px;
             scrollbar-color: var(--color-light);
+            @media only screen and (max-width: 1399px) {
+                height: 390px !important;
+            }
             @media only screen and (max-width: 767px){
                 height: 400px;
             }

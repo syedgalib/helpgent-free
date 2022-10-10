@@ -10207,7 +10207,37 @@ var Sidebar = function Sidebar(_ref) {
       dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_10__.handleReadSessions)(sessionResponse.data.data));
     }).catch(function (error) {
       console.log(error);
-    });
+    }); // const fetchTags = async () =>{
+    //     const tagsResponse = apiService.getAll('/messages/terms');
+    //     return tagsResponse;
+    // }
+    // fetchTags()
+    //     .then((tagsResponse) => {
+    //         setTagState({
+    //             ...tagState,
+    //             allTags: tagsResponse.data.data,
+    //             filteredTagList: tagsResponse.data.data,
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+  }, [refresher]);
+
+  var handleToggleSearchDropdown = function handleToggleSearchDropdown(event) {
+    event.preventDefault();
+    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+      tagFilterDropdownOpen: false,
+      sessionFilterDropdown: !sessionFilterDropdown
+    }));
+  };
+
+  var handleTagFilterDropdown = function handleTagFilterDropdown(event) {
+    event.preventDefault();
+    var tagsLimit = {
+      limit: '5',
+      page: 1
+    };
 
     var fetchTags = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -10216,7 +10246,7 @@ var Sidebar = function Sidebar(_ref) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                tagsResponse = apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAll('/messages/terms');
+                tagsResponse = apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAll('/messages/terms', tagsLimit);
                 return _context2.abrupt("return", tagsResponse);
 
               case 2:
@@ -10240,18 +10270,6 @@ var Sidebar = function Sidebar(_ref) {
     }).catch(function (error) {
       console.log(error);
     });
-  }, [refresher]);
-
-  var handleToggleSearchDropdown = function handleToggleSearchDropdown(event) {
-    event.preventDefault();
-    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-      tagFilterDropdownOpen: false,
-      sessionFilterDropdown: !sessionFilterDropdown
-    }));
-  };
-
-  var handleTagFilterDropdown = function handleTagFilterDropdown(event) {
-    event.preventDefault();
     setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
       tagFilterDropdownOpen: !tagFilterDropdownOpen
     }));

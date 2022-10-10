@@ -119,21 +119,21 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 console.log(error);
             });
             
-            const fetchTags = async () =>{
-                const tagsResponse = apiService.getAll('/messages/terms');
-                return tagsResponse;
-            }
-            fetchTags()
-                .then((tagsResponse) => {
-                    setTagState({
-                        ...tagState,
-                        allTags: tagsResponse.data.data,
-                        filteredTagList: tagsResponse.data.data,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            // const fetchTags = async () =>{
+            //     const tagsResponse = apiService.getAll('/messages/terms');
+            //     return tagsResponse;
+            // }
+            // fetchTags()
+            //     .then((tagsResponse) => {
+            //         setTagState({
+            //             ...tagState,
+            //             allTags: tagsResponse.data.data,
+            //             filteredTagList: tagsResponse.data.data,
+            //         });
+            //     })
+            //     .catch((error) => {
+            //         console.log(error);
+            //     });
             
     }, [refresher]);
 
@@ -148,6 +148,25 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handleTagFilterDropdown = (event) => {
         event.preventDefault();
+        const tagsLimit = {
+            limit: '5',
+            page: 1,
+        };
+        const fetchTags = async () =>{
+            const tagsResponse = apiService.getAll('/messages/terms',tagsLimit);
+            return tagsResponse;
+        }
+        fetchTags()
+            .then((tagsResponse) => {
+                setTagState({
+                    ...tagState,
+                    allTags: tagsResponse.data.data,
+                    filteredTagList: tagsResponse.data.data,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         setSessionState({
             ...sessionState,
             tagFilterDropdownOpen: !tagFilterDropdownOpen,

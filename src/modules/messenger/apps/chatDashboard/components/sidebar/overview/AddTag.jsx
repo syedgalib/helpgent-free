@@ -126,23 +126,60 @@ const AddTag = (props) => {
         });
         if (tagInput !== '') {
             if (editableTermId !== '') {
-                let termIndex = allTags.findIndex(
-                    (obj) => obj.term_id === editableTermId
-                );
-                allTags[termIndex].name = tagInput;
+                // const findSameTag = allTags.find(item=> item.name.toLowerCase() === tagInput.toLowerCase());
+                // console.log(findSameTag);
+                // if(findSameTag){
+                    
+                // }
+                
                 await apiService
                     .dataAdd(`/messages/terms/${editableTermId}`, termData)
-                    .then((response) => {
+                        .then((response) => {
+                            let termIndex = allTags.findIndex(
+                                (obj) => obj.term_id === editableTermId
+                            );
+                            allTags[termIndex].name = tagInput;
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                                allTags: [...allTags],
+                            });
+                            setAddFormState({
+                                ...addFormState,
+                                tagInput: '',
+                                addTagResponseStatus: 'success',
+                                addTagResponse: 'Successfully Edited',
+                            });
+                        })
+                        .catch(error =>{
+                            if(error.response.data.code === 403){
+                                setAddFormState({
+                                    ...addFormState,
+                                    addTagResponseStatus: 'danger',
+                                    addTagResponse: error.response.data.message,
+                                });
+                            }
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                            });
+                        });
+            }else{
+                apiService.dataAdd('/messages/terms',termData)
+                    .then(response => {
                         setTagState({
                             ...tagState,
                             tagLoader: false,
-                            allTags: [...allTags],
+                            allTags: [
+                                ...allTags,
+                                response.data
+                            ]
                         });
                         setAddFormState({
                             ...addFormState,
-                            tagInput: '',
-                            addTagResponseStatus: 'success',
-                            addTagResponse: 'Successfully Edited',
+                            tagInput: "",
+                            addTagResponseStatus: "success",
+                            addTagResponse: "Successfully Added",
                         });
                     })
                     .catch(error =>{
@@ -158,42 +195,6 @@ const AddTag = (props) => {
                             tagLoader: false,
                         });
                     });
-                setAddFormState({
-                    ...addFormState,
-                    addTagResponseStatus: 'success',
-                    addTagResponse: 'Successfully Edited',
-                });
-            }else{
-                apiService.dataAdd('/messages/terms',termData)
-                .then(response => {
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                        allTags: [
-                            ...allTags,
-                            response.data
-                        ]
-                    });
-                    setAddFormState({
-                        ...addFormState,
-                        tagInput: "",
-                        addTagResponseStatus: "success",
-                        addTagResponse: "Successfully Added",
-                    });
-                })
-                .catch(error =>{
-                    if(error.response.data.code === 403){
-                        setAddFormState({
-                            ...addFormState,
-                            addTagResponseStatus: 'danger',
-                            addTagResponse: error.response.data.message,
-                        });
-                    }
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                    });
-                });
             }
         } else {
             setAddFormState({

@@ -10828,7 +10828,7 @@ var AddTag = function AddTag(props) {
 
   var handleCreateTerm = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var termData, termIndex;
+      var termData;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -10843,21 +10843,21 @@ var AddTag = function AddTag(props) {
               }));
 
               if (!(tagInput !== '')) {
-                _context.next = 15;
-                break;
-              }
-
-              if (!(editableTermId !== '')) {
                 _context.next = 12;
                 break;
               }
 
-              termIndex = allTags.findIndex(function (obj) {
-                return obj.term_id === editableTermId;
-              });
-              allTags[termIndex].name = tagInput;
-              _context.next = 9;
+              if (!(editableTermId !== '')) {
+                _context.next = 9;
+                break;
+              }
+
+              _context.next = 7;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].dataAdd("/messages/terms/".concat(editableTermId), termData).then(function (response) {
+                var termIndex = allTags.findIndex(function (obj) {
+                  return obj.term_id === editableTermId;
+                });
+                allTags[termIndex].name = tagInput;
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   tagLoader: false,
                   allTags: _toConsumableArray(allTags)
@@ -10880,15 +10880,11 @@ var AddTag = function AddTag(props) {
                 }));
               });
 
-            case 9:
-              setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
-                addTagResponseStatus: 'success',
-                addTagResponse: 'Successfully Edited'
-              }));
-              _context.next = 13;
+            case 7:
+              _context.next = 10;
               break;
 
-            case 12:
+            case 9:
               apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].dataAdd('/messages/terms', termData).then(function (response) {
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   tagLoader: false,
@@ -10912,11 +10908,11 @@ var AddTag = function AddTag(props) {
                 }));
               });
 
-            case 13:
-              _context.next = 17;
+            case 10:
+              _context.next = 14;
               break;
 
-            case 15:
+            case 12:
               setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                 addTagResponseStatus: 'danger',
                 addTagResponse: 'Please enter Tag'
@@ -10925,7 +10921,7 @@ var AddTag = function AddTag(props) {
                 tagLoader: false
               }));
 
-            case 17:
+            case 14:
             case "end":
               return _context.stop();
           }

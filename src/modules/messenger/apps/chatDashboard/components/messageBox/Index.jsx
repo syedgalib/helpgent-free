@@ -137,6 +137,10 @@ function MessageBox({ setSessionState }) {
 
         return selectedWindowData;
     };
+    
+    useEffect(() => {
+        console.log("yes");
+    }, []);
 
     // Update session on sessionID change
     useEffect(
@@ -981,6 +985,7 @@ function MessageBox({ setSessionState }) {
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
+        console.log(messageBody);
         setMessageDirection('top');
         dispatch(
             updateSessionWindowData(

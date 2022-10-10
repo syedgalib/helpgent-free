@@ -108,6 +108,10 @@ function MessageBox({ setSessionState }) {
         };
     });
 
+	const canSendTextMessage = () => {
+		return (textMessageContent.trim().length > 0);
+	}
+
     const getWindowData = (key) => {
         const selectedSessionID = selectedSession
             ? selectedSession.session_id
@@ -504,11 +508,11 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-		console.log(textMessageContent)
-		return;
+		if (!canSendTextMessage()) {
+			return;
+		}
 
         setIsSendingTextMessage(true);
-
 
         // Send Message
         const response = await createMessage({ message: textMessageContent });
@@ -1246,9 +1250,7 @@ function MessageBox({ setSessionState }) {
                                     placeholder='Type a message'
                                     value={textMessageContent}
                                     onChange={(event) => {
-                                        setTextMessageContent(
-                                            event.target.value
-                                        );
+                                        setTextMessageContent(event.target.value);
                                     }}
                                 />
 
@@ -1263,6 +1265,7 @@ function MessageBox({ setSessionState }) {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
+								disabled={canSendTextMessage() ? false : true}
                                 onClick={sendTextMessage}
                             >
                                 {!isSendingTextMessage ? (
@@ -1440,8 +1443,6 @@ function MessageBox({ setSessionState }) {
             });
         }
     };
-
-    console.log(isLoadingSearchResults,isLoadingSession)
 
     return (
         <ChatBoxWrap>

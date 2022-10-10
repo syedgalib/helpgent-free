@@ -538,6 +538,11 @@ function MessageBox({ setSessionState }) {
         loadLatestMessages(latestMessageDate);
     };
 
+	const canSendAudioMessage = () => {
+		const MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS = 1;
+		return (recordedVoiceTimeInSecond >= MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS);
+	}
+
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
 
@@ -1314,6 +1319,7 @@ function MessageBox({ setSessionState }) {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
+								disabled={canSendAudioMessage() ? false : true}
                                 onClick={handleSendAudioMessage}
                             >
                                 {!isSendingAudioMessage ? (

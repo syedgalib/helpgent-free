@@ -6830,6 +6830,11 @@ function MessageBox(_ref) {
     };
   }();
 
+  var canSendAudioMessage = function canSendAudioMessage() {
+    var MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS = 1;
+    return recordedVoiceTimeInSecond >= MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS;
+  };
+
   var handleSendAudioMessage = /*#__PURE__*/function () {
     var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
@@ -7869,6 +7874,7 @@ function MessageBox(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
+              disabled: canSendAudioMessage() ? false : true,
               onClick: handleSendAudioMessage,
               children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_9__["default"]

@@ -6579,17 +6579,7 @@ function MessageBox(_ref) {
     } else {
       setScrollBtnVisibility(false);
     }
-  }); // useEffect(() => {
-  //     if(messageBody){
-  //         const scroll2 = messageBody.scrollTop;
-  //         if (scroll2 < -350) {
-  //             setScrollBtnVisibility(true);
-  //         } else {
-  //             setScrollBtnVisibility(false);
-  //         }
-  //     }
-  // }, [allSessionWindowData]);
-
+  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () {
     function updateSize() {
       if (window.innerWidth > 1400 && windowSize !== 'large') {
@@ -11445,7 +11435,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-top: 5px;\n        border: 2px solid transparent;\n        background-color: var(--color-bg-general);\n        &:focus{\n            border-color: var(--color-dark);\n        }\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    &:not(:last-child){\n                        margin-bottom: 0;\n                    }\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
 var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 4px;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                line-height: 1.15;\n                margin-left: 8px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-empty{\n            width: 100%;\n            margin-bottom: 10px;\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            line-height: 1.55;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n    &.wpwax-vm-modal{\n        .wpwax-vm-modal__header,\n        .wpwax-vm-modal__footer{\n            padding: 15px 30px\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 5px;\n            p{\n                margin: 0;\n            }\n        }\n        .wpwax-vm-taglist-box{\n            position: relative;\n            min-height: 100px;\n            .wpwax-vm-loading-spin{\n                top: 40%;\n            }\n        }\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
-var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20px);\n    left: 10px;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    box-sizing: border-box;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    cursor: auto;\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                color: var(--color-dark);\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 35px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n        &.wpwax-vm-tag-filter-action-disabled{\n            cursor: not-allowed;\n            a{\n                opacity: .4;\n                cursor: not-allowed;\n                pointer-events: none;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n        }\n        .wpwax-vm-empty{\n            font-size: 14px;\n            min-height: 60px;\n        }\n    }\n"])));
+var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20px);\n    left: 10px;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    box-sizing: border-box;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    cursor: auto;\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        overflow-y: auto;\n        height: 180px;\n        &::-webkit-scrollbar {\n            width: 11px;\n        }\n\n        &::-webkit-scrollbar-track {\n            background: var(--color-light);\n        }\n\n        &::-webkit-scrollbar-thumb {\n            background-color: var(--color-bg-gray);\n            border-radius: 6px;\n            border: 3px solid var(--color-light);\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                color: var(--color-dark);\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 30px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n        &.wpwax-vm-tag-filter-action-disabled{\n            cursor: not-allowed;\n            a{\n                opacity: .4;\n                cursor: not-allowed;\n                pointer-events: none;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n        }\n        .wpwax-vm-empty{\n            font-size: 14px;\n            min-height: 60px;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -11460,12 +11450,14 @@ var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
+/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -11499,6 +11491,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -11570,7 +11564,7 @@ var TagFilter = function TagFilter(props) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].getAllByArg('/sessions', termArgs);
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/sessions', termArgs);
 
               case 2:
                 sessionByTermsResponse = _context.sent;
@@ -11636,60 +11630,74 @@ var TagFilter = function TagFilter(props) {
     filterTextFieldRef.current.value = '';
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.TagFilterDropdown, {
+  var fetchMoreData = function fetchMoreData() {};
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.TagFilterDropdown, {
     className: sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show" : null,
     ref: ref,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-tag-search",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-input-icon",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
         ref: filterTextFieldRef,
         placeholder: "Search",
         onChange: handleTagSearch
       })]
-    }), tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+    }), tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "wpwax-vm-tag-filter-list",
-      children: searchFilterTags.length !== 0 ? searchFilterTags.map(function (item, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "wpwax-vm-tag-filter__check",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            id: "wpwax-vm-term-".concat(item.term_id),
-            label: item.name,
-            value: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
-            onChange: function onChange(e) {
-              return handleTagSelection(e);
-            }
+      id: "wpwax-vm-scrollable-filter",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        dataLength: searchFilterTags.length,
+        next: fetchMoreData,
+        hasMore: true,
+        scrollableTarget: "wpwax-vm-scrollable-filter",
+        loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
           })
-        }, index);
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-empty",
-        children: "Sorry!! No Tag Found"
+        }),
+        children: searchFilterTags.length !== 0 ? searchFilterTags.map(function (item, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-tag-filter__check",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              id: "wpwax-vm-term-".concat(item.term_id),
+              label: item.name,
+              value: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
+              onChange: function onChange(e) {
+                return handleTagSelection(e);
+              }
+            })
+          }, index);
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "wpwax-vm-empty",
+          children: "Sorry!! No Tag Found"
+        })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: searchFilterTags.length === 0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-tag-filter-action__clear",
         onClick: handleClearChecked,
         children: "Clear all"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
         onClick: hadnleTagFilterApply,

@@ -259,6 +259,21 @@ const TagFilterDropdown = Styled.div`
         }
     }
     .wpwax-vm-tag-filter-list{
+        overflow-y: auto;
+        height: 180px;
+        &::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--color-light);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--color-bg-gray);
+            border-radius: 6px;
+            border: 3px solid var(--color-light);
+        }
         .wpwax-vm-checkbox{
             label{
                 top: 0px;
@@ -273,7 +288,7 @@ const TagFilterDropdown = Styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 35px;
+        margin-top: 30px;
         .wpwax-vm-tag-filter-action__clear{
             font-size: 14px;
             font-weight: 500;

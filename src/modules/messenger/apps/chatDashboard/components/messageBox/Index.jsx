@@ -224,18 +224,6 @@ function MessageBox({ setSessionState }) {
                 setScrollBtnVisibility(false);
             }
         });
-
-    // useEffect(() => {
-    //     if(messageBody){
-    //         const scroll2 = messageBody.scrollTop;
-    //         if (scroll2 < -350) {
-    //             setScrollBtnVisibility(true);
-    //         } else {
-    //             setScrollBtnVisibility(false);
-    //         }
-    //     }
-        
-    // }, [allSessionWindowData]);
     
     useLayoutEffect(() => {
         function updateSize() {

@@ -465,15 +465,14 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Delete Conversation',
                                                 },
                                             ]
-                                        : 
-
-                                        [
-                                            {
-                                                icon: envelopeOpen,
-                                                name: 'mark-unread',
-                                                text: 'Mark as unread',
-                                            }
-                                        ]
+                                        :
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
+                                                }
+                                            ]
                                     }
 
                                     const metaList = [

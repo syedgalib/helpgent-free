@@ -138,9 +138,6 @@ function MessageBox({ setSessionState }) {
         return selectedWindowData;
     };
     
-    useEffect(() => {
-        console.log("yes");
-    }, []);
 
     // Update session on sessionID change
     useEffect(
@@ -226,8 +223,19 @@ function MessageBox({ setSessionState }) {
             } else {
                 setScrollBtnVisibility(false);
             }
-            console.log(scrolled)
         });
+
+    // useEffect(() => {
+    //     if(messageBody){
+    //         const scroll2 = messageBody.scrollTop;
+    //         if (scroll2 < -350) {
+    //             setScrollBtnVisibility(true);
+    //         } else {
+    //             setScrollBtnVisibility(false);
+    //         }
+    //     }
+        
+    // }, [allSessionWindowData]);
     
     useLayoutEffect(() => {
         function updateSize() {
@@ -985,8 +993,7 @@ function MessageBox({ setSessionState }) {
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
-        console.log(messageBody);
-        setMessageDirection('top');
+        setMessageDirection('bottom');
         dispatch(
             updateSessionWindowData(
                 selectedSession.session_id,

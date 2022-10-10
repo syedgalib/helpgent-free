@@ -6456,11 +6456,8 @@ function MessageBox(_ref) {
     }
 
     return selectedWindowData;
-  };
+  }; // Update session on sessionID change
 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log("yes");
-  }, []); // Update session on sessionID change
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Reset Text Message Content
@@ -6551,9 +6548,17 @@ function MessageBox(_ref) {
     } else {
       setScrollBtnVisibility(false);
     }
+  }); // useEffect(() => {
+  //     if(messageBody){
+  //         const scroll2 = messageBody.scrollTop;
+  //         if (scroll2 < -350) {
+  //             setScrollBtnVisibility(true);
+  //         } else {
+  //             setScrollBtnVisibility(false);
+  //         }
+  //     }
+  // }, [allSessionWindowData]);
 
-    console.log(scrolled);
-  });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect)(function () {
     function updateSize() {
       if (window.innerWidth > 1400 && windowSize !== 'large') {
@@ -7575,8 +7580,7 @@ function MessageBox(_ref) {
 
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
-    console.log(messageBody);
-    setMessageDirection('top');
+    setMessageDirection('bottom');
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
 
     if (isShowingVideoSearchResult) {

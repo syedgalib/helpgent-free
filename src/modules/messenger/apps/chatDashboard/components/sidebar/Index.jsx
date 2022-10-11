@@ -82,6 +82,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         hasMore,
         loader,
     } = sessionState;
+
+    const {allTags} = tagState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -119,22 +121,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 console.log(error);
             });
             
-            // const fetchTags = async () =>{
-            //     const tagsResponse = apiService.getAll('/messages/terms');
-            //     return tagsResponse;
-            // }
-            // fetchTags()
-            //     .then((tagsResponse) => {
-            //         setTagState({
-            //             ...tagState,
-            //             allTags: tagsResponse.data.data,
-            //             filteredTagList: tagsResponse.data.data,
-            //         });
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-            
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
@@ -148,25 +134,33 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handleTagFilterDropdown = (event) => {
         event.preventDefault();
-        const tagsLimit = {
-            limit: '5',
-            page: 1,
-        };
-        const fetchTags = async () =>{
-            const tagsResponse = apiService.getAll('/messages/terms',tagsLimit);
-            return tagsResponse;
-        }
-        fetchTags()
-            .then((tagsResponse) => {
-                setTagState({
-                    ...tagState,
-                    allTags: tagsResponse.data.data,
-                    filteredTagList: tagsResponse.data.data,
-                });
-            })
-            .catch((error) => {
-                console.log(error);
+        if(allTags.length === 0){
+            setTagState({
+                ...tagState,
+                tagLoader: true
             });
+            const fetchTags = async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:5});
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                        filteredTagList: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
+        }
+        
         setSessionState({
             ...sessionState,
             tagFilterDropdownOpen: !tagFilterDropdownOpen,

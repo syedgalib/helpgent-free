@@ -31,7 +31,25 @@ const TaglistWrap = Styled.div`
         .wpwax-vm-loading-spin{
             top: 30%;
         }
-        ul{
+        >ul{
+            height: 215px;
+            overflow-y: auto;
+            .infinite-scroll-component {
+                padding-right: 10px;
+            }
+            &::-webkit-scrollbar {
+                width: 11px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--color-light);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--color-bg-gray);
+                border-radius: 6px;
+                border: 3px solid var(--color-light);
+            }
             li{
                 display: flex;
                 justify-content: space-between;
@@ -258,9 +276,12 @@ const TagFilterDropdown = Styled.div`
             }
         }
     }
+    .wpwax-vm-tag-filter-list-wrap{
+        min-height: 60px;
+    }
     .wpwax-vm-tag-filter-list{
         overflow-y: auto;
-        height: 180px;
+        height: 160px;
         &::-webkit-scrollbar {
             width: 11px;
         }
@@ -281,6 +302,11 @@ const TagFilterDropdown = Styled.div`
             }
             input{
                 margin-right: 12px;
+            }
+        }
+        .wpwax-vm-more-loader{
+            svg{
+                height: 20px;
             }
         }
     }

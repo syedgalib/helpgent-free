@@ -394,6 +394,9 @@ const MessageBoxWrap = Styled.div`
             font-weight: 500;
             margin-right: 10px;
             color: #4D4D4D;
+            @media only screen and (max-width: 1399px){
+                font-size: 14px;
+            }
             @media only screen and (max-width: 1199px){
                 margin: 0 0 20px 0;
             }
@@ -410,10 +413,11 @@ const MessageBoxWrap = Styled.div`
                 align-items: center;
                 &.wpwax-vm-btn-lg{
                     @media only screen and (max-width: 1399px){
-                        padding: 0 18px;
-                    }
-                    @media only screen and (max-width: 1299px){
+                        padding: 0 25px;
                         font-size: 14px;
+                        margin: 5px;
+                    }
+                    @media only screen and (max-width: 1240px){
                         padding: 0 10px;
                         margin: 5px;
                     }

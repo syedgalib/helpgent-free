@@ -63,7 +63,7 @@ const Taglist = (props) => {
 
     useEffect(() => {
         if(tagListModalOpen){
-            if(allTags.length === 0){
+            if(filteredTagList.length === 0){
                 setTagState({
                     ...tagState,
                     tagLoader: true

@@ -23,6 +23,10 @@ const AddTag = (props) => {
         };
     });
 
+    const [state, setState] = useState({
+        tagsPageNumber: 2
+	});
+
     const [addFormState, setAddFormState] = useState({
         newAssigned: [],
         newUnAssinged: [],
@@ -76,9 +80,34 @@ const AddTag = (props) => {
                 addTagResponse: '',
             });
         }
-    }, [addTagModalOpen]);
 
-    // console.log(tagLoader,allTags);
+        if(allTags.length === 0){
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+            const fetchTags = async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:12});
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
+        }
+
+    }, [addTagModalOpen]);
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -502,6 +531,7 @@ const AddTag = (props) => {
                                             </div>
                                         )}
                                     </div>
+                                    {/* <a href="#" className="wpwax-vm-loadmore">Load more</a> */}
                                     {allTags.length !== 0 ? (
                                         <a
                                             href='#'

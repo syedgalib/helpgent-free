@@ -93,6 +93,24 @@ class Users extends Rest_Base {
 			'schema' => array( $this, 'get_public_item_schema' ),
 		) );
 
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/authenticate', array(
+			'args' => array(
+				'email' => array(
+					'description' => __( 'User email address.', 'wpwax-customer-support-app' ),
+					'type'        => 'string',
+				),
+				'password' => array(
+					'description' => __( 'User password.', 'wpwax-customer-support-app' ),
+					'type'        => 'string',
+				),
+			),
+			array(
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'authenticate' ),
+				'permission_callback' => '__return_true',
+			),
+		) );
+
     }
 
 	/**
@@ -194,7 +212,7 @@ class Users extends Rest_Base {
 	 */
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_exists', __( 'Cannot create existing resource.', 'wpwax-customer-support-app' ), 400 );
+			return new WP_Error( 'wpwax_customer_support_app_rest_user_id_required', __( 'User ID is required.', 'wpwax-customer-support-app' ), 403 );
 		}
 
 		if ( email_exists( $request['email'] ) ) {
@@ -204,10 +222,12 @@ class Users extends Rest_Base {
 			$request->set_param( 'context', 'edit' );
 			$request->set_param( 'user_exists', true );
 
-			$response = $this->prepare_item_for_response( $old_user_data, $request );
+			$response = $this->prepare_item_for_response( $old_user_data, $request, [ 'is_new_user' => false ] );
 			$response = rest_ensure_response( $response );
+
 			$response->set_status( 201 );
-			$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $old_user_data ) ) );
+			$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $old_user_data->ID ) ) );
+			$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $old_user_data->ID ) ) );
 
 
 			/**
@@ -272,10 +292,11 @@ class Users extends Rest_Base {
 		do_action( 'wpwax_customer_support_app_rest_insert_user', $user_data, $request, true );
 
 		$request->set_param( 'context', 'edit' );
-		$response = $this->prepare_item_for_response( $user_data, $request );
+		$response = $this->prepare_item_for_response( $user_data, $request, [ 'is_new_user' => true ] );
+
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );
-		$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $user_data ) ) );
+		$response->header( 'Location', rest_url( sprintf( '/%s/%s/%d', $this->namespace, $this->rest_base, $user_data->ID ) ) );
 
 		return $response;
 	}
@@ -422,6 +443,49 @@ class Users extends Rest_Base {
 		return $response;
 	}
 
+
+	/**
+	 * Authenticate User
+	 * @param WP_REST_Request $request Request object.
+	 * @return WP_REST_Response Response object.
+	 */
+	public function authenticate( $request ) {
+		$args = $request->get_params();
+
+		$email    = ( isset( $args['email'] ) ) ? $args['email'] : '';
+		$password = ( isset( $args['password'] ) ) ? $args['password'] : '';
+
+		if ( empty( $email ) ) {
+			return new WP_Error(  403, __( 'Email is required', 'wpwax-customer-support-app' ) );
+		}
+
+		if ( ! is_email( $email ) ) {
+			return new WP_Error(  403, __( 'A valid email is required', 'wpwax-customer-support-app' ) );
+		}
+
+		if ( empty( $password ) ) {
+			return new WP_Error(  403, __( 'Password is required', 'wpwax-customer-support-app' ) );
+		}
+
+		$user = get_user_by( 'email', $email );
+
+		if ( empty( $user ) ) {
+			return new WP_Error(  403, __( 'User does not exists', 'wpwax-customer-support-app' ) );
+		}
+
+
+		$auth = wp_authenticate( $user->user_login, $password );
+
+		if ( is_wp_error( $auth ) ) {
+			return new WP_Error( 403, __( 'The password is incorrect', 'wpwax-customer-support-app' ) );
+		}
+
+		$auth = $this->prepare_item_for_response( $auth, $request );
+		$response = rest_ensure_response( $auth );
+
+		return $response;
+	}
+
 	/**
 	 * Prepares a single user output for response.
 	 *
@@ -429,7 +493,7 @@ class Users extends Rest_Base {
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response Response object.
 	 */
-	public function prepare_item_for_response( $user, $request ) {
+	public function prepare_item_for_response( $user, $request, $with_data = [] ) {
 		$id     = $user->ID;
 		$data   = array(
 			'id'           => $id,
@@ -445,6 +509,8 @@ class Users extends Rest_Base {
 			'avater'       => null,
 			'roles'        => array_values( $user->roles ),
 		);
+
+		$data = array_merge( $data, $with_data );
 
 		// User avater.
 		$image_id = get_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_USER_META_AVATER, true );

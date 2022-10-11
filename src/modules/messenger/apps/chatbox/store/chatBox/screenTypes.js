@@ -3,7 +3,8 @@ const screenTypes = {
     VIDEO: 'video',
     AUDIO: 'voice',
     TEXT: 'text',
-    CONTACT_FORM: 'contactForm',
+    CONTACT_FORM: 'contact_form',
+    USER_AUTHENTICATION_FORM: 'user_authentication_form',
     SENDING: 'sending',
     SUCCESS: 'success',
 };

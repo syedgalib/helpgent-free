@@ -5,8 +5,7 @@ import screenTypes from '../../../store/chatbox/screenTypes';
 import http from 'Helper/http';
 
 import {
-	submitForm as submitUserForm,
-	upateState as upateUserFormState
+	upateState as updateUserState
 } from './../../../store/forms/user/actionCreator';
 
 import {
@@ -36,50 +35,67 @@ function Sending() {
 	const [ errorMessage, setErrorMessage ] = useState( '' );
 	const [ userID, setUserID ] = useState( messengerForm.formData.user_id );
 
-    // Init State
+    // @Init
     useEffect(() => {
-		// If message has user ID
+		init();
+    }, []);
+
+	async function init() {
+		// Submit the messgage if message has user ID
 		// --------------------------------
-		if ( messengerForm.formData.user_id ) {
-			// Submit Message
+		if ( messengerForm.formData.user_id && userForm.is_varified ) {
 			submitMessage();
 			return;
 		}
 
-		// If message has no user ID
+		// Create or get the user
 		// --------------------------------
-		// Create User
-		createUser( userForm.formData )
-			.then( response => {
-				const userID = response.data.id;
+		const createUserResponse = await createUser( userForm.formData );
+		if ( ! createUserResponse.success ) {
+			dispatch(
+				updateUserState({
+					status: false,
+					statusMessage: createUserResponse.message,
+				})
+			);
 
-				// Add user ID to message
-				dispatch(
-					updateMessengerFormData({
-						user_id: userID,
-					})
-				);
+			// Return to Contact Form Page if failed
+			setTimeout(() => {
+				dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+			}, 2000);
 
-				setUserID( userID );
+			return;
+		}
 
-				// Submit Message
-				submitMessage( userID );
+		const userID = createUserResponse.data.id;
+
+		// Add user ID to message
+		dispatch(
+			updateMessengerFormData({
+				user_id: userID,
 			})
-			.catch( error => {
-				dispatch(
-					upateUserFormState({
-						status: false,
-						statusMessage: error.message,
-					})
-				);
+		);
 
-				// Return to Contact Form Page if failed
-				setTimeout(() => {
-					dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-				}, 2000);
-			});
+		setUserID( userID );
 
-    }, []);
+		// Verify user if exists
+		// --------------------------------
+		if ( ! createUserResponse.data.is_new_user ) {
+			dispatch(
+				updateUserState({
+					user: createUserResponse.data,
+					is_varified: false,
+				})
+			);
+
+			dispatch(changeChatScreen(screenTypes.USER_AUTHENTICATION_FORM));
+			return;
+		}
+
+		// Submit Message
+		// --------------------------------
+		submitMessage( userID );
+	}
 
 
 	// Submit Message
@@ -113,7 +129,7 @@ function Sending() {
 		let status = { success: false, message: '', data: null };
 
 		dispatch(
-			upateUserFormState({
+			updateUserState({
 				status: null,
 				statusMessage: '',
 			})
@@ -127,7 +143,7 @@ function Sending() {
 			status.message = 'The user has been created successfuly';
 
 			dispatch(
-				upateUserFormState({
+				updateUserState({
 					status: true,
 					statusMessage: status.message,
 				})
@@ -137,7 +153,7 @@ function Sending() {
 
 		} catch ( error ) {
 			status.success = false;
-			status.message = error.message;
+			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
 
 			return status;
 		}

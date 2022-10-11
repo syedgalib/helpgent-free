@@ -17,9 +17,18 @@ function useFormHooks() {
     // Set Intitial Form Data
     // ----------------------------------------------------------
 	useEffect(() => {
+		let messengerFormData = {};
+
+		if ( wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user ) {
+			messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
+		}
 
 		if ( templateOpions.tag ) {
-			dispatch( updateMessengerFormData( { terms: `${templateOpions.tag}` } ) );
+			messengerFormData.terms = `${templateOpions.tag}`;
+		}
+
+		if ( Object.keys( messengerFormData ).length ) {
+			dispatch( updateMessengerFormData( messengerFormData ) );
 		}
 
 	}, []);

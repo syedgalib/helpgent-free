@@ -24,9 +24,11 @@ const Record = () => {
     const videoStreemRef = useRef();
     const dispatch = useDispatch();
 
-    const { attachmentForm } = useSelector((state) => {
+	// Store States
+    const { attachmentForm, messengerForm } = useSelector((state) => {
         return {
             attachmentForm: state.attachmentForm,
+			messengerForm: state.messengerForm,
         };
     });
 
@@ -68,8 +70,12 @@ const Record = () => {
                     })
                 );
 
-                // Switch to Contact form
-                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+                // Navigate to Contact form or Sending Page
+				if ( messengerForm.formData.user_id ) {
+					dispatch(changeChatScreen(screenTypes.SENDING));
+				} else {
+					dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+				}
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }

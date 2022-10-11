@@ -27,9 +27,11 @@ function Record() {
     const audioRef = useRef();
     const dispatch = useDispatch();
 
-    const { attachmentForm } = useSelector((state) => {
+	// Store States
+    const { attachmentForm, messengerForm } = useSelector((state) => {
         return {
             attachmentForm: state.attachmentForm,
+			messengerForm: state.messengerForm,
         };
     });
 
@@ -74,9 +76,14 @@ function Record() {
                     })
                 );
 
-                // Switch to Contact form
+                // Navigate to Contact form or Sending Page
                 setTimeout(() => {
-                    dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+					if ( messengerForm.formData.user_id ) {
+						dispatch(changeChatScreen(screenTypes.SENDING));
+					} else {
+						dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+					}
+
                 }, '2000');
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);

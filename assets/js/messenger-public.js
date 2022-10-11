@@ -13593,7 +13593,7 @@ function Sending() {
       errorMessage = _useState4[0],
       setErrorMessage = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(messengerForm.formData.user_id),
       _useState6 = _slicedToArray(_useState5, 2),
       userID = _useState6[0],
       setUserID = _useState6[1]; // Init State
@@ -13612,9 +13612,6 @@ function Sending() {
 
 
     createUser(userForm.formData).then(function (response) {
-      console.log('chk-1', {
-        response: response
-      });
       var userID = response.data.id; // Add user ID to message
 
       dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormData)({
@@ -13624,10 +13621,8 @@ function Sending() {
 
       submitMessage(userID);
     }).catch(function (error) {
-      console.log('chk-2', {
-        error: error
-      });
       dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
+        status: false,
         statusMessage: error.message
       })); // Return to Contact Form Page if failed
 
@@ -13660,12 +13655,9 @@ function Sending() {
 
             case 4:
               response = _context.sent;
-              console.log('chk-3', {
-                response: response
-              }); // Switch to Retry Stage if failed
 
               if (response.success) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
 
@@ -13673,13 +13665,13 @@ function Sending() {
               setCurrentStage(stages.ERROR);
               return _context.abrupt("return");
 
-            case 10:
+            case 9:
               // Navigate to Success Screen
               setTimeout(function () {
                 dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].SUCCESS));
               }, 2000);
 
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -13696,8 +13688,7 @@ function Sending() {
 
   function _createUser() {
     _createUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(args) {
-      var status, _response;
-
+      var status, response;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -13707,31 +13698,38 @@ function Sending() {
                 message: '',
                 data: null
               };
-              console.log('createUser', args);
+              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
+                status: null,
+                statusMessage: ''
+              }));
               _context2.prev = 2;
               _context2.next = 5;
               return Helper_http__WEBPACK_IMPORTED_MODULE_4__["default"].postData("/users", args);
 
             case 5:
-              _response = _context2.sent;
+              response = _context2.sent;
               status.success = true;
-              status.data = _response.data;
+              status.data = response.data;
               status.message = 'The user has been created successfuly';
+              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
+                status: true,
+                statusMessage: status.message
+              }));
               return _context2.abrupt("return", status);
 
-            case 12:
-              _context2.prev = 12;
+            case 13:
+              _context2.prev = 13;
               _context2.t0 = _context2["catch"](2);
               status.success = false;
-              status.message = response.message;
+              status.message = _context2.t0.message;
               return _context2.abrupt("return", status);
 
-            case 17:
+            case 18:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[2, 12]]);
+      }, _callee2, null, [[2, 13]]);
     }));
     return _createUser.apply(this, arguments);
   }
@@ -13743,8 +13741,7 @@ function Sending() {
 
   function _createMessage() {
     _createMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(args) {
-      var status, _response2;
-
+      var status, response;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -13754,23 +13751,23 @@ function Sending() {
                 message: '',
                 data: null
               };
-              console.log('createMessage', args);
-              _context3.prev = 2;
-              _context3.next = 5;
+              _context3.prev = 1;
+              _context3.next = 4;
               return Helper_http__WEBPACK_IMPORTED_MODULE_4__["default"].postData("/messages", args);
 
-            case 5:
-              _response2 = _context3.sent;
+            case 4:
+              response = _context3.sent;
               status.success = true;
-              status.data = _response2.data;
+              status.data = response.data;
               status.message = 'The message has been created successfuly';
               return _context3.abrupt("return", status);
 
-            case 12:
-              _context3.prev = 12;
-              _context3.t0 = _context3["catch"](2);
+            case 11:
+              _context3.prev = 11;
+              _context3.t0 = _context3["catch"](1);
               status.success = false;
-              status.message = response.message;
+              status.message = _context3.t0.response.data && _context3.t0.response.data.message ? _context3.t0.response.data.message : _context3.t0.message;
+              console.error(_context3.t0);
               return _context3.abrupt("return", status);
 
             case 17:
@@ -13778,7 +13775,7 @@ function Sending() {
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[2, 12]]);
+      }, _callee3, null, [[1, 11]]);
     }));
     return _createMessage.apply(this, arguments);
   }
@@ -13787,73 +13784,7 @@ function Sending() {
     event.preventDefault();
     setCurrentStage(stages.SENDING);
     submitMessage();
-  } // // Init State
-  // useEffect(() => {
-  //     if (userForm.submitted) {
-  //         return;
-  //     }
-  //     if (userForm.isSubmitting) {
-  //         return;
-  //     }
-  //     if (!userForm.isReadyFormData) {
-  //         return;
-  //     }
-  //     dispatch(submitUserForm(userForm.formData));
-  // }, [userForm.isReadyFormData]);
-  // // After Submission
-  // useEffect(() => {
-  //     if (messengerForm.submited) {
-  //         return;
-  //     }
-  //     if (userForm.isSubmitting) {
-  //         return;
-  //     }
-  //     if (userForm.status === null) {
-  //         return;
-  //     }
-  //     if (userForm.status === false) {
-  //         setTimeout(() => {
-  //             dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-  //         }, "2000");
-  //         return;
-  //     }
-  //     // Add user ID to message
-  //     dispatch(
-  //         updateMessengerFormData({
-  //             user_id: userForm.user.id,
-  //         })
-  //     );
-  //     dispatch(upateMessengerFormState({ initSubmission: true }));
-  // }, [userForm.status]);
-  // // Init Message Submission
-  // useEffect(() => {
-  //     if (messengerForm.submited) {
-  //         return;
-  //     }
-  //     if (!messengerForm.initSubmission) {
-  //         return;
-  //     }
-  //     dispatch(submitMessengerForm(messengerForm.formData));
-  // }, [messengerForm.initSubmission]);
-  // // After Message Submission
-  // useEffect(() => {
-  //     if (messengerForm.isSubmitting) {
-  //         return;
-  //     }
-  //     if (messengerForm.status === null) {
-  //         return;
-  //     }
-  //     if (messengerForm.status === false) {
-  //         setTimeout(() => {
-  //             dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-  //         }, "2000");
-  //         return;
-  //     }
-  //     setTimeout(() => {
-  //         dispatch(changeChatScreen(screenTypes.SUCCESS));
-  //     }, "2000");
-  // }, [messengerForm.status]);
-
+  }
 
   if (currentStage === stages.SENDING) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
@@ -14865,10 +14796,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
-  var textRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
+  var textRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(); // Store States
+
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+    return {
+      messengerForm: state.messengerForm
+    };
+  }),
+      messengerForm = _useSelector.messengerForm;
 
   function submitHandler(e) {
     e.preventDefault();
@@ -14877,7 +14814,12 @@ function Form() {
       message: textRef.current.value
     };
     dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_2__.updateFormData)(updatedFormData));
-    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].CONTACT_FORM));
+
+    if (messengerForm.formData.user_id) {
+      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].SENDING));
+    } else {
+      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].CONTACT_FORM));
+    }
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
@@ -15191,14 +15133,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Record = function Record() {
   var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useDispatch)(); // Store States
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useSelector)(function (state) {
     return {
-      attachmentForm: state.attachmentForm
+      attachmentForm: state.attachmentForm,
+      messengerForm: state.messengerForm
     };
   }),
-      attachmentForm = _useSelector.attachmentForm;
+      attachmentForm = _useSelector.attachmentForm,
+      messengerForm = _useSelector.messengerForm;
 
   var stages = {
     PERMISSION: 'permission',
@@ -15255,9 +15199,13 @@ var Record = function Record() {
       dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormData)({
         message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_9__["default"].VIDEO,
         attachment_id: attachmentForm.uploadedAttachment.id
-      })); // Switch to Contact form
+      })); // Navigate to Contact form or Sending Page
 
-      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_7__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_8__["default"].CONTACT_FORM));
+      if (messengerForm.formData.user_id) {
+        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_7__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_8__["default"].SENDING));
+      } else {
+        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_7__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_8__["default"].CONTACT_FORM));
+      }
     } else if (false === attachmentForm.status) {
       setCurrentStage(stages.UPLOAD_FAILED);
     }
@@ -15705,14 +15653,16 @@ var Upload = function Upload(_ref) {
     UPLOADING: 'uploading',
     UPLOAD_FAILED: 'upload_failed'
   };
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useDispatch)(); // Store States
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
     return {
-      attachmentForm: state.attachmentForm
+      attachmentForm: state.attachmentForm,
+      messengerForm: state.messengerForm
     };
   }),
-      attachmentForm = _useSelector.attachmentForm;
+      attachmentForm = _useSelector.attachmentForm,
+      messengerForm = _useSelector.messengerForm;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.BEFORE_SEND),
       _useState2 = _slicedToArray(_useState, 2),
@@ -15739,9 +15689,13 @@ var Upload = function Upload(_ref) {
       dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_7__.updateFormData)({
         message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_4__["default"].VIDEO,
         attachment_id: attachmentForm.uploadedAttachment.id
-      })); // Switch to Contact form
+      })); // Navigate to Contact form or Sending Page
 
-      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_6__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].CONTACT_FORM));
+      if (messengerForm.formData.user_id) {
+        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_6__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].SENDING));
+      } else {
+        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_6__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].CONTACT_FORM));
+      }
     } else if (false === attachmentForm.status) {
       setCurrentStage(stages.UPLOAD_FAILED);
     }
@@ -15964,14 +15918,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Record() {
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(); // Store States
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
     return {
-      attachmentForm: state.attachmentForm
+      attachmentForm: state.attachmentForm,
+      messengerForm: state.messengerForm
     };
   }),
-      attachmentForm = _useSelector.attachmentForm;
+      attachmentForm = _useSelector.attachmentForm,
+      messengerForm = _useSelector.messengerForm;
 
   var stages = {
     HOME: 'home',
@@ -16047,10 +16003,14 @@ function Record() {
       dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_12__.updateFormData)({
         message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_15__["default"].AUDIO,
         attachment_id: attachmentForm.uploadedAttachment.id
-      })); // Switch to Contact form
+      })); // Navigate to Contact form or Sending Page
 
       setTimeout(function () {
-        dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__["default"].CONTACT_FORM));
+        if (messengerForm.formData.user_id) {
+          dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__["default"].SENDING));
+        } else {
+          dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__["default"].CONTACT_FORM));
+        }
       }, '2000');
     } else if (false === attachmentForm.status) {
       setCurrentStage(stages.UPLOAD_FAILED);
@@ -17501,10 +17461,18 @@ function useFormHooks() {
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var messengerFormData = {};
+
+    if (wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user) {
+      messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
+    }
+
     if (templateOpions.tag) {
-      dispatch((0,_messenger_actionCreator_js__WEBPACK_IMPORTED_MODULE_2__.updateFormData)({
-        terms: "".concat(templateOpions.tag)
-      }));
+      messengerFormData.terms = "".concat(templateOpions.tag);
+    }
+
+    if (Object.keys(messengerFormData).length) {
+      dispatch((0,_messenger_actionCreator_js__WEBPACK_IMPORTED_MODULE_2__.updateFormData)(messengerFormData));
     }
   }, []);
   return {};
@@ -17615,7 +17583,6 @@ var actions = {
     };
   },
   updateFormData: function updateFormData(formData) {
-    console.log('updateFormData', formData);
     return {
       type: actions.UPDATE_FORM_DATA,
       payload: formData
@@ -17772,8 +17739,6 @@ var reducer = function reducer() {
       return _objectSpread(_objectSpread({}, state), payload);
 
     case UPDATE_FORM_DATA:
-      console.log('');
-      console.log('UPDATE_FORM_DATA', payload);
       return _objectSpread(_objectSpread({}, state), {}, {
         formData: _objectSpread(_objectSpread({}, state.formData), payload)
       });

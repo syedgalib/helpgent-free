@@ -34,7 +34,7 @@ function Sending() {
 	// Local States
 	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
-	const [ userID, setUserID ] = useState( 0 );
+	const [ userID, setUserID ] = useState( messengerForm.formData.user_id );
 
     // Init State
     useEffect(() => {
@@ -51,9 +51,6 @@ function Sending() {
 		// Create User
 		createUser( userForm.formData )
 			.then( response => {
-
-				console.log( 'chk-1', { response } );
-
 				const userID = response.data.id;
 
 				// Add user ID to message
@@ -69,10 +66,9 @@ function Sending() {
 				submitMessage( userID );
 			})
 			.catch( error => {
-				console.log( 'chk-2', { error } );
-
 				dispatch(
 					upateUserFormState({
+						status: false,
 						statusMessage: error.message,
 					})
 				);
@@ -99,8 +95,6 @@ function Sending() {
 		// Create Message
 		const response = await createMessage( formData );
 
-		console.log( 'chk-3', { response } );
-
 		// Switch to Retry Stage if failed
 		if ( ! response.success ) {
 			setErrorMessage( response.message );
@@ -118,7 +112,12 @@ function Sending() {
 	async function createUser( args ) {
 		let status = { success: false, message: '', data: null };
 
-		console.log( 'createUser', args );
+		dispatch(
+			upateUserFormState({
+				status: null,
+				statusMessage: '',
+			})
+		);
 
 		try  {
 			const response = await http.postData( "/users", args );
@@ -127,11 +126,18 @@ function Sending() {
 			status.data = response.data;
 			status.message = 'The user has been created successfuly';
 
+			dispatch(
+				upateUserFormState({
+					status: true,
+					statusMessage: status.message,
+				})
+			);
+
 			return status;
 
 		} catch ( error ) {
 			status.success = false;
-			status.message = response.message;
+			status.message = error.message;
 
 			return status;
 		}
@@ -141,8 +147,6 @@ function Sending() {
 	// createMessage
 	async function createMessage( args ) {
 		let status = { success: false, message: '', data: null };
-
-		console.log( 'createMessage', args );
 
 		try  {
 			const response = await http.postData( "/messages", args );
@@ -155,7 +159,9 @@ function Sending() {
 
 		} catch ( error ) {
 			status.success = false;
-			status.message = response.message;
+			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
+
+			console.error( error );
 
 			return status;
 		}
@@ -167,90 +173,6 @@ function Sending() {
 		setCurrentStage( stages.SENDING );
 		submitMessage();
 	}
-
-
-    // // Init State
-    // useEffect(() => {
-    //     if (userForm.submitted) {
-    //         return;
-    //     }
-
-    //     if (userForm.isSubmitting) {
-    //         return;
-    //     }
-
-    //     if (!userForm.isReadyFormData) {
-    //         return;
-    //     }
-
-    //     dispatch(submitUserForm(userForm.formData));
-    // }, [userForm.isReadyFormData]);
-
-    // // After Submission
-    // useEffect(() => {
-    //     if (messengerForm.submited) {
-    //         return;
-    //     }
-
-    //     if (userForm.isSubmitting) {
-    //         return;
-    //     }
-
-    //     if (userForm.status === null) {
-    //         return;
-    //     }
-
-    //     if (userForm.status === false) {
-    //         setTimeout(() => {
-    //             dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-    //         }, "2000");
-    //         return;
-    //     }
-
-    //     // Add user ID to message
-    //     dispatch(
-    //         updateMessengerFormData({
-    //             user_id: userForm.user.id,
-    //         })
-    //     );
-
-    //     dispatch(upateMessengerFormState({ initSubmission: true }));
-    // }, [userForm.status]);
-
-    // // Init Message Submission
-    // useEffect(() => {
-    //     if (messengerForm.submited) {
-    //         return;
-    //     }
-
-    //     if (!messengerForm.initSubmission) {
-    //         return;
-    //     }
-
-    //     dispatch(submitMessengerForm(messengerForm.formData));
-    // }, [messengerForm.initSubmission]);
-
-    // // After Message Submission
-    // useEffect(() => {
-    //     if (messengerForm.isSubmitting) {
-    //         return;
-    //     }
-
-    //     if (messengerForm.status === null) {
-    //         return;
-    //     }
-
-    //     if (messengerForm.status === false) {
-    //         setTimeout(() => {
-    //             dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-    //         }, "2000");
-    //         return;
-    //     }
-    //     setTimeout(() => {
-    //         dispatch(changeChatScreen(screenTypes.SUCCESS));
-    //     }, "2000");
-
-    // }, [messengerForm.status]);
 
 
 	if ( currentStage === stages.SENDING ) {

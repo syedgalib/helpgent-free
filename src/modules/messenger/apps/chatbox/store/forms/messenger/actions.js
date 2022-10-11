@@ -13,9 +13,6 @@ const actions = {
         }
     },
     updateFormData: ( formData ) => {
-
-		console.log( 'updateFormData', formData );
-
         return {
             type: actions.UPDATE_FORM_DATA,
             payload: formData,

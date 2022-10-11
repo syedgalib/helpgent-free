@@ -511,6 +511,11 @@ const MessageBoxWrap = Styled.div`
             border-radius: 50%;
             margin-left: 10px;
             background-color: var(--color-primary);
+
+			&[disabled] {
+				opacity: 50%;
+				pointer-events: none;
+			}
         }
         .wpwax-vm-messagebox-reply-text-close{
             display: flex;

@@ -206,6 +206,10 @@ abstract class DB_Model implements DB_Model_Interface {
 	public static function prepare_where_query( $where_args = [], $table_name = '', $table_prefix_fields = [], $supported_conditions = [ 'AND', 'OR' ] ) {
 		$where = ' WHERE 1=1';
 
+		if ( empty( $where_args ) ) {
+			return $where;
+		}
+
 		foreach ( $where_args as $key => $value ) {
 
 			$where_table_name = ( ! empty( $table_name ) && ! in_array( $key, $table_prefix_fields ) ) ? "{$table_name}." : '';

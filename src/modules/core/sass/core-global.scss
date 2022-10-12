@@ -378,11 +378,13 @@
         margin: 0;
         padding: 10px 8px;
         border-radius: 10px;
+        list-style: none;
         display: none;
         box-shadow: 0 6px 40px rgba(144, 144, 144, 0.25);
         background-color: #fff;
 
         li {
+            margin: 0;
             a {
                 display: flex;
                 align-items: center;

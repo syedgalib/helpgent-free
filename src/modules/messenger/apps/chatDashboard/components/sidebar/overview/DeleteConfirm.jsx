@@ -45,7 +45,6 @@ const DeleteConfirm = props => {
             });
         })
         .catch(error => {
-            console.log(error)
             if(error.code === 403){
                 setOuterState({
                     ...outerState,
@@ -58,7 +57,7 @@ const DeleteConfirm = props => {
                 setOuterState({
                     ...outerState,
                     successMessage: "",
-                    rejectMessage: "Server Not exist",
+                    rejectMessage: "Somthing Went Wrong",
                     deleteModalOpen: !modalOpen
                 });
                 

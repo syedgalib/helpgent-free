@@ -86,7 +86,6 @@ const ChatboxForm = Styled.div`
         }
     }
     .wpwax-vm-chatbox-footer{
-        background-color: var(--color-page-bg);
         .wpwax-vm-chatbox-footer__title{
             font-family: var(--font-family);
             font-size: var(--font-size-chat);

@@ -279,13 +279,6 @@ const Record = () => {
                             ''
                         )}
                     </h4>
-                    <a
-                        href='#'
-                        onClick={fullscreenVideoStreem}
-                        className='wpwax-vm-record-staging__btn-expand'
-                    >
-                        <ReactSVG src={expander} />
-                    </a>
                 </div>
                 <div
                     className={

@@ -86,7 +86,7 @@ const VideoRecordWrap = Styled.div`
         height: 100%;
         z-index: 101;
 		height: calc( 100vh - 100px );
-		max-height: 800px;
+		max-height: 650px;
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
         &:after,
         &:before{

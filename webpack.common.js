@@ -110,6 +110,7 @@ module.exports = {
       // Global
       Assets: path.resolve( __dirname, 'src/assets/' ),
       Helper: path.resolve( __dirname, 'src/helpers/' ),
+	  Externals: path.resolve( __dirname, 'src/lib/externals/' ),
       Components: path.resolve( __dirname, 'src/lib/components/' ),
       apiService: path.resolve( __dirname, 'src/lib/apiService/' ),
 

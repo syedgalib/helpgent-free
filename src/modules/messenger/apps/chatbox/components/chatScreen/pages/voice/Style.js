@@ -18,7 +18,8 @@ const RecorderWrap = Styled.div`
     }
     &.wpwax-vm-record-staging{
         padding: 80px 25px;
-        min-height: 595px;
+		height: calc( 100vh - 100px );
+		max-height: 800px;
         .wpwax-vm-timer{
             span{
                 font-size: 50px;
@@ -68,7 +69,7 @@ const RecorderWrap = Styled.div`
                                 fill: #FC495D;
                             }
                         }
-                        
+
                     }
                     svg{
                         width: 36px;
@@ -77,7 +78,7 @@ const RecorderWrap = Styled.div`
                             fill: var(--color-white);
                         }
                     }
-                    
+
                 }
                 .wpwax-vm-record-btn,
                 .wpwax-vm-pause-btn{
@@ -220,7 +221,7 @@ const RecorderWrap = Styled.div`
                     }
                 }
             }
-            
+
             .wpwax-vm-audio-range{
                 width: calc(100% + 50px);
                 display: block;

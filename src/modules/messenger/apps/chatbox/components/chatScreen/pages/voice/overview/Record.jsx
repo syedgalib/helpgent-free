@@ -315,7 +315,9 @@ function Record() {
                     {!isRecording ? (
                         <p>
                             Tap to
-                            <span className='wpwax-vm-highlighted'>Start</span>
+                            <span className='wpwax-vm-highlighted'>
+								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
+							</span>
                             recording!
                         </p>
                     ) : (

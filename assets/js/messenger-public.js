@@ -16989,7 +16989,7 @@ function Record() {
         children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("p", {
           children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
             className: "wpwax-vm-highlighted",
-            children: "Start"
+            children: recordedTimeInSecond > 0 ? 'resume' : 'start'
           }), "recording!"]
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
           className: "wpwax-vm-record-staging__bottom--action",

@@ -24,6 +24,7 @@ const SidebarWrap = Styled.div`
         margin-bottom: 25px;
         .wpwax-vm-sidebar-title{
             margin: 0;
+            font-family: 'Inter', sans-serif;
         }
         .wpwax-vm-sidebar-refresher{
             line-height: 1;
@@ -35,8 +36,10 @@ const SidebarWrap = Styled.div`
     .wpwax-vm-sidebar-filter{
         margin-bottom: 20px;
         .wpwax-vm-dropdown{
+            width: 100%;
             .wpwax-vm-dropdown__toggle--text{
                 margin-right: 15px;
+                align-items: center;
             }
             .wpwax-vm-dropdown__content{
                 top: 30px;
@@ -58,6 +61,8 @@ const SidebarWrap = Styled.div`
             text-decoration: none;
             white-space: nowrap;
             color: #4D4D4D;
+            min-width: 56px;
+            margin-left: 30px;
             transition: color .25s ease-in;
             svg{
                 margin-right: 10px;
@@ -87,6 +92,7 @@ const SidebarWrap = Styled.div`
             position: absolute;
             right: 20px;
             top: 12px;
+            line-height: 1;
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
@@ -165,6 +171,8 @@ const SidebarWrap = Styled.div`
                 }
                 .wpwax-vm-media__title{
                     line-height: 1.5;
+                    text-transform: initial;
+                    font-family: 'Inter', sans-serif;
                 }
                 .wpax-vm-imglist{
                     display: flex;
@@ -282,6 +290,23 @@ const SidebarWrap = Styled.div`
                                 }
                                 &:after{
                                     display: none;
+                                }
+                            }
+                        }
+                    }
+                    &:first-child{
+                        a{
+                            padding-top: 0;
+                            border-radius: 8px;
+                            border: 0 none;
+                            margin: 0;
+                            &:hover{
+                                color: var(--color-dark);
+                                svg path{
+                                    fill: var(--color-dark);
+                                }
+                                &:after{
+                                    display: block;
                                 }
                             }
                         }

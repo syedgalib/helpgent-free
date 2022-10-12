@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { ReactSVG } from 'react-svg';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
 import { TaglistWrap } from './Style';
@@ -8,6 +9,7 @@ import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
 import Dropdown from 'Components/formFields/Dropdown.jsx';
 import ellipsisH from 'Assets/svg/icons/ellipsis-h.svg';
+import loaders from 'Assets/svg/icons/loader.svg';
 
 /* Dropdown Array Item Declaration */
 const moreDropdown = [
@@ -23,6 +25,10 @@ const moreDropdown = [
 
 const Taglist = (props) => {
     const overlay = document.querySelector('.wpax-vm-overlay');
+    const [state, setState] = useState({
+        tagsPageNumber: 2,
+        hasMore: true
+	});
     const { sessionState, setSessionState, tagState, setTagState } = props;
     const {
         editableTerm,
@@ -39,6 +45,8 @@ const Taglist = (props) => {
         taglistWithSession,
         loader,
     } = sessionState;
+
+    const { tagsPageNumber, hasMore } = state;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -54,43 +62,37 @@ const Taglist = (props) => {
     );
 
     useEffect(() => {
-
         if(tagListModalOpen){
-            setTagState({
-                ...tagState,
-                tagLoader: true
-            });
-            const fetchTerms = async ()=>{
-                const termsResponse = await apiService.getAll('/messages/terms')
-                return termsResponse;
-            }
-            fetchTerms()
-                .then( termsResponse => {
-                    const currentSession = sessionList.filter(singleSession => singleSession.session_id === activeSessionId);
-                    if(taglistWithSession){
-                        if(sessionList.length !== 0){
-                            if(currentSession.length !== 0){
-                                setTagState({
-                                    ...tagState,
-                                    allTags: termsResponse.data.data,
-                                    assignedTags: currentSession[0].terms,
-                                    filteredTagList: currentSession[0].terms,
-                                    tagLoader: false
-                                });
-                            }
-                        }
-                    }else{
+            if(filteredTagList.length === 0){
+                setTagState({
+                    ...tagState,
+                    tagLoader: true
+                });
+                const fetchTags = async () =>{
+                    const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
+                    return tagsResponse;
+                }
+                fetchTags()
+                    .then((tagsResponse) => {
+                        setState({
+                            ...state,
+                            hasMore: true,
+                        });
                         setTagState({
                             ...tagState,
-                            allTags: termsResponse.data.data,
-                            filteredTagList: termsResponse.data.data,
-                            tagLoader: false
+                            tagLoader: false,
+                            allTags: tagsResponse.data.data,
+                            filteredTagList: tagsResponse.data.data,
                         });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                })
+                    })
+                    .catch((error) => {
+                        setTagState({
+                            ...tagState,
+                            tagLoader: false,
+                        });
+                        console.log(error);
+                    });
+            }
         }
 
 	}, [tagListModalOpen]);
@@ -153,6 +155,46 @@ const Taglist = (props) => {
 
     if (images.length > 1) {
         multiImg = true;
+    }
+
+    const fetchMoreTags = ()=>{
+        const pageArg = {
+            limit: '8',
+            page: tagsPageNumber,
+        };
+        setState({
+            ...state,
+            tagsPageNumber: tagsPageNumber+1
+        });
+        // setTagsPageNumber(tagsPageNumber + 1);
+
+        const fetchNextTags = async () => {
+            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            return nextTagResponse;
+        };
+        setTimeout(() => {
+            fetchNextTags()
+                .then((nextTagResponse) => {
+                    if (nextTagResponse.data.data.length === 0) {
+                        setState({
+                            ...state,
+                            hasMore: false,
+                        });
+                    } else {
+                        setState({
+                            ...state,
+                            hasMore: false,
+                        });
+                        setTagState({
+                            ...tagState,
+                            filteredTagList: filteredTagList.concat(nextTagResponse.data.data)
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }, 1000);
     }
 
     return (
@@ -226,54 +268,42 @@ const Taglist = (props) => {
                             <span className='wpwax-vm-spin-dot'></span>
                         </span>
                     ) : filteredTagList.length > 0 ? (
-                        <ul>
-                            {taglistWithSession
-                                ? filteredTagList.map((term, index) => {
-                                      return (
-                                          <li key={index}>
-                                              <span className='wpwax-vm-taglist-label'>
-                                                  {term.name}
-                                              </span>
-                                              <Dropdown
-                                                  dropdownText={false}
-                                                  dropdownIconOpen={ellipsisH}
-                                                  dropdownIconClose={ellipsisH}
-                                                  dropdownList={moreDropdown}
-                                                  outerState={sessionState}
-                                                  setOuterState={
-                                                      setSessionState
-                                                  }
-                                                  termState={tagState}
-                                                  setTermState={setTagState}
-                                                  sessionId={activeSessionId}
-                                                  termId={term.term_id}
-                                              />
-                                          </li>
-                                      );
-                                  })
-                                : filteredTagList.map((term, index) => {
-                                      return (
-                                          <li key={index}>
-                                              <span className='wpwax-vm-taglist-label'>
-                                                  {term.name}
-                                              </span>
-                                              <Dropdown
-                                                  dropdownText={false}
-                                                  dropdownIconOpen={ellipsisH}
-                                                  dropdownIconClose={ellipsisH}
-                                                  dropdownList={moreDropdown}
-                                                  outerState={sessionState}
-                                                  setOuterState={
-                                                      setSessionState
-                                                  }
-                                                  termState={tagState}
-                                                  setTermState={setTagState}
-                                                  sessionId={activeSessionId}
-                                                  termId={term.term_id}
-                                              />
-                                          </li>
-                                      );
-                                  })}
+                        <ul id="wpwax-vm-scrollable-taglist">
+                            <InfiniteScroll
+                                dataLength={filteredTagList.length}
+                                next={fetchMoreTags}
+                                hasMore={hasMore}
+                                scrollableTarget='wpwax-vm-scrollable-taglist'
+                                loader={
+                                    <span className='wpwax-vm-more-loader'>
+                                        <ReactSVG src={loaders} />
+                                    </span>
+                                }
+                            >
+                            {filteredTagList.map((term, index) => {
+                                return (
+                                    <li key={index}>
+                                        <span className='wpwax-vm-taglist-label'>
+                                            {term.name}
+                                        </span>
+                                        <Dropdown
+                                            dropdownText={false}
+                                            dropdownIconOpen={ellipsisH}
+                                            dropdownIconClose={ellipsisH}
+                                            dropdownList={moreDropdown}
+                                            outerState={sessionState}
+                                            setOuterState={
+                                                setSessionState
+                                            }
+                                            termState={tagState}
+                                            setTermState={setTagState}
+                                            sessionId={activeSessionId}
+                                            termId={term.term_id}
+                                        />
+                                    </li>
+                                );
+                            })}
+                            </InfiniteScroll>
                         </ul>
                     ) : (
                         <div className='wpwax-vm-empty'>

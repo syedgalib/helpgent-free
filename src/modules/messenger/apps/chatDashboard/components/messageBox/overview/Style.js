@@ -68,7 +68,6 @@ const ChatboxForm = Styled.div`
         }
     }
     .wpwax-vm-chatbox-footer{
-        background-color: var(--color-page-bg);
         .wpwax-vm-chatbox-footer__title{
             font-size: 16px;
             font-weight: 600;
@@ -157,7 +156,7 @@ const ChatboxForm = Styled.div`
                 }
                 .wpwax-vm-chatbox-img{
                     position: relative;
-                    min-height: 330px;
+                    min-height: 300px;
                     z-index: 10;
                     &:after{
                         position: absolute;

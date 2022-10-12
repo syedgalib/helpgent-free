@@ -5060,6 +5060,71 @@ function formatSecondsAsCountdown(timeInSecond) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useDebounce": function() { return /* reexport safe */ _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_1__.useDebounce; },
+/* harmony export */   "useScreenSize": function() { return /* reexport safe */ _hooks_useScreenSize__WEBPACK_IMPORTED_MODULE_0__.useScreenSize; }
+/* harmony export */ });
+/* harmony import */ var _hooks_useScreenSize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hooks/useScreenSize */ "./src/helpers/hooks/useScreenSize.js");
+/* harmony import */ var _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hooks/useDebounce */ "./src/helpers/hooks/useDebounce.js");
+
+
+
+/***/ }),
+
+/***/ "./src/helpers/hooks/useDebounce.js":
+/*!******************************************!*\
+  !*** ./src/helpers/hooks/useDebounce.js ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useDebounce": function() { return /* binding */ useDebounce; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+function useDebounce(value, delay) {
+  // State and setters for debounced value
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(value),
+      _useState2 = _slicedToArray(_useState, 2),
+      debouncedValue = _useState2[0],
+      setDebouncedValue = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var timeoutHandler = setTimeout(function () {
+      setDebouncedValue(value);
+    }, delay);
+    return function () {
+      return clearTimeout(timeoutHandler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
+
+/***/ }),
+
+/***/ "./src/helpers/hooks/useScreenSize.js":
+/*!********************************************!*\
+  !*** ./src/helpers/hooks/useScreenSize.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "useScreenSize": function() { return /* binding */ useScreenSize; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -5203,47 +5268,6 @@ function parseInteger(value, fallback) {
 }
 
 
-
-/***/ }),
-
-/***/ "./src/helpers/utils.js":
-/*!******************************!*\
-  !*** ./src/helpers/utils.js ***!
-  \******************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "debounce": function() { return /* binding */ debounce; }
-/* harmony export */ });
-/**
- *
- * @see https://davidwalsh.name/javascript-debounce-function
- *
- * @param {function} func
- * @param {number} wait
- * @param {boolean} immediate
- * @returns Debounced function
- */
-function debounce(func, wait, immediate) {
-  var timeout;
-  return function () {
-    var context = this,
-        args = arguments;
-
-    var later = function later() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
-}
-;
 
 /***/ }),
 
@@ -6311,7 +6335,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var ChatDashboardWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    padding-top: 40px;\n    font-family: 'Inter';\n    @media only screen and (max-width: 991px){\n        flex-direction: column;\n        align-items: center;\n    }\n    .wpwax-vm-sidebar{\n        width: 340px;\n        padding-left: 10px;\n        @media only screen and (max-width: 991px){\n            margin-bottom: 6px;\n            padding-left: 0;\n        }\n    }\n    .wpwax-vm-messagebox{\n        flex: auto;\n        margin: 0 40px 0 30px;\n        border-radius: 20px;\n        /* background-color: var(--color-white); */\n        @media only screen and (max-width: 1199px){\n            margin: 0 15px 0 15px;\n        }\n        @media only screen and (max-width: 767px){\n            width: 100%;\n            margin: 0 15px 0 5px;\n        }\n        .wpwax-vm-loder-active{\n            &:after{\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                border-radius: 20px;\n                background-color: var(--color-white)\n            }\n        }\n        .wpwax-vm-loading-spin{\n            top: -50%;\n            left: 50%;\n            z-index: 100;\n        }\n    }\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n"])));
+var ChatDashboardWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    padding-top: 40px;\n    font-family: 'Inter', sans-serif;\n    @media only screen and (max-width: 991px){\n        flex-direction: column;\n        align-items: center;\n    }\n    .wpwax-vm-sidebar{\n        width: 340px;\n        padding-left: 10px;\n        @media only screen and (max-width: 991px){\n            margin-bottom: 6px;\n            padding-left: 0;\n        }\n    }\n    .wpwax-vm-messagebox{\n        flex: auto;\n        margin: 0 40px 0 30px;\n        border-radius: 20px;\n        /* background-color: var(--color-white); */\n        @media only screen and (max-width: 1199px){\n            margin: 0 15px 0 15px;\n        }\n        @media only screen and (max-width: 767px){\n            width: 100%;\n            margin: 0 15px 0 5px;\n        }\n        .wpwax-vm-loder-active{\n            &:after{\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                border-radius: 20px;\n                background-color: var(--color-white)\n            }\n        }\n        .wpwax-vm-loading-spin{\n            top: -50%;\n            left: 50%;\n            z-index: 100;\n        }\n    }\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (ChatDashboardWrap);
 
 /***/ }),
@@ -6327,26 +6351,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/UserAvaterList.jsx */ "./src/lib/components/UserAvaterList.jsx");
 /* harmony import */ var _overview_Message_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./overview/Message.jsx */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/overview/Message.jsx");
 /* harmony import */ var _overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overview/video/Index.jsx */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/overview/video/Index.jsx");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
-/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
-/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
-/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
-/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
-/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! apiService/attachment-api */ "./src/lib/apiService/attachment-api.js");
-/* harmony import */ var _helpers_utils_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../../helpers/utils.js */ "./src/helpers/utils.js");
-/* harmony import */ var Helper_hooks_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Helper/hooks.js */ "./src/helpers/hooks.js");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
-/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
-/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/lib/components/LoadingSpinDot.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Helper_hooks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Helper/hooks */ "./src/helpers/hooks.js");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
+/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
+/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
+/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
+/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/Style.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! apiService/attachment-api */ "./src/lib/apiService/attachment-api.js");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
+/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
+/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Helper/formatter.js */ "./src/helpers/formatter.js");
+/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/lib/components/LoadingSpinDot.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -6382,7 +6405,6 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
- // import { ReactSVG } from 'react-svg';
 
 
 
@@ -6423,97 +6445,102 @@ function MessageBox(_ref) {
   var searchInputRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
-      scrollBtnVisibility = _useState2[0],
-      setScrollBtnVisibility = _useState2[1];
+      searchTerm = _useState2[0],
+      setSearchTerm = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      messageDirection = _useState4[0],
-      setMessageDirection = _useState4[1];
+      scrollBtnVisibility = _useState4[0],
+      setScrollBtnVisibility = _useState4[1];
 
-  var _useScreenSize = (0,Helper_hooks_js__WEBPACK_IMPORTED_MODULE_15__.useScreenSize)(),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('bottom'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      messageDirection = _useState6[0],
+      setMessageDirection = _useState6[1];
+
+  var _useScreenSize = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_5__.useScreenSize)(),
       _useScreenSize2 = _slicedToArray(_useScreenSize, 2),
       screenSize = _useScreenSize2[0],
       SCREEN_SIZES = _useScreenSize2[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      sessionMessages = _useState6[0],
-      setSessionMessages = _useState6[1];
-
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      latestMessageDate = _useState8[0],
-      setLatestMessageDate = _useState8[1];
+      sessionMessages = _useState8[0],
+      setSessionMessages = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      isLoadingMoreMessages = _useState10[0],
-      setIsLoadingMoreMessages = _useState10[1];
+      latestMessageDate = _useState10[0],
+      setLatestMessageDate = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      isLoadingSession = _useState12[0],
-      setIsLoadingSession = _useState12[1];
+      isLoadingMoreMessages = _useState12[0],
+      setIsLoadingMoreMessages = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState14 = _slicedToArray(_useState13, 2),
-      isSendingTextMessage = _useState14[0],
-      setIsSendingTextMessage = _useState14[1];
+      isLoadingSession = _useState14[0],
+      setIsLoadingSession = _useState14[1];
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState16 = _slicedToArray(_useState15, 2),
-      isSendingAudioMessage = _useState16[0],
-      setIsSendingAudioMessage = _useState16[1]; //
+      isSendingTextMessage = _useState16[0],
+      setIsSendingTextMessage = _useState16[1];
 
-
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
-      recordedAudioBlob = _useState18[0],
-      setRecordedAudioBlob = _useState18[1];
+      isSendingAudioMessage = _useState18[0],
+      setIsSendingAudioMessage = _useState18[1]; //
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      isRecordingVoice = _useState20[0],
-      setIsRecordingVoice = _useState20[1];
+      recordedAudioBlob = _useState20[0],
+      setRecordedAudioBlob = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState22 = _slicedToArray(_useState21, 2),
-      recordedVoiceTimeInSecond = _useState22[0],
-      setRecordedVoiceTimeInSecond = _useState22[1];
+      isRecordingVoice = _useState22[0],
+      setIsRecordingVoice = _useState22[1];
 
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState24 = _slicedToArray(_useState23, 2),
-      recordedTimeLength = _useState24[0],
-      setRecordedTimeLength = _useState24[1];
+      recordedVoiceTimeInSecond = _useState24[0],
+      setRecordedVoiceTimeInSecond = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState26 = _slicedToArray(_useState25, 2),
+      recordedTimeLength = _useState26[0],
+      setRecordedTimeLength = _useState26[1];
 
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
   // Refs
 
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(); // Message Contents
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-      _useState26 = _slicedToArray(_useState25, 2),
-      textMessageContent = _useState26[0],
-      setTextMessageContent = _useState26[1]; // Search Results
-
-
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState28 = _slicedToArray(_useState27, 2),
-      currentSearchResultPage = _useState28[0],
-      setCurrentSearchResultPage = _useState28[1];
+      textMessageContent = _useState28[0],
+      setTextMessageContent = _useState28[1]; // Search Results
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
       _useState30 = _slicedToArray(_useState29, 2),
-      isLoadingSearchResults = _useState30[0],
-      setIsLoadingSearchResults = _useState30[1];
+      currentSearchResultPage = _useState30[0],
+      setCurrentSearchResultPage = _useState30[1];
 
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState32 = _slicedToArray(_useState31, 2),
-      isLoadingMoreSearchResults = _useState32[0],
-      setIsLoadingMoreSearchResults = _useState32[1];
+      isLoadingSearchResults = _useState32[0],
+      setIsLoadingSearchResults = _useState32[1];
+
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState34 = _slicedToArray(_useState33, 2),
+      isLoadingMoreSearchResults = _useState34[0],
+      setIsLoadingMoreSearchResults = _useState34[1];
   /* initialize Form Data */
 
 
@@ -6560,8 +6587,32 @@ function MessageBox(_ref) {
     }
 
     return selectedWindowData;
-  }; // Update session on sessionID change
+  };
 
+  var debouncedSearchTerm = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_5__.useDebounce)(searchTerm, 250); // Effect for API call
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var text = debouncedSearchTerm;
+
+    if (selectedSession) {
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
+
+      var newSearchQueryArgs = {
+        message: text
+      };
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+
+      if (text.length) {
+        // Activate Search Mode
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+      } else {
+        // Inactivate Search Mode
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
+      }
+
+      loadSearchResults(newSearchQueryArgs);
+    }
+  }, [debouncedSearchTerm]); // Update session on sessionID change
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Reset Text Message Content
@@ -6602,7 +6653,7 @@ function MessageBox(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].getData('/messages', {
+                return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', {
                   session_id: session_id,
                   limit: paginationPerPage
                 });
@@ -6632,8 +6683,8 @@ function MessageBox(_ref) {
 
       var sessionMessages = response.data.data; // Update The Store
 
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.addSession)(session_id, sessionMessages));
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.addSessionWindowData)(session_id));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSession)(session_id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.addSessionWindowData)(session_id));
       setSessionMessages(sessionMessages);
       setIsLoadingSession(false);
     }).catch(function (error) {
@@ -6718,22 +6769,22 @@ function MessageBox(_ref) {
   var isShowingVoiceSearchResult = getWindowData('isShowingVoiceSearchResult');
 
   var setSearchResults = function setSearchResults(results) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchResults', results));
   };
 
   var dismisSearch = function dismisSearch() {
     // Hide Search Results
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false)); // Reset Serch Result
 
     setSearchResults([]); // Reset Serch Query Args
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', {}));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', {}));
   };
 
   var dismissFilters = function dismissFilters() {
     dismisSearch();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
   };
   /* Handle Search Toggle */
 
@@ -6743,7 +6794,7 @@ function MessageBox(_ref) {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
     dismissFilters();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', true));
   };
 
   var handleDiactiveSearch = function handleDiactiveSearch(event) {
@@ -6751,9 +6802,9 @@ function MessageBox(_ref) {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0); // Close search bar
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', false)); // Reset search input
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'openSearch', false)); // Reset search input
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', '')); // Reset Search Result
 
     dismisSearch();
   };
@@ -6777,15 +6828,15 @@ function MessageBox(_ref) {
 
   var showReplayViaVideoMessage = function showReplayViaVideoMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('video'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('video'));
   };
   /* Handle Text Message */
 
 
   var showReplayViaTextMessage = function showReplayViaTextMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('text'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('text'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
   /* Handle Voice Message */
 
@@ -6818,8 +6869,8 @@ function MessageBox(_ref) {
 
             case 8:
               // Show Recording UI
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)('voice'));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
 
             case 10:
             case "end":
@@ -6838,7 +6889,7 @@ function MessageBox(_ref) {
 
   var haldleReplyMode = function haldleReplyMode() {
     if (messageType === 'video') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sessionID: selectedSession.session_id,
         onSuccess: loadLatestMessages,
         replayingTo: getReplaingToUser()
@@ -7065,7 +7116,7 @@ function MessageBox(_ref) {
               };
               _context17.prev = 1;
               _context17.next = 4;
-              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_13__["default"].createAttachment({
+              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_14__["default"].createAttachment({
                 file: file
               });
 
@@ -7114,7 +7165,7 @@ function MessageBox(_ref) {
               };
               _context6.prev = 3;
               _context6.next = 6;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].postData('/messages', args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].postData('/messages', args);
 
             case 6:
               _response = _context6.sent;
@@ -7160,7 +7211,7 @@ function MessageBox(_ref) {
               };
               _context7.prev = 3;
               _context7.next = 6;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_17__["default"].getData('/messages', args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_16__["default"].getData('/messages', args);
 
             case 6:
               _response2 = _context7.sent;
@@ -7228,8 +7279,8 @@ function MessageBox(_ref) {
   }();
 
   var closeVoiceChat = function closeVoiceChat() {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
 
   var prepareVoiceRecording = /*#__PURE__*/function () {
@@ -7564,7 +7615,7 @@ function MessageBox(_ref) {
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessages)(selectedSession.session_id, updatedSessionMessages));
 
             case 19:
             case "end":
@@ -7647,69 +7698,68 @@ function MessageBox(_ref) {
   var updateTextSearchResult = function updateTextSearchResult(event) {
     event.preventDefault();
     var text = event.target.value;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchKeyword', text)); // Update Query Args
 
     var newSearchQueryArgs = {
       message: text
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
 
     if (text.length) {
       // Activate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
     } else {
       // Inactivate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', false));
     }
 
     loadSearchResults(newSearchQueryArgs);
-  };
+  }; // const onMessageSearch = debounce(updateTextSearchResult, 250);
 
-  var onMessageSearch = (0,_helpers_utils_js__WEBPACK_IMPORTED_MODULE_14__.debounce)(updateTextSearchResult, 250);
 
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
-    setMessageDirection('top');
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
+    setMessageDirection('bottom');
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false));
 
     if (isShowingVideoSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false)); // Close Search
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false)); // Close Search
 
       dismisSearch();
       return;
     } //
 
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', true)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', true)); // Update Query Args
 
     var newSearchQueryArgs = {
       message_type: 'video'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
   };
 
   var filterVoiceMessages = function filterVoiceMessages(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVideoSearchResult', false));
 
     if (isShowingVoiceSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false)); // Close Search
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', false)); // Close Search
 
       dismisSearch();
       return;
     } //
 
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', true)); // Update Query Args
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isShowingVoiceSearchResult', true)); // Update Query Args
 
     var newSearchQueryArgs = {
       message_type: 'audio'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'isSearching', true));
   };
 
   var loadSearchResults = /*#__PURE__*/function () {
@@ -7870,23 +7920,23 @@ function MessageBox(_ref) {
 
   var handleFooterContent = function handleFooterContent() {
     if (messageType === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleTextClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("form", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("form", {
               onSubmit: sendTextMessage,
               autoComplete: "off",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                 ref: textMessageContentRef,
                 type: "text",
                 disabled: isSendingTextMessage,
@@ -7897,7 +7947,7 @@ function MessageBox(_ref) {
                 onChange: function onChange(event) {
                   setTextMessageContent(event.target.value);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                 type: "submit",
                 style: {
                   display: 'none'
@@ -7905,116 +7955,116 @@ function MessageBox(_ref) {
                 hidden: true
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendTextMessage() ? false : true,
               onClick: sendTextMessage,
-              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
               })
             })
           })]
         })]
       });
     } else if (messageType === 'voice') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-close",
               onClick: handleVoiceClose,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 className: "dashicons dashicons-no-alt"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-audio-range",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 style: {
                   width: recordedTimeLength + '%'
                 },
                 className: "wpwax-vm-audio-range-inner"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_18__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_17__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendAudioMessage() ? false : true,
               onClick: handleSendAudioMessage,
-              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
               })
             })
           })]
         })
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
           className: "wpwax-vm-messagebox-footer__text",
           children: "How would you like to answer?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-messagebox-footer__actionlist",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVideoMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Video"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVoiceMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Voice"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaTextMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Text"
             })]
@@ -8033,8 +8083,8 @@ function MessageBox(_ref) {
       return;
     }
 
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
   };
   /* Handle Text Colse */
 
@@ -8061,8 +8111,8 @@ function MessageBox(_ref) {
                 setRecordedAudioBlob(null);
               }
 
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleMessageTypeChange)(''));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleMessageTypeChange)(''));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.handleReplyModeChange)(false));
 
             case 6:
             case "end":
@@ -8087,7 +8137,7 @@ function MessageBox(_ref) {
         }) : messageItem;
       });
     });
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionMessageItem)(selectedSession.session_id, message.id, {
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionMessageItem)(selectedSession.session_id, message.id, {
       is_seen: true
     })); // Update Unread Message Count
 
@@ -8097,6 +8147,7 @@ function MessageBox(_ref) {
   var handleScrollBottom = function handleScrollBottom(event) {
     event.preventDefault();
     var scrollingBody = document.querySelector('.wpwax-vm-messagebox-body .infinite-scroll-component ');
+    console.log(scrollingBody, messageDirection);
 
     if (messageDirection === 'bottom') {
       scrollingBody.scrollTo({
@@ -8111,75 +8162,77 @@ function MessageBox(_ref) {
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.ChatBoxWrap, {
-    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.ChatBoxWrap, {
+    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
       style: {
         height: '100%'
       },
       className: isLoadingSearchResults || isLoadingSession ? 'wpwax-vm-loder-active' : '',
-      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.MessageBoxWrap, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_12__.MessageBoxWrap, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
-            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 users: getSessionUsers()
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: openSearch ? 'wpwax-vm-messagebox-header__right wpwax-vm-search-active' : 'wpwax-vm-messagebox-header__right',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                 className: "wpwax-vm-messagebox-header__actionlist",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                     className: "wpwax-vm-searchbox",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("input", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("input", {
                       type: "text",
                       ref: searchInputRef,
                       name: "wpwax-vm-messagebox-search" // value={getWindowData('searchKeyword')}
                       ,
                       id: "wpwax-vm-messagebox-search",
                       placeholder: "Search",
-                      onChange: onMessageSearch
+                      onChange: function onChange(e) {
+                        return setSearchTerm(e.target.value);
+                      }
                     })
-                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleActiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleDiactiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "dashicons dashicons-no-alt"
                     })
                   })]
-                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVideoSearchResult ? ' active' : ''),
                     onClick: toggleFilterVideoMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Videos"
                     })]
                   })
-                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVoiceSearchResult ? ' active' : ''),
                     onClick: filterVoiceMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_21__["default"], {
-                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
+                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Voice"
                     })]
@@ -8187,20 +8240,20 @@ function MessageBox(_ref) {
                 }) : null]
               })
             })]
-          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               onScroll: function onScroll(event) {
                 var scrollMeta = {
                   viewPortTop: event.target.scrollTop,
                   viewPortBottom: event.target.scrollTop + event.target.offsetHeight
                 };
-                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_16__.updateSessionWindowData)(selectedSession.session_id, 'messagesContainerScrollMeta', scrollMeta));
+                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSessionWindowData)(selectedSession.session_id, 'messagesContainerScrollMeta', scrollMeta));
               },
               height: getMessageBoxHeight(),
               dataLength: sessionMessages.length,
@@ -8214,7 +8267,7 @@ function MessageBox(_ref) {
               inverse: true //
               ,
               hasMore: true,
-              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h3", {
+              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8222,7 +8275,7 @@ function MessageBox(_ref) {
               }) : '',
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user,
                   containerScrollMeta: messagesContainerScrollMeta,
@@ -8231,30 +8284,30 @@ function MessageBox(_ref) {
                   }
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
-          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
+          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
-            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_13__["default"], {
               height: getMessageBoxHeight(),
               dataLength: searchResults.length,
               next: function next() {
                 loadMoreSearchResults();
               },
               hasMore: true,
-              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h3", {
+              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -8265,33 +8318,33 @@ function MessageBox(_ref) {
               },
               scrollableTarget: "scrollableDiv",
               children: searchResults.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_overview_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
           }), handleFooterContent()]
-        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
           className: "wpwax-vm-replymode-wrap",
           children: haldleReplyMode()
         }) : '']
-      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_19__["default"], {}) : null]
-    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("div", {
+      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_18__["default"], {}) : null]
+    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
       style: CenterBoxStyle,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h2", {
         children: "No conversation is selected."
       })
     })]
@@ -8321,7 +8374,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 520px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            right: 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            background-color: #F0F0F0;\n            border-radius: 30px 30px 0 0;\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                right: 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 22px;\n                font-weight: 600;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    flex-direction: column;\n                    min-width: 300px;\n                    min-height: 150px;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    background-color: var(--color-white);\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        margin-bottom: 12px;\n                        svg{\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])));
-var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    min-height: 600px;\n    background-color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        min-height: 500px;\n    }\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 0 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                    @media only screen and (max-width: 1399px){\n                        max-width: 34px;\n                        height: 34px;\n                    }\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    @media only screen and (max-width: 1399px){\n                        width: 26px;\n                        height: 26px;\n                    }\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                        @media only screen and (max-width: 1399px){\n                            width: 20px;\n                            height: 20px;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        box-sizing: border-box;\n        @media only screen and (max-width: 1199px){\n            padding: 5px 15px 0 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            @media only screen and (max-width: 1399px){\n                font-size: 13px;\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n            svg{\n                @media only screen and (max-width: 1399px){\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            /* max-height: 600px; */\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        @media only screen and (max-width: 1299px){\n            padding: 20px;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 18px;\n                    }\n                    @media only screen and (max-width: 1299px){\n                        font-size: 14px;\n                        padding: 0 10px;\n                        margin: 5px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n\n                    svg{\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n\n\t\t\t&[disabled] {\n\t\t\t\topacity: 50%;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
+var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    min-height: 600px;\n    background-color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        min-height: 500px;\n    }\n    h1,\n    h2,\n    h3,\n    h4,\n    h5,\n    h6{\n        font-family: 'Inter', sans-serif;\n    }\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n        .wpwax-vm-media__title{\n            text-transform: initial;\n            line-height: 1.45;\n            font-family: 'Inter', sans-serif;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 0 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                    @media only screen and (max-width: 1399px){\n                        max-width: 34px;\n                        height: 34px;\n                    }\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    @media only screen and (max-width: 1399px){\n                        width: 26px;\n                        height: 26px;\n                    }\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                        @media only screen and (max-width: 1399px){\n                            width: 20px;\n                            height: 20px;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        box-sizing: border-box;\n        @media only screen and (max-width: 1199px){\n            padding: 5px 15px 0 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            @media only screen and (max-width: 1399px){\n                font-size: 13px;\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n            svg{\n                @media only screen and (max-width: 1399px){\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            /* max-height: 600px; */\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        @media only screen and (max-width: 1299px){\n            padding: 20px;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 32.5px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1399px){\n                font-size: 14px;\n            }\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -10px 0;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 10px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 25px;\n                        font-size: 14px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 1240px){\n                        padding: 0 10px;\n                        margin: 5px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: 1;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n\n                    svg{\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n\n\t\t\t&[disabled] {\n\t\t\t\topacity: 50%;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-close{\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 25px;\n                width: 25px;\n                height: 25px;\n                line-height: 1;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -8746,7 +8799,7 @@ var _templateObject, _templateObject2, _templateObject3;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    box-sizing: border-box;\n\ta:focus, a:active {\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t}\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        z-index: -1;\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-size: 15px;\n            font-weight: 600;\n            line-height: 1.33;\n            color: #ffffff;\n            margin: 15px 0 15px;\n        }\n        .wpwax-vm-chatbox-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        background-color: var(--color-page-bg);\n        .wpwax-vm-chatbox-footer__title{\n            font-size: 16px;\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-white);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 44px;\n                flex: 0 0 48%;\n                margin: 1%;\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            color: var(--color-white);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-chatbox-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                display: block;\n                padding: 0;\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    min-height: 330px;\n                    z-index: 10;\n                    &:after{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 280px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                        content: '';\n                        z-index: -1;\n                    }\n                    &:before{\n                        position: absolute;\n                        left: 0;\n                        bottom: -100px;\n                        width: 100%;\n                        height: 250px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                        content: '';\n                        z-index: -1;\n                    }\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 10;\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-text);\n                }\n            }\n        }\n    }\n\n\n"])));
+var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    box-sizing: border-box;\n\ta:focus, a:active {\n\t\toutline: none !important;\n\t\tbox-shadow: none !important;\n\t}\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        z-index: -1;\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-size: 15px;\n            font-weight: 600;\n            line-height: 1.33;\n            color: #ffffff;\n            margin: 15px 0 15px;\n        }\n        .wpwax-vm-chatbox-subtitle{\n            font-size: 15px;\n            font-weight: 500;\n            opacity: .8;\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-size: 16px;\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-white);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                box-sizing: border-box;\n                min-height: 44px;\n                flex: 0 0 48%;\n                margin: 1%;\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-size: 13px;\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            color: var(--color-white);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-chatbox-title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                display: block;\n                padding: 0;\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    min-height: 300px;\n                    z-index: 10;\n                    &:after{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 280px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                        content: '';\n                        z-index: -1;\n                    }\n                    &:before{\n                        position: absolute;\n                        left: 0;\n                        bottom: -100px;\n                        width: 100%;\n                        height: 250px;\n                        opacity: .9;\n                        background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                        content: '';\n                        z-index: -1;\n                    }\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 10;\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: 13px;\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-text);\n                }\n            }\n        }\n    }\n\n\n"])));
 var ContactFormWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-contact-form{\n        padding: 60px 25px 25px;\n        position: relative;\n        min-height: 595px;\n        .wpwax-vm-contact-form__title{\n            font-size: 18px;\n            font-weight: 500;\n            font-family: var(--font-family);\n            line-height: 1.333;\n            margin: 0 0 30px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n            .wpwax-vm-form__element{\n                min-height: 46px;\n                border-radius: 8px;\n            }\n        }\n        .wpwax-vm-form__bottom{\n            position: absolute;\n            width: calc( 100% - 50px );\n            bottom: 25px;\n            left: 25px;\n            .wpwax-vm-btn{\n                border-radius: 10px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                    margin-left: 10px;\n                }\n            }\n        }\n    }\n"])));
 var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpwax-vm-message-single{\n        display: flex;\n        align-items: flex-start;\n        justify-content: flex-end;\n        margin-bottom: 30px;\n        padding: 0 30px;\n        @media only screen and (max-width: 767px){\n            padding: 0 15px;\n        }\n        .wpwax-vm-message-author{\n            margin-left: 15px;\n            img{\n                max-width: 44px;\n                border-radius: 50%;\n            }\n        }\n        .wpwax-vm-message-content{\n            .wpwax-vm-message-content__top{\n                text-align: right;\n                margin-bottom: 8px;\n                span{\n                    font-size: 14px;\n                    color: var(--color-text);\n                }\n                .wpwax-vm-message-time{\n                    display:  inline-block;\n                    margin-left: 4px;\n                }\n            }\n            .wpwax-vm-message-content__inner{\n                padding: 12px 18px 14px;\n                border-radius: 16px 0 16px 16px;\n                background-color: var(--color-bg-general);\n                p{\n                    font-size: 17px;\n                    margin: 0;\n                    color: #4D4D4D;\n                    @media only screen and (max-width: 1199px){\n                        font-size: 15px;\n                    }\n                }\n            }\n        }\n        &.wpwax-vm-message-single-video{\n            .wpwax-vm-message-content__inner{\n                padding: 18px;\n            }\n        }\n        &.wpwax-vm-message-single-replied{\n            justify-content: flex-start;\n            .wpwax-vm-message-author{\n                margin-left: 0;\n                margin-right: 15px;\n                order: -1;\n            }\n            .wpwax-vm-message-content{\n                .wpwax-vm-message-content__top{\n                    text-align: left;\n                }\n                .wpwax-vm-message-content__inner{\n                    border-radius: 0 16px 16px;\n                }\n            }\n\n        }\n        &.wpwax-vm-message-single-video{\n            .wpwax-vm-message-content{\n                .wpwax-vm-message-content__inner{\n                    background-color: #F3F3F3;\n                    width: 440px;\n                    position: relative;\n                    @media only screen and (max-width: 767px){\n                        min-height: 140px;\n                        width: 240px;\n                    }\n                    @media only screen and (max-width: 375px){\n                        min-height: 140px;\n                        width: 200px;\n                    }\n                    video{\n                        width: 100%;\n                        height: 100%;\n                    }\n                    .wpwax-vm-btn-play{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        position: absolute;\n                        left: 50%;\n                        top: 50%;\n                        transform: translate(-50%,-50%);\n                        text-decoration: none;\n                        width: 44px;\n                        height: 44px;\n                        border-radius: 50%;\n                        background-color: var(--color-black);\n                        .dashicons{\n                            position: relative;\n                            top: -2px;\n                            font-size: 24px;\n                            color: var(--color-white);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-message-content__inner--video{\n            display: flex;\n            align-items: center;\n            position: relative;\n            &:after{\n                position: absolute;\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                border-radius: 16px;\n                content: '';\n                z-index: 0;\n                background-color: rgba(3,3,8,.30);\n            }\n            .wpwax-vm-btn-expander{\n                position: absolute;\n                top: 30px;\n                right: 40px;\n                z-index: 10;\n            }\n            .wpwax-vm-btn-play{\n                z-index: 10;\n            }\n        }\n        &.wpwax-vm-message-single-audio{\n            .wpwax-vm-message-content__inner--audio{\n                display: flex;\n                align-items: flex-start;\n                .wpwax-vm-btn-play{\n                    position: relative;\n                    top: 2px;\n                    text-decoration: none;\n                    line-height: 1;\n                    span.dashicons{\n                        font-size: 24px;\n                        margin-right: 10px;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n            .wpwax-vm-timer{\n                display: inline-block;\n                font-size: 14px;\n                font-weight: 500;\n                margin-top: 8px;\n                color: var(--color-dark)\n            }\n        }\n    }\n"])));
 
@@ -9098,7 +9151,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 0px;\n        left: 0;\n        right: 0;\n        top: 80px;\n        bottom: 0;\n        width: 100%;\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 0;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: -40px;\n            right: 40px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 0 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
+var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 0px;\n        left: 0;\n        right: 0;\n        top: 80px;\n        bottom: 0;\n        width: 100%;\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 0;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: -40px;\n            right: 40px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 0 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -10121,35 +10174,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _overview_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/DeleteConfirm.jsx */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/DeleteConfirm.jsx");
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
 /* harmony import */ var _overview_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overview/TagFilter.jsx */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/TagFilter.jsx");
-/* harmony import */ var _store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../store/sessions/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/sessions/actionCreator.js");
-/* harmony import */ var Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-v.svg */ "./src/assets/svg/icons/ellipsis-v.svg");
-/* harmony import */ var Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/envelope-open.svg */ "./src/assets/svg/icons/envelope-open.svg");
-/* harmony import */ var Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/filter.svg */ "./src/assets/svg/icons/filter.svg");
-/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
-/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Assets/svg/icons/slider.svg */ "./src/assets/svg/icons/slider.svg");
-/* harmony import */ var Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Assets/svg/icons/rotate-right.svg */ "./src/assets/svg/icons/rotate-right.svg");
-/* harmony import */ var Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Assets/svg/icons/tag.svg */ "./src/assets/svg/icons/tag.svg");
-/* harmony import */ var Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Assets/svg/icons/trash.svg */ "./src/assets/svg/icons/trash.svg");
-/* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Style.js");
-/* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
-/* harmony import */ var _helpers_utils_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../../../../../helpers/utils.js */ "./src/helpers/utils.js");
+/* harmony import */ var Helper_hooks__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Helper/hooks */ "./src/helpers/hooks.js");
+/* harmony import */ var _store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../store/sessions/actionCreator */ "./src/modules/messenger/apps/chatDashboard/store/sessions/actionCreator.js");
+/* harmony import */ var Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-v.svg */ "./src/assets/svg/icons/ellipsis-v.svg");
+/* harmony import */ var Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/envelope-open.svg */ "./src/assets/svg/icons/envelope-open.svg");
+/* harmony import */ var Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/filter.svg */ "./src/assets/svg/icons/filter.svg");
+/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
+/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Assets/svg/icons/slider.svg */ "./src/assets/svg/icons/slider.svg");
+/* harmony import */ var Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Assets/svg/icons/rotate-right.svg */ "./src/assets/svg/icons/rotate-right.svg");
+/* harmony import */ var Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Assets/svg/icons/tag.svg */ "./src/assets/svg/icons/tag.svg");
+/* harmony import */ var Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Assets/svg/icons/trash.svg */ "./src/assets/svg/icons/trash.svg");
+/* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/Style.js");
+/* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/modules/messenger/apps/chatDashboard/store/messages/actionCreator.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -10248,6 +10301,11 @@ var Sidebar = function Sidebar(_ref) {
       refresher = _useState8[0],
       setRefresher = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState10 = _slicedToArray(_useState9, 2),
+      searchTerm = _useState10[0],
+      setSearchTerm = _useState10[1];
+
   var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
   var sessionList = sessionState.sessionList,
       activeSessionId = sessionState.activeSessionId,
@@ -10258,9 +10316,53 @@ var Sidebar = function Sidebar(_ref) {
       tagFilterDropdownOpen = sessionState.tagFilterDropdownOpen,
       hasMore = sessionState.hasMore,
       loader = sessionState.loader;
+  var allTags = tagState.allTags;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var debouncedSearchTerm = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_10__.useDebounce)(searchTerm, 300); // Effect for API call
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var searchArg = {
+      search: debouncedSearchTerm
+    };
+
+    var fetchSearchNameMail = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var searchByNameMailResponse;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAllByArg('/sessions', searchArg);
+
+              case 2:
+                searchByNameMailResponse = _context.sent;
+                return _context.abrupt("return", searchByNameMailResponse);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function fetchSearchNameMail() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    fetchSearchNameMail().then(function (searchByNameMailResponse) {
+      setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+        loader: false,
+        sessionList: searchByNameMailResponse.data.data
+      }));
+    }).catch(function (error) {
+      console.log(error);
+    });
+  }, [debouncedSearchTerm]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
       hasMore: true,
@@ -10273,29 +10375,29 @@ var Sidebar = function Sidebar(_ref) {
     };
 
     var fetchSession = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var sessionResponse;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAllByArg('/sessions', pageLimit);
 
               case 2:
-                sessionResponse = _context.sent;
-                return _context.abrupt("return", sessionResponse);
+                sessionResponse = _context2.sent;
+                return _context2.abrupt("return", sessionResponse);
 
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
 
       return function fetchSession() {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
 
@@ -10305,39 +10407,7 @@ var Sidebar = function Sidebar(_ref) {
         filteredSessions: sessionResponse.data.data,
         loader: false
       }));
-      dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_10__.handleReadSessions)(sessionResponse.data.data));
-    }).catch(function (error) {
-      console.log(error);
-    });
-
-    var fetchTags = /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var tagsResponse;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                tagsResponse = apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAll('/messages/terms');
-                return _context2.abrupt("return", tagsResponse);
-
-              case 2:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function fetchTags() {
-        return _ref3.apply(this, arguments);
-      };
-    }();
-
-    fetchTags().then(function (tagsResponse) {
-      setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-        allTags: tagsResponse.data.data,
-        filteredTagList: tagsResponse.data.data
-      }));
+      dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadSessions)(sessionResponse.data.data));
     }).catch(function (error) {
       console.log(error);
     });
@@ -10353,6 +10423,55 @@ var Sidebar = function Sidebar(_ref) {
 
   var handleTagFilterDropdown = function handleTagFilterDropdown(event) {
     event.preventDefault();
+
+    if (allTags.length === 0) {
+      setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+        tagLoader: true
+      }));
+
+      var fetchTags = /*#__PURE__*/function () {
+        var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+          var tagsResponse;
+          return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAllByArg('/messages/terms', {
+                    limit: 5
+                  });
+
+                case 2:
+                  tagsResponse = _context3.sent;
+                  return _context3.abrupt("return", tagsResponse);
+
+                case 4:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3);
+        }));
+
+        return function fetchTags() {
+          return _ref4.apply(this, arguments);
+        };
+      }();
+
+      fetchTags().then(function (tagsResponse) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false,
+          allTags: tagsResponse.data.data,
+          filteredTagList: tagsResponse.data.data
+        }));
+      }).catch(function (error) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false
+        }));
+        console.log(error);
+      });
+    }
+
     setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
       tagFilterDropdownOpen: !tagFilterDropdownOpen
     }));
@@ -10366,53 +10485,7 @@ var Sidebar = function Sidebar(_ref) {
       tagListModalOpen: true,
       taglistWithSession: false
     }));
-  }; // Session search.
-
-
-  var handleSessionSearch = function handleSessionSearch(event) {
-    var searchArg = {
-      search: event.target.value
-    };
-
-    var fetchSearchNameMail = /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var searchByNameMailResponse;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.next = 2;
-                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_8__["default"].getAllByArg('/sessions', searchArg);
-
-              case 2:
-                searchByNameMailResponse = _context3.sent;
-                return _context3.abrupt("return", searchByNameMailResponse);
-
-              case 4:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function fetchSearchNameMail() {
-        return _ref4.apply(this, arguments);
-      };
-    }();
-
-    fetchSearchNameMail().then(function (searchByNameMailResponse) {
-      setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-        loader: false,
-        sessionList: searchByNameMailResponse.data.data
-      }));
-      dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_10__.handleReadSessions)(searchByNameMailResponse.data.data));
-    }).catch(function (error) {
-      console.log(error);
-    });
   };
-
-  var onSessionSearch = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((0,_helpers_utils_js__WEBPACK_IMPORTED_MODULE_24__.debounce)(handleSessionSearch, 300), []);
 
   var fetchMoreData = function fetchMoreData() {
     var pageArg = {
@@ -10462,7 +10535,7 @@ var Sidebar = function Sidebar(_ref) {
           }));
         }
 
-        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_10__.handleReadSessions)(sessionList.concat(nextSessionResponse.data.data)));
+        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadSessions)(sessionList.concat(nextSessionResponse.data.data)));
       }).catch(function (error) {
         console.log(error);
       });
@@ -10471,8 +10544,7 @@ var Sidebar = function Sidebar(_ref) {
 
   var handeSelectSession = function handeSelectSession(e, item, index) {
     setaAtiveSession("wpwax-vm-session-".concat(index));
-    console.log(item);
-    dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_23__.updateSelectedSession)(item));
+    dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__.updateSelectedSession)(item));
   };
 
   var handleRefresh = function handleRefresh(event) {
@@ -10485,7 +10557,7 @@ var Sidebar = function Sidebar(_ref) {
     }));
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_22__.SidebarWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
       className: "wpwax-vm-sidebar-top",
@@ -10497,7 +10569,7 @@ var Sidebar = function Sidebar(_ref) {
         className: "wpwax-vm-sidebar-refresher",
         onClick: handleRefresh,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
-          src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
+          src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_19__["default"]
         })
       })]
     }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
@@ -10508,7 +10580,7 @@ var Sidebar = function Sidebar(_ref) {
       children: rejectMessage
     }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_22__.SessionFilterWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_23__.SessionFilterWrap, {
         className: sessionFilterDropdown ? 'wpwax-vm-search-dropdown-show' : null,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-sidebar-search",
@@ -10517,20 +10589,22 @@ var Sidebar = function Sidebar(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-input-icon",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
-                src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_16__["default"]
+                src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-filter-search",
               placeholder: "Search",
-              onChange: onSessionSearch
+              onChange: function onChange(e) {
+                return setSearchTerm(e.target.value);
+              }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-search-toggle",
               onClick: handleToggleSearchDropdown,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
-                src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
+                src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("ul", {
@@ -10559,22 +10633,22 @@ var Sidebar = function Sidebar(_ref) {
         className: "wpwax-vm-sidebar-filter__quick-actions",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           dropdownText: true,
-          textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
-          dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_15__["default"],
-          dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+          textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
+          dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__["default"],
+          dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_15__["default"],
           dropdownList: filterDropdown,
           outerState: sessionState,
           setOuterState: setSessionState
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
+        }), wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-btn-all-tags",
           onClick: handleAllTagActivation,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
-            src: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__["default"]
+            src: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__["default"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             children: "Tags"
           })]
-        })]
+        }) : null]
       })]
     }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
@@ -10598,7 +10672,7 @@ var Sidebar = function Sidebar(_ref) {
           scrollableTarget: "scrollableDiv",
           loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
-              src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_21__["default"]
+              src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__["default"]
             })
           }),
           children: sessionList.map(function (item, index) {
@@ -10641,32 +10715,40 @@ var Sidebar = function Sidebar(_ref) {
             }
 
             if (Number(item.total_unread) > 0) {
-              var moreDropdown = [{
-                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+              var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? [{
+                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
                 name: 'mark-read',
                 text: 'Mark as Read'
               }, {
-                icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
+                icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__["default"],
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
-                icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_20__["default"],
+                icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'delete-conv',
                 text: 'Delete Conversation'
+              }] : [{
+                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+                name: 'mark-read',
+                text: 'Mark as Read'
               }];
             } else {
-              var moreDropdown = [{
-                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+              var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? [{
+                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
                 name: 'mark-unread',
                 text: 'Mark as unread'
               }, {
-                icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_19__["default"],
+                icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__["default"],
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
-                icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_20__["default"],
+                icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'delete-conv',
                 text: 'Delete Conversation'
+              }] : [{
+                icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
+                name: 'mark-unread',
+                text: 'Mark as unread'
               }];
             }
 
@@ -10696,8 +10778,8 @@ var Sidebar = function Sidebar(_ref) {
                   children: item.total_unread
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   dropdownText: false,
-                  dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
-                  dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_11__["default"],
+                  dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
+                  dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
                   dropdownList: moreDropdown,
                   outerState: sessionState,
                   setOuterState: setSessionState,
@@ -10754,7 +10836,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n            font-family: 'Inter', sans-serif;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            width: 100%;\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n                align-items: center;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            min-width: 56px;\n            margin-left: 30px;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            line-height: 1;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                    text-transform: initial;\n                    font-family: 'Inter', sans-serif;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    &:first-child{\n                        a{\n                            padding-top: 0;\n                            border-radius: 8px;\n                            border: 0 none;\n                            margin: 0;\n                            &:hover{\n                                color: var(--color-dark);\n                                svg path{\n                                    fill: var(--color-dark);\n                                }\n                                &:after{\n                                    display: block;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
 var SessionFilterWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    &.wpwax-vm-search-dropdown-show{\n        .wpwax-vm-search-dropdown{\n            display: block;\n        }\n        .wpwax-vm-sidebar-search {\n            >.wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    pointer-events: none;\n                }\n            }\n            .wpwax-vm-form__element{\n                margin: 0;\n                border-radius: 10px 10px 0 0;\n                background-color: var(--color-white);\n            }\n        }\n        .wpwax-vm-search-toggle{\n            svg {\n                path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-search-dropdown{\n        position: absolute;\n        left: 0;\n        top: 40px;\n        width: 100%;\n        margin: 0;\n        border-radius: 0 0 10px 10px;\n        z-index: 10;\n        padding: 12px 0px;\n        display: none;\n        border-top: 1px solid var(--color-border-light);\n        box-shadow: 0 20px 40px rgba(144,144,144,.25);\n        background-color: var(--color-white);\n        li{\n            position: relative;\n            margin: 0;\n            list-style: none;\n            cursor: pointer;\n            .dashicons{\n                width: 14px;\n                height: 14px;\n                font-size: 14px;\n            }\n            >a{\n                display: flex;\n                justify-content: space-between;\n                text-decoration: none;\n                font-size: 14px;\n                font-weight: 500;\n                padding: 12px 20px;\n                color: var(--color-dark);\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -10783,8 +10865,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10792,6 +10872,8 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -10842,15 +10924,22 @@ var AddTag = function AddTag(props) {
       sessions = _useSelector.sessions;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    tagsPageNumber: 2
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     newAssigned: [],
     newUnAssinged: [],
     addTagResponse: '',
     addTagResponseStatus: '',
     tagInput: ''
   }),
-      _useState2 = _slicedToArray(_useState, 2),
-      addFormState = _useState2[0],
-      setAddFormState = _useState2[1];
+      _useState4 = _slicedToArray(_useState3, 2),
+      addFormState = _useState4[0],
+      setAddFormState = _useState4[1];
 
   var sessionState = props.sessionState,
       setSessionState = props.setSessionState,
@@ -10892,8 +10981,54 @@ var AddTag = function AddTag(props) {
         addTagResponse: ''
       }));
     }
-  }, [addTagModalOpen]); // console.log(tagLoader,allTags);
 
+    if (allTags.length === 0) {
+      setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+        tagLoader: true
+      }));
+
+      var fetchTags = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          var tagsResponse;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].getAllByArg('/messages/terms', {
+                    limit: 12
+                  });
+
+                case 2:
+                  tagsResponse = _context.sent;
+                  return _context.abrupt("return", tagsResponse);
+
+                case 4:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function fetchTags() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      fetchTags().then(function (tagsResponse) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false,
+          allTags: tagsResponse.data.data
+        }));
+      }).catch(function (error) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false
+        }));
+        console.log(error);
+      });
+    }
+  }, [addTagModalOpen]);
   /* Handle Modal Close */
 
   var handleCloseModal = function handleCloseModal(event) {
@@ -10928,11 +11063,11 @@ var AddTag = function AddTag(props) {
   };
 
   var handleCreateTerm = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
       var termData;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               e.preventDefault();
               termData = {
@@ -10944,16 +11079,16 @@ var AddTag = function AddTag(props) {
               }));
 
               if (!(tagInput !== '')) {
-                _context.next = 12;
+                _context2.next = 12;
                 break;
               }
 
               if (!(editableTermId !== '')) {
-                _context.next = 9;
+                _context2.next = 9;
                 break;
               }
 
-              _context.next = 7;
+              _context2.next = 7;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].dataAdd("/messages/terms/".concat(editableTermId), termData).then(function (response) {
                 var termIndex = allTags.findIndex(function (obj) {
                   return obj.term_id === editableTermId;
@@ -10982,7 +11117,7 @@ var AddTag = function AddTag(props) {
               });
 
             case 7:
-              _context.next = 10;
+              _context2.next = 10;
               break;
 
             case 9:
@@ -11010,7 +11145,7 @@ var AddTag = function AddTag(props) {
               });
 
             case 10:
-              _context.next = 14;
+              _context2.next = 14;
               break;
 
             case 12:
@@ -11024,14 +11159,14 @@ var AddTag = function AddTag(props) {
 
             case 14:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee);
+      }, _callee2);
     }));
 
     return function handleCreateTerm(_x) {
-      return _ref.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -11094,11 +11229,11 @@ var AddTag = function AddTag(props) {
   };
 
   var handleAssignTerm = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
       var updateTermData;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               updateTermData = {
                 add_term_ids: newAssigned.join(','),
@@ -11107,7 +11242,7 @@ var AddTag = function AddTag(props) {
               setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                 tagLoader: true
               }));
-              _context2.next = 4;
+              _context3.next = 4;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].dataAdd("/sessions/".concat(activeSessionId, "/update-terms"), updateTermData).then(function (response) {
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                   assignedTags: [].concat(_toConsumableArray(tagState.assignedTags), [response.data.data.success]),
@@ -11133,7 +11268,7 @@ var AddTag = function AddTag(props) {
               });
 
             case 4:
-              _context2.next = 6;
+              _context3.next = 6;
               return apiService_Service_js__WEBPACK_IMPORTED_MODULE_5__["default"].getAll('/sessions').then(function (response) {
                 setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
                   sessionList: response.data.data
@@ -11142,18 +11277,17 @@ var AddTag = function AddTag(props) {
 
             case 6:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
     return function handleAssignTerm(_x2) {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
 
-  console.log(newAssigned, newUnAssinged);
   var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
   var users = [];
 
@@ -11406,8 +11540,6 @@ var DeleteConfirm = function DeleteConfirm(props) {
                   deleteModalOpen: !modalOpen
                 }));
               }).catch(function (error) {
-                console.log(error);
-
                 if (error.code === 403) {
                   setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
                     successMessage: "",
@@ -11417,7 +11549,7 @@ var DeleteConfirm = function DeleteConfirm(props) {
                 } else {
                   setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
                     successMessage: "",
-                    rejectMessage: "Server Not exist",
+                    rejectMessage: "Somthing Went Wrong",
                     deleteModalOpen: !modalOpen
                   }));
                 }
@@ -11493,10 +11625,10 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-top: 5px;\n        border: 2px solid transparent;\n        background-color: var(--color-bg-general);\n        &:focus{\n            border-color: var(--color-dark);\n        }\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        ul{\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    &:not(:last-child){\n                        margin-bottom: 0;\n                    }\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
+var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-top: 5px;\n        border: 2px solid transparent;\n        background-color: var(--color-bg-general);\n        &:focus{\n            border-color: var(--color-dark);\n        }\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        >ul{\n            height: 215px;\n            overflow-y: auto;\n            .infinite-scroll-component {\n                padding-right: 10px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                li{\n                    &:not(:last-child){\n                        margin-bottom: 0;\n                    }\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
 var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        margin: 20px -7.5px 4px;\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                line-height: 1.15;\n                margin-left: 8px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-empty{\n            width: 100%;\n            margin-bottom: 10px;\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 16px;\n        font-weight: 500;\n        text-decoration: underline;\n        margin: 15px 0 10px;\n        color: var(--color-dark);\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            line-height: 1.55;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n    &.wpwax-vm-modal{\n        .wpwax-vm-modal__header,\n        .wpwax-vm-modal__footer{\n            padding: 15px 30px\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 5px;\n            p{\n                margin: 0;\n            }\n        }\n        .wpwax-vm-taglist-box{\n            position: relative;\n            min-height: 100px;\n            .wpwax-vm-loading-spin{\n                top: 40%;\n            }\n        }\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
-var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20%);\n    left: 4%;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    cursor: auto;\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                color: var(--color-dark);\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 35px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n        &.wpwax-vm-tag-filter-action-disabled{\n            cursor: not-allowed;\n            a{\n                opacity: .4;\n                cursor: not-allowed;\n                pointer-events: none;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n        }\n        .wpwax-vm-empty{\n            font-size: 14px;\n            min-height: 60px;\n        }\n    }\n"])));
+var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20px);\n    left: 10px;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    box-sizing: border-box;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    cursor: auto;\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list-wrap{\n        min-height: 60px;\n    }\n    .wpwax-vm-tag-filter-list{\n        overflow-y: auto;\n        height: 160px;\n        &::-webkit-scrollbar {\n            width: 11px;\n        }\n\n        &::-webkit-scrollbar-track {\n            background: var(--color-light);\n        }\n\n        &::-webkit-scrollbar-thumb {\n            background-color: var(--color-bg-gray);\n            border-radius: 6px;\n            border: 3px solid var(--color-light);\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                color: var(--color-dark);\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n        .wpwax-vm-more-loader{\n            svg{\n                height: 20px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 30px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n        &.wpwax-vm-tag-filter-action-disabled{\n            cursor: not-allowed;\n            a{\n                opacity: .4;\n                cursor: not-allowed;\n                pointer-events: none;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n        }\n        .wpwax-vm-empty{\n            font-size: 14px;\n            min-height: 60px;\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -11511,12 +11643,14 @@ var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
+/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -11560,16 +11694,24 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var TagFilter = function TagFilter(props) {
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
     searchFilterTags: [],
-    checkedForFilter: []
+    checkedForFilter: [],
+    hasMore: false
   }),
       _useState2 = _slicedToArray(_useState, 2),
       state = _useState2[0],
       setState = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(2),
+      _useState4 = _slicedToArray(_useState3, 2),
+      tagsPageNumber = _useState4[0],
+      setTagsPageNumber = _useState4[1];
 
   var outerState = props.outerState,
       setOuterState = props.setOuterState,
@@ -11581,13 +11723,10 @@ var TagFilter = function TagFilter(props) {
       filteredTagList = tagState.filteredTagList,
       tagLoader = tagState.tagLoader;
   var searchFilterTags = state.searchFilterTags,
-      checkedForFilter = state.checkedForFilter;
+      checkedForFilter = state.checkedForFilter,
+      hasMore = state.hasMore;
   var filterTextFieldRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      searchFilterTags: allTags
-    }));
-
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
@@ -11602,6 +11741,14 @@ var TagFilter = function TagFilter(props) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [tagFilterDropdownOpen]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // if(searchFilterTags.length ===0){
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      hasMore: true,
+      searchFilterTags: allTags
+    }));
+    setTagsPageNumber(2); // }
+  }, [allTags]);
 
   var hadnleTagFilterApply = function hadnleTagFilterApply(event) {
     event.preventDefault();
@@ -11621,7 +11768,7 @@ var TagFilter = function TagFilter(props) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].getAllByArg('/sessions', termArgs);
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/sessions', termArgs);
 
               case 2:
                 sessionByTermsResponse = _context.sent;
@@ -11687,60 +11834,127 @@ var TagFilter = function TagFilter(props) {
     filterTextFieldRef.current.value = '';
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.TagFilterDropdown, {
+  var fetchMoreTags = function fetchMoreTags() {
+    var pageArg = {
+      limit: '5',
+      page: tagsPageNumber
+    };
+    setTagsPageNumber(tagsPageNumber + 1);
+
+    var fetchNextTags = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var nextTagResponse;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/messages/terms', pageArg);
+
+              case 2:
+                nextTagResponse = _context2.sent;
+                return _context2.abrupt("return", nextTagResponse);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function fetchNextTags() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    setTimeout(function () {
+      fetchNextTags().then(function (nextTagResponse) {
+        if (nextTagResponse.data.data.length === 0) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            hasMore: false
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            searchFilterTags: searchFilterTags.concat(nextTagResponse.data.data)
+          }));
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }, 1000);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.TagFilterDropdown, {
     className: sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show" : null,
     ref: ref,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-tag-search",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-input-icon",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
         type: "text",
         className: "wpwax-vm-form__element",
         ref: filterTextFieldRef,
         placeholder: "Search",
         onChange: handleTagSearch
       })]
-    }), tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-      className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-spin-dot"
-      })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "wpwax-vm-tag-filter-list",
-      children: searchFilterTags.length !== 0 ? searchFilterTags.map(function (item, index) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "wpwax-vm-tag-filter__check",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            id: "wpwax-vm-term-".concat(item.term_id),
-            label: item.name,
-            value: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
-            onChange: function onChange(e) {
-              return handleTagSelection(e);
-            }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: tagLoader ? "wpwax-vm-tag-filter-list-wrap wpwax-vm-loder-active" : "wpwax-vm-tag-filter-list-wrap",
+      children: tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+        className: "wpwax-vm-loading-spin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "wpwax-vm-tag-filter-list",
+        id: "wpwax-vm-scrollable-filter",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          dataLength: searchFilterTags.length,
+          next: fetchMoreTags,
+          hasMore: hasMore,
+          scrollableTarget: "wpwax-vm-scrollable-filter",
+          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "wpwax-vm-more-loader",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            })
+          }),
+          children: searchFilterTags.length !== 0 ? searchFilterTags.map(function (item, index) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              className: "wpwax-vm-tag-filter__check",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                id: "wpwax-vm-term-".concat(item.term_id),
+                label: item.name,
+                value: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
+                onChange: function onChange(e) {
+                  return handleTagSelection(e);
+                }
+              })
+            }, index);
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+            className: "wpwax-vm-empty",
+            children: "Sorry!! No Tag Found"
           })
-        }, index);
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-        className: "wpwax-vm-empty",
-        children: "Sorry!! No Tag Found"
+        })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: searchFilterTags.length === 0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-tag-filter-action__clear",
         onClick: handleClearChecked,
         children: "Clear all"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
         onClick: hadnleTagFilterApply,
@@ -11765,14 +11979,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
-/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
-/* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
-/* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
-/* harmony import */ var Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-h.svg */ "./src/assets/svg/icons/ellipsis-h.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/sidebar/overview/Style.js");
+/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
+/* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
+/* harmony import */ var Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Components/formFields/Dropdown.jsx */ "./src/lib/components/formFields/Dropdown.jsx");
+/* harmony import */ var Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/ellipsis-h.svg */ "./src/assets/svg/icons/ellipsis-h.svg");
+/* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -11787,8 +12003,22 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
  // import { ReactSVG } from 'react-svg';
+
+
 
 
 
@@ -11811,6 +12041,15 @@ var moreDropdown = [{
 
 var Taglist = function Taglist(props) {
   var overlay = document.querySelector('.wpax-vm-overlay');
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    tagsPageNumber: 2,
+    hasMore: true
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
+
   var sessionState = props.sessionState,
       setSessionState = props.setSessionState,
       tagState = props.tagState,
@@ -11826,6 +12065,8 @@ var Taglist = function Taglist(props) {
       tagListModalOpen = sessionState.tagListModalOpen,
       taglistWithSession = sessionState.taglistWithSession,
       loader = sessionState.loader;
+  var tagsPageNumber = state.tagsPageNumber,
+      hasMore = state.hasMore;
   /* Dispasth is used for passing the actions to redux store  */
 
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -11843,63 +12084,56 @@ var Taglist = function Taglist(props) {
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (tagListModalOpen) {
-      setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-        tagLoader: true
-      }));
-
-      var fetchTerms = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-          var termsResponse;
-          return _regeneratorRuntime().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll('/messages/terms');
-
-                case 2:
-                  termsResponse = _context.sent;
-                  return _context.abrupt("return", termsResponse);
-
-                case 4:
-                case "end":
-                  return _context.stop();
-              }
-            }
-          }, _callee);
+      if (filteredTagList.length === 0) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: true
         }));
 
-        return function fetchTerms() {
-          return _ref.apply(this, arguments);
-        };
-      }();
+        var fetchTags = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+            var tagsResponse;
+            return _regeneratorRuntime().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_3__["default"].getAllByArg('/messages/terms', {
+                      limit: 8
+                    });
 
-      fetchTerms().then(function (termsResponse) {
-        var currentSession = sessionList.filter(function (singleSession) {
-          return singleSession.session_id === activeSessionId;
-        });
+                  case 2:
+                    tagsResponse = _context.sent;
+                    return _context.abrupt("return", tagsResponse);
 
-        if (taglistWithSession) {
-          if (sessionList.length !== 0) {
-            if (currentSession.length !== 0) {
-              setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-                allTags: termsResponse.data.data,
-                assignedTags: currentSession[0].terms,
-                filteredTagList: currentSession[0].terms,
-                tagLoader: false
-              }));
-            }
-          }
-        } else {
+                  case 4:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          return function fetchTags() {
+            return _ref.apply(this, arguments);
+          };
+        }();
+
+        fetchTags().then(function (tagsResponse) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            hasMore: true
+          }));
           setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-            allTags: termsResponse.data.data,
-            filteredTagList: termsResponse.data.data,
+            tagLoader: false,
+            allTags: tagsResponse.data.data,
+            filteredTagList: tagsResponse.data.data
+          }));
+        }).catch(function (error) {
+          setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
             tagLoader: false
           }));
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
+          console.log(error);
+        });
+      }
     }
   }, [tagListModalOpen]);
   /* Handle Add Tag */
@@ -11964,131 +12198,182 @@ var Taglist = function Taglist(props) {
     multiImg = true;
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.TaglistWrap, {
+  var fetchMoreTags = function fetchMoreTags() {
+    var pageArg = {
+      limit: '8',
+      page: tagsPageNumber
+    };
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      tagsPageNumber: tagsPageNumber + 1
+    })); // setTagsPageNumber(tagsPageNumber + 1);
+
+    var fetchNextTags = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var nextTagResponse;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_3__["default"].getAllByArg('/messages/terms', pageArg);
+
+              case 2:
+                nextTagResponse = _context2.sent;
+                return _context2.abrupt("return", nextTagResponse);
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function fetchNextTags() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    setTimeout(function () {
+      fetchNextTags().then(function (nextTagResponse) {
+        if (nextTagResponse.data.data.length === 0) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            hasMore: false
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            hasMore: false
+          }));
+          setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+            filteredTagList: filteredTagList.concat(nextTagResponse.data.data)
+          }));
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }, 1000);
+  };
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__.TaglistWrap, {
     className: tagListModalOpen ? 'wpwax-vm-modal wpwax-vm-show' : 'wpwax-vm-modal',
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-modal__header",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-taglist-author",
-        children: [taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        children: [taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-taglist-author__img",
           children: [images.map(function (src, index) {
             if (index === 0) {
               if (src !== '') {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
                   src: src,
                   alt: ""
                 }, index);
               } else {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
-                  src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_4__["default"],
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("img", {
+                  src: Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_5__["default"],
                   alt: ""
                 }, index);
               }
             }
-          }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          }), multiImg ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "wpwax-vm-more-img",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
-              src: Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              src: Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
             })
           }) : null]
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
           className: "wpwax-vm-taglist-author__name",
           children: [' ', taglistWithSession ? "Tags of ".concat(titleString) : 'All Tags', ' ']
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-modal__close",
         onClick: handleCloseAllTagModal,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           className: "dashicons dashicons-no-alt"
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-modal__body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpawax-vm-taglist-search",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           className: "dashicons dashicons-search"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
           type: "text",
           placeholder: "Search",
           id: "wpwax-vm-filter-taglist",
           onChange: handleTagFilter
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpawax-vm-taglist-inner",
-        children: tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        children: tagLoader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
           className: "wpwax-vm-loading-spin",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
           })]
-        }) : filteredTagList.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("ul", {
-          children: taglistWithSession ? filteredTagList.map(function (term, index) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("li", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-                className: "wpwax-vm-taglist-label",
-                children: term.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                dropdownText: false,
-                dropdownIconOpen: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-                dropdownIconClose: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-                dropdownList: moreDropdown,
-                outerState: sessionState,
-                setOuterState: setSessionState,
-                termState: tagState,
-                setTermState: setTagState,
-                sessionId: activeSessionId,
-                termId: term.term_id
-              })]
-            }, index);
-          }) : filteredTagList.map(function (term, index) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("li", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
-                className: "wpwax-vm-taglist-label",
-                children: term.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                dropdownText: false,
-                dropdownIconOpen: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-                dropdownIconClose: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-                dropdownList: moreDropdown,
-                outerState: sessionState,
-                setOuterState: setSessionState,
-                termState: tagState,
-                setTermState: setTagState,
-                sessionId: activeSessionId,
-                termId: term.term_id
-              })]
-            }, index);
+        }) : filteredTagList.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("ul", {
+          id: "wpwax-vm-scrollable-taglist",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            dataLength: filteredTagList.length,
+            next: fetchMoreTags,
+            hasMore: hasMore,
+            scrollableTarget: "wpwax-vm-scrollable-taglist",
+            loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+              className: "wpwax-vm-more-loader",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+              })
+            }),
+            children: filteredTagList.map(function (term, index) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("li", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+                  className: "wpwax-vm-taglist-label",
+                  children: term.name
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_formFields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                  dropdownText: false,
+                  dropdownIconOpen: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
+                  dropdownIconClose: Assets_svg_icons_ellipsis_h_svg__WEBPACK_IMPORTED_MODULE_8__["default"],
+                  dropdownList: moreDropdown,
+                  outerState: sessionState,
+                  setOuterState: setSessionState,
+                  termState: tagState,
+                  setTermState: setTagState,
+                  sessionId: activeSessionId,
+                  termId: term.term_id
+                })]
+              }, index);
+            })
           })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "wpwax-vm-empty",
-          children: taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          children: taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             children: "Sorry!! No Assigned Tags Found"
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             children: "Sorry!! No Tags Found"
           })
         })
       })]
-    }), taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       className: "wpwax-vm-modal__footer",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white",
         onClick: handleAddTagModal,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           className: "wpwax-vm-btn-icon dashicons dashicons-plus"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           className: "wpwax-vm-btn-text",
           children: "New Tag"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
         onClick: handleCloseAllTagModal,
@@ -13506,6 +13791,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function Avatar() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
 
@@ -13521,9 +13807,9 @@ function Avatar() {
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.showChatbox)());
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__["default"], {
     onClick: clickHandler,
-    children: templateOptions.greet_video_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
+    children: [templateOptions.greet_video_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
       style: {
         width: '120px'
       },
@@ -13531,11 +13817,15 @@ function Avatar() {
       loop: true,
       autoPlay: true,
       muted: true
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+    }) : null, templateOptions.greet_image_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+      className: "wpwwax-vm-avatar",
+      src: templateOptions.greet_image_url,
+      alt: "Avatar"
+    }) : null, !templateOptions.greet_video_url && !templateOptions.greet_image_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
       className: "wpwwax-vm-avatar",
       src: _assets_avatar_png__WEBPACK_IMPORTED_MODULE_3__["default"],
       alt: "Avatar"
-    })
+    }) : null]
   });
 }
 
@@ -13557,7 +13847,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    overflow: hidden;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])));
+var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    right: 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    overflow: hidden;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    z-index: 100;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n        object-fit: cover;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (AvatarWrap);
 
 /***/ }),
@@ -16950,7 +17240,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    font-size: 18px;\n    height: 100%;\n    box-sizing: border-box;\n    &:hover{\n        .wpwax-vm-btn-play{\n            opacity: 1;\n            visibility: visible;\n            z-index: 10;\n        }\n    }\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.2;\n            color: var(--color-text-greet);\n            margin: 15px 0 5px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            display: inline-block;\n            margin-top: 8px;\n            font-family: var(--font-family);\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        background-color: var(--color-page-bg);\n        .wpwax-vm-chatbox-footer__title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                min-height: 100px;\n                height: auto;\n                flex: 0 0 30.3333%;\n                margin: 1.5%;\n                &:hover{\n                    fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    }\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-family: var(--font-family);\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-chatbox-title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:hover{\n                    .wpwax-vm-btn-play{\n                        opacity: 1;\n                        z-index: 100;\n                        visibility: visible;\n                    }\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 330px;\n                    width: 100%;\n                    z-index: 10;\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    opacity: 0;\n                    visibility: hidden;\n                    transition: .3s;\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
+var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    font-size: 18px;\n    height: 100%;\n    box-sizing: border-box;\n    &:hover{\n        .wpwax-vm-btn-play{\n            opacity: 1;\n            visibility: visible;\n            z-index: 10;\n        }\n    }\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.2;\n            color: var(--color-text-greet);\n            margin: 15px 0 5px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            display: inline-block;\n            margin-top: 8px;\n            font-family: var(--font-family);\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--color-white);\n        i{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                min-height: 100px;\n                height: auto;\n                flex: 0 0 30.3333%;\n                margin: 1.5%;\n                &:hover{\n                    fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    }\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-family: var(--font-family);\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-chatbox-title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:hover{\n                    .wpwax-vm-btn-play{\n                        opacity: 1;\n                        z-index: 100;\n                        visibility: visible;\n                    }\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 300px;\n                    width: 100%;\n                    z-index: 10;\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    opacity: 0;\n                    visibility: hidden;\n                    transition: .3s;\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        width: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
 var ContactFormWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-contact-form{\n        padding: 60px 25px 25px;\n        position: relative;\n        min-height: 595px;\n        .wpwax-vm-contact-form__title{\n            font-size: 18px;\n            font-weight: 500;\n            font-family: var(--font-family);\n            line-height: 1.333;\n            margin: 0 0 30px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n            .wpwax-vm-form__element{\n                min-height: 46px;\n                border-radius: 8px;\n            }\n        }\n        .wpwax-vm-form__bottom{\n            position: absolute;\n            width: calc( 100% - 50px );\n            bottom: 25px;\n            left: 25px;\n            .wpwax-vm-btn{\n                border-radius: 10px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                    margin-left: 10px;\n                }\n            }\n        }\n    }\n"])));
 
 

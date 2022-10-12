@@ -19,6 +19,7 @@ import AddTag from './overview/AddTag.jsx';
 import DeleteConfirm from './overview/DeleteConfirm.jsx';
 import apiService from 'apiService/Service.js';
 import TagFilter from './overview/TagFilter.jsx';
+import { useDebounce } from 'Helper/hooks';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
@@ -33,7 +34,6 @@ import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
-import { debounce } from '../../../../../../helpers/utils.js';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -69,6 +69,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("")
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const {
@@ -82,8 +83,40 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         hasMore,
         loader,
     } = sessionState;
+
+    const {allTags} = tagState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+
+    const debouncedSearchTerm = useDebounce(searchTerm, 300) ;
+
+    // Effect for API call
+    useEffect(() => {
+        const searchArg = {
+            search: debouncedSearchTerm,
+        };
+        const fetchSearchNameMail = async () => {
+            const searchByNameMailResponse = await apiService.getAllByArg(
+                '/sessions',
+                searchArg
+            );
+            return searchByNameMailResponse;
+        };
+
+        fetchSearchNameMail()
+            .then((searchByNameMailResponse) => {
+                setSessionState({
+                    ...sessionState,
+                    loader: false,
+                    sessionList: searchByNameMailResponse.data.data,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    },[debouncedSearchTerm]);
 
     useEffect(() => {
         setSessionState({
@@ -118,23 +151,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
-            
-            const fetchTags = async () =>{
-                const tagsResponse = apiService.getAll('/messages/terms');
-                return tagsResponse;
-            }
-            fetchTags()
-                .then((tagsResponse) => {
-                    setTagState({
-                        ...tagState,
-                        allTags: tagsResponse.data.data,
-                        filteredTagList: tagsResponse.data.data,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            
+
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
@@ -148,6 +165,33 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handleTagFilterDropdown = (event) => {
         event.preventDefault();
+        if(allTags.length === 0){
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+            const fetchTags = async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:5});
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                        filteredTagList: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
+        }
+
         setSessionState({
             ...sessionState,
             tagFilterDropdownOpen: !tagFilterDropdownOpen,
@@ -164,38 +208,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             taglistWithSession: false,
         });
     };
-
-	// Session search.
-    const handleSessionSearch = (event) => {
-		const searchArg = {
-            search: event.target.value,
-        };
-
-        const fetchSearchNameMail = async () => {
-            const searchByNameMailResponse = await apiService.getAllByArg(
-                '/sessions',
-                searchArg
-            );
-            return searchByNameMailResponse;
-        };
-
-        fetchSearchNameMail()
-            .then((searchByNameMailResponse) => {
-                setSessionState({
-                    ...sessionState,
-					loader: false,
-                    sessionList: searchByNameMailResponse.data.data,
-                });
-                dispatch(
-                    handleReadSessions(searchByNameMailResponse.data.data)
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-	const onSessionSearch = useCallback( debounce( handleSessionSearch, 300 ), [] );
 
     const fetchMoreData = () => {
         const pageArg = {
@@ -245,7 +257,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handeSelectSession = (e, item, index) => {
         setaAtiveSession(`wpwax-vm-session-${index}`);
-        console.log(item);
         dispatch(updateSelectedSession(item));
     };
 
@@ -301,7 +312,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 								className='wpwax-vm-form__element'
 								id='wpwax-vm-filter-search'
 								placeholder='Search'
-                                onChange={onSessionSearch}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             <a
                                 href='#'
@@ -345,14 +356,18 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         outerState={sessionState}
                         setOuterState={setSessionState}
                     />
-                    <a
-                        href='#'
-                        className='wpwax-vm-btn-all-tags'
-                        onClick={handleAllTagActivation}
-                    >
-                        <ReactSVG src={tag} />
-                        <span>Tags</span>
-                    </a>
+                    {
+                        wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
+                        <a
+                            href='#'
+                            className='wpwax-vm-btn-all-tags'
+                            onClick={handleAllTagActivation}
+                        >
+                            <ReactSVG src={tag} />
+                            <span>Tags</span>
+                        </a> : null
+                    }
+
                 </div>
             </div>
             {loader ? (
@@ -416,41 +431,59 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }
 
                                     if (Number(item.total_unread) > 0) {
-                                        var moreDropdown = [
-                                            {
-                                                icon: envelopeOpen,
-                                                name: 'mark-read',
-                                                text: 'Mark as Read',
-                                            },
-                                            {
-                                                icon: tag,
-                                                name: 'add-tags',
-                                                text: 'Add tags',
-                                            },
-                                            {
-                                                icon: trash,
-                                                name: 'delete-conv',
-                                                text: 'Delete Conversation',
-                                            },
-                                        ];
+                                        var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-read',
+                                                    text: 'Mark as Read',
+                                                },
+                                                {
+                                                    icon: tag,
+                                                    name: 'add-tags',
+                                                    text: 'Add tags',
+                                                },
+                                                {
+                                                    icon: trash,
+                                                    name: 'delete-conv',
+                                                    text: 'Delete Conversation',
+                                                },
+                                            ]
+                                        :
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-read',
+                                                    text: 'Mark as Read',
+                                                }
+                                            ];
                                     } else {
-                                        var moreDropdown = [
-                                            {
-                                                icon: envelopeOpen,
-                                                name: 'mark-unread',
-                                                text: 'Mark as unread',
-                                            },
-                                            {
-                                                icon: tag,
-                                                name: 'add-tags',
-                                                text: 'Add tags',
-                                            },
-                                            {
-                                                icon: trash,
-                                                name: 'delete-conv',
-                                                text: 'Delete Conversation',
-                                            },
-                                        ];
+                                        var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
+                                                },
+                                                {
+                                                    icon: tag,
+                                                    name: 'add-tags',
+                                                    text: 'Add tags',
+                                                },
+                                                {
+                                                    icon: trash,
+                                                    name: 'delete-conv',
+                                                    text: 'Delete Conversation',
+                                                },
+                                            ]
+                                        :
+                                            [
+                                                {
+                                                    icon: envelopeOpen,
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
+                                                }
+                                            ]
                                     }
 
                                     const metaList = [

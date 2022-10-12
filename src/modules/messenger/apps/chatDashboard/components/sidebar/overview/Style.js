@@ -31,7 +31,25 @@ const TaglistWrap = Styled.div`
         .wpwax-vm-loading-spin{
             top: 30%;
         }
-        ul{
+        >ul{
+            height: 215px;
+            overflow-y: auto;
+            .infinite-scroll-component {
+                padding-right: 10px;
+            }
+            &::-webkit-scrollbar {
+                width: 11px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--color-light);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: var(--color-bg-gray);
+                border-radius: 6px;
+                border: 3px solid var(--color-light);
+            }
             li{
                 display: flex;
                 justify-content: space-between;
@@ -217,12 +235,13 @@ const DeleteConfirmWrap = Styled.div`
 
 const TagFilterDropdown = Styled.div`
     position: absolute;
-    width: calc(100% - 20%);
-    left: 4%;
+    width: calc(100% - 20px);
+    left: 10px;
     top: 45px;
     padding: 20px;
     z-index: 10;
     display: none;
+    box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
     cursor: auto;
@@ -257,7 +276,25 @@ const TagFilterDropdown = Styled.div`
             }
         }
     }
+    .wpwax-vm-tag-filter-list-wrap{
+        min-height: 60px;
+    }
     .wpwax-vm-tag-filter-list{
+        overflow-y: auto;
+        height: 160px;
+        &::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--color-light);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--color-bg-gray);
+            border-radius: 6px;
+            border: 3px solid var(--color-light);
+        }
         .wpwax-vm-checkbox{
             label{
                 top: 0px;
@@ -267,12 +304,17 @@ const TagFilterDropdown = Styled.div`
                 margin-right: 12px;
             }
         }
+        .wpwax-vm-more-loader{
+            svg{
+                height: 20px;
+            }
+        }
     }
     .wpwax-vm-tag-filter-action{
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 35px;
+        margin-top: 30px;
         .wpwax-vm-tag-filter-action__clear{
             font-size: 14px;
             font-weight: 500;

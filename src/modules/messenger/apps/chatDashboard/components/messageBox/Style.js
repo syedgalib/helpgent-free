@@ -136,6 +136,14 @@ const MessageBoxWrap = Styled.div`
     &.wpwax-vm-loder-active{
         min-height: 500px;
     }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6{
+        font-family: 'Inter', sans-serif;
+    }
     .wpwax-vm-messagebox-header{
         display: flex;
         align-items: center;
@@ -145,6 +153,11 @@ const MessageBoxWrap = Styled.div`
         @media only screen and (max-width: 1199px){
             flex-direction: column;
             align-items: flex-start;
+        }
+        .wpwax-vm-media__title{
+            text-transform: initial;
+            line-height: 1.45;
+            font-family: 'Inter', sans-serif;
         }
     }
     .wpwax-vm-messagebox-header__left{
@@ -394,6 +407,9 @@ const MessageBoxWrap = Styled.div`
             font-weight: 500;
             margin-right: 10px;
             color: #4D4D4D;
+            @media only screen and (max-width: 1399px){
+                font-size: 14px;
+            }
             @media only screen and (max-width: 1199px){
                 margin: 0 0 20px 0;
             }
@@ -410,10 +426,11 @@ const MessageBoxWrap = Styled.div`
                 align-items: center;
                 &.wpwax-vm-btn-lg{
                     @media only screen and (max-width: 1399px){
-                        padding: 0 18px;
-                    }
-                    @media only screen and (max-width: 1299px){
+                        padding: 0 25px;
                         font-size: 14px;
+                        margin: 5px;
+                    }
+                    @media only screen and (max-width: 1240px){
                         padding: 0 10px;
                         margin: 5px;
                     }

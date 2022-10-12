@@ -1,28 +1,28 @@
 import React, {useState, useEffect, useRef} from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';
+import loaders from 'Assets/svg/icons/loader.svg';
 import { TagFilterDropdown } from './Style';
 
 const TagFilter = props =>{
     const ref = useRef(null);
     const [state, setState] = useState({
 		searchFilterTags: [],
-        checkedForFilter: []
+        checkedForFilter: [],
+        hasMore: false
 	});
+    const [tagsPageNumber, setTagsPageNumber] = useState(2);
     const { outerState, setOuterState, tagState, setTagState } = props;
     const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
     const { allTags, filteredTagList, tagLoader } = tagState;
-    const { searchFilterTags, checkedForFilter } = state;
+    const { searchFilterTags, checkedForFilter, hasMore } = state;
 
 	const filterTextFieldRef = useRef(null);
 
     useEffect(() => {
-        setState({
-            ...state,
-            searchFilterTags: allTags,
-        });
         const checkIfClickedOutside = e => {
 
             if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
@@ -39,6 +39,18 @@ const TagFilter = props =>{
             document.removeEventListener("mousedown", checkIfClickedOutside)
         }
 	}, [tagFilterDropdownOpen]);
+
+    useEffect(() => {
+        // if(searchFilterTags.length ===0){
+            setState({
+                ...state,
+                hasMore: true,
+                searchFilterTags: allTags,
+            });
+            
+            setTagsPageNumber(2);
+        // }
+	}, [allTags]);
 
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
@@ -72,6 +84,7 @@ const TagFilter = props =>{
 			})
 
     }
+
     const handleTagSelection = (e) =>{
 
         if(e.target.checked){
@@ -111,37 +124,83 @@ const TagFilter = props =>{
 		filterTextFieldRef.current.value = '';
     }
 
+    const fetchMoreTags = ()=>{
+        const pageArg = {
+            limit: '5',
+            page: tagsPageNumber,
+        };
+        setTagsPageNumber(tagsPageNumber + 1);
+
+        const fetchNextTags = async () => {
+            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            return nextTagResponse;
+        };
+        setTimeout(() => {
+            fetchNextTags()
+                .then((nextTagResponse) => {
+                    if (nextTagResponse.data.data.length === 0) {
+                        setState({
+                            ...state,
+                            hasMore: false,
+                        });
+                    } else {
+                        setState({
+                            ...state,
+                            searchFilterTags: searchFilterTags.concat(nextTagResponse.data.data)
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }, 1000);
+    }
+
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
 				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={handleTagSearch}/>
             </div>
-            {
-                tagLoader ?
-                <span className="wpwax-vm-loading-spin">
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                    <span className="wpwax-vm-spin-dot"></span>
-                </span>
-                :
-                <div className="wpwax-vm-tag-filter-list">
+            <div className={tagLoader ? "wpwax-vm-tag-filter-list-wrap wpwax-vm-loder-active": "wpwax-vm-tag-filter-list-wrap"}>
+                {
+                    tagLoader ?
+                    <span className="wpwax-vm-loading-spin">
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                        <span className="wpwax-vm-spin-dot"></span>
+                    </span>
+                    :
+                    <div className="wpwax-vm-tag-filter-list" id="wpwax-vm-scrollable-filter">
+                        <InfiniteScroll
+                            dataLength={searchFilterTags.length}
+                            next={fetchMoreTags}
+                            hasMore={hasMore}
+                            scrollableTarget='wpwax-vm-scrollable-filter'
+                            loader={
+                                <span className='wpwax-vm-more-loader'>
+                                    <ReactSVG src={loaders} />
+                                </span>
+                            }
+                        >
+                            {
+                                searchFilterTags.length !== 0 ?
+                                    searchFilterTags.map((item,index)=>{
 
-                    {
-                        searchFilterTags.length !== 0 ?
-                            searchFilterTags.map((item,index)=>{
-
-                                return(
-                                    <div className="wpwax-vm-tag-filter__check" key={index}>
-                                        <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
-                                    </div>
-                                )
-                            })
-                            : <span className='wpwax-vm-empty'>Sorry!! No Tag Found</span>
-                    }
-                </div>
-            }
+                                        return(
+                                            <div className="wpwax-vm-tag-filter__check" key={index}>
+                                                <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
+                                            </div>
+                                        )
+                                    })
+                                    : <span className='wpwax-vm-empty'>Sorry!! No Tag Found</span>
+                            }
+                        </InfiniteScroll>
+                    </div>
+                }
+            </div>
+            
 
             <div className={searchFilterTags.length ===0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
+import { useDebounce } from 'Helper/hooks';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -14,8 +14,7 @@ import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
-import { debounce } from '../../../../../../helpers/utils.js';
-import { useScreenSize } from 'Helper/hooks.js';
+import { useScreenSize } from 'Helper/hooks';
 
 import {
     handleReplyModeChange,
@@ -48,6 +47,8 @@ function MessageBox({ setSessionState }) {
     const searchInputRef = useRef(null);
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+
+    const [searchTerm, setSearchTerm] = useState("");
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
     const [messageDirection, setMessageDirection] = useState('bottom');
@@ -142,6 +143,54 @@ function MessageBox({ setSessionState }) {
 
         return selectedWindowData;
     };
+
+    const debouncedSearchTerm = useDebounce(searchTerm, 250);
+
+    // Effect for API call
+    useEffect(() => {
+        const text = debouncedSearchTerm;
+        if(selectedSession){
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'searchKeyword',
+                    text
+                )
+            );
+
+            // Update Query Args
+            const newSearchQueryArgs = { message: text };
+            dispatch(
+                updateSessionWindowData(
+                    selectedSession.session_id,
+                    'searchQueryArgs',
+                    newSearchQueryArgs
+                )
+            );
+            if (text.length) {
+                // Activate Search Mode
+                dispatch(
+                    updateSessionWindowData(
+                        selectedSession.session_id,
+                        'isSearching',
+                        true
+                    )
+                );
+            } else {
+                // Inactivate Search Mode
+                dispatch(
+                    updateSessionWindowData(
+                        selectedSession.session_id,
+                        'isSearching',
+                        false
+                    )
+                );
+            }
+
+            loadSearchResults(newSearchQueryArgs);
+        }
+
+    },[debouncedSearchTerm]);
 
     // Update session on sessionID change
     useEffect(
@@ -961,11 +1010,11 @@ function MessageBox({ setSessionState }) {
         loadSearchResults(newSearchQueryArgs);
     };
 
-    const onMessageSearch = debounce(updateTextSearchResult, 250);
+    // const onMessageSearch = debounce(updateTextSearchResult, 250);
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
-        setMessageDirection('top');
+        setMessageDirection('bottom');
         dispatch(
             updateSessionWindowData(
                 selectedSession.session_id,
@@ -1410,6 +1459,7 @@ function MessageBox({ setSessionState }) {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
+        console.log(scrollingBody,messageDirection);
         if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,
@@ -1456,9 +1506,7 @@ function MessageBox({ setSessionState }) {
                                                         // value={getWindowData('searchKeyword')}
                                                         id='wpwax-vm-messagebox-search'
                                                         placeholder='Search'
-                                                        onChange={
-                                                            onMessageSearch
-                                                        }
+                                                        onChange={(e) => setSearchTerm(e.target.value)}
                                                     />
                                                 </div>
                                                 {!openSearch ? (

@@ -136,6 +136,14 @@ const MessageBoxWrap = Styled.div`
     &.wpwax-vm-loder-active{
         min-height: 500px;
     }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6{
+        font-family: 'Inter', sans-serif;
+    }
     .wpwax-vm-messagebox-header{
         display: flex;
         align-items: center;
@@ -145,6 +153,11 @@ const MessageBoxWrap = Styled.div`
         @media only screen and (max-width: 1199px){
             flex-direction: column;
             align-items: flex-start;
+        }
+        .wpwax-vm-media__title{
+            text-transform: initial;
+            line-height: 1.45;
+            font-family: 'Inter', sans-serif;
         }
     }
     .wpwax-vm-messagebox-header__left{

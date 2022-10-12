@@ -156,7 +156,7 @@ const ChatboxForm = Styled.div`
                 }
                 .wpwax-vm-chatbox-img{
                     position: relative;
-                    min-height: 330px;
+                    min-height: 300px;
                     z-index: 10;
                     &:after{
                         position: absolute;

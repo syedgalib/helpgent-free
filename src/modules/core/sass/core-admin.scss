@@ -88,20 +88,6 @@
     }
 }
 
-/* Wpwax Media Status */
-.wpwax-vm-usermedia-status {
-	display: block;
-    padding: 2px 3px;
-    border-radius: 30px;
-    font-size: 10px;
-    color: #fff;
-    min-width: 18px;
-    text-align: center;
-    &.wpwax-vm-usermedia-status-unread {
-        background-color: var(--color-danger);
-    }
-}
-
 /* Form Elements Style */
 .wpwax-vm-form-group {
 
@@ -328,21 +314,7 @@
     }
 }
 
-/* Not Fouond Text Style */
-.wpwax-notfound-text,
-.wpwax-vm-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: 600;
-    min-height: 100px;
-    color: var(--color-dark);
-    p {
-        font-size: 15px;
-        margin: 0;
-    }
-}
+
 
 /* Loading Animation */
 .wpwax-vm-loading-spin {

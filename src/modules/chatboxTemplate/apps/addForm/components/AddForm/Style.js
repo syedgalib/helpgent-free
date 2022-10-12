@@ -274,7 +274,7 @@ const AddFormStyle = Styled.div`
                 margin-right: 15px;
                 min-width: 130px;
                 width: 130px;
-                color: #030308;
+                color: var(--color-dark);
                 @media only screen and (max-width: 1199px) {
                     min-width: 95px;
                     width: 95px;

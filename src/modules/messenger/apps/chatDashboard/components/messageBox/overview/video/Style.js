@@ -307,6 +307,8 @@ const VideoReplyWrap = Styled.div`
                 .wpwax-vm-media__title{
                     font-size: 22px;
                     font-weight: 600;
+                    font-family: 'Inter', sans-serif;
+                    text-transform: initial;
                     width: 250px;
                     line-height: 1.5;
                     margin-bottom: 6px;

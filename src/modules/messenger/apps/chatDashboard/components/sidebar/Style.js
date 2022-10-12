@@ -24,6 +24,7 @@ const SidebarWrap = Styled.div`
         margin-bottom: 25px;
         .wpwax-vm-sidebar-title{
             margin: 0;
+            font-family: 'Inter', sans-serif;
         }
         .wpwax-vm-sidebar-refresher{
             line-height: 1;
@@ -38,6 +39,7 @@ const SidebarWrap = Styled.div`
             width: 100%;
             .wpwax-vm-dropdown__toggle--text{
                 margin-right: 15px;
+                align-items: center;
             }
             .wpwax-vm-dropdown__content{
                 top: 30px;
@@ -90,6 +92,7 @@ const SidebarWrap = Styled.div`
             position: absolute;
             right: 20px;
             top: 12px;
+            line-height: 1;
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
@@ -168,6 +171,8 @@ const SidebarWrap = Styled.div`
                 }
                 .wpwax-vm-media__title{
                     line-height: 1.5;
+                    text-transform: initial;
+                    font-family: 'Inter', sans-serif;
                 }
                 .wpax-vm-imglist{
                     display: flex;

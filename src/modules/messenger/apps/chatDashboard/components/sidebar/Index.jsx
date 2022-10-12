@@ -19,6 +19,7 @@ import AddTag from './overview/AddTag.jsx';
 import DeleteConfirm from './overview/DeleteConfirm.jsx';
 import apiService from 'apiService/Service.js';
 import TagFilter from './overview/TagFilter.jsx';
+import {useDebounce} from '../../../../../../helpers/debounce-hook.js';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
@@ -69,6 +70,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("")
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const {
@@ -86,6 +88,42 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const {allTags} = tagState;
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+
+    const debouncedSearchTerm = useDebounce(searchTerm, 500) ;
+
+    console.log(debouncedSearchTerm);
+
+    // Effect for API call
+    useEffect(() => {
+        if (debouncedSearchTerm) {
+            const searchArg = {
+                search: debouncedSearchTerm,
+            };
+            const fetchSearchNameMail = async () => {
+                const searchByNameMailResponse = await apiService.getAllByArg(
+                    '/sessions',
+                    searchArg
+                );
+                return searchByNameMailResponse;
+            };
+
+            fetchSearchNameMail()
+                .then((searchByNameMailResponse) => {
+                    setSessionState({
+                        ...sessionState,
+                        loader: false,
+                        sessionList: searchByNameMailResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            // setResults([]);
+            // setIsSearching(false);
+        }
+    },[debouncedSearchTerm]);
 
     useEffect(() => {
         setSessionState({
@@ -178,38 +216,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-	// Session search.
-    const handleSessionSearch = (event) => {
-		const searchArg = {
-            search: event.target.value,
-        };
-
-        const fetchSearchNameMail = async () => {
-            const searchByNameMailResponse = await apiService.getAllByArg(
-                '/sessions',
-                searchArg
-            );
-            return searchByNameMailResponse;
-        };
-
-        fetchSearchNameMail()
-            .then((searchByNameMailResponse) => {
-                setSessionState({
-                    ...sessionState,
-					loader: false,
-                    sessionList: searchByNameMailResponse.data.data,
-                });
-                dispatch(
-                    handleReadSessions(searchByNameMailResponse.data.data)
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
-	const onSessionSearch = useCallback( debounce( handleSessionSearch, 300 ), [] );
-
     const fetchMoreData = () => {
         const pageArg = {
             limit: '12',
@@ -258,7 +264,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const handeSelectSession = (e, item, index) => {
         setaAtiveSession(`wpwax-vm-session-${index}`);
-        console.log(item);
         dispatch(updateSelectedSession(item));
     };
 
@@ -314,7 +319,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 								className='wpwax-vm-form__element'
 								id='wpwax-vm-filter-search'
 								placeholder='Search'
-                                onChange={onSessionSearch}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
                             <a
                                 href='#'

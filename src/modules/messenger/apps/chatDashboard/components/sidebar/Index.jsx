@@ -19,7 +19,7 @@ import AddTag from './overview/AddTag.jsx';
 import DeleteConfirm from './overview/DeleteConfirm.jsx';
 import apiService from 'apiService/Service.js';
 import TagFilter from './overview/TagFilter.jsx';
-import {useDebounce} from '../../../../../../helpers/debounce-hook.js';
+import { useDebounce } from 'Helper/hooks';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
 import ellipsisV from 'Assets/svg/icons/ellipsis-v.svg';
 import envelopeOpen from 'Assets/svg/icons/envelope-open.svg';
@@ -115,7 +115,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
-        
+
     },[debouncedSearchTerm]);
 
     useEffect(() => {
@@ -151,7 +151,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .catch((error) => {
                 console.log(error);
             });
-            
+
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
@@ -191,7 +191,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     console.log(error);
                 });
         }
-        
+
         setSessionState({
             ...sessionState,
             tagFilterDropdownOpen: !tagFilterDropdownOpen,
@@ -357,7 +357,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         setOuterState={setSessionState}
                     />
                     {
-                        wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? 
+                        wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
                         <a
                             href='#'
                             className='wpwax-vm-btn-all-tags'
@@ -367,7 +367,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             <span>Tags</span>
                         </a> : null
                     }
-                    
+
                 </div>
             </div>
             {loader ? (
@@ -448,7 +448,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     name: 'delete-conv',
                                                     text: 'Delete Conversation',
                                                 },
-                                            ] 
+                                            ]
                                         :
                                             [
                                                 {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Linkify from 'Externals/Linkify.jsx';
 import { MessageBox } from './Style';
 import author from 'Assets/img/chatdashboard/user.png';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
@@ -166,7 +167,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
         if (data.message_type === 'text') {
             return (
                 <div className='wpwax-vm-message-content__inner--text'>
-                    <p>{data.message}</p>
+                    <p><Linkify>{data.message}</Linkify></p>
                 </div>
             );
         } else if (data.message_type === 'video') {
@@ -213,7 +214,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
                     </div>
                     {data.message && (
                         <div className='wpwax-vm-message-content__inner--text wpwax-vm-mt-20'>
-                            <p>{data.message}</p>
+                            <p><Linkify>{data.message}</Linkify></p>
                         </div>
                     )}
                 </React.Fragment>
@@ -304,7 +305,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
 
                     {data.message && (
                         <div className='wpwax-vm-message-content__inner--text wpwax-vm-mt-20'>
-                            <p>{data.message}</p>
+                            <p><Linkify>{data.message}</Linkify></p>
                         </div>
                     )}
                 </>

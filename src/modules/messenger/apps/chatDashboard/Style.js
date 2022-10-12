@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 const ChatDashboardWrap = Styled.div`
     display: flex;
     padding-top: 40px;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     @media only screen and (max-width: 991px){
         flex-direction: column;
         align-items: center;

@@ -232,7 +232,7 @@ const ChatboxForm = Styled.div`
                 }
                 .wpwax-vm-chatbox-img{
                     position: relative;
-                    height: 330px;
+                    height: 300px;
                     width: 100%;
                     z-index: 10;
                 }
@@ -249,6 +249,7 @@ const ChatboxForm = Styled.div`
                 .wpwax-vm-chatbox-img{
                     img{
                         height: 100%;
+                        width: 100%;
                         object-fit: cover;
                     }
                 }

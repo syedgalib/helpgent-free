@@ -19,14 +19,16 @@ import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from '../../../../../../../../../helpers/formatter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { addAction } from 'Reducers/hooks/actionCreator';
 
 const Record = () => {
     const videoStreemRef = useRef();
     const dispatch = useDispatch();
 
 	// Store States
-    const { attachmentForm, messengerForm } = useSelector((state) => {
+    const { chatbox, attachmentForm, messengerForm } = useSelector((state) => {
         return {
+            chatbox: state.chatbox,
             attachmentForm: state.attachmentForm,
 			messengerForm: state.messengerForm,
         };
@@ -39,6 +41,8 @@ const Record = () => {
         UPLOADING: 'uploading',
         UPLOAD_FAILED: 'upload_failed',
     };
+
+    const [isInitializedBeforeCloseChatbox, setIsInitializedBeforeCloseChatbox] = useState(false);
 
     const [permissionDenied, setPermissionDenied] = useState(null);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
@@ -153,6 +157,12 @@ const Record = () => {
 
     // setupVideoStreem
     async function setupVideoStreem() {
+
+		if ( ! isInitializedBeforeCloseChatbox ) {
+			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			setIsInitializedBeforeCloseChatbox( true );
+		}
+
         try {
             // Setup Video Streem
             window.wpwaxCSVideoStream =

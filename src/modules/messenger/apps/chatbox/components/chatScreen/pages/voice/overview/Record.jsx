@@ -21,6 +21,7 @@ import { updateFormData as updateMessengerFormData } from '../../../../../store/
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
+import { addAction } from 'Reducers/hooks/actionCreator';
 import { formatSecondsAsCountdown } from '../../../../../../../../../helpers/formatter';
 
 function Record() {
@@ -43,6 +44,8 @@ function Record() {
         UPLOADING: 'uploading',
         UPLOAD_FAILED: 'upload_failed',
     };
+
+	const [isInitializedBeforeCloseChatbox, setIsInitializedBeforeCloseChatbox] = useState(false);
 
     const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
@@ -127,6 +130,12 @@ function Record() {
     // Toggle Recording
     async function startRecording(e) {
         e.preventDefault();
+
+		if ( ! isInitializedBeforeCloseChatbox ) {
+			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			setIsInitializedBeforeCloseChatbox( true );
+		}
+
         try {
             window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
@@ -171,10 +180,10 @@ function Record() {
             startTimer();
         }
     };
-    // handle Send recording
-    async function handleSendRecording(e) {
-        e.preventDefault();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
+
+	// stopRecording
+	function stopRecording () {
+		window.wpwaxCSRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSRecorder.getBlob();
             window.wpwaxCSAudioStream
                 .getTracks()
@@ -184,6 +193,12 @@ function Record() {
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
         });
+	};
+
+    // handle Send recording
+    function handleSendRecording(e) {
+        e.preventDefault();
+        stopRecording()
     }
 
     function startTimer() {

@@ -4,7 +4,7 @@ import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
-import { useDebounce } from '../../../../../../helpers/debounce-hook.js';
+import { useDebounce } from 'Helper/hooks';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -14,7 +14,7 @@ import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
-import { useScreenSize } from 'Helper/hooks.js';
+import { useScreenSize } from 'Helper/hooks';
 
 import {
     handleReplyModeChange,
@@ -143,7 +143,7 @@ function MessageBox({ setSessionState }) {
 
         return selectedWindowData;
     };
-    
+
     const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
     // Effect for API call
@@ -157,7 +157,7 @@ function MessageBox({ setSessionState }) {
                     text
                 )
             );
-    
+
             // Update Query Args
             const newSearchQueryArgs = { message: text };
             dispatch(
@@ -186,10 +186,10 @@ function MessageBox({ setSessionState }) {
                     )
                 );
             }
-    
+
             loadSearchResults(newSearchQueryArgs);
         }
-        
+
     },[debouncedSearchTerm]);
 
     // Update session on sessionID change

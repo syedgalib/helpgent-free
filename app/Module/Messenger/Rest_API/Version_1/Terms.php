@@ -139,24 +139,35 @@ class Terms extends Rest_Base {
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
-        $data = Term_Model::get_items( $args );
+        $data    = Term_Model::get_items( $args );
+        $results = $data['results'];
 
-        if ( empty( $data ) ) {
-            return $this->response( true, [] );
+        if ( empty( $results ) ) {
+			$headers = [
+				'X-WP-Total'      => 0,
+				'X-WP-TotalPages' => 0,
+			];
+
+            return $this->response( true, [], '', $headers );
         }
 
         // Prepare items for response
-        foreach ( $data as $key => $value ) {
+        foreach ( $results as $key => $value ) {
             $item = $this->prepare_item_for_response( $value, $args );
 
             if ( empty( $item ) ) {
                 continue;
             }
 
-            $data[ $key ] = $item;
+            $results[ $key ] = $item;
         }
 
-        return $this->response( true, $data );
+		$headers = [
+			'X-WP-Total'      => $data['found_items'],
+			'X-WP-TotalPages' => $data['total_page'],
+		];
+
+        return $this->response( true, $results, '', $headers );
     }
 
     /**

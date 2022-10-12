@@ -47,7 +47,7 @@ abstract class Base extends WP_REST_Controller {
      * @param $is_success
      * @param $data
      */
-    public function response( $is_success, $data = null, $message = '' ) {
+    public function response( $is_success, $data = null, $message = '', $headers = [] ) {
 
         $default_message = $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' );
         $message = ( ! empty( $message ) ) ? $message : $default_message;
@@ -59,7 +59,15 @@ abstract class Base extends WP_REST_Controller {
             'data'        => $data,
         ];
 
-        return rest_ensure_response( $response );
+		$response = rest_ensure_response( $response );
+
+		if ( ! empty( $headers ) ) {
+			foreach( $headers as $key => $value ) {
+				$response->header( $key, $value );
+			}
+		}
+
+        return $response;
     }
 
     /**

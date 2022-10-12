@@ -6151,6 +6151,37 @@ var Dropdown = function Dropdown(_ref) {
 
 /***/ }),
 
+/***/ "./src/lib/externals/Linkify.jsx":
+/*!***************************************!*\
+  !*** ./src/lib/externals/Linkify.jsx ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_linkify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-linkify */ "./node_modules/react-linkify/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+var Linkify = function Linkify(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_linkify__WEBPACK_IMPORTED_MODULE_0__["default"], {
+    componentDecorator: function componentDecorator(decoratedHref, decoratedText, key) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+        href: decoratedHref,
+        target: "_blank",
+        rel: "noopener",
+        children: decoratedText
+      }, key);
+    },
+    children: props.children
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Linkify);
+
+/***/ }),
+
 /***/ "./src/modules/messenger/apps/chatDashboard/App.jsx":
 /*!**********************************************************!*\
   !*** ./src/modules/messenger/apps/chatDashboard/App.jsx ***!
@@ -8311,15 +8342,16 @@ var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/overview/Style.js");
-/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
-/* harmony import */ var Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/audio-range-active.svg */ "./src/assets/svg/icons/audio-range-active.svg");
-/* harmony import */ var Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/audio-range-inactive.svg */ "./src/assets/svg/icons/audio-range-inactive.svg");
-/* harmony import */ var Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/expand.svg */ "./src/assets/svg/icons/expand.svg");
-/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Helper/formatter */ "./src/helpers/formatter.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Externals/Linkify.jsx */ "./src/lib/externals/Linkify.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatDashboard/components/messageBox/overview/Style.js");
+/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
+/* harmony import */ var Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/audio-range-active.svg */ "./src/assets/svg/icons/audio-range-active.svg");
+/* harmony import */ var Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/audio-range-inactive.svg */ "./src/assets/svg/icons/audio-range-inactive.svg");
+/* harmony import */ var Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/expand.svg */ "./src/assets/svg/icons/expand.svg");
+/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Helper/formatter */ "./src/helpers/formatter.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Helper/http.js */ "./src/helpers/http.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -8339,6 +8371,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -8477,7 +8510,7 @@ function Message(_ref) {
 
   function getAudioTimer() {
     var remainingTime = audioDuration - audioCurrentTime;
-    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_6__.formatSecondsAsCountdown)(remainingTime);
+    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_7__.formatSecondsAsCountdown)(remainingTime);
   }
 
   function handleExpandVideo(event) {
@@ -8507,7 +8540,7 @@ function Message(_ref) {
               };
               _context.prev = 1;
               _context.next = 4;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_7__["default"].postData("/messages/".concat(id, "/seen-by"), args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_8__["default"].postData("/messages/".concat(id, "/seen-by"), args);
 
             case 4:
               response = _context.sent;
@@ -8541,17 +8574,19 @@ function Message(_ref) {
 
   var setMessageContent = function setMessageContent() {
     if (data.message_type === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-message-content__inner--text",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-          children: data.message
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            children: data.message
+          })
         })
       });
     } else if (data.message_type === 'video') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-message-content__inner--video",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("video", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("video", {
             ref: videoRef,
             src: data.attachment_url,
             onPlay: function onPlay() {
@@ -8565,53 +8600,55 @@ function Message(_ref) {
               backgroundColor: '#000',
               borderRadius: '16px'
             }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-play",
             onClick: function onClick(e) {
               togglePlayPauseVidio(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: isPlayingVideo ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn-expander",
             onClick: handleExpandVideo,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
-              src: Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              src: Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
             })
           })]
-        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-            children: data.message
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              children: data.message
+            })
           })
         })]
       });
     } else if (data.message_type === 'audio') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-message-content__inner--audio",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               togglePlayPauseAudio(e);
             },
             className: "wpwax-vm-btn-play",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: isPlayingAudio ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-audio-range",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
               style: {
                 position: 'relative',
                 margin: '5px',
                 width: '190px',
                 height: '21px'
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 style: {
                   position: 'absolute',
                   left: 0,
@@ -8621,10 +8658,10 @@ function Message(_ref) {
                   display: 'inline-block',
                   backgroundPositionX: '0px',
                   backgroundRepeat: 'no-repeat',
-                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_4__["default"] + ' )',
+                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_5__["default"] + ' )',
                   zIndex: 0
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
                 style: {
                   width: getPlayedTimeInPercent() + '%',
                   position: 'absolute',
@@ -8635,16 +8672,16 @@ function Message(_ref) {
                   display: 'inline-block',
                   backgroundPositionX: '0px',
                   backgroundRepeat: 'no-repeat',
-                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_3__["default"] + ' )',
+                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_4__["default"] + ' )',
                   zIndex: 1,
                   transition: 'all 300ms ease-in-out 0s'
                 }
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-timer",
               children: getAudioTimer()
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("audio", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("audio", {
             ref: audioRef,
             onPlay: function onPlay() {
               setIsPlayingAudio(true);
@@ -8660,38 +8697,40 @@ function Message(_ref) {
             },
             src: data.attachment_url
           })]
-        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
-            children: data.message
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              children: data.message
+            })
           })
         })]
       });
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.MessageBox, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.MessageBox, {
     ref: container,
     className: isMine ? "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type) : "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type, " wpwax-vm-message-single-replied"),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-message-content",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "wpwax-vm-message-content__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-message--authorname",
           children: [data.user.name, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
           className: "wpwax-vm-message-time",
           children: data.created_on_formatted
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-message-content__inner",
         children: setMessageContent()
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "wpwax-vm-message-author",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
-        src: data.user.avater ? data.user.avater : Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_2__["default"],
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("img", {
+        src: data.user.avater ? data.user.avater : Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__["default"],
         alt: "Author Avater"
       })
     })]
@@ -14293,6 +14332,843 @@ exports.typeOf = typeOf;
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js");
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/linkify-it/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/linkify-it/index.js ***!
+  \******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Helpers
+
+// Merge objects
+//
+function assign(obj /*from1, from2, from3, ...*/) {
+  var sources = Array.prototype.slice.call(arguments, 1);
+
+  sources.forEach(function (source) {
+    if (!source) { return; }
+
+    Object.keys(source).forEach(function (key) {
+      obj[key] = source[key];
+    });
+  });
+
+  return obj;
+}
+
+function _class(obj) { return Object.prototype.toString.call(obj); }
+function isString(obj) { return _class(obj) === '[object String]'; }
+function isObject(obj) { return _class(obj) === '[object Object]'; }
+function isRegExp(obj) { return _class(obj) === '[object RegExp]'; }
+function isFunction(obj) { return _class(obj) === '[object Function]'; }
+
+
+function escapeRE(str) { return str.replace(/[.?*+^$[\]\\(){}|-]/g, '\\$&'); }
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+var defaultOptions = {
+  fuzzyLink: true,
+  fuzzyEmail: true,
+  fuzzyIP: false
+};
+
+
+function isOptionsObj(obj) {
+  return Object.keys(obj || {}).reduce(function (acc, k) {
+    return acc || defaultOptions.hasOwnProperty(k);
+  }, false);
+}
+
+
+var defaultSchemas = {
+  'http:': {
+    validate: function (text, pos, self) {
+      var tail = text.slice(pos);
+
+      if (!self.re.http) {
+        // compile lazily, because "host"-containing variables can change on tlds update.
+        self.re.http =  new RegExp(
+          '^\\/\\/' + self.re.src_auth + self.re.src_host_port_strict + self.re.src_path, 'i'
+        );
+      }
+      if (self.re.http.test(tail)) {
+        return tail.match(self.re.http)[0].length;
+      }
+      return 0;
+    }
+  },
+  'https:':  'http:',
+  'ftp:':    'http:',
+  '//':      {
+    validate: function (text, pos, self) {
+      var tail = text.slice(pos);
+
+      if (!self.re.no_http) {
+      // compile lazily, because "host"-containing variables can change on tlds update.
+        self.re.no_http =  new RegExp(
+          '^' +
+          self.re.src_auth +
+          // Don't allow single-level domains, because of false positives like '//test'
+          // with code comments
+          '(?:localhost|(?:(?:' + self.re.src_domain + ')\\.)+' + self.re.src_domain_root + ')' +
+          self.re.src_port +
+          self.re.src_host_terminator +
+          self.re.src_path,
+
+          'i'
+        );
+      }
+
+      if (self.re.no_http.test(tail)) {
+        // should not be `://` & `///`, that protects from errors in protocol name
+        if (pos >= 3 && text[pos - 3] === ':') { return 0; }
+        if (pos >= 3 && text[pos - 3] === '/') { return 0; }
+        return tail.match(self.re.no_http)[0].length;
+      }
+      return 0;
+    }
+  },
+  'mailto:': {
+    validate: function (text, pos, self) {
+      var tail = text.slice(pos);
+
+      if (!self.re.mailto) {
+        self.re.mailto =  new RegExp(
+          '^' + self.re.src_email_name + '@' + self.re.src_host_strict, 'i'
+        );
+      }
+      if (self.re.mailto.test(tail)) {
+        return tail.match(self.re.mailto)[0].length;
+      }
+      return 0;
+    }
+  }
+};
+
+/*eslint-disable max-len*/
+
+// RE pattern for 2-character tlds (autogenerated by ./support/tlds_2char_gen.js)
+var tlds_2ch_src_re = 'a[cdefgilmnoqrstuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvwxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrstuvwxyz]|n[acefgilopruz]|om|p[aefghklmnrstwy]|qa|r[eosuw]|s[abcdeghijklmnortuvxyz]|t[cdfghjklmnortvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]';
+
+// DON'T try to make PRs with changes. Extend TLDs with LinkifyIt.tlds() instead
+var tlds_default = 'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split('|');
+
+/*eslint-enable max-len*/
+
+////////////////////////////////////////////////////////////////////////////////
+
+function resetScanCache(self) {
+  self.__index__ = -1;
+  self.__text_cache__   = '';
+}
+
+function createValidator(re) {
+  return function (text, pos) {
+    var tail = text.slice(pos);
+
+    if (re.test(tail)) {
+      return tail.match(re)[0].length;
+    }
+    return 0;
+  };
+}
+
+function createNormalizer() {
+  return function (match, self) {
+    self.normalize(match);
+  };
+}
+
+// Schemas compiler. Build regexps.
+//
+function compile(self) {
+
+  // Load & clone RE patterns.
+  var re = self.re = __webpack_require__(/*! ./lib/re */ "./node_modules/linkify-it/lib/re.js")(self.__opts__);
+
+  // Define dynamic patterns
+  var tlds = self.__tlds__.slice();
+
+  self.onCompile();
+
+  if (!self.__tlds_replaced__) {
+    tlds.push(tlds_2ch_src_re);
+  }
+  tlds.push(re.src_xn);
+
+  re.src_tlds = tlds.join('|');
+
+  function untpl(tpl) { return tpl.replace('%TLDS%', re.src_tlds); }
+
+  re.email_fuzzy      = RegExp(untpl(re.tpl_email_fuzzy), 'i');
+  re.link_fuzzy       = RegExp(untpl(re.tpl_link_fuzzy), 'i');
+  re.link_no_ip_fuzzy = RegExp(untpl(re.tpl_link_no_ip_fuzzy), 'i');
+  re.host_fuzzy_test  = RegExp(untpl(re.tpl_host_fuzzy_test), 'i');
+
+  //
+  // Compile each schema
+  //
+
+  var aliases = [];
+
+  self.__compiled__ = {}; // Reset compiled data
+
+  function schemaError(name, val) {
+    throw new Error('(LinkifyIt) Invalid schema "' + name + '": ' + val);
+  }
+
+  Object.keys(self.__schemas__).forEach(function (name) {
+    var val = self.__schemas__[name];
+
+    // skip disabled methods
+    if (val === null) { return; }
+
+    var compiled = { validate: null, link: null };
+
+    self.__compiled__[name] = compiled;
+
+    if (isObject(val)) {
+      if (isRegExp(val.validate)) {
+        compiled.validate = createValidator(val.validate);
+      } else if (isFunction(val.validate)) {
+        compiled.validate = val.validate;
+      } else {
+        schemaError(name, val);
+      }
+
+      if (isFunction(val.normalize)) {
+        compiled.normalize = val.normalize;
+      } else if (!val.normalize) {
+        compiled.normalize = createNormalizer();
+      } else {
+        schemaError(name, val);
+      }
+
+      return;
+    }
+
+    if (isString(val)) {
+      aliases.push(name);
+      return;
+    }
+
+    schemaError(name, val);
+  });
+
+  //
+  // Compile postponed aliases
+  //
+
+  aliases.forEach(function (alias) {
+    if (!self.__compiled__[self.__schemas__[alias]]) {
+      // Silently fail on missed schemas to avoid errons on disable.
+      // schemaError(alias, self.__schemas__[alias]);
+      return;
+    }
+
+    self.__compiled__[alias].validate =
+      self.__compiled__[self.__schemas__[alias]].validate;
+    self.__compiled__[alias].normalize =
+      self.__compiled__[self.__schemas__[alias]].normalize;
+  });
+
+  //
+  // Fake record for guessed links
+  //
+  self.__compiled__[''] = { validate: null, normalize: createNormalizer() };
+
+  //
+  // Build schema condition
+  //
+  var slist = Object.keys(self.__compiled__)
+                      .filter(function (name) {
+                        // Filter disabled & fake schemas
+                        return name.length > 0 && self.__compiled__[name];
+                      })
+                      .map(escapeRE)
+                      .join('|');
+  // (?!_) cause 1.5x slowdown
+  self.re.schema_test   = RegExp('(^|(?!_)(?:[><\uff5c]|' + re.src_ZPCc + '))(' + slist + ')', 'i');
+  self.re.schema_search = RegExp('(^|(?!_)(?:[><\uff5c]|' + re.src_ZPCc + '))(' + slist + ')', 'ig');
+
+  self.re.pretest = RegExp(
+    '(' + self.re.schema_test.source + ')|(' + self.re.host_fuzzy_test.source + ')|@',
+    'i'
+  );
+
+  //
+  // Cleanup
+  //
+
+  resetScanCache(self);
+}
+
+/**
+ * class Match
+ *
+ * Match result. Single element of array, returned by [[LinkifyIt#match]]
+ **/
+function Match(self, shift) {
+  var start = self.__index__,
+      end   = self.__last_index__,
+      text  = self.__text_cache__.slice(start, end);
+
+  /**
+   * Match#schema -> String
+   *
+   * Prefix (protocol) for matched string.
+   **/
+  this.schema    = self.__schema__.toLowerCase();
+  /**
+   * Match#index -> Number
+   *
+   * First position of matched string.
+   **/
+  this.index     = start + shift;
+  /**
+   * Match#lastIndex -> Number
+   *
+   * Next position after matched string.
+   **/
+  this.lastIndex = end + shift;
+  /**
+   * Match#raw -> String
+   *
+   * Matched string.
+   **/
+  this.raw       = text;
+  /**
+   * Match#text -> String
+   *
+   * Notmalized text of matched string.
+   **/
+  this.text      = text;
+  /**
+   * Match#url -> String
+   *
+   * Normalized url of matched string.
+   **/
+  this.url       = text;
+}
+
+function createMatch(self, shift) {
+  var match = new Match(self, shift);
+
+  self.__compiled__[match.schema].normalize(match, self);
+
+  return match;
+}
+
+
+/**
+ * class LinkifyIt
+ **/
+
+/**
+ * new LinkifyIt(schemas, options)
+ * - schemas (Object): Optional. Additional schemas to validate (prefix/validator)
+ * - options (Object): { fuzzyLink|fuzzyEmail|fuzzyIP: true|false }
+ *
+ * Creates new linkifier instance with optional additional schemas.
+ * Can be called without `new` keyword for convenience.
+ *
+ * By default understands:
+ *
+ * - `http(s)://...` , `ftp://...`, `mailto:...` & `//...` links
+ * - "fuzzy" links and emails (example.com, foo@bar.com).
+ *
+ * `schemas` is an object, where each key/value describes protocol/rule:
+ *
+ * - __key__ - link prefix (usually, protocol name with `:` at the end, `skype:`
+ *   for example). `linkify-it` makes shure that prefix is not preceeded with
+ *   alphanumeric char and symbols. Only whitespaces and punctuation allowed.
+ * - __value__ - rule to check tail after link prefix
+ *   - _String_ - just alias to existing rule
+ *   - _Object_
+ *     - _validate_ - validator function (should return matched length on success),
+ *       or `RegExp`.
+ *     - _normalize_ - optional function to normalize text & url of matched result
+ *       (for example, for @twitter mentions).
+ *
+ * `options`:
+ *
+ * - __fuzzyLink__ - recognige URL-s without `http(s):` prefix. Default `true`.
+ * - __fuzzyIP__ - allow IPs in fuzzy links above. Can conflict with some texts
+ *   like version numbers. Default `false`.
+ * - __fuzzyEmail__ - recognize emails without `mailto:` prefix.
+ *
+ **/
+function LinkifyIt(schemas, options) {
+  if (!(this instanceof LinkifyIt)) {
+    return new LinkifyIt(schemas, options);
+  }
+
+  if (!options) {
+    if (isOptionsObj(schemas)) {
+      options = schemas;
+      schemas = {};
+    }
+  }
+
+  this.__opts__           = assign({}, defaultOptions, options);
+
+  // Cache last tested result. Used to skip repeating steps on next `match` call.
+  this.__index__          = -1;
+  this.__last_index__     = -1; // Next scan position
+  this.__schema__         = '';
+  this.__text_cache__     = '';
+
+  this.__schemas__        = assign({}, defaultSchemas, schemas);
+  this.__compiled__       = {};
+
+  this.__tlds__           = tlds_default;
+  this.__tlds_replaced__  = false;
+
+  this.re = {};
+
+  compile(this);
+}
+
+
+/** chainable
+ * LinkifyIt#add(schema, definition)
+ * - schema (String): rule name (fixed pattern prefix)
+ * - definition (String|RegExp|Object): schema definition
+ *
+ * Add new rule definition. See constructor description for details.
+ **/
+LinkifyIt.prototype.add = function add(schema, definition) {
+  this.__schemas__[schema] = definition;
+  compile(this);
+  return this;
+};
+
+
+/** chainable
+ * LinkifyIt#set(options)
+ * - options (Object): { fuzzyLink|fuzzyEmail|fuzzyIP: true|false }
+ *
+ * Set recognition options for links without schema.
+ **/
+LinkifyIt.prototype.set = function set(options) {
+  this.__opts__ = assign(this.__opts__, options);
+  return this;
+};
+
+
+/**
+ * LinkifyIt#test(text) -> Boolean
+ *
+ * Searches linkifiable pattern and returns `true` on success or `false` on fail.
+ **/
+LinkifyIt.prototype.test = function test(text) {
+  // Reset scan cache
+  this.__text_cache__ = text;
+  this.__index__      = -1;
+
+  if (!text.length) { return false; }
+
+  var m, ml, me, len, shift, next, re, tld_pos, at_pos;
+
+  // try to scan for link with schema - that's the most simple rule
+  if (this.re.schema_test.test(text)) {
+    re = this.re.schema_search;
+    re.lastIndex = 0;
+    while ((m = re.exec(text)) !== null) {
+      len = this.testSchemaAt(text, m[2], re.lastIndex);
+      if (len) {
+        this.__schema__     = m[2];
+        this.__index__      = m.index + m[1].length;
+        this.__last_index__ = m.index + m[0].length + len;
+        break;
+      }
+    }
+  }
+
+  if (this.__opts__.fuzzyLink && this.__compiled__['http:']) {
+    // guess schemaless links
+    tld_pos = text.search(this.re.host_fuzzy_test);
+    if (tld_pos >= 0) {
+      // if tld is located after found link - no need to check fuzzy pattern
+      if (this.__index__ < 0 || tld_pos < this.__index__) {
+        if ((ml = text.match(this.__opts__.fuzzyIP ? this.re.link_fuzzy : this.re.link_no_ip_fuzzy)) !== null) {
+
+          shift = ml.index + ml[1].length;
+
+          if (this.__index__ < 0 || shift < this.__index__) {
+            this.__schema__     = '';
+            this.__index__      = shift;
+            this.__last_index__ = ml.index + ml[0].length;
+          }
+        }
+      }
+    }
+  }
+
+  if (this.__opts__.fuzzyEmail && this.__compiled__['mailto:']) {
+    // guess schemaless emails
+    at_pos = text.indexOf('@');
+    if (at_pos >= 0) {
+      // We can't skip this check, because this cases are possible:
+      // 192.168.1.1@gmail.com, my.in@example.com
+      if ((me = text.match(this.re.email_fuzzy)) !== null) {
+
+        shift = me.index + me[1].length;
+        next  = me.index + me[0].length;
+
+        if (this.__index__ < 0 || shift < this.__index__ ||
+            (shift === this.__index__ && next > this.__last_index__)) {
+          this.__schema__     = 'mailto:';
+          this.__index__      = shift;
+          this.__last_index__ = next;
+        }
+      }
+    }
+  }
+
+  return this.__index__ >= 0;
+};
+
+
+/**
+ * LinkifyIt#pretest(text) -> Boolean
+ *
+ * Very quick check, that can give false positives. Returns true if link MAY BE
+ * can exists. Can be used for speed optimization, when you need to check that
+ * link NOT exists.
+ **/
+LinkifyIt.prototype.pretest = function pretest(text) {
+  return this.re.pretest.test(text);
+};
+
+
+/**
+ * LinkifyIt#testSchemaAt(text, name, position) -> Number
+ * - text (String): text to scan
+ * - name (String): rule (schema) name
+ * - position (Number): text offset to check from
+ *
+ * Similar to [[LinkifyIt#test]] but checks only specific protocol tail exactly
+ * at given position. Returns length of found pattern (0 on fail).
+ **/
+LinkifyIt.prototype.testSchemaAt = function testSchemaAt(text, schema, pos) {
+  // If not supported schema check requested - terminate
+  if (!this.__compiled__[schema.toLowerCase()]) {
+    return 0;
+  }
+  return this.__compiled__[schema.toLowerCase()].validate(text, pos, this);
+};
+
+
+/**
+ * LinkifyIt#match(text) -> Array|null
+ *
+ * Returns array of found link descriptions or `null` on fail. We strongly
+ * recommend to use [[LinkifyIt#test]] first, for best speed.
+ *
+ * ##### Result match description
+ *
+ * - __schema__ - link schema, can be empty for fuzzy links, or `//` for
+ *   protocol-neutral  links.
+ * - __index__ - offset of matched text
+ * - __lastIndex__ - index of next char after mathch end
+ * - __raw__ - matched text
+ * - __text__ - normalized text
+ * - __url__ - link, generated from matched text
+ **/
+LinkifyIt.prototype.match = function match(text) {
+  var shift = 0, result = [];
+
+  // Try to take previous element from cache, if .test() called before
+  if (this.__index__ >= 0 && this.__text_cache__ === text) {
+    result.push(createMatch(this, shift));
+    shift = this.__last_index__;
+  }
+
+  // Cut head if cache was used
+  var tail = shift ? text.slice(shift) : text;
+
+  // Scan string until end reached
+  while (this.test(tail)) {
+    result.push(createMatch(this, shift));
+
+    tail = tail.slice(this.__last_index__);
+    shift += this.__last_index__;
+  }
+
+  if (result.length) {
+    return result;
+  }
+
+  return null;
+};
+
+
+/** chainable
+ * LinkifyIt#tlds(list [, keepOld]) -> this
+ * - list (Array): list of tlds
+ * - keepOld (Boolean): merge with current list if `true` (`false` by default)
+ *
+ * Load (or merge) new tlds list. Those are user for fuzzy links (without prefix)
+ * to avoid false positives. By default this algorythm used:
+ *
+ * - hostname with any 2-letter root zones are ok.
+ * - biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф
+ *   are ok.
+ * - encoded (`xn--...`) root zones are ok.
+ *
+ * If list is replaced, then exact match for 2-chars root zones will be checked.
+ **/
+LinkifyIt.prototype.tlds = function tlds(list, keepOld) {
+  list = Array.isArray(list) ? list : [ list ];
+
+  if (!keepOld) {
+    this.__tlds__ = list.slice();
+    this.__tlds_replaced__ = true;
+    compile(this);
+    return this;
+  }
+
+  this.__tlds__ = this.__tlds__.concat(list)
+                                  .sort()
+                                  .filter(function (el, idx, arr) {
+                                    return el !== arr[idx - 1];
+                                  })
+                                  .reverse();
+
+  compile(this);
+  return this;
+};
+
+/**
+ * LinkifyIt#normalize(match)
+ *
+ * Default normalizer (if schema does not define it's own).
+ **/
+LinkifyIt.prototype.normalize = function normalize(match) {
+
+  // Do minimal possible changes by default. Need to collect feedback prior
+  // to move forward https://github.com/markdown-it/linkify-it/issues/1
+
+  if (!match.schema) { match.url = 'http://' + match.url; }
+
+  if (match.schema === 'mailto:' && !/^mailto:/i.test(match.url)) {
+    match.url = 'mailto:' + match.url;
+  }
+};
+
+
+/**
+ * LinkifyIt#onCompile()
+ *
+ * Override to modify basic RegExp-s.
+ **/
+LinkifyIt.prototype.onCompile = function onCompile() {
+};
+
+
+module.exports = LinkifyIt;
+
+
+/***/ }),
+
+/***/ "./node_modules/linkify-it/lib/re.js":
+/*!*******************************************!*\
+  !*** ./node_modules/linkify-it/lib/re.js ***!
+  \*******************************************/
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+
+module.exports = function (opts) {
+  var re = {};
+
+  // Use direct extract instead of `regenerate` to reduse browserified size
+  re.src_Any = (__webpack_require__(/*! uc.micro/properties/Any/regex */ "./node_modules/uc.micro/properties/Any/regex.js").source);
+  re.src_Cc  = (__webpack_require__(/*! uc.micro/categories/Cc/regex */ "./node_modules/uc.micro/categories/Cc/regex.js").source);
+  re.src_Z   = (__webpack_require__(/*! uc.micro/categories/Z/regex */ "./node_modules/uc.micro/categories/Z/regex.js").source);
+  re.src_P   = (__webpack_require__(/*! uc.micro/categories/P/regex */ "./node_modules/uc.micro/categories/P/regex.js").source);
+
+  // \p{\Z\P\Cc\CF} (white spaces + control + format + punctuation)
+  re.src_ZPCc = [ re.src_Z, re.src_P, re.src_Cc ].join('|');
+
+  // \p{\Z\Cc} (white spaces + control)
+  re.src_ZCc = [ re.src_Z, re.src_Cc ].join('|');
+
+  // Experimental. List of chars, completely prohibited in links
+  // because can separate it from other part of text
+  var text_separators = '[><\uff5c]';
+
+  // All possible word characters (everything without punctuation, spaces & controls)
+  // Defined via punctuation & spaces to save space
+  // Should be something like \p{\L\N\S\M} (\w but without `_`)
+  re.src_pseudo_letter       = '(?:(?!' + text_separators + '|' + re.src_ZPCc + ')' + re.src_Any + ')';
+  // The same as abothe but without [0-9]
+  // var src_pseudo_letter_non_d = '(?:(?![0-9]|' + src_ZPCc + ')' + src_Any + ')';
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+  re.src_ip4 =
+
+    '(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)';
+
+  // Prohibit any of "@/[]()" in user/pass to avoid wrong domain fetch.
+  re.src_auth    = '(?:(?:(?!' + re.src_ZCc + '|[@/\\[\\]()]).)+@)?';
+
+  re.src_port =
+
+    '(?::(?:6(?:[0-4]\\d{3}|5(?:[0-4]\\d{2}|5(?:[0-2]\\d|3[0-5])))|[1-5]?\\d{1,4}))?';
+
+  re.src_host_terminator =
+
+    '(?=$|' + text_separators + '|' + re.src_ZPCc + ')(?!-|_|:\\d|\\.-|\\.(?!$|' + re.src_ZPCc + '))';
+
+  re.src_path =
+
+    '(?:' +
+      '[/?#]' +
+        '(?:' +
+          '(?!' + re.src_ZCc + '|' + text_separators + '|[()[\\]{}.,"\'?!\\-]).|' +
+          '\\[(?:(?!' + re.src_ZCc + '|\\]).)*\\]|' +
+          '\\((?:(?!' + re.src_ZCc + '|[)]).)*\\)|' +
+          '\\{(?:(?!' + re.src_ZCc + '|[}]).)*\\}|' +
+          '\\"(?:(?!' + re.src_ZCc + '|["]).)+\\"|' +
+          "\\'(?:(?!" + re.src_ZCc + "|[']).)+\\'|" +
+          "\\'(?=" + re.src_pseudo_letter + '|[-]).|' +  // allow `I'm_king` if no pair found
+          '\\.{2,4}[a-zA-Z0-9%/]|' + // github has ... in commit range links,
+                                     // google has .... in links (issue #66)
+                                     // Restrict to
+                                     // - english
+                                     // - percent-encoded
+                                     // - parts of file path
+                                     // until more examples found.
+          '\\.(?!' + re.src_ZCc + '|[.]).|' +
+          (opts && opts['---'] ?
+            '\\-(?!--(?:[^-]|$))(?:-*)|' // `---` => long dash, terminate
+            :
+            '\\-+|'
+          ) +
+          '\\,(?!' + re.src_ZCc + ').|' +      // allow `,,,` in paths
+          '\\!(?!' + re.src_ZCc + '|[!]).|' +
+          '\\?(?!' + re.src_ZCc + '|[?]).' +
+        ')+' +
+      '|\\/' +
+    ')?';
+
+  // Allow anything in markdown spec, forbid quote (") at the first position
+  // because emails enclosed in quotes are far more common
+  re.src_email_name =
+
+    '[\\-;:&=\\+\\$,\\.a-zA-Z0-9_][\\-;:&=\\+\\$,\\"\\.a-zA-Z0-9_]*';
+
+  re.src_xn =
+
+    'xn--[a-z0-9\\-]{1,59}';
+
+  // More to read about domain names
+  // http://serverfault.com/questions/638260/
+
+  re.src_domain_root =
+
+    // Allow letters & digits (http://test1)
+    '(?:' +
+      re.src_xn +
+      '|' +
+      re.src_pseudo_letter + '{1,63}' +
+    ')';
+
+  re.src_domain =
+
+    '(?:' +
+      re.src_xn +
+      '|' +
+      '(?:' + re.src_pseudo_letter + ')' +
+      '|' +
+      '(?:' + re.src_pseudo_letter + '(?:-|' + re.src_pseudo_letter + '){0,61}' + re.src_pseudo_letter + ')' +
+    ')';
+
+  re.src_host =
+
+    '(?:' +
+    // Don't need IP check, because digits are already allowed in normal domain names
+    //   src_ip4 +
+    // '|' +
+      '(?:(?:(?:' + re.src_domain + ')\\.)*' + re.src_domain/*_root*/ + ')' +
+    ')';
+
+  re.tpl_host_fuzzy =
+
+    '(?:' +
+      re.src_ip4 +
+    '|' +
+      '(?:(?:(?:' + re.src_domain + ')\\.)+(?:%TLDS%))' +
+    ')';
+
+  re.tpl_host_no_ip_fuzzy =
+
+    '(?:(?:(?:' + re.src_domain + ')\\.)+(?:%TLDS%))';
+
+  re.src_host_strict =
+
+    re.src_host + re.src_host_terminator;
+
+  re.tpl_host_fuzzy_strict =
+
+    re.tpl_host_fuzzy + re.src_host_terminator;
+
+  re.src_host_port_strict =
+
+    re.src_host + re.src_port + re.src_host_terminator;
+
+  re.tpl_host_port_fuzzy_strict =
+
+    re.tpl_host_fuzzy + re.src_port + re.src_host_terminator;
+
+  re.tpl_host_port_no_ip_fuzzy_strict =
+
+    re.tpl_host_no_ip_fuzzy + re.src_port + re.src_host_terminator;
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Main rules
+
+  // Rude test fuzzy links by host, for quick deny
+  re.tpl_host_fuzzy_test =
+
+    'localhost|www\\.|\\.\\d{1,3}\\.|(?:\\.(?:%TLDS%)(?:' + re.src_ZPCc + '|>|$))';
+
+  re.tpl_email_fuzzy =
+
+      '(^|' + text_separators + '|"|\\(|' + re.src_ZCc + ')' +
+      '(' + re.src_email_name + '@' + re.tpl_host_fuzzy_strict + ')';
+
+  re.tpl_link_fuzzy =
+      // Fuzzy link can't be prepended with .:/\- and non punctuation.
+      // but can start with > (markdown blockquote)
+      '(^|(?![.:/\\-_@])(?:[$+<=>^`|\uff5c]|' + re.src_ZPCc + '))' +
+      '((?![$+<=>^`|\uff5c])' + re.tpl_host_port_fuzzy_strict + re.src_path + ')';
+
+  re.tpl_link_no_ip_fuzzy =
+      // Fuzzy link can't be prepended with .:/\- and non punctuation.
+      // but can start with > (markdown blockquote)
+      '(^|(?![.:/\\-_@])(?:[$+<=>^`|\uff5c]|' + re.src_ZPCc + '))' +
+      '((?![$+<=>^`|\uff5c])' + re.tpl_host_port_no_ip_fuzzy_strict + re.src_path + ')';
+
+  return re;
+};
 
 
 /***/ }),
@@ -46140,6 +47016,262 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-linkify/dist/components/Linkify.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-linkify/dist/components/Linkify.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var React = _interopRequireWildcard(_react);
+
+var _defaultComponentDecorator = __webpack_require__(/*! ../decorators/defaultComponentDecorator */ "./node_modules/react-linkify/dist/decorators/defaultComponentDecorator.js");
+
+var _defaultComponentDecorator2 = _interopRequireDefault(_defaultComponentDecorator);
+
+var _defaultHrefDecorator = __webpack_require__(/*! ../decorators/defaultHrefDecorator */ "./node_modules/react-linkify/dist/decorators/defaultHrefDecorator.js");
+
+var _defaultHrefDecorator2 = _interopRequireDefault(_defaultHrefDecorator);
+
+var _defaultMatchDecorator = __webpack_require__(/*! ../decorators/defaultMatchDecorator */ "./node_modules/react-linkify/dist/decorators/defaultMatchDecorator.js");
+
+var _defaultMatchDecorator2 = _interopRequireDefault(_defaultMatchDecorator);
+
+var _defaultTextDecorator = __webpack_require__(/*! ../decorators/defaultTextDecorator */ "./node_modules/react-linkify/dist/decorators/defaultTextDecorator.js");
+
+var _defaultTextDecorator2 = _interopRequireDefault(_defaultTextDecorator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Linkify = function (_React$Component) {
+  _inherits(Linkify, _React$Component);
+
+  function Linkify() {
+    _classCallCheck(this, Linkify);
+
+    return _possibleConstructorReturn(this, (Linkify.__proto__ || Object.getPrototypeOf(Linkify)).apply(this, arguments));
+  }
+
+  _createClass(Linkify, [{
+    key: 'parseString',
+    value: function parseString(string) {
+      var _this2 = this;
+
+      if (string === '') {
+        return string;
+      }
+
+      var matches = this.props.matchDecorator(string);
+      if (!matches) {
+        return string;
+      }
+
+      var elements = [];
+      var lastIndex = 0;
+      matches.forEach(function (match, i) {
+        // Push preceding text if there is any
+        if (match.index > lastIndex) {
+          elements.push(string.substring(lastIndex, match.index));
+        }
+
+        var decoratedHref = _this2.props.hrefDecorator(match.url);
+        var decoratedText = _this2.props.textDecorator(match.text);
+        var decoratedComponent = _this2.props.componentDecorator(decoratedHref, decoratedText, i);
+        elements.push(decoratedComponent);
+
+        lastIndex = match.lastIndex;
+      });
+
+      // Push remaining text if there is any
+      if (string.length > lastIndex) {
+        elements.push(string.substring(lastIndex));
+      }
+
+      return elements.length === 1 ? elements[0] : elements;
+    }
+  }, {
+    key: 'parse',
+    value: function parse(children) {
+      var _this3 = this;
+
+      var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+      if (typeof children === 'string') {
+        return this.parseString(children);
+      } else if (React.isValidElement(children) && children.type !== 'a' && children.type !== 'button') {
+        return React.cloneElement(children, { key: key }, this.parse(children.props.children));
+      } else if (Array.isArray(children)) {
+        return children.map(function (child, i) {
+          return _this3.parse(child, i);
+        });
+      }
+
+      return children;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        React.Fragment,
+        null,
+        this.parse(this.props.children)
+      );
+    }
+  }]);
+
+  return Linkify;
+}(React.Component);
+
+Linkify.defaultProps = {
+  componentDecorator: _defaultComponentDecorator2.default,
+  hrefDecorator: _defaultHrefDecorator2.default,
+  matchDecorator: _defaultMatchDecorator2.default,
+  textDecorator: _defaultTextDecorator2.default
+};
+exports["default"] = Linkify;
+
+/***/ }),
+
+/***/ "./node_modules/react-linkify/dist/decorators/defaultComponentDecorator.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/react-linkify/dist/decorators/defaultComponentDecorator.js ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var React = _interopRequireWildcard(_react);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports["default"] = function (decoratedHref, decoratedText, key) {
+  return React.createElement(
+    'a',
+    { href: decoratedHref, key: key },
+    decoratedText
+  );
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-linkify/dist/decorators/defaultHrefDecorator.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-linkify/dist/decorators/defaultHrefDecorator.js ***!
+  \****************************************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+exports["default"] = function (href) {
+  return href;
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-linkify/dist/decorators/defaultMatchDecorator.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/react-linkify/dist/decorators/defaultMatchDecorator.js ***!
+  \*****************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _linkifyIt = __webpack_require__(/*! linkify-it */ "./node_modules/linkify-it/index.js");
+
+var _linkifyIt2 = _interopRequireDefault(_linkifyIt);
+
+var _tlds = __webpack_require__(/*! tlds */ "./node_modules/tlds/index.json");
+
+var _tlds2 = _interopRequireDefault(_tlds);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var linkify = new _linkifyIt2.default();
+linkify.tlds(_tlds2.default);
+
+exports["default"] = function (text) {
+  return linkify.match(text);
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-linkify/dist/decorators/defaultTextDecorator.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-linkify/dist/decorators/defaultTextDecorator.js ***!
+  \****************************************************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+exports["default"] = function (text) {
+  return text;
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-linkify/dist/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-linkify/dist/index.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _Linkify = __webpack_require__(/*! ./components/Linkify */ "./node_modules/react-linkify/dist/components/Linkify.js");
+
+var _Linkify2 = _interopRequireDefault(_Linkify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports["default"] = _Linkify2.default;
+
+/***/ }),
+
 /***/ "./node_modules/react-redux/es/components/Context.js":
 /*!***********************************************************!*\
   !*** ./node_modules/react-redux/es/components/Context.js ***!
@@ -53796,6 +54928,46 @@ var unitlessKeys = {
 
 /***/ }),
 
+/***/ "./node_modules/uc.micro/categories/Cc/regex.js":
+/*!******************************************************!*\
+  !*** ./node_modules/uc.micro/categories/Cc/regex.js ***!
+  \******************************************************/
+/***/ (function(module) {
+
+module.exports=/[\0-\x1F\x7F-\x9F]/
+
+/***/ }),
+
+/***/ "./node_modules/uc.micro/categories/P/regex.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uc.micro/categories/P/regex.js ***!
+  \*****************************************************/
+/***/ (function(module) {
+
+module.exports=/[!-#%-\*,-\/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E4E\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD803[\uDF55-\uDF59]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC8\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD806[\uDC3B\uDE3F-\uDE46\uDE9A-\uDE9C\uDE9E-\uDEA2]|\uD807[\uDC41-\uDC45\uDC70\uDC71\uDEF7\uDEF8]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD81B[\uDE97-\uDE9A]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/
+
+/***/ }),
+
+/***/ "./node_modules/uc.micro/categories/Z/regex.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uc.micro/categories/Z/regex.js ***!
+  \*****************************************************/
+/***/ (function(module) {
+
+module.exports=/[ \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/
+
+/***/ }),
+
+/***/ "./node_modules/uc.micro/properties/Any/regex.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/uc.micro/properties/Any/regex.js ***!
+  \*******************************************************/
+/***/ (function(module) {
+
+module.exports=/[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/
+
+/***/ }),
+
 /***/ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js":
 /*!**********************************************************************************************!*\
   !*** ./node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js ***!
@@ -54416,6 +55588,17 @@ __webpack_require__.r(__webpack_exports__);
 function n(n){for(var r=arguments.length,t=Array(r>1?r-1:0),e=1;e<r;e++)t[e-1]=arguments[e];if(true){var i=Y[n],o=i?"function"==typeof i?i.apply(null,t):i:"unknown error nr: "+n;throw Error("[Immer] "+o)}throw Error("[Immer] minified error nr: "+n+(t.length?" "+t.map((function(n){return"'"+n+"'"})).join(","):"")+". Find the full error at: https://bit.ly/3cXEKWf")}function r(n){return!!n&&!!n[Q]}function t(n){return!!n&&(function(n){if(!n||"object"!=typeof n)return!1;var r=Object.getPrototypeOf(n);if(null===r)return!0;var t=Object.hasOwnProperty.call(r,"constructor")&&r.constructor;return t===Object||"function"==typeof t&&Function.toString.call(t)===Z}(n)||Array.isArray(n)||!!n[L]||!!n.constructor[L]||s(n)||v(n))}function e(t){return r(t)||n(23,t),t[Q].t}function i(n,r,t){void 0===t&&(t=!1),0===o(n)?(t?Object.keys:nn)(n).forEach((function(e){t&&"symbol"==typeof e||r(e,n[e],n)})):n.forEach((function(t,e){return r(e,t,n)}))}function o(n){var r=n[Q];return r?r.i>3?r.i-4:r.i:Array.isArray(n)?1:s(n)?2:v(n)?3:0}function u(n,r){return 2===o(n)?n.has(r):Object.prototype.hasOwnProperty.call(n,r)}function a(n,r){return 2===o(n)?n.get(r):n[r]}function f(n,r,t){var e=o(n);2===e?n.set(r,t):3===e?(n.delete(r),n.add(t)):n[r]=t}function c(n,r){return n===r?0!==n||1/n==1/r:n!=n&&r!=r}function s(n){return X&&n instanceof Map}function v(n){return q&&n instanceof Set}function p(n){return n.o||n.t}function l(n){if(Array.isArray(n))return Array.prototype.slice.call(n);var r=rn(n);delete r[Q];for(var t=nn(r),e=0;e<t.length;e++){var i=t[e],o=r[i];!1===o.writable&&(o.writable=!0,o.configurable=!0),(o.get||o.set)&&(r[i]={configurable:!0,writable:!0,enumerable:o.enumerable,value:n[i]})}return Object.create(Object.getPrototypeOf(n),r)}function d(n,e){return void 0===e&&(e=!1),y(n)||r(n)||!t(n)?n:(o(n)>1&&(n.set=n.add=n.clear=n.delete=h),Object.freeze(n),e&&i(n,(function(n,r){return d(r,!0)}),!0),n)}function h(){n(2)}function y(n){return null==n||"object"!=typeof n||Object.isFrozen(n)}function b(r){var t=tn[r];return t||n(18,r),t}function m(n,r){tn[n]||(tn[n]=r)}function _(){return false||U||n(0),U}function j(n,r){r&&(b("Patches"),n.u=[],n.s=[],n.v=r)}function O(n){g(n),n.p.forEach(S),n.p=null}function g(n){n===U&&(U=n.l)}function w(n){return U={p:[],l:U,h:n,m:!0,_:0}}function S(n){var r=n[Q];0===r.i||1===r.i?r.j():r.O=!0}function P(r,e){e._=e.p.length;var i=e.p[0],o=void 0!==r&&r!==i;return e.h.g||b("ES5").S(e,r,o),o?(i[Q].P&&(O(e),n(4)),t(r)&&(r=M(e,r),e.l||x(e,r)),e.u&&b("Patches").M(i[Q].t,r,e.u,e.s)):r=M(e,i,[]),O(e),e.u&&e.v(e.u,e.s),r!==H?r:void 0}function M(n,r,t){if(y(r))return r;var e=r[Q];if(!e)return i(r,(function(i,o){return A(n,e,r,i,o,t)}),!0),r;if(e.A!==n)return r;if(!e.P)return x(n,e.t,!0),e.t;if(!e.I){e.I=!0,e.A._--;var o=4===e.i||5===e.i?e.o=l(e.k):e.o;i(3===e.i?new Set(o):o,(function(r,i){return A(n,e,o,r,i,t)})),x(n,o,!1),t&&n.u&&b("Patches").R(e,t,n.u,n.s)}return e.o}function A(e,i,o,a,c,s){if( true&&c===o&&n(5),r(c)){var v=M(e,c,s&&i&&3!==i.i&&!u(i.D,a)?s.concat(a):void 0);if(f(o,a,v),!r(v))return;e.m=!1}if(t(c)&&!y(c)){if(!e.h.F&&e._<1)return;M(e,c),i&&i.A.l||x(e,c)}}function x(n,r,t){void 0===t&&(t=!1),n.h.F&&n.m&&d(r,t)}function z(n,r){var t=n[Q];return(t?p(t):n)[r]}function I(n,r){if(r in n)for(var t=Object.getPrototypeOf(n);t;){var e=Object.getOwnPropertyDescriptor(t,r);if(e)return e;t=Object.getPrototypeOf(t)}}function k(n){n.P||(n.P=!0,n.l&&k(n.l))}function E(n){n.o||(n.o=l(n.t))}function R(n,r,t){var e=s(r)?b("MapSet").N(r,t):v(r)?b("MapSet").T(r,t):n.g?function(n,r){var t=Array.isArray(n),e={i:t?1:0,A:r?r.A:_(),P:!1,I:!1,D:{},l:r,t:n,k:null,o:null,j:null,C:!1},i=e,o=en;t&&(i=[e],o=on);var u=Proxy.revocable(i,o),a=u.revoke,f=u.proxy;return e.k=f,e.j=a,f}(r,t):b("ES5").J(r,t);return(t?t.A:_()).p.push(e),e}function D(e){return r(e)||n(22,e),function n(r){if(!t(r))return r;var e,u=r[Q],c=o(r);if(u){if(!u.P&&(u.i<4||!b("ES5").K(u)))return u.t;u.I=!0,e=F(r,c),u.I=!1}else e=F(r,c);return i(e,(function(r,t){u&&a(u.t,r)===t||f(e,r,n(t))})),3===c?new Set(e):e}(e)}function F(n,r){switch(r){case 2:return new Map(n);case 3:return Array.from(n)}return l(n)}function N(){function t(n,r){var t=s[n];return t?t.enumerable=r:s[n]=t={configurable:!0,enumerable:r,get:function(){var r=this[Q];return true&&f(r),en.get(r,n)},set:function(r){var t=this[Q]; true&&f(t),en.set(t,n,r)}},t}function e(n){for(var r=n.length-1;r>=0;r--){var t=n[r][Q];if(!t.P)switch(t.i){case 5:a(t)&&k(t);break;case 4:o(t)&&k(t)}}}function o(n){for(var r=n.t,t=n.k,e=nn(t),i=e.length-1;i>=0;i--){var o=e[i];if(o!==Q){var a=r[o];if(void 0===a&&!u(r,o))return!0;var f=t[o],s=f&&f[Q];if(s?s.t!==a:!c(f,a))return!0}}var v=!!r[Q];return e.length!==nn(r).length+(v?0:1)}function a(n){var r=n.k;if(r.length!==n.t.length)return!0;var t=Object.getOwnPropertyDescriptor(r,r.length-1);if(t&&!t.get)return!0;for(var e=0;e<r.length;e++)if(!r.hasOwnProperty(e))return!0;return!1}function f(r){r.O&&n(3,JSON.stringify(p(r)))}var s={};m("ES5",{J:function(n,r){var e=Array.isArray(n),i=function(n,r){if(n){for(var e=Array(r.length),i=0;i<r.length;i++)Object.defineProperty(e,""+i,t(i,!0));return e}var o=rn(r);delete o[Q];for(var u=nn(o),a=0;a<u.length;a++){var f=u[a];o[f]=t(f,n||!!o[f].enumerable)}return Object.create(Object.getPrototypeOf(r),o)}(e,n),o={i:e?5:4,A:r?r.A:_(),P:!1,I:!1,D:{},l:r,t:n,k:i,o:null,O:!1,C:!1};return Object.defineProperty(i,Q,{value:o,writable:!0}),i},S:function(n,t,o){o?r(t)&&t[Q].A===n&&e(n.p):(n.u&&function n(r){if(r&&"object"==typeof r){var t=r[Q];if(t){var e=t.t,o=t.k,f=t.D,c=t.i;if(4===c)i(o,(function(r){r!==Q&&(void 0!==e[r]||u(e,r)?f[r]||n(o[r]):(f[r]=!0,k(t)))})),i(e,(function(n){void 0!==o[n]||u(o,n)||(f[n]=!1,k(t))}));else if(5===c){if(a(t)&&(k(t),f.length=!0),o.length<e.length)for(var s=o.length;s<e.length;s++)f[s]=!1;else for(var v=e.length;v<o.length;v++)f[v]=!0;for(var p=Math.min(o.length,e.length),l=0;l<p;l++)o.hasOwnProperty(l)||(f[l]=!0),void 0===f[l]&&n(o[l])}}}}(n.p[0]),e(n.p))},K:function(n){return 4===n.i?o(n):a(n)}})}function T(){function e(n){if(!t(n))return n;if(Array.isArray(n))return n.map(e);if(s(n))return new Map(Array.from(n.entries()).map((function(n){return[n[0],e(n[1])]})));if(v(n))return new Set(Array.from(n).map(e));var r=Object.create(Object.getPrototypeOf(n));for(var i in n)r[i]=e(n[i]);return u(n,L)&&(r[L]=n[L]),r}function f(n){return r(n)?e(n):n}var c="add";m("Patches",{$:function(r,t){return t.forEach((function(t){for(var i=t.path,u=t.op,f=r,s=0;s<i.length-1;s++){var v=o(f),p=""+i[s];0!==v&&1!==v||"__proto__"!==p&&"constructor"!==p||n(24),"function"==typeof f&&"prototype"===p&&n(24),"object"!=typeof(f=a(f,p))&&n(15,i.join("/"))}var l=o(f),d=e(t.value),h=i[i.length-1];switch(u){case"replace":switch(l){case 2:return f.set(h,d);case 3:n(16);default:return f[h]=d}case c:switch(l){case 1:return"-"===h?f.push(d):f.splice(h,0,d);case 2:return f.set(h,d);case 3:return f.add(d);default:return f[h]=d}case"remove":switch(l){case 1:return f.splice(h,1);case 2:return f.delete(h);case 3:return f.delete(t.value);default:return delete f[h]}default:n(17,u)}})),r},R:function(n,r,t,e){switch(n.i){case 0:case 4:case 2:return function(n,r,t,e){var o=n.t,s=n.o;i(n.D,(function(n,i){var v=a(o,n),p=a(s,n),l=i?u(o,n)?"replace":c:"remove";if(v!==p||"replace"!==l){var d=r.concat(n);t.push("remove"===l?{op:l,path:d}:{op:l,path:d,value:p}),e.push(l===c?{op:"remove",path:d}:"remove"===l?{op:c,path:d,value:f(v)}:{op:"replace",path:d,value:f(v)})}}))}(n,r,t,e);case 5:case 1:return function(n,r,t,e){var i=n.t,o=n.D,u=n.o;if(u.length<i.length){var a=[u,i];i=a[0],u=a[1];var s=[e,t];t=s[0],e=s[1]}for(var v=0;v<i.length;v++)if(o[v]&&u[v]!==i[v]){var p=r.concat([v]);t.push({op:"replace",path:p,value:f(u[v])}),e.push({op:"replace",path:p,value:f(i[v])})}for(var l=i.length;l<u.length;l++){var d=r.concat([l]);t.push({op:c,path:d,value:f(u[l])})}i.length<u.length&&e.push({op:"replace",path:r.concat(["length"]),value:i.length})}(n,r,t,e);case 3:return function(n,r,t,e){var i=n.t,o=n.o,u=0;i.forEach((function(n){if(!o.has(n)){var i=r.concat([u]);t.push({op:"remove",path:i,value:n}),e.unshift({op:c,path:i,value:n})}u++})),u=0,o.forEach((function(n){if(!i.has(n)){var o=r.concat([u]);t.push({op:c,path:o,value:n}),e.unshift({op:"remove",path:o,value:n})}u++}))}(n,r,t,e)}},M:function(n,r,t,e){t.push({op:"replace",path:[],value:r===H?void 0:r}),e.push({op:"replace",path:[],value:n})}})}function C(){function r(n,r){function t(){this.constructor=n}a(n,r),n.prototype=(t.prototype=r.prototype,new t)}function e(n){n.o||(n.D=new Map,n.o=new Map(n.t))}function o(n){n.o||(n.o=new Set,n.t.forEach((function(r){if(t(r)){var e=R(n.A.h,r,n);n.p.set(r,e),n.o.add(e)}else n.o.add(r)})))}function u(r){r.O&&n(3,JSON.stringify(p(r)))}var a=function(n,r){return(a=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(n,r){n.__proto__=r}||function(n,r){for(var t in r)r.hasOwnProperty(t)&&(n[t]=r[t])})(n,r)},f=function(){function n(n,r){return this[Q]={i:2,l:r,A:r?r.A:_(),P:!1,I:!1,o:void 0,D:void 0,t:n,k:this,C:!1,O:!1},this}r(n,Map);var o=n.prototype;return Object.defineProperty(o,"size",{get:function(){return p(this[Q]).size}}),o.has=function(n){return p(this[Q]).has(n)},o.set=function(n,r){var t=this[Q];return u(t),p(t).has(n)&&p(t).get(n)===r||(e(t),k(t),t.D.set(n,!0),t.o.set(n,r),t.D.set(n,!0)),this},o.delete=function(n){if(!this.has(n))return!1;var r=this[Q];return u(r),e(r),k(r),r.t.has(n)?r.D.set(n,!1):r.D.delete(n),r.o.delete(n),!0},o.clear=function(){var n=this[Q];u(n),p(n).size&&(e(n),k(n),n.D=new Map,i(n.t,(function(r){n.D.set(r,!1)})),n.o.clear())},o.forEach=function(n,r){var t=this;p(this[Q]).forEach((function(e,i){n.call(r,t.get(i),i,t)}))},o.get=function(n){var r=this[Q];u(r);var i=p(r).get(n);if(r.I||!t(i))return i;if(i!==r.t.get(n))return i;var o=R(r.A.h,i,r);return e(r),r.o.set(n,o),o},o.keys=function(){return p(this[Q]).keys()},o.values=function(){var n,r=this,t=this.keys();return(n={})[V]=function(){return r.values()},n.next=function(){var n=t.next();return n.done?n:{done:!1,value:r.get(n.value)}},n},o.entries=function(){var n,r=this,t=this.keys();return(n={})[V]=function(){return r.entries()},n.next=function(){var n=t.next();if(n.done)return n;var e=r.get(n.value);return{done:!1,value:[n.value,e]}},n},o[V]=function(){return this.entries()},n}(),c=function(){function n(n,r){return this[Q]={i:3,l:r,A:r?r.A:_(),P:!1,I:!1,o:void 0,t:n,k:this,p:new Map,O:!1,C:!1},this}r(n,Set);var t=n.prototype;return Object.defineProperty(t,"size",{get:function(){return p(this[Q]).size}}),t.has=function(n){var r=this[Q];return u(r),r.o?!!r.o.has(n)||!(!r.p.has(n)||!r.o.has(r.p.get(n))):r.t.has(n)},t.add=function(n){var r=this[Q];return u(r),this.has(n)||(o(r),k(r),r.o.add(n)),this},t.delete=function(n){if(!this.has(n))return!1;var r=this[Q];return u(r),o(r),k(r),r.o.delete(n)||!!r.p.has(n)&&r.o.delete(r.p.get(n))},t.clear=function(){var n=this[Q];u(n),p(n).size&&(o(n),k(n),n.o.clear())},t.values=function(){var n=this[Q];return u(n),o(n),n.o.values()},t.entries=function(){var n=this[Q];return u(n),o(n),n.o.entries()},t.keys=function(){return this.values()},t[V]=function(){return this.values()},t.forEach=function(n,r){for(var t=this.values(),e=t.next();!e.done;)n.call(r,e.value,e.value,this),e=t.next()},n}();m("MapSet",{N:function(n,r){return new f(n,r)},T:function(n,r){return new c(n,r)}})}function J(){N(),C(),T()}function K(n){return n}function $(n){return n}var G,U,W="undefined"!=typeof Symbol&&"symbol"==typeof Symbol("x"),X="undefined"!=typeof Map,q="undefined"!=typeof Set,B="undefined"!=typeof Proxy&&void 0!==Proxy.revocable&&"undefined"!=typeof Reflect,H=W?Symbol.for("immer-nothing"):((G={})["immer-nothing"]=!0,G),L=W?Symbol.for("immer-draftable"):"__$immer_draftable",Q=W?Symbol.for("immer-state"):"__$immer_state",V="undefined"!=typeof Symbol&&Symbol.iterator||"@@iterator",Y={0:"Illegal state",1:"Immer drafts cannot have computed properties",2:"This object has been frozen and should not be mutated",3:function(n){return"Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? "+n},4:"An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",5:"Immer forbids circular references",6:"The first or second argument to `produce` must be a function",7:"The third argument to `produce` must be a function or undefined",8:"First argument to `createDraft` must be a plain object, an array, or an immerable object",9:"First argument to `finishDraft` must be a draft returned by `createDraft`",10:"The given draft is already finalized",11:"Object.defineProperty() cannot be used on an Immer draft",12:"Object.setPrototypeOf() cannot be used on an Immer draft",13:"Immer only supports deleting array indices",14:"Immer only supports setting array indices and the 'length' property",15:function(n){return"Cannot apply patch, path doesn't resolve: "+n},16:'Sets cannot have "replace" patches.',17:function(n){return"Unsupported patch operation: "+n},18:function(n){return"The plugin for '"+n+"' has not been loaded into Immer. To enable the plugin, import and call `enable"+n+"()` when initializing your application."},20:"Cannot use proxies if Proxy, Proxy.revocable or Reflect are not available",21:function(n){return"produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '"+n+"'"},22:function(n){return"'current' expects a draft, got: "+n},23:function(n){return"'original' expects a draft, got: "+n},24:"Patching reserved attributes like __proto__, prototype and constructor is not allowed"},Z=""+Object.prototype.constructor,nn="undefined"!=typeof Reflect&&Reflect.ownKeys?Reflect.ownKeys:void 0!==Object.getOwnPropertySymbols?function(n){return Object.getOwnPropertyNames(n).concat(Object.getOwnPropertySymbols(n))}:Object.getOwnPropertyNames,rn=Object.getOwnPropertyDescriptors||function(n){var r={};return nn(n).forEach((function(t){r[t]=Object.getOwnPropertyDescriptor(n,t)})),r},tn={},en={get:function(n,r){if(r===Q)return n;var e=p(n);if(!u(e,r))return function(n,r,t){var e,i=I(r,t);return i?"value"in i?i.value:null===(e=i.get)||void 0===e?void 0:e.call(n.k):void 0}(n,e,r);var i=e[r];return n.I||!t(i)?i:i===z(n.t,r)?(E(n),n.o[r]=R(n.A.h,i,n)):i},has:function(n,r){return r in p(n)},ownKeys:function(n){return Reflect.ownKeys(p(n))},set:function(n,r,t){var e=I(p(n),r);if(null==e?void 0:e.set)return e.set.call(n.k,t),!0;if(!n.P){var i=z(p(n),r),o=null==i?void 0:i[Q];if(o&&o.t===t)return n.o[r]=t,n.D[r]=!1,!0;if(c(t,i)&&(void 0!==t||u(n.t,r)))return!0;E(n),k(n)}return n.o[r]===t&&"number"!=typeof t&&(void 0!==t||r in n.o)||(n.o[r]=t,n.D[r]=!0,!0)},deleteProperty:function(n,r){return void 0!==z(n.t,r)||r in n.t?(n.D[r]=!1,E(n),k(n)):delete n.D[r],n.o&&delete n.o[r],!0},getOwnPropertyDescriptor:function(n,r){var t=p(n),e=Reflect.getOwnPropertyDescriptor(t,r);return e?{writable:!0,configurable:1!==n.i||"length"!==r,enumerable:e.enumerable,value:t[r]}:e},defineProperty:function(){n(11)},getPrototypeOf:function(n){return Object.getPrototypeOf(n.t)},setPrototypeOf:function(){n(12)}},on={};i(en,(function(n,r){on[n]=function(){return arguments[0]=arguments[0][0],r.apply(this,arguments)}})),on.deleteProperty=function(r,t){return true&&isNaN(parseInt(t))&&n(13),on.set.call(this,r,t,void 0)},on.set=function(r,t,e){return true&&"length"!==t&&isNaN(parseInt(t))&&n(14),en.set.call(this,r[0],t,e,r[0])};var un=function(){function e(r){var e=this;this.g=B,this.F=!0,this.produce=function(r,i,o){if("function"==typeof r&&"function"!=typeof i){var u=i;i=r;var a=e;return function(n){var r=this;void 0===n&&(n=u);for(var t=arguments.length,e=Array(t>1?t-1:0),o=1;o<t;o++)e[o-1]=arguments[o];return a.produce(n,(function(n){var t;return(t=i).call.apply(t,[r,n].concat(e))}))}}var f;if("function"!=typeof i&&n(6),void 0!==o&&"function"!=typeof o&&n(7),t(r)){var c=w(e),s=R(e,r,void 0),v=!0;try{f=i(s),v=!1}finally{v?O(c):g(c)}return"undefined"!=typeof Promise&&f instanceof Promise?f.then((function(n){return j(c,o),P(n,c)}),(function(n){throw O(c),n})):(j(c,o),P(f,c))}if(!r||"object"!=typeof r){if(void 0===(f=i(r))&&(f=r),f===H&&(f=void 0),e.F&&d(f,!0),o){var p=[],l=[];b("Patches").M(r,f,p,l),o(p,l)}return f}n(21,r)},this.produceWithPatches=function(n,r){if("function"==typeof n)return function(r){for(var t=arguments.length,i=Array(t>1?t-1:0),o=1;o<t;o++)i[o-1]=arguments[o];return e.produceWithPatches(r,(function(r){return n.apply(void 0,[r].concat(i))}))};var t,i,o=e.produce(n,r,(function(n,r){t=n,i=r}));return"undefined"!=typeof Promise&&o instanceof Promise?o.then((function(n){return[n,t,i]})):[o,t,i]},"boolean"==typeof(null==r?void 0:r.useProxies)&&this.setUseProxies(r.useProxies),"boolean"==typeof(null==r?void 0:r.autoFreeze)&&this.setAutoFreeze(r.autoFreeze)}var i=e.prototype;return i.createDraft=function(e){t(e)||n(8),r(e)&&(e=D(e));var i=w(this),o=R(this,e,void 0);return o[Q].C=!0,g(i),o},i.finishDraft=function(r,t){var e=r&&r[Q]; true&&(e&&e.C||n(9),e.I&&n(10));var i=e.A;return j(i,t),P(void 0,i)},i.setAutoFreeze=function(n){this.F=n},i.setUseProxies=function(r){r&&!B&&n(20),this.g=r},i.applyPatches=function(n,t){var e;for(e=t.length-1;e>=0;e--){var i=t[e];if(0===i.path.length&&"replace"===i.op){n=i.value;break}}e>-1&&(t=t.slice(e+1));var o=b("Patches").$;return r(n)?o(n,t):this.produce(n,(function(n){return o(n,t)}))},e}(),an=new un,fn=an.produce,cn=an.produceWithPatches.bind(an),sn=an.setAutoFreeze.bind(an),vn=an.setUseProxies.bind(an),pn=an.applyPatches.bind(an),ln=an.createDraft.bind(an),dn=an.finishDraft.bind(an);/* harmony default export */ __webpack_exports__["default"] = (fn);
 //# sourceMappingURL=immer.esm.js.map
 
+
+/***/ }),
+
+/***/ "./node_modules/tlds/index.json":
+/*!**************************************!*\
+  !*** ./node_modules/tlds/index.json ***!
+  \**************************************/
+/***/ (function(module) {
+
+"use strict";
+module.exports = JSON.parse('["aaa","aarp","abarth","abb","abbott","abbvie","abc","able","abogado","abudhabi","ac","academy","accenture","accountant","accountants","aco","actor","ad","adac","ads","adult","ae","aeg","aero","aetna","af","afl","africa","ag","agakhan","agency","ai","aig","airbus","airforce","airtel","akdn","al","alfaromeo","alibaba","alipay","allfinanz","allstate","ally","alsace","alstom","am","amazon","americanexpress","americanfamily","amex","amfam","amica","amsterdam","analytics","android","anquan","anz","ao","aol","apartments","app","apple","aq","aquarelle","ar","arab","aramco","archi","army","arpa","art","arte","as","asda","asia","associates","at","athleta","attorney","au","auction","audi","audible","audio","auspost","author","auto","autos","avianca","aw","aws","ax","axa","az","azure","ba","baby","baidu","banamex","bananarepublic","band","bank","bar","barcelona","barclaycard","barclays","barefoot","bargains","baseball","basketball","bauhaus","bayern","bb","bbc","bbt","bbva","bcg","bcn","bd","be","beats","beauty","beer","bentley","berlin","best","bestbuy","bet","bf","bg","bh","bharti","bi","bible","bid","bike","bing","bingo","bio","biz","bj","black","blackfriday","blockbuster","blog","bloomberg","blue","bm","bms","bmw","bn","bnpparibas","bo","boats","boehringer","bofa","bom","bond","boo","book","booking","bosch","bostik","boston","bot","boutique","box","br","bradesco","bridgestone","broadway","broker","brother","brussels","bs","bt","build","builders","business","buy","buzz","bv","bw","by","bz","bzh","ca","cab","cafe","cal","call","calvinklein","cam","camera","camp","canon","capetown","capital","capitalone","car","caravan","cards","care","career","careers","cars","casa","case","cash","casino","cat","catering","catholic","cba","cbn","cbre","cbs","cc","cd","center","ceo","cern","cf","cfa","cfd","cg","ch","chanel","channel","charity","chase","chat","cheap","chintai","christmas","chrome","church","ci","cipriani","circle","cisco","citadel","citi","citic","city","cityeats","ck","cl","claims","cleaning","click","clinic","clinique","clothing","cloud","club","clubmed","cm","cn","co","coach","codes","coffee","college","cologne","com","comcast","commbank","community","company","compare","computer","comsec","condos","construction","consulting","contact","contractors","cooking","cookingchannel","cool","coop","corsica","country","coupon","coupons","courses","cpa","cr","credit","creditcard","creditunion","cricket","crown","crs","cruise","cruises","cu","cuisinella","cv","cw","cx","cy","cymru","cyou","cz","dabur","dad","dance","data","date","dating","datsun","day","dclk","dds","de","deal","dealer","deals","degree","delivery","dell","deloitte","delta","democrat","dental","dentist","desi","design","dev","dhl","diamonds","diet","digital","direct","directory","discount","discover","dish","diy","dj","dk","dm","dnp","do","docs","doctor","dog","domains","dot","download","drive","dtv","dubai","dunlop","dupont","durban","dvag","dvr","dz","earth","eat","ec","eco","edeka","edu","education","ee","eg","email","emerck","energy","engineer","engineering","enterprises","epson","equipment","er","ericsson","erni","es","esq","estate","et","etisalat","eu","eurovision","eus","events","exchange","expert","exposed","express","extraspace","fage","fail","fairwinds","faith","family","fan","fans","farm","farmers","fashion","fast","fedex","feedback","ferrari","ferrero","fi","fiat","fidelity","fido","film","final","finance","financial","fire","firestone","firmdale","fish","fishing","fit","fitness","fj","fk","flickr","flights","flir","florist","flowers","fly","fm","fo","foo","food","foodnetwork","football","ford","forex","forsale","forum","foundation","fox","fr","free","fresenius","frl","frogans","frontdoor","frontier","ftr","fujitsu","fun","fund","furniture","futbol","fyi","ga","gal","gallery","gallo","gallup","game","games","gap","garden","gay","gb","gbiz","gd","gdn","ge","gea","gent","genting","george","gf","gg","ggee","gh","gi","gift","gifts","gives","giving","gl","glass","gle","global","globo","gm","gmail","gmbh","gmo","gmx","gn","godaddy","gold","goldpoint","golf","goo","goodyear","goog","google","gop","got","gov","gp","gq","gr","grainger","graphics","gratis","green","gripe","grocery","group","gs","gt","gu","guardian","gucci","guge","guide","guitars","guru","gw","gy","hair","hamburg","hangout","haus","hbo","hdfc","hdfcbank","health","healthcare","help","helsinki","here","hermes","hgtv","hiphop","hisamitsu","hitachi","hiv","hk","hkt","hm","hn","hockey","holdings","holiday","homedepot","homegoods","homes","homesense","honda","horse","hospital","host","hosting","hot","hoteles","hotels","hotmail","house","how","hr","hsbc","ht","hu","hughes","hyatt","hyundai","ibm","icbc","ice","icu","id","ie","ieee","ifm","ikano","il","im","imamat","imdb","immo","immobilien","in","inc","industries","infiniti","info","ing","ink","institute","insurance","insure","int","international","intuit","investments","io","ipiranga","iq","ir","irish","is","ismaili","ist","istanbul","it","itau","itv","jaguar","java","jcb","je","jeep","jetzt","jewelry","jio","jll","jm","jmp","jnj","jo","jobs","joburg","jot","joy","jp","jpmorgan","jprs","juegos","juniper","kaufen","kddi","ke","kerryhotels","kerrylogistics","kerryproperties","kfh","kg","kh","ki","kia","kids","kim","kinder","kindle","kitchen","kiwi","km","kn","koeln","komatsu","kosher","kp","kpmg","kpn","kr","krd","kred","kuokgroup","kw","ky","kyoto","kz","la","lacaixa","lamborghini","lamer","lancaster","lancia","land","landrover","lanxess","lasalle","lat","latino","latrobe","law","lawyer","lb","lc","lds","lease","leclerc","lefrak","legal","lego","lexus","lgbt","li","lidl","life","lifeinsurance","lifestyle","lighting","like","lilly","limited","limo","lincoln","linde","link","lipsy","live","living","lk","llc","llp","loan","loans","locker","locus","loft","lol","london","lotte","lotto","love","lpl","lplfinancial","lr","ls","lt","ltd","ltda","lu","lundbeck","luxe","luxury","lv","ly","ma","macys","madrid","maif","maison","makeup","man","management","mango","map","market","marketing","markets","marriott","marshalls","maserati","mattel","mba","mc","mckinsey","md","me","med","media","meet","melbourne","meme","memorial","men","menu","merckmsd","mg","mh","miami","microsoft","mil","mini","mint","mit","mitsubishi","mk","ml","mlb","mls","mm","mma","mn","mo","mobi","mobile","moda","moe","moi","mom","monash","money","monster","mormon","mortgage","moscow","moto","motorcycles","mov","movie","mp","mq","mr","ms","msd","mt","mtn","mtr","mu","museum","music","mutual","mv","mw","mx","my","mz","na","nab","nagoya","name","natura","navy","nba","nc","ne","nec","net","netbank","netflix","network","neustar","new","news","next","nextdirect","nexus","nf","nfl","ng","ngo","nhk","ni","nico","nike","nikon","ninja","nissan","nissay","nl","no","nokia","northwesternmutual","norton","now","nowruz","nowtv","np","nr","nra","nrw","ntt","nu","nyc","nz","obi","observer","office","okinawa","olayan","olayangroup","oldnavy","ollo","om","omega","one","ong","onl","online","ooo","open","oracle","orange","org","organic","origins","osaka","otsuka","ott","ovh","pa","page","panasonic","paris","pars","partners","parts","party","passagens","pay","pccw","pe","pet","pf","pfizer","pg","ph","pharmacy","phd","philips","phone","photo","photography","photos","physio","pics","pictet","pictures","pid","pin","ping","pink","pioneer","pizza","pk","pl","place","play","playstation","plumbing","plus","pm","pn","pnc","pohl","poker","politie","porn","post","pr","pramerica","praxi","press","prime","pro","prod","productions","prof","progressive","promo","properties","property","protection","pru","prudential","ps","pt","pub","pw","pwc","py","qa","qpon","quebec","quest","racing","radio","re","read","realestate","realtor","realty","recipes","red","redstone","redumbrella","rehab","reise","reisen","reit","reliance","ren","rent","rentals","repair","report","republican","rest","restaurant","review","reviews","rexroth","rich","richardli","ricoh","ril","rio","rip","ro","rocher","rocks","rodeo","rogers","room","rs","rsvp","ru","rugby","ruhr","run","rw","rwe","ryukyu","sa","saarland","safe","safety","sakura","sale","salon","samsclub","samsung","sandvik","sandvikcoromant","sanofi","sap","sarl","sas","save","saxo","sb","sbi","sbs","sc","sca","scb","schaeffler","schmidt","scholarships","school","schule","schwarz","science","scot","sd","se","search","seat","secure","security","seek","select","sener","services","ses","seven","sew","sex","sexy","sfr","sg","sh","shangrila","sharp","shaw","shell","shia","shiksha","shoes","shop","shopping","shouji","show","showtime","si","silk","sina","singles","site","sj","sk","ski","skin","sky","skype","sl","sling","sm","smart","smile","sn","sncf","so","soccer","social","softbank","software","sohu","solar","solutions","song","sony","soy","spa","space","sport","spot","sr","srl","ss","st","stada","staples","star","statebank","statefarm","stc","stcgroup","stockholm","storage","store","stream","studio","study","style","su","sucks","supplies","supply","support","surf","surgery","suzuki","sv","swatch","swiss","sx","sy","sydney","systems","sz","tab","taipei","talk","taobao","target","tatamotors","tatar","tattoo","tax","taxi","tc","tci","td","tdk","team","tech","technology","tel","temasek","tennis","teva","tf","tg","th","thd","theater","theatre","tiaa","tickets","tienda","tiffany","tips","tires","tirol","tj","tjmaxx","tjx","tk","tkmaxx","tl","tm","tmall","tn","to","today","tokyo","tools","top","toray","toshiba","total","tours","town","toyota","toys","tr","trade","trading","training","travel","travelchannel","travelers","travelersinsurance","trust","trv","tt","tube","tui","tunes","tushu","tv","tvs","tw","tz","ua","ubank","ubs","ug","uk","unicom","university","uno","uol","ups","us","uy","uz","va","vacations","vana","vanguard","vc","ve","vegas","ventures","verisign","vermögensberater","vermögensberatung","versicherung","vet","vg","vi","viajes","video","vig","viking","villas","vin","vip","virgin","visa","vision","viva","vivo","vlaanderen","vn","vodka","volkswagen","volvo","vote","voting","voto","voyage","vu","vuelos","wales","walmart","walter","wang","wanggou","watch","watches","weather","weatherchannel","webcam","weber","website","wed","wedding","weibo","weir","wf","whoswho","wien","wiki","williamhill","win","windows","wine","winners","wme","wolterskluwer","woodside","work","works","world","wow","ws","wtc","wtf","xbox","xerox","xfinity","xihuan","xin","xxx","xyz","yachts","yahoo","yamaxun","yandex","ye","yodobashi","yoga","yokohama","you","youtube","yt","yun","za","zappos","zara","zero","zip","zm","zone","zuerich","zw","ελ","ευ","бг","бел","дети","ею","католик","ком","мкд","мон","москва","онлайн","орг","рус","рф","сайт","срб","укр","қаз","հայ","ישראל","קום","ابوظبي","اتصالات","ارامكو","الاردن","البحرين","الجزائر","السعودية","العليان","المغرب","امارات","ایران","بارت","بازار","بيتك","بھارت","تونس","سودان","سورية","شبكة","عراق","عرب","عمان","فلسطين","قطر","كاثوليك","كوم","مصر","مليسيا","موريتانيا","موقع","همراه","پاکستان","ڀارت","कॉम","नेट","भारत","भारतम्","भारोत","संगठन","বাংলা","ভারত","ভাৰত","ਭਾਰਤ","ભારત","ଭାରତ","இந்தியா","இலங்கை","சிங்கப்பூர்","భారత్","ಭಾರತ","ഭാരതം","ලංකා","คอม","ไทย","ລາວ","გე","みんな","アマゾン","クラウド","グーグル","コム","ストア","セール","ファッション","ポイント","世界","中信","中国","中國","中文网","亚马逊","企业","佛山","信息","健康","八卦","公司","公益","台湾","台灣","商城","商店","商标","嘉里","嘉里大酒店","在线","大拿","天主教","娱乐","家電","广东","微博","慈善","我爱你","手机","招聘","政务","政府","新加坡","新闻","时尚","書籍","机构","淡马锡","游戏","澳門","点看","移动","组织机构","网址","网店","网站","网络","联通","诺基亚","谷歌","购物","通販","集团","電訊盈科","飞利浦","食品","餐厅","香格里拉","香港","닷넷","닷컴","삼성","한국"]');
 
 /***/ })
 

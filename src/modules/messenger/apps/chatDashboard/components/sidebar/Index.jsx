@@ -34,7 +34,6 @@ import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
-import { debounce } from '../../../../../../helpers/utils.js';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -90,39 +89,33 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const dispatch = useDispatch();
 
 
-    const debouncedSearchTerm = useDebounce(searchTerm, 500) ;
-
-    console.log(debouncedSearchTerm);
+    const debouncedSearchTerm = useDebounce(searchTerm, 300) ;
 
     // Effect for API call
     useEffect(() => {
-        if (debouncedSearchTerm) {
-            const searchArg = {
-                search: debouncedSearchTerm,
-            };
-            const fetchSearchNameMail = async () => {
-                const searchByNameMailResponse = await apiService.getAllByArg(
-                    '/sessions',
-                    searchArg
-                );
-                return searchByNameMailResponse;
-            };
+        const searchArg = {
+            search: debouncedSearchTerm,
+        };
+        const fetchSearchNameMail = async () => {
+            const searchByNameMailResponse = await apiService.getAllByArg(
+                '/sessions',
+                searchArg
+            );
+            return searchByNameMailResponse;
+        };
 
-            fetchSearchNameMail()
-                .then((searchByNameMailResponse) => {
-                    setSessionState({
-                        ...sessionState,
-                        loader: false,
-                        sessionList: searchByNameMailResponse.data.data,
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
+        fetchSearchNameMail()
+            .then((searchByNameMailResponse) => {
+                setSessionState({
+                    ...sessionState,
+                    loader: false,
+                    sessionList: searchByNameMailResponse.data.data,
                 });
-        } else {
-            // setResults([]);
-            // setIsSearching(false);
-        }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        
     },[debouncedSearchTerm]);
 
     useEffect(() => {

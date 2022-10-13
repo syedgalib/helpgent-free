@@ -317,6 +317,9 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
     return (
         <MessageBox
             ref={container}
+			style={{
+				backgroundColor: ( data.is_seen ) ? 'green' : 'transparent'
+			}}
             className={
                 isMine
                     ? `wpwax-vm-message-single wpwax-vm-message-single-${data.message_type}`

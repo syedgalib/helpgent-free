@@ -6,7 +6,7 @@ import { handleReadSessions } from '../../../modules/messenger/apps/chatDashboar
 import ReactSVG from 'react-inlinesvg';
 import { handleTagEdit, handleTagModal, handleSetSession, handleDeleteConfirmationModal } from 'MessengerApps/chatDashboard/store/tags/actionCreator';
 
-const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId }) => {
+const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId, onMarkAsRead, onMarkAsUnread, }) => {
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -77,7 +77,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( resposne =>{
                         const sessionWithMarkRread = outerState.sessionList.map((item,index)=>{
                             if(item.session_id === sessionId){
-                                return {...item,total_unread: resposne.data.success.total_unread}
+                                return {...item,total_unread: resposne.data.data.total_unread}
                             }
 
                             return item;
@@ -87,6 +87,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                             ...outerState,
                             sessionList: sessionWithMarkRread,
                         });
+
+						if ( typeof onMarkAsRead === 'function' ) {
+							onMarkAsRead( sessionId, resposne.data.data );
+						}
+
                     })
                     .catch(error=>{console.log(error)})
                 break;
@@ -99,15 +104,19 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     .then( resposne =>{
                         const sessionWithMarkUnread = outerState.sessionList.map((item,index)=>{
                             if(item.session_id === sessionId){
-                                return {...item,total_unread: resposne.data.success.total_unread}
+                                return {...item,total_unread: resposne.data.data.total_unread}
                             }
                             return item;
                         });
-                        console.log(sessionWithMarkUnread);
+                        // console.log(sessionWithMarkUnread);
                         setOuterState({
                             ...outerState,
                             sessionList: sessionWithMarkUnread,
                         });
+
+						if ( typeof onMarkAsUnread === 'function' ) {
+							onMarkAsUnread( sessionId, resposne.data.data );
+						}
                     })
                     .catch(error=>{console.log(error)})
                 break;

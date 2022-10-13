@@ -35,6 +35,8 @@ import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
 
+import { doAction } from 'Reducers/hooks/actionCreator';
+
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
     {
@@ -542,6 +544,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                         setSessionState
                                                     }
                                                     sessionId={item.session_id}
+													onMarkAsRead={ function( session_id, data ) {
+														wpwaxHooks.doAction( 'onMarkAsRead', { session_id, data } );
+
+													}}
+													onMarkAsUnread={ function ( session_id, data ) {
+														wpwaxHooks.doAction( 'onMarkAsUnread', { session_id, data } );
+													}}
                                                 />
                                             </div>
                                         </li>

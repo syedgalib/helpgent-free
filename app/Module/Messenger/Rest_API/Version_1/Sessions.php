@@ -803,7 +803,7 @@ class Sessions extends Rest_Base
 			'total_unread'            => count( $unread_messages ),
 		];
 
-		return $this->response($data);
+		return $this->response( true, $data );
 	}
 
 	/**
@@ -845,7 +845,7 @@ class Sessions extends Rest_Base
 			'unread_messages' => $unread_messages,
 		];
 
-		return $this->response( $data );
+		return $this->response( true, $data );
 	}
 
 	/**

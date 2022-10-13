@@ -5091,7 +5091,9 @@ var Dropdown = function Dropdown(_ref) {
     termState = _ref.termState,
     setTermState = _ref.setTermState,
     sessionId = _ref.sessionId,
-    termId = _ref.termId;
+    termId = _ref.termId,
+    onMarkAsRead = _ref.onMarkAsRead,
+    onMarkAsUnread = _ref.onMarkAsUnread;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       openDropdown: false,
@@ -5183,7 +5185,7 @@ var Dropdown = function Dropdown(_ref) {
           var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.success.total_unread
+                total_unread: resposne.data.data.total_unread
               });
             }
             return item;
@@ -5191,6 +5193,9 @@ var Dropdown = function Dropdown(_ref) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkRread
           }));
+          if (typeof onMarkAsRead === 'function') {
+            onMarkAsRead(sessionId, resposne.data.data);
+          }
         }).catch(function (error) {
           console.log(error);
         });
@@ -5223,15 +5228,18 @@ var Dropdown = function Dropdown(_ref) {
           var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.success.total_unread
+                total_unread: resposne.data.data.total_unread
               });
             }
             return item;
           });
-          console.log(sessionWithMarkUnread);
+          // console.log(sessionWithMarkUnread);
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));
+          if (typeof onMarkAsUnread === 'function') {
+            onMarkAsUnread(sessionId, resposne.data.data);
+          }
         }).catch(function (error) {
           console.log(error);
         });

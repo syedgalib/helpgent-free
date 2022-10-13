@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import { VideoRecordWrap } from '../Style';
 
 /* Images */
 import permissionImg from 'Assets/img/chatbox/permission.png';
-import expander from 'Assets/svg/icons/expand.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import {
     updateFormData as updateAttachmentFormData,

@@ -9396,6 +9396,12 @@ var Upload = function Upload(_ref) {
       setRecordedVidioURL(null);
       return;
     }
+    var supported_video_extensions = getSupportedVideoExtensions();
+    var fileExt = file.type.replace(/.+\//, '.');
+    if (supported_video_extensions.length && !supported_video_extensions.includes(fileExt)) {
+      setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
+      return;
+    }
     if (file.size > getMaxUploadSize()) {
       setSelectedFileErrorMessage('The file exceeded the max upload size');
       setSelectedFile(null);
@@ -9421,10 +9427,17 @@ var Upload = function Upload(_ref) {
   }
   function getSupportedVideoExtensions() {
     if (!wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions) {
-      return '';
+      return [];
     }
     var supported_video_extensions = wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
     if (!Array.isArray(supported_video_extensions)) {
+      return [];
+    }
+    return supported_video_extensions;
+  }
+  function getSupportedVideoExtensionsAsText() {
+    var supported_video_extensions = getSupportedVideoExtensions();
+    if (!supported_video_extensions.length) {
       return '';
     }
     return supported_video_extensions.join(', ').trim();
@@ -9615,7 +9628,7 @@ var Upload = function Upload(_ref) {
                 display: 'none'
               },
               type: "file",
-              accept: getSupportedVideoExtensions(),
+              accept: getSupportedVideoExtensionsAsText(),
               name: "attachment_video",
               id: "attachment_video",
               onChange: function onChange(e) {
@@ -9628,7 +9641,7 @@ var Upload = function Upload(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
               children: "or drag & drop here..."
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Works with ", getSupportedVideoExtensions()]
+              children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Max size ", getFormattedMaxUploadSize(), "!"]
             }), !selectedFileErrorMessage || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
@@ -14644,6 +14657,12 @@ var Video = function Video() {
     if (!file) {
       return;
     }
+    var supported_video_extensions = getSupportedVideoExtensions();
+    var fileExt = file.type.replace(/.+\//, '.');
+    if (supported_video_extensions.length && !supported_video_extensions.includes(fileExt)) {
+      setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
+      return;
+    }
     if (file.size > getMaxUploadSize()) {
       setSelectedFileErrorMessage('The file exceeded the max upload size');
       return;
@@ -14655,10 +14674,17 @@ var Video = function Video() {
   }
   function getSupportedVideoExtensions() {
     if (!wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions) {
-      return '';
+      return [];
     }
     var supported_video_extensions = wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
     if (!Array.isArray(supported_video_extensions)) {
+      return [];
+    }
+    return supported_video_extensions;
+  }
+  function getSupportedVideoExtensionsAsText() {
+    var supported_video_extensions = getSupportedVideoExtensions();
+    if (!supported_video_extensions.length) {
       return '';
     }
     return supported_video_extensions.join(', ').trim();
@@ -14701,7 +14727,7 @@ var Video = function Video() {
                 display: 'none'
               },
               type: "file",
-              accept: getSupportedVideoExtensions(),
+              accept: getSupportedVideoExtensionsAsText(),
               name: "attachment_video",
               id: "attachment_video",
               onChange: function onChange(e) {

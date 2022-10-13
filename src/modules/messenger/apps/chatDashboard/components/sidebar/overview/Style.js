@@ -151,11 +151,13 @@ const AddTagWrap = Styled.div`
     }
     .wpwax-vm-btnlink{
         display: inline-block;
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 500;
-        text-decoration: underline;
+        line-height: 2.5;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
         margin: 15px 0 10px;
-        color: var(--color-dark);
         &:hover{
             color: var(--color-primary);
         }
@@ -193,6 +195,28 @@ const AddTagWrap = Styled.div`
             min-height: 100px;
             .wpwax-vm-loading-spin{
                 top: 40%;
+            }
+            .wpwax-vm-loadmore{
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                min-height: 38px;
+                text-decoration: none;
+                border-radius: 6px;
+                margin-top: 15px;
+                transition: .3s;
+                color: var(--color-primary);
+                border: 1px solid var(--color-primary);
+                svg{
+                    width: 24px;
+                    height: 24px;
+                    margin-left: 5px;
+                    path{
+                        fill: var(--color-primary);
+                    }
+                }
             }
         }
     }

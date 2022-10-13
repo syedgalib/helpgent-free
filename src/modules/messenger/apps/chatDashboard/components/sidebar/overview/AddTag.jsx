@@ -11,7 +11,7 @@ import {
 import apiService from 'apiService/Service.js';
 import userIcon from 'Assets/svg/icons/users.svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
-import ellipsisH from 'Assets/svg/icons/ellipsis-h.svg';
+import loadingSpin from 'Assets/svg/loaders/loading-spin.svg';
 import Taglist from './Taglist.jsx';
 
 const AddTag = (props) => {
@@ -24,7 +24,9 @@ const AddTag = (props) => {
     });
 
     const [state, setState] = useState({
-        tagsPageNumber: 2
+        tagsPageNumber: 2,
+        totalTags: 0,
+        pageLoader: false
 	});
 
     const [addFormState, setAddFormState] = useState({
@@ -34,6 +36,8 @@ const AddTag = (props) => {
         addTagResponseStatus: '',
         tagInput: '',
     });
+
+    const {tagsPageNumber, totalTags, pageLoader} = state;
 
     const { sessionState, setSessionState, tagState, setTagState } = props;
 
@@ -96,6 +100,10 @@ const AddTag = (props) => {
                         ...tagState,
                         tagLoader: false,
                         allTags: tagsResponse.data.data,
+                    });
+                    setState({
+                        ...state,
+                        totalTags: tagsResponse.headers["x-wp-total"]
                     });
                 })
                 .catch((error) => {
@@ -371,6 +379,42 @@ const AddTag = (props) => {
             })
     }
 
+    const handleLoadMore = e =>{
+        e.preventDefault();
+        const pageArg = {
+            limit: '12',
+            page: tagsPageNumber,
+        };
+
+        const fetchNextTags = async () => {
+            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            return nextTagResponse;
+        };
+
+        setState({
+            ...state,
+            pageLoader: true,
+        });
+        
+        fetchNextTags()
+            .then((nextTagResponse) => {
+                setState({
+                    ...state,
+                    pageLoader: false,
+                    tagsPageNumber: tagsPageNumber +1
+                });
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
+                    allTags: allTags.concat(nextTagResponse.data.data)
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        
+    }
+
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
     let users = [];
     if (currentSession.length !== 0) {
@@ -532,11 +576,13 @@ const AddTag = (props) => {
                                             </div>
                                         )}
                                     </div>
-                                    {/* <a href="#" className="wpwax-vm-loadmore">Load more</a> */}
+                                    {
+                                        totalTags > allTags.length ? <a href="#" className="wpwax-vm-loadmore" onClick={e=>handleLoadMore(e)}> Load more {pageLoader ? <ReactSVG src={loadingSpin} /> : null } </a> : null
+                                    }
                                     {allTags.length !== 0 ? (
                                         <a
                                             href='#'
-                                            className='wpwax-vm-btnlink'
+                                            className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary wpwax-vm-btnlink'
                                             onClick={handleAssignTerm}
                                         >
                                             Update

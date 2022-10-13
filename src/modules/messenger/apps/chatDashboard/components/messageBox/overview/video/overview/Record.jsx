@@ -23,9 +23,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const dispatch = useDispatch();
 
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
-
     const [textMessage, setTextMessage] = useState('');
-
     const [recordedVideoBlob, setRecordedVidioBlob] = useState(null);
     const [recordedVidioURL, setRecordedVidioURL] = useState('');
     const [isRecording, setIsRecording] = useState(false);
@@ -244,6 +242,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
+		stopRecording();
         dispatch(handleReplyModeChange(false));
     };
 

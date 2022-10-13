@@ -6211,6 +6211,10 @@ var Reducer = function Reducer() {
   switch (type) {
     case DO_ACTION:
       var actionKeys = Object.keys(state.actions);
+      console.log('DO_ACTION', {
+        payload: payload,
+        actionKeys: actionKeys
+      });
       if (!actionKeys.length) {
         return state;
       }
@@ -6238,6 +6242,10 @@ var Reducer = function Reducer() {
       return state;
     case ADD_ACTION:
       var callbacks = typeof state.actions[payload.key] !== 'undefined' ? [].concat(_toConsumableArray(state.actions[payload.key]), [payload.callback]) : [payload.callback];
+      console.log('ADD_ACTION', {
+        payload: payload,
+        callbacks: callbacks
+      });
       return _objectSpread(_objectSpread({}, state), {}, {
         actions: _objectSpread(_objectSpread({}, state.actions), {}, _defineProperty({}, payload.key, callbacks))
       });
@@ -9234,6 +9242,7 @@ var Record = function Record(_ref) {
   /* Handle Close */
   var handleClose = function handleClose(e) {
     e.preventDefault();
+    stopRecording();
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleReplyModeChange)(false));
   };
   if (currentStage === stages.RECORD) {
@@ -12236,18 +12245,21 @@ var Reducer = function Reducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _tags_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tags/reducers */ "./src/modules/messenger/apps/chatDashboard/store/tags/reducers.js");
-/* harmony import */ var _messages_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./messages/reducers */ "./src/modules/messenger/apps/chatDashboard/store/messages/reducers.js");
-/* harmony import */ var _sessions_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sessions/reducers */ "./src/modules/messenger/apps/chatDashboard/store/sessions/reducers.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Reducers/hooks/reducers */ "./src/lib/reducers/hooks/reducers.js");
+/* harmony import */ var _tags_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tags/reducers */ "./src/modules/messenger/apps/chatDashboard/store/tags/reducers.js");
+/* harmony import */ var _messages_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messages/reducers */ "./src/modules/messenger/apps/chatDashboard/store/messages/reducers.js");
+/* harmony import */ var _sessions_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sessions/reducers */ "./src/modules/messenger/apps/chatDashboard/store/sessions/reducers.js");
 
 
 
 
-var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
-  tags: _tags_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
-  messages: _messages_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
-  sessions: _sessions_reducers__WEBPACK_IMPORTED_MODULE_2__["default"]
+
+var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
+  hooks: Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
+  tags: _tags_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  messages: _messages_reducers__WEBPACK_IMPORTED_MODULE_2__["default"],
+  sessions: _sessions_reducers__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducers);
 
@@ -12485,7 +12497,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
-  reducer: _rootReducers__WEBPACK_IMPORTED_MODULE_1__["default"]
+  reducer: _rootReducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  middleware: function middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: false
+    });
+  }
 }, (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_0__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"].withExtraArgument())));
 /* harmony default export */ __webpack_exports__["default"] = (store);
 

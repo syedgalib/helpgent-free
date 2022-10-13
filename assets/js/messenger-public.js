@@ -14844,12 +14844,10 @@ var Record = function Record() {
   // Store States
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useSelector)(function (state) {
       return {
-        chatbox: state.chatbox,
         attachmentForm: state.attachmentForm,
         messengerForm: state.messengerForm
       };
     }),
-    chatbox = _useSelector.chatbox,
     attachmentForm = _useSelector.attachmentForm,
     messengerForm = _useSelector.messengerForm;
   var stages = {

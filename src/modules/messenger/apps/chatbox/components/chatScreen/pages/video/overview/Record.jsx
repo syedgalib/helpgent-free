@@ -26,9 +26,8 @@ const Record = () => {
     const dispatch = useDispatch();
 
 	// Store States
-    const { chatbox, attachmentForm, messengerForm } = useSelector((state) => {
+    const { attachmentForm, messengerForm } = useSelector((state) => {
         return {
-            chatbox: state.chatbox,
             attachmentForm: state.attachmentForm,
 			messengerForm: state.messengerForm,
         };

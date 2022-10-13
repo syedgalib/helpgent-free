@@ -542,6 +542,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                         setSessionState
                                                     }
                                                     sessionId={item.session_id}
+													onMarkAsRead={ function( session_id, data ) {
+														wpwaxHooks.doAction( 'onMarkAsRead', { session_id, data } );
+
+													}}
+													onMarkAsUnread={ function ( session_id, data ) {
+														wpwaxHooks.doAction( 'onMarkAsUnread', { session_id, data } );
+													}}
                                                 />
                                             </div>
                                         </li>

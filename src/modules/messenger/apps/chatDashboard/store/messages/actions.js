@@ -2,6 +2,7 @@ const actions = {
     UPDATE_SELECTED_SESSION: 'UPDATE_SELECTED_SESSION',
     ADD_SESSION: 'ADD_SESSION',
     UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
+    UPDATE_SESSION_MESSAGES_BY_IDS: 'UPDATE_SESSION_MESSAGES_BY_IDS',
     UPDATE_SESSION_MESSAGE_ITEM: 'UPDATE_SESSION_MESSAGES_ITEM',
 
     ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
@@ -37,6 +38,13 @@ const actions = {
       return {
         type: actions.UPDATE_SESSION_MESSAGES,
         data: { sessionID, sessionMessages },
+      };
+    },
+
+    updateSessionMessagesByIDs: ( sessionID, updatedMessages ) => {
+      return {
+        type: actions.UPDATE_SESSION_MESSAGES_BY_IDS,
+        data: { sessionID, updatedMessages },
       };
     },
 

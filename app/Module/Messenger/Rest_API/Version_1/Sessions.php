@@ -7,7 +7,6 @@ use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Cache_Messages_Marked_As_Read_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 
@@ -804,7 +803,7 @@ class Sessions extends Rest_Base
 			'total_unread'            => count( $unread_messages ),
 		];
 
-		return $this->response($data);
+		return $this->response( true, $data );
 	}
 
 	/**
@@ -838,13 +837,15 @@ class Sessions extends Rest_Base
 		]);
 
 		$unread_messages = $this->get_unread_messages( $sassion_id, $current_user_id );
+		$unread_messages = array_map( function( $message ) { return (int) $message['id']; }, $unread_messages );
 
 		// Response Data
 		$data = [
-			'total_unread' => count( $unread_messages ),
+			'total_unread'    => count( $unread_messages ),
+			'unread_messages' => $unread_messages,
 		];
 
-		return $this->response( $data );
+		return $this->response( true, $data );
 	}
 
 	/**

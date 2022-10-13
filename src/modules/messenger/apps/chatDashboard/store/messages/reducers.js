@@ -32,6 +32,7 @@ const {
     UPDATE_SELECTED_SESSION,
     ADD_SESSION,
     UPDATE_SESSION_MESSAGES,
+    UPDATE_SESSION_MESSAGES_BY_IDS,
     UPDATE_SESSION_MESSAGE_ITEM,
 
     ADD_SESSION_WINDOW_DATA,
@@ -61,7 +62,7 @@ const Reducer = (state = initialState, action) => {
 
         case ADD_SESSION:
 
-            if ( !data.sessionID ) {
+            if ( ! data.sessionID ) {
                 return state;
             }
 
@@ -95,6 +96,43 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 allSessions: { ...state.allSessions, [data.sessionID]: data.sessionMessages },
+            };
+
+		case UPDATE_SESSION_MESSAGES_BY_IDS:
+
+            if ( !data.sessionID ) {
+                return state;
+            }
+
+            if ( ! data.updatedMessages ) {
+                return state;
+            }
+
+            if ( ! Object.keys( state.allSessions ).includes( data.sessionID ) ){
+                return state;
+            }
+
+            return {
+                ...state,
+                allSessions: {
+					...state.allSessions,
+					[data.sessionID]: state.allSessions[ data.sessionID ].map( message => {
+
+						const updatedMessagesIDs = Object.keys( data.updatedMessages );
+
+						if ( ! updatedMessagesIDs.includes( `${message.id}` ) ) {
+							return message;
+						}
+
+						const updatedFields = data.updatedMessages[ message.id ];
+
+						return {
+							...message,
+							...updatedFields
+						}
+
+					})
+				},
             };
 
         case UPDATE_SESSION_MESSAGE_ITEM:

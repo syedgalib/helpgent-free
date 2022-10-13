@@ -21,6 +21,7 @@ import {
     handleMessageTypeChange,
     addSession,
     updateSessionMessages,
+	updateSessionMessagesByIDs,
     updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
@@ -145,6 +146,77 @@ function MessageBox({ setSessionState }) {
     };
 
     const debouncedSearchTerm = useDebounce(searchTerm, 250);
+
+	// On Init
+	useEffect( function () {
+		wpwaxHooks.addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
+		wpwaxHooks.addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
+
+	}, [] );
+
+
+	// onMarkAsRead
+	function onMarkAsRead( { session_id, data }, setSessionMessages ) {
+
+		let updatedMessages = {};
+
+		for ( const id of data.messages_marked_as_read ) {
+			updatedMessages[ id ] = { is_seen: true };
+		}
+
+		setSessionMessages( currentMessages => {
+			return currentMessages.map( message => {
+				const updatedMessagesIDs = Object.keys( updatedMessages );
+
+					if ( ! updatedMessagesIDs.includes( `${message.id}` ) ) {
+						return message;
+					}
+
+					const updatedFields = updatedMessages[ message.id ];
+
+					const newUpdatedMessages = {
+						...message,
+						...updatedFields
+					};
+
+					return newUpdatedMessages;
+			});
+		});
+
+		dispatch( updateSessionMessagesByIDs( session_id, updatedMessages ) );
+	}
+
+	// onMarkAsUnread
+	function onMarkAsUnread( { session_id, data }, setSessionMessages ) {
+
+		let updatedMessages = {};
+
+		for ( const id of data.unread_messages ) {
+			updatedMessages[ id ] = { is_seen: false };
+		}
+
+		setSessionMessages( currentMessages => {
+			return currentMessages.map( message => {
+
+				const updatedMessagesIDs = Object.keys( updatedMessages );
+
+				if ( ! updatedMessagesIDs.includes( `${message.id}` ) ) {
+					return message;
+				}
+
+				const updatedFields = updatedMessages[ message.id ];
+
+				const newUpdatedMessages = {
+					...message,
+					...updatedFields
+				};
+
+				return newUpdatedMessages;
+			});
+		});
+
+		dispatch( updateSessionMessagesByIDs( session_id, updatedMessages ) );
+	}
 
     // Effect for API call
     useEffect(() => {
@@ -1228,9 +1300,11 @@ function MessageBox({ setSessionState }) {
         const session_id = selectedSession.session_id;
 
         setSessionState((currentState) => {
-            const total_unread = currentState.filteredSessions.filter(
+            const currentSession = currentState.sessionList.filter(
                 (session) => session.session_id === session_id
-            )[0].total_unread;
+            )[0];
+
+            const total_unread = ( currentSession && currentSession.total_unread ) ? currentSession.total_unread : 0;
 
             let new_count = parseInt(total_unread) - 1;
             new_count = new_count < 0 ? '0' : `${new_count}`;
@@ -1459,7 +1533,7 @@ function MessageBox({ setSessionState }) {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
-        console.log(scrollingBody,messageDirection);
+        // console.log(scrollingBody,messageDirection);
         if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,

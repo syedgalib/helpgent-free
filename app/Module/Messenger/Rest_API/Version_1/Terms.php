@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Terms extends Rest_Base {
 
@@ -112,24 +113,61 @@ class Terms extends Rest_Base {
      */
     public function get_items( $request ) {
         $args = $request->get_params();
-        $data = Term_Model::get_items( $args );
 
-        if ( empty( $data ) ) {
-            return $this->response( true, [] );
+		$where = [];
+
+        $where['term_id']  = '';
+        $where['name']     = '';
+        $where['term_key'] = '';
+        $where['parent']   = '';
+
+        $where = Helper\filter_params( $where, $args );
+
+		if ( isset( $where['name'] ) ) {
+			$where['name'] = [
+				'field'   => 'name',
+				'compare' => 'LIKE',
+				'value'   => "'%".  $where['name'] . "%'",
+			];
+		}
+
+        $default = [];
+
+        $default['limit'] = 20;
+        $default['page']  = 1;
+
+        $args = Helper\filter_params( $default, $args );
+        $args['where'] = $where;
+
+        $data    = Term_Model::get_items( $args );
+        $results = $data['results'];
+
+        if ( empty( $results ) ) {
+			$headers = [
+				'X-WP-Total'      => 0,
+				'X-WP-TotalPages' => 0,
+			];
+
+            return $this->response( true, [], '', $headers );
         }
 
         // Prepare items for response
-        foreach ( $data as $key => $value ) {
+        foreach ( $results as $key => $value ) {
             $item = $this->prepare_item_for_response( $value, $args );
 
             if ( empty( $item ) ) {
                 continue;
             }
 
-            $data[ $key ] = $item;
+            $results[ $key ] = $item;
         }
 
-        return $this->response( true, $data );
+		$headers = [
+			'X-WP-Total'      => $data['found_items'],
+			'X-WP-TotalPages' => $data['total_page'],
+		];
+
+        return $this->response( true, $results, '', $headers );
     }
 
     /**

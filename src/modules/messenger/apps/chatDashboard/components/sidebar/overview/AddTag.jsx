@@ -11,7 +11,7 @@ import {
 import apiService from 'apiService/Service.js';
 import userIcon from 'Assets/svg/icons/users.svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
-import ellipsisH from 'Assets/svg/icons/ellipsis-h.svg';
+import loadingSpin from 'Assets/svg/loaders/loading-spin.svg';
 import Taglist from './Taglist.jsx';
 
 const AddTag = (props) => {
@@ -24,7 +24,9 @@ const AddTag = (props) => {
     });
 
     const [state, setState] = useState({
-        tagsPageNumber: 2
+        tagsPageNumber: 2,
+        totalTags: 0,
+        pageLoader: false
 	});
 
     const [addFormState, setAddFormState] = useState({
@@ -34,6 +36,8 @@ const AddTag = (props) => {
         addTagResponseStatus: '',
         tagInput: '',
     });
+
+    const {tagsPageNumber, totalTags, pageLoader} = state;
 
     const { sessionState, setSessionState, tagState, setTagState } = props;
 
@@ -97,6 +101,10 @@ const AddTag = (props) => {
                         tagLoader: false,
                         allTags: tagsResponse.data.data,
                     });
+                    setState({
+                        ...state,
+                        totalTags: tagsResponse.headers["x-wp-total"]
+                    });
                 })
                 .catch((error) => {
                     setTagState({
@@ -155,23 +163,60 @@ const AddTag = (props) => {
         });
         if (tagInput !== '') {
             if (editableTermId !== '') {
-                let termIndex = allTags.findIndex(
-                    (obj) => obj.term_id === editableTermId
-                );
-                allTags[termIndex].name = tagInput;
+                // const findSameTag = allTags.find(item=> item.name.toLowerCase() === tagInput.toLowerCase());
+                // console.log(findSameTag);
+                // if(findSameTag){
+                    
+                // }
+                
                 await apiService
                     .dataAdd(`/messages/terms/${editableTermId}`, termData)
-                    .then((response) => {
+                        .then((response) => {
+                            let termIndex = allTags.findIndex(
+                                (obj) => obj.term_id === editableTermId
+                            );
+                            allTags[termIndex].name = tagInput;
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                                allTags: [...allTags],
+                            });
+                            setAddFormState({
+                                ...addFormState,
+                                tagInput: '',
+                                addTagResponseStatus: 'success',
+                                addTagResponse: 'Successfully Edited',
+                            });
+                        })
+                        .catch(error =>{
+                            if(error.response.data.code === 403){
+                                setAddFormState({
+                                    ...addFormState,
+                                    addTagResponseStatus: 'danger',
+                                    addTagResponse: error.response.data.message,
+                                });
+                            }
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                            });
+                        });
+            }else{
+                apiService.dataAdd('/messages/terms',termData)
+                    .then(response => {
                         setTagState({
                             ...tagState,
                             tagLoader: false,
-                            allTags: [...allTags],
+                            allTags: [
+                                ...allTags,
+                                response.data
+                            ]
                         });
                         setAddFormState({
                             ...addFormState,
-                            tagInput: '',
-                            addTagResponseStatus: 'success',
-                            addTagResponse: 'Successfully Edited',
+                            tagInput: "",
+                            addTagResponseStatus: "success",
+                            addTagResponse: "Successfully Added",
                         });
                     })
                     .catch(error =>{
@@ -187,42 +232,6 @@ const AddTag = (props) => {
                             tagLoader: false,
                         });
                     });
-                setAddFormState({
-                    ...addFormState,
-                    addTagResponseStatus: 'success',
-                    addTagResponse: 'Successfully Edited',
-                });
-            }else{
-                apiService.dataAdd('/messages/terms',termData)
-                .then(response => {
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                        allTags: [
-                            ...allTags,
-                            response.data
-                        ]
-                    });
-                    setAddFormState({
-                        ...addFormState,
-                        tagInput: "",
-                        addTagResponseStatus: "success",
-                        addTagResponse: "Successfully Added",
-                    });
-                })
-                .catch(error =>{
-                    if(error.response.data.code === 403){
-                        setAddFormState({
-                            ...addFormState,
-                            addTagResponseStatus: 'danger',
-                            addTagResponse: error.response.data.message,
-                        });
-                    }
-                    setTagState({
-                        ...tagState,
-                        tagLoader: false,
-                    });
-                });
             }
         } else {
             setAddFormState({
@@ -368,6 +377,42 @@ const AddTag = (props) => {
             .catch(error =>{
 
             })
+    }
+
+    const handleLoadMore = e =>{
+        e.preventDefault();
+        const pageArg = {
+            limit: '12',
+            page: tagsPageNumber,
+        };
+
+        const fetchNextTags = async () => {
+            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            return nextTagResponse;
+        };
+
+        setState({
+            ...state,
+            pageLoader: true,
+        });
+        
+        fetchNextTags()
+            .then((nextTagResponse) => {
+                setState({
+                    ...state,
+                    pageLoader: false,
+                    tagsPageNumber: tagsPageNumber +1
+                });
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
+                    allTags: allTags.concat(nextTagResponse.data.data)
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        
     }
 
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
@@ -531,11 +576,13 @@ const AddTag = (props) => {
                                             </div>
                                         )}
                                     </div>
-                                    {/* <a href="#" className="wpwax-vm-loadmore">Load more</a> */}
+                                    {
+                                        totalTags > allTags.length ? <a href="#" className="wpwax-vm-loadmore" onClick={e=>handleLoadMore(e)}> Load more {pageLoader ? <ReactSVG src={loadingSpin} /> : null } </a> : null
+                                    }
                                     {allTags.length !== 0 ? (
                                         <a
                                             href='#'
-                                            className='wpwax-vm-btnlink'
+                                            className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary wpwax-vm-btnlink'
                                             onClick={handleAssignTerm}
                                         >
                                             Update

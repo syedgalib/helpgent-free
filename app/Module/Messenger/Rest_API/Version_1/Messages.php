@@ -390,11 +390,7 @@ class Messages extends Rest_Base
     public function create_item($request)
     {
         $args = $request->get_params();
-		$args['user_id'] = get_current_user_id();
-
-		if (Helper\is_user_admin( Helper\get_current_user( true ) ) && ! empty( $args['user_id'] ) ) {
-			$args['user_id'] = $args['user_id'];
-		}
+		$args['user_id'] = ! empty( $args['user_id'] ) ? $args['user_id'] : get_current_user_id();
 
         $data = Message_Model::create_item($args);
 

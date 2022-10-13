@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
+import http from 'Helper/http';
 
-import { submitForm as submitUserForm } from './../../../store/forms/user/actionCreator';
+import {
+	upateState as updateUserState
+} from './../../../store/forms/user/actionCreator';
 
 import {
     updateFormData as updateMessengerFormData,
@@ -22,105 +25,205 @@ function Sending() {
         };
     });
 
-    // Init State
+	const stages = {
+		SENDING: 'SENDING',
+		ERROR: 'ERROR',
+	};
+
+	// Local States
+	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
+	const [ errorMessage, setErrorMessage ] = useState( '' );
+	const [ userID, setUserID ] = useState( messengerForm.formData.user_id );
+
+    // @Init
     useEffect(() => {
-        if (userForm.submitted) {
-            return;
-        }
+		init();
+    }, []);
 
-        if (userForm.isSubmitting) {
-            return;
-        }
+	async function init() {
+		// Submit the messgage if message has user ID
+		// --------------------------------
+		if ( messengerForm.formData.user_id && userForm.is_varified ) {
+			submitMessage();
+			return;
+		}
 
-        if (!userForm.isReadyFormData) {
-            return;
-        }
+		// Create or get the user
+		// --------------------------------
+		const createUserResponse = await createUser( userForm.formData );
+		if ( ! createUserResponse.success ) {
+			dispatch(
+				updateUserState({
+					status: false,
+					statusMessage: createUserResponse.message,
+				})
+			);
 
-        dispatch(submitUserForm(userForm.formData));
-    }, [userForm.isReadyFormData]);
+			// Return to Contact Form Page if failed
+			setTimeout(() => {
+				dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+			}, 2000);
 
-    // After Submission
-    useEffect(() => {
-        if (messengerForm.submited) {
-            return;
-        }
+			return;
+		}
 
-        if (userForm.isSubmitting) {
-            return;
-        }
+		const userID = createUserResponse.data.id;
 
-        if (userForm.status === null) {
-            return;
-        }
+		// Add user ID to message
+		dispatch(
+			updateMessengerFormData({
+				user_id: userID,
+			})
+		);
 
-        if (userForm.status === false) {
-            setTimeout(() => {
-                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-            }, "2000");
-            return;
-        }
+		setUserID( userID );
 
-        // Add user ID to message
-        dispatch(
-            updateMessengerFormData({
-                user_id: userForm.user.id,
-            })
-        );
+		// Verify user if exists
+		// --------------------------------
+		if ( ! createUserResponse.data.is_new_user ) {
+			dispatch(
+				updateUserState({
+					user: createUserResponse.data,
+					is_varified: false,
+				})
+			);
 
-        dispatch(upateMessengerFormState({ initSubmission: true }));
-    }, [userForm.status]);
+			dispatch(changeChatScreen(screenTypes.USER_AUTHENTICATION_FORM));
+			return;
+		}
 
-    // Init Message Submission
-    useEffect(() => {
-        if (messengerForm.submited) {
-            return;
-        }
+		// Submit Message
+		// --------------------------------
+		submitMessage( userID );
+	}
 
-        if (!messengerForm.initSubmission) {
-            return;
-        }
 
-        dispatch(submitMessengerForm(messengerForm.formData));
-    }, [messengerForm.initSubmission]);
+	// Submit Message
+	async function submitMessage( argUserID ) {
+		// Reset States
+		setErrorMessage( '' );
 
-    // After Message Submission
-    useEffect(() => {
-        if (messengerForm.isSubmitting) {
-            return;
-        }
+		const formData = {
+			...messengerForm.formData,
+			user_id: ( argUserID ) ? argUserID : userID
+		};
 
-        if (messengerForm.status === null) {
-            return;
-        }
+		// Create Message
+		const response = await createMessage( formData );
 
-        if (messengerForm.status === false) {
-            setTimeout(() => {
-                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-            }, "2000");
-            return;
-        }
-        setTimeout(() => {
-            dispatch(changeChatScreen(screenTypes.SUCCESS));
-        }, "2000");       
-        
-    }, [messengerForm.status]);
+		// Switch to Retry Stage if failed
+		if ( ! response.success ) {
+			setErrorMessage( response.message );
+			setCurrentStage( stages.ERROR );
+			return;
+		}
 
-    return (
-        <div className='wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
-            <div className='wpwax-vm-record-send-progress__content'>
-                <div className='wpwax-vm-record-send-progress__bar'>
-                    <span>Sending</span>
-                </div>
+		// Navigate to Success Screen
+		setTimeout(() => {
+            dispatch( changeChatScreen( screenTypes.SUCCESS ) );
+        }, 2000);
+	}
 
-                <div className='wpwax-vm-text-center'>
-                    <h4>We’re currently processing your request</h4>
-                    <p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
-                        Please don’t leave this page!
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
+	// createUser
+	async function createUser( args ) {
+		let status = { success: false, message: '', data: null };
+
+		dispatch(
+			updateUserState({
+				status: null,
+				statusMessage: '',
+			})
+		);
+
+		try  {
+			const response = await http.postData( "/users", args );
+
+			status.success = true;
+			status.data = response.data;
+			status.message = 'The user has been created successfuly';
+
+			dispatch(
+				updateUserState({
+					status: true,
+					statusMessage: status.message,
+				})
+			);
+
+			return status;
+
+		} catch ( error ) {
+			status.success = false;
+			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
+
+			return status;
+		}
+
+	}
+
+	// createMessage
+	async function createMessage( args ) {
+		let status = { success: false, message: '', data: null };
+
+		try  {
+			const response = await http.postData( "/messages", args );
+
+			status.success = true;
+			status.data = response.data;
+			status.message = 'The message has been created successfuly';
+
+			return status;
+
+		} catch ( error ) {
+			status.success = false;
+			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
+
+			console.error( error );
+
+			return status;
+		}
+	}
+
+	// Retry
+	function retry( event ) {
+		event.preventDefault();
+		setCurrentStage( stages.SENDING );
+		submitMessage();
+	}
+
+
+	if ( currentStage === stages.SENDING ) {
+		return (
+			<div className='wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+				<div className='wpwax-vm-record-send-progress__content'>
+					<div className='wpwax-vm-record-send-progress__bar'>
+						<span>Sending</span>
+					</div>
+
+					<div className='wpwax-vm-text-center'>
+						<h4>We’re currently processing your request</h4>
+						<p className='wpwax-vm-danger-text wpwax-vm-text-danger'>
+							Please don’t leave this page!
+						</p>
+					</div>
+				</div>
+			</div>
+		);
+	} else if ( currentStage === stages.ERROR ) {
+		return (
+			<div className='wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center'>
+				<div className='wpwax-vm-record-send-progress__content'>
+					<div className='wpwax-vm-text-center'>
+						<h4>{errorMessage}</h4>
+						<a href="#" onClick={retry}>Retry</a>
+					</div>
+				</div>
+			</div>
+		);
+	} else {
+		return '';
+	}
+
+
 }
 
 export default Sending;

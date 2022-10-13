@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Container from './pages/screen-wrapper/Index.jsx';
 import Home from './pages/home/Index.jsx';
 import ContactForm from './pages/contactForm/Index.jsx';
+import UserAuthenticationForm from './pages/userAuthenticationForm/Index.jsx';
 import Sending from './pages/Sending.jsx';
 import Success from './pages/Success.jsx';
 import Video from './pages/video/Index.jsx';
@@ -28,6 +29,7 @@ function ChatScreen() {
         [screenTypes.TEXT]: <Text />,
         [screenTypes.SCREEN_RECORD]: <ScreenRecord />,
         [screenTypes.CONTACT_FORM]: <ContactForm />,
+        [screenTypes.USER_AUTHENTICATION_FORM]: <UserAuthenticationForm />,
         [screenTypes.SENDING]: <Sending />,
         [screenTypes.SUCCESS]: <Success />,
     };

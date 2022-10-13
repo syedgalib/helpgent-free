@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import { VideoRecordWrap } from '../Style';
 
 /* Images */
 import permissionImg from 'Assets/img/chatbox/permission.png';
-import expander from 'Assets/svg/icons/expand.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import {
     updateFormData as updateAttachmentFormData,
@@ -19,14 +17,17 @@ import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from '../../../../../../../../../helpers/formatter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { addAction } from 'Reducers/hooks/actionCreator';
 
 const Record = () => {
     const videoStreemRef = useRef();
     const dispatch = useDispatch();
 
-    const { attachmentForm } = useSelector((state) => {
+	// Store States
+    const { attachmentForm, messengerForm } = useSelector((state) => {
         return {
             attachmentForm: state.attachmentForm,
+			messengerForm: state.messengerForm,
         };
     });
 
@@ -37,6 +38,8 @@ const Record = () => {
         UPLOADING: 'uploading',
         UPLOAD_FAILED: 'upload_failed',
     };
+
+    const [isInitializedBeforeCloseChatbox, setIsInitializedBeforeCloseChatbox] = useState(false);
 
     const [permissionDenied, setPermissionDenied] = useState(null);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
@@ -68,8 +71,12 @@ const Record = () => {
                     })
                 );
 
-                // Switch to Contact form
-                dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+                // Navigate to Contact form or Sending Page
+				if ( messengerForm.formData.user_id ) {
+					dispatch(changeChatScreen(screenTypes.SENDING));
+				} else {
+					dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+				}
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }
@@ -109,11 +116,12 @@ const Record = () => {
                 video: { facingMode: 'user' },
             });
 
+			setupVideoStreem();
             setCurrentStage(stages.RECORD);
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
 
-            setPermissionDenied !== null(true);
+            setPermissionDenied(true);
         }
     }
 
@@ -147,6 +155,12 @@ const Record = () => {
 
     // setupVideoStreem
     async function setupVideoStreem() {
+
+		if ( ! isInitializedBeforeCloseChatbox ) {
+			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			setIsInitializedBeforeCloseChatbox( true );
+		}
+
         try {
             // Setup Video Streem
             window.wpwaxCSVideoStream =
@@ -273,13 +287,6 @@ const Record = () => {
                             ''
                         )}
                     </h4>
-                    <a
-                        href='#'
-                        onClick={fullscreenVideoStreem}
-                        className='wpwax-vm-record-staging__btn-expand'
-                    >
-                        <ReactSVG src={expander} />
-                    </a>
                 </div>
                 <div
                     className={

@@ -4,7 +4,7 @@ import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './overview/Message.jsx';
 import Video from './overview/video/Index.jsx';
-import { useDebounce } from '../../../../../../helpers/debounce-hook.js';
+import { useDebounce } from 'Helper/hooks';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -14,6 +14,7 @@ import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
+import { useScreenSize } from 'Helper/hooks';
 
 import {
     handleReplyModeChange,
@@ -50,8 +51,9 @@ function MessageBox({ setSessionState }) {
     const [searchTerm, setSearchTerm] = useState("");
 
     const [scrollBtnVisibility, setScrollBtnVisibility] = useState(false);
-    const [windowSize, setWindowSize] = useState('large');
     const [messageDirection, setMessageDirection] = useState('bottom');
+
+	const [screenSize, SCREEN_SIZES] = useScreenSize();
 
     const [sessionMessages, setSessionMessages] = useState([]);
     const [latestMessageDate, setLatestMessageDate] = useState(null);
@@ -65,8 +67,7 @@ function MessageBox({ setSessionState }) {
     //
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
-    const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] =
-        useState(0);
+    const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] = useState(0);
 
     const [recordedTimeLength, setRecordedTimeLength] = useState(0);
 
@@ -109,6 +110,10 @@ function MessageBox({ setSessionState }) {
         };
     });
 
+	const canSendTextMessage = () => {
+		return (textMessageContent.trim().length > 0);
+	}
+
     const getWindowData = (key) => {
         const selectedSessionID = selectedSession
             ? selectedSession.session_id
@@ -138,7 +143,7 @@ function MessageBox({ setSessionState }) {
 
         return selectedWindowData;
     };
-    
+
     const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
     // Effect for API call
@@ -152,7 +157,7 @@ function MessageBox({ setSessionState }) {
                     text
                 )
             );
-    
+
             // Update Query Args
             const newSearchQueryArgs = { message: text };
             dispatch(
@@ -181,10 +186,10 @@ function MessageBox({ setSessionState }) {
                     )
                 );
             }
-    
+
             loadSearchResults(newSearchQueryArgs);
         }
-        
+
     },[debouncedSearchTerm]);
 
     // Update session on sessionID change
@@ -272,44 +277,15 @@ function MessageBox({ setSessionState }) {
                 setScrollBtnVisibility(false);
             }
         });
-    
-    useLayoutEffect(() => {
-        function updateSize() {
-            if (window.innerWidth > 1400 && windowSize !== 'large') {
-                setWindowSize('large');
-            } else if (
-                window.innerWidth > 1200 &&
-                window.innerWidth < 1400 &&
-                windowSize !== 'medium'
-            ) {
-                setWindowSize('medium');
-            } else if (
-                window.innerWidth > 992 &&
-                window.innerWidth < 1200 &&
-                windowSize !== 'tab'
-            ) {
-                setWindowSize('tab');
-            } else if (
-                window.innerWidth > 768 &&
-                window.innerWidth < 992 &&
-                windowSize !== 'mobile'
-            ) {
-                setWindowSize('mobile');
-            }
-        }
-        updateSize();
-        window.addEventListener('resize', updateSize);
-    }, []);
 
     const getMessageBoxHeight = () => {
-        switch (windowSize) {
-            case 'large':
+        switch (screenSize) {
+            case SCREEN_SIZES.LARGE:
                 return 500;
-            case 'medium':
+            case SCREEN_SIZES.MEDIUM:
                 return 400;
-            case 'tab':
-                return 300;
-            case 'mobile':
+            case SCREEN_SIZES.TAB:
+            case SCREEN_SIZES.MOBILE:
                 return 300;
         }
     };
@@ -554,6 +530,10 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
+		if (!canSendTextMessage()) {
+			return;
+		}
+
         setIsSendingTextMessage(true);
 
         // Send Message
@@ -579,6 +559,11 @@ function MessageBox({ setSessionState }) {
         // Load Latest
         loadLatestMessages(latestMessageDate);
     };
+
+	const canSendAudioMessage = () => {
+		const MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS = 1;
+		return (recordedVoiceTimeInSecond >= MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS);
+	}
 
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
@@ -1282,7 +1267,7 @@ function MessageBox({ setSessionState }) {
                     </a>
                     <div className='wpwax-vm-messagebox-reply'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            <form onSubmit={sendTextMessage}>
+                            <form onSubmit={sendTextMessage} autoComplete='off'>
                                 <input
                                     ref={textMessageContentRef}
                                     type='text'
@@ -1292,9 +1277,7 @@ function MessageBox({ setSessionState }) {
                                     placeholder='Type a message'
                                     value={textMessageContent}
                                     onChange={(event) => {
-                                        setTextMessageContent(
-                                            event.target.value
-                                        );
+                                        setTextMessageContent(event.target.value);
                                     }}
                                 />
 
@@ -1309,6 +1292,7 @@ function MessageBox({ setSessionState }) {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
+								disabled={canSendTextMessage() ? false : true}
                                 onClick={sendTextMessage}
                             >
                                 {!isSendingTextMessage ? (
@@ -1357,6 +1341,7 @@ function MessageBox({ setSessionState }) {
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
+								disabled={canSendAudioMessage() ? false : true}
                                 onClick={handleSendAudioMessage}
                             >
                                 {!isSendingAudioMessage ? (
@@ -1755,7 +1740,7 @@ function MessageBox({ setSessionState }) {
                                             <div className="wpwax-vm-empty-messagebox">
                                                 <h2>No message found</h2>
                                             </div>
-                                            
+
                                         )}
                                         <a
                                             href='#'

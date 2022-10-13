@@ -24,6 +24,16 @@ const Video = () => {
             return;
         }
 
+		const supported_video_extensions = getSupportedVideoExtensions();
+		const fileExt = file.type.replace( /.+\//, '.' );
+
+		if ( supported_video_extensions.length && ! supported_video_extensions.includes( fileExt ) ) {
+			setSelectedFileErrorMessage(
+                'Sorry, the selected file type is not supported.'
+            );
+            return;
+		}
+
         if (file.size > getMaxUploadSize()) {
             setSelectedFileErrorMessage(
                 'The file exceeded the max upload size'
@@ -42,15 +52,25 @@ const Video = () => {
         if (
             !wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions
         ) {
-            return '';
+            return [];
         }
 
         const supported_video_extensions =
             wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
 
         if (!Array.isArray(supported_video_extensions)) {
-            return '';
+            return [];
         }
+
+        return supported_video_extensions;
+    }
+
+    function getSupportedVideoExtensionsAsText() {
+		const supported_video_extensions = getSupportedVideoExtensions();
+
+		if ( ! supported_video_extensions.length ) {
+			return '';
+		}
 
         return supported_video_extensions.join(', ').trim();
     }
@@ -95,7 +115,7 @@ const Video = () => {
                             <input
                                 style={{ display: 'none' }}
                                 type='file'
-                                accept={getSupportedVideoExtensions()}
+                                accept={getSupportedVideoExtensionsAsText()}
                                 name='attachment_video'
                                 id='attachment_video'
                                 onChange={(e) => prepareForUpload(e)}

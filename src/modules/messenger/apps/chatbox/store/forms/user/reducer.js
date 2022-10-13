@@ -17,6 +17,7 @@ const initialState = {
         email: '',
     },
     user: null,
+    is_varified: false,
 	isUpdatingFormData: false,
 	isReadyFormData: false,
 	submitted: false,

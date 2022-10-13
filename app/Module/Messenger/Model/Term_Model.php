@@ -37,21 +37,39 @@ class Term_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-		$limit  = "LIMIT ${limit}";
-		$offset = "OFFSET ${offset}";
+		$pagination = ( $limit < 0 ) ? '' : " LIMIT ${limit} OFFSET ${offset}";
 
-		if ( $args['limit'] < 0 ) {
-			$limit  = '';
-			$offset = '';
+		$where_args = ( ! empty( $args['where'] ) ) ? $args['where'] : [];
+		$where = self::prepare_where_query( $where_args );
+
+        $select = "SELECT {$term_table}.*, {$term_taxonomy_table}.*";
+
+		$from = " FROM {$term_table}
+        INNER JOIN {$term_taxonomy_table}
+        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id";
+
+		$query = $select . $from . $where . $pagination;
+		$results = $wpdb->get_results( $query, ARRAY_A );
+
+		$total_query = "SELECT COUNT(*)" . $from . $where;
+		$found_items = $wpdb->get_var( $total_query );
+		$found_items = ( ! empty( $found_items ) ) ? ( int ) $found_items : 0;
+
+		$total_page = 1;
+
+		if ( ! empty( $pagination ) ) {
+			$remider    = $found_items % $limit;
+			$total_page = ( $found_items - $remider ) / $limit;
+			$total_page = ( $remider > 0 ) ? $total_page + 1 : $total_page;
 		}
 
-        $query = "SELECT {$term_table}.*, {$term_taxonomy_table}.*
-        FROM {$term_table}
-        INNER JOIN {$term_taxonomy_table}
-        ON {$term_table}.term_id = {$term_taxonomy_table}.term_id $limit $offset
-        ";
+		$data = [
+			'results'     => $results,
+			'found_items' => $found_items,
+			'total_page'  => $total_page,
+		];
 
-		return $wpdb->get_results( $query, ARRAY_A );
+		return $data;
 
     }
 

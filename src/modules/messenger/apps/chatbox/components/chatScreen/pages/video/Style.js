@@ -85,6 +85,8 @@ const VideoRecordWrap = Styled.div`
     &.wpwax-vm-record-staging{
         height: 100%;
         z-index: 101;
+		height: calc( 100vh - 100px );
+		max-height: 650px;
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
         &:after,
         &:before{
@@ -94,7 +96,7 @@ const VideoRecordWrap = Styled.div`
             width: 100%;
             height: 20%;
             content: '';
-            z-index: -1;
+            z-index: 1;
             opacity: .8;
             background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));
         }
@@ -109,10 +111,15 @@ const VideoRecordWrap = Styled.div`
             background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));
         }
         video{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 25px;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 25px;
+			object-fit: cover;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
         }
         .wpwax-vm-record-staging__top{
             position: absolute;

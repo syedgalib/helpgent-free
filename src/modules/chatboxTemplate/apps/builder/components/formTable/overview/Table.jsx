@@ -107,7 +107,8 @@ const Table = () => {
     };
 
     /* Handle Delete Confirmation */
-    const handleOk = () => {
+    const handleOk = e => {
+        e.preventDefault();
         apiService.datadelete(`/chatbox-templates/${deleteId}`)
             .then(response => {
                 if (response.data.success) {
@@ -134,7 +135,8 @@ const Table = () => {
     };
 
     /* Handle Delete Modal Cancelation */
-    const handleCancel = () => {
+    const handleCancel = e => {
+        e.preventDefault();
         setState({
             ...state,
             modalStatus: 'close'
@@ -248,7 +250,7 @@ const Table = () => {
                         </div> 
                 }
 
-                <Modal title="Delete Template" handleOk={handleOk} handleCancel={handleCancel} status={modalStatus}>
+                <Modal title="Delete Template" handleOk={e=>handleOk(e)} handleCancel={e=>handleCancel(e)} status={modalStatus}>
                     <p>Are Your Sure ?</p>
                 </Modal>
             </div>

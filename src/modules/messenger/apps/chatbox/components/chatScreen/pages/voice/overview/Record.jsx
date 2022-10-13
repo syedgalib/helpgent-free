@@ -21,15 +21,18 @@ import { updateFormData as updateMessengerFormData } from '../../../../../store/
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
+import { addAction } from 'Reducers/hooks/actionCreator';
 import { formatSecondsAsCountdown } from '../../../../../../../../../helpers/formatter';
 
 function Record() {
     const audioRef = useRef();
     const dispatch = useDispatch();
 
-    const { attachmentForm } = useSelector((state) => {
+	// Store States
+    const { attachmentForm, messengerForm } = useSelector((state) => {
         return {
             attachmentForm: state.attachmentForm,
+			messengerForm: state.messengerForm,
         };
     });
 
@@ -41,6 +44,8 @@ function Record() {
         UPLOADING: 'uploading',
         UPLOAD_FAILED: 'upload_failed',
     };
+
+	const [isInitializedBeforeCloseChatbox, setIsInitializedBeforeCloseChatbox] = useState(false);
 
     const [permissionDenied, setPermissionDenied] = useState(stages.RECORD);
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
@@ -74,9 +79,14 @@ function Record() {
                     })
                 );
 
-                // Switch to Contact form
+                // Navigate to Contact form or Sending Page
                 setTimeout(() => {
-                    dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+					if ( messengerForm.formData.user_id ) {
+						dispatch(changeChatScreen(screenTypes.SENDING));
+					} else {
+						dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+					}
+
                 }, '2000');
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
@@ -120,6 +130,12 @@ function Record() {
     // Toggle Recording
     async function startRecording(e) {
         e.preventDefault();
+
+		if ( ! isInitializedBeforeCloseChatbox ) {
+			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			setIsInitializedBeforeCloseChatbox( true );
+		}
+
         try {
             window.wpwaxCSAudioStream =
                 await navigator.mediaDevices.getUserMedia({
@@ -164,10 +180,10 @@ function Record() {
             startTimer();
         }
     };
-    // handle Send recording
-    async function handleSendRecording(e) {
-        e.preventDefault();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
+
+	// stopRecording
+	function stopRecording () {
+		window.wpwaxCSRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSRecorder.getBlob();
             window.wpwaxCSAudioStream
                 .getTracks()
@@ -177,6 +193,12 @@ function Record() {
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
         });
+	};
+
+    // handle Send recording
+    function handleSendRecording(e) {
+        e.preventDefault();
+        stopRecording()
     }
 
     function startTimer() {
@@ -308,7 +330,9 @@ function Record() {
                     {!isRecording ? (
                         <p>
                             Tap to
-                            <span className='wpwax-vm-highlighted'>Start</span>
+                            <span className='wpwax-vm-highlighted'>
+								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
+							</span>
                             recording!
                         </p>
                     ) : (

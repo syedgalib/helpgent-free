@@ -46,6 +46,16 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
             return;
         }
 
+		const supported_video_extensions = getSupportedVideoExtensions();
+		const fileExt = file.type.replace( /.+\//, '.' );
+
+		if ( supported_video_extensions.length && ! supported_video_extensions.includes( fileExt ) ) {
+			setSelectedFileErrorMessage(
+                'Sorry, the selected file type is not supported.'
+            );
+            return;
+		}
+
         if (file.size > getMaxUploadSize()) {
             setSelectedFileErrorMessage(
                 'The file exceeded the max upload size'
@@ -83,15 +93,25 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         if (
             !wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions
         ) {
-            return '';
+            return [];
         }
 
         const supported_video_extensions =
             wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
 
         if (!Array.isArray(supported_video_extensions)) {
-            return '';
+            return [];
         }
+
+        return supported_video_extensions;
+    }
+
+    function getSupportedVideoExtensionsAsText() {
+		const supported_video_extensions = getSupportedVideoExtensions();
+
+		if ( ! supported_video_extensions.length ) {
+			return '';
+		}
 
         return supported_video_extensions.join(', ').trim();
     }
@@ -224,7 +244,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                             <input
                                 style={{ display: 'none' }}
                                 type='file'
-                                accept={getSupportedVideoExtensions()}
+                                accept={getSupportedVideoExtensionsAsText()}
                                 name='attachment_video'
                                 id='attachment_video'
                                 onChange={(e) => prepareForUpload(e)}
@@ -237,7 +257,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                                 Choose File
                             </label>
                             <strong>or drag & drop here...</strong>
-                            <p>Works with {getSupportedVideoExtensions()}</p>
+                            <p>Works with {getSupportedVideoExtensionsAsText()}</p>
                             <p>Max size {getFormattedMaxUploadSize()}!</p>
 
                             {!selectedFileErrorMessage || (

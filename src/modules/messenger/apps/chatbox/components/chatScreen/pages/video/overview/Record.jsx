@@ -116,11 +116,12 @@ const Record = () => {
                 video: { facingMode: 'user' },
             });
 
+			setupVideoStreem();
             setCurrentStage(stages.RECORD);
         } catch (error) {
-            console.log({ error });
+            console.error({ error });
 
-            setPermissionDenied !== null(true);
+            setPermissionDenied(true);
         }
     }
 

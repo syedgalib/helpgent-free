@@ -14974,22 +14974,23 @@ var Record = function Record() {
                 }
               });
             case 3:
+              setupVideoStreem();
               setCurrentStage(stages.RECORD);
-              _context2.next = 10;
+              _context2.next = 11;
               break;
-            case 6:
-              _context2.prev = 6;
+            case 7:
+              _context2.prev = 7;
               _context2.t0 = _context2["catch"](0);
-              console.log({
+              console.error({
                 error: _context2.t0
               });
-              setPermissionDenied !== null(true);
-            case 10:
+              setPermissionDenied(true);
+            case 11:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 6]]);
+      }, _callee2, null, [[0, 7]]);
     }));
     return _requestPermission.apply(this, arguments);
   }

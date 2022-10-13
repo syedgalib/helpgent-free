@@ -12,6 +12,13 @@ const ScreenWrapper = Styled.div`
     background-color: var(--color-white);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     animation: wpwaxVideoOpen .4s ease-in-out;
+    @media only screen and (max-width: 575px){
+        width: 380px;
+        right: 15px;
+    }
+    @media only screen and (max-width: 379px){
+        width: 345px;
+    }
     .wpwax-vm-chatbox-text{
         .wpwax-vm-chatbox-text-form-inner{
             min-height: 580px;
@@ -60,6 +67,9 @@ const ScreenWrapper = Styled.div`
             position: relative;
             z-index: 101;
             min-height: 620px;
+            @media only screen and (max-width: 1399px){
+                min-height: 580px;
+            }
             &:after,
             &:before{
                 position: absolute;

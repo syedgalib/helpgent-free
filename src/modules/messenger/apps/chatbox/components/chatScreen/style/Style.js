@@ -28,6 +28,9 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-header{
         padding: 25px;
+        @media only screen and (max-width: 767px){
+            padding: 15px;
+        }
         .wpwax-vm-chatbox-header__top{
             display: flex;
             align-items: center;
@@ -100,6 +103,9 @@ const ChatboxForm = Styled.div`
             flex-wrap: wrap;
             padding: 0 25px;
             margin: -10px;
+            @media only screen and (max-width: 767px){
+                padding: 0 20px;
+            }
             a{
                 display: flex;
                 align-items: center;
@@ -115,6 +121,9 @@ const ChatboxForm = Styled.div`
                     path{
                         fill: var(--primary-button-bg);
                     }
+                }
+                @media only screen and (max-width: 1399px){
+                    min-height: 90px;
                 }
                 svg{
                     width: 18px;
@@ -167,6 +176,9 @@ const ChatboxForm = Styled.div`
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
                 background-color: var(--color-page-header-bg);
+                @media only screen and (max-width: 767px){
+                    padding: 15px;
+                }
                 .wpwax-vm-chatbox-title{
                     font-family: var(--font-family);
                     font-size: var(--font-size-greet);
@@ -235,6 +247,9 @@ const ChatboxForm = Styled.div`
                     height: 300px;
                     width: 100%;
                     z-index: 10;
+                    @media only screen and (max-width: 1399px){
+                        height: 250px;
+                    }
                 }
                 .wpwax-vm-btn-play{
                     position: absolute;

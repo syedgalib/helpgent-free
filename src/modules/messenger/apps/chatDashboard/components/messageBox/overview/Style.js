@@ -81,6 +81,9 @@ const ChatboxForm = Styled.div`
             flex-wrap: wrap;
             padding: 0 25px;
             margin: -10px;
+            @media only screen and (max-width: 767px){
+                padding: 0 20px;
+            }
             a{
                 display: flex;
                 align-items: center;
@@ -124,6 +127,9 @@ const ChatboxForm = Styled.div`
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
                 background-color: var(--color-page-header-bg);
+                @media only screen and (max-width: 767px){
+                    padding: 15px;
+                }
                 .wpwax-vm-chatbox-title{
                     font-size: 15px;
                     font-weight: 600;
@@ -158,6 +164,9 @@ const ChatboxForm = Styled.div`
                     position: relative;
                     min-height: 300px;
                     z-index: 10;
+                    @media only screen and (max-width: 1399px){
+                        height: 250px;
+                    }
                     &:after{
                         position: absolute;
                         left: 0;

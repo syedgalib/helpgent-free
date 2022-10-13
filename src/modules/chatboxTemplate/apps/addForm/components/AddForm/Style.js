@@ -566,6 +566,7 @@ const AddFormStyle = Styled.div`
             padding: 0 20px;
             color: #000000;
             background-color: #ffffff;
+            z-index: 1;
             .wpwax-vm-media-preview__replace--icon{
                 position: relative;
                 top: 2px;
@@ -574,9 +575,24 @@ const AddFormStyle = Styled.div`
         }
         .wpwax-vm-media-preview__src{
             height: 100%;
+            position: relative;
+            z-index: 1;
+            &:after{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                opacity: .5;
+                z-index: 0;
+                border-radius: 12px;
+                content: "";
+                background-color: rgba(0,0,0,1);
+            }
             img{
                 width: 100%;
                 height: 100%;
+                object-fit: contain;
                 border-radius: 12px;
             }
             video{

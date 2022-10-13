@@ -5233,7 +5233,6 @@ var Dropdown = function Dropdown(_ref) {
             }
             return item;
           });
-          // console.log(sessionWithMarkUnread);
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));

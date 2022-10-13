@@ -76,8 +76,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 markRead()
                     .then( resposne =>{
                         const sessionWithMarkRread = outerState.sessionList.map((item,index)=>{
-                            if(item.session_id === sessionId){
-                                return {...item,total_unread: resposne.data.data.total_unread}
+                            if ( item.session_id === sessionId ){
+                                return {
+									...item,
+									total_unread: resposne.data.data.total_unread
+								}
                             }
 
                             return item;
@@ -103,12 +106,15 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 markUnRead()
                     .then( resposne =>{
                         const sessionWithMarkUnread = outerState.sessionList.map((item,index)=>{
-                            if(item.session_id === sessionId){
-                                return {...item,total_unread: resposne.data.data.total_unread}
+                            if ( item.session_id === sessionId ) {
+                                return {
+									...item,
+									total_unread: resposne.data.data.total_unread
+								}
                             }
                             return item;
                         });
-                        // console.log(sessionWithMarkUnread);
+
                         setOuterState({
                             ...outerState,
                             sessionList: sessionWithMarkUnread,

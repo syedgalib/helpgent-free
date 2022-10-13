@@ -1300,13 +1300,11 @@ function MessageBox({ setSessionState }) {
         const session_id = selectedSession.session_id;
 
         setSessionState((currentState) => {
-            const currentSession = currentState.filteredSessions.filter(
+            const currentSession = currentState.sessionList.filter(
                 (session) => session.session_id === session_id
             )[0];
 
             const total_unread = ( currentSession && currentSession.total_unread ) ? currentSession.total_unread : 0;
-
-			// console.log( 'updateUnreadMessagesCount', {currentSession, total_unread} );
 
             let new_count = parseInt(total_unread) - 1;
             new_count = new_count < 0 ? '0' : `${new_count}`;
@@ -1535,7 +1533,7 @@ function MessageBox({ setSessionState }) {
         const scrollingBody = document.querySelector(
             '.wpwax-vm-messagebox-body .infinite-scroll-component '
         );
-        console.log(scrollingBody,messageDirection);
+        // console.log(scrollingBody,messageDirection);
         if (messageDirection === 'bottom') {
             scrollingBody.scrollTo({
                 top: 0,

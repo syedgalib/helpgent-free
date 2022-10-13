@@ -35,8 +35,6 @@ import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
 
-import { doAction } from 'Reducers/hooks/actionCreator';
-
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
     {

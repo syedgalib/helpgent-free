@@ -6267,6 +6267,153 @@ var Linkify = function Linkify(props) {
 
 /***/ }),
 
+/***/ "./src/lib/reducers/hooks/actionCreator.js":
+/*!*************************************************!*\
+  !*** ./src/lib/reducers/hooks/actionCreator.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addAction": function() { return /* binding */ addAction; },
+/* harmony export */   "doAction": function() { return /* binding */ doAction; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/lib/reducers/hooks/actions.js");
+
+var doAction = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].doAction,
+    addAction = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addAction;
+
+
+/***/ }),
+
+/***/ "./src/lib/reducers/hooks/actions.js":
+/*!*******************************************!*\
+  !*** ./src/lib/reducers/hooks/actions.js ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  DO_ACTION: 'DO_ACTION',
+  ADD_ACTION: 'ADD_ACTION',
+  doAction: function doAction(key, args) {
+    return {
+      type: actions.DO_ACTION,
+      payload: {
+        key: key,
+        args: args
+      }
+    };
+  },
+  addAction: function addAction(key, callback) {
+    return {
+      type: actions.ADD_ACTION,
+      payload: {
+        key: key,
+        callback: callback
+      }
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/lib/reducers/hooks/reducers.js":
+/*!********************************************!*\
+  !*** ./src/lib/reducers/hooks/reducers.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/lib/reducers/hooks/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+var initialState = {
+  actions: {}
+};
+var DO_ACTION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].DO_ACTION,
+    ADD_ACTION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_ACTION;
+
+var Reducer = function Reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+      payload = action.payload;
+
+  switch (type) {
+    case DO_ACTION:
+      var actionKeys = Object.keys(state.actions);
+
+      if (!actionKeys.length) {
+        return state;
+      }
+
+      for (var _i = 0, _actionKeys = actionKeys; _i < _actionKeys.length; _i++) {
+        var actionKey = _actionKeys[_i];
+
+        if (actionKey === payload.key) {
+          var _callbacks = state.actions[actionKey];
+
+          if (!_callbacks.length) {
+            continue;
+          }
+
+          var _iterator = _createForOfIteratorHelper(_callbacks),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var callback = _step.value;
+              callback(payload.args);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+      }
+
+      return state;
+
+    case ADD_ACTION:
+      var callbacks = typeof state.actions[payload.key] !== 'undefined' ? [].concat(_toConsumableArray(state.actions[payload.key]), [payload.callback]) : [payload.callback];
+      return _objectSpread(_objectSpread({}, state), {}, {
+        actions: _objectSpread(_objectSpread({}, state.actions), {}, _defineProperty({}, payload.key, callbacks))
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Reducer);
+
+/***/ }),
+
 /***/ "./src/modules/messenger/apps/chatDashboard/App.jsx":
 /*!**********************************************************!*\
   !*** ./src/modules/messenger/apps/chatDashboard/App.jsx ***!
@@ -9882,6 +10029,14 @@ var Upload = function Upload(_ref) {
       return;
     }
 
+    var supported_video_extensions = getSupportedVideoExtensions();
+    var fileExt = file.type.replace(/.+\//, '.');
+
+    if (supported_video_extensions.length && !supported_video_extensions.includes(fileExt)) {
+      setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
+      return;
+    }
+
     if (file.size > getMaxUploadSize()) {
       setSelectedFileErrorMessage('The file exceeded the max upload size');
       setSelectedFile(null);
@@ -9912,12 +10067,22 @@ var Upload = function Upload(_ref) {
 
   function getSupportedVideoExtensions() {
     if (!wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions) {
-      return '';
+      return [];
     }
 
     var supported_video_extensions = wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
 
     if (!Array.isArray(supported_video_extensions)) {
+      return [];
+    }
+
+    return supported_video_extensions;
+  }
+
+  function getSupportedVideoExtensionsAsText() {
+    var supported_video_extensions = getSupportedVideoExtensions();
+
+    if (!supported_video_extensions.length) {
       return '';
     }
 
@@ -10137,7 +10302,7 @@ var Upload = function Upload(_ref) {
                 display: 'none'
               },
               type: "file",
-              accept: getSupportedVideoExtensions(),
+              accept: getSupportedVideoExtensionsAsText(),
               name: "attachment_video",
               id: "attachment_video",
               onChange: function onChange(e) {
@@ -10150,7 +10315,7 @@ var Upload = function Upload(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
               children: "or drag & drop here..."
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Works with ", getSupportedVideoExtensions()]
+              children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Max size ", getFormattedMaxUploadSize(), "!"]
             }), !selectedFileErrorMessage || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
@@ -15209,13 +15374,15 @@ function ScreenRecord() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _store_chatbox_actionCreator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../store/chatbox/actionCreator.js */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_reset_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../store/reset.js */ "./src/modules/messenger/apps/chatbox/store/reset.js");
 /* harmony import */ var Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/cross-small.svg */ "./src/assets/svg/icons/cross-small.svg");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/messenger/apps/chatbox/components/chatScreen/pages/screen-wrapper/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Reducers_hooks_actionCreator_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Reducers/hooks/actionCreator.js */ "./src/lib/reducers/hooks/actionCreator.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
  // import { ReactSVG } from "react-svg";
+
 
 
 
@@ -15230,23 +15397,24 @@ function Container(props) {
   var resetStore = (0,_store_reset_js__WEBPACK_IMPORTED_MODULE_2__.useResetStore)();
 
   function handleClose() {
+    dispatch((0,Reducers_hooks_actionCreator_js__WEBPACK_IMPORTED_MODULE_5__.doAction)('beforeCloseChatbox'));
     resetStore();
     dispatch((0,_store_chatbox_actionCreator_js__WEBPACK_IMPORTED_MODULE_1__.hideChatbox)());
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "wpwax-vm-chatbox-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "wpwax-vm-chatbox-btnlist",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           onClick: handleClose,
           className: "wpwax-vm-chatbox-btn-close",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
             src: Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "wpwax-vm-h-100pr",
         children: props.children
       })]
@@ -15718,6 +15886,14 @@ var Video = function Video() {
       return;
     }
 
+    var supported_video_extensions = getSupportedVideoExtensions();
+    var fileExt = file.type.replace(/.+\//, '.');
+
+    if (supported_video_extensions.length && !supported_video_extensions.includes(fileExt)) {
+      setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
+      return;
+    }
+
     if (file.size > getMaxUploadSize()) {
       setSelectedFileErrorMessage('The file exceeded the max upload size');
       return;
@@ -15732,12 +15908,22 @@ var Video = function Video() {
 
   function getSupportedVideoExtensions() {
     if (!wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions) {
-      return '';
+      return [];
     }
 
     var supported_video_extensions = wpWaxCustomerSupportApp_CoreScriptData.supported_video_extensions;
 
     if (!Array.isArray(supported_video_extensions)) {
+      return [];
+    }
+
+    return supported_video_extensions;
+  }
+
+  function getSupportedVideoExtensionsAsText() {
+    var supported_video_extensions = getSupportedVideoExtensions();
+
+    if (!supported_video_extensions.length) {
       return '';
     }
 
@@ -15785,7 +15971,7 @@ var Video = function Video() {
                 display: 'none'
               },
               type: "file",
-              accept: getSupportedVideoExtensions(),
+              accept: getSupportedVideoExtensionsAsText(),
               name: "attachment_video",
               id: "attachment_video",
               onChange: function onChange(e) {
@@ -15839,7 +16025,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 var VideoHomeWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    padding: 180px 25px 180px;\n    border-radius: 25px;\n    min-width: 420px;\n    box-sizing: border-box;\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-vm-video-home{\n        width: 100%;\n        font-family: var(--font-family);\n    }\n    .wpwax-vm-video-home__title{\n        font-size: 18px;\n        font-weight: 600;\n        font-family: var(--font-family);\n        margin: 0 0 30px;\n        color: var(--color-dark);\n    }\n    .wpwax-vm-video-home__btns{\n        a,\n        span{\n            font-family: var(--font-family);\n            display: flex;\n            justify-content: center;\n        }\n        span{\n            font-size: 13px;\n            font-weight: 500;\n            margin: 12px 0;\n            display: inline-block;\n        }\n    }\n    .wpwax-vm-btn{\n        &.wpwax-vm-btn-light{\n            color: var(--color-dark);\n            background-color: var(--color-border-light);\n            &:hover{\n                color: var(--color-dark);\n                background-color: #cfd1d4;\n            }\n        }\n    }\n    .wpwax-vm-short-text{\n        font-size: 12px;\n        font-weight: 500;\n        font-family: var(--font-family);\n        color: #898989;\n        margin: 0;\n    }\n"])));
-var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    padding: 100px 25px;\n    min-width: 420px;\n    box-sizing: border-box;\n    text-align: center;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        color: var(--color-dark);\n    }\n    &.wpwax-vm-record-permission{\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        height: 100%;\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            margin: 28px 0 20px;\n            min-height: 54px;\n        }\n        .wpwax-video-screen-title{\n            margin-top: 0;\n        }\n    }\n    &.wpwax-vm-record-staging{\n        height: 100%;\n        z-index: 101;\n\t\theight: calc( 100vh - 100px );\n\t\tmax-height: 800px;\n        animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n        &:after,\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 20%;\n            content: '';\n            z-index: 1;\n            opacity: .8;\n            background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        &:after{\n            border-radius: 25px 25px 0 0;\n        }\n        &:before{\n            top:auto;\n            bottom: 0;\n            border-radius: 0 0 25px 25px;\n            opacity: .6;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        video{\n\t\t\tposition: absolute;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder-radius: 25px;\n\t\t\tobject-fit: cover;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n        }\n        .wpwax-vm-record-staging__top{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n            .wpwax-vm-record-staging__title{\n                font-size: 26px;\n                font-weight: 600;\n                text-align: left;\n                margin: 0;\n                padding: 30px;\n                color: var(--color-white);\n                .wpwax-vm-timer{\n                    display: block;\n                    margin: 6px 0 0;\n                }\n            }\n            .wpwax-vm-record-staging__btn-expand{\n                position: absolute;\n                right: 15px;\n                top: 30px;\n            }\n        }\n        .wpwax-vm-record-staging__action{\n            position: absolute;\n            left: 50%;\n            bottom: 30px;\n            transform: translateX(-50%);\n            z-index: 101;\n            &.wpwax-vm-record-start{\n                .wpwax-vm-btn-record{\n                    background-color: var(--color-danger);\n                    &:after{\n                        border-radius: 8px;\n                        background-color: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-btn-record{\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-record-ready{\n        padding: 80px 25px;\n        .wpwax-vm-form{\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            height: 100%;\n        }\n        .wpwax-vm-text-reply{\n            .wpwax-vm-form-group{\n                .wpwax-vm-form__element{\n                    background-color: transparent;\n                    &:focus{\n                        outline: 0 none;\n                        border: 0 none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-recored-video{\n            margin-bottom: 40px;\n            position: relative;\n            .wpwax-vm-recorded-preview{\n                position: relative;\n                border-radius: 15px;\n                background-size: cover;\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 100%;\n                    height: 240px;\n                    object-fit: cover;\n\t\t\t\t\tborder-radius: 15px;\n\t\t\t\t}\n            }\n            .wpwax-vm-recored-video__play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                width: 60px;\n                height: 60px;\n                margin: 0 auto;\n                border-radius: 50%;\n                background-color: var(--color-white);\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                div{\n                    line-height: .5;\n                    svg {\n                        width: 16px;\n                        height: 16px;\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-bottom{\n            p{\n                font-size: 20px;\n                font-weight: 600;\n                margin-bottom: 18px;\n            }\n            .wpwax-vm-btn{\n                svg{\n                    position: relative;\n                    top: 0;\n                    margin-left: 10px;\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n            .wpwax-vm-btn-link{\n                display: block;\n                text-decoration: none;\n                font-size: 16px;\n                font-weight: 600;\n                margin-top: 14px;\n                &:hover{\n                    color: var(--color-primary);\n                }\n            }\n        }\n    }\n"])));
+var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    padding: 100px 25px;\n    min-width: 420px;\n    box-sizing: border-box;\n    text-align: center;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        color: var(--color-dark);\n    }\n    &.wpwax-vm-record-permission{\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        height: 100%;\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            margin: 28px 0 20px;\n            min-height: 54px;\n        }\n        .wpwax-video-screen-title{\n            margin-top: 0;\n        }\n    }\n    &.wpwax-vm-record-staging{\n        height: 100%;\n        z-index: 101;\n\t\theight: calc( 100vh - 100px );\n\t\tmax-height: 650px;\n        animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n        &:after,\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 20%;\n            content: '';\n            z-index: 1;\n            opacity: .8;\n            background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        &:after{\n            border-radius: 25px 25px 0 0;\n        }\n        &:before{\n            top:auto;\n            bottom: 0;\n            border-radius: 0 0 25px 25px;\n            opacity: .6;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        video{\n\t\t\tposition: absolute;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder-radius: 25px;\n\t\t\tobject-fit: cover;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n        }\n        .wpwax-vm-record-staging__top{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n            .wpwax-vm-record-staging__title{\n                font-size: 26px;\n                font-weight: 600;\n                text-align: left;\n                margin: 0;\n                padding: 30px;\n                color: var(--color-white);\n                .wpwax-vm-timer{\n                    display: block;\n                    margin: 6px 0 0;\n                }\n            }\n            .wpwax-vm-record-staging__btn-expand{\n                position: absolute;\n                right: 15px;\n                top: 30px;\n            }\n        }\n        .wpwax-vm-record-staging__action{\n            position: absolute;\n            left: 50%;\n            bottom: 30px;\n            transform: translateX(-50%);\n            z-index: 101;\n            &.wpwax-vm-record-start{\n                .wpwax-vm-btn-record{\n                    background-color: var(--color-danger);\n                    &:after{\n                        border-radius: 8px;\n                        background-color: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-btn-record{\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-record-ready{\n        padding: 80px 25px;\n        .wpwax-vm-form{\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            height: 100%;\n        }\n        .wpwax-vm-text-reply{\n            .wpwax-vm-form-group{\n                .wpwax-vm-form__element{\n                    background-color: transparent;\n                    &:focus{\n                        outline: 0 none;\n                        border: 0 none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-recored-video{\n            margin-bottom: 40px;\n            position: relative;\n            .wpwax-vm-recorded-preview{\n                position: relative;\n                border-radius: 15px;\n                background-size: cover;\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 100%;\n                    height: 240px;\n                    object-fit: cover;\n\t\t\t\t\tborder-radius: 15px;\n\t\t\t\t}\n            }\n            .wpwax-vm-recored-video__play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                width: 60px;\n                height: 60px;\n                margin: 0 auto;\n                border-radius: 50%;\n                background-color: var(--color-white);\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                div{\n                    line-height: .5;\n                    svg {\n                        width: 16px;\n                        height: 16px;\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-bottom{\n            p{\n                font-size: 20px;\n                font-weight: 600;\n                margin-bottom: 18px;\n            }\n            .wpwax-vm-btn{\n                svg{\n                    position: relative;\n                    top: 0;\n                    margin-left: 10px;\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n            .wpwax-vm-btn-link{\n                display: block;\n                text-decoration: none;\n                font-size: 16px;\n                font-weight: 600;\n                margin-top: 14px;\n                &:hover{\n                    color: var(--color-primary);\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -15854,7 +16040,7 @@ var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Style */ "./src/modules/messenger/apps/chatbox/components/chatScreen/pages/video/Style.js");
 /* harmony import */ var Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/img/chatbox/permission.png */ "./src/assets/img/chatbox/permission.png");
 /* harmony import */ var Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/expand.svg */ "./src/assets/svg/icons/expand.svg");
@@ -15866,7 +16052,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
 /* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Reducers_hooks_actionCreator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Reducers/hooks/actionCreator */ "./src/lib/reducers/hooks/actionCreator.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -15907,16 +16094,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Record = function Record() {
   var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useDispatch)(); // Store States
 
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useSelector)(function (state) {
     return {
+      chatbox: state.chatbox,
       attachmentForm: state.attachmentForm,
       messengerForm: state.messengerForm
     };
   }),
+      chatbox = _useSelector.chatbox,
       attachmentForm = _useSelector.attachmentForm,
       messengerForm = _useSelector.messengerForm;
 
@@ -15928,35 +16118,40 @@ var Record = function Record() {
     UPLOAD_FAILED: 'upload_failed'
   };
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      permissionDenied = _useState2[0],
-      setPermissionDenied = _useState2[1];
+      isInitializedBeforeCloseChatbox = _useState2[0],
+      setIsInitializedBeforeCloseChatbox = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      currentStage = _useState4[0],
-      setCurrentStage = _useState4[1];
+      permissionDenied = _useState4[0],
+      setPermissionDenied = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
       _useState6 = _slicedToArray(_useState5, 2),
-      recordedVideoBlob = _useState6[0],
-      setRecordedVidioBlob = _useState6[1];
+      currentStage = _useState6[0],
+      setCurrentStage = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState8 = _slicedToArray(_useState7, 2),
-      recordedVidioURL = _useState8[0],
-      setRecordedVidioURL = _useState8[1];
+      recordedVideoBlob = _useState8[0],
+      setRecordedVidioBlob = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      isRecording = _useState10[0],
-      setIsRecording = _useState10[1];
+      recordedVidioURL = _useState10[0],
+      setRecordedVidioURL = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      recordedTimeInSecond = _useState12[0],
-      setRecordedTimeInSecond = _useState12[1]; // Init State
+      isRecording = _useState12[0],
+      setIsRecording = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState14 = _slicedToArray(_useState13, 2),
+      recordedTimeInSecond = _useState14[0],
+      setRecordedTimeInSecond = _useState14[1]; // Init State
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
@@ -16137,8 +16332,13 @@ var Record = function Record() {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
+              if (!isInitializedBeforeCloseChatbox) {
+                dispatch((0,Reducers_hooks_actionCreator__WEBPACK_IMPORTED_MODULE_12__.addAction)('beforeCloseChatbox', stopRecording));
+                setIsInitializedBeforeCloseChatbox(true);
+              }
+
+              _context4.prev = 1;
+              _context4.next = 4;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -16150,7 +16350,7 @@ var Record = function Record() {
                 }
               });
 
-            case 3:
+            case 4:
               window.wpwaxCSVideoStream = _context4.sent;
               window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
                 type: 'video',
@@ -16168,23 +16368,23 @@ var Record = function Record() {
 
               videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
               videoStreemRef.current.play();
-              _context4.next = 14;
+              _context4.next = 15;
               break;
 
-            case 10:
-              _context4.prev = 10;
-              _context4.t0 = _context4["catch"](0);
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](1);
               console.log({
                 error: _context4.t0
               });
               setIsRecording(false);
 
-            case 14:
+            case 15:
             case "end":
               return _context4.stop();
           }
         }
-      }, _callee4, null, [[0, 10]]);
+      }, _callee4, null, [[1, 11]]);
     }));
     return _setupVideoStreem.apply(this, arguments);
   }
@@ -16234,47 +16434,47 @@ var Record = function Record() {
   }
 
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-permission",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record video, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_2__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
         ref: videoStreemRef,
         muted: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-record-staging__top",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
           className: "wpwax-vm-record-staging__title",
-          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             className: "wpwax-vm-timer",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
               className: "wpwax-vm-sec",
               children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_10__.formatSecondsAsCountdown)(recordedTimeInSecond)
             })
           }) : ''
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: isRecording ? 'wpwax-vm-record-staging__action wpwax-vm-record-start' : 'wpwax-vm-record-staging__action',
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-btn-record",
           onClick: function onClick() {
@@ -16288,32 +16488,32 @@ var Record = function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-ready",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
         action: "#",
         className: "wpwax-vm-form",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "wpwax-vm-recored-video",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
             className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
               controls: true,
               src: recordedVidioURL
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: "wpwax-vm-form-bottom",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10",
             onClick: function onClick(e) {
               return sendVideo(e);
             },
-            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__["default"], {
               src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               return prepareRecordAgain(e);
@@ -16325,31 +16525,31 @@ var Record = function Record() {
       })
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-send-progress",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             children: "Uploading"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
           children: "We\u2019re currently uploading your response."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           className: "wpwax-vm-danger-text",
           children: "Please don\u2019t leave this page!"
         })]
       })
     });
   } else if (currentStage === stages.UPLOAD_FAILED) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-send-progress",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           className: "wpwax-vm-danger-text wpwax-vm-mb-20",
           children: "Couldn't upload the video, please try again."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           onClick: function onClick(e) {
             return prepareRecordAgain(e);
@@ -16610,7 +16810,7 @@ var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
-var RecorderWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    text-align: center;\n    padding: 0 25px;\n    min-width: 420px;\n    box-sizing: border-box;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        margin: 0 0 30px;\n    }\n    img{\n        max-width: 370px;\n        margin-bottom: 26px;\n    }\n    &.wpwax-vm-record-staging{\n        padding: 80px 25px;\n\t\theight: calc( 100vh - 100px );\n\t\tmax-height: 800px;\n        .wpwax-vm-timer{\n            span{\n                font-size: 50px;\n                font-weight: 500;\n                color: var(--color-text);\n            }\n            &.wpwax-vm-timer-start{\n                span{\n                    color: #FC495D;\n                }\n            }\n        }\n        .wpwax-vm-record-staging__bottom{\n            padding-top: 180px;\n            p{\n                min-height: 32px;\n            }\n            .wpwax-vm-highlighted{\n                display: inline-block;\n                margin: 0 6px;\n            }\n            .wpwax-vm-record-staging__bottom--action{\n                position: relative;\n                .wpwax-vm-pause-btn{\n                    display: none;\n                    position: relative;\n                    &:after{\n                        position: absolute;\n                        left: 50%;\n                        top: 50%;\n                        width: 40px;\n                        height: 40px;\n                        border-radius: 14px;\n                        transform: translate(-50%,-50%);\n                        content: '';\n                        background-color: var(--color-white);\n                        z-index: 101;\n                    }\n                }\n                .wpwax-vm-record-btn{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    &:hover{\n                        svg{\n                            path{\n                                fill: #FC495D;\n                            }\n                        }\n\n                    }\n                    svg{\n                        width: 36px;\n                        height: 36px;\n                        path{\n                            fill: var(--color-white);\n                        }\n                    }\n\n                }\n                .wpwax-vm-record-btn,\n                .wpwax-vm-pause-btn{\n                    width: 110px;\n                    height: 110px;\n                    margin: 0 auto;\n                    border-radius: 50%;\n                    transition: background-color .3s ease-in-out;\n                    background-color: #FC495D;\n                    border: 2px solid #FC495D;\n                    &:hover{\n                        color: #FC495D;\n                        background-color: #fff;\n                    }\n                }\n                .wpwax-vm-record-btn-right{\n                    position: relative;\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    width: 70px;\n                    height: 70px;\n                    position: absolute;\n                    right: 40px;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    border-radius: 50%;\n                    background-color: #B4B4B4;\n                    text-decoration: none;\n                    transition: background-color .3s ease-in-out;\n                    color: var(--color-white);\n                    &.wpwax-vm-btn-close{\n                        &:hover{\n                            background-color: var(--color-danger);\n                        }\n                    }\n                    &.wpwax-vm-btn-send{\n                        border: 2px solid #FC495D;\n                        background-color: #FC495D;\n                        &:after{\n                            position: absolute;\n                            left: 50%;\n                            top: 50%;\n                            transform: translate(-50%,-50%);\n                            width: 16px;\n                            height: 16px;\n                            border-radius: 4px;\n                            content: '';\n                            background-color: var(--color-white);\n                        }\n                        &:hover{\n                            background-color: var(--color-white);\n                            &:after{\n                                background-color: #FC495D;\n                            }\n                        }\n                    }\n                }\n                &.wpwax-vm-record-start{\n                    .wpwax-vm-record-btn{\n                        display: none;\n                    }\n                    .wpwax-vm-pause-btn{\n                        display: block;\n                    }\n                    .wpwax-vm-btn-close{\n                        display: none;\n                    }\n                }\n            }\n            p{\n                font-size: 18px;\n                font-weight: 600;\n                margin-bottom:30px;\n                color: var(--color-dark);\n                .wpwax-vm-highlighted{\n                    color: #EF0000;\n                }\n            }\n        }\n    }\n    &.wpwax-vm-record-before-send{\n        padding: 80px 25px;\n    }\n    &.wpwax-vm-record-ready{\n        padding: 160px 25px 25px;\n        .wpwax-vm-record-ready__top{\n            position: relative;\n            /* .wpwax-vm-recorded-preview{\n                min-height: 240px;\n                position: relative;\n                z-index: 101;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    border-radius: 15px;\n                    background-color: rgba(3,3,8,1);\n                    opacity: .3;\n                    content: \"\";\n                    z-index: -1;\n                }\n                &.wpax-vm-preview-bg{\n                    background-size: cover;\n                }\n            } */\n            .wpwax-vm-recorded-btn{\n                /* position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%); */\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 70px;\n                height: 70px;\n                margin: 0 auto;\n                border-radius: 50%;\n                z-index: 101;\n                transition: box-shadow .2s ease-in;\n                background-color: var(--color-white);\n                box-shadow: 0 5px 50px rgba(0,0,0,.15);\n                &:hover{\n                    box-shadow: 0 20px 60px rgba(0,0,0,.20);\n                }\n                >div{\n                    width: 25px;\n                    height: 25px;\n                    line-height: 1;\n                    svg{\n                        width: 25px;\n                        height: 25px;\n                        position: relative;\n                        left: 0;\n                        path{\n                            fill: var(--color-primary);\n                        }\n                    }\n                }\n            }\n\n            .wpwax-vm-audio-range{\n                width: calc(100% + 50px);\n                display: block;\n                margin: 100px 0 0 -30px;\n            }\n        }\n        .wpwax-vm-record-ready__bottom{\n            padding-top: 36px;\n            h4{\n                font-size: 20px;\n                font-weight: 600;\n                margin: 0 0 20px;\n            }\n            .wpwax-vm-record-ready__bottom--actions{\n                a + a{\n                    margin-top: 10px;\n                }\n            }\n        }\n    }\n"])));
+var RecorderWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    text-align: center;\n    padding: 0 25px;\n    min-width: 420px;\n    box-sizing: border-box;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        margin: 0 0 30px;\n    }\n    img{\n        max-width: 370px;\n        margin-bottom: 26px;\n    }\n    &.wpwax-vm-record-staging{\n        padding: 80px 25px;\n\t\theight: calc( 100vh - 100px );\n\t\tmax-height: 650px;\n        .wpwax-vm-timer{\n            span{\n                font-size: 50px;\n                font-weight: 500;\n                color: var(--color-text);\n            }\n            &.wpwax-vm-timer-start{\n                span{\n                    color: #FC495D;\n                }\n            }\n        }\n        .wpwax-vm-record-staging__bottom{\n            padding-top: 180px;\n            p{\n                min-height: 32px;\n            }\n            .wpwax-vm-highlighted{\n                display: inline-block;\n                margin: 0 6px;\n            }\n            .wpwax-vm-record-staging__bottom--action{\n                position: relative;\n                .wpwax-vm-pause-btn{\n                    display: none;\n                    position: relative;\n                    &:after{\n                        position: absolute;\n                        left: 50%;\n                        top: 50%;\n                        width: 40px;\n                        height: 40px;\n                        border-radius: 14px;\n                        transform: translate(-50%,-50%);\n                        content: '';\n                        background-color: var(--color-white);\n                        z-index: 101;\n                    }\n                }\n                .wpwax-vm-record-btn{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    &:hover{\n                        svg{\n                            path{\n                                fill: #FC495D;\n                            }\n                        }\n\n                    }\n                    svg{\n                        width: 36px;\n                        height: 36px;\n                        path{\n                            fill: var(--color-white);\n                        }\n                    }\n\n                }\n                .wpwax-vm-record-btn,\n                .wpwax-vm-pause-btn{\n                    width: 110px;\n                    height: 110px;\n                    margin: 0 auto;\n                    border-radius: 50%;\n                    transition: background-color .3s ease-in-out;\n                    background-color: #FC495D;\n                    border: 2px solid #FC495D;\n                    &:hover{\n                        color: #FC495D;\n                        background-color: #fff;\n                    }\n                }\n                .wpwax-vm-record-btn-right{\n                    position: relative;\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    width: 70px;\n                    height: 70px;\n                    position: absolute;\n                    right: 40px;\n                    top: 50%;\n                    transform: translateY(-50%);\n                    border-radius: 50%;\n                    background-color: #B4B4B4;\n                    text-decoration: none;\n                    transition: background-color .3s ease-in-out;\n                    color: var(--color-white);\n                    &.wpwax-vm-btn-close{\n                        &:hover{\n                            background-color: var(--color-danger);\n                        }\n                    }\n                    &.wpwax-vm-btn-send{\n                        border: 2px solid #FC495D;\n                        background-color: #FC495D;\n                        &:after{\n                            position: absolute;\n                            left: 50%;\n                            top: 50%;\n                            transform: translate(-50%,-50%);\n                            width: 16px;\n                            height: 16px;\n                            border-radius: 4px;\n                            content: '';\n                            background-color: var(--color-white);\n                        }\n                        &:hover{\n                            background-color: var(--color-white);\n                            &:after{\n                                background-color: #FC495D;\n                            }\n                        }\n                    }\n                }\n                &.wpwax-vm-record-start{\n                    .wpwax-vm-record-btn{\n                        display: none;\n                    }\n                    .wpwax-vm-pause-btn{\n                        display: block;\n                    }\n                    .wpwax-vm-btn-close{\n                        display: none;\n                    }\n                }\n            }\n            p{\n                font-size: 18px;\n                font-weight: 600;\n                margin-bottom:30px;\n                color: var(--color-dark);\n                .wpwax-vm-highlighted{\n                    color: #EF0000;\n                }\n            }\n        }\n    }\n    &.wpwax-vm-record-before-send{\n        padding: 80px 25px;\n    }\n    &.wpwax-vm-record-ready{\n        padding: 160px 25px 25px;\n        .wpwax-vm-record-ready__top{\n            position: relative;\n            /* .wpwax-vm-recorded-preview{\n                min-height: 240px;\n                position: relative;\n                z-index: 101;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    border-radius: 15px;\n                    background-color: rgba(3,3,8,1);\n                    opacity: .3;\n                    content: \"\";\n                    z-index: -1;\n                }\n                &.wpax-vm-preview-bg{\n                    background-size: cover;\n                }\n            } */\n            .wpwax-vm-recorded-btn{\n                /* position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%); */\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 70px;\n                height: 70px;\n                margin: 0 auto;\n                border-radius: 50%;\n                z-index: 101;\n                transition: box-shadow .2s ease-in;\n                background-color: var(--color-white);\n                box-shadow: 0 5px 50px rgba(0,0,0,.15);\n                &:hover{\n                    box-shadow: 0 20px 60px rgba(0,0,0,.20);\n                }\n                >div{\n                    width: 25px;\n                    height: 25px;\n                    line-height: 1;\n                    svg{\n                        width: 25px;\n                        height: 25px;\n                        position: relative;\n                        left: 0;\n                        path{\n                            fill: var(--color-primary);\n                        }\n                    }\n                }\n            }\n\n            .wpwax-vm-audio-range{\n                width: calc(100% + 50px);\n                display: block;\n                margin: 100px 0 0 -30px;\n            }\n        }\n        .wpwax-vm-record-ready__bottom{\n            padding-top: 36px;\n            h4{\n                font-size: 20px;\n                font-weight: 600;\n                margin: 0 0 20px;\n            }\n            .wpwax-vm-record-ready__bottom--actions{\n                a + a{\n                    margin-top: 10px;\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -16626,7 +16826,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Style */ "./src/modules/messenger/apps/chatbox/components/chatScreen/pages/voice/Style.js");
 /* harmony import */ var Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/img/chatbox/permission.png */ "./src/assets/img/chatbox/permission.png");
 /* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
@@ -16641,8 +16841,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/modules/messenger/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/modules/messenger/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/messageTypes.js");
-/* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Reducers_hooks_actionCreator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Reducers/hooks/actionCreator */ "./src/lib/reducers/hooks/actionCreator.js");
+/* harmony import */ var _helpers_formatter__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../../../../../../../helpers/formatter */ "./src/helpers/formatter.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -16685,6 +16886,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Record() {
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(); // Store States
@@ -16707,55 +16909,60 @@ function Record() {
     UPLOAD_FAILED: 'upload_failed'
   };
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      permissionDenied = _useState2[0],
-      setPermissionDenied = _useState2[1];
+      isInitializedBeforeCloseChatbox = _useState2[0],
+      setIsInitializedBeforeCloseChatbox = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
       _useState4 = _slicedToArray(_useState3, 2),
-      currentStage = _useState4[0],
-      setCurrentStage = _useState4[1];
+      permissionDenied = _useState4[0],
+      setPermissionDenied = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
       _useState6 = _slicedToArray(_useState5, 2),
-      recordedAudioBlob = _useState6[0],
-      setRecordedAudioBlob = _useState6[1];
+      currentStage = _useState6[0],
+      setCurrentStage = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState8 = _slicedToArray(_useState7, 2),
-      recordedAudioSteam = _useState8[0],
-      setRecordedAudioSteam = _useState8[1];
+      recordedAudioBlob = _useState8[0],
+      setRecordedAudioBlob = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState10 = _slicedToArray(_useState9, 2),
-      recordedAudioURL = _useState10[0],
-      setRecordedAudioURL = _useState10[1];
+      recordedAudioSteam = _useState10[0],
+      setRecordedAudioSteam = _useState10[1];
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      audioCurrentTime = _useState12[0],
-      setAudioCurrentTime = _useState12[1];
+      recordedAudioURL = _useState12[0],
+      setRecordedAudioURL = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState14 = _slicedToArray(_useState13, 2),
-      audioDuration = _useState14[0],
-      setAudioDuration = _useState14[1];
+      audioCurrentTime = _useState14[0],
+      setAudioCurrentTime = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState16 = _slicedToArray(_useState15, 2),
-      isRecording = _useState16[0],
-      setIsRecording = _useState16[1];
+      audioDuration = _useState16[0],
+      setAudioDuration = _useState16[1];
 
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
-      isPlayingPreview = _useState18[0],
-      setIsPlayingPreview = _useState18[1];
+      isRecording = _useState18[0],
+      setIsRecording = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState20 = _slicedToArray(_useState19, 2),
-      recordedTimeInSecond = _useState20[0],
-      setRecordedTimeInSecond = _useState20[1]; // Init State
+      isPlayingPreview = _useState20[0],
+      setIsPlayingPreview = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+      _useState22 = _slicedToArray(_useState21, 2),
+      recordedTimeInSecond = _useState22[0],
+      setRecordedTimeInSecond = _useState22[1]; // Init State
 
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
@@ -16878,8 +17085,14 @@ function Record() {
           switch (_context3.prev = _context3.next) {
             case 0:
               e.preventDefault();
-              _context3.prev = 1;
-              _context3.next = 4;
+
+              if (!isInitializedBeforeCloseChatbox) {
+                dispatch((0,Reducers_hooks_actionCreator__WEBPACK_IMPORTED_MODULE_16__.addAction)('beforeCloseChatbox', stopRecording));
+                setIsInitializedBeforeCloseChatbox(true);
+              }
+
+              _context3.prev = 2;
+              _context3.next = 5;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -16888,7 +17101,7 @@ function Record() {
                 }
               });
 
-            case 4:
+            case 5:
               window.wpwaxCSAudioStream = _context3.sent;
               window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                 type: 'audio',
@@ -16904,23 +17117,23 @@ function Record() {
               startTimer();
               setRecordedTimeInSecond(recordedTimeInSecond);
               setRecordedAudioSteam(window.wpwaxCSAudioStream);
-              _context3.next = 17;
+              _context3.next = 18;
               break;
 
-            case 13:
-              _context3.prev = 13;
-              _context3.t0 = _context3["catch"](1);
+            case 14:
+              _context3.prev = 14;
+              _context3.t0 = _context3["catch"](2);
               console.log({
                 error: _context3.t0
               });
               setIsRecording(false);
 
-            case 17:
+            case 18:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[1, 13]]);
+      }, _callee3, null, [[2, 14]]);
     }));
     return _startRecording.apply(this, arguments);
   }
@@ -16937,38 +17150,26 @@ function Record() {
       setIsRecording(true);
       startTimer();
     }
-  }; // handle Send recording
+  }; // stopRecording
 
 
-  function handleSendRecording(_x2) {
-    return _handleSendRecording.apply(this, arguments);
+  function stopRecording() {
+    window.wpwaxCSRecorder.stopRecording(function (url) {
+      var blob = window.wpwaxCSRecorder.getBlob();
+      window.wpwaxCSAudioStream.getTracks().forEach(function (track) {
+        return track.stop();
+      });
+      setRecordedAudioBlob(blob);
+      setRecordedAudioURL(url);
+      setCurrentStage(stages.BEFORE_SEND);
+    });
   }
 
-  function _handleSendRecording() {
-    _handleSendRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(e) {
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              e.preventDefault();
-              window.wpwaxCSRecorder.stopRecording(function (url) {
-                var blob = window.wpwaxCSRecorder.getBlob();
-                window.wpwaxCSAudioStream.getTracks().forEach(function (track) {
-                  return track.stop();
-                });
-                setRecordedAudioBlob(blob);
-                setRecordedAudioURL(url);
-                setCurrentStage(stages.BEFORE_SEND);
-              });
+  ; // handle Send recording
 
-            case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-    return _handleSendRecording.apply(this, arguments);
+  function handleSendRecording(e) {
+    e.preventDefault();
+    stopRecording();
   }
 
   function startTimer() {
@@ -17024,13 +17225,13 @@ function Record() {
 
   var getRightBtnContent = function getRightBtnContent() {
     if (!isRecording && recordedTimeInSecond === 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-close",
         onClick: function onClick(e) {
           return handleCancelRecording(e, 'home');
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
           src: Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
         })
       });
@@ -17039,7 +17240,7 @@ function Record() {
     } else if (isRecording && recordedTimeInSecond > 0) {
       return null;
     } else if (!isRecording && recordedTimeInSecond > 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-send",
         onClick: function onClick(e) {
@@ -17050,60 +17251,60 @@ function Record() {
   };
 
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record audio, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_3__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
         className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
           className: "wpwax-vm-sec",
-          children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_16__.formatSecondsAsCountdown)(recordedTimeInSecond)
+          children: (0,_helpers_formatter__WEBPACK_IMPORTED_MODULE_17__.formatSecondsAsCountdown)(recordedTimeInSecond)
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         className: "wpwax-vm-record-staging__bottom",
-        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("p", {
-          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("p", {
+          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
             className: "wpwax-vm-highlighted",
-            children: "Start"
+            children: recordedTimeInSecond > 0 ? 'resume' : 'start'
           }), "recording!"]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-record-staging__bottom--action",
-          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return pauseRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
               src: Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
             })
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return startRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
             })
           }), getRightBtnContent()]
@@ -17111,11 +17312,11 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
       className: "wpwax-vm-record-ready",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("audio", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("audio", {
           ref: audioRef,
           src: recordedAudioURL,
           onPlay: function onPlay() {
@@ -17134,18 +17335,18 @@ function Record() {
             setAudioDuration(event.target.duration);
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         className: "wpwax-vm-record-ready__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
           href: "#",
           onClick: togglePlayPauseAudio,
           className: isPlayingPreview ? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn',
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
             src: isPlayingPreview ? Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_5__["default"] : Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
           className: "wpwax-vm-audio-range",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("span", {
             style: {
               display: 'block',
               position: 'relative',
@@ -17153,7 +17354,7 @@ function Record() {
               width: '100%',
               height: '60px'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               style: {
                 position: 'absolute',
                 left: 0,
@@ -17166,7 +17367,7 @@ function Record() {
                 backgroundImage: 'url( ' + Assets_svg_audio_inactive_svg__WEBPACK_IMPORTED_MODULE_7__["default"] + ' )',
                 zIndex: 0
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               style: {
                 width: getPlayedTimeInPercent() + '%',
                 position: 'absolute',
@@ -17184,20 +17385,20 @@ function Record() {
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
         className: "wpwax-vm-record-ready__bottom",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
           children: "Ready to Send ?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-record-ready__bottom--actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               sendAudio(e);
             },
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary",
             children: "Yes"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               prepareRecordAgain(e);
@@ -17209,21 +17410,21 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         className: "wpwax-vm-record-send-progress wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
             className: "wpwax-vm-record-send-progress__bar",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
               children: "Uploading"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("h4", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
               children: "We\u2019re currently uploading your audio"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-text-danger",
               children: "Please don\u2019t leave this page!"
             })]
@@ -17232,17 +17433,17 @@ function Record() {
       })
     });
   } else if (currentStage === stages.UPLOAD_FAILED) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
         className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-mb-20",
               children: "Couldn't upload the video, please try again."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
               href: "#",
               onClick: function onClick(e) {
                 return prepareRecordAgain(e);
@@ -18930,13 +19131,14 @@ function useResetStore() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _video_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./video/reducers */ "./src/modules/messenger/apps/chatbox/store/video/reducers.js");
-/* harmony import */ var _chatbox_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatbox/reducers */ "./src/modules/messenger/apps/chatbox/store/chatbox/reducers.js");
-/* harmony import */ var _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatboxTemplate/reducer */ "./src/modules/messenger/apps/chatbox/store/chatboxTemplate/reducer.js");
-/* harmony import */ var _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./forms/messenger/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/reducer.js");
-/* harmony import */ var _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms/attachment/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/reducer.js");
-/* harmony import */ var _forms_user_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms/user/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/user/reducer.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Reducers/hooks/reducers */ "./src/lib/reducers/hooks/reducers.js");
+/* harmony import */ var _video_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./video/reducers */ "./src/modules/messenger/apps/chatbox/store/video/reducers.js");
+/* harmony import */ var _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatbox/reducers */ "./src/modules/messenger/apps/chatbox/store/chatbox/reducers.js");
+/* harmony import */ var _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chatboxTemplate/reducer */ "./src/modules/messenger/apps/chatbox/store/chatboxTemplate/reducer.js");
+/* harmony import */ var _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms/messenger/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/messenger/reducer.js");
+/* harmony import */ var _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms/attachment/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/attachment/reducer.js");
+/* harmony import */ var _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./forms/user/reducer */ "./src/modules/messenger/apps/chatbox/store/forms/user/reducer.js");
 
 
 
@@ -18944,13 +19146,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
-  video: _video_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
-  chatbox: _chatbox_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
-  chatboxTemplate: _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  messengerForm: _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  attachmentForm: _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  userForm: _forms_user_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+
+var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
+  hooks: Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
+  video: _video_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  chatbox: _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__["default"],
+  chatboxTemplate: _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  messengerForm: _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  attachmentForm: _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  userForm: _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducers);
 

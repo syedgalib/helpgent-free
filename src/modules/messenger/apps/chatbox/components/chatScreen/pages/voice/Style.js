@@ -19,7 +19,7 @@ const RecorderWrap = Styled.div`
     &.wpwax-vm-record-staging{
         padding: 80px 25px;
 		height: calc( 100vh - 100px );
-		max-height: 800px;
+		max-height: 650px;
         .wpwax-vm-timer{
             span{
                 font-size: 50px;

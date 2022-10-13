@@ -6162,10 +6162,6 @@ var Reducer = function Reducer() {
   switch (type) {
     case DO_ACTION:
       var actionKeys = Object.keys(state.actions);
-      console.log('DO_ACTION', {
-        payload: payload,
-        actionKeys: actionKeys
-      });
       if (!actionKeys.length) {
         return state;
       }
@@ -6193,10 +6189,6 @@ var Reducer = function Reducer() {
       return state;
     case ADD_ACTION:
       var callbacks = typeof state.actions[payload.key] !== 'undefined' ? [].concat(_toConsumableArray(state.actions[payload.key]), [payload.callback]) : [payload.callback];
-      console.log('ADD_ACTION', {
-        payload: payload,
-        callbacks: callbacks
-      });
       return _objectSpread(_objectSpread({}, state), {}, {
         actions: _objectSpread(_objectSpread({}, state.actions), {}, _defineProperty({}, payload.key, callbacks))
       });

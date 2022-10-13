@@ -14,8 +14,6 @@ const Reducer = (state = initialState, action) => {
 
 			const actionKeys = Object.keys( state.actions );
 
-			console.log( 'DO_ACTION', { payload, actionKeys } );
-
 			if ( ! actionKeys.length ) {
 				return state;
 			}
@@ -41,8 +39,6 @@ const Reducer = (state = initialState, action) => {
 			const callbacks = ( typeof state.actions[ payload.key ] !== 'undefined' ) ?
 			[ ...state.actions[ payload.key ], payload.callback ] :
 			[ payload.callback ];
-
-			console.log( 'ADD_ACTION', { payload, callbacks } );
 
             return {
                 ...state,

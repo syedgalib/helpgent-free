@@ -62,9 +62,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_core_public_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../sass/core-public.scss */ "./src/modules/core/sass/core-public.scss");
 // import 'CoreCSS/core-public.scss';
+ // Testing Rest API
 
-
-// Testing Rest API
 function rest_test() {
   console.log("start");
   fetch("http://localhost/Video-M/wp-json/wpwax-vm/v1/messages", {
@@ -78,8 +77,7 @@ function rest_test() {
     console.log(result);
     console.log("end");
   });
-}
-// rest_test();
+} // rest_test();
 }();
 /******/ })()
 ;

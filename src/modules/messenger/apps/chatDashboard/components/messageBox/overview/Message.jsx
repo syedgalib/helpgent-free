@@ -11,6 +11,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 import ReactSVG from 'react-inlinesvg';
 import { useEffect } from 'react';
 import http from 'Helper/http.js';
+import Image from 'Components/Image.jsx';
 
 function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
     const isMine =
@@ -337,7 +338,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
             </div>
 
             <div className='wpwax-vm-message-author'>
-                <img
+                <Image
                     src={data.user.avater ? data.user.avater : author}
                     alt='Author Avater'
                 />

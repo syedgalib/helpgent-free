@@ -1,4 +1,6 @@
 import userImg from 'Assets/img/chatdashboard/user.png';
+import Image from './Image.jsx';
+
 const MediaBox = ({
     chatingMedia,
     img,
@@ -12,7 +14,7 @@ const MediaBox = ({
             if(lastMessage.user.avater){
                 return (
                     <span className='wpwax-vm-replyer'>
-                        <img src={lastMessage.user.avater} alt='' />
+                        <Image src={lastMessage.user.avater} alt='' />
                     </span>
                 );
             }else{
@@ -21,7 +23,7 @@ const MediaBox = ({
                     <span className='wpwax-vm-replyer wpwax-vm-replyer-letter'>
                         <span>{userString}</span>
                     </span>
-                ) 
+                )
             }
         }
     };
@@ -33,9 +35,9 @@ const MediaBox = ({
                     <div className='wpax-vm-imglist'>
                         <div className='wpwax-vm-img-include-replyer'>
                             {img[0] === '' ? (
-                                <img src={userImg} alt='' />
+                                <Image src={userImg} alt='' />
                             ) : (
-                                <img src={img[0]} alt='' />
+                                <Image src={img[0]} alt='' />
                             )}
                             {replyerImg()}
                         </div>
@@ -46,17 +48,17 @@ const MediaBox = ({
                     {
                         initialConv ?
                             img[0] === '' ? (
-                                <img src={userImg} alt='' />
+                                <Image src={userImg} alt='' />
                             ) : (
-                                <img src={img[0]} alt='' />
+                                <Image src={img[0]} alt='' />
                             )
                         :
                         img.map((src, index) => {
                             if (index === 0) {
                                 if (src !== '') {
-                                    return <img src={src} alt='' key={index} />;
+                                    return <Image src={src} alt='' key={index} />;
                                 } else {
-                                    return <img src={userImg} alt='' key={index} />;
+                                    return <Image src={userImg} alt='' key={index} />;
                                 }
                             }
                         })

@@ -23,8 +23,6 @@ function Success() {
         resetStore();
     }, []);
 
-    console.log( templateOptions );
-
     return (
 
             <div className='wpwax-vm-record-send-success wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-text-center wpwax-vm-font-family'>

@@ -34,6 +34,7 @@ import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
+import { getTimezoneString } from 'Helper/utils.js';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -97,6 +98,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     useEffect(() => {
         const searchArg = {
             search: debouncedSearchTerm,
+			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
             const searchByNameMailResponse = await apiService.getAllByArg(
@@ -131,6 +133,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         const pageLimit = {
             limit: '15',
             page: 1,
+			timezone: getTimezoneString(),
         };
         const fetchSession = async () => {
             const sessionResponse = await apiService.getAllByArg(
@@ -215,6 +218,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         const pageArg = {
             limit: '12',
             page: pageNumber,
+            timezone: getTimezoneString(),
         };
         setPageNumber(pageNumber + 1);
         const fetchNext = async () => {
@@ -491,7 +495,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     const metaList = [
                                         {
                                             type: 'date',
-                                            text: item.updated_on,
+                                            text: item.last_message.updated_on_formatted,
                                         },
                                     ];
 

@@ -31,6 +31,7 @@ import {
 import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
+import { getTimezoneString } from '../../../../../../helpers/utils.js';
 
 const CenterBoxStyle = {
     minHeight: '620px',
@@ -318,6 +319,7 @@ function MessageBox({ setSessionState }) {
                 const sessionResponse = await http.getData('/messages', {
                     session_id,
                     limit: paginationPerPage,
+					timezone: getTimezoneString(),
                 });
                 return sessionResponse;
             };
@@ -770,6 +772,7 @@ function MessageBox({ setSessionState }) {
 
     const getMessages = async (customArgs) => {
         const defaultArgs = {
+			timezone: getTimezoneString(),
             session_id: selectedSession.session_id,
             page: 1,
         };

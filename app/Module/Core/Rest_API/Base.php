@@ -282,7 +282,7 @@ abstract class Base extends WP_REST_Controller {
         $timezone  = new \DateTimeZone( $timezone );
         $timestamp = strtotime( $time );
 
-        return wp_date( 'j M y @ G:i', $timestamp, $timezone );
+        return wp_date( 'j M, y @g:i a', $timestamp, $timezone );
     }
 
 }

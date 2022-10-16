@@ -500,7 +500,7 @@ class Users extends Rest_Base {
 
 		$data = array(
 			'id'                     => $id,
-			'date_created'           => Helper\get_formatted_time( $user->user_registered, $timezome, 'Y-m-d h:i:s' ),
+			'date_created'           => Helper\get_formatted_time( $user->user_registered, $timezome, 'Y-m-d H:i:s' ),
 			'date_created_formatted' => Helper\get_formatted_time( $user->user_registered, $timezome ),
 			'name'                   => $user->display_name,
 			'username'               => $user->user_login,

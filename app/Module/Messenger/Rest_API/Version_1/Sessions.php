@@ -303,13 +303,13 @@ class Sessions extends Rest_Base
 
 			if ( ! empty( $session_data[ $session_key ]['created_on'] ) ) {
 				$created_on = $session_data[ $session_key ]['created_on'];
-				$session_data[ $session_key ]['created_on'] = Helper\get_formatted_time( $created_on, $timezone, 'Y-m-d h:i:s' );
+				$session_data[ $session_key ]['created_on'] = Helper\get_formatted_time( $created_on, $timezone, 'Y-m-d H:i:s' );
 				$session_data[ $session_key ]['created_on_formatted'] = Helper\get_formatted_time( $created_on, $timezone );
 			}
 
 			if ( ! empty( $session_data[ $session_key ]['updated_on'] ) ) {
 				$updated_on = $session_data[ $session_key ]['updated_on'];
-				$session_data[ $session_key ]['updated_on'] = Helper\get_formatted_time( $updated_on, $timezone, 'Y-m-d h:i:s' );
+				$session_data[ $session_key ]['updated_on'] = Helper\get_formatted_time( $updated_on, $timezone, 'Y-m-d H:i:s' );
 				$session_data[ $session_key ]['updated_on_formatted'] = Helper\get_formatted_time( $updated_on, $timezone );
 			}
 

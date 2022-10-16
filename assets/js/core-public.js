@@ -166,7 +166,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_core_public_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../sass/core-public.scss */ "./src/modules/core/sass/core-public.scss");
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Lib/hooks */ "./src/lib/hooks.js");
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Lib_hooks__WEBPACK_IMPORTED_MODULE_1__);
-// import 'CoreCSS/core-public.scss';
 
 
 }();

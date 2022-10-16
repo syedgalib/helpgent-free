@@ -580,8 +580,8 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
 			$formatted_key = $key . '_formatted';
 			$timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
 
-			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, 'Y-m-d h:i:s' ): null;
-			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ): null;
+			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ) : null;
+			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, 'Y-m-d H:i:s' ) : null;
 		}
 	}
 
@@ -596,11 +596,13 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
  */
 function get_formatted_time( $time, $timezone, $format = 'j M, y @g:i a' )
 {
-	$timezone  = $timezone ? sanitize_timezone_string( $timezone ) : wp_timezone_string();
-	$timezone  = new \DateTimeZone( $timezone );
-	$timestamp = strtotime( $time );
+	$timezone_txt = $timezone ? sanitize_timezone_string( $timezone ) : wp_timezone_string();
+	$timezone     = new \DateTimeZone( $timezone_txt );
+	$timestamp    = strtotime( $time );
 
-	return wp_date( $format, $timestamp, $timezone );
+	$formatted_time = wp_date( $format, $timestamp, $timezone );
+
+	return $formatted_time;
 }
 
 /**
@@ -1051,6 +1053,10 @@ function get_terms() {
  * @return string Timezone String
  */
 function sanitize_timezone_string( $timezone_string ) {
+
+	if ( empty( $timezone_string ) ) {
+		return $timezone_string;
+	}
 
 	$timezone_string = sanitize_text_field( $timezone_string );
 	$has_symbol      = in_array( $timezone_string[0], [ '+', '-' ] );

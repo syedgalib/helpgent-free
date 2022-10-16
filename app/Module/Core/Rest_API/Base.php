@@ -22,6 +22,16 @@ abstract class Base extends WP_REST_Controller {
         add_action( 'rest_api_init', [ $this, 'register_routes' ] );
     }
 
+	/**
+	 * Sanitize Timezone String
+	 *
+     * @param string $value
+	 * @return string $value
+     */
+    public function sanitize_timezone_string( $value ) {
+    	return Helper\sanitize_timezone_string( $value );
+    }
+
     /**
      * @param $value
      */
@@ -85,7 +95,7 @@ abstract class Base extends WP_REST_Controller {
         }
 
         $schema = ( ! empty( $request_params['sanitize_schema'] ) ) ? $request_params['sanitize_schema'] : [];
-        $item   = Helper\sanitize_list_items( $item, $schema );
+        $item   = Helper\sanitize_list_items( $item, $schema, $request_params );
 
         return $item;
     }

@@ -596,7 +596,7 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
  */
 function get_formatted_time( $time, $timezone, $format = 'j M, y @g:i a' )
 {
-	$timezone  = $timezone ? $timezone : wp_timezone_string();
+	$timezone  = $timezone ? sanitize_timezone_string( $timezone ) : wp_timezone_string();
 	$timezone  = new \DateTimeZone( $timezone );
 	$timestamp = strtotime( $time );
 

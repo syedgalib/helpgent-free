@@ -14,6 +14,8 @@ import expander from "Assets/svg/icons/expand.svg";
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import recordIcon from 'Assets/svg/icons/s-record.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
+import playIcon from 'Assets/svg/icons/play.svg';
+import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
 
@@ -113,6 +115,8 @@ function Theme_1() {
         }
     }
 
+    // console.log(isPausedGreetVideo())
+
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">
@@ -165,7 +169,12 @@ function Theme_1() {
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
 
                     {
-                        templateOptions.greet_video_url !== "" ? <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a> : null
+                        templateOptions.greet_video_url !== "" ? 
+                            <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play">
+                                {
+                                    ( isPausedGreetVideo() ) ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
+                                }
+                            </a> : null
                     }
 
                 </div>

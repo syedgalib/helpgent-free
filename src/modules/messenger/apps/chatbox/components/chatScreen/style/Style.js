@@ -79,10 +79,12 @@ const ChatboxForm = Styled.div`
         visibility: visible;
         z-index: -1;
         background-color: var(--color-white);
-        i{
-            width: 30px;
-            height: 30px;
+        i,
+        svg{
+            width: 22px;
+            height: 26px;
             color: var(--color-primary);
+            fill: var(--color-primary);
             &:before{
                 font-size: 30px;
             }
@@ -112,15 +114,20 @@ const ChatboxForm = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 100px;
+                min-height: 105px;
                 height: auto;
                 flex: 0 0 30.3333%;
                 margin: 1.5%;
+                transform: scale(1);
+                transition transform .2s ease-in;
                 &:hover{
-                    fill: var(--primary-button-bg);
+                    background-color: var(--primary-button-bg);
+                    color: var(--primary-button-color);
+                    transform: scale(1.06);
+                    /* fill: var(--primary-button-bg);
                     path{
                         fill: var(--primary-button-bg);
-                    }
+                    } */
                 }
                 @media only screen and (max-width: 1399px){
                     min-height: 90px;

@@ -66,6 +66,7 @@ const VideoRecordWrap = Styled.div`
     .wpwax-video-screen-title{
         font-size: 18px;
         font-weight: 500;
+        font-family: var(--font-family);
         color: var(--color-dark);
     }
     &.wpwax-vm-record-permission{
@@ -101,10 +102,11 @@ const VideoRecordWrap = Styled.div`
             background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));
         }
         &:after{
+            top: -2px;
             border-radius: 25px 25px 0 0;
         }
         &:before{
-            top:auto;
+            top: auto;
             bottom: 0;
             border-radius: 0 0 25px 25px;
             opacity: .6;
@@ -126,8 +128,10 @@ const VideoRecordWrap = Styled.div`
             left: 0;
             top: 0;
             width: 100%;
+            font-family: var(--font-family);
             display: flex;
             justify-content: space-between;
+            z-index: 10;
             .wpwax-vm-record-staging__title{
                 font-size: 26px;
                 font-weight: 600;

@@ -10,6 +10,7 @@ const RecorderWrap = Styled.div`
     .wpwax-video-screen-title{
         font-size: 18px;
         font-weight: 500;
+        font-family: var(--font-family);
         margin: 0 0 30px;
     }
     img{

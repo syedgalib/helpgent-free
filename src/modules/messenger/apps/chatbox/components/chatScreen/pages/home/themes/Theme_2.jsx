@@ -15,6 +15,8 @@ import expander from "Assets/svg/icons/expand.svg";
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import recordIcon from 'Assets/svg/icons/s-record.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
+import playIcon from 'Assets/svg/icons/play.svg';
+import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 
 function Theme_2() {
@@ -165,7 +167,12 @@ function Theme_2() {
                         {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
                     </div>
                     {
-                        templateOptions.greet_video_url && <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play"><i className={ ( isPausedGreetVideo() ) ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause' }></i></a>
+                        templateOptions.greet_video_url && 
+                            <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play">
+                                {
+                                    ( isPausedGreetVideo() ) ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
+                                }
+                            </a>
                     }
 
                 </div>

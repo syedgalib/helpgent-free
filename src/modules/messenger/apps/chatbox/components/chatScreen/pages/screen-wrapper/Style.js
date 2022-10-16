@@ -9,8 +9,8 @@ const ScreenWrapper = Styled.div`
     z-index: 100;
     border-radius: 25px;
     font-family: var(--font-family);
-    background-color: var(--color-white);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
+    background-color: var(--color-white);
     animation: wpwaxVideoOpen .4s ease-in-out;
     @media only screen and (max-width: 575px){
         width: 380px;
@@ -20,13 +20,26 @@ const ScreenWrapper = Styled.div`
         width: 345px;
     }
     .wpwax-vm-chatbox-text{
+        background-color: var(--color-white);
+        border-radius: 25px;
         .wpwax-vm-chatbox-text-form-inner{
             min-height: 580px;
             input{
                 font-family: var(--font-family);
+                &::placeholder{
+                    font-family: var(--font-family);
+                }
+            }
+            .wpwax-vm-form-group{
+                align-items: stretch;
+                flex: 1;
             }
             .wpwax-vm-form-group textarea.wpwax-vm-form__element{
-                min-height: 300px;
+                font-size: 16px;
+                line-height: 1.75;
+                font-family: var(--font-family);
+                align-items: stretch;
+                flex: 1;
             }
             .wpwax-vm-btn-block{
                 width: 100%;

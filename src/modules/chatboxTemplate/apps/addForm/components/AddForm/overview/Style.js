@@ -156,7 +156,8 @@ const PreviewWrap = Styled.div`
         border-radius: 50%;
         text-decoration: none;
         background-color: var(--play-button-bg);
-        i{
+        i,
+        svg{
             width: 30px;
             height: 30px;
             color: var(--color-primary);

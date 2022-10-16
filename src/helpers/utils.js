@@ -36,5 +36,9 @@ export function getTimezoneString() {
 
 	const formatted = formatSecondsAsCountdown( offset );
 
+	if ( diff === 0 ) {
+		return formatted;
+	}
+
 	return ( diff < 0 ) ? formatted : '-' + formatted;
 }

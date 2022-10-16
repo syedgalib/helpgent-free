@@ -5221,6 +5221,9 @@ function getTimezoneString() {
   var diff = d.getTimezoneOffset();
   var offset = diff < 0 ? diff - diff * 2 : diff;
   var formatted = (0,_formatter__WEBPACK_IMPORTED_MODULE_0__.formatSecondsAsCountdown)(offset);
+  if (diff === 0) {
+    return formatted;
+  }
   return diff < 0 ? formatted : '-' + formatted;
 }
 

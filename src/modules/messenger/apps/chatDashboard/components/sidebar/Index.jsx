@@ -56,6 +56,8 @@ const filterDropdown = [
 ];
 
 const Sidebar = ({ sessionState, setSessionState }) => {
+	const { doAction } = wpwaxHooks;
+
     const ref = useRef(null);
     const [tagState, setTagState] = useState({
         allTags: [],
@@ -543,11 +545,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     }
                                                     sessionId={item.session_id}
 													onMarkAsRead={ function( session_id, data ) {
-														wpwaxHooks.doAction( 'onMarkAsRead', { session_id, data } );
+														doAction( 'onMarkAsRead', { session_id, data } );
 
 													}}
 													onMarkAsUnread={ function ( session_id, data ) {
-														wpwaxHooks.doAction( 'onMarkAsUnread', { session_id, data } );
+														doAction( 'onMarkAsUnread', { session_id, data } );
 													}}
                                                 />
                                             </div>
@@ -583,6 +585,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 modalOpen={deleteModalOpen}
                 outerState={sessionState}
                 setOuterState={setSessionState}
+				onSuccess={( data ) => {
+					doAction( 'onConversationDelete', data );
+				}}
             />
         </SidebarWrap>
     );

@@ -6387,6 +6387,8 @@ var CenterBoxStyle = {
 };
 function MessageBox(_ref) {
   var setSessionState = _ref.setSessionState;
+  var _wpwaxHooks = wpwaxHooks,
+    addAction = _wpwaxHooks.addAction;
   var messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
   /* Dispasth is used for passing the actions to redux store  */
@@ -6517,9 +6519,17 @@ function MessageBox(_ref) {
 
   // On Init
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    wpwaxHooks.addAction('onMarkAsRead', onMarkAsRead, setSessionMessages);
-    wpwaxHooks.addAction('onMarkAsUnread', onMarkAsUnread, setSessionMessages);
+    addAction('onConversationDelete', onConversationDelete);
+    addAction('onMarkAsRead', onMarkAsRead, setSessionMessages);
+    addAction('onMarkAsUnread', onMarkAsUnread, setSessionMessages);
   }, []);
+
+  // onConversationDelete
+  function onConversationDelete(data) {
+    var newSessionlist = data.newSessionlist;
+    var newSession = newSessionlist.length ? newSessionlist[0] : null;
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_15__.updateSelectedSession)(newSession));
+  }
 
   // onMarkAsRead
   function onMarkAsRead(_ref2, setSessionMessages) {
@@ -9877,6 +9887,8 @@ var filterDropdown = [{
 var Sidebar = function Sidebar(_ref) {
   var sessionState = _ref.sessionState,
     setSessionState = _ref.setSessionState;
+  var _wpwaxHooks = wpwaxHooks,
+    doAction = _wpwaxHooks.doAction;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       allTags: [],
@@ -10349,13 +10361,13 @@ var Sidebar = function Sidebar(_ref) {
                   setOuterState: setSessionState,
                   sessionId: item.session_id,
                   onMarkAsRead: function onMarkAsRead(session_id, data) {
-                    wpwaxHooks.doAction('onMarkAsRead', {
+                    doAction('onMarkAsRead', {
                       session_id: session_id,
                       data: data
                     });
                   },
                   onMarkAsUnread: function onMarkAsUnread(session_id, data) {
-                    wpwaxHooks.doAction('onMarkAsUnread', {
+                    doAction('onMarkAsUnread', {
                       session_id: session_id,
                       data: data
                     });
@@ -10385,7 +10397,10 @@ var Sidebar = function Sidebar(_ref) {
       deleteBy: activeSessionId,
       modalOpen: deleteModalOpen,
       outerState: sessionState,
-      setOuterState: setSessionState
+      setOuterState: setSessionState,
+      onSuccess: function onSuccess(data) {
+        doAction('onConversationDelete', data);
+      }
     })]
   });
 };
@@ -11055,7 +11070,8 @@ var DeleteConfirm = function DeleteConfirm(props) {
   var deleteBy = props.deleteBy,
     modalOpen = props.modalOpen,
     outerState = props.outerState,
-    setOuterState = props.setOuterState;
+    setOuterState = props.setOuterState,
+    onSuccess = props.onSuccess;
 
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
@@ -11099,7 +11115,16 @@ var DeleteConfirm = function DeleteConfirm(props) {
                   rejectMessage: "",
                   deleteModalOpen: !modalOpen
                 }));
+                if (typeof onSuccess === 'function') {
+                  onSuccess({
+                    response: response,
+                    newSessionlist: newSessionlist
+                  });
+                }
               }).catch(function (error) {
+                console.log({
+                  error: error
+                });
                 if (error.code === 403) {
                   setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
                     successMessage: "",

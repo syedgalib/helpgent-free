@@ -19,6 +19,7 @@ import { useScreenSize } from 'Helper/hooks';
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
+	 updateSelectedSession,
     addSession,
     updateSessionMessages,
 	updateSessionMessagesByIDs,
@@ -41,6 +42,8 @@ const CenterBoxStyle = {
 };
 
 function MessageBox({ setSessionState }) {
+	const { addAction } = wpwaxHooks;
+
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -149,11 +152,19 @@ function MessageBox({ setSessionState }) {
 
 	// On Init
 	useEffect( function () {
-		wpwaxHooks.addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
-		wpwaxHooks.addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
-
+		addAction( 'onConversationDelete', onConversationDelete );
+		addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
+		addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
 	}, [] );
 
+
+	// onConversationDelete
+	function onConversationDelete( data ) {
+		const { newSessionlist } = data;
+		const newSession = ( newSessionlist.length ) ? newSessionlist[0] : null;
+
+		dispatch( updateSelectedSession( newSession ) );
+	}
 
 	// onMarkAsRead
 	function onMarkAsRead( { session_id, data }, setSessionMessages ) {

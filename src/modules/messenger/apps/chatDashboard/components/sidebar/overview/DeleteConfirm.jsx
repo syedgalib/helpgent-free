@@ -4,7 +4,7 @@ import { DeleteConfirmWrap } from "./Style";
 import { handleReadSessions } from '../../../store/sessions/actionCreator';
 
 const DeleteConfirm = props => {
-    const { deleteBy, modalOpen,  outerState, setOuterState } = props;
+    const { deleteBy, modalOpen,  outerState, setOuterState, onSuccess } = props;
 
     /* initialize Form Data */
 	 const { sessions, loading } = useSelector(state => {
@@ -20,7 +20,7 @@ const DeleteConfirm = props => {
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
         event.preventDefault();
-        
+
         setOuterState({
             ...outerState,
             deleteModalOpen: !modalOpen
@@ -31,7 +31,7 @@ const DeleteConfirm = props => {
 
     const handledelete = async (event) =>{
         event.preventDefault();
-        
+
         await apiService.datadelete(`/sessions/${deleteBy}`)
         .then(response => {
             const newSessionlist = sessions.filter(item=> item.session_id !== deleteBy);
@@ -43,8 +43,15 @@ const DeleteConfirm = props => {
                 rejectMessage: "",
                 deleteModalOpen: !modalOpen
             });
+
+			if ( typeof onSuccess === 'function' ) {
+				onSuccess( { response, newSessionlist } );
+			}
         })
         .catch(error => {
+
+			console.log( { error } );
+
             if(error.code === 403){
                 setOuterState({
                     ...outerState,
@@ -52,7 +59,7 @@ const DeleteConfirm = props => {
                     rejectMessage: "Wrong Resource Provided",
                     deleteModalOpen: !modalOpen
                 });
-                
+
             }else{
                 setOuterState({
                     ...outerState,
@@ -60,7 +67,7 @@ const DeleteConfirm = props => {
                     rejectMessage: "Somthing Went Wrong",
                     deleteModalOpen: !modalOpen
                 });
-                
+
             }
         })
         const overlay = document.querySelector('.wpax-vm-overlay');

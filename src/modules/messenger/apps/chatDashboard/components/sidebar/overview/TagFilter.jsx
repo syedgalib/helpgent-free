@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
+import { useDebounce } from 'Helper/hooks';
 import apiService from 'apiService/Service.js';
 import Checkbox from "Components/formFields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';
@@ -18,8 +19,44 @@ const TagFilter = props =>{
     const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
     const { allTags, filteredTagList, tagLoader } = tagState;
     const { checkedForFilter, hasMore } = state;
+    const [searchTag, setSearchTag] = useState("");
 
 	const filterTextFieldRef = useRef(null);
+
+    const debouncedSearchTerm = useDebounce(searchTag, 300);
+
+    // Effect for API call
+    useEffect(() => {
+        const tagArg = {
+            name: debouncedSearchTerm,
+        };
+        const fetchSearchNameMail = async () => {
+            const searchByNameMailResponse = await apiService.getAllByArg(
+                '/messages/terms',
+                tagArg
+            );
+            return searchByNameMailResponse;
+        };
+
+        fetchSearchNameMail()
+            .then((searchByNameMailResponse) => {
+                
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
+                    allTags: searchByNameMailResponse.data.data,
+                });
+                
+                setState({
+                    ...state,
+                    hasMore: false,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    },[debouncedSearchTerm]);
 
     useEffect(() => {
         const checkIfClickedOutside = e => {
@@ -40,7 +77,7 @@ const TagFilter = props =>{
 	}, [tagFilterDropdownOpen]);
 
     useEffect(() => {
-        if(tagFilterDropdownOpen){
+        // if(tagFilterDropdownOpen){
             setTagState({
                 ...tagState,
                 tagLoader: true
@@ -51,10 +88,18 @@ const TagFilter = props =>{
             }
             fetchTags()
                 .then((tagsResponse) => {
-                    setState({
-                        ...state,
-                        hasMore: true,
-                    });
+                    if(tagsResponse.data.data.length !==0){
+                        setState({
+                            ...state,
+                            hasMore: true,
+                        });
+                    }else{
+                        setState({
+                            ...state,
+                            hasMore: false,
+                        });
+                    }
+                    
                     setTagState({
                         ...tagState,
                         tagLoader: false,
@@ -68,8 +113,8 @@ const TagFilter = props =>{
                     });
                     console.log(error);
                 });
-        }
-	}, [tagFilterDropdownOpen]);
+        // }
+	}, [sessionFilterDropdown]);
 
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
@@ -126,7 +171,10 @@ const TagFilter = props =>{
     const handleTagSearch = event => {
         let keyword = event.target.value.trim().toLowerCase();
         const filtered = allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
-
+        setTagState({
+            ...tagState,
+            allTags: filtered,
+        });
         // setState({
         //     ...state,
         //     searchFilterTags: filtered
@@ -157,13 +205,12 @@ const TagFilter = props =>{
         setTimeout(() => {
             fetchNextTags()
                 .then((nextTagResponse) => {
-                    console.log(nextTagResponse.data.data.length);
                     if (nextTagResponse.data.data.length === 0) {
                         setState({
                             ...state,
                             hasMore: false,
                         });
-                        setTagsPageNumber(tagsPageNumber);
+                        setTagsPageNumber(2);
                     } else {
                         setTagState({
                             ...tagState,
@@ -177,13 +224,11 @@ const TagFilter = props =>{
         }, 1000);
     }
 
-    console.log(hasMore);
-
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
-				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={handleTagSearch}/>
+				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={(e) => setSearchTag(e.target.value)}/>
             </div>
             <div className={tagLoader ? "wpwax-vm-tag-filter-list-wrap wpwax-vm-loder-active": "wpwax-vm-tag-filter-list-wrap"}>
                 {

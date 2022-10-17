@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { ReactSVG } from 'react-svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
+import { useDebounce } from 'Helper/hooks';
 import apiService from 'apiService/Service.js';
 import { TaglistWrap } from './Style';
 import userImg from 'Assets/img/chatdashboard/user.png';
@@ -47,8 +47,12 @@ const Taglist = (props) => {
     } = sessionState;
 
     const { tagsPageNumber, hasMore } = state;
+    const [searchTag, setSearchTag] = useState("");
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+
+    const debouncedSearchTerm = useDebounce(searchTag, 300);
 
     /* initialize Form Data */
     const { sessions } = useSelector((state) => {
@@ -60,6 +64,39 @@ const Taglist = (props) => {
     const currentSession = sessions.filter(
         (singleSession) => singleSession.session_id === activeSessionId
     );
+
+    // Effect for API call
+    useEffect(() => {
+        const tagArg = {
+            name: debouncedSearchTerm,
+        };
+        const fetchSearchNameMail = async () => {
+            const searchByNameMailResponse = await apiService.getAllByArg(
+                '/messages/terms',
+                tagArg
+            );
+            return searchByNameMailResponse;
+        };
+
+        fetchSearchNameMail()
+            .then((searchByNameMailResponse) => {
+                
+                setTagState({
+                    ...tagState,
+                    tagLoader: false,
+                    allTags: searchByNameMailResponse.data.data,
+                });
+                
+                setState({
+                    ...state,
+                    hasMore: false,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    },[debouncedSearchTerm]);
 
     useEffect(() => {
         if(tagListModalOpen){
@@ -253,7 +290,7 @@ const Taglist = (props) => {
                         type='text'
                         placeholder='Search'
                         id='wpwax-vm-filter-taglist'
-                        onChange={handleTagFilter}
+                         onChange={(e) => setSearchTag(e.target.value)}
                     />
                 </div>
                 <div className='wpawax-vm-taglist-inner'>

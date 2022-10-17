@@ -63,7 +63,7 @@ const Taglist = (props) => {
 
     useEffect(() => {
         if(tagListModalOpen){
-            if(filteredTagList.length === 0){
+            // if(filteredTagList.length === 0){
                 setTagState({
                     ...tagState,
                     tagLoader: true
@@ -92,7 +92,7 @@ const Taglist = (props) => {
                         });
                         console.log(error);
                     });
-            }
+            // }
         }
 
 	}, [tagListModalOpen]);

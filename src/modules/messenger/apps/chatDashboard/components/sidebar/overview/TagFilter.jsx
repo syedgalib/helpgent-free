@@ -41,15 +41,15 @@ const TagFilter = props =>{
 	}, [tagFilterDropdownOpen]);
 
     useEffect(() => {
-        // if(searchFilterTags.length ===0){
+        if(allTags.length !==0){
             setState({
                 ...state,
                 hasMore: true,
-                searchFilterTags: allTags,
+                // searchFilterTags: allTags,
             });
             
             setTagsPageNumber(2);
-        // }
+        }
 	}, [allTags]);
 
     const hadnleTagFilterApply = event =>{
@@ -108,10 +108,10 @@ const TagFilter = props =>{
         let keyword = event.target.value.trim().toLowerCase();
         const filtered = allTags.filter(tag => tag.name.toLowerCase().includes(keyword));
 
-        setState({
-            ...state,
-            searchFilterTags: filtered
-        });
+        // setState({
+        //     ...state,
+        //     searchFilterTags: filtered
+        // });
     }
 
     const handleClearChecked = event =>{
@@ -144,6 +144,10 @@ const TagFilter = props =>{
                             hasMore: false,
                         });
                     } else {
+                        setTagState({
+                            ...tagState,
+                            allTags
+                        })
                         setState({
                             ...state,
                             searchFilterTags: searchFilterTags.concat(nextTagResponse.data.data)
@@ -174,7 +178,7 @@ const TagFilter = props =>{
                     :
                     <div className="wpwax-vm-tag-filter-list" id="wpwax-vm-scrollable-filter">
                         <InfiniteScroll
-                            dataLength={searchFilterTags.length}
+                            dataLength={allTags.length}
                             next={fetchMoreTags}
                             hasMore={hasMore}
                             scrollableTarget='wpwax-vm-scrollable-filter'
@@ -185,8 +189,8 @@ const TagFilter = props =>{
                             }
                         >
                             {
-                                searchFilterTags.length !== 0 ?
-                                    searchFilterTags.map((item,index)=>{
+                                allTags.length !== 0 ?
+                                    allTags.map((item,index)=>{
 
                                         return(
                                             <div className="wpwax-vm-tag-filter__check" key={index}>
@@ -202,7 +206,7 @@ const TagFilter = props =>{
             </div>
             
 
-            <div className={searchFilterTags.length ===0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
+            <div className={allTags.length ===0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={hadnleTagFilterApply}>Apply</a>
             </div>

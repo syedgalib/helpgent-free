@@ -1068,3 +1068,18 @@ function sanitize_timezone_string( $timezone_string ) {
 
 	return $timezone_string;
 }
+
+/**
+ * Get Attachment Link
+ *
+ * @param int $attachment_id
+ * @return string Attachment Link
+ */
+function get_attachment_link( $attachment_id = 0 ) {
+
+	if ( empty( $attachment_id ) ) {
+		return '';
+	}
+
+	return admin_url( 'admin-post.php?action=dynamic_attachment_link&attachment_id=' . $attachment_id );
+}

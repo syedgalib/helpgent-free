@@ -132,7 +132,7 @@ class Attachment extends Rest_Base {
 
         // Prepare items for response
         foreach ( $data as $key => $value ) {
-            $item = $this->prepare_item_for_response( $value, $args );
+            $item = $this->prepare_attachment_item_for_response( $value, $args );
 
             if ( empty( $item ) ) {
                 continue;
@@ -162,10 +162,25 @@ class Attachment extends Rest_Base {
         }
 
         $success = true;
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_attachment_item_for_response( $data, $args );
 
         return $this->response( $success, $data );
     }
+
+	/**
+     * Prepare attachment item for response
+     *
+	 * @param array $item WordPress representation of the item.
+	 * @param array $request_params Request params.
+     *
+	 * @return WP_REST_Response|null Response object on success, or null object on failure.
+     */
+	public function prepare_attachment_item_for_response( $data, $args ) {
+
+		$data['link'] = Helper\get_attachment_link( $data['id'] );
+
+		return $this->prepare_item_for_response( $data, $args );
+	}
 
     /**
      * Create Item
@@ -202,7 +217,7 @@ class Attachment extends Rest_Base {
             return $data;
         }
 
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
+        $data = ( ! empty( $data ) ) ? $this->prepare_attachment_item_for_response( $data, $args ) : null;
         $success = ! empty( $data ) ? true : false;
 
         return $this->response( $success, $data );
@@ -228,7 +243,7 @@ class Attachment extends Rest_Base {
             return $data;
         }
 
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
+        $data = ( ! empty( $data ) ) ? $this->prepare_attachment_item_for_response( $data, $args ) : null;
         $success = ! empty( $data ) ? true : false;
 
         return $this->response( $success, $data );

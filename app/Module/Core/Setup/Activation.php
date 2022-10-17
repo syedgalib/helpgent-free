@@ -22,7 +22,7 @@ class Activation {
 
 	/**
 	 * Activatation Tasks
-	 * 
+	 *
 	 * @return void
 	 */
     public function activatation_tasks() {
@@ -30,7 +30,33 @@ class Activation {
 		// Prepare Database
 		new Prepare_Database();
 
+		// Prepare Attachment Folder
+		$this->prepare_attachment_folder();
+
 		do_action( 'wpwax_customer_support_app_on_activation' );
+	}
+
+	/**
+	 * Prepare Attachment Folder
+	 *
+	 * @return void
+	 */
+	public function prepare_attachment_folder() {
+
+		// Create Upload Directory
+		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'wpwax-vm';
+		wp_mkdir_p( $uploads_dir );
+
+
+		// Create htaccess file
+		$fh = fopen( $uploads_dir . "/.htaccess", "w" );
+
+		if ( $fh == false ) {
+			return;
+		}
+
+		fputs ( $fh, 'Deny from all' );
+		fclose( $fh );
 	}
 
 

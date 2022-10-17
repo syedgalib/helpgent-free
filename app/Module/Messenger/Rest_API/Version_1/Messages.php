@@ -681,30 +681,30 @@ class Messages extends Rest_Base
         $request_params['sanitize_schema'] = $this->get_sanitize_schema();
 
         // Add Author Data
-        if (!empty($item['user_id'])) {
+        if ( ! empty( $item['user_id'] ) ) {
             $users = Helper\get_users_data_by_ids([$item['user_id']]);
             $item['user'] = (!empty($users)) ? $users[0] : null;
         }
 
         // Add Attachment URL
-        if (!empty($item['attachment_id'])) {
+        if ( ! empty( $item['attachment_id'] ) ) {
             $attachment = Attachment_Model::get_item($item['attachment_id']);
 
-            if (is_wp_error($attachment)) {
-                $item['attachment_id']    = null;
+            if ( is_wp_error( $attachment ) ) {
+                $item['attachment_id']  = null;
                 $item['attachment_url'] = null;
             } else {
-                $item['attachment_url'] = $attachment['link'];
+                $item['attachment_url'] = Helper\get_attachment_link( $attachment['id'] );
             }
         }
 
         // Add Seen by Users Data
-        if (!empty($item['seen_by'])) {
-            $seen_by = Helper\convert_string_to_int_array($item['seen_by'], ',');
-            $item['seen_by'] = Helper\get_users_data_by_ids($seen_by);
+        if ( ! empty( $item['seen_by'] ) ) {
+            $seen_by = Helper\convert_string_to_int_array( $item['seen_by'], ',' );
+            $item['seen_by'] = Helper\get_users_data_by_ids( $seen_by );
         }
 
-        return $this->prepare_item_for_response($item, $request_params);
+        return $this->prepare_item_for_response( $item, $request_params );
     }
 
     /**

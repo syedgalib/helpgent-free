@@ -2,6 +2,9 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
 
+use WP_Error;
+use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+
 class Attachment {
 
     /**
@@ -11,36 +14,57 @@ class Attachment {
      */
     public function __construct() {
 		add_filter( 'upload_mimes', [ $this, 'add_additional_mimes_support' ] );
-		// add_filter( 'init', [ $this, 'restrict_attachment_access' ] );
-		// add_filter( 'template_redirect', [ $this, 'attachment_file' ] );
+		add_action( 'admin_post_dynamic_attachment_link', [ $this, 'dynamic_attachment_link' ] );
     }
 
-	public function attachment_file( ) {
+	/**
+	 * Dynamic Attachment Link
+	 *
+	 * @return void
+	 */
+	public function dynamic_attachment_link() {
 
-		$url = $_SERVER['REQUEST_URI'];
-
-		$is_attachment_url = preg_match( '/\/wpwax-vm-attachment/', $url );
-
-		if (  empty( $is_attachment_url ) ) {
-			return;
+		if ( ! $this->is_user_authenticated() ) {
+			status_header(403);
+			die('You are not allowed to access the file.');
 		}
 
-		$file =  WP_CONTENT_DIR . '/uploads/wpwax-vm/attachment_634cc9eaad94c6.34181514.png';
+		$attachment_id = ( ! empty( $_GET['attachment_id'] ) && is_numeric( $_GET['attachment_id'] ) ) ? ( int ) $_GET['attachment_id'] : 0;
+
+		if ( empty( $attachment_id ) ) {
+			status_header(404);
+			die('File not found.');
+		}
+
+		$attachment = Attachment_Model::get_item( $attachment_id );
+
+		if ( is_wp_error( $attachment ) ) {
+			status_header(403);
+			die( $attachment->get_error_message() );
+		}
+
+		$matches = [];
+
+		preg_match( '/attachment_.+$/', $attachment[ 'link' ], $matches );
+
+		if ( empty( $matches ) ) {
+			status_header(404);
+			die('File not found.');
+		}
+
+		$file_name = $matches[0];
+		$file      = WP_CONTENT_DIR . '/uploads/wpwax-vm/' . $file_name;
 
 		$user_can_access_this_file = true;
 
 		if ( file_exists( $file ) && $user_can_access_this_file ) {
-			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
-			header('Content-Disposition: attachment; filename=filename.gif');
+			header( "Content-Disposition: attachment; filename=" . basename( $file_name ) );
 			header('Content-Transfer-Encoding: binary');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
 			header('Content-Length: ' . filesize( $file ) );
-
-			ob_clean();
-			flush();
 			readfile( $file );
 		}
 
@@ -48,15 +72,17 @@ class Attachment {
 	}
 
 	/**
+	 * Is User Authenticated
 	 *
+	 * @return bool Status
 	 */
-	public function restrict_attachment_access() {
+	public function is_user_authenticated() {
 
-		// $url = $_SERVER;
-		// var_dump( $url );
+		if ( current_user_can( 'administrator' ) || current_user_can( 'wpwax_vm_client' ) ) {
+			return true;
+		}
 
-		header( 'HTTP/1.0 403 Forbidden', TRUE, 403 );
-		die( "<h2>Access Denied!</h2> This file is protected and not available to public." );
+		return false;
 	}
 
     /**

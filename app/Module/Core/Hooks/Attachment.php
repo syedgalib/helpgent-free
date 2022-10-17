@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
 
 use WP_Error;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 
 class Attachment {
 
@@ -43,6 +44,11 @@ class Attachment {
 			die( $attachment->get_error_message() );
 		}
 
+		if ( ! $this->can_user_access_the_attachment( $attachment_id ) ) {
+			status_header(403);
+			die('You are not allowed to access the file.');
+		}
+
 		$matches = [];
 
 		preg_match( '/attachment_.+$/', $attachment[ 'link' ], $matches );
@@ -69,6 +75,68 @@ class Attachment {
 		}
 
 		die();
+	}
+
+	/**
+	 * Can User Access The Attachment
+	 *
+	 * @param int $attachment_id
+	 * @return bool Status
+	 */
+	public function can_user_access_the_attachment( $attachment_id = 0 ) {
+
+		if ( current_user_can( 'administrator' ) ) {
+			return true;
+		}
+
+		if ( ! current_user_can( 'wpwax_vm_client' ) ) {
+			return false;
+		}
+
+		// Get the attachment session ID
+		$attachment_args = [
+			'where' => [
+				'field'   => 'attachment_id',
+				'compare' => '=',
+				'value'   => $attachment_id,
+			]
+		];
+
+		$attachment_sessions = Message_Model::get_items( $attachment_args );
+
+		if ( empty( $attachment_sessions ) ) {
+			return false;
+		}
+
+		$attachment_session_id = $attachment_sessions[0]['session_id'];
+
+		// Get all the session ID of the current user
+		$user_message_args = [
+			'limit' => -1,
+			'where' => [
+				'field'   => 'user_id',
+				'compare' => '=',
+				'value'   => get_current_user_id(),
+			]
+		];
+
+		$user_sessions = Message_Model::get_items( $user_message_args );
+
+		if ( empty( $user_sessions ) ) {
+			return false;
+		}
+
+		$user_sessions = array_map( function( $message ) { return $message['session_id']; }, $user_sessions );
+
+		// If user sessions includes attachment session ID
+		// let user access the file
+
+		if ( in_array( $attachment_session_id, $user_sessions ) ) {
+			return true;
+		}
+
+		// Otherwise block the access
+		return false;
 	}
 
 	/**

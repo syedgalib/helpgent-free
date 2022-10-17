@@ -5367,18 +5367,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /* harmony default export */ __webpack_exports__["default"] = (Image = function Image(_ref) {
   var src = _ref.src,
     _ref$alt = _ref.alt,
-    alt = _ref$alt === void 0 ? '' : _ref$alt,
-    _ref$placeholder = _ref.placeholder,
-    placeholder = _ref$placeholder === void 0 ? Assets_img_chatdashboard_user_placeholder_png__WEBPACK_IMPORTED_MODULE_1__["default"] : _ref$placeholder;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(src || placeholder),
+    alt = _ref$alt === void 0 ? '' : _ref$alt;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    source = _useState2[0],
-    setSource = _useState2[1];
+    isError = _useState2[0],
+    setIsError = _useState2[1];
+  var imageSrc = src || Assets_img_chatdashboard_user_placeholder_png__WEBPACK_IMPORTED_MODULE_1__["default"];
+  isError ? imageSrc = Assets_img_chatdashboard_user_placeholder_png__WEBPACK_IMPORTED_MODULE_1__["default"] : null;
   function onError() {
-    setSource(placeholder);
+    setIsError(true);
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-    src: source,
+    src: imageSrc,
     alt: alt,
     onError: onError
   });

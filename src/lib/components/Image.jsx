@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import avater from 'Assets/img/chatdashboard/user-placeholder.png';
 
-export default Image = ({src, alt = '', placeholder = avater}) => {
-	const [source, setSource] = useState(src || placeholder);
+export default Image = ({src, alt = ''}) => {
+	const [isError, setIsError] = useState(false);
+	let imageSrc = src || avater;
+	
+	isError ? imageSrc = avater : null;
 
 	function onError() {
-		setSource(placeholder);
+		setIsError(true);
 	}
 
-	return <img src={source} alt={alt} onError={onError}/>
+	return <img src={imageSrc} alt={alt} onError={onError}/>
 }

@@ -11327,7 +11327,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var TagFilter = function TagFilter(props) {
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      searchFilterTags: [],
       checkedForFilter: [],
       hasMore: false
     }),
@@ -11347,8 +11346,7 @@ var TagFilter = function TagFilter(props) {
   var allTags = tagState.allTags,
     filteredTagList = tagState.filteredTagList,
     tagLoader = tagState.tagLoader;
-  var searchFilterTags = state.searchFilterTags,
-    checkedForFilter = state.checkedForFilter,
+  var checkedForFilter = state.checkedForFilter,
     hasMore = state.hasMore;
   var filterTextFieldRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -11366,15 +11364,51 @@ var TagFilter = function TagFilter(props) {
     };
   }, [tagFilterDropdownOpen]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (allTags.length !== 0) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        hasMore: true
-        // searchFilterTags: allTags,
+    if (tagFilterDropdownOpen) {
+      setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+        tagLoader: true
       }));
-
-      setTagsPageNumber(2);
+      var fetchTags = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+          var tagsResponse;
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/messages/terms', {
+                    limit: 5
+                  });
+                case 2:
+                  tagsResponse = _context.sent;
+                  return _context.abrupt("return", tagsResponse);
+                case 4:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+        return function fetchTags() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+      fetchTags().then(function (tagsResponse) {
+        setState(_objectSpread(_objectSpread({}, state), {}, {
+          hasMore: true
+        }));
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false,
+          allTags: tagsResponse.data.data
+        }));
+      }).catch(function (error) {
+        setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
+          tagLoader: false
+        }));
+        console.log(error);
+      });
     }
-  }, [allTags]);
+  }, [tagFilterDropdownOpen]);
   var hadnleTagFilterApply = function hadnleTagFilterApply(event) {
     event.preventDefault();
     setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
@@ -11386,26 +11420,26 @@ var TagFilter = function TagFilter(props) {
       term_ids: checkedForFilter.join(',')
     };
     var fetchSessionByTerm = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var sessionByTermsResponse;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _context.next = 2;
+                _context2.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/sessions', termArgs);
               case 2:
-                sessionByTermsResponse = _context.sent;
-                return _context.abrupt("return", sessionByTermsResponse);
+                sessionByTermsResponse = _context2.sent;
+                return _context2.abrupt("return", sessionByTermsResponse);
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }));
       return function fetchSessionByTerm() {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
     fetchSessionByTerm().then(function (sessionByTermsResponse) {
@@ -11460,40 +11494,39 @@ var TagFilter = function TagFilter(props) {
     };
     setTagsPageNumber(tagsPageNumber + 1);
     var fetchNextTags = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
         var nextTagResponse;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                _context2.next = 2;
+                _context3.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg('/messages/terms', pageArg);
               case 2:
-                nextTagResponse = _context2.sent;
-                return _context2.abrupt("return", nextTagResponse);
+                nextTagResponse = _context3.sent;
+                return _context3.abrupt("return", nextTagResponse);
               case 4:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }));
       return function fetchNextTags() {
-        return _ref2.apply(this, arguments);
+        return _ref3.apply(this, arguments);
       };
     }();
     setTimeout(function () {
       fetchNextTags().then(function (nextTagResponse) {
+        console.log(nextTagResponse.data.data.length);
         if (nextTagResponse.data.data.length === 0) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             hasMore: false
           }));
+          setTagsPageNumber(tagsPageNumber);
         } else {
           setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-            allTags: allTags
-          }));
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            searchFilterTags: searchFilterTags.concat(nextTagResponse.data.data)
+            allTags: allTags.concat(nextTagResponse.data.data)
           }));
         }
       }).catch(function (error) {
@@ -11501,6 +11534,7 @@ var TagFilter = function TagFilter(props) {
       });
     }, 1000);
   };
+  console.log(hasMore);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.TagFilterDropdown, {
     className: sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show" : null,
     ref: ref,
@@ -11681,7 +11715,6 @@ var Taglist = function Taglist(props) {
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (tagListModalOpen) {
-      // if(filteredTagList.length === 0){
       setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
         tagLoader: true
       }));
@@ -11716,8 +11749,7 @@ var Taglist = function Taglist(props) {
         }));
         setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
           tagLoader: false,
-          allTags: tagsResponse.data.data,
-          filteredTagList: tagsResponse.data.data
+          allTags: tagsResponse.data.data
         }));
       }).catch(function (error) {
         setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
@@ -11725,7 +11757,6 @@ var Taglist = function Taglist(props) {
         }));
         console.log(error);
       });
-      // }
     }
   }, [tagListModalOpen]);
 
@@ -11826,7 +11857,7 @@ var Taglist = function Taglist(props) {
             hasMore: false
           }));
           setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-            filteredTagList: filteredTagList.concat(nextTagResponse.data.data)
+            allTags: allTags.concat(nextTagResponse.data.data)
           }));
         }
       }).catch(function (error) {
@@ -11899,10 +11930,10 @@ var Taglist = function Taglist(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-spin-dot"
           })]
-        }) : filteredTagList.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("ul", {
+        }) : allTags.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("ul", {
           id: "wpwax-vm-scrollable-taglist",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            dataLength: filteredTagList.length,
+            dataLength: allTags.length,
             next: fetchMoreTags,
             hasMore: hasMore,
             scrollableTarget: "wpwax-vm-scrollable-taglist",
@@ -11912,7 +11943,7 @@ var Taglist = function Taglist(props) {
                 src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
             }),
-            children: filteredTagList.map(function (term, index) {
+            children: allTags.map(function (term, index) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("li", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                   className: "wpwax-vm-taglist-label",

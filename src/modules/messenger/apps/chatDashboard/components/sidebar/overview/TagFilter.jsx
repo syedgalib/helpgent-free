@@ -10,7 +10,6 @@ import { TagFilterDropdown } from './Style';
 const TagFilter = props =>{
     const ref = useRef(null);
     const [state, setState] = useState({
-		searchFilterTags: [],
         checkedForFilter: [],
         hasMore: false
 	});
@@ -18,7 +17,7 @@ const TagFilter = props =>{
     const { outerState, setOuterState, tagState, setTagState } = props;
     const { sessionFilterDropdown, tagFilterDropdownOpen } = outerState;
     const { allTags, filteredTagList, tagLoader } = tagState;
-    const { searchFilterTags, checkedForFilter, hasMore } = state;
+    const { checkedForFilter, hasMore } = state;
 
 	const filterTextFieldRef = useRef(null);
 
@@ -41,16 +40,36 @@ const TagFilter = props =>{
 	}, [tagFilterDropdownOpen]);
 
     useEffect(() => {
-        if(allTags.length !==0){
-            setState({
-                ...state,
-                hasMore: true,
-                // searchFilterTags: allTags,
+        if(tagFilterDropdownOpen){
+            setTagState({
+                ...tagState,
+                tagLoader: true
             });
-            
-            setTagsPageNumber(2);
+            const fetchTags =  async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:5});
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setState({
+                        ...state,
+                        hasMore: true,
+                    });
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
         }
-	}, [allTags]);
+	}, [tagFilterDropdownOpen]);
 
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
@@ -138,19 +157,17 @@ const TagFilter = props =>{
         setTimeout(() => {
             fetchNextTags()
                 .then((nextTagResponse) => {
+                    console.log(nextTagResponse.data.data.length);
                     if (nextTagResponse.data.data.length === 0) {
                         setState({
                             ...state,
                             hasMore: false,
                         });
+                        setTagsPageNumber(tagsPageNumber);
                     } else {
                         setTagState({
                             ...tagState,
-                            allTags
-                        })
-                        setState({
-                            ...state,
-                            searchFilterTags: searchFilterTags.concat(nextTagResponse.data.data)
+                            allTags: allTags.concat(nextTagResponse.data.data)
                         });
                     }
                 })
@@ -159,6 +176,8 @@ const TagFilter = props =>{
                 });
         }, 1000);
     }
+
+    console.log(hasMore);
 
     return(
         <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>

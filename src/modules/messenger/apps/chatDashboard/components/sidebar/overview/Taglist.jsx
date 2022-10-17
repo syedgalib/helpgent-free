@@ -63,36 +63,33 @@ const Taglist = (props) => {
 
     useEffect(() => {
         if(tagListModalOpen){
-            // if(filteredTagList.length === 0){
-                setTagState({
-                    ...tagState,
-                    tagLoader: true
-                });
-                const fetchTags = async () =>{
-                    const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
-                    return tagsResponse;
-                }
-                fetchTags()
-                    .then((tagsResponse) => {
-                        setState({
-                            ...state,
-                            hasMore: true,
-                        });
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                            allTags: tagsResponse.data.data,
-                            filteredTagList: tagsResponse.data.data,
-                        });
-                    })
-                    .catch((error) => {
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                        });
-                        console.log(error);
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+            const fetchTags = async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
+                return tagsResponse;
+            }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setState({
+                        ...state,
+                        hasMore: true,
                     });
-            // }
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
         }
 
 	}, [tagListModalOpen]);
@@ -187,7 +184,7 @@ const Taglist = (props) => {
                         });
                         setTagState({
                             ...tagState,
-                            filteredTagList: filteredTagList.concat(nextTagResponse.data.data)
+                            allTags: allTags.concat(nextTagResponse.data.data)
                         });
                     }
                 })
@@ -267,10 +264,10 @@ const Taglist = (props) => {
                             <span className='wpwax-vm-spin-dot'></span>
                             <span className='wpwax-vm-spin-dot'></span>
                         </span>
-                    ) : filteredTagList.length > 0 ? (
+                    ) : allTags.length > 0 ? (
                         <ul id="wpwax-vm-scrollable-taglist">
                             <InfiniteScroll
-                                dataLength={filteredTagList.length}
+                                dataLength={allTags.length}
                                 next={fetchMoreTags}
                                 hasMore={hasMore}
                                 scrollableTarget='wpwax-vm-scrollable-taglist'
@@ -280,7 +277,7 @@ const Taglist = (props) => {
                                     </span>
                                 }
                             >
-                            {filteredTagList.map((term, index) => {
+                            {allTags.map((term, index) => {
                                 return (
                                     <li key={index}>
                                         <span className='wpwax-vm-taglist-label'>

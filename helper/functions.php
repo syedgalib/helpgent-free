@@ -109,12 +109,16 @@ function get_the_file_content($path = '', $data = [], $extract = true)
  *
  * @return mixed
  */
-function handle_media_upload($file, $overrides = array('test_form' => false))
+function handle_media_upload( $file, $overrides = array( 'test_form' => false ) )
 {
 	include_media_uploader_files();
 
+	add_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
+
 	$time = current_time('mysql');
-	$file = wp_handle_upload($file, $overrides, $time);
+	$file = wp_handle_upload( $file, $overrides, $time );
+
+	remove_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
 
 	return $file;
 }

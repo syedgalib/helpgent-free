@@ -5,8 +5,9 @@
         "psr-4": {
             "WPWaxCustomerSupportApp\\": "app/"
         },
-        "files": [ 
-            "helper/const.php", 
+        "files": [
+            "helper/const.php",
+            "helper/global-functions.php",
             "helper/functions.php"
         ]
     },

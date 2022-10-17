@@ -61,9 +61,7 @@ class Attachment {
 		$file_name = $matches[0];
 		$file      = WP_CONTENT_DIR . '/uploads/wpwax-vm/' . $file_name;
 
-		$user_can_access_this_file = true;
-
-		if ( file_exists( $file ) && $user_can_access_this_file ) {
+		if ( file_exists( $file ) ) {
 			header('Content-Type: application/octet-stream');
 			header( "Content-Disposition: attachment; filename=" . basename( $file_name ) );
 			header('Content-Transfer-Encoding: binary');

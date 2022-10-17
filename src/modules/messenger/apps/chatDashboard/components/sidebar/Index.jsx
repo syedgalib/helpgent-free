@@ -72,7 +72,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useState("");
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
     const {

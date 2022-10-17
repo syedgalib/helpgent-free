@@ -36,6 +36,7 @@ const TaglistWrap = Styled.div`
             overflow-y: auto;
             .infinite-scroll-component {
                 padding-right: 10px;
+                min-height: 200px;
             }
             &::-webkit-scrollbar {
                 width: 11px;
@@ -66,6 +67,8 @@ const TaglistWrap = Styled.div`
         .wpwax-vm-dropdown{
             .wpwax-vm-dropdown__content{
                 min-width: 160px;
+                left: auto;
+                right: 0;
                 li{
                     &:not(:last-child){
                         margin-bottom: 0;
@@ -305,7 +308,7 @@ const TagFilterDropdown = Styled.div`
     }
     .wpwax-vm-tag-filter-list{
         overflow-y: auto;
-        height: 160px;
+        height: 140px;
         &::-webkit-scrollbar {
             width: 11px;
         }

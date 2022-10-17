@@ -5116,7 +5116,6 @@ var Dropdown = function Dropdown(_ref) {
 
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-      // console.log(state)
       return {
         sessions: state.sessions.sessions
       };
@@ -5259,7 +5258,6 @@ var Dropdown = function Dropdown(_ref) {
           taglistWithSession: true,
           addTagModalOpen: true
         }));
-        console.log(asignedTerms);
         // dispatch(handleSetSession(sessionId));
         // dispatch(handleTagModal(true));
         break;

@@ -24,7 +24,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
 
     /* initialize Form Data */
 	const { sessions } = useSelector(state => {
-		// console.log(state)
         return {
             sessions: state.sessions.sessions,
         };
@@ -147,7 +146,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     taglistWithSession: true,
                     addTagModalOpen: true
                 });
-                console.log(asignedTerms);
                 // dispatch(handleSetSession(sessionId));
                 // dispatch(handleTagModal(true));
                 break;

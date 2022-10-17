@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-16 02:57+0000\n"
+"POT-Creation-Date: 2022-10-17 05:50+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -82,11 +82,11 @@ msgstr ""
 msgid "Could not create the attachment."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Base.php:52
+#: ../app/Module/Core/Rest_API/Base.php:62
 msgid "Operation Successful"
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Base.php:52
+#: ../app/Module/Core/Rest_API/Base.php:62
 msgid "Operation Failed"
 msgstr ""
 
@@ -118,15 +118,15 @@ msgstr ""
 msgid "Link:"
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:178, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Core/Rest_API/Version_1/Users.php:215, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:610
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:178, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Core/Rest_API/Version_1/Users.php:215, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:611
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:183, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:615
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:183, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:616
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:188, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:620
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:188, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:621
 msgid "Session ID is required."
 msgstr ""
 
@@ -134,15 +134,15 @@ msgstr ""
 msgid "Nothing to update."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:494, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:628, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:693
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:105, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:545, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:679, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:744
 msgid "The session ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:639, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:646, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:704, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:711
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:110, ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:112, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:690, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:697, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:755, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:762
 msgid "The term ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:900
+#: ../app/Module/Messenger/Model/Session_Term_Relationship_Model.php:120, ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:951
 msgid "The session does not exist."
 msgstr ""
 
@@ -178,7 +178,7 @@ msgstr ""
 msgid "New user password."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:58, ../app/Module/Core/Rest_API/Version_1/Users.php:787
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:58, ../app/Module/Core/Rest_API/Version_1/Users.php:791
 msgid "Unique identifier for the resource."
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "User email address."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:103, ../app/Module/Core/Rest_API/Version_1/Users.php:845
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:103, ../app/Module/Core/Rest_API/Version_1/Users.php:849
 msgid "User password."
 msgstr ""
 
@@ -247,123 +247,123 @@ msgstr ""
 msgid "The password is incorrect"
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:668
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:672
 msgid "Sorry, you cannot list resources."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:687
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:691
 msgid "Sorry, you are not allowed to create resources."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:706
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:710
 msgid "Sorry, you cannot view this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:725
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:729
 msgid "Sorry, you are not allowed to edit this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:744
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:748
 msgid "Sorry, you are not allowed to delete this resource."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:766
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:770
 msgid "Resource does not exist."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:793
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:797
 msgid "The date the user was created, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:800
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:804
 msgid "The display name for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:805
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:809
 msgid "User login name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:813
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:817
 msgid "The nickname for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:818
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:822
 msgid "User first name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:826
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:830
 msgid "User last name."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:834
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:838
 msgid "Description of the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:839
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:843
 msgid "The email address for the user."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:850
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:854
 msgid "User avater image data."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:855
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:859
 msgid "Image ID."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:860
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:864
 msgid "The date the image was created, in the site's timezone."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:866
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:870
 msgid "The date the image was created, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:872
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:876
 msgid "The date the image was last modified, in the site's timezone."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:878
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:882
 msgid "The date the image was last modified, as GMT."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:884
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:888
 msgid "Image URL."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:919
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:923
 msgid "Ensure result set excludes specific IDs."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:928
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:932
 msgid "Limit result set to specific IDs."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:937
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:941
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:944
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:948
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:952
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:956
 msgid "Sort collection by object attribute."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:959
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:963
 msgid "Limit result set to resources with a specific email."
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Version_1/Users.php:965
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:969
 msgid "Limit result set to resources with a specific role."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:420
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:471
 msgid "No resource exists."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:508
+#: ../app/Module/Messenger/Rest_API/Version_1/Sessions.php:559
 msgid "Nothing to add or remove."
 msgstr ""
 
@@ -371,6 +371,6 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: ../helper/functions.php:612
+#: ../helper/functions.php:615
 msgid "Homepage"
 msgstr ""

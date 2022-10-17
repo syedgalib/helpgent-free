@@ -65,7 +65,8 @@ class Global_Asset extends Enqueuer {
         $scripts = [];
 
         $scripts['wpwax-customer-support-app-messenger-global-record-rtc'] = [
-            'link' => 'https://www.WebRTC-Experiment.com/RecordRTC.js',
+            'file_name' => 'record-rtc-v5.6.2',
+            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH,
         ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );

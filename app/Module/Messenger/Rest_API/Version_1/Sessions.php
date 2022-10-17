@@ -28,16 +28,20 @@ class Sessions extends Rest_Base
 			[
 				[
 					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => [$this, 'get_items'],
-					'permission_callback' => [$this, 'check_auth_permission'],
+					'callback'            => [ $this, 'get_items' ],
+					'permission_callback' => [ $this, 'check_auth_permission' ],
 					'args'                => [
+						'timezone'    => [
+                            'default'           => '',
+                            'sanitize_callback' => [ $this, 'sanitize_timezone_string' ],
+                        ],
 						'page'        => [
 							'default'           => 1,
-							'validate_callback' => [$this, 'validate_int'],
+							'validate_callback' => [ $this, 'validate_int' ],
 						],
 						'order_by'       => [
 							'default'           => 'latest',
-							'validate_callback' => [$this, 'validate_order'],
+							'validate_callback' => [ $this, 'validate_order' ],
 						],
 					],
 				],
@@ -50,8 +54,14 @@ class Sessions extends Rest_Base
 			[
 				[
 					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => [$this, 'get_item'],
-					'permission_callback' => [$this, 'check_auth_permission'],
+					'callback'            => [ $this, 'get_item' ],
+					'permission_callback' => [ $this, 'check_auth_permission' ],
+					'args'                => [
+						'timezone'    => [
+                            'default'           => '',
+                            'sanitize_callback' => [ $this, 'sanitize_timezone_string' ],
+                        ],
+					],
 				],
 			]
 		);
@@ -217,8 +227,12 @@ class Sessions extends Rest_Base
 		$default['page']     = 1;
 		$default['limit']    = 20;
 		$default['order_by'] = 'latest';
+		$default['timezone'] = '';
 
 		$args = Helper\filter_params($default, $args);
+
+		$timezone = $args['timezone'];
+
 		$args['where'] = $where;
 
 		$args['group_by'] = 'session_id';
@@ -286,6 +300,19 @@ class Sessions extends Rest_Base
 
 		// Add Additional Session Data
 		foreach ( $session_data as $session_key => $session ) {
+
+			if ( ! empty( $session_data[ $session_key ]['created_on'] ) ) {
+				$created_on = $session_data[ $session_key ]['created_on'];
+				$session_data[ $session_key ]['created_on'] = Helper\get_formatted_time( $created_on, $timezone, 'Y-m-d H:i:s' );
+				$session_data[ $session_key ]['created_on_formatted'] = Helper\get_formatted_time( $created_on, $timezone );
+			}
+
+			if ( ! empty( $session_data[ $session_key ]['updated_on'] ) ) {
+				$updated_on = $session_data[ $session_key ]['updated_on'];
+				$session_data[ $session_key ]['updated_on'] = Helper\get_formatted_time( $updated_on, $timezone, 'Y-m-d H:i:s' );
+				$session_data[ $session_key ]['updated_on_formatted'] = Helper\get_formatted_time( $updated_on, $timezone );
+			}
+
 			// Add Users Data
 			$users = $this->get_users_by_session_id( $session['session_id'] );
 			$session_data[$session_key]['users']  = $users;
@@ -335,12 +362,36 @@ class Sessions extends Rest_Base
 				'updated_on' => ( ! empty( $last_message ) ) ? $last_message['updated_on'] : null,
 			];
 
+			if ( ! empty( $first_message_data['created_on'] ) ) {
+				$created_on = $first_message_data['created_on'];
+				$first_message_data['created_on']= Helper\get_formatted_time( $created_on, $timezone, 'Y-m-d h:m:s' );
+				$first_message_data['created_on_formatted'] = Helper\get_formatted_time( $created_on, $timezone );
+			}
+
+			if ( ! empty( $first_message_data['updated_on'] ) ) {
+				$updated_on = $first_message_data['updated_on'];
+				$first_message_data['updated_on']= Helper\get_formatted_time( $updated_on, $timezone, 'Y-m-d h:m:s' );
+				$first_message_data['updated_on_formatted'] = Helper\get_formatted_time( $updated_on, $timezone );
+			}
+
+			if ( ! empty( $last_message_data['created_on'] ) ) {
+				$created_on = $last_message_data['created_on'];
+				$last_message_data['created_on']= Helper\get_formatted_time( $created_on, $timezone, 'Y-m-d h:m:s' );
+				$last_message_data['created_on_formatted'] = Helper\get_formatted_time( $created_on, $timezone );
+			}
+
+			if ( ! empty( $last_message_data['updated_on'] ) ) {
+				$updated_on = $last_message_data['updated_on'];
+				$last_message_data['updated_on']= Helper\get_formatted_time( $updated_on, $timezone, 'Y-m-d h:m:s' );
+				$last_message_data['updated_on_formatted'] = Helper\get_formatted_time( $updated_on, $timezone );
+			}
+
 			$session_data[ $session_key ]['first_message'] = $first_message_data;
 			$session_data[ $session_key ]['last_message']  = $last_message_data;
 		}
 
 		if ( $send_rest_response ) {
-			return $this->response(true, $session_data);
+			return $this->response( true, $session_data );
 		}
 
 		return $session_data;

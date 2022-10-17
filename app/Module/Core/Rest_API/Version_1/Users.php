@@ -495,19 +495,23 @@ class Users extends Rest_Base {
 	 */
 	public function prepare_item_for_response( $user, $request, $with_data = [] ) {
 		$id     = $user->ID;
-		$data   = array(
-			'id'           => $id,
-			'date_created' => Rest_Helper::prepare_date_response( $user->user_registered ),
-			'name'         => $user->display_name,
-			'username'     => $user->user_login,
-			'nickname'     => $user->nickname,
-			'first_name'   => $user->first_name,
-			'last_name'    => $user->last_name,
-			'description'  => $user->description,
-			'email'        => $user->user_email,
-			'url'          => $user->user_url,
-			'avater'       => null,
-			'roles'        => array_values( $user->roles ),
+
+		$timezome = ( ! empty( $request['timezone'] ) ) ? $request['timezone'] : '';
+
+		$data = array(
+			'id'                     => $id,
+			'date_created'           => Helper\get_formatted_time( $user->user_registered, $timezome, 'Y-m-d H:i:s' ),
+			'date_created_formatted' => Helper\get_formatted_time( $user->user_registered, $timezome ),
+			'name'                   => $user->display_name,
+			'username'               => $user->user_login,
+			'nickname'               => $user->nickname,
+			'first_name'             => $user->first_name,
+			'last_name'              => $user->last_name,
+			'description'            => $user->description,
+			'email'                  => $user->user_email,
+			'url'                    => $user->user_url,
+			'avater'                 => null,
+			'roles'                  => array_values( $user->roles ),
 		);
 
 		$data = array_merge( $data, $with_data );

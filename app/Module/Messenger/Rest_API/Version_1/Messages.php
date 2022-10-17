@@ -35,15 +35,15 @@ class Messages extends Rest_Base
                     'args'                => [
                         'timezone'    => [
                             'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
+                            'sanitize_callback' => [ $this, 'sanitize_timezone_string' ],
                         ],
                         'page'        => [
                             'default'           => 1,
-                            'validate_callback' => [$this, 'validate_int'],
+                            'validate_callback' => [ $this, 'validate_int' ],
                         ],
                         'order'       => [
                             'default'           => 'latest',
-                            'validate_callback' => [$this, 'validate_order'],
+                            'validate_callback' => [ $this, 'validate_order' ],
                         ],
                         'session_id'  => [
                             'sanitize_callback' => 'sanitize_text_field',
@@ -117,7 +117,7 @@ class Messages extends Rest_Base
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
+                            'sanitize_callback' => [ $this, 'sanitize_timezone_string' ],
                         ],
                     ],
                 ],
@@ -276,6 +276,7 @@ class Messages extends Rest_Base
         $default['fields']   = '';
         $default['group_by'] = '';
         $default['order_by'] = '';
+        $default['timezone'] = '';
 
         $args = Helper\filter_params($default, $args);
         $args['where'] = $where;
@@ -341,7 +342,7 @@ class Messages extends Rest_Base
      * @param object $request
      * @return array|WP_Error Response
      */
-    public function get_item($request)
+    public function get_item( $request )
     {
         $args = $request->get_params();
         $id   = (int) $args['id'];

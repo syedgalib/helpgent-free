@@ -532,7 +532,7 @@ function clean_var($var)
  *
  * @return array Sanitized List
  */
-function sanitize_list_items($list = [], $schema = [])
+function sanitize_list_items( $list = [], $schema = [], $args = [] )
 {
 	$default_schema = [];
 
@@ -578,9 +578,10 @@ function sanitize_list_items($list = [], $schema = [])
 		// Sanitize Date Fields
 		else if (in_array($key, $schema['datetime'])) {
 			$formatted_key = $key . '_formatted';
-			$timezone      = (!empty($request_params['timezone'])) ? $request_params['timezone'] : null;
+			$timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
 
-			$list[$formatted_key] = (!empty($list[$key])) ? esc_html(get_formatted_time($list[$key], $timezone)) : null;
+			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ) : null;
+			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, 'Y-m-d H:i:s' ) : null;
 		}
 	}
 
@@ -593,13 +594,15 @@ function sanitize_list_items($list = [], $schema = [])
  * @param $time
  * @param $timezone
  */
-function get_formatted_time($time, $timezone)
+function get_formatted_time( $time, $timezone, $format = 'j M, y @g:i a' )
 {
-	$timezone  = $timezone ? $timezone : wp_timezone_string();
-	$timezone  = new \DateTimeZone($timezone);
-	$timestamp = strtotime($time);
+	$timezone_txt = $timezone ? sanitize_timezone_string( $timezone ) : wp_timezone_string();
+	$timezone     = new \DateTimeZone( $timezone_txt );
+	$timestamp    = strtotime( $time );
 
-	return wp_date('j M y @ G:i', $timestamp, $timezone);
+	$formatted_time = wp_date( $format, $timestamp, $timezone );
+
+	return $formatted_time;
 }
 
 /**
@@ -1040,4 +1043,24 @@ function get_terms() {
 
 	return Term_Model::get_items( [ 'limit' => -1 ] );
 
+}
+
+
+/**
+ * Sanitize Timezone String
+ *
+ * @param string $timezone_string
+ * @return string Timezone String
+ */
+function sanitize_timezone_string( $timezone_string ) {
+
+	if ( empty( $timezone_string ) ) {
+		return $timezone_string;
+	}
+
+	$timezone_string = sanitize_text_field( $timezone_string );
+	$has_symbol      = in_array( $timezone_string[0], [ '+', '-' ] );
+	$timezone_string = ( $has_symbol ) ? $timezone_string : '+' . $timezone_string;
+
+	return $timezone_string;
 }

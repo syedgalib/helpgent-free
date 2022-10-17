@@ -1,50 +1,54 @@
-const Hooks = {
-    actions: {
-      // key: [
-      // 	{ context: null, callback: () => {} },
-      // ],
-    },
+function Hooks() {
 
-    doAction: function( key, args, rootContext ) {
-      const actionKeys = Object.keys( this.actions );
+	const self = this;
 
-      if ( ! actionKeys.length ) {
-        return;
-      }
+	this.actions = {
+		// key: [
+		// 	{ context: null, callback: () => {} },
+		// ],
+	};
 
-      for ( const actionKey of actionKeys ) {
+	this.doAction = function( key, args, rootContext ) {
+		const actionKeys = Object.keys( self.actions );
 
-        if ( actionKey === key ) {
-          const actions = this.actions[ actionKey ];
+		if ( ! actionKeys.length ) {
+		  return;
+		}
 
-          if ( ! actions.length ) {
-            continue;
-          }
+		for ( const actionKey of actionKeys ) {
 
-          for ( const action of actions ) {
-            action.callback( args, action.context, rootContext );
-          }
+		  if ( actionKey === key ) {
+			const actions = self.actions[ actionKey ];
 
-        }
-      }
-    },
+			if ( ! actions.length ) {
+			  continue;
+			}
 
-    addAction: function( key, callback, context ) {
-      const callbacks = ( typeof this.actions[ key ] !== 'undefined' ) ?
-      [
-        ...this.actions[ key ],
-        { context, callback }
-      ] :
-      [ { context, callback } ];
+			for ( const action of actions ) {
+			  console.log( { key, action });
+			  action.callback( args, action.context, rootContext );
+			}
 
-      this.actions = {
-        ...this.actions,
-        [key]: callbacks,
-      };
-    },
- };
+		  }
+		}
+	  };
 
-window.wpwaxHooks = Hooks;
+	  this.addAction = function( key, callback, context ) {
+		const callbacks = ( typeof self.actions[ key ] !== 'undefined' ) ?
+		[
+		  ...self.actions[ key ],
+		  { context, callback }
+		] :
+		[ { context, callback } ];
+
+		self.actions = {
+		  ...self.actions,
+		  [key]: callbacks,
+		};
+	  };
+}
+
+window.wpwaxHooks = new Hooks();
 
 // Example
 // wpwaxHooks.addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );

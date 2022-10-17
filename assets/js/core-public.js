@@ -17,21 +17,22 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-var Hooks = {
-  actions: {
+function Hooks() {
+  var self = this;
+  this.actions = {
     // key: [
     // 	{ context: null, callback: () => {} },
     // ],
-  },
-  doAction: function doAction(key, args, rootContext) {
-    var actionKeys = Object.keys(this.actions);
+  };
+  this.doAction = function (key, args, rootContext) {
+    var actionKeys = Object.keys(self.actions);
     if (!actionKeys.length) {
       return;
     }
     for (var _i = 0, _actionKeys = actionKeys; _i < _actionKeys.length; _i++) {
       var actionKey = _actionKeys[_i];
       if (actionKey === key) {
-        var actions = this.actions[actionKey];
+        var actions = self.actions[actionKey];
         if (!actions.length) {
           continue;
         }
@@ -40,6 +41,10 @@ var Hooks = {
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var action = _step.value;
+            console.log({
+              key: key,
+              action: action
+            });
             action.callback(args, action.context, rootContext);
           }
         } catch (err) {
@@ -49,19 +54,19 @@ var Hooks = {
         }
       }
     }
-  },
-  addAction: function addAction(key, callback, context) {
-    var callbacks = typeof this.actions[key] !== 'undefined' ? [].concat(_toConsumableArray(this.actions[key]), [{
+  };
+  this.addAction = function (key, callback, context) {
+    var callbacks = typeof self.actions[key] !== 'undefined' ? [].concat(_toConsumableArray(self.actions[key]), [{
       context: context,
       callback: callback
     }]) : [{
       context: context,
       callback: callback
     }];
-    this.actions = _objectSpread(_objectSpread({}, this.actions), {}, _defineProperty({}, key, callbacks));
-  }
-};
-window.wpwaxHooks = Hooks;
+    self.actions = _objectSpread(_objectSpread({}, self.actions), {}, _defineProperty({}, key, callbacks));
+  };
+}
+window.wpwaxHooks = new Hooks();
 
 // Example
 // wpwaxHooks.addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );
@@ -161,7 +166,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_core_public_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../sass/core-public.scss */ "./src/modules/core/sass/core-public.scss");
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Lib/hooks */ "./src/lib/hooks.js");
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Lib_hooks__WEBPACK_IMPORTED_MODULE_1__);
-// import 'CoreCSS/core-public.scss';
 
 
 }();

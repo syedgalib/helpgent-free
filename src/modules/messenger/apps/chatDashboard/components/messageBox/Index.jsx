@@ -19,6 +19,7 @@ import { useScreenSize } from 'Helper/hooks';
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
+	 updateSelectedSession,
     addSession,
     updateSessionMessages,
 	updateSessionMessagesByIDs,
@@ -30,6 +31,7 @@ import {
 import http from 'Helper/http.js';
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
+import { getTimezoneString } from '../../../../../../helpers/utils.js';
 
 const CenterBoxStyle = {
     minHeight: '620px',
@@ -41,6 +43,8 @@ const CenterBoxStyle = {
 };
 
 function MessageBox({ setSessionState }) {
+	const { addAction } = wpwaxHooks;
+
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -149,11 +153,19 @@ function MessageBox({ setSessionState }) {
 
 	// On Init
 	useEffect( function () {
-		wpwaxHooks.addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
-		wpwaxHooks.addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
-
+		addAction( 'onConversationDelete', onConversationDelete );
+		addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
+		addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
 	}, [] );
 
+
+	// onConversationDelete
+	function onConversationDelete( data ) {
+		const { newSessionlist } = data;
+		const newSession = ( newSessionlist.length ) ? newSessionlist[0] : null;
+
+		dispatch( updateSelectedSession( newSession ) );
+	}
 
 	// onMarkAsRead
 	function onMarkAsRead( { session_id, data }, setSessionMessages ) {
@@ -307,6 +319,7 @@ function MessageBox({ setSessionState }) {
                 const sessionResponse = await http.getData('/messages', {
                     session_id,
                     limit: paginationPerPage,
+					timezone: getTimezoneString(),
                 });
                 return sessionResponse;
             };
@@ -759,6 +772,7 @@ function MessageBox({ setSessionState }) {
 
     const getMessages = async (customArgs) => {
         const defaultArgs = {
+			timezone: getTimezoneString(),
             session_id: selectedSession.session_id,
             page: 1,
         };

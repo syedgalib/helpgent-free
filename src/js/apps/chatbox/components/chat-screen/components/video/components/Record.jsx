@@ -17,9 +17,9 @@ import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { addAction } from 'Reducers/hooks/actionCreator';
 
 const Record = () => {
+	const { addAction } = wpwaxHooks;
     const videoStreemRef = useRef();
     const dispatch = useDispatch();
 
@@ -157,7 +157,7 @@ const Record = () => {
     async function setupVideoStreem() {
 
 		if ( ! isInitializedBeforeCloseChatbox ) {
-			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			addAction( 'beforeCloseChatbox', stopRecording );
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 

@@ -41,10 +41,6 @@ function Hooks() {
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var action = _step.value;
-            console.log({
-              key: key,
-              action: action
-            });
             action.callback(args, action.context, rootContext);
           }
         } catch (err) {
@@ -69,8 +65,9 @@ function Hooks() {
 window.wpwaxHooks = new Hooks();
 
 // Example
-// wpwaxHooks.addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );
-// wpwaxHooks.doAction( 'onInit', {}, this );
+// const { doAction, addAction } = wpwaxHooks;
+// addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );
+// doAction( 'onInit', {}, this );
 
 /***/ }),
 

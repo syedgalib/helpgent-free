@@ -21,10 +21,11 @@ import { updateFormData as updateMessengerFormData } from '../../../../../store/
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
-import { addAction } from 'Reducers/hooks/actionCreator';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 
 function Record() {
+	const { addAction } = wpwaxHooks;
+
     const audioRef = useRef();
     const dispatch = useDispatch();
 
@@ -132,7 +133,7 @@ function Record() {
         e.preventDefault();
 
 		if ( ! isInitializedBeforeCloseChatbox ) {
-			dispatch( addAction( 'beforeCloseChatbox', stopRecording ) );
+			addAction( 'beforeCloseChatbox', stopRecording );
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 

@@ -25,7 +25,6 @@ function Hooks() {
 			}
 
 			for ( const action of actions ) {
-			  console.log( { key, action });
 			  action.callback( args, action.context, rootContext );
 			}
 
@@ -51,5 +50,6 @@ function Hooks() {
 window.wpwaxHooks = new Hooks();
 
 // Example
-// wpwaxHooks.addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );
-// wpwaxHooks.doAction( 'onInit', {}, this );
+// const { doAction, addAction } = wpwaxHooks;
+// addAction( 'onInit', ( selfContext, rootContext, args ) => {}, this );
+// doAction( 'onInit', {}, this );

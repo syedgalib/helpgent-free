@@ -5,15 +5,16 @@ import { hideChatbox } from '../../../../store/chatbox/actionCreator.js';
 import { useResetStore } from "../../../../store/reset.js";
 import crossSmall from 'Assets/svg/icons/cross-small.svg';
 import ScreenWrapper from "./Style";
-import { doAction } from "Reducers/hooks/actionCreator.js";
 
 function Container(props) {
+	const { doAction } = wpwaxHooks;
+
 	const dispatch   = useDispatch();
 	const resetStore = useResetStore();
 
 	function handleClose() {
 
-		dispatch( doAction( 'beforeCloseChatbox' ) );
+		doAction( 'beforeCloseChatbox' );
 
 		resetStore();
 		dispatch( hideChatbox() );

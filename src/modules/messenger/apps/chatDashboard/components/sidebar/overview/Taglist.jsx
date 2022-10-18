@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { ReactSVG } from 'react-svg';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
+import { useDebounce } from 'Helper/hooks';
 import apiService from 'apiService/Service.js';
 import { TaglistWrap } from './Style';
 import userImg from 'Assets/img/chatdashboard/user.png';
@@ -47,8 +47,12 @@ const Taglist = (props) => {
     } = sessionState;
 
     const { tagsPageNumber, hasMore } = state;
+    const [searchTag, setSearchTag] = useState("");
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+
+    const debouncedSearchTerm = useDebounce(searchTag, 300);
 
     /* initialize Form Data */
     const { sessions } = useSelector((state) => {
@@ -61,38 +65,68 @@ const Taglist = (props) => {
         (singleSession) => singleSession.session_id === activeSessionId
     );
 
+    // Effect for API call
     useEffect(() => {
-        if(tagListModalOpen){
-            if(filteredTagList.length === 0){
+        const tagArg = {
+            name: debouncedSearchTerm,
+        };
+        const fetchSearchNameMail = async () => {
+            const searchByNameMailResponse = await apiService.getAllByArg(
+                '/messages/terms',
+                tagArg
+            );
+            return searchByNameMailResponse;
+        };
+
+        fetchSearchNameMail()
+            .then((searchByNameMailResponse) => {
+                
                 setTagState({
                     ...tagState,
-                    tagLoader: true
+                    tagLoader: false,
+                    allTags: searchByNameMailResponse.data.data,
                 });
-                const fetchTags = async () =>{
-                    const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
-                    return tagsResponse;
-                }
-                fetchTags()
-                    .then((tagsResponse) => {
-                        setState({
-                            ...state,
-                            hasMore: true,
-                        });
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                            allTags: tagsResponse.data.data,
-                            filteredTagList: tagsResponse.data.data,
-                        });
-                    })
-                    .catch((error) => {
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                        });
-                        console.log(error);
-                    });
+                
+                setState({
+                    ...state,
+                    hasMore: false,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    },[debouncedSearchTerm]);
+
+    useEffect(() => {
+        if(tagListModalOpen){
+            setTagState({
+                ...tagState,
+                tagLoader: true
+            });
+            const fetchTags = async () =>{
+                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
+                return tagsResponse;
             }
+            fetchTags()
+                .then((tagsResponse) => {
+                    setState({
+                        ...state,
+                        hasMore: true,
+                    });
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: tagsResponse.data.data,
+                    });
+                })
+                .catch((error) => {
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                    });
+                    console.log(error);
+                });
         }
 
 	}, [tagListModalOpen]);
@@ -187,7 +221,7 @@ const Taglist = (props) => {
                         });
                         setTagState({
                             ...tagState,
-                            filteredTagList: filteredTagList.concat(nextTagResponse.data.data)
+                            allTags: allTags.concat(nextTagResponse.data.data)
                         });
                     }
                 })
@@ -256,7 +290,7 @@ const Taglist = (props) => {
                         type='text'
                         placeholder='Search'
                         id='wpwax-vm-filter-taglist'
-                        onChange={handleTagFilter}
+                         onChange={(e) => setSearchTag(e.target.value)}
                     />
                 </div>
                 <div className='wpawax-vm-taglist-inner'>
@@ -267,10 +301,10 @@ const Taglist = (props) => {
                             <span className='wpwax-vm-spin-dot'></span>
                             <span className='wpwax-vm-spin-dot'></span>
                         </span>
-                    ) : filteredTagList.length > 0 ? (
+                    ) : allTags.length > 0 ? (
                         <ul id="wpwax-vm-scrollable-taglist">
                             <InfiniteScroll
-                                dataLength={filteredTagList.length}
+                                dataLength={allTags.length}
                                 next={fetchMoreTags}
                                 hasMore={hasMore}
                                 scrollableTarget='wpwax-vm-scrollable-taglist'
@@ -280,7 +314,7 @@ const Taglist = (props) => {
                                     </span>
                                 }
                             >
-                            {filteredTagList.map((term, index) => {
+                            {allTags.map((term, index) => {
                                 return (
                                     <li key={index}>
                                         <span className='wpwax-vm-taglist-label'>

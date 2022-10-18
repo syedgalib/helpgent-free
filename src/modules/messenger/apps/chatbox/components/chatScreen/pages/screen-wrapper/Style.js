@@ -158,7 +158,7 @@ const ScreenWrapper = Styled.div`
         }
     }
     .wpwax-vm-record-send-success__content {
-        min-height: 300px;
+        min-height: 320px;
         font-family: var(--font-family);
         font-size: var(--font-size);
         .wpwax-vm-text-color{

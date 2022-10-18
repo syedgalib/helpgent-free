@@ -34,7 +34,34 @@ const deleteData = ( path, customArgs, customConfig ) => {
     return axiosInstance.delete( path, args, config );
 }
 
+async function getResponse( request, args ) {
+	let status = {
+		success: false,
+		message: '',
+		data: null,
+		headers: {},
+	};
 
-const http = { axiosInstance, getData, postData, updateData, deleteData }
+	try {
+		const response = await request( args );
+
+		status.success = true;
+		status.message = response.data.message;
+		status.data    = response.data.data;
+		status.headers = response.headers;
+
+		return status;
+	} catch ( error ) {
+
+		status.success = false;
+		status.message = error.message;
+		status.headers = response.headers;
+
+		return status;
+	}
+}
+
+
+const http = { axiosInstance, getResponse, getData, postData, updateData, deleteData }
 
 export default http;

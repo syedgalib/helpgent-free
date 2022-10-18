@@ -9669,14 +9669,13 @@ function useResetStore() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Reducers/hooks/reducers */ "./src/js/helpers/reducers/hooks/reducers.js");
-/* harmony import */ var _video_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./video/reducers */ "./src/js/apps/chatbox/store/video/reducers.js");
-/* harmony import */ var _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatbox/reducers */ "./src/js/apps/chatbox/store/chatbox/reducers.js");
-/* harmony import */ var _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chatboxTemplate/reducer */ "./src/js/apps/chatbox/store/chatboxTemplate/reducer.js");
-/* harmony import */ var _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms/messenger/reducer */ "./src/js/apps/chatbox/store/forms/messenger/reducer.js");
-/* harmony import */ var _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms/attachment/reducer */ "./src/js/apps/chatbox/store/forms/attachment/reducer.js");
-/* harmony import */ var _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./forms/user/reducer */ "./src/js/apps/chatbox/store/forms/user/reducer.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _video_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./video/reducers */ "./src/js/apps/chatbox/store/video/reducers.js");
+/* harmony import */ var _chatbox_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatbox/reducers */ "./src/js/apps/chatbox/store/chatbox/reducers.js");
+/* harmony import */ var _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatboxTemplate/reducer */ "./src/js/apps/chatbox/store/chatboxTemplate/reducer.js");
+/* harmony import */ var _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./forms/messenger/reducer */ "./src/js/apps/chatbox/store/forms/messenger/reducer.js");
+/* harmony import */ var _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms/attachment/reducer */ "./src/js/apps/chatbox/store/forms/attachment/reducer.js");
+/* harmony import */ var _forms_user_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms/user/reducer */ "./src/js/apps/chatbox/store/forms/user/reducer.js");
 
 
 
@@ -9684,15 +9683,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_7__.combineReducers)({
-  hooks: Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
-  video: _video_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
-  chatbox: _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__["default"],
-  chatboxTemplate: _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  messengerForm: _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  attachmentForm: _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
-  userForm: _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
+var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_6__.combineReducers)({
+  video: _video_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
+  chatbox: _chatbox_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  chatboxTemplate: _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  messengerForm: _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  attachmentForm: _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  userForm: _forms_user_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducers);
 
@@ -16161,21 +16158,18 @@ var Reducer = function Reducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Reducers/hooks/reducers */ "./src/js/helpers/reducers/hooks/reducers.js");
-/* harmony import */ var _tags_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tags/reducers */ "./src/js/apps/messanger/store/tags/reducers.js");
-/* harmony import */ var _messages_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./messages/reducers */ "./src/js/apps/messanger/store/messages/reducers.js");
-/* harmony import */ var _sessions_reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sessions/reducers */ "./src/js/apps/messanger/store/sessions/reducers.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _tags_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tags/reducers */ "./src/js/apps/messanger/store/tags/reducers.js");
+/* harmony import */ var _messages_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./messages/reducers */ "./src/js/apps/messanger/store/messages/reducers.js");
+/* harmony import */ var _sessions_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sessions/reducers */ "./src/js/apps/messanger/store/sessions/reducers.js");
 
 
 
 
-
-var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_4__.combineReducers)({
-  hooks: Reducers_hooks_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
-  tags: _tags_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
-  messages: _messages_reducers__WEBPACK_IMPORTED_MODULE_2__["default"],
-  sessions: _sessions_reducers__WEBPACK_IMPORTED_MODULE_3__["default"]
+var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+  tags: _tags_reducers__WEBPACK_IMPORTED_MODULE_0__["default"],
+  messages: _messages_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  sessions: _sessions_reducers__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducers);
 
@@ -18094,111 +18088,6 @@ function parseInteger(value, fallback) {
   return parseInt(value);
 }
 
-
-/***/ }),
-
-/***/ "./src/js/helpers/reducers/hooks/actions.js":
-/*!**************************************************!*\
-  !*** ./src/js/helpers/reducers/hooks/actions.js ***!
-  \**************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var actions = {
-  DO_ACTION: 'DO_ACTION',
-  ADD_ACTION: 'ADD_ACTION',
-  doAction: function doAction(key, args) {
-    return {
-      type: actions.DO_ACTION,
-      payload: {
-        key: key,
-        args: args
-      }
-    };
-  },
-  addAction: function addAction(key, callback) {
-    return {
-      type: actions.ADD_ACTION,
-      payload: {
-        key: key,
-        callback: callback
-      }
-    };
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (actions);
-
-/***/ }),
-
-/***/ "./src/js/helpers/reducers/hooks/reducers.js":
-/*!***************************************************!*\
-  !*** ./src/js/helpers/reducers/hooks/reducers.js ***!
-  \***************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/helpers/reducers/hooks/actions.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var initialState = {
-  actions: {}
-};
-var DO_ACTION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].DO_ACTION,
-  ADD_ACTION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_ACTION;
-var Reducer = function Reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  var type = action.type,
-    payload = action.payload;
-  switch (type) {
-    case DO_ACTION:
-      var actionKeys = Object.keys(state.actions);
-      if (!actionKeys.length) {
-        return state;
-      }
-      for (var _i = 0, _actionKeys = actionKeys; _i < _actionKeys.length; _i++) {
-        var actionKey = _actionKeys[_i];
-        if (actionKey === payload.key) {
-          var _callbacks = state.actions[actionKey];
-          if (!_callbacks.length) {
-            continue;
-          }
-          var _iterator = _createForOfIteratorHelper(_callbacks),
-            _step;
-          try {
-            for (_iterator.s(); !(_step = _iterator.n()).done;) {
-              var callback = _step.value;
-              callback(payload.args);
-            }
-          } catch (err) {
-            _iterator.e(err);
-          } finally {
-            _iterator.f();
-          }
-        }
-      }
-      return state;
-    case ADD_ACTION:
-      var callbacks = typeof state.actions[payload.key] !== 'undefined' ? [].concat(_toConsumableArray(state.actions[payload.key]), [payload.callback]) : [payload.callback];
-      return _objectSpread(_objectSpread({}, state), {}, {
-        actions: _objectSpread(_objectSpread({}, state.actions), {}, _defineProperty({}, payload.key, callbacks))
-      });
-    default:
-      return state;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (Reducer);
 
 /***/ }),
 

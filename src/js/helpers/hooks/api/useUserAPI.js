@@ -1,7 +1,7 @@
 import http from 'Helper/http';
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useUserAPI() {
+export default function useUserAPI() {
 	const routeBase = 'users';
 	const { getResponse, postData } = http;
 

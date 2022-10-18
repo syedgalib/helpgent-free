@@ -1,7 +1,7 @@
 import http from 'Helper/http';
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useSessionAPI() {
+export default function useSessionAPI() {
 	const routeBase = 'sessions';
 	const { getResponse, updateData } = http;
 	const { getItems, getItem, deleteItem } = useAPI( routeBase );

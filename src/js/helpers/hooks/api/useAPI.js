@@ -1,7 +1,7 @@
 import http from 'Helper/http';
 import { getTimezoneString } from 'Helper/utils';
 
-export function useAPI( routeBase ) {
+export default function useAPI( routeBase ) {
 	const { getResponse, getData, postData, updateData, deleteData } = http;
 
 	/**

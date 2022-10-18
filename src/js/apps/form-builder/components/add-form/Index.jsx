@@ -13,7 +13,7 @@ import ThankSettings from "./components/ThankSettings.jsx";
 import apiService from 'apiService/Service.js';
 import { AddFormStyle } from './Style';
 
-import { addForm, editForm, handleReadForm } from '../../redux/form/actionCreator';
+import { addForm, editForm, handleReadForm } from '../../store/form/actionCreator';
 
 const AddForm = () => {
     const queryParams = new URLSearchParams(window.location.search)

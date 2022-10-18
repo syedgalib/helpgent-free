@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
 import formUpdater from "Helper/FormUpdater";
-import { handleDynamicEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../store/form/actionCreator';
 import { ThankSettingsWrap } from './Style';
 
 export const fontSizeOptions = [

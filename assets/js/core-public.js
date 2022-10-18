@@ -1,10 +1,10 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/lib/hooks.js":
-/*!**************************!*\
-  !*** ./src/lib/hooks.js ***!
-  \**************************/
+/***/ "./src/js/lib/hooks.js":
+/*!*****************************!*\
+  !*** ./src/js/lib/hooks.js ***!
+  \*****************************/
 /***/ (function() {
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -74,10 +74,10 @@ window.wpwaxHooks = new Hooks();
 
 /***/ }),
 
-/***/ "./src/modules/core/sass/core-public.scss":
-/*!************************************************!*\
-  !*** ./src/modules/core/sass/core-public.scss ***!
-  \************************************************/
+/***/ "./src/scss/core-public.scss":
+/*!***********************************!*\
+  !*** ./src/scss/core-public.scss ***!
+  \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -159,12 +159,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!***************************************************!*\
-  !*** ./src/modules/core/js/public/core-public.js ***!
-  \***************************************************/
+/*!**************************************!*\
+  !*** ./src/js/public/core-public.js ***!
+  \**************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _sass_core_public_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../sass/core-public.scss */ "./src/modules/core/sass/core-public.scss");
-/* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Lib/hooks */ "./src/lib/hooks.js");
+/* harmony import */ var SCSS_core_public_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! SCSS/core-public.scss */ "./src/scss/core-public.scss");
+/* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Lib/hooks */ "./src/js/lib/hooks.js");
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Lib_hooks__WEBPACK_IMPORTED_MODULE_1__);
 
 

@@ -6851,510 +6851,509 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/lib/apiService/Service.js":
-/*!***************************************!*\
-  !*** ./src/lib/apiService/Service.js ***!
-  \***************************************/
+/***/ "./src/js/apps/form-builder-archive/App.jsx":
+/*!**************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/App.jsx ***!
+  \**************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_form_table_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/form-table/Index.jsx */ "./src/js/apps/form-builder-archive/components/form-table/Index.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-/* Create Instance */
-var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
-  baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
-  headers: {
-    "Content-type": "application/json",
-    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
-  }
-});
-var getAll = function getAll(path) {
-  return axiosInstance.get(path);
-};
-var getAllByArg = function getAllByArg(path, args) {
-  return axiosInstance.get(path, {
-    params: args
+
+var BuilderContainer = function BuilderContainer() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "wpwax-vm-page-inner",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components_form_table_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {})
   });
 };
-var getById = function getById(path, args) {
-  return axiosInstance.get(path, {
-    params: args
-  });
-};
-var dataUpdate = function dataUpdate(path, args) {
-  return axiosInstance.post(path, args);
-};
-var dataAdd = function dataAdd(path, args) {
-  return axiosInstance.post(path, args);
-};
-var datadelete = function datadelete(path) {
-  return axiosInstance.delete(path);
-};
-var markRead = function markRead(path) {
-  return axiosInstance.post(path);
-};
-var markUnRead = function markUnRead(path) {
-  return axiosInstance.post(path);
-};
-var apiService = {
-  getAll: getAll,
-  getAllByArg: getAllByArg,
-  getById: getById,
-  dataAdd: dataAdd,
-  dataUpdate: dataUpdate,
-  datadelete: datadelete,
-  markRead: markRead,
-  markUnRead: markUnRead
-};
-/* harmony default export */ __webpack_exports__["default"] = (apiService);
+function App() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(BuilderContainer, {});
+}
+/* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
 
-/***/ "./src/lib/components/FormUpdater.js":
-/*!*******************************************!*\
-  !*** ./src/lib/components/FormUpdater.js ***!
-  \*******************************************/
+/***/ "./src/js/apps/form-builder-archive/components/form-table/Index.jsx":
+/*!**************************************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/components/form-table/Index.jsx ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/js/apps/form-builder-archive/components/pageheader/Index.jsx");
+/* harmony import */ var _components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Table.jsx */ "./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+function FormTable() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  });
+}
+/* harmony default export */ __webpack_exports__["default"] = (FormTable);
+
+/***/ }),
+
+/***/ "./src/js/apps/form-builder-archive/components/form-table/components/Style.js":
+/*!************************************************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/components/form-table/components/Style.js ***!
+  \************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+var _templateObject;
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n        tr{\n            th{\n                &.wpwax-vm-head-name{\n                    width: 80%;\n                }\n            }\n        }\n        .wpwax-vm-table-action{\n            margin: -8px;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            .dashicons{\n                width: 15px;\n                height: 15px;\n                margin-right: 8px;\n                position: relative;\n                top: -4px;\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-titlebox-inner{\n            display: flex;\n            align-items: center;\n            min-width: 240px;\n        }\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            min-width: 240px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        \n    }\n    .wpwax-vm-titlebox__editor-action{\n        margin-left: 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            background-color: #fff;\n            box-shadow: 0 5px 10px #adb4d260;\n            margin: 2px;\n            transition: 0.3s ease;\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-titlebox__editor--cancel{\n                background-color: var(--color-danger);\n                border: 1px solid var(--color-danger);\n                display: none;\n                &:hover{\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-danger);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes{\n                background-color: var(--color-success);\n                border: 1px solid var(--color-success);\n                display: none;\n                &:hover{\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-success);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--edit{\n                font-size: 15px;\n                display: none;\n                margin-left: 15px;\n                &:before{\n                    color: #2C99FF;\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;\n                }\n            }\n            .dashicons{\n                line-height: 1;\n                position: relative;\n                top: -2px;\n                &:before{\n                    font-size: 15px;\n                    color: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
+/* harmony default export */ __webpack_exports__["default"] = (TemplateBox);
+
+/***/ }),
+
+/***/ "./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx":
+/*!*************************************************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx ***!
+  \*************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var apiService_Service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service */ "./src/js/helpers/apiService/Service.js");
+/* harmony import */ var Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/Modal.jsx */ "./src/js/components/Modal.jsx");
+/* harmony import */ var Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/img/builder/no-data.png */ "./src/assets/img/builder/no-data.png");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder-archive/components/form-table/components/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-var FormUpdater = function FormUpdater(label, value, formInitialData) {
-  var updatedData = formInitialData.map(function (item) {
-    switch (label) {
-      case "wpwax-vm-form-name":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          name: value
-        });
-      case "wpwax-vm-theme":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            theme: value
-          })
-        });
-      case "wpwax-vm-display-default":
-        if (value) {
-          return _objectSpread(_objectSpread({}, item), {}, {
-            pages: "",
-            is_default: value
-          });
-        } else {
-          return _objectSpread(_objectSpread({}, item), {}, {
-            is_default: value
-          });
-        }
-      case "wpwax-vm-display-custom-pages":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          pages: value
-        });
-      case "chat-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            chat_visibility_type: value
-          })
-        });
-      case "wpwax-vm-send-mail":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            send_mail_upon_message_submission: value
-          })
-        });
-      case "greet-media-image":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            greet_image_url: value,
-            greet_video_url: ''
-          })
-        });
-      case "greet-media-video":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            greet_image_url: '',
-            greet_video_url: value
-          })
-        });
-      case "wpwax-vm-greet-msg":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            greet_message: value
-          })
-        });
-      case "wpwax-vm-description-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            show_description: value
-          })
-        });
-      case "wpwax-vm-description":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            description: value
-          })
-        });
-      case "wpwax-vm-chat-title":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            chat_options_title: value
-          })
-        });
-      case "chat-type":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            can_replay_in: value
-          })
-        });
-      case "wpwax-vm-footer-msg-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            show_footer: value
-          })
-        });
-      case "wpwax-vm-footer-msg":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            footer_message: value
-          })
-        });
-      case "wpwax-vm-play-btn-bg":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            play_btn_background: value
-          })
-        });
-      case "wpwax-vm-fontfamily":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            font_family: value
-          })
-        });
-      case "wpwax-vm-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            font_size: value
-          })
-        });
-      case "wpwax-vm-greet-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            greet_message_font_size: value
-          })
-        });
-      case "wpwax-vm-chat-title-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            chat_options_title_font_size: value
-          })
-        });
-      case "wpwax-vm-form-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            font_color: value
-          })
-        });
-      case "wpwax-vm-greet-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            greet_message_font_color: value
-          })
-        });
-      case "wpwax-vm-chat-title-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            chat_options_title_font_color: value
-          })
-        });
-      case "wpwax-vm-form-primray-button-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            primary_button_font_color: value
-          })
-        });
-      case "wpwax-vm-form-btn-radius":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            button_border_radius: value
-          })
-        });
-      case "wpwax-vm-page-bg-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            page_background_color: value
-          })
-        });
-      case "wpwax-vm-pageheader-bg":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            page_header_background_color: value
-          })
-        });
-      case "wpwax-vm-form-primary-button-bg":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            primary_button_background_color: value
-          })
-        });
-      case "wpwax-vm-footer-text-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            footer_message_color: value
-          })
-        });
-      case "wpwax-vm-chat-footer-text-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            footer_message_font_size: value
-          })
-        });
-      case "wpwax-vm-thank-title":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_title: value
-          })
-        });
-      case "wpwax-vm-thank-description-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            show_thank_page_description: value
-          })
-        });
-      case "wpwax-vm-thank-description":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_description: value
-          })
-        });
-      case "wpwax-vm-thank-bg-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_background_color: value
-          })
-        });
-      case "wpwax-vm-thank-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_title_font_size: value
-          })
-        });
-      case "wpwax-vm-thank-description-fontsize":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_description_font_size: value
-          })
-        });
-      case "wpwax-vm-thank-title-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_title_color: value
-          })
-        });
-      case "wpwax-vm-thank-description-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_description_color: value
-          })
-        });
-      case "wpax-vm-cta-btn-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            show_thank_page_cta_button: value
-          })
-        });
-      case "wpwax-vm-cta-btn-text":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_cta_button_text: value
-          })
-        });
-      case "wpwax-vm-cta-btn-url":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            thank_page_cta_button_url: value
-          })
-        });
-      case "theme":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            theme: value
-          })
-        });
-      case "display-page":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            display_on_all_pages: value
-          })
-        });
-      case "page-id":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          page_ids: value
-        });
-      case "wpwax-vm-form-bg-color":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            page_background_color: value
-          })
-        });
-      case "wpwax-vm-font-family":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            font_family: value
-          })
-        });
-      default:
-      // code block
-    }
-  });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-  return updatedData;
+
+
+
+
+
+
+var Table = function Table() {
+  /* Initialize State */
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({
+      data: [],
+      titleInput: '',
+      message: '',
+      responseType: '',
+      deleteId: '',
+      modalStatus: 'close',
+      loader: true
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    state = _useState2[0],
+    setState = _useState2[1];
+
+  /* Initialize editElementIndex State */
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({
+      editElementIndex: ''
+    }),
+    _useState4 = _slicedToArray(_useState3, 2),
+    editElementIndexState = _useState4[0],
+    seteditElementIndexState = _useState4[1];
+
+  /* State Destructuring  */
+  var data = state.data,
+    titleInput = state.titleInput,
+    message = state.message,
+    responseType = state.responseType,
+    modalStatus = state.modalStatus,
+    deleteId = state.deleteId,
+    loader = state.loader;
+  var editElementIndex = editElementIndexState.editElementIndex;
+
+  /* Edit Mode Activation */
+  var activateeditElementIndex = function activateeditElementIndex(e, name, index) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      titleInput: name
+    }));
+    seteditElementIndexState({
+      editElementIndex: index
+    });
+  };
+
+  /* Edit Mode Cancelation */
+  var canceleditElementIndex = function canceleditElementIndex(e) {
+    e.preventDefault();
+    seteditElementIndexState({
+      editElementIndex: ''
+    });
+  };
+
+  /* Update Table Name */
+  var updateTableName = function updateTableName(event) {
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      titleInput: event.target.value
+    }));
+  };
+
+  /* Remove The Notice Box */
+  var removeNotice = function removeNotice(event) {
+    event.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      message: ''
+    }));
+  };
+
+  /* Update Table Name */
+  var saveTableName = function saveTableName(e, id) {
+    e.preventDefault();
+    data.filter(function (item) {
+      return item.id === id;
+    }).map(function (item) {
+      var args = {};
+      args.name = titleInput ? titleInput : '';
+      var stateData = data.filter(function (stateItem) {
+        if (stateItem.id === id) {
+          stateItem.name = titleInput;
+        }
+        return stateItem;
+      });
+      apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].dataUpdate("/chatbox-templates/".concat(id), args).then(function (response) {
+        if (response.data.success) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            data: stateData,
+            responseType: 'success',
+            message: response.data.message,
+            loader: false
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            data: data,
+            responseType: 'warning',
+            message: response.data.message,
+            loader: false
+          }));
+        }
+        seteditElementIndexState({
+          editElementIndex: ''
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    });
+  };
+
+  /* Handle Delete Confirmation */
+  var _handleOk = function handleOk(e) {
+    e.preventDefault();
+    apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].datadelete("/chatbox-templates/".concat(deleteId)).then(function (response) {
+      if (response.data.success) {
+        var stateData = data.filter(function (item) {
+          return item.id !== deleteId;
+        });
+        setState(_objectSpread(_objectSpread({}, state), {}, {
+          data: stateData,
+          responseType: 'success',
+          message: response.data.message,
+          modalStatus: 'close',
+          loader: false
+        }));
+      }
+    }).catch(function (error) {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        message: error.message,
+        responseType: 'error',
+        modalStatus: 'close',
+        loader: false
+      }));
+    });
+  };
+
+  /* Handle Delete Modal Cancelation */
+  var _handleCancel = function handleCancel(e) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      modalStatus: 'close'
+    }));
+  };
+
+  /* Delete Form */
+  var deleteForm = function deleteForm(e, id) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      modalStatus: "open",
+      deleteId: id
+    }));
+  };
+
+  /* useEffect Hook used for render data when component was mounted  */
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].getAll('/chatbox-templates').then(function (response) {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        titleInput: response.data.name,
+        data: response.data.data,
+        loader: false
+      }));
+    }).catch(function (error) {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        message: error.message,
+        responseType: 'error',
+        loader: false
+      }));
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: loader ? "wpwax-vm-loder-active" : null,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "wpwax-vm-table-wrap wpwax-vm-table-responsive",
+      children: [message ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+        className: "".concat(responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "wpwax-vm-notice__text",
+          children: message
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+          href: "#",
+          className: "wpwax-vm-notice__close",
+          onClick: removeNotice,
+          children: "x"
+        })]
+      }) : '', loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+        className: "wpwax-vm-loading-spin",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          className: "wpwax-vm-spin-dot"
+        })]
+      }) : data.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+        className: "wpwax-vm-table",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              className: "wpwax-vm-head-name",
+              children: "Title"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              className: "wpwax-vm-head-action",
+              children: "Action"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+          children: data.map(function (value, key) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "wpwax-vm-titlebox",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                    className: "wpwax-vm-titlebox-inner",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                      className: editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show',
+                      children: [value.name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                        className: "wpwax-vm-titlebox__id",
+                        children: ["ID: ", value.id]
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                      className: editElementIndex === key ? "wpwax-vm-titlebox__editor wpwax-vm-show" : "wpwax-vm-titlebox__editor",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                        type: "text",
+                        name: "wpwax-vm-title-input",
+                        value: titleInput || '',
+                        onChange: updateTableName
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                      className: "wpwax-vm-titlebox__editor-action",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                        href: "#",
+                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel',
+                        onClick: function onClick(e) {
+                          return canceleditElementIndex(e);
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                          className: "dashicons dashicons-no"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                        href: "#",
+                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes',
+                        onClick: function onClick(e) {
+                          return saveTableName(e, value.id);
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                          className: "dashicons dashicons-yes"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                        href: "#",
+                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show',
+                        onClick: function onClick(e) {
+                          return activateeditElementIndex(e, value.name, key);
+                        }
+                      })]
+                    })]
+                  })
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "wpwax-vm-table-action",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+                    href: "".concat(location.href, "&mode=edit&id=").concat(value.id),
+                    className: "wpwax-vm-btn wpwax-vm-btn-light",
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      className: "dashicons dashicons-edit"
+                    }), " Edit"]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+                    href: "#",
+                    className: "wpwax-vm-btn wpwax-vm-btn-danger",
+                    onClick: function onClick(e) {
+                      return deleteForm(e, value.id);
+                    },
+                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                      className: "dashicons dashicons-trash"
+                    }), " Delete"]
+                  })]
+                })
+              })]
+            }, key);
+          })
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "wpwax-empty-table-box",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "wpwax-empty-table-box__img",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+            src: Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_2__["default"],
+            alt: "Video Support"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "wpwax-empty-table-box__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            children: "Ready to start creating your first video message form?"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+            href: location.href + '&mode=edit',
+            className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-primary",
+            children: "Create Form"
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        title: "Delete Template",
+        handleOk: function handleOk(e) {
+          return _handleOk(e);
+        },
+        handleCancel: function handleCancel(e) {
+          return _handleCancel(e);
+        },
+        status: modalStatus,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          children: "Are Your Sure ?"
+        })
+      })]
+    })
+  });
 };
-/* harmony default export */ __webpack_exports__["default"] = (FormUpdater);
+/* harmony default export */ __webpack_exports__["default"] = (Table);
 
 /***/ }),
 
-/***/ "./src/lib/components/Modal.jsx":
-/*!**************************************!*\
-  !*** ./src/lib/components/Modal.jsx ***!
-  \**************************************/
+/***/ "./src/js/apps/form-builder-archive/components/pageheader/Index.jsx":
+/*!**************************************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/components/pageheader/Index.jsx ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder-archive/components/pageheader/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
-var Modal = function Modal(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-      className: props.status === "open" ? "wpax-vm-overlay wpwax-vm-show" : "wpax-vm-overlay"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: props.status === "open" ? "wpwax-vm-modal wpwax-vm-modal-basic wpwax-vm-show" : "wpwax-vm-modal wpwax-vm-modal-basic",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "wpwax-vm-modal__header",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-          className: "wpwax-vm-modal-title",
-          children: props.title
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-          href: "#",
-          className: "wpwax-vm-modal-close",
-          onClick: props.handleCancel,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "dashicons dashicons-no"
-          })
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "wpwax-vm-modal__body",
-        children: props.children
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "wpwax-vm-modal__footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "wpwax-vm-modal-footer__action",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-modal-footer__action--cancel",
-            onClick: props.handleCancel,
-            children: "Cancel"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-modal-footer__action--ok",
-            onClick: props.handleOk,
-            children: "Ok"
-          })]
-        })
+
+
+var PageHeader = function PageHeader() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
+        className: "wpwax-vm-page-header-title",
+        children: "All Forms"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+        href: location.href + '&mode=edit',
+        className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-dark",
+        children: "Create New"
       })]
-    })]
+    })
   });
 };
-/* harmony default export */ __webpack_exports__["default"] = (Modal);
+/* harmony default export */ __webpack_exports__["default"] = (PageHeader);
 
 /***/ }),
 
-/***/ "./src/lib/components/formFields/Checkbox.jsx":
+/***/ "./src/js/apps/form-builder-archive/components/pageheader/Style.js":
+/*!*************************************************************************!*\
+  !*** ./src/js/apps/form-builder-archive/components/pageheader/Style.js ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+var _templateObject;
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var PageHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    margin-bottom: 22px;\n    .wpwax-vm-page-header-title{\n        font-size: 24px;\n        font-weight: 500;\n    }\n    .wpwax-vm-page-header-btn{\n        margin-left: 20px;\n    }\n"])));
+/* harmony default export */ __webpack_exports__["default"] = (PageHeaderStyle);
+
+/***/ }),
+
+/***/ "./src/js/apps/form-builder-archive/index.jsx":
 /*!****************************************************!*\
-  !*** ./src/lib/components/formFields/Checkbox.jsx ***!
+  !*** ./src/js/apps/form-builder-archive/index.jsx ***!
   \****************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/js/apps/form-builder-archive/App.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-var Checkbox = function Checkbox(_ref) {
-  var id = _ref.id,
-    label = _ref.label,
-    value = _ref.value,
-    onChange = _ref.onChange;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    className: "wpwax-vm-checkbox",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-      id: id,
-      type: "checkbox",
-      checked: value,
-      onChange: onChange
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-      htmlFor: id,
-      children: label
-    })]
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Checkbox);
+
+document.addEventListener("DOMContentLoaded", function () {
+  var container = document.getElementById("wpwax-vm-forms");
+  if (!container) {
+    return;
+  }
+  var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container);
+  root.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
+});
 
 /***/ }),
 
-/***/ "./src/lib/components/formFields/Radio.jsx":
-/*!*************************************************!*\
-  !*** ./src/lib/components/formFields/Radio.jsx ***!
-  \*************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-var Radio = function Radio(_ref) {
-  var id = _ref.id,
-    name = _ref.name,
-    label = _ref.label,
-    value = _ref.value,
-    onChange = _ref.onChange,
-    checked = _ref.checked;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-    className: "wpwax-vm-radio",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-      id: id,
-      name: name,
-      type: "radio",
-      value: value,
-      onChange: onChange,
-      checked: checked
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-      htmlFor: id,
-      children: label
-    })]
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Radio);
-
-/***/ }),
-
-/***/ "./src/modules/chatboxTemplate/apps/addForm/App.jsx":
-/*!**********************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/App.jsx ***!
-  \**********************************************************/
+/***/ "./src/js/apps/form-builder/App.jsx":
+/*!******************************************!*\
+  !*** ./src/js/apps/form-builder/App.jsx ***!
+  \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _components_AddForm_Index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/AddForm/Index.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Index.jsx");
-/* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./redux/store */ "./src/modules/chatboxTemplate/apps/addForm/redux/store.js");
+/* harmony import */ var _components_add_form_Index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/add-form/Index.jsx */ "./src/js/apps/form-builder/components/add-form/Index.jsx");
+/* harmony import */ var _redux_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./redux/store */ "./src/js/apps/form-builder/redux/store.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -7363,7 +7362,7 @@ __webpack_require__.r(__webpack_exports__);
 var AddForm = function AddForm() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "wpwax-vm-page-inner",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_AddForm_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_add_form_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})
   });
 };
 function App() {
@@ -7376,10 +7375,10 @@ function App() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Index.jsx":
-/*!*******************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Index.jsx ***!
-  \*******************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/Index.jsx":
+/*!****************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/Index.jsx ***!
+  \****************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7390,14 +7389,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/arrow-small-left.svg */ "./src/assets/svg/icons/arrow-small-left.svg");
 /* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overview/FormSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx");
-/* harmony import */ var _overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overview/GeneralSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx");
-/* harmony import */ var _overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overview/PreviewOne.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx");
-/* harmony import */ var _overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overview/PreviewTwo.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx");
-/* harmony import */ var _overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overview/ThankSettings.jsx */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx");
-/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
+/* harmony import */ var _components_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/FormSettings.jsx */ "./src/js/apps/form-builder/components/add-form/components/FormSettings.jsx");
+/* harmony import */ var _components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/GeneralSettings.jsx */ "./src/js/apps/form-builder/components/add-form/components/GeneralSettings.jsx");
+/* harmony import */ var _components_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PreviewOne.jsx */ "./src/js/apps/form-builder/components/add-form/components/PreviewOne.jsx");
+/* harmony import */ var _components_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/PreviewTwo.jsx */ "./src/js/apps/form-builder/components/add-form/components/PreviewTwo.jsx");
+/* harmony import */ var _components_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/ThankSettings.jsx */ "./src/js/apps/form-builder/components/add-form/components/ThankSettings.jsx");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/Style.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../redux/form/actionCreator */ "./src/js/apps/form-builder/redux/form/actionCreator.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -7699,7 +7698,7 @@ var AddForm = function AddForm() {
         children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
           className: "wpwax-vm-notice wpwax-vm-notice-danger",
           children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})]
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})]
       });
     } else if (currentStage === "form") {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -7707,7 +7706,7 @@ var AddForm = function AddForm() {
         children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
           className: "wpwax-vm-notice wpwax-vm-notice-danger",
           children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
       });
     } else {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
@@ -7715,7 +7714,7 @@ var AddForm = function AddForm() {
         children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
           className: "wpwax-vm-notice wpwax-vm-notice-danger",
           children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})]
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})]
       });
     }
   };
@@ -7849,9 +7848,9 @@ var AddForm = function AddForm() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__["default"], {
           src: Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
         }), "Preview your changes"]
-      }), formInitialData.options.theme === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }), formInitialData.options.theme === 'theme-1' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_PreviewOne_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
         previewStage: currentStage
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_overview_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_PreviewTwo_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
         previewStage: currentStage
       })]
     })]
@@ -7861,10 +7860,10 @@ var AddForm = function AddForm() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js":
-/*!******************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/Style.js ***!
-  \******************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/Style.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/Style.js ***!
+  \***************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7881,10 +7880,10 @@ var AddFormStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx":
-/*!***********************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/FormSettings.jsx ***!
-  \***********************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/FormSettings.jsx":
+/*!**********************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/FormSettings.jsx ***!
+  \**********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7901,13 +7900,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
-/* harmony import */ var _lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../lib/components/FormUpdater */ "./src/lib/components/FormUpdater.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
+/* harmony import */ var Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Helper/FormUpdater */ "./src/js/helpers/FormUpdater.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/js/apps/form-builder/redux/form/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
 /* harmony import */ var Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/video-camera.svg */ "./src/assets/svg/icons/video-camera.svg");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -8056,7 +8055,7 @@ var FormSettings = function FormSettings() {
     updater = updater.indexOf(type) === -1 ? [].concat(_toConsumableArray(updater), [type]) : updater.filter(function (elm) {
       return elm != type;
     });
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])("chat-type", updater, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])("chat-type", updater, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   var handleChatReplyType = function handleChatReplyType(checked, event, id) {
@@ -8069,15 +8068,15 @@ var FormSettings = function FormSettings() {
     }
   };
   var handleChangeInputValue = function handleChangeInputValue(e) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.target.id, e.target.value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.target.id, e.target.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(id, value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(id, value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.name, selectEvent.value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
 
@@ -8115,14 +8114,14 @@ var FormSettings = function FormSettings() {
           grettingImage: attatchmentUrl,
           grettingVideo: ''
         }));
-        var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])('greet-media-image', attatchmentUrl, formData);
+        var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])('greet-media-image', attatchmentUrl, formData);
         dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
       } else if (attachment.type === "video") {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           grettingVideo: attatchmentUrl,
           grettingImage: ''
         }));
-        var _updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])('greet-media-video', attatchmentUrl, formData);
+        var _updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])('greet-media-video', attatchmentUrl, formData);
         dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(_updatedData));
       }
     });
@@ -8670,10 +8669,10 @@ var FormSettings = function FormSettings() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx":
-/*!**************************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/GeneralSettings.jsx ***!
-  \**************************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/GeneralSettings.jsx":
+/*!*************************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/GeneralSettings.jsx ***!
+  \*************************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8682,8 +8681,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "fontOptions": function() { return /* binding */ fontOptions; },
 /* harmony export */   "fontSizeOptions": function() { return /* binding */ fontSizeOptions; }
 /* harmony export */ });
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
-/* harmony import */ var Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/formFields/Radio.jsx */ "./src/lib/components/formFields/Radio.jsx");
+/* harmony import */ var Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/form-fields/Checkbox.jsx */ "./src/js/components/form-fields/Checkbox.jsx");
+/* harmony import */ var Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/form-fields/Radio.jsx */ "./src/js/components/form-fields/Radio.jsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -8691,9 +8690,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
-/* harmony import */ var _lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../../lib/components/FormUpdater */ "./src/lib/components/FormUpdater.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Helper/FormUpdater */ "./src/js/helpers/FormUpdater.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/js/apps/form-builder/redux/form/actionCreator.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -8789,7 +8788,7 @@ var GeneralSettings = function GeneralSettings() {
   var Option = function Option(props) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_10__.c.Option, _objectSpread(_objectSpread({}, props), {}, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
           id: "wpwax-vm".concat(props.value),
           label: props.label,
           onChange: handleCustomPageCheckbox,
@@ -8810,18 +8809,18 @@ var GeneralSettings = function GeneralSettings() {
   /* To Handle Template Change */
   var handleChatVisibility = function handleChatVisibility(e) {
     var visiblityType = e.target.value;
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('chat-visibility', visiblityType, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('chat-visibility', visiblityType, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeInputValue = function handleChangeInputValue(e) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
     if (id === 'wpwax-vm-display-default') {
       value = !value;
     }
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(id, value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(id, value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
@@ -8833,9 +8832,9 @@ var GeneralSettings = function GeneralSettings() {
         newPageIdsArray.push(item.value);
       });
       customPageIds = newPageIdsArray.join(',');
-      updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
+      updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
     } else {
-      updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
+      updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
     }
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
@@ -8936,7 +8935,7 @@ var GeneralSettings = function GeneralSettings() {
           className: "wpwax-vm-radio-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "If closed never show again"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-never-show",
             label: "",
             value: "never_load",
@@ -8950,7 +8949,7 @@ var GeneralSettings = function GeneralSettings() {
           className: "wpwax-vm-radio-single",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Show on reload"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_formFields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
             id: "wpwax-vm-load-show",
             label: "",
             value: "show_on_reload",
@@ -8992,10 +8991,10 @@ var GeneralSettings = function GeneralSettings() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx":
-/*!*********************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewOne.jsx ***!
-  \*********************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/PreviewOne.jsx":
+/*!********************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/PreviewOne.jsx ***!
+  \********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9006,7 +9005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/s-record.svg */ "./src/assets/svg/icons/s-record.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
@@ -9185,10 +9184,10 @@ PreviewOne.propTypes = {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx":
-/*!*********************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/PreviewTwo.jsx ***!
-  \*********************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/PreviewTwo.jsx":
+/*!********************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/PreviewTwo.jsx ***!
+  \********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9199,7 +9198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
 /* harmony import */ var Assets_svg_icons_s_record_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/s-record.svg */ "./src/assets/svg/icons/s-record.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
@@ -9371,10 +9370,10 @@ PreviewTwo.propTypes = {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js":
-/*!***************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js ***!
-  \***************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/Style.js":
+/*!**************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/Style.js ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9397,10 +9396,10 @@ var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx":
-/*!************************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/ThankSettings.jsx ***!
-  \************************************************************************************************/
+/***/ "./src/js/apps/form-builder/components/add-form/components/ThankSettings.jsx":
+/*!***********************************************************************************!*\
+  !*** ./src/js/apps/form-builder/components/add-form/components/ThankSettings.jsx ***!
+  \***********************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9408,15 +9407,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "fontSizeOptions": function() { return /* binding */ fontSizeOptions; }
 /* harmony export */ });
-/* harmony import */ var Components_formFields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/formFields/Checkbox.jsx */ "./src/lib/components/formFields/Checkbox.jsx");
+/* harmony import */ var Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/form-fields/Checkbox.jsx */ "./src/js/components/form-fields/Checkbox.jsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
-/* harmony import */ var _lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../../lib/components/FormUpdater */ "./src/lib/components/FormUpdater.js");
-/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/addForm/components/AddForm/overview/Style.js");
+/* harmony import */ var Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Helper/FormUpdater */ "./src/js/helpers/FormUpdater.js");
+/* harmony import */ var _redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../redux/form/actionCreator */ "./src/js/apps/form-builder/redux/form/actionCreator.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9522,15 +9521,15 @@ var ThankSettings = function ThankSettings() {
     }));
   };
   var handleChangeInputValue = function handleChangeInputValue(e) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.target.id, e.target.value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.target.id, e.target.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(id, value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(id, value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
-    var updatedData = (0,_lib_components_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.name, selectEvent.value, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_4__["default"])(e.name, selectEvent.value, formData);
     dispatch((0,_redux_form_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleDynamicEdit)(updatedData));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.ThankSettingsWrap, {
@@ -9767,16 +9766,16 @@ var ThankSettings = function ThankSettings() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/index.jsx":
-/*!************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/index.jsx ***!
-  \************************************************************/
+/***/ "./src/js/apps/form-builder/index.jsx":
+/*!********************************************!*\
+  !*** ./src/js/apps/form-builder/index.jsx ***!
+  \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/modules/chatboxTemplate/apps/addForm/App.jsx");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/js/apps/form-builder/App.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -9792,10 +9791,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js":
-/*!******************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/redux/form/actionCreator.js ***!
-  \******************************************************************************/
+/***/ "./src/js/apps/form-builder/redux/form/actionCreator.js":
+/*!**************************************************************!*\
+  !*** ./src/js/apps/form-builder/redux/form/actionCreator.js ***!
+  \**************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9807,8 +9806,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handleReadForm": function() { return /* binding */ handleReadForm; },
 /* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; }
 /* harmony export */ });
-/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service.js */ "./src/lib/apiService/Service.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actions.js");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./src/js/apps/form-builder/redux/form/actions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -9984,10 +9983,10 @@ var updateDataWithId = function updateDataWithId(id) {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actions.js":
-/*!************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/redux/form/actions.js ***!
-  \************************************************************************/
+/***/ "./src/js/apps/form-builder/redux/form/actions.js":
+/*!********************************************************!*\
+  !*** ./src/js/apps/form-builder/redux/form/actions.js ***!
+  \********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10059,15 +10058,15 @@ var actions = {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/redux/form/reducers.js":
-/*!*************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/redux/form/reducers.js ***!
-  \*************************************************************************/
+/***/ "./src/js/apps/form-builder/redux/form/reducers.js":
+/*!*********************************************************!*\
+  !*** ./src/js/apps/form-builder/redux/form/reducers.js ***!
+  \*********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/actions.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/form-builder/redux/form/actions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -10195,16 +10194,16 @@ var FormReducer = function FormReducer() {
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/redux/rootReducers.js":
-/*!************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/redux/rootReducers.js ***!
-  \************************************************************************/
+/***/ "./src/js/apps/form-builder/redux/rootReducers.js":
+/*!********************************************************!*\
+  !*** ./src/js/apps/form-builder/redux/rootReducers.js ***!
+  \********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _form_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form/reducers */ "./src/modules/chatboxTemplate/apps/addForm/redux/form/reducers.js");
+/* harmony import */ var _form_reducers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form/reducers */ "./src/js/apps/form-builder/redux/form/reducers.js");
 
 
 var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
@@ -10214,10 +10213,10 @@ var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/addForm/redux/store.js":
-/*!*****************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/addForm/redux/store.js ***!
-  \*****************************************************************/
+/***/ "./src/js/apps/form-builder/redux/store.js":
+/*!*************************************************!*\
+  !*** ./src/js/apps/form-builder/redux/store.js ***!
+  \*************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10226,7 +10225,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
-/* harmony import */ var _rootReducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rootReducers */ "./src/modules/chatboxTemplate/apps/addForm/redux/rootReducers.js");
+/* harmony import */ var _rootReducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rootReducers */ "./src/js/apps/form-builder/redux/rootReducers.js");
 
 
 
@@ -10239,495 +10238,496 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/builder/App.jsx":
-/*!**********************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/App.jsx ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_formTable_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/formTable/Index.jsx */ "./src/modules/chatboxTemplate/apps/builder/components/formTable/Index.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-var BuilderContainer = function BuilderContainer() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "wpwax-vm-page-inner",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components_formTable_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {})
-  });
-};
-function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(BuilderContainer, {});
-}
-/* harmony default export */ __webpack_exports__["default"] = (App);
-
-/***/ }),
-
-/***/ "./src/modules/chatboxTemplate/apps/builder/components/formTable/Index.jsx":
-/*!*********************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/components/formTable/Index.jsx ***!
-  \*********************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/modules/chatboxTemplate/apps/builder/components/pageheader/Index.jsx");
-/* harmony import */ var _overview_Table_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./overview/Table.jsx */ "./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Table.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-
-
-function FormTable() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_overview_Table_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
-  });
-}
-/* harmony default export */ __webpack_exports__["default"] = (FormTable);
-
-/***/ }),
-
-/***/ "./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Style.js":
-/*!*****************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Style.js ***!
-  \*****************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-var _templateObject;
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n        tr{\n            th{\n                &.wpwax-vm-head-name{\n                    width: 80%;\n                }\n            }\n        }\n        .wpwax-vm-table-action{\n            margin: -8px;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            .dashicons{\n                width: 15px;\n                height: 15px;\n                margin-right: 8px;\n                position: relative;\n                top: -4px;\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-titlebox-inner{\n            display: flex;\n            align-items: center;\n            min-width: 240px;\n        }\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            min-width: 240px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n        \n    }\n    .wpwax-vm-titlebox__editor-action{\n        margin-left: 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            background-color: #fff;\n            box-shadow: 0 5px 10px #adb4d260;\n            margin: 2px;\n            transition: 0.3s ease;\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            &.wpwax-vm-titlebox__editor--cancel{\n                background-color: var(--color-danger);\n                border: 1px solid var(--color-danger);\n                display: none;\n                &:hover{\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-danger);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes{\n                background-color: var(--color-success);\n                border: 1px solid var(--color-success);\n                display: none;\n                &:hover{\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                    .dashicons:before{\n                        color: var(--color-success);\n                    }\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;;\n                }\n            }\n            &.wpwax-vm-titlebox__editor--edit{\n                font-size: 15px;\n                display: none;\n                margin-left: 15px;\n                &:before{\n                    color: #2C99FF;\n                }\n                &.wpwax-vm-show{\n                    display: inline-flex;\n                }\n            }\n            .dashicons{\n                line-height: 1;\n                position: relative;\n                top: -2px;\n                &:before{\n                    font-size: 15px;\n                    color: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
-/* harmony default export */ __webpack_exports__["default"] = (TemplateBox);
-
-/***/ }),
-
-/***/ "./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Table.jsx":
-/*!******************************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Table.jsx ***!
-  \******************************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var apiService_Service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service */ "./src/lib/apiService/Service.js");
-/* harmony import */ var Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/Modal.jsx */ "./src/lib/components/Modal.jsx");
-/* harmony import */ var Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/img/builder/no-data.png */ "./src/assets/img/builder/no-data.png");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/builder/components/formTable/overview/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-var Table = function Table() {
-  /* Initialize State */
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({
-      data: [],
-      titleInput: '',
-      message: '',
-      responseType: '',
-      deleteId: '',
-      modalStatus: 'close',
-      loader: true
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    state = _useState2[0],
-    setState = _useState2[1];
-
-  /* Initialize editElementIndex State */
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)({
-      editElementIndex: ''
-    }),
-    _useState4 = _slicedToArray(_useState3, 2),
-    editElementIndexState = _useState4[0],
-    seteditElementIndexState = _useState4[1];
-
-  /* State Destructuring  */
-  var data = state.data,
-    titleInput = state.titleInput,
-    message = state.message,
-    responseType = state.responseType,
-    modalStatus = state.modalStatus,
-    deleteId = state.deleteId,
-    loader = state.loader;
-  var editElementIndex = editElementIndexState.editElementIndex;
-
-  /* Edit Mode Activation */
-  var activateeditElementIndex = function activateeditElementIndex(e, name, index) {
-    e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      titleInput: name
-    }));
-    seteditElementIndexState({
-      editElementIndex: index
-    });
-  };
-
-  /* Edit Mode Cancelation */
-  var canceleditElementIndex = function canceleditElementIndex(e) {
-    e.preventDefault();
-    seteditElementIndexState({
-      editElementIndex: ''
-    });
-  };
-
-  /* Update Table Name */
-  var updateTableName = function updateTableName(event) {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      titleInput: event.target.value
-    }));
-  };
-
-  /* Remove The Notice Box */
-  var removeNotice = function removeNotice(event) {
-    event.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      message: ''
-    }));
-  };
-
-  /* Update Table Name */
-  var saveTableName = function saveTableName(e, id) {
-    e.preventDefault();
-    data.filter(function (item) {
-      return item.id === id;
-    }).map(function (item) {
-      var args = {};
-      args.name = titleInput ? titleInput : '';
-      var stateData = data.filter(function (stateItem) {
-        if (stateItem.id === id) {
-          stateItem.name = titleInput;
-        }
-        return stateItem;
-      });
-      apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].dataUpdate("/chatbox-templates/".concat(id), args).then(function (response) {
-        if (response.data.success) {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            data: stateData,
-            responseType: 'success',
-            message: response.data.message,
-            loader: false
-          }));
-        } else {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            data: data,
-            responseType: 'warning',
-            message: response.data.message,
-            loader: false
-          }));
-        }
-        seteditElementIndexState({
-          editElementIndex: ''
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    });
-  };
-
-  /* Handle Delete Confirmation */
-  var _handleOk = function handleOk(e) {
-    e.preventDefault();
-    apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].datadelete("/chatbox-templates/".concat(deleteId)).then(function (response) {
-      if (response.data.success) {
-        var stateData = data.filter(function (item) {
-          return item.id !== deleteId;
-        });
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          data: stateData,
-          responseType: 'success',
-          message: response.data.message,
-          modalStatus: 'close',
-          loader: false
-        }));
-      }
-    }).catch(function (error) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        message: error.message,
-        responseType: 'error',
-        modalStatus: 'close',
-        loader: false
-      }));
-    });
-  };
-
-  /* Handle Delete Modal Cancelation */
-  var _handleCancel = function handleCancel(e) {
-    e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      modalStatus: 'close'
-    }));
-  };
-
-  /* Delete Form */
-  var deleteForm = function deleteForm(e, id) {
-    e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
-      modalStatus: "open",
-      deleteId: id
-    }));
-  };
-
-  /* useEffect Hook used for render data when component was mounted  */
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    apiService_Service__WEBPACK_IMPORTED_MODULE_0__["default"].getAll('/chatbox-templates').then(function (response) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        titleInput: response.data.name,
-        data: response.data.data,
-        loader: false
-      }));
-    }).catch(function (error) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        message: error.message,
-        responseType: 'error',
-        loader: false
-      }));
-    });
-  }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: loader ? "wpwax-vm-loder-active" : null,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "wpwax-vm-table-wrap wpwax-vm-table-responsive",
-      children: [message ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
-        className: "".concat(responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "wpwax-vm-notice__text",
-          children: message
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-          href: "#",
-          className: "wpwax-vm-notice__close",
-          onClick: removeNotice,
-          children: "x"
-        })]
-      }) : '', loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-        className: "wpwax-vm-loading-spin",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-          className: "wpwax-vm-spin-dot"
-        })]
-      }) : data.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-        className: "wpwax-vm-table",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              className: "wpwax-vm-head-name",
-              children: "Title"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              className: "wpwax-vm-head-action",
-              children: "Action"
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
-          children: data.map(function (value, key) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  className: "wpwax-vm-titlebox",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                    className: "wpwax-vm-titlebox-inner",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-                      className: editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show',
-                      children: [value.name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
-                        className: "wpwax-vm-titlebox__id",
-                        children: ["ID: ", value.id]
-                      })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                      className: editElementIndex === key ? "wpwax-vm-titlebox__editor wpwax-vm-show" : "wpwax-vm-titlebox__editor",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-                        type: "text",
-                        name: "wpwax-vm-title-input",
-                        value: titleInput || '',
-                        onChange: updateTableName
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                      className: "wpwax-vm-titlebox__editor-action",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                        href: "#",
-                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel',
-                        onClick: function onClick(e) {
-                          return canceleditElementIndex(e);
-                        },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                          className: "dashicons dashicons-no"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                        href: "#",
-                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes',
-                        onClick: function onClick(e) {
-                          return saveTableName(e, value.id);
-                        },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                          className: "dashicons dashicons-yes"
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-                        href: "#",
-                        className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit' : 'wpwax-vm-titlebox__editor--edit dashicons dashicons-edit wpwax-vm-show',
-                        onClick: function onClick(e) {
-                          return activateeditElementIndex(e, value.name, key);
-                        }
-                      })]
-                    })]
-                  })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                  className: "wpwax-vm-table-action",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
-                    href: "".concat(location.href, "&mode=edit&id=").concat(value.id),
-                    className: "wpwax-vm-btn wpwax-vm-btn-light",
-                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                      className: "dashicons dashicons-edit"
-                    }), " Edit"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
-                    href: "#",
-                    className: "wpwax-vm-btn wpwax-vm-btn-danger",
-                    onClick: function onClick(e) {
-                      return deleteForm(e, value.id);
-                    },
-                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
-                      className: "dashicons dashicons-trash"
-                    }), " Delete"]
-                  })]
-                })
-              })]
-            }, key);
-          })
-        })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "wpwax-empty-table-box",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "wpwax-empty-table-box__img",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-            src: Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_2__["default"],
-            alt: "Video Support"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          className: "wpwax-empty-table-box__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-            children: "Ready to start creating your first video message form?"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
-            href: location.href + '&mode=edit',
-            className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-primary",
-            children: "Create Form"
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        title: "Delete Template",
-        handleOk: function handleOk(e) {
-          return _handleOk(e);
-        },
-        handleCancel: function handleCancel(e) {
-          return _handleCancel(e);
-        },
-        status: modalStatus,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
-          children: "Are Your Sure ?"
-        })
-      })]
-    })
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Table);
-
-/***/ }),
-
-/***/ "./src/modules/chatboxTemplate/apps/builder/components/pageheader/Index.jsx":
-/*!**********************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/components/pageheader/Index.jsx ***!
-  \**********************************************************************************/
+/***/ "./src/js/components/Modal.jsx":
+/*!*************************************!*\
+  !*** ./src/js/components/Modal.jsx ***!
+  \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/modules/chatboxTemplate/apps/builder/components/pageheader/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
-
-
-var PageHeader = function PageHeader() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
-        className: "wpwax-vm-page-header-title",
-        children: "All Forms"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-        href: location.href + '&mode=edit',
-        className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-dark",
-        children: "Create New"
+var Modal = function Modal(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      className: props.status === "open" ? "wpax-vm-overlay wpwax-vm-show" : "wpax-vm-overlay"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: props.status === "open" ? "wpwax-vm-modal wpwax-vm-modal-basic wpwax-vm-show" : "wpwax-vm-modal wpwax-vm-modal-basic",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "wpwax-vm-modal__header",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+          className: "wpwax-vm-modal-title",
+          children: props.title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+          href: "#",
+          className: "wpwax-vm-modal-close",
+          onClick: props.handleCancel,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "dashicons dashicons-no"
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wpwax-vm-modal__body",
+        children: props.children
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "wpwax-vm-modal__footer",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "wpwax-vm-modal-footer__action",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-modal-footer__action--cancel",
+            onClick: props.handleCancel,
+            children: "Cancel"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-modal-footer__action--ok",
+            onClick: props.handleOk,
+            children: "Ok"
+          })]
+        })
       })]
-    })
+    })]
   });
 };
-/* harmony default export */ __webpack_exports__["default"] = (PageHeader);
+/* harmony default export */ __webpack_exports__["default"] = (Modal);
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/builder/components/pageheader/Style.js":
-/*!*********************************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/components/pageheader/Style.js ***!
-  \*********************************************************************************/
+/***/ "./src/js/components/form-fields/Checkbox.jsx":
+/*!****************************************************!*\
+  !*** ./src/js/components/form-fields/Checkbox.jsx ***!
+  \****************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-var _templateObject;
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-var PageHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    margin-bottom: 22px;\n    .wpwax-vm-page-header-title{\n        font-size: 24px;\n        font-weight: 500;\n    }\n    .wpwax-vm-page-header-btn{\n        margin-left: 20px;\n    }\n"])));
-/* harmony default export */ __webpack_exports__["default"] = (PageHeaderStyle);
+
+var Checkbox = function Checkbox(_ref) {
+  var id = _ref.id,
+    label = _ref.label,
+    value = _ref.value,
+    onChange = _ref.onChange;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "wpwax-vm-checkbox",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+      id: id,
+      type: "checkbox",
+      checked: value,
+      onChange: onChange
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+      htmlFor: id,
+      children: label
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (Checkbox);
 
 /***/ }),
 
-/***/ "./src/modules/chatboxTemplate/apps/builder/index.jsx":
-/*!************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/apps/builder/index.jsx ***!
-  \************************************************************/
+/***/ "./src/js/components/form-fields/Radio.jsx":
+/*!*************************************************!*\
+  !*** ./src/js/components/form-fields/Radio.jsx ***!
+  \*************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/modules/chatboxTemplate/apps/builder/App.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+var Radio = function Radio(_ref) {
+  var id = _ref.id,
+    name = _ref.name,
+    label = _ref.label,
+    value = _ref.value,
+    onChange = _ref.onChange,
+    checked = _ref.checked;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "wpwax-vm-radio",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+      id: id,
+      name: name,
+      type: "radio",
+      value: value,
+      onChange: onChange,
+      checked: checked
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+      htmlFor: id,
+      children: label
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (Radio);
 
-document.addEventListener("DOMContentLoaded", function () {
-  var container = document.getElementById("wpwax-vm-forms");
-  if (!container) {
-    return;
+/***/ }),
+
+/***/ "./src/js/helpers/FormUpdater.js":
+/*!***************************************!*\
+  !*** ./src/js/helpers/FormUpdater.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var FormUpdater = function FormUpdater(label, value, formInitialData) {
+  var updatedData = formInitialData.map(function (item) {
+    switch (label) {
+      case "wpwax-vm-form-name":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          name: value
+        });
+      case "wpwax-vm-theme":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            theme: value
+          })
+        });
+      case "wpwax-vm-display-default":
+        if (value) {
+          return _objectSpread(_objectSpread({}, item), {}, {
+            pages: "",
+            is_default: value
+          });
+        } else {
+          return _objectSpread(_objectSpread({}, item), {}, {
+            is_default: value
+          });
+        }
+      case "wpwax-vm-display-custom-pages":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          pages: value
+        });
+      case "chat-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            chat_visibility_type: value
+          })
+        });
+      case "wpwax-vm-send-mail":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            send_mail_upon_message_submission: value
+          })
+        });
+      case "greet-media-image":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_image_url: value,
+            greet_video_url: ''
+          })
+        });
+      case "greet-media-video":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_image_url: '',
+            greet_video_url: value
+          })
+        });
+      case "wpwax-vm-greet-msg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_message: value
+          })
+        });
+      case "wpwax-vm-description-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_description: value
+          })
+        });
+      case "wpwax-vm-description":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            description: value
+          })
+        });
+      case "wpwax-vm-chat-title":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            chat_options_title: value
+          })
+        });
+      case "chat-type":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            can_replay_in: value
+          })
+        });
+      case "wpwax-vm-footer-msg-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_footer: value
+          })
+        });
+      case "wpwax-vm-footer-msg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            footer_message: value
+          })
+        });
+      case "wpwax-vm-play-btn-bg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            play_btn_background: value
+          })
+        });
+      case "wpwax-vm-fontfamily":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            font_family: value
+          })
+        });
+      case "wpwax-vm-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            font_size: value
+          })
+        });
+      case "wpwax-vm-greet-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_message_font_size: value
+          })
+        });
+      case "wpwax-vm-chat-title-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            chat_options_title_font_size: value
+          })
+        });
+      case "wpwax-vm-form-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            font_color: value
+          })
+        });
+      case "wpwax-vm-greet-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            greet_message_font_color: value
+          })
+        });
+      case "wpwax-vm-chat-title-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            chat_options_title_font_color: value
+          })
+        });
+      case "wpwax-vm-form-primray-button-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            primary_button_font_color: value
+          })
+        });
+      case "wpwax-vm-form-btn-radius":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            button_border_radius: value
+          })
+        });
+      case "wpwax-vm-page-bg-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            page_background_color: value
+          })
+        });
+      case "wpwax-vm-pageheader-bg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            page_header_background_color: value
+          })
+        });
+      case "wpwax-vm-form-primary-button-bg":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            primary_button_background_color: value
+          })
+        });
+      case "wpwax-vm-footer-text-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            footer_message_color: value
+          })
+        });
+      case "wpwax-vm-chat-footer-text-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            footer_message_font_size: value
+          })
+        });
+      case "wpwax-vm-thank-title":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_title: value
+          })
+        });
+      case "wpwax-vm-thank-description-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_thank_page_description: value
+          })
+        });
+      case "wpwax-vm-thank-description":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_description: value
+          })
+        });
+      case "wpwax-vm-thank-bg-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_background_color: value
+          })
+        });
+      case "wpwax-vm-thank-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_title_font_size: value
+          })
+        });
+      case "wpwax-vm-thank-description-fontsize":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_description_font_size: value
+          })
+        });
+      case "wpwax-vm-thank-title-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_title_color: value
+          })
+        });
+      case "wpwax-vm-thank-description-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_description_color: value
+          })
+        });
+      case "wpax-vm-cta-btn-visibility":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            show_thank_page_cta_button: value
+          })
+        });
+      case "wpwax-vm-cta-btn-text":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_cta_button_text: value
+          })
+        });
+      case "wpwax-vm-cta-btn-url":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            thank_page_cta_button_url: value
+          })
+        });
+      case "theme":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            theme: value
+          })
+        });
+      case "display-page":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            display_on_all_pages: value
+          })
+        });
+      case "page-id":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          page_ids: value
+        });
+      case "wpwax-vm-form-bg-color":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            page_background_color: value
+          })
+        });
+      case "wpwax-vm-font-family":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            font_family: value
+          })
+        });
+      default:
+      // code block
+    }
+  });
+
+  return updatedData;
+};
+/* harmony default export */ __webpack_exports__["default"] = (FormUpdater);
+
+/***/ }),
+
+/***/ "./src/js/helpers/apiService/Service.js":
+/*!**********************************************!*\
+  !*** ./src/js/helpers/apiService/Service.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* Create Instance */
+var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+  baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
+  headers: {
+    "Content-type": "application/json",
+    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
   }
-  var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container);
-  root.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}));
 });
+var getAll = function getAll(path) {
+  return axiosInstance.get(path);
+};
+var getAllByArg = function getAllByArg(path, args) {
+  return axiosInstance.get(path, {
+    params: args
+  });
+};
+var getById = function getById(path, args) {
+  return axiosInstance.get(path, {
+    params: args
+  });
+};
+var dataUpdate = function dataUpdate(path, args) {
+  return axiosInstance.post(path, args);
+};
+var dataAdd = function dataAdd(path, args) {
+  return axiosInstance.post(path, args);
+};
+var datadelete = function datadelete(path) {
+  return axiosInstance.delete(path);
+};
+var markRead = function markRead(path) {
+  return axiosInstance.post(path);
+};
+var markUnRead = function markUnRead(path) {
+  return axiosInstance.post(path);
+};
+var apiService = {
+  getAll: getAll,
+  getAllByArg: getAllByArg,
+  getById: getById,
+  dataAdd: dataAdd,
+  dataUpdate: dataUpdate,
+  datadelete: datadelete,
+  markRead: markRead,
+  markUnRead: markUnRead
+};
+/* harmony default export */ __webpack_exports__["default"] = (apiService);
 
 /***/ }),
 
@@ -58582,12 +58582,12 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!*********************************************************************!*\
-  !*** ./src/modules/chatboxTemplate/admin/chatbox-template-admin.js ***!
-  \*********************************************************************/
+/*!************************************************!*\
+  !*** ./src/js/admin/chatbox-template-admin.js ***!
+  \************************************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var ChatboxTemplateApps_addForm_index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ChatboxTemplateApps/addForm/index.jsx */ "./src/modules/chatboxTemplate/apps/addForm/index.jsx");
-/* harmony import */ var ChatboxTemplateApps_builder_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ChatboxTemplateApps/builder/index.jsx */ "./src/modules/chatboxTemplate/apps/builder/index.jsx");
+/* harmony import */ var Apps_form_builder_index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Apps/form-builder/index.jsx */ "./src/js/apps/form-builder/index.jsx");
+/* harmony import */ var Apps_form_builder_archive_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Apps/form-builder-archive/index.jsx */ "./src/js/apps/form-builder-archive/index.jsx");
 
 
 }();

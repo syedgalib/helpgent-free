@@ -1,1 +1,0 @@
-import '../apps/settings/index.jsx';

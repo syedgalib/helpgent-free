@@ -1,6 +1,6 @@
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useAttachmentAPI() {
+export default function useAttachmentAPI() {
 	const routeBase = 'attachments';
 	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
 

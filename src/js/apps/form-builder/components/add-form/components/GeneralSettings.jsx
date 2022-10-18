@@ -7,7 +7,7 @@ import { components, default as Select } from 'react-select';
 import ReactSVG from 'react-inlinesvg';
 import Switch from 'react-switch';
 import formUpdater from 'Helper/FormUpdater';
-import { handleDynamicEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../store/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';

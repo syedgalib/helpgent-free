@@ -1,7 +1,7 @@
 import http from 'Helper/http';
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useMessangerAPI() {
+export default function useMessangerAPI() {
 	const routeBase = 'messages';
 	const { getResponse, getData, postData, deleteData } = http;
 

@@ -1,6 +1,6 @@
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useFormBuilderAPI() {
+export default function useFormBuilderAPI() {
 	const routeBase = 'chatbox-templates';
 	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
 

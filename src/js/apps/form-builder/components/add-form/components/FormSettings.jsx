@@ -2,15 +2,13 @@ import replaceIcon from 'Assets/svg/icons/replace.svg';
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
-// import { ReactSVG } from "react-svg";
 import ReactSVG from 'react-inlinesvg';
 import Switch from "react-switch";
 import formUpdater from "Helper/FormUpdater";
-import { handleDynamicEdit } from '../../../redux/form/actionCreator';
+import { handleDynamicEdit } from '../../../store/form/actionCreator';
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
-import questionIcon from 'Assets/svg/icons/question-circle.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [

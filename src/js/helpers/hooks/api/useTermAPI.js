@@ -1,6 +1,6 @@
-import { useAPI } from './useAPI';
+import useAPI from './useAPI';
 
-export function useMessangerAPI() {
+export default function useMessangerAPI() {
 	const routeBase = 'messages/terms';
 
 	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );

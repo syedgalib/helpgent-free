@@ -12619,22 +12619,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var AudioMessage = function AudioMessage(_ref) {
   var data = _ref.data;
-  var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Audio(data.attachment_url));
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
-      isPlayingAudio = _useState2[0],
-      setIsPlayingAudio = _useState2[1];
+      playing = _useState2[0],
+      setPlaying = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
-      audioDuration = _useState4[0],
-      setAudioDuration = _useState4[1];
+      currentTime = _useState4[0],
+      setCurrentTime = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
       _useState6 = _slicedToArray(_useState5, 2),
-      audioCurrentTime = _useState6[0],
-      setAudioCurrentTime = _useState6[1];
+      duration = _useState6[0],
+      setDuration = _useState6[1];
 
   function togglePlayPauseAudio(e) {
     e.preventDefault();
@@ -12645,23 +12645,47 @@ var AudioMessage = function AudioMessage(_ref) {
 
     if (audioRef.current.paused) {
       audioRef.current.play();
+      setPlaying(true);
     } else {
       audioRef.current.pause();
+      setPlaying(false);
     }
   }
 
   function getPlayedTimeInPercent() {
-    var r = audioCurrentTime / audioDuration;
+    var r = currentTime / duration;
     return isNaN(r) ? 0 : r * 100;
   }
 
   function getAudioTimer() {
-    var remainingTime = audioDuration - audioCurrentTime;
+    var remainingTime = duration - currentTime;
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(remainingTime);
   }
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!audioRef.current) {
+      return;
+    }
+
+    var onTimeUpdate = function onTimeUpdate(event) {
+      return setCurrentTime(event.target.currentTime);
+    };
+
+    var onLoadedMetaData = function onLoadedMetaData(event) {
+      return setDuration(event.target.duration);
+    };
+
+    audioRef.current.addEventListener('timeupdate', onTimeUpdate);
+    audioRef.current.addEventListener('loadeddata', onLoadedMetaData);
+    return function () {
+      audioRef.current.removeEventListener('timeupdate', onTimeUpdate);
+      audioRef.current.removeEventListener('loadeddata', onLoadedMetaData);
+    };
+  }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("audio", {
+      src: data.attachment_url
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "wpwax-vm-message-content__inner--audio",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
         href: "#",
@@ -12670,7 +12694,7 @@ var AudioMessage = function AudioMessage(_ref) {
         },
         className: "wpwax-vm-btn-play",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-          className: isPlayingAudio ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+          className: playing ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
         className: "wpwax-vm-audio-range",
@@ -12714,21 +12738,6 @@ var AudioMessage = function AudioMessage(_ref) {
           className: "wpwax-vm-timer",
           children: getAudioTimer()
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("audio", {
-        ref: audioRef,
-        onPlay: function onPlay() {
-          setIsPlayingAudio(true);
-        },
-        onPause: function onPause() {
-          setIsPlayingAudio(false);
-        },
-        onTimeUpdate: function onTimeUpdate(event) {
-          setAudioCurrentTime(event.target.currentTime);
-        },
-        onLoadedData: function onLoadedData(event) {
-          setAudioDuration(event.target.duration);
-        },
-        src: data.attachment_url
       })]
     }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",

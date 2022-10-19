@@ -1,13 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
 
 const AudioMessage = ({data}) => {
-	const audioRef = useRef();
-	const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-    const [audioDuration, setAudioDuration] = useState(0);
-    const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+	const audioRef = useRef(new Audio(data.attachment_url));
+	const [playing, setPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
 
 	function togglePlayPauseAudio(e) {
         e.preventDefault();
@@ -18,24 +18,43 @@ const AudioMessage = ({data}) => {
 
         if (audioRef.current.paused) {
             audioRef.current.play();
+			setPlaying(true);
         } else {
             audioRef.current.pause();
+			setPlaying(false);
         }
     }
 
 	function getPlayedTimeInPercent() {
-        const r = audioCurrentTime / audioDuration;
+        const r = currentTime / duration;
         return isNaN(r) ? 0 : r * 100;
     }
 
 	function getAudioTimer() {
-        const remainingTime = audioDuration - audioCurrentTime;
-
+        const remainingTime = duration - currentTime;
         return formatSecondsAsCountdown(remainingTime);
     }
 
+	useEffect(() => {
+		if (!audioRef.current) {
+            return;
+        }
+
+		const onTimeUpdate = (event) => setCurrentTime(event.target.currentTime);
+		const onLoadedMetaData = (event) => setDuration(event.target.duration);
+
+		audioRef.current.addEventListener('timeupdate', onTimeUpdate);
+		audioRef.current.addEventListener('loadeddata', onLoadedMetaData);
+
+		return () => {
+			audioRef.current.removeEventListener('timeupdate', onTimeUpdate);
+			audioRef.current.removeEventListener('loadeddata', onLoadedMetaData);
+		}
+	}, []);
+
 	return (
 		<>
+			<audio src={data.attachment_url} />
 			<div className='wpwax-vm-message-content__inner--audio'>
 				<a
 					href='#'
@@ -46,7 +65,7 @@ const AudioMessage = ({data}) => {
 				>
 					<span
 						className={
-							isPlayingAudio
+							playing
 								? 'dashicons dashicons-controls-pause'
 								: 'dashicons dashicons-controls-play'
 						}
@@ -99,22 +118,10 @@ const AudioMessage = ({data}) => {
 						{getAudioTimer()}
 					</span>
 				</span>
-				<audio
+				{/* <audio
 					ref={audioRef}
-					onPlay={() => {
-						setIsPlayingAudio(true);
-					}}
-					onPause={() => {
-						setIsPlayingAudio(false);
-					}}
-					onTimeUpdate={(event) => {
-						setAudioCurrentTime(event.target.currentTime);
-					}}
-					onLoadedData={(event) => {
-						setAudioDuration(event.target.duration);
-					}}
 					src={data.attachment_url}
-				></audio>
+				></audio> */}
 			</div>
 
 			{data.message && (

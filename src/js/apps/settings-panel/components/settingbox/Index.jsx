@@ -40,7 +40,7 @@ const SettingBox = () => {
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
                     <Sidebar />
-                    <SettingContent />
+                    {/* <SettingContent /> */}
                 </div>
                 <div className="wpwax-vm-seetings-box__footer">
                     <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Save Changes</a>

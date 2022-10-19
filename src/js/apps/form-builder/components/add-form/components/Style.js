@@ -184,7 +184,7 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 110px;
+                min-height: 120px;
                 height: auto;
                 text-transform: capitalize;
                 flex: 0 0 30.3333%;

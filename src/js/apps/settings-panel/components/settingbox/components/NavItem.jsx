@@ -25,7 +25,7 @@ const NavItem = (menuItem) => {
                 {
                     subnav && menuItem.item.subNav.map((subItem, index) => {
                         return (
-                            <li key={index}><a href="#">{subItem.label}</a></li>
+                            <li key={index}><a href={`#${subItem.label}`}>{subItem.label}</a></li>
                         )
                     })
                 }

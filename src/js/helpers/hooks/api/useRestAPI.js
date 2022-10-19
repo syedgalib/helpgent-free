@@ -1,8 +1,8 @@
 import http from 'Helper/http';
 import { getTimezoneString } from 'Helper/utils';
 
-export default function useAPI( routeBase ) {
-	const { getResponse, getData, postData, updateData, deleteData } = http;
+export default function useRestAPI( routeBase ) {
+	const { getRestResponse, getData, postData, updateData, deleteData } = http;
 
 	/**
 	 * Get Items
@@ -20,7 +20,7 @@ export default function useAPI( routeBase ) {
 			return await getData( routeBase, args );
 		}
 
-		return await getResponse( request, args );
+		return await getRestResponse( request, args );
 	}
 
 	/**
@@ -36,7 +36,7 @@ export default function useAPI( routeBase ) {
 			return await getData( `${routeBase}/${id}`, args );
 		}
 
-		return await getResponse( request, id );
+		return await getRestResponse( request, id );
 	}
 
 	/**
@@ -51,7 +51,7 @@ export default function useAPI( routeBase ) {
 			return await postData( routeBase, args, config );
 		}
 
-		return await getResponse( request, args, config );
+		return await getRestResponse( request, args, config );
 	}
 
 	/**
@@ -71,7 +71,7 @@ export default function useAPI( routeBase ) {
 			return await updateData( `${routeBase}/${args.id}`, args.params, config );
 		}
 
-		return await getResponse( request, { id, params: args }, config );
+		return await getRestResponse( request, { id, params: args }, config );
 	}
 
 	/**
@@ -81,7 +81,7 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	 async function deleteItem( id, args ) {
+	async function deleteItem( id, args ) {
 
 		const request = async function( args ) {
 

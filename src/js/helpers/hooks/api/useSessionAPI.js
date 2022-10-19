@@ -3,7 +3,7 @@ import useAPI from './useAPI';
 
 export default function useSessionAPI() {
 	const routeBase = 'sessions';
-	const { getResponse, updateData } = http;
+	const { getResponse, postData, updateData, } = http;
 	const { getItems, getItem, deleteItem } = useAPI( routeBase );
 
 	/**
@@ -43,7 +43,7 @@ export default function useSessionAPI() {
 	 * @param {object} params add_term_ids: string, remove_term_ids: string
 	 * @returns {object} status
 	 */
-	 async function markAsUnread( session_id, params ) {
+	 async function updateTerms( session_id, params ) {
 
 		const request = async function( args ) {
 			return await updateData( `${routeBase}/${args.session_id}/update-terms`, args.params );
@@ -62,7 +62,7 @@ export default function useSessionAPI() {
 	 async function addTerms( session_id, params ) {
 
 		const request = async function( args ) {
-			return await updateData( `${routeBase}/${args.session_id}/add-terms`, args.params );
+			return await postData( `${routeBase}/add-terms`, args.params );
 		}
 
 		return await getResponse( request, { session_id, params } );
@@ -78,7 +78,7 @@ export default function useSessionAPI() {
 	 async function removeTerms( session_id, params ) {
 
 		const request = async function( args ) {
-			return await updateData( `${routeBase}/${args.session_id}/remove-terms`, args.params );
+			return await updateData( `${routeBase}/remove-terms`, args.params );
 		}
 
 		return await getResponse( request, { session_id, params } );
@@ -90,6 +90,7 @@ export default function useSessionAPI() {
 		deleteItem,
 		markAsRead,
 		markAsUnread,
+		updateTerms,
 		addTerms,
 		removeTerms,
 	};

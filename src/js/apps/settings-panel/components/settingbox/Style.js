@@ -197,6 +197,9 @@ const SidebarMenuItem = Styled.li`
                 &:hover{
                     color: var(--color-primary);
                 }
+                &.wpwax-vm-active{
+                    color: var(--color-primary);
+                }
             }
             &:first-child{
                 a{

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import Sidebar from "./components/Sidebar.jsx";
 import SettingContent from "./components/SettingContent.jsx";
@@ -6,6 +7,22 @@ import QuestonCircle from 'Assets/svg/icons/question-circle.svg';
 import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
+    const [settingContentState, setSettingContentState] = useState({
+        contentKey: "emailGeneral",
+        options: {
+            enableEmailNotification: true,
+            initialMessage: true,
+            enableHtmlEmail: true,
+            enableEmailHeader: true,
+            emailHeaderColor: "#000000",
+            addSiteLogo: true,
+            emailTemplateFormName: "",
+            emailTemplateFormEmail: "",
+            emailTemplateSubject: "",
+            emailTemplateBody: ""
+        }
+    });
+
     return (
         <SetingBoxWrap>
             <div className="wpwax-vm-settings-top">
@@ -39,8 +56,8 @@ const SettingBox = () => {
                     </div>
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
-                    <Sidebar />
-                    <SettingContent />
+                    <Sidebar contentState={settingContentState} setContentState={setSettingContentState} />
+                    <SettingContent contentState={settingContentState} setContentState={setSettingContentState} />
                 </div>
                 <div className="wpwax-vm-seetings-box__footer">
                     <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary">Save Changes</a>

@@ -299,7 +299,7 @@ const MessageBox = Styled.div`
                     font-size: 17px;
                     margin: 0;
                     color: #4D4D4D;
-                    @media only screen and (max-width: 1199px){
+                    @media only screen and (max-width: 1299px){
                         font-size: 15px;
                     }
                 }

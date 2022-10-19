@@ -219,6 +219,20 @@ const SettingContentWrap = Styled.div`
     width: 100%;
     padding: 45px 90px 45px 45px;
     background-color: var(--color-white);
+    .wpwax-vm-radio-list{
+        margin-top: 20px;
+        .wpwax-vm-radio-single{
+            &:not(:last-child){
+                margin-bottom: 15px;
+            }
+        }
+        .wpwax-vm-radio{
+            margin-right: 6px;
+            & + span{
+                flex: auto;
+            }
+        }
+    }
     .wpwax-vm-settings__single{
         display: flex;
         &:not(:last-child){
@@ -267,6 +281,18 @@ const SettingContentWrap = Styled.div`
                     }
                 }
             }
+            .wpwax-vm-radio-single{
+                display: flex;
+                align-items: center;
+                label{
+                    position: relative;
+                    top: -2px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-left: 8px;
+                    color: var(--color-dark);
+                }
+            }
             .wpwax-vm-form__color-plate{
                 max-width: 200px;
             }
@@ -277,6 +303,16 @@ const SettingContentWrap = Styled.div`
                 textarea.wpwax-vm-form__element{
                     min-height: 80px;
                 }
+            }
+        }
+        .wpwax-vm-inline-switch{
+            display: flex;
+            align-items: center;
+            label{
+                font-size: 14px;
+                font-weight: 500;
+                margin-right: 15px;
+                color: var(--color-dark);
             }
         }
     }

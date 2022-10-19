@@ -197,39 +197,7 @@ const AddFormStyle = Styled.div`
             height: 200px;
             background-color: #e2e2e2;
         }
-        .wpwax-vm-switch-list,
-        .wpwax-vm-chekbox-list,
-        .wpwax-vm-radio-list{
-            margin-top: 18px;
-            .wpwax-vm-switch-single,
-            .wpwax-vm-chekbox-single,
-            .wpwax-vm-radio-single{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                &:not(:last-child){
-                    margin-bottom: 20px;
-                }
-                span{
-                    display: inline-flex;
-                    align-items: center;
-                    font-size: 14px;
-                    font-weight: 500;
-                    position: relative;
-                    top: -2px;
-                    line-height: 1;
-                    color: #030308;
-                    svg{
-                        width: 18px;
-                        height: 18px;
-                        margin-right: 10px;
-                        path{
-                            fill: rgb(137, 137, 137)
-                        }
-                    }
-                }
-            }
-        }
+        
         .wpwax-vm-form-group__input-list {
             margin-top: 14px;
             &.wpwax-vm-addbtn-style{

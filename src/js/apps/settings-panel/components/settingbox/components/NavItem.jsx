@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Outlet, Link } from "react-router-dom";
 import { SidebarMenuItem } from '../Style.js';
 
 const NavItem = props => {
@@ -11,7 +10,8 @@ const NavItem = props => {
         setNavId(e.target.id)
     };
     const handleSubnavActivation = e => {
-        setsubNavPath(e.target.id)
+        e.preventDefault();
+        setsubNavPath(e.target.id);
     };
 
     console.log(subNavPath);
@@ -31,7 +31,7 @@ const NavItem = props => {
                 {
                     props.item.subNav.map((subItem, index) => {
                         return (
-                            <li key={index}><Link className={subItem.path === subNavPath ? "wpwax-vm-active": null} id={subItem.path} to={`/${subItem.path}`} onClick={handleSubnavActivation}>{subItem.label}</Link></li>
+                            <li key={index}><a className={subItem.path === subNavPath ? "wpwax-vm-active": null} id={subItem.path} href={`#${subItem.path}`} onClick={handleSubnavActivation}>{subItem.label}</a></li>
                         )
                     })
                 }

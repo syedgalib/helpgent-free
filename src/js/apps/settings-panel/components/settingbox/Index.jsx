@@ -11,7 +11,7 @@ const SettingBox = () => {
         contentKey: "emailGeneral",
         options: {
             enableEmailNotification: true,
-            initialMessage: true,
+            emailNotificationType: "single",
             enableHtmlEmail: true,
             enableEmailHeader: true,
             emailHeaderColor: "#000000",

@@ -164,7 +164,7 @@ const SettingContent = props => {
     return (
         <SettingContentWrap className="wpwax-vm-settings-inner">
             <form action="">
-                <EmailGeneral />
+                <EmailGeneral  contentState={contentState} setContentState={setContentState} />
                 {/* {
 
                     SettingContentData.filter(item => item.key == "language")[0].content.map((settingItem, index) => {

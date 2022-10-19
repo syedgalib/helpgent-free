@@ -2,11 +2,43 @@ import React from 'react';
 import Switch from "react-switch";
 import Radio from 'Components/form-fields/Radio.jsx';
 
-const EmailGeneral = ()=>{
-
-    const handleSettingSwitch = ()=>{
-
+const EmailGeneral = props =>{
+    const { contentState, setContentState } = props;
+    const handleUpdateSwitch = (value, event, id)=>{
+        console.log(value)
+        if(id === "wpwax-vm-enable-mail-notification"){
+            setContentState({
+                ...contentState,
+                options: {
+                    ...contentState.options,
+                    enableEmailNotification: value
+                }
+            })
+        }
     }
+    const handleSettingSwitch = (event)=>{
+        
+    }
+    const handleUpdateRadio = (event)=>{
+        if(event.target.id === "wpwax-vm-send-mail-single"){
+            setContentState({
+                ...contentState,
+                options: {
+                    ...contentState.options,
+                    emailNotificationType: "single"
+                }
+            })
+        }else if(event.target.id === "wpwax-vm-send-mail-multiple"){
+            setContentState({
+                ...contentState,
+                options: {
+                    ...contentState.options,
+                    emailNotificationType: "multiple"
+                }
+            })
+        }
+    }
+    console.log(contentState);
     return(
         <div className="wpwax-vm-settings">
             <div className="wpwax-vm-settings__single">
@@ -18,34 +50,33 @@ const EmailGeneral = ()=>{
                         onColor="#6551F2"
                         offColor="#E2E2E2"
                         className="wpwax-vm-switch"
+                        id="wpwax-vm-enable-mail-notification"
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={true}
-                        onChange={handleSettingSwitch}
+                        checked={contentState.options.enableEmailNotification}
+                        onChange={handleUpdateSwitch}
                     />
                     <div className="wpwax-vm-settings__swtich-content">
                         <div className='wpwax-vm-radio-list'>
                             <div className='wpwax-vm-radio-single'>
-                                <span>First message in a conversation</span>
                                 <Radio
-                                    id='wpwax-vm-never-show'
-                                    label=''
-                                    value='never_load'
-                                    name='wpwax-vm-close-option'
-                                    onChange={(e) => handleSettingSwitch(e)}
-                                    checked={true}
+                                    id='wpwax-vm-send-mail-single'
+                                    label='First message in a conversation'
+                                    value='single'
+                                    name='wpwax-vm-send-mail-option'
+                                    onChange={(e) => handleUpdateRadio(e)}
+                                    checked={contentState.options.emailNotificationType === "single"}
                                 />
                             </div>
                             <div className='wpwax-vm-radio-single'>
-                                <span>Every message in a conversion</span>
                                 <Radio
-                                    id='wpwax-vm-load-show'
-                                    label=''
-                                    value='show_on_reload'
-                                    name='wpwax-vm-close-option'
-                                    onChange={(e) => handleSettingSwitch(e)}
-                                    checked={false}
+                                    id='wpwax-vm-send-mail-multiple'
+                                    label='Every message in a conversion'
+                                    value='multiple'
+                                    name='wpwax-vm-send-mail-option'
+                                    onChange={(e) => handleUpdateRadio(e)}
+                                    checked={contentState.options.emailNotificationType === "multiple"}
                                 />
                             </div>
                         </div>
@@ -85,12 +116,12 @@ const EmailGeneral = ()=>{
                         onChange={handleSettingSwitch}
                     />
                     <div className="wpwax-vm-settings__swtich-content">
-                        <div className="wpwax-vm-form__color-plate">
+                        <div className="wpwax-vm-form__color-plate wpwax-vm-mb-10 wpwax-vm-mt-10">
                             <span className="wpwax-vm-form__color-text">#333333</span>
                             <label htmlFor="wpwax-vm-chat-footer-text-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: "#999999" }}></label>
                             <input type="color" id="wpwax-vm-footer-text-color" className="wpwax-vm-form__element" value="#000000" />
                         </div>
-                        <div className="wpwax-vm-form-group">
+                        <div className="wpwax-vm-inline-switch">
                             <label htmlFor="">Add site logo</label>
                             <Switch
                                 uncheckedIcon={false}

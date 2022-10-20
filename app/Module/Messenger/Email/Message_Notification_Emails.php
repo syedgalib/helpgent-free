@@ -17,7 +17,7 @@ class Message_Notification_Emails {
 
     /**
      * Cache user password
-     * 
+     *
      * @param WP_User|false $user
      * @param WP_REST_Request $request
      */
@@ -26,7 +26,7 @@ class Message_Notification_Emails {
         if ( ! $creating ) {
             return;
         }
-        
+
         if ( ! self::is_valid_user( $user ) ) {
             return;
         }
@@ -45,7 +45,7 @@ class Message_Notification_Emails {
      *
      * @param WP_User|false $user
      * @param array $args
-     * 
+     *
      * @return bool
      */
     public static function notify_first_session_created( $user = null, $args = [] ) {
@@ -64,7 +64,7 @@ class Message_Notification_Emails {
      *
      * @param WP_User|false $user
      * @param array $args
-     * 
+     *
      * @return bool
      */
     public static function notify_new_session_created( $user = null, $args = [] ) {
@@ -78,10 +78,10 @@ class Message_Notification_Emails {
 
     /**
      * Notify User
-     * 
+     *
      * @param WP_User|false $user
      * @param array $args
-     * 
+     *
      * @return bool
      */
     protected static function notify_user( $user = null, $args = [] ) {
@@ -94,7 +94,7 @@ class Message_Notification_Emails {
 
         $template_data['email'] = $user->user_email;
         $template_data['name']  = $user->display_name;
-        
+
         $password = ( ! empty( $args['password'] ) ) ? $args['password'] : self::get_user_cached_password( $user->user_email );
         $template_data['password'] = ( ! empty( $password ) ) ? $password : __( 'Your chosen password', 'wpwax-customer-support-app' );
 
@@ -110,7 +110,7 @@ class Message_Notification_Emails {
 
     /**
      * Get email body
-     * 
+     *
      * @param array $data
      * @return string
      */
@@ -128,7 +128,7 @@ class Message_Notification_Emails {
                 <b><?php _e( 'Password:', 'wpwax-customer-support-app' ) ?></b> <?php echo $password ; ?> <br>
                 <b><?php _e( 'Link:', 'wpwax-customer-support-app' ) ?></b> <?php echo $link ; ?>
             </p>
-            
+
         <?php
 
         return ob_get_clean();
@@ -136,26 +136,26 @@ class Message_Notification_Emails {
 
     /**
      * Get email headers
-     * 
+     *
      * @param array $data
      * @return string
      */
     protected static function get_email_headers( $data = [] )  {
         $name  = ! empty( $data['name'] ) ? sanitize_text_field( $data['name'] ) : get_option('blogname');
         $email = ! empty( $data['email'] ) ? sanitize_email( $data['email'] ) : get_option('admin_email');
-        
+
         return "From: {$name} <{$email}>\r\nReply-To: {$email}\r\n";
     }
 
 
     /**
      * Send Email
-     * 
+     *
      * @param string $to
      * @param string $subject
      * @param string $message
      * @param string $headers
-     * 
+     *
      * @return bool
      */
     protected static function send_email( $to, $subject, $message, $headers ) {
@@ -168,7 +168,7 @@ class Message_Notification_Emails {
 
     /**
      * Is valid user
-     * 
+     *
      * @param WP_User $user
      * @return bool
      */
@@ -190,7 +190,7 @@ class Message_Notification_Emails {
 
     /**
      * Get user cached password
-     * 
+     *
      * @param string $email
      * @return string Password
      */
@@ -210,7 +210,7 @@ class Message_Notification_Emails {
 
     /**
      * Get Mail content type
-     * 
+     *
      * @param array $data
      * @return string
      */
@@ -220,7 +220,7 @@ class Message_Notification_Emails {
 
     /**
      * Get Mail HTML
-     * 
+     *
      * @param string $subject
      * @param string $message
      * @return string Email row html
@@ -228,8 +228,8 @@ class Message_Notification_Emails {
     public static function email_html($subject, $message){
         $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
         $header = '';
-        $email_header_color = get_directorist_option('email_header_color', '#8569fb');
-        $allow_email_header = get_directorist_option('allow_email_header', 1);
+        $email_header_color = '#8569fb';
+        $allow_email_header = true;
         $author = "<a href='https://wpwax.com/'>wpWax</a>";
         if ($allow_email_header){
             $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
@@ -240,7 +240,7 @@ class Message_Notification_Emails {
                                             </tr>
                                         </table>');
         }
-    
+
         return '<!DOCTYPE html>
     <html lang="en-US">
         <head>

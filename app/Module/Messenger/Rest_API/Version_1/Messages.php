@@ -421,25 +421,12 @@ class Messages extends Rest_Base
         $data    = $this->prepare_message_item_for_response($data, $args);
         $success = true;
 
-        // Notify User if requested
-        $email_notice = Helper\get_option( 'email_notice', true );
-        $notice_type  = Helper\get_option( 'notice_type', 'first_message' );
-        if ( $email_notice ) {
-            $user         = get_user_by('id', $args['user_id']);
-            $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
-            $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
+        /**
+         * Fires after creating an item
+         * @since 1.0
+         */
 
-            if( 'every_message' === $notice_type ) {
-                Message_Notification_Emails::notify_users($user);
-            }else{
-                if (count($old_messages) < 2) {
-                    Message_Notification_Emails::notify_first_session_created($user);
-                } else if (count($old_sessions) < 2) {
-                    Message_Notification_Emails::notify_new_session_created($user);
-                }
-            }
-            
-        }
+        do_action( 'helpget_after_message_inserted', $data, $args );
 
         return $this->response($success, $data);
     }

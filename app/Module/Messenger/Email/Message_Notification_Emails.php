@@ -2,6 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 class Message_Notification_Emails {
 
@@ -13,7 +14,78 @@ class Message_Notification_Emails {
     public function __construct() {
 
         add_action( 'wpwax_customer_support_app_rest_insert_user', [ $this, 'cache_user_password' ], 20, 3 );
+        
+        add_action( 'helpget_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
+        add_action( 'init', [ $this, 'init' ] );
 
+
+    }
+
+
+    public function init() {
+
+        $old_sessions = Message_Model::get_items(['where' => ['session_id' => '960cj661ks0630o0m1q01387wy0n8']]);
+
+        e_var_dump($old_sessions);
+    }
+
+    /**
+     * Notify all participants
+     * 
+     * @param array $data Response data
+     * @param array $args Request params.
+     */
+    public function notify_after_message_inserted( $data, $args ) {
+
+        $email_notice = Helper\get_option( 'email_notice', true );
+        if( ! $email_notice ) {
+            return;
+        }
+
+        $users  = [];
+        $clints = [];
+        $admins = [];
+
+        $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
+
+        wp_send_json($old_sessions);
+
+        //On Message Created
+        # Get The Message Owner
+            # If The Message Owner is Admin
+                # Get The Client Email
+                    # Notify Client -> Admin Replied To Your Message
+
+            # If The Message Owner is Client
+                # Get The Admin Email
+                    # Notify Admin -> A New Message ReceivedOn Message Created
+        # Get The Message Owner
+            # If The Message Owner is Admin
+                # Get The Client Email
+                    # Notify Client -> Admin Replied To Your Message
+
+            # If The Message Owner is Client
+                # Get The Admin Email
+                    # Notify Admin -> A New Message Received
+
+
+        
+
+        $user         = get_user_by('id', $args['user_id']);
+        $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
+        $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
+        $notice_type  = Helper\get_option( 'notice_type', 'first_message' );
+
+        if( 'every_message' === $notice_type ) {
+            Message_Notification_Emails::notify_users($user);
+        }else{
+            if (count($old_messages) < 2) {
+                Message_Notification_Emails::notify_first_session_created($user);
+            } else if (count($old_sessions) < 2) {
+                Message_Notification_Emails::notify_new_session_created($user);
+            }
+        }
+             
     }
 
     /**

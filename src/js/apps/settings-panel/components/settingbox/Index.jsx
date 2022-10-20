@@ -10,21 +10,32 @@ import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
     const [settingContentState, setSettingContentState] = useState({
-        contentKey: "emailGeneral",
+        contentKey: "email_general",
         options: {
             enableEmailNotification: true,
-            emailNotificationType: "single",
-            enableHtmlEmail: true,
+            adminEmailNotificationType: "single",
+            userEmailNotificationType: "single",
             enableEmailHeader: true,
             emailHeaderColor: "#000000",
             addSiteLogo: true,
             emailTemplateFromName: "",
             emailTemplateFromEmail: "",
-            emailTemplateFromSubject: "",
-            emailTemplateBody: ""
+            enableEmailCustomization: true,
+            emailTemplateGreetingSubject: "",
+            emailTemplateGreetingBody: "",
+            emailTemplateMessageSubject: "",
+            emailTemplateMessageBody: ""
         },
         loading: true
     });
+
+    const getPath = ()=> {
+        if(settingContentState.contentKey === "email_general"){
+            return "Email General";
+        }else if(settingContentState.contentKey === "email_template"){
+            return "Email Template"
+        }
+    }
 
     useEffect(() => {
 
@@ -103,7 +114,7 @@ const SettingBox = () => {
                     <div className="wpwax-vm-seetings-box__breadcrumb">
                         <ul>
                             <li><a href="#">Email <span className="dashicons dashicons-arrow-right-alt2"></span></a></li>
-                            <li><a href="#" className="wpwax-vm-active">Email general</a></li>
+                            <li><a href="#" className="wpwax-vm-active">{getPath()}</a></li>
                         </ul>
                     </div>
                     <div className="wpwax-vm-seetings-box__actions">
@@ -115,6 +126,7 @@ const SettingBox = () => {
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
                     <Sidebar contentState={settingContentState} setContentState={setSettingContentState} />
+                    
                     <div className={settingContentState.loading ? "wpwax-settings-content-box wpwax-vm-loder-active" : "wpwax-settings-content-box"}>
                         {
                             settingContentState.loading ? <LoadingSpinDot /> : <SettingContent contentState={settingContentState} setContentState={setSettingContentState} />

@@ -28,12 +28,12 @@ const settingsDate = [
     }
 ]
 const Sidebar = props => {
-    // const { settingContentState, setSettingContentState } = props;
+    const { contentState, setContentState } = props;
     return (
         <SidebarWrap>
             <ul className="wpwax-vm-sidebar-nav">
                 {
-                    settingsDate.map((menuItem, index) => <NavItem item={menuItem} key={index} />)
+                    settingsDate.map((menuItem, index) => <NavItem item={menuItem} key={index} contentState={contentState} setContentState={setContentState} />)
                 }
             </ul>
         </SidebarWrap>

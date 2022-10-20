@@ -5039,24 +5039,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var SettingBox = function SettingBox() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      contentKey: "emailGeneral",
+      contentKey: "email_general",
       options: {
         enableEmailNotification: true,
-        emailNotificationType: "single",
-        enableHtmlEmail: true,
+        adminEmailNotificationType: "single",
+        userEmailNotificationType: "single",
         enableEmailHeader: true,
         emailHeaderColor: "#000000",
         addSiteLogo: true,
         emailTemplateFromName: "",
         emailTemplateFromEmail: "",
-        emailTemplateFromSubject: "",
-        emailTemplateBody: ""
+        enableEmailCustomization: true,
+        emailTemplateGreetingSubject: "",
+        emailTemplateGreetingBody: "",
+        emailTemplateMessageSubject: "",
+        emailTemplateMessageBody: ""
       },
       loading: true
     }),
     _useState2 = _slicedToArray(_useState, 2),
     settingContentState = _useState2[0],
     setSettingContentState = _useState2[1];
+  var getPath = function getPath() {
+    if (settingContentState.contentKey === "email_general") {
+      return "Email General";
+    } else if (settingContentState.contentKey === "email_template") {
+      return "Email Template";
+    }
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
       loading: true
@@ -5186,7 +5196,7 @@ var SettingBox = function SettingBox() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                 href: "#",
                 className: "wpwax-vm-active",
-                children: "Email general"
+                children: getPath()
               })
             })]
           })
@@ -5249,7 +5259,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    font-family: 'Inter',sans-serif;\n    margin: 0 auto;\n    @media only screen and (max-width: 1299px) {\n        max-width: 960px;\n    }\n    @media only screen and (max-width: 1199px) {\n        max-width: 900px;\n        margin-right: 15px;\n    }\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n            @media only screen and (max-width: 575px) {\n                font-size: 20px;\n            }\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                @media only screen and (max-width: 575px) {\n                    font-size: 12px;\n                    margin: 6px;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                    svg path{\n                        fill: var(--color-primary);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                flex-direction: column;\n                align-items: center;\n            }\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 767px) {\n                margin-bottom: 15px;\n            }\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        @media only screen and (max-width: 767px) {\n                            font-size: 12px;\n                        }\n                        &.wpwax-vm-active{\n                            color: rgba(255,255,255,1);\n                        }\n                        &:focus{\n                            outline: none;\n                            box-shadow: 0 0;\n                        }\n                        span.dashicons{\n                            width: 18px;\n                            height: 18px;\n                            font-size: 16px;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n            .wpwax-settings-content-box{\n                flex: auto;\n                &.wpwax-vm-loder-active{\n                    &:after{\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n                .wpwax-vm-loading-spin{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    z-index: 100;\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                justify-content: center;\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
 var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n    @media only screen and (max-width: 1299px) {\n        min-width: 200px;\n    }\n    @media only screen and (max-width: 767px) {\n        display: none;\n    }\n"])));
 var SidebarMenuItem = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    >a{\n        position: relative;\n        display: flex;\n        align-items: center;\n        font-size: 14px;\n        font-weight: 500;\n        min-height: 50px;\n        padding: 0 25px;\n        text-decoration: none;\n        color: var(--color-dark);\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            height: 100%;\n            width: 2px;\n            content: \"\";\n            opacity: 0;\n            visibility: hidden;\n            background-color: var(--color-primary);\n        }\n        &:focus{\n            box-shadow: 0 0;\n            outline: none;\n        }\n        .wpwax-vm-sidebar-nav__item--icon{\n            margin-right: 15px;\n        }\n        .wpwax-vm-sidebar-nav__item--text{\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n        }\n    }\n    &.wpwax-vm-sidebar-nav__submenu-open{\n        >a{\n            background-color: var(--color-white);\n            &:before{\n                opacity: 1;\n                visibility: visible;\n            }\n        }\n    }\n    ul{\n        padding-left: 60px;\n        li{\n            a{\n                display: block;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                padding: 12px 0;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                }\n                &.wpwax-vm-active{\n                    color: var(--color-primary);\n                }\n            }\n            &:first-child{\n                a{\n                    padding-top: 20px;\n                }\n            }\n            &:last-child{\n                a{\n                    padding-bottom: 20px;\n                }\n            }\n        }\n    }\n"])));
-var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 20px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 80px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n"])));
+var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 14px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 80px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n            .wpwax-vm-settings__swtich-content--item{\n                padding-bottom: 20px;\n                border-bottom: 1px solid var(--color-border-light);\n                h4{\n                    margin: 16px 0 10px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n\n    .wpwax-vm-card{\n        .wpwax-vm-settings__single{\n            &:not(:last-child){\n                margin-bottom: 25px;\n            }\n        }\n    }\n\n    .wpwax-vm-setting__swtich-inner{\n        display: none;\n        &.wpwax-vm-show{\n            display: block;\n        }\n    }\n\n"])));
 var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    max-width: 350px;\n    box-shadow: 0 5px 15px rgba(0,0,0,.16);\n    .wpwax-vm-chatbox-top{\n        position: relative;\n        padding: 20px;\n        border-radius: 10px 10px 0 0;\n        background-color: var(--color-dark);\n        .wpwax-vm-chatbox-top__title{\n            margin-bottom: 10px;\n        }\n        .wpwax-vm-chatbox-top__imglist{\n            display: flex;\n            >div{\n                margin: 3px;\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: 16px;\n            top: 16px;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-chatbox-content{\n        padding: 10px 12px;\n        min-height: 310px;\n        background-color: #F7F7F7;\n        .wpwax-vm-chatbox-content___inner{\n            display: flex;\n            align-items: start;\n            position: relative;\n            border-radius: 10px;\n            padding: 20px;\n            border-top: 3px solid var(--color-primary);\n            background-color: var(--color-white);\n            .wpwax-vm-chatbox-content__text{\n                p{\n                    font-size: 14px;\n                    font-weight: 600;\n                    margin: 0 0 14px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-btn{\n                    padding: 0 22px;\n                    border-radius: 17px;\n                    &.wpwax-vm-btn-sm{\n                        height: 34px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-content__img{\n            padding: 5px;\n            border-radius: 50%;\n            width: 85px;\n            height: 85px;\n            margin-right: 15px;\n            box-shadow: 0 0 15px rgba(0,0,0,.10);\n            background-color: var(--color-white);\n            img{\n                max-width: 85px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-bottom{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 8px 15px;\n        border-radius: 0 0 10px 10px;\n        background-color: var(--color-white);\n        .wpwax-vm-btn-send{\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 34px;\n            height: 34px;\n            border-radius: 50%;\n            background-color: #E2E2E2;\n            >div{\n                line-height: 1;\n            }\n            svg {\n                width: 14px;\n                height: 14px;\n                path{\n                    fill: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -5363,6 +5373,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Style_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Style.js */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -5382,6 +5395,8 @@ var NavItem = function NavItem(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     subNavPath = _useState4[0],
     setsubNavPath = _useState4[1];
+  var contentState = props.contentState,
+    setContentState = props.setContentState;
   var handleSubnav = function handleSubnav(e) {
     e.preventDefault();
     setNavId(e.target.id);
@@ -5389,6 +5404,9 @@ var NavItem = function NavItem(props) {
   var handleSubnavActivation = function handleSubnavActivation(e) {
     e.preventDefault();
     setsubNavPath(e.target.id);
+    setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+      contentKey: e.target.id
+    }));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_1__.SidebarMenuItem, {
     className: props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item",
@@ -5435,18 +5453,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/form-fields/Dropdown.jsx */ "./src/js/components/form-fields/Dropdown.jsx");
 /* harmony import */ var Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/form-fields/Radio.jsx */ "./src/js/components/form-fields/Radio.jsx");
 /* harmony import */ var _ChatBoxPreview_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ChatBoxPreview.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/ChatBoxPreview.jsx");
 /* harmony import */ var _components_EmailGeneral_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/EmailGeneral.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/components/EmailGeneral.jsx");
-/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
-/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
-/* harmony import */ var Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/hand-right.svg */ "./src/assets/svg/icons/hand-right.svg");
-/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
-/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_EmailTemplate_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/EmailTemplate.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/components/EmailTemplate.jsx");
+/* harmony import */ var Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/angle-down.svg */ "./src/assets/svg/icons/angle-down.svg");
+/* harmony import */ var Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/angle-up.svg */ "./src/assets/svg/icons/angle-up.svg");
+/* harmony import */ var Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/hand-right.svg */ "./src/assets/svg/icons/hand-right.svg");
+/* harmony import */ var Assets_svg_icons_hand_down_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/hand-down.svg */ "./src/assets/svg/icons/hand-down.svg");
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5459,6 +5477,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 // import { ReactSVG } from 'react-svg';
+
 
 
 
@@ -5508,166 +5527,17 @@ var SettingContent = function SettingContent(props) {
     icon: "",
     text: "Oldest"
   }];
-  var SettingContentData = [{
-    key: "emailGeneral",
-    content: [{
-      label: "Enable Email Notification",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
-        uncheckedIcon: false,
-        checkedIcon: false,
-        onColor: "#6551F2",
-        offColor: "#E2E2E2",
-        className: "wpwax-vm-switch",
-        handleDiameter: 14,
-        height: 22,
-        width: 40,
-        checked: messageSubmission,
-        onChange: handleMessageSubmission
-      })
-    }, {
-      label: "Send user an email",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
-        uncheckedIcon: false,
-        checkedIcon: false,
-        onColor: "#6551F2",
-        offColor: "#E2E2E2",
-        className: "wpwax-vm-switch",
-        handleDiameter: 14,
-        height: 22,
-        width: 40,
-        checked: messageSubmission,
-        onChange: handleMessageSubmission
-      })
-    }, {
-      label: "Email template",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        selectable: true,
-        dropdownText: false,
-        dropdownSelectedText: true,
-        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
-        dropdownList: emailTemplate,
-        dropdownWidth: "full"
-      })
-    }]
-  }, {
-    key: "emailTemplate",
-    content: [{
-      label: "Select the form to integrate",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        selectable: true,
-        dropdownText: false,
-        dropdownSelectedText: true,
-        dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_7__["default"],
-        dropdownIconClose: Assets_svg_icons_angle_down_svg__WEBPACK_IMPORTED_MODULE_6__["default"],
-        dropdownList: emailTemplate,
-        dropdownWidth: "full"
-      })
-    }, {
-      label: "Activate Chat Button",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        className: "wpwax-vm-setting-has-info",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_10__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          className: "wpwax-vm-switch",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: messageSubmission,
-          onChange: handleMessageSubmission
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
-          className: "wpwax-vm-setting-info",
-          href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__["default"], {
-            src: Assets_svg_icons_hand_right_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-            className: "wpwax-vm-setting-has-info__text",
-            children: "See, what would it look like!"
-          })]
-        })]
-      })
-    }, {
-      label: "Chat Button Position",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        className: "wpwax-vm-radio-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-          className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "wpwax-vm-btn-position-one",
-            label: "Position one",
-            name: "wpwax-vm-btn-position"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-          className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "wpwax-vm-btn-position-two",
-            label: "Position two",
-            name: "wpwax-vm-btn-position"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-          className: "wpwax-vm-radio-list__item",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-            id: "wpwax-vm-btn-position-three",
-            label: "Position three",
-            name: "wpwax-vm-btn-position"
-          })
-        })]
-      })
-    }, {
-      label: "Chat Button Color",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        className: "wpwax-vm-form__color-plate",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-          className: "wpwax-vm-form__color-text",
-          children: "#6551f2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
-          htmlFor: "wpwax-vm-form-button-color",
-          className: "wpwax-vm-form__color-ball",
-          style: {
-            backgroundColor: "#6551f2"
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
-          type: "color",
-          id: "wpwax-vm-form-button-color",
-          className: "wpwax-vm-form__element",
-          value: "#6551f2"
-        })]
-      })
-    }, {
-      label: "Chat Box Text",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-        className: "wpwax-vm-form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", {
-          type: "text",
-          className: "wpwax-vm-form__element",
-          id: "wpwax-vm-chat-btn-text",
-          value: "Get Started"
-        })
-      })
-    }, {
-      label: "Chat Button Text",
-      component: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
-        className: "wpwax-vm-form-group",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("textarea", {
-          type: "text",
-          className: "wpwax-vm-form__element",
-          id: "wpwax-vm-chat-btn-text",
-          value: "Leave your questions below and we will get back to you asap."
-        })
-      })
-    }]
-  }];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_11__.SettingContentWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_12__.SettingContentWrap, {
     className: "wpwax-vm-settings-inner",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("form", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
       action: "",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_EmailGeneral_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      children: [contentState.contentKey === "email_general" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_EmailGeneral_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         contentState: contentState,
         setContentState: setContentState
-      })
+      }) : null, contentState.contentKey === "email_template" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_EmailTemplate_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        contentState: contentState,
+        setContentState: setContentState
+      }) : null]
     })
   });
 };
@@ -5721,13 +5591,16 @@ var settingsDate = [{
   }]
 }];
 var Sidebar = function Sidebar(props) {
-  // const { settingContentState, setSettingContentState } = props;
+  var contentState = props.contentState,
+    setContentState = props.setContentState;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.SidebarWrap, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
       className: "wpwax-vm-sidebar-nav",
       children: settingsDate.map(function (menuItem, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_NavItem_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          item: menuItem
+          item: menuItem,
+          contentState: contentState,
+          setContentState: setContentState
         }, index);
       })
     })
@@ -5762,81 +5635,16 @@ var EmailGeneral = function EmailGeneral(props) {
   var contentState = props.contentState,
     setContentState = props.setContentState;
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
-    console.log(value);
-    if (id === "wpwax-vm-enable-mail-notification") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          enableEmailNotification: value
-        })
-      }));
-    } else if (id === "wpwax-vm-enable-mail") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          enableHtmlEmail: value
-        })
-      }));
-    } else if (id === "wpwax-vm-enable-mail-header") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          enableEmailHeader: value
-        })
-      }));
-    } else if (id === "wpwax-vm-add-site-logo") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          addSiteLogo: value
-        })
-      }));
-    }
+    setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+      options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
+    }));
   };
-  var handleUpdateInput = function handleUpdateInput(event) {
-    if (event.target.id === "wpwax-vm-mail-header-color") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailHeaderColor: event.target.value
-        })
-      }));
-    } else if (event.target.id === "wpwax-vm-mail-from-name") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailTemplateFromName: event.target.value
-        })
-      }));
-    } else if (event.target.id === "wpwax-vm-mail-from-email") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailTemplateFromEmail: event.target.value
-        })
-      }));
-    } else if (event.target.id === "wpwax-vm-mail-from-subject") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailTemplateFromSubject: event.target.value
-        })
-      }));
-    } else if (event.target.id === "wpwax-vm-mail-from-body") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailTemplateBody: event.target.value
-        })
-      }));
-    }
-  };
-  var handleSettingSwitch = function handleSettingSwitch(event) {};
-  var handleUpdateRadio = function handleUpdateRadio(event) {
-    if (event.target.id === "wpwax-vm-send-mail-single") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailNotificationType: "single"
-        })
-      }));
-    } else if (event.target.id === "wpwax-vm-send-mail-multiple") {
-      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
-        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
-          emailNotificationType: "multiple"
-        })
-      }));
-    }
+  var handleChange = function handleChange(event) {
+    var settingName = event.target.name;
+    var settingValue = event.target.value;
+    setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+      options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
+    }));
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-settings",
@@ -5853,64 +5661,80 @@ var EmailGeneral = function EmailGeneral(props) {
           onColor: "#6551F2",
           offColor: "#E2E2E2",
           className: "wpwax-vm-switch",
-          id: "wpwax-vm-enable-mail-notification",
+          id: "enableEmailNotification",
           handleDiameter: 14,
           height: 22,
           width: 40,
           checked: contentState.options.enableEmailNotification,
           onChange: handleUpdateSwitch
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "wpwax-vm-radio-list",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "wpwax-vm-radio-single",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                id: "wpwax-vm-send-mail-single",
-                label: "First message in a conversation",
-                value: "single",
-                name: "wpwax-vm-send-mail-option",
-                onChange: function onChange(e) {
-                  return handleUpdateRadio(e);
-                },
-                checked: contentState.options.emailNotificationType === "single"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-              className: "wpwax-vm-radio-single",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-                id: "wpwax-vm-send-mail-multiple",
-                label: "Every message in a conversion",
-                value: "multiple",
-                name: "wpwax-vm-send-mail-option",
-                onChange: function onChange(e) {
-                  return handleUpdateRadio(e);
-                },
-                checked: contentState.options.emailNotificationType === "multiple"
-              })
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "wpwax-vm-settings__swtich-content--item",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+              children: "Admin Events"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-radio-list",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-radio-single",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "wpwax-vm-admin-send-mail-single",
+                  label: "First message in a conversation",
+                  value: "single",
+                  name: "adminEmailNotificationType",
+                  onChange: function onChange(e) {
+                    return handleChange(e);
+                  },
+                  checked: contentState.options.adminEmailNotificationType === "single"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-radio-single",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "wpwax-vm-admin-send-mail-multiple",
+                  label: "Every message in a conversion",
+                  value: "multiple",
+                  name: "adminEmailNotificationType",
+                  onChange: function onChange(e) {
+                    return handleChange(e);
+                  },
+                  checked: contentState.options.adminEmailNotificationType === "multiple"
+                })
+              })]
             })]
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "wpwax-vm-settings__swtich-content--item",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+              children: "User Events"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-radio-list",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-radio-single",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "wpwax-vm-user-send-mail-single",
+                  label: "First message in a conversation",
+                  value: "single",
+                  name: "userEmailNotificationType",
+                  onChange: function onChange(e) {
+                    return handleChange(e);
+                  },
+                  checked: contentState.options.userEmailNotificationType === "single"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-radio-single",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "wpwax-vm-user-send-mail-multiple",
+                  label: "Every message in a conversion",
+                  value: "multiple",
+                  name: "userEmailNotificationType",
+                  onChange: function onChange(e) {
+                    return handleChange(e);
+                  },
+                  checked: contentState.options.userEmailNotificationType === "multiple"
+                })
+              })]
+            })]
+          })]
         })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
-        className: "wpwax-vm-settings__single--label",
-        children: "Enable HTML email"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          className: "wpwax-vm-switch",
-          id: "wpwax-vm-enable-mail",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: contentState.options.enableHtmlEmail,
-          onChange: handleUpdateSwitch
-        })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
@@ -5948,8 +5772,9 @@ var EmailGeneral = function EmailGeneral(props) {
               type: "color",
               id: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__element",
+              name: "emailHeaderColor",
               value: contentState.options.emailHeaderColor,
-              onChange: handleUpdateInput
+              onChange: handleChange
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-inline-switch",
@@ -5986,9 +5811,10 @@ var EmailGeneral = function EmailGeneral(props) {
             type: "text",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-mail-from-name",
+            name: "emailTemplateFromName",
             placeholder: "ex. Vidsupp",
             value: contentState.options.emailTemplateFromName,
-            onChange: handleUpdateInput
+            onChange: handleChange
           })
         })
       })]
@@ -6006,153 +5832,297 @@ var EmailGeneral = function EmailGeneral(props) {
             type: "text",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-mail-from-email",
+            name: "emailTemplateFromEmail",
             placeholder: "example@gmail.com",
             value: contentState.options.emailTemplateFromEmail,
-            onChange: handleUpdateInput
+            onChange: handleChange
           })
         })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-mail-from-subject",
-        children: "Email From  Subject"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-mail-from-subject",
-            placeholder: "ex. mail Subject",
-            value: contentState.options.emailTemplateSubject,
-            onChange: handleUpdateInput
-          })
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-mail-from-body",
-        children: "Email From  Body"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-mail-from-body",
-            placeholder: "",
-            value: contentState.options.emailTemplateBody,
-            onChange: handleUpdateInput
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "wpwax-vm-note",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-note__icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "dashicons dashicons-info"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "wpwax-vm-note__inner",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
-              className: "wpwax-vm-note__title",
-              children: "Allowed Placeholders"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              className: "wpwax-vm-note__content",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==NAME==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "Name of the person who sent the initial message."
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==SITE_NAME==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "It outputs your site name"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==SITE_LINK==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "==It outputs your site url with link=="
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==SITE_URL==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: " It outputs your site url with link"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==MESSAGE==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "It outputs messege details."
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==TODAY==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "It outputs the current date"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==NOW==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "It outputs the current time"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==DASHBOARD_LINK==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "It outputs the user dashboard page link"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                className: "wpwax-vm-note__single",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--label",
-                  children: "==REPLIER_NAME==:"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-                  className: "wpwax-vm-note__single--text",
-                  children: "the person who will reply in a conversation"
-                })]
-              })]
-            })]
-          })]
-        })]
       })]
     })]
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = (EmailGeneral);
+
+/***/ }),
+
+/***/ "./src/js/apps/settings-panel/components/settingbox/components/components/EmailTemplate.jsx":
+/*!**************************************************************************************************!*\
+  !*** ./src/js/apps/settings-panel/components/settingbox/components/components/EmailTemplate.jsx ***!
+  \**************************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var EmailTemplate = function EmailTemplate(props) {
+  var contentState = props.contentState,
+    setContentState = props.setContentState;
+  var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
+    setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+      options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
+    }));
+  };
+  var handleChange = function handleChange(event) {
+    var settingName = event.target.name;
+    var settingValue = event.target.value;
+    setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+      options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
+    }));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "wpwax-vm-setting-wrap",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "wpwax-vm-note",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "wpwax-vm-note__icon",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+          className: "dashicons dashicons-info"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "wpwax-vm-note__inner",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+          className: "wpwax-vm-note__title",
+          children: "Allowed Placeholders"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "wpwax-vm-note__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==NAME==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "Name of the person who sent the initial message."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==SITE_NAME==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site name"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==SITE_LINK==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "==It outputs your site url with link=="
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==SITE_URL==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: " It outputs your site url with link"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==MESSAGE==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs messege details."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==TODAY==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs the current date"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==NOW==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs the current time"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==DASHBOARD_LINK==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs the user dashboard page link"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: "==REPLIER_NAME==:"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "the person who will reply in a conversation"
+            })]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "wpwax-vm-settings wpwax-vm-mb-20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "wpwax-vm-settings__single",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+          className: "wpwax-vm-settings__single--label",
+          children: "Email Customization"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-settings__single--element",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            uncheckedIcon: false,
+            checkedIcon: false,
+            onColor: "#6551F2",
+            offColor: "#E2E2E2",
+            className: "wpwax-vm-switch",
+            id: "enableEmailCustomization",
+            handleDiameter: 14,
+            height: 22,
+            width: 40,
+            checked: contentState.options.enableEmailCustomization,
+            onChange: handleUpdateSwitch
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: contentState.options.enableEmailCustomization ? "wpwax-vm-setting__swtich-inner wpwax-vm-show" : "wpwax-vm-setting__swtich-inner",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "wpwax-vm-card",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-card-header",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+            className: "wpwax-vm-card-header__title",
+            children: "Greetings"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-card-body",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-settings",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "wpwax-vm-settings__single",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                className: "wpwax-vm-settings__single--label",
+                htmlFor: "wpwax-vm-mail-from-subject",
+                children: "Email Subject"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                className: "wpwax-vm-settings__single--element",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "wpwax-vm-form-group",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                    type: "text",
+                    className: "wpwax-vm-form__element",
+                    id: "wpwax-vm-mail-from-subject",
+                    name: "emailTemplateGreetingSubject",
+                    placeholder: "ex. mail Subject",
+                    value: contentState.options.emailTemplateGreetingSubject,
+                    onChange: handleChange
+                  })
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "wpwax-vm-settings__single",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                className: "wpwax-vm-settings__single--label",
+                htmlFor: "wpwax-vm-mail-from-body",
+                children: "Email Body"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                className: "wpwax-vm-settings__single--element",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "wpwax-vm-form-group",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("textarea", {
+                    className: "wpwax-vm-form__element",
+                    id: "wpwax-vm-mail-from-body",
+                    name: "emailTemplateGreetingBody",
+                    placeholder: "",
+                    value: contentState.options.emailTemplateGreetingBody,
+                    onChange: handleChange
+                  })
+                })
+              })]
+            })]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "wpwax-vm-card",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-card-header",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h3", {
+            className: "wpwax-vm-card-header__title",
+            children: "New Meaage"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-card-body",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-settings",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "wpwax-vm-settings__single",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                className: "wpwax-vm-settings__single--label",
+                htmlFor: "wpwax-vm-message-mail-from-subject",
+                children: "Email Subject"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                className: "wpwax-vm-settings__single--element",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "wpwax-vm-form-group",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+                    type: "text",
+                    className: "wpwax-vm-form__element",
+                    id: "wpwax-vm-message-mail-from-subject",
+                    name: "emailTemplateMessageSubject",
+                    placeholder: "ex. mail Subject",
+                    value: contentState.options.emailTemplateSubject,
+                    onChange: handleChange
+                  })
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "wpwax-vm-settings__single",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+                className: "wpwax-vm-settings__single--label",
+                htmlFor: "wpwax-vm-message-mail-from-body",
+                children: "Email Body"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                className: "wpwax-vm-settings__single--element",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                  className: "wpwax-vm-form-group",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("textarea", {
+                    className: "wpwax-vm-form__element",
+                    id: "wpwax-vm-message-mail-from-body",
+                    name: "emailTemplateMessageBody",
+                    placeholder: "",
+                    value: contentState.options.emailTemplateMessageBody,
+                    onChange: handleChange
+                  })
+                })
+              })]
+            })]
+          })
+        })]
+      })]
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (EmailTemplate);
 
 /***/ }),
 

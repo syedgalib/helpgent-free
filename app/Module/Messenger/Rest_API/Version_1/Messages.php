@@ -280,16 +280,11 @@ class Messages extends Rest_Base
 
         $args = Helper\filter_params($default, $args);
 
-		file_put_contents( dirname( __FILE__ ) . '/log-1.json', json_encode( $where ) );
-
 		if ( ! empty( $args['timezone'] ) ) {
 			$timezone = $args['timezone'];
 			$where['updated_on'] = ( ! empty( $where['updated_on'] ) ) ? Helper\convert_to_db_timezone( $where['updated_on'], $timezone ) : $where['updated_on'] ;
 			$where['created_on'] = ( ! empty( $where['created_on'] ) ) ? Helper\convert_to_db_timezone( $where['created_on'], $timezone ) : $where['created_on'] ;
 		}
-
-		file_put_contents( dirname( __FILE__ ) . '/log-2.json', json_encode( $where ) );
-		file_put_contents( dirname( __FILE__ ) . '/log-3.json', json_encode( $args ) );
 
         $args['where'] = $where;
 

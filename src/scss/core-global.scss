@@ -912,6 +912,40 @@
         border-radius: 5px;
     }
 }
+
+/* wpwax-vm Note Style */
+.wpwax-vm-note{
+    margin-bottom: 30px;
+    padding: 30px;
+    background-color: #dcebfe;
+    border-radius: 4px;
+    display: flex;
+    .wpwax-vm-note__icon{
+        margin-right: 10px;
+    }
+    .dashicons{
+        font-size: 30px;
+        opacity: .2;
+        margin-right: 15px;
+    }
+    .wpwax-vm-note__title{
+        font-size: 1rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: var(--color-primary);
+    }
+    .wpwax-vm-note__single{
+        &:not(:last-child){
+            margin-bottom: 6px;
+        }
+        .wpwax-vm-note__single--label{
+            font-weight: 500;
+            margin-right: 5px;
+            color: #c71585;
+        }
+    }
+}
+
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
     min-height: 600px;
@@ -1194,5 +1228,15 @@
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+    .wpwax-vm-note{
+        padding: 15px;
+    }
+    .wpwax-vm-btn{
+        font-size: 14px;
     }
 }

@@ -16,8 +16,6 @@ import { SettingContentWrap } from '../Style';
 const SettingContent = props => {
 
     const { contentState, setContentState } = props;
-
-    console.log(contentState);
     
     /* initialize Form Data */
     const { settingActive } = useSelector(state => {

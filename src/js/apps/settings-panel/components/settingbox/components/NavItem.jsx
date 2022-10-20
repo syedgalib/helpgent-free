@@ -13,8 +13,6 @@ const NavItem = props => {
         e.preventDefault();
         setsubNavPath(e.target.id);
     };
-
-    console.log(subNavPath);
     
     return (
         <SidebarMenuItem className={props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item"}>

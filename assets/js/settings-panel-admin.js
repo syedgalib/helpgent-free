@@ -5004,19 +5004,30 @@ function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _components_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Sidebar.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/Sidebar.jsx");
-/* harmony import */ var _components_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingContent.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/SettingContent.jsx");
-/* harmony import */ var Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/file.svg */ "./src/assets/svg/icons/file.svg");
-/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
+/* harmony import */ var _components_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Sidebar.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/Sidebar.jsx");
+/* harmony import */ var _components_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SettingContent.jsx */ "./src/js/apps/settings-panel/components/settingbox/components/SettingContent.jsx");
+/* harmony import */ var Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/file.svg */ "./src/assets/svg/icons/file.svg");
+/* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
+/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/js/components/LoadingSpinDot.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -5036,106 +5047,176 @@ var SettingBox = function SettingBox() {
         enableEmailHeader: true,
         emailHeaderColor: "#000000",
         addSiteLogo: true,
-        emailTemplateFormName: "",
-        emailTemplateFormEmail: "",
-        emailTemplateSubject: "",
+        emailTemplateFromName: "",
+        emailTemplateFromEmail: "",
+        emailTemplateFromSubject: "",
         emailTemplateBody: ""
-      }
+      },
+      loading: true
     }),
     _useState2 = _slicedToArray(_useState, 2),
     settingContentState = _useState2[0],
     setSettingContentState = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__.SetingBoxWrap, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+      loading: true
+    }));
+    var fetchSettings = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var fetchSettingsResponse;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].getAll('/settings');
+              case 2:
+                fetchSettingsResponse = _context.sent;
+                return _context.abrupt("return", fetchSettingsResponse);
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      return function fetchSettings() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+    fetchSettings().then(function (fetchSettingsResponse) {
+      setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+        options: fetchSettingsResponse.data.data,
+        loading: false
+      }));
+    }).catch(function (error) {
+      setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+        loading: false
+      }));
+    });
+  }, []);
+  var handleSaveSetting = function handleSaveSetting(event) {
+    event.preventDefault();
+    console.log(event);
+    setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+      loading: true
+    }));
+    var saveSettings = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var saveSettingsResponse;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].dataAdd("/settings", settingContentState);
+              case 2:
+                saveSettingsResponse = _context2.sent;
+                return _context2.abrupt("return", saveSettingsResponse);
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      return function saveSettings() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+    saveSettings().then(function (saveSettingsResponse) {
+      setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+        options: saveSettingsResponse.data.data,
+        loading: false
+      }));
+    }).catch(function (error) {
+      console.log(error);
+      setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
+        loading: false
+      }));
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.SetingBoxWrap, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-settings-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
         className: "wpwax-vm-settings-top__title",
         children: "Settings"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-settings-top__links",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
           href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              src: Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              src: Assets_svg_icons_file_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-text",
             children: "Documentation"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
           href: "#",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
-              src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-text",
             children: "Support"
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-seetings-box",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-seetings-box__header",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "wpwax-vm-seetings-box__breadcrumb",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("ul", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("ul", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
                 href: "#",
-                children: ["Settings ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                children: ["Email ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
                   className: "dashicons dashicons-arrow-right-alt2"
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
-                href: "#",
-                children: ["General ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                  className: "dashicons dashicons-arrow-right-alt2"
-                })]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                 href: "#",
                 className: "wpwax-vm-active",
-                children: "General Settings"
+                children: "Email general"
               })
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "wpwax-vm-seetings-box__actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "wpwax-vm-seetings-box-search",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              type: "text",
-              name: "wpwax-vm-settings-search",
-              id: "wpwax-vm-settings-search",
-              placeholder: "Search settings here..."
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
+            onClick: handleSaveSetting,
             children: "Save Changes"
-          })]
+          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-seetings-box__body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Sidebar_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
           contentState: settingContentState,
           setContentState: setSettingContentState
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          contentState: settingContentState,
-          setContentState: setSettingContentState
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: settingContentState.loading ? "wpwax-settings-content-box wpwax-vm-loder-active" : "wpwax-settings-content-box",
+          children: settingContentState.loading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_SettingContent_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            contentState: settingContentState,
+            setContentState: setSettingContentState
+          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-seetings-box__footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary",
+          onClick: handleSaveSetting,
           children: "Save Changes"
         })
       })]
@@ -5165,10 +5246,10 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    margin: 0 auto;\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                &:hover{\n                    color: var(--color-info);\n                    svg path{\n                        fill: var(--color-info);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        span.dashicons{\n                            width: 18px;\n                            height: 18px;\n                            font-size: 16px;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n"])));
+var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    font-family: 'Inter',sans-serif;\n    margin: 0 auto;\n    @media only screen and (max-width: 1299px) {\n        max-width: 960px;\n    }\n    @media only screen and (max-width: 1199px) {\n        max-width: 900px;\n        margin-right: 15px;\n    }\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n            @media only screen and (max-width: 575px) {\n                font-size: 20px;\n            }\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                @media only screen and (max-width: 575px) {\n                    font-size: 12px;\n                    margin: 6px;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                    svg path{\n                        fill: var(--color-primary);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                flex-direction: column;\n                align-items: center;\n            }\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 767px) {\n                margin-bottom: 15px;\n            }\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        @media only screen and (max-width: 767px) {\n                            font-size: 12px;\n                        }\n                        &.wpwax-vm-active{\n                            color: rgba(255,255,255,1);\n                        }\n                        &:focus{\n                            outline: none;\n                            box-shadow: 0 0;\n                        }\n                        span.dashicons{\n                            width: 18px;\n                            height: 18px;\n                            font-size: 16px;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n            .wpwax-settings-content-box{\n                flex: auto;\n                &.wpwax-vm-loder-active{\n                    &:after{\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n                .wpwax-vm-loading-spin{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    z-index: 100;\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                justify-content: center;\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n    @media only screen and (max-width: 1299px) {\n        min-width: 200px;\n    }\n    @media only screen and (max-width: 767px) {\n        display: none;\n    }\n"])));
 var SidebarMenuItem = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    >a{\n        position: relative;\n        display: flex;\n        align-items: center;\n        font-size: 14px;\n        font-weight: 500;\n        min-height: 50px;\n        padding: 0 25px;\n        text-decoration: none;\n        color: var(--color-dark);\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            height: 100%;\n            width: 2px;\n            content: \"\";\n            opacity: 0;\n            visibility: hidden;\n            background-color: var(--color-primary);\n        }\n        &:focus{\n            box-shadow: 0 0;\n            outline: none;\n        }\n        .wpwax-vm-sidebar-nav__item--icon{\n            margin-right: 15px;\n        }\n        .wpwax-vm-sidebar-nav__item--text{\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n        }\n    }\n    &.wpwax-vm-sidebar-nav__submenu-open{\n        >a{\n            background-color: var(--color-white);\n            &:before{\n                opacity: 1;\n                visibility: visible;\n            }\n        }\n    }\n    ul{\n        padding-left: 60px;\n        li{\n            a{\n                display: block;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                padding: 12px 0;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                }\n                &.wpwax-vm-active{\n                    color: var(--color-primary);\n                }\n            }\n            &:first-child{\n                a{\n                    padding-top: 20px;\n                }\n            }\n            &:last-child{\n                a{\n                    padding-bottom: 20px;\n                }\n            }\n        }\n    }\n"])));
-var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    width: 100%;\n    padding: 45px 90px 45px 45px;\n    background-color: var(--color-white);\n    .wpwax-vm-radio-list{\n        margin-top: 20px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 80px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n"])));
+var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 20px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 80px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n"])));
 var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    max-width: 350px;\n    box-shadow: 0 5px 15px rgba(0,0,0,.16);\n    .wpwax-vm-chatbox-top{\n        position: relative;\n        padding: 20px;\n        border-radius: 10px 10px 0 0;\n        background-color: var(--color-dark);\n        .wpwax-vm-chatbox-top__title{\n            margin-bottom: 10px;\n        }\n        .wpwax-vm-chatbox-top__imglist{\n            display: flex;\n            >div{\n                margin: 3px;\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: 16px;\n            top: 16px;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-chatbox-content{\n        padding: 10px 12px;\n        min-height: 310px;\n        background-color: #F7F7F7;\n        .wpwax-vm-chatbox-content___inner{\n            display: flex;\n            align-items: start;\n            position: relative;\n            border-radius: 10px;\n            padding: 20px;\n            border-top: 3px solid var(--color-primary);\n            background-color: var(--color-white);\n            .wpwax-vm-chatbox-content__text{\n                p{\n                    font-size: 14px;\n                    font-weight: 600;\n                    margin: 0 0 14px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-btn{\n                    padding: 0 22px;\n                    border-radius: 17px;\n                    &.wpwax-vm-btn-sm{\n                        height: 34px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-content__img{\n            padding: 5px;\n            border-radius: 50%;\n            width: 85px;\n            height: 85px;\n            margin-right: 15px;\n            box-shadow: 0 0 15px rgba(0,0,0,.10);\n            background-color: var(--color-white);\n            img{\n                max-width: 85px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-bottom{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 8px 15px;\n        border-radius: 0 0 10px 10px;\n        background-color: var(--color-white);\n        .wpwax-vm-btn-send{\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 34px;\n            height: 34px;\n            border-radius: 50%;\n            background-color: #E2E2E2;\n            >div{\n                line-height: 1;\n            }\n            svg {\n                width: 14px;\n                height: 14px;\n                path{\n                    fill: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -5309,7 +5390,6 @@ var NavItem = function NavItem(props) {
     e.preventDefault();
     setsubNavPath(e.target.id);
   };
-  console.log(subNavPath);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_1__.SidebarMenuItem, {
     className: props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
@@ -5395,7 +5475,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var SettingContent = function SettingContent(props) {
   var contentState = props.contentState,
     setContentState = props.setContentState;
-  console.log(contentState);
 
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -5690,6 +5769,57 @@ var EmailGeneral = function EmailGeneral(props) {
           enableEmailNotification: value
         })
       }));
+    } else if (id === "wpwax-vm-enable-mail") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          enableHtmlEmail: value
+        })
+      }));
+    } else if (id === "wpwax-vm-enable-mail-header") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          enableEmailHeader: value
+        })
+      }));
+    } else if (id === "wpwax-vm-add-site-logo") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          addSiteLogo: value
+        })
+      }));
+    }
+  };
+  var handleUpdateInput = function handleUpdateInput(event) {
+    if (event.target.id === "wpwax-vm-mail-header-color") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          emailHeaderColor: event.target.value
+        })
+      }));
+    } else if (event.target.id === "wpwax-vm-mail-from-name") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          emailTemplateFromName: event.target.value
+        })
+      }));
+    } else if (event.target.id === "wpwax-vm-mail-from-email") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          emailTemplateFromEmail: event.target.value
+        })
+      }));
+    } else if (event.target.id === "wpwax-vm-mail-from-subject") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          emailTemplateFromSubject: event.target.value
+        })
+      }));
+    } else if (event.target.id === "wpwax-vm-mail-from-body") {
+      setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
+        options: _objectSpread(_objectSpread({}, contentState.options), {}, {
+          emailTemplateBody: event.target.value
+        })
+      }));
     }
   };
   var handleSettingSwitch = function handleSettingSwitch(event) {};
@@ -5708,7 +5838,6 @@ var EmailGeneral = function EmailGeneral(props) {
       }));
     }
   };
-  console.log(contentState);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -5775,11 +5904,12 @@ var EmailGeneral = function EmailGeneral(props) {
           onColor: "#6551F2",
           offColor: "#E2E2E2",
           className: "wpwax-vm-switch",
+          id: "wpwax-vm-enable-mail",
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: true,
-          onChange: handleSettingSwitch
+          checked: contentState.options.enableHtmlEmail,
+          onChange: handleUpdateSwitch
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -5795,29 +5925,31 @@ var EmailGeneral = function EmailGeneral(props) {
           onColor: "#6551F2",
           offColor: "#E2E2E2",
           className: "wpwax-vm-switch",
+          id: "wpwax-vm-enable-mail-header",
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: true,
-          onChange: handleSettingSwitch
+          checked: contentState.options.enableEmailHeader,
+          onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-settings__swtich-content",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "wpwax-vm-form__color-plate wpwax-vm-mb-10 wpwax-vm-mt-10",
+            className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: "#333333"
+              children: contentState.options.emailHeaderColor
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-              htmlFor: "wpwax-vm-chat-footer-text-color",
+              htmlFor: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: "#999999"
+                backgroundColor: contentState.options.emailHeaderColor
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
               type: "color",
-              id: "wpwax-vm-footer-text-color",
+              id: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__element",
-              value: "#000000"
+              value: contentState.options.emailHeaderColor,
+              onChange: handleUpdateInput
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-inline-switch",
@@ -5830,19 +5962,21 @@ var EmailGeneral = function EmailGeneral(props) {
               onColor: "#6551F2",
               offColor: "#E2E2E2",
               className: "wpwax-vm-switch",
+              id: "wpwax-vm-add-site-logo",
               handleDiameter: 14,
               height: 22,
               width: 40,
-              checked: true,
-              onChange: handleSettingSwitch
+              checked: contentState.options.addSiteLogo,
+              onChange: handleUpdateSwitch
             })]
           })]
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-mail-from-name",
         children: "Email From Name"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -5851,14 +5985,18 @@ var EmailGeneral = function EmailGeneral(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             className: "wpwax-vm-form__element",
-            id: "wpwax-vm-chat-title"
+            id: "wpwax-vm-mail-from-name",
+            placeholder: "ex. Vidsupp",
+            value: contentState.options.emailTemplateFromName,
+            onChange: handleUpdateInput
           })
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-mail-from-email",
         children: "Email From Email"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -5867,14 +6005,18 @@ var EmailGeneral = function EmailGeneral(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             className: "wpwax-vm-form__element",
-            id: "wpwax-vm-chat-title"
+            id: "wpwax-vm-mail-from-email",
+            placeholder: "example@gmail.com",
+            value: contentState.options.emailTemplateFromEmail,
+            onChange: handleUpdateInput
           })
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-mail-from-subject",
         children: "Email From  Subject"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -5883,14 +6025,18 @@ var EmailGeneral = function EmailGeneral(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             className: "wpwax-vm-form__element",
-            id: "wpwax-vm-chat-title"
+            id: "wpwax-vm-mail-from-subject",
+            placeholder: "ex. mail Subject",
+            value: contentState.options.emailTemplateSubject,
+            onChange: handleUpdateInput
           })
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-mail-from-body",
         children: "Email From  Body"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -5898,14 +6044,17 @@ var EmailGeneral = function EmailGeneral(props) {
           className: "wpwax-vm-form-group",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("textarea", {
             className: "wpwax-vm-form__element",
-            id: "wpwax-vm-description"
+            id: "wpwax-vm-mail-from-body",
+            placeholder: "",
+            value: contentState.options.emailTemplateBody,
+            onChange: handleUpdateInput
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-note",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "wpwax-vm-note__icon",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "dashicons dashicons-info-outline"
+              className: "dashicons dashicons-info"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-note__inner",
@@ -5918,7 +6067,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "NAME"
+                  children: "==NAME==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "Name of the person who sent the initial message."
@@ -5927,7 +6076,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "SITE_NAME"
+                  children: "==SITE_NAME==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "It outputs your site name"
@@ -5936,16 +6085,16 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "SITE_LINK"
+                  children: "==SITE_LINK==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
-                  children: "It outputs your site url with link"
+                  children: "==It outputs your site url with link=="
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "SITE_URL"
+                  children: "==SITE_URL==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: " It outputs your site url with link"
@@ -5954,7 +6103,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "MESSAGE"
+                  children: "==MESSAGE==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "It outputs messege details."
@@ -5963,7 +6112,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "TODAY"
+                  children: "==TODAY==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "It outputs the current date"
@@ -5972,7 +6121,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "NOW"
+                  children: "==NOW==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "It outputs the current time"
@@ -5981,7 +6130,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "DASHBOARD_LINK"
+                  children: "==DASHBOARD_LINK==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "It outputs the user dashboard page link"
@@ -5990,7 +6139,7 @@ var EmailGeneral = function EmailGeneral(props) {
                 className: "wpwax-vm-note__single",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--label",
-                  children: "REPLIER_NAME"
+                  children: "==REPLIER_NAME==:"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                   className: "wpwax-vm-note__single--text",
                   children: "the person who will reply in a conversation"
@@ -6164,6 +6313,35 @@ var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
   reducer: _rootReducers__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_0__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"].withExtraArgument())));
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./src/js/components/LoadingSpinDot.jsx":
+/*!**********************************************!*\
+  !*** ./src/js/components/LoadingSpinDot.jsx ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function LoadingSpinDot() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+    className: "wpwax-vm-loading-spin",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+      className: "wpwax-vm-spin-dot"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+      className: "wpwax-vm-spin-dot"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+      className: "wpwax-vm-spin-dot"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+      className: "wpwax-vm-spin-dot"
+    })]
+  });
+}
+/* harmony default export */ __webpack_exports__["default"] = (LoadingSpinDot);
 
 /***/ }),
 

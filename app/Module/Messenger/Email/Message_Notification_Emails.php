@@ -2,6 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 
+use WPWaxCustomerSupportApp\Base\Helper;
 class Message_Notification_Emails {
 
     /**
@@ -55,6 +56,27 @@ class Message_Notification_Emails {
         }
 
         $args['subject'] = __( 'Wellcome to Support', 'wpwax-customer-support-app' );
+        $args['body']    = __( 'First session created', 'wpwax-customer-support-app' );
+
+        return self::notify_user( $user, $args );
+    }
+
+    /**
+     * Notify new session created
+     *
+     * @param WP_User|false $user
+     * @param array $args
+     * 
+     * @return bool
+     */
+    public static function notify_users( $user = null, $args = [] ) {
+
+        if ( ! self::is_valid_user( $user ) ) {
+            return;
+        }
+
+        $args['subject'] = __( 'New Message', 'wpwax-customer-support-app' );
+        $args['body']    = __( 'New message form ....', 'wpwax-customer-support-app' );
 
         return self::notify_user( $user, $args );
     }
@@ -72,6 +94,9 @@ class Message_Notification_Emails {
         if ( ! self::is_valid_user( $user ) ) {
             return;
         }
+
+        $args['subject'] = __( 'Wellcome to Support', 'wpwax-customer-support-app' );
+        $args['body']    = __( 'New session created', 'wpwax-customer-support-app' );
 
         return self::notify_user( $user, $args );
     }
@@ -228,10 +253,11 @@ class Message_Notification_Emails {
     public static function email_html($subject, $message){
         $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
         $header = '';
-        $email_header_color = get_directorist_option('email_header_color', '#8569fb');
-        $allow_email_header = get_directorist_option('allow_email_header', 1);
-        $author = "<a href='https://wpwax.com/'>wpWax</a>";
-        if ($allow_email_header){
+        $email_header_color = Helper\get_option('email_header_color', '#6551f2');
+        $allow_email_header = Helper\get_option('email_header', true );
+        
+        $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
+        if ( $allow_email_header ){
             $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
                                             <tr>
                                                 <td id="header_wrapper" style="padding: 36px 48px; display: block;">
@@ -288,15 +314,17 @@ class Message_Notification_Emails {
                             </table>
                         </td>
                     </tr>
+              
                     <tr>
                         <td align="center" valign="top">
                             <!-- Footer -->
                             <table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
                                 <tr>
-                                    <td valign="top" style="padding: 0; border-radius: 6px;">
+                                    <td valign="top">
                                         <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                             <tr>
-                                                <td colspan="2" valign="middle" id="credit" style=\'border-radius: 6px; border: 0; color: #8a8a8a; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;\'>
+                                                <td colspan="2" valign="middle" id="credit">
+                                                    ' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', 'Built with ❤️ by %s' ) ) ) ), $author ) . '
                                                 </td>
                                             </tr>
                                         </table>
@@ -306,25 +334,6 @@ class Message_Notification_Emails {
                             <!-- End Footer -->
                         </td>
                     </tr>
-                    <tr>
-					<td align="center" valign="top">
-						<!-- Footer -->
-						<table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
-							<tr>
-								<td valign="top">
-									<table border="0" cellpadding="10" cellspacing="0" width="100%">
-										<tr>
-											<td colspan="2" valign="middle" id="credit">
-												' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', 'Built with ❤️ by %s' ) ) ) ), $author ) . '
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-						<!-- End Footer -->
-					</td>
-				</tr>
                 </table>
             </div>
         </body>

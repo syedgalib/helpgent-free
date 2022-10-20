@@ -280,10 +280,18 @@ class Messages extends Rest_Base
 
         $args = Helper\filter_params($default, $args);
 
+		// Adjust Timezone
 		if ( ! empty( $args['timezone'] ) ) {
-			$timezone = $args['timezone'];
-			$where['updated_on'] = ( ! empty( $where['updated_on'] ) ) ? Helper\convert_to_db_timezone( $where['updated_on'], $timezone ) : $where['updated_on'] ;
-			$where['created_on'] = ( ! empty( $where['created_on'] ) ) ? Helper\convert_to_db_timezone( $where['created_on'], $timezone ) : $where['created_on'] ;
+			$date_time_fields = [ 'created_on', 'updated_on' ];
+			$timezone         = $args['timezone'];
+
+			foreach ( $date_time_fields as $field_key ) {
+				if ( empty( $where[ $field_key ] ) ) {
+					continue;
+				}
+
+				$where[ $field_key ] = Helper\convert_to_db_timezone( $where[ $field_key ], $timezone );
+			}
 		}
 
         $args['where'] = $where;

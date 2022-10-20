@@ -5,7 +5,7 @@ const ScreenWrapper = Styled.div`
     bottom: 15px;
     right: 25px;
     height: auto;
-    width: 420px;
+    width: 450px;
     z-index: 100;
     border-radius: 25px;
     font-family: var(--font-family);

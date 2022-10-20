@@ -176,7 +176,6 @@ const PreviewWrap = Styled.div`
         }
         .wpwax-vm-preview-footer__actions{
             display: flex;
-            flex-wrap: wrap;
             margin: -10px;
             a{
                 display: flex;
@@ -184,10 +183,9 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 120px;
-                height: auto;
+                height: min(80vh,100px);
                 text-transform: capitalize;
-                flex: 0 0 30.3333%;
+                flex: 1;
                 margin: 1.5%;
                 pointer-events: none;
                 @media only screen and (max-width: 1199px) {
@@ -200,7 +198,7 @@ const PreviewWrap = Styled.div`
                 svg{
                     width: 18px;
                     height: 18px;
-                    margin: 0 0 4px;
+                    margin: 6px 0 6px;
                     path,
                     circle{
                         fill: var(--primary-button-color);
@@ -244,7 +242,7 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        width: 460px;
+        width: 450px;
         min-height: 560px;
         border-radius: 25px;
         padding: 30px;
@@ -252,6 +250,7 @@ const PreviewWrap = Styled.div`
         background-color: var(--color-page-bg);
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
+            width: 500px;
             background-color: var(--color-page-bg);
         }
         @media only screen and (max-width: 1399px) {
@@ -349,7 +348,7 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
-                padding: 0 30px;
+                padding: 0 25px;
                 min-height: 198px;
                 background-color: var(--color-page-bg);
                 @media only screen and (max-width: 1199px) {

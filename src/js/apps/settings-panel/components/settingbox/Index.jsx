@@ -20,7 +20,6 @@ const SettingBox = () => {
             addSiteLogo: true,
             emailTemplateFromName: "",
             emailTemplateFromEmail: "",
-            enableEmailCustomization: true,
             emailTemplateGreetingSubject: "",
             emailTemplateGreetingBody: "",
             emailTemplateMessageSubject: "",

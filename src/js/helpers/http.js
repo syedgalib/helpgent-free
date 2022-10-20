@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 });
 
 const getData = ( path, customArgs ) => {
-	const args = ( typeof customArgs !== 'undefined' ) ? customArgs : {};
+	const args = ( typeof customArgs !== 'undefined' ) ? { params: customArgs } : {};
 	return axiosInstance.get( path, args );
 }
 

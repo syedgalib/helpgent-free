@@ -11812,6 +11812,157 @@ var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
 
 /***/ }),
 
+/***/ "./src/js/apps/messanger/components/message-box/components/AudioMessage.jsx":
+/*!**********************************************************************************!*\
+  !*** ./src/js/apps/messanger/components/message-box/components/AudioMessage.jsx ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
+/* harmony import */ var Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/audio-range-active.svg */ "./src/assets/svg/icons/audio-range-active.svg");
+/* harmony import */ var Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/audio-range-inactive.svg */ "./src/assets/svg/icons/audio-range-inactive.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var AudioMessage = function AudioMessage(_ref) {
+  var data = _ref.data;
+  var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Audio(data.attachment_url));
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    playing = _useState2[0],
+    setPlaying = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState4 = _slicedToArray(_useState3, 2),
+    currentTime = _useState4[0],
+    setCurrentTime = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    duration = _useState6[0],
+    setDuration = _useState6[1];
+  function togglePlaying(event) {
+    event.preventDefault();
+    if (!audioRef.current) {
+      return;
+    }
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setPlaying(true);
+    } else {
+      audioRef.current.pause();
+      setPlaying(false);
+    }
+  }
+  function getPlayedTimeInPercent() {
+    var r = currentTime / duration;
+    return isNaN(r) ? 0 : r * 100;
+  }
+  function getRemainingTime() {
+    var remainingTime = duration - currentTime;
+    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(remainingTime);
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!audioRef.current) {
+      return;
+    }
+    var onTimeUpdate = function onTimeUpdate(event) {
+      return setCurrentTime(event.target.currentTime);
+    };
+    var onLoadedMetaData = function onLoadedMetaData(event) {
+      return setDuration(event.target.duration);
+    };
+    audioRef.current.addEventListener('timeupdate', onTimeUpdate);
+    audioRef.current.addEventListener('loadeddata', onLoadedMetaData);
+    return function () {
+      audioRef.current.removeEventListener('timeupdate', onTimeUpdate);
+      audioRef.current.removeEventListener('loadeddata', onLoadedMetaData);
+    };
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("audio", {
+      src: data.attachment_url
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "wpwax-vm-message-content__inner--audio",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+        href: "#",
+        onClick: function onClick(e) {
+          togglePlaying(e);
+        },
+        className: "wpwax-vm-btn-play",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: playing ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+        className: "wpwax-vm-audio-range",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          style: {
+            position: 'relative',
+            margin: '5px',
+            width: '190px',
+            height: '21px'
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              display: 'inline-block',
+              backgroundPositionX: '0px',
+              backgroundRepeat: 'no-repeat',
+              backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_3__["default"] + ' )',
+              zIndex: 0
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            style: {
+              width: getPlayedTimeInPercent() + '%',
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              display: 'inline-block',
+              backgroundPositionX: '0px',
+              backgroundRepeat: 'no-repeat',
+              backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_2__["default"] + ' )',
+              zIndex: 1,
+              transition: 'all 300ms ease-in-out 0s'
+            }
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          className: "wpwax-vm-timer",
+          children: getRemainingTime()
+        })]
+      })]
+    }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Linkify, {
+          children: data.message
+        })
+      })
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (AudioMessage);
+
+/***/ }),
+
 /***/ "./src/js/apps/messanger/components/message-box/components/Message.jsx":
 /*!*****************************************************************************!*\
   !*** ./src/js/apps/messanger/components/message-box/components/Message.jsx ***!
@@ -11822,17 +11973,14 @@ var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Externals/Linkify.jsx */ "./src/js/helpers/externals/Linkify.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/components/Style.js");
-/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
-/* harmony import */ var Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/audio-range-active.svg */ "./src/assets/svg/icons/audio-range-active.svg");
-/* harmony import */ var Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/audio-range-inactive.svg */ "./src/assets/svg/icons/audio-range-inactive.svg");
-/* harmony import */ var Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/expand.svg */ "./src/assets/svg/icons/expand.svg");
-/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Helper/http.js */ "./src/js/helpers/http.js");
-/* harmony import */ var Components_Image_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Components/Image.jsx */ "./src/js/components/Image.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
+/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Helper/http.js */ "./src/js/helpers/http.js");
+/* harmony import */ var Components_Image_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Image.jsx */ "./src/js/components/Image.jsx");
+/* harmony import */ var _TextMessage_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TextMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/TextMessage.jsx");
+/* harmony import */ var _AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AudioMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/AudioMessage.jsx");
+/* harmony import */ var _VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./VideoMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/VideoMessage.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/components/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -11852,11 +12000,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-// import { ReactSVG } from 'react-svg';
-
-
-
-
 
 
 
@@ -11865,30 +12008,12 @@ function Message(_ref) {
     currentUser = _ref.currentUser,
     containerScrollMeta = _ref.containerScrollMeta,
     onMarkedAsRead = _ref.onMarkedAsRead;
-  var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
-  var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var videoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var container = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    isPlayingAudio = _useState2[0],
-    setIsPlayingAudio = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState4 = _slicedToArray(_useState3, 2),
-    audioDuration = _useState4[0],
-    setAudioDuration = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState6 = _slicedToArray(_useState5, 2),
-    audioCurrentTime = _useState6[0],
-    setAudioCurrentTime = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState8 = _slicedToArray(_useState7, 2),
-    isPlayingVideo = _useState8[0],
-    setIsPlayingVideo = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState10 = _slicedToArray(_useState9, 2),
-    updatingIsSeen = _useState10[0],
-    setUpdatingIsSeen = _useState10[1];
+    updatingIsSeen = _useState2[0],
+    setUpdatingIsSeen = _useState2[1];
+  var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
 
   // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -11931,50 +12056,6 @@ function Message(_ref) {
       });
     }
   }, [containerScrollMeta]);
-  function togglePlayPauseAudio(e) {
-    e.preventDefault();
-    if (!audioRef.current) {
-      return;
-    }
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  }
-  function togglePlayPauseVidio(e) {
-    e.preventDefault();
-    if (!videoRef.current) {
-      return;
-    }
-    if (videoRef.current.paused) {
-      setIsPlayingVideo(true);
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-      setIsPlayingVideo(false);
-    }
-  }
-  function getPlayedTimeInPercent() {
-    var r = audioCurrentTime / audioDuration;
-    return isNaN(r) ? 0 : r * 100;
-  }
-  function getAudioTimer() {
-    var remainingTime = audioDuration - audioCurrentTime;
-    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_7__.formatSecondsAsCountdown)(remainingTime);
-  }
-  function handleExpandVideo(event) {
-    event.preventDefault();
-    if (videoRef.current.requestFullscreen) {
-      videoRef.current.requestFullscreen();
-    } else if (videoRef.current.webkitRequestFullscreen) {
-      /* Safari */
-      videoRef.current.webkitRequestFullscreen();
-    } else if (videoRef.current.msRequestFullscreen) {
-      /* IE11 */
-      videoRef.current.msRequestFullscreen();
-    }
-  }
   var createSeenBy = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id, args) {
       var status, response;
@@ -11988,7 +12069,7 @@ function Message(_ref) {
               };
               _context.prev = 1;
               _context.next = 4;
-              return Helper_http_js__WEBPACK_IMPORTED_MODULE_8__["default"].postData("/messages/".concat(id, "/seen-by"), args);
+              return Helper_http_js__WEBPACK_IMPORTED_MODULE_2__["default"].postData("/messages/".concat(id, "/seen-by"), args);
             case 4:
               response = _context.sent;
               status.success = true;
@@ -12017,162 +12098,41 @@ function Message(_ref) {
   /* Load Message Content */
   var setMessageContent = function setMessageContent() {
     if (data.message_type === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-        className: "wpwax-vm-message-content__inner--text",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            children: data.message
-          })
-        })
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_TextMessage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        data: data
       });
     } else if (data.message_type === 'video') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "wpwax-vm-message-content__inner--video",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("video", {
-            ref: videoRef,
-            src: data.attachment_url,
-            onPlay: function onPlay() {
-              setIsPlayingVideo(true);
-            },
-            onPause: function onPause() {
-              setIsPlayingVideo(false);
-            },
-            style: {
-              height: '247.5px',
-              backgroundColor: '#000',
-              borderRadius: '16px'
-            }
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-btn-play",
-            onClick: function onClick(e) {
-              togglePlayPauseVidio(e);
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-              className: isPlayingVideo ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-            href: "#",
-            className: "wpwax-vm-btn-expander",
-            onClick: handleExpandVideo,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-              src: Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
-            })
-          })]
-        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-          className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              children: data.message
-            })
-          })
-        })]
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        data: data
       });
     } else if (data.message_type === 'audio') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-          className: "wpwax-vm-message-content__inner--audio",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-            href: "#",
-            onClick: function onClick(e) {
-              togglePlayPauseAudio(e);
-            },
-            className: "wpwax-vm-btn-play",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-              className: isPlayingAudio ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
-            className: "wpwax-vm-audio-range",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-              style: {
-                position: 'relative',
-                margin: '5px',
-                width: '190px',
-                height: '21px'
-              },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                style: {
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  bottom: 0,
-                  display: 'inline-block',
-                  backgroundPositionX: '0px',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_inactive_svg__WEBPACK_IMPORTED_MODULE_5__["default"] + ' )',
-                  zIndex: 0
-                }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                style: {
-                  width: getPlayedTimeInPercent() + '%',
-                  position: 'absolute',
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  bottom: 0,
-                  display: 'inline-block',
-                  backgroundPositionX: '0px',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundImage: 'url( ' + Assets_svg_icons_audio_range_active_svg__WEBPACK_IMPORTED_MODULE_4__["default"] + ' )',
-                  zIndex: 1,
-                  transition: 'all 300ms ease-in-out 0s'
-                }
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
-              className: "wpwax-vm-timer",
-              children: getAudioTimer()
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("audio", {
-            ref: audioRef,
-            onPlay: function onPlay() {
-              setIsPlayingAudio(true);
-            },
-            onPause: function onPause() {
-              setIsPlayingAudio(false);
-            },
-            onTimeUpdate: function onTimeUpdate(event) {
-              setAudioCurrentTime(event.target.currentTime);
-            },
-            onLoadedData: function onLoadedData(event) {
-              setAudioDuration(event.target.duration);
-            },
-            src: data.attachment_url
-          })]
-        }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-          className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              children: data.message
-            })
-          })
-        })]
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        data: data
       });
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.MessageBox, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.MessageBox, {
     ref: container,
     className: isMine ? "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type) : "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type, " wpwax-vm-message-single-replied"),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-message-content",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-message-content__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
           className: "wpwax-vm-message--authorname",
           children: [data.user.name, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-message-time",
           children: data.created_on_formatted
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-message-content__inner",
         children: setMessageContent()
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       className: "wpwax-vm-message-author",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_Image_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
-        src: data.user.avater ? data.user.avater : Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_3__["default"],
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_Image_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        src: data.user.avater ? data.user.avater : Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
         alt: "Author Avater"
       })
     })]
@@ -12203,6 +12163,140 @@ var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(
 var ContactFormWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-contact-form{\n        padding: 60px 25px 25px;\n        position: relative;\n        min-height: 595px;\n        .wpwax-vm-contact-form__title{\n            font-size: 18px;\n            font-weight: 500;\n            font-family: var(--font-family);\n            line-height: 1.333;\n            margin: 0 0 30px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n            .wpwax-vm-form__element{\n                min-height: 46px;\n                border-radius: 8px;\n            }\n        }\n        .wpwax-vm-form__bottom{\n            position: absolute;\n            width: calc( 100% - 50px );\n            bottom: 25px;\n            left: 25px;\n            .wpwax-vm-btn{\n                border-radius: 10px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                    margin-left: 10px;\n                }\n            }\n        }\n    }\n"])));
 var MessageBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpwax-vm-message-single{\n        display: flex;\n        align-items: flex-start;\n        justify-content: flex-end;\n        margin-bottom: 30px;\n        padding: 0 30px;\n        @media only screen and (max-width: 767px){\n            padding: 0 15px;\n        }\n        .wpwax-vm-message-author{\n            margin-left: 15px;\n            img{\n                max-width: 44px;\n                border-radius: 50%;\n            }\n        }\n        .wpwax-vm-message-content{\n            .wpwax-vm-message-content__top{\n                text-align: right;\n                margin-bottom: 8px;\n                span{\n                    font-size: 14px;\n                    color: var(--color-text);\n                }\n                .wpwax-vm-message-time{\n                    display:  inline-block;\n                    margin-left: 4px;\n                }\n            }\n            .wpwax-vm-message-content__inner{\n                padding: 12px 18px 14px;\n                border-radius: 16px 0 16px 16px;\n                background-color: var(--color-bg-general);\n                p{\n                    font-size: 17px;\n                    margin: 0;\n                    color: #4D4D4D;\n                    @media only screen and (max-width: 1299px){\n                        font-size: 15px;\n                    }\n                }\n            }\n        }\n        &.wpwax-vm-message-single-video{\n            .wpwax-vm-message-content__inner{\n                padding: 18px;\n            }\n        }\n        &.wpwax-vm-message-single-replied{\n            justify-content: flex-start;\n            .wpwax-vm-message-author{\n                margin-left: 0;\n                margin-right: 15px;\n                order: -1;\n            }\n            .wpwax-vm-message-content{\n                .wpwax-vm-message-content__top{\n                    text-align: left;\n                }\n                .wpwax-vm-message-content__inner{\n                    border-radius: 0 16px 16px;\n                }\n            }\n\n        }\n        &.wpwax-vm-message-single-video{\n            .wpwax-vm-message-content{\n                .wpwax-vm-message-content__inner{\n                    background-color: #F3F3F3;\n                    width: 440px;\n                    position: relative;\n                    @media only screen and (max-width: 767px){\n                        min-height: 140px;\n                        width: 240px;\n                    }\n                    @media only screen and (max-width: 375px){\n                        min-height: 140px;\n                        width: 200px;\n                    }\n                    video{\n                        width: 100%;\n                        height: 100%;\n                    }\n                    .wpwax-vm-btn-play{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        position: absolute;\n                        left: 50%;\n                        top: 50%;\n                        transform: translate(-50%,-50%);\n                        text-decoration: none;\n                        width: 44px;\n                        height: 44px;\n                        border-radius: 50%;\n                        background-color: var(--color-black);\n                        .dashicons{\n                            position: relative;\n                            top: -2px;\n                            font-size: 24px;\n                            color: var(--color-white);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-message-content__inner--video{\n            display: flex;\n            align-items: center;\n            position: relative;\n            &:after{\n                position: absolute;\n                left: 0;\n                top: 0;\n                width: 100%;\n                height: 100%;\n                border-radius: 16px;\n                content: '';\n                z-index: 0;\n                background-color: rgba(3,3,8,.30);\n            }\n            .wpwax-vm-btn-expander{\n                position: absolute;\n                top: 30px;\n                right: 40px;\n                z-index: 10;\n            }\n            .wpwax-vm-btn-play{\n                z-index: 10;\n            }\n        }\n        &.wpwax-vm-message-single-audio{\n            .wpwax-vm-message-content__inner--audio{\n                display: flex;\n                align-items: flex-start;\n                .wpwax-vm-btn-play{\n                    position: relative;\n                    top: 2px;\n                    text-decoration: none;\n                    line-height: 1;\n                    span.dashicons{\n                        font-size: 24px;\n                        margin-right: 10px;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n            .wpwax-vm-timer{\n                display: inline-block;\n                font-size: 14px;\n                font-weight: 500;\n                margin-top: 8px;\n                color: var(--color-dark)\n            }\n        }\n    }\n"])));
 
+
+/***/ }),
+
+/***/ "./src/js/apps/messanger/components/message-box/components/TextMessage.jsx":
+/*!*********************************************************************************!*\
+  !*** ./src/js/apps/messanger/components/message-box/components/TextMessage.jsx ***!
+  \*********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Externals/Linkify.jsx */ "./src/js/helpers/externals/Linkify.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var TextMessage = function TextMessage(_ref) {
+  var data = _ref.data;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "wpwax-vm-message-content__inner--text",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        children: data.message
+      })
+    })
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (TextMessage);
+
+/***/ }),
+
+/***/ "./src/js/apps/messanger/components/message-box/components/VideoMessage.jsx":
+/*!**********************************************************************************!*\
+  !*** ./src/js/apps/messanger/components/message-box/components/VideoMessage.jsx ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Externals/Linkify.jsx */ "./src/js/helpers/externals/Linkify.jsx");
+/* harmony import */ var Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/expand.svg */ "./src/assets/svg/icons/expand.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var VideoMessage = function VideoMessage(_ref) {
+  var data = _ref.data;
+  var videoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    playing = _useState2[0],
+    setPlaying = _useState2[1];
+  function togglePlaying(event) {
+    event.preventDefault();
+    if (!videoRef.current) {
+      return;
+    }
+    if (videoRef.current.paused) {
+      setPlaying(true);
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
+  }
+  function handleExpandVideo(event) {
+    event.preventDefault();
+    if (videoRef.current.requestFullscreen) {
+      videoRef.current.requestFullscreen();
+    } else if (videoRef.current.webkitRequestFullscreen) {
+      /* Safari */
+      videoRef.current.webkitRequestFullscreen();
+    } else if (videoRef.current.msRequestFullscreen) {
+      /* IE11 */
+      videoRef.current.msRequestFullscreen();
+    }
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "wpwax-vm-message-content__inner--video",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("video", {
+        ref: videoRef,
+        src: data.attachment_url,
+        onPlay: function onPlay() {
+          setPlaying(true);
+        },
+        onPause: function onPause() {
+          setPlaying(false);
+        },
+        style: {
+          height: '247.5px',
+          backgroundColor: '#000',
+          borderRadius: '16px'
+        }
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+        href: "#",
+        className: "wpwax-vm-btn-play",
+        onClick: function onClick(e) {
+          togglePlaying(e);
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+          className: playing ? 'dashicons dashicons-controls-pause' : 'dashicons dashicons-controls-play'
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+        href: "#",
+        className: "wpwax-vm-btn-expander",
+        onClick: handleExpandVideo,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          src: Assets_svg_icons_expand_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
+        })
+      })]
+    }), data.message && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "wpwax-vm-message-content__inner--text wpwax-vm-mt-20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Externals_Linkify_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          children: data.message
+        })
+      })
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (VideoMessage);
 
 /***/ }),
 
@@ -17986,7 +18080,9 @@ var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   }
 });
 var getData = function getData(path, customArgs) {
-  var args = typeof customArgs !== 'undefined' ? customArgs : {};
+  var args = typeof customArgs !== 'undefined' ? {
+    params: customArgs
+  } : {};
   return axiosInstance.get(path, args);
 };
 var postData = function postData(path, customArgs, customConfig) {

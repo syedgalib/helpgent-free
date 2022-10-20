@@ -1014,6 +1014,10 @@ function is_user_admin($user)
 		return false;
 	}
 
+	if( is_numeric( $user ) ) {
+		$user = get_user_by( 'id', $user );
+	}
+
 	$accepted_roles = get_admin_roles();
 
 	$accepted_roles_check = array_unique(array_map(function ($rule) use ($accepted_roles) {

@@ -42,35 +42,33 @@ class Message_Notification_Emails {
             return;
         }
 
-        $users  = [];
         $clints = [];
         $admins = [];
 
         $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
 
-        wp_send_json($old_sessions);
+        if( ! empty( $old_sessions ) ) {
+            foreach( $old_sessions as $session ) {
+                $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
+                if ( Helper\is_user_admin( $session['user_id'] ) ) {
+                    array_push( $admins, $user_id );
+                } else{
+                    array_push( $clints, $user_id ); 
+                }
+            }
+        }
+        $is_user_admin =  Helper\is_user_admin( $data['user_id'] );
+        
+        if( $is_user_admin ) {
+            // notify clints
 
-        //On Message Created
-        # Get The Message Owner
-            # If The Message Owner is Admin
-                # Get The Client Email
-                    # Notify Client -> Admin Replied To Your Message
+            return;
+        }
+        // notify admins
 
-            # If The Message Owner is Client
-                # Get The Admin Email
-                    # Notify Admin -> A New Message ReceivedOn Message Created
-        # Get The Message Owner
-            # If The Message Owner is Admin
-                # Get The Client Email
-                    # Notify Client -> Admin Replied To Your Message
-
-            # If The Message Owner is Client
-                # Get The Admin Email
-                    # Notify Admin -> A New Message Received
 
 
         
-
         $user         = get_user_by('id', $args['user_id']);
         $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
         $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);

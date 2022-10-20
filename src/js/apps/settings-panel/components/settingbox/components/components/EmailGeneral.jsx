@@ -123,7 +123,7 @@ const EmailGeneral = props =>{
                         checked={contentState.options.enableEmailNotification}
                         onChange={handleUpdateSwitch}
                     />
-                    <div className="wpwax-vm-settings__swtich-content">
+                    <div className={contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
                         <div className='wpwax-vm-radio-list'>
                             <div className='wpwax-vm-radio-single'>
                                 <Radio
@@ -183,7 +183,7 @@ const EmailGeneral = props =>{
                         checked={contentState.options.enableEmailHeader}
                         onChange={handleUpdateSwitch}
                     />
-                    <div className="wpwax-vm-settings__swtich-content">
+                    <div className={contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
                         <div className="wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20">
                             <span className="wpwax-vm-form__color-text">{contentState.options.emailHeaderColor}</span>
                             <label htmlFor="wpwax-vm-mail-header-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: contentState.options.emailHeaderColor }}></label>

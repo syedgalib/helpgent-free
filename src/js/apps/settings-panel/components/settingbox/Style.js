@@ -397,6 +397,12 @@ const SettingContentWrap = Styled.div`
                 color: var(--color-dark);
             }
         }
+        .wpwax-vm-settings__swtich-content{
+            display: none;
+            &.wpwax-vm-show{
+                display: block;
+            }
+        }
     }
     .wpwax-vm-setting-preview-wrap{
         margin: -10px 0 0 325px;

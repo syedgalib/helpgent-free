@@ -5,21 +5,21 @@ import expandIcon from 'Assets/svg/icons/expand.svg';
 
 const VideoMessage = ({data}) => {
 	const videoRef = useRef();
-	const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+	const [playing, setPlaying] = useState(false);
 
-	function togglePlayPauseVidio(e) {
-        e.preventDefault();
+	function togglePlaying(event) {
+        event.preventDefault();
 
         if (!videoRef.current) {
             return;
         }
 
         if (videoRef.current.paused) {
-            setIsPlayingVideo(true);
+            setPlaying(true);
             videoRef.current.play();
         } else {
             videoRef.current.pause();
-            setIsPlayingVideo(false);
+            setPlaying(false);
         }
     }
 
@@ -43,10 +43,10 @@ const VideoMessage = ({data}) => {
 				ref={videoRef}
 				src={data.attachment_url}
 				onPlay={() => {
-					setIsPlayingVideo(true);
+					setPlaying(true);
 				}}
 				onPause={() => {
-					setIsPlayingVideo(false);
+					setPlaying(false);
 				}}
 				style={{
 					height: '247.5px',
@@ -58,12 +58,12 @@ const VideoMessage = ({data}) => {
 				href='#'
 				className='wpwax-vm-btn-play'
 				onClick={(e) => {
-					togglePlayPauseVidio(e);
+					togglePlaying(e);
 				}}
 			>
 				<span
 					className={
-						isPlayingVideo
+						playing
 							? 'dashicons dashicons-controls-pause'
 							: 'dashicons dashicons-controls-play'
 					}

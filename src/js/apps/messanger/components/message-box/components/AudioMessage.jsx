@@ -9,8 +9,8 @@ const AudioMessage = ({data}) => {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
-	function togglePlayPauseAudio(e) {
-        e.preventDefault();
+	function togglePlaying(event) {
+        event.preventDefault();
 
         if (!audioRef.current) {
             return;
@@ -30,7 +30,7 @@ const AudioMessage = ({data}) => {
         return isNaN(r) ? 0 : r * 100;
     }
 
-	function getAudioTimer() {
+	function getRemainingTime() {
         const remainingTime = duration - currentTime;
         return formatSecondsAsCountdown(remainingTime);
     }
@@ -59,7 +59,7 @@ const AudioMessage = ({data}) => {
 				<a
 					href='#'
 					onClick={(e) => {
-						togglePlayPauseAudio(e);
+						togglePlaying(e);
 					}}
 					className='wpwax-vm-btn-play'
 				>
@@ -115,13 +115,9 @@ const AudioMessage = ({data}) => {
 					</div>
 
 					<span className='wpwax-vm-timer'>
-						{getAudioTimer()}
+						{getRemainingTime()}
 					</span>
 				</span>
-				{/* <audio
-					ref={audioRef}
-					src={data.attachment_url}
-				></audio> */}
 			</div>
 
 			{data.message && (

@@ -317,6 +317,9 @@ const SettingContentWrap = Styled.div`
         .wpwax-vm-form-group{
             margin-bottom: 0;
         }
+        h2{
+            margin: 0;
+        }
         .wpwax-vm-settings__single--label{
             font-size: 14px;
             font-weight: 500;

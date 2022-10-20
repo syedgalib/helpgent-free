@@ -75,70 +75,54 @@ const EmailTemplate = props =>{
             </div>
             <div className="wpwax-vm-settings wpwax-vm-mb-20">
                 <div className="wpwax-vm-settings__single">
-                    <h4 className="wpwax-vm-settings__single--label">Email Customization</h4>
-                    <div className="wpwax-vm-settings__single--element">
-                        <Switch
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor="#6551F2"
-                            offColor="#E2E2E2"
-                            className="wpwax-vm-switch"
-                            id="enableEmailCustomization"
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            checked={contentState.options.enableEmailCustomization}
-                            onChange={handleUpdateSwitch}
-                        />
-                    </div>
+                    <h2>Email Customization</h2>
                 </div>
             </div>
-            <div className={contentState.options.enableEmailCustomization ? "wpwax-vm-setting__swtich-inner wpwax-vm-show" : "wpwax-vm-setting__swtich-inner"}>
-                <div className="wpwax-vm-card">
-                    <div className="wpwax-vm-card-header">
-                        <h3 className="wpwax-vm-card-header__title">Greetings</h3>
-                    </div>
-                    <div className="wpwax-vm-card-body">
-                        <div className="wpwax-vm-settings">
-                            <div className="wpwax-vm-settings__single">
-                                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-subject">Email Subject</label>
-                                <div className="wpwax-vm-settings__single--element">
-                                    <div className="wpwax-vm-form-group">
-                                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-subject" name="emailTemplateGreetingSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateGreetingSubject} onChange={handleChange}/>
-                                    </div>
+            
+            <div className="wpwax-vm-card">
+                <div className="wpwax-vm-card-header">
+                    <h3 className="wpwax-vm-card-header__title">Greetings</h3>
+                </div>
+                <div className="wpwax-vm-card-body">
+                    <div className="wpwax-vm-settings">
+                        <div className="wpwax-vm-settings__single">
+                            <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-subject">Email Subject</label>
+                            <div className="wpwax-vm-settings__single--element">
+                                <div className="wpwax-vm-form-group">
+                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-subject" name="emailTemplateGreetingSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateGreetingSubject} onChange={handleChange}/>
                                 </div>
                             </div>
-                            <div className="wpwax-vm-settings__single">
-                                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-body">Email Body</label>
-                                <div className="wpwax-vm-settings__single--element">
-                                    <div className="wpwax-vm-form-group">
-                                        <textarea className="wpwax-vm-form__element" id="wpwax-vm-mail-from-body" name="emailTemplateGreetingBody" placeholder='' value={contentState.options.emailTemplateGreetingBody} onChange={handleChange}/>
-                                    </div>
+                        </div>
+                        <div className="wpwax-vm-settings__single">
+                            <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-body">Email Body</label>
+                            <div className="wpwax-vm-settings__single--element">
+                                <div className="wpwax-vm-form-group">
+                                    <textarea className="wpwax-vm-form__element" id="wpwax-vm-mail-from-body" name="emailTemplateGreetingBody" placeholder='' value={contentState.options.emailTemplateGreetingBody} onChange={handleChange}/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="wpwax-vm-card">
-                    <div className="wpwax-vm-card-header">
-                        <h3 className="wpwax-vm-card-header__title">New Meaage</h3>
-                    </div>
-                    <div className="wpwax-vm-card-body">
-                        <div className="wpwax-vm-settings">
-                            <div className="wpwax-vm-settings__single">
-                                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-subject">Email Subject</label>
-                                <div className="wpwax-vm-settings__single--element">
-                                    <div className="wpwax-vm-form-group">
-                                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateSubject} onChange={handleChange}/>
-                                    </div>
+            </div>
+            <div className="wpwax-vm-card">
+                <div className="wpwax-vm-card-header">
+                    <h3 className="wpwax-vm-card-header__title">New Meaage</h3>
+                </div>
+                <div className="wpwax-vm-card-body">
+                    <div className="wpwax-vm-settings">
+                        <div className="wpwax-vm-settings__single">
+                            <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-subject">Email Subject</label>
+                            <div className="wpwax-vm-settings__single--element">
+                                <div className="wpwax-vm-form-group">
+                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateSubject} onChange={handleChange}/>
                                 </div>
                             </div>
-                            <div className="wpwax-vm-settings__single">
-                                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-body">Email Body</label>
-                                <div className="wpwax-vm-settings__single--element">
-                                    <div className="wpwax-vm-form-group">
-                                        <textarea className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-body" name="emailTemplateMessageBody" placeholder='' value={contentState.options.emailTemplateMessageBody} onChange={handleChange}/>
-                                    </div>
+                        </div>
+                        <div className="wpwax-vm-settings__single">
+                            <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-body">Email Body</label>
+                            <div className="wpwax-vm-settings__single--element">
+                                <div className="wpwax-vm-form-group">
+                                    <textarea className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-body" name="emailTemplateMessageBody" placeholder='' value={contentState.options.emailTemplateMessageBody} onChange={handleChange}/>
                                 </div>
                             </div>
                         </div>

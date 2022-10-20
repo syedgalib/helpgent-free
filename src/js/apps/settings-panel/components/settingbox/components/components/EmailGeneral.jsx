@@ -4,7 +4,7 @@ import Radio from 'Components/form-fields/Radio.jsx';
 
 const EmailGeneral = props =>{
     const { contentState, setContentState } = props;
-    
+
     const handleUpdateSwitch = (value, event, id)=>{
         setContentState({
             ...contentState,
@@ -107,7 +107,7 @@ const EmailGeneral = props =>{
                         onColor="#6551F2"
                         offColor="#E2E2E2"
                         className="wpwax-vm-switch"
-                        id="wpwax-vm-enable-mail-header"
+                        id="enableEmailHeader"
                         handleDiameter={14}
                         height={22}
                         width={40}
@@ -128,7 +128,7 @@ const EmailGeneral = props =>{
                                 onColor="#6551F2"
                                 offColor="#E2E2E2"
                                 className="wpwax-vm-switch"
-                                id="wpwax-vm-add-site-logo"
+                                id="addSiteLogo"
                                 handleDiameter={14}
                                 height={22}
                                 width={40}

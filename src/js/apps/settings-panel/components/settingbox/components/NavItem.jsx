@@ -6,9 +6,9 @@ const NavItem = props => {
     const [subNavPath, setsubNavPath] = useState('email_general');
     const { contentState, setContentState } = props;
 
-    const handleSubnav = e => {
-        e.preventDefault()
-        setNavId(e.target.id)
+    const handleSubnav = (e,id) => {
+        e.preventDefault();
+        setNavId(id);
     };
     const handleSubnavActivation = e => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const NavItem = props => {
     
     return (
         <SidebarMenuItem className={props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item"}>
-            <a href="#" onClick={e=>handleSubnav(e)} id="wpwax-vm-email-settings">
+            <a href="#" onClick={e=>handleSubnav(e,props.item.navId)} id="wpwax-vm-email-settings">
                 <div className="wpwax-vm-sidebar-nav__item--icon">{props.item.icon}</div>
                 <span className="wpwax-vm-sidebar-nav__item--text">
                     {props.item.label}

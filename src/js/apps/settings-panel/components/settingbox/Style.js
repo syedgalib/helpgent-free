@@ -5,7 +5,15 @@ const SetingBoxWrap = Styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Inter',sans-serif;
     margin: 0 auto;
+    @media only screen and (max-width: 1299px) {
+        max-width: 960px;
+    }
+    @media only screen and (max-width: 1199px) {
+        max-width: 900px;
+        margin-right: 15px;
+    }
     .wpwax-vm-settings-top{
         display: flex;
         justify-content: space-between;
@@ -18,6 +26,9 @@ const SetingBoxWrap = Styled.div`
             font-weight: 500;
             line-height: 1;
             margin: 0;
+            @media only screen and (max-width: 575px) {
+                font-size: 20px;
+            }
         }
         .wpwax-vm-settings-top__links{
             position: relative;
@@ -32,10 +43,14 @@ const SetingBoxWrap = Styled.div`
                 margin: 12px;
                 text-decoration: none;
                 color: var(--color-text);
+                @media only screen and (max-width: 575px) {
+                    font-size: 12px;
+                    margin: 6px;
+                }
                 &:hover{
-                    color: var(--color-info);
+                    color: var(--color-primary);
                     svg path{
-                        fill: var(--color-info);
+                        fill: var(--color-primary);
                     }
                 }
                 svg {
@@ -56,10 +71,17 @@ const SetingBoxWrap = Styled.div`
             padding: 15px 30px;
             border-radius: 14px 14px 0 0;
             background-color: var(--color-dark);
+            @media only screen and (max-width: 767px) {
+                flex-direction: column;
+                align-items: center;
+            }
         }
         .wpwax-vm-seetings-box__breadcrumb{
             display: flex;
             align-items: center;
+            @media only screen and (max-width: 767px) {
+                margin-bottom: 15px;
+            }
             ul{
                 display: flex;
                 flex-wrap: wrap;
@@ -73,6 +95,16 @@ const SetingBoxWrap = Styled.div`
                         font-weight: 500;
                         text-decoration: none;
                         color: rgba(255,255,255,.50);
+                        @media only screen and (max-width: 767px) {
+                            font-size: 12px;
+                        }
+                        &.wpwax-vm-active{
+                            color: rgba(255,255,255,1);
+                        }
+                        &:focus{
+                            outline: none;
+                            box-shadow: 0 0;
+                        }
                         span.dashicons{
                             width: 18px;
                             height: 18px;
@@ -117,6 +149,23 @@ const SetingBoxWrap = Styled.div`
         .wpwax-vm-seetings-box__body{
             min-height: 600px;
             display: flex;
+            .wpwax-settings-content-box{
+                flex: auto;
+                &.wpwax-vm-loder-active{
+                    &:after{
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+                .wpwax-vm-loading-spin{
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    z-index: 100;
+                }
+            }
         }
         .wpwax-vm-seetings-box__footer{
             display: flex;
@@ -124,6 +173,9 @@ const SetingBoxWrap = Styled.div`
             padding: 15px 30px;
             border-radius: 0 0 14px 14px;
             background-color: var(--color-dark);
+            @media only screen and (max-width: 767px) {
+                justify-content: center;
+            }
             .wpwax-vm-btn{
                 padding: 0 20px;
             }
@@ -134,6 +186,12 @@ const SetingBoxWrap = Styled.div`
 const SidebarWrap = Styled.div`
     min-width: 250px;
     background-color: #F7F7F7;
+    @media only screen and (max-width: 1299px) {
+        min-width: 200px;
+    }
+    @media only screen and (max-width: 767px) {
+        display: none;
+    }
 `;
 
 const SidebarMenuItem = Styled.li`
@@ -197,6 +255,9 @@ const SidebarMenuItem = Styled.li`
                 &:hover{
                     color: var(--color-primary);
                 }
+                &.wpwax-vm-active{
+                    color: var(--color-primary);
+                }
             }
             &:first-child{
                 a{
@@ -213,11 +274,43 @@ const SidebarMenuItem = Styled.li`
 `;
 
 const SettingContentWrap = Styled.div`
-    width: 100%;
-    padding: 45px 90px 45px 45px;
+    padding: 45px;
+    height: 600px;
+    overflow-y: auto;
     background-color: var(--color-white);
+    @media only screen and (max-width: 767px) {
+        padding: 15px;
+    }
+    &::-webkit-scrollbar{
+        width: 8px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar-thumb{
+        border-radius: 5px;
+        height: 200px;
+        background-color: #e2e2e2;
+    }
+    .wpwax-vm-radio-list{
+        margin-top: 20px;
+        .wpwax-vm-radio-single{
+            &:not(:last-child){
+                margin-bottom: 15px;
+            }
+        }
+        .wpwax-vm-radio{
+            margin-right: 6px;
+            & + span{
+                flex: auto;
+            }
+        }
+    }
     .wpwax-vm-settings__single{
         display: flex;
+        @media only screen and (max-width: 767px) {
+            flex-direction: column;
+        }
         &:not(:last-child){
             margin-bottom: 40px;
         }
@@ -228,6 +321,12 @@ const SettingContentWrap = Styled.div`
             white-space: nowrap;
             min-width: 280px;
             color: var(--color-dark);
+            @media only screen and (max-width: 1299px) {
+                min-width: 160px;
+            }
+            @media only screen and (max-width: 767px) {
+                margin: 0 0 15px 0;
+            }
         }
         .wpwax-vm-settings__single--element{
             width: 100%;
@@ -264,6 +363,18 @@ const SettingContentWrap = Styled.div`
                     }
                 }
             }
+            .wpwax-vm-radio-single{
+                display: flex;
+                align-items: center;
+                label{
+                    position: relative;
+                    top: -2px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    margin-left: 8px;
+                    color: var(--color-dark);
+                }
+            }
             .wpwax-vm-form__color-plate{
                 max-width: 200px;
             }
@@ -274,6 +385,22 @@ const SettingContentWrap = Styled.div`
                 textarea.wpwax-vm-form__element{
                     min-height: 80px;
                 }
+            }
+        }
+        .wpwax-vm-inline-switch{
+            display: flex;
+            align-items: center;
+            label{
+                font-size: 14px;
+                font-weight: 500;
+                margin-right: 15px;
+                color: var(--color-dark);
+            }
+        }
+        .wpwax-vm-settings__swtich-content{
+            display: none;
+            &.wpwax-vm-show{
+                display: block;
             }
         }
     }

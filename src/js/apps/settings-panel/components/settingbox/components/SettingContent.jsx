@@ -5,6 +5,7 @@ import ReactSVG from 'react-inlinesvg';
 import Dropdown from "Components/form-fields/Dropdown.jsx"
 import Radio from "Components/form-fields/Radio.jsx"
 import ChatBoxPreview from "./ChatBoxPreview.jsx";
+import EmailGeneral from './components/EmailGeneral.jsx';
 import angleDown from 'Assets/svg/icons/angle-down.svg';
 import angleUp from 'Assets/svg/icons/angle-up.svg';
 import handRight from 'Assets/svg/icons/hand-right.svg';
@@ -12,8 +13,10 @@ import handDown from 'Assets/svg/icons/hand-down.svg';
 import Switch from "react-switch";
 import { SettingContentWrap } from '../Style';
 
-const SettingContent = () => {
+const SettingContent = props => {
 
+    const { contentState, setContentState } = props;
+    
     /* initialize Form Data */
     const { settingActive } = useSelector(state => {
         return {
@@ -53,10 +56,10 @@ const SettingContent = () => {
     ];
     const SettingContentData = [
         {
-            key: "language",
+            key: "emailGeneral",
             content: [
                 {
-                    label: "Receive email upon message submission",
+                    label: "Enable Email Notification",
                     component: <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
@@ -92,7 +95,7 @@ const SettingContent = () => {
             ]
         },
         {
-            key: "live-chat",
+            key: "emailTemplate",
             content: [
                 {
                     label: "Select the form to integrate",
@@ -159,6 +162,7 @@ const SettingContent = () => {
     return (
         <SettingContentWrap className="wpwax-vm-settings-inner">
             <form action="">
+                <EmailGeneral  contentState={contentState} setContentState={setContentState} />
                 {/* {
 
                     SettingContentData.filter(item => item.key == "language")[0].content.map((settingItem, index) => {
@@ -174,24 +178,17 @@ const SettingContent = () => {
                         )
                     })
                 } */}
-                {
-                    SettingContentData.filter(item => item.key == "live-chat")[0].content.map((settingItem, index) => {
+                {/* {
+                    SettingContentData.filter(item => item.key == contentState.contentKey)[0].content.map((settingItem, index) => {
                         return (
-                            <div className="wpwax-vm-settings__single" key={index}>
-                                <h4 className="wpwax-vm-settings__single--label">{settingItem.label}</h4>
-                                <div className="wpwax-vm-settings__single--element">
-                                    {
-                                        settingItem.component
-                                    }
-                                </div>
-                            </div>
+                            
                         )
                     })
-                }
-                <div className="wpwax-vm-setting-preview-wrap">
+                } */}
+                {/* <div className="wpwax-vm-setting-preview-wrap">
                     <span className="wpwax-vm-indicator"><ReactSVG src={handDown} /> <span className="wpwax-vm-indicator__text">See, what would it look like!</span> </span>
                     <ChatBoxPreview />
-                </div>
+                </div> */}
             </form>
 
         </SettingContentWrap>

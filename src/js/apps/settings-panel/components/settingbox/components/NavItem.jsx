@@ -1,36 +1,39 @@
 import React, { useState } from 'react';
 import { SidebarMenuItem } from '../Style.js';
 
-const NavItem = (menuItem) => {
-    const [subnav, setSubnav] = useState(false);
+const NavItem = props => {
+    const [navId, setNavId] = useState('wpwax-vm-email-settings');
+    const [subNavPath, setsubNavPath] = useState('email_general');
 
-    const handleSubnav = () => setSubnav(!subnav);
+    const handleSubnav = e => {
+        e.preventDefault()
+        setNavId(e.target.id)
+    };
+    const handleSubnavActivation = e => {
+        e.preventDefault();
+        setsubNavPath(e.target.id);
+    };
     
     return (
-        <SidebarMenuItem className={subnav ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item"}>
-            <a href="#" onClick={handleSubnav}>
-                <div className="wpwax-vm-sidebar-nav__item--icon">{menuItem.item.icon}</div>
+        <SidebarMenuItem className={props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item"}>
+            <a href="#" onClick={e=>handleSubnav(e)} id="wpwax-vm-email-settings">
+                <div className="wpwax-vm-sidebar-nav__item--icon">{props.item.icon}</div>
                 <span className="wpwax-vm-sidebar-nav__item--text">
-                    {menuItem.item.label}
+                    {props.item.label}
                     {
-                        menuItem.item.subNav && subnav ?
-                            menuItem.item.iconOpened
-                            : menuItem.item.subNav
-                                ? menuItem.item.iconClosed
-                                : null
+                        props.item.id === navId ? props.item.iconOpened : props.item.iconClosed
                     }
                 </span>
             </a>
             <ul>
                 {
-                    subnav && menuItem.item.subNav.map((subItem, index) => {
+                    props.item.subNav.map((subItem, index) => {
                         return (
-                            <li key={index}><a href="#">{subItem.label}</a></li>
+                            <li key={index}><a className={subItem.path === subNavPath ? "wpwax-vm-active": null} id={subItem.path} href={`#${subItem.path}`} onClick={handleSubnavActivation}>{subItem.label}</a></li>
                         )
                     })
                 }
             </ul>
-
         </SidebarMenuItem>
     )
 }

@@ -500,6 +500,28 @@
         }
     }
 }
+
+/* wpwax Card */
+.wpwax-vm-card{
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    .wpwax-vm-card-header{
+        border-bottom: 1px solid var(--color-border-light);;
+        padding: 15px 20px;
+        margin-bottom: 0;
+        .wpwax-vm-card-header__title{
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            color: var(--color-dark);
+        }
+    }
+    .wpwax-vm-card-body{
+        padding: 15px 20px;
+    }
+}
+
 /* Wpwax Vm Media */
 .wpwax-vm-media {
     display: flex;

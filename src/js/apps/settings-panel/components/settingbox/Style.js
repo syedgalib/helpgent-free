@@ -293,7 +293,7 @@ const SettingContentWrap = Styled.div`
         background-color: #e2e2e2;
     }
     .wpwax-vm-radio-list{
-        margin-top: 20px;
+        margin-top: 14px;
         .wpwax-vm-radio-single{
             &:not(:last-child){
                 margin-bottom: 15px;
@@ -313,6 +313,9 @@ const SettingContentWrap = Styled.div`
         }
         &:not(:last-child){
             margin-bottom: 40px;
+        }
+        .wpwax-vm-form-group{
+            margin-bottom: 0;
         }
         .wpwax-vm-settings__single--label{
             font-size: 14px;
@@ -402,6 +405,13 @@ const SettingContentWrap = Styled.div`
             &.wpwax-vm-show{
                 display: block;
             }
+            .wpwax-vm-settings__swtich-content--item{
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--color-border-light);
+                h4{
+                    margin: 16px 0 10px;
+                }
+            }
         }
     }
     .wpwax-vm-setting-preview-wrap{
@@ -418,6 +428,22 @@ const SettingContentWrap = Styled.div`
             }
         }
     }
+
+    .wpwax-vm-card{
+        .wpwax-vm-settings__single{
+            &:not(:last-child){
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+    .wpwax-vm-setting__swtich-inner{
+        display: none;
+        &.wpwax-vm-show{
+            display: block;
+        }
+    }
+
 `;
 
 const ChatBoxPreviewWrap = Styled.div`

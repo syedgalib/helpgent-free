@@ -4,6 +4,7 @@ import { SidebarMenuItem } from '../Style.js';
 const NavItem = props => {
     const [navId, setNavId] = useState('wpwax-vm-email-settings');
     const [subNavPath, setsubNavPath] = useState('email_general');
+    const { contentState, setContentState } = props;
 
     const handleSubnav = e => {
         e.preventDefault()
@@ -12,6 +13,10 @@ const NavItem = props => {
     const handleSubnavActivation = e => {
         e.preventDefault();
         setsubNavPath(e.target.id);
+        setContentState({
+            ...contentState,
+            contentKey: e.target.id
+        })
     };
     
     return (

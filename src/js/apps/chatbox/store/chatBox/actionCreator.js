@@ -3,6 +3,8 @@ import actions from './actions';
 const {
   showChatbox,
   hideChatbox,
+  showToggler,
+  hideToggler,
   changeChatScreen,
 } = actions;
 
@@ -10,5 +12,7 @@ const {
 export { 
   showChatbox, 
   hideChatbox,
+  showToggler,
+  hideToggler,
   changeChatScreen,
 };

@@ -43,6 +43,9 @@ const ChatboxForm = Styled.div`
                     margin-right: 20px;
                 }
             }
+            .wpwax-vm-fulscreen-trigger{
+                line-height: 1;
+            }
         }
         .wpwax-vm-chatbox-title{
             font-family: var(--font-family);
@@ -114,10 +117,11 @@ const ChatboxForm = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                height: min(80vh,95px);
-                flex: 0 0 22.6%;
-                width: 22.6%;
-                margin: 1.2%;
+                height: min(80vh,90px);
+                width: 90px;
+                flex-basis: 90px;
+                flex-grow: 1;
+                margin: 5px;
                 transform: scale(1);
                 transition transform .2s ease-in;
                 &:hover{

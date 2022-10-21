@@ -4989,7 +4989,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_avatar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/avatar/Index.jsx */ "./src/js/apps/chatbox/components/avatar/Index.jsx");
 /* harmony import */ var _components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/chat-screen/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/Index.jsx");
 /* harmony import */ var _store_chatboxTemplate_actionCreator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/chatboxTemplate/actionCreator */ "./src/js/apps/chatbox/store/chatboxTemplate/actionCreator.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -5003,11 +5005,13 @@ function App() {
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
       return {
         showChatboxApp: state.chatboxTemplate.showChatbox,
-        showChatbox: state.chatbox.showChatbox
+        showChatbox: state.chatbox.showChatbox,
+        screenToggler: state.chatbox.screenToggler
       };
     }),
     showChatboxApp = _useSelector.showChatboxApp,
-    showChatbox = _useSelector.showChatbox;
+    showChatbox = _useSelector.showChatbox,
+    screenToggler = _useSelector.screenToggler;
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -5016,8 +5020,19 @@ function App() {
   if (!showChatboxApp) {
     return '';
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_avatar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), showChatbox && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+  var handleScreenToggle = function handleScreenToggle() {
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_5__.hideToggler)());
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_avatar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), !screenToggler && showChatbox ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}) : null, screenToggler ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+      href: "#",
+      className: "wpwax-hg-screen-toggler",
+      onClick: handleScreenToggle,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        className: "wpwax-hg-record-time",
+        children: "00:00"
+      })
+    }) : null]
   });
 }
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -5047,15 +5062,17 @@ function Avatar() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
       return {
-        templateOptions: state.chatboxTemplate.template.options
+        templateOptions: state.chatboxTemplate.template.options,
+        displayChatbox: state.chatbox.showChatbox
       };
     }),
-    templateOptions = _useSelector.templateOptions;
+    templateOptions = _useSelector.templateOptions,
+    displayChatbox = _useSelector.displayChatbox;
   function clickHandler(e) {
     e.preventDefault();
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.showChatbox)());
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  return !displayChatbox ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__["default"], {
     onClick: clickHandler,
     children: [templateOptions.greet_video_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
       style: {
@@ -5074,7 +5091,7 @@ function Avatar() {
       src: Assets_img_avatar_png__WEBPACK_IMPORTED_MODULE_3__["default"],
       alt: "Avatar"
     }) : null]
-  });
+  }) : null;
 }
 /* harmony default export */ __webpack_exports__["default"] = (Avatar);
 
@@ -5148,6 +5165,7 @@ function ChatScreen() {
     if (!Object.keys(screens).includes(currentChatScreen)) {
       return '';
     }
+    console.log(currentChatScreen);
     return screens[currentChatScreen];
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -5966,7 +5984,6 @@ function Theme_1() {
             var replayType = supportedReplayTypes.filter(function (replayTypeItem) {
               return replayTypeItem.type === item;
             })[0];
-            console.log(replayType);
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("a", {
               href: "#",
               className: "wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary",
@@ -6247,14 +6264,149 @@ function Theme_2() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var Assets_svg_icons_window_minimize_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/window-minimize.svg */ "./src/assets/svg/icons/window-minimize.svg");
+/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
+/* harmony import */ var _Style_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style.js */ "./src/js/apps/chatbox/components/chat-screen/components/screen-record/Style.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
 
 function ScreenRecord() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-    children: "ScreenRecord"
-  });
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useDispatch)();
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      recordStage: "startScreen"
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    state = _useState2[0],
+    setState = _useState2[1];
+  var handleMinizeScreen = function handleMinizeScreen() {
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.showToggler)());
+  };
+  var handleSelectScreen = function handleSelectScreen(e) {
+    e.preventDefault();
+    if (state.recordStage === "startScreen") {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        recordStage: "stopScreen"
+      }));
+    } else {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        recordStage: "beforeSend"
+      }));
+    }
+  };
+  var goBack = function goBack(e) {
+    e.preventDefault();
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      recordStage: "startScreen"
+    }));
+  };
+  if (state.recordStage === "startScreen" || state.recordStage === "stopScreen") {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "wpwax-hg-screenrecord-box",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-hg-screenrecord-top",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "wpwax-hg-record-timer",
+            children: "00:00"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "#",
+            className: "wpwax-hg-btn-minimize",
+            onClick: handleMinizeScreen,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              src: Assets_svg_icons_window_minimize_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "wpwax-hg-screenrecord-action",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "#",
+            className: "wpwax-vm-btn wpwax-vm-btn-block wpwax-vm-btn-primary",
+            onClick: function onClick(e) {
+              return handleSelectScreen(e);
+            },
+            children: state.recordStage === "startScreen" ? "Select Screen" : "Stop Recording"
+          })
+        })]
+      })
+    });
+  } else if (state.recordStage === "beforeSend") {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "wpwax-vm-record-ready",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+        action: "#",
+        className: "wpwax-vm-form",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "wpwax-vm-recored-video",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("video", {
+              controls: true,
+              src: ""
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "wpwax-vm-form-bottom",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+            children: "Ready to send?"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+            href: "#",
+            className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10",
+            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+              src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+            href: "#",
+            onClick: function onClick(e) {
+              return goBack(e);
+            },
+            className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-light",
+            children: "Cancel"
+          })]
+        })]
+      })
+    });
+  }
 }
 /* harmony default export */ __webpack_exports__["default"] = (ScreenRecord);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/components/chat-screen/components/screen-record/Style.js":
+/*!**************************************************************************************!*\
+  !*** ./src/js/apps/chatbox/components/chat-screen/components/screen-record/Style.js ***!
+  \**************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+var _templateObject;
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var ScreenRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: relative;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    \n    &.wpwax-vm-chat-screen{\n        height: min(30vh,520px);\n    }\n    .wpwax-hg-btn-minimize{\n        position: absolute;\n        top: 10px;\n        right: 40px;\n        line-height: 1;\n        svg{\n            width: 25px;\n            height: 25px;\n        }\n    }\n    .wpwax-hg-record-timer{\n        display: block;\n        font-size: 30px;\n        color: #FC495D;\n        text-align: center;\n        margin-bottom: 30px;\n    }\n    .wpwax-hg-screenrecord-action{\n        .wpwax-vm-btn{\n            width: 100%;\n            min-height: 50px;\n            box-sizing: border-box;\n        }\n    }\n    &.wpwax-vm-record-ready{\n        padding: 80px 25px;\n        .wpwax-vm-form{\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            height: 100%;\n        }\n        .wpwax-vm-text-reply{\n            .wpwax-vm-form-group{\n                .wpwax-vm-form__element{\n                    background-color: transparent;\n                    &:focus{\n                        outline: 0 none;\n                        border: 0 none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-recored-video{\n            margin-bottom: 40px;\n            position: relative;\n            .wpwax-vm-recorded-preview{\n                position: relative;\n                border-radius: 15px;\n                background-size: cover;\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 100%;\n                    height: 240px;\n                    object-fit: cover;\n\t\t\t\t\tborder-radius: 15px;\n\t\t\t\t}\n            }\n            .wpwax-vm-recored-video__play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                width: 60px;\n                height: 60px;\n                margin: 0 auto;\n                border-radius: 50%;\n                background-color: var(--color-white);\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                div{\n                    line-height: .5;\n                    svg {\n                        width: 16px;\n                        height: 16px;\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-bottom{\n            p{\n                font-size: 20px;\n                font-weight: 600;\n                margin-bottom: 18px;\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                svg{\n                    position: relative;\n                    top: 0;\n                    margin-left: 10px;\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n            .wpwax-vm-btn-link{\n                display: block;\n                text-decoration: none;\n                font-size: 16px;\n                font-weight: 600;\n                margin-top: 14px;\n                &:hover{\n                    color: var(--color-primary);\n                }\n            }\n        }\n    }\n"])));
+/* harmony default export */ __webpack_exports__["default"] = (ScreenRecordWrap);
 
 /***/ }),
 
@@ -6327,7 +6479,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ScreenWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 15px;\n    right: 25px;\n    height: auto;\n    width: 450px;\n    z-index: 100;\n    border-radius: 25px;\n    font-family: var(--font-family);\n    box-shadow: 0 3px 30px rgba(0,0,0,.10);\n    background-color: var(--color-white);\n    animation: wpwaxVideoOpen .4s ease-in-out;\n    @media only screen and (max-width: 575px){\n        width: 380px;\n        right: 15px;\n    }\n    @media only screen and (max-width: 379px){\n        width: 345px;\n    }\n    .wpwax-vm-chatbox-text{\n        background-color: var(--color-white);\n        border-radius: 25px;\n        .wpwax-vm-chatbox-text-form-inner{\n            min-height: 580px;\n            input{\n                font-family: var(--font-family);\n                &::placeholder{\n                    font-family: var(--font-family);\n                }\n            }\n            .wpwax-vm-form-group{\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-form-group textarea.wpwax-vm-form__element{\n                font-size: 16px;\n                line-height: 1.75;\n                font-family: var(--font-family);\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-contact{\n        min-height: 580px;\n        font-family: var(--font-family);\n        \n        .wpwax-vm-footer{\n            button{\n                font-family: var(--font-family);\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n                &:not(:hover):not(:active):not(.has-text-color){\n                    color: var(--color-white);\n                }\n            }\n        }\n        .wpwax-vm-form-group{\n            .wpwax-vm-form__element{\n                min-height: 46px;\n            }\n        }\n        .wpwax-vm-footer{\n            margin-top: 40px;\n        }\n    }\n    .wpwax-vm-chatbox-container{\n        height: 100%;\n        position: relative;\n        font-size: 18px;\n        height: 100%;\n        .wpwax-vm-chatbox-wrap{\n            height: 100%;\n            position: relative;\n            z-index: 101;\n            min-height: 620px;\n            @media only screen and (max-width: 1399px){\n                min-height: 580px;\n            }\n            &:after,\n            &:before{\n                position: absolute;\n                left: 0;\n                top: 0px;\n                width: 100%;\n                height: 336px;\n                content: '';\n                opacity: .9;\n                z-index: 10;\n                border-radius: 25px;\n                background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n            &:after{\n                top: -2px;\n            }\n            &:before{\n                top: auto;\n                bottom: 0;\n                height: 340px;\n                background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n        }\n        .wpwax-vm-chatbox-btnlist{\n            .wpwax-vm-chatbox-btn-close{\n                svg{\n                    width: 10px;\n                    height: 10px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: -18px;\n            top: -18px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 38px;\n            height: 38px;\n            padding: 0;\n            border-radius: 50%;\n            cursor: pointer;\n            z-index: 102;\n            border-color: transparent;\n            transition: background-color .3s ease-in-out;\n            background-color: var(--color-dark);\n            color: var(--color-white);\n            &:hover{\n                background-color: var(--color-danger);\n            }\n            svg{\n                width: 16px;\n                height: 16px;\n            }\n        }\n        .wpwax-vm-chatbox-header,\n        .wpwax-vm-chatbox-inner,\n        .wpwax-vm-chatbox-footer{\n            position: relative;\n            z-index: 100\n        }\n        .wpwax-vm-btn-block{\n            width: auto;\n        }\n    }\n    .wpwax-vm-record-send-success{\n        font-family: var(--font-family);\n        border-radius: 25px;\n        background-color: var(--color-thank-page-bg);\n        h4{\n            font-family: var(--font-family);\n        }\n    }\n    .wpwax-vm-record-send-success__content {\n        min-height: 320px;\n        font-family: var(--font-family);\n        font-size: var(--font-size);\n        .wpwax-vm-text-color{\n            font-size: var(--font-size-thank-desc);\n            color: var(--color-thank-desc);\n        }\n        p{\n            margin: 0;\n            font-family: var(--font-family);\n        }\n    }\n\n    .wpwax-vm-record-send-success__bottom{\n        a{\n            font-family: var(--font-family);\n        }\n    }\n"])));
+var ScreenWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 15px;\n    right: 25px;\n    height: auto;\n    width: 430px;\n    z-index: 100;\n    border-radius: 25px;\n    font-family: var(--font-family);\n    box-shadow: 0 3px 30px rgba(0,0,0,.10);\n    background-color: var(--color-white);\n    animation: wpwaxVideoOpen .4s ease-in-out;\n    @media only screen and (max-width: 575px){\n        width: 380px;\n        right: 15px;\n    }\n    @media only screen and (max-width: 379px){\n        width: 345px;\n    }\n    .wpwax-vm-chatbox-text{\n        background-color: var(--color-white);\n        border-radius: 25px;\n        .wpwax-vm-chatbox-text-form-inner{\n            min-height: 580px;\n            input{\n                font-family: var(--font-family);\n                &::placeholder{\n                    font-family: var(--font-family);\n                }\n            }\n            .wpwax-vm-form-group{\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-form-group textarea.wpwax-vm-form__element{\n                font-size: 16px;\n                line-height: 1.75;\n                font-family: var(--font-family);\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-contact{\n        min-height: 580px;\n        font-family: var(--font-family);\n        \n        .wpwax-vm-footer{\n            button{\n                font-family: var(--font-family);\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n                &:not(:hover):not(:active):not(.has-text-color){\n                    color: var(--color-white);\n                }\n            }\n        }\n        .wpwax-vm-form-group{\n            .wpwax-vm-form__element{\n                min-height: 46px;\n            }\n        }\n        .wpwax-vm-footer{\n            margin-top: 40px;\n        }\n    }\n    .wpwax-vm-chatbox-container{\n        height: 100%;\n        position: relative;\n        font-size: 18px;\n        height: 100%;\n        .wpwax-vm-chatbox-wrap{\n            height: 100%;\n            position: relative;\n            z-index: 101;\n            min-height: 620px;\n            @media only screen and (max-width: 1399px){\n                min-height: 580px;\n            }\n            &:after,\n            &:before{\n                position: absolute;\n                left: 0;\n                top: 0px;\n                width: 100%;\n                height: 336px;\n                content: '';\n                opacity: .9;\n                z-index: 10;\n                border-radius: 25px;\n                background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n            &:after{\n                top: -2px;\n            }\n            &:before{\n                top: auto;\n                bottom: 0;\n                height: 340px;\n                background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n        }\n        .wpwax-vm-chatbox-btnlist{\n            .wpwax-vm-chatbox-btn-close{\n                svg{\n                    width: 10px;\n                    height: 10px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: -18px;\n            top: -18px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 38px;\n            height: 38px;\n            padding: 0;\n            border-radius: 50%;\n            cursor: pointer;\n            z-index: 102;\n            border-color: transparent;\n            transition: background-color .3s ease-in-out;\n            background-color: var(--color-dark);\n            color: var(--color-white);\n            &:hover{\n                background-color: var(--color-danger);\n            }\n            svg{\n                width: 16px;\n                height: 16px;\n            }\n        }\n        .wpwax-vm-chatbox-header,\n        .wpwax-vm-chatbox-inner,\n        .wpwax-vm-chatbox-footer{\n            position: relative;\n            z-index: 100\n        }\n        .wpwax-vm-btn-block{\n            width: auto;\n        }\n    }\n    .wpwax-vm-record-send-success{\n        font-family: var(--font-family);\n        border-radius: 25px;\n        background-color: var(--color-thank-page-bg);\n        h4{\n            font-family: var(--font-family);\n        }\n    }\n    .wpwax-vm-record-send-success__content {\n        min-height: 320px;\n        font-family: var(--font-family);\n        font-size: var(--font-size);\n        .wpwax-vm-text-color{\n            font-size: var(--font-size-thank-desc);\n            color: var(--color-thank-desc);\n        }\n        p{\n            margin: 0;\n            font-family: var(--font-family);\n        }\n    }\n\n    .wpwax-vm-record-send-success__bottom{\n        a{\n            font-family: var(--font-family);\n        }\n    }\n"])));
 /* harmony default export */ __webpack_exports__["default"] = (ScreenWrapper);
 
 /***/ }),
@@ -8177,7 +8329,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    font-size: 18px;\n    height: 100%;\n    box-sizing: border-box;\n    &:hover{\n        .wpwax-vm-btn-play{\n            opacity: 1;\n            visibility: visible;\n            z-index: 10;\n        }\n    }\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        @media only screen and (max-width: 767px){\n            padding: 15px;\n        }\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.2;\n            color: var(--color-text-greet);\n            margin: 15px 0 5px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            display: inline-block;\n            margin-top: 8px;\n            font-family: var(--font-family);\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--color-white);\n        i,\n        svg{\n            width: 22px;\n            height: 26px;\n            color: var(--color-primary);\n            fill: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            padding: 0 25px;\n            @media only screen and (max-width: 767px){\n                padding: 0 20px;\n            }\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                height: min(80vh,95px);\n                flex: 0 0 22.6%;\n                width: 22.6%;\n                margin: 1.2%;\n                transform: scale(1);\n                transition transform .2s ease-in;\n                &:hover{\n                    background-color: var(--primary-button-bg);\n                    color: var(--primary-button-color);\n                    transform: scale(1.06);\n                    /* fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    } */\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 90px;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-family: var(--font-family);\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                @media only screen and (max-width: 767px){\n                    padding: 15px;\n                }\n                .wpwax-vm-chatbox-title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:hover{\n                    .wpwax-vm-btn-play{\n                        opacity: 1;\n                        z-index: 100;\n                        visibility: visible;\n                    }\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 300px;\n                    width: 100%;\n                    z-index: 10;\n                    @media only screen and (max-width: 1399px){\n                        height: 250px;\n                    }\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    opacity: 0;\n                    visibility: hidden;\n                    transition: .3s;\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        width: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
+var ChatboxForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    font-family: var(--font-family);\n    font-size: 18px;\n    height: 100%;\n    box-sizing: border-box;\n    &:hover{\n        .wpwax-vm-btn-play{\n            opacity: 1;\n            visibility: visible;\n            z-index: 10;\n        }\n    }\n    .wpwax-vm-chatbox-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 25px;\n        overflow: hidden;\n        z-index: -1;\n        img{\n            height: 100%;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-chatbox-header{\n        padding: 25px;\n        @media only screen and (max-width: 767px){\n            padding: 15px;\n        }\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n                &.wpwax-vm-timer{\n                    margin-right: 20px;\n                }\n            }\n            .wpwax-vm-fulscreen-trigger{\n                line-height: 1;\n            }\n        }\n        .wpwax-vm-chatbox-title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-greet);\n            font-weight: 600;\n            line-height: 1.2;\n            color: var(--color-text-greet);\n            margin: 15px 0 5px;\n        }\n        .wpwax-vm-chatbox-description{\n            font-size: 15px;\n            font-weight: 500;\n            display: inline-block;\n            margin-top: 8px;\n            font-family: var(--font-family);\n            color: var(--color-description)\n        }\n    }\n    .wpwax-vm-chatbox-inner{\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--color-white);\n        i,\n        svg{\n            width: 22px;\n            height: 26px;\n            color: var(--color-primary);\n            fill: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-footer{\n        .wpwax-vm-chatbox-footer__title{\n            font-family: var(--font-family);\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            text-align: center;\n            margin-bottom: 15px;\n            text-transform: inherit;\n            color: var(--color-text-chat);\n        }\n        .wpwax-vm-chatbox-footer__actions{\n            display: flex;\n            flex-wrap: wrap;\n            margin: -10px;\n            padding: 0 25px;\n            @media only screen and (max-width: 767px){\n                padding: 0 20px;\n            }\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                height: min(80vh,90px);\n                width: 90px;\n                flex-basis: 90px;\n                flex-grow: 1;\n                margin: 5px;\n                transform: scale(1);\n                transition transform .2s ease-in;\n                &:hover{\n                    background-color: var(--primary-button-bg);\n                    color: var(--primary-button-color);\n                    transform: scale(1.06);\n                    /* fill: var(--primary-button-bg);\n                    path{\n                        fill: var(--primary-button-bg);\n                    } */\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 90px;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 0 0 4px;\n                    fill: var(--color-white);\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-footer__text{\n            font-family: var(--font-family);\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            opacity: .8;\n            margin: 12px 0 8px;\n            text-align: center;\n            min-height: 20px;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-chatbox-wrap{\n        &.wpwax-vm-chatbox-theme-2{\n            height: auto;\n            box-shadow: 0 3px 30px rgba(0,0,0,.10);\n            border-radius: 25px;\n            &:before,\n            &:after{\n                display: none;\n            }\n            .wpwax-vm-chatbox-header{\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                background-color: var(--color-page-header-bg);\n                @media only screen and (max-width: 767px){\n                    padding: 15px;\n                }\n                .wpwax-vm-chatbox-title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                }\n            }\n            .wpwax-vm-chatbox-inner{\n                position: relative;\n                padding: 0;\n                overflow: hidden;\n                &:hover{\n                    .wpwax-vm-btn-play{\n                        opacity: 1;\n                        z-index: 100;\n                        visibility: visible;\n                    }\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -210px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 101;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                        &.wpwax-vm-timer{\n                            display: block;\n                            margin-right: 20px;\n                            color: var(--color-white);\n                        }\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                video{\n                    object-fit: cover;\n                }\n                .wpwax-vm-chatbox-img{\n                    position: relative;\n                    height: 300px;\n                    width: 100%;\n                    z-index: 10;\n                    @media only screen and (max-width: 1399px){\n                        height: 250px;\n                    }\n                }\n                .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    opacity: 0;\n                    visibility: hidden;\n                    transition: .3s;\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-img{\n                    img{\n                        height: 100%;\n                        width: 100%;\n                        object-fit: cover;\n                    }\n                }\n            }\n            .wpwax-vm-chatbox-footer{\n                position: relative;\n                z-index: 101;\n                border-radius: 0 0 25px 25px;\n                padding: 0;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-chatbox-footer__title{\n                    font-family: var(--font-family);\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 0 0 20px;\n                    padding-top: 12px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-chatbox-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin: 12px 0 8px;\n                    color: var(--color-footer-text);\n                }\n            }\n        }\n    }  \n"])));
 var ContactFormWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-contact-form{\n        padding: 60px 25px 25px;\n        position: relative;\n        min-height: 595px;\n        .wpwax-vm-contact-form__title{\n            font-size: 18px;\n            font-weight: 500;\n            font-family: var(--font-family);\n            line-height: 1.333;\n            margin: 0 0 30px;\n            color: var(--color-dark);\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n            .wpwax-vm-form__element{\n                min-height: 46px;\n                border-radius: 8px;\n            }\n        }\n        .wpwax-vm-form__bottom{\n            position: absolute;\n            width: calc( 100% - 50px );\n            bottom: 25px;\n            left: 25px;\n            .wpwax-vm-btn{\n                border-radius: 10px;\n                svg{\n                    width: 16px;\n                    height: 16px;\n                    margin-left: 10px;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -8655,12 +8807,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
 /* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
-/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; }
+/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
+/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; }
 /* harmony export */ });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
 
 var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
   hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
+  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
   changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
 
 
@@ -8677,6 +8833,8 @@ __webpack_require__.r(__webpack_exports__);
 var actions = {
   SHOW_CHATBOX: 'SHOW_CHATBOX',
   HIDE_CHATBOX: 'HIDE_CHATBOX',
+  SHOW_TOGGLER: 'SHOW_TOGGLER',
+  HIDE_TOGGLER: 'HIDE_TOGGLER',
   CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
   showChatbox: function showChatbox() {
     return {
@@ -8686,6 +8844,16 @@ var actions = {
   hideChatbox: function hideChatbox() {
     return {
       type: actions.HIDE_CHATBOX
+    };
+  },
+  showToggler: function showToggler() {
+    return {
+      type: actions.SHOW_TOGGLER
+    };
+  },
+  hideToggler: function hideToggler() {
+    return {
+      type: actions.HIDE_TOGGLER
     };
   },
   changeChatScreen: function changeChatScreen(sceenType) {
@@ -8716,10 +8884,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var initialState = {
   showChatbox: false,
+  screenToggler: false,
+  screenRecordTime: "00:00",
   currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME
 };
 var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
   HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
+  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
   CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
 var chatboxReducers = function chatboxReducers() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -8735,6 +8907,14 @@ var chatboxReducers = function chatboxReducers() {
       return _objectSpread(_objectSpread({}, state), {}, {
         currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
         showChatbox: false
+      });
+    case SHOW_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: true
+      });
+    case HIDE_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: false
       });
     case CHANGE_CHAT_SCREEN:
       return _objectSpread(_objectSpread({}, state), {}, {
@@ -8779,6 +8959,7 @@ var screenTypes = {
   VIDEO: 'video',
   AUDIO: 'voice',
   TEXT: 'text',
+  SCREEN_RECORD: 'screen_record',
   CONTACT_FORM: 'contact_form',
   USER_AUTHENTICATION_FORM: 'user_authentication_form',
   SENDING: 'sending',
@@ -18627,6 +18808,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6416e1a8516bbcdc4fc97b0f7523b9b4.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/window-minimize.svg":
+/*!**************************************************!*\
+  !*** ./src/assets/svg/icons/window-minimize.svg ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e897d599d68c485c62b717b239b4918a.svg");
 
 /***/ }),
 

@@ -1,6 +1,8 @@
 const actions = {
     SHOW_CHATBOX: 'SHOW_CHATBOX',
     HIDE_CHATBOX: 'HIDE_CHATBOX',
+    SHOW_TOGGLER: 'SHOW_TOGGLER',
+    HIDE_TOGGLER: 'HIDE_TOGGLER',
     CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
 
     showChatbox: () => {
@@ -12,6 +14,18 @@ const actions = {
     hideChatbox: () => {
       return {
         type: actions.HIDE_CHATBOX,
+      };
+    },
+
+    showToggler: () => {
+      return {
+        type: actions.SHOW_TOGGLER,
+      };
+    },
+
+    hideToggler: () => {
+      return {
+        type: actions.HIDE_TOGGLER,
       };
     },
 

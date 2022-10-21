@@ -39,6 +39,8 @@ function ChatScreen() {
             return '';
         }
 
+        console.log(currentChatScreen);
+
         return screens[currentChatScreen];
     }
 

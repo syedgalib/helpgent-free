@@ -5737,67 +5737,6 @@ var EmailGeneral = function EmailGeneral(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
-        className: "wpwax-vm-settings__single--label",
-        children: "Enable Header"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          className: "wpwax-vm-switch",
-          id: "enableEmailHeader",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: contentState.options.enableEmailHeader,
-          onChange: handleUpdateSwitch
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "wpwax-vm-form__color-text",
-              children: contentState.options.emailHeaderColor
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-              htmlFor: "wpwax-vm-mail-header-color",
-              className: "wpwax-vm-form__color-ball",
-              style: {
-                backgroundColor: contentState.options.emailHeaderColor
-              }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-              type: "color",
-              id: "wpwax-vm-mail-header-color",
-              className: "wpwax-vm-form__element",
-              name: "emailHeaderColor",
-              value: contentState.options.emailHeaderColor,
-              onChange: handleChange
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-            className: "wpwax-vm-inline-switch",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-              htmlFor: "",
-              children: "Add site logo"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              uncheckedIcon: false,
-              checkedIcon: false,
-              onColor: "#6551F2",
-              offColor: "#E2E2E2",
-              className: "wpwax-vm-switch",
-              id: "addSiteLogo",
-              handleDiameter: 14,
-              height: 22,
-              width: 40,
-              checked: contentState.options.addSiteLogo,
-              onChange: handleUpdateSwitch
-            })]
-          })]
-        })]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-mail-from-name",
@@ -5882,6 +5821,67 @@ var EmailTemplate = function EmailTemplate(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "wpwax-vm-setting-wrap",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "wpwax-vm-settings__single",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+        className: "wpwax-vm-settings__single--label",
+        children: "Enable Header"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "wpwax-vm-settings__single--element",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          uncheckedIcon: false,
+          checkedIcon: false,
+          onColor: "#6551F2",
+          offColor: "#E2E2E2",
+          className: "wpwax-vm-switch",
+          id: "enableEmailHeader",
+          handleDiameter: 14,
+          height: 22,
+          width: 40,
+          checked: contentState.options.enableEmailHeader,
+          onChange: handleUpdateSwitch
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-form__color-text",
+              children: contentState.options.emailHeaderColor
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              htmlFor: "wpwax-vm-mail-header-color",
+              className: "wpwax-vm-form__color-ball",
+              style: {
+                backgroundColor: contentState.options.emailHeaderColor
+              }
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+              type: "color",
+              id: "wpwax-vm-mail-header-color",
+              className: "wpwax-vm-form__element",
+              name: "emailHeaderColor",
+              value: contentState.options.emailHeaderColor,
+              onChange: handleChange
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-inline-switch",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              htmlFor: "",
+              children: "Add site logo"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              uncheckedIcon: false,
+              checkedIcon: false,
+              onColor: "#6551F2",
+              offColor: "#E2E2E2",
+              className: "wpwax-vm-switch",
+              id: "addSiteLogo",
+              handleDiameter: 14,
+              height: 22,
+              width: 40,
+              checked: contentState.options.addSiteLogo,
+              onChange: handleUpdateSwitch
+            })]
+          })]
+        })]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-note",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "wpwax-vm-note__icon",

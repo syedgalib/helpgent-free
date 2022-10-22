@@ -3,11 +3,12 @@ import Styled from 'styled-components';
 const ScreenRecordWrap = Styled.div`
     position: relative;
     display: flex;
+	flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     &.wpwax-vm-chat-screen{
-        height: min(30vh,520px);
+        min-height: min(30vh,520px);
     }
     .wpwax-hg-btn-minimize{
         position: absolute;

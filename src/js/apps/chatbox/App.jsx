@@ -33,12 +33,12 @@ function App() {
 		<>
 			<Avatar />
 			{
-				!screenToggler && showChatbox ? <ChatScreen /> : null
+				! screenToggler && showChatbox ? <ChatScreen /> : null
 			}
 			{
 				screenToggler ? <a href="#" className="wpwax-hg-screen-toggler" onClick={handleScreenToggle}><span className="wpwax-hg-record-time">00:00</span></a> : null
 			}
-			
+
 		</>
 	);
 }

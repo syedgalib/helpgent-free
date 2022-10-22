@@ -11,6 +11,7 @@ import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
+import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
@@ -1464,6 +1465,16 @@ function MessageBox({ setSessionState }) {
                                 <ReactSVG src={videoPlay} />
                             </div>
                             <span className='wpwax-vm-btn-text'>Video</span>
+                        </a>
+                        <a
+                            href='#'
+                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
+                            onClick={showReplayViaVideoMessage}
+                        >
+                            <div className='wpwax-vm-btn-icon'>
+                                <ReactSVG src={recordIcon} />
+                            </div>
+                            <span className='wpwax-vm-btn-text'>Screen</span>
                         </a>
                         <a
                             href='#'

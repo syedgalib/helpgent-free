@@ -446,7 +446,7 @@ const MessageBoxWrap = Styled.div`
                 .wpwax-vm-btn-icon,
                 .wpwax-vm-btn-text{
                     display: inline-block;
-                    line-height: 1;
+                    line-height: .5;
                 }
                 .wpwax-vm-btn-text{
                     margin-left: 10px;
@@ -458,6 +458,8 @@ const MessageBoxWrap = Styled.div`
                     }
 
                     svg{
+                        width: 18px;
+                        height: 18px;
                         margin-left: 0;
                     }
                 }

@@ -497,10 +497,12 @@
     }
     .wpwax-hg-assigned-tags{
         display: flex;
-        justify-content: center;
         align-items: center;
         margin: 4px -2px -2px;
         .wpwax-hg-assigned-tags__item{
+            display: flex;
+            justify-self: center;
+            align-items: center;
             font-size: 10px;
             font-weight: 600;
             line-height: 1.5;
@@ -509,7 +511,11 @@
             margin: 2px;
             padding: 0 5px;
             border-radius: 4px;
+            color: #4D4D4D;
             background-color: var(--color-bg-light);
+            &.wpwax-hg-assigned-tags__item-more{
+                color: var(--color-)
+            }
         }
     }
 }

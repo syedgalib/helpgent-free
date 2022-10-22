@@ -8,9 +8,13 @@ const MediaBox = ({
     sessionTerm,
     initialConv,
     title,
+    sessionId,
+    sessionState,
+    setSessionState,
     metaList,
 }) => {
-    console.log(sessionTerm);
+    const fourSessionTerm = sessionTerm.slice(0,4);
+    const overlay = document.querySelector('.wpax-vm-overlay');
     const replyerImg = () => {
         if (lastMessage) {
             if(lastMessage.user.avater){
@@ -29,6 +33,33 @@ const MediaBox = ({
             }
         }
     };
+
+    const handleAddTag = event => {
+        event.preventDefault();
+
+        overlay.classList.add('wpwax-vm-show');
+
+        let termId = [];
+
+        if(sessionTerm.length !==0){
+            for(let i =0; i< sessionTerm.length; i++){
+                termId = [
+                    ...termId,
+                    sessionTerm[i].term_id
+                ]
+            }
+        }
+
+        setSessionState({
+            ...sessionState,
+            activeSessionId: sessionId,
+            serverAssigned: [...termId],
+            asignedTerms: [...termId],
+            tagListModalOpen: false,
+            taglistWithSession: true,
+            addTagModalOpen: true
+        });
+    }
 
     return (
         <div className='wpwax-vm-media'>
@@ -100,12 +131,13 @@ const MediaBox = ({
                 })}
 
                 {
-                    chatingMedia ?
+                    
+                    chatingMedia && fourSessionTerm.length !==0 ?
                     <div className="wpwax-hg-assigned-tags">
                         {
-                            sessionTerm.map(( tag, i ) => <span className="wpwax-hg-assigned-tags__item" key={i}>trelo</span>)
+                            fourSessionTerm.map(( tag, i ) => <span className="wpwax-hg-assigned-tags__item" key={i}>{tag.name}</span>)
                         }
-                        {/* <a className="wpwax-hg-assigned-tags__item wpwax-hg-assigned-tags__item-more">+</a> */}
+                        <a className="wpwax-hg-assigned-tags__item wpwax-hg-assigned-tags__item-more" onClick={handleAddTag}>+</a>
                     </div> : null
                 }
             </div>

@@ -5106,7 +5106,6 @@ var SettingBox = function SettingBox() {
   }, []);
   var handleSaveSetting = function handleSaveSetting(event) {
     event.preventDefault();
-    console.log(event);
     setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
       loading: true
     }));
@@ -6071,7 +6070,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-message-mail-from-subject",
                   name: "emailTemplateMessageSubject",
                   placeholder: "ex. mail Subject",
-                  value: contentState.options.emailTemplateSubject,
+                  value: contentState.options.emailTemplateMessageSubject,
                   onChange: handleChange
                 })
               })

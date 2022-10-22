@@ -114,7 +114,7 @@ const EmailTemplate = props =>{
                             <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-subject">Email Subject</label>
                             <div className="wpwax-vm-settings__single--element">
                                 <div className="wpwax-vm-form-group">
-                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateSubject} onChange={handleChange}/>
+                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateMessageSubject} onChange={handleChange}/>
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@ const EmailTemplate = props =>{
                             <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-body">Email Body</label>
                             <div className="wpwax-vm-settings__single--element">
                                 <div className="wpwax-vm-form-group">
-                                    <textarea className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-body" name="emailTemplateMessageBody" placeholder='' value={contentState.options.emailTemplateMessageBody} onChange={handleChange}/>
+                                    <textarea className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-body" name="emailTemplateMessageBody" placeholder='' value={contentState.options.emailTemplateMessageBody} onChange={handleChange} />
                                 </div>
                             </div>
                         </div>

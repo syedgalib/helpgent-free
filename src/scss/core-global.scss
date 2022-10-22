@@ -10,6 +10,7 @@
     --color-bg-gray: #e2e2e2;
     --color-bg-general: #ededed;
     --color-bg-page: #f0f0f0;
+    --color-bg-light: #D0D0D0;
     --color-border-light: #ededed;
     --color-gray: #868eae;
     --color-info: #1b83fb;
@@ -492,6 +493,23 @@
             font-size: 12px;
             font-weight: 500;
             color: var(--text-color);
+        }
+    }
+    .wpwax-hg-assigned-tags{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 4px -2px -2px;
+        .wpwax-hg-assigned-tags__item{
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+            text-transform: capitalize;
+            min-height: 16px;
+            margin: 2px;
+            padding: 0 5px;
+            border-radius: 4px;
+            background-color: var(--color-bg-light);
         }
     }
 }

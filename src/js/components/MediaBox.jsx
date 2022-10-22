@@ -5,10 +5,12 @@ const MediaBox = ({
     chatingMedia,
     img,
     lastMessage,
+    sessionTerm,
     initialConv,
     title,
     metaList,
 }) => {
+    console.log(sessionTerm);
     const replyerImg = () => {
         if (lastMessage) {
             if(lastMessage.user.avater){
@@ -96,6 +98,16 @@ const MediaBox = ({
                         </span>
                     );
                 })}
+
+                {
+                    chatingMedia ?
+                    <div className="wpwax-hg-assigned-tags">
+                        {
+                            sessionTerm.map(( tag, i ) => <span className="wpwax-hg-assigned-tags__item" key={i}>trelo</span>)
+                        }
+                        {/* <a className="wpwax-hg-assigned-tags__item wpwax-hg-assigned-tags__item-more">+</a> */}
+                    </div> : null
+                }
             </div>
         </div>
     );

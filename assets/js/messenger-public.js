@@ -5006,12 +5006,14 @@ function App() {
       return {
         showChatboxApp: state.chatboxTemplate.showChatbox,
         showChatbox: state.chatbox.showChatbox,
-        screenToggler: state.chatbox.screenToggler
+        screenToggler: state.chatbox.screenToggler,
+        screenTogglerContent: state.chatbox.screenTogglerContent
       };
     }),
     showChatboxApp = _useSelector.showChatboxApp,
     showChatbox = _useSelector.showChatbox,
-    screenToggler = _useSelector.screenToggler;
+    screenToggler = _useSelector.screenToggler,
+    screenTogglerContent = _useSelector.screenTogglerContent;
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -5024,13 +5026,15 @@ function App() {
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_5__.hideToggler)());
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_avatar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), !screenToggler && showChatbox ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}) : null, screenToggler ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_avatar_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      show: !screenToggler && showChatbox
+    }), screenToggler ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
       href: "#",
       className: "wpwax-hg-screen-toggler",
       onClick: handleScreenToggle,
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "wpwax-hg-record-time",
-        children: "00:00"
+        children: screenTogglerContent
       })
     }) : null]
   });
@@ -5151,8 +5155,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-function ChatScreen() {
+function ChatScreen(_ref) {
   var _screens;
+  var show = _ref.show;
   (0,_store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_12__.useFormHooks)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
       return {
@@ -5165,11 +5170,15 @@ function ChatScreen() {
     if (!Object.keys(screens).includes(currentChatScreen)) {
       return '';
     }
-    console.log(currentChatScreen);
     return screens[currentChatScreen];
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    children: getCurrentScreen()
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    style: {
+      display: show ? 'block' : 'none'
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      children: getCurrentScreen()
+    })
   });
 }
 /* harmony default export */ __webpack_exports__["default"] = (ChatScreen);
@@ -6320,6 +6329,7 @@ function ScreenRecord() {
     recordedScreenURL = _useScreenRecorder.recordedScreenURL,
     startRecording = _useScreenRecorder.startRecording,
     stopRecording = _useScreenRecorder.stopRecording,
+    recordedTimeInSecond = _useScreenRecorder.recordedTimeInSecond,
     getCountDown = _useScreenRecorder.getCountDown,
     reset = _useScreenRecorder.reset;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -6333,6 +6343,9 @@ function ScreenRecord() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     initSetup();
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.updateScreenTogglerContent)(getCountDown()));
+  }, [recordedTimeInSecond]);
   function initSetup() {
     return _initSetup.apply(this, arguments);
   }
@@ -6482,25 +6495,22 @@ function ScreenRecord() {
               });
             case 3:
               response = _context3.sent;
-              console.log({
-                response: response
-              });
               if (response.success) {
-                _context3.next = 8;
+                _context3.next = 7;
                 break;
               }
               setState(_objectSpread(_objectSpread({}, state), {}, {
                 recordStage: "upload_failed"
               }));
               return _context3.abrupt("return");
-            case 8:
+            case 7:
               // Update Messenger Form Data
               dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_8__.updateFormData)({
                 message_type: _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_10__["default"].VIDEO,
                 attachment_id: response.data.id
               }));
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_9__["default"].SENDING));
-            case 10:
+            case 9:
             case "end":
               return _context3.stop();
           }
@@ -8640,13 +8650,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
 /* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
 /* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
-/* harmony export */   "showToggler": function() { return /* binding */ showToggler; }
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
+/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
 /* harmony export */ });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
 
 var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
   hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
   showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
   hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
   changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
 
@@ -8665,6 +8677,7 @@ var actions = {
   SHOW_CHATBOX: 'SHOW_CHATBOX',
   HIDE_CHATBOX: 'HIDE_CHATBOX',
   SHOW_TOGGLER: 'SHOW_TOGGLER',
+  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
   HIDE_TOGGLER: 'HIDE_TOGGLER',
   CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
   showChatbox: function showChatbox() {
@@ -8680,6 +8693,12 @@ var actions = {
   showToggler: function showToggler() {
     return {
       type: actions.SHOW_TOGGLER
+    };
+  },
+  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
+    return {
+      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+      payload: content
     };
   },
   hideToggler: function hideToggler() {
@@ -8716,12 +8735,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var initialState = {
   showChatbox: false,
   screenToggler: false,
-  screenRecordTime: "00:00",
+  screenTogglerContent: 'Open',
   currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME
 };
 var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
   HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
   SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
   HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
   CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
 var chatboxReducers = function chatboxReducers() {
@@ -8742,6 +8762,10 @@ var chatboxReducers = function chatboxReducers() {
     case SHOW_TOGGLER:
       return _objectSpread(_objectSpread({}, state), {}, {
         screenToggler: true
+      });
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenTogglerContent: payload
       });
     case HIDE_TOGGLER:
       return _objectSpread(_objectSpread({}, state), {}, {

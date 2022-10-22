@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactSVG from 'react-inlinesvg';
-import { showToggler } from "../../../../store/chatbox/actionCreator";
+import { showToggler, updateScreenTogglerContent } from "../../../../store/chatbox/actionCreator";
 import minimizeIcon from 'Assets/svg/icons/window-minimize.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import ScreenRecordWrap from './Style.js';
@@ -28,6 +28,7 @@ function ScreenRecord() {
 		recordedScreenURL,
 		startRecording,
 		stopRecording,
+		recordedTimeInSecond,
 		getCountDown,
 		reset,
 	} = useScreenRecorder();
@@ -40,6 +41,10 @@ function ScreenRecord() {
 	useEffect( () => {
 		initSetup();
 	}, [] );
+
+	useEffect( () => {
+		dispatch( updateScreenTogglerContent( getCountDown() ) )
+	}, [ recordedTimeInSecond ] );
 
 	async function initSetup() {
 		const _hasPermission = await hasPermission();
@@ -116,7 +121,6 @@ function ScreenRecord() {
 		});
 
 		const response = await createAttachmentItem( { file: recordedScreenBlob } );
-		console.log( { response } );
 
 		if ( ! response.success ) {
 			setState({

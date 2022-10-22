@@ -3,8 +3,8 @@ import screenTypes from './screenTypes';
 
 const initialState = {
 	showChatbox: false,
-  screenToggler: false,
-  screenRecordTime: "00:00",
+  	screenToggler: false,
+  	screenTogglerContent: 'Open',
 	currentChatScreen: screenTypes.HOME,
 };
 
@@ -12,13 +12,14 @@ const {
   SHOW_CHATBOX,
   HIDE_CHATBOX,
   SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT,
   HIDE_TOGGLER,
   CHANGE_CHAT_SCREEN,
 } = actions;
 
 const chatboxReducers = (state = initialState, action) => {
   const { type, payload } = action;
-  
+
   switch (type) {
     case SHOW_CHATBOX:
       return {
@@ -35,6 +36,11 @@ const chatboxReducers = (state = initialState, action) => {
       return {
         ...state,
         screenToggler: true,
+      };
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return {
+        ...state,
+        screenTogglerContent: payload,
       };
     case HIDE_TOGGLER:
       return {

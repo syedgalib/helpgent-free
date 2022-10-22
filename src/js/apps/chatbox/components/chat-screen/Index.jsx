@@ -13,7 +13,7 @@ import ScreenRecord from './components/screen-record/Index.jsx';
 import screenTypes from '../../store/chatbox/screenTypes';
 import { useFormHooks } from '../../store/forms/hooks.js';
 
-function ChatScreen() {
+function ChatScreen( { show } ) {
     useFormHooks();
 
     const { currentChatScreen } = useSelector((state) => {
@@ -39,12 +39,14 @@ function ChatScreen() {
             return '';
         }
 
-        console.log(currentChatScreen);
-
         return screens[currentChatScreen];
     }
 
-    return <Container>{getCurrentScreen()}</Container>;
+    return (
+		<div style={{display: ( show ) ? 'block' : 'none'}}>
+			<Container >{getCurrentScreen()}</Container>
+		</div>
+	);
 }
 
 export default ChatScreen;

@@ -5,6 +5,7 @@ import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './components/Message.jsx';
 import Video from './components/video/Index.jsx';
 import { useDebounce } from 'Helper/hooks';
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -115,6 +116,11 @@ function MessageBox({ setSessionState }) {
             messageType: state.messages.messageType,
         };
     });
+
+
+    const handleSelectScreen = async event =>{
+        event.preventDefault();
+    }
 
 	const canSendTextMessage = () => {
 		return (textMessageContent.trim().length > 0);

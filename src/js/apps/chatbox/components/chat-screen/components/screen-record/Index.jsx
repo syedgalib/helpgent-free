@@ -160,7 +160,7 @@ function ScreenRecord() {
 
 	if(state.recordStage === "request_permission"){
 		return (
-			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
+			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-record-permission">
 
 				<h4 className='wpwax-video-screen-title'>
                     To record video, your browser will need to request access to

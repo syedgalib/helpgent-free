@@ -34,6 +34,35 @@ const ScreenRecordWrap = Styled.div`
             box-sizing: border-box;
         }
     }
+    &.wpwax-vm-record-permission{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: min(80vh,620px);
+        .wpwax-vm-btn{
+            border-radius: 10px;
+            margin: 28px 0 0;
+            min-height: 54px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .wpwax-video-screen-title{
+            margin-top: 0;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            margin: 0 0 30px;
+            font-family: var(--font-family);
+        }
+        img{
+            max-width: 380px;
+        }
+        .wpwax-vm-alert{
+            width: 100%;
+            margin-top: 15px;
+            box-sizing: border-box;
+        }
+    }
     &.wpwax-vm-record-ready{
         padding: 0 25px;
         height: min(80vh,620px);

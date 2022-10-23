@@ -374,14 +374,13 @@ class Message_Notification_Emails {
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
         $logo = '<img src="'. self::website_logo_url().'" alt="Girl in a jacket" width="500" height="600">';
         if ( $allow_email_header ){
-            $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
+            $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
                                             <tr>
-                                                '.$addSiteLogo ? $logo : ''.'
                                                 <td id="header_wrapper" style="padding: 36px 48px; display: block;">
                                                     <h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
                                                 </td>
                                             </tr>
-                                        </table>');
+                                        </table>';
         }
 
         return '<!DOCTYPE html>
@@ -396,7 +395,8 @@ class Message_Notification_Emails {
                     <tr>
                         <td align="center" valign="top">
                             <div id="template_header_image">
-                                                        </div>
+                                '.$addSiteLogo ? $logo : ''.'
+                            </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
                                 <tr>
                                     <td align="center" valign="top">

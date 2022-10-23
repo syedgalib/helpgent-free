@@ -66,7 +66,6 @@ const SettingBox = () => {
 
     const handleSaveSetting = event => {
         event.preventDefault();
-        console.log(event)
         setSettingContentState({
             ...settingContentState,
             loading: true,

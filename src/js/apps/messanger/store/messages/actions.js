@@ -20,6 +20,8 @@ const actions = {
     MESSAGE_STAGE_UPDATE_SUCCESS: 'MESSAGE_STAGE_UPDATE_SUCCESS',
     MESSAGE_STAGE_UPDATE_ERR: 'MESSAGE_STAGE_UPDATE_ERR',
 
+    UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
+
     updateSelectedSession: ( session ) => {
       return {
         type: actions.UPDATE_SELECTED_SESSION,
@@ -126,6 +128,13 @@ const actions = {
       return {
         type: actions.MESSAGE_STAGE_UPDATE_ERR,
         error,
+      };
+    },
+
+    updateScreenTogglerContent: ( content ) => {
+      return {
+        type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+		payload: content,
       };
     },
   };

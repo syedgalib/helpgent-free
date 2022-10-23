@@ -4,17 +4,21 @@ import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './components/Message.jsx';
 import Video from './components/video/Index.jsx';
+import Screen from './components/screen/Index.jsx';
 import { useDebounce } from 'Helper/hooks';
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
+import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
 import { useScreenSize } from 'Helper/hooks';
+import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 
 import {
     handleReplyModeChange,
@@ -44,6 +48,19 @@ const CenterBoxStyle = {
 
 function MessageBox({ setSessionState }) {
 	const { addAction } = wpwaxHooks;
+
+    const {
+		hasPermission,
+		requestPermission,
+		permissionDenied,
+		recordedScreenBlob,
+		recordedScreenURL,
+		startRecording,
+		stopRecording,
+		recordedTimeInSecond,
+		getCountDown,
+		reset,
+	} = useScreenRecorder();
 
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
@@ -81,6 +98,10 @@ function MessageBox({ setSessionState }) {
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
             ? parseInt(messengerScriptData.voiceRecordTimeLimit)
             : 300; // 5 Minuites
+    
+    const [screenRecordState, setScreenRecordState] = useState({
+        recordStage: "request_permission"
+    });
 
     // Refs
     const textMessageContentRef = useRef();
@@ -114,6 +135,68 @@ function MessageBox({ setSessionState }) {
             messageType: state.messages.messageType,
         };
     });
+
+    // @Init State
+	useEffect( () => {
+		initSetup();
+	}, [] );
+
+	useEffect( () => {
+		dispatch( updateScreenTogglerContent( getCountDown() ) )
+	}, [ recordedTimeInSecond ] );
+
+    async function initSetup() {
+		const _hasPermission = await hasPermission();
+
+		if ( _hasPermission ) {
+			setScreenRecordState({
+				...screenRecordState,
+				recordStage: "beforeStartScreen"
+			});
+
+			return;
+		}
+
+	}
+
+
+    const handleSelectScreen = async event =>{
+        event.preventDefault();
+
+		const grantedPermission = await requestPermission();
+
+		if ( grantedPermission ) {
+                setScreenRecordState({
+                    ...screenRecordState,
+                    recordStage: "beforeStartScreen"
+                });
+
+                const hasStarted = await startRecording();
+
+                if ( ! hasStarted ) {
+                    return;
+                }else{
+                    setScreenRecordState({
+                        ...screenRecordState,
+                        recordStage: "startScreen"
+                    });
+                }
+		}
+    }
+
+    const handleStopScreen = async event =>{
+        event.preventDefault();
+        const callback = () => {
+            setScreenRecordState({
+                ...screenRecordState,
+                recordStage: "beforeSend"
+            });
+        }
+
+        stopRecording( callback );
+
+        dispatch(handleMessageTypeChange('screen'));
+    }
 
 	const canSendTextMessage = () => {
 		return (textMessageContent.trim().length > 0);
@@ -600,6 +683,16 @@ function MessageBox({ setSessionState }) {
         if (messageType === 'video') {
             return (
                 <Video
+                    sessionID={selectedSession.session_id}
+                    onSuccess={loadLatestMessages}
+                    replayingTo={getReplaingToUser()}
+                />
+            );
+        }else if(messageType === 'screen'){
+            return (
+                <Screen
+                    recordedBold={recordedScreenBlob}
+                    recordUrl={recordedScreenURL}
                     sessionID={selectedSession.session_id}
                     onSuccess={loadLatestMessages}
                     replayingTo={getReplaingToUser()}
@@ -1467,6 +1560,16 @@ function MessageBox({ setSessionState }) {
                         </a>
                         <a
                             href='#'
+                            className={screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'}
+                            onClick={screenRecordState.recordStage !== "startScreen" ? handleSelectScreen : handleStopScreen}
+                        >
+                            {
+                                screenRecordState.recordStage !== "startScreen" ? <div className='wpwax-vm-btn-icon'><ReactSVG src={recordIcon} /></div> : null
+                            }
+                            <span className='wpwax-vm-btn-text'>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
+                        </a>
+                        <a
+                            href='#'
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
                             onClick={showReplayViaVoiceMessage}
                         >
@@ -1560,6 +1663,8 @@ function MessageBox({ setSessionState }) {
             });
         }
     };
+
+    console.log(replyMode)
 
     return (
         <ChatBoxWrap>

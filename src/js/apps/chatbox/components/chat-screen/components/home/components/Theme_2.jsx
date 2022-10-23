@@ -115,9 +115,6 @@ function Theme_2() {
         }
     }
 
-    console.log({supportedReplayTypes})
-    console.log({can_replay_in: templateOptions.can_replay_in })
-
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-chatbox-theme-2 wpwax-vm-d-flex wpwax-vm-flex-direction-column">
@@ -196,7 +193,7 @@ function Theme_2() {
 
                                     return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, replayType.type )}>
                                         { iconContent(replayType.type) }
-                                        { replayType.label }
+                                        { replayType.type === "screen_record" ? "Screen" : replayType.label }
                                     </a>
                                 }
                             )

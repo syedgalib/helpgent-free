@@ -114,6 +114,7 @@ module.exports = {
       Components: path.resolve( __dirname, 'src/js/components/' ),
 
       Helper: path.resolve( __dirname, 'src/js/helpers/' ),
+      Hooks: path.resolve( __dirname, 'src/js/helpers/hooks/' ),
       API: path.resolve( __dirname, 'src/js/helpers/hooks/api/' ),
 	  Externals: path.resolve( __dirname, 'src/js/helpers/externals/' ),
 	  Reducers: path.resolve( __dirname, 'src/js/helpers/reducers/' ),

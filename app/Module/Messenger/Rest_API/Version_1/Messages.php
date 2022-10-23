@@ -225,7 +225,7 @@ class Messages extends Rest_Base
      */
     public function validate_message_type($value)
     {
-        return in_array($value, ['text', 'video', 'audio']);
+        return in_array( $value, [ 'text', 'video', 'audio' ] );
     }
 
     /**

@@ -43,6 +43,9 @@ const ChatboxForm = Styled.div`
                     margin-right: 20px;
                 }
             }
+            .wpwax-vm-fulscreen-trigger{
+                line-height: 1;
+            }
         }
         .wpwax-vm-chatbox-title{
             font-family: var(--font-family);
@@ -103,8 +106,8 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-footer__actions{
             display: flex;
             flex-wrap: wrap;
-            padding: 0 25px;
             margin: -10px;
+            padding: 0 25px;
             @media only screen and (max-width: 767px){
                 padding: 0 20px;
             }
@@ -114,10 +117,11 @@ const ChatboxForm = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 105px;
-                height: auto;
-                flex: 0 0 30.3333%;
-                margin: 1.5%;
+                height: min(80vh,90px);
+                width: 90px;
+                flex-basis: 90px;
+                flex-grow: 1;
+                margin: 5px;
                 transform: scale(1);
                 transition transform .2s ease-in;
                 &:hover{

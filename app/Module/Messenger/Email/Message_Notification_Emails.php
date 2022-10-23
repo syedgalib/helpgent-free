@@ -16,7 +16,7 @@ class Message_Notification_Emails {
         add_action( 'wpwax_customer_support_app_rest_insert_user', [ $this, 'cache_user_password' ], 20, 3 );
         
         add_action( 'helpget_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
-        add_action( 'init', [ $this, 'init' ] );
+        // add_action( 'init', [ $this, 'init' ] );
 
 
     }
@@ -24,9 +24,28 @@ class Message_Notification_Emails {
 
     public function init() {
 
-        $old_sessions = Message_Model::get_items(['where' => ['session_id' => '960cj661ks0630o0m1q01387wy0n8']]);
-
-        e_var_dump($old_sessions);
+        $clint = '';
+        $admins = [];
+        $old_sessions = Message_Model::get_items(['where' => ['session_id' => '1d97new0m1768676j4p08zb26k204']]);
+        $options = Helper\get_options();
+        if( ! empty( $old_sessions ) ) {
+            foreach( $old_sessions as $session ) {
+                $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
+                if ( Helper\is_user_admin( $session['user_id'] ) ) {
+                    array_push( $admins, $user_id );
+                } else{
+                    $clint = $user_id; 
+                }
+            }
+        }
+        $is_user_admin =  Helper\is_user_admin( 1 );
+        e_var_dump( [
+            'admins' => $admins,
+            'options' => $options,
+            'clint' => $clint,
+            'is_user_admin' => $is_user_admin,
+        ] );
+        die;
     }
 
     /**
@@ -37,52 +56,50 @@ class Message_Notification_Emails {
      */
     public function notify_after_message_inserted( $data, $args ) {
 
-        $email_notice = Helper\get_option( 'email_notice', true );
+        $email_notice       = Helper\get_option( 'enableEmailNotification', true );
         if( ! $email_notice ) {
             return;
         }
 
-        $clints = [];
+        $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
+        $first_chat = false;
+        if (count($old_messages) < 2) {
+            $first_chat = true;
+        }
+        $admin_notice_type  = Helper\get_option( 'adminEmailNotificationType', true );
+        if( ! $first_chat && ( 'multiple' !== $admin_notice_type ) ) {
+            return;
+        }
+
+        $clint = '';
         $admins = [];
-
         $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
-
         if( ! empty( $old_sessions ) ) {
             foreach( $old_sessions as $session ) {
                 $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
                 if ( Helper\is_user_admin( $session['user_id'] ) ) {
                     array_push( $admins, $user_id );
                 } else{
-                    array_push( $clints, $user_id ); 
+                    $clint = $user_id; 
                 }
             }
         }
         $is_user_admin =  Helper\is_user_admin( $data['user_id'] );
         
-        if( $is_user_admin ) {
-            // notify clints
-
+        if( ! $is_user_admin && $admins ) {
+            foreach( $admins as $admin ) {
+                // notify admin
+                self::notify_new_session_created( $admin, $args );
+            }
+           return;
+        }
+        // notify clint
+        if( $first_chat ) {
+            self::user_greeting_on_first_session_created( $clint, $args );
             return;
         }
-        // notify admins
+        self::notify_new_session_created( $clint, $args );
 
-
-
-        
-        $user         = get_user_by('id', $args['user_id']);
-        $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
-        $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
-        $notice_type  = Helper\get_option( 'notice_type', 'first_message' );
-
-        if( 'every_message' === $notice_type ) {
-            Message_Notification_Emails::notify_users($user);
-        }else{
-            if (count($old_messages) < 2) {
-                Message_Notification_Emails::notify_first_session_created($user);
-            } else if (count($old_sessions) < 2) {
-                Message_Notification_Emails::notify_new_session_created($user);
-            }
-        }
              
     }
 
@@ -119,34 +136,22 @@ class Message_Notification_Emails {
      * 
      * @return bool
      */
-    public static function notify_first_session_created( $user = null, $args = [] ) {
+    public static function user_greeting_on_first_session_created( $user = null, $args = [] ) {
 
         if ( ! self::is_valid_user( $user ) ) {
             return;
         }
 
-        $args['subject'] = __( 'Wellcome to Support', 'wpwax-customer-support-app' );
-        $args['body']    = __( 'First session created', 'wpwax-customer-support-app' );
+        $default = 'Dear {{NAME}},
 
-        return self::notify_user( $user, $args );
-    }
+        Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}
+        
+        Thanks,
+        The Administrator of {{SITE_NAME}}
+                            ';
 
-    /**
-     * Notify new session created
-     *
-     * @param WP_User|false $user
-     * @param array $args
-     * 
-     * @return bool
-     */
-    public static function notify_users( $user = null, $args = [] ) {
-
-        if ( ! self::is_valid_user( $user ) ) {
-            return;
-        }
-
-        $args['subject'] = __( 'New Message', 'wpwax-customer-support-app' );
-        $args['body']    = __( 'New message form ....', 'wpwax-customer-support-app' );
+        $args['subject'] = Helper\get_option( 'emailTemplateGreetingSubject', 'Wellcome to Support' );
+        $args['body'] = Helper\get_option( 'emailTemplateGreetingBody', $default );
 
         return self::notify_user( $user, $args );
     }
@@ -165,9 +170,14 @@ class Message_Notification_Emails {
             return;
         }
 
-        $args['subject'] = __( 'Wellcome to Support', 'wpwax-customer-support-app' );
-        $args['body']    = __( 'New session created', 'wpwax-customer-support-app' );
+        $default = 'Dear {{NAME}},
 
+        Message Details:
+        {{MESSAGE}}';
+
+        $args['subject'] = Helper\get_option( 'emailTemplateMessageSubject', 'New Message from {{REPLIER_NAME}}' );
+        $args['body'] = Helper\get_option( 'emailTemplateMessageBody', $default );
+        
         return self::notify_user( $user, $args );
     }
 
@@ -185,6 +195,10 @@ class Message_Notification_Emails {
             return ;
         }
 
+        if( is_numeric( $user ) ) {
+            $user = get_user_by( 'id', $user );
+        }
+
         $template_data = [];
 
         $template_data['email'] = $user->user_email;
@@ -194,39 +208,16 @@ class Message_Notification_Emails {
         $template_data['password'] = ( ! empty( $password ) ) ? $password : __( 'Your chosen password', 'wpwax-customer-support-app' );
 
         $to      = $user->user_email;
-        $subject = ( ! empty( $args['subject'] ) ) ? $args['subject'] : __( 'A new conversation has starterd', 'wpwax-customer-support-app' );
+        $subject = ! empty( $args['subject'] ) ? $args['subject'] : __( 'A new conversation has starterd', 'wpwax-customer-support-app' );
+        $message = ! empty( $args['body'] ) ? $args['body'] : '';
 
-        $message = self::get_email_body( $template_data );
+        $subject = self::replace_in_content( $subject, $user, $args );
+		$message = self::replace_in_content( $message, $user, $args );
+
         $message = self::email_html( $subject, $message );
         $headers = self::get_email_headers( $template_data );
 
         return self::send_email( $to, $subject, $message, $headers );
-    }
-
-    /**
-     * Get email body
-     * 
-     * @param array $data
-     * @return string
-     */
-    protected static function get_email_body( $data = [] ) {
-
-        $email    = ( ! empty( $data['email'] ) ) ? $data['email'] : '';
-        $password = ( ! empty( $data['password'] ) ) ? $data['password'] : '';
-        $link     = admin_url();
-
-        ob_start(); ?>
-
-            <h2><?php _e( 'Login Credentials', 'wpwax-customer-support-app' ) ?></h2>
-            <p>
-                <b><?php _e( 'Email:', 'wpwax-customer-support-app' ) ?></b> <?php echo $email ; ?> <br>
-                <b><?php _e( 'Password:', 'wpwax-customer-support-app' ) ?></b> <?php echo $password ; ?> <br>
-                <b><?php _e( 'Link:', 'wpwax-customer-support-app' ) ?></b> <?php echo $link ; ?>
-            </p>
-            
-        <?php
-
-        return ob_get_clean();
     }
 
     /**
@@ -268,6 +259,11 @@ class Message_Notification_Emails {
      * @return bool
      */
     protected static function is_valid_user( $user ) {
+
+        if ( is_numeric( $user ) ) {
+            $user = get_user_by( 'id', $user );
+        }
+
         if ( empty( $user ) ) {
             return false;
         }
@@ -314,6 +310,55 @@ class Message_Notification_Emails {
     }
 
     /**
+     * It replaces predefined placeholders in the given content.
+     *
+     * @since 3.1.0
+     * @param string  $content The content in which placeholders should be replaced
+     * @param int     $order_id [optional] Order ID
+     * @param int     $listing_id [optional] Listing ID
+     * @param WP_User $user [optional] User Object
+     * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
+     * @return string               It returns the content after replacing the placeholder with proper data.
+     */
+    public function replace_in_content( $content, $user = null, $args = [] ) {
+       
+        if ( is_numeric( $user ) ) {
+            $user = get_user_by( 'id', $user );
+        }
+
+        $site_name = get_option( 'blogname' );
+        $site_url = site_url();
+        $date_format = get_option( 'date_format' );
+        $time_format = get_option( 'time_format' );
+        $current_time = current_time( 'timestamp' );
+        $dashboard_link = '#';
+
+        $find_replace = array(
+            '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{REPLIER}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
+            '{{SITE_NAME}}' => $site_name,
+            '{{SITE_LINK}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
+            '{{SITE_URL}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '{{TODAY}}' => date_i18n( $date_format, $current_time ),
+            '{{NOW}}' => date_i18n( $date_format . ' ' . $time_format, $current_time ),
+            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s">%s</a>', $dashboard_link, $dashboard_link ),
+            '{{MESSAGE}}' => ! empty( $args['message'] ) ? $args['message'] : '',
+        );
+        $c = nl2br( strtr( $content, $find_replace ) );
+        // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
+        return $c;
+
+    }
+
+    public static function website_logo_url()
+    {
+        $custom_logo_id = get_theme_mod( 'custom_logo' );
+        $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+        return $image[0];
+    }
+
+    /**
      * Get Mail HTML
      * 
      * @param string $subject
@@ -321,15 +366,17 @@ class Message_Notification_Emails {
      * @return string Email row html
      */
     public static function email_html($subject, $message){
-        $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
         $header = '';
-        $email_header_color = Helper\get_option('email_header_color', '#6551f2');
-        $allow_email_header = Helper\get_option('email_header', true );
+        $email_header_color = Helper\get_option('emailHeaderColor', '#6551f2');
+        $allow_email_header = Helper\get_option('enableEmailHeader', true );
+        $addSiteLogo = Helper\get_option('addSiteLogo', true );
         
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
+        $logo = '<img src="'. self::website_logo_url().'" alt="Girl in a jacket" width="500" height="600">';
         if ( $allow_email_header ){
             $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
                                             <tr>
+                                                '.$addSiteLogo ? $logo : ''.'
                                                 <td id="header_wrapper" style="padding: 36px 48px; display: block;">
                                                     <h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
                                                 </td>

@@ -35,7 +35,8 @@ const ScreenRecordWrap = Styled.div`
         }
     }
     &.wpwax-vm-record-ready{
-        padding: 80px 25px;
+        padding: 0 25px;
+        height: min(80vh,620px);
         .wpwax-vm-form{
             position: relative;
             display: flex;
@@ -57,13 +58,16 @@ const ScreenRecordWrap = Styled.div`
         .wpwax-vm-recored-video{
             margin-bottom: 40px;
             position: relative;
+            @media only screen and (max-width: 1299px){
+                margin-bottom: 15px;
+            }
             .wpwax-vm-recorded-preview{
                 position: relative;
                 border-radius: 15px;
                 background-size: cover;
 				video {
 					width: 100%;
-                    height: 240px;
+                    height: auto;
                     object-fit: cover;
 					border-radius: 15px;
 				}

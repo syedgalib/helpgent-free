@@ -23,7 +23,8 @@ const ScreenWrapper = Styled.div`
         background-color: var(--color-white);
         border-radius: 25px;
         .wpwax-vm-chatbox-text-form-inner{
-            min-height: 580px;
+            /* min-height: 580px; */
+            height: min(80vh, 580px);
             input{
                 font-family: var(--font-family);
                 &::placeholder{
@@ -47,7 +48,7 @@ const ScreenWrapper = Styled.div`
         }
     }
     .wpwax-vm-chatbox-contact{
-        min-height: 580px;
+        height: min(80vh,570px);
         font-family: var(--font-family);
         
         .wpwax-vm-footer{
@@ -79,10 +80,7 @@ const ScreenWrapper = Styled.div`
             height: 100%;
             position: relative;
             z-index: 101;
-            min-height: 620px;
-            @media only screen and (max-width: 1399px){
-                min-height: 580px;
-            }
+            height: min(80vh,620px);
             &:after,
             &:before{
                 position: absolute;

@@ -4,6 +4,8 @@ import { MessageBox } from './Style';
 import author from 'Assets/img/chatdashboard/user.png';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
+import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
+import playIcon from 'Assets/svg/icons/play.svg';
 import expander from 'Assets/svg/icons/expand.svg';
 import { useRef } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
@@ -192,18 +194,14 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
                         ></video>
                         <a
                             href='#'
-                            className='wpwax-vm-btn-play'
+                            className={isPlayingVideo ? 'wpwax-vm-btn-pause' : 'wpwax-vm-btn-play'}
                             onClick={(e) => {
                                 togglePlayPauseVidio(e);
                             }}
                         >
-                            <span
-                                className={
-                                    isPlayingVideo
-                                        ? 'dashicons dashicons-controls-pause'
-                                        : 'dashicons dashicons-controls-play'
-                                }
-                            ></span>
+                        {
+                            isPlayingVideo ? <ReactSVG src={pauseIcon} /> : <ReactSVG src={playIcon} />
+                        }
                         </a>
                         <a
                             href='#'

@@ -10,31 +10,31 @@ const axiosInstance = axios.create({
 
 const getData = ( path, customArgs ) => {
 	const args = ( typeof customArgs !== 'undefined' ) ? { params: customArgs } : {};
-    return axiosInstance.get( path, args );
+	return axiosInstance.get( path, args );
 }
 
 const postData = ( path, customArgs, customConfig ) => {
 	const args   = ( typeof customArgs !== 'undefined' ) ? customArgs : {};
-	const config = ( typeof config !== 'undefined' ) ? customConfig : {};
+	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
 	return axiosInstance.post( path, args, config );
 }
 
 const updateData = ( path, customArgs, customConfig ) => {
 	const args   = ( typeof customArgs !== 'undefined' ) ? customArgs : {};
-	const config = ( typeof config !== 'undefined' ) ? customConfig : {};
+	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
     return axiosInstance.post( path, args, config );
 }
 
 const deleteData = ( path, customArgs, customConfig ) => {
-	const args   = ( typeof args !== 'undefined' ) ? { data: customArgs } : {};
-	const config = ( typeof config !== 'undefined' ) ? customConfig : {};
+	const args   = ( typeof customArgs !== 'undefined' ) ? { data: customArgs } : {};
+	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
     return axiosInstance.delete( path, args, config );
 }
 
-async function getResponse( request, args ) {
+async function getResponse( request, args, config ) {
 	let status = {
 		success: false,
 		message: '',
@@ -43,25 +43,68 @@ async function getResponse( request, args ) {
 	};
 
 	try {
-		const response = await request( args );
+		const response = await request( args, config );
 
-		status.success = true;
-		status.message = response.data.message;
-		status.data    = response.data.data;
-		status.headers = response.headers;
+		status.success    = true;
+		status.statusCode = response.status;
+		status.message    = response.data.message;
+		status.data       = response.data.data;
+		status.headers    = response.headers;
 
 		return status;
 	} catch ( error ) {
 
-		status.success = false;
-		status.message = error.message;
-		status.headers = response.headers;
+		console.log( { error } );
+
+		status.success    = false;
+		status.statusCode = error.response.status;
+		status.message    = error.response.data.message;
+		status.headers    = error.response.headers;
+
+		return status;
+	}
+}
+
+async function getRestResponse( request, args, config ) {
+	let status = {
+		success: false,
+		message: '',
+		data: null,
+		headers: {},
+	};
+
+	try {
+		const response = await request( args, config );
+
+		status.success    = true;
+		status.statusCode = response.status;
+		status.message    = 'Operation Successful';
+		status.data       = response.data;
+		status.headers    = response.headers;
+
+		return status;
+	} catch ( error ) {
+
+		console.log( { error } );
+
+		status.success    = false;
+		status.statusCode = error.response.status;
+		status.message    = error.response.data.message;
+		status.headers    = error.response.headers;
 
 		return status;
 	}
 }
 
 
-const http = { axiosInstance, getResponse, getData, postData, updateData, deleteData }
+const http = {
+	axiosInstance,
+	getResponse,
+	getRestResponse,
+	getData,
+	postData,
+	updateData,
+	deleteData
+}
 
 export default http;

@@ -8,11 +8,12 @@ import { hideToggler } from "./store/chatbox/actionCreator";
 function App() {
 	const dispatch = useDispatch();
 
-	const { showChatboxApp, showChatbox, screenToggler } = useSelector( state => {
+	const { showChatboxApp, showChatbox, screenToggler, screenTogglerContent } = useSelector( state => {
         return {
 			showChatboxApp: state.chatboxTemplate.showChatbox,
             showChatbox: state.chatbox.showChatbox,
             screenToggler: state.chatbox.screenToggler,
+            screenTogglerContent: state.chatbox.screenTogglerContent,
         };
     });
 
@@ -33,12 +34,18 @@ function App() {
 		<>
 			<Avatar />
 			{
-				!screenToggler && showChatbox ? <ChatScreen /> : null
+				<ChatScreen show={! screenToggler && showChatbox} />
 			}
 			{
-				screenToggler ? <a href="#" className="wpwax-hg-screen-toggler" onClick={handleScreenToggle}><span className="wpwax-hg-record-time">00:00</span></a> : null
+				screenToggler ?
+				<a href="#" className="wpwax-hg-screen-toggler" onClick={handleScreenToggle}>
+					<span className="wpwax-hg-record-time">
+						{screenTogglerContent}
+					</span>
+				</a>
+				: null
 			}
-			
+
 		</>
 	);
 }

@@ -1,11 +1,11 @@
 import http from 'Helper/http';
-import useAPI from './useAPI';
+import useRestAPI from './useRestAPI';
 
 export default function useUserAPI() {
 	const routeBase = 'users';
-	const { getResponse, postData } = http;
+	const { getRestResponse, postData } = http;
 
-	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
+	const { getItems, getItem, createItem, updateItem, deleteItem } = useRestAPI( routeBase );
 
 	/**
 	 * Authenticate
@@ -19,7 +19,7 @@ export default function useUserAPI() {
 			return await postData( `${routeBase}/authenticate`, args );
 		}
 
-		return await getResponse( request, args );
+		return await getRestResponse( request, args );
 	}
 
 	return {

@@ -1,53 +1,200 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactSVG from 'react-inlinesvg';
-import { showToggler } from "../../../../store/chatbox/actionCreator";
+import { showToggler, updateScreenTogglerContent } from "../../../../store/chatbox/actionCreator";
 import minimizeIcon from 'Assets/svg/icons/window-minimize.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import ScreenRecordWrap from './Style.js';
 import { useDispatch, useSelector } from "react-redux";
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
+import permissionImg from 'Assets/img/chatbox/permission.png';
+
+import { updateFormData as updateMessengerFormData } from './../../../../store/forms/messenger/actionCreator';
+import screenTypes from './../../../../store/chatbox/screenTypes';
+import messageTypes from './../../../../store/forms/messenger/messageTypes';
+import { changeChatScreen } from './../../../../store/chatbox/actionCreator';
+
+import useAttachmentAPI from "API/useAttachmentAPI";
 
 function ScreenRecord() {
-
 	const dispatch = useDispatch();
 
+	const { createItem: createAttachmentItem } = useAttachmentAPI();
+
+	const {
+		hasPermission,
+		requestPermission,
+		permissionDenied,
+		recordedScreenBlob,
+		recordedScreenURL,
+		startRecording,
+		stopRecording,
+		recordedTimeInSecond,
+		getCountDown,
+		reset,
+	} = useScreenRecorder();
+
 	const [state, setState] = useState({
-		recordStage: "startScreen"
+		recordStage: "request_permission"
     });
+
+	// @Init State
+	useEffect( () => {
+		initSetup();
+	}, [] );
+
+	useEffect( () => {
+		dispatch( updateScreenTogglerContent( getCountDown() ) )
+	}, [ recordedTimeInSecond ] );
+
+	async function initSetup() {
+		const _hasPermission = await hasPermission();
+
+		if ( _hasPermission ) {
+			setState({
+				...state,
+				recordStage: "startScreen"
+			});
+
+			return;
+		}
+
+	}
+
+	async function handleRequestPermission( event ) {
+		event.preventDefault();
+
+		const grantedPermission = await requestPermission();
+
+		if ( grantedPermission ) {
+			setState({
+				...state,
+				recordStage: "startScreen"
+			});
+		}
+	}
 
 	const handleMinizeScreen = ()=>{
 		dispatch(showToggler());
 	}
 
-	const handleSelectScreen = e =>{
-		e.preventDefault();
+	const handleSelectScreen = async event => {
+		event.preventDefault();
+
 		if(state.recordStage === "startScreen"){
+
+			const hasStarted = await startRecording();
+
+			if ( ! hasStarted ) {
+				return;
+			}
+
 			setState({
 				...state,
 				recordStage: "stopScreen"
 			});
-		}else{
-			setState({
-				...state,
-				recordStage: "beforeSend"
-			});
+		} else {
+			const callback = () => {
+				setState({
+					...state,
+					recordStage: "beforeSend"
+				});
+			}
+
+			stopRecording( callback );
 		}
 	}
 
-	const goBack = e => {
-		e.preventDefault();
+	const handleUpload = async event => {
+		event.preventDefault();
+
+		if ( ! recordedScreenBlob ) {
+			return;
+		}
+
+		upload();
+	}
+
+	const upload = async () => {
+		setState({
+			...state,
+			recordStage: "uploading"
+		});
+
+		const response = await createAttachmentItem( { file: recordedScreenBlob } );
+
+		if ( ! response.success ) {
+			setState({
+				...state,
+				recordStage: "upload_failed"
+			});
+
+			return;
+		}
+
+		// Update Messenger Form Data
+		dispatch(
+			updateMessengerFormData({
+				message_type: messageTypes.VIDEO,
+				attachment_id: response.data.id,
+			})
+		);
+
+		dispatch( changeChatScreen( screenTypes.SENDING ) );
+	}
+
+	const tryUploadAgain = event => {
+		event.preventDefault();
+		upload();
+	}
+
+	const goBack = event => {
+		event.preventDefault();
+
+		reset();
+
 		setState({
 			...state,
 			recordStage: "startScreen"
 		});
 	}
 
+	if(state.recordStage === "request_permission"){
+		return (
+			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
+
+				<h4 className='wpwax-video-screen-title'>
+                    To record video, your browser will need to request access to
+                    your camera & microphone.
+                </h4>
+                <img src={permissionImg} alt='wpwax video support' />
+
+				<br />
+
+                <a
+                    href='#'
+                    className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
+                    onClick={handleRequestPermission}
+                >
+                    Request Permission
+                </a>
+
+                {permissionDenied !== null && permissionDenied && (
+                    <div className='wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger'>
+                        Please grant the requested permission
+                    </div>
+                )}
+
+			</ScreenRecordWrap>
+		)
+	}
+
 	if(state.recordStage === "startScreen" || state.recordStage === "stopScreen"){
 		return (
 			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
-				
+
 				<div className="wpwax-hg-screenrecord-box">
 					<div className="wpwax-hg-screenrecord-top">
-						<span className="wpwax-hg-record-timer">00:00</span>
+						<span className="wpwax-hg-record-timer">{ getCountDown() }</span>
 						<a href="#" className="wpwax-hg-btn-minimize" onClick={handleMinizeScreen}>
 							<ReactSVG src={minimizeIcon} />
 						</a>
@@ -60,22 +207,25 @@ function ScreenRecord() {
 						</a>
 					</div>
 				</div>
-				
+
 			</ScreenRecordWrap>
 		)
-	}else if(state.recordStage === "beforeSend"){
+	}
+
+	else if(state.recordStage === "beforeSend"){
 		return(
 			<ScreenRecordWrap className='wpwax-vm-record-ready'>
 				<form action='#' className='wpwax-vm-form'>
 					<div className='wpwax-vm-recored-video'>
 						<div className='wpwax-vm-recorded-preview wpax-vm-preview-bg'>
-							<video controls src=""></video>
+							<video controls src={recordedScreenURL}></video>
 						</div>
 					</div>
 					<div className='wpwax-vm-form-bottom'>
 						<p>Ready to send?</p>
 						<a
 							href='#'
+							onClick={handleUpload}
 							className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10'
 						>
 							Send
@@ -92,10 +242,50 @@ function ScreenRecord() {
 				</form>
 			</ScreenRecordWrap>
 		)
-		
+
 	}
 
-	
+	else if(state.recordStage === "uploading"){
+		return(
+			<ScreenRecordWrap className='wpwax-vm-record-ready'>
+				<div className='wpwax-vm-record-send-progress__content wpwax-vm-text-center'>
+                    <div className='wpwax-vm-record-send-progress__bar'>
+                        <span>Uploading</span>
+                    </div>
+                    <h4>We’re currently uploading your file.</h4>
+                    <p className='wpwax-vm-danger-text wpwax-vm-danger-text'>
+                        Please don’t leave this page!
+                    </p>
+                </div>
+			</ScreenRecordWrap>
+		)
+	}
+
+	else if(state.recordStage === "upload_failed"){
+		return(
+			<ScreenRecordWrap className='wpwax-vm-record-ready'>
+				<div>
+                    <p className='wpwax-vm-danger-text wpwax-vm-mb-20 wpwax-vm-danger-text wpwax-vm-text-center'>
+                        Couldn't upload the file, please try again.
+                    </p>
+                    <a
+                        href='#'
+                        onClick={tryUploadAgain}
+                        className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
+                    >
+                        Try Again
+                    </a>
+                </div>
+			</ScreenRecordWrap>
+		)
+
+	}
+
+	else {
+		return '';
+	}
+
+
 }
 
 export default ScreenRecord;

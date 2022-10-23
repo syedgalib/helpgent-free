@@ -41,7 +41,7 @@ class Message_Notification_Emails {
         $is_user_admin =  Helper\is_user_admin( 1 );
         e_var_dump( [
             'admins' => $admins,
-            'options' => $options,
+            'logo' => self::website_logo_url(),
             'clint' => $clint,
             'is_user_admin' => $is_user_admin,
         ] );
@@ -374,6 +374,7 @@ class Message_Notification_Emails {
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
         if( $addSiteLogo ) {
+            // $logo = '<img src="'.get_site_icon_url().'" alt="Email Logo" width="500" height="600">';
             $logo = '<img src="https://directorist.com/wp-content/themes/dir-theme/assets/svg/core-features/4.svg" alt="Email" width="500" height="600">';
         }
         if ( $allow_email_header ){

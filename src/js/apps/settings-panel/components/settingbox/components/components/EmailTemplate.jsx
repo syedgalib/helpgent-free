@@ -116,7 +116,7 @@ const EmailTemplate = props =>{
             </div>
             <div className="wpwax-vm-settings wpwax-vm-mb-20">
                 <div className="wpwax-vm-settings__single">
-                    <h2>Email Customization</h2>
+                    <h2>Templates</h2>
                 </div>
             </div>
             

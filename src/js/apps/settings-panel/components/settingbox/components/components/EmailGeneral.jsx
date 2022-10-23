@@ -99,7 +99,7 @@ const EmailGeneral = props =>{
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-name">Email From Name</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-name">From Name</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
                         <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-name" name="emailTemplateFromName" placeholder="ex. Vidsupp" value={contentState.options.emailTemplateFromName} onChange={handleChange}/>
@@ -107,7 +107,7 @@ const EmailGeneral = props =>{
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-email">Email From Email</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-email">From Email</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
                         <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-email" name="emailTemplateFromEmail" placeholder="example@gmail.com" value={contentState.options.emailTemplateFromEmail} onChange={handleChange}/>

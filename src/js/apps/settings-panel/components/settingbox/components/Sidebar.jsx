@@ -17,7 +17,7 @@ const settingsDate = [
 
         subNav: [
             {
-                label: "Email general",
+                label: "Email General",
                 path: "email_general"
             },
             {

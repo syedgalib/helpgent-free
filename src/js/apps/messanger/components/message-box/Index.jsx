@@ -587,9 +587,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        // Prepare Voice Recording;
-        await prepareVoiceRecording();
-
         // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
         dispatch(handleReplyModeChange(false));
@@ -660,13 +657,14 @@ function MessageBox({ setSessionState }) {
         if (isRecordingVoice) {
             stopVoiceRecording({ sendRecording: true });
             return;
+        }else{
+            stopVoiceRecording();
         }
-
-        await sendAudioMessage();
         closeVoiceChat();
     };
 
     const sendAudioMessage = async function (blob) {
+        console.log(blob);
         if (isSendingAudioMessage) {
             return;
         }
@@ -815,6 +813,12 @@ function MessageBox({ setSessionState }) {
         dispatch(handleReplyModeChange(false));
     };
 
+    const handleVoicePlay = async function (event){
+        event.preventDefault();
+        // Prepare Voice Recording;
+        await prepareVoiceRecording();
+    }
+
     const prepareVoiceRecording = async () => {
         const audioStreem = await setupAudioStreem();
 
@@ -865,6 +869,18 @@ function MessageBox({ setSessionState }) {
         startVoiceTimer();
     }
 
+    async function pauseVoiceRecording(){
+        if(isRecordingVoice){
+            await window.wpwaxCSVoiceRecorder.pauseRecording();
+            setIsRecordingVoice(false);
+            stopVoiceTimer();
+        }else {
+            await window.wpwaxCSVoiceRecorder.resumeRecording();
+            setIsRecordingVoice(true);
+            startVoiceTimer();
+        }
+    }
+
     // stopRecording
     function stopVoiceRecording(args) {
         const defaultArgs = { sendRecording: false };
@@ -874,7 +890,7 @@ function MessageBox({ setSessionState }) {
                 ? { ...defaultArgs, ...args }
                 : defaultArgs;
 
-        stopVoiceTimer();
+        // stopVoiceTimer();
 
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSVoiceRecorder.getBlob();
@@ -883,12 +899,15 @@ function MessageBox({ setSessionState }) {
             tracks.forEach((track) => track.stop());
 
             setRecordedAudioBlob(blob);
-            setIsRecordingVoice(false);
+            // setIsRecordingVoice(false);
+            console.log(blob);
 
-            afterStopVoiceRecording({
-                blob,
-                sendRecording: args.sendRecording,
-            });
+            sendAudioMessage(blob);
+
+            // afterStopVoiceRecording({
+            //     blob,
+            //     sendRecording: args.sendRecording,
+            // });
         });
     }
 
@@ -1402,15 +1421,26 @@ function MessageBox({ setSessionState }) {
         } else if (messageType === 'voice') {
             return (
                 <div className='wpwax-vm-messagebox-footer'>
+                    <a
+                        href='#'
+                        className='wpwax-vm-messagebox-reply-text-close'
+                        onClick={handleVoiceClose}
+                    >
+                        <span className='dashicons dashicons-no-alt'></span>
+                    </a>
                     <div className='wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            <a
-                                href='#'
-                                className='wpwax-vm-messagebox-reply-voice-close'
-                                onClick={handleVoiceClose}
-                            >
-                                <span className='dashicons dashicons-no-alt'></span>
-                            </a>
+                            
+                            {
+                                isRecordingVoice ? <a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
+                                    <span className='dashicons dashicons-controls-pause'></span>
+                                </a>
+                                : 
+                                <a href='#' className='wpwax-vm-messagebox-reply-voice-play' onClick={handleVoicePlay}>
+                                    <span className='dashicons dashicons-controls-play'></span>
+                                </a>
+                            }
+                            
                             <span className='wpwax-vm-audio-range'>
                                 <span
                                     style={{

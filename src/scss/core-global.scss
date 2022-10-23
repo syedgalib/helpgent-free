@@ -513,8 +513,12 @@
             border-radius: 4px;
             color: #4D4D4D;
             background-color: var(--color-bg-light);
-            &.wpwax-hg-assigned-tags__item-more{
-                color: var(--color-)
+            &.wpwax-hg-assigned-tags__item-add{
+                color: var(--color-dark);
+                span{
+                    position: relative;
+                    top: -2px;
+                }
             }
         }
     }

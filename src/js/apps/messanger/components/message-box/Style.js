@@ -547,14 +547,32 @@ const MessageBoxWrap = Styled.div`
             color: var(--color-white);
             background-color: var(--color-dark);
         }
-        .wpwax-vm-messagebox-reply-voice-close{
+        .wpwax-vm-messagebox-reply-voice-play,
+        .wpwax-vm-messagebox-reply-voice-pause{
+            min-width: 24px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--color-dark);
             text-decoration: none;
             color: var(--color-dark);
             .dashicons{
-                font-size: 25px;
-                width: 25px;
-                height: 25px;
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
                 line-height: 1;
+                position: relative;
+                left: 1px;
+                color: var(--color-white);
+            }
+        }
+        .wpwax-vm-messagebox-reply-voice-pause{
+            background-color: var(--color-text);
+            .dashicons{
+                left: 0;
             }
         }
     }

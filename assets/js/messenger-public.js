@@ -6622,7 +6622,7 @@ function ScreenRecord() {
     });
   } else if (state.recordStage === "uploading") {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      className: "wpwax-vm-record-ready",
+      className: "wpwax-vm-record-send-progress",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content wpwax-vm-text-center",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {

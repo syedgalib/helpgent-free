@@ -247,7 +247,7 @@ function ScreenRecord() {
 
 	else if(state.recordStage === "uploading"){
 		return(
-			<ScreenRecordWrap className='wpwax-vm-record-ready'>
+			<ScreenRecordWrap className='wpwax-vm-record-send-progress'>
 				<div className='wpwax-vm-record-send-progress__content wpwax-vm-text-center'>
                     <div className='wpwax-vm-record-send-progress__bar'>
                         <span>Uploading</span>

@@ -3,6 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Setup;
 
 use WPWaxCustomerSupportApp\Module\Core\Database\Prepare_Database;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Activation {
 
@@ -32,8 +33,29 @@ class Activation {
 
 		// Prepare Attachment Folder
 		$this->prepare_attachment_folder();
+		$this->create_page();
 
 		do_action( 'wpwax_customer_support_app_on_activation' );
+	}
+
+	public function create_page() {
+
+		$user_dashboard = Helper\get_option( 'userDashboardPage' );
+
+		if ( ! $user_dashboard ) {
+			$page_id = wp_insert_post(
+				[
+					'post_title'     => 'All Messages',
+					'post_content'   => '[wpwax_video_support_user_messenger]',
+					'post_status'    => 'publish',
+					'post_type'      => 'page',
+					'comment_status' => 'closed',
+				]
+			);
+		}
+		if ( ! is_wp_error( $page_id ) ) {
+			Helper\update_option( 'userDashboardPage', $page_id );
+		}
 	}
 
 	/**

@@ -105,6 +105,50 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
             return <TextMessage data={data} />;
         } else if (data.message_type === 'video') {
             return <VideoMessage data={data} />;
+            // return (
+            //     <React.Fragment>
+            //         <div className='wpwax-vm-message-content__inner--video'>
+            //             <video
+            //                 ref={videoRef}
+            //                 src={data.attachment_url}
+            //                 onPlay={() => {
+            //                     setIsPlayingVideo(true);
+            //                 }}
+            //                 onPause={() => {
+            //                     setIsPlayingVideo(false);
+            //                 }}
+            //                 style={{
+            //                     height: '247.5px',
+            //                     backgroundColor: '#000',
+            //                     borderRadius: '16px',
+            //                 }}
+            //             ></video>
+            //             <a
+            //                 href='#'
+            //                 className={isPlayingVideo ? 'wpwax-vm-btn-pause' : 'wpwax-vm-btn-play'}
+            //                 onClick={(e) => {
+            //                     togglePlayPauseVidio(e);
+            //                 }}
+            //             >
+            //             {
+            //                 isPlayingVideo ? <ReactSVG src={pauseIcon} /> : <ReactSVG src={playIcon} />
+            //             }
+            //             </a>
+            //             <a
+            //                 href='#'
+            //                 className='wpwax-vm-btn-expander'
+            //                 onClick={handleExpandVideo}
+            //             >
+            //                 <ReactSVG src={expander} />
+            //             </a>
+            //         </div>
+            //         {data.message && (
+            //             <div className='wpwax-vm-message-content__inner--text wpwax-vm-mt-20'>
+            //                 <p><Linkify>{data.message}</Linkify></p>
+            //             </div>
+            //         )}
+            //     </React.Fragment>
+            // );
         } else if (data.message_type === 'audio') {
 			return <AudioMessage data={data} />;
 		}

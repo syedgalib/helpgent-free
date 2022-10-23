@@ -35,11 +35,18 @@ const TemplateBox = Styled.div`
             th{
                 &.wpwax-vm-head-name{
                     width: 80%;
+                    @media only screen and (max-width: 1499px) {
+                        width: 70%;
+                    }
+                }
+                &.wpwax-vm-head-action{
+                    text-align: right;
                 }
             }
         }
         .wpwax-vm-table-action{
             margin: -8px;
+            text-align: right;
         }
         .wpwax-vm-btn{
             font-size: 14px;

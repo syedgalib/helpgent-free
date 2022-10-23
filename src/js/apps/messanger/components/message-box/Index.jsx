@@ -742,8 +742,6 @@ function MessageBox({ setSessionState }) {
 
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
-
-        console.log(isSendingAudioMessage,isRecordingVoice);
         if (isSendingAudioMessage) {
             return;
         }
@@ -755,62 +753,6 @@ function MessageBox({ setSessionState }) {
             stopVoiceRecording();
         }
         closeVoiceChat();
-    };
-
-    const sendAudioMessage = async function (blob) {
-        console.log(blob);
-        if (isSendingAudioMessage) {
-            return;
-        }
-
-        const attachment = blob ? blob : recordedAudioBlob;
-
-        if (!attachment) {
-            alert('No recordings found');
-            return;
-        }
-
-        setIsSendingAudioMessage(true);
-
-        // Upload The Attachment
-        const attachmentResponse = await createAttachment(attachment);
-
-        // Show Alert on Error
-        if (!attachmentResponse.success) {
-            const message = attachmentResponse.message
-                ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
-
-            alert(message);
-            setIsSendingAudioMessage(false);
-
-            return;
-        }
-
-        const attachmentID = attachmentResponse.data.id;
-
-        // Send The Message
-        const response = await createMessage({
-            message_type: 'audio',
-            attachment_id: attachmentID,
-        });
-
-        setIsSendingAudioMessage(false);
-
-        // Show Alert on Error
-        if (!response.success) {
-            const message = response.message
-                ? response.message
-                : 'Somethong went wrong, please try again.';
-            alert(message);
-
-            return;
-        }
-
-        setRecordedVoiceTimeInSecond(0)
-
-        // Load Latest
-        loadLatestMessages();
     };
 
     async function createAttachment(file) {
@@ -896,12 +838,69 @@ function MessageBox({ setSessionState }) {
     };
 
     const afterStopVoiceRecording = async ({ blob, sendRecording }) => {
-        if (!sendRecording) {
-            return;
-        }
+        // if (!sendRecording) {
+        //     return;
+        // }
+
+        console.log(blob)
 
         await sendAudioMessage(blob);
         closeVoiceChat();
+    };
+
+    const sendAudioMessage = async function (blob) {
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        const attachment = blob ? blob : recordedAudioBlob;
+
+        if (!attachment) {
+            alert('No recordings found');
+            return;
+        }
+
+        setIsSendingAudioMessage(true);
+
+        // Upload The Attachment
+        const attachmentResponse = await createAttachment(attachment);
+
+        // Show Alert on Error
+        if (!attachmentResponse.success) {
+            const message = attachmentResponse.message
+                ? attachmentResponse.message
+                : 'Somethong went wrong, please try again.';
+
+            alert(message);
+            setIsSendingAudioMessage(false);
+
+            return;
+        }
+
+        const attachmentID = attachmentResponse.data.id;
+
+        // Send The Message
+        const response = await createMessage({
+            message_type: 'audio',
+            attachment_id: attachmentID,
+        });
+
+        setIsSendingAudioMessage(false);
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            return;
+        }
+
+        setRecordedVoiceTimeInSecond(0)
+
+        // Load Latest
+        loadLatestMessages();
     };
 
     const closeVoiceChat = () => {
@@ -911,6 +910,11 @@ function MessageBox({ setSessionState }) {
 
     const handleVoicePlay = async function (event){
         event.preventDefault();
+        if(!isRecordingVoice){
+            await window.wpwaxCSVoiceRecorder.resumeRecording();
+            setIsRecordingVoice(true);
+            startVoiceTimer();
+        }
         // Prepare Voice Recording;
         await prepareVoiceRecording();
     }
@@ -960,9 +964,9 @@ function MessageBox({ setSessionState }) {
     async function startVoiceRecording() {
         await window.wpwaxCSVoiceRecorder.startRecording();
 
-        setRecordedVoiceTimeInSecond(0);
         setIsRecordingVoice(true);
         startVoiceTimer();
+        setRecordedVoiceTimeInSecond(recordedVoiceTimeInSecond);
     }
 
     async function pauseVoiceRecording(event){
@@ -974,18 +978,18 @@ function MessageBox({ setSessionState }) {
         }else {
             await window.wpwaxCSVoiceRecorder.resumeRecording();
             setIsRecordingVoice(true);
-            // startVoiceTimer();
+            startVoiceTimer();
         }
     }
 
     // stopRecording
     function stopVoiceRecording(args) {
-        const defaultArgs = { sendRecording: false };
+        // const defaultArgs = { sendRecording: false };
 
-        args =
-            args && typeof args === 'object'
-                ? { ...defaultArgs, ...args }
-                : defaultArgs;
+        // args =
+        //     args && typeof args === 'object'
+        //         ? { ...defaultArgs, ...args }
+        //         : defaultArgs;
 
         stopVoiceTimer();
 
@@ -997,13 +1001,12 @@ function MessageBox({ setSessionState }) {
 
             setRecordedAudioBlob(blob);
             setIsRecordingVoice(false);
-            console.log(blob);
 
             // sendAudioMessage(blob);
 
             afterStopVoiceRecording({
                 blob,
-                sendRecording: args.sendRecording,
+                // sendRecording: args.sendRecording,
             });
         });
     }
@@ -1640,7 +1643,7 @@ function MessageBox({ setSessionState }) {
         dispatch(handleReplyModeChange(false));
     };
 
-    /* Handle Text Colse */
+    /* Handle Voice Colse */
     const handleVoiceClose = async (e) => {
         e.preventDefault();
 
@@ -1697,8 +1700,6 @@ function MessageBox({ setSessionState }) {
             });
         }
     };
-
-    console.log(replyMode)
 
     return (
         <ChatBoxWrap>

@@ -5849,26 +5849,25 @@ function MessageBox(_ref) {
           switch (_context6.prev = _context6.next) {
             case 0:
               e.preventDefault();
-              console.log(isSendingAudioMessage, isRecordingVoice);
               if (!isSendingAudioMessage) {
-                _context6.next = 4;
+                _context6.next = 3;
                 break;
               }
               return _context6.abrupt("return");
-            case 4:
+            case 3:
               if (!isRecordingVoice) {
-                _context6.next = 9;
+                _context6.next = 8;
                 break;
               }
               stopVoiceRecording({
                 sendRecording: true
               });
               return _context6.abrupt("return");
-            case 9:
+            case 8:
               stopVoiceRecording();
-            case 10:
+            case 9:
               closeVoiceChat();
-            case 11:
+            case 10:
             case "end":
               return _context6.stop();
           }
@@ -5879,79 +5878,7 @@ function MessageBox(_ref) {
       return _ref9.apply(this, arguments);
     };
   }();
-  var sendAudioMessage = /*#__PURE__*/function () {
-    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(blob) {
-      var attachment, attachmentResponse, message, attachmentID, response, _message;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-        while (1) {
-          switch (_context7.prev = _context7.next) {
-            case 0:
-              console.log(blob);
-              if (!isSendingAudioMessage) {
-                _context7.next = 3;
-                break;
-              }
-              return _context7.abrupt("return");
-            case 3:
-              attachment = blob ? blob : recordedAudioBlob;
-              if (attachment) {
-                _context7.next = 7;
-                break;
-              }
-              alert('No recordings found');
-              return _context7.abrupt("return");
-            case 7:
-              setIsSendingAudioMessage(true);
-
-              // Upload The Attachment
-              _context7.next = 10;
-              return createAttachment(attachment);
-            case 10:
-              attachmentResponse = _context7.sent;
-              if (attachmentResponse.success) {
-                _context7.next = 16;
-                break;
-              }
-              message = attachmentResponse.message ? attachmentResponse.message : 'Somethong went wrong, please try again.';
-              alert(message);
-              setIsSendingAudioMessage(false);
-              return _context7.abrupt("return");
-            case 16:
-              attachmentID = attachmentResponse.data.id; // Send The Message
-              _context7.next = 19;
-              return createMessage({
-                message_type: 'audio',
-                attachment_id: attachmentID
-              });
-            case 19:
-              response = _context7.sent;
-              setIsSendingAudioMessage(false);
-
-              // Show Alert on Error
-              if (response.success) {
-                _context7.next = 25;
-                break;
-              }
-              _message = response.message ? response.message : 'Somethong went wrong, please try again.';
-              alert(_message);
-              return _context7.abrupt("return");
-            case 25:
-              setRecordedVoiceTimeInSecond(0);
-
-              // Load Latest
-              loadLatestMessages();
-            case 27:
-            case "end":
-              return _context7.stop();
-          }
-        }
-      }, _callee7);
-    }));
-    return function sendAudioMessage(_x6) {
-      return _ref10.apply(this, arguments);
-    };
-  }();
-  function createAttachment(_x7) {
+  function createAttachment(_x6) {
     return _createAttachment.apply(this, arguments);
   }
   function _createAttachment() {
@@ -5993,11 +5920,11 @@ function MessageBox(_ref) {
     return _createAttachment.apply(this, arguments);
   }
   var createMessage = /*#__PURE__*/function () {
-    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(args) {
+    var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(args) {
       var defaultArgs, status, _response;
-      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               defaultArgs = {
                 session_id: selectedSession.session_id,
@@ -6009,36 +5936,36 @@ function MessageBox(_ref) {
                 success: false,
                 data: null
               };
-              _context8.prev = 3;
-              _context8.next = 6;
+              _context7.prev = 3;
+              _context7.next = 6;
               return Helper_http_js__WEBPACK_IMPORTED_MODULE_19__["default"].postData('/messages', args);
             case 6:
-              _response = _context8.sent;
+              _response = _context7.sent;
               status.success = true;
               status.data = _response;
-              return _context8.abrupt("return", status);
+              return _context7.abrupt("return", status);
             case 12:
-              _context8.prev = 12;
-              _context8.t0 = _context8["catch"](3);
+              _context7.prev = 12;
+              _context7.t0 = _context7["catch"](3);
               status.success = false;
-              return _context8.abrupt("return", status);
+              return _context7.abrupt("return", status);
             case 16:
             case "end":
-              return _context8.stop();
+              return _context7.stop();
           }
         }
-      }, _callee8, null, [[3, 12]]);
+      }, _callee7, null, [[3, 12]]);
     }));
-    return function createMessage(_x8) {
-      return _ref11.apply(this, arguments);
+    return function createMessage(_x7) {
+      return _ref10.apply(this, arguments);
     };
   }();
   var getMessages = /*#__PURE__*/function () {
-    var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(customArgs) {
+    var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(customArgs) {
       var defaultArgs, args, status, _response2;
-      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context9.prev = _context9.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
               defaultArgs = {
                 timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_22__.getTimezoneString)(),
@@ -6050,60 +5977,130 @@ function MessageBox(_ref) {
                 success: false,
                 data: null
               };
-              _context9.prev = 3;
-              _context9.next = 6;
+              _context8.prev = 3;
+              _context8.next = 6;
               return Helper_http_js__WEBPACK_IMPORTED_MODULE_19__["default"].getData('/messages', args);
             case 6:
-              _response2 = _context9.sent;
+              _response2 = _context8.sent;
               status.success = true;
               status.data = _response2;
-              return _context9.abrupt("return", status);
+              return _context8.abrupt("return", status);
             case 12:
-              _context9.prev = 12;
-              _context9.t0 = _context9["catch"](3);
+              _context8.prev = 12;
+              _context8.t0 = _context8["catch"](3);
               status.success = false;
               status.data = response;
               console.error({
-                error: _context9.t0
+                error: _context8.t0
               });
-              return _context9.abrupt("return", status);
+              return _context8.abrupt("return", status);
             case 18:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, null, [[3, 12]]);
+    }));
+    return function getMessages(_x8) {
+      return _ref11.apply(this, arguments);
+    };
+  }();
+  var afterStopVoiceRecording = /*#__PURE__*/function () {
+    var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(_ref12) {
+      var blob, sendRecording;
+      return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              blob = _ref12.blob, sendRecording = _ref12.sendRecording;
+              // if (!sendRecording) {
+              //     return;
+              // }
+
+              console.log(blob);
+              _context9.next = 4;
+              return sendAudioMessage(blob);
+            case 4:
+              closeVoiceChat();
+            case 5:
             case "end":
               return _context9.stop();
           }
         }
-      }, _callee9, null, [[3, 12]]);
+      }, _callee9);
     }));
-    return function getMessages(_x9) {
-      return _ref12.apply(this, arguments);
+    return function afterStopVoiceRecording(_x9) {
+      return _ref13.apply(this, arguments);
     };
   }();
-  var afterStopVoiceRecording = /*#__PURE__*/function () {
-    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(_ref13) {
-      var blob, sendRecording;
+  var sendAudioMessage = /*#__PURE__*/function () {
+    var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(blob) {
+      var attachment, attachmentResponse, message, attachmentID, response, _message;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
-              blob = _ref13.blob, sendRecording = _ref13.sendRecording;
-              if (sendRecording) {
-                _context10.next = 3;
+              if (!isSendingAudioMessage) {
+                _context10.next = 2;
                 break;
               }
               return _context10.abrupt("return");
-            case 3:
-              _context10.next = 5;
-              return sendAudioMessage(blob);
-            case 5:
-              closeVoiceChat();
+            case 2:
+              attachment = blob ? blob : recordedAudioBlob;
+              if (attachment) {
+                _context10.next = 6;
+                break;
+              }
+              alert('No recordings found');
+              return _context10.abrupt("return");
             case 6:
+              setIsSendingAudioMessage(true);
+
+              // Upload The Attachment
+              _context10.next = 9;
+              return createAttachment(attachment);
+            case 9:
+              attachmentResponse = _context10.sent;
+              if (attachmentResponse.success) {
+                _context10.next = 15;
+                break;
+              }
+              message = attachmentResponse.message ? attachmentResponse.message : 'Somethong went wrong, please try again.';
+              alert(message);
+              setIsSendingAudioMessage(false);
+              return _context10.abrupt("return");
+            case 15:
+              attachmentID = attachmentResponse.data.id; // Send The Message
+              _context10.next = 18;
+              return createMessage({
+                message_type: 'audio',
+                attachment_id: attachmentID
+              });
+            case 18:
+              response = _context10.sent;
+              setIsSendingAudioMessage(false);
+
+              // Show Alert on Error
+              if (response.success) {
+                _context10.next = 24;
+                break;
+              }
+              _message = response.message ? response.message : 'Somethong went wrong, please try again.';
+              alert(_message);
+              return _context10.abrupt("return");
+            case 24:
+              setRecordedVoiceTimeInSecond(0);
+
+              // Load Latest
+              loadLatestMessages();
+            case 26:
             case "end":
               return _context10.stop();
           }
         }
       }, _callee10);
     }));
-    return function afterStopVoiceRecording(_x10) {
+    return function sendAudioMessage(_x10) {
       return _ref14.apply(this, arguments);
     };
   }();
@@ -6118,10 +6115,19 @@ function MessageBox(_ref) {
           switch (_context11.prev = _context11.next) {
             case 0:
               event.preventDefault();
-              // Prepare Voice Recording;
-              _context11.next = 3;
+              if (isRecordingVoice) {
+                _context11.next = 6;
+                break;
+              }
+              _context11.next = 4;
+              return window.wpwaxCSVoiceRecorder.resumeRecording();
+            case 4:
+              setIsRecordingVoice(true);
+              startVoiceTimer();
+            case 6:
+              _context11.next = 8;
               return prepareVoiceRecording();
-            case 3:
+            case 8:
             case "end":
               return _context11.stop();
           }
@@ -6219,9 +6225,9 @@ function MessageBox(_ref) {
               _context23.next = 2;
               return window.wpwaxCSVoiceRecorder.startRecording();
             case 2:
-              setRecordedVoiceTimeInSecond(0);
               setIsRecordingVoice(true);
               startVoiceTimer();
+              setRecordedVoiceTimeInSecond(recordedVoiceTimeInSecond);
             case 5:
             case "end":
               return _context23.stop();
@@ -6250,15 +6256,15 @@ function MessageBox(_ref) {
             case 4:
               setIsRecordingVoice(false);
               stopVoiceTimer();
-              _context24.next = 11;
+              _context24.next = 12;
               break;
             case 8:
               _context24.next = 10;
               return window.wpwaxCSVoiceRecorder.resumeRecording();
             case 10:
               setIsRecordingVoice(true);
-              // startVoiceTimer();
-            case 11:
+              startVoiceTimer();
+            case 12:
             case "end":
               return _context24.stop();
           }
@@ -6268,10 +6274,13 @@ function MessageBox(_ref) {
     return _pauseVoiceRecording.apply(this, arguments);
   }
   function stopVoiceRecording(args) {
-    var defaultArgs = {
-      sendRecording: false
-    };
-    args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
+    // const defaultArgs = { sendRecording: false };
+
+    // args =
+    //     args && typeof args === 'object'
+    //         ? { ...defaultArgs, ...args }
+    //         : defaultArgs;
+
     stopVoiceTimer();
     window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
       var blob = window.wpwaxCSVoiceRecorder.getBlob();
@@ -6281,16 +6290,16 @@ function MessageBox(_ref) {
       });
       setRecordedAudioBlob(blob);
       setIsRecordingVoice(false);
-      console.log(blob);
 
       // sendAudioMessage(blob);
 
       afterStopVoiceRecording({
-        blob: blob,
-        sendRecording: args.sendRecording
+        blob: blob
+        // sendRecording: args.sendRecording,
       });
     });
   }
+
   function startVoiceTimer() {
     window.wpwaxCSAudioTimer = setInterval(function () {
       setRecordedVoiceTimeInSecond(function (currentValue) {
@@ -6923,7 +6932,7 @@ function MessageBox(_ref) {
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
   };
 
-  /* Handle Text Colse */
+  /* Handle Voice Colse */
   var handleVoiceClose = /*#__PURE__*/function () {
     var _ref23 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19(e) {
       return _regeneratorRuntime().wrap(function _callee19$(_context19) {
@@ -6989,7 +6998,6 @@ function MessageBox(_ref) {
       });
     }
   };
-  console.log(replyMode);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_15__.ChatBoxWrap, {
     children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_23__.jsxs)("div", {
       style: {

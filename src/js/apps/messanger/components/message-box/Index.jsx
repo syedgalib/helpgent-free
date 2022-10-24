@@ -88,6 +88,7 @@ function MessageBox({ setSessionState }) {
 
     //
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
+    const [recordedAudioSteam, setRecordedAudioSteam] = useState(null);
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
     const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] = useState(0);
 
@@ -745,15 +746,59 @@ function MessageBox({ setSessionState }) {
         if (isSendingAudioMessage) {
             return;
         }
-
-        if (isRecordingVoice) {
-            stopVoiceRecording({ sendRecording: true });
-            return;
-        }else{
-            stopVoiceRecording();
-        }
+        stopVoiceRecording({ sendRecording: true });
+        // if (isRecordingVoice) {
+        //     stopVoiceRecording({ sendRecording: true });
+        //     return;
+        // }else{
+        //     stopVoiceRecording({ sendRecording: true });
+        // }
         closeVoiceChat();
     };
+
+    // stopRecording
+    function stopVoiceRecording(args) {
+        const defaultArgs = { sendRecording: false };
+
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
+
+
+        stopVoiceTimer();
+
+        console.log(window.wpwaxCSVoiceRecorder,args);
+
+        // window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
+        //     console.log("re")
+        //     let blob = window.wpwaxCSVoiceRecorder.getBlob();
+
+        //     const tracks = window.wpwaxCSAudioStream.getTracks();
+        //     tracks.forEach((track) => track.stop());
+
+        //     setRecordedAudioBlob(blob);
+        //     setIsRecordingVoice(false);
+
+        //     // sendAudioMessage(blob);
+        //     console.log("yes");
+        //     afterStopVoiceRecording({
+        //         blob,
+        //         sendRecording: args.sendRecording,
+        //     });
+        // });
+        window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxCSVoiceRecorder.getBlob();
+            // window.wpwaxCSAudioStream
+            //     .getTracks()
+            //     .forEach((track) => track.stop());
+
+            // setRecordedAudioBlob(blob);
+            console.log(url);
+            // setRecordedAudioURL(url);
+            // setIsRecordingVoice(false);
+        });
+    }
 
     async function createAttachment(file) {
         let status = {
@@ -838,9 +883,9 @@ function MessageBox({ setSessionState }) {
     };
 
     const afterStopVoiceRecording = async ({ blob, sendRecording }) => {
-        // if (!sendRecording) {
-        //     return;
-        // }
+        if (!sendRecording) {
+            return;
+        }
 
         console.log(blob)
 
@@ -904,31 +949,39 @@ function MessageBox({ setSessionState }) {
     };
 
     const closeVoiceChat = () => {
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        setRecordedAudioBlob(null);
+        setRecordedAudioSteam(null);
+        setRecordedVoiceTimeInSecond(0);
+        setIsRecordingVoice(false)
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
 
     const handleVoicePlay = async function (event){
         event.preventDefault();
-        if(!isRecordingVoice){
-            await window.wpwaxCSVoiceRecorder.resumeRecording();
-            setIsRecordingVoice(true);
-            startVoiceTimer();
-        }
         // Prepare Voice Recording;
-        await prepareVoiceRecording();
+        
+
+        if(recordedAudioSteam){
+            resumeVoiceRecording();
+        }else{
+            const audioStreem = await setupAudioStreem();
+
+            if (!audioStreem) {
+                alert('Something went wrong, please try again.');
+                return;
+            }
+            startVoiceRecording();
+        }
     }
 
-    const prepareVoiceRecording = async () => {
-        const audioStreem = await setupAudioStreem();
-
-        if (!audioStreem) {
-            alert('Something went wrong, please try again.');
-            return;
-        }
-
-        startVoiceRecording();
-    };
+    // const prepareVoiceRecording = async () => {
+        
+    // };
 
     // setupAudioStreem
     async function setupAudioStreem() {
@@ -953,11 +1006,20 @@ function MessageBox({ setSessionState }) {
                 }
             );
 
+            setRecordedAudioSteam(window.wpwaxCSAudioStream);
+
             return true;
         } catch (error) {
             console.error({ error });
             return false;
         }
+    }
+
+    function resumeVoiceRecording(){
+        window.wpwaxCSVoiceRecorder.resumeRecording();
+        setIsRecordingVoice(true);
+        startVoiceTimer();
+        setRecordedVoiceTimeInSecond(recordedVoiceTimeInSecond);
     }
 
     // startRecording
@@ -971,44 +1033,12 @@ function MessageBox({ setSessionState }) {
 
     async function pauseVoiceRecording(event){
         event.preventDefault()
+        console.log(isRecordingVoice);
         if(isRecordingVoice){
             await window.wpwaxCSVoiceRecorder.pauseRecording();
             setIsRecordingVoice(false);
             stopVoiceTimer();
-        }else {
-            await window.wpwaxCSVoiceRecorder.resumeRecording();
-            setIsRecordingVoice(true);
-            startVoiceTimer();
         }
-    }
-
-    // stopRecording
-    function stopVoiceRecording(args) {
-        // const defaultArgs = { sendRecording: false };
-
-        // args =
-        //     args && typeof args === 'object'
-        //         ? { ...defaultArgs, ...args }
-        //         : defaultArgs;
-
-        stopVoiceTimer();
-
-        window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSVoiceRecorder.getBlob();
-
-            const tracks = window.wpwaxCSAudioStream.getTracks();
-            tracks.forEach((track) => track.stop());
-
-            setRecordedAudioBlob(blob);
-            setIsRecordingVoice(false);
-
-            // sendAudioMessage(blob);
-
-            afterStopVoiceRecording({
-                blob,
-                // sendRecording: args.sendRecording,
-            });
-        });
     }
 
     function startVoiceTimer() {
@@ -1655,6 +1685,7 @@ function MessageBox({ setSessionState }) {
             stopVoiceRecording();
         } else {
             setRecordedAudioBlob(null);
+            setRecordedAudioSteam(null);
         }
 
         dispatch(handleMessageTypeChange(''));

@@ -2,12 +2,10 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
-use AazzTech\DirTheme\Helper as DirThemeHelper;
 use WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;

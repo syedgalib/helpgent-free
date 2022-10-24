@@ -76,39 +76,39 @@ const EmailTemplate = props =>{
                     <h4 className="wpwax-vm-note__title">Allowed Placeholders</h4>
                     <div className="wpwax-vm-note__content">
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==NAME==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}NAME{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">Name of the person who sent the initial message.</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==SITE_NAME==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}SITE_NAME{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">It outputs your site name</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==SITE_LINK==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}SITE_LINK{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">==It outputs your site url with link==</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==SITE_URL==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}SITE_URL{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text"> It outputs your site url with link</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==MESSAGE==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}MESSAGE{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">It outputs messege details.</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==TODAY==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}TODAY{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">It outputs the current date</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==NOW==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}NOW{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">It outputs the current time</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==DASHBOARD_LINK==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}DASHBOARD_LINK{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">It outputs the user dashboard page link</span>
                         </div>
                         <div className="wpwax-vm-note__single">
-                            <span className="wpwax-vm-note__single--label">==REPLIER_NAME==:</span>
+                            <span className="wpwax-vm-note__single--label">{"{{"}REPLIER_NAME{"}}"}:</span>
                             <span className="wpwax-vm-note__single--text">the person who will reply in a conversation</span>
                         </div>
                     </div>

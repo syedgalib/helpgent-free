@@ -224,6 +224,8 @@ const SidebarMenuItem = Styled.li`
             margin-right: 15px;
         }
         .wpwax-vm-sidebar-nav__item--text{
+            position: relative;
+            top: -1px;
             width: 100%;
             display: flex;
             justify-content: space-between;

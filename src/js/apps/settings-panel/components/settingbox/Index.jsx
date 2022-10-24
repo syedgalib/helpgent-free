@@ -10,8 +10,13 @@ import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
     const [settingContentState, setSettingContentState] = useState({
-        contentKey: "email_general",
+        contentKey: "general",
         options: {
+            userDashboardPage: "2",
+            hgMaxVideoLength: "2",
+            hgVideoQuality: "700",
+            hgAttatchmentDeletionAfter: "20",
+            hgMaxUploadSize: "300",
             enableEmailNotification: true,
             adminEmailNotificationType: "single",
             userEmailNotificationType: "single",

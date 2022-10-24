@@ -7,6 +7,7 @@ import Radio from "Components/form-fields/Radio.jsx"
 import ChatBoxPreview from "./ChatBoxPreview.jsx";
 import EmailGeneral from './components/EmailGeneral.jsx';
 import EmailTemplate from "./components/EmailTemplate.jsx";
+import General from "./components/General.jsx";
 import angleDown from 'Assets/svg/icons/angle-down.svg';
 import angleUp from 'Assets/svg/icons/angle-up.svg';
 import handRight from 'Assets/svg/icons/hand-right.svg';
@@ -59,10 +60,13 @@ const SettingContent = props => {
         <SettingContentWrap className="wpwax-vm-settings-inner">
             <form action="">
                 {
-                    contentState.contentKey === "email_general" ? <EmailGeneral  contentState={contentState} setContentState={setContentState} /> : null
+                    contentState.contentKey === "general" ? <General contentState={contentState} setContentState={setContentState}/> : null
                 }
                 {
-                    contentState.contentKey === "email_template" ? <EmailTemplate  contentState={contentState} setContentState={setContentState} /> : null
+                    contentState.contentKey === "email_general" ? <EmailGeneral contentState={contentState} setContentState={setContentState} /> : null
+                }
+                {
+                    contentState.contentKey === "email_template" ? <EmailTemplate contentState={contentState} setContentState={setContentState} /> : null
                 }
                 
                 {/* {

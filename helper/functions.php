@@ -663,10 +663,6 @@ function get_option($option_key = '', $default = '')
 {
 	$options = get_options();
 
-	if (empty($options)) {
-		return '';
-	}
-
 	if (!isset($options[$option_key])) {
 		return $default;
 	}
@@ -1016,6 +1012,10 @@ function is_user_admin($user)
 
 	if (empty($user)) {
 		return false;
+	}
+
+	if( is_numeric( $user ) ) {
+		$user = get_user_by( 'id', $user );
 	}
 
 	$accepted_roles = get_admin_roles();

@@ -9264,7 +9264,7 @@ var Upload = function Upload(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 /* harmony import */ var Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/form-fields/Dropdown.jsx */ "./src/js/components/form-fields/Dropdown.jsx");
@@ -9287,10 +9287,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Assets/svg/icons/tag.svg */ "./src/assets/svg/icons/tag.svg");
 /* harmony import */ var Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Assets/svg/icons/trash.svg */ "./src/assets/svg/icons/trash.svg");
 /* harmony import */ var Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! Assets/svg/icons/loader.svg */ "./src/assets/svg/icons/loader.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/sidebar/Style.js");
-/* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! Assets/svg/icons/box-archive.svg */ "./src/assets/svg/icons/box-archive.svg");
+/* harmony import */ var Assets_svg_icons_check_to_slot_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! Assets/svg/icons/check-to-slot.svg */ "./src/assets/svg/icons/check-to-slot.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/sidebar/Style.js");
+/* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/js/apps/messanger/store/messages/actionCreator.js");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9315,6 +9317,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 // import { ReactSVG } from 'react-svg';
+
+
 
 
 
@@ -9410,7 +9414,7 @@ var Sidebar = function Sidebar(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var searchArg = {
       search: debouncedSearchTerm,
-      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_25__.getTimezoneString)()
+      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_27__.getTimezoneString)()
     };
     var fetchSearchNameMail = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -9453,7 +9457,7 @@ var Sidebar = function Sidebar(_ref) {
     var pageLimit = {
       limit: '15',
       page: 1,
-      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_25__.getTimezoneString)()
+      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_27__.getTimezoneString)()
     };
     var fetchSession = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -9557,7 +9561,7 @@ var Sidebar = function Sidebar(_ref) {
     var pageArg = {
       limit: '12',
       page: pageNumber,
-      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_25__.getTimezoneString)()
+      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_27__.getTimezoneString)()
     };
     setPageNumber(pageNumber + 1);
     var fetchNext = /*#__PURE__*/function () {
@@ -9604,7 +9608,7 @@ var Sidebar = function Sidebar(_ref) {
   };
   var handeSelectSession = function handeSelectSession(e, item, index) {
     setaAtiveSession("wpwax-vm-session-".concat(index));
-    dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_24__.updateSelectedSession)(item));
+    dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_26__.updateSelectedSession)(item));
   };
   var handleRefresh = function handleRefresh(event) {
     event.preventDefault();
@@ -9615,41 +9619,41 @@ var Sidebar = function Sidebar(_ref) {
       hasMore: true
     }));
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_23__.SidebarWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_25__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
       className: "wpwax-vm-sidebar-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("h3", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("h3", {
         className: "wpwax-vm-sidebar-title",
         children: "List of Messages"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-sidebar-refresher",
         onClick: handleRefresh,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__["default"], {
           src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_19__["default"]
         })
       })]
-    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-success",
       children: successMessage
-    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-danger",
       children: rejectMessage
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_23__.SessionFilterWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_25__.SessionFilterWrap, {
         className: sessionFilterDropdown ? 'wpwax-vm-search-dropdown-show' : null,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
           className: "wpwax-vm-sidebar-search",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
             className: "wpwax-vm-form-group wpwax-vm-form-icon-left",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
               className: "wpwax-vm-input-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__["default"], {
                 src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_17__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-filter-search",
@@ -9657,28 +9661,28 @@ var Sidebar = function Sidebar(_ref) {
               onChange: function onChange(e) {
                 return setSearchTerm(e.target.value);
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-search-toggle",
               onClick: handleToggleSearchDropdown,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__["default"], {
                 src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("ul", {
             className: "wpwax-vm-search-dropdown",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("li", {
               ref: ref,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("a", {
                 href: "",
                 onClick: handleTagFilterDropdown,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
                   className: "wpwax-vm-search-dropdown__text",
                   children: "Search by tags"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
                   className: "dashicons dashicons-arrow-down-alt2"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_components_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_components_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {
                 outerState: sessionState,
                 setOuterState: setSessionState,
                 tagState: tagState,
@@ -9687,9 +9691,9 @@ var Sidebar = function Sidebar(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
         className: "wpwax-vm-sidebar-filter__quick-actions",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           dropdownText: true,
           textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
           dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_16__["default"],
@@ -9697,39 +9701,39 @@ var Sidebar = function Sidebar(_ref) {
           dropdownList: filterDropdown,
           outerState: sessionState,
           setOuterState: setSessionState
-        }), wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("a", {
+        }), wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-btn-all-tags",
           onClick: handleAllTagActivation,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__["default"], {
             src: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_20__["default"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
             children: "Tags"
           })]
         }) : null]
       })]
-    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("span", {
+    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
-      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("ul", {
+      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("ul", {
         id: "scrollableDiv",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
           dataLength: sessionList.length,
           next: fetchMoreData,
           hasMore: hasMore,
           scrollableTarget: "scrollableDiv",
-          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_27__["default"], {
+          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_29__["default"], {
               src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_22__["default"]
             })
           }),
@@ -9778,6 +9782,10 @@ var Sidebar = function Sidebar(_ref) {
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
+                icon: Assets_svg_icons_check_to_slot_svg__WEBPACK_IMPORTED_MODULE_24__["default"],
+                name: 'active-conversation',
+                text: 'Active'
+              }, {
                 icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'delete-conv',
                 text: 'Delete Conversation'
@@ -9796,6 +9804,10 @@ var Sidebar = function Sidebar(_ref) {
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
+                icon: Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_23__["default"],
+                name: 'archive-conversation',
+                text: 'Archive'
+              }, {
                 icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'delete-conv',
                 text: 'Delete Conversation'
@@ -9809,14 +9821,14 @@ var Sidebar = function Sidebar(_ref) {
               type: 'date',
               text: item.last_message.updated_on_formatted
             }];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("li", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("li", {
               className: "wpwax-vm-session-".concat(index) === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active' : 'wpwax-vm-usermedia',
               onClick: function onClick(e) {
                 return handeSelectSession(e, item, index);
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("div", {
                 className: "wpwax-vm-usermedia__left",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   chatingMedia: true,
                   lastMessage: item.last_message,
                   img: images,
@@ -9828,12 +9840,12 @@ var Sidebar = function Sidebar(_ref) {
                   title: titleString.join(),
                   metaList: metaList
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsxs)("div", {
                 className: "wpwax-vm-usermedia__right",
-                children: [Number(item.total_unread) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("span", {
+                children: [Number(item.total_unread) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("span", {
                   className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread",
                   children: item.total_unread
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   dropdownText: false,
                   dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
                   dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_12__["default"],
@@ -9858,23 +9870,23 @@ var Sidebar = function Sidebar(_ref) {
             }, index);
           })
         })
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("div", {
         className: "wpwax-vm-empty",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)("p", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)("p", {
           children: "Not Found"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_components_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_components_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_components_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_components_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_26__.jsx)(_components_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_28__.jsx)(_components_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       deleteBy: activeSessionId,
       modalOpen: deleteModalOpen,
       outerState: sessionState,
@@ -9905,7 +9917,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n            font-family: 'Inter', sans-serif;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            width: 100%;\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n                align-items: center;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            min-width: 56px;\n            margin-left: 30px;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            line-height: 1;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                    text-transform: initial;\n                    font-family: 'Inter', sans-serif;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    &:first-child{\n                        a{\n                            padding-top: 0;\n                            border-radius: 8px;\n                            border: 0 none;\n                            margin: 0;\n                            &:hover{\n                                color: var(--color-dark);\n                                svg path{\n                                    fill: var(--color-dark);\n                                }\n                                &:after{\n                                    display: block;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n            font-family: 'Inter', sans-serif;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            width: 100%;\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n                align-items: center;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            min-width: 56px;\n            margin-left: 30px;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            line-height: 1;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                        li{\n                            a{\n                                margin-top: 2px;\n                            }\n                            &:last-child{\n                                a{\n                                    margin-top: 10px;\n                                }\n                            }\n                        }\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                    text-transform: initial;\n                    font-family: 'Inter', sans-serif;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    &:first-child{\n                        a{\n                            padding-top: 0;\n                            border-radius: 8px;\n                            border: 0 none;\n                            margin: 0;\n                            &:hover{\n                                color: var(--color-dark);\n                                svg path{\n                                    fill: var(--color-dark);\n                                }\n                                &:after{\n                                    display: block;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
 var SessionFilterWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    &.wpwax-vm-search-dropdown-show{\n        .wpwax-vm-search-dropdown{\n            display: block;\n        }\n        .wpwax-vm-sidebar-search {\n            >.wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    pointer-events: none;\n                }\n            }\n            .wpwax-vm-form__element{\n                margin: 0;\n                border-radius: 10px 10px 0 0;\n                background-color: var(--color-white);\n            }\n        }\n        .wpwax-vm-search-toggle{\n            svg {\n                path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-search-dropdown{\n        position: absolute;\n        left: 0;\n        top: 40px;\n        width: 100%;\n        margin: 0;\n        border-radius: 0 0 10px 10px;\n        z-index: 10;\n        padding: 12px 0px;\n        display: none;\n        border-top: 1px solid var(--color-border-light);\n        box-shadow: 0 20px 40px rgba(144,144,144,.25);\n        background-color: var(--color-white);\n        li{\n            position: relative;\n            margin: 0;\n            list-style: none;\n            cursor: pointer;\n            .dashicons{\n                width: 14px;\n                height: 14px;\n                font-size: 14px;\n            }\n            >a{\n                display: flex;\n                justify-content: space-between;\n                text-decoration: none;\n                font-size: 14px;\n                font-weight: 500;\n                padding: 12px 20px;\n                color: var(--color-dark);\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -14500,6 +14512,30 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/box-archive.svg":
+/*!**********************************************!*\
+  !*** ./src/assets/svg/icons/box-archive.svg ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0ecc210e876f7ea6ecad0fa79e010722.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/check-to-slot.svg":
+/*!************************************************!*\
+  !*** ./src/assets/svg/icons/check-to-slot.svg ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3ed92d550a20fe525be48969a877b0a5.svg");
 
 /***/ }),
 

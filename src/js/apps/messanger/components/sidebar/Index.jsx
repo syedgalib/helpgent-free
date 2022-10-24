@@ -32,6 +32,8 @@ import rotateIcon from 'Assets/svg/icons/rotate-right.svg';
 import tag from 'Assets/svg/icons/tag.svg';
 import trash from 'Assets/svg/icons/trash.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
+import archive from 'Assets/svg/icons/box-archive.svg';
+import checkSlot from 'Assets/svg/icons/check-to-slot.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
 import { getTimezoneString } from 'Helper/utils.js';
@@ -450,6 +452,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Add tags',
                                                 },
                                                 {
+                                                    icon: checkSlot,
+                                                    name: 'active-conversation',
+                                                    text: 'Active',
+                                                },
+                                                {
                                                     icon: trash,
                                                     name: 'delete-conv',
                                                     text: 'Delete Conversation',
@@ -475,6 +482,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     icon: tag,
                                                     name: 'add-tags',
                                                     text: 'Add tags',
+                                                },
+                                                {
+                                                    icon: archive,
+                                                    name: 'archive-conversation',
+                                                    text: 'Archive',
                                                 },
                                                 {
                                                     icon: trash,

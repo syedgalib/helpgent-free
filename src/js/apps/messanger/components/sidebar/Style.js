@@ -164,6 +164,16 @@ const SidebarWrap = Styled.div`
                 .wpwax-vm-dropdown{
                     .wpwax-vm-dropdown__content{
                         top: 40px;
+                        li{
+                            a{
+                                margin-top: 2px;
+                            }
+                            &:last-child{
+                                a{
+                                    margin-top: 10px;
+                                }
+                            }
+                        }
                     }
                 }
                 .wpwax-vm-media__body{

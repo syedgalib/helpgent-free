@@ -2,6 +2,7 @@ import {useState, useRef } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import Linkify from 'Externals/Linkify.jsx';
 import expandIcon from 'Assets/svg/icons/expand.svg';
+import downloadIcon from 'Assets/svg/icons/download.svg';
 
 const VideoMessage = ({data}) => {
 	const videoRef = useRef();
@@ -68,6 +69,13 @@ const VideoMessage = ({data}) => {
 							: 'dashicons dashicons-controls-play'
 					}
 				></span>
+			</a>
+			<a
+				href='#'
+				className='wpwax-vm-btn-download'
+				onClick={handleExpandVideo}
+			>
+				<ReactSVG src={downloadIcon} />
 			</a>
 			<a
 				href='#'

@@ -364,7 +364,7 @@ const MessageBox = Styled.div`
                         .dashicons,
                         svg{
                             position: relative;
-                            top: 0;
+                            top: -2px;
                             font-size: 24px;
                             color: var(--color-white);
                         }
@@ -387,11 +387,23 @@ const MessageBox = Styled.div`
                 z-index: 0;
                 background-color: rgba(3,3,8,.30);
             }
-            .wpwax-vm-btn-expander{
+            .wpwax-vm-btn-expander,
+            .wpwax-vm-btn-download{
                 position: absolute;
                 top: 30px;
                 right: 40px;
                 z-index: 10;
+            }
+            .wpwax-vm-btn-download{
+                top: auto;
+                bottom: 20px;
+                svg{
+                    width: 18px;
+                    height: 18px;
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
             }
             .wpwax-vm-btn-play,
             .wpwax-vm-btn-pause{
@@ -408,6 +420,7 @@ const MessageBox = Styled.div`
                 svg{
                     position: relative;
                     left: 1px;
+                    top: -2px;
                 }
             }
         }
@@ -434,12 +447,13 @@ const MessageBox = Styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-top: 10px;
+                margin-top: 14px;
                 svg{
-                    width: 10px;
-                    height: 10px;
+                    width: 14px;
+                    height: 14px;
                     path{
-                        fill: var(--color-white);
+                        transition: fill .2s ease-in;
+                        fill: #b5b5b5;
                     }
                 }
             }
@@ -451,13 +465,14 @@ const MessageBox = Styled.div`
             }
             .wpwax-hg-download{
                 line-height: 1;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 20px;
-                height: 20px;
-                background: var(--color-primary);
                 border-radius: 50%;
+                &:hover{
+                    svg{
+                        path{
+                            fill: var(--color-dark);
+                        }
+                    }
+                }
             }
         }
     }

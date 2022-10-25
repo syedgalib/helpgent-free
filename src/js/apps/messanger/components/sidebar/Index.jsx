@@ -283,13 +283,17 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
                 <h3 className='wpwax-vm-sidebar-title'>List of Messages</h3>
-                <a
-                    href='#'
-                    className='wpwax-vm-sidebar-refresher'
-                    onClick={handleRefresh}
-                >
-                    <ReactSVG src={rotateIcon} />
-                </a>
+                <div className="wpwax-vm-sidebar-top__action">
+                    <a href="#"><ReactSVG src={archive}/><span>Archive</span></a>
+                    <a
+                        href='#'
+                        className='wpwax-vm-sidebar-refresher'
+                        onClick={handleRefresh}
+                    >
+                        <ReactSVG src={rotateIcon} />
+                    </a>
+                </div>
+                
             </div>
             {successMessage !== '' ? (
                 <span className='wpwax-vm-notice wpwax-vm-notice-success'>

@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
+import { React } from 'react';
+import ReactSVG from 'react-inlinesvg';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
+import trash from 'Assets/svg/icons/trash.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
 
 const AudioMessage = ({data}) => {
@@ -113,10 +116,13 @@ const AudioMessage = ({data}) => {
 							}}
 						></div>
 					</div>
-
-					<span className='wpwax-vm-timer'>
-						{getRemainingTime()}
-					</span>
+					<div className="wpwax-hg-audio-info">
+						<span className='wpwax-vm-timer'>
+							{getRemainingTime()}
+						</span>
+						<a href="#" className='wpwax-hg-download'><ReactSVG src={trash} /></a>
+					</div>
+					
 				</span>
 			</div>
 

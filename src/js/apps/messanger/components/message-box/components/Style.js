@@ -430,12 +430,34 @@ const MessageBox = Styled.div`
                     }
                 }
             }
+            .wpwax-hg-audio-info{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 10px;
+                svg{
+                    width: 10px;
+                    height: 10px;
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
+            }
             .wpwax-vm-timer{
                 display: inline-block;
                 font-size: 14px;
                 font-weight: 500;
-                margin-top: 8px;
-                color: var(--color-dark)
+                color: var(--color-dark);
+            }
+            .wpwax-hg-download{
+                line-height: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                background: var(--color-primary);
+                border-radius: 50%;
             }
         }
     }

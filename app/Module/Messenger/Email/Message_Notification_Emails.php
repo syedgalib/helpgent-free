@@ -333,7 +333,7 @@ class Message_Notification_Emails {
 
         $find_replace = array(
             '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
-            '{{REPLIER}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{REPLIER_NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
             '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
             '{{SITE_NAME}}' => $site_name,
             '{{SITE_LINK}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),

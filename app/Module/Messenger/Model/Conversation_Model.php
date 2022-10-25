@@ -9,11 +9,39 @@ use WPWaxCustomerSupportApp\Base\Helper;
 class Conversation_Model extends DB_Model {
 
     /**
-     * Table Name
+     * Main Table
      *
      * @var string
      */
     public static $table = 'conversations';
+
+	/**
+     * Table Relation Column
+     *
+     * @var string
+     */
+    public static $table_relation_column = 'conversation_id';
+
+	/**
+     * Meta Table Name
+     *
+     * @var string
+     */
+    public static $meta_table = 'conversation_meta';
+
+	/**
+     * Term Table
+     *
+     * @var string
+     */
+    public static $term_relationship_table = 'conversation_term_relationships';
+
+	/**
+     * Message Table
+     *
+     * @var string
+     */
+    public static $messages_table = 'messages';
 
     /**
      * Get Items
@@ -25,9 +53,9 @@ class Conversation_Model extends DB_Model {
         global $wpdb;
 
 		$conversation_table       = self::get_table_name( self::$table );
-		$conversation_meta_table  = self::get_table_name( 'conversation_meta' );
-		$messages_table           = self::get_table_name( 'messages' );
-		$term_relationships_table = self::get_table_name( 'conversation_term_relationships' );
+		$conversation_meta_table  = self::get_table_name( self::$meta_table );
+		$term_relationships_table = self::get_table_name( self::$term_relationship_table );
+		$messages_table           = self::get_table_name( self::$messages_table );
 
 		$default = [];
 
@@ -115,176 +143,6 @@ class Conversation_Model extends DB_Model {
 
 		return $results;
     }
-
-	/**
-	 * Get Meta
-	 *
-	 * @param int $conversation_id
-	 * @param string $meta_key
-	 * @param mixed $default
-	 *
-	 * @param mixed Value
-	 */
-	public static function get_meta( $conversation_id, $meta_key = '', $default = '' ) {
-		global $wpdb;
-
-		$meta_table = self::get_table_name( 'conversation_meta' );
-
-		$where = " WHERE conversation_id = '$conversation_id'";
-
-		if ( ! empty( $meta_key ) ) {
-			$where .= " AND meta_key = '$meta_key'";
-		}
-
-		$select   = "SELECT * FROM $meta_table";
-		$group_by = " GROUP BY meta_key";
-
-		$query = $select . $where . $group_by;
-
-		$result = ( ! empty( $meta_key ) ) ? $wpdb->get_row( $query, ARRAY_A ) : $wpdb->get_results( $query, ARRAY_A );
-
-		if ( empty( $result ) ) {
-			return $default;
-		}
-
-		return $result['meta_value'];
-	}
-
-	/**
-	 * Create Meta
-	 *
-	 * @param int $conversation_id
-	 * @param string $meta_key
-	 * @param mixed $default
-	 *
-	 * @param mixed Value
-	 */
-	public static function create_meta( $conversation_id, $meta_key = '', $value = '' ) {
-		global $wpdb;
-
-		$meta_key_exists = self::meta_key_exists( $conversation_id, $meta_key );
-
-		if ( $meta_key_exists ) {
-			return new WP_Error( 403, __( 'The resource already exists', 'wpwax-customer-support-app' ) );
-		}
-
-		$table = self::get_table_name( 'conversation_meta' );
-
-		$args = [
-			'conversation_id' => $conversation_id,
-			'meta_key'        => $meta_key,
-			'meta_value'      => $value,
-		];
-
-		$result = $wpdb->insert( $table, $args );
-
-		if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-		$meta = self::get_meta( $conversation_id, $meta_key );
-
-		return $meta;
-	}
-
-	/**
-	 * Update Meta
-	 *
-	 * @param int $conversation_id
-	 * @param string $meta_key
-	 * @param mixed $default
-	 *
-	 * @param mixed Value
-	 */
-	public static function update_meta( $conversation_id, $meta_key = '', $value = '' ) {
-		global $wpdb;
-
-		$meta_key_exists = self::meta_key_exists( $conversation_id, $meta_key );
-
-		if ( ! $meta_key_exists ) {
-			return self::create_meta( $conversation_id, $meta_key, $value );
-		}
-
-		$table = self::get_table_name( 'conversation_meta' );
-
-		$args = [ 'meta_value' => $value ];
-
-		$where = [
-			'conversation_id' => $conversation_id,
-			'meta_key'        => $meta_key,
-		];
-
-		$result = $wpdb->update( $table, $args, $where );
-
-		if ( is_null( $result ) ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-        }
-
-		$meta = self::get_meta( $conversation_id, $meta_key );
-
-		return $meta;
-	}
-
-	/**
-	 * Update Meta
-	 *
-	 * @param int $conversation_id
-	 * @param string $meta_key
-	 * @param mixed $default
-	 *
-	 * @param mixed Value
-	 */
-	public static function delete_meta( $conversation_id, $meta_key = '' ) {
-		global $wpdb;
-
-		$meta_key_exists = self::meta_key_exists( $conversation_id, $meta_key );
-
-		if ( ! $meta_key_exists ) {
-			return true;
-		}
-
-		$table = self::get_table_name( 'conversation_meta' );
-
-		$where = [
-			'conversation_id' => $conversation_id,
-			'meta_key'        => $meta_key,
-		];
-
-		$status = $wpdb->delete( $table, $where );
-
-		if ( empty( $status ) ) {
-			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
-		}
-
-		return true;
-	}
-
-	/**
-	 * Check if meta key exists
-	 *
-	 * @param int $conversation_id
-	 * @param string $meta_key
-	 *
-	 * @param bool Status
-	 */
-	public static function meta_key_exists( $conversation_id, $meta_key ) {
-		global $wpdb;
-
-		$meta_table = self::get_table_name( 'conversation_meta' );
-
-		$where = " WHERE conversation_id = '$conversation_id'";
-		$where .= " AND meta_key = '$meta_key'";
-
-		$select   = "SELECT * FROM $meta_table";
-		$group_by = " GROUP BY meta_key";
-
-		$query  = $select . $where . $group_by;
-		$result = $wpdb->get_row( $query, ARRAY_A );
-
-		return ( ! empty( $result ) ) ? true : false;
-	}
 
 	/**
 	 * Prepare Result Item
@@ -595,7 +453,7 @@ class Conversation_Model extends DB_Model {
 		}
 
 		$table = self::get_table_name( self::$table );
-		$where = self::prepare_where_query( $where );
+		$where = self::prepare_where_query_v2( $where );
 
 		$fields = '';
 
@@ -644,13 +502,6 @@ class Conversation_Model extends DB_Model {
 			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
 		}
 
-		// Mark as seen by author
-		Messages_Seen_By_Model::delete_item_where([
-			'user_id'    => $message['user_id'],
-			'message_id' => $message['id'],
-			'session_id' => $message['session_id'],
-		]);
-
         return true;
     }
 
@@ -668,6 +519,65 @@ class Conversation_Model extends DB_Model {
 
         return ( ! empty( $status ) ) ? true : false;
     }
+
+
+	/**
+	 * Get Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $default
+	 *
+	 * @return mixed Value
+	 */
+	public static function get_meta( $object_id, $meta_key = '', $default = '' ) {
+
+		return parent::_get_meta( $object_id, $meta_key, $default, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Update Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $value
+	 *
+	 * @return mixed Value
+	 */
+	public static function update_meta( $object_id, $meta_key = '', $value = '' ) {
+
+		return parent::_update_meta( $object_id, $meta_key, $value, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Delete Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return bool Status
+	 */
+	public static function delete_meta( $object_id, $meta_key = '' ) {
+
+		return parent::_delete_meta( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Check if meta key exists
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return mixed Status
+	 */
+	public static function meta_key_exists( $object_id, $meta_key = '' ) {
+
+		return parent::_meta_key_exists( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
+
+	}
 
 }
 

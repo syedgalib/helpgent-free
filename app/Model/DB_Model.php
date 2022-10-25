@@ -15,6 +15,28 @@ abstract class DB_Model implements DB_Model_Interface {
      */
     public static $table = '';
 
+	/**
+     * Table Relation Column
+     *
+     * @var string
+     */
+    public static $table_relation_column = '';
+
+	/**
+     * Meta Table
+     *
+     * @var string
+     */
+    public static $meta_table = '';
+
+	/**
+     * Term Table
+     *
+     * @var string
+     */
+    public static $term_relationship_table = '';
+
+
     /**
      * Get Items
      *
@@ -183,10 +205,193 @@ abstract class DB_Model implements DB_Model_Interface {
         return ( ! empty( $status ) ) ? true : false;
     }
 
+	/**
+	 * Get Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $default
+	 * @param string $meta_table
+	 * @param string $relation_column
+	 *
+	 * @return mixed Value
+	 */
+	protected static function _get_meta( $object_id, $meta_key = '', $default = '', $meta_table = '', $relation_column = '' ) {
+		global $wpdb;
+
+		$table = self::get_table_name( $meta_table );
+		$where = " WHERE $relation_column = '$object_id'";
+
+		if ( ! empty( $meta_key ) ) {
+			$where .= " AND meta_key = '$meta_key'";
+		}
+
+		$select   = "SELECT * FROM $table";
+		$group_by = " GROUP BY meta_key";
+
+		$query = $select . $where . $group_by;
+
+		$result = ( ! empty( $meta_key ) ) ? $wpdb->get_row( $query, ARRAY_A ) : $wpdb->get_results( $query, ARRAY_A );
+
+		if ( empty( $result ) ) {
+			return $default;
+		}
+
+		if ( empty( $meta_key ) ) {
+			return $result;
+		}
+
+		return $result['meta_value'];
+	}
+
+	/**
+	 * Create Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $value
+	 * @param string $meta_table
+	 * @param string $relation_column
+	 *
+	 * @return mixed Value
+	 */
+	protected static function _create_meta( $object_id, $meta_key = '', $value = '', $meta_table = '', $relation_column = '' ) {
+		global $wpdb;
+
+		$meta_key_exists = self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column );
+
+		if ( $meta_key_exists ) {
+			return new WP_Error( 403, __( 'The resource already exists', 'wpwax-customer-support-app' ) );
+		}
+
+		$table = self::get_table_name( $meta_table );
+
+		$args = [
+			$relation_column => $object_id,
+			'meta_key'       => $meta_key,
+			'meta_value'     => $value,
+		];
+
+		$result = $wpdb->insert( $table, $args );
+
+		if ( empty( $result ) ) {
+            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+		$meta = self::_get_meta( $object_id, $meta_key, '', $meta_table, $relation_column );
+
+		return $meta;
+	}
+
+	/**
+	 * Update Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $default
+	 * @param string $meta_table
+	 * @param string $relation_column
+	 *
+	 * @return mixed Value
+	 */
+	protected static function _update_meta( $object_id, $meta_key = '', $value = '', $meta_table = '', $relation_column = '' ) {
+		global $wpdb;
+
+		$meta_key_exists = self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column );
+
+		if ( ! $meta_key_exists ) {
+			return self::_create_meta( $object_id, $meta_key, $value, $meta_table, $relation_column );
+		}
+
+		$table = self::get_table_name( $meta_table );
+
+		$args = [ 'meta_value' => $value ];
+
+		$where = [
+			$relation_column => $object_id,
+			'meta_key'       => $meta_key,
+		];
+
+		$result = $wpdb->update( $table, $args, $where );
+
+		if ( is_null( $result ) ) {
+            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+		$meta = self::_get_meta( $object_id, $meta_key, '', $meta_table, $relation_column );
+
+		return $meta;
+	}
+
+	/**
+	 * Delete Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $default
+	 * @param string $meta_table
+	 * @param string $relation_column
+	 *
+	 * @return bool Status
+	 */
+	protected static function _delete_meta( $object_id, $meta_key = '', $meta_table = '', $relation_column = '' ) {
+		global $wpdb;
+
+		$meta_key_exists = self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column );
+
+		if ( ! $meta_key_exists ) {
+			return true;
+		}
+
+		$table = self::get_table_name( $meta_table );
+
+		$where = [
+			$relation_column => $object_id,
+			'meta_key'       => $meta_key,
+		];
+
+		$status = $wpdb->delete( $table, $where );
+
+		if ( empty( $status ) ) {
+			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Check if meta key exists
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param string $meta_table
+	 * @param string $relation_column
+	 *
+	 * @return bool Status
+	 */
+	protected static function _meta_key_exists( $object_id, $meta_key, $meta_table = '', $relation_column = '' ) {
+		global $wpdb;
+
+		$meta_table = self::get_table_name( $meta_table );
+
+		$where = " WHERE $relation_column = '$object_id'";
+		$where .= " AND meta_key = '$meta_key'";
+
+		$select   = "SELECT * FROM $meta_table";
+		$group_by = " GROUP BY meta_key";
+
+		$query  = $select . $where . $group_by;
+		$result = $wpdb->get_row( $query, ARRAY_A );
+
+		return ( ! empty( $result ) ) ? true : false;
+	}
+
     /**
      * Get Table Name
      *
-     * @return String Table Name
+     * @return string Table Name
      */
     public static function get_table_name( $table = '', $sub_prefix = WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX . '_' ) {
         global $wpdb;
@@ -356,7 +561,7 @@ abstract class DB_Model implements DB_Model_Interface {
 				break;
 
 			case 'in':
-				$value = "('$value')";
+				$value = "($value)";
 				break;
 
 			case 'like':

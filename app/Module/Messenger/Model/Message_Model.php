@@ -15,6 +15,20 @@ class Message_Model extends DB_Model {
      */
     public static $table = 'messages';
 
+	/**
+     * Table Relation Column
+     *
+     * @var string
+     */
+    public static $table_relation_column = 'message_id';
+
+	/**
+     * Meta Table Name
+     *
+     * @var string
+     */
+    public static $meta_table = 'message_meta';
+
     /**
      * Get Items
      *
@@ -25,11 +39,7 @@ class Message_Model extends DB_Model {
         global $wpdb;
 
 		$messages_table = self::get_table_name( self::$table );
-		$seen_by_table  = self::get_table_name( 'messages_seen_by' );
-		$term_table     = self::get_table_name( 'session_term_relationships' );
-		$table_name     = 'message';
-
-		$current_user_id = ( ! empty( $args['current_user_id'] ) ) ? $args['current_user_id'] : 0;
+		$meta_table     = self::get_table_name( self::$meta_table );
 
         $default = [];
 
@@ -37,7 +47,6 @@ class Message_Model extends DB_Model {
         $default['page']     = 1;
         $default['order_by'] = 'latest';
         $default['group_by'] = '';
-        $default['seen']     = '';
 
         $args  = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
         $limit = $args['limit'];
@@ -46,133 +55,61 @@ class Message_Model extends DB_Model {
 			$limit = null;
 		}
 
-		$offset = ( ! is_null( $limit ) ) ? ( $limit * $args['page'] ) - $limit : null;
-
-		$computed_fields = [
-			'total_message'    => "COUNT( message.id ) AS total_message",
-			'users'            => "GROUP_CONCAT( DISTINCT message.user_id ) as users",
-			'total_unread'     => "COUNT( CASE WHEN message.is_seen = 0 THEN 1 ELSE NULL END ) AS total_unread",
-			'terms'            => "GROUP_CONCAT( DISTINCT $term_table.term_taxonomy_id ) as terms",
-			'unread_messages'  => "GROUP_CONCAT( DISTINCT CASE WHEN message.is_seen = 0 THEN message.id ELSE NULL END ) as unread_messages",
-			'my_message_count' => "COUNT( CASE WHEN message.user_id = $current_user_id THEN 1 ELSE NULL END ) as my_message_count",
-		];
+		$offset     = ( ! is_null( $limit ) ) ? ( $limit * $args['page'] ) - $limit : null;
+		$pagination = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
 
         // Prepare Order
         switch ( $args['order_by'] ) {
             case 'latest':
-                $order_by_field = "created_on";
+                $order_by_field = "created_at";
                 $order          = " ORDER BY message.$order_by_field DESC";
                 break;
 
             case 'oldest':
-                $order_by_field = "created_on";
+                $order_by_field = "created_at";
                 $order          = " ORDER BY message.$order_by_field ASC";
                 break;
 
-            case 'read':
-                $order_by_field = "total_unread";
-                $order          = " ORDER BY $order_by_field ASC";
-                break;
-
-            case 'unread':
-                $order_by_field = "total_unread";
-                $order          = " ORDER BY $order_by_field DESC";
-                break;
-
             default:
-				$order_by_field = "created_on";
+				$order_by_field = "created_at";
                 $order          = " ORDER BY message.$order_by_field DESC";
                 break;
         }
 
 		$where = ' WHERE 1=1';
 
-        // Construct where clause
-        if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-			// Where Seen By
-			self::prepare_where_seen_by_query( $args );
+        // Prepare where
+		$tax_query_count  = 0;
+		$meta_query_count = 0;
 
-			// Where Term IDs
-			self::prepare_where_term_ids_query( $args, $term_table );
-
-			// Where Created On
-			if ( isset( $args['where']['created_on'] ) || isset( $args['where']['created_on_between'] ) ) {
-				self::prepare_where_date_time_on_query( 'created_on', $args );
-			}
-
-			// Where Updated On
-			if ( isset( $args['where']['updated_on'] ) || isset( $args['where']['updated_on_between'] ) ) {
-				self::prepare_where_date_time_on_query( 'updated_on', $args );
-			}
-
-			$conditional_fields = [ 'term_ids', 'updated_on', 'updated_on_between' ];
-			$where = self::prepare_where_query( $args[ 'where' ], $table_name, $conditional_fields );
-        }
-
-		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
-		$having   = '';
-
-		if ( isset( $args['having'] ) && is_array( $args['having'] ) ) {
-			$having_field     = isset( $args['having']['field'] ) ? $args['having']['field'] : '';
-			$having_field     = in_array( $having_field, array_keys( $computed_fields ) ) ? $having_field : 'message.' . $having_field;
-			$having_condition = isset( $args['having']['condition'] ) ? $args['having']['condition'] : '=';
-			$having_value     = isset( $args['having']['value'] ) ? $args['having']['value'] : '';
-
-			$having           = " HAVING {$having_field} {$having_condition} {$having_value}";
-		}
-
-		$fields = [ '*' ];
-
-		if ( ! empty( $args['fields'] ) && is_string( $args['fields'] ) ) {
-			$_fields = preg_replace( "/\s/", '', $args['fields'] );
-			$_fields = trim( $_fields, ',' );
-			$_fields = explode( ',', $_fields );
-			$fields  = ( is_array( $_fields ) ) ? $_fields : $fields;
-
-			if ( is_array( $_fields ) ) {
-				$fields  = $_fields;
-
-				if ( ! in_array( $order_by_field, $fields ) ) {
-					$fields[] = $order_by_field;
-				}
-			}
-		}
-
-		if ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) {
-			$fields = $args['fields'];
-
-			if ( ! in_array( $order_by_field, $fields ) ) {
-				$fields[] = $order_by_field;
-			}
-		}
-
-		$message_table_fields = [
-			"$messages_table.*",
-			"$seen_by_table.message_id",
-			"GROUP_CONCAT( DISTINCT $seen_by_table.user_id ) as seen_by",
-			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen",
+		$table_field_map = [
+			'conversation_id' => 'message',
+			'user_email'      => 'message',
+			'created_at'      => 'message',
+			'updated_at'      => 'message',
+			'message'         => 'message',
+			'attachment_id'   => 'message',
+			'message_type'    => 'message',
+			'parent'          => 'message',
+			'parent_type'     => 'message',
 		];
 
-		// Prefix Fields
-		$fields = array_map( function( $item ) use( $computed_fields ) {
+        $where = self::prepare_where_query_v2( $args[ 'where' ], $table_field_map, $tax_query_count, $meta_query_count );
 
-			if ( in_array( $item, array_keys( $computed_fields ) ) ) {
-				return $computed_fields[ $item ];
+		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
+
+		$select = "SELECT message.* FROM $messages_table as message";
+
+		$join = "";
+
+		// Join Meta Table
+		if ( ! empty( $meta_query_count )  ) {
+			for ( $i = 0; $i < $meta_query_count; $i++ ) {
+				$join .= " LEFT JOIN $meta_table as meta_$i ON message.id = meta_$i.message_id";
 			}
+		}
 
-			return "message.{$item}";
-
-		}, $fields );
-
-		$fields = join( ', ', $fields );
-		$fields = trim( $fields, ', ' );
-
-		$message_table_fields = trim( join( ', ', $message_table_fields ) );
-
-		$select_messages = "SELECT $message_table_fields FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id";
-		$select          = "SELECT $fields FROM ( {$select_messages} GROUP BY $messages_table.id ) AS message LEFT JOIN $term_table ON message.session_id = $term_table.session_id";
-		$pagination      = ( ! is_null( $limit ) ) ? " LIMIT $limit OFFSET $offset" : '';
-		$query           = $select . $where . $group_by . $having . $order . $pagination;
+		$query = $select . $join . $where . $group_by . $order . $pagination;
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -445,25 +382,6 @@ class Message_Model extends DB_Model {
 
 		$message = self::get_item( $wpdb->insert_id );
 
-		// Mark as seen by the author
-		Messages_Seen_By_Model::create_item([
-			'user_id'    => $message['user_id'],
-			'message_id' => $message['id'],
-			'session_id' => $message['session_id'],
-		]);
-
-		// Freez Previous Seen Messages
-		Messages_Seen_By_Model::update_item_where(
-			[
-				'user_id'              => $message['user_id'],
-				'session_id'           => $message['session_id'],
-				'freez_mark_as_unread' => 0,
-			],
-			[
-				'freez_mark_as_unread' => 1,
-			],
-		);
-
 		return $message;
     }
 
@@ -572,13 +490,6 @@ class Message_Model extends DB_Model {
 			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
 		}
 
-		// Mark as seen by author
-		Messages_Seen_By_Model::delete_item_where([
-			'user_id'    => $message['user_id'],
-			'message_id' => $message['id'],
-			'session_id' => $message['session_id'],
-		]);
-
         return true;
     }
 
@@ -596,6 +507,64 @@ class Message_Model extends DB_Model {
 
         return ( ! empty( $status ) ) ? true : false;
     }
+
+	/**
+	 * Get Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $default
+	 *
+	 * @return mixed Value
+	 */
+	public static function get_meta( $object_id, $meta_key = '', $default = '' ) {
+
+		return parent::_get_meta( $object_id, $meta_key, $default, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Update Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 * @param mixed $value
+	 *
+	 * @return mixed Value
+	 */
+	public static function update_meta( $object_id, $meta_key = '', $value = '' ) {
+
+		return parent::_update_meta( $object_id, $meta_key, $value, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Delete Meta
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return bool Status
+	 */
+	public static function delete_meta( $object_id, $meta_key = '' ) {
+
+		return parent::_delete_meta( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
+
+	}
+
+	/**
+	 * Check if meta key exists
+	 *
+	 * @param int $object_id
+	 * @param string $meta_key
+	 *
+	 * @return mixed Status
+	 */
+	public static function meta_key_exists( $object_id, $meta_key = '' ) {
+
+		return parent::_meta_key_exists( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
+
+	}
 
 
     /**

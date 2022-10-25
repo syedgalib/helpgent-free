@@ -39,8 +39,6 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
 		$where = ' WHERE 1=1';
 
-        $common_fields = [ 'term_id', 'term_taxonomy_id' ];
-
         // Construct where clause
 		$table_field_map = [
 			'conversation_id'  => $relationship_table,
@@ -73,14 +71,14 @@ class Conversation_Term_Relationship_Model extends DB_Model {
      * @param int $id
      * @return array|WP_Error
      */
-    public static function get_item( $session_id ) {
+    public static function get_item( $conversation_id ) {
 
-        if ( empty( $session_id ) ) {
+        if ( empty( $conversation_id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-		$items = self::get_items( [ 'where' => [ 'session_id' => $session_id ] ] );
+		$items = self::get_items( [ 'where' => [ 'conversation_id' => $conversation_id ] ] );
 
 		if ( empty( $items ) ) {
 			return [];
@@ -100,7 +98,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
         $table = self::get_table_name( self::$table );
 
-        if ( empty( $args['session_id'] ) ) {
+        if ( empty( $args['conversation_id'] ) ) {
             $message = __( 'The session ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
@@ -110,20 +108,17 @@ class Conversation_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		$session = Message_Model::get_items([
-			'where' => [ 'session_id' => $args['session_id'] ],
-			'limit' => 1,
-		]);
+		$conversation = Conversation_Model::get_item( $args['conversation_id'] );
 
-		if ( empty( $session ) ) {
-			$message = __( 'The session does not exist.', 'wpwax-customer-support-app' );
+		if ( is_wp_error( $conversation ) ) {
+			$message = __( 'The conversation does not exist.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
 		}
 
         $default = [];
 
-        $default['session_id'] = 0;
-        $default['term_id']    = 0;
+        $default['conversation_id'] = 0;
+        $default['term_id']         = 0;
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
         $term = Term_Model::get_item( $args['term_id'] );
@@ -142,7 +137,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $args['term_taxonomy_id'] );
+        return self::get_item( $args['conversation_id'] );
     }
 
     /**
@@ -154,15 +149,15 @@ class Conversation_Term_Relationship_Model extends DB_Model {
     public static function update_item( $args = [] ) {
         global $wpdb;
 
-        if ( empty( $args['session_id'] ) ) {
+        if ( empty( $args['conversation_id'] ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        $id = $args['session_id'];
+        $conversation_id = $args['conversation_id'];
 
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $id );
+		$old_data = self::get_item( $conversation_id );
 
         if ( empty( $old_data ) ) {
             $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
@@ -171,7 +166,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
 
-        $where = ['session_id' => $id ];
+        $where = ['conversation_id' => $conversation_id ];
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
@@ -180,7 +175,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $id );
+        return self::get_item( $conversation_id );
     }
 
     /**
@@ -189,16 +184,16 @@ class Conversation_Term_Relationship_Model extends DB_Model {
      * @param int $id
      * @return bool
      */
-    public static function delete_item( $id ) {
+    public static function delete_item( $conversation_id ) {
         global $wpdb;
 
-        if ( empty( $id ) ) {
+        if ( empty( $conversation_id ) ) {
             $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
 		$table = self::get_table_name( self::$table );
-		$where = [ 'session_id' => $id ];
+		$where = [ 'conversation_id' => $conversation_id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 

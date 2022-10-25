@@ -812,6 +812,13 @@ function get_current_user($return_wp_user = false)
 	return prepare_user_data($current_user);
 }
 
+function max_upload_size() {
+	$custom_size = get_option( 'hgMaxUploadSize', 100 );
+	return wp_max_upload_size() >= $custom_size ? $custom_size : wp_max_upload_size();
+
+
+}
+
 function get_mime_types($filter_type = '', $return_type = '')
 {
 

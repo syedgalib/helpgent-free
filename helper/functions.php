@@ -1109,3 +1109,42 @@ function get_attachment_link( $attachment_id = 0 ) {
 
 	return admin_url( 'admin-post.php?action=dynamic_attachment_link&attachment_id=' . $attachment_id );
 }
+
+
+/**
+ * Get terms taxonomy IDs
+ *
+ * @param string $term_list
+ * @return mixed Taxonomy IDs
+ */
+function get_terms_taxonomy_ids( $tax_query = [], $return_type = 'string' ) {
+	$taxonomy = ( ! empty( $tax_query['taxonomy'] ) ) ? $tax_query['taxonomy'] : '';
+	$field    = ( ! empty( $tax_query['field'] ) ) ? $tax_query['field'] : '';
+	$terms    = ( ! empty( $tax_query['terms'] ) ) ? $tax_query['terms'] : '';
+
+	$terms_args = [ 'where' => [] ];
+
+	if ( ! empty( $taxonomy ) ) {
+		$terms_args['where']['taxonomy'] = $taxonomy;
+	}
+
+	if ( ! empty( $field ) ) {
+		$terms_args['where']['terms'] = [
+			'key'     => $field,
+			'compare' => 'IN',
+			'value'   => $terms,
+		];
+	}
+
+	$term_list = Term_Model::get_items( $terms_args );
+
+	$term_list = ( ! empty( $term_list['results'] ) ) ? array_map( function( $item ) { return $item['term_taxonomy_id']; }, $term_list['results'] ) : [];
+
+	if ( 'array' === $return_type ) {
+		return $term_list;
+	}
+
+	$term_list = trim( join( ',', $term_list ), ',' );
+
+	return $term_list;
+}

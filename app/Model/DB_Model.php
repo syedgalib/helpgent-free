@@ -3,6 +3,8 @@
 namespace WPWaxCustomerSupportApp\Model;
 
 use \WP_Error;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 abstract class DB_Model implements DB_Model_Interface {
 
@@ -192,6 +194,182 @@ abstract class DB_Model implements DB_Model_Interface {
         return $wpdb->prefix . $sub_prefix . $table;
     }
 
+
+	/**
+	 * Prepare Where Query
+	 *
+	 * @param array $where_args
+	 * @param string $table_name
+	 * @param array $table_prefix_fields
+	 * @param array $supported_conditions
+	 *
+	 * @return string Where Query
+	 */
+	public static function prepare_where_query_v2( $where_args = [], $table_field_map = [], &$tax_query_count = 0, &$meta_query_count = 0 ) {
+		$where = ' WHERE 1=1';
+		$supported_conditions = [ 'AND', 'OR' ];
+
+		if ( empty( $where_args ) ) {
+			return $where;
+		}
+
+		foreach ( $where_args as $key => $value ) {
+
+			// Term Query
+			if ( $key == 'tax_query' ) {
+
+				if ( ! is_array( $value ) ) {
+					unset( $where_args[ $key ] );
+					continue;
+				}
+
+				$tax_query_condition = ( ! empty( $value['condition'] ) ) ? $value['condition'] : 'AND';
+				$tax_query_clause    = '';
+
+				foreach ( $value as $tax_query_index => $tax_query ) {
+
+					if ( ! is_numeric( $tax_query_index ) ) {
+						continue;
+					}
+
+					$taxonomy_ids = Helper\get_terms_taxonomy_ids( $tax_query );
+					$clause       = "( term_taxonomy_$tax_query_index.term_taxonomy_id IN ( '$taxonomy_ids' ) )";
+
+					if ( $tax_query_index > 0 ) {
+						$clause = " $tax_query_condition $clause";
+					}
+
+					$tax_query_clause .= $clause;
+					$tax_query_count++;
+				}
+
+				$where .= " AND ( $tax_query_clause )";
+				unset( $where_args[ $key ] );
+				continue;
+
+			}
+
+
+			// Meta Query
+			if ( $key == 'meta_query' ) {
+
+				if ( ! is_array( $value) ) {
+					unset( $where_args[ $key ]);
+					continue;
+				}
+
+				$meta_query_condition = ( ! empty( $value['condition'] ) ) ? $value['condition'] : 'AND';
+				$meta_query_clause = '';
+
+				foreach ( $value as $meta_query_index => $meta_query ) {
+
+					if ( ! is_numeric( $meta_query_index ) ) {
+						continue;
+					}
+
+					$meta_key   = ( ! empty( $meta_query['key'] ) ) ? $meta_query['key'] : '';
+					$compare    = ( ! empty( $meta_query['compare'] ) ) ? $meta_query['compare'] : '=';
+					$meta_value = ( ! empty( $meta_query['value'] ) ) ? $meta_query['value'] : '';
+					$meta_value = self::parse_query_value( $meta_value, $compare );
+
+					$clause = "(
+						meta_$meta_query_index.meta_key = '$meta_key'
+						AND meta_$meta_query_index.meta_value $compare $meta_value
+					)";
+
+					if ( $meta_query_index > 0 ) {
+						$clause = " $meta_query_condition $clause";
+					}
+
+					$meta_query_clause .= $clause;
+					$meta_query_count++;
+				}
+
+				$where .= " AND ( $meta_query_clause )";
+
+				unset( $where_args[ $key ]);
+				continue;
+			}
+
+
+			// General Query
+			// Case 1
+			if ( ! is_array( $value ) ) {
+				$where_table_name = ( ! empty( $table_field_map[ $key ] ) ) ? $table_field_map[ $key ] . '.' : '';
+				$where .= " AND {$where_table_name}{$key}='{$value}'";
+				continue;
+			}
+
+			// Case 2
+			if ( ! empty( $value['condition'] ) && ! empty( $value['rules'] ) ) {
+
+				$_where     = '';
+				$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
+
+				foreach ( $value['rules'] as $index => $rule ) {
+					$rule_key         = $rule['key'];
+					$where_table_name = ( ! empty( $table_field_map[ $rule_key ] ) ) ? $table_field_map[ $rule_key ] . '.' : '';
+					$_key             = $where_table_name . $rule['key'];
+					$_compare         = ( ! empty( $rule['compare'] ) ) ? $rule['compare'] : '=';
+					$_value           = self::parse_query_value( $rule['value'], $_compare );
+
+					if ( $index === 0 ) {
+						$_where .= " {$_key} {$_compare} {$_value}";
+					} else {
+						$_where .= " {$_condition} {$_key} {$_compare} {$_value}";
+					}
+				}
+
+				$_where = trim( $_where );
+				$where .= " AND ( $_where )";
+
+				continue;
+			}
+
+			// Case 3
+			$value_key        = $value['key'];
+			$where_table_name = ( ! empty( $table_field_map[ $value_key ] ) ) ? $table_field_map[ $value_key ] . '.' : '';
+			$_key             = $where_table_name . $value['key'];
+			$_compare         = $value['compare'];
+			$_compare         = ( ! empty( $value['compare'] ) ) ? $value['compare'] : '=';
+			$_value           = self::parse_query_value( $value['value'], $_compare );
+
+			$where .= " AND {$_key} {$_compare} {$_value}";
+		}
+
+		return $where;
+	}
+
+	/**
+	 * Parse Query Value
+	 *
+	 * @param mixed $value
+	 * @param string $compare
+	 *
+	 * @param mixed Value
+	 */
+	public static function parse_query_value( $value = '', $compare = '=' ) {
+
+		switch ( strtolower( $compare ) ) {
+			case '=':
+				$value = "'$value'";
+				break;
+
+			case 'in':
+				$value = "('$value')";
+				break;
+
+			case 'like':
+				$value = "'%$value%'";
+				break;
+
+			default:
+				$value = "'$value'";
+				break;
+		}
+
+		return $value;
+	}
 
 	/**
 	 * Prepare Where Query

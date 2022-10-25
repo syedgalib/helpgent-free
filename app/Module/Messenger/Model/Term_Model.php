@@ -13,7 +13,7 @@ class Term_Model extends DB_Model {
      *
      * @var string
      */
-    public static $table = 'message_terms';
+    public static $table = 'terms';
 
     /**
      * Get Items
@@ -40,7 +40,18 @@ class Term_Model extends DB_Model {
 		$pagination = ( $limit < 0 ) ? '' : " LIMIT ${limit} OFFSET ${offset}";
 
 		$where_args = ( ! empty( $args['where'] ) ) ? $args['where'] : [];
-		$where = self::prepare_where_query( $where_args );
+
+		$table_field_map = [
+			'term_id'          => $term_table,
+			'name'             => $term_table,
+			'term_key'         => $term_table,
+			'order'            => $term_table,
+			'term_taxonomy_id' => $term_taxonomy_table,
+			'taxonomy'         => $term_taxonomy_table,
+			'parent'           => $term_taxonomy_table,
+		];
+
+		$where = self::prepare_where_query_v2( $where_args, $table_field_map );
 
         $select = "SELECT {$term_table}.*, {$term_taxonomy_table}.*";
 

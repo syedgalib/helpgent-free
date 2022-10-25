@@ -10,14 +10,14 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
-    public static $table = 'message_term_taxonomy';
+    public static $table = 'term_taxonomy';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -40,7 +40,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-            
+
             foreach ( $args['where'] as $key => $value ) {
                 $where .= " AND {$key}='{$value}'";
             }
@@ -63,7 +63,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $term_taxonomy_id
      * @return array|WP_Error
      */
@@ -91,7 +91,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -131,7 +131,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -187,7 +187,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param int $term_taxonomy_id
      * @return bool
      */
@@ -205,7 +205,7 @@ class Term_Taxonomy_Model extends DB_Model {
 
     /**
      * Delete Item Where
-     * 
+     *
      * @param array $where
      * @return bool
      */

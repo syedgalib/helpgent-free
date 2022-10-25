@@ -14,38 +14,38 @@ class Message_Notification_Emails {
     public function __construct() {
 
         add_action( 'wpwax_customer_support_app_rest_insert_user', [ $this, 'cache_user_password' ], 20, 3 );
-        
         add_action( 'helpget_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
-        // add_action( 'init', [ $this, 'init' ] );
-
+        add_filter( 'wp_mail_from', [ $this, 'mail_from' ] );
+        add_filter( 'wp_mail_from_name', [ $this, 'name_from' ] );
 
     }
 
+    /**
+     * Modify name append in recipent name box
+     * 
+     * @param string $name Email from
+     * @return string $name Email from
+     */
+    public function name_from( $name ) {
 
-    public function init() {
-
-        $clint = '';
-        $admins = [];
-        $old_sessions = Message_Model::get_items(['where' => ['session_id' => '1d97new0m1768676j4p08zb26k204']]);
-        $options = Helper\get_options();
-        if( ! empty( $old_sessions ) ) {
-            foreach( $old_sessions as $session ) {
-                $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
-                if ( Helper\is_user_admin( $session['user_id'] ) ) {
-                    array_push( $admins, $user_id );
-                } else{
-                    $clint = $user_id; 
-                }
-            }
+        if( Helper\get_option( 'emailTemplateFromName' ) ) {
+           return Helper\get_option( 'emailTemplateFromName' ); 
         }
-        $is_user_admin =  Helper\is_user_admin( 1 );
-        e_var_dump( [
-            'admins' => $admins,
-            'logo' => self::website_logo_url(),
-            'clint' => $clint,
-            'is_user_admin' => $is_user_admin,
-        ] );
-        die;
+        return $name;
+    }
+
+    /**
+     * Modify email append in recipent email box
+     * 
+     * @param string $email Email from
+     * @return string $email Email from
+     */
+    public function mail_from( $email ) {
+
+        if( Helper\get_option( 'emailTemplateFromEmail' ) ) {
+           return Helper\get_option( 'emailTemplateFromEmail' ); 
+        }
+        return $email;
     }
 
     /**
@@ -98,9 +98,7 @@ class Message_Notification_Emails {
             self::user_greeting_on_first_session_created( $clint, $args );
             return;
         }
-        self::notify_new_session_created( $clint, $args );
-
-             
+        self::notify_new_session_created( $clint, $args ); 
     }
 
     /**

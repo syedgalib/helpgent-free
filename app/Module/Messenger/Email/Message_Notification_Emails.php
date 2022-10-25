@@ -14,38 +14,38 @@ class Message_Notification_Emails {
     public function __construct() {
 
         add_action( 'wpwax_customer_support_app_rest_insert_user', [ $this, 'cache_user_password' ], 20, 3 );
-        
         add_action( 'helpget_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
-        // add_action( 'init', [ $this, 'init' ] );
-
+        add_filter( 'wp_mail_from', [ $this, 'mail_from' ] );
+        add_filter( 'wp_mail_from_name', [ $this, 'name_from' ] );
 
     }
 
+    /**
+     * Modify name append in recipent name box
+     * 
+     * @param string $name Email from
+     * @return string $name Email from
+     */
+    public function name_from( $name ) {
 
-    public function init() {
-
-        $clint = '';
-        $admins = [];
-        $old_sessions = Message_Model::get_items(['where' => ['session_id' => '1d97new0m1768676j4p08zb26k204']]);
-        $options = Helper\get_options();
-        if( ! empty( $old_sessions ) ) {
-            foreach( $old_sessions as $session ) {
-                $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
-                if ( Helper\is_user_admin( $session['user_id'] ) ) {
-                    array_push( $admins, $user_id );
-                } else{
-                    $clint = $user_id; 
-                }
-            }
+        if( Helper\get_option( 'emailTemplateFromName' ) ) {
+           return Helper\get_option( 'emailTemplateFromName' ); 
         }
-        $is_user_admin =  Helper\is_user_admin( 1 );
-        e_var_dump( [
-            'admins' => $admins,
-            'logo' => self::website_logo_url(),
-            'clint' => $clint,
-            'is_user_admin' => $is_user_admin,
-        ] );
-        die;
+        return $name;
+    }
+
+    /**
+     * Modify email append in recipent email box
+     * 
+     * @param string $email Email from
+     * @return string $email Email from
+     */
+    public function mail_from( $email ) {
+
+        if( Helper\get_option( 'emailTemplateFromEmail' ) ) {
+           return Helper\get_option( 'emailTemplateFromEmail' ); 
+        }
+        return $email;
     }
 
     /**
@@ -98,9 +98,7 @@ class Message_Notification_Emails {
             self::user_greeting_on_first_session_created( $clint, $args );
             return;
         }
-        self::notify_new_session_created( $clint, $args );
-
-             
+        self::notify_new_session_created( $clint, $args ); 
     }
 
     /**
@@ -331,11 +329,11 @@ class Message_Notification_Emails {
         $date_format = get_option( 'date_format' );
         $time_format = get_option( 'time_format' );
         $current_time = current_time( 'timestamp' );
-        $dashboard_link = '#';
+        $dashboard_link = Helper\get_dashboard_page_link();
 
         $find_replace = array(
             '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
-            '{{REPLIER}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{REPLIER_NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
             '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
             '{{SITE_NAME}}' => $site_name,
             '{{SITE_LINK}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
@@ -351,13 +349,6 @@ class Message_Notification_Emails {
 
     }
 
-    public static function website_logo_url()
-    {
-        $custom_logo_id = get_theme_mod( 'custom_logo' );
-        $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-        return $image[0];
-    }
-
     /**
      * Get Mail HTML
      *
@@ -367,16 +358,10 @@ class Message_Notification_Emails {
      */
     public static function email_html($subject, $message){
         $header = '';
-        $logo = '';
         $email_header_color = Helper\get_option('emailHeaderColor', '#6551f2');
         $allow_email_header = Helper\get_option('enableEmailHeader', true );
-        $addSiteLogo = Helper\get_option('addSiteLogo', true );
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
-        if( $addSiteLogo ) {
-            // $logo = '<img src="'.get_site_icon_url().'" alt="Email Logo" width="500" height="600">';
-            $logo = '<img src="https://directorist.com/wp-content/themes/dir-theme/assets/svg/core-features/4.svg" alt="Email" width="500" height="600">';
-        }
         if ( $allow_email_header ){
             $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
                             <tr>
@@ -399,7 +384,6 @@ class Message_Notification_Emails {
                     <tr>
                         <td align="center" valign="top">
                             <div id="template_header_image">
-                                ' . $logo . '                            
                             </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
                                 <tr>

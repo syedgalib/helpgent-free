@@ -99,12 +99,12 @@ class Conversation_Term_Relationship_Model extends DB_Model {
         $table = self::get_table_name( self::$table );
 
         if ( empty( $args['conversation_id'] ) ) {
-            $message = __( 'The session ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The conversation ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        if ( empty( $args['term_id'] ) ) {
-            $message = __( 'The term ID is required.', 'wpwax-customer-support-app' );
+        if ( empty( $args['term_taxonomy_id'] ) ) {
+            $message = __( 'The term taxonomy ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -117,18 +117,18 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
         $default = [];
 
-        $default['conversation_id'] = 0;
-        $default['term_id']         = 0;
+        $default['conversation_id']  = 0;
+        $default['term_taxonomy_id'] = 0;
+        $default['order']            = 0;
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
-        $term = Term_Model::get_item( $args['term_id'] );
+        $term = Term_Taxonomy_Model::get_item( $args['term_taxonomy_id'] );
 
         if ( is_wp_error( $term ) ) {
             return $term;
         }
 
         $args['term_taxonomy_id'] = $term['term_taxonomy_id'];
-        unset( $args['term_id'] );
 
 		$result = $wpdb->insert( $table, $args );
 
@@ -166,7 +166,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
 
-        $where = ['conversation_id' => $conversation_id ];
+        $where = [ 'conversation_id' => $conversation_id ];
 
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 

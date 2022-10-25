@@ -115,190 +115,6 @@ class Message_Model extends DB_Model {
 
     }
 
-	/**
-	 * Prepare Where Seen By Query
-	 *
-	 * @param array $args
-	 * @return void
-	 */
-	protected static function prepare_where_seen_by_query( &$args = [] ) {
-
-		if ( ! isset( $args['where']['seen'] ) ) {
-			return;
-		}
-
-		$is_seen = Helper\is_truthy( $args['where']['seen'] );
-
-		if ( $is_seen ) {
-			$args['where']['seen_by'] = [
-				'field'     => 'is_seen',
-				'compare'   => '=',
-				'value'     => 1,
-			];
-		} else {
-			$args['where']['seen_by'] = [
-				'field'   => 'is_seen',
-				'compare' =>'=',
-				'value'   => 0,
-			];
-		}
-
-		unset( $args['where']['seen'] );
-	}
-
-	/**
-	 * Prepare Where Term IDs Query
-	 *
-	 * @param array $args
-	 * @return void
-	 */
-	protected static function prepare_where_term_ids_query( &$args = [], $term_table_name ) {
-
-		if ( ! isset( $args['where']['term_ids'] ) ) {
-			return;
-		}
-
-		$args['where']['term_ids'] = [
-			'field'     => $term_table_name . '.term_taxonomy_id',
-			'compare'   => 'IN',
-			'value'     => '( ' . $args['where']['term_ids'] . ' )',
-		];
-
-	}
-
-	/**
-	 * Prepare Where Updated On Query
-	 *
-	 * @param array $args
-	 * @return void
-	 */
-	protected static function prepare_where_updated_on_query( &$args = [] ) {
-
-		if ( ! ( isset( $args['where']['updated_on'] ) || isset( $args['where']['updated_on_between'] ) ) ) {
-			return;
-		}
-
-		self::prepare_where_date_time_on_query( 'updated_on', $args );
-	}
-
-
-	/**
-	 * Prepare Where Updated On Query
-	 *
-	 * @param array $args
-	 * @return void
-	 */
-	protected static function prepare_where_date_time_on_query( $field_name, &$args = [] ) {
-		// Compare Date Between
-		$field_between_key = $field_name . '_between';
-
-		if ( ! empty( $args['where'][ $field_between_key ] ) ) {
-			$between_dates = $args['where'][ $field_between_key ];
-			$dates         = explode( ',', trim( $between_dates ) );
-
-			if ( count( $dates ) !== 2 ) {
-				unset( $args['where'][ $field_between_key ] );
-				return;
-			}
-
-			$from_date = Helper\format_as_sql_date_time( $dates[0] );
-			$to_date   = Helper\format_as_sql_date_time( $dates[1] );
-
-			if ( empty( $from_date ) || empty( $to_date ) ) {
-				unset( $args['where'][ $field_between_key ] );
-				return;
-			}
-
-			$args['where'][ $field_between_key ] = [
-				'condition' => 'AND',
-				'rules' => [
-					[
-						'field'     => "message.{$field_name}",
-						'compare'   => 'BETWEEN',
-						'value'     => "'{$from_date}' AND '{$to_date}'",
-					]
-				]
-
-			];
-
-			return;
-		}
-
-		// Compare Date
-		$field_date_time = Helper\format_sql_date_time_as_array( $args['where'][ $field_name ] );
-
-		if ( empty( $field_date_time )  ) {
-			unset( $args['where'][ $field_name ] );
-			return;
-		}
-
-		$accepted_comparations = [ 'null', '=', '!=', '>', '<', '>=', '<=' ];
-		$compare_date_time = '=';
-
-		if ( isset( $args['where'][ "{$field_name}_compare_date_time" ] ) ) {
-			$compare_date_time = ( in_array( $args['where'][ "{$field_name}_compare_date_time" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_date_time" ] : '=';
-			unset( $args['where'][ "{$field_name}_compare_date_time" ] );
-
-			$args['where'][ $field_name ] = [
-				'field'     => "message.{$field_name}",
-				'compare'   => $compare_date_time,
-				'value'     => "'" . $args['where'][ $field_name ] . "'",
-			];
-
-			return;
-		}
-
-		$compare_day       = '=';
-		$compare_month     = '=';
-		$compare_year      = '=';
-
-		if ( isset( $args['where'][ "{$field_name}_compare_day" ] ) ) {
-			$compare_day = ( in_array( $args['where'][ "{$field_name}_compare_day" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_day" ] : '=';
-			unset( $args['where'][ "{$field_name}_compare_day" ] );
-		}
-
-		if ( isset( $args['where'][ "{$field_name}_compare_month" ] ) ) {
-			$compare_month = ( in_array( $args['where'][ "{$field_name}_compare_month" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_month" ] : '=';
-			unset( $args['where'][ "{$field_name}_compare_month" ] );
-		}
-
-		if ( isset( $args['where'][ "{$field_name}_compare_year" ] ) ) {
-			$compare_year = ( in_array( $args['where'][ "{$field_name}_compare_year" ], $accepted_comparations ) ) ? $args['where'][ "{$field_name}_compare_year" ] : '=';
-			unset( $args['where'][ "{$field_name}_compare_year" ] );
-		}
-
-		$rules = [];
-
-		if ( 'null' !== $compare_day ) {
-			$rules[] = [
-				'field'     => "DAY( message.{$field_name} )",
-				'compare'   => $compare_day,
-				'value'     => $field_date_time['day'],
-			];
-		}
-
-		if ( 'null' !== $compare_month ) {
-			$rules[] = [
-				'field'     => "MONTH( message.{$field_name} )",
-				'compare'   => $compare_month,
-				'value'     => $field_date_time['month'],
-			];
-		}
-
-		if ( 'null' !== $compare_year ) {
-			$rules[] = [
-				'field'     => "YEAR( message.{$field_name} )",
-				'compare'   => $compare_year,
-				'value'     => $field_date_time['year'],
-			];
-		}
-
-		$args['where'][ $field_name ] = [
-			'condition' => 'AND',
-			'rules'     => $rules
-		];
-	}
-
     /**
      * Get Item
      *
@@ -314,19 +130,8 @@ class Message_Model extends DB_Model {
         }
 
 		$messages_table = self::get_table_name( self::$table );
-		$seen_by_table  = self::get_table_name( 'messages_seen_by' );
 
-		$current_user_id = get_current_user_id();
-
-		$message_table_fields = [
-			"$messages_table.*",
-			"$seen_by_table.message_id",
-			"GROUP_CONCAT( DISTINCT $seen_by_table.user_id ) as seen_by",
-			"COUNT( CASE WHEN $seen_by_table.user_id = $current_user_id THEN 1 ELSE NULL END ) AS is_seen",
-		];
-
-		$message_table_fields = join( ',', $message_table_fields );
-		$query = $wpdb->prepare( "SELECT $message_table_fields FROM $messages_table LEFT JOIN $seen_by_table ON $messages_table.id = $seen_by_table.message_id WHERE $messages_table.id = %d", array( $id ) );
+		$query = $wpdb->prepare( "SELECT * FROM $messages_table WHERE id = %d", array( $id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
@@ -351,25 +156,36 @@ class Message_Model extends DB_Model {
 
         $default = [];
 
-        $default['user_id']       = 0;
-        $default['session_id']    = self::generate_session();
-        $default['note']          = '';
-        $default['message']       = '';
-        $default['attachment_id'] = '';
-        $default['message_type']  = '';
+        $default['conversation_id'] = 0;
+        $default['user_email']      = '';
+        $default['message']         = '';
+        $default['attachment_id']   = '';
+        $default['message_type']    = 'text';
+        $default['parent']          = 0;
+        $default['parent_type']     = '';
 
         $args = Helper\merge_params( $default, $args );
         $time = current_time( 'mysql', true );
 
-        $args['created_on'] = $time;
-        $args['updated_on'] = $time;
+        $args['created_at'] = $time;
+        $args['updated_at'] = $time;
 
         if ( isset( $args['id'] ) ) {
             unset( $args['id'] );
         }
 
-        if ( empty( $args['user_id'] ) ) {
-            $message = __( 'User ID is required.', 'wpwax-customer-support-app' );
+        if ( empty( $args['conversation_id'] ) ) {
+            $message = __( 'Conversation ID is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+        if ( empty( $args['user_email'] ) ) {
+            $message = __( 'Author email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
+
+		if ( ! is_email( $args['user_email'] ) ) {
+            $message = __( 'A valid author email is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -409,12 +225,13 @@ class Message_Model extends DB_Model {
 
         $args = Helper\filter_params( $old_data, $args );
 
+
         $time = current_time( 'mysql', true );
-        $args['updated_on'] = $time;
+        $args['updated_at'] = $time;
 
-        $where = ['id' => $args['id'] ];
+        $where = [ 'id' => $args['id'] ];
 
-		$result = $wpdb->update( $table, $args, $where, null, '%d' );
+		$result = $wpdb->update( $table, $args, $where );
 
         if ( empty( $result ) ) {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
@@ -564,22 +381,6 @@ class Message_Model extends DB_Model {
 
 		return parent::_meta_key_exists( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
 
-	}
-
-
-    /**
-     * Generate Session
-     *
-     * @return string
-     */
-    protected static function generate_session() {
-		$time   = microtime();
-		$time   = str_replace( array( ' ', '.' ), '', $time );
-		$chars  = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz' ), 1, 10 );
-		$random = $chars . $time;
-		$random = str_shuffle( $random );
-
-		return $random;
 	}
 
 }

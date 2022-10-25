@@ -7,9 +7,12 @@ use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+
+use function WPWaxCustomerSupportApp\Base\Helper\get_current_user_email;
 
 class Messages extends Rest_Base
 {
@@ -246,26 +249,12 @@ class Messages extends Rest_Base
 
         $where = [];
 
-        $where['session_id']   = '';
-        $where['message']      = '';
-        $where['message_type'] = '';
-        $where['user_id']      = '';
-        $where['seen']         = '';
-
-        $where['updated_on']                   = '';
-        $where['updated_on_compare_date_time'] = '=';
-        $where['updated_on_compare_day']       = '=';
-        $where['updated_on_compare_month']     = '=';
-        $where['updated_on_compare_year']      = '=';
-        $where['updated_on_between']           = '';
-
-
-        $where['created_on']                   = '';
-        $where['created_on_compare_date_time'] = '=';
-        $where['created_on_compare_day']       = '=';
-        $where['created_on_compare_month']     = '=';
-        $where['created_on_compare_year']      = '=';
-        $where['created_on_between']           = '';
+        $where['conversation_id'] = '';
+        $where['message']         = '';
+        $where['message_type']    = '';
+        $where['user_email']      = '';
+        $where['updated_at']      = '';
+        $where['created_at']      = '';
 
         $where = Helper\filter_params($where, $args);
 
@@ -273,16 +262,15 @@ class Messages extends Rest_Base
 
         $default['limit']    = 20;
         $default['page']     = 1;
-        $default['fields']   = '';
         $default['group_by'] = '';
         $default['order_by'] = '';
         $default['timezone'] = '';
 
-        $args = Helper\filter_params($default, $args);
+        $args = Helper\filter_params( $default, $args );
 
 		// Adjust Timezone
 		if ( ! empty( $args['timezone'] ) ) {
-			$date_time_fields = [ 'created_on', 'updated_on' ];
+			$date_time_fields = [ 'created_at', 'updated_at' ];
 			$timezone         = $args['timezone'];
 
 			foreach ( $date_time_fields as $field_key ) {
@@ -296,8 +284,6 @@ class Messages extends Rest_Base
 
         $args['where'] = $where;
 
-        $args['current_user_id'] = get_current_user_id();
-
         // Filter By Message
         if ( ! empty( $args['where']['message'] ) ) {
             $args['where']['message'] = [
@@ -309,29 +295,28 @@ class Messages extends Rest_Base
 
 		// Filter Client Messages
 		if ( current_user_can( 'wpwax_vm_client' ) ) {
-
-			// Get All Client Sessions
-			$client_sessions = Message_Model::get_items([
+			// Get All Client Conversations
+			$client_conversations = Conversation_Model::get_items([
 				'where' => [
-					'user_id' => get_current_user_id(),
+					'created_by' => get_current_user_email(),
 				]
 			]);
 
-			if ( empty( $client_sessions ) ) {
+			if ( empty( $client_conversations ) ) {
 				return $this->response( true, [] );
 			}
 
-			$client_sessions = array_map( function( $message ) { return '"'. $message['session_id'] . '"'; }, $client_sessions );
-			$client_sessions = implode( ',', $client_sessions );
+			$client_conversations = array_map( function( $conversation ) { return $conversation['id']; }, $client_conversations );
+			$client_conversations = implode( ',', $client_conversations );
 
-			$args['where']['session_id'] = [
-                'field'   => 'session_id',
+			$args['where']['conversation_id'] = [
+                'field'   => 'conversation_id',
                 'compare' => 'IN',
-                'value'   => '(' . $client_sessions . ')',
+                'value'   => '(' . $client_conversations . ')',
             ];
 		}
 
-        $data = Message_Model::get_items($args);
+        $data = Message_Model::get_items( $args );
 
         if ( empty( $data ) ) {
             return $this->response( true, [] );
@@ -370,25 +355,8 @@ class Messages extends Rest_Base
         }
 
 		// Validate Client Capability
-		if ( current_user_can( 'wpwax_vm_client' ) ) {
-			// Get All Client Sessions
-			$client_sessions = Message_Model::get_items([
-				'where' => [
-					'user_id' => get_current_user_id(),
-				]
-			]);
-
-			if ( empty( $client_sessions ) ) {
-				return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
-			}
-
-			$client_sessions  = array_map( function( $message ) { return $message['session_id']; }, $client_sessions );
-			$can_view_message = in_array( $data['session_id'], $client_sessions );
-
-			if ( ! $can_view_message ) {
-				return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
-			}
-
+		if ( ! $this->can_current_user_view_conversation( $data['conversation_id'] ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
 		}
 
         $success = true;
@@ -403,40 +371,22 @@ class Messages extends Rest_Base
      * @param $request
      * @return array Response
      */
-    public function create_item($request)
+    public function create_item( $request )
     {
         $args = $request->get_params();
 		$args['user_id'] = ! empty( $args['user_id'] ) ? $args['user_id'] : get_current_user_id();
 
-        $data = Message_Model::create_item($args);
+        $data = Message_Model::create_item( $args );
 
-        if (is_wp_error($data)) {
+        if ( is_wp_error( $data ) ) {
             return $data;
-        }
-
-        // Assign Terms
-        if (isset($args['terms'])) {
-            $terms = Helper\convert_string_to_int_array($args['terms']);
-            foreach ($terms as $term_id) {
-
-				$term = Term_Model::get_item( $term_id );
-
-				if ( is_wp_error( $term ) ) {
-					continue;
-				}
-
-                Session_Term_Relationship_Model::create_item([
-                    'session_id' => $data['session_id'],
-                    'term_id'    => $term_id,
-                ]);
-            }
         }
 
         $data    = $this->prepare_message_item_for_response($data, $args);
         $success = true;
 
         // Notify User if requested
-        if (isset($args['notify_user']) && Helper\is_truthy($args['notify_user'])) {
+        if ( isset( $args['notify_user'] ) && Helper\is_truthy( $args['notify_user'] ) ) {
             $user         = get_user_by('id', $args['user_id']);
             $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
             $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
@@ -467,7 +417,7 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Client User Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_id'] !== get_current_user_id() ) {
+		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
 		}
 
@@ -500,7 +450,7 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_id'] !== get_current_user_id() ) {
+		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
 		}
 
@@ -513,171 +463,34 @@ class Messages extends Rest_Base
         return $this->response(true);
     }
 
-
-    /**
-     * Get Seen By Items
-     *
-     * @param $request
-     * @return mixed
-     */
-    public function get_seen_by_items( $request )
-    {
-        $args = $request->get_params();
-
-        $default = [];
-        $default['message_id'] = 0;
-
-        $args = Helper\filter_params( $default, $args );
-        $data = Messages_Seen_By_Model::get_items(['where' => $args]);
-
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        if ( empty( $data ) ) {
-            return $this->response( true, [] );
-        }
-
-		// Validate Capability
-		if ( ! $this->can_current_user_view_session( $data[0]['session_id'] ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
-		}
-
-        // Prepare items for response
-        foreach ( $data as $key => $value ) {
-            $item = $this->prepare_message_item_for_response( $value, $args );
-
-            if ( empty( $item ) ) {
-                continue;
-            }
-
-            $data[ $key ] = $item;
-        }
-
-        return $this->response( true, $data );
-    }
-
-    /**
-     * Create Seen By Item
-     *
-     * @param $request
-     * @return array Response
-     */
-    public function create_seen_by_item( $request )
-    {
-        $args = $request->get_params();
-
-        $default = [];
-
-        $default['user_id']    = get_current_user_id();
-        $default['message_id'] = 0;
-
-        $args = Helper\filter_params( $default, $args );
-
-        $message = Message_Model::get_item( $args['message_id'] );
-
-        if ( is_wp_error( $message ) ) {
-            return $message;
-        }
-
-        $args['session_id'] = $message['session_id'];
-
-		// Validate Capability
-		if ( ! $this->can_current_user_view_session( $args['session_id'] ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to create the resource.' ) );
-		}
-
-        $data = Messages_Seen_By_Model::create_item($args);
-
-        if ( is_wp_error( $data ) ) {
-            return $data;
-        }
-
-        $data    = $this->prepare_message_item_for_response( $data, $args );
-        $success = true;
-
-        return $this->response($success, $data);
-    }
-
-    /**
-     * Delete Seen By Item
-     *
-     * @param $request
-     * @return mixed
-     */
-    public function delete_seen_by_item( $request )
-    {
-        $args = $request->get_params();
-
-        $default_args['user_id']    = get_current_user_id();
-        $default_args['message_id'] = 0;
-
-		$args = array_merge( $default_args, $args );
-
-        $message = Message_Model::get_item( $args['message_id'] );
-
-        if ( is_wp_error( $message ) ) {
-            return $message;
-        }
-
-        $args['session_id'] = $message['session_id'];
-
-		if ( empty( $args['user_id'] ) ) {
-			$message = __( 'User ID is required.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-		}
-
-		if ( empty( $args['message_id'] ) ) {
-			$message = __( 'Message ID is required.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-		}
-
-		if ( empty( $args['session_id'] ) ) {
-			$message = __( 'Session ID is required.', 'wpwax-customer-support-app' );
-            return new WP_Error( 403, $message );
-		}
-
-		// Validate Capability
-		if ( ! $this->can_current_user_view_session( $args['session_id'] ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
-		}
-
-        $operation = Messages_Seen_By_Model::delete_item_where( $args );
-
-        if ( is_wp_error( $operation ) ) {
-            return $operation;
-        }
-
-        return $this->response( true );
-    }
-
 	/**
-	 * Can Current User View Session
+	 * Can Current User View Conversation
 	 *
-	 * @param string $session_id
+	 * @param string $conversation_id
 	 * @return bool
 	 */
-	public function can_current_user_view_session( $session_id ) {
+	public function can_current_user_view_conversation( $conversation_id ) {
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			return true;
 		}
 
 		if ( current_user_can( 'wpwax_vm_client' ) ) {
-			// Get All Client Sessions
-			$client_sessions = Message_Model::get_items([
+			// Get All Client Conversations
+			$client_conversations = Conversation_Model::get_items([
 				'where' => [
-					'user_id' => get_current_user_id(),
+					'created_by' => get_current_user_email(),
 				]
 			]);
 
-			if ( empty( $client_sessions ) ) {
-				return false;
+			if ( empty( $client_conversations ) ) {
+				return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
 			}
 
-			$client_sessions = array_map( function( $message ) { return $message['session_id']; }, $client_sessions );
+			$client_conversations = array_map( function( $conversations ) { return $conversations['id']; }, $client_conversations );
+			$can_view_message     = in_array( $conversation_id, $client_conversations );
 
-			return in_array( $session_id, $client_sessions );
+			return $can_view_message;
 		}
 
 		return false;

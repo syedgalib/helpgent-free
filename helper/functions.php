@@ -885,6 +885,45 @@ function get_mime_types($filter_type = '', $return_type = '')
 }
 
 /**
+ * Get users email
+ *
+ * @return string Email
+ */
+function get_current_user_email()
+{
+	$current_user = get_user_by( 'id', get_current_user_id() );
+	return ( ! empty( $current_user ) ) ? $current_user->user_email : '';
+}
+
+/**
+ * Get users data by.
+ *
+ * @param array $items
+ * @return array Users Data
+ */
+function get_users_data_by( $by = 'id', $items = [] )
+{
+
+	if ( empty( $items ) ) {
+		return [];
+	}
+
+	$users = [];
+
+	foreach ( $items as $item ) {
+		$user = get_user_by( $by, $item );
+
+		if ( empty( $user ) ) {
+			continue;
+		}
+
+		array_push( $users, prepare_user_data( $user ) );
+	}
+
+	return $users;
+}
+
+/**
  * Get users data by IDs.
  *
  * @param array $user_ids

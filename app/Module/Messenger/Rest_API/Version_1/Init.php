@@ -27,7 +27,7 @@ class Init {
     protected function get_controllers() {
         return [
             Messages::class,
-            Sessions::class,
+            Conversations::class,
             Terms::class,
         ];
     }

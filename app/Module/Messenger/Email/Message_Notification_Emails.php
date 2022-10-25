@@ -349,13 +349,6 @@ class Message_Notification_Emails {
 
     }
 
-    public static function website_logo_url()
-    {
-        $custom_logo_id = get_theme_mod( 'custom_logo' );
-        $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-        return $image[0];
-    }
-
     /**
      * Get Mail HTML
      *
@@ -365,16 +358,10 @@ class Message_Notification_Emails {
      */
     public static function email_html($subject, $message){
         $header = '';
-        $logo = '';
         $email_header_color = Helper\get_option('emailHeaderColor', '#6551f2');
         $allow_email_header = Helper\get_option('enableEmailHeader', true );
-        $addSiteLogo = Helper\get_option('addSiteLogo', true );
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
-        if( $addSiteLogo ) {
-            // $logo = '<img src="'.get_site_icon_url().'" alt="Email Logo" width="500" height="600">';
-            $logo = '<img src="https://directorist.com/wp-content/themes/dir-theme/assets/svg/core-features/4.svg" alt="Email" width="500" height="600">';
-        }
         if ( $allow_email_header ){
             $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
                             <tr>
@@ -397,7 +384,6 @@ class Message_Notification_Emails {
                     <tr>
                         <td align="center" valign="top">
                             <div id="template_header_image">
-                                ' . $logo . '                            
                             </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
                                 <tr>

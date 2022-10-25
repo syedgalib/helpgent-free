@@ -1083,3 +1083,21 @@ function get_attachment_link( $attachment_id = 0 ) {
 
 	return admin_url( 'admin-post.php?action=dynamic_attachment_link&attachment_id=' . $attachment_id );
 }
+
+/**
+ * Get Dashboard Page Link
+ *
+ * @return string Dashboard Page Link
+ */
+function get_dashboard_page_link() {
+
+	$link = home_url();
+	$page_id = get_option( 'userDashboardPage' );
+
+	if ( $page_id )  {
+		$link = get_permalink( $page_id );
+	}
+
+	return apply_filters( 'helpgent_dashboard_page_link', $link, $page_id );
+}
+

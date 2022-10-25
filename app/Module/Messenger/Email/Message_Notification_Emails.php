@@ -331,7 +331,7 @@ class Message_Notification_Emails {
         $date_format = get_option( 'date_format' );
         $time_format = get_option( 'time_format' );
         $current_time = current_time( 'timestamp' );
-        $dashboard_link = '#';
+        $dashboard_link = Helper\get_dashboard_page_link();
 
         $find_replace = array(
             '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',

@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 const RecorderWrap = Styled.div`
     text-align: center;
     padding: 0 25px;
-    min-width: 420px;
+    /* min-width: 420px; */
     box-sizing: border-box;
     font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
@@ -111,7 +111,7 @@ const RecorderWrap = Styled.div`
                     width: 70px;
                     height: 70px;
                     position: absolute;
-                    right: 40px;
+                    right: 25px;
                     top: 50%;
                     transform: translateY(-50%);
                     border-radius: 50%;

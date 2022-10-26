@@ -8,7 +8,7 @@ const VideoHomeWrap = Styled.div`
     text-align: center;
     padding: 0 25px 0;
     border-radius: 25px;
-    min-width: 420px;
+    /* min-width: 420px; */
     height: min(80vh,620px);
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
@@ -22,6 +22,9 @@ const VideoHomeWrap = Styled.div`
         font-family: var(--font-family);
         margin: 0 0 30px;
         color: var(--color-dark);
+        @media only screen and (max-width: 767px){
+            font-size: 15px;
+        }
     }
     .wpwax-vm-video-home__btns{
         a,
@@ -63,7 +66,7 @@ const VideoRecordWrap = Styled.div`
     position: relative;
     padding: 0 25px;
     height: min(80vh,620px);
-    min-width: 420px;
+    /* min-width: 420px; */
     box-sizing: border-box;
     text-align: center;
     font-family: var(--font-family);

@@ -1,12 +1,12 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Database;
+namespace WPWaxCustomerSupportApp\Module\Forms\Database;
 
 class Prepare_Database {
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     public function __construct() {
@@ -17,7 +17,7 @@ class Prepare_Database {
 
 	/**
      * Create Tables
-     * 
+     *
      * @return void
      */
     private function create_tables() {
@@ -30,7 +30,7 @@ class Prepare_Database {
 
     /**
      * Get Schema
-	 * 
+	 *
 	 * @return string
      */
 	private function get_schema() {

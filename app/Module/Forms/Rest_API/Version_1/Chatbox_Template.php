@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Rest_API\Version_1;
+namespace WPWaxCustomerSupportApp\Module\Forms\Rest_API\Version_1;
 
 use \WP_REST_Response;
-use WPWaxCustomerSupportApp\Module\Chatbox_Template\Model\CB_Template_Model;
+use WPWaxCustomerSupportApp\Module\Forms\Model\CB_Template_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
 class Chatbox_Template extends Rest_Base {

@@ -1,23 +1,23 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Model;
+namespace WPWaxCustomerSupportApp\Module\Forms\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class CB_Template_Page_Relationship_Model extends DB_Model {
+class Form_Page_Relationship_Model extends DB_Model {
 
     /**
      * Table Name
-     * 
+     *
      * @var string
      */
-    public static $table = 'chatbox_template_page_relationships';
+    public static $table = 'form_page_relationships';
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -41,7 +41,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
         // Construct where clause
         if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-            
+
             foreach ( $args['where'] as $key => $value ) {
 
                 if ( is_array( $value ) ) {
@@ -63,7 +63,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
         $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? implode( ', ', $args['fields'] ) : '';
         $fields = trim( $fields, ', ' );
         $fields = ( empty( $fields ) ) ? '*' : $fields;
-        
+
 		$select = "SELECT $fields FROM $table";
 		$query  = $select . $where . " LIMIT $limit OFFSET $offset";
 
@@ -73,7 +73,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $id
      * @return array|WP_Error
      */
@@ -100,7 +100,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return int|WP_Error
      */
@@ -113,7 +113,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
         $default['template_id'] = '';
         $default['page_id']     = 0;
-        
+
         $args = Helper\merge_params( $default, $args );
 		$result = $wpdb->insert( $table, $args );
 
@@ -127,13 +127,13 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
     public static function update_item( $args = [] ) {
         global $wpdb;
-        
+
         if ( empty( $args['template_id'] ) ) {
             $message = __( 'Template ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
@@ -166,7 +166,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Delete Item
-     * 
+     *
      * @param array $args
      * @return bool
      */
@@ -187,7 +187,7 @@ class CB_Template_Page_Relationship_Model extends DB_Model {
 
     /**
      * Delete Item Where
-     * 
+     *
      * @param array $args
      * @return bool
      */

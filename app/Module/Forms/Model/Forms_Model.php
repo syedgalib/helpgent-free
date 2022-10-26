@@ -1,19 +1,19 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Model;
+namespace WPWaxCustomerSupportApp\Module\Forms\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class CB_Template_Model extends DB_Model {
+class Forms extends DB_Model {
 
     /**
      * Table Name
      *
      * @var string
      */
-    public static $table = 'chatbox_templates';
+    public static $table = 'forms';
 
     /**
      * Get Items
@@ -24,8 +24,8 @@ class CB_Template_Model extends DB_Model {
     public static function get_items( $args = [], $debug = false ) {
         global $wpdb;
 
-		$template_table          = self::get_table_name( self::$table );
-		$page_relationship_table = self::get_table_name( CB_Template_Page_Relationship_Model::$table );
+		$form_table              = self::get_table_name( self::$table );
+		$page_relationship_table = self::get_table_name( Form_Page_Relationship_Model::$table );
 
         $default = [];
 
@@ -62,7 +62,7 @@ class CB_Template_Model extends DB_Model {
         }
 
         $default_fields = [
-            "$template_table.*",
+            "$form_table.*",
             "GROUP_CONCAT(page_id) as pages",
         ];
 
@@ -70,8 +70,8 @@ class CB_Template_Model extends DB_Model {
         $fields = implode( ', ', $fields );
         $fields = trim( $fields, ', ' );
 
-		$select = "SELECT $fields FROM $template_table
-        LEFT JOIN $page_relationship_table ON $template_table.id = $page_relationship_table.template_id
+		$select = "SELECT $fields FROM $form_table
+        LEFT JOIN $page_relationship_table ON $form_table.id = $page_relationship_table.form_id
         ";
 
 		$query = $select . $where . " GROUP BY id ORDER BY id DESC LIMIT $limit OFFSET $offset";
@@ -93,12 +93,12 @@ class CB_Template_Model extends DB_Model {
             return false;
         }
 
-        $template_table          = self::get_table_name( self::$table );
-		$page_relationship_table = self::get_table_name( CB_Template_Page_Relationship_Model::$table );
+        $form_table              = self::get_table_name( self::$table );
+        $page_relationship_table = self::get_table_name( Form_Page_Relationship_Model::$table );
 
-        $fields = "$template_table.*, GROUP_CONCAT(page_id) as pages";
-        $select = "SELECT $fields FROM $template_table
-        LEFT JOIN $page_relationship_table ON $template_table.id = $page_relationship_table.template_id
+        $fields = "$form_table.*, GROUP_CONCAT(page_id) as pages";
+        $select = "SELECT $fields FROM $form_table
+        LEFT JOIN $page_relationship_table ON $form_table.id = $page_relationship_table.form_id
         ";
 
 		$query  = $wpdb->prepare( "$select WHERE id = %d GROUP BY id", array( $id ) );
@@ -125,13 +125,13 @@ class CB_Template_Model extends DB_Model {
 
         $default = [];
 
-        $default['name']       = '';
-        $default['pages']      = '';
-        $default['is_default'] = 0;
-        $default['options']    = '';
+        $default['name']              = '';
+        $default['pages']             = '';
+        $default['show_on_all_pages'] = 0;
+        $default['options']           = '';
 
         if ( empty( $args['name'] ) ) {
-            $message = __( 'Template name can not be empty.', 'wpwax-customer-support-app' );
+            $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -142,8 +142,8 @@ class CB_Template_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['is_default'] ) ) {
-            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
+        if ( isset( $args['show_on_all_pages'] ) ) {
+            $args['show_on_all_pages'] = Helper\is_truthy( $args['show_on_all_pages'] ) ? 1 : 0;
         }
 
         $args = Helper\merge_params( $default, $args );
@@ -156,7 +156,7 @@ class CB_Template_Model extends DB_Model {
         }
 
         if ( self::name_exists( $args['name'] ) ) {
-            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The form name already exists.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -167,21 +167,21 @@ class CB_Template_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        $template_id = $wpdb->insert_id;
+        $form_id = $wpdb->insert_id;
 
         // Assign Page IDs
         if ( ! empty( $pages ) ) {
 
             foreach( $pages as $page_id ) {
-                CB_Template_Page_Relationship_Model::create_item([
-                    'template_id' => $template_id,
-                    'page_id'     => $page_id,
+                Form_Page_Relationship_Model::create_item([
+                    'form_id' => $form_id,
+                    'page_id' => $page_id,
                 ]);
             }
 
         }
 
-		return  self::get_item( $template_id );
+		return  self::get_item( $form_id );
     }
 
     /**
@@ -211,7 +211,7 @@ class CB_Template_Model extends DB_Model {
         }
 
         if ( ! empty( $args['name'] ) && strtolower( $args['name'] ) !== strtolower( $old_data['name'] ) && self::name_exists( $args['name'] ) ) {
-            $message = __( 'The template name already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The form name already exists.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -220,8 +220,8 @@ class CB_Template_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['is_default'] ) ) {
-            $args['is_default'] = Helper\is_truthy( $args['is_default'] ) ? 1 : 0;
+        if ( isset( $args['show_on_all_pages'] ) ) {
+            $args['show_on_all_pages'] = Helper\is_truthy( $args['show_on_all_pages'] ) ? 1 : 0;
         }
 
         $pages = [];
@@ -234,13 +234,13 @@ class CB_Template_Model extends DB_Model {
         // Assign Page IDs
         if ( ! empty( $pages ) ) {
             // Delete old page IDs before new assignment
-            CB_Template_Page_Relationship_Model::delete_item_where([
-                'template_id' => $args['id']
+            Form_Page_Relationship_Model::delete_item_where([
+                'form_id' => $args['id']
             ]);
 
             foreach( $pages as $page_id ) {
-                CB_Template_Page_Relationship_Model::create_item([
-                    'template_id' => $args['id'],
+                Form_Page_Relationship_Model::create_item([
+                    'form_id' => $args['id'],
                     'page_id'     => $page_id,
                 ]);
             }
@@ -249,13 +249,13 @@ class CB_Template_Model extends DB_Model {
 
         // Delete page IDs if empty
         if ( isset( $args['pages'] ) && ! count( $pages ) ) {
-            CB_Template_Page_Relationship_Model::delete_item_where([
-                'template_id' => $args['id']
+            Form_Page_Relationship_Model::delete_item_where([
+                'form_id' => $args['id']
             ]);
         }
 
 		if ( isset( $args['name'] ) && empty( $args['name'] ) ) {
-            $message = __( 'Template name can not be empty.', 'wpwax-customer-support-app' );
+            $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -298,8 +298,8 @@ class CB_Template_Model extends DB_Model {
 
         if ( ! empty( $success ) ) {
             // Delete page IDs
-            CB_Template_Page_Relationship_Model::delete_item_where([
-                'template_id' => $id
+            Form_Page_Relationship_Model::delete_item_where([
+                'form_id' => $id
             ]);
         }
 
@@ -324,17 +324,17 @@ class CB_Template_Model extends DB_Model {
     /**
      * Name Exists
      *
-     * @param string $template_name
+     * @param string $form_name
      *
      * @return bool
      */
-    public static function name_exists( $template_name ) {
+    public static function name_exists( $form_name ) {
         global $wpdb;
 
-        $template_name = strtolower( sanitize_text_field( $template_name ) );
+        $form_name = strtolower( sanitize_text_field( $form_name ) );
 
         $table = self::get_table_name( self::$table );
-        $sql   = "SELECT LOWER(name) FROM {$table} WHERE name = '{$template_name}'";
+        $sql   = "SELECT LOWER(name) FROM {$table} WHERE name = '{$form_name}'";
 
         $query   = $wpdb->prepare( $sql );
         $results = $wpdb->get_row( $query, ARRAY_A );

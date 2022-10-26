@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Rest_API\Version_1;
+namespace WPWaxCustomerSupportApp\Module\Forms;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -22,11 +22,14 @@ class Init {
     /**
      * Controllers
      *
-     * @return array Controllers
+     * @return array
      */
     protected function get_controllers() {
         return [
-            Chatbox_Template::class,
+            Setup\Init::class,
+            Rest_API\Init::class,
+            Asset\Init::class,
+            Admin\Init::class,
         ];
     }
 

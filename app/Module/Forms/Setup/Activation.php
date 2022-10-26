@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Setup;
+namespace WPWaxCustomerSupportApp\Module\Forms\Setup;
 
-use WPWaxCustomerSupportApp\Module\Chatbox_Template\Database\Prepare_Database;
+use WPWaxCustomerSupportApp\Module\Forms\Database\Prepare_Database;
 
 class Activation {
 
@@ -19,14 +19,14 @@ class Activation {
 
 	/**
 	 * Activatation Tasks
-	 * 
+	 *
 	 * @return void
 	 */
     public function activatation_tasks() {
 
 		// Prepare Database
 		new Prepare_Database();
-        
+
 	}
 
 

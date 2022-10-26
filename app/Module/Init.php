@@ -28,7 +28,7 @@ class Init {
         return [
             Core\Init::class,
             Messenger\Init::class,
-            Chatbox_Template\Init::class,
+            Forms\Init::class,
             //Settings_Panel\Init::class,
         ];
     }

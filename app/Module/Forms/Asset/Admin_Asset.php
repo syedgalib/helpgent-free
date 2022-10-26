@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Asset;
+namespace WPWaxCustomerSupportApp\Module\Forms\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
 
@@ -41,7 +41,7 @@ class Admin_Asset extends Enqueuer
 
     /**
      * Load Admin CSS Scripts
-     * 
+     *
      * @Example
       $scripts['wpwax-customer-support-app-chatbox-template-admin-style'] = [
           'file_name' => 'admin',
@@ -72,7 +72,7 @@ class Admin_Asset extends Enqueuer
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
-     * 
+     *
      * @return void
      */
     public function add_js_scripts()

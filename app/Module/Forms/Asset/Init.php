@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Chatbox_Template\Asset;
+namespace WPWaxCustomerSupportApp\Module\Forms\Asset;
 
 use WPWaxCustomerSupportApp\Helper;
 

@@ -4,7 +4,7 @@ namespace WPWaxCustomerSupportApp\Base\Helper;
 
 use WP_Query;
 use WP_User;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
 /**
  * Get The Public Template

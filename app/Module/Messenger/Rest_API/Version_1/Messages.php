@@ -8,11 +8,6 @@ use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
-
-use function WPWaxCustomerSupportApp\Base\Helper\get_current_user_email;
 
 class Messages extends Rest_Base
 {
@@ -298,7 +293,7 @@ class Messages extends Rest_Base
 			// Get All Client Conversations
 			$client_conversations = Conversation_Model::get_items([
 				'where' => [
-					'created_by' => get_current_user_email(),
+					'created_by' => Helper\get_current_user_email(),
 				]
 			]);
 
@@ -374,7 +369,7 @@ class Messages extends Rest_Base
     public function create_item( $request )
     {
         $args = $request->get_params();
-		$args['user_id'] = ! empty( $args['user_id'] ) ? $args['user_id'] : get_current_user_id();
+		$args['user_email'] = ! empty( $args['user_email'] ) ? $args['user_email'] : Helper\get_current_user_email();
 
         $data = Message_Model::create_item( $args );
 
@@ -384,19 +379,6 @@ class Messages extends Rest_Base
 
         $data    = $this->prepare_message_item_for_response($data, $args);
         $success = true;
-
-        // Notify User if requested
-        if ( isset( $args['notify_user'] ) && Helper\is_truthy( $args['notify_user'] ) ) {
-            $user         = get_user_by('id', $args['user_id']);
-            $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
-            $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
-
-            if (count($old_messages) < 2) {
-                Message_Notification_Emails::notify_first_session_created($user);
-            } else if (count($old_sessions) < 2) {
-                Message_Notification_Emails::notify_new_session_created($user);
-            }
-        }
 
         return $this->response($success, $data);
     }
@@ -417,7 +399,7 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Client User Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== get_current_user_email() ) {
+		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
 		}
 
@@ -428,10 +410,10 @@ class Messages extends Rest_Base
             return $data;
         }
 
-        $data    = $this->prepare_message_item_for_response($data, $args);
+        $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;
 
-        return $this->response($success, $data);
+        return $this->response( $success, $data );
     }
 
     /**
@@ -450,7 +432,7 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== get_current_user_email() ) {
+		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
 		}
 
@@ -479,7 +461,7 @@ class Messages extends Rest_Base
 			// Get All Client Conversations
 			$client_conversations = Conversation_Model::get_items([
 				'where' => [
-					'created_by' => get_current_user_email(),
+					'created_by' => Helper\get_current_user_email(),
 				]
 			]);
 
@@ -504,14 +486,14 @@ class Messages extends Rest_Base
      *
      * @return WP_REST_Response|null Response object on success, or null object on failure.
      */
-    public function prepare_message_item_for_response($item, $request_params)
+    public function prepare_message_item_for_response( $item, $request_params )
     {
         $request_params['sanitize_schema'] = $this->get_sanitize_schema();
 
         // Add Author Data
-        if ( ! empty( $item['user_id'] ) ) {
-            $users = Helper\get_users_data_by_ids([$item['user_id']]);
-            $item['user'] = (!empty($users)) ? $users[0] : null;
+        if ( ! empty( $item['user_email'] ) ) {
+            $users = Helper\get_users_data_by( 'email', [ $item['user_email'] ] );
+            $item['user'] = ( ! empty( $users ) ) ? $users[0] : null;
         }
 
         // Add Attachment URL
@@ -526,12 +508,6 @@ class Messages extends Rest_Base
             }
         }
 
-        // Add Seen by Users Data
-        if ( ! empty( $item['seen_by'] ) ) {
-            $seen_by = Helper\convert_string_to_int_array( $item['seen_by'], ',' );
-            $item['seen_by'] = Helper\get_users_data_by_ids( $seen_by );
-        }
-
         return $this->prepare_item_for_response( $item, $request_params );
     }
 
@@ -543,10 +519,8 @@ class Messages extends Rest_Base
     public function get_sanitize_schema()
     {
         return [
-            'integer'    => ['id', 'message_id', 'user_id', 'attachment_id'],
-            'serialized' => ['seen_by'],
-            'boolean'    => ['is_seen'],
-            'datetime'   => ['created_on', 'updated_on'],
+            'integer'    => ['id', 'conversation_id', 'attachment_id'],
+            'datetime'   => ['created_at', 'updated_at'],
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
 class Terms extends Rest_Base {

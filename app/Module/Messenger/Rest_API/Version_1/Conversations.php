@@ -8,8 +8,7 @@ use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationshi
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
 class Conversations extends Rest_Base
 {

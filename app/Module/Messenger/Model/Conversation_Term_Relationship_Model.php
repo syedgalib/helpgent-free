@@ -3,6 +3,8 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 
 use WPWaxCustomerSupportApp\Model\DB_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Taxonomy_Model;
 use \WP_Error;
 
 class Conversation_Term_Relationship_Model extends DB_Model {

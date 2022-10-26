@@ -522,7 +522,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                         item.last_message
                                                     }
                                                     img={images}
+                                                    sessionState={sessionState}
+                                                    setSessionState={setSessionState}
+                                                    sessionTerm={item.terms}
                                                     initialConv={initialConv}
+                                                    sessionId={item.session_id}
                                                     title={titleString.join()}
                                                     metaList={metaList}
                                                 />

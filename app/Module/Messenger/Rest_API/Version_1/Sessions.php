@@ -231,6 +231,20 @@ class Sessions extends Rest_Base
 
 		$args = Helper\filter_params($default, $args);
 
+		// Adjust Timezone
+		if ( ! empty( $args['timezone'] ) ) {
+			$date_time_fields = [ 'created_on', 'updated_on' ];
+			$timezone         = $args['timezone'];
+
+			foreach ( $date_time_fields as $field_key ) {
+				if ( empty( $where[ $field_key ] ) ) {
+					continue;
+				}
+
+				$where[ $field_key ] = Helper\convert_to_db_timezone( $where[ $field_key ], $timezone );
+			}
+		}
+
 		$timezone = $args['timezone'];
 
 		$args['where'] = $where;
@@ -711,16 +725,14 @@ class Sessions extends Rest_Base
 			]);
 
 			if (is_wp_error($status)) {
-				$data['failed'][$term_id] = $status;
+				$data['failed'][] = $term_id;
 				continue;
 			}
 
-			$data['success'][$term_id] = $status;
+			$data['success'][] = $term_id;
 		}
 
-		$success = (count($data['success']) === count($terms)) ? true : false;
-
-		return $this->response($success, $data);
+		return $this->response( true, $data);
 	}
 
 	/**
@@ -776,16 +788,14 @@ class Sessions extends Rest_Base
 			]);
 
 			if (is_wp_error($status)) {
-				$data['failed'][$term_id] = $status;
+				$data['failed'][] = $term_id;
 				continue;
 			}
 
-			$data['success'][$term_id] = $status;
+			$data['success'][] = $term_id;
 		}
 
-		$success = (count($data['success']) === count($terms)) ? true : false;
-
-		return $this->response($success, $data);
+		return $this->response( true, $data );
 	}
 
 	/**
@@ -819,7 +829,7 @@ class Sessions extends Rest_Base
 				'total_unread'            => 0,
 			];
 
-			return $this->response($response_data);
+			return $this->response( true, $response_data );
 		}
 
 		$messages_marked_as_read = [];

@@ -585,7 +585,7 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
 			$timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
 
 			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ) : null;
-			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, 'Y-m-d H:i:s' ) : null;
+			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, WPWAX_CUSTOMER_SUPPORT_APP_DB_DATE_TIME_FORMAT ) : null;
 		}
 	}
 
@@ -605,6 +605,32 @@ function get_formatted_time( $time, $timezone, $format = 'j M, y @g:i a' )
 	$timestamp    = strtotime( $time );
 
 	$formatted_time = wp_date( $format, $timestamp, $timezone );
+
+	return $formatted_time;
+}
+
+/**
+ * Convert local time to DB timezone
+ *
+ * @param $time
+ * @param $timezone
+ */
+function convert_to_db_timezone( $time, $local_timezone )
+{
+	$local_timezone = sanitize_timezone_string( $local_timezone );
+	$db_timezone    = $local_timezone;
+
+	if ( '+' === $local_timezone[0] ) {
+		$db_timezone = str_replace( '+', '-', $local_timezone );
+	} else if ( '-' === $local_timezone[0] ) {
+		$db_timezone = str_replace( '-', '+', $local_timezone );
+	}
+
+	$timezone_txt = $db_timezone;
+	$timezone     = new \DateTimeZone( $timezone_txt );
+	$timestamp    = strtotime( $time );
+
+	$formatted_time = wp_date( WPWAX_CUSTOMER_SUPPORT_APP_DB_DATE_TIME_FORMAT, $timestamp, $timezone );
 
 	return $formatted_time;
 }

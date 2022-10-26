@@ -10,6 +10,10 @@ const PageHeaderStyle = Styled.div`
     }
     .wpwax-vm-page-header-btn{
         margin-left: 20px;
+        &:focus{
+            outline: none;
+            box-shadow: 0 0;
+        }
     }
 `;
 

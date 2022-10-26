@@ -176,7 +176,6 @@ const PreviewWrap = Styled.div`
         }
         .wpwax-vm-preview-footer__actions{
             display: flex;
-            flex-wrap: wrap;
             margin: -10px;
             a{
                 display: flex;
@@ -184,14 +183,12 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
-                min-height: 110px;
-                height: auto;
+                height: min(80vh,90px);
                 text-transform: capitalize;
-                flex: 0 0 30.3333%;
+                flex: 1;
                 margin: 1.5%;
                 pointer-events: none;
                 @media only screen and (max-width: 1199px) {
-                    min-height: 85px;
                     padding: 0 15px;
                 }
                 >div{
@@ -200,7 +197,7 @@ const PreviewWrap = Styled.div`
                 svg{
                     width: 18px;
                     height: 18px;
-                    margin: 0 0 4px;
+                    margin: 6px 0 6px;
                     path,
                     circle{
                         fill: var(--primary-button-color);
@@ -228,10 +225,18 @@ const PreviewWrap = Styled.div`
         padding: 270px 30px;
         background-color: var(--color-dark);
         @media only screen and (max-width: 1399px) {
+            width: 380px;
             padding: 240px 30px;
         }
         @media only screen and (max-width: 1199px) {
             padding: 220px 30px;
+            width: 320px;
+        }
+        @media only screen and (max-width: 991px) {
+            width: 320px;
+        }
+        @media only screen and (max-width: 475px) {
+            min-height: 480px;
         }
         p{
             font-size: 20px;
@@ -244,7 +249,7 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        width: 460px;
+        width: 450px;
         min-height: 560px;
         border-radius: 25px;
         padding: 30px;
@@ -252,15 +257,16 @@ const PreviewWrap = Styled.div`
         background-color: var(--color-page-bg);
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
+            width: 500px;
             background-color: var(--color-page-bg);
         }
         @media only screen and (max-width: 1399px) {
-            width: 450px;
+            width: 400px;
             font-size: 16px;
             min-height: 480px;
         }
         @media only screen and (max-width: 1199px) {
-            width: 420px;
+            width: 380px
         }
         @media only screen and (max-width: 1024px) {
             width: 360px;
@@ -269,6 +275,13 @@ const PreviewWrap = Styled.div`
         }
         @media only screen and (max-width: 760px) {
             width: 380px;
+        }
+        @media only screen and (max-width: 575px) {
+            width: 320px;
+            padding: 20px;
+        }
+        @media only screen and (max-width: 475px) {
+            width: 280px;
         }
     }
     .wpwax-vm-preview-from{
@@ -349,7 +362,7 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
-                padding: 0 30px;
+                padding: 0 25px;
                 min-height: 198px;
                 background-color: var(--color-page-bg);
                 @media only screen and (max-width: 1199px) {
@@ -400,12 +413,8 @@ const PreviewWrap = Styled.div`
             padding: 75px 15px 30px;
         }
         @media only screen and (max-width: 1199px) {
-            width: 420px;
-            padding: 155px 15px 30px;
-        }
-        @media only screen and (max-width: 1024px) {
             width: 360px;
-            padding: 155px 15px 30px;
+            padding: 100px 15px 30px;
         }
         @media only screen and (max-width: 760px) {
             width: 380px;
@@ -430,6 +439,9 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-thank__botttom{
             margin-top: 200px;
             padding: 0;
+            @media only screen and (max-width: 1199px) {
+                margin-top: 140px;
+            }
             @media only screen and (max-width: 1024px) {
                 margin-top: 100px;
             }

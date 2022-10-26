@@ -128,12 +128,12 @@ const VideoReplyWrap = Styled.div`
     &.wpwax-vm-reply-ready{
         display: flex;
         flex-direction: row;
-        border-radius: 0px;
-        left: 0;
-        right: 0;
+        border-radius: 30px;
+        left: 80px;
         top: 80px;
         bottom: 0;
-        width: 100%;
+        width: calc( 100% - 160px );
+        height: calc( 100vh - 160px );
 		background-color: #000000;
         @media only screen and (max-width: 767px){
             flex-direction: column;
@@ -143,10 +143,10 @@ const VideoReplyWrap = Styled.div`
         }
         &.wpwax-vm-reply-upload{
             .wpwax-vm-reply-ready__video{
-                border-radius: 30px 0 0 0;
+                border-radius: 30px 0 0 30px;
                 background-color: var(--color-dark);
                 @media only screen and (max-width: 767px){
-                    border-radius: 30px 30px 0 0;
+                    border-radius: 30px 30px 0 30px;
                 }
             }
             .wpwax-vm-reply-ready__file-input{
@@ -209,10 +209,11 @@ const VideoReplyWrap = Styled.div`
         }
         .wpwax-vm-reply-close{
             position: absolute;
-            top: -40px;
-            right: 40px;
+            top: 20px;
+            right: 30px;
             text-decoration: none;
-            color: var(--color-white);
+            z-index: 10;
+            color: var(--color-dark);
             .dashicons{
                 font-size: 28px;
             }
@@ -248,6 +249,9 @@ const VideoReplyWrap = Styled.div`
                 @media only screen and (max-width: 767px){
                     border-radius: 30px 30px 0 0;
                 }
+            }
+            video{
+                border-radius: 30px 0 0 30px;
             }
             .wpwax-vm-reply-ready__video--top{
                 display: flex;
@@ -289,7 +293,7 @@ const VideoReplyWrap = Styled.div`
         .wpwax-vm-reply-ready__content{
             position: relative;
             width: 50%;
-            border-radius: 0 30px 0 0;
+            border-radius: 0 30px 30px 0;
             background-color: #F0F0F0;
             @media only screen and (max-width: 767px){
                 width: 100%;
@@ -348,6 +352,7 @@ const VideoReplyWrap = Styled.div`
             left: 0;
             width: 100%;
             display: flex;
+            border-radius: 0 0 30px 0;
             background-color: var(--color-white);
             @media only screen and (max-width: 767px){
                 position: fixed;

@@ -21,6 +21,8 @@ const {
     messageStageUpdateBegin,
     messageStageUpdateSuccess,
     messageStageUpdateError,
+
+    updateScreenTogglerContent
 } = actions;
 
 const handleReplyModeChange = (status) => {
@@ -67,4 +69,5 @@ export {
     handleReplyModeChange,
     handleMessageTypeChange,
     handleMessageStageChange,
+    updateScreenTogglerContent
 };

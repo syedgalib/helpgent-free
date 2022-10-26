@@ -5,10 +5,16 @@ const MediaBox = ({
     chatingMedia,
     img,
     lastMessage,
+    sessionTerm,
     initialConv,
     title,
+    sessionId,
+    sessionState,
+    setSessionState,
     metaList,
 }) => {
+    const fourSessionTerm = sessionTerm.slice(0,4);
+    const overlay = document.querySelector('.wpax-vm-overlay');
     const replyerImg = () => {
         if (lastMessage) {
             if(lastMessage.user.avater){
@@ -27,6 +33,33 @@ const MediaBox = ({
             }
         }
     };
+
+    const handleAddTag = event => {
+        event.preventDefault();
+
+        overlay.classList.add('wpwax-vm-show');
+
+        let termId = [];
+
+        if(sessionTerm.length !==0){
+            for(let i =0; i< sessionTerm.length; i++){
+                termId = [
+                    ...termId,
+                    sessionTerm[i].term_id
+                ]
+            }
+        }
+
+        setSessionState({
+            ...sessionState,
+            activeSessionId: sessionId,
+            serverAssigned: [...termId],
+            asignedTerms: [...termId],
+            tagListModalOpen: false,
+            taglistWithSession: true,
+            addTagModalOpen: true
+        });
+    }
 
     return (
         <div className='wpwax-vm-media'>
@@ -96,6 +129,20 @@ const MediaBox = ({
                         </span>
                     );
                 })}
+
+                {
+                    
+                    chatingMedia && fourSessionTerm.length !==0 ?
+                    <div className="wpwax-hg-assigned-tags">
+                        {
+                            fourSessionTerm.map(( tag, i ) => <span className="wpwax-hg-assigned-tags__item" key={i}>{tag.name}</span>)
+                        }
+                        {
+                            sessionTerm.length > 4 ? <a className="wpwax-hg-assigned-tags__item wpwax-hg-assigned-tags__item-add" onClick={handleAddTag}><span>....</span></a> : null
+                        }
+                        
+                    </div> : null
+                }
             </div>
         </div>
     );

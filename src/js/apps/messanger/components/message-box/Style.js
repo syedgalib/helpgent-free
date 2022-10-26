@@ -398,7 +398,7 @@ const MessageBoxWrap = Styled.div`
             }
             &.wpwax-vm-btn-lg{
                 height: 48px;
-                padding: 0 32.5px;
+                padding: 0 30px;
             }
         }
         .wpwax-vm-messagebox-footer__text{
@@ -416,6 +416,8 @@ const MessageBoxWrap = Styled.div`
         }
         .wpwax-vm-messagebox-footer__actionlist{
             margin: -10px 0;
+            display: flex;
+            align-items: center;
             @media only screen and (max-width: 1199px){
                 text-align: center;
             }
@@ -434,6 +436,9 @@ const MessageBoxWrap = Styled.div`
                         padding: 0 10px;
                         margin: 5px;
                     }
+                    @media only screen and (max-width: 575px){
+                        height: 38px;
+                    }
                 }
                 &:hover{
                     .wpwax-vm-btn-icon{
@@ -446,10 +451,13 @@ const MessageBoxWrap = Styled.div`
                 .wpwax-vm-btn-icon,
                 .wpwax-vm-btn-text{
                     display: inline-block;
-                    line-height: 1;
+                    line-height: .5;
                 }
                 .wpwax-vm-btn-text{
                     margin-left: 10px;
+                    @media only screen and (max-width: 575px){
+                        display: none;
+                    }
                 }
                 .wpwax-vm-btn-icon{
                     svg circle,
@@ -458,7 +466,17 @@ const MessageBoxWrap = Styled.div`
                     }
 
                     svg{
+                        width: 18px;
+                        height: 18px;
                         margin-left: 0;
+                    }
+                }
+                &.wpwax-vm-btn-recording{
+                    color: var(--color-white);
+                    background-color: var(--color-secondary);
+                    .wpwax-vm-btn-text{
+                        margin-left: 0;
+                        animation: wpwaxHgBlinking 1s linear infinite;
                     }
                 }
             }
@@ -547,14 +565,32 @@ const MessageBoxWrap = Styled.div`
             color: var(--color-white);
             background-color: var(--color-dark);
         }
-        .wpwax-vm-messagebox-reply-voice-close{
+        .wpwax-vm-messagebox-reply-voice-play,
+        .wpwax-vm-messagebox-reply-voice-pause{
+            min-width: 24px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--color-dark);
             text-decoration: none;
             color: var(--color-dark);
             .dashicons{
-                font-size: 25px;
-                width: 25px;
-                height: 25px;
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
                 line-height: 1;
+                position: relative;
+                left: 1px;
+                color: var(--color-white);
+            }
+        }
+        .wpwax-vm-messagebox-reply-voice-pause{
+            background-color: var(--color-text);
+            .dashicons{
+                left: 0;
             }
         }
     }

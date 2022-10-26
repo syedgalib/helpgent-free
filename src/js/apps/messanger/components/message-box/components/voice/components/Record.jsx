@@ -347,7 +347,7 @@ function Record() {
                     <div className='wpwax-vm-record-send-progress__content'>
                         <div className='wpwax-vm-text-center'>
                             <p className='wpwax-vm-danger-text wpwax-vm-mb-20'>
-                                Couldn't upload the video, please try again.
+                                Couldn't upload the file, please try again.
                             </p>
                             <a
                                 href='#'

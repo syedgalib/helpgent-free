@@ -129,7 +129,7 @@ const SettingBox = () => {
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
                     <Sidebar contentState={settingContentState} setContentState={setSettingContentState} />
-                    
+
                     <div className={settingContentState.loading ? "wpwax-settings-content-box wpwax-vm-loder-active" : "wpwax-settings-content-box"}>
                         {
                             settingContentState.loading ? <LoadingSpinDot /> : <SettingContent contentState={settingContentState} setContentState={setSettingContentState} />

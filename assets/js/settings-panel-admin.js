@@ -6917,9 +6917,10 @@ var SettingBox = function SettingBox() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       contentKey: "general",
       options: {
+        chatHeadPosition: "bottom-right",
         userDashboardPage: "2",
         hgMaxVideoLength: "2",
-        hgVideoQuality: "700",
+        videoQuality: "700",
         hgAttatchmentDeletionAfter: "20",
         hgMaxUploadSize: "300",
         enableEmailNotification: true,
@@ -8052,6 +8053,16 @@ var General = function General(props) {
     value: '300',
     label: '300p'
   }];
+  var chatHeadPositions = [{
+    value: 'bottom-right',
+    label: 'Bottom Right'
+  }, {
+    value: 'bottom-middle',
+    label: 'Bottom Middle'
+  }, {
+    value: 'bottom-left',
+    label: 'Bottom Left'
+  }];
   var contentState = props.contentState,
     setContentState = props.setContentState;
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
@@ -8083,9 +8094,30 @@ var General = function General(props) {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-max-video-length",
+        children: "Chat Head Position"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "wpwax-vm-settings__single--element",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          classNamePrefix: "wpwax-vm-select",
+          options: chatHeadPositions,
+          closeMenuOnSelect: true,
+          hideSelectedOptions: false,
+          searchable: false,
+          name: "chatHeadPosition",
+          onChange: handleChangeSelectValue,
+          defaultValue: chatHeadPositions.filter(function (option) {
+            return option.value === contentState.options.chatHeadPosition;
+          })[0]
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "wpwax-vm-settings__single",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
         className: "wpwax-vm-settings__single--label",
-        children: "Enable Email Notification"
+        children: "User Dashboard Page"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -8136,10 +8168,10 @@ var General = function General(props) {
           closeMenuOnSelect: true,
           hideSelectedOptions: false,
           searchable: false,
-          name: "hgVideoQuality",
+          name: "videoQuality",
           onChange: handleChangeSelectValue,
           defaultValue: qualityOptions.filter(function (option) {
-            return option.value === contentState.options.hgVideoQuality;
+            return option.value === contentState.options.videoQuality;
           })[0]
         })
       })]
@@ -9061,7 +9093,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/72fc635e320f6cfe297cd5623d5946d7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ce869704be74fdc5fbc7f349dba29e6c.svg");
 
 /***/ }),
 
@@ -9073,7 +9105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/64e7b8e3aff7af1c7c0515ecc74939f4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/cd35ccecec94b883af66ae0a95d45b63.svg");
 
 /***/ }),
 
@@ -9085,7 +9117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9a6ed96ce2cb726ff533dd26a6bda409.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6007046de945587f74f4049506b63488.svg");
 
 /***/ }),
 
@@ -9097,7 +9129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -9109,7 +9141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3eaedfa89d9706ca8e8945a7ff49846d.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8902d994902646f83ce45940b8aa2ba6.svg");
 
 /***/ }),
 
@@ -9121,7 +9153,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f04b60e22c49a11a80cb58498fecce62.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8778bab3e334f8aae2cfcfef08a1528.svg");
 
 /***/ }),
 
@@ -9133,7 +9165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -9145,7 +9177,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -9157,7 +9189,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -9169,7 +9201,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/766a25f91411b3c801cc09f955dbb726.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
 
 /***/ }),
 
@@ -9181,7 +9213,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ea20a25679505efe7c382331e15887ec.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
 
 /***/ }),
 
@@ -9193,7 +9225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/15a8e473814e86b6f503635888e18b02.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
 
 /***/ }),
 

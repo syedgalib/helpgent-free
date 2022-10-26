@@ -12,9 +12,10 @@ const SettingBox = () => {
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
         options: {
+            chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
             hgMaxVideoLength: "2",
-            hgVideoQuality: "700",
+            videoQuality: "700",
             hgAttatchmentDeletionAfter: "20",
             hgMaxUploadSize: "300",
             enableEmailNotification: true,

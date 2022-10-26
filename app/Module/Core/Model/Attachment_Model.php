@@ -94,8 +94,8 @@ class Attachment_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
-        if ( ! isset( $args['file'] ) && empty( $args['link'] ) ) {
-            $message = __( 'Required file or link is missing', 'wpwax-customer-support-app' );
+        if ( ! isset( $args['file'] ) && empty( $args['url'] ) ) {
+            $message = __( 'Required file or url is missing', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
@@ -106,12 +106,7 @@ class Attachment_Model extends DB_Model {
                 return new WP_Error( 403, $file['error'] );
             }
 
-            if ( empty( $args['title'] ) ) {
-                $file_name = $args['file']['name'];
-                $args['title'] = preg_replace( '/\..+$/', '', $file_name );
-            }
-
-            $args['link']       = $file['url'];
+            $args['url']        = $file['url'];
             $args['media_type'] = $file['type'];
 
             unset( $args['file'] );
@@ -119,15 +114,10 @@ class Attachment_Model extends DB_Model {
 
         $time = current_time( 'mysql', true );
 
-        $args['created_on'] = $time;
-        $args['updated_on'] = $time;
+        $args['created_at'] = $time;
 
         if ( isset( $args['id'] ) ) {
             unset( $args['id'] );
-        }
-
-        if ( isset( $args['expires_on'] ) && empty( $args['expires_on'] ) ) {
-            $args['expires_on'] = null;
         }
 
 		$result = $wpdb->insert( $table, $args );
@@ -164,8 +154,8 @@ class Attachment_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['link'] ) ) {
-            unset( $args['link'] );
+        if ( isset( $args['url'] ) ) {
+            unset( $args['url'] );
         }
 
         if ( isset( $args['media_type'] ) ) {
@@ -174,15 +164,8 @@ class Attachment_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
 
-        $time = current_time( 'mysql', true );
-        $args['updated_on'] = $time;
-
-        if ( isset( $args['expires_on'] ) && empty( $args['expires_on'] ) ) {
-            $args['expires_on'] = null;
-        }
-
-        $where = [ 'id' => $id ];
-        $result = $wpdb->update( $table, $args, $where, null, '%d' );
+        $where  = [ 'id' => $id ];
+        $result = $wpdb->update( $table, $args, $where );
 
         if ( ! $result ) {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
@@ -207,19 +190,19 @@ class Attachment_Model extends DB_Model {
             return $old_data;
         }
 
-        $link = $old_data['link'];
+        $url = $old_data['url'];
 
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
-		$status = $wpdb->delete( $table, $where, '%d' );
+		$status = $wpdb->delete( $table, $where );
 
         if ( empty( $status ) ) {
             $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
-        Helper\delete_file_by_url( $link );
+        Helper\delete_file_by_url( $url );
 
         return true;
     }

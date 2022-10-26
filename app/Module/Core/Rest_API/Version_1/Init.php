@@ -27,6 +27,7 @@ class Init {
     protected function get_controllers() {
         return [
             Users::class,
+            Terms::class,
             Attachment::class,
         ];
     }

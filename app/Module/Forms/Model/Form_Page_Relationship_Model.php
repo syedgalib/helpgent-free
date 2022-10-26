@@ -28,9 +28,9 @@ class Form_Page_Relationship_Model extends DB_Model {
 
         $default = [];
 
-        $default['limit']    = 20;
-        $default['page']     = 1;
-        $default['fields']   = '*';
+        $default['limit']  = 20;
+        $default['page']   = 1;
+        $default['fields'] = '*';
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
@@ -86,7 +86,7 @@ class Form_Page_Relationship_Model extends DB_Model {
 
 		$table = self::get_table_name( self::$table );
 
-		$query = $wpdb->prepare( "SELECT * FROM $table WHERE template_id = %d", array( $id ) );
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE form_id = %d", array( $id ) );
 
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
@@ -111,8 +111,8 @@ class Form_Page_Relationship_Model extends DB_Model {
 
         $default = [];
 
-        $default['template_id'] = '';
-        $default['page_id']     = 0;
+        $default['form_id'] = 0;
+        $default['page_id'] = 0;
 
         $args = Helper\merge_params( $default, $args );
 		$result = $wpdb->insert( $table, $args );
@@ -122,7 +122,7 @@ class Form_Page_Relationship_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		return  self::get_item( $wpdb->insert_id );
+		return self::get_item( $args['form_id'] );
     }
 
     /**
@@ -134,13 +134,13 @@ class Form_Page_Relationship_Model extends DB_Model {
     public static function update_item( $args = [] ) {
         global $wpdb;
 
-        if ( empty( $args['template_id'] ) ) {
-            $message = __( 'Template ID is required.', 'wpwax-customer-support-app' );
+        if ( empty( $args['form_id'] ) ) {
+            $message = __( 'Form ID is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
 
 		$table    = self::get_table_name( self::$table );
-		$old_data = self::get_item( $args['template_id'] );
+		$old_data = self::get_item( $args['form_id'] );
 
         if ( empty( $old_data ) ) {
             $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
@@ -150,11 +150,11 @@ class Form_Page_Relationship_Model extends DB_Model {
         $args = Helper\filter_params( $old_data, $args );
 
         if ( Helper\list_has_same_data( $old_data, $args ) ) {
-            return self::get_item( $args['template_id'] );
+            return self::get_item( $args['form_id'] );
         }
 
-        $where = ['template_id' => $args['template_id'] ];
-		$result = $wpdb->update( $table, $args, $where, null, '%d' );
+        $where = ['form_id' => $args['form_id'] ];
+		$result = $wpdb->update( $table, $args, $where );
 
         if ( empty( $result ) ) {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
@@ -178,7 +178,7 @@ class Form_Page_Relationship_Model extends DB_Model {
         }
 
 		$table = self::get_table_name( self::$table );
-		$where = ['template_id' => $id ];
+		$where = ['form_id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 
@@ -195,7 +195,7 @@ class Form_Page_Relationship_Model extends DB_Model {
         global $wpdb;
 
 		$table = self::get_table_name( self::$table );
-		$status = $wpdb->delete( $table, $where, '%d' );
+		$status = $wpdb->delete( $table, $where );
 
         return ( ! empty( $status ) ) ? true : false;
     }

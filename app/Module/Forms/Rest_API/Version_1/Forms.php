@@ -3,17 +3,17 @@
 namespace WPWaxCustomerSupportApp\Module\Forms\Rest_API\Version_1;
 
 use \WP_REST_Response;
-use WPWaxCustomerSupportApp\Module\Forms\Model\CB_Template_Model;
+use WPWaxCustomerSupportApp\Module\Forms\Model\Form_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class Chatbox_Template extends Rest_Base {
+class Forms extends Rest_Base {
 
     /**
      * Rest Base
      *
      * @var string
      */
-    public $rest_base = 'chatbox-templates';
+    public $rest_base = 'forms';
 
     public function register_routes() {
 
@@ -49,7 +49,7 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'is_default' => [
+                        'show_on_all_pages' => [
                             'type'    => 'boolean',
                             'default' => false,
                         ],
@@ -90,7 +90,7 @@ class Chatbox_Template extends Rest_Base {
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'is_default' => [
+                        'show_on_all_pages' => [
                             'type'    => 'boolean',
                             'default' => false,
                         ],
@@ -133,15 +133,15 @@ class Chatbox_Template extends Rest_Base {
 
         $where = [];
 
-        $where['id']         = '';
-        $where['name']       = '';
-        $where['page_id']    = '';
-        $where['is_default'] = '';
+        $where['id']                = '';
+        $where['name']              = '';
+        $where['page_id']           = '';
+        $where['show_on_all_pages'] = '';
 
         $where = Helper\filter_params( $where, $args );
 
-        if ( isset( $where['is_default'] ) ) {
-            $where['is_default'] = ( Helper\is_truthy( $where['is_default'] ) ) ? 1 : 0;
+        if ( isset( $where['show_on_all_pages'] ) ) {
+            $where['show_on_all_pages'] = ( Helper\is_truthy( $where['show_on_all_pages'] ) ) ? 1 : 0;
         }
 
         $default = [];
@@ -153,10 +153,10 @@ class Chatbox_Template extends Rest_Base {
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
-        $data = CB_Template_Model::get_items( $args );
+        $data = Form_Model::get_items( $args );
 
         if ( empty( $data ) && Helper\is_truthy( $args['return_default_if_result_empty'] ) ) {
-            $data = CB_Template_Model::get_items( [ 'where' => [ 'is_default' => true ] ] );
+            $data = Form_Model::get_items( [ 'where' => [ 'show_on_all_pages' => 1 ] ] );
         }
 
         if ( empty( $data ) ) {
@@ -190,7 +190,7 @@ class Chatbox_Template extends Rest_Base {
         $id   = (int) $args['id'];
 
         $success = false;
-        $data    = CB_Template_Model::get_item( $id );
+        $data    = Form_Model::get_item( $id );
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
@@ -218,14 +218,14 @@ class Chatbox_Template extends Rest_Base {
 
         $default = [];
 
-        $default['id']         = '';
-        $default['name']       = '';
-        $default['pages']      = '';
-        $default['is_default'] = false;
-        $default['options']    = '';
+        $default['id']                = '';
+        $default['name']              = '';
+        $default['pages']             = '';
+        $default['show_on_all_pages'] = false;
+        $default['options']           = '';
 
         $args = Helper\filter_params( $default, $args );
-        $data = CB_Template_Model::create_item( $args );
+        $data = Form_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
@@ -249,14 +249,14 @@ class Chatbox_Template extends Rest_Base {
     public function update_item( $request ) {
         $args = $request->get_params();
 
-        $default['id']         = '';
-        $default['name']       = '';
-        $default['pages']      = '';
-        $default['is_default'] = false;
-        $default['options']    = '';
+        $default['id']                = '';
+        $default['name']              = '';
+        $default['pages']             = '';
+        $default['show_on_all_pages'] = false;
+        $default['options']           = '';
 
         $args = Helper\filter_params( $default, $args );
-        $data = CB_Template_Model::update_item( $args );
+        $data = Form_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return new WP_REST_Response(
@@ -280,7 +280,7 @@ class Chatbox_Template extends Rest_Base {
     public function delete_item( $request ) {
         $args = $request->get_params();
 
-        $operation = CB_Template_Model::delete_item( $args['id'] );
+        $operation = Form_Model::delete_item( $args['id'] );
 
         return $this->response( $operation );
     }
@@ -294,7 +294,7 @@ class Chatbox_Template extends Rest_Base {
         return [
             'string'  => [ 'name' ],
             'integer' => [ 'id', 'page_id' ],
-            'boolean' => [ 'is_default' ],
+            'boolean' => [ 'show_on_all_pages' ],
             'json'    => [ 'options' ],
         ];
     }

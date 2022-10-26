@@ -26,7 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Chatbox_Template::class,
+            Forms::class,
         ];
     }
 

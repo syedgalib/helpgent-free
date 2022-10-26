@@ -28,7 +28,6 @@ class Init {
         return [
             Messages::class,
             Conversations::class,
-            Terms::class,
         ];
     }
 

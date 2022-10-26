@@ -6,7 +6,7 @@ use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class Forms extends DB_Model {
+class Form_Model extends DB_Model {
 
     /**
      * Table Name
@@ -62,19 +62,19 @@ class Forms extends DB_Model {
         }
 
         $default_fields = [
-            "$form_table.*",
-            "GROUP_CONCAT(page_id) as pages",
+            "form.*",
+            "GROUP_CONCAT(page_relation.page_id) as pages",
         ];
 
         $fields = ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) ? array_merge( $default_fields, $args['fields'] ) : $default_fields;
         $fields = implode( ', ', $fields );
         $fields = trim( $fields, ', ' );
 
-		$select = "SELECT $fields FROM $form_table
-        LEFT JOIN $page_relationship_table ON $form_table.id = $page_relationship_table.form_id
+		$select = "SELECT $fields FROM $form_table as form
+        LEFT JOIN $page_relationship_table as page_relation ON form.id = page_relation.form_id
         ";
 
-		$query = $select . $where . " GROUP BY id ORDER BY id DESC LIMIT $limit OFFSET $offset";
+		$query = $select . $where . " GROUP BY form.id ORDER BY form.id DESC LIMIT $limit OFFSET $offset";
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -136,6 +136,11 @@ class Forms extends DB_Model {
         }
 
 		$args['name'] = sanitize_text_field( $args['name'] );
+
+        if ( ! isset( $args['options'] ) ) {
+            $message = __( 'Options field is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+        }
 
         if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
             $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );

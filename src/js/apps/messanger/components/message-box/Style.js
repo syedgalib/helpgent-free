@@ -54,6 +54,18 @@ const ChatBoxWrap = Styled.div`
         z-index: 10;
         box-shadow: 0 20px 50px rgba(0,0,0,.10);
         background-color: var(--color-white);
+        @media only screen and (max-width: 1399px){
+            max-width: 434px;
+            left: 40px;
+        }
+        @media only screen and (max-width: 1199px){
+            left: 0;
+            bottom: 80px;
+            max-width: 400px;
+        }
+        @media only screen and (max-width: 767px){
+            max-width: fit-content;
+        }
         &.wpwax-vm-video-msg-home{
             display: flex;
             align-items: center;
@@ -61,6 +73,12 @@ const ChatBoxWrap = Styled.div`
             flex-direction: column;
             padding: 50px;
             border-radius: 30px;
+            @media only screen and (max-width: 1399px){
+                padding: 40px;
+            }
+            @media only screen and (max-width: 767px){
+                padding: 20px;
+            }
             .wpwax-vm-video-msg__close{
                 position: absolute;
                 right: 40px;
@@ -77,6 +95,9 @@ const ChatBoxWrap = Styled.div`
                 margin: 0 0 20px;
                 font-family: var(--font-family);
                 color: var(--color-dark);
+                @media only screen and (max-width: 1199px){
+                    font-size: 16px;
+                }
                 @media only screen and (max-width: 767px){
                     text-align: center;
                     margin: 20px 25px;
@@ -102,6 +123,14 @@ const ChatBoxWrap = Styled.div`
                     padding: 0 32px;
                     border-radius: 10px;
                     background-color: var(--color-bg-general);
+                    @media only screen and (max-width: 1199px){
+                        font-size: 14px;
+                        min-height: 50px;
+                        padding: 0 20px;
+                    }
+                    @media only screen and (max-width: 767px){
+                        min-height: 46px;
+                    }
                     &:focus{
                         outline: none;
                         box-shadow: 0 0;
@@ -123,6 +152,10 @@ const ChatBoxWrap = Styled.div`
                         svg{
                             width: 26px;
                             height: 26px;
+                            @media only screen and (max-width: 1199px){
+                                width: 20px;
+                                height: 20px;
+                            }
                             path{
                                 fill: var(--color-dark);
                             }
@@ -444,6 +477,10 @@ const MessageBoxWrap = Styled.div`
                     }
                     @media only screen and (max-width: 1240px){
                         padding: 0 10px;
+                        margin: 5px;
+                    }
+                    @media only screen and (max-width: 1199px){
+                        padding: 0 20px;
                         margin: 5px;
                     }
                     @media only screen and (max-width: 575px){

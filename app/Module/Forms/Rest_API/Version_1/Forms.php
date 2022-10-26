@@ -136,6 +136,7 @@ class Forms extends Rest_Base {
         $where['id']                = '';
         $where['name']              = '';
         $where['page_id']           = '';
+        $where['status']            = '';
         $where['show_on_all_pages'] = '';
 
         $where = Helper\filter_params( $where, $args );
@@ -223,6 +224,7 @@ class Forms extends Rest_Base {
         $default['pages']             = '';
         $default['show_on_all_pages'] = false;
         $default['options']           = '';
+        $default['status']            = '';
 
         $args = Helper\filter_params( $default, $args );
         $data = Form_Model::create_item( $args );

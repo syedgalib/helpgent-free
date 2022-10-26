@@ -129,6 +129,7 @@ class Form_Model extends DB_Model {
         $default['pages']             = '';
         $default['show_on_all_pages'] = 0;
         $default['options']           = '';
+        $default['status']            = '';
 
         if ( empty( $args['name'] ) ) {
             $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
@@ -265,8 +266,6 @@ class Form_Model extends DB_Model {
         }
 
         $args = Helper\filter_params( $old_data, $args );
-
-
 
         if ( Helper\list_has_same_data( $old_data, $args ) ) {
             return self::get_item( $args['id'] );

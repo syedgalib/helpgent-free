@@ -40,18 +40,19 @@ class Prepare_Database {
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 
 		$tables = "
-		CREATE TABLE {$table_prefix}_chatbox_templates (
+		CREATE TABLE {$table_prefix}_forms (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(255) NOT NULL DEFAULT '',
-			is_default tinyint unsigned NOT NULL DEFAULT 0,
+			status varchar(255) NOT NULL DEFAULT 'publish',
+			show_on_all_pages tinyint unsigned NOT NULL DEFAULT 0,
 			options longtext NOT NULL,
 			PRIMARY KEY (id)
 		  ) $collate;
 
-		CREATE TABLE {$table_prefix}_chatbox_template_page_relationships (
-			template_id bigint(20) unsigned NOT NULL,
+		CREATE TABLE {$table_prefix}_form_page_relationships (
+			form_id bigint(20) unsigned NOT NULL,
 			page_id bigint(20) unsigned NOT NULL,
-			PRIMARY KEY (template_id, page_id),
+			PRIMARY KEY (form_id, page_id),
 			KEY page_id (page_id)
 		  ) $collate;
 		";

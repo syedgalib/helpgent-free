@@ -56,7 +56,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
             return;
 		}
 
-        if (file.size > getmaxUploadSize()) {
+        if (file.size > getMaxUploadSize()) {
             setSelectedFileErrorMessage(
                 'The file exceeded the max upload size'
             );
@@ -70,7 +70,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         setRecordedVidioURL(URL.createObjectURL(file));
     }
 
-    function getmaxUploadSize() {
+    function getMaxUploadSize() {
         if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
             return 0;
         }
@@ -78,8 +78,8 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);
     }
 
-    function getFormattedmaxUploadSize() {
-        const max_upload_size = getmaxUploadSize();
+    function getFormattedMaxUploadSize() {
+        const max_upload_size = getMaxUploadSize();
 
         const sizeInKB = max_upload_size / 1024;
         const sizeInMB = sizeInKB / 1024;
@@ -258,7 +258,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                             </label>
                             <strong>or drag & drop here...</strong>
                             <p>Works with {getSupportedVideoExtensionsAsText()}</p>
-                            <p>Max size {getFormattedmaxUploadSize()}!</p>
+                            <p>Max size {getFormattedMaxUploadSize()}!</p>
 
                             {!selectedFileErrorMessage || (
                                 <p className='wpwax-vm-text-danger wpwax-vm-mt-10'>

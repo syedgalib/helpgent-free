@@ -8964,7 +8964,7 @@ var Upload = function Upload(_ref) {
       setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
       return;
     }
-    if (file.size > getmaxUploadSize()) {
+    if (file.size > getMaxUploadSize()) {
       setSelectedFileErrorMessage('The file exceeded the max upload size');
       setSelectedFile(null);
       setRecordedVidioURL(null);
@@ -8974,14 +8974,14 @@ var Upload = function Upload(_ref) {
     setSelectedFile(file);
     setRecordedVidioURL(URL.createObjectURL(file));
   }
-  function getmaxUploadSize() {
+  function getMaxUploadSize() {
     if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
       return 0;
     }
     return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);
   }
-  function getFormattedmaxUploadSize() {
-    var max_upload_size = getmaxUploadSize();
+  function getFormattedMaxUploadSize() {
+    var max_upload_size = getMaxUploadSize();
     var sizeInKB = max_upload_size / 1024;
     var sizeInMB = sizeInKB / 1024;
     var size = sizeInMB < 1 ? "".concat(sizeInKB, " KB") : "".concat(sizeInMB, " MB");
@@ -9205,7 +9205,7 @@ var Upload = function Upload(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Max size ", getFormattedmaxUploadSize(), "!"]
+              children: ["Max size ", getFormattedMaxUploadSize(), "!"]
             }), !selectedFileErrorMessage || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
               className: "wpwax-vm-text-danger wpwax-vm-mt-10",
               children: selectedFileErrorMessage

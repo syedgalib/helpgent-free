@@ -6,7 +6,6 @@ use WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
 
 class Messages extends Rest_Base
@@ -43,7 +42,7 @@ class Messages extends Rest_Base
                             'default'           => 'latest',
                             'validate_callback' => [ $this, 'validate_order' ],
                         ],
-                        'session_id'  => [
+                        'conversation_id'  => [
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                     ],
@@ -53,24 +52,12 @@ class Messages extends Rest_Base
                     'callback'            => [$this, 'create_item'],
                     'permission_callback' => [$this, 'check_guest_permission'],
                     'args'                => [
-                        'user_id'         => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'user_full_name' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
+                        'user_email' => [
                             'required'          => false,
                             'validate_callback' => [$this, 'validate_email'],
                             'sanitize_callback' => 'sanitize_email',
                         ],
                         'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
@@ -81,18 +68,6 @@ class Messages extends Rest_Base
                         'message_type' => [
                             'required'          => false,
                             'validate_callback' => [$this, 'validate_message_type'],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
-                        ],
-                        'terms' => [
-                            'type'              => 'string',
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'notify_user' => [
-                            'type'    => 'boolean',
-                            'default' => false,
                         ],
                     ],
                 ],
@@ -124,24 +99,11 @@ class Messages extends Rest_Base
                     'callback'            => [$this, 'update_item'],
                     'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
-                        'user_id'         => [
+                        'user_email'         => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'user_full_name' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'email' => [
-                            'required'          => false,
-                            'validate_callback' => [$this, 'validate_email'],
-                            'sanitize_callback' => 'sanitize_email',
                         ],
                         'message' => [
-                            'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'note' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
@@ -152,9 +114,6 @@ class Messages extends Rest_Base
                         'message_type' => [
                             'required'          => false,
                             'validate_callback' => [$this, 'validate_message_type'],
-                        ],
-                        'seen_by' => [
-                            'required' => false,
                         ],
                     ],
                 ],

@@ -124,57 +124,6 @@ class Messages extends Rest_Base
                 ],
             ]
         );
-
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base . '/(?P<message_id>[\d]+)/seen-by',
-            [
-                'args' => [
-                    'message_id' => [
-                        'type' => 'integer',
-                    ],
-                    'user_id' => [
-                        'type' => 'integer',
-                    ],
-                ],
-                [
-                    'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => [$this, 'get_seen_by_items'],
-                    'permission_callback' => [$this, 'check_auth_permission'],
-                    'args'                => [
-                        'message_id' => [
-                            'type' => 'integer',
-                        ],
-                    ],
-                ],
-                [
-                    'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => [$this, 'create_seen_by_item'],
-                    'permission_callback' => [$this, 'check_auth_permission'],
-                    'args'                => [
-                        'message_id' => [
-                            'type' => 'integer',
-                        ],
-                        'user_id' => [
-                            'type' => 'integer',
-                        ],
-                    ],
-                ],
-                [
-                    'methods'             => \WP_REST_Server::DELETABLE,
-                    'callback'            => [$this, 'delete_seen_by_item'],
-                    'permission_callback' => [$this, 'check_auth_permission'],
-                    'args'                => [
-                        'message_id' => [
-                            'type' => 'integer',
-                        ],
-                        'user_id' => [
-                            'type' => 'integer',
-                        ],
-                    ],
-                ],
-            ]
-        );
     }
 
     /**

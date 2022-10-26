@@ -68,7 +68,7 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<conversation_id>[\d]+)',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)',
 			[
 				[
 					'methods'             => \WP_REST_Server::DELETABLE,
@@ -80,7 +80,7 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<conversation_id>[\d]+)/mark-as-read',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)/mark-as-read',
 			[
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -92,7 +92,7 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<conversation_id>[\d]+)/mark-as-unread',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)/mark-as-unread',
 			[
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -104,7 +104,7 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/(?P<conversation_id>[\d]+)/update-terms',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)/update-terms',
 			[
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
@@ -206,6 +206,7 @@ class Conversations extends Rest_Base
 		$where['updated_at'] = '';
 		$where['created_at'] = '';
 		$where['created_by'] = '';
+		$where['status']     = '';
 
 		$where = Helper\filter_params($where, $args);
 
@@ -427,15 +428,15 @@ class Conversations extends Rest_Base
 		$request->set_param( 'limit', 1 );
 		$request->set_param( 'id', $request->get_param('id') );
 
-		$session_data = $this->get_items( $request, false );
+		$conversation_data = $this->get_items( $request, false );
 
-		if ( is_wp_error( $session_data) ) {
-			return $session_data;
+		if ( is_wp_error( $conversation_data) ) {
+			return $conversation_data;
 		}
 
-		$session_data = ! empty( $session_data ) && is_array( $session_data ) ? $session_data[0] : null;
+		$conversation_data = ! empty( $conversation_data ) && is_array( $conversation_data ) ? $conversation_data[0] : null;
 
-		return $this->response( true, $session_data );
+		return $this->response( true, $conversation_data );
 	}
 
 	/**
@@ -517,18 +518,18 @@ class Conversations extends Rest_Base
 
 		$default = [];
 
-		$default['conversation_id'] = '';
+		$default['id']              = '';
 		$default['add_term_ids']    = '';
 		$default['remove_term_ids'] = '';
 
 		$args = Helper\merge_params( $default, $args );
 
-		if ( empty( $args['conversation_id'] ) ) {
+		if ( empty( $args['id'] ) ) {
 			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
 			return new WP_Error(403, $message);
 		}
 
-		$conversation_exists = $this->is_conversation_exists( $args['conversation_id'] );
+		$conversation_exists = $this->is_conversation_exists( $args['id'] );
 
 		if ( is_wp_error( $conversation_exists ) ) {
 			return $conversation_exists;
@@ -549,34 +550,34 @@ class Conversations extends Rest_Base
 
 		// Add Terms
 		if ( ! empty( $add_terms ) ) {
-			$data['add_terms_status'] = $this->add_session_terms( $args['conversation_id'], $add_terms );
+			$data['add_terms_status'] = $this->add_conversation_terms( $args['id'], $add_terms );
 		}
 
 		// Remove Terms
 		if ( ! empty( $remove_terms ) ) {
-			$data['remove_terms_status'] = $this->remove_session_terms( $args['conversation_id'], $remove_terms );
+			$data['remove_terms_status'] = $this->remove_conversation_terms( $args['id'], $remove_terms );
 		}
 
-		$session_terms_args = [
+		$conversation_terms_args = [
 			'where' => [
-				'conversation_id' =>  $args['conversation_id'],
+				'conversation_id' =>  $args['id'],
 			],
 		];
 
-		$data['current_terms'] = Conversation_Term_Relationship_Model::get_items($session_terms_args);
+		$data['current_terms'] = Conversation_Term_Relationship_Model::get_items( $conversation_terms_args );
 
 		return $this->response( true, $data );
 	}
 
 	/**
-	 * Add Session Terms
+	 * Add Conversation Terms
 	 *
 	 * @param string $conversation_id
 	 * @param array $term_ids
 	 *
 	 * @return array Status
 	 */
-	public function add_session_terms( $conversation_id = '', $term_ids = [] )
+	public function add_conversation_terms( $conversation_id = '', $term_ids = [] )
 	{
 		$status = [
 			'failed'  => [],
@@ -605,14 +606,14 @@ class Conversations extends Rest_Base
 	}
 
 	/**
-	 * Remove Session Terms
+	 * Remove Conversation Terms
 	 *
 	 * @param string $conversation_id
 	 * @param array $term_ids
 	 *
 	 * @return array Status
 	 */
-	public function remove_session_terms( $conversation_id = '', $term_ids = [] )
+	public function remove_conversation_terms( $conversation_id = '', $term_ids = [] )
 	{
 		$status = [
 			'failed'  => [],

@@ -3,7 +3,6 @@
 namespace WPWaxCustomerSupportApp\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
 abstract class DB_Model implements DB_Model_Interface {

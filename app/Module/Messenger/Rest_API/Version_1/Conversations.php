@@ -6,9 +6,9 @@ use \WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
 class Conversations extends Rest_Base
 {

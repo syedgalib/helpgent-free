@@ -86,6 +86,8 @@ class Message_Notification_Emails {
         }
         $is_user_admin =  Helper\is_user_admin( $data['user_id'] );
         
+        $args['replier'] = $data['user_id'];
+
         if( ! $is_user_admin && $admins ) {
             foreach( $admins as $admin ) {
                 // notify admin
@@ -324,16 +326,18 @@ class Message_Notification_Emails {
             $user = get_user_by( 'id', $user );
         }
 
-        $site_name = get_option( 'blogname' );
-        $site_url = site_url();
-        $date_format = get_option( 'date_format' );
-        $time_format = get_option( 'time_format' );
-        $current_time = current_time( 'timestamp' );
+        $site_name      = get_option( 'blogname' );
+        $site_url       = site_url();
+        $date_format    = get_option( 'date_format' );
+        $time_format    = get_option( 'time_format' );
+        $current_time   = current_time( 'timestamp' );
         $dashboard_link = Helper\get_dashboard_page_link();
+        $replier        = ! empty( $args['replier'] ) ? get_user_by( 'id', $args['replier'] ) : '';
+        $replier_name   = ! is_wp_error( $replier ) ? $replier->display_name : '';
 
         $find_replace = array(
             '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
-            '{{REPLIER_NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{REPLIER_NAME}}' => $replier_name,
             '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
             '{{SITE_NAME}}' => $site_name,
             '{{SITE_LINK}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),

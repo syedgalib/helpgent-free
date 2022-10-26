@@ -440,7 +440,6 @@ const AddTag = (props) => {
     if (images.length > 1) {
         multiImg = true;
     }
-
     return (
         <React.Fragment>
             <AddTagWrap

@@ -224,7 +224,7 @@ class Messages extends Rest_Base
      */
     public function validate_message_type($value)
     {
-        return in_array($value, ['text', 'video', 'audio']);
+        return in_array( $value, [ 'text', 'video', 'audio' ] );
     }
 
     /**
@@ -278,6 +278,21 @@ class Messages extends Rest_Base
         $default['timezone'] = '';
 
         $args = Helper\filter_params($default, $args);
+
+		// Adjust Timezone
+		if ( ! empty( $args['timezone'] ) ) {
+			$date_time_fields = [ 'created_on', 'updated_on' ];
+			$timezone         = $args['timezone'];
+
+			foreach ( $date_time_fields as $field_key ) {
+				if ( empty( $where[ $field_key ] ) ) {
+					continue;
+				}
+
+				$where[ $field_key ] = Helper\convert_to_db_timezone( $where[ $field_key ], $timezone );
+			}
+		}
+
         $args['where'] = $where;
 
         $args['current_user_id'] = get_current_user_id();

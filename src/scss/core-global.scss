@@ -10,6 +10,7 @@
     --color-bg-gray: #e2e2e2;
     --color-bg-general: #ededed;
     --color-bg-page: #f0f0f0;
+    --color-bg-light: #D0D0D0;
     --color-border-light: #ededed;
     --color-gray: #868eae;
     --color-info: #1b83fb;
@@ -82,6 +83,10 @@
 
 .wpwax-vm-text-center {
     text-align: center;
+}
+
+.wpwax-vm-danger-text {
+    color: var(--color-danger);
 }
 
 /* Wpwax Media Status */
@@ -550,6 +555,33 @@
             color: var(--text-color);
         }
     }
+    .wpwax-hg-assigned-tags{
+        display: flex;
+        align-items: center;
+        margin: 4px -2px -2px;
+        .wpwax-hg-assigned-tags__item{
+            display: flex;
+            justify-self: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+            text-transform: capitalize;
+            min-height: 16px;
+            margin: 2px;
+            padding: 0 5px;
+            border-radius: 4px;
+            color: #4D4D4D;
+            background-color: var(--color-bg-light);
+            &.wpwax-hg-assigned-tags__item-add{
+                color: var(--color-dark);
+                span{
+                    position: relative;
+                    top: -2px;
+                }
+            }
+        }
+    }
 }
 .wpwax-vm-dropdown {
     position: relative;
@@ -970,7 +1002,7 @@
 
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
-    min-height: 600px;
+    height: min(80vh,600px);
     font-family: var(--font-family);
     .wpwax-vm-record-send-progress__content {
         h4,
@@ -1142,7 +1174,11 @@
 }
 
 .wpwax-vm-record-send-success__top {
-    padding: 30px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     background-color: #030308;
     border-radius: 25px 25px 0 0;
     min-height: 185px;
@@ -1197,7 +1233,7 @@
 /* Empty Table Box */
 .wpwax-empty-table-box {
     text-align: center;
-    padding-top: 30px;
+    padding: 30px 0;
     .wpwax-empty-table-box__img {
         margin-bottom: 20px;
     }
@@ -1262,3 +1298,33 @@
         font-size: 14px;
     }
 }
+@keyframes wpwaxHgPulse {
+    0% {
+        // transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 0, 0, 0.7);
+    }
+
+    70% {
+        // transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(239, 0, 0, 0);
+    }
+
+    100% {
+        // transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 0, 0, 0);
+    }
+}
+
+@keyframes wpwaxHgBlinking {
+    50% {
+      opacity: 0;
+    }
+  }
+
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+.wpwax-vm-btn.wpwax-vm-btn-lg{
+    height: 48px;
+    }
+}
+

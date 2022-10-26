@@ -132,12 +132,37 @@ const AddTagWrap = Styled.div`
     .wpwax-vm-taglist{
         display: flex;
         flex-wrap: wrap;
+        max-height: 240px;
+        overflow-y: auto;
         margin: 20px -7.5px 4px;
+        @media only screen and (max-width: 1399px){
+            max-height: 160px;
+        }
+        @media only screen and (max-width: 1199px){
+            max-height: 120px;
+            margin: 20px -5px 4px;
+        }
+        &::-webkit-scrollbar {
+            width: 11px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--color-light);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--color-bg-gray);
+            border-radius: 6px;
+            border: 3px solid var(--color-light);
+        }
         .wpwax-vm-tag__check{
             padding: 7.5px;
             flex: 0 0 auto;
             width: 33.33%;
             box-sizing: border-box;
+            @media only screen and (max-width: 1399px){
+                padding: 5px;
+            }
         }
         .wpwax-vm-checkbox{
             label{

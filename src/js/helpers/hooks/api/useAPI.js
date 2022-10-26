@@ -45,13 +45,13 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function createItem( args ) {
+	async function createItem( args, config ) {
 
-		const request = async function( args ) {
-			return await postData( routeBase, args );
+		const request = async function( args, config ) {
+			return await postData( routeBase, args, config );
 		}
 
-		return await getResponse( request, args );
+		return await getResponse( request, args, config );
 	}
 
 	/**
@@ -61,32 +61,36 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function updateItem( id, args ) {
+	async function updateItem( id, args, config ) {
 
-		const request = async function( args ) {
+		const request = async function( args, config ) {
 			if ( args && typeof args === 'object' ) {
 				args.timezone = getTimezoneString();
 			}
 
-			return await updateData( `${routeBase}/${args.id}`, args.params );
+			return await updateData( `${routeBase}/${args.id}`, args.params, config );
 		}
 
-		return await getResponse( request, { id, params: args } );
+		return await getResponse( request, { id, params: args }, config );
 	}
 
 	/**
 	 * Delete Item
 	 *
 	 * @param {int} id
+	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function deleteItem( id ) {
+	 async function deleteItem( id, args ) {
 
 		const request = async function( args ) {
-			return await deleteData( `${routeBase}/${args.id}` );
+
+			const params = ( typeof args.params !== 'undefined' ) ? args.params : {};
+
+			return await deleteData( `${routeBase}/${args.id}`, params );
 		}
 
-		return await getResponse( request, { id, params: args } );
+		return await getRestResponse( request, { id, params: args } );
 	}
 
 	return {

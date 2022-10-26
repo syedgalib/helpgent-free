@@ -233,6 +233,10 @@ class Attachment extends Rest_Base {
         $args = $request->get_params();
 
         $default = [];
+
+        $default['id']         = 0;
+        $default['title']      = '';
+        $default['link']       = '';
         $default['expires_on'] = null;
 
         $args = Helper\filter_params( $default , $args );

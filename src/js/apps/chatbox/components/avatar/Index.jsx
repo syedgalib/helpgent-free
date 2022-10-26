@@ -6,9 +6,10 @@ import avater from 'Assets/img/avatar.png';
 function Avatar() {
 	const dispatch = useDispatch();
 
-	const { templateOptions } = useSelector( state => {
+	const { templateOptions, displayChatbox } = useSelector( state => {
         return {
 			templateOptions: state.chatboxTemplate.template.options,
+			displayChatbox: state.chatbox.showChatbox
         };
     });
 
@@ -18,6 +19,7 @@ function Avatar() {
 	}
 
 	return (
+		!displayChatbox ?  
 		<AvatarWrap onClick={ clickHandler }>
 			{
 				templateOptions.greet_video_url ? <video style={{width: '120px'}} src={templateOptions.greet_video_url} loop autoPlay muted></video> : null
@@ -28,7 +30,7 @@ function Avatar() {
 			{
 				!templateOptions.greet_video_url && !templateOptions.greet_image_url ? <img className="wpwwax-vm-avatar" src={ avater } alt="Avatar" /> : null
 			}
-		</AvatarWrap>
+		</AvatarWrap> : null
 	);
 }
 

@@ -7,6 +7,10 @@ const ChatDashboardWrap = Styled.div`
     @media only screen and (max-width: 991px){
         flex-direction: column;
         align-items: center;
+        padding-right: 20px;
+    }
+    @media only screen and (max-width: 782px){
+        padding: 0 15px 0 5px;
     }
     .wpwax-vm-sidebar{
         width: 340px;
@@ -22,11 +26,12 @@ const ChatDashboardWrap = Styled.div`
         border-radius: 20px;
         /* background-color: var(--color-white); */
         @media only screen and (max-width: 1199px){
-            margin: 0 15px 0 15px;
+            margin: 0 30px 0 15px;
         }
-        @media only screen and (max-width: 767px){
+        @media only screen and (max-width: 991px){
+            margin: 0;
+            flex: 100%;
             width: 100%;
-            margin: 0 15px 0 5px;
         }
         .wpwax-vm-loder-active{
             &:after{

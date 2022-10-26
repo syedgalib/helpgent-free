@@ -67,6 +67,7 @@ function MessageBox({ setSessionState }) {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
+    const videoToggleRef = useRef(null);
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -136,6 +137,22 @@ function MessageBox({ setSessionState }) {
             messageType: state.messages.messageType,
         };
     });
+
+    /* Focus Input field when search inopen */
+    useEffect(() => {
+        const checkIfClickedOutside = e => {
+
+            if (messageType ==='video' && videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
+                dispatch(handleMessageTypeChange(''));
+                dispatch(handleReplyModeChange(false));
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    }, [messageType]);
 
     // @Init State
 	useEffect( () => {
@@ -650,6 +667,7 @@ function MessageBox({ setSessionState }) {
     const showReplayViaVideoMessage = (event) => {
         event.preventDefault();
         dispatch(handleMessageTypeChange('video'));
+        dispatch(handleReplyModeChange(false));
     };
 
     /* Handle Text Message */
@@ -679,13 +697,7 @@ function MessageBox({ setSessionState }) {
     /* Handle Reply Mode */
     const haldleReplyMode = () => {
         if (messageType === 'video') {
-            return (
-                <Video
-                    sessionID={selectedSession.session_id}
-                    onSuccess={loadLatestMessages}
-                    replayingTo={getReplaingToUser()}
-                />
-            );
+            
         }else if(messageType === 'screen'){
             return (
                 <Screen
@@ -1490,6 +1502,8 @@ function MessageBox({ setSessionState }) {
         });
     };
 
+    console.log(messageType);
+
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
         if (messageType === 'text') {
@@ -1611,6 +1625,17 @@ function MessageBox({ setSessionState }) {
         } else {
             return (
                 <div className='wpwax-vm-messagebox-footer'>
+                    {
+                        messageType === 'video' ? 
+                            <div className="wpwax-hg-messagebox-video-wrap" ref={videoToggleRef}>
+                                <Video
+                                    sessionID={selectedSession.session_id}
+                                    onSuccess={loadLatestMessages}
+                                    replayingTo={getReplaingToUser()}
+                                />
+                            </div>
+                         : null
+                    }
                     <span className='wpwax-vm-messagebox-footer__text'>
                         How would you like to answer?
                     </span>

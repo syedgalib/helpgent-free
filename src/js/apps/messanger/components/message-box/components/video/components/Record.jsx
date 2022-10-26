@@ -6,7 +6,7 @@ import UserAvaterList from 'Components/UserAvaterList.jsx';
 import { VideoReplyWrap } from '../Style';
 import plane from 'Assets/svg/icons/paper-plane.svg';
 
-import { handleReplyModeChange } from '../../../../../store/messages/actionCreator';
+import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../store/messages/actionCreator';
 import { useEffect } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 
@@ -243,6 +243,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const handleClose = (e) => {
         e.preventDefault();
 		stopRecording();
+        dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
 
@@ -342,11 +343,11 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                                 <a
                                     href='#'
                                     className='wpwax-vm-reply-ready-btn wpwax-vm-btn-back'
-                                    onClick={handleBack}
+                                    onClick={handleClose}
                                 >
                                     <span className='dashicons dashicons-arrow-left-alt'></span>
                                     <span className='wpwax-vm-reply-ready-btn__text'>
-                                        Back
+                                        Cancel
                                     </span>
                                 </a>
                                 <a

@@ -23,8 +23,9 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
 
     const updateStage = (event, stage) => {
         event.preventDefault();
-
+        
         setCurrentStage(stage);
+        dispatch(handleReplyModeChange(true));
     };
 
     const handleRecord = async (event) => {
@@ -37,6 +38,7 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
         }
 
         setCurrentStage(stages.RECORD);
+        dispatch(handleReplyModeChange(true));
     };
 
     // canRecordVideo
@@ -112,13 +114,6 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
     if (currentStage === stages.HOME) {
         return (
             <div className='wpwax-vm-video-msg wpwax-vm-video-msg-home'>
-                <a
-                    href='#'
-                    className='wpwax-vm-video-msg__close'
-                    onClick={handleClose}
-                >
-                    <span className='dashicons dashicons-no-alt'></span>
-                </a>
                 <h4 className='wpwax-vm-video-home__title'>
                     How would you like to create this step?
                 </h4>

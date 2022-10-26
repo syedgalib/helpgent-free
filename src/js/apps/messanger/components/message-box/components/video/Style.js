@@ -34,6 +34,7 @@ const VideoReplyWrap = Styled.div`
         opacity: .60;
         z-index: 10;
         content: "";
+        border-radius: 0 0 30px 30px;
         background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))
     }
     .wpwax-vm-reply-video-bg{

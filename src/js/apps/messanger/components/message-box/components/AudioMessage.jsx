@@ -120,7 +120,7 @@ const AudioMessage = ({data}) => {
 						<span className='wpwax-vm-timer'>
 							{getRemainingTime()}
 						</span>
-						<a href="#" className='wpwax-hg-download'><ReactSVG src={download} /></a>
+						<a href={data.attachment_url} className='wpwax-hg-download'><ReactSVG src={download} /></a>
 					</div>
 					
 				</span>

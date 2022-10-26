@@ -71,9 +71,8 @@ const VideoMessage = ({data}) => {
 				></span>
 			</a>
 			<a
-				href='#'
+				href={data.attachment_url}
 				className='wpwax-vm-btn-download'
-				onClick={handleExpandVideo}
 			>
 				<ReactSVG src={downloadIcon} />
 			</a>

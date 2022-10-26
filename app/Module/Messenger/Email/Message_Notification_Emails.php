@@ -340,11 +340,11 @@ class Message_Notification_Emails {
             '{{REPLIER_NAME}}' => $replier_name,
             '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
             '{{SITE_NAME}}' => $site_name,
-            '{{SITE_LINK}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
-            '{{SITE_URL}}' => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
+            '{{SITE_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_name ),
+            '{{SITE_URL}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_url ),
             '{{TODAY}}' => date_i18n( $date_format, $current_time ),
             '{{NOW}}' => date_i18n( $date_format . ' ' . $time_format, $current_time ),
-            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s">%s</a>', $dashboard_link, $dashboard_link ),
+            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $dashboard_link, $dashboard_link ),
             '{{MESSAGE}}' => ! empty( $args['message'] ) ? $args['message'] : '',
         );
         $c = nl2br( strtr( $content, $find_replace ) );
@@ -367,10 +367,10 @@ class Message_Notification_Emails {
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
         if ( $allow_email_header ){
-            $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
+            $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 20px 20px 0 0;\'>
                             <tr>
-                                <td id="header_wrapper" style="padding: 36px 48px; display: block;">
-                                    <h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
+                                <td id="header_wrapper" style="padding: 20px 30px; display: block;">
+                                    <h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 20px; font-weight: 500; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
                                 </td>
                             </tr>
                         </table>';
@@ -389,7 +389,7 @@ class Message_Notification_Emails {
                         <td align="center" valign="top">
                             <div id="template_header_image">
                             </div>
-                            <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 20px 50px rgba(0,0,0,.10); border-radius: 20px;">
                                 <tr>
                                     <td align="center" valign="top">
                                         <!-- Header -->
@@ -402,13 +402,13 @@ class Message_Notification_Emails {
                                         <!-- Body -->
                                         <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
                                             <tr>
-                                                <td valign="top" id="body_content" style="background-color: #ffffff;">
+                                                <td valign="top" id="body_content" style="background-color: #ffffff; border-radius: 20px;">
                                                     <!-- Content -->
                                                     <table border="0" cellpadding="20" cellspacing="0" width="100%">
                                                         <tr>
-                                                            <td valign="top" style="padding: 48px 48px 32px;">
-                                                                <div id="body_content_inner" style=\'color: #636363; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;\'>
-    '.$message.'
+                                                            <td valign="top" style="padding: 50px 30px;">
+                                                                <div id="body_content_inner" style=\'color: #636363; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; line-height: 150%; text-align: left;\'>
+                                                                    '.$message.'
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -432,8 +432,8 @@ class Message_Notification_Emails {
                                     <td valign="top">
                                         <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                             <tr>
-                                                <td colspan="2" valign="middle" id="credit">
-                                                    ' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', 'Built with ❤️ by %s' ) ) ) ), $author ) . '
+                                                <td colspan="2" valign="middle" id="credit" style="display: flex; justify-content: center; align-items: center">
+                                                    ' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', '<span style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: 600;\'>Built with <i style="margin: 0 4px; position: relative; top: 2px;"> ❤️ </i> by %s</span>' ) ) ) ), $author ) . '
                                                 </td>
                                             </tr>
                                         </table>

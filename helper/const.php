@@ -5,7 +5,7 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VERSION' ) ) {
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX' ) ) {
-    define( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX', 'wpwax_cs' );
+    define( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX', 'helpgent' );
 }
 
 if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_DB_DATE_TIME_FORMAT' ) ) {

@@ -1,7 +1,7 @@
 <?php
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Frontend;
-
+use WPWaxCustomerSupportApp\Base\Helper;
 class Chatbox {
 
     /**
@@ -16,7 +16,10 @@ class Chatbox {
     }
 
     public function load_ui() {
-        echo '<div id="wpwax-vm-chatbox"></div>';
+        $chat_head_position = Helper\get_option( 'chatHeadPosition', 'bottom-right' );
+        ?>
+            <div id="wpwax-vm-chatbox" class="<?php echo 'wpwax-vm-' . esc_attr( $chat_head_position ); ?>"></div>
+        <?php
     }
 
 }

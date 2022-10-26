@@ -22,7 +22,7 @@ class Config {
 	 */
     protected function define_const() {
 
-		defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT' ) || define( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT', apply_filters( 'wpwax_customer_support_app_voice_record_time_limit', Helper\get_option( 'MaxVideoLength', 2 ) ) );
+		defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT' ) || define( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT', apply_filters( 'wpwax_customer_support_app_voice_record_time_limit', Helper\get_option( 'maxVideoLength', 2 ) ) );
 
 	}
 

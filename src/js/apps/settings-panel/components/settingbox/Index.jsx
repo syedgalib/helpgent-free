@@ -12,6 +12,7 @@ const SettingBox = () => {
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
         options: {
+            chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
             maxVideoLength: "2",
             videoQuality: "700",

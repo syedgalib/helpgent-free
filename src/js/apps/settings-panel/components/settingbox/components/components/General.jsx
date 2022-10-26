@@ -10,6 +10,12 @@ const General = props =>{
         { value: '300', label: '300p' },
     ];
 
+    const chatHeadPositions = [
+        { value: 'bottom-right', label: 'Bottom Right' },
+        { value: 'bottom-middle', label: 'Bottom Middle' },
+        { value: 'bottom-left', label: 'Bottom Left' },
+    ];
+
     const { contentState, setContentState } = props;
 
     const handleUpdateSwitch = (value, event, id)=>{
@@ -54,7 +60,24 @@ const General = props =>{
     return(
         <div className="wpwax-vm-settings">
             <div className="wpwax-vm-settings__single">
-                <h4 className="wpwax-vm-settings__single--label">Enable Email Notification</h4>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Chat Head Position</label>
+                <div className="wpwax-vm-settings__single--element">
+                    <Select
+                        classNamePrefix="wpwax-vm-select"
+                        options={chatHeadPositions}
+                        closeMenuOnSelect={true}
+                        hideSelectedOptions={false}
+                        searchable={false}
+                        name="chatHeadPosition"
+                        onChange={handleChangeSelectValue}
+                        defaultValue={chatHeadPositions.filter(function (option) {
+                            return option.value === contentState.options.chatHeadPosition;
+                        })[0]}
+                    />
+                </div>
+            </div>
+            <div className="wpwax-vm-settings__single">
+                <h4 className="wpwax-vm-settings__single--label">User Dashboard Page</h4>
                 <div className="wpwax-vm-settings__single--element">
                     <Select
                         classNamePrefix='wpwax-vm-select'

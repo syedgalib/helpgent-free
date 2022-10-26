@@ -6917,6 +6917,7 @@ var SettingBox = function SettingBox() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       contentKey: "general",
       options: {
+        chatHeadPosition: "bottom-right",
         userDashboardPage: "2",
         maxVideoLength: "2",
         videoQuality: "700",
@@ -8052,6 +8053,16 @@ var General = function General(props) {
     value: '300',
     label: '300p'
   }];
+  var chatHeadPositions = [{
+    value: 'bottom-right',
+    label: 'Bottom Right'
+  }, {
+    value: 'bottom-middle',
+    label: 'Bottom Middle'
+  }, {
+    value: 'bottom-left',
+    label: 'Bottom Left'
+  }];
   var contentState = props.contentState,
     setContentState = props.setContentState;
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
@@ -8083,9 +8094,30 @@ var General = function General(props) {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        className: "wpwax-vm-settings__single--label",
+        htmlFor: "wpwax-vm-max-video-length",
+        children: "Chat Head Position"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "wpwax-vm-settings__single--element",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          classNamePrefix: "wpwax-vm-select",
+          options: chatHeadPositions,
+          closeMenuOnSelect: true,
+          hideSelectedOptions: false,
+          searchable: false,
+          name: "chatHeadPosition",
+          onChange: handleChangeSelectValue,
+          defaultValue: chatHeadPositions.filter(function (option) {
+            return option.value === contentState.options.chatHeadPosition;
+          })[0]
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "wpwax-vm-settings__single",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
         className: "wpwax-vm-settings__single--label",
-        children: "Enable Email Notification"
+        children: "User Dashboard Page"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {

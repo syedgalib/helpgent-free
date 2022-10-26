@@ -2,8 +2,10 @@
 
 namespace WPWaxCustomerSupportApp\Base\Helper;
 
+use WP_Error;
 use WP_Query;
 use WP_User;
+use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
 /**
@@ -134,10 +136,8 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
  */
 function filter_params( $default = [], $args = [] )
 {
-
 	foreach ( $args as $key => $value ) {
-
-		if ( ! isset( $default[ $key ] ) ) {
+		if (  ! in_array( $key, array_keys( $default ) ) ) {
 			unset( $args[ $key ] );
 		}
 	}
@@ -1186,4 +1186,44 @@ function get_terms_taxonomy_ids( $tax_query = [], $return_type = 'string' ) {
 	$term_list = trim( join( ',', $term_list ), ',' );
 
 	return $term_list;
+}
+
+
+/**
+ * Check if user exists
+ *
+ * @param string $email
+ * @return bool|WP_Error
+ */
+function user_exists( $email ) {
+
+	if ( empty( $email ) ) {
+		$message = __( 'The email is required.', 'wpwax-customer-support-app' );
+		return new WP_Error( 403, $message );
+	}
+
+	if ( ! is_email( $email ) ) {
+		$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+		return new WP_Error( 403, $message );
+	}
+
+	// Check if the user exists in WP
+	$wp_user = get_user_by( 'email', $email );
+
+	if ( ! empty( $wp_user ) ) {
+		return true;
+	}
+
+	// Check if guest user exists
+	$guest_user = Guest_User_Model::user_exists( $email );
+
+	if ( is_wp_error( $guest_user ) ) {
+		return $guest_user;
+	}
+
+	if ( $guest_user ) {
+		return true;
+	}
+
+	return false;
 }

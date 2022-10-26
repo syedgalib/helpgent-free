@@ -68,8 +68,8 @@ class Prepare_Database {
 			created_at datetime NOT NULL,
 			updated_at datetime NOT NULL,
 
-			PRIMARY KEY (conversation_id, term_taxonomy_id),
-            KEY term_taxonomy_id (term_taxonomy_id)
+			PRIMARY KEY (id),
+			KEY status (status)
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_conversation_meta (
@@ -84,10 +84,10 @@ class Prepare_Database {
 		CREATE TABLE {$table_prefix}_conversation_term_relationships (
 			conversation_id bigint(20) unsigned NOT NULL,
 			term_taxonomy_id bigint(20) unsigned NOT NULL,
-			order int(10) unsigned NOT NULL DEFAULT 0,
+			term_order int(11) unsigned NOT NULL DEFAULT 0,
 
 			PRIMARY KEY (conversation_id, term_taxonomy_id),
-            KEY term_taxonomy_id (term_taxonomy_id)
+			KEY term_taxonomy_id (term_taxonomy_id)
 		) $collate;
 		";
 

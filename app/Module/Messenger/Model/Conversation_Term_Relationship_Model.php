@@ -45,7 +45,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 		$table_field_map = [
 			'conversation_id'  => $relationship_table,
 			'term_taxonomy_id' => $relationship_table,
-			'order'            => $relationship_table,
+			'term_order'       => $relationship_table,
 			'term_id'          => $term_table,
 			'taxonomy'         => $term_table,
 			'parent'           => $term_table,
@@ -121,7 +121,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 
         $default['conversation_id']  = 0;
         $default['term_taxonomy_id'] = 0;
-        $default['order']            = 0;
+        $default['term_order']       = 0;
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
         $term = Term_Taxonomy_Model::get_item( $args['term_taxonomy_id'] );

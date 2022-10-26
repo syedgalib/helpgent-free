@@ -591,7 +591,7 @@ class Conversations extends Rest_Base
 		foreach ( $term_ids as $term_id ) {
 			$create_status = Conversation_Term_Relationship_Model::create_item([
 				'conversation_id' => $conversation_id,
-				'term_id'    => $term_id,
+				'term_id'         => $term_id,
 			]);
 
 			if ( is_wp_error( $create_status ) ) {

@@ -34,7 +34,7 @@ const Video = () => {
             return;
 		}
 
-        if (file.size > getMaxUploadSize()) {
+        if (file.size > getmaxUploadSize()) {
             setSelectedFileErrorMessage(
                 'The file exceeded the max upload size'
             );
@@ -75,7 +75,7 @@ const Video = () => {
         return supported_video_extensions.join(', ').trim();
     }
 
-    function getMaxUploadSize() {
+    function getmaxUploadSize() {
         if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
             return 0;
         }
@@ -83,8 +83,8 @@ const Video = () => {
         return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);
     }
 
-    function getFormattedMaxUploadSize() {
-        const max_upload_size = getMaxUploadSize();
+    function getFormattedmaxUploadSize() {
+        const max_upload_size = getmaxUploadSize();
 
         const sizeInKB = max_upload_size / 1024;
         const sizeInMB = sizeInKB / 1024;
@@ -130,7 +130,7 @@ const Video = () => {
                         </div>
                     </div>
                     <span className='wpwax-vm-short-text'>
-                        Max file size: {getFormattedMaxUploadSize()}
+                        Max file size: {getFormattedmaxUploadSize()}
                     </span>
                     {selectedFileErrorMessage ? (
                         <p className='wpwax-vm-text-danger'>

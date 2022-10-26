@@ -14,10 +14,10 @@ const SettingBox = () => {
         options: {
             chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
-            hgMaxVideoLength: "2",
+            maxVideoLength: "2",
             videoQuality: "700",
-            hgAttatchmentDeletionAfter: "20",
-            hgMaxUploadSize: "300",
+            attatchmentDeletionAfter: "20",
+            maxUploadSize: "300",
             enableEmailNotification: true,
             adminEmailNotificationType: "single",
             userEmailNotificationType: "single",

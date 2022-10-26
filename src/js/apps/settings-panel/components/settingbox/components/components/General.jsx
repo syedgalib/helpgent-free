@@ -97,7 +97,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Video Lenngth</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="hgMaxVideoLength" placeholder="ex in Minx: 10" value={contentState.options.hgMaxVideoLength} onChange={handleChange}/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="ex in Minx: 10" value={contentState.options.maxVideoLength} onChange={handleChange}/>
                     </div>
                 </div>
             </div>
@@ -122,7 +122,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Upload Size</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="hgMaxUploadSize" placeholder="ex in MB: 10" value={contentState.options.hgMaxUploadSize} onChange={handleChange}/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxUploadSize" placeholder="ex in MB: 10" value={contentState.options.maxUploadSize} onChange={handleChange}/>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Attachment deletion After</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="hgAttatchmentDeletionAfter" placeholder="ex in days: 16" value={contentState.options.hgAttatchmentDeletionAfter} onChange={handleChange}/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="attatchmentDeletionAfter" placeholder="ex in days: 16" value={contentState.options.attatchmentDeletionAfter} onChange={handleChange}/>
                     </div>
                 </div>
             </div>

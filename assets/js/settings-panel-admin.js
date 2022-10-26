@@ -6919,10 +6919,10 @@ var SettingBox = function SettingBox() {
       options: {
         chatHeadPosition: "bottom-right",
         userDashboardPage: "2",
-        hgMaxVideoLength: "2",
+        maxVideoLength: "2",
         videoQuality: "700",
-        hgAttatchmentDeletionAfter: "20",
-        hgMaxUploadSize: "300",
+        attatchmentDeletionAfter: "20",
+        maxUploadSize: "300",
         enableEmailNotification: true,
         adminEmailNotificationType: "single",
         userEmailNotificationType: "single",
@@ -8147,9 +8147,9 @@ var General = function General(props) {
             type: "number",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
-            name: "hgMaxVideoLength",
+            name: "maxVideoLength",
             placeholder: "ex in Minx: 10",
-            value: contentState.options.hgMaxVideoLength,
+            value: contentState.options.maxVideoLength,
             onChange: handleChange
           })
         })
@@ -8189,9 +8189,9 @@ var General = function General(props) {
             type: "number",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
-            name: "hgMaxUploadSize",
+            name: "maxUploadSize",
             placeholder: "ex in MB: 10",
-            value: contentState.options.hgMaxUploadSize,
+            value: contentState.options.maxUploadSize,
             onChange: handleChange
           })
         })
@@ -8210,9 +8210,9 @@ var General = function General(props) {
             type: "number",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
-            name: "hgAttatchmentDeletionAfter",
+            name: "attatchmentDeletionAfter",
             placeholder: "ex in days: 16",
-            value: contentState.options.hgAttatchmentDeletionAfter,
+            value: contentState.options.attatchmentDeletionAfter,
             onChange: handleChange
           })
         })

@@ -725,7 +725,7 @@ class Conversations extends Rest_Base
 	public function mark_as_read( $request )
 	{
 		$args            = $request->get_params();
-		$conversation_id = $args['conversation_id'];
+		$conversation_id = $args['id'];
 
 		$session_exists = $this->is_conversation_exists( $conversation_id );
 
@@ -734,7 +734,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $args['conversation_id'] ) ) {
+		if ( ! $this->can_current_user_view_conversation( $args['id'] ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
@@ -753,7 +753,7 @@ class Conversations extends Rest_Base
 	public function mark_as_unread( $request )
 	{
 		$args            = $request->get_params();
-		$conversation_id = $args['conversation_id'];
+		$conversation_id = $args['id'];
 
 		$session_exists = $this->is_conversation_exists( $conversation_id );
 
@@ -762,7 +762,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $args['conversation_id'] ) ) {
+		if ( ! $this->can_current_user_view_conversation( $args['id'] ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 

@@ -43,9 +43,7 @@ function ChatScreen( { show } ) {
     }
 
     return (
-		<div style={{display: ( show ) ? 'block' : 'none'}}>
-			<Container >{getCurrentScreen()}</Container>
-		</div>
+        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null 
 	);
 }
 

@@ -20,7 +20,7 @@ function Avatar() {
 
 	return (
 		!displayChatbox ?  
-		<AvatarWrap onClick={ clickHandler }>
+		<AvatarWrap className="wpwax-vm-chatbox-content" onClick={ clickHandler }>
 			{
 				templateOptions.greet_video_url ? <video style={{width: '120px'}} src={templateOptions.greet_video_url} loop autoPlay muted></video> : null
 			}

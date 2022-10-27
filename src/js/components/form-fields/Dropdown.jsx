@@ -20,11 +20,11 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     const { selectedItemText } = selectedState;
 
     /* initialize Form Data */
-	const { sessions } = useSelector(state => {
-        return {
-            sessions: state.sessions.sessions,
-        };
-    });
+	// const { sessions } = useSelector(state => {
+    //     return {
+    //         sessions: state.sessions.sessions,
+    //     };
+    // });
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();

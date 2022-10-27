@@ -1015,8 +1015,7 @@ function MessageBox({ setSessionState }) {
     }
 
     async function pauseVoiceRecording(event){
-        event.preventDefault()
-        console.log(isRecordingVoice);
+        event.preventDefault();
         if(isRecordingVoice){
             await window.wpwaxCSVoiceRecorder.pauseRecording();
             setIsRecordingVoice(false);

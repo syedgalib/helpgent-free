@@ -458,14 +458,14 @@ const MessageBoxWrap = Styled.div`
             }
         }
         .wpwax-vm-messagebox-footer__actionlist{
-            margin: -10px 0;
+            margin: -5px 0;
             display: flex;
             align-items: center;
             @media only screen and (max-width: 1199px){
                 text-align: center;
             }
             .wpwax-vm-btn{
-                margin: 10px;
+                margin: 5px;
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;

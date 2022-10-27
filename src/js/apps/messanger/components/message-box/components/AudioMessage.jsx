@@ -3,7 +3,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 import { React } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import audioRangeActive from 'Assets/svg/icons/audio-range-active.svg';
-import download from 'Assets/svg/icons/download.svg';
+import download from 'Assets/svg/icons/cloud-download-alt.svg';
 import audioRangeInactive from 'Assets/svg/icons/audio-range-inactive.svg';
 
 const AudioMessage = ({data}) => {

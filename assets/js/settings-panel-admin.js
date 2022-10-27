@@ -6928,13 +6928,13 @@ var SettingBox = function SettingBox() {
         userEmailNotificationType: "single",
         enableEmailHeader: true,
         emailHeaderColor: "#000000",
-        addSiteLogo: true,
         emailTemplateFromName: "",
         emailTemplateFromEmail: "",
         emailTemplateGreetingSubject: "",
         emailTemplateGreetingBody: "",
         emailTemplateMessageSubject: "",
-        emailTemplateMessageBody: ""
+        emailTemplateMessageBody: "",
+        enableEmailFooter: true
       },
       loading: true
     }),
@@ -7752,9 +7752,9 @@ var EmailTemplate = function EmailTemplate(props) {
           width: 40,
           checked: contentState.options.enableEmailHeader,
           onChange: handleUpdateSwitch
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
@@ -7773,25 +7773,7 @@ var EmailTemplate = function EmailTemplate(props) {
               value: contentState.options.emailHeaderColor,
               onChange: handleChange
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-inline-switch",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-              htmlFor: "",
-              children: "Add site logo"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-              uncheckedIcon: false,
-              checkedIcon: false,
-              onColor: "#6551F2",
-              offColor: "#E2E2E2",
-              className: "wpwax-vm-switch",
-              id: "addSiteLogo",
-              handleDiameter: 14,
-              height: 22,
-              width: 40,
-              checked: contentState.options.addSiteLogo,
-              onChange: handleUpdateSwitch
-            })]
-          })]
+          })
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -8012,6 +7994,27 @@ var EmailTemplate = function EmailTemplate(props) {
           })]
         })
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "wpwax-vm-settings__single",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+        className: "wpwax-vm-settings__single--label",
+        children: "Enable Footer"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "wpwax-vm-settings__single--element",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          uncheckedIcon: false,
+          checkedIcon: false,
+          onColor: "#6551F2",
+          offColor: "#E2E2E2",
+          className: "wpwax-vm-switch",
+          id: "enableEmailFooter",
+          handleDiameter: 14,
+          height: 22,
+          width: 40,
+          checked: contentState.options.enableEmailFooter,
+          onChange: handleUpdateSwitch
+        })
+      })]
     })]
   });
 };
@@ -8148,7 +8151,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "maxVideoLength",
-            placeholder: "ex in Minx: 10",
+            placeholder: "Ex. in Min: 10",
             value: contentState.options.maxVideoLength,
             onChange: handleChange
           })
@@ -8159,7 +8162,7 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "VIdeo Quelity (select)"
+        children: "Video Quelity (select)"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -8190,7 +8193,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "maxUploadSize",
-            placeholder: "ex in MB: 10",
+            placeholder: "Ex. in MB: 10",
             value: contentState.options.maxUploadSize,
             onChange: handleChange
           })
@@ -8211,7 +8214,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "attatchmentDeletionAfter",
-            placeholder: "ex in days: 16",
+            placeholder: "Ex. in days: 16",
             value: contentState.options.attatchmentDeletionAfter,
             onChange: handleChange
           })

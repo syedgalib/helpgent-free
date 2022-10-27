@@ -36,10 +36,9 @@ const SidebarWrap = Styled.div`
                 display: flex;
                 align-items: center;
                 font-size: 14px;
-                font-weight: 400;
+                font-weight: 500;
                 text-decoration: none;
-                margin: 0 10px;
-                color: var(--color-dark);
+                color: #4D4D4D;
                 transition: color .2s ease-in;
                 &:hover{
                     color: var(--color-primary);
@@ -62,7 +61,10 @@ const SidebarWrap = Styled.div`
                     width: 14px;
                     height: 14px;
                     transition: fill .2s ease-in;
-                    /* fill: var(--color-text); */
+                    fill: var(--color-text);
+                }
+                &.wpwax-vm-sidebar-refresher{
+                    margin-left: 30px;
                 }
             }
         }

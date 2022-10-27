@@ -76,7 +76,7 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
         }
 
         setIsSending(false);
-        // onSuccess();
+        onSuccess();
         dispatch(handleReplyModeChange(false));
     }
 

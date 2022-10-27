@@ -281,6 +281,19 @@ const MessageBox = Styled.div`
             }
         }
         .wpwax-vm-message-content{
+            &.wpwax-vm-message-attachment-not-found{
+                .wpwax-vm-message-content__inner{
+                    background-color: transparent;
+                    cursor: not-allowed;
+                    padding: 14px 18px;
+                    border: 1px solid var(--color-border-light);
+                    p{
+                        font-size: 16px;
+                        opacity: .25;
+                        color: var(--color-dark);
+                    }
+                }
+            }
             .wpwax-vm-message-content__top{
                 text-align: right;
                 margin-bottom: 8px;
@@ -331,6 +344,11 @@ const MessageBox = Styled.div`
         }
         &.wpwax-vm-message-single-video{
             .wpwax-vm-message-content{
+                &.wpwax-vm-message-attachment-not-found{
+                    .wpwax-vm-message-content__inner{
+                        background-color: transparent;
+                    }
+                }
                 .wpwax-vm-message-content__inner{
                     background-color: #F3F3F3;
                     width: 440px;
@@ -364,7 +382,7 @@ const MessageBox = Styled.div`
                         .dashicons,
                         svg{
                             position: relative;
-                            top: -2px;
+                            top: 0;
                             font-size: 24px;
                             color: var(--color-white);
                         }
@@ -409,8 +427,8 @@ const MessageBox = Styled.div`
             .wpwax-vm-btn-pause{
                 z-index: 10;
                 svg{
-                    width: 14px;
-                    height: 18px;
+                    width: 20px;
+                    height: 20px;
                     path{
                         fill: var(--color-white);
                     }
@@ -419,8 +437,8 @@ const MessageBox = Styled.div`
             .wpwax-vm-btn-play{
                 svg{
                     position: relative;
-                    left: 1px;
-                    top: -2px;
+                    left: 2px;
+                    top: 0px;
                 }
             }
         }
@@ -449,11 +467,11 @@ const MessageBox = Styled.div`
                 justify-content: space-between;
                 margin-top: 14px;
                 svg{
-                    width: 14px;
-                    height: 14px;
+                    width: 18px;
+                    height: 18px;
                     path{
                         transition: fill .2s ease-in;
-                        fill: #b5b5b5;
+                        fill: #A3A3A3;
                     }
                 }
             }

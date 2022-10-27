@@ -23,13 +23,13 @@ const SettingBox = () => {
             userEmailNotificationType: "single",
             enableEmailHeader: true,
             emailHeaderColor: "#000000",
-            addSiteLogo: true,
             emailTemplateFromName: "",
             emailTemplateFromEmail: "",
             emailTemplateGreetingSubject: "",
             emailTemplateGreetingBody: "",
             emailTemplateMessageSubject: "",
-            emailTemplateMessageBody: ""
+            emailTemplateMessageBody: "",
+            enableEmailFooter: true,
         },
         loading: true
     });

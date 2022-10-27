@@ -759,12 +759,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
         stopVoiceRecording({ sendRecording: true });
-        // if (isRecordingVoice) {
-        //     stopVoiceRecording({ sendRecording: true });
-        //     return;
-        // }else{
-        //     stopVoiceRecording({ sendRecording: true });
-        // }
         closeVoiceChat();
     };
 
@@ -780,35 +774,20 @@ function MessageBox({ setSessionState }) {
 
         stopVoiceTimer();
 
-        console.log(window.wpwaxCSVoiceRecorder,args);
-
-        // window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
-        //     console.log("re")
-        //     let blob = window.wpwaxCSVoiceRecorder.getBlob();
-
-        //     const tracks = window.wpwaxCSAudioStream.getTracks();
-        //     tracks.forEach((track) => track.stop());
-
-        //     setRecordedAudioBlob(blob);
-        //     setIsRecordingVoice(false);
-
-        //     // sendAudioMessage(blob);
-        //     console.log("yes");
-        //     afterStopVoiceRecording({
-        //         blob,
-        //         sendRecording: args.sendRecording,
-        //     });
-        // });
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSVoiceRecorder.getBlob();
-            // window.wpwaxCSAudioStream
-            //     .getTracks()
-            //     .forEach((track) => track.stop());
 
-            // setRecordedAudioBlob(blob);
-            console.log(url);
-            // setRecordedAudioURL(url);
-            // setIsRecordingVoice(false);
+            const tracks = window.wpwaxCSAudioStream.getTracks();
+            tracks.forEach((track) => track.stop());
+
+            setRecordedAudioBlob(blob);
+            setIsRecordingVoice(false);
+
+            // sendAudioMessage(blob);
+            afterStopVoiceRecording({
+                blob,
+                sendRecording: args.sendRecording,
+            });
         });
     }
 
@@ -899,8 +878,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        console.log(blob)
-
         await sendAudioMessage(blob);
         closeVoiceChat();
     };
@@ -976,8 +953,6 @@ function MessageBox({ setSessionState }) {
     const handleVoicePlay = async function (event){
         event.preventDefault();
         // Prepare Voice Recording;
-        
-
         if(recordedAudioSteam){
             resumeVoiceRecording();
         }else{
@@ -990,10 +965,6 @@ function MessageBox({ setSessionState }) {
             startVoiceRecording();
         }
     }
-
-    // const prepareVoiceRecording = async () => {
-        
-    // };
 
     // setupAudioStreem
     async function setupAudioStreem() {

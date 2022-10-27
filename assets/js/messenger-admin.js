@@ -5873,12 +5873,6 @@ function MessageBox(_ref) {
               stopVoiceRecording({
                 sendRecording: true
               });
-              // if (isRecordingVoice) {
-              //     stopVoiceRecording({ sendRecording: true });
-              //     return;
-              // }else{
-              //     stopVoiceRecording({ sendRecording: true });
-              // }
               closeVoiceChat();
             case 5:
             case "end":
@@ -5899,35 +5893,20 @@ function MessageBox(_ref) {
     };
     args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
     stopVoiceTimer();
-    console.log(window.wpwaxCSVoiceRecorder, args);
-
-    // window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
-    //     console.log("re")
-    //     let blob = window.wpwaxCSVoiceRecorder.getBlob();
-
-    //     const tracks = window.wpwaxCSAudioStream.getTracks();
-    //     tracks.forEach((track) => track.stop());
-
-    //     setRecordedAudioBlob(blob);
-    //     setIsRecordingVoice(false);
-
-    //     // sendAudioMessage(blob);
-    //     console.log("yes");
-    //     afterStopVoiceRecording({
-    //         blob,
-    //         sendRecording: args.sendRecording,
-    //     });
-    // });
     window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
       var blob = window.wpwaxCSVoiceRecorder.getBlob();
-      // window.wpwaxCSAudioStream
-      //     .getTracks()
-      //     .forEach((track) => track.stop());
+      var tracks = window.wpwaxCSAudioStream.getTracks();
+      tracks.forEach(function (track) {
+        return track.stop();
+      });
+      setRecordedAudioBlob(blob);
+      setIsRecordingVoice(false);
 
-      // setRecordedAudioBlob(blob);
-      console.log(url);
-      // setRecordedAudioURL(url);
-      // setIsRecordingVoice(false);
+      // sendAudioMessage(blob);
+      afterStopVoiceRecording({
+        blob: blob,
+        sendRecording: args.sendRecording
+      });
     });
   }
   function createAttachment(_x6) {
@@ -6071,12 +6050,11 @@ function MessageBox(_ref) {
               }
               return _context9.abrupt("return");
             case 3:
-              console.log(blob);
-              _context9.next = 6;
+              _context9.next = 5;
               return sendAudioMessage(blob);
-            case 6:
+            case 5:
               closeVoiceChat();
-            case 7:
+            case 6:
             case "end":
               return _context9.stop();
           }
@@ -6209,10 +6187,6 @@ function MessageBox(_ref) {
       return _ref15.apply(this, arguments);
     };
   }();
-
-  // const prepareVoiceRecording = async () => {
-
-  // };
 
   // setupAudioStreem
   function setupAudioStreem() {

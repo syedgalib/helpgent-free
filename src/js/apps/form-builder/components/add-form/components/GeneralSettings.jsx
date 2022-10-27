@@ -160,6 +160,56 @@ const GeneralSettings = () => {
                 />
             </div>
 
+            <div className='wpwax-vm-form-group'>
+                <div className='wpwax-vm-form-group__label'>
+                    <span className='wpwax-vm-tooltip-wrap'>
+                        <span>Collect Info</span>
+                    </span>
+                    <label>
+                        <Switch
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor='#6551f2'
+                            offColor='#E2E2E2'
+                            onHandleColor='#FFFFFF'
+                            className='wpwax-vm-switch'
+                            id='wpwax-vm-collect-info'
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            checked={!displayDefault}
+                            onChange={handleChangeSwitchValue}
+                        />
+                    </label>
+                </div>
+                <div className='wpwax-vm-chekbox-list'>
+                    {/* <div className='wpwax-vm-chekbox-single'>
+                        <span>Name</span>
+                        <Checkbox
+                            id=""
+                            label=""
+                            value={true}
+                        />
+                    </div>
+                    <div className='wpwax-vm-chekbox-single'>
+                        <span>Email</span>
+                        <Checkbox
+                            id=""
+                            label=""
+                            value={true}
+                        />
+                    </div> */}
+                    <div className='wpwax-vm-chekbox-single'>
+                        <span>Phone number</span>
+                        <Checkbox
+                            id=""
+                            label=""
+                            onChange={handleCustomPageCheckbox}
+                            value={true}
+                        />
+                    </div>
+                </div>
+            </div>
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>

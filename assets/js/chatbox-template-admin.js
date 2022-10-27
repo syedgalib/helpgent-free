@@ -8897,6 +8897,45 @@ var GeneralSettings = function GeneralSettings() {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "wpwax-vm-form-group__label",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          className: "wpwax-vm-tooltip-wrap",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Collect Info"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            uncheckedIcon: false,
+            checkedIcon: false,
+            onColor: "#6551f2",
+            offColor: "#E2E2E2",
+            onHandleColor: "#FFFFFF",
+            className: "wpwax-vm-switch",
+            id: "wpwax-vm-collect-info",
+            handleDiameter: 14,
+            height: 22,
+            width: 40,
+            checked: !displayDefault,
+            onChange: handleChangeSwitchValue
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: "wpwax-vm-chekbox-list",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Phone number"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "",
+            label: "",
+            onChange: handleCustomPageCheckbox,
+            value: true
+          })]
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      className: "wpwax-vm-form-group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        className: "wpwax-vm-form-group__label",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -10097,6 +10136,7 @@ var formData = [{
   name: "",
   "options": {
     "theme": "theme-1",
+    "collectInfo": true,
     "chat_visibility_type": "show_on_reload",
     "tag": 1,
     "send_mail_upon_message_submission": true,

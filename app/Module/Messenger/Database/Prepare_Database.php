@@ -56,7 +56,7 @@ class Prepare_Database {
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NOT NULL DEFAULT '',
 
-			PRIMARY KEY (message_id),
+			KEY meta_key (message_id),
 			KEY meta_key (meta_key)
 		) $collate;
 
@@ -77,7 +77,7 @@ class Prepare_Database {
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NOT NULL DEFAULT '',
 
-			PRIMARY KEY (conversation_id),
+			KEY meta_key (conversation_id),
 			KEY meta_key (meta_key)
 		) $collate;
 

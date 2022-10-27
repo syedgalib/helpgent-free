@@ -487,14 +487,14 @@ class Conversation_Model extends DB_Model {
             return false;
         }
 
-		$message = self::get_item( $id );
+		$conversation = self::get_item( $id );
 
-		if ( is_wp_error( $message ) ) {
-			return $message;
+		if ( is_wp_error( $conversation ) ) {
+			return $conversation;
 		}
 
 		$table = self::get_table_name( self::$table );
-		$where = ['id' => $id ];
+		$where = [ 'id' => $id ];
 
 		$status = $wpdb->delete( $table, $where, '%d' );
 

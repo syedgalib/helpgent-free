@@ -57,7 +57,7 @@ class Prepare_Database {
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NOT NULL DEFAULT '',
 
-			PRIMARY KEY (user_id),
+			KEY meta_key (user_id),
 			KEY meta_key (meta_key)
 		) $collate;
 

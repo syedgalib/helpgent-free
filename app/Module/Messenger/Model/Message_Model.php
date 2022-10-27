@@ -5,6 +5,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 
 class Message_Model extends DB_Model {
 
@@ -301,6 +302,15 @@ class Message_Model extends DB_Model {
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
+		// Delete Message Meta
+		self::delete_meta( $id );
+
+		// Delete Message Attachment
+		if ( ! empty( $message['attachment_id'] ) ) {
+			Attachment_Model::delete_item( $message['attachment_id'] );
+		}
+
+		// Delete Message
 		$status = $wpdb->delete( $table, $where, '%d' );
 
 		if ( empty( $status ) ) {

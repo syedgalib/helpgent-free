@@ -348,8 +348,11 @@ abstract class DB_Model implements DB_Model_Interface {
 
 		$where = [
 			$relation_column => $object_id,
-			'meta_key'       => $meta_key,
 		];
+
+		if ( ! empty( $meta_key ) ) {
+			$where['meta_key'] = $meta_key;
+		}
 
 		$status = $wpdb->delete( $table, $where );
 

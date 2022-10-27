@@ -3,12 +3,11 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use \WP_Error;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationship_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Conversations extends Rest_Base
 {
@@ -29,6 +28,25 @@ class Conversations extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => [ $this, 'get_items' ],
+					'permission_callback' => [ $this, 'check_auth_permission' ],
+					'args'                => [
+						'timezone'    => [
+                            'default'           => '',
+                            'sanitize_callback' => [ $this, 'sanitize_timezone_string' ],
+                        ],
+						'page'        => [
+							'default'           => 1,
+							'validate_callback' => [ $this, 'validate_int' ],
+						],
+						'order_by'       => [
+							'default'           => 'latest',
+							'validate_callback' => [ $this, 'validate_order' ],
+						],
+					],
+				],
+				[
+					'methods'             => \WP_REST_Server::CREATABLE,
+					'callback'            => [ $this, 'create_item' ],
 					'permission_callback' => [ $this, 'check_auth_permission' ],
 					'args'                => [
 						'timezone'    => [
@@ -387,6 +405,82 @@ class Conversations extends Rest_Base
 	}
 
 	/**
+	 * Create Item
+	 *
+	 * @param $request
+	 * @return mixed
+	 */
+	public function create_item( $request )
+	{
+		$args = $request->get_params();
+		$args['created_by'] = ! empty( $args['created_by'] ) ? $args['created_by'] : Helper\get_current_user_email();
+
+		$args = apply_filters( 'helpget_conversation_insert_args', $args );
+
+		/**
+         * Fires before creating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_before_conversation_insert', $args );
+
+        $data = Conversation_Model::create_item( $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+		/**
+         * Fires after creating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_after_conversation_insert', $data, $args );
+
+        $data    = $this->prepare_item_for_response( $data, $args );
+        $success = true;
+
+        return $this->response($success, $data);
+	}
+
+	/**
+	 * Create Item
+	 *
+	 * @param $request
+	 * @return mixed
+	 */
+	public function update_item( $request )
+	{
+		$args = $request->get_params();
+		$args = apply_filters( 'helpget_conversation_update_args', $args );
+
+		/**
+         * Fires before updating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_before_conversation_update', $args );
+
+        $data = Conversation_Model::update_item( $args );
+
+        if ( is_wp_error( $data ) ) {
+            return $data;
+        }
+
+		/**
+         * Fires after updating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_after_conversation_update', $data, $args );
+
+        $data    = $this->prepare_item_for_response( $data, $args );
+        $success = true;
+
+        return $this->response( $success, $data );
+	}
+
+	/**
 	 * Get users by session ID
 	 *
 	 * @param string $conversation_id
@@ -447,35 +541,44 @@ class Conversations extends Rest_Base
 	 */
 	public function delete_item( $request )
 	{
-		$args  = $request->get_params();
-		$where = [ 'conversation_id' => $args['id'] ];
+		$args = $request->get_params();
+		$conversation_id = ( ! empty( $args['id'] ) ) ? $args['id'] : 0;
 
-		$messages_args = [];
-		$messages_args['where']  = $where;
+		$conversation = Conversation_Model::get_item( $conversation_id );
 
-		$messages = Message_Model::get_items( $messages_args );
+		if ( is_wp_error( $conversation ) ) {
+			return $conversation;
+		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $args['id'] ) ) {
+		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
 		}
 
-		$operation = Message_Model::delete_item_where( $where );
-		$success   = $operation ? true : false;
+		// Delete Messages
+		$where         = [ 'conversation_id' => $conversation_id ];
+		$messages_args = [ 'limit' => -1, 'where' => $where ];
 
-		if ( ! $success ) {
-			$this->response( $success );
-		}
+		$messages = Message_Model::get_items( $messages_args );
 
-		// Delete Attachment
-		foreach ( $messages as $message ) {
-			Attachment_Model::delete_item( $message['attachment_id'] );
+		foreach( $messages as $message ) {
+			Message_Model::delete_item( $message['id'] );
 		}
 
 		// Delete Terms
 		Conversation_Term_Relationship_Model::delete_item_where( $where );
 
-		return $this->response( $success );
+		//  Delete Conversation Meta
+		Conversation_Model::delete_meta( $conversation_id );
+
+		// Delete Conversation
+		$delete_conversation = Conversation_Model::delete_item( $conversation_id );
+
+		if ( is_wp_error( $delete_conversation ) ) {
+			return $delete_conversation;
+		}
+
+		return $this->response( true );
 	}
 
 	/**

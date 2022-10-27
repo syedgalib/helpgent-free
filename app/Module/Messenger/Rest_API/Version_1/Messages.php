@@ -279,21 +279,30 @@ class Messages extends Rest_Base
         $args = $request->get_params();
 		$args['user_email'] = ! empty( $args['user_email'] ) ? $args['user_email'] : Helper\get_current_user_email();
 
+		$args = apply_filters( 'helpget_message_insert_args', $args );
+
+		/**
+         * Fires before creating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_before_message_insert', $args );
+
         $data = Message_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return $data;
         }
 
-        $data    = $this->prepare_message_item_for_response($data, $args);
-        $success = true;
-
-        /**
+		/**
          * Fires after creating an item
+		 *
          * @since 1.0
          */
+        do_action( 'helpget_after_message_insert', $data, $args );
 
-        do_action( 'helpget_after_message_inserted', $data, $args );
+        $data    = $this->prepare_message_item_for_response( $data, $args );
+        $success = true;
 
         return $this->response($success, $data);
     }
@@ -319,11 +328,27 @@ class Messages extends Rest_Base
 		}
 
 		$args = $request->get_params();
+		$args = apply_filters( 'helpget_message_update_args', $args );
+
+		/**
+         * Fires before updating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_before_message_update', $args );
+
         $data = Message_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
             return $data;
         }
+
+		/**
+         * Fires after updating an item
+		 *
+         * @since 1.0
+         */
+        do_action( 'helpget_after_message_update', $data, $args );
 
         $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;

@@ -117,7 +117,7 @@ const Upload = ({ file, back }) => {
                     <div className='wpwax-vm-record-send-progress__bar'>
                         <span>Uploading</span>
                     </div>
-                    <h4>We’re currently uploading your response.</h4>
+                    <h4>We’re currently uploading your file.</h4>
                     <p className='wpwax-vm-danger-text'>
                         Please don’t leave this page!
                     </p>
@@ -129,7 +129,7 @@ const Upload = ({ file, back }) => {
             <VideoRecordWrap className='wpwax-vm-record-send-progress'>
                 <div>
                     <p className='wpwax-vm-danger-text wpwax-vm-mb-20'>
-                        Couldn't upload the video, please try again.
+                        Couldn't upload the file, please try again.
                     </p>
                     <a
                         href='#'

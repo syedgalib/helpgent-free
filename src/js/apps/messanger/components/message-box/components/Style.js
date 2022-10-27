@@ -48,7 +48,8 @@ const ChatboxForm = Styled.div`
         align-items: center;
         padding: 140px 0 50px;
     }
-    .wpwax-vm-btn-play{
+    .wpwax-vm-btn-play,
+    .wpwax-vm-btn-pause{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -190,7 +191,8 @@ const ChatboxForm = Styled.div`
                         z-index: -1;
                     }
                 }
-                .wpwax-vm-btn-play{
+                .wpwax-vm-btn-play,
+                .wpwax-vm-btn-pause{
                     position: absolute;
                     left: 50%;
                     top: 50%;
@@ -279,6 +281,19 @@ const MessageBox = Styled.div`
             }
         }
         .wpwax-vm-message-content{
+            &.wpwax-vm-message-attachment-not-found{
+                .wpwax-vm-message-content__inner{
+                    background-color: transparent;
+                    cursor: not-allowed;
+                    padding: 14px 18px;
+                    border: 1px solid var(--color-border-light);
+                    p{
+                        font-size: 16px;
+                        opacity: .25;
+                        color: var(--color-dark);
+                    }
+                }
+            }
             .wpwax-vm-message-content__top{
                 text-align: right;
                 margin-bottom: 8px;
@@ -329,6 +344,11 @@ const MessageBox = Styled.div`
         }
         &.wpwax-vm-message-single-video{
             .wpwax-vm-message-content{
+                &.wpwax-vm-message-attachment-not-found{
+                    .wpwax-vm-message-content__inner{
+                        background-color: transparent;
+                    }
+                }
                 .wpwax-vm-message-content__inner{
                     background-color: #F3F3F3;
                     width: 440px;
@@ -345,7 +365,8 @@ const MessageBox = Styled.div`
                         width: 100%;
                         height: 100%;
                     }
-                    .wpwax-vm-btn-play{
+                    .wpwax-vm-btn-play,
+                    .wpwax-vm-btn-pause{
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -358,9 +379,10 @@ const MessageBox = Styled.div`
                         height: 44px;
                         border-radius: 50%;
                         background-color: var(--color-black);
-                        .dashicons{
+                        .dashicons,
+                        svg{
                             position: relative;
-                            top: -2px;
+                            top: 0;
                             font-size: 24px;
                             color: var(--color-white);
                         }
@@ -389,20 +411,37 @@ const MessageBox = Styled.div`
                 right: 40px;
                 z-index: 10;
             }
-            .wpwax-vm-btn-play{
+            .wpwax-vm-btn-play,
+            .wpwax-vm-btn-pause{
                 z-index: 10;
+                svg{
+                    width: 14px;
+                    height: 18px;
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
+            }
+            .wpwax-vm-btn-play{
+                svg{
+                    position: relative;
+                    left: 1px;
+                }
             }
         }
         &.wpwax-vm-message-single-audio{
             .wpwax-vm-message-content__inner--audio{
                 display: flex;
                 align-items: flex-start;
-                .wpwax-vm-btn-play{
+                .wpwax-vm-btn-play,
+                .wpwax-vm-btn-pause{
                     position: relative;
                     top: 2px;
                     text-decoration: none;
                     line-height: 1;
-                    span.dashicons{
+                    svg,
+                    .dashicons{
+                        top: 0;
                         font-size: 24px;
                         margin-right: 10px;
                         color: var(--color-dark);

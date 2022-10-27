@@ -12,7 +12,7 @@ import { formatTimeAsCountdown } from 'Helper/formatter';
 import { ChatboxForm } from '../../../style/Style';
 import expander from "Assets/svg/icons/expand.svg";
 import miceIcon from 'Assets/svg/icons/mice.svg';
-import recordIcon from 'Assets/svg/icons/s-record.svg';
+import recordIcon from 'Assets/svg/icons/desktop.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
@@ -106,7 +106,7 @@ function Theme_1() {
     const iconContent = (button) => {
         if (button === 'video') {
             return <ReactSVG src={videoIcon} />
-        } else if (button === 'screenRecord') {
+        } else if (button === 'screen_record') {
             return <ReactSVG src={recordIcon} />
         } else if (button === 'voice') {
             return <ReactSVG src={miceIcon} />
@@ -114,8 +114,6 @@ function Theme_1() {
             return <ReactSVG src={textIcon} />
         }
     }
-
-    // console.log(isPausedGreetVideo())
 
     return (
         <ChatboxForm>
@@ -188,6 +186,7 @@ function Theme_1() {
                         {
                             templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
                                 item => {
+                                    
                                     if (
                                         ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item )
                                     ) {
@@ -195,10 +194,9 @@ function Theme_1() {
                                     }
 
                                     const replayType = supportedReplayTypes.filter( replayTypeItem => replayTypeItem.type === item )[0];
-
                                     return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, replayType.type )}>
                                         { iconContent(replayType.type) }
-                                        { replayType.label }
+                                        <span>{replayType.type === "screen_record" ? "Screen" : replayType.label}</span>
                                     </a>
                                 }
                             )

@@ -4,17 +4,21 @@ import ReactSVG from 'react-inlinesvg';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
 import Message from './components/Message.jsx';
 import Video from './components/video/Index.jsx';
+import Screen from './components/screen/Index.jsx';
 import { useDebounce } from 'Helper/hooks';
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
+import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
 import { useScreenSize } from 'Helper/hooks';
+import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 
 import {
     handleReplyModeChange,
@@ -45,6 +49,19 @@ const CenterBoxStyle = {
 function MessageBox({ setSessionState }) {
 	const { addAction } = wpwaxHooks;
 
+    const {
+		hasPermission,
+		requestPermission,
+		permissionDenied,
+		recordedScreenBlob,
+		recordedScreenURL,
+		startRecording,
+		stopRecording,
+		recordedTimeInSecond,
+		getCountDown,
+		reset,
+	} = useScreenRecorder();
+
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
     /* Dispasth is used for passing the actions to redux store  */
@@ -71,6 +88,7 @@ function MessageBox({ setSessionState }) {
 
     //
     const [recordedAudioBlob, setRecordedAudioBlob] = useState(null);
+    const [recordedAudioSteam, setRecordedAudioSteam] = useState(null);
     const [isRecordingVoice, setIsRecordingVoice] = useState(false);
     const [recordedVoiceTimeInSecond, setRecordedVoiceTimeInSecond] = useState(0);
 
@@ -81,6 +99,10 @@ function MessageBox({ setSessionState }) {
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
             ? parseInt(messengerScriptData.voiceRecordTimeLimit)
             : 300; // 5 Minuites
+    
+    const [screenRecordState, setScreenRecordState] = useState({
+        recordStage: "request_permission"
+    });
 
     // Refs
     const textMessageContentRef = useRef();
@@ -114,6 +136,68 @@ function MessageBox({ setSessionState }) {
             messageType: state.messages.messageType,
         };
     });
+
+    // @Init State
+	useEffect( () => {
+		initSetup();
+	}, [] );
+
+	useEffect( () => {
+		dispatch( updateScreenTogglerContent( getCountDown() ) )
+	}, [ recordedTimeInSecond ] );
+
+    async function initSetup() {
+		const _hasPermission = await hasPermission();
+
+		if ( _hasPermission ) {
+			setScreenRecordState({
+				...screenRecordState,
+				recordStage: "beforeStartScreen"
+			});
+
+			return;
+		}
+
+	}
+
+
+    const handleSelectScreen = async event =>{
+        event.preventDefault();
+
+		const grantedPermission = await requestPermission();
+
+		if ( grantedPermission ) {
+                setScreenRecordState({
+                    ...screenRecordState,
+                    recordStage: "beforeStartScreen"
+                });
+
+                const hasStarted = await startRecording();
+
+                if ( ! hasStarted ) {
+                    return;
+                }else{
+                    setScreenRecordState({
+                        ...screenRecordState,
+                        recordStage: "startScreen"
+                    });
+                }
+		}
+    }
+
+    const handleStopScreen = async event =>{
+        event.preventDefault();
+        const callback = () => {
+            setScreenRecordState({
+                ...screenRecordState,
+                recordStage: "beforeSend"
+            });
+        }
+
+        stopRecording( callback );
+
+        dispatch(handleMessageTypeChange('screen'));
+    }
 
 	const canSendTextMessage = () => {
 		return (textMessageContent.trim().length > 0);
@@ -587,9 +671,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        // Prepare Voice Recording;
-        await prepareVoiceRecording();
-
         // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
         dispatch(handleReplyModeChange(false));
@@ -600,6 +681,16 @@ function MessageBox({ setSessionState }) {
         if (messageType === 'video') {
             return (
                 <Video
+                    sessionID={selectedSession.session_id}
+                    onSuccess={loadLatestMessages}
+                    replayingTo={getReplaingToUser()}
+                />
+            );
+        }else if(messageType === 'screen'){
+            return (
+                <Screen
+                    recordedBold={recordedScreenBlob}
+                    recordUrl={recordedScreenURL}
                     sessionID={selectedSession.session_id}
                     onSuccess={loadLatestMessages}
                     replayingTo={getReplaingToUser()}
@@ -652,72 +743,62 @@ function MessageBox({ setSessionState }) {
 
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
-
         if (isSendingAudioMessage) {
             return;
         }
-
-        if (isRecordingVoice) {
-            stopVoiceRecording({ sendRecording: true });
-            return;
-        }
-
-        await sendAudioMessage();
+        stopVoiceRecording({ sendRecording: true });
+        // if (isRecordingVoice) {
+        //     stopVoiceRecording({ sendRecording: true });
+        //     return;
+        // }else{
+        //     stopVoiceRecording({ sendRecording: true });
+        // }
         closeVoiceChat();
     };
 
-    const sendAudioMessage = async function (blob) {
-        if (isSendingAudioMessage) {
-            return;
-        }
+    // stopRecording
+    function stopVoiceRecording(args) {
+        const defaultArgs = { sendRecording: false };
 
-        const attachment = blob ? blob : recordedAudioBlob;
+        args =
+            args && typeof args === 'object'
+                ? { ...defaultArgs, ...args }
+                : defaultArgs;
 
-        if (!attachment) {
-            alert('No recordings found');
-            return;
-        }
 
-        setIsSendingAudioMessage(true);
+        stopVoiceTimer();
 
-        // Upload The Attachment
-        const attachmentResponse = await createAttachment(attachment);
+        console.log(window.wpwaxCSVoiceRecorder,args);
 
-        // Show Alert on Error
-        if (!attachmentResponse.success) {
-            const message = attachmentResponse.message
-                ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
+        // window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
+        //     console.log("re")
+        //     let blob = window.wpwaxCSVoiceRecorder.getBlob();
 
-            alert(message);
-            setIsSendingAudioMessage(false);
+        //     const tracks = window.wpwaxCSAudioStream.getTracks();
+        //     tracks.forEach((track) => track.stop());
 
-            return;
-        }
+        //     setRecordedAudioBlob(blob);
+        //     setIsRecordingVoice(false);
 
-        const attachmentID = attachmentResponse.data.id;
+        //     // sendAudioMessage(blob);
+        //     console.log("yes");
+        //     afterStopVoiceRecording({
+        //         blob,
+        //         sendRecording: args.sendRecording,
+        //     });
+        // });
+        window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
+            let blob = window.wpwaxCSVoiceRecorder.getBlob();
+            // window.wpwaxCSAudioStream
+            //     .getTracks()
+            //     .forEach((track) => track.stop());
 
-        // Send The Message
-        const response = await createMessage({
-            message_type: 'audio',
-            attachment_id: attachmentID,
+            // setRecordedAudioBlob(blob);
+            console.log(url);
+            // setRecordedAudioURL(url);
+            // setIsRecordingVoice(false);
         });
-
-        setIsSendingAudioMessage(false);
-
-        // Show Alert on Error
-        if (!response.success) {
-            const message = response.message
-                ? response.message
-                : 'Somethong went wrong, please try again.';
-            alert(message);
-
-            return;
-        }
-
-        // Load Latest
-        loadLatestMessages();
-    };
+    }
 
     async function createAttachment(file) {
         let status = {
@@ -806,25 +887,101 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
+        console.log(blob)
+
         await sendAudioMessage(blob);
         closeVoiceChat();
     };
 
+    const sendAudioMessage = async function (blob) {
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        const attachment = blob ? blob : recordedAudioBlob;
+
+        if (!attachment) {
+            alert('No recordings found');
+            return;
+        }
+
+        setIsSendingAudioMessage(true);
+
+        // Upload The Attachment
+        const attachmentResponse = await createAttachment(attachment);
+
+        // Show Alert on Error
+        if (!attachmentResponse.success) {
+            const message = attachmentResponse.message
+                ? attachmentResponse.message
+                : 'Somethong went wrong, please try again.';
+
+            alert(message);
+            setIsSendingAudioMessage(false);
+
+            return;
+        }
+
+        const attachmentID = attachmentResponse.data.id;
+
+        // Send The Message
+        const response = await createMessage({
+            message_type: 'audio',
+            attachment_id: attachmentID,
+        });
+
+        setIsSendingAudioMessage(false);
+
+        // Show Alert on Error
+        if (!response.success) {
+            const message = response.message
+                ? response.message
+                : 'Somethong went wrong, please try again.';
+            alert(message);
+
+            return;
+        }
+
+        setRecordedVoiceTimeInSecond(0)
+
+        // Load Latest
+        loadLatestMessages();
+    };
+
     const closeVoiceChat = () => {
+        if (isSendingAudioMessage) {
+            return;
+        }
+
+        setRecordedAudioBlob(null);
+        setRecordedAudioSteam(null);
+        setRecordedVoiceTimeInSecond(0);
+        setIsRecordingVoice(false)
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
 
-    const prepareVoiceRecording = async () => {
-        const audioStreem = await setupAudioStreem();
+    const handleVoicePlay = async function (event){
+        event.preventDefault();
+        // Prepare Voice Recording;
+        
 
-        if (!audioStreem) {
-            alert('Something went wrong, please try again.');
-            return;
+        if(recordedAudioSteam){
+            resumeVoiceRecording();
+        }else{
+            const audioStreem = await setupAudioStreem();
+
+            if (!audioStreem) {
+                alert('Something went wrong, please try again.');
+                return;
+            }
+            startVoiceRecording();
         }
+    }
 
-        startVoiceRecording();
-    };
+    // const prepareVoiceRecording = async () => {
+        
+    // };
 
     // setupAudioStreem
     async function setupAudioStreem() {
@@ -849,6 +1006,8 @@ function MessageBox({ setSessionState }) {
                 }
             );
 
+            setRecordedAudioSteam(window.wpwaxCSAudioStream);
+
             return true;
         } catch (error) {
             console.error({ error });
@@ -856,40 +1015,30 @@ function MessageBox({ setSessionState }) {
         }
     }
 
+    function resumeVoiceRecording(){
+        window.wpwaxCSVoiceRecorder.resumeRecording();
+        setIsRecordingVoice(true);
+        startVoiceTimer();
+        setRecordedVoiceTimeInSecond(recordedVoiceTimeInSecond);
+    }
+
     // startRecording
     async function startVoiceRecording() {
         await window.wpwaxCSVoiceRecorder.startRecording();
 
-        setRecordedVoiceTimeInSecond(0);
         setIsRecordingVoice(true);
         startVoiceTimer();
+        setRecordedVoiceTimeInSecond(recordedVoiceTimeInSecond);
     }
 
-    // stopRecording
-    function stopVoiceRecording(args) {
-        const defaultArgs = { sendRecording: false };
-
-        args =
-            args && typeof args === 'object'
-                ? { ...defaultArgs, ...args }
-                : defaultArgs;
-
-        stopVoiceTimer();
-
-        window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSVoiceRecorder.getBlob();
-
-            const tracks = window.wpwaxCSAudioStream.getTracks();
-            tracks.forEach((track) => track.stop());
-
-            setRecordedAudioBlob(blob);
+    async function pauseVoiceRecording(event){
+        event.preventDefault()
+        console.log(isRecordingVoice);
+        if(isRecordingVoice){
+            await window.wpwaxCSVoiceRecorder.pauseRecording();
             setIsRecordingVoice(false);
-
-            afterStopVoiceRecording({
-                blob,
-                sendRecording: args.sendRecording,
-            });
-        });
+            stopVoiceTimer();
+        }
     }
 
     function startVoiceTimer() {
@@ -1402,15 +1551,26 @@ function MessageBox({ setSessionState }) {
         } else if (messageType === 'voice') {
             return (
                 <div className='wpwax-vm-messagebox-footer'>
+                    <a
+                        href='#'
+                        className='wpwax-vm-messagebox-reply-text-close'
+                        onClick={handleVoiceClose}
+                    >
+                        <span className='dashicons dashicons-no-alt'></span>
+                    </a>
                     <div className='wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            <a
-                                href='#'
-                                className='wpwax-vm-messagebox-reply-voice-close'
-                                onClick={handleVoiceClose}
-                            >
-                                <span className='dashicons dashicons-no-alt'></span>
-                            </a>
+                            
+                            {
+                                isRecordingVoice ? <a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
+                                    <span className='dashicons dashicons-controls-pause'></span>
+                                </a>
+                                : 
+                                <a href='#' className='wpwax-vm-messagebox-reply-voice-play' onClick={handleVoicePlay}>
+                                    <span className='dashicons dashicons-controls-play'></span>
+                                </a>
+                            }
+                            
                             <span className='wpwax-vm-audio-range'>
                                 <span
                                     style={{
@@ -1467,6 +1627,16 @@ function MessageBox({ setSessionState }) {
                         </a>
                         <a
                             href='#'
+                            className={screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'}
+                            onClick={screenRecordState.recordStage !== "startScreen" ? handleSelectScreen : handleStopScreen}
+                        >
+                            {
+                                screenRecordState.recordStage !== "startScreen" ? <div className='wpwax-vm-btn-icon'><ReactSVG src={recordIcon} /></div> : null
+                            }
+                            <span className='wpwax-vm-btn-text'>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
+                        </a>
+                        <a
+                            href='#'
                             className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
                             onClick={showReplayViaVoiceMessage}
                         >
@@ -1503,7 +1673,7 @@ function MessageBox({ setSessionState }) {
         dispatch(handleReplyModeChange(false));
     };
 
-    /* Handle Text Colse */
+    /* Handle Voice Colse */
     const handleVoiceClose = async (e) => {
         e.preventDefault();
 
@@ -1515,6 +1685,7 @@ function MessageBox({ setSessionState }) {
             stopVoiceRecording();
         } else {
             setRecordedAudioBlob(null);
+            setRecordedAudioSteam(null);
         }
 
         dispatch(handleMessageTypeChange(''));

@@ -29,7 +29,7 @@ class Init {
             Core\Init::class,
             Messenger\Init::class,
             Forms\Init::class,
-            //Settings_Panel\Init::class,
+            Settings_Panel\Init::class,
         ];
     }
 

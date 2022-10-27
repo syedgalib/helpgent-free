@@ -16,7 +16,7 @@ class Script_Data {
 			'current_user'               => Helper\get_current_user(),
 			'admin_user'                 => Helper\get_admin_user(),
 			'supported_video_extensions' => Helper\get_mime_types( 'video', 'extension' ),
-			'max_upload_size'            => wp_max_upload_size(),
+			'max_upload_size'            => Helper\max_upload_size(),
 		];
 	}
 

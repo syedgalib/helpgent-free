@@ -28,23 +28,11 @@ class Settings_Panel extends Rest_Base {
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'create_update_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
-                    'args'                => [
-                        'options'            => [
-                            'type'     => 'object',
-                            'required' => true,
-                        ],
-                    ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
                     'callback'            => [ $this, 'delete_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
-                    'args'                => [
-                        'options'            => [
-                            'type'     => 'array',
-                            'required' => true,
-                        ],
-                    ],
                 ],
             ]
         );
@@ -73,13 +61,13 @@ class Settings_Panel extends Rest_Base {
         $args = $request->get_params();
 		$data = Helper\get_options();
 
-        if ( empty( $args['options'] ) ) {
+        if ( empty( $args ) ) {
             return $this->response( true, $data );
         }
 
-		$data = Helper\update_options( $args['options'] );
+		$data = Helper\update_options( $args );
 
-        return $this->response( true, $data );
+        return $this->response( true, $args );
     }
 
     /**
@@ -92,11 +80,11 @@ class Settings_Panel extends Rest_Base {
         $args = $request->get_params();
 		$data = Helper\get_options();
 
-        if ( empty( $args['options'] ) ) {
+        if ( empty( $args ) ) {
             return $this->response( true, $data );
         }
 
-		$data = Helper\delete_options( $args['options'] );
+		$data = Helper\delete_options( array_keys( $args ) );
 
         return $this->response( true, $data );
     }

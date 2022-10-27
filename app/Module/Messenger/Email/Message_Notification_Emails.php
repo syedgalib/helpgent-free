@@ -368,7 +368,7 @@ class Message_Notification_Emails {
         $allow_email_footer = Helper\get_option('enableEmailFooter', true );
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
-        if ( ! $allow_email_footer ){
+        if ( $allow_email_footer ){
             $footer = '<table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
             <tr>
                 <td valign="top">

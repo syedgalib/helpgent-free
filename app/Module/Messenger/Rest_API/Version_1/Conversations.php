@@ -3,7 +3,6 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
@@ -142,17 +141,13 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/add-terms',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)/add-terms',
 			[
 				[
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [$this, 'add_terms'],
 					'permission_callback' => [$this, 'check_admin_permission'],
 					'args'                => [
-						'conversation_id' => [
-							'required'          => true,
-							'sanitize_callback' => 'sanitize_text_field',
-						],
 						'terms' => [
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -164,17 +159,13 @@ class Conversations extends Rest_Base
 
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->rest_base . '/remove-terms',
+			'/' . $this->rest_base . '/(?P<id>[\d]+)/remove-terms',
 			[
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => [$this, 'remove_terms'],
 					'permission_callback' => [$this, 'check_admin_permission'],
 					'args'                => [
-						'conversation_id' => [
-							'required'          => true,
-							'sanitize_callback' => 'sanitize_text_field',
-						],
 						'terms' => [
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
@@ -626,7 +617,7 @@ class Conversations extends Rest_Base
 			Conversation_Model::remove_terms( $args['id'], $remove_terms );
 		}
 
-		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
+		$terms = Conversation_Model::get_terms( $args['id'] );
 
 		return $this->response( true, $terms );
 	}
@@ -643,17 +634,17 @@ class Conversations extends Rest_Base
 
 		$default = [];
 
-		$default['conversation_id'] = '';
+		$default['id'] = '';
 		$default['terms']           = '';
 
 		$args = Helper\merge_params($default, $args);
 
-		if ( empty( $args['conversation_id'] ) ) {
+		if ( empty( $args['id'] ) ) {
 			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
 		}
 
-		$conversation_exists = $this->is_conversation_exists( $args['conversation_id'] );
+		$conversation_exists = $this->is_conversation_exists( $args['id'] );
 
 		if ( is_wp_error( $conversation_exists ) ) {
 			return $conversation_exists;
@@ -671,9 +662,9 @@ class Conversations extends Rest_Base
 			return new WP_Error( 403, $message );
 		}
 
-		Conversation_Model::add_terms( $args['conversation_id'], $terms );
+		Conversation_Model::add_terms( $args['id'], $terms );
 
-		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
+		$terms = Conversation_Model::get_terms( $args['id'] );
 
 		return $this->response( true, $terms);
 	}
@@ -690,17 +681,17 @@ class Conversations extends Rest_Base
 
 		$default = [];
 
-		$default['conversation_id'] = '';
-		$default['terms']           = '';
+		$default['id']    = '';
+		$default['terms'] = '';
 
 		$args = Helper\merge_params($default, $args);
 
-		if ( empty( $args['conversation_id'] ) ) {
+		if ( empty( $args['id'] ) ) {
 			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
 		}
 
-		$conversation_exists = $this->is_conversation_exists( $args['conversation_id'] );
+		$conversation_exists = $this->is_conversation_exists( $args['id'] );
 
 		if ( is_wp_error( $conversation_exists ) ) {
 			return $conversation_exists;
@@ -718,9 +709,9 @@ class Conversations extends Rest_Base
 			return new WP_Error( 403, $message );
 		}
 
-		Conversation_Model::remove_terms( $args['conversation_id'], $terms );
+		Conversation_Model::remove_terms( $args['id'], $terms );
 
-		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
+		$terms = Conversation_Model::get_terms( $args['id'] );
 
 		return $this->response( true, $terms);
 	}
@@ -814,10 +805,10 @@ class Conversations extends Rest_Base
 	 */
 	public function is_conversation_exists( $conversation_id = 0 )
 	{
-		$session = Conversation_Model::get_item( $conversation_id );
+		$conversation = Conversation_Model::get_item( $conversation_id );
 
-		if ( is_wp_error( $session ) ) {
-			$message = __('The session does not exist.', 'wpwax-customer-support-app');
+		if ( is_wp_error( $conversation ) ) {
+			$message = __('The conversation does not exist.', 'wpwax-customer-support-app');
 			return new WP_Error(403, $message);
 		}
 

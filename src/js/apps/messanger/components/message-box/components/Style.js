@@ -405,18 +405,30 @@ const MessageBox = Styled.div`
                 z-index: 0;
                 background-color: rgba(3,3,8,.30);
             }
-            .wpwax-vm-btn-expander{
+            .wpwax-vm-btn-expander,
+            .wpwax-vm-btn-download{
                 position: absolute;
                 top: 30px;
                 right: 40px;
                 z-index: 10;
             }
+            .wpwax-vm-btn-download{
+                top: auto;
+                bottom: 20px;
+                svg{
+                    width: 18px;
+                    height: 18px;
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
+            }
             .wpwax-vm-btn-play,
             .wpwax-vm-btn-pause{
                 z-index: 10;
                 svg{
-                    width: 14px;
-                    height: 18px;
+                    width: 20px;
+                    height: 20px;
                     path{
                         fill: var(--color-white);
                     }
@@ -425,7 +437,8 @@ const MessageBox = Styled.div`
             .wpwax-vm-btn-play{
                 svg{
                     position: relative;
-                    left: 1px;
+                    left: 2px;
+                    top: 0px;
                 }
             }
         }
@@ -448,12 +461,36 @@ const MessageBox = Styled.div`
                     }
                 }
             }
+            .wpwax-hg-audio-info{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 14px;
+                svg{
+                    width: 18px;
+                    height: 18px;
+                    path{
+                        transition: fill .2s ease-in;
+                        fill: #A3A3A3;
+                    }
+                }
+            }
             .wpwax-vm-timer{
                 display: inline-block;
                 font-size: 14px;
                 font-weight: 500;
-                margin-top: 8px;
-                color: var(--color-dark)
+                color: var(--color-dark);
+            }
+            .wpwax-hg-download{
+                line-height: 1;
+                border-radius: 50%;
+                &:hover{
+                    svg{
+                        path{
+                            fill: var(--color-dark);
+                        }
+                    }
+                }
             }
         }
     }

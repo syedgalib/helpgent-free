@@ -2,6 +2,9 @@ import {useState, useRef } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import Linkify from 'Externals/Linkify.jsx';
 import expandIcon from 'Assets/svg/icons/expand.svg';
+import playIcon from 'Assets/svg/icons/play.svg';
+import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
+import downloadIcon from 'Assets/svg/icons/cloud-download-alt.svg';
 
 const VideoMessage = ({data}) => {
 	const videoRef = useRef();
@@ -56,26 +59,36 @@ const VideoMessage = ({data}) => {
 			></video>
 			<a
 				href='#'
-				className='wpwax-vm-btn-play'
+				className={playing ? 'wpwax-vm-btn-pause' : 'wpwax-vm-btn-play'}
 				onClick={(e) => {
 					togglePlaying(e);
 				}}
 			>
-				<span
-					className={
-						playing
-							? 'dashicons dashicons-controls-pause'
-							: 'dashicons dashicons-controls-play'
-					}
-				></span>
+				{
+					playing ? <ReactSVG src={pauseIcon} /> : <ReactSVG src={playIcon} />
+				}
 			</a>
-			<a
-				href='#'
-				className='wpwax-vm-btn-expander'
-				onClick={handleExpandVideo}
-			>
-				<ReactSVG src={expandIcon} />
-			</a>
+			{
+				!playing ? 
+				<a
+					href={data.attachment_url}
+					className='wpwax-vm-btn-download'
+				>
+					<ReactSVG src={downloadIcon} />
+				</a>:null
+			}
+			
+			{
+				playing ? 
+				<a
+					href='#'
+					className='wpwax-vm-btn-expander'
+					onClick={handleExpandVideo}
+				>
+					<ReactSVG src={expandIcon} />
+				</a> : null
+			}
+			
 		</div>
 		{data.message && (
 			<div className='wpwax-vm-message-content__inner--text wpwax-vm-mt-20'>

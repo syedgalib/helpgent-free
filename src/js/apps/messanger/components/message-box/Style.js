@@ -44,19 +44,41 @@ const ChatBoxWrap = Styled.div`
 
     }
     .wpwax-vm-video-msg{
-        position: fixed;
-        top: 80px;
-        left: 0;
+        position: absolute;
+        bottom: 95px;
+        left: 200px;
         width: 100%;
-        height: 100%;
-        z-index: 100002;
+        height: auto;
+        max-width: 484px;
+        border-radius: 30px;
+        z-index: 10;
+        box-shadow: 0 20px 50px rgba(0,0,0,.10);
+        background-color: var(--color-white);
+        @media only screen and (max-width: 1399px){
+            max-width: 434px;
+            left: 40px;
+        }
+        @media only screen and (max-width: 1199px){
+            left: 0;
+            bottom: 80px;
+            max-width: 400px;
+        }
+        @media only screen and (max-width: 767px){
+            max-width: fit-content;
+        }
         &.wpwax-vm-video-msg-home{
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            background-color: #F0F0F0;
-            border-radius: 30px 30px 0 0;
+            padding: 50px;
+            border-radius: 30px;
+            @media only screen and (max-width: 1399px){
+                padding: 40px;
+            }
+            @media only screen and (max-width: 767px){
+                padding: 20px;
+            }
             .wpwax-vm-video-msg__close{
                 position: absolute;
                 right: 40px;
@@ -68,10 +90,14 @@ const ChatBoxWrap = Styled.div`
                 }
             }
             .wpwax-vm-video-home__title{
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: 600;
+                margin: 0 0 20px;
                 font-family: var(--font-family);
                 color: var(--color-dark);
+                @media only screen and (max-width: 1199px){
+                    font-size: 16px;
+                }
                 @media only screen and (max-width: 767px){
                     text-align: center;
                     margin: 20px 25px;
@@ -79,6 +105,7 @@ const ChatBoxWrap = Styled.div`
             }
             .wpwax-vm-video-home__action{
                 display: flex;
+                margin: -10px;
                 @media only screen and (max-width: 767px){
                     flex-direction: column;
                 }
@@ -86,14 +113,24 @@ const ChatBoxWrap = Styled.div`
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    flex-direction: column;
-                    min-width: 300px;
-                    min-height: 150px;
+                    font-size: 15px;
+                    font-weight: 600;
                     margin: 10px;
                     border-radius: 10px;
                     text-align: center;
                     text-decoration: none;
-                    background-color: var(--color-white);
+                    min-height: 70px;
+                    padding: 0 32px;
+                    border-radius: 10px;
+                    background-color: var(--color-bg-general);
+                    @media only screen and (max-width: 1199px){
+                        font-size: 14px;
+                        min-height: 50px;
+                        padding: 0 20px;
+                    }
+                    @media only screen and (max-width: 767px){
+                        min-height: 46px;
+                    }
                     &:focus{
                         outline: none;
                         box-shadow: 0 0;
@@ -111,8 +148,14 @@ const ChatBoxWrap = Styled.div`
                         }
                     }
                     .wpwax-vm-video-home__action--icon{
-                        margin-bottom: 12px;
+                        margin-right: 15px;
                         svg{
+                            width: 26px;
+                            height: 26px;
+                            @media only screen and (max-width: 1199px){
+                                width: 20px;
+                                height: 20px;
+                            }
                             path{
                                 fill: var(--color-dark);
                             }
@@ -415,14 +458,14 @@ const MessageBoxWrap = Styled.div`
             }
         }
         .wpwax-vm-messagebox-footer__actionlist{
-            margin: -10px 0;
+            margin: -5px 0;
             display: flex;
             align-items: center;
             @media only screen and (max-width: 1199px){
                 text-align: center;
             }
             .wpwax-vm-btn{
-                margin: 10px;
+                margin: 5px;
                 font-weight: 600;
                 display: inline-flex;
                 align-items: center;
@@ -434,6 +477,10 @@ const MessageBoxWrap = Styled.div`
                     }
                     @media only screen and (max-width: 1240px){
                         padding: 0 10px;
+                        margin: 5px;
+                    }
+                    @media only screen and (max-width: 1199px){
+                        padding: 0 20px;
                         margin: 5px;
                     }
                     @media only screen and (max-width: 575px){

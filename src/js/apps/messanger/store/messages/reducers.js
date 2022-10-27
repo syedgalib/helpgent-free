@@ -20,7 +20,7 @@ const initialState = {
 		messagesContainerScrollMeta: null,
 	},
 
-    messageType: 'video',
+    messageType: '',
     videoStage: 'home',
     screenTogglerContent: 'Open',
     replyMode: false,

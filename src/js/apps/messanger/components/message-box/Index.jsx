@@ -67,6 +67,7 @@ function MessageBox({ setSessionState }) {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
     const searchInputRef = useRef(null);
+    const videoToggleRef = useRef(null);
 
     const current_user = wpWaxCustomerSupportApp_CoreScriptData.current_user;
 
@@ -136,6 +137,22 @@ function MessageBox({ setSessionState }) {
             messageType: state.messages.messageType,
         };
     });
+
+    /* Focus Input field when search inopen */
+    useEffect(() => {
+        const checkIfClickedOutside = e => {
+
+            if (messageType ==='video' && videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
+                dispatch(handleMessageTypeChange(''));
+                dispatch(handleReplyModeChange(false));
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+    }, [messageType]);
 
     // @Init State
 	useEffect( () => {
@@ -650,6 +667,7 @@ function MessageBox({ setSessionState }) {
     const showReplayViaVideoMessage = (event) => {
         event.preventDefault();
         dispatch(handleMessageTypeChange('video'));
+        dispatch(handleReplyModeChange(false));
     };
 
     /* Handle Text Message */
@@ -679,13 +697,7 @@ function MessageBox({ setSessionState }) {
     /* Handle Reply Mode */
     const haldleReplyMode = () => {
         if (messageType === 'video') {
-            return (
-                <Video
-                    sessionID={selectedSession.session_id}
-                    onSuccess={loadLatestMessages}
-                    replayingTo={getReplaingToUser()}
-                />
-            );
+            
         }else if(messageType === 'screen'){
             return (
                 <Screen
@@ -747,12 +759,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
         stopVoiceRecording({ sendRecording: true });
-        // if (isRecordingVoice) {
-        //     stopVoiceRecording({ sendRecording: true });
-        //     return;
-        // }else{
-        //     stopVoiceRecording({ sendRecording: true });
-        // }
         closeVoiceChat();
     };
 
@@ -768,35 +774,20 @@ function MessageBox({ setSessionState }) {
 
         stopVoiceTimer();
 
-        console.log(window.wpwaxCSVoiceRecorder,args);
-
-        // window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
-        //     console.log("re")
-        //     let blob = window.wpwaxCSVoiceRecorder.getBlob();
-
-        //     const tracks = window.wpwaxCSAudioStream.getTracks();
-        //     tracks.forEach((track) => track.stop());
-
-        //     setRecordedAudioBlob(blob);
-        //     setIsRecordingVoice(false);
-
-        //     // sendAudioMessage(blob);
-        //     console.log("yes");
-        //     afterStopVoiceRecording({
-        //         blob,
-        //         sendRecording: args.sendRecording,
-        //     });
-        // });
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
             let blob = window.wpwaxCSVoiceRecorder.getBlob();
-            // window.wpwaxCSAudioStream
-            //     .getTracks()
-            //     .forEach((track) => track.stop());
 
-            // setRecordedAudioBlob(blob);
-            console.log(url);
-            // setRecordedAudioURL(url);
-            // setIsRecordingVoice(false);
+            const tracks = window.wpwaxCSAudioStream.getTracks();
+            tracks.forEach((track) => track.stop());
+
+            setRecordedAudioBlob(blob);
+            setIsRecordingVoice(false);
+
+            // sendAudioMessage(blob);
+            afterStopVoiceRecording({
+                blob,
+                sendRecording: args.sendRecording,
+            });
         });
     }
 
@@ -887,8 +878,6 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        console.log(blob)
-
         await sendAudioMessage(blob);
         closeVoiceChat();
     };
@@ -964,8 +953,6 @@ function MessageBox({ setSessionState }) {
     const handleVoicePlay = async function (event){
         event.preventDefault();
         // Prepare Voice Recording;
-        
-
         if(recordedAudioSteam){
             resumeVoiceRecording();
         }else{
@@ -978,10 +965,6 @@ function MessageBox({ setSessionState }) {
             startVoiceRecording();
         }
     }
-
-    // const prepareVoiceRecording = async () => {
-        
-    // };
 
     // setupAudioStreem
     async function setupAudioStreem() {
@@ -1032,8 +1015,7 @@ function MessageBox({ setSessionState }) {
     }
 
     async function pauseVoiceRecording(event){
-        event.preventDefault()
-        console.log(isRecordingVoice);
+        event.preventDefault();
         if(isRecordingVoice){
             await window.wpwaxCSVoiceRecorder.pauseRecording();
             setIsRecordingVoice(false);
@@ -1490,6 +1472,8 @@ function MessageBox({ setSessionState }) {
         });
     };
 
+    console.log(messageType);
+
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
         if (messageType === 'text') {
@@ -1611,6 +1595,17 @@ function MessageBox({ setSessionState }) {
         } else {
             return (
                 <div className='wpwax-vm-messagebox-footer'>
+                    {
+                        messageType === 'video' ? 
+                            <div className="wpwax-hg-messagebox-video-wrap" ref={videoToggleRef}>
+                                <Video
+                                    sessionID={selectedSession.session_id}
+                                    onSuccess={loadLatestMessages}
+                                    replayingTo={getReplaingToUser()}
+                                />
+                            </div>
+                         : null
+                    }
                     <span className='wpwax-vm-messagebox-footer__text'>
                         How would you like to answer?
                     </span>

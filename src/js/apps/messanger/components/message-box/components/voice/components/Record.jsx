@@ -198,7 +198,6 @@ function Record() {
     //     setIsRecording(false);
     //     setCurrentStage(stages.RECORD);
     // }
-    console.log(currentStage)
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>

@@ -29,6 +29,45 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-sidebar-refresher{
             line-height: 1;
         }
+        .wpwax-vm-sidebar-top__action{
+            display: flex;
+            align-items: center;
+            a{
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+                color: #4D4D4D;
+                transition: color .2s ease-in;
+                &:hover{
+                    color: var(--color-primary);
+                    svg{
+                        fill: var(--color-primary);
+                    }
+                }
+                &.active{
+                    font-weight: 600;
+                    color: var(--color-primary);
+                    svg{
+                        fill: var(--color-primary);
+                    }
+                }
+                span{
+                    display: inline-block;
+                    margin-left: 6px;
+                }
+                svg{
+                    width: 14px;
+                    height: 14px;
+                    transition: fill .2s ease-in;
+                    fill: var(--color-text);
+                }
+                &.wpwax-vm-sidebar-refresher{
+                    margin-left: 30px;
+                }
+            }
+        }
     }
     .wpwax-vm-notice{
         margin-bottom: 15px;
@@ -164,6 +203,16 @@ const SidebarWrap = Styled.div`
                 .wpwax-vm-dropdown{
                     .wpwax-vm-dropdown__content{
                         top: 40px;
+                        li{
+                            a{
+                                margin-top: 2px;
+                            }
+                            &:last-child{
+                                a{
+                                    margin-top: 10px;
+                                }
+                            }
+                        }
                     }
                 }
                 .wpwax-vm-media__body{

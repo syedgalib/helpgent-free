@@ -248,6 +248,9 @@ const AddFormStyle = Styled.div`
                     width: 95px;
                     margin-right: 10px;
                 }
+                &.wpwax-vm-select__indicator-separator{
+                    display: none;
+                }
             }
             .wpwax-vm-form__element{
                 flex: 1;

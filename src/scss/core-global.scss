@@ -654,6 +654,13 @@
             .wpwax-vm-dropdown-item-icon {
                 line-height: 1;
                 margin-right: 10px;
+                svg{
+                    width: 14px;
+                    fill: var(--color-text);
+                    path{
+                        fill: var(-color-text);
+                    }
+                }
             }
         }
     }

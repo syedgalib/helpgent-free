@@ -53,11 +53,13 @@ class Prepare_Database {
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_guest_user_meta (
+			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			user_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NOT NULL DEFAULT '',
 
-			KEY meta_key (user_id),
+			PRIMARY KEY (meta_id),
+			KEY user_id (user_id),
 			KEY meta_key (meta_key)
 		) $collate;
 

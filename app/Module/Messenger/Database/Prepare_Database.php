@@ -52,11 +52,13 @@ class Prepare_Database {
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_message_meta (
+			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			message_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
-			meta_value longtext NOT NULL DEFAULT '',
+			meta_value longtext NULL,
 
-			KEY meta_key (message_id),
+			PRIMARY KEY (meta_id),
+			KEY message_id (message_id),
 			KEY meta_key (meta_key)
 		) $collate;
 
@@ -73,11 +75,13 @@ class Prepare_Database {
 		) $collate;
 
 		CREATE TABLE {$table_prefix}_conversation_meta (
+			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			conversation_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
-			meta_value longtext NOT NULL DEFAULT '',
+			meta_value longtext NULL,
 
-			KEY meta_key (conversation_id),
+			PRIMARY KEY (meta_id),
+			KEY conversation_id (conversation_id),
 			KEY meta_key (meta_key)
 		) $collate;
 

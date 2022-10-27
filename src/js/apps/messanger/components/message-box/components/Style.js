@@ -281,6 +281,19 @@ const MessageBox = Styled.div`
             }
         }
         .wpwax-vm-message-content{
+            &.wpwax-vm-message-attachment-not-found{
+                .wpwax-vm-message-content__inner{
+                    background-color: transparent;
+                    cursor: not-allowed;
+                    padding: 14px 18px;
+                    border: 1px solid var(--color-border-light);
+                    p{
+                        font-size: 16px;
+                        opacity: .25;
+                        color: var(--color-dark);
+                    }
+                }
+            }
             .wpwax-vm-message-content__top{
                 text-align: right;
                 margin-bottom: 8px;
@@ -331,6 +344,11 @@ const MessageBox = Styled.div`
         }
         &.wpwax-vm-message-single-video{
             .wpwax-vm-message-content{
+                &.wpwax-vm-message-attachment-not-found{
+                    .wpwax-vm-message-content__inner{
+                        background-color: transparent;
+                    }
+                }
                 .wpwax-vm-message-content__inner{
                     background-color: #F3F3F3;
                     width: 440px;

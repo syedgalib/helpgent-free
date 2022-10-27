@@ -49,22 +49,6 @@ const EmailTemplate = props =>{
                             <label htmlFor="wpwax-vm-mail-header-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: contentState.options.emailHeaderColor }}></label>
                             <input type="color" id="wpwax-vm-mail-header-color" className="wpwax-vm-form__element" name="emailHeaderColor" value={contentState.options.emailHeaderColor} onChange={handleChange}/>
                         </div>
-                        <div className="wpwax-vm-inline-switch">
-                            <label htmlFor="">Add site logo</label>
-                            <Switch
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                onColor="#6551F2"
-                                offColor="#E2E2E2"
-                                className="wpwax-vm-switch"
-                                id="addSiteLogo"
-                                handleDiameter={14}
-                                height={22}
-                                width={40}
-                                checked={contentState.options.addSiteLogo}
-                                onChange={handleUpdateSwitch}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -168,6 +152,24 @@ const EmailTemplate = props =>{
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div className="wpwax-vm-settings__single">
+                <h4 className="wpwax-vm-settings__single--label">Enable Footer</h4>
+                <div className="wpwax-vm-settings__single--element">
+                    <Switch
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        onColor="#6551F2"
+                        offColor="#E2E2E2"
+                        className="wpwax-vm-switch"
+                        id="enableEmailFooter"
+                        handleDiameter={14}
+                        height={22}
+                        width={40}
+                        checked={contentState.options.enableEmailFooter}
+                        onChange={handleUpdateSwitch}
+                    />
                 </div>
             </div>
         </div>

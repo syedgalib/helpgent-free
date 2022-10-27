@@ -5,7 +5,7 @@ const formData = [
     name: "",
     "options":{
         "theme":"theme-1",
-        "collectInfo": true,
+        "collectInfo": ["phone"],
         "chat_visibility_type":"show_on_reload",
         "tag": 1,
         "send_mail_upon_message_submission": true,

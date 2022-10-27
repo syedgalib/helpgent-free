@@ -1,7 +1,6 @@
 import React from 'react';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
-import Radio from 'Components/form-fields/Radio.jsx';
 
 const General = props =>{
     const qualityOptions = [
@@ -51,7 +50,6 @@ const General = props =>{
         });
     };
 
-
     const dashboardPages = [];
     SettingsScriptData.pages.map((item, index) => {
         dashboardPages.push({ value: `${item.id}`, label: `${item.title}` });
@@ -59,6 +57,24 @@ const General = props =>{
 
     return(
         <div className="wpwax-vm-settings">
+            <div className="wpwax-vm-settings__single">
+                <h4 className="wpwax-vm-settings__single--label">Enable Guest Submission</h4>
+                <div className="wpwax-vm-settings__single--element">
+                    <Switch
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        onColor="#6551F2"
+                        offColor="#E2E2E2"
+                        className="wpwax-vm-switch"
+                        id="guestSubmission"
+                        handleDiameter={14}
+                        height={22}
+                        width={40}
+                        checked={contentState.options.guestSubmission}
+                        onChange={handleUpdateSwitch}
+                    />
+                </div>
+            </div>
             <div className="wpwax-vm-settings__single">
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Chat Head Position</label>
                 <div className="wpwax-vm-settings__single--element">
@@ -94,15 +110,15 @@ const General = props =>{
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Video Lenngth</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Video Lenngth (minutes)</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="ex in Minx: 10" value={contentState.options.maxVideoLength} onChange={handleChange}/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="ex: 10" value={contentState.options.maxVideoLength} onChange={handleChange}/>
                     </div>
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">VIdeo Quelity (select)</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Video Quelity </label>
                 <div className="wpwax-vm-settings__single--element">
                     <Select
                         classNamePrefix="wpwax-vm-select"
@@ -119,15 +135,15 @@ const General = props =>{
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Upload Size</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Upload Size (MB)</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxUploadSize" placeholder="ex in MB: 10" value={contentState.options.maxUploadSize} onChange={handleChange}/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxUploadSize" placeholder="ex: 10" value={contentState.options.maxUploadSize} onChange={handleChange}/>
                     </div>
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Attachment deletion After</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Attachment deletion After (Days)</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
                         <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="attatchmentDeletionAfter" placeholder="ex in days: 16" value={contentState.options.attatchmentDeletionAfter} onChange={handleChange}/>

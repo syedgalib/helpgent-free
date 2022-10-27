@@ -42,7 +42,7 @@ class Attachment_Model extends DB_Model {
 			$order = ' ORDER BY updated_on DESC';
 		}
 
-		$where = ' WHERE 1=1';
+		$where = self::prepare_where_query( $args['where'], $table );
 
 		$select = "SELECT * FROM $table";
 

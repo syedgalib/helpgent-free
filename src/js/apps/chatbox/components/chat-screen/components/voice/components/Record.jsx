@@ -137,35 +137,42 @@ function Record() {
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 
-        try {
-            window.wpwaxCSAudioStream =
-                await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        sampleRate: 44100,
-                    },
-                });
-
-            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
-                type: 'audio',
-                mimeType: 'audio/wav',
-                recorderType: RecordRTC.StereoAudioRecorder,
-                disableLogs: true,
-                ondataavailable: function (blob) {
-                    console.log();
-                },
-            });
-            window.wpwaxCSRecorder.startRecording();
-
+        if(recordedAudioSteam){
+            window.wpwaxCSRecorder.resumeRecording();
             setIsRecording(true);
             startTimer();
-            setRecordedTimeInSecond(recordedTimeInSecond);
-            setRecordedAudioSteam(window.wpwaxCSAudioStream);
-        } catch (error) {
-            console.log({ error });
-
-            setIsRecording(false);
+        }else{
+            console.log("record Start")
+            try {
+                window.wpwaxCSAudioStream =
+                    await navigator.mediaDevices.getUserMedia({
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            sampleRate: 44100,
+                        },
+                    });
+    
+                window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
+                    type: 'audio',
+                    mimeType: 'audio/wav',
+                    recorderType: RecordRTC.StereoAudioRecorder,
+                    disableLogs: true,
+                    ondataavailable: function (blob) {
+                        console.log();
+                    },
+                });
+                window.wpwaxCSRecorder.startRecording();
+    
+                setIsRecording(true);
+                startTimer();
+                setRecordedTimeInSecond(recordedTimeInSecond);
+                setRecordedAudioSteam(window.wpwaxCSAudioStream);
+            } catch (error) {
+                console.log({ error });
+    
+                setIsRecording(false);
+            }
         }
     }
 
@@ -175,10 +182,6 @@ function Record() {
             window.wpwaxCSRecorder.pauseRecording();
             setIsRecording(false);
             stopTimer();
-        } else {
-            window.wpwaxCSRecorder.resumeRecording();
-            setIsRecording(true);
-            startTimer();
         }
     };
 
@@ -193,6 +196,7 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
+            console.log(blob);
         });
 	};
 
@@ -496,7 +500,7 @@ function Record() {
                     <div className='wpwax-vm-record-send-progress__content'>
                         <div className='wpwax-vm-text-center'>
                             <p className='wpwax-vm-danger-text wpwax-vm-mb-20'>
-                                Couldn't upload the video, please try again.
+                                Couldn't upload the file, please try again.
                             </p>
                             <a
                                 href='#'

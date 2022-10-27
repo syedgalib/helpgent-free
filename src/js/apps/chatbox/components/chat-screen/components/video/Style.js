@@ -6,9 +6,10 @@ const VideoHomeWrap = Styled.div`
     width: 100%;
     height: 100%;
     text-align: center;
-    padding: 180px 25px 180px;
+    padding: 0 25px 0;
     border-radius: 25px;
-    min-width: 420px;
+    /* min-width: 420px; */
+    height: min(80vh,620px);
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-vm-video-home{
@@ -21,6 +22,9 @@ const VideoHomeWrap = Styled.div`
         font-family: var(--font-family);
         margin: 0 0 30px;
         color: var(--color-dark);
+        @media only screen and (max-width: 767px){
+            font-size: 15px;
+        }
     }
     .wpwax-vm-video-home__btns{
         a,
@@ -56,9 +60,13 @@ const VideoHomeWrap = Styled.div`
 `;
 
 const VideoRecordWrap = Styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    padding: 100px 25px;
-    min-width: 420px;
+    padding: 0 25px;
+    height: min(80vh,620px);
+    /* min-width: 420px; */
     box-sizing: border-box;
     text-align: center;
     font-family: var(--font-family);
@@ -73,21 +81,25 @@ const VideoRecordWrap = Styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 100%;
         .wpwax-vm-btn{
             border-radius: 10px;
-            margin: 28px 0 20px;
+            margin: 28px 0 0;
             min-height: 54px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .wpwax-video-screen-title{
             margin-top: 0;
         }
+        .wpwax-vm-alert{
+            width: 100%;
+            margin-top: 15px;
+            box-sizing: border-box;
+        }
     }
     &.wpwax-vm-record-staging{
-        height: 100%;
         z-index: 101;
-		height: calc( 100vh - 100px );
-		max-height: 650px;
+		height: min(80vh,620px);
         animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
         &:after,
         &:before{
@@ -215,7 +227,7 @@ const VideoRecordWrap = Styled.div`
                 background-size: cover;
 				video {
 					width: 100%;
-                    height: 240px;
+                    height: auto;
                     object-fit: cover;
 					border-radius: 15px;
 				}

@@ -3,7 +3,7 @@
 namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Asset;
 
 use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
-
+use WPWaxCustomerSupportApp\Base\Helper;
 class Admin_Asset extends Enqueuer {
 
     /**
@@ -62,11 +62,16 @@ class Admin_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        // $scripts['wpwax-customer-support-app-settings-panel-admin-script'] = [
-        //     'file_name' => 'settings-panel-admin',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-        //     'group'     => 'admin',
-        // ];
+        $scripts['wpwax-customer-support-app-settings-panel-admin-script'] = [
+            'file_name' => 'settings-panel-admin',
+            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'group'     => 'admin',
+            'data'      => [
+                'SettingsScriptData' => [
+                    'pages'     => Helper\get_wp_pages(),
+                ],
+            ],
+        ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );
         $this->js_scripts = $scripts;

@@ -9,6 +9,7 @@ import { handleDynamicEdit } from '../../../store/form/actionCreator';
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { FormSettingsWrap } from './Style';
 
 export const fontOptions = [
@@ -117,6 +118,8 @@ const FormSettings = () => {
             handleChatArray("voice");
         } else if (id === "wpwax-vm-reply-text") {
             handleChatArray("text");
+        }else if (id === "wpwax-vm-reply-screen") {
+            handleChatArray("screen_record");
         }
     }
 
@@ -320,6 +323,23 @@ const FormSettings = () => {
                             width={40}
                             id="wpwax-vm-reply-text"
                             checked={chatReplyType.indexOf('text') === -1 ? false : true}
+                            onChange={handleChatReplyType}
+                        />
+                    </div>
+                    <div className="wpwax-vm-switch-single">
+                        <span><ReactSVG src={recordIcon}/>Screen</span>
+                        <Switch
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor="#6551f2"
+                            offColor="#E2E2E2"
+                            onHandleColor="#FFFFFF"
+                            className="wpwax-vm-switch"
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            id="wpwax-vm-reply-screen"
+                            checked={chatReplyType.indexOf('screen_record') === -1 ? false : true}
                             onChange={handleChatReplyType}
                         />
                     </div>

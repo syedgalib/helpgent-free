@@ -10,10 +10,12 @@
     --color-bg-gray: #e2e2e2;
     --color-bg-general: #ededed;
     --color-bg-page: #f0f0f0;
+    --color-bg-light: #D0D0D0;
     --color-border-light: #ededed;
     --color-gray: #868eae;
     --color-info: #1b83fb;
     --color-danger: #ef0000;
+    --color-disable: #dddada;
     --color-warning-deep: #ff7300;
     --color-warning-light: #f9dfac;
     --color-success: #08bf9c;
@@ -82,6 +84,10 @@
 
 .wpwax-vm-text-center {
     text-align: center;
+}
+
+.wpwax-vm-danger-text {
+    color: var(--color-danger);
 }
 
 /* Wpwax Media Status */
@@ -366,6 +372,40 @@
     }
 }
 
+.wpwax-vm-switch-list,
+.wpwax-vm-chekbox-list,
+.wpwax-vm-radio-list {
+    margin-top: 18px;
+    .wpwax-vm-switch-single,
+    .wpwax-vm-chekbox-single,
+    .wpwax-vm-radio-single {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+        span {
+            display: inline-flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            top: -2px;
+            line-height: 1;
+            color: #030308;
+            svg {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+                path {
+                    fill: rgb(137, 137, 137);
+                }
+            }
+        }
+    }
+}
+
 /* Wpwax Dropdown */
 .wpwax-vm-dropdown {
     position: relative;
@@ -466,6 +506,28 @@
         }
     }
 }
+
+/* wpwax Card */
+.wpwax-vm-card{
+    border: 1px solid var(--color-border-light);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    .wpwax-vm-card-header{
+        border-bottom: 1px solid var(--color-border-light);;
+        padding: 15px 20px;
+        margin-bottom: 0;
+        .wpwax-vm-card-header__title{
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+            color: var(--color-dark);
+        }
+    }
+    .wpwax-vm-card-body{
+        padding: 15px 20px;
+    }
+}
+
 /* Wpwax Vm Media */
 .wpwax-vm-media {
     display: flex;
@@ -492,6 +554,33 @@
             font-size: 12px;
             font-weight: 500;
             color: var(--text-color);
+        }
+    }
+    .wpwax-hg-assigned-tags{
+        display: flex;
+        align-items: center;
+        margin: 4px -2px -2px;
+        .wpwax-hg-assigned-tags__item{
+            display: flex;
+            justify-self: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.5;
+            text-transform: capitalize;
+            min-height: 16px;
+            margin: 2px;
+            padding: 0 5px;
+            border-radius: 4px;
+            color: #4D4D4D;
+            background-color: var(--color-bg-light);
+            &.wpwax-hg-assigned-tags__item-add{
+                color: var(--color-dark);
+                span{
+                    position: relative;
+                    top: -2px;
+                }
+            }
         }
     }
 }
@@ -878,9 +967,43 @@
         border-radius: 5px;
     }
 }
+
+/* wpwax-vm Note Style */
+.wpwax-vm-note{
+    margin-bottom: 30px;
+    padding: 30px;
+    background-color: #dcebfe;
+    border-radius: 4px;
+    display: flex;
+    .wpwax-vm-note__icon{
+        margin-right: 10px;
+    }
+    .dashicons{
+        font-size: 30px;
+        opacity: .2;
+        margin-right: 15px;
+    }
+    .wpwax-vm-note__title{
+        font-size: 1rem;
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: var(--color-primary);
+    }
+    .wpwax-vm-note__single{
+        &:not(:last-child){
+            margin-bottom: 6px;
+        }
+        .wpwax-vm-note__single--label{
+            font-weight: 500;
+            margin-right: 5px;
+            color: #c71585;
+        }
+    }
+}
+
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
-    min-height: 600px;
+    height: min(80vh,600px);
     font-family: var(--font-family);
     .wpwax-vm-record-send-progress__content {
         h4,
@@ -1052,7 +1175,11 @@
 }
 
 .wpwax-vm-record-send-success__top {
-    padding: 30px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     background-color: #030308;
     border-radius: 25px 25px 0 0;
     min-height: 185px;
@@ -1162,3 +1289,43 @@
         transform: scale(1);
     }
 }
+
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+    .wpwax-vm-note{
+        padding: 15px;
+    }
+    .wpwax-vm-btn{
+        font-size: 14px;
+    }
+}
+@keyframes wpwaxHgPulse {
+    0% {
+        // transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 0, 0, 0.7);
+    }
+
+    70% {
+        // transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(239, 0, 0, 0);
+    }
+
+    100% {
+        // transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 0, 0, 0);
+    }
+}
+
+@keyframes wpwaxHgBlinking {
+    50% {
+      opacity: 0;
+    }
+  }
+
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+.wpwax-vm-btn.wpwax-vm-btn-lg{
+    height: 48px;
+    }
+}
+

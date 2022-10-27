@@ -104,12 +104,14 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
         if (data.message_type === 'text') {
             return <TextMessage data={data} />;
         } else if (data.message_type === 'video') {
-            return <VideoMessage data={data} />;
+            return data.attachment_id ? <VideoMessage data={data} /> : <p>This video has been removed.</p>;
         } else if (data.message_type === 'audio') {
-			return <AudioMessage data={data} />;
+			return data.attachment_id ? <AudioMessage data={data} /> : <p>This audio has been removed.</p>;
 		}
     };
 
+    const singleMessageContainerClass = ( ( ( data.message_type == 'audio' ) || ( data.message_type == 'video' ) ) && ! data.attachment_id ) ? 'wpwax-vm-message-content wpwax-vm-message-attachment-not-found' : 'wpwax-vm-message-content';
+    
     return (
         <MessageBox
             ref={container}
@@ -119,7 +121,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
                     : `wpwax-vm-message-single wpwax-vm-message-single-${data.message_type} wpwax-vm-message-single-replied`
             }
         >
-            <div className='wpwax-vm-message-content'>
+            <div className={singleMessageContainerClass}>
                 <div className='wpwax-vm-message-content__top'>
                     <span className='wpwax-vm-message--authorname'>
                         {data.user.name},

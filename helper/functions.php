@@ -689,10 +689,6 @@ function get_option($option_key = '', $default = '')
 {
 	$options = get_options();
 
-	if (empty($options)) {
-		return '';
-	}
-
 	if (!isset($options[$option_key])) {
 		return $default;
 	}
@@ -840,6 +836,15 @@ function get_current_user($return_wp_user = false)
 	}
 
 	return prepare_user_data($current_user);
+}
+
+/**
+ * Max upload size
+ * @return int size in MB
+ */
+function max_upload_size() {
+	$custom_size = get_option( 'maxUploadSize', 100 );
+	return $custom_size > wp_max_upload_size() ? wp_max_upload_size() : $custom_size;
 }
 
 function get_mime_types($filter_type = '', $return_type = '')
@@ -1083,6 +1088,10 @@ function is_user_admin($user)
 		return false;
 	}
 
+	if( is_numeric( $user ) ) {
+		$user = get_user_by( 'id', $user );
+	}
+
 	$accepted_roles = get_admin_roles();
 
 	$accepted_roles_check = array_unique(array_map(function ($rule) use ($accepted_roles) {
@@ -1227,3 +1236,20 @@ function user_exists( $email ) {
 
 	return false;
 }
+/**
+ * Get Dashboard Page Link
+ *
+ * @return string Dashboard Page Link
+ */
+function get_dashboard_page_link() {
+
+	$link = home_url();
+	$page_id = get_option( 'userDashboardPage' );
+
+	if ( $page_id )  {
+		$link = get_permalink( $page_id );
+	}
+
+	return apply_filters( 'helpgent_dashboard_page_link', $link, $page_id );
+}
+

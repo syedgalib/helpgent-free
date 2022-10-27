@@ -19,7 +19,8 @@ const formData = [
         "can_replay_in":[
            "video",
            "voice",
-           "text"
+           "text",
+           "screen_record"
         ],
         "show_footer":true,
         "footer_message":"You can practice before sending",

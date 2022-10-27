@@ -131,7 +131,7 @@ class Messages extends Rest_Base
      */
     public function validate_message_type($value)
     {
-        return in_array($value, ['text', 'video', 'audio']);
+        return in_array( $value, [ 'text', 'video', 'audio' ] );
     }
 
     /**
@@ -287,6 +287,13 @@ class Messages extends Rest_Base
 
         $data    = $this->prepare_message_item_for_response($data, $args);
         $success = true;
+
+        /**
+         * Fires after creating an item
+         * @since 1.0
+         */
+
+        do_action( 'helpget_after_message_inserted', $data, $args );
 
         return $this->response($success, $data);
     }

@@ -22,6 +22,7 @@ const initialState = {
 
     messageType: 'video',
     videoStage: 'home',
+    screenTogglerContent: 'Open',
     replyMode: false,
 
     loading: false,
@@ -49,6 +50,8 @@ const {
     MESSAGE_STAGE_UPDATE_BEGIN,
     MESSAGE_STAGE_UPDATE_SUCCESS,
     MESSAGE_STAGE_UPDATE_ERR,
+
+    UPDATE_SCREEN_TOGGLER_CONTENT
 } = actions;
 
 const Reducer = (state = initialState, action) => {
@@ -263,6 +266,11 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 error: error,
                 sLoading: false,
+            };
+            case UPDATE_SCREEN_TOGGLER_CONTENT:
+            return {
+                ...state,
+                screenTogglerContent: data,
             };
         default:
             return state;

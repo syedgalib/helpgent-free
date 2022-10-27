@@ -7,8 +7,7 @@
 
 --------------------------------*/
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-// import { ReactSVG } from 'react-svg';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -523,7 +522,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                         item.last_message
                                                     }
                                                     img={images}
+                                                    sessionState={sessionState}
+                                                    setSessionState={setSessionState}
+                                                    sessionTerm={item.terms}
                                                     initialConv={initialConv}
+                                                    sessionId={item.session_id}
                                                     title={titleString.join()}
                                                     metaList={metaList}
                                                 />

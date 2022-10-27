@@ -5,25 +5,41 @@ const ScreenWrapper = Styled.div`
     bottom: 15px;
     right: 25px;
     height: auto;
-    width: 420px;
+    width: 400px;
     z-index: 100;
     border-radius: 25px;
     font-family: var(--font-family);
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     background-color: var(--color-white);
     animation: wpwaxVideoOpen .4s ease-in-out;
-    @media only screen and (max-width: 575px){
-        width: 380px;
+    &.wpwax-vm-chatbox-screen-home{
+        width: 430px;
+        @media only screen and (max-width: 767px){
+            width: 350px;
+        }
+        @media only screen and (max-width: 575px){
+            width: 345px;
+        }
+        @media only screen and (max-width: 379px){
+            width: 320px;
+        }
+    }
+    @media only screen and (max-width: 767px){
+        width: 350px;
         right: 15px;
     }
-    @media only screen and (max-width: 379px){
+    @media only screen and (max-width: 575px){
         width: 345px;
+    }
+    @media only screen and (max-width: 379px){
+        width: 320px;
     }
     .wpwax-vm-chatbox-text{
         background-color: var(--color-white);
         border-radius: 25px;
         .wpwax-vm-chatbox-text-form-inner{
-            min-height: 580px;
+            /* min-height: 580px; */
+            height: min(80vh, 580px);
             input{
                 font-family: var(--font-family);
                 &::placeholder{
@@ -47,7 +63,7 @@ const ScreenWrapper = Styled.div`
         }
     }
     .wpwax-vm-chatbox-contact{
-        min-height: 580px;
+        height: min(80vh,570px);
         font-family: var(--font-family);
         
         .wpwax-vm-footer{
@@ -79,10 +95,7 @@ const ScreenWrapper = Styled.div`
             height: 100%;
             position: relative;
             z-index: 101;
-            min-height: 620px;
-            @media only screen and (max-width: 1399px){
-                min-height: 580px;
-            }
+            height: min(80vh,620px);
             &:after,
             &:before{
                 position: absolute;
@@ -131,6 +144,12 @@ const ScreenWrapper = Styled.div`
             transition: background-color .3s ease-in-out;
             background-color: var(--color-dark);
             color: var(--color-white);
+            @media only screen and (max-width: 575px){
+                width: 32px;
+                height: 32px;
+                right: -12px;
+                top: -12px;
+            }
             &:hover{
                 background-color: var(--color-danger);
             }

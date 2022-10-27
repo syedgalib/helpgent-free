@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 const RecorderWrap = Styled.div`
     text-align: center;
     padding: 0 25px;
-    min-width: 420px;
+    /* min-width: 420px; */
     box-sizing: border-box;
     font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
@@ -18,9 +18,11 @@ const RecorderWrap = Styled.div`
         margin-bottom: 26px;
     }
     &.wpwax-vm-record-staging{
-        padding: 80px 25px;
-		height: calc( 100vh - 100px );
-		max-height: 650px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 25px;
+		height: min(80vh,620px);
         .wpwax-vm-timer{
             span{
                 font-size: 50px;
@@ -35,6 +37,12 @@ const RecorderWrap = Styled.div`
         }
         .wpwax-vm-record-staging__bottom{
             padding-top: 180px;
+            @media only screen and (max-width: 1399px){
+                padding-top: 120px;
+            }
+            @media only screen and (max-width: 1299px){
+                padding-top: 100px;
+            }
             p{
                 min-height: 32px;
             }
@@ -103,7 +111,7 @@ const RecorderWrap = Styled.div`
                     width: 70px;
                     height: 70px;
                     position: absolute;
-                    right: 40px;
+                    right: 25px;
                     top: 50%;
                     transform: translateY(-50%);
                     border-radius: 50%;
@@ -166,6 +174,12 @@ const RecorderWrap = Styled.div`
     }
     &.wpwax-vm-record-ready{
         padding: 160px 25px 25px;
+        @media only screen and (max-width: 1399px){
+            padding: 140px 25px 25px;
+        }
+        @media only screen and (max-width: 1199px){
+            padding: 80px 25px 25px;
+        }
         .wpwax-vm-record-ready__top{
             position: relative;
             /* .wpwax-vm-recorded-preview{
@@ -227,6 +241,9 @@ const RecorderWrap = Styled.div`
                 width: calc(100% + 50px);
                 display: block;
                 margin: 100px 0 0 -30px;
+                @media only screen and (max-width: 991px){
+                    margin: 60px 0 0 -30px;
+                }
             }
         }
         .wpwax-vm-record-ready__bottom{

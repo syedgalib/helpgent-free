@@ -183,7 +183,7 @@ const GeneralSettings = () => {
                 </div>
                 <div className='wpwax-vm-chekbox-list'>
                     <div className='wpwax-vm-chekbox-single'>
-                        <span>Name<span className="wpwax-vm-field-required">(required)</span></span>
+                        <span>Name</span>
                         <Checkbox
                             id="collect-info-phone"
                             label=""
@@ -194,7 +194,7 @@ const GeneralSettings = () => {
                         />
                     </div>
                     <div className='wpwax-vm-chekbox-single'>
-                        <span>Email <span className="wpwax-vm-field-required">(required)</span></span>
+                        <span>Email </span>
                         <Checkbox
                             id="collect-info-phone"
                             label=""

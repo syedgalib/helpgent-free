@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-24 04:31+0000\n"
+"POT-Creation-Date: 2022-10-27 08:05+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -90,43 +90,23 @@ msgstr ""
 msgid "Operation Failed"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:57
-msgid "Wellcome to Support"
-msgstr ""
-
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:99
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:208
 msgid "Your chosen password"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:102
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:211
 msgid "A new conversation has starterd"
 msgstr ""
 
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:124
-msgid "Login Credentials"
-msgstr ""
-
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:126
-msgid "Email:"
-msgstr ""
-
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:127
-msgid "Password:"
-msgstr ""
-
-#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:128
-msgid "Link:"
-msgstr ""
-
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:178, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Core/Rest_API/Version_1/Users.php:215, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:626
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:128, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:178, ../app/Module/Messenger/Model/Message_Model.php:435, ../app/Module/Core/Rest_API/Version_1/Users.php:215, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:619
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:183, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:631
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:133, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:183, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:624
 msgid "Message ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:188, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:636
+#: ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:138, ../app/Module/Messenger/Model/Messages_Seen_By_Model.php:188, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:629
 msgid "Session ID is required."
 msgstr ""
 
@@ -164,6 +144,10 @@ msgstr ""
 
 #: ../app/Module/Messenger/Model/Term_Taxonomy_Model.php:151
 msgid "The resource identifier is missing."
+msgstr ""
+
+#: ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14, ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14
+msgid "Settings"
 msgstr ""
 
 #: ../app/Module/Core/Rest_API/Version_1/Users.php:38

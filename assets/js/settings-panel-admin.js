@@ -8141,7 +8141,7 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "Maximum Video Lenngth"
+        children: "Maximum Video Lenngth (minutes)"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -8151,7 +8151,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "maxVideoLength",
-            placeholder: "Ex. in Min: 10",
+            placeholder: "Ex: 10",
             value: contentState.options.maxVideoLength,
             onChange: handleChange
           })
@@ -8162,7 +8162,7 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "Video Quelity (select)"
+        children: "Video Quelity"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -8183,7 +8183,7 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "Maximum Upload Size"
+        children: "Maximum Upload Size (MB)"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -8193,7 +8193,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "maxUploadSize",
-            placeholder: "Ex. in MB: 10",
+            placeholder: "Ex: 10",
             value: contentState.options.maxUploadSize,
             onChange: handleChange
           })
@@ -8204,7 +8204,7 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "Attachment deletion After"
+        children: "Attachment deletion After (Days)"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -8214,7 +8214,7 @@ var General = function General(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
             name: "attatchmentDeletionAfter",
-            placeholder: "Ex. in days: 16",
+            placeholder: "Ex: 45",
             value: contentState.options.attatchmentDeletionAfter,
             onChange: handleChange
           })

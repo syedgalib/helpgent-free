@@ -313,7 +313,7 @@ class Term_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		do_action( 'wpwax_cs_after_term_deleted', $id );
+		do_action( 'helpgent_after_term_deleted', $old_data );
 
         return true;
     }

@@ -26,7 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-			Model\Init::class,
+			Conversation::class,
         ];
     }
 

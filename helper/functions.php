@@ -1080,24 +1080,29 @@ function prepare_user_data($user, $fields = [])
  * @param WP_User $user
  * @return bool
  */
-function is_user_admin($user)
+function is_user_admin( $user )
 {
-
-	if (empty($user)) {
+	if ( empty ( $user ) ) {
 		return false;
 	}
 
-	if( is_numeric( $user ) ) {
+	if ( is_numeric( $user ) ) {
 		$user = get_user_by( 'id', $user );
+	} else if ( is_string( $user ) && is_email( $user ) ) {
+		$user = get_user_by( 'email', $user );
+	}
+
+	if ( empty( $user ) ) {
+		return false;
 	}
 
 	$accepted_roles = get_admin_roles();
 
-	$accepted_roles_check = array_unique(array_map(function ($rule) use ($accepted_roles) {
-		return in_array($rule, $accepted_roles) ? 1 : 0;
-	}, $user->roles));
+	$accepted_roles_check = array_unique(array_map( function ( $rule ) use ( $accepted_roles ) {
+		return in_array( $rule, $accepted_roles ) ? 1 : 0;
+	}, $user->roles) );
 
-	return in_array(1, $accepted_roles_check) ? true : false;
+	return in_array( 1, $accepted_roles_check ) ? true : false;
 }
 
 

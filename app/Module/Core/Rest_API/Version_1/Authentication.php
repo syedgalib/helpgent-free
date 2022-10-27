@@ -1,6 +1,8 @@
 <?php
 
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+
+use WP_Error;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 
 class Authentication extends Rest_Base {
@@ -26,11 +28,11 @@ class Authentication extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'create_token' ],
-                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                    'permission_callback' => '__return_true',
                     'args'                => [
-                        'expires_on' => [
-                            'type'    => 'date-time',
-                            'default' => null,
+                        'email' => [
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_email',
                         ],
                     ],
                 ],
@@ -57,7 +59,7 @@ class Authentication extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'validate_token' ],
-                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                    'permission_callback' => '__return_true',
                 ],
             ]
         );
@@ -95,6 +97,16 @@ class Authentication extends Rest_Base {
 
 		$email = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
 		$token = ( ! empty( $args['token'] ) ) ? $args['token'] : '';
+
+		if ( empty( $email ) ) {
+			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		if ( empty( $token ) ) {
+			$message = __( 'Token is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
 
 		$status = Auth_Token_Model::has_valid_token( $email, $token );
 

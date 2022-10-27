@@ -209,7 +209,7 @@ class Conversations extends Rest_Base
 		$where = [];
 
 		$where['id']         = '';
-		$where['term_ids']   = '';
+		$where['terms']   = '';
 		$where['updated_at'] = '';
 		$where['created_at'] = '';
 		$where['created_by'] = '';
@@ -286,17 +286,17 @@ class Conversations extends Rest_Base
 			}
 		}
 
-		if ( ! empty( $args['where']['term_ids'] ) ) {
+		if ( ! empty( $args['where']['terms'] ) ) {
 
 			$args['where']['tax_query'] = [
 				[
 					'taxonomy' => 'tag',
 					'field'    => 'term_id',
-					'terms'    => $args['where']['term_ids'],
+					'terms'    => $args['where']['terms'],
 				]
 			];
 
-			unset( $args['where']['term_ids'] );
+			unset( $args['where']['terms'] );
 		}
 
 		$conversation_data = Conversation_Model::get_items( $args );
@@ -307,83 +307,34 @@ class Conversations extends Rest_Base
 
 		// Add Additional Session Data
 		foreach ( $conversation_data as $conversation_key => $conversation ) {
-
+			// Created At
 			if ( ! empty( $conversation_data[ $conversation_key ]['created_at'] ) ) {
 				$created_at = $conversation_data[ $conversation_key ]['created_at'];
 				$conversation_data[ $conversation_key ]['created_at'] = Helper\get_formatted_time( $created_at, $timezone, 'Y-m-d H:i:s' );
 				$conversation_data[ $conversation_key ]['created_at_formatted'] = Helper\get_formatted_time( $created_at, $timezone );
 			}
 
+			// Updated At
 			if ( ! empty( $conversation_data[ $conversation_key ]['updated_at'] ) ) {
 				$updated_at = $conversation_data[ $conversation_key ]['updated_at'];
 				$conversation_data[ $conversation_key ]['updated_at'] = Helper\get_formatted_time( $updated_at, $timezone, 'Y-m-d H:i:s' );
 				$conversation_data[ $conversation_key ]['updated_at_formatted'] = Helper\get_formatted_time( $updated_at, $timezone );
 			}
 
-			// Add Users Data
-			$users = $this->get_users_by_conversation_id( $conversation['id'] );
-			$conversation_data[ $conversation_key ]['users']  = $users;
-
 			// Get First Message
-			$first_message_id = Conversation_Model::get_meta( $conversation['id'], 'first_message_id' );
-			$first_message = ( ! empty( $first_message_id ) ) ? Message_Model::get_item( $first_message_id ) : null;
+			$first_message_id   = Conversation_Model::get_meta( $conversation['id'], 'first_message_id' );
+			$first_message_data = self::get_message_by_id( $first_message_id );
+			$conversation_data[ $conversation_key ]['first_message'] = $first_message_data;
 
 			// Get Last Message
-			$last_message_id  = Conversation_Model::get_meta( $conversation['id'], 'last_message_id' );
-			$last_message  = ( ! empty( $last_message_id ) ) ? Message_Model::get_item( $last_message_id ) : null;
-
-			$user_emails = [];
-
-			if ( ! empty( $first_message ) ) {
-				$user_emails[] = $first_message['user_email'];
-			}
-
-			if ( ! empty( $last_message ) ) {
-				$user_emails[] = $last_message['user_email'];
-			}
-
-			$message_users = Helper\get_users_data_by( 'email', $user_emails );
-
-			$first_message_data = [
-				'user'       => ( ! empty( $message_users ) ) ? $message_users[0] : null,
-				'id'         => ( ! empty( $first_message ) ) ? $first_message['id'] : null,
-				'created_at' => ( ! empty( $first_message ) ) ? $first_message['created_at'] : null,
-				'updated_at' => ( ! empty( $first_message ) ) ? $first_message['updated_at'] : null,
-			];
-
-			$last_message_data = [
-				'user'       => ( count( $message_users ) > 1 ) ? $message_users[1] : null,
-				'id'         => ( ! empty( $last_message ) ) ? $last_message['id'] : null,
-				'created_at' => ( ! empty( $last_message ) ) ? $last_message['created_at'] : null,
-				'updated_at' => ( ! empty( $last_message ) ) ? $last_message['updated_at'] : null,
-			];
-
-			if ( ! empty( $first_message_data['created_at'] ) ) {
-				$created_at = $first_message_data['created_at'];
-				$first_message_data['created_at']= Helper\get_formatted_time( $created_at, $timezone, 'Y-m-d h:m:s' );
-				$first_message_data['created_at_formatted'] = Helper\get_formatted_time( $created_at, $timezone );
-			}
-
-			if ( ! empty( $first_message_data['updated_at'] ) ) {
-				$updated_at = $first_message_data['updated_at'];
-				$first_message_data['updated_at']= Helper\get_formatted_time( $updated_at, $timezone, 'Y-m-d h:m:s' );
-				$first_message_data['updated_at_formatted'] = Helper\get_formatted_time( $updated_at, $timezone );
-			}
-
-			if ( ! empty( $last_message_data['created_at'] ) ) {
-				$created_at = $last_message_data['created_at'];
-				$last_message_data['created_at']= Helper\get_formatted_time( $created_at, $timezone, 'Y-m-d h:m:s' );
-				$last_message_data['created_at_formatted'] = Helper\get_formatted_time( $created_at, $timezone );
-			}
-
-			if ( ! empty( $last_message_data['updated_at'] ) ) {
-				$updated_at = $last_message_data['updated_at'];
-				$last_message_data['updated_at']= Helper\get_formatted_time( $updated_at, $timezone, 'Y-m-d h:m:s' );
-				$last_message_data['updated_at_formatted'] = Helper\get_formatted_time( $updated_at, $timezone );
-			}
-
-			$conversation_data[ $conversation_key ]['first_message'] = $first_message_data;
+			$last_message_id   = Conversation_Model::get_meta( $conversation['id'], 'last_message_id' );
+			$last_message_data = self::get_message_by_id( $last_message_id );
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
+
+			// Read Status
+			$is_read = Conversation_Model::get_meta( $conversation['id'], 'read' );
+			$conversation_data[ $conversation_key ]['read'] = Helper\is_truthy( $is_read );
+
 		}
 
 		if ( $send_rest_response ) {
@@ -391,6 +342,29 @@ class Conversations extends Rest_Base
 		}
 
 		return $conversation_data;
+	}
+
+	public function get_message_by_id( $message_id, $timezone = '' ) {
+		$message = ( ! empty( $message_id ) ) ? Message_Model::get_item( $message_id ) : null;
+
+		if ( is_wp_error( $message ) || empty( $message ) ) {
+			return null;
+		}
+
+		$message['user'] = Helper\get_users_data_by( 'email', [ $message['user'] ] );
+
+		if ( ! empty( $message['created_at'] ) ) {
+			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );
+			$message['created_at_formatted'] = Helper\get_formatted_time( $message['created_at'], $timezone );
+		}
+
+		if ( ! empty( $message['updated_at'] ) ) {
+			$message['updated_at']           = Helper\get_formatted_time( $message['updated_at'], $timezone, 'Y-m-d h:m:s' );
+			$message['updated_at_formatted'] = Helper\get_formatted_time( $message['updated_at'], $timezone );
+		}
+
+
+		return $message;
 	}
 
 	/**
@@ -404,14 +378,14 @@ class Conversations extends Rest_Base
 		$args = $request->get_params();
 		$args['created_by'] = ! empty( $args['created_by'] ) ? $args['created_by'] : Helper\get_current_user_email();
 
-		$args = apply_filters( 'helpget_conversation_insert_args', $args );
+		$args = apply_filters( 'helpgent_conversation_insert_args', $args );
 
 		/**
          * Fires before creating an item
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_before_conversation_insert', $args );
+        do_action( 'helpgent_before_conversation_insert', $args );
 
         $data = Conversation_Model::create_item( $args );
 
@@ -424,7 +398,7 @@ class Conversations extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_after_conversation_insert', $data, $args );
+        do_action( 'helpgent_after_conversation_insert', $data, $args );
 
         $data    = $this->prepare_item_for_response( $data, $args );
         $success = true;
@@ -441,14 +415,14 @@ class Conversations extends Rest_Base
 	public function update_item( $request )
 	{
 		$args = $request->get_params();
-		$args = apply_filters( 'helpget_conversation_update_args', $args );
+		$args = apply_filters( 'helpgent_conversation_update_args', $args );
 
 		/**
          * Fires before updating an item
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_before_conversation_update', $args );
+        do_action( 'helpgent_before_conversation_update', $args );
 
         $data = Conversation_Model::update_item( $args );
 
@@ -461,7 +435,7 @@ class Conversations extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_after_conversation_update', $data, $args );
+        do_action( 'helpgent_after_conversation_update', $data, $args );
 
         $data    = $this->prepare_item_for_response( $data, $args );
         $success = true;

@@ -279,14 +279,14 @@ class Messages extends Rest_Base
         $args = $request->get_params();
 		$args['user_email'] = ! empty( $args['user_email'] ) ? $args['user_email'] : Helper\get_current_user_email();
 
-		$args = apply_filters( 'helpget_message_insert_args', $args );
+		$args = apply_filters( 'helpgent_message_insert_args', $args );
 
 		/**
          * Fires before creating an item
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_before_message_insert', $args );
+        do_action( 'helpgent_before_message_insert', $args );
 
         $data = Message_Model::create_item( $args );
 
@@ -299,7 +299,7 @@ class Messages extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_after_message_insert', $data, $args );
+        do_action( 'helpgent_after_message_insert', $data, $args );
 
         $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;
@@ -328,14 +328,14 @@ class Messages extends Rest_Base
 		}
 
 		$args = $request->get_params();
-		$args = apply_filters( 'helpget_message_update_args', $args );
+		$args = apply_filters( 'helpgent_message_update_args', $args );
 
 		/**
          * Fires before updating an item
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_before_message_update', $args );
+        do_action( 'helpgent_before_message_update', $args );
 
         $data = Message_Model::update_item( $args );
 
@@ -348,7 +348,7 @@ class Messages extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpget_after_message_update', $data, $args );
+        do_action( 'helpgent_after_message_update', $data, $args );
 
         $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;

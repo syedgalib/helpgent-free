@@ -362,10 +362,27 @@ class Message_Notification_Emails {
      */
     public static function email_html($subject, $message){
         $header = '';
+        $footer = '';
         $email_header_color = Helper\get_option('emailHeaderColor', '#6551f2');
         $allow_email_header = Helper\get_option('enableEmailHeader', true );
+        $allow_email_footer = Helper\get_option('enableEmailFooter', true );
         $author = "<a target='_blank' href='https://wpwax.com/'>wpWax</a>";
 
+        if ( ! $allow_email_footer ){
+            $footer = '<table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
+            <tr>
+                <td valign="top">
+                    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                        <tr>
+                            <td colspan="2" valign="middle" id="credit" style="display: flex; justify-content: center; align-items: center">
+                                ' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', '<span style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: 600;\'>Built with <i style="margin: 0 4px; position: relative; top: 2px;"> ❤️ </i> by %s</span>' ) ) ) ), $author ) . '
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>';
+        }
         if ( $allow_email_header ){
             $header = '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 20px 20px 0 0;\'>
                             <tr>
@@ -427,19 +444,7 @@ class Message_Notification_Emails {
                     <tr>
                         <td align="center" valign="top">
                             <!-- Footer -->
-                            <table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
-                                <tr>
-                                    <td valign="top">
-                                        <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                                            <tr>
-                                                <td colspan="2" valign="middle" id="credit" style="display: flex; justify-content: center; align-items: center">
-                                                    ' . sprintf( wp_kses_post( wpautop( wptexturize( apply_filters( 'wpwax_customer_support_app_email_footer_text', '<span style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: 600;\'>Built with <i style="margin: 0 4px; position: relative; top: 2px;"> ❤️ </i> by %s</span>' ) ) ) ), $author ) . '
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                            '. $footer .'
                             <!-- End Footer -->
                         </td>
                     </tr>

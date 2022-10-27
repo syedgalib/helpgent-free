@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core;
+namespace WPWaxCustomerSupportApp\Module\Core\Cron;
 
 use WPWaxCustomerSupportApp\Helper;
 
@@ -12,7 +12,6 @@ class Init {
      * @return void
      */
     public function __construct() {
-
         // Register Controllers
         $controllers = $this->get_controllers();
         Helper\Serve::register_services( $controllers );
@@ -26,12 +25,8 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Hooks\Init::class,
-            Setup\Init::class,
-            Asset\Init::class,
-            Admin\Init::class,
-            Rest_API\Init::class,
-            Cron\Init::class,
+            Setup::class,
+            Attachment::class,
         ];
     }
 

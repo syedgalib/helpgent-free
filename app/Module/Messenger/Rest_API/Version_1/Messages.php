@@ -6,7 +6,6 @@ use WP_Error;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Email\Message_Notification_Emails;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Messages_Seen_By_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Session_Term_Relationship_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Term_Model;
@@ -435,18 +434,12 @@ class Messages extends Rest_Base
         $data    = $this->prepare_message_item_for_response($data, $args);
         $success = true;
 
-        // Notify User if requested
-        if (isset($args['notify_user']) && Helper\is_truthy($args['notify_user'])) {
-            $user         = get_user_by('id', $args['user_id']);
-            $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
-            $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
+        /**
+         * Fires after creating an item
+         * @since 1.0
+         */
 
-            if (count($old_messages) < 2) {
-                Message_Notification_Emails::notify_first_session_created($user);
-            } else if (count($old_sessions) < 2) {
-                Message_Notification_Emails::notify_new_session_created($user);
-            }
-        }
+        do_action( 'helpget_after_message_inserted', $data, $args );
 
         return $this->response($success, $data);
     }

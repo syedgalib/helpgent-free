@@ -9329,7 +9329,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 --------------------------------*/
 
 
-// import { ReactSVG } from 'react-svg';
 
 
 
@@ -13223,12 +13222,11 @@ var Dropdown = function Dropdown(_ref) {
   var selectedItemText = selectedState.selectedItemText;
 
   /* initialize Form Data */
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-      return {
-        sessions: state.sessions.sessions
-      };
-    }),
-    sessions = _useSelector.sessions;
+  // const { sessions } = useSelector(state => {
+  //     return {
+  //         sessions: state.sessions.sessions,
+  //     };
+  // });
 
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();

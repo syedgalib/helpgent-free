@@ -133,8 +133,10 @@ const ChatboxForm = Styled.div`
                         fill: var(--primary-button-bg);
                     } */
                 }
-                @media only screen and (max-width: 1399px){
-                    min-height: 90px;
+                @media only screen and (max-width: 767px){
+                    height: min(80vh,70px);
+                    width: 60px;
+                    flex-basis: 60px;
                 }
                 svg{
                     width: 18px;
@@ -143,6 +145,11 @@ const ChatboxForm = Styled.div`
                     fill: var(--color-white);
                     path{
                         fill: var(--color-white);
+                    }
+                }
+                span{
+                    @media only screen and (max-width: 767px){
+                        display: none;
                     }
                 }
             }

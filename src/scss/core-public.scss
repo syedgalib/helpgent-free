@@ -1,5 +1,30 @@
 @import './core-global.scss';
 
+/* Avatar Position Style */
+#wpwax-vm-chatbox{
+    &.wpwax-vm-bottom-middle{
+        .wpwax-vm-chatbox-content{
+            right: 50%;
+            transform: translateX(70px);
+        }
+        .wpwax-vm-chatbox-screen{
+            right: 50%;
+            left: 50%;
+            margin-left: -215px;
+        }
+    }
+    &.wpwax-vm-bottom-left{
+        .wpwax-vm-chatbox-content{
+            right: auto;
+            left: 25px;
+        }
+        .wpwax-vm-chatbox-screen{
+            right: auto;
+            left: 25px;
+        }
+    }
+}
+
 /* Style For Public User Dashboard */
 #wpwax-vm-chatboard {
     padding: 0 25px 35px;

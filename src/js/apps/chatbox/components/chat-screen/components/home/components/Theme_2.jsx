@@ -193,7 +193,7 @@ function Theme_2() {
 
                                     return <a key={replayType.type} href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" onClick={( event ) => handleChatAction( event, replayType.type )}>
                                         { iconContent(replayType.type) }
-                                        { replayType.type === "screen_record" ? "Screen" : replayType.label }
+                                        <span>{ replayType.type === "screen_record" ? "Screen" : replayType.label }</span>
                                     </a>
                                 }
                             )

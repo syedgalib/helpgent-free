@@ -7,8 +7,7 @@
 
 --------------------------------*/
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-// import { ReactSVG } from 'react-svg';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';

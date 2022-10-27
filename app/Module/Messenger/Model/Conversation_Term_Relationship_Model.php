@@ -86,7 +86,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 			return [];
 		}
 
-        return $items[0];
+        return $items;
     }
 
     /**

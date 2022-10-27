@@ -5,6 +5,7 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
 class Conversation_Model extends DB_Model {
 
@@ -370,7 +371,9 @@ class Conversation_Model extends DB_Model {
         $default['title']      = '';
         $default['status']     = 'publish';
 
-        $args = Helper\merge_params( $default, $args );
+		$add_terms = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
+
+        $args = Helper\filter_params( $default, $args );
         $time = current_time( 'mysql', true );
 
         $args['created_at'] = $time;
@@ -392,9 +395,16 @@ class Conversation_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-		$message = self::get_item( $wpdb->insert_id );
+		$conversation_id = $wpdb->insert_id;
 
-		return $message;
+		// Add terms
+		if ( ! empty( $add_terms ) ) {
+			self::add_terms( $conversation_id, $add_terms );
+		}
+
+		$onversation = self::get_item( $conversation_id );
+
+		return $onversation;
     }
 
     /**
@@ -419,6 +429,9 @@ class Conversation_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+		$add_terms    = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
+		$remove_terms = ( ! empty( $args['remove_terms'] ) ) ? Helper\convert_string_to_int_array( $args['remove_terms'] ) : [];
+
         $args = Helper\filter_params( $old_data, $args );
 
         $time = current_time( 'mysql', true );
@@ -432,6 +445,16 @@ class Conversation_Model extends DB_Model {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+		// Add terms
+		if ( ! empty( $add_terms ) ) {
+			self::add_terms( $args['id'], $add_terms );
+		}
+
+		// Remove terms
+		if ( ! empty( $remove_terms ) ) {
+			self::remove_terms( $args['id'], $remove_terms );
+		}
 
         return self::get_item( $args['id'] );
     }
@@ -577,6 +600,77 @@ class Conversation_Model extends DB_Model {
 
 		return parent::_meta_key_exists( $object_id, $meta_key, self::$meta_table, self::$table_relation_column );
 
+	}
+
+	/**
+	 * Get Terms
+	 *
+	 * @param int $item_id
+	 *
+	 * @return array Terms
+	 */
+	public static function get_terms( $item_id ) {
+
+		return Conversation_Term_Relationship_Model::get_item( $item_id );
+
+	}
+
+	/**
+	 * Add terms to item
+	 *
+	 * @param int $item_id
+	 * @param array $terms
+	 *
+	 * @return void
+	 */
+	public static function add_terms( $item_id, $terms ) {
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		foreach( $terms as $term_id ) {
+
+			$term = Term_Model::get_item( $term_id );
+
+			if ( is_wp_error( $term ) ) {
+				continue;
+			}
+
+			Conversation_Term_Relationship_Model::create_item([
+				'conversation_id'  => $item_id,
+				'term_taxonomy_id' => $term['term_taxonomy_id'],
+			]);
+
+		}
+	}
+
+	/**
+	 * Remove terms from item
+	 *
+	 * @param int $item_id
+	 * @param array $terms
+	 *
+	 * @return void
+	 */
+	public static function remove_terms( $item_id, $terms ) {
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		foreach( $terms as $term_id ) {
+
+			$term = Term_Model::get_item( $term_id );
+
+			if ( is_wp_error( $term ) ) {
+				continue;
+			}
+
+			Conversation_Term_Relationship_Model::delete_item_where([
+				'conversation_id'  => $item_id,
+				'term_taxonomy_id' => $term['term_taxonomy_id'],
+			]);
+
+		}
 	}
 
 }

@@ -156,13 +156,13 @@ function filter_params( $default = [], $args = [] )
 function merge_params($default = [], $args = [])
 {
 
-	foreach ($default as $key => $value) {
+	foreach ($default as $default_key => $value) {
 
-		if (!isset($args[$key])) {
+		if (  ! in_array( $default_key, array_keys( $args ) ) ) {
 			continue;
 		}
 
-		$default[$key] = $args[$key];
+		$default[ $default_key ] = $args[ $default_key ];
 	}
 
 	return $default;
@@ -274,8 +274,8 @@ function swap_array_keys($list = [], $swap_map = [])
  */
 function convert_string_to_int_array($string, $separator = ',', $remove_non_int_items = true)
 {
-	$list = convert_string_to_array($string, $separator);
-	$list = parse_array_items_to_int($list, $remove_non_int_items);
+	$list = convert_string_to_array( $string, $separator );
+	$list = parse_array_items_to_int( $list, $remove_non_int_items );
 
 	return $list;
 }
@@ -358,11 +358,10 @@ function format_sql_date_time_as_array($date_time = '')
  */
 function convert_string_to_array($string, $separator = ',')
 {
+	$string = trim( $string, ',\s' );
+	$list   = explode( $separator, $string );
 
-	$string = trim($string, ',\s');
-	$list   = explode($separator, $string);
-
-	if (!is_array($list)) {
+	if ( ! is_array( $list ) ) {
 		return [];
 	}
 

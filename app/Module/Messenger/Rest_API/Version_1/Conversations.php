@@ -81,17 +81,15 @@ class Conversations extends Rest_Base
                         ],
 					],
 				],
-			]
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->rest_base . '/(?P<id>[\d]+)',
-			[
+				[
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => [ $this, 'update_item' ],
+					'permission_callback' => [ $this, 'check_auth_permission' ],
+				],
 				[
 					'methods'             => \WP_REST_Server::DELETABLE,
-					'callback'            => [$this, 'delete_item'],
-					'permission_callback' => [$this, 'check_auth_permission'],
+					'callback'            => [ $this, 'delete_item' ],
+					'permission_callback' => [ $this, 'check_auth_permission' ],
 				],
 			]
 		);
@@ -155,7 +153,7 @@ class Conversations extends Rest_Base
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
-						'term_id' => [
+						'terms' => [
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
@@ -177,7 +175,7 @@ class Conversations extends Rest_Base
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
-						'term_id' => [
+						'terms' => [
 							'required'          => true,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
@@ -444,7 +442,7 @@ class Conversations extends Rest_Base
 	}
 
 	/**
-	 * Create Item
+	 * Update Item
 	 *
 	 * @param $request
 	 * @return mixed
@@ -582,34 +580,6 @@ class Conversations extends Rest_Base
 	}
 
 	/**
-	 * Get terms data by IDs.
-	 *
-	 * @param array $user_ids
-	 *
-	 * @return array Users Data
-	 */
-	protected function get_terms_data_by_ids( $term_ids = [] )
-	{
-		if ( empty( $term_ids ) ) {
-			return [];
-		}
-
-		$terms = [];
-
-		foreach ( $term_ids as $term_id ) {
-			$term = Term_Model::get_item( $term_id );
-
-			if ( is_wp_error( $term ) ) {
-				continue;
-			}
-
-			$terms[] = $term;
-		}
-
-		return $terms;
-	}
-
-	/**
 	 * Update Terms
 	 *
 	 * @param $request
@@ -621,9 +591,9 @@ class Conversations extends Rest_Base
 
 		$default = [];
 
-		$default['id']              = '';
-		$default['add_term_ids']    = '';
-		$default['remove_term_ids'] = '';
+		$default['id']           = '';
+		$default['add_terms']    = '';
+		$default['remove_terms'] = '';
 
 		$args = Helper\merge_params( $default, $args );
 
@@ -638,110 +608,27 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
-		$add_terms    = ( ! empty( $args['add_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['add_term_ids'] ) : [];
-		$remove_terms = ( ! empty( $args['remove_term_ids'] ) ) ? Helper\convert_string_to_int_array( $args['remove_term_ids'] ) : [];
+		$add_terms    = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
+		$remove_terms = ( ! empty( $args['remove_terms'] ) ) ? Helper\convert_string_to_int_array( $args['remove_terms'] ) : [];
 
 		if ( empty( $add_terms ) && empty( $remove_terms ) ) {
 			$message = __('Nothing to add or remove.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
 		}
 
-		$data = [
-			'add_terms_status'    => [],
-			'remove_terms_status' => [],
-		];
-
 		// Add Terms
 		if ( ! empty( $add_terms ) ) {
-			$data['add_terms_status'] = $this->add_conversation_terms( $args['id'], $add_terms );
+			Conversation_Model::add_terms( $args['id'], $add_terms );
 		}
 
 		// Remove Terms
 		if ( ! empty( $remove_terms ) ) {
-			$data['remove_terms_status'] = $this->remove_conversation_terms( $args['id'], $remove_terms );
+			Conversation_Model::remove_terms( $args['id'], $remove_terms );
 		}
 
-		$conversation_terms_args = [
-			'where' => [
-				'conversation_id' =>  $args['id'],
-			],
-		];
+		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
 
-		$data['current_terms'] = Conversation_Term_Relationship_Model::get_items( $conversation_terms_args );
-
-		return $this->response( true, $data );
-	}
-
-	/**
-	 * Add Conversation Terms
-	 *
-	 * @param string $conversation_id
-	 * @param array $term_ids
-	 *
-	 * @return array Status
-	 */
-	public function add_conversation_terms( $conversation_id = '', $term_ids = [] )
-	{
-		$status = [
-			'failed'  => [],
-			'success' => [],
-		];
-
-		if ( empty( $conversation_id ) || empty( $term_ids ) ) {
-			return $status;
-		}
-
-		foreach ( $term_ids as $term_id ) {
-			$create_status = Conversation_Term_Relationship_Model::create_item([
-				'conversation_id' => $conversation_id,
-				'term_id'         => $term_id,
-			]);
-
-			if ( is_wp_error( $create_status ) ) {
-				$status['failed'][] = $term_id;
-				continue;
-			}
-
-			$status['success'][] = $term_id;
-		}
-
-		return $status;
-	}
-
-	/**
-	 * Remove Conversation Terms
-	 *
-	 * @param string $conversation_id
-	 * @param array $term_ids
-	 *
-	 * @return array Status
-	 */
-	public function remove_conversation_terms( $conversation_id = '', $term_ids = [] )
-	{
-		$status = [
-			'failed'  => [],
-			'success' => [],
-		];
-
-		if ( empty( $conversation_id ) || empty( $term_ids ) ) {
-			return $status;
-		}
-
-		foreach ( $term_ids as $term_id ) {
-			$delete_status = Conversation_Term_Relationship_Model::delete_item_where([
-				'conversation_id'  => $conversation_id,
-				'term_taxonomy_id' => $term_id,
-			]);
-
-			if ( is_wp_error( $delete_status ) ) {
-				$status['failed'][] = $term_id;
-				continue;
-			}
-
-			$status['success'][] = $term_id;
-		}
-
-		return $status;
+		return $this->response( true, $terms );
 	}
 
 	/**
@@ -757,7 +644,7 @@ class Conversations extends Rest_Base
 		$default = [];
 
 		$default['conversation_id'] = '';
-		$default['term_id']         = '';
+		$default['terms']           = '';
 
 		$args = Helper\merge_params($default, $args);
 
@@ -772,39 +659,23 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
-		if ( empty( $args['term_id'] ) ) {
-			$message = __('The term ID is required.', 'wpwax-customer-support-app');
+		if ( empty( $args['terms'] ) ) {
+			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
 		}
 
-		$terms = Helper\convert_string_to_int_array( $args['term_id'] );
+		$terms = Helper\convert_string_to_int_array( $args['terms'] );
 
 		if ( empty( $terms ) ) {
-			$message = __('The term ID is required.', 'wpwax-customer-support-app');
+			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
 		}
 
-		$data = [];
+		Conversation_Model::add_terms( $args['conversation_id'], $terms );
 
-		$data['failed']  = [];
-		$data['success'] = [];
+		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
 
-		foreach ( $terms as $term_id ) {
-
-			$status = Conversation_Term_Relationship_Model::create_item([
-				'conversation_id' => $args['conversation_id'],
-				'term_id'    => $term_id,
-			]);
-
-			if ( is_wp_error( $status ) ) {
-				$data['failed'][] = $term_id;
-				continue;
-			}
-
-			$data['success'][] = $term_id;
-		}
-
-		return $this->response( true, $data);
+		return $this->response( true, $terms);
 	}
 
 	/**
@@ -820,9 +691,9 @@ class Conversations extends Rest_Base
 		$default = [];
 
 		$default['conversation_id'] = '';
-		$default['term_id']         = '';
+		$default['terms']           = '';
 
-		$args = Helper\merge_params( $default, $args );
+		$args = Helper\merge_params($default, $args);
 
 		if ( empty( $args['conversation_id'] ) ) {
 			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
@@ -835,38 +706,23 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
-		if ( empty( $args['term_id'] ) ) {
-			$message = __('The term ID is required.', 'wpwax-customer-support-app');
-			return new WP_Error(403, $message);
+		if ( empty( $args['terms'] ) ) {
+			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			return new WP_Error( 403, $message );
 		}
 
-		$terms = Helper\convert_string_to_int_array( $args['term_id'] );
+		$terms = Helper\convert_string_to_int_array( $args['terms'] );
 
 		if ( empty( $terms ) ) {
-			$message = __('The term ID is required.', 'wpwax-customer-support-app');
-			return new WP_Error(403, $message);
+			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			return new WP_Error( 403, $message );
 		}
 
-		$data = [];
+		Conversation_Model::remove_terms( $args['conversation_id'], $terms );
 
-		$data['failed']  = [];
-		$data['success'] = [];
+		$terms = Conversation_Model::get_terms( $args['conversation_id'] );
 
-		foreach ( $terms as $term_id ) {
-			$status = Conversation_Term_Relationship_Model::delete_item_where([
-				'conversation_id'  => $args['conversation_id'],
-				'term_taxonomy_id' => $term_id,
-			]);
-
-			if ( is_wp_error( $status ) ) {
-				$data['failed'][] = $term_id;
-				continue;
-			}
-
-			$data['success'][] = $term_id;
-		}
-
-		return $this->response( true, $data );
+		return $this->response( true, $terms);
 	}
 
 	/**

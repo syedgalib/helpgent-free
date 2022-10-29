@@ -6,6 +6,7 @@ use \WP_REST_Controller;
 
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
 
 abstract class Base extends WP_REST_Controller {
 
@@ -161,16 +162,25 @@ abstract class Base extends WP_REST_Controller {
         }
 
 		$token = $request->get_header( 'Helpgent-Token' );
+		$has_valid_token = false;
 
 		if ( ! empty( $token ) ) {
-			return $this->has_valid_token( $token );
+			$has_valid_token = $this->has_valid_token( $token );
+
+			if ( is_wp_error( $has_valid_token ) ) {
+				return $has_valid_token;
+			}
         }
 
-        if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
+        if ( ! $has_valid_token && ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }
 
-        if ( ! current_user_can( 'wpwax_vm_client' ) && ! current_user_can( 'edit_posts' ) ) {
+		$is_admin  = Helper\is_current_user_admin();
+		$is_client = current_user_can( 'wpwax_vm_client' );
+		$is_guest  =  $has_valid_token;
+
+        if ( ! in_array( true, [ $is_admin, $is_client, $is_guest ] ) ) {
             return $this->error_auth_check_failed();
         }
 
@@ -192,16 +202,21 @@ abstract class Base extends WP_REST_Controller {
         }
 
 		$token = $request->get_header( 'Helpgent-Token' );
+		$has_valid_token = false;
 
 		if ( ! empty( $token ) ) {
-			return $this->has_valid_token( $token );
+			$has_valid_token = $this->has_valid_token( $token );
+
+			if ( is_wp_error( $has_valid_token ) ) {
+				return $has_valid_token;
+			}
         }
 
-        if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
+		if ( ! $has_valid_token && ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }
 
-        if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! Helper\is_current_user_admin() ) {
             return $this->error_admin_check_failed();
         }
 

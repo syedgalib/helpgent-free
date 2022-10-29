@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
+import useSettingsAPI from 'API/useSettingsAPI.js';
 import Sidebar from "./components/Sidebar.jsx";
 import SettingContent from "./components/SettingContent.jsx";
 import File from 'Assets/svg/icons/file.svg';
@@ -9,6 +10,7 @@ import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
+    const { getItems: getSettingOptions, updateItem: updateSettings } = useSettingsAPI();
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
         options: {
@@ -50,7 +52,7 @@ const SettingBox = () => {
         });
 
 		const fetchSettings = async ()=>{
-            const fetchSettingsResponse = await apiService.getAll('/settings')
+            const fetchSettingsResponse = await getSettingOptions()
             return fetchSettingsResponse;
         }
 
@@ -58,7 +60,7 @@ const SettingBox = () => {
             .then( fetchSettingsResponse => {
                 setSettingContentState({
                     ...settingContentState,
-                    options: fetchSettingsResponse.data.data,
+                    options: fetchSettingsResponse.data,
                     loading: false,
                 });
             })
@@ -77,6 +79,7 @@ const SettingBox = () => {
             loading: true,
         });
         const saveSettings = async ()=>{
+            updateSettings(settingContentState)
             const saveSettingsResponse = await apiService.dataAdd(`/settings`, settingContentState)
             return saveSettingsResponse;
         }

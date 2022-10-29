@@ -34,14 +34,29 @@ class Auth_Token_Model extends DB_Model {
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
-		$limit  = $args['limit'];
-		$offset = ( $limit * $args['page'] ) - $limit;
+		$pagination = '';
 
-		$where = ' WHERE 1=1';
+		if ( $args['limit'] > -1 ) {
+			$limit      = $args['limit'];
+			$offset     = ( $limit * $args['page'] ) - $limit;
+			$pagination = " LIMIT $limit OFFSET $offset";
+		}
 
-		$select = "SELECT * FROM $table";
+		$table_field_map = [
+			'email'      => 'token',
+			'token'      => 'token',
+			'expires_at' => 'token',
+		];
 
-		$query = $select . $where . " LIMIT $limit OFFSET $offset";
+		$where_query = ( ! empty( $args['where'] ) ) ? $args['where'] : [];
+
+		$where = self::prepare_where_query_v2( $where_query, $table_field_map );
+
+		$select = "SELECT * FROM $table as token";
+
+		$query = $select . $where . $pagination;
+
+		file_put_contents( WPWAX_CUSTOMER_SUPPORT_APP_BASE . '__log/token.sql', $query );
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -213,11 +228,23 @@ class Auth_Token_Model extends DB_Model {
             return new WP_Error( 403, $message );
 		}
 
+		// Create new token
+		$token = self::generate_token();
+
+		$existing_token = self::get_items([
+			'limit' => 1,
+			'where' => [
+				'token' => $token,
+			]
+		]);
+
+		if ( ! empty( $existing_token ) ) {
+			$message = __( 'Something went wrong, please try again.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
 		// Delete old token
 		self::delete_item( $email );
-
-		// Create new token
-		$token      = self::generate_token();
 		$expires_at = self::get_expiry_date();
 
 		$status = self::create_item([
@@ -269,6 +296,28 @@ class Auth_Token_Model extends DB_Model {
 
 		return false;
 
+	}
+
+	/**
+	 * Get User Email By Token
+	 *
+	 * @param string $token
+	 */
+	public static function get_user_email_by_token( $token = '' ) {
+
+		$existing_token = self::get_items([
+			'limit' => 1,
+			'where' => [
+				'token' => $token,
+			]
+		]);
+
+		if ( empty( $existing_token ) ) {
+			return false;
+		}
+
+
+		return $existing_token[0]['email'];
 	}
 
 	/**

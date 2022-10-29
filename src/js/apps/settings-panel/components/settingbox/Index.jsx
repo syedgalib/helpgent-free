@@ -10,7 +10,7 @@ import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
-    const { getItems: getSettingOptions, updateItem: updateForm } = useFormBuilderAPI();
+    const { getItems: getSettingOptions, updateItem: updateSettings } = useSettingsAPI();
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
         options: {
@@ -52,16 +52,15 @@ const SettingBox = () => {
         });
 
 		const fetchSettings = async ()=>{
-            const fetchSettingsResponse = await apiService.getAll('/settings')
+            const fetchSettingsResponse = await getSettingOptions()
             return fetchSettingsResponse;
         }
 
         fetchSettings()
             .then( fetchSettingsResponse => {
-                console.log(fetchSettingsResponse)
                 setSettingContentState({
                     ...settingContentState,
-                    options: fetchSettingsResponse.data.data,
+                    options: fetchSettingsResponse.data,
                     loading: false,
                 });
             })
@@ -80,6 +79,7 @@ const SettingBox = () => {
             loading: true,
         });
         const saveSettings = async ()=>{
+            updateSettings(settingContentState)
             const saveSettingsResponse = await apiService.dataAdd(`/settings`, settingContentState)
             return saveSettingsResponse;
         }

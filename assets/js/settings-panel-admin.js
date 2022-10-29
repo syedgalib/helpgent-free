@@ -6916,9 +6916,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var SettingBox = function SettingBox() {
-  var _useFormBuilderAPI = useFormBuilderAPI(),
-    getSettingOptions = _useFormBuilderAPI.getItems,
-    updateForm = _useFormBuilderAPI.updateItem;
+  var _useSettingsAPI = (0,API_useSettingsAPI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    getSettingOptions = _useSettingsAPI.getItems,
+    updateSettings = _useSettingsAPI.updateItem;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       contentKey: "general",
       options: {
@@ -6965,7 +6965,7 @@ var SettingBox = function SettingBox() {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].getAll('/settings');
+                return getSettingOptions();
               case 2:
                 fetchSettingsResponse = _context.sent;
                 return _context.abrupt("return", fetchSettingsResponse);
@@ -6981,9 +6981,8 @@ var SettingBox = function SettingBox() {
       };
     }();
     fetchSettings().then(function (fetchSettingsResponse) {
-      console.log(fetchSettingsResponse);
       setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
-        options: fetchSettingsResponse.data.data,
+        options: fetchSettingsResponse.data,
         loading: false
       }));
     }).catch(function (error) {
@@ -7004,12 +7003,13 @@ var SettingBox = function SettingBox() {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                updateSettings(settingContentState);
+                _context2.next = 3;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].dataAdd("/settings", settingContentState);
-              case 2:
+              case 3:
                 saveSettingsResponse = _context2.sent;
                 return _context2.abrupt("return", saveSettingsResponse);
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }

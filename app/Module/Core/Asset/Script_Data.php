@@ -8,7 +8,7 @@ class Script_Data {
 
 	public static function get_base_data() {
 		return [
-			'apiEndpoint'                => rest_url( 'wpwax_cs/v1' ),
+			'apiEndpoint'                => rest_url( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '/v1' ),
 			'apiNonce'                   => wp_create_nonce( 'wp_rest' ),
 			'wp_pages'                   => Helper\get_wp_pages(),
 			'admin_roles'                => Helper\get_admin_roles(),

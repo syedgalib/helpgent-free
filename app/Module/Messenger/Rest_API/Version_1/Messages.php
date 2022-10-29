@@ -197,7 +197,7 @@ class Messages extends Rest_Base
         }
 
 		// Filter Client Messages
-		if ( current_user_can( 'wpwax_vm_client' ) ) {
+		if ( ! Helper\is_current_user_admin() ) {
 			// Get All Client Conversations
 			$client_conversations = Conversation_Model::get_items([
 				'where' => [
@@ -281,6 +281,13 @@ class Messages extends Rest_Base
 
 		$args = apply_filters( 'helpgent_message_insert_args', $args );
 
+		$conversation_id = ( ! empty( $args['conversation_id'] ) ) ? $args['conversation_id'] : 0;
+
+		// Validate Client Capability
+		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this action.' ) );
+		}
+
 		/**
          * Fires before creating an item
 		 *
@@ -322,8 +329,8 @@ class Messages extends Rest_Base
 			return $old_data;
 		}
 
-		// Validate Client User Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
+		// Validate Capability
+		if ( ! Helper\is_current_user_admin() || ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
 		}
 
@@ -372,7 +379,7 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( current_user_can( 'wpwax_vm_client' ) && ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
+		if ( ! Helper\is_current_user_admin() || ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
 			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
 		}
 
@@ -393,29 +400,25 @@ class Messages extends Rest_Base
 	 */
 	public function can_current_user_view_conversation( $conversation_id ) {
 
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( Helper\is_current_user_admin() ) {
 			return true;
 		}
 
-		if ( current_user_can( 'wpwax_vm_client' ) ) {
-			// Get All Client Conversations
-			$client_conversations = Conversation_Model::get_items([
-				'where' => [
-					'created_by' => Helper\get_current_user_email(),
-				]
-			]);
+		// Get All Client Conversations
+		$client_conversations = Conversation_Model::get_items([
+			'where' => [
+				'created_by' => Helper\get_current_user_email(),
+			]
+		]);
 
-			if ( empty( $client_conversations ) ) {
-				return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
-			}
-
-			$client_conversations = array_map( function( $conversations ) { return $conversations['id']; }, $client_conversations );
-			$can_view_message     = in_array( $conversation_id, $client_conversations );
-
-			return $can_view_message;
+		if ( empty( $client_conversations ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this action.' ) );
 		}
 
-		return false;
+		$client_conversations = array_map( function( $conversations ) { return $conversations['id']; }, $client_conversations );
+		$can_view_message     = in_array( $conversation_id, $client_conversations );
+
+		return $can_view_message;
 	}
 
     /**

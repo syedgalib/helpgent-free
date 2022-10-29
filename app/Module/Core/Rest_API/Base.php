@@ -173,6 +173,8 @@ abstract class Base extends WP_REST_Controller {
 					[ 'status' => rest_authorization_required_code() ]
 				);
 			}
+
+			return true;
         }
 
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactSVG from 'react-inlinesvg';
 import apiService from 'apiService/Service.js';
+import useSettingsAPI from 'API/useSettingsAPI.js';
 import Sidebar from "./components/Sidebar.jsx";
 import SettingContent from "./components/SettingContent.jsx";
 import File from 'Assets/svg/icons/file.svg';
@@ -9,6 +10,7 @@ import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
+    const { getItems: getSettingOptions, updateItem: updateForm } = useFormBuilderAPI();
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
         options: {
@@ -56,6 +58,7 @@ const SettingBox = () => {
 
         fetchSettings()
             .then( fetchSettingsResponse => {
+                console.log(fetchSettingsResponse)
                 setSettingContentState({
                     ...settingContentState,
                     options: fetchSettingsResponse.data.data,

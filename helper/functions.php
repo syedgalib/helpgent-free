@@ -5,6 +5,7 @@ namespace WPWaxCustomerSupportApp\Base\Helper;
 use WP_Error;
 use WP_Query;
 use WP_User;
+use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 
@@ -895,8 +896,13 @@ function get_mime_types($filter_type = '', $return_type = '')
  */
 function get_current_user_email()
 {
+	global $helpgent_guest_user;
+
 	$current_user = get_user_by( 'id', get_current_user_id() );
-	return ( ! empty( $current_user ) ) ? $current_user->user_email : '';
+	$current_user = ( ! empty( $current_user ) ) ? $current_user->user_email : '';
+	$current_user = ( empty( $current_user ) && ! empty( $helpgent_guest_user ) ) ? $helpgent_guest_user : $current_user;
+
+	return $current_user;
 }
 
 /**
@@ -1072,6 +1078,17 @@ function prepare_user_data($user, $fields = [])
 	}
 
 	return $user_info;
+}
+
+/**
+ * Check if current user is admin
+ *
+ * @param WP_User $user
+ * @return bool
+ */
+function is_current_user_admin()
+{
+	return is_user_admin( get_current_user_email() );
 }
 
 /**

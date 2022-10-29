@@ -163,18 +163,7 @@ abstract class Base extends WP_REST_Controller {
 		$token = $request->get_header( 'Helpgent-Token' );
 
 		if ( ! empty( $token ) ) {
-
-			$email = Auth_Token_Model::get_user_email_by_token( $token );
-
-			if ( empty( $email ) ) {
-				return new \WP_Error(
-					'auth_check_failed',
-					__( 'You are not allowed to perform this operation.' ),
-					[ 'status' => rest_authorization_required_code() ]
-				);
-			}
-
-			return true;
+			return $this->has_valid_token( $token );
         }
 
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
@@ -202,6 +191,12 @@ abstract class Base extends WP_REST_Controller {
             return true;
         }
 
+		$token = $request->get_header( 'Helpgent-Token' );
+
+		if ( ! empty( $token ) ) {
+			return $this->has_valid_token( $token );
+        }
+
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }
@@ -212,6 +207,44 @@ abstract class Base extends WP_REST_Controller {
 
         return true;
     }
+
+	/**
+	 * Check if has valid token
+	 *
+	 * @param string $token
+	 * @return bool|WP_Error Status
+	 */
+	public function has_valid_token( $token = '' ) {
+		$email = Auth_Token_Model::get_user_email_by_token( $token );
+
+		if ( empty( $email ) ) {
+			return new \WP_Error(
+				'auth_check_failed',
+				__( 'You are not allowed to perform this operation.' ),
+				[ 'status' => rest_authorization_required_code() ]
+			);
+		}
+
+		$has_valid_token = Auth_Token_Model::has_valid_token( $email, $token );
+
+		if ( ! $has_valid_token ) {
+			return new \WP_Error(
+				'auth_check_failed',
+				__( 'You are not allowed to perform this operation.' ),
+				[ 'status' => rest_authorization_required_code() ]
+			);
+		}
+
+		$wp_user = get_user_by( 'email', $email );
+
+		if ( ! empty( $wp_user ) ) {
+			$GLOBALS['current_user'] = $wp_user;
+		} else {
+			$GLOBALS['helpgent_guest_user'] = $email;
+		}
+
+		return true;
+	}
 
     /**
      * Convert string to int array

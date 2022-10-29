@@ -46,7 +46,7 @@ class Conversations extends Rest_Base
 				[
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => [ $this, 'create_item' ],
-					'permission_callback' => [ $this, 'check_auth_permission' ],
+					'permission_callback' => [ $this, 'check_guest_permission' ],
 					'args'                => [
 						'timezone'    => [
                             'default'           => '',
@@ -246,10 +246,8 @@ class Conversations extends Rest_Base
 		$args['where'] = $where;
 
 		// Validate Capability
-		if ( current_user_can( 'wpwax_vm_client' ) ) {
-			$get_current_user = get_userdata( get_current_user_id() );
-			$email = ( ! empty( $get_current_user ) ) ? $get_current_user->user_email : '';
-			$args['where']['created_by'] = $email;
+		if ( ! Helper\is_current_user_admin() ) {
+			$args['where']['created_by'] = Helper\get_current_user_email();
 		}
 
 		if ( ! empty( $args['search'] ) ) {
@@ -414,6 +412,11 @@ class Conversations extends Rest_Base
 	 */
 	public function update_item( $request )
 	{
+		// Validate Capability
+		if ( ! Helper\is_current_user_admin() ) {
+			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'wpwax-customer-support-app' ) );
+		}
+
 		$args = $request->get_params();
 		$args = apply_filters( 'helpgent_conversation_update_args', $args );
 
@@ -485,6 +488,11 @@ class Conversations extends Rest_Base
 		$request->set_param( 'limit', 1 );
 		$request->set_param( 'id', $request->get_param('id') );
 
+		// Validate Capability
+		if ( ! $this->can_current_user_view_conversation(  $request->get_param('id') ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'wpwax-customer-support-app' ) );
+		}
+
 		$conversation_data = $this->get_items( $request, false );
 
 		if ( is_wp_error( $conversation_data) ) {
@@ -514,7 +522,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
+		if ( ! $this->can_current_user_edit_conversation() ) {
 			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
 		}
 
@@ -573,6 +581,11 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
+		// Validate Capability
+		if ( ! $this->can_current_user_edit_conversation() ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+		}
+
 		$add_terms    = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
 		$remove_terms = ( ! empty( $args['remove_terms'] ) ) ? Helper\convert_string_to_int_array( $args['remove_terms'] ) : [];
 
@@ -624,6 +637,11 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
+		// Validate Capability
+		if ( ! $this->can_current_user_edit_conversation() ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+		}
+
 		if ( empty( $args['terms'] ) ) {
 			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
@@ -671,6 +689,11 @@ class Conversations extends Rest_Base
 			return $conversation_exists;
 		}
 
+		// Validate Capability
+		if ( ! $this->can_current_user_edit_conversation() ) {
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+		}
+
 		if ( empty( $args['terms'] ) ) {
 			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
 			return new WP_Error( 403, $message );
@@ -708,7 +731,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $args['id'] ) ) {
+		if ( ! $this->can_current_user_edit_conversation() ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
@@ -736,7 +759,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $args['id'] ) ) {
+		if ( ! $this->can_current_user_edit_conversation() ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
@@ -754,21 +777,26 @@ class Conversations extends Rest_Base
 	 */
 	public function can_current_user_view_conversation( $conversation_id ) {
 
-		if ( current_user_can( 'edit_posts' ) ) {
+		if ( Helper\is_current_user_admin() ) {
 			return true;
 		}
 
-		if ( current_user_can( 'wpwax_vm_client' ) ) {
-			$conversation = Conversation_Model::get_item( $conversation_id );
+		$conversation = Conversation_Model::get_item( $conversation_id );
 
-			if ( is_wp_error( $conversation ) ) {
-				return false;
-			}
-
-			return $conversation['created_by'] === Helper\get_current_user_email();
+		if ( is_wp_error( $conversation ) ) {
+			return false;
 		}
 
-		return false;
+		return $conversation['created_by'] === Helper\get_current_user_email();
+	}
+
+	/**
+	 * Can Current User Edit Session
+	 *
+	 * @return bool Status
+	 */
+	public function can_current_user_edit_conversation() {
+		return Helper\is_current_user_admin();
 	}
 
 	/**
@@ -783,7 +811,7 @@ class Conversations extends Rest_Base
 
 		if ( is_wp_error( $conversation ) ) {
 			$message = __('The conversation does not exist.', 'wpwax-customer-support-app');
-			return new WP_Error(403, $message);
+			return new WP_Error( 403, $message );
 		}
 
 		return true;

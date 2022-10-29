@@ -68,33 +68,6 @@ const SettingContent = props => {
                 {
                     contentState.contentKey === "email_template" ? <EmailTemplate contentState={contentState} setContentState={setContentState} /> : null
                 }
-                
-                {/* {
-
-                    SettingContentData.filter(item => item.key == "language")[0].content.map((settingItem, index) => {
-                        return (
-                            <div className="wpwax-vm-settings__single" key={index}>
-                                <h4 className="wpwax-vm-settings__single--label">Receive email upon message submission</h4>
-                                <div className="wpwax-vm-settings__single--element">
-                                    {
-                                        settingItem.component
-                                    }
-                                </div>
-                            </div>
-                        )
-                    })
-                } */}
-                {/* {
-                    SettingContentData.filter(item => item.key == contentState.contentKey)[0].content.map((settingItem, index) => {
-                        return (
-                            
-                        )
-                    })
-                } */}
-                {/* <div className="wpwax-vm-setting-preview-wrap">
-                    <span className="wpwax-vm-indicator"><ReactSVG src={handDown} /> <span className="wpwax-vm-indicator__text">See, what would it look like!</span> </span>
-                    <ChatBoxPreview />
-                </div> */}
             </form>
 
         </SettingContentWrap>

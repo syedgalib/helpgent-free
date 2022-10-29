@@ -5,12 +5,47 @@ import Sidebar from "./components/Sidebar.jsx";
 import SettingContent from "./components/SettingContent.jsx";
 import File from 'Assets/svg/icons/file.svg';
 import QuestonCircle from 'Assets/svg/icons/question-circle.svg';
+import globe from 'Assets/svg/icons/globe.svg';
+import envelope from 'Assets/svg/icons/envelope.svg';
+import slider from 'Assets/svg/icons/slider.svg';
+import link from 'Assets/svg/icons/link.svg';
 import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { SetingBoxWrap } from './Style';
 
 const SettingBox = () => {
+    const settingsNav = [
+        {
+            label: "General",
+            path: "general",
+            navId: "wpwax-vm-general-settings",
+            icon: <ReactSVG src={slider} />
+        },
+        {
+            label: "Email",
+            path: "email_general",
+            navId: "wpwax-vm-email-settings",
+            icon: <ReactSVG src={envelope} />,
+            iconClosed: <span className="dashicons dashicons-arrow-down"></span>,
+            iconOpened: <span className="dashicons dashicons-arrow-up"></span>,
+    
+            subNav: [
+                {
+                    label: "Email General",
+                    path: "email_general"
+                },
+                {
+                    label: "Email Template",
+                    path: "email_template"
+                }
+            ]
+        }
+    ];
+
+    const totalNav = settingsNav.length;
+
     const [settingContentState, setSettingContentState] = useState({
         contentKey: "general",
+        navParent: "general",
         options: {
             chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
@@ -97,6 +132,12 @@ const SettingBox = () => {
             });
     }
 
+    const breadcrumbNav = settingsNav.filter(item=> item.path === settingContentState.navParent);
+    let breadcrumbSubnav;
+    if(breadcrumbNav[0].subNav){
+        breadcrumbSubnav = breadcrumbNav[0].subNav.filter(item => item.path === settingContentState.contentKey)
+    }
+
     return (
         <SetingBoxWrap>
             <div className="wpwax-vm-settings-top">
@@ -116,25 +157,37 @@ const SettingBox = () => {
             <div className="wpwax-vm-seetings-box">
                 <div className="wpwax-vm-seetings-box__header">
                     <div className="wpwax-vm-seetings-box__breadcrumb">
+                        
                         <ul>
-                            <li><a href="#">Email <span className="dashicons dashicons-arrow-right-alt2"></span></a></li>
-                            <li><a href="#" className="wpwax-vm-active">{getPath()}</a></li>
+                            {
+                                // !breadcrumbNav[0].subNav ? <li><a href="#" >{breadcrumbNav.label} </a></li> : null
+                                breadcrumbNav.map((item,i)=> {
+                                    return(
+                                        <li key="i"><a href="#" >{item.label} </a></li>
+                                    )
+                                })
+                            }
+                            {
+                                breadcrumbSubnav ?
+                                breadcrumbSubnav.map((item,i)=> {
+                                    return(
+                                        <li key={i}><span className="dashicons dashicons-arrow-right-alt2"></span><a href="#" className={item.path === settingContentState.contentKey ? "wpwax-vm-active": nyll}> {item.label} </a></li>
+                                    )
+                                }) : null
+                            }
                         </ul>
+
                     </div>
                     <div className="wpwax-vm-seetings-box__actions">
-                        {/* <div className="wpwax-vm-seetings-box-search">
-                            <input type="text" name="wpwax-vm-settings-search" id="wpwax-vm-settings-search" placeholder="Search settings here..." />
-                        </div> */}
                         <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={handleSaveSetting}>Save Changes</a>
                     </div>
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
-                    <Sidebar contentState={settingContentState} setContentState={setSettingContentState} />
+                    <Sidebar contentState={settingContentState} setContentState={setSettingContentState} nav={settingsNav} />
 
                     <div className={settingContentState.loading ? "wpwax-settings-content-box wpwax-vm-loder-active" : "wpwax-settings-content-box"}>
                         {
-                            settingContentState.loading ? <LoadingSpinDot /> : <SettingContent contentState={settingContentState} setContentState={setSettingContentState} />
-
+                            settingContentState.loading ? <LoadingSpinDot /> : <SettingContent contentState={settingContentState} setContentState={setSettingContentState}/>
                         }
                     </div>
                 </div>

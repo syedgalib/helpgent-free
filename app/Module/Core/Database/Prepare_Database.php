@@ -38,7 +38,7 @@ class Prepare_Database {
 			token varchar(255) NOT NULL,
 			expires_at datetime NULL,
 
-			PRIMARY KEY (email),
+			PRIMARY KEY (email,token),
             KEY token (token)
 		) $collate;
 

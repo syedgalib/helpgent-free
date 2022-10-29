@@ -5,6 +5,7 @@ namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
 use \WP_REST_Controller;
 
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 
 abstract class Base extends WP_REST_Controller {
 
@@ -157,6 +158,21 @@ abstract class Base extends WP_REST_Controller {
 
         if ( $skip_permission ) {
             return true;
+        }
+
+		$token = $request->get_header( 'Helpgent-Token' );
+
+		if ( ! empty( $token ) ) {
+
+			$email = Auth_Token_Model::get_user_email_by_token( $token );
+
+			if ( empty( $email ) ) {
+				return new \WP_Error(
+					'auth_check_failed',
+					__( 'You are not allowed to perform this operation.' ),
+					[ 'status' => rest_authorization_required_code() ]
+				);
+			}
         }
 
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {

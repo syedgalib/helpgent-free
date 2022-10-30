@@ -3,7 +3,7 @@ const formData = [
   {
     id: "",
     name: "",
-    "options":{
+    options:{
         "theme":"theme-1",
         "chat_visibility_type":"show_on_reload",
         "tag": 1,
@@ -54,7 +54,6 @@ const formData = [
         "primary_button_background_color": "#6551f2",
     },
     pages: "",
-    show_in_all_pages: true,
   }
 ]
 
@@ -63,6 +62,9 @@ const initialState = {
   response: "",
   loading: false,
   error: null,
+  settings: {
+	displayOnCustomPages: false,
+  }
 };
 
 const {
@@ -77,11 +79,22 @@ const {
   FORM_UPDATE_BEGIN,
   FORM_UPDATE_SUCCESS,
   FORM_UPDATE_ERR,
+
+  FORM_UPDATE_SETTINGS,
 } = actions;
 
 const FormReducer = (state = initialState, action) => {
   const { type, data, err } = action;
   switch (type) {
+    case FORM_UPDATE_SETTINGS:
+      return {
+        ...state,
+        settings: {
+			...state.settings,
+			[ data.key ]: data.value,
+		},
+      };
+
     case FORM_ADD_BEGIN:
       return {
         ...state,

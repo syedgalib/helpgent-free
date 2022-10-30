@@ -12,7 +12,7 @@ import useFormAPI from 'API/useFormAPI.js';
 
 import { AddFormStyle } from './Style';
 
-import { handleReadForm } from '../../store/form/actionCreator';
+import { handleReadForm, updateFormSettings } from '../../store/form/actionCreator';
 
 const AddForm = () => {
     const { createItem: createForm, getItem: getForm, updateItem: updateForm } = useFormAPI();
@@ -186,7 +186,6 @@ const AddForm = () => {
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
                 pages: formInitialData.pages,
-                show_in_all_pages: formInitialData.show_in_all_pages,
             }
             if (id) {
                 setState({
@@ -218,8 +217,7 @@ const AddForm = () => {
                     ...state,
                     loading: true
                 });
-                const addSession = async ()=>{
-                    createForm(formData)
+                const addSession = async () => {
                     const addSessionResponse = await createForm(formData)
                     return addSessionResponse;
                 }
@@ -231,7 +229,6 @@ const AddForm = () => {
                             name: "",
                             options: formInitialData.options,
                             pages: formInitialData.pages,
-                            show_in_all_pages: formInitialData.show_in_all_pages,
                         }
                         setState({
                             ...state,
@@ -310,7 +307,6 @@ const AddForm = () => {
                 loading: true
             });
             const fetchSessionById = async ()=>{
-                getForm(id)
                 const sessionByIdResponse = await getForm(id)
                 return sessionByIdResponse;
             }
@@ -319,9 +315,14 @@ const AddForm = () => {
                 .then( sessionByIdResponse => {
                     setState({
                         ...state,
-                        loading: false
+                        loading: false,
+
                     });
+
                     dispatch(handleReadForm([sessionByIdResponse.data]));
+
+					const displayOnCustomPages = ( sessionByIdResponse.data && sessionByIdResponse.data.pages !== null ) ? true : false;
+                    dispatch( updateFormSettings( 'displayOnCustomPages', displayOnCustomPages ) );
                 })
                 .catch((error) => {
                     console.log(error);

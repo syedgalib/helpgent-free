@@ -7599,8 +7599,7 @@ var AddForm = function AddForm() {
         id: formInitialData.id,
         name: formInitialData.name,
         options: JSON.stringify(formInitialData.options),
-        pages: formInitialData.pages,
-        show_in_all_pages: formInitialData.show_in_all_pages
+        pages: formInitialData.pages
       };
       if (id) {
         setState(_objectSpread(_objectSpread({}, state), {}, {
@@ -7652,13 +7651,12 @@ var AddForm = function AddForm() {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    createForm(formData);
-                    _context2.next = 3;
+                    _context2.next = 2;
                     return createForm(formData);
-                  case 3:
+                  case 2:
                     addSessionResponse = _context2.sent;
                     return _context2.abrupt("return", addSessionResponse);
-                  case 5:
+                  case 4:
                   case "end":
                     return _context2.stop();
                 }
@@ -7675,8 +7673,7 @@ var AddForm = function AddForm() {
             id: formInitialData.id,
             name: "",
             options: formInitialData.options,
-            pages: formInitialData.pages,
-            show_in_all_pages: formInitialData.show_in_all_pages
+            pages: formInitialData.pages
           };
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: 'general',
@@ -7774,13 +7771,12 @@ var AddForm = function AddForm() {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  getForm(id);
-                  _context3.next = 3;
+                  _context3.next = 2;
                   return getForm(id);
-                case 3:
+                case 2:
                   sessionByIdResponse = _context3.sent;
                   return _context3.abrupt("return", sessionByIdResponse);
-                case 5:
+                case 4:
                 case "end":
                   return _context3.stop();
               }
@@ -7796,6 +7792,8 @@ var AddForm = function AddForm() {
           loading: false
         }));
         dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([sessionByIdResponse.data]));
+        var displayOnCustomPages = sessionByIdResponse.data && sessionByIdResponse.data.pages !== null ? true : false;
+        dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.updateFormSettings)('displayOnCustomPages', displayOnCustomPages));
       }).catch(function (error) {
         console.log(error);
       });
@@ -8802,9 +8800,8 @@ var GeneralSettings = function GeneralSettings() {
         primaryColor: state.form.data[0].options.primary_color,
         fontFamily: state.form.data[0].options.font_color,
         fontSize: state.form.data[0].options.font_size,
-        displayDefault: state.form.data[0].show_in_all_pages,
+        displayOnCustomPages: state.form.settings.displayOnCustomPages,
         templateName: state.form.data[0].name,
-        templateTheme: state.form.data[0].options.theme,
         displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
         chatVisibilityType: state.form.data[0].options.chat_visibility_type,
         sendMail: state.form.data[0].options.send_mail_upon_message_submission
@@ -8812,9 +8809,8 @@ var GeneralSettings = function GeneralSettings() {
     }),
     formData = _useSelector.formData,
     primaryColor = _useSelector.primaryColor,
-    displayDefault = _useSelector.displayDefault,
     templateName = _useSelector.templateName,
-    templateTheme = _useSelector.templateTheme,
+    displayOnCustomPages = _useSelector.displayOnCustomPages,
     displayedCustomPages = _useSelector.displayedCustomPages,
     chatVisibilityType = _useSelector.chatVisibilityType,
     sendMail = _useSelector.sendMail;
@@ -8865,6 +8861,10 @@ var GeneralSettings = function GeneralSettings() {
     var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(id, value, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
+  function handleChangeDisplayOnCustomPagesSwitchValue(value, event, id) {
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormSettings)('displayOnCustomPages', value));
+  }
+  ;
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
     var customPageIds = '';
     var updatedData = '';
@@ -8878,6 +8878,17 @@ var GeneralSettings = function GeneralSettings() {
     } else {
       updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
     }
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
+  };
+  var handleOnChangeDisplayOnCustomPages = function handleOnChangeDisplayOnCustomPages(selectEvent, e) {
+    var customPageIds = '';
+    var updatedData = '';
+    var newPageIdsArray = [];
+    selectEvent.map(function (item) {
+      newPageIdsArray.push(item.value);
+    });
+    customPageIds = newPageIdsArray.join(',');
+    updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   function getSelectedPageDefault() {
@@ -8946,11 +8957,11 @@ var GeneralSettings = function GeneralSettings() {
             handleDiameter: 14,
             height: 22,
             width: 40,
-            checked: !displayDefault,
-            onChange: handleChangeSwitchValue
+            checked: displayOnCustomPages,
+            onChange: handleChangeDisplayOnCustomPagesSwitchValue
           })
         })]
-      }), displayDefault ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), !displayOnCustomPages ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
         classNamePrefix: "wpwax-vm-select",
         options: customPages,
         isMulti: true,
@@ -8961,7 +8972,7 @@ var GeneralSettings = function GeneralSettings() {
         },
         defaultValue: getSelectedPageDefault(),
         name: "wpwax-vm-display-custom-pages",
-        onChange: handleChangeSelectValue,
+        onChange: handleOnChangeDisplayOnCustomPages,
         allowSelectAll: true
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
@@ -9846,7 +9857,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "editForm": function() { return /* binding */ editForm; },
 /* harmony export */   "handleDynamicEdit": function() { return /* binding */ handleDynamicEdit; },
 /* harmony export */   "handleReadForm": function() { return /* binding */ handleReadForm; },
-/* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; }
+/* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; },
+/* harmony export */   "updateFormSettings": function() { return /* binding */ updateFormSettings; }
 /* harmony export */ });
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./src/js/apps/form-builder/store/form/actions.js");
@@ -9866,7 +9878,8 @@ var formReadBegin = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formReadBeg
   addFormErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].addFormErr,
   formUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateBegin,
   formUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateSuccess,
-  formUpdateErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateErr;
+  formUpdateErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateErr,
+  updateFormSettings = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].updateFormSettings;
 var addForm = function addForm(args) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -10043,6 +10056,16 @@ var actions = {
   FORM_UPDATE_BEGIN: 'FORM_UPDATE_BEGIN',
   FORM_UPDATE_SUCCESS: 'FORM_UPDATE_SUCCESS',
   FORM_UPDATE_ERR: 'FORM_UPDATE_ERR',
+  FORM_UPDATE_SETTINGS: 'FORM_UPDATE_SETTINGS',
+  updateFormSettings: function updateFormSettings(key, value) {
+    return {
+      type: actions.FORM_UPDATE_SETTINGS,
+      data: {
+        key: key,
+        value: value
+      }
+    };
+  },
   addFormBegin: function addFormBegin() {
     return {
       type: actions.FORM_ADD_BEGIN
@@ -10116,7 +10139,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var formData = [{
   id: "",
   name: "",
-  "options": {
+  options: {
     "theme": "theme-1",
     "chat_visibility_type": "show_on_reload",
     "tag": 1,
@@ -10161,14 +10184,16 @@ var formData = [{
     "primary_button_font_color": "#ffffff",
     "primary_button_background_color": "#6551f2"
   },
-  pages: "",
-  show_in_all_pages: true
+  pages: ""
 }];
 var initialState = {
   data: formData,
   response: "",
   loading: false,
-  error: null
+  error: null,
+  settings: {
+    displayOnCustomPages: false
+  }
 };
 var FORM_READ_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ_BEGIN,
   FORM_READ_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ_SUCCESS,
@@ -10178,7 +10203,8 @@ var FORM_READ_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ
   FORM_ADD_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_ADD_ERR,
   FORM_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_BEGIN,
   FORM_UPDATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_SUCCESS,
-  FORM_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_ERR;
+  FORM_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_ERR,
+  FORM_UPDATE_SETTINGS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_SETTINGS;
 var FormReducer = function FormReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -10186,6 +10212,10 @@ var FormReducer = function FormReducer() {
     data = action.data,
     err = action.err;
   switch (type) {
+    case FORM_UPDATE_SETTINGS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        settings: _objectSpread(_objectSpread({}, state.settings), {}, _defineProperty({}, data.key, data.value))
+      });
     case FORM_ADD_BEGIN:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: true
@@ -11201,16 +11231,20 @@ function _getResponse() {
             return request(args, config);
           case 4:
             response = _context.sent;
+            console.log('getResponse', {
+              args: args,
+              response: response
+            });
             status.success = true;
             status.statusCode = response.status;
             status.message = response.data.message;
             status.data = response.data.data;
             status.headers = response.headers;
             return _context.abrupt("return", status);
-          case 13:
-            _context.prev = 13;
+          case 14:
+            _context.prev = 14;
             _context.t0 = _context["catch"](1);
-            console.log({
+            console.error({
               error: _context.t0
             });
             status.success = false;
@@ -11218,12 +11252,12 @@ function _getResponse() {
             status.message = _context.t0.response.data.message;
             status.headers = _context.t0.response.headers;
             return _context.abrupt("return", status);
-          case 21:
+          case 22:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 13]]);
+    }, _callee, null, [[1, 14]]);
   }));
   return _getResponse.apply(this, arguments);
 }
@@ -11257,7 +11291,7 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.log({
+            console.error({
               error: _context2.t0
             });
             status.success = false;
@@ -11413,7 +11447,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
 
 /***/ }),
 
@@ -11437,7 +11471,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -11461,7 +11495,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -11473,7 +11507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
 
 /***/ }),
 
@@ -11497,7 +11531,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 

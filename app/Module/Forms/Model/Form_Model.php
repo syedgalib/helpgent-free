@@ -207,15 +207,10 @@ class Form_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['show_on_all_pages'] ) ) {
-            $args['show_on_all_pages'] = Helper\is_truthy( $args['show_on_all_pages'] ) ? 1 : 0;
-        }
-
         $pages = [];
 
         if ( isset( $args['pages'] ) ) {
             $pages = Helper\convert_string_to_int_array( $args['pages'] );
-			unset( $args['pages'] );
         }
 
         // Assign Page IDs
@@ -245,6 +240,8 @@ class Form_Model extends DB_Model {
             $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+		unset( $args['pages'] );
 
         $args = Helper\filter_params( $old_data, $args );
 

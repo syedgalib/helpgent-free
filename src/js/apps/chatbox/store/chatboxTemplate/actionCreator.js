@@ -1,12 +1,14 @@
 import { parseInteger } from "Helper/parser";
+import useFormAPI from "API/useFormAPI";
 import actions from "./actions";
-import api from './api';
 
 const {
     loadTemplateBegain,
     loadTemplateSuccess,
     loadTemplateError,
 } = actions;
+
+const { getItems: getFormItems } = useFormAPI();
 
 const loadTemplate = () => {
     return async dispatch => {
@@ -18,8 +20,12 @@ const loadTemplate = () => {
 
             const currentPageID = parseInteger( wpWaxCustomerSupportApp_CoreScriptData.currentPageID, 0 );
             const pageID        = ( isFrontPage || isHome ) ? 0 : currentPageID;
+            const args          = { pages: pageID };
 
-            let response = await api.getChatboxTemplate({ pageID: pageID });
+            const response = await getFormItems( args );
+
+			console.log( { args, response } );
+
             let result   = response.data;
 
             dispatch( loadTemplateSuccess( result ) );

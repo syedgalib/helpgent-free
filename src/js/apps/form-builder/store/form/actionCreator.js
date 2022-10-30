@@ -10,10 +10,12 @@ const {
   addFormBegin,
   addFormSuccess,
   addFormErr,
-  
+
   formUpdateBegin,
   formUpdateSuccess,
   formUpdateErr,
+
+  updateFormSettings
 } = actions;
 
 const addForm = args => {
@@ -101,5 +103,5 @@ const updateDataWithId = id => {
 
 
 
-export { addForm, editForm, handleDynamicEdit, handleReadForm, updateDataWithId };
+export { addForm, editForm, handleDynamicEdit, handleReadForm, updateDataWithId, updateFormSettings };
 

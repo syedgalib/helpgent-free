@@ -130,7 +130,7 @@ class Forms extends Rest_Base {
         $where = Helper\merge_params( $where, $args );
 
 		// Pages Query
-		if ( ! empty( $where['pages'] ) ) {
+		if ( isset( $where['pages'] ) ) {
 			unset( $where['page_id'] );
 			$pages = $where['pages'];
 

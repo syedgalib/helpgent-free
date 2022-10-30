@@ -7,8 +7,8 @@
  * @return array $uploads
  */
 function wpwax_vm_change_upload_directory( $uploads ) {
-	$uploads['path']   = WP_CONTENT_DIR . '/uploads/wpwax-vm';
-	$uploads['url']    = WP_CONTENT_URL . '/uploads/wpwax-vm';
+	$uploads['path']   = HELPGENT_UPLOAD_DIR_PATH;
+	$uploads['url']    = HELPGENT_UPLOAD_DIR_URL;
 	$uploads['subdir'] = '';
 
 	return $uploads;

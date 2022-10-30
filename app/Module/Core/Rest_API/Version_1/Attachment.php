@@ -25,10 +25,6 @@ class Attachment extends Rest_Base {
                     'callback'            => [ $this, 'get_items' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
                     'args'                => [
-                        'timezone'    => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
                         'page'        => [
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
@@ -51,12 +47,7 @@ class Attachment extends Rest_Base {
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
-                        'title' => [
-                            'type'              => 'string',
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'expires_on' => [
+                        'created_at' => [
                             'type'    => 'date-time',
                             'default' => null,
                         ],
@@ -78,23 +69,11 @@ class Attachment extends Rest_Base {
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_item' ],
                     'permission_callback' => [ $this, 'check_auth_permission' ],
-                    'args'                => [
-                        'timezone' => [
-                            'default'           => '',
-                            'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                    ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => [ $this, 'update_item' ],
                     'permission_callback' => [ $this, 'check_admin_permission' ],
-                    'args'                => [
-                        'expires_on' => [
-                            'type'    => 'date-time',
-                            'default' => null,
-                        ],
-                    ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
@@ -232,8 +211,9 @@ class Attachment extends Rest_Base {
 
         $default = [];
 
-        $default['id']  = 0;
-        $default['url'] = '';
+        $default['id']         = 0;
+        $default['url']        = '';
+        $default['created_at'] = '';
 
         $args = Helper\filter_params( $default , $args );
 

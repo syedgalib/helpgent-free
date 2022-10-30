@@ -37,9 +37,9 @@ class Attachment_Model extends DB_Model {
 		$offset = ( $limit * $args['page'] ) - $limit;
 
 		if ( $args['order'] == 'oldest' ) {
-			$order = ' ORDER BY created_on ASC';
+			$order = ' ORDER BY created_at ASC';
 		} else {
-			$order = ' ORDER BY updated_on DESC';
+			$order = ' ORDER BY created_at DESC';
 		}
 
 		$where = self::prepare_where_query( $args['where'], $table );
@@ -154,10 +154,6 @@ class Attachment_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['url'] ) ) {
-            unset( $args['url'] );
-        }
-
         if ( isset( $args['media_type'] ) ) {
             unset( $args['media_type'] );
         }
@@ -167,7 +163,7 @@ class Attachment_Model extends DB_Model {
         $where  = [ 'id' => $id ];
         $result = $wpdb->update( $table, $args, $where );
 
-        if ( ! $result ) {
+        if ( false === $result ) {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }

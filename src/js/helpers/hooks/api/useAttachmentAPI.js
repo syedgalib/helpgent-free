@@ -2,14 +2,14 @@ import useAPI from './useAPI';
 
 export default function useAttachmentAPI() {
 	const routeBase = 'attachments';
-	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
+	const { getItems, getItem, updateItem, deleteItem } = useAPI( routeBase );
 
 	/**
-	 * Create Attachment Item
+	 * Create Item
 	 *
 	 * @param {object} args file File, link string, expires_on string
 	 */
-	function createAttachmentItem( args ) {
+	function createItem( args ) {
 
 		// Set Headers
 		const config = { headers: {
@@ -34,7 +34,7 @@ export default function useAttachmentAPI() {
 	return {
 		getItems,
 		getItem,
-		createItem: createAttachmentItem,
+		createItem,
 		updateItem,
 		deleteItem,
 	};

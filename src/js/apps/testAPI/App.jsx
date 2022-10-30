@@ -79,20 +79,20 @@ function App() {
 
 	// @Init
 	useEffect( () => {
-		// testUserAPI();
+		// testAttachmentAPI();
 	}, []);
 
 	// testUserAPI
 	async function testUserAPI() {
-		// const itemID = 0;
+		const itemID = 0;
 
-		const response = await getUserItems();
+		// const response = await getUserItems();
 		// const response = await getUserItem( itemID );
 		// const response = await updateUserItem( itemID, { name: 'Updated User Name' } );
 		// const response = await deleteUserItem( itemID, { force: true } );
 		// const response = await authenticateUser( { email: 'user@email.com', password: '12345' } );
 
-		console.log( { response } );
+		// console.log( { response } );
 	}
 
 	// testTermAPI
@@ -168,7 +168,7 @@ function App() {
 
 		// const response = await getAttachmentItems();
 		// const response = await getAttachmentItem( itemID );
-		// const response = await updateAttachmentItem( itemID, { title: 'test' } );
+		// const response = await updateAttachmentItem( itemID, { created_at: '2030-01-01 00:00:00' } );
 		// const response = await deleteAttachmentItem( itemID );
 
 		// console.log( { response } );

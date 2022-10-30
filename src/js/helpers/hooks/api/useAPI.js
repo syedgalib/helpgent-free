@@ -90,7 +90,7 @@ export default function useAPI( routeBase ) {
 			return await deleteData( `${routeBase}/${args.id}`, params );
 		}
 
-		return await getRestResponse( request, { id, params: args } );
+		return await getResponse( request, { id, params: args } );
 	}
 
 	return {

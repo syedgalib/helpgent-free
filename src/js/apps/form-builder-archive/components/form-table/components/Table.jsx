@@ -1,4 +1,3 @@
-import apiService from 'apiService/Service';
 import Modal from 'Components/Modal.jsx';
 import noData from 'Assets/img/builder/no-data.png';
 import React, { useEffect, useState } from "react";
@@ -6,7 +5,7 @@ import useFormAPI from 'API/useFormAPI.js';
 import TemplateBox from './Style';
 
 const Table = () => {
-    const { createItem: createForm, getItems: getAllForms, deleteItem: deleteForm } = useFormAPI();
+    const { createItem: createForm, getItems: getAllForms, updateItem: updateFormName, deleteItem: deleteForm } = useFormAPI();
     /* Initialize State */
     const [state, setState] = useState({
         data: [],
@@ -70,22 +69,23 @@ const Table = () => {
         data.filter(item => item.id === id).map(item => {
             let args = {};
             args.name = (titleInput) ? titleInput : '';
-            const stateData = data.filter(stateItem => {
-                if (stateItem.id === id) {
-                    stateItem.name = titleInput;
-                }
-                return stateItem;
-            });
+            
 
-
-            apiService.dataUpdate(`/chatbox-templates/${id}`, args)
+            
+            updateFormName(id,args)
                 .then(response => {
-                    if (response.data.success) {
+                    if (response.success) {
+                        const stateData = data.filter(stateItem => {
+                            if (stateItem.id === id) {
+                                stateItem.name = titleInput;
+                            }
+                            return stateItem;
+                        });
                         setState({
                             ...state,
                             data: stateData,
                             responseType: 'success',
-                            message: response.data.message,
+                            message: response.message,
                             loader: false,
                         });
                     } else {
@@ -93,7 +93,7 @@ const Table = () => {
                             ...state,
                             data: data,
                             responseType: 'warning',
-                            message: response.data.message,
+                            message: response.message,
                             loader: false,
                         });
                     }

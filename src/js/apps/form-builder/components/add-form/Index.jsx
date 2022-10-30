@@ -8,12 +8,11 @@ import GeneralSettings from "./components/GeneralSettings.jsx";
 import PreviewOne from "./components/PreviewOne.jsx";
 import PreviewTwo from "./components/PreviewTwo.jsx";
 import ThankSettings from "./components/ThankSettings.jsx";
-import apiService from 'apiService/Service.js';
 import useFormAPI from 'API/useFormAPI.js';
 
 import { AddFormStyle } from './Style';
 
-import { addForm, editForm, handleReadForm } from '../../store/form/actionCreator';
+import { handleReadForm } from '../../store/form/actionCreator';
 
 const AddForm = () => {
     const { createItem: createForm, getItem: getForm, updateItem: updateForm } = useFormAPI();
@@ -22,10 +21,7 @@ const AddForm = () => {
     /* initialize Form Data */
     const {
         name,
-        primaryColor,
         fontFamily,
-        fontSize,
-        fontColor,
         greetColor,
         chatColor,
         greetSize,

@@ -476,7 +476,7 @@ abstract class DB_Model implements DB_Model_Interface {
 
 					$meta_key   = ( ! empty( $meta_query['key'] ) ) ? $meta_query['key'] : '';
 					$compare    = ( ! empty( $meta_query['compare'] ) ) ? $meta_query['compare'] : '=';
-					$meta_value = ( ! empty( $meta_query['value'] ) ) ? $meta_query['value'] : '';
+					$meta_value = ( isset( $meta_query['value'] ) ) ? $meta_query['value'] : '';
 					$meta_value = self::parse_query_value( $meta_value, $compare );
 
 					$clause = "(
@@ -516,9 +516,11 @@ abstract class DB_Model implements DB_Model_Interface {
 				foreach ( $value['rules'] as $index => $rule ) {
 					$rule_key         = $rule['key'];
 					$where_table_name = ( ! empty( $table_field_map[ $rule_key ] ) ) ? $table_field_map[ $rule_key ] . '.' : '';
-					$_key             = $where_table_name . $rule['key'];
-					$_compare         = ( ! empty( $rule['compare'] ) ) ? $rule['compare'] : '=';
-					$_value           = self::parse_query_value( $rule['value'], $_compare );
+					$where_table_name = ( ! empty( $rule[ 'table' ] ) ) ? $rule[ 'table' ]  . '.' : $where_table_name;
+
+					$_key     = $where_table_name . $rule['key'];
+					$_compare = ( ! empty( $rule['compare'] ) ) ? $rule['compare'] : '=';
+					$_value   = self::parse_query_value( $rule['value'], $_compare );
 
 					if ( $index === 0 ) {
 						$_where .= " {$_key} {$_compare} {$_value}";
@@ -536,6 +538,7 @@ abstract class DB_Model implements DB_Model_Interface {
 			// Case 3
 			$value_key        = $value['key'];
 			$where_table_name = ( ! empty( $table_field_map[ $value_key ] ) ) ? $table_field_map[ $value_key ] . '.' : '';
+			$where_table_name = ( ! empty( $value[ 'table' ] ) ) ? $value[ 'table' ]  . '.' : $where_table_name;
 			$_key             = $where_table_name . $value['key'];
 			$_compare         = $value['compare'];
 			$_compare         = ( ! empty( $value['compare'] ) ) ? $value['compare'] : '=';
@@ -558,12 +561,18 @@ abstract class DB_Model implements DB_Model_Interface {
 	public static function parse_query_value( $value = '', $compare = '=' ) {
 
 		switch ( strtolower( $compare ) ) {
-			case '=':
-				$value = "'$value'";
-				break;
-
 			case 'in':
-				$value = "($value)";
+				$value_items = Helper\convert_string_to_int_array( $value, ',', false );
+				$value = '';
+
+				foreach( $value_items as $item ) {
+					$_item = ( is_string( $item ) ) ? "'" . trim( $item ) . "'" : $item;
+					$value .= "$_item, ";
+				}
+
+				$value = trim( $value, ', ' );
+				$value = "( $value )";
+
 				break;
 
 			case 'like':
@@ -571,7 +580,8 @@ abstract class DB_Model implements DB_Model_Interface {
 				break;
 
 			default:
-				$value = "'$value'";
+				$value = ( is_string( $value ) ) ? "'$value'" : $value;
+				$value = ( is_null( $value ) ) ? "NULL" : $value;
 				break;
 		}
 

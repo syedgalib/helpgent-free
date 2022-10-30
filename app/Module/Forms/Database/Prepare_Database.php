@@ -44,7 +44,6 @@ class Prepare_Database {
 			id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(255) NOT NULL DEFAULT '',
 			status varchar(255) NOT NULL DEFAULT 'publish',
-			show_on_all_pages tinyint unsigned NOT NULL DEFAULT 0,
 			options longtext NOT NULL,
 			PRIMARY KEY (id)
 		  ) $collate;

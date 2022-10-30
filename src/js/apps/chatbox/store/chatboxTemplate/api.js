@@ -1,11 +1,10 @@
 import http from 'Helper/http';
 
 // getChatboxTemplate
-const getChatboxTemplate = async({ pageID, returnDefaultIfResultEmpty }) => {
+const getChatboxTemplate = async({ pageID }) => {
 	let args = {};
 
 	args.page_id = pageID;
-	args.return_default_if_result_empty = ( typeof returnDefaultIfResultEmpty === 'boolean' ) ? returnDefaultIfResultEmpty : true;
 
 	return await http.getData("/chatbox-templates", args);
 };

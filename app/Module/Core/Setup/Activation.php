@@ -33,7 +33,7 @@ class Activation {
 
 		// Prepare Attachment Folder
 		$this->prepare_attachment_folder();
-		
+
 		// Create required page
 		$this->create_page();
 
@@ -62,7 +62,7 @@ class Activation {
 				'comment_status' => 'closed',
 			]
 		);
-		
+
 		if ( ! is_wp_error( $page_id ) ) {
 			Helper\update_option( 'userDashboardPage', $page_id );
 		}
@@ -76,12 +76,10 @@ class Activation {
 	public function prepare_attachment_folder() {
 
 		// Create Upload Directory
-		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'wpwax-vm';
-		wp_mkdir_p( $uploads_dir );
-
+		wp_mkdir_p( HELPGENT_UPLOAD_DIR_PATH );
 
 		// Create htaccess file
-		$fh = fopen( $uploads_dir . "/.htaccess", "w" );
+		$fh = fopen( HELPGENT_UPLOAD_DIR_PATH . "/.htaccess", "w" );
 
 		if ( $fh == false ) {
 			return;

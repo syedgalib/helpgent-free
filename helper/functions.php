@@ -1128,9 +1128,8 @@ function is_user_admin( $user )
  *
  * @return array
  */
-function get_admin_roles()
-{
-	return apply_filters(WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', ['administrator']);
+function get_admin_roles() {
+	return apply_filters( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', ['administrator'] );
 }
 
 /**

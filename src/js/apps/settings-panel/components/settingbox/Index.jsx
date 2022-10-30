@@ -79,15 +79,14 @@ const SettingBox = () => {
             loading: true,
         });
         const saveSettings = async ()=>{
-            updateSettings(settingContentState)
-            const saveSettingsResponse = await apiService.dataAdd(`/settings`, settingContentState)
+            const saveSettingsResponse = await updateSettings(settingContentState.options)
             return saveSettingsResponse;
         }
         saveSettings()
             .then( saveSettingsResponse => {
                 setSettingContentState({
                     ...settingContentState,
-                    options: saveSettingsResponse.data.data,
+                    options: saveSettingsResponse.data,
                     loading: false,
                 });
             })

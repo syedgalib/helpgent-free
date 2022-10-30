@@ -108,10 +108,8 @@ const AddForm = () => {
     }
 
     const handleFormNext = (event,btnName) => {
-        console.log(formInitialData.name,typeof formInitialData.pages);
         event.preventDefault();
         if(btnName === "btn-general"){
-            console.log("general");
             if(validation === true){
                 setState({
                     ...state,
@@ -120,22 +118,18 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(onlySpaces(formInitialData.name) && formInitialData.pages === ""){
-                console.log('validation false');
+            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0){
                 setState({
                     ...state,
                     validation: false
                 });
             }else{
-                // console.log("form");
                 setState({
                     ...state,
                     currentStage: "form",
                     validation: true
                 });
             }
-
-            // console.log(validation,currentStage)
 
         }else if(btnName === "btn-thank"){
             if(onlySpaces(name) || formInitialData.options.pages !== ""){
@@ -153,7 +147,7 @@ const AddForm = () => {
 
         }else{
             if(currentStage === "general"){
-                if(onlySpaces(name) || formInitialData.options.pages !== ""){
+                if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0){
                     setState({
                         ...state,
                         validation: false

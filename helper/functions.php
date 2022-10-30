@@ -645,10 +645,10 @@ function get_wp_pages()
 	$homepage = [ [ 'id' => 0, 'title' => __( 'Homepage', 'wpwax-customer-support-app' ), ] ];
 
 	$query = new WP_Query([
-		'post_type'     => 'page',
-		'post_status'   => 'publish',
-		'post_per_page' => -1,
-		'fields'        => 'ids',
+		'post_type'      => 'page',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
 	]);
 
 	if ( ! $query->have_posts() ) {

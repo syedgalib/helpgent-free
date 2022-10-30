@@ -127,6 +127,7 @@ const GeneralSettings = () => {
         } else {
             updatedData = formUpdater(e.name, selectEvent.value, formData);
         }
+        console.log(updatedData);
         dispatch(handleDynamicEdit(updatedData));
     };
 
@@ -157,6 +158,10 @@ const GeneralSettings = () => {
         return newArray;
     }
 
+    function onlySpaces(str) {
+        return str.trim().length === 0;
+    }
+
     return (
         <GeneralSettingWrap>
             <div className='wpwax-vm-form-group'>
@@ -174,13 +179,16 @@ const GeneralSettings = () => {
                     placeholder='Enter form name (eg. Support Form)'
                     onChange={(e) => handleChangeInputValue(e)}
                 />
+                {
+                   onlySpaces(templateName) ? <span className="wpwax-vm-validate-danger">Please Enter Form Name</span> : null
+                }
             </div>
 
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Display on custom pages</span>
+                        <span>Display on Custom pages</span>
                         <span className='wpwax-vm-tooltip'>
                             <span className='wpwax-vm-tooltip-icon'>
                                 <ReactSVG src={questionIcon} />
@@ -223,6 +231,10 @@ const GeneralSettings = () => {
                         onChange={handleOnChangeDisplayOnCustomPages}
                         allowSelectAll={true}
                     />
+                }
+
+                {
+                    !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : <span className="wpwax-vm-validate-danger">Please Select a page</span>
                 }
             </div>
 

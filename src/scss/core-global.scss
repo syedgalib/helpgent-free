@@ -774,6 +774,13 @@
     }
 }
 
+.wpwax-vm-validate-danger{
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 8px;
+    color: var(--color-danger);
+}
+
 /* Wpwax vm Modal */
 .wpwax-vm-modal {
     position: fixed;

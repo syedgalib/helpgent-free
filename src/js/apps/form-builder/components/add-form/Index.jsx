@@ -40,6 +40,7 @@ const AddForm = () => {
         pageBgColor,
         pageHeaderBgColor,
         formInitialData,
+        displayOnCustomPages
     } = useSelector(state => {
         return {
             name: state.form.data[0].name,
@@ -65,6 +66,7 @@ const AddForm = () => {
             pageBgColor: state.form.data[0].options.page_background_color,
             pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
             formInitialData: state.form.data[0],
+            displayOnCustomPages: state.form.settings.displayOnCustomPages,
             loading: state.form.loading,
         };
     });
@@ -103,10 +105,12 @@ const AddForm = () => {
     const dispatch = useDispatch();
 
     function onlySpaces(str) {
+        console.log(str.trim().length===0)
     return str.trim().length === 0;
     }
 
     const handleFormNext = (event,btnName) => {
+        console.log(displayOnCustomPages);
         event.preventDefault();
         if(btnName === "btn-general"){
             if(validation === true){
@@ -117,7 +121,7 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(onlySpaces(name)){
+            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages){
                 setState({
                     ...state,
                     validation: false
@@ -131,7 +135,7 @@ const AddForm = () => {
             }
 
         }else if(btnName === "btn-thank"){
-            if(name === ""){
+            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
                 setState({
                     ...state,
                     validation: false,
@@ -146,7 +150,7 @@ const AddForm = () => {
 
         }else{
             if(currentStage === "general"){
-                if(name === ""){
+                if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
                     setState({
                         ...state,
                         validation: false
@@ -188,6 +192,7 @@ const AddForm = () => {
                 pages: formInitialData.pages,
             }
             if (id) {
+                console.log(id);
                 setState({
                     ...state,
                     loading: true
@@ -198,11 +203,13 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
+                        console.log(editSessionResponse)
                         setState({
                             ...state,
                             loading: false,
                         });
                         setResponse(editSessionResponse);
+                        dispatch(handleReadForm([formData]));
                     })
                     .catch((error) => {
                         setState({
@@ -259,24 +266,14 @@ const AddForm = () => {
     const getFormContent = () => {
         if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
                 <GeneralSettings />
             </div>
         } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
                 <FormSettings />
             </div>
         } else {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
-
                 <ThankSettings />
             </div>
         }

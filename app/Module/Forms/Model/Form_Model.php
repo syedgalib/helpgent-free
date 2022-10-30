@@ -38,28 +38,16 @@ class Form_Model extends DB_Model {
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-		$where = ' WHERE 1=1';
+		$table_field_map = [
+			'id'      => 'form',
+			'name'    => 'form',
+			'status'  => 'form',
+			'options' => 'form',
+			'page_id' => 'page_relation',
+		];
 
-        // Construct where clause
-        if ( ! empty( $args['where'] ) && is_array( $args[ 'where' ] ) ) {
-
-            foreach ( $args['where'] as $key => $value ) {
-
-                if ( is_array( $value ) ) {
-
-                    $_key     = $value['field'];
-                    $_compare = $value['compare'];
-                    $_value   = $value['value'];
-
-                    $where .= " AND {$_key} {$_compare} {$_value}";
-
-                    continue;
-                }
-
-                $where .= " AND {$key}='{$value}'";
-            }
-
-        }
+		$where_args = ( ! empty( $args['where'] ) ) ? $args['where'] : [];
+		$where = self::prepare_where_query_v2( $where_args, $table_field_map );
 
         $default_fields = [
             "form.*",
@@ -125,11 +113,10 @@ class Form_Model extends DB_Model {
 
         $default = [];
 
-        $default['name']              = '';
-        $default['pages']             = '';
-        $default['show_on_all_pages'] = 0;
-        $default['options']           = '';
-        $default['status']            = '';
+        $default['name']    = '';
+        $default['pages']   = '';
+        $default['options'] = '';
+        $default['status']  = 'publish';
 
         if ( empty( $args['name'] ) ) {
             $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
@@ -146,10 +133,6 @@ class Form_Model extends DB_Model {
         if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
             $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
-        }
-
-        if ( isset( $args['show_on_all_pages'] ) ) {
-            $args['show_on_all_pages'] = Helper\is_truthy( $args['show_on_all_pages'] ) ? 1 : 0;
         }
 
         $args = Helper\merge_params( $default, $args );
@@ -177,14 +160,12 @@ class Form_Model extends DB_Model {
 
         // Assign Page IDs
         if ( ! empty( $pages ) ) {
-
             foreach( $pages as $page_id ) {
                 Form_Page_Relationship_Model::create_item([
                     'form_id' => $form_id,
                     'page_id' => $page_id,
                 ]);
             }
-
         }
 
 		return  self::get_item( $form_id );
@@ -226,15 +207,10 @@ class Form_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        if ( isset( $args['show_on_all_pages'] ) ) {
-            $args['show_on_all_pages'] = Helper\is_truthy( $args['show_on_all_pages'] ) ? 1 : 0;
-        }
-
         $pages = [];
 
         if ( isset( $args['pages'] ) ) {
             $pages = Helper\convert_string_to_int_array( $args['pages'] );
-			unset( $args['pages'] );
         }
 
         // Assign Page IDs
@@ -264,6 +240,8 @@ class Form_Model extends DB_Model {
             $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+		unset( $args['pages'] );
 
         $args = Helper\filter_params( $old_data, $args );
 

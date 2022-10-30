@@ -30,10 +30,6 @@ class Forms extends Rest_Base {
                             'default'           => 1,
                             'validate_callback' => [ $this, 'validate_int' ],
                         ],
-                        'return_default_if_result_empty' => [
-                            'type'    => 'boolean',
-                            'default' => false,
-                        ],
                     ],
                 ],
                 [
@@ -48,10 +44,6 @@ class Forms extends Rest_Base {
                         'pages' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'show_on_all_pages' => [
-                            'type'    => 'boolean',
-                            'default' => false,
                         ],
                         'options' => [
                             'required'          => true,
@@ -89,10 +81,6 @@ class Forms extends Rest_Base {
                         'pages' => [
                             'required'          => false,
                             'sanitize_callback' => 'sanitize_text_field',
-                        ],
-                        'show_on_all_pages' => [
-                            'type'    => 'boolean',
-                            'default' => false,
                         ],
                         'options' => [
                             'required'          => false,
@@ -133,32 +121,56 @@ class Forms extends Rest_Base {
 
         $where = [];
 
-        $where['id']                = '';
-        $where['name']              = '';
-        $where['page_id']           = '';
-        $where['status']            = '';
-        $where['show_on_all_pages'] = '';
+        $where['id']      = null;
+        $where['name']    = null;
+        $where['page_id'] = null;
+        $where['pages']   = null;
+        $where['status']  = 'publish';
 
-        $where = Helper\filter_params( $where, $args );
+        $where = Helper\merge_params( $where, $args );
 
-        if ( isset( $where['show_on_all_pages'] ) ) {
-            $where['show_on_all_pages'] = ( Helper\is_truthy( $where['show_on_all_pages'] ) ) ? 1 : 0;
-        }
+		// Pages Query
+		if ( isset( $where['pages'] ) ) {
+			unset( $where['page_id'] );
+			$pages = $where['pages'];
+
+			$where['pages'] = [
+				'condition' => 'OR',
+				'rules'     => [
+					[
+						'key'     => 'page_id',
+						'compare' => 'IS',
+						'value'   => NULL,
+					],
+					[
+						'key'     => 'page_id',
+						'compare' => 'IN',
+						'value'   => $pages,
+					]
+				],
+			];
+		}
+
+		// Status Query
+		if ( ! empty( $where['status'] ) ) {
+			$status = $where['status'];
+
+			$where['status'] = [
+				'key'     => 'status',
+				'compare' => 'IN',
+				'value'   => $status,
+			];
+		}
 
         $default = [];
 
-        $default['limit']                          = 20;
-        $default['page']                           = 1;
-        $default['return_default_if_result_empty'] = false;
+        $default['limit'] = 20;
+        $default['page']  = 1;
 
         $args = Helper\filter_params( $default, $args );
         $args['where'] = $where;
 
         $data = Form_Model::get_items( $args );
-
-        if ( empty( $data ) && Helper\is_truthy( $args['return_default_if_result_empty'] ) ) {
-            $data = Form_Model::get_items( [ 'where' => [ 'show_on_all_pages' => 1 ] ] );
-        }
 
         if ( empty( $data ) ) {
             return $this->response( true, [] );
@@ -219,12 +231,11 @@ class Forms extends Rest_Base {
 
         $default = [];
 
-        $default['id']                = '';
-        $default['name']              = '';
-        $default['pages']             = '';
-        $default['show_on_all_pages'] = false;
-        $default['options']           = '';
-        $default['status']            = '';
+		$default['id']      = null;
+        $default['name']    = null;
+        $default['pages']   = null;
+        $default['options'] = null;
+		$default['status']  = 'publish';
 
         $args = Helper\filter_params( $default, $args );
         $data = Form_Model::create_item( $args );
@@ -251,11 +262,11 @@ class Forms extends Rest_Base {
     public function update_item( $request ) {
         $args = $request->get_params();
 
-        $default['id']                = '';
-        $default['name']              = '';
-        $default['pages']             = '';
-        $default['show_on_all_pages'] = false;
-        $default['options']           = '';
+        $default['id']      = null;
+        $default['name']    = null;
+        $default['pages']   = null;
+        $default['options'] = null;
+		$default['status']  = null;
 
         $args = Helper\filter_params( $default, $args );
         $data = Form_Model::update_item( $args );
@@ -296,7 +307,6 @@ class Forms extends Rest_Base {
         return [
             'string'  => [ 'name' ],
             'integer' => [ 'id', 'page_id' ],
-            'boolean' => [ 'show_on_all_pages' ],
             'json'    => [ 'options' ],
         ];
     }

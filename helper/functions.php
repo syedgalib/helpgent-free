@@ -154,12 +154,17 @@ function filter_params( $default = [], $args = [] )
  *
  * @return array Merged Params
  */
-function merge_params($default = [], $args = [])
+function merge_params( $default = [], $args = [] )
 {
 
-	foreach ($default as $default_key => $value) {
+	foreach ( $default as $default_key => $value ) {
 
-		if (  ! in_array( $default_key, array_keys( $args ) ) ) {
+		if ( is_null( $value ) && ! in_array( $default_key, array_keys( $args ) ) ) {
+			unset( $default[ $default_key ] );
+			continue;
+		}
+
+		if ( ! in_array( $default_key, array_keys( $args ) ) ) {
 			continue;
 		}
 
@@ -273,7 +278,7 @@ function swap_array_keys($list = [], $swap_map = [])
  *
  * @return array
  */
-function convert_string_to_int_array($string, $separator = ',', $remove_non_int_items = true)
+function convert_string_to_int_array( $string, $separator = ',', $remove_non_int_items = true )
 {
 	$list = convert_string_to_array( $string, $separator );
 	$list = parse_array_items_to_int( $list, $remove_non_int_items );
@@ -357,7 +362,7 @@ function format_sql_date_time_as_array($date_time = '')
  *
  * @return array
  */
-function convert_string_to_array($string, $separator = ',')
+function convert_string_to_array( $string, $separator = ',' )
 {
 	$string = trim( $string, ',\s' );
 	$list   = explode( $separator, $string );
@@ -376,27 +381,22 @@ function convert_string_to_array($string, $separator = ',')
  *
  * @return array
  */
-function parse_array_items_to_int($list = [], $remove_non_int_items = true)
-{
-
-	if (!is_array($list)) {
+function parse_array_items_to_int( $list = [], $remove_non_int_items = true ) {
+	if ( ! is_array( $list ) ) {
 		return $list;
 	}
 
-	foreach ($list as $key => $value) {
-
-		$list[$key] = 0;
-
-		if (is_numeric($value)) {
+	foreach ( $list as $key => $value ) {
+		if ( is_numeric( $value ) ) {
 			$list[$key] = (int) $value;
 		}
 
-		if (!is_numeric($value) && $remove_non_int_items) {
-			unset($list[$key]);
+		if ( ! is_numeric( $value ) && $remove_non_int_items ) {
+			unset( $list[ $key ] );
 		}
 	}
 
-	return array_values($list);
+	return array_values( $list );
 }
 
 /**

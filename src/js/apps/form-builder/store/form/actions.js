@@ -11,6 +11,15 @@ const actions = {
   FORM_UPDATE_SUCCESS: 'FORM_UPDATE_SUCCESS',
   FORM_UPDATE_ERR: 'FORM_UPDATE_ERR',
 
+  FORM_UPDATE_SETTINGS: 'FORM_UPDATE_SETTINGS',
+
+  updateFormSettings: ( key, value ) => {
+    return {
+      type: actions.FORM_UPDATE_SETTINGS,
+	  data: { key, value },
+    };
+  },
+
   addFormBegin: () => {
     return {
       type: actions.FORM_ADD_BEGIN,

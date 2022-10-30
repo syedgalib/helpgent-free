@@ -9505,7 +9505,7 @@ function _getResponse() {
           case 13:
             _context.prev = 13;
             _context.t0 = _context["catch"](1);
-            console.log({
+            console.error({
               error: _context.t0
             });
             status.success = false;
@@ -9552,7 +9552,7 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.log({
+            console.error({
               error: _context2.t0
             });
             status.success = false;

@@ -7,7 +7,7 @@ import { components, default as Select } from 'react-select';
 import ReactSVG from 'react-inlinesvg';
 import Switch from 'react-switch';
 import formUpdater from 'Helper/FormUpdater';
-import { handleDynamicEdit } from '../../../store/form/actionCreator';
+import { handleDynamicEdit, updateFormSettings } from '../../../store/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
@@ -33,9 +33,8 @@ const GeneralSettings = () => {
     const {
         formData,
         primaryColor,
-        displayOnCustomPages,
         templateName,
-        templateTheme,
+		displayOnCustomPages,
         displayedCustomPages,
         chatVisibilityType,
         sendMail,
@@ -47,9 +46,8 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-            displayOnCustomPages: !state.form.data[0].show_on_all_pages,
+			displayOnCustomPages: state.form.settings.displayOnCustomPages,
             templateName: state.form.data[0].name,
-            templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].pages
                 ? state.form.data[0].pages.split(',')
                 : [],
@@ -112,6 +110,10 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
     };
 
+    function handleChangeDisplayOnCustomPagesSwitchValue( value, event, id ) {
+		dispatch( updateFormSettings( 'displayOnCustomPages', value ) );
+    };
+
     const handleChangeSelectValue = (selectEvent, e) => {
         let customPageIds = '';
         let updatedData = '';
@@ -128,6 +130,20 @@ const GeneralSettings = () => {
         console.log(updatedData);
         dispatch(handleDynamicEdit(updatedData));
     };
+
+	const handleOnChangeDisplayOnCustomPages = ( selectEvent, e ) => {
+		let customPageIds = '';
+        let updatedData = '';
+
+		let newPageIdsArray = [];
+		selectEvent.map((item) => {
+			newPageIdsArray.push(item.value);
+		});
+		customPageIds = newPageIdsArray.join(',');
+		updatedData = formUpdater(e.name, customPageIds, formData);
+
+        dispatch(handleDynamicEdit(updatedData));
+	};
 
     function getSelectedPageDefault() {
         let newArray = [];
@@ -194,13 +210,13 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={displayOnCustomPages}
-                            onChange={handleChangeSwitchValue}
+                            checked={ displayOnCustomPages }
+                            onChange={handleChangeDisplayOnCustomPagesSwitchValue}
                         />
                     </label>
                 </div>
                 {
-                    !displayOnCustomPages ? null :
+                    ! displayOnCustomPages ? null :
                     <Select
                         classNamePrefix='wpwax-vm-select'
                         options={customPages}
@@ -212,7 +228,7 @@ const GeneralSettings = () => {
                         }}
                         defaultValue={getSelectedPageDefault()}
                         name='wpwax-vm-display-custom-pages'
-                        onChange={handleChangeSelectValue}
+                        onChange={handleOnChangeDisplayOnCustomPages}
                         allowSelectAll={true}
                     />
                 }

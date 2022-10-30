@@ -12,7 +12,7 @@ import useFormAPI from 'API/useFormAPI.js';
 
 import { AddFormStyle } from './Style';
 
-import { handleReadForm } from '../../store/form/actionCreator';
+import { handleReadForm, updateFormSettings } from '../../store/form/actionCreator';
 
 const AddForm = () => {
     const { createItem: createForm, getItem: getForm, updateItem: updateForm } = useFormAPI();
@@ -40,6 +40,7 @@ const AddForm = () => {
         pageBgColor,
         pageHeaderBgColor,
         formInitialData,
+        displayOnCustomPages
     } = useSelector(state => {
         return {
             name: state.form.data[0].name,
@@ -65,6 +66,7 @@ const AddForm = () => {
             pageBgColor: state.form.data[0].options.page_background_color,
             pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
             formInitialData: state.form.data[0],
+            displayOnCustomPages: state.form.settings.displayOnCustomPages,
             loading: state.form.loading,
         };
     });
@@ -108,6 +110,7 @@ const AddForm = () => {
     }
 
     const handleFormNext = (event,btnName) => {
+        console.log(displayOnCustomPages);
         event.preventDefault();
         if(btnName === "btn-general"){
             if(validation === true){
@@ -118,7 +121,7 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0){
+            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages){
                 setState({
                     ...state,
                     validation: false
@@ -132,7 +135,7 @@ const AddForm = () => {
             }
 
         }else if(btnName === "btn-thank"){
-            if(onlySpaces(name) || formInitialData.options.pages !== ""){
+            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
                 setState({
                     ...state,
                     validation: false,
@@ -147,7 +150,7 @@ const AddForm = () => {
 
         }else{
             if(currentStage === "general"){
-                if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0){
+                if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
                     setState({
                         ...state,
                         validation: false
@@ -187,7 +190,6 @@ const AddForm = () => {
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
                 pages: formInitialData.pages,
-                show_on_all_pages: formInitialData.show_on_all_pages,
             }
             if (id) {
                 console.log(id);
@@ -222,8 +224,7 @@ const AddForm = () => {
                     ...state,
                     loading: true
                 });
-                const addSession = async ()=>{
-                    createForm(formData)
+                const addSession = async () => {
                     const addSessionResponse = await createForm(formData)
                     return addSessionResponse;
                 }
@@ -235,7 +236,6 @@ const AddForm = () => {
                             name: "",
                             options: formInitialData.options,
                             pages: formInitialData.pages,
-                            show_on_all_pages: formInitialData.show_on_all_pages,
                         }
                         setState({
                             ...state,
@@ -304,7 +304,6 @@ const AddForm = () => {
                 loading: true
             });
             const fetchSessionById = async ()=>{
-                getForm(id)
                 const sessionByIdResponse = await getForm(id)
                 return sessionByIdResponse;
             }
@@ -313,9 +312,14 @@ const AddForm = () => {
                 .then( sessionByIdResponse => {
                     setState({
                         ...state,
-                        loading: false
+                        loading: false,
+
                     });
+
                     dispatch(handleReadForm([sessionByIdResponse.data]));
+
+					const displayOnCustomPages = ( sessionByIdResponse.data && sessionByIdResponse.data.pages !== null ) ? true : false;
+                    dispatch( updateFormSettings( 'displayOnCustomPages', displayOnCustomPages ) );
                 })
                 .catch((error) => {
                     console.log(error);

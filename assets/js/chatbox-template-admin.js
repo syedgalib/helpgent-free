@@ -7466,6 +7466,7 @@ var AddForm = function AddForm() {
         pageBgColor: state.form.data[0].options.page_background_color,
         pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
         formInitialData: state.form.data[0],
+        displayOnCustomPages: state.form.settings.displayOnCustomPages,
         loading: state.form.loading
       };
     }),
@@ -7488,7 +7489,8 @@ var AddForm = function AddForm() {
     thankDescFontSize = _useSelector.thankDescFontSize,
     pageBgColor = _useSelector.pageBgColor,
     pageHeaderBgColor = _useSelector.pageHeaderBgColor,
-    formInitialData = _useSelector.formInitialData;
+    formInitialData = _useSelector.formInitialData,
+    displayOnCustomPages = _useSelector.displayOnCustomPages;
   document.documentElement.style.setProperty("--color-page-bg", pageBgColor);
   document.documentElement.style.setProperty("--color-page-header-bg", pageHeaderBgColor);
   document.documentElement.style.setProperty("--color-text-greet", greetColor);
@@ -7536,6 +7538,7 @@ var AddForm = function AddForm() {
     return str.trim().length === 0;
   }
   var handleFormNext = function handleFormNext(event, btnName) {
+    console.log(displayOnCustomPages);
     event.preventDefault();
     if (btnName === "btn-general") {
       if (validation === true) {
@@ -7545,7 +7548,7 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-form") {
-      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0) {
+      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages) {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           validation: false
         }));
@@ -7556,7 +7559,7 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-thank") {
-      if (onlySpaces(name) || formInitialData.options.pages !== "") {
+      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           validation: false
         }));
@@ -7568,7 +7571,7 @@ var AddForm = function AddForm() {
       }
     } else {
       if (currentStage === "general") {
-        if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0) {
+        if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             validation: false
           }));
@@ -7600,8 +7603,7 @@ var AddForm = function AddForm() {
         id: formInitialData.id,
         name: formInitialData.name,
         options: JSON.stringify(formInitialData.options),
-        pages: formInitialData.pages,
-        show_on_all_pages: formInitialData.show_on_all_pages
+        pages: formInitialData.pages
       };
       if (id) {
         console.log(id);
@@ -7656,13 +7658,12 @@ var AddForm = function AddForm() {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    createForm(formData);
-                    _context2.next = 3;
+                    _context2.next = 2;
                     return createForm(formData);
-                  case 3:
+                  case 2:
                     addSessionResponse = _context2.sent;
                     return _context2.abrupt("return", addSessionResponse);
-                  case 5:
+                  case 4:
                   case "end":
                     return _context2.stop();
                 }
@@ -7679,8 +7680,7 @@ var AddForm = function AddForm() {
             id: formInitialData.id,
             name: "",
             options: formInitialData.options,
-            pages: formInitialData.pages,
-            show_on_all_pages: formInitialData.show_on_all_pages
+            pages: formInitialData.pages
           };
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: 'general',
@@ -7769,13 +7769,12 @@ var AddForm = function AddForm() {
             while (1) {
               switch (_context3.prev = _context3.next) {
                 case 0:
-                  getForm(id);
-                  _context3.next = 3;
+                  _context3.next = 2;
                   return getForm(id);
-                case 3:
+                case 2:
                   sessionByIdResponse = _context3.sent;
                   return _context3.abrupt("return", sessionByIdResponse);
-                case 5:
+                case 4:
                 case "end":
                   return _context3.stop();
               }
@@ -7791,6 +7790,8 @@ var AddForm = function AddForm() {
           loading: false
         }));
         dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([sessionByIdResponse.data]));
+        var displayOnCustomPages = sessionByIdResponse.data && sessionByIdResponse.data.pages !== null ? true : false;
+        dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.updateFormSettings)('displayOnCustomPages', displayOnCustomPages));
       }).catch(function (error) {
         console.log(error);
       });
@@ -8797,9 +8798,8 @@ var GeneralSettings = function GeneralSettings() {
         primaryColor: state.form.data[0].options.primary_color,
         fontFamily: state.form.data[0].options.font_color,
         fontSize: state.form.data[0].options.font_size,
-        displayOnCustomPages: !state.form.data[0].show_on_all_pages,
+        displayOnCustomPages: state.form.settings.displayOnCustomPages,
         templateName: state.form.data[0].name,
-        templateTheme: state.form.data[0].options.theme,
         displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
         chatVisibilityType: state.form.data[0].options.chat_visibility_type,
         sendMail: state.form.data[0].options.send_mail_upon_message_submission
@@ -8807,9 +8807,8 @@ var GeneralSettings = function GeneralSettings() {
     }),
     formData = _useSelector.formData,
     primaryColor = _useSelector.primaryColor,
-    displayOnCustomPages = _useSelector.displayOnCustomPages,
     templateName = _useSelector.templateName,
-    templateTheme = _useSelector.templateTheme,
+    displayOnCustomPages = _useSelector.displayOnCustomPages,
     displayedCustomPages = _useSelector.displayedCustomPages,
     chatVisibilityType = _useSelector.chatVisibilityType,
     sendMail = _useSelector.sendMail;
@@ -8860,6 +8859,10 @@ var GeneralSettings = function GeneralSettings() {
     var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(id, value, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
+  function handleChangeDisplayOnCustomPagesSwitchValue(value, event, id) {
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormSettings)('displayOnCustomPages', value));
+  }
+  ;
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
     var customPageIds = '';
     var updatedData = '';
@@ -8874,6 +8877,17 @@ var GeneralSettings = function GeneralSettings() {
       updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
     }
     console.log(updatedData);
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
+  };
+  var handleOnChangeDisplayOnCustomPages = function handleOnChangeDisplayOnCustomPages(selectEvent, e) {
+    var customPageIds = '';
+    var updatedData = '';
+    var newPageIdsArray = [];
+    selectEvent.map(function (item) {
+      newPageIdsArray.push(item.value);
+    });
+    customPageIds = newPageIdsArray.join(',');
+    updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   function getSelectedPageDefault() {
@@ -8949,7 +8963,7 @@ var GeneralSettings = function GeneralSettings() {
             height: 22,
             width: 40,
             checked: displayOnCustomPages,
-            onChange: handleChangeSwitchValue
+            onChange: handleChangeDisplayOnCustomPagesSwitchValue
           })
         })]
       }), !displayOnCustomPages ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -8963,7 +8977,7 @@ var GeneralSettings = function GeneralSettings() {
         },
         defaultValue: getSelectedPageDefault(),
         name: "wpwax-vm-display-custom-pages",
-        onChange: handleChangeSelectValue,
+        onChange: handleOnChangeDisplayOnCustomPages,
         allowSelectAll: true
       }), !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
         className: "wpwax-vm-validate-danger",
@@ -9851,7 +9865,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "editForm": function() { return /* binding */ editForm; },
 /* harmony export */   "handleDynamicEdit": function() { return /* binding */ handleDynamicEdit; },
 /* harmony export */   "handleReadForm": function() { return /* binding */ handleReadForm; },
-/* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; }
+/* harmony export */   "updateDataWithId": function() { return /* binding */ updateDataWithId; },
+/* harmony export */   "updateFormSettings": function() { return /* binding */ updateFormSettings; }
 /* harmony export */ });
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actions */ "./src/js/apps/form-builder/store/form/actions.js");
@@ -9871,7 +9886,8 @@ var formReadBegin = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formReadBeg
   addFormErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].addFormErr,
   formUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateBegin,
   formUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateSuccess,
-  formUpdateErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateErr;
+  formUpdateErr = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].formUpdateErr,
+  updateFormSettings = _actions__WEBPACK_IMPORTED_MODULE_1__["default"].updateFormSettings;
 var addForm = function addForm(args) {
   return /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
@@ -10048,6 +10064,16 @@ var actions = {
   FORM_UPDATE_BEGIN: 'FORM_UPDATE_BEGIN',
   FORM_UPDATE_SUCCESS: 'FORM_UPDATE_SUCCESS',
   FORM_UPDATE_ERR: 'FORM_UPDATE_ERR',
+  FORM_UPDATE_SETTINGS: 'FORM_UPDATE_SETTINGS',
+  updateFormSettings: function updateFormSettings(key, value) {
+    return {
+      type: actions.FORM_UPDATE_SETTINGS,
+      data: {
+        key: key,
+        value: value
+      }
+    };
+  },
   addFormBegin: function addFormBegin() {
     return {
       type: actions.FORM_ADD_BEGIN
@@ -10121,7 +10147,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var formData = [{
   id: "",
   name: "",
-  "options": {
+  options: {
     "theme": "theme-1",
     "chat_visibility_type": "show_on_reload",
     "tag": 1,
@@ -10166,14 +10192,16 @@ var formData = [{
     "primary_button_font_color": "#ffffff",
     "primary_button_background_color": "#6551f2"
   },
-  pages: "",
-  show_on_all_pages: true
+  pages: ""
 }];
 var initialState = {
   data: formData,
   response: "",
   loading: false,
-  error: null
+  error: null,
+  settings: {
+    displayOnCustomPages: false
+  }
 };
 var FORM_READ_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ_BEGIN,
   FORM_READ_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ_SUCCESS,
@@ -10183,7 +10211,8 @@ var FORM_READ_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_READ
   FORM_ADD_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_ADD_ERR,
   FORM_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_BEGIN,
   FORM_UPDATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_SUCCESS,
-  FORM_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_ERR;
+  FORM_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_ERR,
+  FORM_UPDATE_SETTINGS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].FORM_UPDATE_SETTINGS;
 var FormReducer = function FormReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -10191,6 +10220,10 @@ var FormReducer = function FormReducer() {
     data = action.data,
     err = action.err;
   switch (type) {
+    case FORM_UPDATE_SETTINGS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        settings: _objectSpread(_objectSpread({}, state.settings), {}, _defineProperty({}, data.key, data.value))
+      });
     case FORM_ADD_BEGIN:
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: true
@@ -11215,7 +11248,7 @@ function _getResponse() {
           case 13:
             _context.prev = 13;
             _context.t0 = _context["catch"](1);
-            console.log({
+            console.error({
               error: _context.t0
             });
             status.success = false;
@@ -11262,7 +11295,7 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.log({
+            console.error({
               error: _context2.t0
             });
             status.success = false;

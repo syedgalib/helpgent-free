@@ -54,7 +54,7 @@ async function getResponse( request, args, config ) {
 		return status;
 	} catch ( error ) {
 
-		console.log( { error } );
+		console.error( { error } );
 
 		status.success    = false;
 		status.statusCode = error.response.status;
@@ -85,7 +85,7 @@ async function getRestResponse( request, args, config ) {
 		return status;
 	} catch ( error ) {
 
-		console.log( { error } );
+		console.error( { error } );
 
 		status.success    = false;
 		status.statusCode = error.response.status;

@@ -7466,6 +7466,7 @@ var AddForm = function AddForm() {
         pageBgColor: state.form.data[0].options.page_background_color,
         pageHeaderBgColor: state.form.data[0].options.page_header_background_color,
         formInitialData: state.form.data[0],
+        displayOnCustomPages: state.form.settings.displayOnCustomPages,
         loading: state.form.loading
       };
     }),
@@ -7488,7 +7489,8 @@ var AddForm = function AddForm() {
     thankDescFontSize = _useSelector.thankDescFontSize,
     pageBgColor = _useSelector.pageBgColor,
     pageHeaderBgColor = _useSelector.pageHeaderBgColor,
-    formInitialData = _useSelector.formInitialData;
+    formInitialData = _useSelector.formInitialData,
+    displayOnCustomPages = _useSelector.displayOnCustomPages;
   document.documentElement.style.setProperty("--color-page-bg", pageBgColor);
   document.documentElement.style.setProperty("--color-page-header-bg", pageHeaderBgColor);
   document.documentElement.style.setProperty("--color-text-greet", greetColor);
@@ -7532,9 +7534,11 @@ var AddForm = function AddForm() {
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   function onlySpaces(str) {
+    console.log(str.trim().length === 0);
     return str.trim().length === 0;
   }
   var handleFormNext = function handleFormNext(event, btnName) {
+    console.log(displayOnCustomPages);
     event.preventDefault();
     if (btnName === "btn-general") {
       if (validation === true) {
@@ -7544,7 +7548,7 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-form") {
-      if (onlySpaces(name)) {
+      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages) {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           validation: false
         }));
@@ -7555,7 +7559,7 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-thank") {
-      if (name === "") {
+      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
         setState(_objectSpread(_objectSpread({}, state), {}, {
           validation: false
         }));
@@ -7567,7 +7571,7 @@ var AddForm = function AddForm() {
       }
     } else {
       if (currentStage === "general") {
-        if (name === "") {
+        if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             validation: false
           }));
@@ -7602,6 +7606,7 @@ var AddForm = function AddForm() {
         pages: formInitialData.pages
       };
       if (id) {
+        console.log(id);
         setState(_objectSpread(_objectSpread({}, state), {}, {
           loading: true
         }));
@@ -7629,10 +7634,12 @@ var AddForm = function AddForm() {
           };
         }();
         editSession().then(function (editSessionResponse) {
+          console.log(editSessionResponse);
           setState(_objectSpread(_objectSpread({}, state), {}, {
             loading: false
           }));
           setResponse(editSessionResponse);
+          dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([formData]));
         }).catch(function (error) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: 'general',
@@ -7698,28 +7705,19 @@ var AddForm = function AddForm() {
   };
   var getFormContent = function getFormContent() {
     if (currentStage === "general") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-          className: "wpwax-vm-notice wpwax-vm-notice-danger",
-          children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})
       });
     } else if (currentStage === "form") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-          className: "wpwax-vm-notice wpwax-vm-notice-danger",
-          children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_FormSettings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: [!validation ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
-          className: "wpwax-vm-notice wpwax-vm-notice-danger",
-          children: "Please enter a valid form name (space is not allowed at the beginning)."
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_ThankSettings_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})
       });
     }
   };
@@ -8878,6 +8876,7 @@ var GeneralSettings = function GeneralSettings() {
     } else {
       updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
     }
+    console.log(updatedData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleOnChangeDisplayOnCustomPages = function handleOnChangeDisplayOnCustomPages(selectEvent, e) {
@@ -8903,6 +8902,9 @@ var GeneralSettings = function GeneralSettings() {
     }
     return newArray;
   }
+  function onlySpaces(str) {
+    return str.trim().length === 0;
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -8924,7 +8926,10 @@ var GeneralSettings = function GeneralSettings() {
         onChange: function onChange(e) {
           return handleChangeInputValue(e);
         }
-      })]
+      }), onlySpaces(templateName) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        className: "wpwax-vm-validate-danger",
+        children: "Please Enter Form Name"
+      }) : null]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
@@ -8932,7 +8937,7 @@ var GeneralSettings = function GeneralSettings() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            children: "Display on custom pages"
+            children: "Display on Custom pages"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -8974,6 +8979,9 @@ var GeneralSettings = function GeneralSettings() {
         name: "wpwax-vm-display-custom-pages",
         onChange: handleOnChangeDisplayOnCustomPages,
         allowSelectAll: true
+      }), !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        className: "wpwax-vm-validate-danger",
+        children: "Please Select a page"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -10468,11 +10476,11 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
         if (value) {
           return _objectSpread(_objectSpread({}, item), {}, {
             pages: "",
-            is_default: value
+            show_on_all_pages: value
           });
         } else {
           return _objectSpread(_objectSpread({}, item), {}, {
-            is_default: value
+            show_on_all_pages: value
           });
         }
       case "wpwax-vm-display-custom-pages":
@@ -11443,7 +11451,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
 
 /***/ }),
 
@@ -11467,7 +11475,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -11491,7 +11499,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -11503,7 +11511,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
 
 /***/ }),
 
@@ -11527,7 +11535,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 

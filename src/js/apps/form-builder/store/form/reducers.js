@@ -63,7 +63,7 @@ const initialState = {
   loading: false,
   error: null,
   settings: {
-	displayOnCustomPages: false,
+	  displayOnCustomPages: false,
   }
 };
 

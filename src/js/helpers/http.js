@@ -45,8 +45,6 @@ async function getResponse( request, args, config ) {
 	try {
 		const response = await request( args, config );
 
-		console.log( 'getResponse', { args, response } );
-
 		status.success    = true;
 		status.statusCode = response.status;
 		status.message    = response.data.message;

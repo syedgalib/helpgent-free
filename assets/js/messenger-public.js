@@ -19879,18 +19879,14 @@ function _getResponse() {
             return request(args, config);
           case 4:
             response = _context.sent;
-            console.log('getResponse', {
-              args: args,
-              response: response
-            });
             status.success = true;
             status.statusCode = response.status;
             status.message = response.data.message;
             status.data = response.data.data;
             status.headers = response.headers;
             return _context.abrupt("return", status);
-          case 14:
-            _context.prev = 14;
+          case 13:
+            _context.prev = 13;
             _context.t0 = _context["catch"](1);
             console.error({
               error: _context.t0
@@ -19900,12 +19896,12 @@ function _getResponse() {
             status.message = _context.t0.response.data.message;
             status.headers = _context.t0.response.headers;
             return _context.abrupt("return", status);
-          case 22:
+          case 21:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 14]]);
+    }, _callee, null, [[1, 13]]);
   }));
   return _getResponse.apply(this, arguments);
 }

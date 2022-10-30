@@ -1,11 +1,11 @@
-import apiService from 'apiService/Service';
 import Modal from 'Components/Modal.jsx';
 import noData from 'Assets/img/builder/no-data.png';
 import React, { useEffect, useState } from "react";
+import useFormAPI from 'API/useFormAPI.js';
 import TemplateBox from './Style';
 
 const Table = () => {
-
+    const { createItem: createForm, getItems: getAllForms, updateItem: updateFormName, deleteItem: deleteForm } = useFormAPI();
     /* Initialize State */
     const [state, setState] = useState({
         data: [],
@@ -69,22 +69,23 @@ const Table = () => {
         data.filter(item => item.id === id).map(item => {
             let args = {};
             args.name = (titleInput) ? titleInput : '';
-            const stateData = data.filter(stateItem => {
-                if (stateItem.id === id) {
-                    stateItem.name = titleInput;
-                }
-                return stateItem;
-            });
+            
 
-
-            apiService.dataUpdate(`/chatbox-templates/${id}`, args)
+            
+            updateFormName(id,args)
                 .then(response => {
-                    if (response.data.success) {
+                    if (response.success) {
+                        const stateData = data.filter(stateItem => {
+                            if (stateItem.id === id) {
+                                stateItem.name = titleInput;
+                            }
+                            return stateItem;
+                        });
                         setState({
                             ...state,
                             data: stateData,
                             responseType: 'success',
-                            message: response.data.message,
+                            message: response.message,
                             loader: false,
                         });
                     } else {
@@ -92,7 +93,7 @@ const Table = () => {
                             ...state,
                             data: data,
                             responseType: 'warning',
-                            message: response.data.message,
+                            message: response.message,
                             loader: false,
                         });
                     }
@@ -109,15 +110,17 @@ const Table = () => {
     /* Handle Delete Confirmation */
     const handleOk = e => {
         e.preventDefault();
-        apiService.datadelete(`/chatbox-templates/${deleteId}`)
+        
+        deleteForm(deleteId)
             .then(response => {
-                if (response.data.success) {
+                console.log(response)
+                if (response.success) {
                     const stateData = data.filter(item => item.id !== deleteId);
                     setState({
                         ...state,
                         data: stateData,
                         responseType: 'success',
-                        message: response.data.message,
+                        message: response.message,
                         modalStatus: 'close',
                         loader: false,
                     });
@@ -144,7 +147,7 @@ const Table = () => {
     };
 
     /* Delete Form */
-    const deleteForm = (e,id) => {
+    const formDeletion = (e,id) => {
         e.preventDefault();
         setState({
             ...state,
@@ -155,12 +158,12 @@ const Table = () => {
 
     /* useEffect Hook used for render data when component was mounted  */
     useEffect(() => {
-        apiService.getAll('/chatbox-templates')
+        getAllForms()
             .then(response => {
                 setState({
                     ...state,
-                    titleInput: response.data.name,
-                    data: response.data.data,
+                    // titleInput: response.data.name,
+                    data: response.data,
                     loader: false,
                 });
             })
@@ -229,7 +232,7 @@ const Table = () => {
                                                     <td>
                                                         <div className="wpwax-vm-table-action">
                                                             <a href={`${location.href}&mode=edit&id=${value.id}`} className="wpwax-vm-btn wpwax-vm-btn-light"> <span className="dashicons dashicons-edit"></span> Edit</a>
-                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={e => deleteForm(e,value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
+                                                            <a href="#" className="wpwax-vm-btn wpwax-vm-btn-danger" onClick={e => formDeletion(e,value.id)}> <span className="dashicons dashicons-trash"></span> Delete</a>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -98,18 +98,19 @@ const reducer = ( state = initialState, action ) => {
                 isLoading: true
             };
         case LOAD_TEMPLATE_SUCCESS:
-			const showChatbox = action.payload.data.length;
-            const options = ( showChatbox ) ? action.payload.data[0]['options'] : {};
 
-			if ( showChatbox ) {
+			const form = ( action.payload.length ) ? action.payload[0] : null;
+            const options = ( form ) ? form['options'] : {};
+
+			if ( form ) {
 				loadTemplateStyle( options );
 			}
 
             return {
                 ...state,
                 isLoading: false,
-                showChatbox,
-                template: ( showChatbox ) ? action.payload.data[0] : null,
+                showChatbox: form ? true : false,
+                template: form,
             };
         case LOAD_TEMPLATE_ERROR:
             return {

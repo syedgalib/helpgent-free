@@ -24,8 +24,6 @@ const loadTemplate = () => {
 
             const response = await getFormItems( args );
 
-			console.log( { args, response } );
-
             let result   = response.data;
 
             dispatch( loadTemplateSuccess( result ) );

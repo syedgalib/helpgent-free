@@ -8881,24 +8881,20 @@ var loadTemplate = function loadTemplate() {
               return getFormItems(args);
             case 9:
               response = _context.sent;
-              console.log({
-                args: args,
-                response: response
-              });
               result = response.data;
               dispatch(loadTemplateSuccess(result));
-              _context.next = 18;
+              _context.next = 17;
               break;
-            case 15:
-              _context.prev = 15;
+            case 14:
+              _context.prev = 14;
               _context.t0 = _context["catch"](0);
               dispatch(loadTemplateError(_context.t0));
-            case 18:
+            case 17:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 15]]);
+      }, _callee, null, [[0, 14]]);
     }));
     return function (_x) {
       return _ref.apply(this, arguments);
@@ -9166,15 +9162,15 @@ var reducer = function reducer() {
         isLoading: true
       });
     case LOAD_TEMPLATE_SUCCESS:
-      var showChatbox = action.payload.data.length;
-      var options = showChatbox ? action.payload.data[0]['options'] : {};
-      if (showChatbox) {
+      var form = action.payload.length ? action.payload[0] : null;
+      var options = form ? form['options'] : {};
+      if (form) {
         loadTemplateStyle(options);
       }
       return _objectSpread(_objectSpread({}, state), {}, {
         isLoading: false,
-        showChatbox: showChatbox,
-        template: showChatbox ? action.payload.data[0] : null
+        showChatbox: form ? true : false,
+        template: form
       });
     case LOAD_TEMPLATE_ERROR:
       return _objectSpread(_objectSpread({}, state), {}, {

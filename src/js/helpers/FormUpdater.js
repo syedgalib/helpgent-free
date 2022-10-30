@@ -19,12 +19,12 @@ const FormUpdater = (label, value,formInitialData) => {
                     return {
                         ...item,
                         pages: "",
-                        is_default: value
+                        show_on_all_pages: value
                     }
                 }else{
                     return {
                         ...item,
-                        is_default: value
+                        show_on_all_pages: value
                     }
                 }
             case "wpwax-vm-display-custom-pages":

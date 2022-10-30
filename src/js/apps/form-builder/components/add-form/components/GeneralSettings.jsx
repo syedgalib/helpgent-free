@@ -33,7 +33,7 @@ const GeneralSettings = () => {
     const {
         formData,
         primaryColor,
-        displayDefault,
+        displayOnCustomPages,
         templateName,
         templateTheme,
         displayedCustomPages,
@@ -47,7 +47,7 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-            displayDefault: state.form.data[0].show_in_all_pages,
+            displayOnCustomPages: !state.form.data[0].show_on_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].pages
@@ -125,6 +125,7 @@ const GeneralSettings = () => {
         } else {
             updatedData = formUpdater(e.name, selectEvent.value, formData);
         }
+        console.log(updatedData);
         dispatch(handleDynamicEdit(updatedData));
     };
 
@@ -139,6 +140,10 @@ const GeneralSettings = () => {
             });
         }
         return newArray;
+    }
+
+    function onlySpaces(str) {
+        return str.trim().length === 0;
     }
 
     return (
@@ -158,13 +163,16 @@ const GeneralSettings = () => {
                     placeholder='Enter form name (eg. Support Form)'
                     onChange={(e) => handleChangeInputValue(e)}
                 />
+                {
+                   onlySpaces(templateName) ? <span className="wpwax-vm-validate-danger">Please Enter Form Name</span> : null
+                }
             </div>
 
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Display on custom pages</span>
+                        <span>Display on Custom pages</span>
                         <span className='wpwax-vm-tooltip'>
                             <span className='wpwax-vm-tooltip-icon'>
                                 <ReactSVG src={questionIcon} />
@@ -186,13 +194,13 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={!displayDefault}
+                            checked={displayOnCustomPages}
                             onChange={handleChangeSwitchValue}
                         />
                     </label>
                 </div>
                 {
-                    displayDefault ? null :
+                    !displayOnCustomPages ? null :
                     <Select
                         classNamePrefix='wpwax-vm-select'
                         options={customPages}
@@ -207,6 +215,10 @@ const GeneralSettings = () => {
                         onChange={handleChangeSelectValue}
                         allowSelectAll={true}
                     />
+                }
+
+                {
+                    !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : <span className="wpwax-vm-validate-danger">Please Select a page</span>
                 }
             </div>
 

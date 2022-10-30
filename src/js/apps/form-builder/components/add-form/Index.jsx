@@ -103,12 +103,15 @@ const AddForm = () => {
     const dispatch = useDispatch();
 
     function onlySpaces(str) {
+        console.log(str.trim().length===0)
     return str.trim().length === 0;
     }
 
     const handleFormNext = (event,btnName) => {
+        console.log(formInitialData.name,typeof formInitialData.pages);
         event.preventDefault();
         if(btnName === "btn-general"){
+            console.log("general");
             if(validation === true){
                 setState({
                     ...state,
@@ -117,12 +120,14 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(onlySpaces(name)){
+            if(onlySpaces(formInitialData.name) && formInitialData.pages === ""){
+                console.log('validation false');
                 setState({
                     ...state,
                     validation: false
                 });
             }else{
+                // console.log("form");
                 setState({
                     ...state,
                     currentStage: "form",
@@ -130,8 +135,10 @@ const AddForm = () => {
                 });
             }
 
+            // console.log(validation,currentStage)
+
         }else if(btnName === "btn-thank"){
-            if(name === ""){
+            if(onlySpaces(name) || formInitialData.options.pages !== ""){
                 setState({
                     ...state,
                     validation: false,
@@ -146,7 +153,7 @@ const AddForm = () => {
 
         }else{
             if(currentStage === "general"){
-                if(name === ""){
+                if(onlySpaces(name) || formInitialData.options.pages !== ""){
                     setState({
                         ...state,
                         validation: false
@@ -186,9 +193,10 @@ const AddForm = () => {
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
                 pages: formInitialData.pages,
-                show_in_all_pages: formInitialData.show_in_all_pages,
+                show_on_all_pages: formInitialData.show_on_all_pages,
             }
             if (id) {
+                console.log(id);
                 setState({
                     ...state,
                     loading: true
@@ -199,11 +207,13 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
+                        console.log(editSessionResponse)
                         setState({
                             ...state,
                             loading: false,
                         });
                         setResponse(editSessionResponse);
+                        dispatch(handleReadForm([formData]));
                     })
                     .catch((error) => {
                         setState({
@@ -231,7 +241,7 @@ const AddForm = () => {
                             name: "",
                             options: formInitialData.options,
                             pages: formInitialData.pages,
-                            show_in_all_pages: formInitialData.show_in_all_pages,
+                            show_on_all_pages: formInitialData.show_on_all_pages,
                         }
                         setState({
                             ...state,
@@ -262,24 +272,14 @@ const AddForm = () => {
     const getFormContent = () => {
         if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
                 <GeneralSettings />
             </div>
         } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
                 <FormSettings />
             </div>
         } else {
             return <div className="wpwax-vm-add-form__content">
-                {
-                    !validation ? <span className="wpwax-vm-notice wpwax-vm-notice-danger">Please enter a valid form name (space is not allowed at the beginning).</span> : null
-                }
-
                 <ThankSettings />
             </div>
         }

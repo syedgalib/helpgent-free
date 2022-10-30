@@ -47,7 +47,7 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-            displayDefault: state.form.data[0].is_default,
+            displayDefault: state.form.data[0].show_in_all_pages,
             templateName: state.form.data[0].name,
             templateTheme: state.form.data[0].options.theme,
             displayedCustomPages: state.form.data[0].pages

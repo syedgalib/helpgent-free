@@ -54,7 +54,7 @@ const formData = [
         "primary_button_background_color": "#6551f2",
     },
     pages: "",
-    is_default: true,
+    show_in_all_pages: true,
   }
 ]
 

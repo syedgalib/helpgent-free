@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-// import apiService  from "../../../../../apiService/Service";
 import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
 import handsDown from 'Assets/svg/icons/hand-down.svg';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import FormSettings from "./components/FormSettings.jsx";
 import GeneralSettings from "./components/GeneralSettings.jsx";
@@ -11,11 +9,14 @@ import PreviewOne from "./components/PreviewOne.jsx";
 import PreviewTwo from "./components/PreviewTwo.jsx";
 import ThankSettings from "./components/ThankSettings.jsx";
 import apiService from 'apiService/Service.js';
+import useFormAPI from 'API/useFormAPI.js';
+
 import { AddFormStyle } from './Style';
 
 import { addForm, editForm, handleReadForm } from '../../store/form/actionCreator';
 
 const AddForm = () => {
+    const { createItem: createForm, getItem: getForm, updateItem: updateForm } = useFormAPI();
     const queryParams = new URLSearchParams(window.location.search)
     const id = queryParams.get("id");
     /* initialize Form Data */
@@ -189,7 +190,7 @@ const AddForm = () => {
                 name: formInitialData.name,
                 options: JSON.stringify(formInitialData.options),
                 pages: formInitialData.pages,
-                is_default: formInitialData.is_default,
+                show_in_all_pages: formInitialData.show_in_all_pages,
             }
             if (id) {
                 setState({
@@ -197,7 +198,7 @@ const AddForm = () => {
                     loading: true
                 });
                 const editSession = async ()=>{
-                    const editSessionResponse = await apiService.dataAdd(`/chatbox-templates/${id}`, formData)
+                    const editSessionResponse = await updateForm( id,formData )
                     return editSessionResponse;
                 }
                 editSession()
@@ -214,7 +215,7 @@ const AddForm = () => {
                             currentStage: 'general',
                             loading: false,
                         });
-                        setResponse(error.response);
+                        setResponse(response);
                     })
             } else {
                 setState({
@@ -222,17 +223,19 @@ const AddForm = () => {
                     loading: true
                 });
                 const addSession = async ()=>{
-                    const addSessionResponse = await apiService.dataAdd(`/chatbox-templates`, formData)
+                    createForm(formData)
+                    const addSessionResponse = await createForm(formData)
                     return addSessionResponse;
                 }
                 addSession()
                     .then( addSessionResponse => {
+                        console.log(addSessionResponse)
                         const formResetData = {
                             id: formInitialData.id,
                             name: "",
                             options: formInitialData.options,
                             pages: formInitialData.pages,
-                            is_default: formInitialData.is_default,
+                            show_in_all_pages: formInitialData.show_in_all_pages,
                         }
                         setState({
                             ...state,
@@ -248,7 +251,8 @@ const AddForm = () => {
                             currentStage: 'general',
                             loading: false,
                         });
-                        setResponse(error.response);
+                        console.log(error)
+                        setResponse(error);
                     });
             }
         }
@@ -287,10 +291,19 @@ const AddForm = () => {
 
     const getFormResponse = () =>{
         if(response){
-            return response.status === 200 ?
-                <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> Are you going to forms page? <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Click Here </a>
-                    <a href="#" className="wpwax-vm-notice-close" onClick={handleNoticeClose}><span className="dashicons dashicons-no-alt"></span></a>
-                </span> : <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>
+            if(response.statusCode === 200){
+                return (
+                    <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> Are you going to forms page? <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Click Here </a>
+                        <a href="#" className="wpwax-vm-notice-close" onClick={handleNoticeClose}><span className="dashicons dashicons-no-alt"></span></a>
+                    </span>
+                )
+            }else if(response.statusCode === 403){
+                return(
+                    <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.message} Please <a href="">Try again</a> </span>
+                )
+            }else{
+                return <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>;
+            }
         }
     }
 
@@ -301,7 +314,8 @@ const AddForm = () => {
                 loading: true
             });
             const fetchSessionById = async ()=>{
-                const sessionByIdResponse = await apiService.getAll(`/chatbox-templates/${id}`)
+                getForm(id)
+                const sessionByIdResponse = await getForm(id)
                 return sessionByIdResponse;
             }
 
@@ -311,7 +325,7 @@ const AddForm = () => {
                         ...state,
                         loading: false
                     });
-                    dispatch(handleReadForm([sessionByIdResponse.data.data]));
+                    dispatch(handleReadForm([sessionByIdResponse.data]));
                 })
                 .catch((error) => {
                     console.log(error);

@@ -18420,14 +18420,19 @@ var Checkbox = function Checkbox(_ref) {
   var id = _ref.id,
     label = _ref.label,
     value = _ref.value,
-    onChange = _ref.onChange;
+    checked = _ref.checked,
+    onChange = _ref.onChange,
+    disabled = _ref.disabled;
+  console.log(checked);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
       id: id,
       type: "checkbox",
-      checked: value,
-      onChange: onChange
+      value: value,
+      checked: checked,
+      onChange: onChange,
+      disabled: disabled ? "disabled" : ""
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
       children: label
@@ -19108,11 +19113,14 @@ function formatSecondsAsCountdown(timeInSecond) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCoreData": function() { return /* reexport safe */ _hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_2__.useCoreData; },
 /* harmony export */   "useDebounce": function() { return /* reexport safe */ _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_1__.useDebounce; },
 /* harmony export */   "useScreenSize": function() { return /* reexport safe */ _hooks_useScreenSize__WEBPACK_IMPORTED_MODULE_0__.useScreenSize; }
 /* harmony export */ });
 /* harmony import */ var _hooks_useScreenSize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hooks/useScreenSize */ "./src/js/helpers/hooks/useScreenSize.js");
 /* harmony import */ var _hooks_useDebounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hooks/useDebounce */ "./src/js/helpers/hooks/useDebounce.js");
+/* harmony import */ var _hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+
 
 
 
@@ -19755,6 +19763,42 @@ function useScreenRecorder() {
     getCountDown: getCountDown,
     reset: reset
   };
+}
+
+/***/ }),
+
+/***/ "./src/js/helpers/hooks/useCoreData.jsx":
+/*!**********************************************!*\
+  !*** ./src/js/helpers/hooks/useCoreData.jsx ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCoreData": function() { return /* binding */ useCoreData; }
+/* harmony export */ });
+var find = function find(data, keyChain) {
+  return keyChain.split('.').map(function (key) {
+    return key.trim();
+  }).reduce(function (data, key) {
+    return data === null || data === void 0 ? void 0 : data[key];
+  }, data);
+};
+function useCoreData() {
+  var _window;
+  var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var coreData = (_window = window) === null || _window === void 0 ? void 0 : _window.wpWaxCustomerSupportApp_CoreScriptData;
+  if (!coreData) {
+    return {};
+  }
+  if (!key) {
+    return coreData;
+  }
+  if (key.includes('.')) {
+    return find(coreData, key);
+  }
+  return coreData === null || coreData === void 0 ? void 0 : coreData[key];
 }
 
 /***/ }),

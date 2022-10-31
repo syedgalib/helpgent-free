@@ -47,6 +47,7 @@ const SettingBox = () => {
         contentKey: "general",
         navParent: "general",
         options: {
+            guestSubmission: true,
             chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
             maxVideoLength: "2",

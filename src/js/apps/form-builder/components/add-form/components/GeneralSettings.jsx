@@ -35,7 +35,7 @@ const GeneralSettings = () => {
         primaryColor,
         displayDefault,
         templateName,
-        templateTheme,
+        collectInfo,
         displayedCustomPages,
         chatVisibilityType,
         sendMail,
@@ -49,7 +49,7 @@ const GeneralSettings = () => {
             fontSize: state.form.data[0].options.font_size,
             displayDefault: state.form.data[0].is_default,
             templateName: state.form.data[0].name,
-            templateTheme: state.form.data[0].options.theme,
+            collectInfo: state.form.data[0].options.collectInfo,
             displayedCustomPages: state.form.data[0].pages
                 ? state.form.data[0].pages.split(',')
                 : [],
@@ -58,6 +58,8 @@ const GeneralSettings = () => {
                 state.form.data[0].options.send_mail_upon_message_submission,
         };
     });
+
+    console.log(collectInfo);
 
     const [state, setState] = useState({
         openCollapse: true,
@@ -100,9 +102,22 @@ const GeneralSettings = () => {
     };
 
     const handleChangeInputValue = (e) => {
+        console.log(e.target.id, e.target.checked);
         const updatedData = formUpdater(e.target.id, e.target.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
+
+    const handleCollectInfo = (e) =>{
+        const checkboxValue = e.target.value;
+        let newCollectInfo = [...collectInfo];
+        if(newCollectInfo.includes(checkboxValue,0)){
+            newCollectInfo = newCollectInfo.filter(item=> item !== checkboxValue);
+        }else{
+            newCollectInfo.push(checkboxValue);
+        }
+        const updatedData = formUpdater("wpwax-vm-info-collection", newCollectInfo, formData);
+        dispatch(handleDynamicEdit(updatedData));
+    }
 
     const handleChangeSwitchValue = (value, event, id) => {
         if(id === 'wpwax-vm-display-default'){
@@ -160,6 +175,47 @@ const GeneralSettings = () => {
                 />
             </div>
 
+            <div className='wpwax-vm-form-group'>
+                <div className='wpwax-vm-form-group__label'>
+                    <span className='wpwax-vm-tooltip-wrap'>
+                        <span>Collect Info</span>
+                    </span>
+                </div>
+                <div className='wpwax-vm-chekbox-list'>
+                    <div className='wpwax-vm-chekbox-single'>
+                        <span>Name</span>
+                        <Checkbox
+                            id="collect-info-phone"
+                            label=""
+                            onChange={handleCollectInfo}
+                            checked={true}
+                            value="name"
+                            disabled={true}
+                        />
+                    </div>
+                    <div className='wpwax-vm-chekbox-single'>
+                        <span>Email </span>
+                        <Checkbox
+                            id="collect-info-phone"
+                            label=""
+                            onChange={handleCollectInfo}
+                            checked={true}
+                            value="email"
+                            disabled={true}
+                        />
+                    </div>
+                    <div className='wpwax-vm-chekbox-single'>
+                        <span>Phone Number</span>
+                        <Checkbox
+                            id="collect-info-phone"
+                            label=""
+                            onChange={handleCollectInfo}
+                            checked={collectInfo.includes('phone',0)}
+                            value="phone"
+                        />
+                    </div>
+                </div>
+            </div>
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>

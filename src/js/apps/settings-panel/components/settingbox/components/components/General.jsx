@@ -1,7 +1,6 @@
 import React from 'react';
 import { default as Select } from 'react-select';
 import Switch from "react-switch";
-import Radio from 'Components/form-fields/Radio.jsx';
 
 const General = props =>{
     const qualityOptions = [
@@ -51,7 +50,6 @@ const General = props =>{
         });
     };
 
-
     const dashboardPages = [];
     SettingsScriptData.pages.map((item, index) => {
         dashboardPages.push({ value: `${item.id}`, label: `${item.title}` });
@@ -59,6 +57,24 @@ const General = props =>{
 
     return(
         <div className="wpwax-vm-settings">
+            <div className="wpwax-vm-settings__single">
+                <h4 className="wpwax-vm-settings__single--label">Enable Guest Submission</h4>
+                <div className="wpwax-vm-settings__single--element">
+                    <Switch
+                        uncheckedIcon={false}
+                        checkedIcon={false}
+                        onColor="#6551F2"
+                        offColor="#E2E2E2"
+                        className="wpwax-vm-switch"
+                        id="guestSubmission"
+                        handleDiameter={14}
+                        height={22}
+                        width={40}
+                        checked={contentState.options.guestSubmission}
+                        onChange={handleUpdateSwitch}
+                    />
+                </div>
+            </div>
             <div className="wpwax-vm-settings__single">
                 <h4 className="wpwax-vm-settings__single--label">Chat Head Position</h4>
                 <div className="wpwax-vm-settings__single--element">

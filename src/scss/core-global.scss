@@ -222,7 +222,20 @@
 
 /* Form Elements Style */
 .wpwax-vm-form-group {
+    display: flex;
     margin-bottom: 20px;
+    .wpwax-vm-input-addon{
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        border-radius: 0 6px 6px 0;
+        background-color: var(--color-bg-light);
+        .wpwax-vm-input-addon__text{
+            font-weight: 500;
+            display: inline-block;
+            line-height: 1;
+        }
+    }
 
     .wpwax-vm-form__element {
         width: 100%;
@@ -244,6 +257,10 @@
         }
         &:focus {
             border-color: var(--color-dark);
+        }
+        &:not(:last-child){
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 

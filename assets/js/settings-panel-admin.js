@@ -7601,10 +7601,10 @@ var EmailGeneral = function EmailGeneral(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailNotification,
+          checked: contentState.options.enableEmailNotification || true,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailNotification || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : 0,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__swtich-content--item",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
@@ -7621,7 +7621,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "single"
+                  checked: contentState.options.adminEmailNotificationType || "multiple" === "single"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7633,7 +7633,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "multiple"
+                  checked: contentState.options.adminEmailNotificationType || "multiple" === "multiple"
                 })
               })]
             })]
@@ -7653,7 +7653,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "single"
+                  checked: contentState.options.userEmailNotificationType || "multiple" === "single"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7665,7 +7665,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "multiple"
+                  checked: contentState.options.userEmailNotificationType || "multiple" === "multiple"
                 })
               })]
             })]
@@ -7688,7 +7688,7 @@ var EmailGeneral = function EmailGeneral(props) {
             id: "wpwax-vm-mail-from-name",
             name: "emailTemplateFromName",
             placeholder: "ex. Vidsupp",
-            value: contentState.options.emailTemplateFromName,
+            value: contentState.options.emailTemplateFromName || "Help",
             onChange: handleChange
           })
         })
@@ -8134,9 +8134,9 @@ var General = function General(props) {
           searchable: false,
           name: "chatHeadPosition",
           onChange: handleChangeSelectValue,
-          defaultValue: chatHeadPositions.filter(function (option) {
+          defaultValue: contentState.options.chatHeadPosition ? chatHeadPositions.filter(function (option) {
             return option.value === contentState.options.chatHeadPosition;
-          })[0]
+          })[0] : "bottom-right"
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8175,7 +8175,7 @@ var General = function General(props) {
             id: "wpwax-vm-max-video-length",
             name: "maxVideoLength",
             placeholder: "Ex: 10",
-            value: contentState.options.maxVideoLength,
+            value: contentState.options.maxVideoLength || "2",
             onChange: handleChange,
             min: "0"
           })
@@ -8196,9 +8196,9 @@ var General = function General(props) {
           searchable: false,
           name: "videoQuality",
           onChange: handleChangeSelectValue,
-          defaultValue: qualityOptions.filter(function (option) {
+          defaultValue: contentState.options.videoQuality ? qualityOptions.filter(function (option) {
             return option.value === contentState.options.videoQuality;
-          })[0]
+          })[0] : "700"
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8217,7 +8217,7 @@ var General = function General(props) {
             id: "wpwax-vm-max-upload-size",
             name: "maxUploadSize",
             placeholder: "Ex: 10",
-            value: contentState.options.maxUploadSize,
+            value: contentState.options.maxUploadSize || "300",
             onChange: handleChange,
             min: "0"
           })
@@ -8239,7 +8239,7 @@ var General = function General(props) {
             id: "wpwax-vm-delete-attatchment",
             name: "attatchmentDeletionAfter",
             placeholder: "Ex: 45",
-            value: contentState.options.attatchmentDeletionAfter,
+            value: contentState.options.attatchmentDeletionAfter || "20",
             onChange: handleChange,
             min: "0"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {

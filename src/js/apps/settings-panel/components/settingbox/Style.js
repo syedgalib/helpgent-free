@@ -124,6 +124,12 @@ const SetingBoxWrap = Styled.div`
         }
         .wpwax-vm-seetings-box__actions{
             display: flex;
+            align-items: center;
+            p{
+                font-size: 14px;
+                margin: 0 15px 0 0;
+                color: var(--color-white);
+            }
             .wpwax-vm-seetings-box-search{
                 margin-right: 25px;
                 input{

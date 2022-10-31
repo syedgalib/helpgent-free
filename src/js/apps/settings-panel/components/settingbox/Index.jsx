@@ -52,7 +52,7 @@ const SettingBox = () => {
             chatHeadPosition: "bottom-right",
             userDashboardPage: "2",
             maxVideoLength: "2",
-            videoQuality: "700",
+            videoQuality: "720",
             attatchmentDeletionAfter: "20",
             maxUploadSize: "300",
             enableEmailNotification: true,
@@ -68,6 +68,7 @@ const SettingBox = () => {
             emailTemplateMessageBody: "",
             enableEmailFooter: true,
         },
+        message: "",
         loading: true
     });
 
@@ -95,7 +96,10 @@ const SettingBox = () => {
             .then( fetchSettingsResponse => {
                 setSettingContentState({
                     ...settingContentState,
-                    options: fetchSettingsResponse.data,
+                    options: {
+                        ...settingContentState.options,
+                        ...fetchSettingsResponse.data
+                    },
                     loading: false,
                 });
             })
@@ -122,8 +126,15 @@ const SettingBox = () => {
                 setSettingContentState({
                     ...settingContentState,
                     options: saveSettingsResponse.data,
+                    message: "Successfully Ssavd",
                     loading: false,
                 });
+                setTimeout(() => {
+                    setSettingContentState({
+                        ...settingContentState,
+                        message: "",
+                    });
+                  }, 3000)
             })
             .catch((error) => {
                 console.log(error)
@@ -162,7 +173,6 @@ const SettingBox = () => {
                         
                         <ul>
                             {
-                                // !breadcrumbNav[0].subNav ? <li><a href="#" >{breadcrumbNav.label} </a></li> : null
                                 breadcrumbNav.map((item,i)=> {
                                     return(
                                         <li key="i"><a href="#" >{item.label} </a></li>
@@ -181,16 +191,17 @@ const SettingBox = () => {
 
                     </div>
                     <div className="wpwax-vm-seetings-box__actions">
+                        <p>{settingContentState.message}</p>
                         <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={handleSaveSetting}>Save Changes</a>
                     </div>
                 </div>
                 <div className="wpwax-vm-seetings-box__body">
                     <Sidebar contentState={settingContentState} setContentState={setSettingContentState} nav={settingsNav} />
 
-                    <div className={settingContentState.loading ? "wpwax-settings-content-box wpwax-vm-loder-active" : "wpwax-settings-content-box"}>
-                        {
-                            settingContentState.loading ? <LoadingSpinDot /> : <SettingContent contentState={settingContentState} setContentState={setSettingContentState}/>
-                        }
+                    <div className="wpwax-settings-content-box">
+                        
+                        <SettingContent contentState={settingContentState} setContentState={setSettingContentState}/>
+                        
                     </div>
                 </div>
                 <div className="wpwax-vm-seetings-box__footer">

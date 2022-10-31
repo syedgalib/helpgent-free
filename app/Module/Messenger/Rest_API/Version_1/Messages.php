@@ -153,9 +153,11 @@ class Messages extends Rest_Base
         $where = [];
 
         $where['conversation_id'] = '';
+        $where['user_email']      = '';
         $where['message']         = '';
         $where['message_type']    = '';
-        $where['user_email']      = '';
+        $where['parent']          = '';
+        $where['parent_type']     = '';
         $where['updated_at']      = '';
         $where['created_at']      = '';
 
@@ -217,6 +219,10 @@ class Messages extends Rest_Base
                 'compare' => 'IN',
                 'value'   => '(' . $client_conversations . ')',
             ];
+		}
+
+		if ( isset( $args['timezone'] ) ) {
+			unset( $args['timezone'] );
 		}
 
         $data = Message_Model::get_items( $args );
@@ -330,7 +336,10 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! Helper\is_current_user_admin() || ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
+		$is_admin  = Helper\is_current_user_admin();
+		$is_author = $old_data['user_email'] === Helper\get_current_user_email();
+
+		if ( ! ( $is_admin || $is_author ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
 		}
 
@@ -379,8 +388,11 @@ class Messages extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! Helper\is_current_user_admin() || ( int ) $old_data['user_email'] !== Helper\get_current_user_email() ) {
-			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
+		$is_admin  = Helper\is_current_user_admin();
+		$is_author = $old_data['user_email'] === Helper\get_current_user_email();
+
+		if ( ! ( $is_admin || $is_author ) ) {
+			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
 		}
 
         $operation = Message_Model::delete_item( $args['id'] );

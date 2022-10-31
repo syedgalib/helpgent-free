@@ -138,7 +138,7 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 function filter_params( $default = [], $args = [] )
 {
 	foreach ( $args as $key => $value ) {
-		if (  ! in_array( $key, array_keys( $default ) ) ) {
+		if ( ! in_array( $key, array_keys( $default ) ) ) {
 			unset( $args[ $key ] );
 		}
 	}

@@ -7534,11 +7534,9 @@ var AddForm = function AddForm() {
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   function onlySpaces(str) {
-    console.log(str.trim().length === 0);
     return str.trim().length === 0;
   }
   var handleFormNext = function handleFormNext(event, btnName) {
-    console.log(displayOnCustomPages);
     event.preventDefault();
     if (btnName === "btn-general") {
       if (validation === true) {
@@ -7548,38 +7546,77 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-form") {
-      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages) {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          validation: false
-        }));
-      } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          currentStage: "form",
-          validation: true
-        }));
-      }
-    } else if (btnName === "btn-thank") {
-      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          validation: false
-        }));
-      } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          currentStage: "thank",
-          validation: true
-        }));
-      }
-    } else {
-      if (currentStage === "general") {
-        if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            validation: false
-          }));
-        } else {
+      if (!displayOnCustomPages) {
+        if (!onlySpaces(formInitialData.name)) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: "form",
             validation: true
           }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      } else {
+        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "form",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      }
+    } else if (btnName === "btn-thank") {
+      if (!displayOnCustomPages) {
+        if (!onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "thank",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      } else {
+        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "thank",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      }
+    } else {
+      if (currentStage === "general") {
+        if (!displayOnCustomPages) {
+          if (!onlySpaces(formInitialData.name)) {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              currentStage: "form",
+              validation: true
+            }));
+          } else {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              validation: false
+            }));
+          }
+        } else {
+          if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              currentStage: "form",
+              validation: true
+            }));
+          } else {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              validation: false
+            }));
+          }
         }
       } else if (currentStage === "form") {
         setState(_objectSpread(_objectSpread({}, state), {}, {
@@ -7639,7 +7676,7 @@ var AddForm = function AddForm() {
             loading: false
           }));
           setResponse(editSessionResponse);
-          dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([formData]));
+          dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([editSessionResponse.data]));
         }).catch(function (error) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: 'general',

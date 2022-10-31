@@ -456,7 +456,9 @@ const SettingContentWrap = Styled.div`
             display: block;
         }
     }
-
+    .wpwax-vm-checkbox label{
+        margin-left: 10px;
+    }
 `;
 
 const ChatBoxPreviewWrap = Styled.div`

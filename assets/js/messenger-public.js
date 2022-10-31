@@ -18342,14 +18342,19 @@ var Checkbox = function Checkbox(_ref) {
   var id = _ref.id,
     label = _ref.label,
     value = _ref.value,
-    onChange = _ref.onChange;
+    checked = _ref.checked,
+    onChange = _ref.onChange,
+    disabled = _ref.disabled;
+  console.log(checked);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
       id: id,
       type: "checkbox",
-      checked: value,
-      onChange: onChange
+      value: value,
+      checked: checked,
+      onChange: onChange,
+      disabled: disabled ? "disabled" : ""
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
       children: label

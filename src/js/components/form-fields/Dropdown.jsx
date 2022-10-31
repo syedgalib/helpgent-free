@@ -1,9 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import useTermAPI from 'API/useTermAPI.js';
+import useConversationAPI from 'API/useConversationAPI.js';
 import apiService from 'apiService/Service.js';
 import ReactSVG from 'react-inlinesvg';
 
 const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId, onMarkAsRead, onMarkAsUnread, }) => {
+    const { createItem: createTerm, getItems: getTerms, deleteItem: deleteTermById } = useTermAPI();
+    const { getItems: getConversations } = useConversationAPI();
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -18,13 +22,6 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
     });
 
     const { selectedItemText } = selectedState;
-
-    /* initialize Form Data */
-	// const { sessions } = useSelector(state => {
-    //     return {
-    //         sessions: state.sessions.sessions,
-    //     };
-    // });
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -169,7 +166,8 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     tagLoader: true
                 });
                 const deleteTerm = async () => {
-                    const deleteResponse = await apiService.datadelete(`messages/terms/${termId}`);
+                    
+                    const deleteResponse = await deleteTermById(termId);
                     return deleteResponse;
                 }
                 deleteTerm()
@@ -188,60 +186,67 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'filter-read':
                 const fetchReadSeassion = async ()=>{
-                    const readSession = await apiService.getAllByArg(`/sessions`,{order_by: "read"});
+                    
+                    const readSession = await getConversations({order_by: "read"});
                     return readSession;
                 }
                 fetchReadSeassion()
                     .then( readResponse => {
                         setOuterState({
                             ...outerState,
-                            sessionList: readResponse.data.data,
-                            filteredSessions: readResponse.data.data
+                            sessionList: readResponse.data,
+                            filteredSessions: readResponse.data
                         });
                     })
                     .catch(error => {})
                 break;
             case 'filter-unread':
                 const fetchUnReadSeassion = async ()=>{
-                    const readSession = await apiService.getAllByArg(`/sessions`,{order_by: "unread"});
+                    
+                    const readSession = await getConversations({order_by: "unread"});
                     return readSession;
                 }
                 fetchUnReadSeassion()
                     .then( unReadResponse => {
                         setOuterState({
                             ...outerState,
-                            sessionList: unReadResponse.data.data,
-                            filteredSessions: unReadResponse.data.data
+                            sessionList: unReadResponse.data,
+                            filteredSessions: unReadResponse.data
                         });
                     })
                     .catch(error => {})
                 break;
             case 'filter-latest':
                 const fetchLatestSeassion = async ()=>{
-                    const latestSession = await apiService.getAll(`/sessions`);
+                    const pageLimit = {
+                        limit: '15',
+                        page: 1,
+                        timezone: getTimezoneString(),
+                    };
+                    const latestSession = await getConversations(pageLimit);
                     return latestSession;
                 }
                 fetchLatestSeassion()
                     .then( latestResponse => {
                         setOuterState({
                             ...outerState,
-                            sessionList: latestResponse.data.data,
-                            filteredSessions: latestResponse.data.data
+                            sessionList: latestResponse.data,
+                            filteredSessions: latestResponse.data
                         });
                     })
                     .catch(error => {})
                 break;
                 case 'filter-oldest':
                     const fetchOldestSeassion = async ()=>{
-                        const oldestSession = await apiService.getAllByArg(`/sessions`,{order_by: "oldest"});
+                        const oldestSession = await getConversations({order_by: "oldest"});
                         return oldestSession;
                     }
                     fetchOldestSeassion()
                         .then( oldestResponse => {
                             setOuterState({
                                 ...outerState,
-                                sessionList: oldestResponse.data.data,
-                                filteredSessions: oldestResponse.data.data
+                                sessionList: oldestResponse.data,
+                                filteredSessions: oldestResponse.data
                             });
                         })
                         .catch(error => {})

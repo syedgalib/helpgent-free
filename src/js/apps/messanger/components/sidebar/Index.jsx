@@ -276,8 +276,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(sessionList);
-
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
@@ -510,7 +508,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     const metaList = [
                                         {
                                             type: 'date',
-                                            text: item.last_message.updated_on_formatted,
+                                            text: item.last_message.updated_at_formatted,
                                         },
                                     ];
 

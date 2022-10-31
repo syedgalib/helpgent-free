@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddTagWrap } from './Style';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import Checkbox from 'Components/form-fields/Checkbox.jsx';
 import {
@@ -210,6 +209,7 @@ const AddTag = (props) => {
                 
                 createTerm(termData)
                     .then(response => {
+                        console.log(response)
                         setTagState({
                             ...tagState,
                             tagLoader: false,
@@ -330,6 +330,8 @@ const AddTag = (props) => {
             }
 
         }
+
+        console.log(addFormState)
     }
 
     const handleAssignTerm = async (e) =>{

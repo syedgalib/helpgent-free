@@ -11367,15 +11367,12 @@ function _getResponse() {
           case 13:
             _context.prev = 13;
             _context.t0 = _context["catch"](1);
-            console.error({
-              error: _context.t0
-            });
             status.success = false;
             status.statusCode = _context.t0.response.status;
             status.message = _context.t0.response.data.message;
             status.headers = _context.t0.response.headers;
             return _context.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -11414,15 +11411,12 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.error({
-              error: _context2.t0
-            });
             status.success = false;
             status.statusCode = _context2.t0.response.status;
             status.message = _context2.t0.response.data.message;
             status.headers = _context2.t0.response.headers;
             return _context2.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context2.stop();
         }

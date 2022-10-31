@@ -7709,7 +7709,7 @@ var EmailGeneral = function EmailGeneral(props) {
             id: "wpwax-vm-mail-from-email",
             name: "emailTemplateFromEmail",
             placeholder: "example@gmail.com",
-            value: contentState.options.emailTemplateFromEmail,
+            value: contentState.options.emailTemplateFromEmail || "demo@gmail.com",
             onChange: handleChange
           })
         })
@@ -7743,6 +7743,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var EmailTemplate = function EmailTemplate(props) {
   var contentState = props.contentState,
     setContentState = props.setContentState;
+  var defaultTemplateBody = "Dear {{NAME}},   Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}Thanks,The Administrator of {{SITE_NAME}}";
+  var defaultMessageBody = "Dear {{NAME}},   Message Details:{{MESSAGE}}";
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
@@ -7774,27 +7776,27 @@ var EmailTemplate = function EmailTemplate(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailHeader,
+          checked: contentState.options.enableEmailHeader || true,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailHeader || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : 0,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: contentState.options.emailHeaderColor
+              children: contentState.options.emailHeaderColor || "#6551f2"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
               htmlFor: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: contentState.options.emailHeaderColor
+                backgroundColor: contentState.options.emailHeaderColor || "#6551f2"
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__element",
               name: "emailHeaderColor",
-              value: contentState.options.emailHeaderColor,
+              value: contentState.options.emailHeaderColor || "#6551f2",
               onChange: handleChange
             })]
           })
@@ -7934,7 +7936,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-mail-from-subject",
                   name: "emailTemplateGreetingSubject",
                   placeholder: "ex. mail Subject",
-                  value: contentState.options.emailTemplateGreetingSubject,
+                  value: contentState.options.emailTemplateGreetingSubject || "Wellcome to Support",
                   onChange: handleChange
                 })
               })
@@ -7954,7 +7956,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-mail-from-body",
                   name: "emailTemplateGreetingBody",
                   placeholder: "",
-                  value: contentState.options.emailTemplateGreetingBody,
+                  value: contentState.options.emailTemplateGreetingBody || defaultTemplateBody,
                   onChange: handleChange
                 })
               })
@@ -8010,7 +8012,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-message-mail-from-body",
                   name: "emailTemplateMessageBody",
                   placeholder: "",
-                  value: contentState.options.emailTemplateMessageBody,
+                  value: contentState.options.emailTemplateMessageBody || defaultMessageBody,
                   onChange: handleChange
                 })
               })
@@ -8035,7 +8037,7 @@ var EmailTemplate = function EmailTemplate(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailFooter,
+          checked: contentState.options.enableEmailFooter || true,
           onChange: handleUpdateSwitch
         })
       })]
@@ -8136,7 +8138,10 @@ var General = function General(props) {
           onChange: handleChangeSelectValue,
           defaultValue: contentState.options.chatHeadPosition ? chatHeadPositions.filter(function (option) {
             return option.value === contentState.options.chatHeadPosition;
-          })[0] : "bottom-right"
+          })[0] : {
+            value: 'bottom-right',
+            label: 'Bottom Right'
+          }
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8198,7 +8203,10 @@ var General = function General(props) {
           onChange: handleChangeSelectValue,
           defaultValue: contentState.options.videoQuality ? qualityOptions.filter(function (option) {
             return option.value === contentState.options.videoQuality;
-          })[0] : "700"
+          })[0] : {
+            value: '720',
+            label: '720p'
+          }
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -9760,7 +9768,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ce869704be74fdc5fbc7f349dba29e6c.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/72fc635e320f6cfe297cd5623d5946d7.svg");
 
 /***/ }),
 
@@ -9772,7 +9780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/cd35ccecec94b883af66ae0a95d45b63.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/64e7b8e3aff7af1c7c0515ecc74939f4.svg");
 
 /***/ }),
 
@@ -9784,7 +9792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6007046de945587f74f4049506b63488.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9a6ed96ce2cb726ff533dd26a6bda409.svg");
 
 /***/ }),
 
@@ -9796,7 +9804,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -9808,7 +9816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8902d994902646f83ce45940b8aa2ba6.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3eaedfa89d9706ca8e8945a7ff49846d.svg");
 
 /***/ }),
 
@@ -9820,7 +9828,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8778bab3e334f8aae2cfcfef08a1528.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f04b60e22c49a11a80cb58498fecce62.svg");
 
 /***/ }),
 
@@ -9832,7 +9840,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
 
 /***/ }),
 
@@ -9844,7 +9852,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -9856,7 +9864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
 
 /***/ }),
 
@@ -9868,7 +9876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/766a25f91411b3c801cc09f955dbb726.svg");
 
 /***/ }),
 
@@ -9880,7 +9888,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ea20a25679505efe7c382331e15887ec.svg");
 
 /***/ }),
 
@@ -9892,7 +9900,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/15a8e473814e86b6f503635888e18b02.svg");
 
 /***/ }),
 

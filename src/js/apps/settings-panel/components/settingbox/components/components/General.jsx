@@ -72,7 +72,7 @@ const General = props =>{
                         onChange={handleChangeSelectValue}
                         defaultValue={contentState.options.chatHeadPosition ? chatHeadPositions.filter(function (option) {
                             return option.value === contentState.options.chatHeadPosition;
-                        })[0] : "bottom-right"}
+                        })[0] : { value: 'bottom-right', label: 'Bottom Right' }}
                     />
                 </div>
             </div>
@@ -114,7 +114,7 @@ const General = props =>{
                         onChange={handleChangeSelectValue}
                         defaultValue={contentState.options.videoQuality ? qualityOptions.filter(function (option) {
                             return option.value === contentState.options.videoQuality;
-                        })[0] : "700"}
+                        })[0] : { value: '720', label: '720p' }}
                     />
                 </div>
             </div>

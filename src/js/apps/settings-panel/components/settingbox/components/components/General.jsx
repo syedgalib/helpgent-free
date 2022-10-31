@@ -127,11 +127,15 @@ const General = props =>{
                 </div>
             </div>
             <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-delete-attatchment">Attachment deletion After (Days)</label>
+                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-delete-attatchment">Store Attachments For</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
                         <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-delete-attatchment" name="attatchmentDeletionAfter" placeholder="Ex: 45" value={contentState.options.attatchmentDeletionAfter} onChange={handleChange} min="0"/>
+                        <div className="wpwax-vm-input-addon">
+                            <span className="wpwax-vm-input-addon__text">Days</span>
+                        </div>
                     </div>
+                    <p>Then delete automatically. Or leave empty to store as many days as you want.</p>
                 </div>
             </div>
         </div>

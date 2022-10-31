@@ -90,6 +90,7 @@ const AddFormStyle = Styled.div`
     }
     .wpwax-vm-form-group{
         margin-bottom: 16px;
+        flex-direction: column;
         &:not(:last-child){
             padding-bottom: 20px;
             border-bottom: 1px solid #ededed;

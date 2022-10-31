@@ -10,7 +10,7 @@
     --color-bg-gray: #e2e2e2;
     --color-bg-general: #ededed;
     --color-bg-page: #f0f0f0;
-    --color-bg-light: #D0D0D0;
+    --color-bg-light: #d0d0d0;
     --color-border-light: #ededed;
     --color-gray: #868eae;
     --color-info: #1b83fb;
@@ -221,17 +221,26 @@
 }
 
 /* Form Elements Style */
+.wpwax-vm-input-desc {
+	font-style: italic;
+	color: #6c6c6c;
+}
+
 .wpwax-vm-form-group {
     display: flex;
     margin-bottom: 20px;
-    .wpwax-vm-input-addon{
+
+    .wpwax-vm-input-addon {
         display: flex;
         align-items: center;
+		justify-content: center;
         padding: 0 10px;
         border-radius: 0 6px 6px 0;
         background-color: var(--color-bg-light);
-        .wpwax-vm-input-addon__text{
-            font-weight: 500;
+		color: #6c6c6c;
+		width: 50px;
+
+        .wpwax-vm-input-addon__text {
             display: inline-block;
             line-height: 1;
         }
@@ -258,7 +267,7 @@
         &:focus {
             border-color: var(--color-dark);
         }
-        &:not(:last-child){
+        &:not(:last-child) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
@@ -525,22 +534,22 @@
 }
 
 /* wpwax Card */
-.wpwax-vm-card{
+.wpwax-vm-card {
     border: 1px solid var(--color-border-light);
     border-radius: 10px;
     margin-bottom: 30px;
-    .wpwax-vm-card-header{
-        border-bottom: 1px solid var(--color-border-light);;
+    .wpwax-vm-card-header {
+        border-bottom: 1px solid var(--color-border-light);
         padding: 15px 20px;
         margin-bottom: 0;
-        .wpwax-vm-card-header__title{
+        .wpwax-vm-card-header__title {
             font-size: 16px;
             font-weight: 500;
             margin: 0;
             color: var(--color-dark);
         }
     }
-    .wpwax-vm-card-body{
+    .wpwax-vm-card-body {
         padding: 15px 20px;
     }
 }
@@ -573,11 +582,11 @@
             color: var(--text-color);
         }
     }
-    .wpwax-hg-assigned-tags{
+    .wpwax-hg-assigned-tags {
         display: flex;
         align-items: center;
         margin: 4px -2px -2px;
-        .wpwax-hg-assigned-tags__item{
+        .wpwax-hg-assigned-tags__item {
             display: flex;
             justify-self: center;
             align-items: center;
@@ -589,11 +598,11 @@
             margin: 2px;
             padding: 0 5px;
             border-radius: 4px;
-            color: #4D4D4D;
+            color: #4d4d4d;
             background-color: var(--color-bg-light);
-            &.wpwax-hg-assigned-tags__item-add{
+            &.wpwax-hg-assigned-tags__item-add {
                 color: var(--color-dark);
-                span{
+                span {
                     position: relative;
                     top: -2px;
                 }
@@ -671,10 +680,10 @@
             .wpwax-vm-dropdown-item-icon {
                 line-height: 1;
                 margin-right: 10px;
-                svg{
+                svg {
                     width: 14px;
                     fill: var(--color-text);
-                    path{
+                    path {
                         fill: var(-color-text);
                     }
                 }
@@ -993,31 +1002,31 @@
 }
 
 /* wpwax-vm Note Style */
-.wpwax-vm-note{
+.wpwax-vm-note {
     margin-bottom: 30px;
     padding: 30px;
     background-color: #dcebfe;
     border-radius: 4px;
     display: flex;
-    .wpwax-vm-note__icon{
+    .wpwax-vm-note__icon {
         margin-right: 10px;
     }
-    .dashicons{
+    .dashicons {
         font-size: 30px;
-        opacity: .2;
+        opacity: 0.2;
         margin-right: 15px;
     }
-    .wpwax-vm-note__title{
+    .wpwax-vm-note__title {
         font-size: 1rem;
         margin-top: 0;
         margin-bottom: 10px;
         color: var(--color-primary);
     }
-    .wpwax-vm-note__single{
-        &:not(:last-child){
+    .wpwax-vm-note__single {
+        &:not(:last-child) {
             margin-bottom: 6px;
         }
-        .wpwax-vm-note__single--label{
+        .wpwax-vm-note__single--label {
             font-weight: 500;
             margin-right: 5px;
             color: #c71585;
@@ -1027,7 +1036,7 @@
 
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
-    height: min(80vh,600px);
+    height: min(80vh, 600px);
     font-family: var(--font-family);
     .wpwax-vm-record-send-progress__content {
         h4,
@@ -1316,10 +1325,10 @@
 
 /* Responsive Css */
 @media only screen and (max-width: 1299px) {
-    .wpwax-vm-note{
+    .wpwax-vm-note {
         padding: 15px;
     }
-    .wpwax-vm-btn{
+    .wpwax-vm-btn {
         font-size: 14px;
     }
 }
@@ -1342,14 +1351,13 @@
 
 @keyframes wpwaxHgBlinking {
     50% {
-      opacity: 0;
-    }
-  }
-
-/* Responsive Css */
-@media only screen and (max-width: 1299px) {
-.wpwax-vm-btn.wpwax-vm-btn-lg{
-    height: 48px;
+        opacity: 0;
     }
 }
 
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+    .wpwax-vm-btn.wpwax-vm-btn-lg {
+        height: 48px;
+    }
+}

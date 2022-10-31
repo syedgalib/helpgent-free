@@ -6863,9 +6863,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 function App() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_components_settingbox_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {});
 }
+
 /* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
@@ -6894,18 +6896,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -6951,34 +6967,36 @@ var SettingBox = function SettingBox() {
     }]
   }];
   var totalNav = settingsNav.length;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      contentKey: "general",
-      navParent: "general",
-      options: {
-        chatHeadPosition: "bottom-right",
-        userDashboardPage: "2",
-        maxVideoLength: "2",
-        videoQuality: "700",
-        attatchmentDeletionAfter: "20",
-        maxUploadSize: "300",
-        enableEmailNotification: true,
-        adminEmailNotificationType: "single",
-        userEmailNotificationType: "single",
-        enableEmailHeader: true,
-        emailHeaderColor: "#000000",
-        emailTemplateFromName: "",
-        emailTemplateFromEmail: "",
-        emailTemplateGreetingSubject: "",
-        emailTemplateGreetingBody: "",
-        emailTemplateMessageSubject: "",
-        emailTemplateMessageBody: "",
-        enableEmailFooter: true
-      },
-      loading: true
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    settingContentState = _useState2[0],
-    setSettingContentState = _useState2[1];
+    contentKey: "general",
+    navParent: "general",
+    options: {
+      chatHeadPosition: "bottom-right",
+      userDashboardPage: "2",
+      maxVideoLength: "2",
+      videoQuality: "700",
+      attatchmentDeletionAfter: "20",
+      maxUploadSize: "300",
+      enableEmailNotification: true,
+      adminEmailNotificationType: "single",
+      userEmailNotificationType: "single",
+      enableEmailHeader: true,
+      emailHeaderColor: "#000000",
+      emailTemplateFromName: "",
+      emailTemplateFromEmail: "",
+      emailTemplateGreetingSubject: "",
+      emailTemplateGreetingBody: "",
+      emailTemplateMessageSubject: "",
+      emailTemplateMessageBody: "",
+      enableEmailFooter: true
+    },
+    loading: true
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      settingContentState = _useState2[0],
+      setSettingContentState = _useState2[1];
+
   var getPath = function getPath() {
     if (settingContentState.contentKey === "email_general") {
       return "Email General";
@@ -6986,10 +7004,12 @@ var SettingBox = function SettingBox() {
       return "Email Template";
     }
   };
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
       loading: true
     }));
+
     var fetchSettings = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var fetchSettingsResponse;
@@ -6999,9 +7019,11 @@ var SettingBox = function SettingBox() {
               case 0:
                 _context.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].getAll('/settings');
+
               case 2:
                 fetchSettingsResponse = _context.sent;
                 return _context.abrupt("return", fetchSettingsResponse);
+
               case 4:
               case "end":
                 return _context.stop();
@@ -7009,10 +7031,12 @@ var SettingBox = function SettingBox() {
           }
         }, _callee);
       }));
+
       return function fetchSettings() {
         return _ref.apply(this, arguments);
       };
     }();
+
     fetchSettings().then(function (fetchSettingsResponse) {
       setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
         options: fetchSettingsResponse.data.data,
@@ -7024,11 +7048,13 @@ var SettingBox = function SettingBox() {
       }));
     });
   }, []);
+
   var handleSaveSetting = function handleSaveSetting(event) {
     event.preventDefault();
     setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
       loading: true
     }));
+
     var saveSettings = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var saveSettingsResponse;
@@ -7038,9 +7064,11 @@ var SettingBox = function SettingBox() {
               case 0:
                 _context2.next = 2;
                 return apiService_Service_js__WEBPACK_IMPORTED_MODULE_1__["default"].dataAdd("/settings", settingContentState);
+
               case 2:
                 saveSettingsResponse = _context2.sent;
                 return _context2.abrupt("return", saveSettingsResponse);
+
               case 4:
               case "end":
                 return _context2.stop();
@@ -7048,10 +7076,12 @@ var SettingBox = function SettingBox() {
           }
         }, _callee2);
       }));
+
       return function saveSettings() {
         return _ref2.apply(this, arguments);
       };
     }();
+
     saveSettings().then(function (saveSettingsResponse) {
       setSettingContentState(_objectSpread(_objectSpread({}, settingContentState), {}, {
         options: saveSettingsResponse.data.data,
@@ -7064,15 +7094,18 @@ var SettingBox = function SettingBox() {
       }));
     });
   };
+
   var breadcrumbNav = settingsNav.filter(function (item) {
     return item.path === settingContentState.navParent;
   });
   var breadcrumbSubnav;
+
   if (breadcrumbNav[0].subNav) {
     breadcrumbSubnav = breadcrumbNav[0].subNav.filter(function (item) {
       return item.path === settingContentState.contentKey;
     });
   }
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_11__.SetingBoxWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "wpwax-vm-settings-top",
@@ -7112,8 +7145,7 @@ var SettingBox = function SettingBox() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "wpwax-vm-seetings-box__breadcrumb",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("ul", {
-            children: [
-            // !breadcrumbNav[0].subNav ? <li><a href="#" >{breadcrumbNav.label} </a></li> : null
+            children: [// !breadcrumbNav[0].subNav ? <li><a href="#" >{breadcrumbNav.label} </a></li> : null
             breadcrumbNav.map(function (item, i) {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("li", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
@@ -7167,6 +7199,7 @@ var SettingBox = function SettingBox() {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (SettingBox);
 
 /***/ }),
@@ -7188,7 +7221,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
+
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 
 var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    font-family: 'Inter',sans-serif;\n    margin: 0 auto;\n    @media only screen and (max-width: 1299px) {\n        max-width: 960px;\n    }\n    @media only screen and (max-width: 1199px) {\n        max-width: 900px;\n        margin-right: 15px;\n    }\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n            @media only screen and (max-width: 575px) {\n                font-size: 20px;\n            }\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                @media only screen and (max-width: 575px) {\n                    font-size: 12px;\n                    margin: 6px;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                    svg path{\n                        fill: var(--color-primary);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                flex-direction: column;\n                align-items: center;\n            }\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 767px) {\n                margin-bottom: 15px;\n            }\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    span.dashicons{\n                        width: 18px;\n                        height: 18px;\n                        margin: 0 4px;\n                        font-size: 16px;\n                    }\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        pointer-events: none;\n                        @media only screen and (max-width: 767px) {\n                            font-size: 12px;\n                        }\n                        &.wpwax-vm-active{\n                            color: rgba(255,255,255,1);\n                        }\n                        &:focus{\n                            outline: none;\n                            box-shadow: 0 0;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n            .wpwax-settings-content-box{\n                flex: auto;\n                &.wpwax-vm-loder-active{\n                    &:after{\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n                .wpwax-vm-loading-spin{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    z-index: 100;\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                justify-content: center;\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
 var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n    @media only screen and (max-width: 1299px) {\n        min-width: 200px;\n    }\n    @media only screen and (max-width: 767px) {\n        display: none;\n    }\n"])));
@@ -7217,8 +7252,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var Assets_img_settings_user_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/img/settings/user.png */ "./src/assets/img/settings/user.png");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+ // import { ReactSVG } from 'react-svg';
 
-// import { ReactSVG } from 'react-svg';
+
 
 
 
@@ -7291,6 +7327,7 @@ var ChatBoxPreview = function ChatBoxPreview() {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (ChatBoxPreview);
 
 /***/ }),
@@ -7308,27 +7345,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Style.js */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
 
 var NavItem = function NavItem(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState2 = _slicedToArray(_useState, 2),
-    subNavPath = _useState2[0],
-    setsubNavPath = _useState2[1];
+      _useState2 = _slicedToArray(_useState, 2),
+      subNavPath = _useState2[0],
+      setsubNavPath = _useState2[1];
+
   var contentState = props.contentState,
-    setContentState = props.setContentState,
-    navId = props.navId,
-    setNavId = props.setNavId;
+      setContentState = props.setContentState,
+      navId = props.navId,
+      setNavId = props.setNavId;
+
   var handleSubnav = function handleSubnav(e, id, path, subNav) {
     e.preventDefault();
     setNavId(id);
@@ -7338,6 +7387,7 @@ var NavItem = function NavItem(props) {
       contentKey: path
     }));
   };
+
   var handleSubnavActivation = function handleSubnavActivation(e) {
     e.preventDefault();
     setsubNavPath(e.target.id);
@@ -7345,6 +7395,7 @@ var NavItem = function NavItem(props) {
       contentKey: e.target.id
     }));
   };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_1__.SidebarMenuItem, {
     className: props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
@@ -7375,6 +7426,7 @@ var NavItem = function NavItem(props) {
     }) : null]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (NavItem);
 
 /***/ }),
@@ -7404,17 +7456,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-// import { ReactSVG } from 'react-svg';
+ // import { ReactSVG } from 'react-svg';
+
+
 
 
 
@@ -7432,27 +7494,31 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var SettingContent = function SettingContent(props) {
   var contentState = props.contentState,
-    setContentState = props.setContentState;
-
+      setContentState = props.setContentState;
   /* initialize Form Data */
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
-      return {
-        settingActive: state.settings.sidebarPath
-      };
-    }),
-    settingActive = _useSelector.settingActive;
+    return {
+      settingActive: state.settings.sidebarPath
+    };
+  }),
+      settingActive = _useSelector.settingActive;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      messageSubmission: false
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    formState = _useState2[0],
-    setFormState = _useState2[1];
+    messageSubmission: false
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      formState = _useState2[0],
+      setFormState = _useState2[1];
+
   var messageSubmission = formState.messageSubmission;
+
   var handleMessageSubmission = function handleMessageSubmission() {
     setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       messageSubmission: !messageSubmission
     }));
   };
+
   var emailTemplate = [{
     icon: "",
     text: "Edit"
@@ -7483,6 +7549,7 @@ var SettingContent = function SettingContent(props) {
     })
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (SettingContent);
 
 /***/ }),
@@ -7502,26 +7569,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Style */ "./src/js/apps/settings-panel/components/settingbox/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-// import { ReactSVG } from 'react-svg';
+ // import { ReactSVG } from 'react-svg';
+
+
 
 
 
 
 var Sidebar = function Sidebar(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('wpwax-vm-general-settings'),
-    _useState2 = _slicedToArray(_useState, 2),
-    navId = _useState2[0],
-    setNavId = _useState2[1];
+      _useState2 = _slicedToArray(_useState, 2),
+      navId = _useState2[0],
+      setNavId = _useState2[1];
+
   var contentState = props.contentState,
-    setContentState = props.setContentState,
-    nav = props.nav;
+      setContentState = props.setContentState,
+      nav = props.nav;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_3__.SidebarWrap, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("ul", {
       className: "wpwax-vm-sidebar-nav",
@@ -7537,6 +7612,7 @@ var Sidebar = function Sidebar(props) {
     })
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (Sidebar);
 
 /***/ }),
@@ -7555,8 +7631,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/form-fields/Radio.jsx */ "./src/js/components/form-fields/Radio.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -7564,12 +7644,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var EmailGeneral = function EmailGeneral(props) {
   var contentState = props.contentState,
-    setContentState = props.setContentState;
+      setContentState = props.setContentState;
+
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
     }));
   };
+
   var handleChange = function handleChange(event) {
     var settingName = event.target.name;
     var settingValue = event.target.value;
@@ -7577,12 +7659,14 @@ var EmailGeneral = function EmailGeneral(props) {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
     }));
   };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailNotification",
         children: "Enable Email Notification"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7599,7 +7683,7 @@ var EmailGeneral = function EmailGeneral(props) {
           checked: contentState.options.enableEmailNotification,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailNotification ? 'wpwax-vm-settings__swtich-content wpwax-vm-show' : 'wpwax-vm-settings__swtich-content',
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__swtich-content--item",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
@@ -7616,7 +7700,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "single"
+                  checked: contentState.options.adminEmailNotificationType === 'single'
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7628,7 +7712,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "multiple"
+                  checked: contentState.options.adminEmailNotificationType === 'multiple'
                 })
               })]
             })]
@@ -7648,7 +7732,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "single"
+                  checked: contentState.options.userEmailNotificationType === 'single'
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7660,7 +7744,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "multiple"
+                  checked: contentState.options.userEmailNotificationType === 'multiple'
                 })
               })]
             })]
@@ -7712,6 +7796,7 @@ var EmailGeneral = function EmailGeneral(props) {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (EmailGeneral);
 
 /***/ }),
@@ -7729,20 +7814,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
 
 var EmailTemplate = function EmailTemplate(props) {
   var contentState = props.contentState,
-    setContentState = props.setContentState;
+      setContentState = props.setContentState;
+
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
     }));
   };
+
   var handleChange = function handleChange(event) {
     var settingName = event.target.name;
     var settingValue = event.target.value;
@@ -7750,12 +7841,14 @@ var EmailTemplate = function EmailTemplate(props) {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
     }));
   };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "wpwax-vm-setting-wrap",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailHeader",
         children: "Enable Header"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7772,7 +7865,7 @@ var EmailTemplate = function EmailTemplate(props) {
           checked: contentState.options.enableEmailHeader,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailHeader ? 'wpwax-vm-settings__swtich-content wpwax-vm-show' : 'wpwax-vm-settings__swtich-content',
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -7813,43 +7906,16 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NAME", "}}", ":"]
+              children: ['{{', "NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "Name of the person who sent the initial message."
+              children: "Name of the person who sent the first message."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_NAME", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "It outputs your site name"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_LINK", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "==It outputs your site url with link=="
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_URL", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: " It outputs your site url with link"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "MESSAGE", "}}", ":"]
+              children: ['{{', "MESSAGE", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
               children: "It outputs messege details."
@@ -7858,37 +7924,64 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "TODAY", "}}", ":"]
+              children: ['{{', "REPLIER_NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current date"
+              children: "Name of the message replier."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NOW", "}}", ":"]
+              children: ['{{', "TODAY", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current time"
+              children: "It outputs the current date."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "DASHBOARD_LINK", "}}", ":"]
+              children: ['{{', "NOW", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the user dashboard page link"
+              children: "It outputs the current time."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "REPLIER_NAME", "}}", ":"]
+              children: ['{{', "CONVERSATION_LINK", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "the person who will reply in a conversation"
+              children: "It outputs the user dashboard page link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_NAME", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site name."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_LINK", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_URL", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
             })]
           })]
         })]
@@ -8015,8 +8108,9 @@ var EmailTemplate = function EmailTemplate(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailFooter",
         children: "Enable Footer"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -8037,6 +8131,7 @@ var EmailTemplate = function EmailTemplate(props) {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (EmailTemplate);
 
 /***/ }),
@@ -8056,7 +8151,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/form-fields/Radio.jsx */ "./src/js/components/form-fields/Radio.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -8064,34 +8161,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+var qualityOptions = [{
+  value: '720',
+  label: '720p'
+}, {
+  value: '500',
+  label: '500p'
+}, {
+  value: '300',
+  label: '300p'
+}];
+var chatHeadPositions = [{
+  value: 'bottom-right',
+  label: 'Bottom Right'
+}, {
+  value: 'bottom-middle',
+  label: 'Bottom Middle'
+}, {
+  value: 'bottom-left',
+  label: 'Bottom Left'
+}];
+
 var General = function General(props) {
-  var qualityOptions = [{
-    value: '720',
-    label: '720p'
-  }, {
-    value: '500',
-    label: '500p'
-  }, {
-    value: '300',
-    label: '300p'
-  }];
-  var chatHeadPositions = [{
-    value: 'bottom-right',
-    label: 'Bottom Right'
-  }, {
-    value: 'bottom-middle',
-    label: 'Bottom Middle'
-  }, {
-    value: 'bottom-left',
-    label: 'Bottom Left'
-  }];
   var contentState = props.contentState,
-    setContentState = props.setContentState;
+      setContentState = props.setContentState;
+
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
     }));
   };
+
   var handleChange = function handleChange(event) {
     var settingName = event.target.name;
     var settingValue = event.target.value;
@@ -8099,12 +8200,14 @@ var General = function General(props) {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
     }));
   };
+
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
     // let updatedData = '';
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, e.name, selectEvent.value))
     }));
   };
+
   var dashboardPages = [];
   SettingsScriptData.pages.map(function (item, index) {
     dashboardPages.push({
@@ -8116,12 +8219,14 @@ var General = function General(props) {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "chat-head-position",
         children: "Chat Head Position"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "chat-head-position",
           classNamePrefix: "wpwax-vm-select",
           options: chatHeadPositions,
           closeMenuOnSelect: true,
@@ -8129,6 +8234,7 @@ var General = function General(props) {
           searchable: false,
           name: "chatHeadPosition",
           onChange: handleChangeSelectValue,
+          placeholder: "Select a position...",
           defaultValue: chatHeadPositions.filter(function (option) {
             return option.value === contentState.options.chatHeadPosition;
           })[0]
@@ -8136,16 +8242,19 @@ var General = function General(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
-        children: "User Dashboard Page"
+        htmlFor: "user-messages-page",
+        children: "User Messages Page"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "user-messages-page",
           classNamePrefix: "wpwax-vm-select",
           options: dashboardPages,
           searchable: false,
           hideSelectedOptions: false,
+          placeholder: "Select a page...",
           defaultValue: dashboardPages.filter(function (option) {
             return option.value === contentState.options.userDashboardPage;
           })[0],
@@ -8159,12 +8268,12 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-video-length",
-        children: "Maximum Video Length (Minutes)"
+        children: "Maximum Video Length"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "number",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-video-length",
@@ -8173,17 +8282,25 @@ var General = function General(props) {
             value: contentState.options.maxVideoLength,
             onChange: handleChange,
             min: "0"
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-input-addon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "wpwax-vm-input-addon__text",
+              children: "Mins"
+            })
+          })]
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "video-quality",
         children: "Video Quality"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "video-quality",
           classNamePrefix: "wpwax-vm-select",
           options: qualityOptions,
           closeMenuOnSelect: true,
@@ -8191,6 +8308,7 @@ var General = function General(props) {
           searchable: false,
           name: "videoQuality",
           onChange: handleChangeSelectValue,
+          placeholder: "Select video quality...",
           defaultValue: qualityOptions.filter(function (option) {
             return option.value === contentState.options.videoQuality;
           })[0]
@@ -8201,12 +8319,12 @@ var General = function General(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-max-upload-size",
-        children: "Maximum Upload Size (MB)"
+        children: "Maximum Upload Size"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "number",
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-max-upload-size",
@@ -8215,7 +8333,13 @@ var General = function General(props) {
             value: contentState.options.maxUploadSize,
             onChange: handleChange,
             min: "0"
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-input-addon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "wpwax-vm-input-addon__text",
+              children: "MB"
+            })
+          })]
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8245,12 +8369,14 @@ var General = function General(props) {
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "wpwax-vm-input-desc",
           children: "Then delete automatically. Or leave empty to store as many days as you want."
         })]
       })]
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (General);
 
 /***/ }),
@@ -8275,9 +8401,11 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener("DOMContentLoaded", function () {
   var container = document.getElementById("wpwax-vm-settings");
+
   if (!container) {
     return;
   }
+
   var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container);
   root.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_1__.Provider, {
     store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -8350,8 +8478,11 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/settings-panel/store/settings/actions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 var initialState = {
   sidebarPath: "live-chat",
@@ -8359,33 +8490,39 @@ var initialState = {
   error: null
 };
 var SIDEBAR_ITEM_CHANGE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SIDEBAR_ITEM_CHANGE_BEGIN,
-  SIDEBAR_ITEM_CHANGE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SIDEBAR_ITEM_CHANGE_SUCCESS,
-  SIDEBAR_ITEM_CHANGE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SIDEBAR_ITEM_CHANGE_ERR;
+    SIDEBAR_ITEM_CHANGE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SIDEBAR_ITEM_CHANGE_SUCCESS,
+    SIDEBAR_ITEM_CHANGE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SIDEBAR_ITEM_CHANGE_ERR;
+
 var TagReducer = function TagReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   var type = action.type,
-    data = action.data,
-    err = action.err;
+      data = action.data,
+      err = action.err;
+
   switch (type) {
     case SIDEBAR_ITEM_CHANGE_BEGIN:
       return _objectSpread(_objectSpread({}, state), {}, {
         sLoading: true
       });
+
     case SIDEBAR_ITEM_CHANGE_SUCCESS:
       return _objectSpread(_objectSpread({}, state), {}, {
         sidebarPath: data,
         sLoading: false
       });
+
     case SIDEBAR_ITEM_CHANGE_ERR:
       return _objectSpread(_objectSpread({}, state), {}, {
         error: err,
         sLoading: false
       });
+
     default:
       return state;
   }
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (TagReducer);
 
 /***/ }),
@@ -8426,6 +8563,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 function LoadingSpinDot() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
     className: "wpwax-vm-loading-spin",
@@ -8440,6 +8578,7 @@ function LoadingSpinDot() {
     })]
   });
 }
+
 /* harmony default export */ __webpack_exports__["default"] = (LoadingSpinDot);
 
 /***/ }),
@@ -8459,22 +8598,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -8483,40 +8640,43 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Dropdown = function Dropdown(_ref) {
   var selectable = _ref.selectable,
-    dropdownText = _ref.dropdownText,
-    dropdownSelectedText = _ref.dropdownSelectedText,
-    textIcon = _ref.textIcon,
-    dropdownIconOpen = _ref.dropdownIconOpen,
-    dropdownIconClose = _ref.dropdownIconClose,
-    dropdownList = _ref.dropdownList,
-    outerState = _ref.outerState,
-    setOuterState = _ref.setOuterState,
-    termState = _ref.termState,
-    setTermState = _ref.setTermState,
-    sessionId = _ref.sessionId,
-    termId = _ref.termId,
-    onMarkAsRead = _ref.onMarkAsRead,
-    onMarkAsUnread = _ref.onMarkAsUnread;
+      dropdownText = _ref.dropdownText,
+      dropdownSelectedText = _ref.dropdownSelectedText,
+      textIcon = _ref.textIcon,
+      dropdownIconOpen = _ref.dropdownIconOpen,
+      dropdownIconClose = _ref.dropdownIconClose,
+      dropdownList = _ref.dropdownList,
+      outerState = _ref.outerState,
+      setOuterState = _ref.setOuterState,
+      termState = _ref.termState,
+      setTermState = _ref.setTermState,
+      sessionId = _ref.sessionId,
+      termId = _ref.termId,
+      onMarkAsRead = _ref.onMarkAsRead,
+      onMarkAsUnread = _ref.onMarkAsUnread;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      openDropdown: false,
-      filterText: "latest"
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    state = _useState2[0],
-    setState = _useState2[1];
-
+    openDropdown: false,
+    filterText: "latest"
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      state = _useState2[0],
+      setState = _useState2[1];
   /* State Distructuring */
-  var openDropdown = state.openDropdown,
-    filterText = state.filterText;
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      selectedItemText: dropdownList[0].text
-    }),
-    _useState4 = _slicedToArray(_useState3, 2),
-    selectedState = _useState4[0],
-    setSelectedState = _useState4[1];
-  var selectedItemText = selectedState.selectedItemText;
 
+
+  var openDropdown = state.openDropdown,
+      filterText = state.filterText;
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    selectedItemText: dropdownList[0].text
+  }),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectedState = _useState4[0],
+      setSelectedState = _useState4[1];
+
+  var selectedItemText = selectedState.selectedItemText;
   /* initialize Form Data */
   // const { sessions } = useSelector(state => {
   //     return {
@@ -8525,9 +8685,10 @@ var Dropdown = function Dropdown(_ref) {
   // });
 
   /* Dispasth is used for passing the actions to redux store  */
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   /* Handle Dropdown active inactive */
+
   var handleDropdown = function handleDropdown(event) {
     event.preventDefault();
     var allUserMedia = document.querySelectorAll(".wpwax-vm-usermedia");
@@ -8537,12 +8698,14 @@ var Dropdown = function Dropdown(_ref) {
     allUserMedia.forEach(function (medaiItem) {
       medaiItem.classList.remove("wpwax-vm-active");
     });
+
     if (!openDropdown) {
       event.target.closest('.wpwax-vm-usermedia') ? event.target.closest('.wpwax-vm-usermedia').classList.add('wpwax-vm-active') : '';
     } else {
       event.target.closest('.wpwax-vm-usermedia') ? event.target.closest('.wpwax-vm-usermedia').classList.remove('wpwax-vm-active') : '';
     }
   };
+
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
     var currentSession = outerState.sessionList.filter(function (singleSession) {
@@ -8557,6 +8720,7 @@ var Dropdown = function Dropdown(_ref) {
       filterText: event.target.text
     }));
     var orderByArg = {};
+
     switch (btnName) {
       case 'mark-read':
         var markRead = /*#__PURE__*/function () {
@@ -8568,9 +8732,11 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
+
                   case 2:
                     response = _context.sent;
                     return _context.abrupt("return", response);
+
                   case 4:
                   case "end":
                     return _context.stop();
@@ -8578,10 +8744,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee);
           }));
+
           return function markRead() {
             return _ref2.apply(this, arguments);
           };
         }();
+
         markRead().then(function (resposne) {
           var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
@@ -8589,11 +8757,13 @@ var Dropdown = function Dropdown(_ref) {
                 total_unread: resposne.data.data.total_unread
               });
             }
+
             return item;
           });
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkRread
           }));
+
           if (typeof onMarkAsRead === 'function') {
             onMarkAsRead(sessionId, resposne.data.data);
           }
@@ -8601,6 +8771,7 @@ var Dropdown = function Dropdown(_ref) {
           console.log(error);
         });
         break;
+
       case 'mark-unread':
         var markUnRead = /*#__PURE__*/function () {
           var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
@@ -8611,9 +8782,11 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context2.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
+
                   case 2:
                     response = _context2.sent;
                     return _context2.abrupt("return", response);
+
                   case 4:
                   case "end":
                     return _context2.stop();
@@ -8621,10 +8794,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee2);
           }));
+
           return function markUnRead() {
             return _ref3.apply(this, arguments);
           };
         }();
+
         markUnRead().then(function (resposne) {
           var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
             if (item.session_id === sessionId) {
@@ -8632,11 +8807,13 @@ var Dropdown = function Dropdown(_ref) {
                 total_unread: resposne.data.data.total_unread
               });
             }
+
             return item;
           });
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));
+
           if (typeof onMarkAsUnread === 'function') {
             onMarkAsUnread(sessionId, resposne.data.data);
           }
@@ -8644,14 +8821,17 @@ var Dropdown = function Dropdown(_ref) {
           console.log(error);
         });
         break;
+
       case 'add-tags':
         overlay.classList.add('wpwax-vm-show');
         var asignedTerms = [];
+
         if (currentSession.length !== 0) {
           for (var i = 0; i < currentSession[0].terms.length; i++) {
             asignedTerms = [].concat(_toConsumableArray(asignedTerms), [currentSession[0].terms[i].term_id]);
           }
         }
+
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
           serverAssigned: _toConsumableArray(asignedTerms),
@@ -8659,18 +8839,20 @@ var Dropdown = function Dropdown(_ref) {
           tagListModalOpen: false,
           taglistWithSession: true,
           addTagModalOpen: true
-        }));
-        // dispatch(handleSetSession(sessionId));
+        })); // dispatch(handleSetSession(sessionId));
         // dispatch(handleTagModal(true));
+
         break;
+
       case 'delete-conv':
         overlay.classList.add('wpwax-vm-show');
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           activeSessionId: sessionId,
           deleteModalOpen: true
-        }));
-        // dispatch(handleDeleteConfirmationModal(true));
+        })); // dispatch(handleDeleteConfirmationModal(true));
+
         break;
+
       case 'term-edit':
         setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
           editableTermId: termId,
@@ -8678,10 +8860,12 @@ var Dropdown = function Dropdown(_ref) {
           addTagModalOpen: true
         }));
         break;
+
       case 'term-delete':
         setTermState(_objectSpread(_objectSpread({}, termState), {}, {
           tagLoader: true
         }));
+
         var deleteTerm = /*#__PURE__*/function () {
           var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
             var deleteResponse;
@@ -8691,9 +8875,11 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context3.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].datadelete("messages/terms/".concat(termId));
+
                   case 2:
                     deleteResponse = _context3.sent;
                     return _context3.abrupt("return", deleteResponse);
+
                   case 4:
                   case "end":
                     return _context3.stop();
@@ -8701,10 +8887,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee3);
           }));
+
           return function deleteTerm() {
             return _ref4.apply(this, arguments);
           };
         }();
+
         deleteTerm().then(function (deleteResponse) {
           var filteredTerms = [];
           filteredTerms = termState.allTags.filter(function (item) {
@@ -8719,6 +8907,7 @@ var Dropdown = function Dropdown(_ref) {
           console.log(error);
         });
         break;
+
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
           var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
@@ -8731,9 +8920,11 @@ var Dropdown = function Dropdown(_ref) {
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "read"
                     });
+
                   case 2:
                     readSession = _context4.sent;
                     return _context4.abrupt("return", readSession);
+
                   case 4:
                   case "end":
                     return _context4.stop();
@@ -8741,10 +8932,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee4);
           }));
+
           return function fetchReadSeassion() {
             return _ref5.apply(this, arguments);
           };
         }();
+
         fetchReadSeassion().then(function (readResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: readResponse.data.data,
@@ -8752,6 +8945,7 @@ var Dropdown = function Dropdown(_ref) {
           }));
         }).catch(function (error) {});
         break;
+
       case 'filter-unread':
         var fetchUnReadSeassion = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
@@ -8764,9 +8958,11 @@ var Dropdown = function Dropdown(_ref) {
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "unread"
                     });
+
                   case 2:
                     readSession = _context5.sent;
                     return _context5.abrupt("return", readSession);
+
                   case 4:
                   case "end":
                     return _context5.stop();
@@ -8774,10 +8970,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee5);
           }));
+
           return function fetchUnReadSeassion() {
             return _ref6.apply(this, arguments);
           };
         }();
+
         fetchUnReadSeassion().then(function (unReadResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: unReadResponse.data.data,
@@ -8785,6 +8983,7 @@ var Dropdown = function Dropdown(_ref) {
           }));
         }).catch(function (error) {});
         break;
+
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
           var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
@@ -8795,9 +8994,11 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context6.next = 2;
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAll("/sessions");
+
                   case 2:
                     latestSession = _context6.sent;
                     return _context6.abrupt("return", latestSession);
+
                   case 4:
                   case "end":
                     return _context6.stop();
@@ -8805,10 +9006,12 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee6);
           }));
+
           return function fetchLatestSeassion() {
             return _ref7.apply(this, arguments);
           };
         }();
+
         fetchLatestSeassion().then(function (latestResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: latestResponse.data.data,
@@ -8816,6 +9019,7 @@ var Dropdown = function Dropdown(_ref) {
           }));
         }).catch(function (error) {});
         break;
+
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
           var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
@@ -8828,9 +9032,11 @@ var Dropdown = function Dropdown(_ref) {
                     return apiService_Service_js__WEBPACK_IMPORTED_MODULE_2__["default"].getAllByArg("/sessions", {
                       order_by: "oldest"
                     });
+
                   case 2:
                     oldestSession = _context7.sent;
                     return _context7.abrupt("return", oldestSession);
+
                   case 4:
                   case "end":
                     return _context7.stop();
@@ -8838,22 +9044,26 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee7);
           }));
+
           return function fetchOldestSeassion() {
             return _ref8.apply(this, arguments);
           };
         }();
+
         fetchOldestSeassion().then(function (oldestResponse) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: oldestResponse.data.data,
             filteredSessions: oldestResponse.data.data
           }));
         }).catch(function (error) {});
+
       default:
         break;
     }
   };
-
   /* Handle the open close dropdown icon */
+
+
   var renderDropdownIcon = function renderDropdownIcon() {
     if (openDropdown) {
       return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -8865,8 +9075,9 @@ var Dropdown = function Dropdown(_ref) {
       }) : '';
     }
   };
-
   /* Focus Input field when search inopen */
+
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (openDropdown && ref.current && !ref.current.contains(e.target)) {
@@ -8875,6 +9086,7 @@ var Dropdown = function Dropdown(_ref) {
         }));
       }
     };
+
     document.addEventListener("mousedown", checkIfClickedOutside);
     return function () {
       // Cleanup the event listener
@@ -8931,6 +9143,7 @@ var Dropdown = function Dropdown(_ref) {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (Dropdown);
 
 /***/ }),
@@ -8946,13 +9159,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+
 var Radio = function Radio(_ref) {
   var id = _ref.id,
-    name = _ref.name,
-    label = _ref.label,
-    value = _ref.value,
-    onChange = _ref.onChange,
-    checked = _ref.checked;
+      name = _ref.name,
+      label = _ref.label,
+      value = _ref.value,
+      onChange = _ref.onChange,
+      checked = _ref.checked;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-radio",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -8968,6 +9182,7 @@ var Radio = function Radio(_ref) {
     })]
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (Radio);
 
 /***/ }),
@@ -8984,6 +9199,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* Create Instance */
+
 var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
   headers: {
@@ -8991,34 +9207,43 @@ var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
     "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
   }
 });
+
 var getAll = function getAll(path) {
   return axiosInstance.get(path);
 };
+
 var getAllByArg = function getAllByArg(path, args) {
   return axiosInstance.get(path, {
     params: args
   });
 };
+
 var getById = function getById(path, args) {
   return axiosInstance.get(path, {
     params: args
   });
 };
+
 var dataUpdate = function dataUpdate(path, args) {
   return axiosInstance.post(path, args);
 };
+
 var dataAdd = function dataAdd(path, args) {
   return axiosInstance.post(path, args);
 };
+
 var datadelete = function datadelete(path) {
   return axiosInstance.delete(path);
 };
+
 var markRead = function markRead(path) {
   return axiosInstance.post(path);
 };
+
 var markUnRead = function markUnRead(path) {
   return axiosInstance.post(path);
 };
+
 var apiService = {
   getAll: getAll,
   getAllByArg: getAllByArg,
@@ -9124,7 +9349,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/72fc635e320f6cfe297cd5623d5946d7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ce869704be74fdc5fbc7f349dba29e6c.svg");
 
 /***/ }),
 
@@ -9136,7 +9361,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/64e7b8e3aff7af1c7c0515ecc74939f4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/cd35ccecec94b883af66ae0a95d45b63.svg");
 
 /***/ }),
 
@@ -9148,7 +9373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9a6ed96ce2cb726ff533dd26a6bda409.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6007046de945587f74f4049506b63488.svg");
 
 /***/ }),
 
@@ -9160,7 +9385,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -9172,7 +9397,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3eaedfa89d9706ca8e8945a7ff49846d.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8902d994902646f83ce45940b8aa2ba6.svg");
 
 /***/ }),
 
@@ -9184,7 +9409,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f04b60e22c49a11a80cb58498fecce62.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8778bab3e334f8aae2cfcfef08a1528.svg");
 
 /***/ }),
 
@@ -9196,7 +9421,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -9208,7 +9433,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -9220,7 +9445,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -9232,7 +9457,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/766a25f91411b3c801cc09f955dbb726.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
 
 /***/ }),
 
@@ -9244,7 +9469,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ea20a25679505efe7c382331e15887ec.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
 
 /***/ }),
 
@@ -9256,7 +9481,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/15a8e473814e86b6f503635888e18b02.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
 
 /***/ }),
 
@@ -54904,9 +55129,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
+
   for (var i = 0, arr2 = new Array(len); i < len; i++) {
     arr2[i] = arr[i];
   }
+
   return arr2;
 }
 
@@ -54987,6 +55214,7 @@ function _defineProperties(target, props) {
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
+
 function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
@@ -55020,6 +55248,7 @@ function _defineProperty(obj, key, value) {
   } else {
     obj[key] = value;
   }
+
   return obj;
 }
 
@@ -55040,12 +55269,14 @@ function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
+
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
+
     return target;
   };
   return _extends.apply(this, arguments);
@@ -55070,6 +55301,7 @@ function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
   }
+
   subClass.prototype = Object.create(superClass && superClass.prototype, {
     constructor: {
       value: subClass,
@@ -55115,14 +55347,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function _iterableToArrayLimit(arr, i) {
   var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
   if (_i == null) return;
   var _arr = [];
   var _n = true;
   var _d = false;
+
   var _s, _e;
+
   try {
     for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
       _arr.push(_s.value);
+
       if (i && _arr.length === i) break;
     }
   } catch (err) {
@@ -55135,6 +55371,7 @@ function _iterableToArrayLimit(arr, i) {
       if (_d) throw _e;
     }
   }
+
   return _arr;
 }
 
@@ -55187,16 +55424,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _defineProperty_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defineProperty.js */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 
+
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
+
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
     enumerableOnly && (symbols = symbols.filter(function (sym) {
       return Object.getOwnPropertyDescriptor(object, sym).enumerable;
     })), keys.push.apply(keys, symbols);
   }
+
   return keys;
 }
+
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
@@ -55206,6 +55447,7 @@ function _objectSpread2(target) {
       Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
     });
   }
+
   return target;
 }
 
@@ -55228,8 +55470,10 @@ function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
   var target = (0,_objectWithoutPropertiesLoose_js__WEBPACK_IMPORTED_MODULE_0__["default"])(source, excluded);
   var key, i;
+
   if (Object.getOwnPropertySymbols) {
     var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
     for (i = 0; i < sourceSymbolKeys.length; i++) {
       key = sourceSymbolKeys[i];
       if (excluded.indexOf(key) >= 0) continue;
@@ -55237,6 +55481,7 @@ function _objectWithoutProperties(source, excluded) {
       target[key] = source[key];
     }
   }
+
   return target;
 }
 
@@ -55258,11 +55503,13 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   var target = {};
   var sourceKeys = Object.keys(source);
   var key, i;
+
   for (i = 0; i < sourceKeys.length; i++) {
     key = sourceKeys[i];
     if (excluded.indexOf(key) >= 0) continue;
     target[key] = source[key];
   }
+
   return target;
 }
 
@@ -55329,6 +55576,7 @@ function _taggedTemplateLiteral(strings, raw) {
   if (!raw) {
     raw = strings.slice(0);
   }
+
   return Object.freeze(Object.defineProperties(strings, {
     raw: {
       value: Object.freeze(raw)

@@ -7664,8 +7664,9 @@ var EmailGeneral = function EmailGeneral(props) {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailNotification",
         children: "Enable Email Notification"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7682,7 +7683,7 @@ var EmailGeneral = function EmailGeneral(props) {
           checked: contentState.options.enableEmailNotification,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailNotification ? 'wpwax-vm-settings__swtich-content wpwax-vm-show' : 'wpwax-vm-settings__swtich-content',
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__swtich-content--item",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
@@ -7699,7 +7700,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "single"
+                  checked: contentState.options.adminEmailNotificationType === 'single'
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7711,7 +7712,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "multiple"
+                  checked: contentState.options.adminEmailNotificationType === 'multiple'
                 })
               })]
             })]
@@ -7731,7 +7732,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "single"
+                  checked: contentState.options.userEmailNotificationType === 'single'
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7743,7 +7744,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "multiple"
+                  checked: contentState.options.userEmailNotificationType === 'multiple'
                 })
               })]
             })]
@@ -7845,8 +7846,9 @@ var EmailTemplate = function EmailTemplate(props) {
     className: "wpwax-vm-setting-wrap",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailHeader",
         children: "Enable Header"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7863,7 +7865,7 @@ var EmailTemplate = function EmailTemplate(props) {
           checked: contentState.options.enableEmailHeader,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailHeader ? 'wpwax-vm-settings__swtich-content wpwax-vm-show' : 'wpwax-vm-settings__swtich-content',
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
@@ -7904,43 +7906,16 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NAME", "}}", ":"]
+              children: ['{{', "NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "Name of the person who sent the initial message."
+              children: "Name of the person who sent the first message."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_NAME", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "It outputs your site name"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_LINK", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "==It outputs your site url with link=="
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_URL", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: " It outputs your site url with link"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "MESSAGE", "}}", ":"]
+              children: ['{{', "MESSAGE", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
               children: "It outputs messege details."
@@ -7949,37 +7924,64 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "TODAY", "}}", ":"]
+              children: ['{{', "REPLIER_NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current date"
+              children: "Name of the message replier."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NOW", "}}", ":"]
+              children: ['{{', "TODAY", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current time"
+              children: "It outputs the current date."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "DASHBOARD_LINK", "}}", ":"]
+              children: ['{{', "NOW", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the user dashboard page link"
+              children: "It outputs the current time."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "REPLIER_NAME", "}}", ":"]
+              children: ['{{', "CONVERSATION_LINK", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "the person who will reply in a conversation"
+              children: "It outputs the user dashboard page link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_NAME", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site name."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_LINK", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_URL", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
             })]
           })]
         })]
@@ -8106,8 +8108,9 @@ var EmailTemplate = function EmailTemplate(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailFooter",
         children: "Enable Footer"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",

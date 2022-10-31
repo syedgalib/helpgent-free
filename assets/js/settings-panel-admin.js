@@ -6960,6 +6960,7 @@ var SettingBox = function SettingBox() {
       contentKey: "general",
       navParent: "general",
       options: {
+        guestSubmission: true,
         chatHeadPosition: "bottom-right",
         userDashboardPage: "2",
         maxVideoLength: "2",
@@ -7205,7 +7206,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    font-family: 'Inter',sans-serif;\n    margin: 0 auto;\n    @media only screen and (max-width: 1299px) {\n        max-width: 960px;\n    }\n    @media only screen and (max-width: 1199px) {\n        max-width: 900px;\n        margin-right: 15px;\n    }\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n            @media only screen and (max-width: 575px) {\n                font-size: 20px;\n            }\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                @media only screen and (max-width: 575px) {\n                    font-size: 12px;\n                    margin: 6px;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                    svg path{\n                        fill: var(--color-primary);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                flex-direction: column;\n                align-items: center;\n            }\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 767px) {\n                margin-bottom: 15px;\n            }\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    span.dashicons{\n                        width: 18px;\n                        height: 18px;\n                        margin: 0 4px;\n                        font-size: 16px;\n                    }\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        pointer-events: none;\n                        @media only screen and (max-width: 767px) {\n                            font-size: 12px;\n                        }\n                        &.wpwax-vm-active{\n                            color: rgba(255,255,255,1);\n                        }\n                        &:focus{\n                            outline: none;\n                            box-shadow: 0 0;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            align-items: center;\n            p{\n                font-size: 14px;\n                margin: 0 15px 0 0;\n                color: var(--color-white);\n            }\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n            .wpwax-settings-content-box{\n                flex: auto;\n                &.wpwax-vm-loder-active{\n                    &:after{\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n                .wpwax-vm-loading-spin{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    z-index: 100;\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                justify-content: center;\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
 var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n    @media only screen and (max-width: 1299px) {\n        min-width: 200px;\n    }\n    @media only screen and (max-width: 767px) {\n        display: none;\n    }\n"])));
 var SidebarMenuItem = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    >a{\n        position: relative;\n        display: flex;\n        align-items: center;\n        font-size: 14px;\n        font-weight: 500;\n        min-height: 50px;\n        padding: 0 25px;\n        text-decoration: none;\n        color: var(--color-dark);\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            height: 100%;\n            width: 2px;\n            content: \"\";\n            opacity: 0;\n            visibility: hidden;\n            background-color: var(--color-primary);\n        }\n        &:focus{\n            box-shadow: 0 0;\n            outline: none;\n        }\n        .wpwax-vm-sidebar-nav__item--icon{\n            margin-right: 15px;\n        }\n        .wpwax-vm-sidebar-nav__item--text{\n            position: relative;\n            top: -1px;\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n        }\n    }\n    &.wpwax-vm-sidebar-nav__submenu-open{\n        >a{\n            background-color: var(--color-white);\n            &:before{\n                opacity: 1;\n                visibility: visible;\n            }\n        }\n    }\n    ul{\n        padding-left: 60px;\n        li{\n            a{\n                display: block;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                padding: 12px 0;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                }\n                &.wpwax-vm-active{\n                    color: var(--color-primary);\n                }\n            }\n            &:first-child{\n                a{\n                    padding-top: 20px;\n                }\n            }\n            &:last-child{\n                a{\n                    padding-bottom: 20px;\n                }\n            }\n        }\n    }\n"])));
-var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 14px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n        }\n        h2{\n            margin: 0;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 120px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n            .wpwax-vm-settings__swtich-content--item{\n                padding-bottom: 20px;\n                border-bottom: 1px solid var(--color-border-light);\n                h4{\n                    margin: 16px 0 10px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n\n    .wpwax-vm-card{\n        .wpwax-vm-settings__single{\n            &:not(:last-child){\n                margin-bottom: 25px;\n            }\n        }\n    }\n\n    .wpwax-vm-setting__swtich-inner{\n        display: none;\n        &.wpwax-vm-show{\n            display: block;\n        }\n    }\n\n"])));
+var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 14px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n        }\n        h2{\n            margin: 0;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 120px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n            .wpwax-vm-settings__swtich-content--item{\n                padding-bottom: 20px;\n                border-bottom: 1px solid var(--color-border-light);\n                h4{\n                    margin: 16px 0 10px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n\n    .wpwax-vm-card{\n        .wpwax-vm-settings__single{\n            &:not(:last-child){\n                margin-bottom: 25px;\n            }\n        }\n    }\n\n    .wpwax-vm-setting__swtich-inner{\n        display: none;\n        &.wpwax-vm-show{\n            display: block;\n        }\n    }\n    .wpwax-vm-checkbox label{\n        margin-left: 10px;\n    }\n"])));
 var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    max-width: 350px;\n    box-shadow: 0 5px 15px rgba(0,0,0,.16);\n    .wpwax-vm-chatbox-top{\n        position: relative;\n        padding: 20px;\n        border-radius: 10px 10px 0 0;\n        background-color: var(--color-dark);\n        .wpwax-vm-chatbox-top__title{\n            margin-bottom: 10px;\n        }\n        .wpwax-vm-chatbox-top__imglist{\n            display: flex;\n            >div{\n                margin: 3px;\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: 16px;\n            top: 16px;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-chatbox-content{\n        padding: 10px 12px;\n        min-height: 310px;\n        background-color: #F7F7F7;\n        .wpwax-vm-chatbox-content___inner{\n            display: flex;\n            align-items: start;\n            position: relative;\n            border-radius: 10px;\n            padding: 20px;\n            border-top: 3px solid var(--color-primary);\n            background-color: var(--color-white);\n            .wpwax-vm-chatbox-content__text{\n                p{\n                    font-size: 14px;\n                    font-weight: 600;\n                    margin: 0 0 14px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-btn{\n                    padding: 0 22px;\n                    border-radius: 17px;\n                    &.wpwax-vm-btn-sm{\n                        height: 34px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-content__img{\n            padding: 5px;\n            border-radius: 50%;\n            width: 85px;\n            height: 85px;\n            margin-right: 15px;\n            box-shadow: 0 0 15px rgba(0,0,0,.10);\n            background-color: var(--color-white);\n            img{\n                max-width: 85px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-bottom{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 8px 15px;\n        border-radius: 0 0 10px 10px;\n        background-color: var(--color-white);\n        .wpwax-vm-btn-send{\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 34px;\n            height: 34px;\n            border-radius: 50%;\n            background-color: #E2E2E2;\n            >div{\n                line-height: 1;\n            }\n            svg {\n                width: 14px;\n                height: 14px;\n                path{\n                    fill: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -7589,13 +7590,13 @@ var EmailGeneral = function EmailGeneral(props) {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
     }));
   };
-  console.log(contentState.options.enableEmailNotification);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-settings",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailNotification",
         children: "Enable Email Notification"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7769,8 +7770,9 @@ var EmailTemplate = function EmailTemplate(props) {
     className: "wpwax-vm-setting-wrap",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailHeader",
         children: "Enable Header"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -7828,43 +7830,16 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NAME", "}}", ":"]
+              children: ['{{', "NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "Name of the person who sent the initial message."
+              children: "Name of the person who sent the first message."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_NAME", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "It outputs your site name"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_LINK", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: "==It outputs your site url with link=="
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "SITE_URL", "}}", ":"]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
-              className: "wpwax-vm-note__single--text",
-              children: " It outputs your site url with link"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "wpwax-vm-note__single",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
-              className: "wpwax-vm-note__single--label",
-              children: ["{{", "MESSAGE", "}}", ":"]
+              children: ['{{', "MESSAGE", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
               children: "It outputs messege details."
@@ -7873,37 +7848,64 @@ var EmailTemplate = function EmailTemplate(props) {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "TODAY", "}}", ":"]
+              children: ['{{', "REPLIER_NAME", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current date"
+              children: "Name of the message replier."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "NOW", "}}", ":"]
+              children: ['{{', "TODAY", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the current time"
+              children: "It outputs the current date."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "DASHBOARD_LINK", "}}", ":"]
+              children: ['{{', "NOW", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "It outputs the user dashboard page link"
+              children: "It outputs the current time."
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-note__single",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
               className: "wpwax-vm-note__single--label",
-              children: ["{{", "REPLIER_NAME", "}}", ":"]
+              children: ['{{', "CONVERSATION_LINK", '}}', ":"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-note__single--text",
-              children: "the person who will reply in a conversation"
+              children: "It outputs the user dashboard page link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_NAME", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site name."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_LINK", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-note__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("span", {
+              className: "wpwax-vm-note__single--label",
+              children: ['{{', "SITE_URL", '}}', ":"]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
+              className: "wpwax-vm-note__single--text",
+              children: "It outputs your site url with link."
             })]
           })]
         })]
@@ -8030,8 +8032,9 @@ var EmailTemplate = function EmailTemplate(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "enableEmailFooter",
         children: "Enable Footer"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
@@ -8079,27 +8082,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var qualityOptions = [{
+  value: '720',
+  label: '720p'
+}, {
+  value: '500',
+  label: '500p'
+}, {
+  value: '300',
+  label: '300p'
+}];
+var chatHeadPositions = [{
+  value: 'bottom-right',
+  label: 'Bottom Right'
+}, {
+  value: 'bottom-middle',
+  label: 'Bottom Middle'
+}, {
+  value: 'bottom-left',
+  label: 'Bottom Left'
+}];
 var General = function General(props) {
-  var qualityOptions = [{
-    value: '720',
-    label: '720p'
-  }, {
-    value: '500',
-    label: '500p'
-  }, {
-    value: '300',
-    label: '300p'
-  }];
-  var chatHeadPositions = [{
-    value: 'bottom-right',
-    label: 'Bottom Right'
-  }, {
-    value: 'bottom-middle',
-    label: 'Bottom Middle'
-  }, {
-    value: 'bottom-left',
-    label: 'Bottom Left'
-  }];
   var contentState = props.contentState,
     setContentState = props.setContentState;
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
@@ -8133,10 +8136,32 @@ var General = function General(props) {
       className: "wpwax-vm-settings__single",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
         className: "wpwax-vm-settings__single--label",
+        children: "Enable Guest Submission"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "wpwax-vm-settings__single--element",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          uncheckedIcon: false,
+          checkedIcon: false,
+          onColor: "#6551F2",
+          offColor: "#E2E2E2",
+          className: "wpwax-vm-switch",
+          id: "guestSubmission",
+          handleDiameter: 14,
+          height: 22,
+          width: 40,
+          checked: contentState.options.guestSubmission,
+          onChange: handleUpdateSwitch
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "wpwax-vm-settings__single",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+        className: "wpwax-vm-settings__single--label",
         children: "Chat Head Position"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "chat-head-position",
           classNamePrefix: "wpwax-vm-select",
           options: chatHeadPositions,
           closeMenuOnSelect: true,
@@ -8154,12 +8179,14 @@ var General = function General(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
-        children: "User Dashboard Page"
+        htmlFor: "user-messages-page",
+        children: "User Messages Page"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "user-messages-page",
           classNamePrefix: "wpwax-vm-select",
           options: dashboardPages,
           searchable: false,
@@ -8196,12 +8223,14 @@ var General = function General(props) {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
+        htmlFor: "video-quality",
         children: "Video Quality"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "wpwax-vm-settings__single--element",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          inputId: "video-quality",
           classNamePrefix: "wpwax-vm-select",
           options: qualityOptions,
           closeMenuOnSelect: true,
@@ -8266,6 +8295,7 @@ var General = function General(props) {
             })
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "wpwax-vm-input-desc",
           children: "Then delete automatically. Or leave empty to store as many days as you want."
         })]
       })]

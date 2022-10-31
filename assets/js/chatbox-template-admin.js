@@ -7534,11 +7534,9 @@ var AddForm = function AddForm() {
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   function onlySpaces(str) {
-    console.log(str.trim().length === 0);
     return str.trim().length === 0;
   }
   var handleFormNext = function handleFormNext(event, btnName) {
-    console.log(displayOnCustomPages);
     event.preventDefault();
     if (btnName === "btn-general") {
       if (validation === true) {
@@ -7548,38 +7546,77 @@ var AddForm = function AddForm() {
         }));
       }
     } else if (btnName === "btn-form") {
-      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages) {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          validation: false
-        }));
-      } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          currentStage: "form",
-          validation: true
-        }));
-      }
-    } else if (btnName === "btn-thank") {
-      if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          validation: false
-        }));
-      } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
-          currentStage: "thank",
-          validation: true
-        }));
-      }
-    } else {
-      if (currentStage === "general") {
-        if (onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages) {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            validation: false
-          }));
-        } else {
+      if (!displayOnCustomPages) {
+        if (!onlySpaces(formInitialData.name)) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: "form",
             validation: true
           }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      } else {
+        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "form",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      }
+    } else if (btnName === "btn-thank") {
+      if (!displayOnCustomPages) {
+        if (!onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "thank",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      } else {
+        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "thank",
+            validation: true
+          }));
+        } else {
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            validation: false
+          }));
+        }
+      }
+    } else {
+      if (currentStage === "general") {
+        if (!displayOnCustomPages) {
+          if (!onlySpaces(formInitialData.name)) {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              currentStage: "form",
+              validation: true
+            }));
+          } else {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              validation: false
+            }));
+          }
+        } else {
+          if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              currentStage: "form",
+              validation: true
+            }));
+          } else {
+            setState(_objectSpread(_objectSpread({}, state), {}, {
+              validation: false
+            }));
+          }
         }
       } else if (currentStage === "form") {
         setState(_objectSpread(_objectSpread({}, state), {}, {
@@ -7639,7 +7676,7 @@ var AddForm = function AddForm() {
             loading: false
           }));
           setResponse(editSessionResponse);
-          dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([formData]));
+          dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_11__.handleReadForm)([editSessionResponse.data]));
         }).catch(function (error) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: 'general',
@@ -8733,6 +8770,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/question-circle.svg */ "./src/assets/svg/icons/question-circle.svg");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -8800,6 +8841,7 @@ var GeneralSettings = function GeneralSettings() {
         fontSize: state.form.data[0].options.font_size,
         displayOnCustomPages: state.form.settings.displayOnCustomPages,
         templateName: state.form.data[0].name,
+        collectInfo: state.form.data[0].options.collectInfo,
         displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
         chatVisibilityType: state.form.data[0].options.chat_visibility_type,
         sendMail: state.form.data[0].options.send_mail_upon_message_submission
@@ -8809,9 +8851,11 @@ var GeneralSettings = function GeneralSettings() {
     primaryColor = _useSelector.primaryColor,
     templateName = _useSelector.templateName,
     displayOnCustomPages = _useSelector.displayOnCustomPages,
+    collectInfo = _useSelector.collectInfo,
     displayedCustomPages = _useSelector.displayedCustomPages,
     chatVisibilityType = _useSelector.chatVisibilityType,
     sendMail = _useSelector.sendMail;
+  console.log(collectInfo);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       openCollapse: true
     }),
@@ -8849,7 +8893,21 @@ var GeneralSettings = function GeneralSettings() {
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeInputValue = function handleChangeInputValue(e) {
+    console.log(e.target.id, e.target.checked);
     var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
+  };
+  var handleCollectInfo = function handleCollectInfo(e) {
+    var checkboxValue = e.target.value;
+    var newCollectInfo = _toConsumableArray(collectInfo);
+    if (newCollectInfo.includes(checkboxValue, 0)) {
+      newCollectInfo = newCollectInfo.filter(function (item) {
+        return item !== checkboxValue;
+      });
+    } else {
+      newCollectInfo.push(checkboxValue);
+    }
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])("wpwax-vm-info-collection", newCollectInfo, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
@@ -8934,6 +8992,55 @@ var GeneralSettings = function GeneralSettings() {
         className: "wpwax-vm-validate-danger",
         children: "Please Enter Form Name"
       }) : null]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      className: "wpwax-vm-form-group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: "wpwax-vm-form-group__label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          className: "wpwax-vm-tooltip-wrap",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Collect Info"
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        className: "wpwax-vm-chekbox-list",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Name"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "collect-info-phone",
+            label: "",
+            onChange: handleCollectInfo,
+            checked: true,
+            value: "name",
+            disabled: true
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Email "
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "collect-info-phone",
+            label: "",
+            onChange: handleCollectInfo,
+            checked: true,
+            value: "email",
+            disabled: true
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+          className: "wpwax-vm-chekbox-single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Phone Number"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            id: "collect-info-phone",
+            label: "",
+            onChange: handleCollectInfo,
+            checked: collectInfo.includes('phone', 0),
+            value: "phone"
+          })]
+        })]
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
@@ -10153,6 +10260,7 @@ var formData = [{
   name: "",
   options: {
     "theme": "theme-1",
+    "collectInfo": ["phone"],
     "chat_visibility_type": "show_on_reload",
     "tag": 1,
     "send_mail_upon_message_submission": true,
@@ -10397,14 +10505,19 @@ var Checkbox = function Checkbox(_ref) {
   var id = _ref.id,
     label = _ref.label,
     value = _ref.value,
-    onChange = _ref.onChange;
+    checked = _ref.checked,
+    onChange = _ref.onChange,
+    disabled = _ref.disabled;
+  console.log(checked);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
       id: id,
       type: "checkbox",
-      checked: value,
-      onChange: onChange
+      value: value,
+      checked: checked,
+      onChange: onChange,
+      disabled: disabled ? "disabled" : ""
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
       children: label
@@ -10495,6 +10608,12 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
         return _objectSpread(_objectSpread({}, item), {}, {
           options: _objectSpread(_objectSpread({}, item.options), {}, {
             chat_visibility_type: value
+          })
+        });
+      case "wpwax-vm-info-collection":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            collectInfo: value
           })
         });
       case "wpwax-vm-send-mail":

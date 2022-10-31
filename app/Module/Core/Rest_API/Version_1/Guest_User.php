@@ -25,7 +25,7 @@ class Guest_User extends Rest_Base {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'check_guest_permission' ),
+				'permission_callback' => array( $this, 'check_admin_permission' ),
 				'args'                => $this->get_collection_params(),
 			),
 			array(

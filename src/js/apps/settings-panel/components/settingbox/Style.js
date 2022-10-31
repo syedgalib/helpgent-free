@@ -90,11 +90,18 @@ const SetingBoxWrap = Styled.div`
                 li{
                     display: flex;
                     margin-bottom: 0;
+                    span.dashicons{
+                        width: 18px;
+                        height: 18px;
+                        margin: 0 4px;
+                        font-size: 16px;
+                    }
                     a{
                         font-size: 14px;
                         font-weight: 500;
                         text-decoration: none;
                         color: rgba(255,255,255,.50);
+                        pointer-events: none;
                         @media only screen and (max-width: 767px) {
                             font-size: 12px;
                         }
@@ -104,11 +111,6 @@ const SetingBoxWrap = Styled.div`
                         &:focus{
                             outline: none;
                             box-shadow: 0 0;
-                        }
-                        span.dashicons{
-                            width: 18px;
-                            height: 18px;
-                            font-size: 16px;
                         }
                         &:hover{
                             color: rgba(255,255,255,1);

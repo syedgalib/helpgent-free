@@ -8,12 +8,12 @@ const NavItem = props => {
     const handleSubnav = (e,id,path,subNav) => {
         e.preventDefault();
         setNavId(id);
-        if(!subNav){
-            setContentState({
-                ...contentState,
-                contentKey: path
-            });
-        }
+        setsubNavPath(path);
+        setContentState({
+            ...contentState,
+            navParent: path,
+            contentKey: path
+        });
     };
     const handleSubnavActivation = e => {
         e.preventDefault();
@@ -23,7 +23,7 @@ const NavItem = props => {
             contentKey: e.target.id
         });
     };
-    
+
     return (
         <SidebarMenuItem className={props.item.navId === navId ? "wpwax-vm-sidebar-nav__item wpwax-vm-sidebar-nav__submenu-open" : "wpwax-vm-sidebar-nav__item"}>
             <a href={!props.item.subNav ? props.item.path :'#'} onClick={e=>handleSubnav(e,props.item.navId,props.item.path,props.item.subNav)} id={props.item.navId}>

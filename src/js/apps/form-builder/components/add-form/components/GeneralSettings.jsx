@@ -112,6 +112,11 @@ const GeneralSettings = () => {
 
     function handleChangeDisplayOnCustomPagesSwitchValue( value, event, id ) {
 		dispatch( updateFormSettings( 'displayOnCustomPages', value ) );
+
+		if ( ! value ) {
+			const updatedData = formUpdater( 'wpwax-vm-display-custom-pages' , '', formData );
+        	dispatch( handleDynamicEdit( updatedData ) );
+		}
     };
 
     const handleChangeSelectValue = (selectEvent, e) => {

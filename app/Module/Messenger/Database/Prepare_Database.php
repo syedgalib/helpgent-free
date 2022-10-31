@@ -40,8 +40,8 @@ class Prepare_Database {
 			message longtext NOT NULL DEFAULT '',
 			message_type varchar(100) NOT NULL DEFAULT 'text',
 			attachment_id int(20) DEFAULT NULL,
-			parent bigint(20) unsigned NOT NULL,
-			parent_type varchar(255) NOT NULL,
+			parent bigint(20) unsigned NULL,
+			parent_type varchar(255) NULL,
 			created_at datetime NOT NULL,
 			updated_at datetime NOT NULL,
 

@@ -160,10 +160,10 @@ class Message_Model extends DB_Model {
         $default['conversation_id'] = 0;
         $default['user_email']      = '';
         $default['message']         = '';
-        $default['attachment_id']   = '';
+        $default['attachment_id']   = null;
         $default['message_type']    = 'text';
-        $default['parent']          = 0;
-        $default['parent_type']     = '';
+        $default['parent']          = null;
+        $default['parent_type']     = null;
 
         $args = Helper\merge_params( $default, $args );
         $time = current_time( 'mysql', true );

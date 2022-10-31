@@ -126,11 +126,11 @@ class Conversations extends Rest_Base
 					'callback'            => [$this, 'update_terms'],
 					'permission_callback' => [$this, 'check_admin_permission'],
 					'args'                => [
-						'add_term_ids' => [
+						'add_terms' => [
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
-						'remove_term_ids' => [
+						'remove_terms' => [
 							'required'          => false,
 							'sanitize_callback' => 'sanitize_text_field',
 						],
@@ -209,13 +209,24 @@ class Conversations extends Rest_Base
 		$where = [];
 
 		$where['id']         = '';
-		$where['terms']   = '';
+		$where['terms']      = '';
 		$where['updated_at'] = '';
 		$where['created_at'] = '';
 		$where['created_by'] = '';
 		$where['status']     = '';
 
-		$where = Helper\filter_params($where, $args);
+		$where = Helper\filter_params( $where, $args );
+
+		// Status Query
+		if ( ! empty( $where['status'] ) ) {
+			$status = $where['status'];
+
+			$where['status'] = [
+				'key'     => 'status',
+				'compare' => 'IN',
+				'value'   => $status,
+			];
+		}
 
 		$default = [];
 
@@ -295,6 +306,10 @@ class Conversations extends Rest_Base
 			];
 
 			unset( $args['where']['terms'] );
+		}
+
+		if ( isset( $args['timezone'] ) ) {
+			unset( $args['timezone'] );
 		}
 
 		$conversation_data = Conversation_Model::get_items( $args );

@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import useAttachmentAPI from 'API/useAttachmentAPI';
-import useFormBuilderAPI from 'API/useFormBuilderAPI';
+import useFormAPI from 'API/useFormAPI';
 import useMessangerAPI from 'API/useMessangerAPI';
-import useSessionAPI from 'API/useSessionAPI';
+import useConversationAPI from 'API/useConversationAPI';
 import useTermAPI from 'API/useTermAPI';
 import useUserAPI from 'API/useUserAPI';
 
@@ -17,15 +17,15 @@ function App() {
 		deleteItem: deleteAttachmentItem,
 	} = useAttachmentAPI();
 
-	// Form Builder API
+	// Form API
 	const {
-		getItems: getFormBuilderItems,
-		getItem: getFormBuilderItem,
-		createItem: createFormBuilderItem,
-		updateItem: updateFormBuilderItem,
-		deleteItem: deleteFormBuilderItem,
+		getItems: getFormItems,
+		getItem: getFormItem,
+		createItem: createFormItem,
+		updateItem: updateFormItem,
+		deleteItem: deleteFormItem,
 
-	} = useFormBuilderAPI();
+	} = useFormAPI();
 
 	// Messanger API
 	const {
@@ -34,23 +34,20 @@ function App() {
 		createItem: createMessangerItem,
 		updateItem: updateMessangerItem,
 		deleteItem: deleteMessangerItem,
-		getSeenBy: getMessangerItemSeenBy,
-		createSeenBy: createMessangerItemSeenBy,
-		deleteSeenBy: deleteMessangerItemSeenBy,
 	} = useMessangerAPI();
 
-	// Session API
+	// Conversation API
 	const {
-		getItems: getSessionItems,
-		getItem: getSessionItem,
-		createItem: createSessionItem,
-		deleteItem: deleteSessionItem,
-		markAsRead: markAsReadSessionItem,
-		markAsUnread: markAsUnreadSessionItem,
-		updateTerms: updateSessionTerms,
-		addTerms: addSessionTerms,
-		removeTerms: removeSessionTerms,
-	} = useSessionAPI();
+		getItems: getConversationItems,
+		getItem: getConversationItem,
+		createItem: createConversationItem,
+		deleteItem: deleteConversationItem,
+		markAsRead: markAsReadConversationItem,
+		markAsUnread: markAsUnreadConversationItem,
+		updateTerms: updateConversationTerms,
+		addTerms: addConversationTerms,
+		removeTerms: removeConversationTerms,
+	} = useConversationAPI();
 
 	// Use Term API
 	const {
@@ -79,7 +76,7 @@ function App() {
 
 	// @Init
 	useEffect( () => {
-		// testAttachmentAPI();
+		// testConversationAPI();
 	}, []);
 
 	// testUserAPI
@@ -107,45 +104,38 @@ function App() {
 		// console.log( { response } );
 	}
 
-	// testSessionAPI
-	async function testSessionAPI() {
-		// const itemID = '';
+	// testConversationAPI
+	async function testConversationAPI() {
+		// const itemID = 0;
 
-		// const response = await getSessionItems();
-		// const response = await getSessionItem( itemID );
-		// const response = await deleteSessionItem( itemID );
-		// const response = await markAsReadSessionItem( itemID );
-		// const response = await markAsUnreadSessionItem( itemID );
+		// const response = await getConversationItems();
+		// const response = await getConversationItem( itemID );
+		// const response = await createConversationItem( { title: '' } );
+		// const response = await deleteConversationItem( itemID );
 
-		// const response = await updateSessionTerms( itemID, {
-		// 	add_term_ids: '1,2,3',
-		// 	remove_term_ids: '4,5,6'
+		// const response = await markAsReadConversationItem( itemID );
+		// const response = await markAsUnreadConversationItem( itemID );
+
+		// const response = await updateConversationTerms( itemID, {
+		// 	add_terms: '1,2',
+		// 	remove_terms: '1,2'
 		// });
 
-		// const response = await addSessionTerms( itemID, {
-		// 	session_id: itemID,
-		// 	term_id: '1,2,3'
-		// });
-
-		// const response = await removeSessionTerms( itemID, {
-		// 	session_id: itemID,
-		// 	term_id: '1,2,3'
-		// });
+		// const response = await addConversationTerms( itemID, { terms: '1,2' } );
+		// const response = await removeConversationTerms( itemID, { terms: '1,2' } );
 
 		// console.log( { response } );
 	}
 
 	// testMessangerAPI
 	async function testMessangerAPI() {
-		// const itemID = 0;
+		// const itemID = 1;
 
 		// const response = await getMessangerItems();
 		// const response = await getMessangerItem( itemID );
-		// const response = await updateMessangerItem( itemID, { note: 'Test 123' } );
+		// const response = await createMessangerItem( { conversation_id: 1,  message: 'New Test' } );
+		// const response = await updateMessangerItem( itemID, { message: 'Test Updated' } );
 		// const response = await deleteMessangerItem( itemID );
-		// const response = await getMessangerItemSeenBy( itemID );
-		// const response = await createMessangerItemSeenBy( itemID );
-		// const response = await deleteMessangerItemSeenBy( itemID );
 
 		// console.log( { response } );
 	}

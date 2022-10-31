@@ -943,10 +943,35 @@ function get_users_data_by( $by = 'id', $items = [] )
 		$user = get_user_by( $by, $item );
 
 		if ( empty( $user ) ) {
+			if ( 'email' === $by ) {
+				$guest_user = Guest_User_Model::get_items([
+					'where' => [
+						'email' => $item
+					]
+				]);
+
+				if ( empty( $guest_user ) ) {
+					continue;
+				}
+
+				$user_data = prepare_guest_user_data( $guest_user[0] );
+
+				if ( $user_data ) {
+					array_push( $users, $user_data );
+				}
+
+				continue;
+			}
+
 			continue;
 		}
 
-		array_push( $users, prepare_user_data( $user ) );
+		$user_data = prepare_user_data( $user );
+
+		if ( $user_data ) {
+			array_push( $users, $user_data );
+		}
+
 	}
 
 	return $users;
@@ -1097,6 +1122,24 @@ function prepare_user_data($user, $fields = [])
 	}
 
 	return $user_info;
+}
+
+/**
+ * Prepare Guest User Data
+ *
+ * @param array $user
+ * @return array|false User
+ */
+function prepare_guest_user_data( $user = [] )
+{
+	if ( empty( $user ) ) {
+		return false;
+	}
+
+	$user['avater'] = get_avatar_url( $user['email'] );
+	$user['roles']  = [];
+
+	return $user;
 }
 
 /**

@@ -344,6 +344,22 @@ class Conversations extends Rest_Base
 			$last_message_data = self::get_message_by_id( $last_message_id );
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
 
+
+			$messages = Message_Model::get_items([
+				'where' => [
+					'conversation_id' => $conversation['id'],
+				]
+			]);
+
+			$users = array_map( function( $message ) {
+				return $message['user_email'];
+			}, $messages );
+
+			$users = Helper\get_users_data_by( 'email', $users );
+
+
+			$conversation_data[ $conversation_key ]['users'] = $users;
+
 			// Read Status
 			$is_read = Conversation_Model::get_meta( $conversation['id'], 'read' );
 			$conversation_data[ $conversation_key ]['read'] = Helper\is_truthy( $is_read );

@@ -380,7 +380,7 @@ class Conversations extends Rest_Base
 			return null;
 		}
 
-		$message['user'] = Helper\get_users_data_by( 'email', [ $message['user'] ] );
+		$message['user'] = Helper\get_users_data_by( 'email', [ $message['user_email'] ] );
 
 		if ( ! empty( $message['created_at'] ) ) {
 			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );

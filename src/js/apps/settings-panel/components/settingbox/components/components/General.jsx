@@ -1,31 +1,32 @@
 import React from 'react';
 import { default as Select } from 'react-select';
-import Switch from "react-switch";
+import Switch from 'react-switch';
+import Radio from 'Components/form-fields/Radio.jsx';
 
-const General = props =>{
-    const qualityOptions = [
-        { value: '720', label: '720p' },
-        { value: '500', label: '500p' },
-        { value: '300', label: '300p' },
-    ];
+const qualityOptions = [
+    { value: '720', label: '720p' },
+    { value: '500', label: '500p' },
+    { value: '300', label: '300p' },
+];
 
-    const chatHeadPositions = [
-        { value: 'bottom-right', label: 'Bottom Right' },
-        { value: 'bottom-middle', label: 'Bottom Middle' },
-        { value: 'bottom-left', label: 'Bottom Left' },
-    ];
+const chatHeadPositions = [
+    { value: 'bottom-right', label: 'Bottom Right' },
+    { value: 'bottom-middle', label: 'Bottom Middle' },
+    { value: 'bottom-left', label: 'Bottom Left' },
+];
 
+const General = (props) => {
     const { contentState, setContentState } = props;
 
-    const handleUpdateSwitch = (value, event, id)=>{
+    const handleUpdateSwitch = (value, event, id) => {
         setContentState({
             ...contentState,
             options: {
                 ...contentState.options,
-                [id]: value
-            }
+                [id]: value,
+            },
         });
-    }
+    };
 
     const handleChange = (event) => {
         const settingName = event.target.name;
@@ -34,10 +35,10 @@ const General = props =>{
             ...contentState,
             options: {
                 ...contentState.options,
-                [settingName]: settingValue
-            }
+                [settingName]: settingValue,
+            },
         });
-    }
+    };
 
     const handleChangeSelectValue = (selectEvent, e) => {
         // let updatedData = '';
@@ -45,8 +46,8 @@ const General = props =>{
             ...contentState,
             options: {
                 ...contentState.options,
-                [e.name]: selectEvent.value
-            }
+                [e.name]: selectEvent.value,
+            },
         });
     };
 
@@ -79,84 +80,173 @@ const General = props =>{
                 <h4 className="wpwax-vm-settings__single--label">Chat Head Position</h4>
                 <div className="wpwax-vm-settings__single--element">
                     <Select
-                        classNamePrefix="wpwax-vm-select"
+                        inputId='chat-head-position'
+                        classNamePrefix='wpwax-vm-select'
                         options={chatHeadPositions}
                         closeMenuOnSelect={true}
                         hideSelectedOptions={false}
                         searchable={false}
-                        name="chatHeadPosition"
+                        name='chatHeadPosition'
                         onChange={handleChangeSelectValue}
-                        defaultValue={chatHeadPositions.filter(function (option) {
-                            return option.value === contentState.options.chatHeadPosition;
-                        })[0]}
+                        placeholder='Select a position...'
+                        defaultValue={
+                            chatHeadPositions.filter(function (option) {
+                                return (
+                                    option.value ===
+                                    contentState.options.chatHeadPosition
+                                );
+                            })[0]
+                        }
                     />
                 </div>
             </div>
-            <div className="wpwax-vm-settings__single">
-                <h4 className="wpwax-vm-settings__single--label">User Dashboard Page</h4>
-                <div className="wpwax-vm-settings__single--element">
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='user-messages-page'
+                >
+                    User Messages Page
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
                     <Select
+                        inputId='user-messages-page'
                         classNamePrefix='wpwax-vm-select'
                         options={dashboardPages}
                         searchable={false}
                         hideSelectedOptions={false}
-                        defaultValue={dashboardPages.filter(function (option) {
-                            return option.value === contentState.options.userDashboardPage;
-                        })[0]}
+                        placeholder='Select a page...'
+                        defaultValue={
+                            dashboardPages.filter(function (option) {
+                                return (
+                                    option.value ===
+                                    contentState.options.userDashboardPage
+                                );
+                            })[0]
+                        }
                         name='userDashboardPage'
                         onChange={handleChangeSelectValue}
                         allowSelectAll={true}
                     />
                 </div>
             </div>
-            <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Video Length (Minutes)</label>
-                <div className="wpwax-vm-settings__single--element">
-                    <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="Ex: 10" value={contentState.options.maxVideoLength} onChange={handleChange} min="0"/>
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='wpwax-vm-max-video-length'
+                >
+                    Maximum Video Length
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
+                    <div className='wpwax-vm-form-group'>
+                        <input
+                            type='number'
+                            className='wpwax-vm-form__element'
+                            id='wpwax-vm-max-video-length'
+                            name='maxVideoLength'
+                            placeholder='Ex: 10'
+                            value={contentState.options.maxVideoLength}
+                            onChange={handleChange}
+                            min='0'
+                        />
+                        <div className='wpwax-vm-input-addon'>
+                            <span className='wpwax-vm-input-addon__text'>
+                                Mins
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="wpwax-vm-settings__single">
-                <h4 className="wpwax-vm-settings__single--label">Video Quality</h4>
-                <div className="wpwax-vm-settings__single--element">
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='video-quality'
+                >
+                    Video Quality
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
                     <Select
-                        classNamePrefix="wpwax-vm-select"
+                        inputId='video-quality'
+                        classNamePrefix='wpwax-vm-select'
                         options={qualityOptions}
                         closeMenuOnSelect={true}
                         hideSelectedOptions={false}
                         searchable={false}
-                        name="videoQuality"
+                        name='videoQuality'
                         onChange={handleChangeSelectValue}
-                        defaultValue={qualityOptions.filter(function (option) {
-                            return option.value === contentState.options.videoQuality;
-                        })[0]}
+                        placeholder='Select video quality...'
+                        defaultValue={
+                            qualityOptions.filter(function (option) {
+                                return (
+                                    option.value ===
+                                    contentState.options.videoQuality
+                                );
+                            })[0]
+                        }
                     />
                 </div>
             </div>
-            <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-upload-size">Maximum Upload Size (MB)</label>
-                <div className="wpwax-vm-settings__single--element">
-                    <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-upload-size" name="maxUploadSize" placeholder="Ex: 10" value={contentState.options.maxUploadSize} onChange={handleChange} min="0"/>
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='wpwax-vm-max-upload-size'
+                >
+                    Maximum Upload Size
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
+                    <div className='wpwax-vm-form-group'>
+                        <input
+                            type='number'
+                            className='wpwax-vm-form__element'
+                            id='wpwax-vm-max-upload-size'
+                            name='maxUploadSize'
+                            placeholder='Ex: 10'
+                            value={contentState.options.maxUploadSize}
+                            onChange={handleChange}
+                            min='0'
+                        />
+                        <div className='wpwax-vm-input-addon'>
+                            <span className='wpwax-vm-input-addon__text'>
+                                MB
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="wpwax-vm-settings__single">
-                <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-delete-attatchment">Store Attachments For</label>
-                <div className="wpwax-vm-settings__single--element">
-                    <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-delete-attatchment" name="attatchmentDeletionAfter" placeholder="Ex: 45" value={contentState.options.attatchmentDeletionAfter} onChange={handleChange} min="0"/>
-                        <div className="wpwax-vm-input-addon">
-                            <span className="wpwax-vm-input-addon__text">Days</span>
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='wpwax-vm-delete-attatchment'
+                >
+                    Store Attachments For
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
+                    <div className='wpwax-vm-form-group'>
+                        <input
+                            type='number'
+                            className='wpwax-vm-form__element'
+                            id='wpwax-vm-delete-attatchment'
+                            name='attatchmentDeletionAfter'
+                            placeholder='Ex: 45'
+                            value={
+                                contentState.options.attatchmentDeletionAfter
+                            }
+                            onChange={handleChange}
+                            min='0'
+                        />
+                        <div className='wpwax-vm-input-addon'>
+                            <span className='wpwax-vm-input-addon__text'>
+                                Days
+                            </span>
                         </div>
                     </div>
-                    <p>Then delete automatically. Or leave empty to store as many days as you want.</p>
+                    <p className='wpwax-vm-input-desc'>
+                        Then delete automatically. Or leave empty to store as
+                        many days as you want.
+                    </p>
                 </div>
             </div>
         </div>
-        
-    )
-}
+    );
+};
 
 export default General;

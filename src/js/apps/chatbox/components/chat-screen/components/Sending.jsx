@@ -14,8 +14,14 @@ import {
     upateState as upateMessengerFormState,
 } from '../../../store/forms/messenger/actionCreator';
 
+import useConversationAPI from '../../../../../helpers/hooks/api/useConversationAPI';
+import useMessangerAPI from '../../../../../helpers/hooks/api/useMessangerAPI';
+
 function Sending() {
     const dispatch = useDispatch();
+
+	const { createItem: createConversationItem } = useConversationAPI();
+	const { createItem: createMessangerItem } = useMessangerAPI()
 
     // Store States
     const { userForm, messengerForm } = useSelector((state) => {
@@ -165,7 +171,10 @@ function Sending() {
 		let status = { success: false, message: '', data: null };
 
 		try  {
-			const response = await http.postData( "/messages", args );
+			const conversation = await createConversationItem();
+			args.conversation_id = conversation.data.id;
+
+			const response = await createMessangerItem( args );
 
 			status.success = true;
 			status.data = response.data;

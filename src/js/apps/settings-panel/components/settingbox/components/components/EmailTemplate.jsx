@@ -47,10 +47,10 @@ const EmailTemplate = props =>{
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={contentState.options.enableEmailHeader || true}
+                        checked={contentState.options.enableEmailHeader === "undefined" ? true : contentState.options.enableEmailHeader}
                         onChange={handleUpdateSwitch}
                     />
-                    <div className={contentState.options.enableEmailHeader || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
+                    <div className={contentState.options.enableEmailHeader === "undefined" ? true : contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
                         <div className="wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20">
                             <span className="wpwax-vm-form__color-text">{contentState.options.emailHeaderColor || "#6551f2"}</span>
                             <label htmlFor="wpwax-vm-mail-header-color" className="wpwax-vm-form__color-ball" style={{ backgroundColor: contentState.options.emailHeaderColor || "#6551f2" }}></label>
@@ -174,7 +174,7 @@ const EmailTemplate = props =>{
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={contentState.options.enableEmailFooter || true}
+                        checked={contentState.options.enableEmailFooter === "undefined" ? true : contentState.options.enableEmailFooter}
                         onChange={handleUpdateSwitch}
                     />
                 </div>

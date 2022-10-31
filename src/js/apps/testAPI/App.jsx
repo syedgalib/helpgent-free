@@ -6,8 +6,16 @@ import useMessangerAPI from 'API/useMessangerAPI';
 import useConversationAPI from 'API/useConversationAPI';
 import useTermAPI from 'API/useTermAPI';
 import useUserAPI from 'API/useUserAPI';
+import useSettingsAPI from 'API/useSettingsAPI';
 
 function App() {
+	// Attachment API
+	const {
+		getItems: geteSettingsItems,
+		updateItem: updateSettingsItem,
+		deleteItem: deleteSettingsItem,
+	} = useSettingsAPI();
+
 	// Attachment API
 	const {
 		getItems: getAttachmentItems,
@@ -76,9 +84,20 @@ function App() {
 
 	// @Init
 	useEffect( () => {
-		// testConversationAPI();
+		testSettingsAPI();
 	}, []);
 
+	// testSettingsAPI
+	async function testSettingsAPI() {
+		// const response = await getSettingsItems();
+		// const response = await updateSettingsItem( { 
+		// 	userDashboardPage: 3 
+		// });
+		// const response = await deleteSettingsItem( { userDashboardPage: '' } );
+
+		// console.log( { response } );
+	}
+	
 	// testUserAPI
 	async function testUserAPI() {
 		const itemID = 0;

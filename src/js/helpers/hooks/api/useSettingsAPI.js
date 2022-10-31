@@ -4,7 +4,7 @@ import http from 'Helper/http';
 export default function useSettingsAPI() {
 	const routeBase = '/settings';
 	const { getResponse, updateData } = http;
-	const { getItems, getItem } = useAPI( routeBase );
+	const { getItems, getItem, deleteItem } = useAPI( routeBase );
 
 	/**
 	 * Update Item
@@ -13,19 +13,20 @@ export default function useSettingsAPI() {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	 async function updateSettingsItem( id, args, config ) {
+	 async function updateItem( args, config ) {
 
 		const request = async function( args, config ) {
 			return await updateData( `${routeBase}`, args.params, config );
 		}
 
-		return await getResponse( request, { id, params: args }, config );
+		return await getResponse( request, { params: args }, config );
 	}
 
 	return {
 		getItems,
 		getItem,
-		updateItem: updateSettingsItem,
+		updateItem,
+		deleteItem,
 	};
 
 }

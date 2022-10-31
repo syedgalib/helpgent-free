@@ -26,6 +26,7 @@ const EmailGeneral = props =>{
             }
         });
     }
+    console.log(contentState.options.enableEmailNotification);
     return(
         <div className="wpwax-vm-settings">
             <div className="wpwax-vm-settings__single">
@@ -41,10 +42,10 @@ const EmailGeneral = props =>{
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={contentState.options.enableEmailNotification || true}
+                        checked={contentState.options.enableEmailNotification === 'undefined' ? true : contentState.options.enableEmailNotification}
                         onChange={handleUpdateSwitch}
                     />
-                    <div className={contentState.options.enableEmailNotification || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
+                    <div className={contentState.options.enableEmailNotification === 'undefined' ? true : contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
                         <div className="wpwax-vm-settings__swtich-content--item">
                             <h4>Admin Events</h4>
                             <div className='wpwax-vm-radio-list'>

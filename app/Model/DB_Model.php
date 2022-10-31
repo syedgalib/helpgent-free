@@ -338,7 +338,7 @@ abstract class DB_Model implements DB_Model_Interface {
 	protected static function _delete_meta( $object_id, $meta_key = '', $meta_table = '', $relation_column = '' ) {
 		global $wpdb;
 
-		$meta_key_exists = self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column );
+		$meta_key_exists = ( ! empty( $meta_key ) ) ? self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column ) : true;
 
 		if ( ! $meta_key_exists ) {
 			return true;

@@ -4,8 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Core\Model;
 
 use \WP_Error;
 use WPWaxCustomerSupportApp\Model\DB_Model;
-
-use function WPWaxCustomerSupportApp\Base\Helper\filter_params;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Guest_User_Model extends DB_Model {
 
@@ -46,15 +45,26 @@ class Guest_User_Model extends DB_Model {
 
         $default = [];
 
-        $default['limit'] = 20;
-        $default['page']  = 1;
+        $default['id']         = null;
+        $default['name']       = null;
+        $default['email']      = null;
+        $default['created_at'] = null;
+        $default['limit']      = 20;
+        $default['page']       = 1;
+        $default['where']      = null;
 
-        $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
+		$args = Helper\merge_params( $default, $args );
 
 		$limit  = $args['limit'];
 		$offset = ( $limit * $args['page'] ) - $limit;
 
-		$table_field_map  = [];
+		$table_field_map  = [
+			'id'         => 'user',
+			'email'      => 'user',
+			'name'       => 'user',
+			'created_at' => 'user',
+		];
+
 		$tax_query_count  = 0;
 		$meta_query_count = 0;
 
@@ -72,8 +82,6 @@ class Guest_User_Model extends DB_Model {
 		}
 
 		$query = $select . $join . $where . " LIMIT $limit OFFSET $offset";
-
-		file_put_contents( WPWAX_CUSTOMER_SUPPORT_APP_BASE . '__log/guest-query.sql', $query );
 
 		return $wpdb->get_results( $query, ARRAY_A );
 
@@ -124,7 +132,8 @@ class Guest_User_Model extends DB_Model {
 			'created_at' => current_time( 'mysql', true ),
 		];
 
-        $args = filter_params( $default, $args );
+        $meta_args = Helper\exclude_params( $default, $args );
+        $args      = Helper\merge_params( $default, $args );
 
 		if ( empty( $args['name'] ) ) {
 			$message = __( 'Name is required.', 'wpwax-customer-support-app' );
@@ -141,6 +150,11 @@ class Guest_User_Model extends DB_Model {
             return new WP_Error( 403, $message );
 		}
 
+		if ( self::user_exists( $args['email'], false ) ) {
+			$message = __( 'The email is already registered.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
@@ -148,7 +162,16 @@ class Guest_User_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        return self::get_item( $wpdb->insert_id );
+		$item_id = $wpdb->insert_id;
+
+		// Update Metas
+		if ( ! empty( $meta_args ) ) {
+			foreach( $meta_args as $meta_key => $meta_value ) {
+				self::update_meta( $item_id, $meta_key, $meta_value );
+			}
+		}
+
+        return self::get_item( $item_id );
     }
 
     /**
@@ -175,7 +198,13 @@ class Guest_User_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
-        $args = ( is_array( $args ) ) ? array_merge( $old_data, $args ) : $old_data;
+		$meta_args = Helper\exclude_params( $old_data, $args );
+		$args      = Helper\merge_params( $old_data, $args );
+
+		if ( ! empty( $args['email'] ) && $args['email'] !== $old_data['email'] && self::user_exists( $args['email'], false ) ) {
+			$message = __( 'The email is already in use.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
 
         $where = [ 'id' => $id ];
 
@@ -185,6 +214,19 @@ class Guest_User_Model extends DB_Model {
             $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
         }
+
+		// Update Metas
+		if ( ! empty( $meta_args ) ) {
+			foreach( $meta_args as $meta_key => $meta_value ) {
+
+				if ( is_null( $meta_value ) || is_string( $meta_value ) && 'null' === strtolower( $meta_value ) ) {
+					self::delete_meta( $id, $meta_key );
+					continue;
+				}
+
+				self::update_meta( $id, $meta_key, $meta_value );
+			}
+		}
 
         return self::get_item( $id );
     }
@@ -203,6 +245,12 @@ class Guest_User_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+		$user = self::get_item( $id );
+
+		if ( is_wp_error( $user ) ) {
+			return $user;
+		}
+
 		$table = self::get_table_name( self::$table );
 		$where = ['id' => $id ];
 
@@ -213,6 +261,12 @@ class Guest_User_Model extends DB_Model {
             return new WP_Error( 403, $message );
         }
 
+		// Delete Meta
+		self::delete_meta( $id );
+
+		// Delete Token
+		Auth_Token_Model::delete_item( $user['email'] );
+
         return ( ! empty( $status ) ) ? true : false;
     }
 
@@ -222,11 +276,19 @@ class Guest_User_Model extends DB_Model {
 	 * @param string $email
 	 * @return bool|WP_Error
 	 */
-	public static function user_exists( $email ) {
+	public static function user_exists( $email, $check_only_geust_user = true ) {
 
 		if ( ! is_email( $email ) ) {
 			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
             return new WP_Error( 403, $message );
+		}
+
+		if ( ! $check_only_geust_user ) {
+			$wp_user = get_user_by( 'email', $email );
+
+			if ( ! empty( $wp_user ) ) {
+				return true;
+			}
 		}
 
 		$user = self::get_items([

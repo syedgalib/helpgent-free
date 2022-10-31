@@ -125,9 +125,9 @@ class Terms extends Rest_Base {
 
 		if ( isset( $where['name'] ) ) {
 			$where['name'] = [
-				'field'   => 'name',
+				'key'     => 'name',
 				'compare' => 'LIKE',
-				'value'   => "'%".  $where['name'] . "%'",
+				'value'   => $where['name'],
 			];
 		}
 

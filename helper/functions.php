@@ -147,6 +147,25 @@ function filter_params( $default = [], $args = [] )
 }
 
 /**
+ * Exclude Params
+ *
+ * @param array $exclude
+ * @param array $args
+ *
+ * @return array Merged Params
+ */
+function exclude_params( $exclude = [], $args = [] )
+{
+	foreach ( $args as $key => $value ) {
+		if ( in_array( $key, array_keys( $exclude ) ) ) {
+			unset( $args[ $key ] );
+		}
+	}
+
+	return $args;
+}
+
+/**
  * Merge Params
  *
  * @param array $default

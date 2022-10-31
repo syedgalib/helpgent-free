@@ -34,6 +34,9 @@ class Authentication extends Rest_Base {
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_email',
                         ],
+						'password' => [
+							'type' => 'string',
+						],
                     ],
                 ],
                 [
@@ -75,7 +78,24 @@ class Authentication extends Rest_Base {
     public function create_token( $request ) {
         $args = $request->get_params();
 
-		$email = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
+		$email    = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
+		$password = ( ! empty( $args['password'] ) ) ? $args['password'] : '';
+
+		$wp_user = get_user_by( 'email', $email );
+
+		if ( $wp_user ) {
+			if ( empty( $password ) ) {
+				$message = __( 'Password is required.', 'wpwax-customer-support-app' );
+            	return new WP_Error( 403, $message );
+			}
+
+			$has_valid_password = wp_check_password( $password, $wp_user->user_pass, $wp_user->ID );
+
+			if ( ! $has_valid_password ) {
+				$message = __( 'Password is incorrect.', 'wpwax-customer-support-app' );
+            	return new WP_Error( 403, $message );
+			}
+		}
 
 		$token = Auth_Token_Model::create_token( $email );
 
@@ -83,7 +103,10 @@ class Authentication extends Rest_Base {
 			return $token;
 		}
 
-        return $this->response( true, $token );
+		$message = __( 'The token is generated successfuly. Please check your email.', 'wpwax-customer-support-app' );
+		$data    = ( $wp_user ) ? $token : '';
+
+        return $this->response( true, $data, $message );
     }
 
     /**

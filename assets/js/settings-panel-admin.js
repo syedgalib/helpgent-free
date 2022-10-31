@@ -7198,7 +7198,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var SetingBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 1200px;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    font-family: 'Inter',sans-serif;\n    margin: 0 auto;\n    @media only screen and (max-width: 1299px) {\n        max-width: 960px;\n    }\n    @media only screen and (max-width: 1199px) {\n        max-width: 900px;\n        margin-right: 15px;\n    }\n    .wpwax-vm-settings-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        width: 100%;\n        padding-top: 20px;\n        margin-bottom: 18px;\n        .wpwax-vm-settings-top__title{\n            font-size: 24px;\n            font-weight: 500;\n            line-height: 1;\n            margin: 0;\n            @media only screen and (max-width: 575px) {\n                font-size: 20px;\n            }\n        }\n        .wpwax-vm-settings-top__links{\n            position: relative;\n            bottom: -4px;\n            display: flex;\n            flex-wrap: wrap;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                line-height: 1;\n                margin: 12px;\n                text-decoration: none;\n                color: var(--color-text);\n                @media only screen and (max-width: 575px) {\n                    font-size: 12px;\n                    margin: 6px;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                    svg path{\n                        fill: var(--color-primary);\n                    }\n                }\n                svg {\n                    margin-right: 8px;\n                    path{\n                        fill: var(--color-text);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-seetings-box{\n        width: 100%;\n        box-shadow: 0 0 10px rgba(105,105,105,.10);\n        .wpwax-vm-seetings-box__header{\n            display: flex;\n            justify-content: space-between;\n            padding: 15px 30px;\n            border-radius: 14px 14px 0 0;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                flex-direction: column;\n                align-items: center;\n            }\n        }\n        .wpwax-vm-seetings-box__breadcrumb{\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 767px) {\n                margin-bottom: 15px;\n            }\n            ul{\n                display: flex;\n                flex-wrap: wrap;\n                margin: 0;\n                padding: 0;\n                li{\n                    display: flex;\n                    margin-bottom: 0;\n                    span.dashicons{\n                        width: 18px;\n                        height: 18px;\n                        margin: 0 4px;\n                        font-size: 16px;\n                    }\n                    a{\n                        font-size: 14px;\n                        font-weight: 500;\n                        text-decoration: none;\n                        color: rgba(255,255,255,.50);\n                        pointer-events: none;\n                        @media only screen and (max-width: 767px) {\n                            font-size: 12px;\n                        }\n                        &.wpwax-vm-active{\n                            color: rgba(255,255,255,1);\n                        }\n                        &:focus{\n                            outline: none;\n                            box-shadow: 0 0;\n                        }\n                        &:hover{\n                            color: rgba(255,255,255,1);\n                            span.dashicons{\n                                color: rgba(255,255,255,1);\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__actions{\n            display: flex;\n            .wpwax-vm-seetings-box-search{\n                margin-right: 25px;\n                input{\n                    font-size: 14px;\n                    min-height: 40px;\n                    border-radius: 20px;\n                    min-width: 250px;\n                    padding: 0 16px;\n                    color: rgba(255,255,255,1);\n                    background-color: rgba(255,255,255,.20);\n                    border: 0 none;\n                    &::placeholder{\n                        color: rgba(255,255,255,.60);\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                }\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n        .wpwax-vm-seetings-box__body{\n            min-height: 600px;\n            display: flex;\n            .wpwax-settings-content-box{\n                flex: auto;\n                &.wpwax-vm-loder-active{\n                    &:after{\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 100%;\n                    }\n                }\n                .wpwax-vm-loading-spin{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    z-index: 100;\n                }\n            }\n        }\n        .wpwax-vm-seetings-box__footer{\n            display: flex;\n            justify-content: flex-end;\n            padding: 15px 30px;\n            border-radius: 0 0 14px 14px;\n            background-color: var(--color-dark);\n            @media only screen and (max-width: 767px) {\n                justify-content: center;\n            }\n            .wpwax-vm-btn{\n                padding: 0 20px;\n            }\n        }\n    }\n"])));
 var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    min-width: 250px;\n    background-color: #F7F7F7;\n    @media only screen and (max-width: 1299px) {\n        min-width: 200px;\n    }\n    @media only screen and (max-width: 767px) {\n        display: none;\n    }\n"])));
 var SidebarMenuItem = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    >a{\n        position: relative;\n        display: flex;\n        align-items: center;\n        font-size: 14px;\n        font-weight: 500;\n        min-height: 50px;\n        padding: 0 25px;\n        text-decoration: none;\n        color: var(--color-dark);\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            height: 100%;\n            width: 2px;\n            content: \"\";\n            opacity: 0;\n            visibility: hidden;\n            background-color: var(--color-primary);\n        }\n        &:focus{\n            box-shadow: 0 0;\n            outline: none;\n        }\n        .wpwax-vm-sidebar-nav__item--icon{\n            margin-right: 15px;\n        }\n        .wpwax-vm-sidebar-nav__item--text{\n            position: relative;\n            top: -1px;\n            width: 100%;\n            display: flex;\n            justify-content: space-between;\n        }\n    }\n    &.wpwax-vm-sidebar-nav__submenu-open{\n        >a{\n            background-color: var(--color-white);\n            &:before{\n                opacity: 1;\n                visibility: visible;\n            }\n        }\n    }\n    ul{\n        padding-left: 60px;\n        li{\n            a{\n                display: block;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                padding: 12px 0;\n                color: #4D4D4D;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n                &:hover{\n                    color: var(--color-primary);\n                }\n                &.wpwax-vm-active{\n                    color: var(--color-primary);\n                }\n            }\n            &:first-child{\n                a{\n                    padding-top: 20px;\n                }\n            }\n            &:last-child{\n                a{\n                    padding-bottom: 20px;\n                }\n            }\n        }\n    }\n"])));
-var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 14px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n        }\n        h2{\n            margin: 0;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 80px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n            .wpwax-vm-settings__swtich-content--item{\n                padding-bottom: 20px;\n                border-bottom: 1px solid var(--color-border-light);\n                h4{\n                    margin: 16px 0 10px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n\n    .wpwax-vm-card{\n        .wpwax-vm-settings__single{\n            &:not(:last-child){\n                margin-bottom: 25px;\n            }\n        }\n    }\n\n    .wpwax-vm-setting__swtich-inner{\n        display: none;\n        &.wpwax-vm-show{\n            display: block;\n        }\n    }\n\n"])));
+var SettingContentWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    padding: 45px;\n    height: 600px;\n    overflow-y: auto;\n    background-color: var(--color-white);\n    @media only screen and (max-width: 767px) {\n        padding: 15px;\n    }\n    &::-webkit-scrollbar{\n        width: 8px;\n    }\n    &::-webkit-scrollbar-track{\n        background-color: #fff;\n    }\n    &::-webkit-scrollbar-thumb{\n        border-radius: 5px;\n        height: 200px;\n        background-color: #e2e2e2;\n    }\n    .wpwax-vm-radio-list{\n        margin-top: 14px;\n        .wpwax-vm-radio-single{\n            &:not(:last-child){\n                margin-bottom: 15px;\n            }\n        }\n        .wpwax-vm-radio{\n            margin-right: 6px;\n            & + span{\n                flex: auto;\n            }\n        }\n    }\n    .wpwax-vm-settings__single{\n        display: flex;\n        @media only screen and (max-width: 767px) {\n            flex-direction: column;\n        }\n        &:not(:last-child){\n            margin-bottom: 40px;\n        }\n        .wpwax-vm-form-group{\n            margin-bottom: 0;\n        }\n        h2{\n            margin: 0;\n        }\n        .wpwax-vm-settings__single--label{\n            font-size: 14px;\n            font-weight: 500;\n            margin: 0 40px 0 0;\n            white-space: nowrap;\n            min-width: 280px;\n            color: var(--color-dark);\n            @media only screen and (max-width: 1299px) {\n                min-width: 160px;\n            }\n            @media only screen and (max-width: 767px) {\n                margin: 0 0 15px 0;\n            }\n        }\n        .wpwax-vm-settings__single--element{\n            width: 100%;\n            .wpwax-vm-setting-has-info{\n                display: flex;\n                align-items: center;\n                .wpwax-vm-setting-info{\n                    display: flex;\n                    text-decoration: none;\n                    margin-left: 30px;\n                }\n                .wpwax-vm-setting-has-info__text{\n                    display: inline-block;\n                    font-size: 13px;\n                    font-weight: 500;\n                    color: var(--color-info);\n                    margin-left: 8px;\n                }\n            }\n            .wpwax-vm-radio-list{\n                .wpwax-vm-radio-list__item{\n                    &:not(:last-child){\n                        margin-bottom: 18px;\n                    }\n                    .wpwax-vm-radio{\n                        label{\n                            position: relative;\n                            top: -2px;\n                            font-size: 14px;\n                            font-weight: 500;\n                            margin-left: 6px;\n                            color: #4D4D4D;\n                        }\n                    }\n                }\n            }\n            .wpwax-vm-radio-single{\n                display: flex;\n                align-items: center;\n                label{\n                    position: relative;\n                    top: -2px;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin-left: 8px;\n                    color: var(--color-dark);\n                }\n            }\n            .wpwax-vm-form__color-plate{\n                max-width: 200px;\n            }\n            .wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    min-height: 44px;\n                }\n                textarea.wpwax-vm-form__element{\n                    min-height: 120px;\n                }\n            }\n        }\n        .wpwax-vm-inline-switch{\n            display: flex;\n            align-items: center;\n            label{\n                font-size: 14px;\n                font-weight: 500;\n                margin-right: 15px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-settings__swtich-content{\n            display: none;\n            &.wpwax-vm-show{\n                display: block;\n            }\n            .wpwax-vm-settings__swtich-content--item{\n                padding-bottom: 20px;\n                border-bottom: 1px solid var(--color-border-light);\n                h4{\n                    margin: 16px 0 10px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-setting-preview-wrap{\n        margin: -10px 0 0 325px;\n        .wpwax-vm-indicator{\n            display: flex;\n            margin-bottom: 15px;\n            .wpwax-vm-indicator__text{\n                display: inline-block;\n                font-size: 13px;\n                font-weight: 500;\n                margin-left: 10px;\n                color: var(--color-info);\n            }\n        }\n    }\n\n    .wpwax-vm-card{\n        .wpwax-vm-settings__single{\n            &:not(:last-child){\n                margin-bottom: 25px;\n            }\n        }\n    }\n\n    .wpwax-vm-setting__swtich-inner{\n        display: none;\n        &.wpwax-vm-show{\n            display: block;\n        }\n    }\n\n"])));
 var ChatBoxPreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    max-width: 350px;\n    box-shadow: 0 5px 15px rgba(0,0,0,.16);\n    .wpwax-vm-chatbox-top{\n        position: relative;\n        padding: 20px;\n        border-radius: 10px 10px 0 0;\n        background-color: var(--color-dark);\n        .wpwax-vm-chatbox-top__title{\n            margin-bottom: 10px;\n        }\n        .wpwax-vm-chatbox-top__imglist{\n            display: flex;\n            >div{\n                margin: 3px;\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            right: 16px;\n            top: 16px;\n            text-decoration: none;\n            color: var(--color-white);\n        }\n    }\n    .wpwax-vm-chatbox-content{\n        padding: 10px 12px;\n        min-height: 310px;\n        background-color: #F7F7F7;\n        .wpwax-vm-chatbox-content___inner{\n            display: flex;\n            align-items: start;\n            position: relative;\n            border-radius: 10px;\n            padding: 20px;\n            border-top: 3px solid var(--color-primary);\n            background-color: var(--color-white);\n            .wpwax-vm-chatbox-content__text{\n                p{\n                    font-size: 14px;\n                    font-weight: 600;\n                    margin: 0 0 14px;\n                    color: var(--color-dark);\n                }\n                .wpwax-vm-btn{\n                    padding: 0 22px;\n                    border-radius: 17px;\n                    &.wpwax-vm-btn-sm{\n                        height: 34px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-chatbox-content__img{\n            padding: 5px;\n            border-radius: 50%;\n            width: 85px;\n            height: 85px;\n            margin-right: 15px;\n            box-shadow: 0 0 15px rgba(0,0,0,.10);\n            background-color: var(--color-white);\n            img{\n                max-width: 85px;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-bottom{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 8px 15px;\n        border-radius: 0 0 10px 10px;\n        background-color: var(--color-white);\n        .wpwax-vm-btn-send{\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            width: 34px;\n            height: 34px;\n            border-radius: 50%;\n            background-color: #E2E2E2;\n            >div{\n                line-height: 1;\n            }\n            svg {\n                width: 14px;\n                height: 14px;\n                path{\n                    fill: var(--color-white);\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -7601,10 +7601,10 @@ var EmailGeneral = function EmailGeneral(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailNotification,
+          checked: contentState.options.enableEmailNotification || true,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailNotification || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : 0,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__swtich-content--item",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
@@ -7621,7 +7621,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "single"
+                  checked: contentState.options.adminEmailNotificationType || "multiple" === "single"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7633,7 +7633,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.adminEmailNotificationType === "multiple"
+                  checked: contentState.options.adminEmailNotificationType || "multiple" === "multiple"
                 })
               })]
             })]
@@ -7653,7 +7653,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "single"
+                  checked: contentState.options.userEmailNotificationType || "multiple" === "single"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-radio-single",
@@ -7665,7 +7665,7 @@ var EmailGeneral = function EmailGeneral(props) {
                   onChange: function onChange(e) {
                     return handleChange(e);
                   },
-                  checked: contentState.options.userEmailNotificationType === "multiple"
+                  checked: contentState.options.userEmailNotificationType || "multiple" === "multiple"
                 })
               })]
             })]
@@ -7688,7 +7688,7 @@ var EmailGeneral = function EmailGeneral(props) {
             id: "wpwax-vm-mail-from-name",
             name: "emailTemplateFromName",
             placeholder: "ex. Vidsupp",
-            value: contentState.options.emailTemplateFromName,
+            value: contentState.options.emailTemplateFromName || "Help",
             onChange: handleChange
           })
         })
@@ -7709,7 +7709,7 @@ var EmailGeneral = function EmailGeneral(props) {
             id: "wpwax-vm-mail-from-email",
             name: "emailTemplateFromEmail",
             placeholder: "example@gmail.com",
-            value: contentState.options.emailTemplateFromEmail,
+            value: contentState.options.emailTemplateFromEmail || "demo@gmail.com",
             onChange: handleChange
           })
         })
@@ -7743,6 +7743,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var EmailTemplate = function EmailTemplate(props) {
   var contentState = props.contentState,
     setContentState = props.setContentState;
+  var defaultTemplateBody = "Dear {{NAME}}, \n    Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}\n    Thanks,The Administrator of {{SITE_NAME}}";
+  var defaultMessageBody = "Dear {{NAME}}, \n    Message Details:\n    {{MESSAGE}}";
   var handleUpdateSwitch = function handleUpdateSwitch(value, event, id) {
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, id, value))
@@ -7774,27 +7776,27 @@ var EmailTemplate = function EmailTemplate(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailHeader,
+          checked: contentState.options.enableEmailHeader || true,
           onChange: handleUpdateSwitch
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          className: contentState.options.enableEmailHeader ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content",
+          className: contentState.options.enableEmailHeader || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : 0,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "wpwax-vm-form__color-plate wpwax-vm-mb-20 wpwax-vm-mt-20",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
               className: "wpwax-vm-form__color-text",
-              children: contentState.options.emailHeaderColor
+              children: contentState.options.emailHeaderColor || "#6551f2"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
               htmlFor: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__color-ball",
               style: {
-                backgroundColor: contentState.options.emailHeaderColor
+                backgroundColor: contentState.options.emailHeaderColor || "#6551f2"
               }
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
               type: "color",
               id: "wpwax-vm-mail-header-color",
               className: "wpwax-vm-form__element",
               name: "emailHeaderColor",
-              value: contentState.options.emailHeaderColor,
+              value: contentState.options.emailHeaderColor || "#6551f2",
               onChange: handleChange
             })]
           })
@@ -7934,7 +7936,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-mail-from-subject",
                   name: "emailTemplateGreetingSubject",
                   placeholder: "ex. mail Subject",
-                  value: contentState.options.emailTemplateGreetingSubject,
+                  value: contentState.options.emailTemplateGreetingSubject || "Wellcome to Support",
                   onChange: handleChange
                 })
               })
@@ -7954,7 +7956,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-mail-from-body",
                   name: "emailTemplateGreetingBody",
                   placeholder: "",
-                  value: contentState.options.emailTemplateGreetingBody,
+                  value: contentState.options.emailTemplateGreetingBody || defaultTemplateBody,
                   onChange: handleChange
                 })
               })
@@ -7990,7 +7992,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-message-mail-from-subject",
                   name: "emailTemplateMessageSubject",
                   placeholder: "ex. mail Subject",
-                  value: contentState.options.emailTemplateMessageSubject,
+                  value: contentState.options.emailTemplateMessageSubject || "New Message from {{REPLIER_NAME}}",
                   onChange: handleChange
                 })
               })
@@ -8010,7 +8012,7 @@ var EmailTemplate = function EmailTemplate(props) {
                   id: "wpwax-vm-message-mail-from-body",
                   name: "emailTemplateMessageBody",
                   placeholder: "",
-                  value: contentState.options.emailTemplateMessageBody,
+                  value: contentState.options.emailTemplateMessageBody || defaultMessageBody,
                   onChange: handleChange
                 })
               })
@@ -8035,7 +8037,7 @@ var EmailTemplate = function EmailTemplate(props) {
           handleDiameter: 14,
           height: 22,
           width: 40,
-          checked: contentState.options.enableEmailFooter,
+          checked: contentState.options.enableEmailFooter || true,
           onChange: handleUpdateSwitch
         })
       })]
@@ -8134,9 +8136,12 @@ var General = function General(props) {
           searchable: false,
           name: "chatHeadPosition",
           onChange: handleChangeSelectValue,
-          defaultValue: chatHeadPositions.filter(function (option) {
+          defaultValue: contentState.options.chatHeadPosition ? chatHeadPositions.filter(function (option) {
             return option.value === contentState.options.chatHeadPosition;
-          })[0]
+          })[0] : {
+            value: 'bottom-right',
+            label: 'Bottom Right'
+          }
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8152,7 +8157,7 @@ var General = function General(props) {
           searchable: false,
           hideSelectedOptions: false,
           defaultValue: dashboardPages.filter(function (option) {
-            return option.value === contentState.options.userDashboardPage;
+            return option.value.toString() === contentState.options.userDashboardPage.toString();
           })[0],
           name: "userDashboardPage",
           onChange: handleChangeSelectValue,
@@ -8175,7 +8180,7 @@ var General = function General(props) {
             id: "wpwax-vm-max-video-length",
             name: "maxVideoLength",
             placeholder: "Ex: 10",
-            value: contentState.options.maxVideoLength,
+            value: contentState.options.maxVideoLength || "2",
             onChange: handleChange,
             min: "0"
           })
@@ -8196,9 +8201,12 @@ var General = function General(props) {
           searchable: false,
           name: "videoQuality",
           onChange: handleChangeSelectValue,
-          defaultValue: qualityOptions.filter(function (option) {
+          defaultValue: contentState.options.videoQuality ? qualityOptions.filter(function (option) {
             return option.value === contentState.options.videoQuality;
-          })[0]
+          })[0] : {
+            value: '720',
+            label: '720p'
+          }
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8217,7 +8225,7 @@ var General = function General(props) {
             id: "wpwax-vm-max-upload-size",
             name: "maxUploadSize",
             placeholder: "Ex: 10",
-            value: contentState.options.maxUploadSize,
+            value: contentState.options.maxUploadSize || "300",
             onChange: handleChange,
             min: "0"
           })
@@ -8239,7 +8247,7 @@ var General = function General(props) {
             id: "wpwax-vm-delete-attatchment",
             name: "attatchmentDeletionAfter",
             placeholder: "Ex: 45",
-            value: contentState.options.attatchmentDeletionAfter,
+            value: contentState.options.attatchmentDeletionAfter || "20",
             onChange: handleChange,
             min: "0"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -9760,7 +9768,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ce869704be74fdc5fbc7f349dba29e6c.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/72fc635e320f6cfe297cd5623d5946d7.svg");
 
 /***/ }),
 
@@ -9772,7 +9780,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/cd35ccecec94b883af66ae0a95d45b63.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/64e7b8e3aff7af1c7c0515ecc74939f4.svg");
 
 /***/ }),
 
@@ -9784,7 +9792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6007046de945587f74f4049506b63488.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9a6ed96ce2cb726ff533dd26a6bda409.svg");
 
 /***/ }),
 
@@ -9796,7 +9804,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -9808,7 +9816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8902d994902646f83ce45940b8aa2ba6.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3eaedfa89d9706ca8e8945a7ff49846d.svg");
 
 /***/ }),
 
@@ -9820,7 +9828,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8778bab3e334f8aae2cfcfef08a1528.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f04b60e22c49a11a80cb58498fecce62.svg");
 
 /***/ }),
 
@@ -9832,7 +9840,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
 
 /***/ }),
 
@@ -9844,7 +9852,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -9856,7 +9864,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
 
 /***/ }),
 
@@ -9868,7 +9876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/63a0cf169f819970c776d6f872a86f23.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/766a25f91411b3c801cc09f955dbb726.svg");
 
 /***/ }),
 
@@ -9880,7 +9888,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2fb054676f4b242bc437100da7143e23.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/ea20a25679505efe7c382331e15887ec.svg");
 
 /***/ }),
 
@@ -9892,7 +9900,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/f49cc68a54667ec26b5ec4159ce3b690.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/15a8e473814e86b6f503635888e18b02.svg");
 
 /***/ }),
 

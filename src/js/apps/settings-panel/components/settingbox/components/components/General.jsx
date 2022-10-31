@@ -70,9 +70,9 @@ const General = props =>{
                         searchable={false}
                         name="chatHeadPosition"
                         onChange={handleChangeSelectValue}
-                        defaultValue={chatHeadPositions.filter(function (option) {
+                        defaultValue={contentState.options.chatHeadPosition ? chatHeadPositions.filter(function (option) {
                             return option.value === contentState.options.chatHeadPosition;
-                        })[0]}
+                        })[0] : { value: 'bottom-right', label: 'Bottom Right' }}
                     />
                 </div>
             </div>
@@ -85,7 +85,7 @@ const General = props =>{
                         searchable={false}
                         hideSelectedOptions={false}
                         defaultValue={dashboardPages.filter(function (option) {
-                            return option.value === contentState.options.userDashboardPage;
+                            return option.value.toString() === contentState.options.userDashboardPage.toString();
                         })[0]}
                         name='userDashboardPage'
                         onChange={handleChangeSelectValue}
@@ -97,7 +97,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-video-length">Maximum Video Length (Minutes)</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="Ex: 10" value={contentState.options.maxVideoLength} onChange={handleChange} min="0"/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-video-length" name="maxVideoLength" placeholder="Ex: 10" value={contentState.options.maxVideoLength || "2"} onChange={handleChange} min="0"/>
                     </div>
                 </div>
             </div>
@@ -112,9 +112,9 @@ const General = props =>{
                         searchable={false}
                         name="videoQuality"
                         onChange={handleChangeSelectValue}
-                        defaultValue={qualityOptions.filter(function (option) {
+                        defaultValue={contentState.options.videoQuality ? qualityOptions.filter(function (option) {
                             return option.value === contentState.options.videoQuality;
-                        })[0]}
+                        })[0] : { value: '720', label: '720p' }}
                     />
                 </div>
             </div>
@@ -122,7 +122,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-max-upload-size">Maximum Upload Size (MB)</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-upload-size" name="maxUploadSize" placeholder="Ex: 10" value={contentState.options.maxUploadSize} onChange={handleChange} min="0"/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-max-upload-size" name="maxUploadSize" placeholder="Ex: 10" value={contentState.options.maxUploadSize || "300"} onChange={handleChange} min="0"/>
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@ const General = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-delete-attatchment">Store Attachments For</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-delete-attatchment" name="attatchmentDeletionAfter" placeholder="Ex: 45" value={contentState.options.attatchmentDeletionAfter} onChange={handleChange} min="0"/>
+                        <input type="number" className="wpwax-vm-form__element" id="wpwax-vm-delete-attatchment" name="attatchmentDeletionAfter" placeholder="Ex: 45" value={contentState.options.attatchmentDeletionAfter || "20"} onChange={handleChange} min="0"/>
                         <div className="wpwax-vm-input-addon">
                             <span className="wpwax-vm-input-addon__text">Days</span>
                         </div>
@@ -139,7 +139,6 @@ const General = props =>{
                 </div>
             </div>
         </div>
-        
     )
 }
 

@@ -41,10 +41,10 @@ const EmailGeneral = props =>{
                         handleDiameter={14}
                         height={22}
                         width={40}
-                        checked={contentState.options.enableEmailNotification}
+                        checked={contentState.options.enableEmailNotification || true}
                         onChange={handleUpdateSwitch}
                     />
-                    <div className={contentState.options.enableEmailNotification ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
+                    <div className={contentState.options.enableEmailNotification || true ? "wpwax-vm-settings__swtich-content wpwax-vm-show" : "wpwax-vm-settings__swtich-content"}>
                         <div className="wpwax-vm-settings__swtich-content--item">
                             <h4>Admin Events</h4>
                             <div className='wpwax-vm-radio-list'>
@@ -55,7 +55,7 @@ const EmailGeneral = props =>{
                                         value='single'
                                         name='adminEmailNotificationType'
                                         onChange={(e) => handleChange(e)}
-                                        checked={contentState.options.adminEmailNotificationType === "single"}
+                                        checked={contentState.options.adminEmailNotificationType || "multiple" === "single"}
                                     />
                                 </div>
                                 <div className='wpwax-vm-radio-single'>
@@ -65,7 +65,7 @@ const EmailGeneral = props =>{
                                         value='multiple'
                                         name='adminEmailNotificationType'
                                         onChange={(e) => handleChange(e)}
-                                        checked={contentState.options.adminEmailNotificationType === "multiple"}
+                                        checked={contentState.options.adminEmailNotificationType || "multiple" === "multiple"}
                                     />
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ const EmailGeneral = props =>{
                                         value='single'
                                         name='userEmailNotificationType'
                                         onChange={(e) => handleChange(e)}
-                                        checked={contentState.options.userEmailNotificationType === "single"}
+                                        checked={contentState.options.userEmailNotificationType || "multiple" === "single"}
                                     />
                                 </div>
                                 <div className='wpwax-vm-radio-single'>
@@ -90,7 +90,7 @@ const EmailGeneral = props =>{
                                         value='multiple'
                                         name='userEmailNotificationType'
                                         onChange={(e) => handleChange(e)}
-                                        checked={contentState.options.userEmailNotificationType === "multiple"}
+                                        checked={contentState.options.userEmailNotificationType || "multiple" === "multiple"}
                                     />
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ const EmailGeneral = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-name">From Name</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-name" name="emailTemplateFromName" placeholder="ex. Vidsupp" value={contentState.options.emailTemplateFromName} onChange={handleChange}/>
+                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-name" name="emailTemplateFromName" placeholder="ex. Vidsupp" value={contentState.options.emailTemplateFromName || "Help"} onChange={handleChange}/>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@ const EmailGeneral = props =>{
                 <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-mail-from-email">From Email</label>
                 <div className="wpwax-vm-settings__single--element">
                     <div className="wpwax-vm-form-group">
-                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-email" name="emailTemplateFromEmail" placeholder="example@gmail.com" value={contentState.options.emailTemplateFromEmail} onChange={handleChange}/>
+                        <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-mail-from-email" name="emailTemplateFromEmail" placeholder="example@gmail.com" value={contentState.options.emailTemplateFromEmail || "demo@gmail.com"} onChange={handleChange}/>
                     </div>
                 </div>
             </div>

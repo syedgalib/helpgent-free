@@ -85,7 +85,7 @@ const General = props =>{
                         searchable={false}
                         hideSelectedOptions={false}
                         defaultValue={dashboardPages.filter(function (option) {
-                            return option.value === contentState.options.userDashboardPage;
+                            return option.value.toString() === contentState.options.userDashboardPage.toString();
                         })[0]}
                         name='userDashboardPage'
                         onChange={handleChangeSelectValue}

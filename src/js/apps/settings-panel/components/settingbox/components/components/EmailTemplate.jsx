@@ -4,8 +4,12 @@ import Switch from "react-switch";
 const EmailTemplate = props =>{
     const { contentState, setContentState } = props;
 
-    const defaultTemplateBody = "Dear {{NAME}},   Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}Thanks,The Administrator of {{SITE_NAME}}"
-    const defaultMessageBody = "Dear {{NAME}},   Message Details:{{MESSAGE}}"
+    const defaultTemplateBody = `Dear {{NAME}}, 
+    Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}
+    Thanks,The Administrator of {{SITE_NAME}}`
+    const defaultMessageBody = `Dear {{NAME}}, 
+    Message Details:
+    {{MESSAGE}}`
 
     const handleUpdateSwitch = (value, event, id)=>{
         setContentState({
@@ -142,7 +146,7 @@ const EmailTemplate = props =>{
                             <label className="wpwax-vm-settings__single--label" htmlFor="wpwax-vm-message-mail-from-subject">Email Subject</label>
                             <div className="wpwax-vm-settings__single--element">
                                 <div className="wpwax-vm-form-group">
-                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateMessageSubject} onChange={handleChange}/>
+                                    <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-message-mail-from-subject" name="emailTemplateMessageSubject" placeholder="ex. mail Subject" value={contentState.options.emailTemplateMessageSubject || `New Message from {{REPLIER_NAME}}`} onChange={handleChange}/>
                                 </div>
                             </div>
                         </div>

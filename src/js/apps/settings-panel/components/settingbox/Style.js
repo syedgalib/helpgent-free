@@ -393,7 +393,7 @@ const SettingContentWrap = Styled.div`
                     min-height: 44px;
                 }
                 textarea.wpwax-vm-form__element{
-                    min-height: 80px;
+                    min-height: 120px;
                 }
             }
         }

@@ -3,12 +3,16 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
 import { useDebounce } from 'Helper/hooks';
 import apiService from 'apiService/Service.js';
+import useTermAPI from 'API/useTermAPI.js';
+import useConversationAPI from 'API/useConversationAPI.js';
 import Checkbox from "Components/form-fields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { TagFilterDropdown } from './Style';
 
 const TagFilter = props =>{
+    const { getItems: getTerms } = useTermAPI();
+    const { getItems: getConversations } = useConversationAPI();
     const ref = useRef(null);
     const [state, setState] = useState({
         checkedForFilter: [],
@@ -31,10 +35,8 @@ const TagFilter = props =>{
             name: debouncedSearchTerm,
         };
         const fetchSearchNameMail = async () => {
-            const searchByNameMailResponse = await apiService.getAllByArg(
-                '/messages/terms',
-                tagArg
-            );
+            
+            const searchByNameMailResponse = await getTerms(tagArg);
             return searchByNameMailResponse;
         };
 
@@ -44,7 +46,7 @@ const TagFilter = props =>{
                 setTagState({
                     ...tagState,
                     tagLoader: false,
-                    allTags: searchByNameMailResponse.data.data,
+                    allTags: searchByNameMailResponse.data,
                 });
 
                 setState({
@@ -83,12 +85,13 @@ const TagFilter = props =>{
                 tagLoader: true
             });
             const fetchTags =  async () =>{
-                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:5});
+                
+                const tagsResponse = await getTerms({limit:5});
                 return tagsResponse;
             }
             fetchTags()
                 .then((tagsResponse) => {
-                    if(tagsResponse.data.data.length !==0){
+                    if(tagsResponse.data.length !==0){
                         setState({
                             ...state,
                             hasMore: true,
@@ -103,7 +106,7 @@ const TagFilter = props =>{
                     setTagState({
                         ...tagState,
                         tagLoader: false,
-                        allTags: tagsResponse.data.data,
+                        allTags: tagsResponse.data,
                     });
                 })
                 .catch((error) => {
@@ -127,7 +130,8 @@ const TagFilter = props =>{
             term_ids: checkedForFilter.join(',')
         }
         const fetchSessionByTerm = async ()=>{
-			const sessionByTermsResponse = await apiService.getAllByArg('/sessions', termArgs)
+            
+			const sessionByTermsResponse = await getConversations(termArgs)
 			return sessionByTermsResponse;
 		}
         fetchSessionByTerm()
@@ -135,7 +139,7 @@ const TagFilter = props =>{
 
 				setOuterState({
                     ...outerState,
-                    sessionList: sessionByTermsResponse.data.data,
+                    sessionList: sessionByTermsResponse.data,
                     tagFilterDropdownOpen: false,
                     sessionFilterDropdown: false,
                     hasMore: false,
@@ -199,7 +203,8 @@ const TagFilter = props =>{
         setTagsPageNumber(tagsPageNumber + 1);
 
         const fetchNextTags = async () => {
-            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            
+            const nextTagResponse = await getTerms(pageArg);
             return nextTagResponse;
         };
         setTimeout(() => {

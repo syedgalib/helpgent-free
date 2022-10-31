@@ -9,12 +9,17 @@ import {
     handleTagFormModal,
 } from '../../../store/tags/actionCreator';
 import apiService from 'apiService/Service.js';
+import useTermAPI from 'API/useTermAPI.js';
+import useConversationAPI from 'API/useConversationAPI.js';
 import userIcon from 'Assets/svg/icons/users.svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import loadingSpin from 'Assets/svg/loaders/loading-spin.svg';
 import Taglist from './Taglist.jsx';
 
 const AddTag = (props) => {
+    const { createItem: createTerm, getItems: getTerms, updateItem: updateTerm } = useTermAPI();
+    const { updateTerms: updateConversationTerm } = useConversationAPI();
+    
     const overlay = document.querySelector('.wpax-vm-overlay');
     /* initialize Form Data */
     const { sessions } = useSelector((state) => {
@@ -91,7 +96,8 @@ const AddTag = (props) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:12});
+                
+                const tagsResponse = await getTerms({limit:12});
                 return tagsResponse;
             }
             fetchTags()
@@ -99,7 +105,7 @@ const AddTag = (props) => {
                     setTagState({
                         ...tagState,
                         tagLoader: false,
-                        allTags: tagsResponse.data.data,
+                        allTags: tagsResponse.data,
                     });
                     setState({
                         ...state,
@@ -168,9 +174,8 @@ const AddTag = (props) => {
                 // if(findSameTag){
 
                 // }
-
-                await apiService
-                    .dataAdd(`/messages/terms/${editableTermId}`, termData)
+                
+                await updateTerm(editableTermId,termData)
                         .then((response) => {
                             let termIndex = allTags.findIndex(
                                 (obj) => obj.term_id === editableTermId
@@ -189,11 +194,11 @@ const AddTag = (props) => {
                             });
                         })
                         .catch(error =>{
-                            if(error.response.data.code === 403){
+                            if(error.statusCode === 403){
                                 setAddFormState({
                                     ...addFormState,
                                     addTagResponseStatus: 'danger',
-                                    addTagResponse: error.response.data.message,
+                                    addTagResponse: error.message,
                                 });
                             }
                             setTagState({
@@ -202,7 +207,8 @@ const AddTag = (props) => {
                             });
                         });
             }else{
-                apiService.dataAdd('/messages/terms',termData)
+                
+                createTerm(termData)
                     .then(response => {
                         setTagState({
                             ...tagState,
@@ -220,11 +226,11 @@ const AddTag = (props) => {
                         });
                     })
                     .catch(error =>{
-                        if(error.response.data.code === 403){
+                        if(error.statusCode === 403){
                             setAddFormState({
                                 ...addFormState,
                                 addTagResponseStatus: 'danger',
-                                addTagResponse: error.response.data.message,
+                                addTagResponse: error.message,
                             });
                         }
                         setTagState({
@@ -335,13 +341,15 @@ const AddTag = (props) => {
             ...tagState,
             tagLoader: true,
         });
-        await apiService.dataAdd(`/sessions/${activeSessionId}/update-terms`,updateTermData)
+
+        
+        await updateConversationTerm(activeSessionId,updateTermData)
             .then(response => {
                 setTagState({
                     ...tagState,
                     assignedTags: [
                         ...tagState.assignedTags,
-                        response.data.data.success
+                        response.success
                     ],
                     tagLoader: false,
                 });
@@ -354,11 +362,11 @@ const AddTag = (props) => {
                 });
             })
             .catch(error =>{
-                if(error.response.data.code === 403){
+                if(error.statusCode === 403){
                     setAddFormState({
                         ...addFormState,
                         addTagResponseStatus: 'danger',
-                        addTagResponse: error.response.data.message,
+                        addTagResponse: error.message,
                     });
                 }
                 setTagState({
@@ -367,16 +375,16 @@ const AddTag = (props) => {
                 });
             })
 
-        await apiService.getAll('/sessions')
-            .then(response =>{
-                setSessionState({
-                    ...sessionState,
-                    sessionList: response.data.data
-                });
-            })
-            .catch(error =>{
+        // await apiService.getAll('/sessions')
+        //     .then(response =>{
+        //         setSessionState({
+        //             ...sessionState,
+        //             sessionList: response.data.data
+        //         });
+        //     })
+        //     .catch(error =>{
 
-            })
+        //     })
     }
 
     const handleLoadMore = e =>{
@@ -387,7 +395,7 @@ const AddTag = (props) => {
         };
 
         const fetchNextTags = async () => {
-            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            const nextTagResponse = await getTerms(pageArg);
             return nextTagResponse;
         };
 
@@ -406,7 +414,7 @@ const AddTag = (props) => {
                 setTagState({
                     ...tagState,
                     tagLoader: false,
-                    allTags: allTags.concat(nextTagResponse.data.data)
+                    allTags: allTags.concat(nextTagResponse.data)
                 });
             })
             .catch((error) => {

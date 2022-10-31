@@ -4,6 +4,9 @@ import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
 import http from 'Helper/http';
 
+import useConversationAPI from "API/useConversationAPI";
+import useMessangerAPI from "API/useMessangerAPI";
+
 import {
 	upateState as updateUserState
 } from '../../../store/forms/user/actionCreator';
@@ -16,6 +19,9 @@ import {
 
 function Sending() {
     const dispatch = useDispatch();
+
+	const { createItem: createConversationItem } = useConversationAPI();
+	const { createItem: creatMessangerItem } = useMessangerAPI();
 
     // Store States
     const { userForm, messengerForm } = useSelector((state) => {
@@ -165,7 +171,10 @@ function Sending() {
 		let status = { success: false, message: '', data: null };
 
 		try  {
-			const response = await http.postData( "/messages", args );
+			const conversation = await createConversationItem();
+            args.conversation_id = conversation.data.id;
+
+            const response = await creatMessangerItem( args );
 
 			status.success = true;
 			status.data = response.data;

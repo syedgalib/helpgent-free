@@ -5,7 +5,7 @@ import useFormAPI from 'API/useFormAPI.js';
 import TemplateBox from './Style';
 
 const Table = () => {
-    const { createItem: createForm, getItems: getAllForms, updateItem: updateFormName, deleteItem: deleteForm } = useFormAPI();
+    const { getItems: getAllForms, updateItem: updateFormName, deleteItem: deleteForm } = useFormAPI();
     /* Initialize State */
     const [state, setState] = useState({
         data: [],
@@ -113,7 +113,6 @@ const Table = () => {
         
         deleteForm(deleteId)
             .then(response => {
-                console.log(response)
                 if (response.success) {
                     const stateData = data.filter(item => item.id !== deleteId);
                     setState({

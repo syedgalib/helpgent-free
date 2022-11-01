@@ -455,9 +455,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Add tags',
                                                 },
                                                 {
-                                                    icon: checkSlot,
-                                                    name: 'active-conversation',
-                                                    text: 'Active',
+                                                    icon: item.status === 'active' ? archive : checkSlot,
+                                                    name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                                                    text: item.status === 'active' ? 'Archive' : 'Active',
                                                 },
                                                 {
                                                     icon: trash,
@@ -487,9 +487,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Add tags',
                                                 },
                                                 {
-                                                    icon: archive,
-                                                    name: 'archive-conversation',
-                                                    text: 'Archive',
+                                                    icon: item.status === 'active' ? archive : checkSlot,
+                                                    name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                                                    text: item.status === 'active' ? 'Archive' : 'Active',
                                                 },
                                                 {
                                                     icon: trash,

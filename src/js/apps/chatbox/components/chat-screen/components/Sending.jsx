@@ -21,7 +21,7 @@ function Sending() {
     const dispatch = useDispatch();
 
 	const { createItem: createConversationItem } = useConversationAPI();
-	const { createItem: creatMessangerItem } = useMessangerAPI();
+	const { createItem: createMessangerItem } = useMessangerAPI()
 
     // Store States
     const { userForm, messengerForm } = useSelector((state) => {
@@ -172,9 +172,9 @@ function Sending() {
 
 		try  {
 			const conversation = await createConversationItem();
-            args.conversation_id = conversation.data.id;
+			args.conversation_id = conversation.data.id;
 
-            const response = await creatMessangerItem( args );
+			const response = await createMessangerItem( args );
 
 			status.success = true;
 			status.data = response.data;

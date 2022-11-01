@@ -8,7 +8,7 @@ import { getTimezoneString } from 'Helper/utils.js';
 
 const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dropdownIconOpen, dropdownIconClose, dropdownList, outerState, setOuterState, termState, setTermState, sessionId, termId }) => {
     const { createItem: createTerm, getItems: getTerms, deleteItem: deleteTermById } = useTermAPI();
-    const { getItems: getConversations, markAsRead: conversationRead, markAsUnread: conversationUnread } = useConversationAPI();
+    const { getItems: getConversations, markAsRead: conversationRead, markAsUnread: conversationUnread, updateItem: updateConversation } = useConversationAPI();
     const ref = useRef(null);
     const [state, setState] = useState({
         openDropdown: false,
@@ -114,6 +114,56 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     })
                     .catch(error=>{console.log(error)})
                 break;
+                case 'archive-conversation':
+                    const archiveConversation = async ()=>{
+                        
+                        const response = await updateConversation(sessionId,{status: "archive"});
+                        return response;
+                    }
+                    archiveConversation()
+                        .then( resposne =>{
+                            const sessionWithArchive = outerState.sessionList.map((item,index)=>{
+                                if ( item.id === sessionId ) {
+                                    return {
+                                        ...item,
+                                        status: "archive"
+                                    }
+                                }
+                                return item;
+                            });
+    
+                            setOuterState({
+                                ...outerState,
+                                sessionList: sessionWithArchive,
+                            });
+                        })
+                        .catch(error=>{console.log(error)})
+                    break;
+                    case 'active-conversation':
+                        const activeConversation = async ()=>{
+                            
+                            const response = await updateConversation(sessionId,{status: "active"});
+                            return response;
+                        }
+                        activeConversation()
+                            .then( resposne =>{
+                                const sessionWithActive = outerState.sessionList.map((item,index)=>{
+                                    if ( item.id === sessionId ) {
+                                        return {
+                                            ...item,
+                                            status: "active"
+                                        }
+                                    }
+                                    return item;
+                                });
+        
+                                setOuterState({
+                                    ...outerState,
+                                    sessionList: sessionWithActive,
+                                });
+                            })
+                            .catch(error=>{console.log(error)})
+                        break;
             case 'add-tags':
                 overlay.classList.add('wpwax-vm-show');
 

@@ -5230,7 +5230,7 @@ function Sending() {
   var _useConversationAPI = (0,API_useConversationAPI__WEBPACK_IMPORTED_MODULE_5__["default"])(),
     createConversationItem = _useConversationAPI.createItem;
   var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_6__["default"])(),
-    creatMessangerItem = _useMessangerAPI.createItem;
+    createMessangerItem = _useMessangerAPI.createItem;
 
   // Store States
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -5440,7 +5440,7 @@ function Sending() {
               conversation = _context4.sent;
               args.conversation_id = conversation.data.id;
               _context4.next = 8;
-              return creatMessangerItem(args);
+              return createMessangerItem(args);
             case 8:
               response = _context4.sent;
               status.success = true;
@@ -5597,7 +5597,7 @@ function Success() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -5605,7 +5605,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../store/forms/user/actionCreator */ "./src/js/apps/chatbox/store/forms/user/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -5624,18 +5626,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
+        chatboxTemplateOptions: state.chatboxTemplate.template && state.chatboxTemplate.template.options ? state.chatboxTemplate.template.options : {},
         userForm: state.userForm,
         messengerForm: state.messengerForm
       };
     }),
+    chatboxTemplateOptions = _useSelector.chatboxTemplateOptions,
     userForm = _useSelector.userForm,
     messengerForm = _useSelector.messengerForm;
   var nameRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var emailRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var phoneRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var passwordRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var confirmPasswordRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState2 = _slicedToArray(_useState, 2),
     errorMessage = _useState2[0],
@@ -5647,33 +5656,120 @@ function Form() {
     if (userForm.formData.email) {
       emailRef.current.value = userForm.formData.email;
     }
-  }, []);
-
-  // After User Creation Failed
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (false !== userForm.status) {
-      return;
-    }
     if (userForm.statusMessage) {
       setErrorMessage(userForm.statusMessage);
     } else if (messengerForm.statusMessage) {
       setErrorMessage(messengerForm.statusMessage);
     }
-  }, [userForm.status]);
+  }, []);
+  function getCollectInfoFields() {
+    return Array.isArray(chatboxTemplateOptions.collectInfo) ? chatboxTemplateOptions.collectInfo : [];
+  }
+  function showNameField() {
+    return isLoggedIn() ? false : true;
+  }
+  function showEmailField() {
+    return isLoggedIn() ? false : true;
+  }
+  function showPhoneField() {
+    return getCollectInfoFields().includes('phone');
+  }
+  function showPasswordField() {
+    return !isLoggedIn() && !isGuestLoginEnabled();
+  }
+  function isLoggedIn() {
+    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('current_user');
+  }
+  function isGuestLoginEnabled() {
+    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('settings.guestSubmission');
+  }
 
   // submitHandler
   function submitHandler(e) {
     e.preventDefault();
-    var name = nameRef.current.value;
-    var email = emailRef.current.value;
-    if (!name || !email) {
+
+    // Reset Error Message
+    setErrorMessage('');
+
+    // Form Fields
+    var formFields = [{
+      name: 'name',
+      ref: nameRef,
+      required: true
+    }, {
+      name: 'email',
+      ref: emailRef,
+      required: true
+    }, {
+      name: 'phone',
+      ref: phoneRef,
+      required: true
+    }, {
+      name: 'password',
+      ref: passwordRef,
+      required: true,
+      type: 'password',
+      minLength: 5
+    }, {
+      name: 'confirmPassword',
+      ref: confirmPasswordRef,
+      required: true,
+      type: 'confirm_password'
+    }];
+
+    // Get Active Fields
+    var activeFields = formFields.filter(function (field) {
+      return field.ref.current;
+    });
+
+    // Validate Reqired Data
+    var missingReqiredData = activeFields.map(function (field) {
+      return field.required && !field.ref.current.value ? true : false;
+    }).includes(true);
+    if (missingReqiredData) {
       setErrorMessage('Please fill up the required fields');
       return;
     }
-    var formData = {
-      name: name,
-      email: email
-    };
+
+    // Validate Password Field if Presents
+    var passwordFields = activeFields.filter(function (field) {
+      return ['password', 'confirm_password'].includes(field.type);
+    });
+    if (passwordFields.length) {
+      var passwordField = passwordFields[0];
+      var password = passwordField.ref.current.value;
+
+      // Validate password length
+      if (passwordField.minLength && password.length < passwordField.minLength) {
+        setErrorMessage("Password must be at least ".concat(passwordField.minLength, " character long"));
+        return;
+      }
+
+      // Check if password match with confirm password
+      var matchPassword = passwordFields.every(function (field) {
+        return field.ref.current.value === password;
+      });
+      if (!matchPassword) {
+        setErrorMessage('Password do not match');
+        return;
+      }
+    }
+    activeFields = activeFields.filter(function (field) {
+      return field.type !== 'confirm_password';
+    });
+    var formData = {};
+    var _iterator = _createForOfIteratorHelper(activeFields),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var field = _step.value;
+        formData[field.name] = field.ref.current.value;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
     dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.updateFormData)(formData, true));
     dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
       submitted: false,
@@ -5681,42 +5777,73 @@ function Form() {
     }));
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].SENDING));
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
     onSubmit: submitHandler,
     className: "wpwax-vm-h-100pr",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-chatbox-contact wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
           className: "wpwax-vm-contact-form__title",
           children: "Before you go, please leave your contact details so we can get back to you\u2026"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), showNameField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
             ref: nameRef,
             type: "text",
             className: "wpwax-vm-form__element",
             placeholder: "Your name*"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), showEmailField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
             ref: emailRef,
             type: "email",
             className: "wpwax-vm-form__element",
             placeholder: "Your email*"
           })
+        }), showPhoneField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "wpwax-vm-form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
+            ref: phoneRef,
+            type: "tel",
+            className: "wpwax-vm-form__element",
+            placeholder: "Your phone*"
+          })
+        }), showPasswordField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-form-group",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              // required
+              ref: passwordRef,
+              type: "password",
+              className: "wpwax-vm-form__element",
+              placeholder: "Password*"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-form-group",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              // required
+              ref: confirmPasswordRef,
+              type: "password",
+              className: "wpwax-vm-form__element",
+              placeholder: "Confirm Password*"
+            })
+          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
           type: "submit",
           className: "wpwax-vm-btn wpwax-vm-w-f wpwax-vm-btn-block wpwax-vm-btn-lg wpwax-vm-btn-primary",
-          children: ["Submit ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: ["Submit ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
             src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
           })]
-        }), errorMessage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), errorMessage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
           children: errorMessage
         })]
@@ -10004,7 +10131,9 @@ var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE
 var initialState = {
   formData: {
     name: '',
-    email: ''
+    email: '',
+    phone: '',
+    password: ''
   },
   user: null,
   is_varified: false,
@@ -15051,9 +15180,9 @@ var Sidebar = function Sidebar(_ref) {
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
-                icon: Assets_svg_icons_check_to_slot_svg__WEBPACK_IMPORTED_MODULE_25__["default"],
-                name: 'active-conversation',
-                text: 'Active'
+                icon: item.status === 'active' ? Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_24__["default"] : Assets_svg_icons_check_to_slot_svg__WEBPACK_IMPORTED_MODULE_25__["default"],
+                name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                text: item.status === 'active' ? 'Archive' : 'Active'
               }, {
                 icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_22__["default"],
                 name: 'delete-conv',
@@ -15073,9 +15202,9 @@ var Sidebar = function Sidebar(_ref) {
                 name: 'add-tags',
                 text: 'Add tags'
               }, {
-                icon: Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_24__["default"],
-                name: 'archive-conversation',
-                text: 'Archive'
+                icon: item.status === 'active' ? Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_24__["default"] : Assets_svg_icons_check_to_slot_svg__WEBPACK_IMPORTED_MODULE_25__["default"],
+                name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                text: item.status === 'active' ? 'Archive' : 'Active'
               }, {
                 icon: Assets_svg_icons_trash_svg__WEBPACK_IMPORTED_MODULE_22__["default"],
                 name: 'delete-conv',
@@ -18492,7 +18621,8 @@ var Dropdown = function Dropdown(_ref) {
   var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
     getConversations = _useConversationAPI.getItems,
     conversationRead = _useConversationAPI.markAsRead,
-    conversationUnread = _useConversationAPI.markAsUnread;
+    conversationUnread = _useConversationAPI.markAsUnread,
+    updateConversation = _useConversationAPI.updateItem;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       openDropdown: false,
@@ -18627,6 +18757,90 @@ var Dropdown = function Dropdown(_ref) {
           console.log(error);
         });
         break;
+      case 'archive-conversation':
+        var archiveConversation = /*#__PURE__*/function () {
+          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+            var response;
+            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return updateConversation(sessionId, {
+                      status: "archive"
+                    });
+                  case 2:
+                    response = _context3.sent;
+                    return _context3.abrupt("return", response);
+                  case 4:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3);
+          }));
+          return function archiveConversation() {
+            return _ref4.apply(this, arguments);
+          };
+        }();
+        archiveConversation().then(function (resposne) {
+          var sessionWithArchive = outerState.sessionList.map(function (item, index) {
+            if (item.id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                status: "archive"
+              });
+            }
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithArchive
+          }));
+        }).catch(function (error) {
+          console.log(error);
+        });
+        break;
+      case 'active-conversation':
+        var activeConversation = /*#__PURE__*/function () {
+          var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+            var response;
+            return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+              while (1) {
+                switch (_context4.prev = _context4.next) {
+                  case 0:
+                    _context4.next = 2;
+                    return updateConversation(sessionId, {
+                      status: "active"
+                    });
+                  case 2:
+                    response = _context4.sent;
+                    return _context4.abrupt("return", response);
+                  case 4:
+                  case "end":
+                    return _context4.stop();
+                }
+              }
+            }, _callee4);
+          }));
+          return function activeConversation() {
+            return _ref5.apply(this, arguments);
+          };
+        }();
+        activeConversation().then(function (resposne) {
+          var sessionWithActive = outerState.sessionList.map(function (item, index) {
+            if (item.id === sessionId) {
+              return _objectSpread(_objectSpread({}, item), {}, {
+                status: "active"
+              });
+            }
+            return item;
+          });
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: sessionWithActive
+          }));
+        }).catch(function (error) {
+          console.log(error);
+        });
+        break;
       case 'add-tags':
         overlay.classList.add('wpwax-vm-show');
         var asignedTerms = [];
@@ -18669,26 +18883,26 @@ var Dropdown = function Dropdown(_ref) {
           tagLoader: true
         }));
         var deleteTerm = /*#__PURE__*/function () {
-          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
             var deleteResponse;
-            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
               while (1) {
-                switch (_context3.prev = _context3.next) {
+                switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context3.next = 2;
+                    _context5.next = 2;
                     return deleteTermById(termId);
                   case 2:
-                    deleteResponse = _context3.sent;
-                    return _context3.abrupt("return", deleteResponse);
+                    deleteResponse = _context5.sent;
+                    return _context5.abrupt("return", deleteResponse);
                   case 4:
                   case "end":
-                    return _context3.stop();
+                    return _context5.stop();
                 }
               }
-            }, _callee3);
+            }, _callee5);
           }));
           return function deleteTerm() {
-            return _ref4.apply(this, arguments);
+            return _ref6.apply(this, arguments);
           };
         }();
         deleteTerm().then(function (deleteResponse) {
@@ -18702,26 +18916,26 @@ var Dropdown = function Dropdown(_ref) {
             tagLoader: false
           }));
           var syncConversation = /*#__PURE__*/function () {
-            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+            var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
               var syncResponse;
-              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+              return _regeneratorRuntime().wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context4.next = 2;
+                      _context6.next = 2;
                       return getConversations(pageLimit);
                     case 2:
-                      syncResponse = _context4.sent;
-                      return _context4.abrupt("return", syncResponse);
+                      syncResponse = _context6.sent;
+                      return _context6.abrupt("return", syncResponse);
                     case 4:
                     case "end":
-                      return _context4.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee4);
+              }, _callee6);
             }));
             return function syncConversation() {
-              return _ref5.apply(this, arguments);
+              return _ref7.apply(this, arguments);
             };
           }();
           syncConversation().then(function (response) {
@@ -18738,28 +18952,28 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
-          var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context5.prev = _context5.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
-                    _context5.next = 2;
+                    _context7.next = 2;
                     return getConversations({
                       order_by: "read"
                     });
                   case 2:
-                    readSession = _context5.sent;
-                    return _context5.abrupt("return", readSession);
+                    readSession = _context7.sent;
+                    return _context7.abrupt("return", readSession);
                   case 4:
                   case "end":
-                    return _context5.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee5);
+            }, _callee7);
           }));
           return function fetchReadSeassion() {
-            return _ref6.apply(this, arguments);
+            return _ref8.apply(this, arguments);
           };
         }();
         fetchReadSeassion().then(function (readResponse) {
@@ -18771,28 +18985,28 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-unread':
         var fetchUnReadSeassion = /*#__PURE__*/function () {
-          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
             var readSession;
-            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context6.next = 2;
+                    _context8.next = 2;
                     return getConversations({
                       order_by: "unread"
                     });
                   case 2:
-                    readSession = _context6.sent;
-                    return _context6.abrupt("return", readSession);
+                    readSession = _context8.sent;
+                    return _context8.abrupt("return", readSession);
                   case 4:
                   case "end":
-                    return _context6.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee6);
+            }, _callee8);
           }));
           return function fetchUnReadSeassion() {
-            return _ref7.apply(this, arguments);
+            return _ref9.apply(this, arguments);
           };
         }();
         fetchUnReadSeassion().then(function (unReadResponse) {
@@ -18804,31 +19018,31 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
-          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
             var pageLimit, latestSession;
-            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return _regeneratorRuntime().wrap(function _callee9$(_context9) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context9.prev = _context9.next) {
                   case 0:
                     pageLimit = {
                       limit: '15',
                       page: 1,
                       timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__.getTimezoneString)()
                     };
-                    _context7.next = 3;
+                    _context9.next = 3;
                     return getConversations(pageLimit);
                   case 3:
-                    latestSession = _context7.sent;
-                    return _context7.abrupt("return", latestSession);
+                    latestSession = _context9.sent;
+                    return _context9.abrupt("return", latestSession);
                   case 5:
                   case "end":
-                    return _context7.stop();
+                    return _context9.stop();
                 }
               }
-            }, _callee7);
+            }, _callee9);
           }));
           return function fetchLatestSeassion() {
-            return _ref8.apply(this, arguments);
+            return _ref10.apply(this, arguments);
           };
         }();
         fetchLatestSeassion().then(function (latestResponse) {
@@ -18840,28 +19054,28 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
-          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+          var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
             var oldestSession;
-            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+            return _regeneratorRuntime().wrap(function _callee10$(_context10) {
               while (1) {
-                switch (_context8.prev = _context8.next) {
+                switch (_context10.prev = _context10.next) {
                   case 0:
-                    _context8.next = 2;
+                    _context10.next = 2;
                     return getConversations({
                       order_by: "oldest"
                     });
                   case 2:
-                    oldestSession = _context8.sent;
-                    return _context8.abrupt("return", oldestSession);
+                    oldestSession = _context10.sent;
+                    return _context10.abrupt("return", oldestSession);
                   case 4:
                   case "end":
-                    return _context8.stop();
+                    return _context10.stop();
                 }
               }
-            }, _callee8);
+            }, _callee10);
           }));
           return function fetchOldestSeassion() {
-            return _ref9.apply(this, arguments);
+            return _ref11.apply(this, arguments);
           };
         }();
         fetchOldestSeassion().then(function (oldestResponse) {
@@ -19536,6 +19750,7 @@ function useConversationAPI() {
     getItems = _useAPI.getItems,
     getItem = _useAPI.getItem,
     createItem = _useAPI.createItem,
+    updateItem = _useAPI.updateItem,
     deleteItem = _useAPI.deleteItem;
 
   /**
@@ -19800,6 +20015,7 @@ function useConversationAPI() {
     getItems: getItems,
     getItem: getItem,
     createItem: createItem,
+    updateItem: updateItem,
     deleteItem: deleteItem,
     markAsRead: markAsRead,
     markAsUnread: markAsUnread,

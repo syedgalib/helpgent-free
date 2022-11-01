@@ -369,7 +369,7 @@ class Conversation_Model extends DB_Model {
 
         $default['created_by'] = '';
         $default['title']      = '';
-        $default['status']     = 'publish';
+        $default['status']     = 'active';
 
 		$add_terms = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
 

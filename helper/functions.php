@@ -1145,12 +1145,32 @@ function prepare_guest_user_data( $user = [] )
 /**
  * Check if current user is admin
  *
- * @param WP_User $user
  * @return bool
  */
 function is_current_user_admin()
 {
 	return is_user_admin( get_current_user_email() );
+}
+
+/**
+ * Check if current user is client
+ *
+ * @return bool
+ */
+function is_current_user_client()
+{
+	return current_user_can( 'wpwax_vm_client' );
+}
+
+/**
+ * Check if current user is client
+ *
+ * @return bool
+ */
+function is_current_user_guest()
+{
+	$email = get_current_user_email();
+	return Guest_User_Model::user_exists( $email );
 }
 
 /**

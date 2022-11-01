@@ -5,7 +5,7 @@ const initialState = {
 	showChatbox: false,
   	screenToggler: false,
   	screenTogglerContent: 'Open',
-	currentChatScreen: screenTypes.HOME,
+	currentChatScreen: screenTypes.SPLASH_SCREEN,
 };
 
 const {

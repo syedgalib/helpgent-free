@@ -140,6 +140,18 @@ abstract class Base extends WP_REST_Controller {
             return true;
         }
 
+		$token = $request->get_header( 'Helpgent-Token' );
+
+		if ( ! empty( $token ) ) {
+			$has_valid_token = $this->has_valid_token( $token );
+
+			if ( is_wp_error( $has_valid_token ) ) {
+				return $has_valid_token;
+			}
+
+			return $has_valid_token;
+        }
+
         if ( ! $request->get_header( 'X-WP-Nonce' ) ) {
             return $this->error_nonce_missing();
         }

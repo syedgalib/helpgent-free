@@ -5132,16 +5132,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_home_Index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/home/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/home/Index.jsx");
 /* harmony import */ var _components_contact_form_Index_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/contact-form/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/contact-form/Index.jsx");
 /* harmony import */ var _components_user_authentication_form_Index_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/user-authentication-form/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/user-authentication-form/Index.jsx");
-/* harmony import */ var _components_Sending_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Sending.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/Sending.jsx");
-/* harmony import */ var _components_Success_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Success.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/Success.jsx");
-/* harmony import */ var _components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/video/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/video/Index.jsx");
-/* harmony import */ var _components_voice_Index_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/voice/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/voice/Index.jsx");
-/* harmony import */ var _components_text_Index_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/text/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/text/Index.jsx");
-/* harmony import */ var _components_screen_record_Index_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/screen-record/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/screen-record/Index.jsx");
-/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-/* harmony import */ var _store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../store/forms/hooks.js */ "./src/js/apps/chatbox/store/forms/hooks.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_SplashScreen_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/SplashScreen.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/SplashScreen.jsx");
+/* harmony import */ var _components_Sending_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Sending.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/Sending.jsx");
+/* harmony import */ var _components_Success_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Success.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/Success.jsx");
+/* harmony import */ var _components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/video/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/video/Index.jsx");
+/* harmony import */ var _components_voice_Index_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/voice/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/voice/Index.jsx");
+/* harmony import */ var _components_text_Index_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/text/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/text/Index.jsx");
+/* harmony import */ var _components_screen_record_Index_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/screen-record/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/components/screen-record/Index.jsx");
+/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
+/* harmony import */ var _store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../store/forms/hooks.js */ "./src/js/apps/chatbox/store/forms/hooks.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -5159,21 +5170,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function ChatScreen(_ref) {
   var _screens;
   var show = _ref.show;
-  (0,_store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_12__.useFormHooks)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
+  (0,_store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_13__.useFormHooks)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
       return {
         currentChatScreen: state.chatbox.currentChatScreen
       };
     }),
     currentChatScreen = _useSelector.currentChatScreen;
-  var screens = (_screens = {}, _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].HOME, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_home_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].VIDEO, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].AUDIO, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_voice_Index_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].TEXT, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_text_Index_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].SCREEN_RECORD, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_screen_record_Index_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].CONTACT_FORM, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_contact_form_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].USER_AUTHENTICATION_FORM, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_user_authentication_form_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].SENDING, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Sending_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].SUCCESS, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Success_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})), _screens);
+  var screens = (_screens = {}, _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].HOME, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_home_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].VIDEO, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].AUDIO, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_voice_Index_jsx__WEBPACK_IMPORTED_MODULE_9__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].TEXT, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_text_Index_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].SCREEN_RECORD, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_screen_record_Index_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].CONTACT_FORM, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_contact_form_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].USER_AUTHENTICATION_FORM, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_user_authentication_form_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].SENDING, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_Sending_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].SUCCESS, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_Success_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {})), _defineProperty(_screens, _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].SPLASH_SCREEN, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_SplashScreen_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})), _screens);
+  (0,react__WEBPACK_IMPORTED_MODULE_14__.useEffect)(function () {
+    loadInitData();
+  }, []);
+  function loadInitData() {
+    return _loadInitData.apply(this, arguments);
+  }
+  function _loadInitData() {
+    _loadInitData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _loadInitData.apply(this, arguments);
+  }
   function getCurrentScreen() {
     if (!Object.keys(screens).includes(currentChatScreen)) {
       return '';
     }
     return screens[currentChatScreen];
   }
-  return show ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return show ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
     screenName: currentChatScreen,
     children: getCurrentScreen()
   }) : null;
@@ -5200,7 +5232,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../store/forms/messenger/actionCreator */ "./src/js/apps/chatbox/store/forms/messenger/actionCreator.js");
 /* harmony import */ var _helpers_hooks_api_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../helpers/hooks/api/useConversationAPI */ "./src/js/helpers/hooks/api/useConversationAPI.js");
 /* harmony import */ var _helpers_hooks_api_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../helpers/hooks/api/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5225,8 +5258,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Sending() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_9__["default"])(),
+    isLoggedIn = _useChatboxController.isLoggedIn,
+    isUserAdmin = _useChatboxController.isUserAdmin,
+    isUserClient = _useChatboxController.isUserClient,
+    enabledGuestSubmission = _useChatboxController.enabledGuestSubmission;
   var _useConversationAPI = (0,_helpers_hooks_api_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__["default"])(),
     createConversationItem = _useConversationAPI.createItem;
   var _useMessangerAPI = (0,_helpers_hooks_api_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__["default"])(),
@@ -5255,74 +5294,63 @@ function Sending() {
     _useState4 = _slicedToArray(_useState3, 2),
     errorMessage = _useState4[0],
     setErrorMessage = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(messengerForm.formData.user_id),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(userForm.user.email),
     _useState6 = _slicedToArray(_useState5, 2),
-    userID = _useState6[0],
-    setUserID = _useState6[1];
+    userEmail = _useState6[0],
+    setUserEmail = _useState6[1];
 
   // @Init
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     init();
   }, []);
+
+  /**
+   * Init
+   *
+   * @ If user is logged in
+   *   # If user is client or admin
+   *     - Send The Message
+   *   # If user is not client or admin
+   *     - Update current user role and meta data
+   * 	   - Send The Message
+   *
+   * @ If user is not logged in
+   *   # If guest login is enabled
+   *     - Register user as guest
+   *        - If user exist -> Swith to Autentication Page
+   * 	   - Send The Message
+   *   # If guest login not enabled
+   *     - Register user as WP user
+   *       - If user exist -> Swith to Autentication Page
+   *     - Send The Message
+   */
   function init() {
     return _init.apply(this, arguments);
-  } // Submit Message
+  } /**
+     * Handle Logged In User
+     *
+     * # If user is client or admin
+     *   - Send The Message
+     * # If user is not client or admin
+     *   - Update current user role and meta data
+     * 	 - Send The Message
+     */
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var createUserResponse, userID;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!(messengerForm.formData.user_id && userForm.is_varified)) {
+              if (!isLoggedIn()) {
                 _context.next = 3;
                 break;
               }
-              submitMessage();
+              handleLoggedInUser();
               return _context.abrupt("return");
             case 3:
-              _context.next = 5;
-              return createUser(userForm.formData);
-            case 5:
-              createUserResponse = _context.sent;
-              if (createUserResponse.success) {
-                _context.next = 10;
-                break;
-              }
-              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
-                status: false,
-                statusMessage: createUserResponse.message
-              }));
-
-              // Return to Contact Form Page if failed
-              setTimeout(function () {
-                dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].CONTACT_FORM));
-              }, 2000);
-              return _context.abrupt("return");
-            case 10:
-              userID = createUserResponse.data.id; // Add user ID to message
-              dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormData)({
-                user_id: userID
-              }));
-              setUserID(userID);
-
-              // Verify user if exists
-              // --------------------------------
-              if (createUserResponse.data.is_new_user) {
-                _context.next = 17;
-                break;
-              }
-              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
-                user: createUserResponse.data,
-                is_varified: false
-              }));
-              dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].USER_AUTHENTICATION_FORM));
-              return _context.abrupt("return");
-            case 17:
-              // Submit Message
-              // --------------------------------
-              submitMessage(userID);
-            case 18:
+              // Handle New User
+              handleNewUser();
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -5331,37 +5359,47 @@ function Sending() {
     }));
     return _init.apply(this, arguments);
   }
-  function submitMessage(_x) {
-    return _submitMessage.apply(this, arguments);
-  } // createUser
-  function _submitMessage() {
-    _submitMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(argUserID) {
-      var formData, response;
+  function handleLoggedInUser() {
+    return _handleLoggedInUser.apply(this, arguments);
+  } /**
+     * Handle New User
+     *
+     * # If guest login is enabled
+     *   - Register user as guest
+     *     - If user exist -> Swith to Autentication Page
+     *   - Send The Message
+     * # If guest login not enabled
+     *   - Register user as WP user
+     *     - If user exist -> Swith to Autentication Page
+     *     - Send The Message
+     */
+  function _handleLoggedInUser() {
+    _handleLoggedInUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var updateCurrentUserResponse;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              // Reset States
-              setErrorMessage('');
-              formData = _objectSpread(_objectSpread({}, messengerForm.formData), {}, {
-                user_id: argUserID ? argUserID : userID
-              }); // Create Message
-              _context2.next = 4;
-              return createMessage(formData);
-            case 4:
-              response = _context2.sent;
-              if (response.success) {
+              if (!(isUserAdmin() || isUserClient())) {
+                _context2.next = 3;
+                break;
+              }
+              submitMessage();
+              return _context2.abrupt("return");
+            case 3:
+              _context2.next = 5;
+              return updateCurrentUser();
+            case 5:
+              updateCurrentUserResponse = _context2.sent;
+              if (updateCurrentUserResponse.success) {
                 _context2.next = 9;
                 break;
               }
-              setErrorMessage(response.message);
               setCurrentStage(stages.ERROR);
               return _context2.abrupt("return");
             case 9:
-              // Navigate to Success Screen
-              setTimeout(function () {
-                dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].SUCCESS));
-              }, 2000);
+              // Submit Message
+              submitMessage();
             case 10:
             case "end":
               return _context2.stop();
@@ -5369,17 +5407,145 @@ function Sending() {
         }
       }, _callee2);
     }));
+    return _handleLoggedInUser.apply(this, arguments);
+  }
+  function handleNewUser() {
+    return _handleNewUser.apply(this, arguments);
+  } /**
+     * Update Current User
+     */
+  function _handleNewUser() {
+    _handleNewUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var userResponse;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return registerUser();
+            case 2:
+              userResponse = _context3.sent;
+              if (userResponse.success) {
+                _context3.next = 5;
+                break;
+              }
+              return _context3.abrupt("return");
+            case 5:
+              submitMessage();
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+    return _handleNewUser.apply(this, arguments);
+  }
+  function updateCurrentUser() {
+    return _updateCurrentUser.apply(this, arguments);
+  } /**
+     * Register User
+     *
+     */
+  function _updateCurrentUser() {
+    _updateCurrentUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _updateCurrentUser.apply(this, arguments);
+  }
+  function registerUser() {
+    return _registerUser.apply(this, arguments);
+  } /**
+     * Register WP User
+     *
+     */
+  function _registerUser() {
+    _registerUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!enabledGuestSubmission()) {
+                _context5.next = 2;
+                break;
+              }
+              return _context5.abrupt("return", registerGuestUser());
+            case 2:
+              return _context5.abrupt("return", registerWPUser());
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+    return _registerUser.apply(this, arguments);
+  }
+  function registerWPUser() {}
+
+  /**
+   * Register Guest User
+   */
+  function registerGuestUser() {}
+
+  // Submit Message
+  function submitMessage(_x) {
+    return _submitMessage.apply(this, arguments);
+  } // createUser
+  function _submitMessage() {
+    _submitMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(argUserEmail) {
+      var formData, response;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              // Reset States
+              setErrorMessage('');
+              formData = _objectSpread(_objectSpread({}, messengerForm.formData), {}, {
+                user_email: argUserEmail ? argUserEmail : userEmail
+              }); // Create Message
+              _context6.next = 4;
+              return createMessage(formData);
+            case 4:
+              response = _context6.sent;
+              if (response.success) {
+                _context6.next = 9;
+                break;
+              }
+              setErrorMessage(response.message);
+              setCurrentStage(stages.ERROR);
+              return _context6.abrupt("return");
+            case 9:
+              // Navigate to Success Screen
+              setTimeout(function () {
+                dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].SUCCESS));
+              }, 2000);
+            case 10:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
     return _submitMessage.apply(this, arguments);
   }
   function createUser(_x2) {
     return _createUser.apply(this, arguments);
   } // createMessage
   function _createUser() {
-    _createUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(args) {
+    _createUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(args) {
       var status, response;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
               status = {
                 success: false,
@@ -5390,11 +5556,11 @@ function Sending() {
                 status: null,
                 statusMessage: ''
               }));
-              _context3.prev = 2;
-              _context3.next = 5;
+              _context7.prev = 2;
+              _context7.next = 5;
               return Helper_http__WEBPACK_IMPORTED_MODULE_4__["default"].postData("/users", args);
             case 5:
-              response = _context3.sent;
+              response = _context7.sent;
               status.success = true;
               status.data = response.data;
               status.message = 'The user has been created successfuly';
@@ -5402,19 +5568,19 @@ function Sending() {
                 status: true,
                 statusMessage: status.message
               }));
-              return _context3.abrupt("return", status);
+              return _context7.abrupt("return", status);
             case 13:
-              _context3.prev = 13;
-              _context3.t0 = _context3["catch"](2);
+              _context7.prev = 13;
+              _context7.t0 = _context7["catch"](2);
               status.success = false;
-              status.message = _context3.t0.response.data && _context3.t0.response.data.message ? _context3.t0.response.data.message : _context3.t0.message;
-              return _context3.abrupt("return", status);
+              status.message = _context7.t0.response.data && _context7.t0.response.data.message ? _context7.t0.response.data.message : _context7.t0.message;
+              return _context7.abrupt("return", status);
             case 18:
             case "end":
-              return _context3.stop();
+              return _context7.stop();
           }
         }
-      }, _callee3, null, [[2, 13]]);
+      }, _callee7, null, [[2, 13]]);
     }));
     return _createUser.apply(this, arguments);
   }
@@ -5422,44 +5588,44 @@ function Sending() {
     return _createMessage.apply(this, arguments);
   } // Retry
   function _createMessage() {
-    _createMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(args) {
+    _createMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(args) {
       var status, conversation, response;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
               status = {
                 success: false,
                 message: '',
                 data: null
               };
-              _context4.prev = 1;
-              _context4.next = 4;
+              _context8.prev = 1;
+              _context8.next = 4;
               return createConversationItem();
             case 4:
-              conversation = _context4.sent;
+              conversation = _context8.sent;
               args.conversation_id = conversation.data.id;
-              _context4.next = 8;
+              _context8.next = 8;
               return createMessangerItem(args);
             case 8:
-              response = _context4.sent;
+              response = _context8.sent;
               status.success = true;
               status.data = response.data;
               status.message = 'The message has been created successfuly';
-              return _context4.abrupt("return", status);
+              return _context8.abrupt("return", status);
             case 15:
-              _context4.prev = 15;
-              _context4.t0 = _context4["catch"](1);
+              _context8.prev = 15;
+              _context8.t0 = _context8["catch"](1);
               status.success = false;
-              status.message = _context4.t0.response.data && _context4.t0.response.data.message ? _context4.t0.response.data.message : _context4.t0.message;
-              console.error(_context4.t0);
-              return _context4.abrupt("return", status);
+              status.message = _context8.t0.response.data && _context8.t0.response.data.message ? _context8.t0.response.data.message : _context8.t0.message;
+              console.error(_context8.t0);
+              return _context8.abrupt("return", status);
             case 21:
             case "end":
-              return _context4.stop();
+              return _context8.stop();
           }
         }
-      }, _callee4, null, [[1, 15]]);
+      }, _callee8, null, [[1, 15]]);
     }));
     return _createMessage.apply(this, arguments);
   }
@@ -5469,20 +5635,20 @@ function Sending() {
     submitMessage();
   }
   if (currentStage === stages.SENDING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Sending"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
             children: "We\u2019re currently processing your request"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             className: "wpwax-vm-danger-text wpwax-vm-text-danger",
             children: "Please don\u2019t leave this page!"
           })]
@@ -5490,15 +5656,15 @@ function Sending() {
       })
     });
   } else if (currentStage === stages.ERROR) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
             children: errorMessage
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
             href: "#",
             onClick: retry,
             children: "Retry"
@@ -5511,6 +5677,36 @@ function Sending() {
   }
 }
 /* harmony default export */ __webpack_exports__["default"] = (Sending);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/components/chat-screen/components/SplashScreen.jsx":
+/*!********************************************************************************!*\
+  !*** ./src/js/apps/chatbox/components/chat-screen/components/SplashScreen.jsx ***!
+  \********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ App; }
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+function App() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "wpwax-vm-record-send-progress__content",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "wpwax-vm-record-send-progress__bar",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+          children: "Loading"
+        })
+      })
+    })
+  });
+}
 
 /***/ }),
 
@@ -5605,7 +5801,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../store/forms/user/actionCreator */ "./src/js/apps/chatbox/store/forms/user/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -5630,14 +5826,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+    isLoggedIn = _useChatboxController.isLoggedIn,
+    enabledGuestSubmission = _useChatboxController.enabledGuestSubmission,
+    getCollectInfoFields = _useChatboxController.getCollectInfoFields;
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
-        chatboxTemplateOptions: state.chatboxTemplate.template && state.chatboxTemplate.template.options ? state.chatboxTemplate.template.options : {},
         userForm: state.userForm,
         messengerForm: state.messengerForm
       };
     }),
-    chatboxTemplateOptions = _useSelector.chatboxTemplateOptions,
     userForm = _useSelector.userForm,
     messengerForm = _useSelector.messengerForm;
   var nameRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -5649,6 +5847,8 @@ function Form() {
     _useState2 = _slicedToArray(_useState, 2),
     errorMessage = _useState2[0],
     setErrorMessage = _useState2[1];
+
+  // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (userForm.formData.name) {
       nameRef.current.value = userForm.formData.name;
@@ -5662,9 +5862,6 @@ function Form() {
       setErrorMessage(messengerForm.statusMessage);
     }
   }, []);
-  function getCollectInfoFields() {
-    return Array.isArray(chatboxTemplateOptions.collectInfo) ? chatboxTemplateOptions.collectInfo : [];
-  }
   function showNameField() {
     return isLoggedIn() ? false : true;
   }
@@ -5675,13 +5872,7 @@ function Form() {
     return getCollectInfoFields().includes('phone');
   }
   function showPasswordField() {
-    return !isLoggedIn() && !isGuestLoginEnabled();
-  }
-  function isLoggedIn() {
-    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('current_user');
-  }
-  function isGuestLoginEnabled() {
-    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('settings.guestSubmission');
+    return !isLoggedIn() && !enabledGuestSubmission();
   }
 
   // submitHandler
@@ -6417,7 +6608,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_window_minimize_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/window-minimize.svg */ "./src/assets/svg/icons/window-minimize.svg");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var _Style_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style.js */ "./src/js/apps/chatbox/components/chat-screen/components/screen-record/Style.js");
@@ -6425,7 +6616,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hooks/media-recorder/useScreenRecorder */ "./src/js/helpers/hooks/media-recorder/useScreenRecorder.js");
 /* harmony import */ var Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/img/chatbox/permission.png */ "./src/assets/img/chatbox/permission.png");
 /* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../../../store/forms/messenger/actionCreator */ "./src/js/apps/chatbox/store/forms/messenger/actionCreator.js");
-/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
+/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../../../store/forms/messenger/messageTypes */ "./src/js/apps/chatbox/store/forms/messenger/messageTypes.js");
 /* harmony import */ var API_useAttachmentAPI__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! API/useAttachmentAPI */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -6909,7 +7100,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/forms/messenger/messageTypes */ "./src/js/apps/chatbox/store/forms/messenger/messageTypes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -6921,14 +7114,8 @@ __webpack_require__.r(__webpack_exports__);
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
   var textRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
-
-  // Store States
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
-      return {
-        messengerForm: state.messengerForm
-      };
-    }),
-    messengerForm = _useSelector.messengerForm;
+  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+    needToGoContactPage = _useChatboxController.needToGoContactPage;
   function submitHandler(e) {
     e.preventDefault();
     var updatedFormData = {
@@ -6936,19 +7123,19 @@ function Form() {
       message: textRef.current.value
     };
     dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_2__.updateFormData)(updatedFormData));
-    if (messengerForm.formData.user_id) {
-      dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].SENDING));
-    } else {
+    if (needToGoContactPage()) {
       dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].CONTACT_FORM));
+      return;
     }
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_3__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].CONTACT_FORM));
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
     onSubmit: submitHandler,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-chatbox-text-form-inner wpwax-vm-d-flex wpwax-vm-flex-direction-column",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-form-group wpwax-vm-d-flex",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
           className: "wpwax-vm-form__element wpwax-vm-transparent-form-control wpwax-vm-mb-20",
           required: true,
           maxLength: "1000",
@@ -6956,9 +7143,9 @@ function Form() {
           placeholder: "Type your text...",
           ref: textRef
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
           type: "submit",
           className: "wpwax-vm-btn wpwax-vm-w-f wpwax-vm-btn-block wpwax-vm-btn-lg wpwax-vm-btn-primary",
           children: "Next"
@@ -7100,7 +7287,8 @@ function Form() {
               return _context.abrupt("return");
             case 18:
               dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
-                is_varified: true
+                is_varified: true,
+                needAuthentication: false
               }));
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_6__["default"].SENDING));
             case 20:
@@ -8733,6 +8921,133 @@ function Record() {
 
 /***/ }),
 
+/***/ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js":
+/*!**********************************************************************************!*\
+  !*** ./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ useChatboxController; }
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+function useChatboxController() {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
+      return {
+        chatboxTemplateOptions: state.chatboxTemplate.template && state.chatboxTemplate.template.options ? state.chatboxTemplate.template.options : {},
+        userForm: state.userForm
+      };
+    }),
+    chatboxTemplateOptions = _useSelector.chatboxTemplateOptions,
+    userForm = _useSelector.userForm;
+
+  /**
+   * Need To Go Contact Page
+   *
+   * @returns bool
+   */
+  function needToGoContactPage() {
+    var isLoggedIn = isLoggedIn();
+    var isClient = isUserClient();
+    var isAdmin = isUserAdmin();
+    var collectInfo = Array.isArray(chatboxTemplateOptions.collectInfo) ? chatboxTemplateOptions.collectInfo : [];
+    if (!isLoggedIn) {
+      return true;
+    }
+    if (isClient || isAdmin) {
+      return false;
+    }
+    if (!collectInfo.length) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Is Logged In
+   *
+   * @returns bool
+   */
+  function isLoggedIn() {
+    return userForm.user ? true : false;
+  }
+
+  /**
+   * Is User Admin
+   *
+   * @returns bool
+   */
+  function isUserAdmin() {
+    if (!userForm.user) {
+      return false;
+    }
+    return userForm.user.isAdmin;
+  }
+
+  /**
+   * Is User Client
+   *
+   * @returns bool
+   */
+  function isUserClient() {
+    if (!userForm.user) {
+      return false;
+    }
+    return userForm.user.isClient;
+  }
+
+  /**
+   * User Role Includes
+   *
+   * @param {string} role
+   * @returns bool
+   */
+  function userRoleIncludes(role) {
+    if (!userForm.user) {
+      return false;
+    }
+    if (!userForm.user.roles) {
+      return false;
+    }
+    if (!Array.isArray(userForm.user.roles)) {
+      return false;
+    }
+    return userForm.user.roles.includes(role);
+  }
+
+  /**
+   * Enabled Guest Submission
+   *
+   * @returns bool
+   */
+  function enabledGuestSubmission() {
+    return userForm.guestSubmission;
+  }
+
+  /**
+   * Get Collect Info Fields
+   *
+   * @returns array
+   */
+  function getCollectInfoFields() {
+    return Array.isArray(chatboxTemplateOptions.collectInfo) ? chatboxTemplateOptions.collectInfo : [];
+  }
+  return {
+    needToGoContactPage: needToGoContactPage,
+    isLoggedIn: isLoggedIn,
+    isUserAdmin: isUserAdmin,
+    isUserClient: isUserClient,
+    userRoleIncludes: userRoleIncludes,
+    enabledGuestSubmission: enabledGuestSubmission,
+    getCollectInfoFields: getCollectInfoFields
+  };
+}
+
+/***/ }),
+
 /***/ "./src/js/apps/chatbox/components/chat-screen/style/Style.js":
 /*!*******************************************************************!*\
   !*** ./src/js/apps/chatbox/components/chat-screen/style/Style.js ***!
@@ -8886,7 +9201,7 @@ var initialState = {
   showChatbox: false,
   screenToggler: false,
   screenTogglerContent: 'Open',
-  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME
+  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
 };
 var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
   HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
@@ -8968,7 +9283,8 @@ var screenTypes = {
   CONTACT_FORM: 'contact_form',
   USER_AUTHENTICATION_FORM: 'user_authentication_form',
   SENDING: 'sending',
-  SUCCESS: 'success'
+  SUCCESS: 'success',
+  SPLASH_SCREEN: 'splash_screen'
 };
 /* harmony default export */ __webpack_exports__["default"] = (screenTypes);
 
@@ -9596,13 +9912,17 @@ function useFormHooks() {
   // ----------------------------------------------------------
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var messengerFormData = {};
-    if (wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user) {
-      messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
-      dispatch((0,_user_actionCreator_js__WEBPACK_IMPORTED_MODULE_2__.upateState)({
-        user: wpWaxCustomerSupportApp_CoreScriptData.current_user,
-        is_varified: true
-      }));
-    }
+
+    // if ( wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user ) {
+    // 	messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
+    // 	dispatch(
+    // 		updateUserState({
+    // 			user: wpWaxCustomerSupportApp_CoreScriptData.current_user,
+    // 			is_varified: true
+    // 		})
+    // 	);
+    // }
+
     if (templateOpions.tag) {
       messengerFormData.terms = "".concat(templateOpions.tag);
     }
@@ -9826,13 +10146,11 @@ var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE
   SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR;
 var initialState = {
   formData: {
-    user_id: 0,
+    user_email: '',
     message: '',
     message_type: 'text',
-    note: '',
     attachment_id: 0,
-    terms: '',
-    notify_user: true
+    terms: ''
   },
   initSubmission: false,
   submited: false,
@@ -10116,13 +10434,10 @@ var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE
   SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR,
   RESET = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET;
 var initialState = {
-  formData: {
-    name: '',
-    email: '',
-    phone: '',
-    password: ''
-  },
+  formData: {},
   user: null,
+  needAuthentication: false,
+  guestSubmission: true,
   is_varified: false,
   isUpdatingFormData: false,
   isReadyFormData: false,

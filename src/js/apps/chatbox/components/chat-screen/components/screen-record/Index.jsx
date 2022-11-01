@@ -9,9 +9,9 @@ import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import permissionImg from 'Assets/img/chatbox/permission.png';
 
 import { updateFormData as updateMessengerFormData } from './../../../../store/forms/messenger/actionCreator';
-import screenTypes from './../../../../store/chatbox/screenTypes';
+import screenTypes from '../../../../store/chatbox/screenTypes';
 import messageTypes from './../../../../store/forms/messenger/messageTypes';
-import { changeChatScreen } from './../../../../store/chatbox/actionCreator';
+import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 
 import useAttachmentAPI from "API/useAttachmentAPI";
 

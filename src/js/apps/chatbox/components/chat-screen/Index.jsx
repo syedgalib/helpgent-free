@@ -4,6 +4,7 @@ import Container from './components/screen-wrapper/Index.jsx';
 import Home from './components/home/Index.jsx';
 import ContactForm from './components/contact-form/Index.jsx';
 import UserAuthenticationForm from './components/user-authentication-form/Index.jsx';
+import SplashScreen from './components/SplashScreen.jsx';
 import Sending from './components/Sending.jsx';
 import Success from './components/Success.jsx';
 import Video from './components/video/Index.jsx';
@@ -12,8 +13,12 @@ import Text from './components/text/Index.jsx';
 import ScreenRecord from './components/screen-record/Index.jsx';
 import screenTypes from '../../store/chatbox/screenTypes';
 import { useFormHooks } from '../../store/forms/hooks.js';
+import { useEffect } from 'react';
+
+import { changeChatScreen } from '../../store/chatbox/actionCreator';
 
 function ChatScreen( { show } ) {
+	const dispatch = useDispatch();
     useFormHooks();
 
     const { currentChatScreen } = useSelector((state) => {
@@ -32,10 +37,24 @@ function ChatScreen( { show } ) {
         [screenTypes.USER_AUTHENTICATION_FORM]: <UserAuthenticationForm />,
         [screenTypes.SENDING]: <Sending />,
         [screenTypes.SUCCESS]: <Success />,
+        [screenTypes.SPLASH_SCREEN]: <SplashScreen />,
     };
 
+	useEffect( () => {
+
+		loadInitData();
+
+	}, [] );
+
+	async function loadInitData() {
+
+
+		// dispatch( changeChatScreen( screenTypes.HOME ) );
+
+	}
+
     function getCurrentScreen() {
-        if (!Object.keys(screens).includes(currentChatScreen)) {
+        if ( ! Object.keys(screens).includes( currentChatScreen ) ) {
             return '';
         }
 
@@ -43,7 +62,7 @@ function ChatScreen( { show } ) {
     }
 
     return (
-        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null 
+        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null
 	);
 }
 

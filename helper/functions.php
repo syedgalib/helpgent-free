@@ -842,19 +842,18 @@ function get_default_admin_user()
 	return prepare_user_data($admin_user);
 }
 
-function get_current_user($return_wp_user = false)
-{
-	$current_user = get_user_by('id', get_current_user_id());
+function get_current_user( $return_wp_user = false ) {
+	$current_user = get_user_by( 'id', get_current_user_id() );
 
-	if (empty($current_user)) {
+	if ( empty( $current_user) ) {
 		return false;
 	}
 
-	if ($return_wp_user) {
+	if ( $return_wp_user ) {
 		return $current_user;
 	}
 
-	return prepare_user_data($current_user);
+	return prepare_user_data( $current_user );
 }
 
 /**
@@ -1078,16 +1077,15 @@ function search_users($keyword = '', $fields = [])
  * @param WP_User $user
  * @return array|false User
  */
-function prepare_user_data($user, $fields = [])
-{
+function prepare_user_data( $user, $fields = [] ) {
 
-	if (empty($user)) {
+	if ( empty( $user ) ) {
 		return false;
 	}
 
 	$user_info = [];
 
-	$default_fields = ['id', 'email', 'name', 'first_name', 'last_name', 'roles', 'avater'];
+	$default_fields = ['id', 'email', 'name', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_client', 'is_guest' ];
 	$fields = (!empty($fields)) ? $fields : $default_fields;
 
 	if (in_array('id', $fields)) {
@@ -1121,6 +1119,18 @@ function prepare_user_data($user, $fields = [])
 		$user_info['roles'] = $user->roles;
 	}
 
+	if ( in_array( 'is_admin', $fields ) ) {
+		$user_info['is_admin'] = is_user_admin( $user ) ;
+	}
+
+	if ( in_array( 'is_client', $fields ) ) {
+		$user_info['is_client'] = is_user_client( $user );
+	}
+
+	if ( in_array( 'is_guest', $fields ) ) {
+		$user_info['is_guest'] = false;
+	}
+
 	return $user_info;
 }
 
@@ -1136,8 +1146,11 @@ function prepare_guest_user_data( $user = [] )
 		return false;
 	}
 
-	$user['avater'] = get_avatar_url( $user['email'] );
-	$user['roles']  = [];
+	$user['avater']    = get_avatar_url( $user['email'] );
+	$user['roles']     = [];
+	$user['is_admin']  = false;
+	$user['is_client'] = false;
+	$user['is_guest']  = true;
 
 	return $user;
 }
@@ -1171,6 +1184,26 @@ function is_current_user_guest()
 {
 	$email = get_current_user_email();
 	return Guest_User_Model::user_exists( $email );
+}
+
+/**
+ * Check if user is client
+ *
+ * @return bool
+ */
+function is_user_guest( $email )
+{
+	return Guest_User_Model::user_exists( $email );
+}
+
+/**
+ * Check if user is client
+ *
+ * @return bool
+ */
+function is_user_client( $user )
+{
+	return user_can( $user, 'wpwax_vm_client' );
 }
 
 /**

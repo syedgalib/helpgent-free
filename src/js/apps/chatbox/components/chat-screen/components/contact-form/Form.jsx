@@ -12,14 +12,19 @@ import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import { useState } from 'react';
 import screenTypes from '../../../../store/chatbox/screenTypes';
 import { useEffect } from 'react';
-import { useCoreData } from 'Hooks/useCoreData.jsx';
+import useChatboxController from '../../hooks/useChatboxController';
 
 function Form() {
     const dispatch = useDispatch();
 
-    const { chatboxTemplateOptions, userForm, messengerForm } = useSelector((state) => {
+	const {
+		isLoggedIn,
+		enabledGuestSubmission,
+		getCollectInfoFields
+	} = useChatboxController();
+
+    const { userForm, messengerForm } = useSelector((state) => {
         return {
-			chatboxTemplateOptions: ( state.chatboxTemplate.template && state.chatboxTemplate.template.options ) ? state.chatboxTemplate.template.options : {},
             userForm: state.userForm,
             messengerForm: state.messengerForm,
         };
@@ -33,6 +38,7 @@ function Form() {
 
     const [errorMessage, setErrorMessage] = useState('');
 
+	// @Init State
     useEffect(() => {
         if (userForm.formData.name) {
             nameRef.current.value = userForm.formData.name;
@@ -49,11 +55,6 @@ function Form() {
         }
     }, []);
 
-
-	function getCollectInfoFields() {
-		return ( Array.isArray( chatboxTemplateOptions.collectInfo ) ) ? chatboxTemplateOptions.collectInfo : [];
-	}
-
 	function showNameField() {
 		return isLoggedIn() ? false : true;
 	}
@@ -67,15 +68,7 @@ function Form() {
 	}
 
 	function showPasswordField() {
-		return ! isLoggedIn() && ! isGuestLoginEnabled();
-	}
-
-	function isLoggedIn() {
-		return useCoreData( 'current_user' );
-	}
-
-	function isGuestLoginEnabled() {
-		return useCoreData( 'settings.guestSubmission' );
+		return ! isLoggedIn() && ! enabledGuestSubmission();
 	}
 
     // submitHandler

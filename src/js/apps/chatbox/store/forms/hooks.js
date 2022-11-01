@@ -20,15 +20,15 @@ function useFormHooks() {
 	useEffect(() => {
 		let messengerFormData = {};
 
-		if ( wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user ) {
-			messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
-			dispatch(
-				updateUserState({
-					user: wpWaxCustomerSupportApp_CoreScriptData.current_user,
-					is_varified: true
-				})
-			);
-		}
+		// if ( wpWaxCustomerSupportApp_CoreScriptData && wpWaxCustomerSupportApp_CoreScriptData.current_user ) {
+		// 	messengerFormData.user_id = wpWaxCustomerSupportApp_CoreScriptData.current_user.id;
+		// 	dispatch(
+		// 		updateUserState({
+		// 			user: wpWaxCustomerSupportApp_CoreScriptData.current_user,
+		// 			is_varified: true
+		// 		})
+		// 	);
+		// }
 
 		if ( templateOpions.tag ) {
 			messengerFormData.terms = `${templateOpions.tag}`;

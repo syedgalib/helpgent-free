@@ -12,14 +12,14 @@ const {
 } = actions;
 
 const initialState = {
-    formData: {
-        name: '',
-        email: '',
-        phone: '',
-        password: '',
-    },
+    formData: {},
+
     user: null,
+    needAuthentication: false,
+    guestSubmission: true,
+
     is_varified: false,
+
 	isUpdatingFormData: false,
 	isReadyFormData: false,
 	submitted: false,

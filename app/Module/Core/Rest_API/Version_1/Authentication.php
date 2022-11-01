@@ -4,6 +4,7 @@ namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
 use WP_Error;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
+use WPWaxCustomerSupportApp\Base\Helper;
 
 class Authentication extends Rest_Base {
 
@@ -15,6 +16,18 @@ class Authentication extends Rest_Base {
     public $rest_base = 'authentication';
 
     public function register_routes() {
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/current-user',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_current_user' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                ],
+            ]
+        );
 
         register_rest_route(
             $this->namespace,
@@ -68,6 +81,28 @@ class Authentication extends Rest_Base {
         );
 
     }
+
+    /**
+     * Get Current User
+     *
+	 * @param $request
+     * @return array Response
+     */
+    public function get_current_user() {
+		$wp_user = Helper\get_current_user();
+
+		if ( $wp_user ) {
+			return $this->response( true, $wp_user );
+		}
+
+		$email = Helper\get_current_user_email();
+		$users = Helper\get_users_data_by( 'email', [ $email ] );
+
+		$user = ( ! empty( $users ) ) ? $users[0] : null;
+
+		return $this->response( true, $user );
+
+	}
 
     /**
      * Create Token

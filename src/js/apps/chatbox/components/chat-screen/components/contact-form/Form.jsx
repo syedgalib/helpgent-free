@@ -58,16 +58,16 @@ function Form() {
         const name = nameRef.current.value;
         const email = emailRef.current.value;
 
-        if (!name || !email) {
+        if ( ! name || ! email ) {
             setErrorMessage('Please fill up the required fields');
             return;
         }
 
         const formData = { name, email };
 
-        dispatch(upateUserFormData(formData, true));
-        dispatch(upateUserState({ submitted: false, status: null }));
-        dispatch(changeChatScreen(screenTypes.SENDING));
+        dispatch( upateUserFormData( formData, true ) );
+        dispatch( upateUserState( { submitted: false, status: null } ) );
+        dispatch( changeChatScreen( screenTypes.SENDING ) );
     }
 
     return (

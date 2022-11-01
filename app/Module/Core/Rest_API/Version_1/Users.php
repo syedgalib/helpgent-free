@@ -111,6 +111,30 @@ class Users extends Rest_Base {
 			),
 		) );
 
+		register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/current-user',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_current_user' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/user-exists',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'user_exists' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                ],
+            ]
+        );
+
     }
 
 	/**
@@ -446,6 +470,7 @@ class Users extends Rest_Base {
 
 	/**
 	 * Authenticate User
+	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response Response object.
 	 */
@@ -484,6 +509,68 @@ class Users extends Rest_Base {
 		$response = rest_ensure_response( $auth );
 
 		return $response;
+	}
+
+	/**
+     * Get Current User
+     *
+	 * @param WP_REST_Request $request Request object.
+     * @return array Response
+     */
+    public function get_current_user() {
+		$wp_user = Helper\get_current_user();
+
+		if ( $wp_user ) {
+			return $this->response( true, $wp_user );
+		}
+
+		$email = Helper\get_current_user_email();
+
+		if ( empty( $email ) ) {
+			return $this->response( true, null );
+		}
+
+		$users = Helper\get_users_data_by( 'email', [ $email ] );
+
+		$user = ( ! empty( $users ) ) ? $users[0] : null;
+
+		return $this->response( true, $user );
+
+	}
+
+	/**
+     * Check if User Exists
+     *
+	 * @param WP_REST_Request $request Request object.
+     * @return array Response
+     */
+    public function user_exists( $request ) {
+		$args = $request->get_params();
+
+		$email = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
+
+		if ( ! is_email( $email ) ) {
+			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		if ( empty( $email ) ) {
+			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		$users = Helper\get_users_data_by( 'email', [ $email ] );
+		$user  = ( ! empty( $users ) ) ? $users[0] : false;
+
+		if ( $user ) {
+			$allowed_data = [ 'is_admin' => '', 'is_client' => '', 'is_guest' => '' ];
+			$user = Helper\filter_params( $allowed_data, $user );
+		}
+
+		$message = ( $user ) ? __( 'The user is registered.', 'wpwax-customer-support-app' ) : __( 'The user is not registered.', 'wpwax-customer-support-app' );
+
+		return $this->response( true, $user,  );
+
 	}
 
 	/**

@@ -19,18 +19,6 @@ class Authentication extends Rest_Base {
 
         register_rest_route(
             $this->namespace,
-            '/' . $this->rest_base . '/current-user',
-            [
-                [
-                    'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_current_user' ],
-                    'permission_callback' => [ $this, 'check_guest_permission' ],
-                ],
-            ]
-        );
-
-        register_rest_route(
-            $this->namespace,
             '/' . $this->rest_base . '/token',
             [
                 'args' => [
@@ -81,33 +69,6 @@ class Authentication extends Rest_Base {
         );
 
     }
-
-    /**
-     * Get Current User
-     *
-	 * @param $request
-     * @return array Response
-     */
-    public function get_current_user() {
-		$wp_user = Helper\get_current_user();
-
-		if ( $wp_user ) {
-			return $this->response( true, $wp_user );
-		}
-
-		$email = Helper\get_current_user_email();
-
-		if ( empty( $email ) ) {
-			return $this->response( true, null );
-		}
-
-		$users = Helper\get_users_data_by( 'email', [ $email ] );
-
-		$user = ( ! empty( $users ) ) ? $users[0] : null;
-
-		return $this->response( true, $user );
-
-	}
 
     /**
      * Create Token

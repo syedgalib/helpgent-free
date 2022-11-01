@@ -16,10 +16,18 @@ import { useFormHooks } from '../../store/forms/hooks.js';
 import { useEffect } from 'react';
 
 import { changeChatScreen } from '../../store/chatbox/actionCreator';
+import { upateState as upateUserState } from '../../store/forms/user/actionCreator';
+
+import useUserAPI from 'API/useUserAPI.js';
+import useSettingsAPI from 'API/useSettingsAPI.js';
 
 function ChatScreen( { show } ) {
 	const dispatch = useDispatch();
     useFormHooks();
+
+	// API
+	const { getCurrentUser } = useUserAPI();
+	const { getItems: getSettings } = useSettingsAPI();
 
     const { currentChatScreen } = useSelector((state) => {
         return {
@@ -47,10 +55,18 @@ function ChatScreen( { show } ) {
 	}, [] );
 
 	async function loadInitData() {
+		// Update user data
+		const currentUserResponse = await getCurrentUser();
+		if ( currentUserResponse.success && currentUserResponse.data ) {
+			dispatch( upateUserState( { user: currentUserResponse.data } ) );
+		}
 
+		const settingsResponse = await getSettings();
+		if ( settingsResponse.success && settingsResponse.data && typeof settingsResponse.data.guestSubmission !== 'undefined' ) {
+			dispatch( upateUserState( { guestSubmission: settingsResponse.data.guestSubmission } ) );
+		}
 
-		// dispatch( changeChatScreen( screenTypes.HOME ) );
-
+		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 
     function getCurrentScreen() {

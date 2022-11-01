@@ -22,7 +22,7 @@ class Settings_Panel extends Rest_Base {
                 [
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,

@@ -167,7 +167,7 @@ function Form() {
                     { showNameField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								// required
+								required
 								ref={nameRef}
 								type='text'
 								className='wpwax-vm-form__element'
@@ -179,7 +179,7 @@ function Form() {
 					{ showEmailField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								// required
+								required
 								ref={emailRef}
 								type='email'
 								className='wpwax-vm-form__element'
@@ -192,7 +192,7 @@ function Form() {
 					{ showPhoneField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								// required
+								required
 								ref={phoneRef}
 								type='tel'
 								className='wpwax-vm-form__element'
@@ -205,7 +205,7 @@ function Form() {
 						<>
 							<div className='wpwax-vm-form-group'>
 								<input
-									// required
+									required
 									ref={passwordRef}
 									type='password'
 									className='wpwax-vm-form__element'
@@ -215,7 +215,7 @@ function Form() {
 
 							<div className='wpwax-vm-form-group'>
 								<input
-									// required
+									required
 									ref={confirmPasswordRef}
 									type='password'
 									className='wpwax-vm-form__element'

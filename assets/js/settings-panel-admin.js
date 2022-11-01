@@ -8509,8 +8509,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var API_useTermAPI_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! API/useTermAPI.js */ "./src/js/helpers/hooks/api/useTermAPI.js");
 /* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -8536,6 +8537,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Dropdown = function Dropdown(_ref) {
   var selectable = _ref.selectable,
     dropdownText = _ref.dropdownText,
@@ -8549,15 +8551,15 @@ var Dropdown = function Dropdown(_ref) {
     termState = _ref.termState,
     setTermState = _ref.setTermState,
     sessionId = _ref.sessionId,
-    termId = _ref.termId,
-    onMarkAsRead = _ref.onMarkAsRead,
-    onMarkAsUnread = _ref.onMarkAsUnread;
+    termId = _ref.termId;
   var _useTermAPI = (0,API_useTermAPI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     createTerm = _useTermAPI.createItem,
     getTerms = _useTermAPI.getItems,
     deleteTermById = _useTermAPI.deleteItem;
   var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
-    getConversations = _useConversationAPI.getItems;
+    getConversations = _useConversationAPI.getItems,
+    conversationRead = _useConversationAPI.markAsRead,
+    conversationUnread = _useConversationAPI.markAsUnread;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       openDropdown: false,
@@ -8600,7 +8602,7 @@ var Dropdown = function Dropdown(_ref) {
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
     var currentSession = outerState.sessionList.filter(function (singleSession) {
-      return singleSession.session_id === sessionId;
+      return singleSession.id === sessionId;
     });
     var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
@@ -8621,7 +8623,7 @@ var Dropdown = function Dropdown(_ref) {
                 switch (_context.prev = _context.next) {
                   case 0:
                     _context.next = 2;
-                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
+                    return conversationRead(sessionId);
                   case 2:
                     response = _context.sent;
                     return _context.abrupt("return", response);
@@ -8638,9 +8640,9 @@ var Dropdown = function Dropdown(_ref) {
         }();
         markRead().then(function (resposne) {
           var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
-            if (item.session_id === sessionId) {
+            if (item.id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.data.total_unread
+                read: true
               });
             }
             return item;
@@ -8648,9 +8650,6 @@ var Dropdown = function Dropdown(_ref) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkRread
           }));
-          if (typeof onMarkAsRead === 'function') {
-            onMarkAsRead(sessionId, resposne.data.data);
-          }
         }).catch(function (error) {
           console.log(error);
         });
@@ -8664,7 +8663,7 @@ var Dropdown = function Dropdown(_ref) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
                     _context2.next = 2;
-                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
+                    return conversationUnread(sessionId);
                   case 2:
                     response = _context2.sent;
                     return _context2.abrupt("return", response);
@@ -8681,9 +8680,9 @@ var Dropdown = function Dropdown(_ref) {
         }();
         markUnRead().then(function (resposne) {
           var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
-            if (item.session_id === sessionId) {
+            if (item.id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.data.total_unread
+                read: false
               });
             }
             return item;
@@ -8691,9 +8690,6 @@ var Dropdown = function Dropdown(_ref) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));
-          if (typeof onMarkAsUnread === 'function') {
-            onMarkAsUnread(sessionId, resposne.data.data);
-          }
         }).catch(function (error) {
           console.log(error);
         });
@@ -8714,8 +8710,6 @@ var Dropdown = function Dropdown(_ref) {
           taglistWithSession: true,
           addTagModalOpen: true
         }));
-        // dispatch(handleSetSession(sessionId));
-        // dispatch(handleTagModal(true));
         break;
       case 'delete-conv':
         overlay.classList.add('wpwax-vm-show');
@@ -8733,6 +8727,11 @@ var Dropdown = function Dropdown(_ref) {
         }));
         break;
       case 'term-delete':
+        var pageLimit = {
+          limit: '15',
+          page: 1,
+          timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__.getTimezoneString)()
+        };
         setTermState(_objectSpread(_objectSpread({}, termState), {}, {
           tagLoader: true
         }));
@@ -8769,45 +8768,43 @@ var Dropdown = function Dropdown(_ref) {
             filteredTagList: filteredTerms,
             tagLoader: false
           }));
+          var syncConversation = /*#__PURE__*/function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+              var syncResponse;
+              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return getConversations(pageLimit);
+                    case 2:
+                      syncResponse = _context4.sent;
+                      return _context4.abrupt("return", syncResponse);
+                    case 4:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4);
+            }));
+            return function syncConversation() {
+              return _ref5.apply(this, arguments);
+            };
+          }();
+          syncConversation().then(function (response) {
+            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+              sessionList: response.data,
+              filteredSessions: response.data
+            }));
+          }).catch(function (error) {
+            console.log(error);
+          });
         }).catch(function (error) {
           console.log(error);
         });
         break;
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
-          var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-            var readSession;
-            return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-              while (1) {
-                switch (_context4.prev = _context4.next) {
-                  case 0:
-                    _context4.next = 2;
-                    return getConversations({
-                      order_by: "read"
-                    });
-                  case 2:
-                    readSession = _context4.sent;
-                    return _context4.abrupt("return", readSession);
-                  case 4:
-                  case "end":
-                    return _context4.stop();
-                }
-              }
-            }, _callee4);
-          }));
-          return function fetchReadSeassion() {
-            return _ref5.apply(this, arguments);
-          };
-        }();
-        fetchReadSeassion().then(function (readResponse) {
-          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-            sessionList: readResponse.data,
-            filteredSessions: readResponse.data
-          }));
-        }).catch(function (error) {});
-        break;
-      case 'filter-unread':
-        var fetchUnReadSeassion = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
             var readSession;
             return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -8816,7 +8813,7 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context5.next = 2;
                     return getConversations({
-                      order_by: "unread"
+                      order_by: "read"
                     });
                   case 2:
                     readSession = _context5.sent;
@@ -8828,8 +8825,41 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee5);
           }));
-          return function fetchUnReadSeassion() {
+          return function fetchReadSeassion() {
             return _ref6.apply(this, arguments);
+          };
+        }();
+        fetchReadSeassion().then(function (readResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: readResponse.data,
+            filteredSessions: readResponse.data
+          }));
+        }).catch(function (error) {});
+        break;
+      case 'filter-unread':
+        var fetchUnReadSeassion = /*#__PURE__*/function () {
+          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+            var readSession;
+            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
+                  case 0:
+                    _context6.next = 2;
+                    return getConversations({
+                      order_by: "unread"
+                    });
+                  case 2:
+                    readSession = _context6.sent;
+                    return _context6.abrupt("return", readSession);
+                  case 4:
+                  case "end":
+                    return _context6.stop();
+                }
+              }
+            }, _callee6);
+          }));
+          return function fetchUnReadSeassion() {
+            return _ref7.apply(this, arguments);
           };
         }();
         fetchUnReadSeassion().then(function (unReadResponse) {
@@ -8841,31 +8871,31 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
-          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
             var pageLimit, latestSession;
-            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
                     pageLimit = {
                       limit: '15',
                       page: 1,
-                      timezone: getTimezoneString()
+                      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__.getTimezoneString)()
                     };
-                    _context6.next = 3;
+                    _context7.next = 3;
                     return getConversations(pageLimit);
                   case 3:
-                    latestSession = _context6.sent;
-                    return _context6.abrupt("return", latestSession);
+                    latestSession = _context7.sent;
+                    return _context7.abrupt("return", latestSession);
                   case 5:
                   case "end":
-                    return _context6.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee6);
+            }, _callee7);
           }));
           return function fetchLatestSeassion() {
-            return _ref7.apply(this, arguments);
+            return _ref8.apply(this, arguments);
           };
         }();
         fetchLatestSeassion().then(function (latestResponse) {
@@ -8877,28 +8907,28 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
-          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
             var oldestSession;
-            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context7.next = 2;
+                    _context8.next = 2;
                     return getConversations({
                       order_by: "oldest"
                     });
                   case 2:
-                    oldestSession = _context7.sent;
-                    return _context7.abrupt("return", oldestSession);
+                    oldestSession = _context8.sent;
+                    return _context8.abrupt("return", oldestSession);
                   case 4:
                   case "end":
-                    return _context7.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee7);
+            }, _callee8);
           }));
           return function fetchOldestSeassion() {
-            return _ref8.apply(this, arguments);
+            return _ref9.apply(this, arguments);
           };
         }();
         fetchOldestSeassion().then(function (oldestResponse) {
@@ -8915,11 +8945,11 @@ var Dropdown = function Dropdown(_ref) {
   /* Handle the open close dropdown icon */
   var renderDropdownIcon = function renderDropdownIcon() {
     if (openDropdown) {
-      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
         src: dropdownIconOpen
       }) : '';
     } else {
-      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
         src: dropdownIconClose
       }) : '';
     }
@@ -8940,47 +8970,47 @@ var Dropdown = function Dropdown(_ref) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [openDropdown]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: selectable ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'),
     ref: ref,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
       href: "#",
       className: dropdownText ? "wpwax-vm-dropdown__toggle" : "".concat(selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"),
       onClick: handleDropdown,
-      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
-          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-selected",
             children: filterText
           })]
         })]
-      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
           children: selectedItemText
         })]
-      }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         children: renderDropdownIcon()
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("ul", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
       className: openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show" : "wpwax-vm-dropdown__content",
       children: dropdownList.map(function (item, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
             href: "#",
             onClick: function onClick(e) {
               return handleDropdownTrigger(e, item.name);
             },
-            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-dropdown-item-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 src: item.icon
               })
             }) : '', item.text]

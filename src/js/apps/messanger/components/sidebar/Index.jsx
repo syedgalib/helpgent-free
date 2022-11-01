@@ -276,6 +276,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
+    console.log(sessionList);
+
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
@@ -439,13 +441,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                         }
                                     }
 
-                                    if (Number(item.total_unread) > 0) {
+                                    if (item.read) {
                                         var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-read',
-                                                    text: 'Mark as Read',
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
                                                 },
                                                 {
                                                     icon: tag,
@@ -467,8 +469,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-read',
-                                                    text: 'Mark as Read',
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
                                                 }
                                             ];
                                     } else {
@@ -476,8 +478,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-unread',
-                                                    text: 'Mark as unread',
+                                                    name: 'mark-read',
+                                                    text: 'Mark as read',
                                                 },
                                                 {
                                                     icon: tag,
@@ -499,8 +501,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-unread',
-                                                    text: 'Mark as unread',
+                                                    name: 'mark-read',
+                                                    text: 'Mark as read',
                                                 }
                                             ]
                                     }
@@ -540,19 +542,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     setSessionState={setSessionState}
                                                     sessionTerm={item.terms}
                                                     initialConv={initialConv}
-                                                    sessionId={item.session_id}
+                                                    sessionId={item.id}
                                                     title={titleString.join()}
                                                     metaList={metaList}
                                                 />
                                             </div>
                                             <div className='wpwax-vm-usermedia__right'>
-                                                {Number(item.total_unread) >
-                                                    0 && (
-                                                    <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'>
-                                                        {item.total_unread}
-                                                    </span>
-                                                )}
-
+                                                {!item.read ?  <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'></span> : null}
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}
@@ -564,14 +560,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     setOuterState={
                                                         setSessionState
                                                     }
-                                                    sessionId={item.session_id}
-													onMarkAsRead={ function( session_id, data ) {
-														doAction( 'onMarkAsRead', { session_id, data } );
-
-													}}
-													onMarkAsUnread={ function ( session_id, data ) {
-														doAction( 'onMarkAsUnread', { session_id, data } );
-													}}
+                                                    sessionId={item.id}
                                                 />
                                             </div>
                                         </li>

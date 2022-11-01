@@ -14877,6 +14877,7 @@ var Sidebar = function Sidebar(_ref) {
       hasMore: true
     }));
   };
+  console.log(sessionList);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_26__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
@@ -15040,11 +15041,11 @@ var Sidebar = function Sidebar(_ref) {
                 titleString.push(users[i].name);
               }
             }
-            if (Number(item.total_unread) > 0) {
+            if (item.read) {
               var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? [{
                 icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-                name: 'mark-read',
-                text: 'Mark as Read'
+                name: 'mark-unread',
+                text: 'Mark as unread'
               }, {
                 icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'add-tags',
@@ -15059,14 +15060,14 @@ var Sidebar = function Sidebar(_ref) {
                 text: 'Delete Conversation'
               }] : [{
                 icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-                name: 'mark-read',
-                text: 'Mark as Read'
+                name: 'mark-unread',
+                text: 'Mark as unread'
               }];
             } else {
               var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? [{
                 icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-                name: 'mark-unread',
-                text: 'Mark as unread'
+                name: 'mark-read',
+                text: 'Mark as read'
               }, {
                 icon: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_21__["default"],
                 name: 'add-tags',
@@ -15081,8 +15082,8 @@ var Sidebar = function Sidebar(_ref) {
                 text: 'Delete Conversation'
               }] : [{
                 icon: Assets_svg_icons_envelope_open_svg__WEBPACK_IMPORTED_MODULE_14__["default"],
-                name: 'mark-unread',
-                text: 'Mark as unread'
+                name: 'mark-read',
+                text: 'Mark as read'
               }];
             }
             var metaList = [{
@@ -15104,35 +15105,22 @@ var Sidebar = function Sidebar(_ref) {
                   setSessionState: setSessionState,
                   sessionTerm: item.terms,
                   initialConv: initialConv,
-                  sessionId: item.session_id,
+                  sessionId: item.id,
                   title: titleString.join(),
                   metaList: metaList
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
                 className: "wpwax-vm-usermedia__right",
-                children: [Number(item.total_unread) > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
-                  className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread",
-                  children: item.total_unread
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                children: [!item.read ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+                  className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"
+                }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   dropdownText: false,
                   dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
                   dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
                   dropdownList: moreDropdown,
                   outerState: sessionState,
                   setOuterState: setSessionState,
-                  sessionId: item.session_id,
-                  onMarkAsRead: function onMarkAsRead(session_id, data) {
-                    doAction('onMarkAsRead', {
-                      session_id: session_id,
-                      data: data
-                    });
-                  },
-                  onMarkAsUnread: function onMarkAsUnread(session_id, data) {
-                    doAction('onMarkAsUnread', {
-                      session_id: session_id,
-                      data: data
-                    });
-                  }
+                  sessionId: item.id
                 })]
               })]
             }, index);
@@ -15185,7 +15173,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n            font-family: 'Inter', sans-serif;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n        .wpwax-vm-sidebar-top__action{\n            display: flex;\n            align-items: center;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                color: #4D4D4D;\n                transition: color .2s ease-in;\n                &:hover{\n                    color: var(--color-primary);\n                    svg{\n                        fill: var(--color-primary);\n                    }\n                }\n                &.active{\n                    font-weight: 600;\n                    color: var(--color-primary);\n                    svg{\n                        fill: var(--color-primary);\n                    }\n                }\n                span{\n                    display: inline-block;\n                    margin-left: 6px;\n                }\n                svg{\n                    width: 14px;\n                    height: 14px;\n                    transition: fill .2s ease-in;\n                    fill: var(--color-text);\n                }\n                &.wpwax-vm-sidebar-refresher{\n                    margin-left: 30px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            width: 100%;\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n                align-items: center;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            min-width: 56px;\n            margin-left: 30px;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            line-height: 1;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                        li{\n                            a{\n                                margin-top: 2px;\n                            }\n                            &:last-child{\n                                a{\n                                    margin-top: 10px;\n                                }\n                            }\n                        }\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                    text-transform: initial;\n                    font-family: 'Inter', sans-serif;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    &:first-child{\n                        a{\n                            padding-top: 0;\n                            border-radius: 8px;\n                            border: 0 none;\n                            margin: 0;\n                            &:hover{\n                                color: var(--color-dark);\n                                svg path{\n                                    fill: var(--color-dark);\n                                }\n                                &:after{\n                                    display: block;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
+var SidebarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    min-height: 600px;\n    @media only screen and (max-width: 767px){\n        min-height: 560px;\n    }\n    &.wpwax-vm-loder-active{\n        &:after{\n            background-color: #ffffff;\n            border-radius: 10px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-sidebar-top{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        margin-bottom: 25px;\n        .wpwax-vm-sidebar-title{\n            margin: 0;\n            font-family: 'Inter', sans-serif;\n        }\n        .wpwax-vm-sidebar-refresher{\n            line-height: 1;\n        }\n        .wpwax-vm-sidebar-top__action{\n            display: flex;\n            align-items: center;\n            a{\n                display: flex;\n                align-items: center;\n                font-size: 14px;\n                font-weight: 500;\n                text-decoration: none;\n                color: #4D4D4D;\n                transition: color .2s ease-in;\n                &:hover{\n                    color: var(--color-primary);\n                    svg{\n                        fill: var(--color-primary);\n                    }\n                }\n                &.active{\n                    font-weight: 600;\n                    color: var(--color-primary);\n                    svg{\n                        fill: var(--color-primary);\n                    }\n                }\n                span{\n                    display: inline-block;\n                    margin-left: 6px;\n                }\n                svg{\n                    width: 14px;\n                    height: 14px;\n                    transition: fill .2s ease-in;\n                    fill: var(--color-text);\n                }\n                &.wpwax-vm-sidebar-refresher{\n                    margin-left: 30px;\n                }\n            }\n        }\n    }\n    .wpwax-vm-notice{\n        margin-bottom: 15px;\n    }\n    .wpwax-vm-sidebar-filter{\n        margin-bottom: 20px;\n        .wpwax-vm-dropdown{\n            width: 100%;\n            .wpwax-vm-dropdown__toggle--text{\n                margin-right: 15px;\n                align-items: center;\n            }\n            .wpwax-vm-dropdown__content{\n                top: 30px;\n                li{\n                    margin-bottom: 0;\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-filter__quick-actions{\n        display: flex;\n        justify-content: space-between;\n        align-items: center;\n        .wpwax-vm-btn-all-tags{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            white-space: nowrap;\n            color: #4D4D4D;\n            min-width: 56px;\n            margin-left: 30px;\n            transition: color .25s ease-in;\n            svg{\n                margin-right: 10px;\n                path{\n                    transition: color .25s ease-in; \n                }\n            }\n            &:hover{\n                color: var(--color-primary);\n                svg path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-search{\n        position: relative;\n        .wpwax-vm-form__element{\n            border-radius: 10px;\n            background-color: #DDDDDD;\n            margin: 0;\n            /* &:focus{\n                background-color: var(--color-bg-white);\n            } */\n        }\n        .wpwax-vm-search-toggle{\n            position: absolute;\n            right: 20px;\n            top: 12px;\n            line-height: 1;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            svg{\n                path{\n                    fill: var(--font-color);\n                }\n            }\n        }\n    }\n    .wpwax-vm-sidebar-userlist{\n        margin-top: 6px;\n        .infinite-scroll-component {\n            min-height: 340px;\n            padding-bottom: 40px;\n        }\n        >ul {\n            height: 470px;\n            overflow-x: hidden;\n            overflow-y: auto;\n            scrollbar-width: thin;\n            margin: 0 -12px;\n            scrollbar-color: var(--color-light);\n            @media only screen and (max-width: 1399px) {\n                height: 390px !important;\n            }\n            @media only screen and (max-width: 767px){\n                height: 400px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            .wpwax-vm-usermedia{\n                padding: 12px;\n                border-radius: 10px;\n                background-color: transparent;\n                transition: background .3s ease-in;\n                margin-left: 0;\n                &.wpwax-vm-active,\n                &:hover{\n                    background: var(--color-white);\n                }\n                &:nth-last-child(-n+2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: -180px;\n                        }\n                    }\n                }\n                &:nth-child(1),\n                &:nth-child(2){\n                    .wpwax-vm-dropdown{\n                        .wpwax-vm-dropdown__content{\n                            top: 40px !important;\n                        }\n                    }\n                }\n                .wpwax-vm-dropdown{\n                    .wpwax-vm-dropdown__content{\n                        top: 40px;\n                        li{\n                            a{\n                                margin-top: 2px;\n                            }\n                            &:last-child{\n                                a{\n                                    margin-top: 10px;\n                                }\n                            }\n                            &:first-child{\n                                a{\n                                    &:hover{\n                                        svg path{\n                                            fill: var(--color-text);\n                                        }\n                                    }\n                                }\n                            }\n                        }\n                    }\n                }\n                .wpwax-vm-media__body{\n                    top: -3px;\n                }\n                .wpwax-vm-media__title{\n                    line-height: 1.5;\n                    text-transform: initial;\n                    font-family: 'Inter', sans-serif;\n                }\n                .wpax-vm-imglist{\n                    display: flex;\n                    align-items: center;\n                    img{\n                        max-width: 35px;\n                        border-radius: 50%;\n                    }\n                    .wpwax-vm-more-img{\n                        display: flex;\n                        align-items: center;\n                        justify-content: center;\n                        width: 35px;\n                        height: 35px;\n                        border-radius: 50%;\n                        margin-left: -16px;\n                        background-color: var(--color-bg-gray);\n                        box-shadow: 0 6px 40px rgba(144,144,144,.25);\n                        >div{\n                            line-height: 1;\n                        }\n                        svg{\n                            width: 18px;\n                            height: 18px;\n                            fill: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-img-include-replyer{\n                        position: relative;\n                        .wpwax-vm-replyer{\n                            display: flex;\n                            align-items: center;\n                            justify-content: center;\n                            height: 14px;\n                            width: 14px;\n                            padding: 2px;\n                            line-height: 1;\n                            border-radius: 50%;\n                            position: absolute;\n                            top: 20px;\n                            right: -2px;\n                            background-color: var(--color-white);\n                            img{\n                                max-width: 15px;\n                            }\n                            >div{\n                                width: 12px;\n                                height: 12px;\n                            }\n                            svg{\n                                width: 12px;\n                                height: 12px;\n                                color: #0F5197;\n                                fill: #0F5197;\n                            }\n                            &.wpwax-vm-replyer-letter{\n                                font-size: 12px;\n                                border: 2px solid var(--color-white);\n                                color: var(--color-primary);\n                                background-color: #E5E4E8;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-usermedia{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        cursor: pointer;\n        .wpwax-vm-dropdown{\n            &.wpwax-vm-dropdown-open{\n                .wpwax-vm-dropdown__toggle{\n                    background-color: var(--color-bg-gray);\n                }\n            }\n            .wpwax-vm-dropdown__toggle{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 34px;\n                height: 34px;\n                line-height: 1;\n                border-radius: 50%;\n                &:hover{\n                    background-color: var(--color-bg-gray);\n                }\n                svg{\n                    width: 3px;\n                }\n            }\n            \n            .wpwax-vm-dropdown__content{\n                left: auto;\n                right: 0;\n                min-width: 220px;\n                li{\n                    padding: 0 16px;\n                    margin-bottom: 0;\n                    &:last-child{\n                        a{\n                            padding-top: 10px;\n                            transition: color .25s ease-in;\n                            border-radius: 0px;\n                            border-top: 1px solid var(--color-bg-general);\n                            svg path{\n                                transition: fill .25s ease-in; \n                            }\n                            &:hover{\n                                color: var(--color-danger);\n                                svg path{\n                                    fill: var(--color-danger);\n                                }\n                                &:after{\n                                    display: none;\n                                }\n                            }\n                        }\n                    }\n                    &:first-child{\n                        a{\n                            padding-top: 0;\n                            border-radius: 8px;\n                            border: 0 none;\n                            margin: 0;\n                            &:hover{\n                                color: var(--color-dark);\n                                svg path{\n                                    fill: var(--color-dark);\n                                }\n                                &:after{\n                                    display: block;\n                                }\n                            }\n                        }\n                    }\n                    a{\n                        padding: 0;\n                        margin-top: 10px;\n                        position: relative;\n                        z-index: 10;\n                        &:after{\n                            position: absolute;\n                            left: -15px;\n                            top: 50%;\n                            width: calc(100% + 30px);\n                            height: 100%;\n                            transform: translateY(-50%);\n                            border-radius: 8px;\n                            content: '';\n                            z-index: -1;\n                            opacity: 0;\n                            visibility: hidden;\n                            transition: .25s ease-in;\n                            background-color: #f0f0f1;\n                        }\n                        &:hover{\n                            background-color: transparent;\n                            &:after{\n                                opacity: 1;\n                                visibility: visible;\n                            }\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-usermedia__right{\n            position: relative;\n            display: flex;\n            align-items: center;\n            .wpwax-vm-usermedia-status{\n                margin-right: 5px;\n\n            }\n        }\n    }\n\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__img{\n            display: flex;\n            align-items: center;\n            margin-right: 12px;\n            line-height: 1;\n            img{\n                max-width: 40px;\n                border-radius: 50%;\n            }\n            .wpwax-vm-more-img{\n                width: 40px;\n                height: 40px;\n                border-radius: 50%;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                margin-left: -20px;\n                background-color: var(--color-bg-general);\n                svg{\n                    width: 20px;\n                    fill: var(--color-primary);\n                }\n            }\n        }\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            line-height: 1.5;\n            width: 240px;\n            overflow: hidden;\n            text-overflow: ellipsis;\n            white-space: nowrap;\n            color: var(--color-dark);\n        }\n    }\n"])));
 var SessionFilterWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: relative;\n    &.wpwax-vm-search-dropdown-show{\n        .wpwax-vm-search-dropdown{\n            display: block;\n        }\n        .wpwax-vm-sidebar-search {\n            >.wpwax-vm-form-group {\n                .wpwax-vm-form__element{\n                    pointer-events: none;\n                }\n            }\n            .wpwax-vm-form__element{\n                margin: 0;\n                border-radius: 10px 10px 0 0;\n                background-color: var(--color-white);\n            }\n        }\n        .wpwax-vm-search-toggle{\n            svg {\n                path{\n                    fill: var(--color-primary);\n                }\n            }\n        }\n    }\n    .wpwax-vm-search-dropdown{\n        position: absolute;\n        left: 0;\n        top: 40px;\n        width: 100%;\n        margin: 0;\n        border-radius: 0 0 10px 10px;\n        z-index: 10;\n        padding: 12px 0px;\n        display: none;\n        border-top: 1px solid var(--color-border-light);\n        box-shadow: 0 20px 40px rgba(144,144,144,.25);\n        background-color: var(--color-white);\n        li{\n            position: relative;\n            margin: 0;\n            list-style: none;\n            cursor: pointer;\n            .dashicons{\n                width: 14px;\n                height: 14px;\n                font-size: 14px;\n            }\n            >a{\n                display: flex;\n                justify-content: space-between;\n                text-decoration: none;\n                font-size: 14px;\n                font-weight: 500;\n                padding: 12px 20px;\n                color: var(--color-dark);\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n    }\n"])));
 
 
@@ -15212,7 +15200,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Assets_svg_icons_users_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/users.svg */ "./src/assets/svg/icons/users.svg");
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
 /* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
-/* harmony import */ var _Taglist_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Taglist.jsx */ "./src/js/apps/messanger/components/sidebar/components/Taglist.jsx");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -15252,6 +15240,7 @@ var AddTag = function AddTag(props) {
     getTerms = _useTermAPI.getItems,
     updateTerm = _useTermAPI.updateItem;
   var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_7__["default"])(),
+    getConversations = _useConversationAPI.getItems,
     updateConversationTerm = _useConversationAPI.updateTerms;
   var overlay = document.querySelector('.wpax-vm-overlay');
   /* initialize Form Data */
@@ -15303,7 +15292,7 @@ var AddTag = function AddTag(props) {
     newAssigned = addFormState.newAssigned,
     newUnAssinged = addFormState.newUnAssinged;
   var currentSession = sessionList.filter(function (singleSession) {
-    return singleSession.session_id === activeSessionId;
+    return singleSession.id === activeSessionId;
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (editableTermId !== '' && addTagModalOpen) {
@@ -15398,7 +15387,7 @@ var AddTag = function AddTag(props) {
   };
   var handleCreateTerm = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
-      var termData;
+      var termData, pageLimit;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -15412,11 +15401,11 @@ var AddTag = function AddTag(props) {
                 tagLoader: true
               }));
               if (!(tagInput !== '')) {
-                _context2.next = 12;
+                _context2.next = 15;
                 break;
               }
               if (!(editableTermId !== '')) {
-                _context2.next = 9;
+                _context2.next = 12;
                 break;
               }
               _context2.next = 7;
@@ -15430,7 +15419,6 @@ var AddTag = function AddTag(props) {
                   allTags: _toConsumableArray(allTags)
                 }));
                 setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
-                  tagInput: '',
                   addTagResponseStatus: 'success',
                   addTagResponse: 'Successfully Edited'
                 }));
@@ -15446,9 +15434,21 @@ var AddTag = function AddTag(props) {
                 }));
               });
             case 7:
+              pageLimit = {
+                limit: '15',
+                page: 1,
+                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_11__.getTimezoneString)()
+              };
               _context2.next = 10;
+              return getConversations(pageLimit).then(function (response) {
+                setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+                  sessionList: response.data
+                }));
+              }).catch(function (error) {});
+            case 10:
+              _context2.next = 13;
               break;
-            case 9:
+            case 12:
               createTerm(termData).then(function (response) {
                 console.log(response);
                 setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
@@ -15471,10 +15471,10 @@ var AddTag = function AddTag(props) {
                   tagLoader: false
                 }));
               });
-            case 10:
-              _context2.next = 14;
+            case 13:
+              _context2.next = 17;
               break;
-            case 12:
+            case 15:
               setAddFormState(_objectSpread(_objectSpread({}, addFormState), {}, {
                 addTagResponseStatus: 'danger',
                 addTagResponse: 'Please enter Tag'
@@ -15482,7 +15482,7 @@ var AddTag = function AddTag(props) {
               setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                 tagLoader: false
               }));
-            case 14:
+            case 17:
             case "end":
               return _context2.stop();
           }
@@ -15541,18 +15541,17 @@ var AddTag = function AddTag(props) {
         }));
       }
     }
-    console.log(addFormState);
   };
   var handleAssignTerm = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
-      var updateTermData;
+      var updateTermData, pageLimit;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               updateTermData = {
-                add_term_ids: newAssigned.join(','),
-                remove_term_ids: newUnAssinged.join(',')
+                add_terms: newAssigned.join(','),
+                remove_terms: newUnAssinged.join(',')
               };
               setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
                 tagLoader: true
@@ -15581,6 +15580,18 @@ var AddTag = function AddTag(props) {
                 }));
               });
             case 4:
+              pageLimit = {
+                limit: '15',
+                page: 1,
+                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_11__.getTimezoneString)()
+              };
+              _context3.next = 7;
+              return getConversations(pageLimit).then(function (response) {
+                setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+                  sessionList: response.data
+                }));
+              }).catch(function (error) {});
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -15597,6 +15608,7 @@ var AddTag = function AddTag(props) {
       limit: '12',
       page: tagsPageNumber
     };
+    console.log(tagsPageNumber);
     var fetchNextTags = /*#__PURE__*/function () {
       var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
         var nextTagResponse;
@@ -15754,6 +15766,7 @@ var AddTag = function AddTag(props) {
                     id: "wpwax-vm-term-".concat(item.term_id),
                     label: item.name,
                     value: asignedTerms.indexOf(item.term_id) === -1 ? false : true,
+                    checked: asignedTerms.indexOf(item.term_id) === -1 ? false : true,
                     onChange: function onChange(e) {
                       return handleAssignList(e);
                     }
@@ -15972,7 +15985,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-top: 5px;\n        border: 2px solid transparent;\n        background-color: var(--color-bg-general);\n        &:focus{\n            border-color: var(--color-dark);\n        }\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        >ul{\n            height: 215px;\n            overflow-y: auto;\n            .infinite-scroll-component {\n                padding-right: 10px;\n                min-height: 200px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                left: auto;\n                right: 0;\n                li{\n                    &:not(:last-child){\n                        margin-bottom: 0;\n                    }\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
+var TaglistWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n    .wpawax-vm-taglist-search{\n        display: flex;\n        align-items: center;\n        min-height: 40px;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-top: 5px;\n        border: 2px solid transparent;\n        background-color: var(--color-bg-general);\n        &:focus{\n            border-color: var(--color-dark);\n        }\n        input{\n            width: 100%;\n            border: 0 none;\n            background-color: transparent;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpawax-vm-taglist-inner{\n        position: relative;\n        margin-top: 28px;\n        min-height: 120px;\n        .wpwax-vm-loading-spin{\n            top: 30%;\n        }\n        >ul{\n            height: 215px;\n            overflow-y: auto;\n            .infinite-scroll-component {\n                padding-right: 10px;\n                min-height: 200px;\n            }\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n            li{\n                display: flex;\n                justify-content: space-between;\n                &:not(:last-child){\n                    margin-bottom: 20px;\n                }\n                .wpwax-vm-taglist-label{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color: var(--color-dark);\n                }\n                &:nth-last-child(-n+3){\n                    .wpwax-vm-dropdown__content{\n                        top: auto;\n                        bottom: 15px;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-dropdown{\n            .wpwax-vm-dropdown__content{\n                min-width: 160px;\n                left: auto;\n                right: 0;\n                li{\n                    &:not(:last-child){\n                        margin-bottom: 0;\n                    }\n                    a{\n                        width: 100%;\n                    }\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-modal__footer{\n        .wpwax-vm-btn{\n            font-size: 14px;\n            border-radius: 10px;\n            padding: 0 21.5px;\n            height: 38px;\n            .wpwax-vm-btn-icon{\n                font-size: 12px;\n                line-height: 1.85;\n                margin-right: 3px;\n            }\n        }\n    }\n"])));
 var AddTagWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .wpwax-vm-taglist-author{\n        display: flex;\n        align-items: center;\n        .wpwax-vm-taglist-author__name{\n            display: inline-block;\n            font-size: 18px;\n            font-weight: 600;\n            color: var(--color-dark);\n        }\n    }\n    .wpwax-vm-addtag-form{\n        display: flex;\n        align-items: flex-start;\n        margin: 0 -5px;\n        .wpwax-vm-form-group{\n            flex: 1;\n            input{\n                font-size: 14px;\n                font-weight: 500;\n                width: 100%;\n                padding: 0 20px;\n                min-height: 40px;\n                color: var(--color-dark);\n                border-radius: 10px;\n                background-color: var(--color-bg-general);\n            }\n        }\n        .wpwax-vm-form-group,\n        .wpwax-vm-btn{\n            margin: 5px;\n        }\n    }\n    .wpwax-vm-taglist{\n        display: flex;\n        flex-wrap: wrap;\n        max-height: 240px;\n        overflow-y: auto;\n        margin: 20px -7.5px 4px;\n        @media only screen and (max-width: 1399px){\n            max-height: 160px;\n        }\n        @media only screen and (max-width: 1199px){\n            max-height: 120px;\n            margin: 20px -5px 4px;\n        }\n        &::-webkit-scrollbar {\n            width: 11px;\n        }\n\n        &::-webkit-scrollbar-track {\n            background: var(--color-light);\n        }\n\n        &::-webkit-scrollbar-thumb {\n            background-color: var(--color-bg-gray);\n            border-radius: 6px;\n            border: 3px solid var(--color-light);\n        }\n        .wpwax-vm-tag__check{\n            padding: 7.5px;\n            flex: 0 0 auto;\n            width: 33.33%;\n            box-sizing: border-box;\n            @media only screen and (max-width: 1399px){\n                padding: 5px;\n            }\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                line-height: 1.15;\n                margin-left: 8px;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-empty{\n            width: 100%;\n            margin-bottom: 10px;\n        }\n    }\n    .wpwax-vm-btnlink{\n        display: inline-block;\n        font-size: 14px;\n        font-weight: 500;\n        line-height: 2.5;\n        width: 100%;\n        text-align: center;\n        box-sizing: border-box;\n        margin: 15px 0 10px;\n        &:hover{\n            color: var(--color-primary);\n        }\n    }\n    .wpwax-vm-modal__footer{\n        justify-content: flex-end;\n    }\n    .wpwax-vm-tags-readable-list{\n        display: flex;\n        flex-wrap: wrap;\n        border: 1px solid var(--color-border-light);\n        padding: 15px;\n        border-radius: 10px;\n        li{\n            font-size: 14px;\n            font-weight: 500;\n            line-height: 1.55;\n            margin: 0;\n            color: var(--color-dark);\n        }\n    }\n    &.wpwax-vm-modal{\n        .wpwax-vm-modal__header,\n        .wpwax-vm-modal__footer{\n            padding: 15px 30px\n        }\n        .wpwax-vm-notice{\n            margin-bottom: 5px;\n            p{\n                margin: 0;\n            }\n        }\n        .wpwax-vm-taglist-box{\n            position: relative;\n            min-height: 100px;\n            .wpwax-vm-loading-spin{\n                top: 40%;\n            }\n            .wpwax-vm-loadmore{\n                font-size: 14px;\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                width: 100%;\n                min-height: 38px;\n                text-decoration: none;\n                border-radius: 6px;\n                margin-top: 15px;\n                transition: .3s;\n                color: var(--color-primary);\n                border: 1px solid var(--color-primary);\n                svg{\n                    width: 24px;\n                    height: 24px;\n                    margin-left: 5px;\n                    path{\n                        fill: var(--color-primary);\n                    }\n                }\n            }\n        }\n    }\n"])));
 var DeleteConfirmWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.wpax-vm-delete-conf-modal{\n        padding-top: 15px;\n        .wpwax-vm-modal__body{\n            text-align: center;\n            .wpwax-vm-delete-icon{\n                .dashicons{\n                    font-size: 40px;\n                    color: #B1B1B1;\n                }\n            }\n            p{\n                font-size: 20px;\n                font-weight: 500;\n                margin: 40px 0 0;\n                color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-modal__footer{\n            padding-bottom: 30px;\n            background-color: transparent;\n            .wpwax-vm-btn{\n                width: 100%;\n                margin: 5px;\n                border-radius: 10px;\n                justify-content: center;\n                &.wpwax-vm-btn-gray{\n                    color: var(--color-dark);\n                    background-color: var(--color-bg-gray);\n                }\n            }\n        }\n    }\n"])));
 var TagFilterDropdown = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    position: absolute;\n    width: calc(100% - 20px);\n    left: 10px;\n    top: 45px;\n    padding: 20px;\n    z-index: 10;\n    display: none;\n    box-sizing: border-box;\n    border-radius: 10px;\n    box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );\n    cursor: auto;\n    background-color: var(--color-white);\n    &.wpwax-vm-tagfilter-show{\n        display: block;\n    }\n    .wpwax-vm-tag-search{\n        display: flex;\n        align-items: center;\n        padding: 0 16px;\n        border-radius: 10px;\n        margin-bottom: 28px;\n        background-color: var(--color-bg-general);\n        .wpwax-vm-input-icon{\n            position: relative;\n            top: 1px;\n            line-height: 1;\n            svg{\n                width: 12px;\n                height: 12px;\n            }\n        }\n        input{\n            width: 100%;\n            min-height: 38px;\n            background-color: transparent !important;\n            border: 0 none;\n            &:focus{\n                outline: 0;\n                box-shadow: 0 0;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list-wrap{\n        min-height: 60px;\n    }\n    .wpwax-vm-tag-filter-list{\n        overflow-y: auto;\n        height: 140px;\n        &::-webkit-scrollbar {\n            width: 11px;\n        }\n\n        &::-webkit-scrollbar-track {\n            background: var(--color-light);\n        }\n\n        &::-webkit-scrollbar-thumb {\n            background-color: var(--color-bg-gray);\n            border-radius: 6px;\n            border: 3px solid var(--color-light);\n        }\n        .wpwax-vm-checkbox{\n            label{\n                top: 0px;\n                color: var(--color-dark);\n            }\n            input{\n                margin-right: 12px;\n            }\n        }\n        .wpwax-vm-more-loader{\n            svg{\n                height: 20px;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-action{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        margin-top: 30px;\n        .wpwax-vm-tag-filter-action__clear{\n            font-size: 14px;\n            font-weight: 500;\n            text-decoration: none;\n            color: var(--font-color);\n            &:hover{\n                color: var(--color-primary)\n            }\n        }\n        &.wpwax-vm-tag-filter-action-disabled{\n            cursor: not-allowed;\n            a{\n                opacity: .4;\n                cursor: not-allowed;\n                pointer-events: none;\n            }\n        }\n    }\n    .wpwax-vm-tag-filter-list{\n        .wpwax-vm-tag-filter__check{\n            &:not(:last-child){\n                margin-bottom: 20px;\n            }\n        }\n        .wpwax-vm-empty{\n            font-size: 14px;\n            min-height: 60px;\n        }\n    }\n"])));
@@ -16180,7 +16193,7 @@ var TagFilter = function TagFilter(props) {
     }));
 
     var termArgs = {
-      term_ids: checkedForFilter.join(',')
+      terms: checkedForFilter.join(',')
     };
     var fetchSessionByTerm = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
@@ -16283,14 +16296,14 @@ var TagFilter = function TagFilter(props) {
     }();
     setTimeout(function () {
       fetchNextTags().then(function (nextTagResponse) {
-        if (nextTagResponse.data.data.length === 0) {
+        if (nextTagResponse.data.length === 0) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             hasMore: false
           }));
           setTagsPageNumber(2);
         } else {
           setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
-            allTags: allTags.concat(nextTagResponse.data.data)
+            allTags: allTags.concat(nextTagResponse.data)
           }));
         }
       }).catch(function (error) {
@@ -16350,7 +16363,7 @@ var TagFilter = function TagFilter(props) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_form_fields_Checkbox_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
                 id: "wpwax-vm-term-".concat(item.term_id),
                 label: item.name,
-                value: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
+                checked: checkedForFilter.indexOf(item.term_id) === -1 ? false : true,
                 onChange: function onChange(e) {
                   return handleTagSelection(e);
                 }
@@ -16669,9 +16682,6 @@ var Taglist = function Taglist(props) {
             hasMore: false
           }));
         } else {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            hasMore: false
-          }));
           setTagState(_objectSpread(_objectSpread({}, tagState), {}, {
             allTags: allTags.concat(nextTagResponse.data)
           }));
@@ -18432,8 +18442,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var API_useTermAPI_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! API/useTermAPI.js */ "./src/js/helpers/hooks/api/useTermAPI.js");
 /* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
 /* harmony import */ var apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! apiService/Service.js */ "./src/js/helpers/apiService/Service.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -18459,6 +18470,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Dropdown = function Dropdown(_ref) {
   var selectable = _ref.selectable,
     dropdownText = _ref.dropdownText,
@@ -18472,15 +18484,15 @@ var Dropdown = function Dropdown(_ref) {
     termState = _ref.termState,
     setTermState = _ref.setTermState,
     sessionId = _ref.sessionId,
-    termId = _ref.termId,
-    onMarkAsRead = _ref.onMarkAsRead,
-    onMarkAsUnread = _ref.onMarkAsUnread;
+    termId = _ref.termId;
   var _useTermAPI = (0,API_useTermAPI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     createTerm = _useTermAPI.createItem,
     getTerms = _useTermAPI.getItems,
     deleteTermById = _useTermAPI.deleteItem;
   var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
-    getConversations = _useConversationAPI.getItems;
+    getConversations = _useConversationAPI.getItems,
+    conversationRead = _useConversationAPI.markAsRead,
+    conversationUnread = _useConversationAPI.markAsUnread;
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       openDropdown: false,
@@ -18523,7 +18535,7 @@ var Dropdown = function Dropdown(_ref) {
   var handleDropdownTrigger = function handleDropdownTrigger(event, btnName) {
     event.preventDefault();
     var currentSession = outerState.sessionList.filter(function (singleSession) {
-      return singleSession.session_id === sessionId;
+      return singleSession.id === sessionId;
     });
     var overlay = document.querySelector('.wpax-vm-overlay');
     setSelectedState({
@@ -18544,7 +18556,7 @@ var Dropdown = function Dropdown(_ref) {
                 switch (_context.prev = _context.next) {
                   case 0:
                     _context.next = 2;
-                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-read"));
+                    return conversationRead(sessionId);
                   case 2:
                     response = _context.sent;
                     return _context.abrupt("return", response);
@@ -18561,9 +18573,9 @@ var Dropdown = function Dropdown(_ref) {
         }();
         markRead().then(function (resposne) {
           var sessionWithMarkRread = outerState.sessionList.map(function (item, index) {
-            if (item.session_id === sessionId) {
+            if (item.id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.data.total_unread
+                read: true
               });
             }
             return item;
@@ -18571,9 +18583,6 @@ var Dropdown = function Dropdown(_ref) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkRread
           }));
-          if (typeof onMarkAsRead === 'function') {
-            onMarkAsRead(sessionId, resposne.data.data);
-          }
         }).catch(function (error) {
           console.log(error);
         });
@@ -18587,7 +18596,7 @@ var Dropdown = function Dropdown(_ref) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
                     _context2.next = 2;
-                    return apiService_Service_js__WEBPACK_IMPORTED_MODULE_4__["default"].markRead("/sessions/".concat(sessionId, "/mark-as-unread"));
+                    return conversationUnread(sessionId);
                   case 2:
                     response = _context2.sent;
                     return _context2.abrupt("return", response);
@@ -18604,9 +18613,9 @@ var Dropdown = function Dropdown(_ref) {
         }();
         markUnRead().then(function (resposne) {
           var sessionWithMarkUnread = outerState.sessionList.map(function (item, index) {
-            if (item.session_id === sessionId) {
+            if (item.id === sessionId) {
               return _objectSpread(_objectSpread({}, item), {}, {
-                total_unread: resposne.data.data.total_unread
+                read: false
               });
             }
             return item;
@@ -18614,9 +18623,6 @@ var Dropdown = function Dropdown(_ref) {
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithMarkUnread
           }));
-          if (typeof onMarkAsUnread === 'function') {
-            onMarkAsUnread(sessionId, resposne.data.data);
-          }
         }).catch(function (error) {
           console.log(error);
         });
@@ -18637,8 +18643,6 @@ var Dropdown = function Dropdown(_ref) {
           taglistWithSession: true,
           addTagModalOpen: true
         }));
-        // dispatch(handleSetSession(sessionId));
-        // dispatch(handleTagModal(true));
         break;
       case 'delete-conv':
         overlay.classList.add('wpwax-vm-show');
@@ -18656,6 +18660,11 @@ var Dropdown = function Dropdown(_ref) {
         }));
         break;
       case 'term-delete':
+        var pageLimit = {
+          limit: '15',
+          page: 1,
+          timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__.getTimezoneString)()
+        };
         setTermState(_objectSpread(_objectSpread({}, termState), {}, {
           tagLoader: true
         }));
@@ -18692,45 +18701,43 @@ var Dropdown = function Dropdown(_ref) {
             filteredTagList: filteredTerms,
             tagLoader: false
           }));
+          var syncConversation = /*#__PURE__*/function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+              var syncResponse;
+              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return getConversations(pageLimit);
+                    case 2:
+                      syncResponse = _context4.sent;
+                      return _context4.abrupt("return", syncResponse);
+                    case 4:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4);
+            }));
+            return function syncConversation() {
+              return _ref5.apply(this, arguments);
+            };
+          }();
+          syncConversation().then(function (response) {
+            setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+              sessionList: response.data,
+              filteredSessions: response.data
+            }));
+          }).catch(function (error) {
+            console.log(error);
+          });
         }).catch(function (error) {
           console.log(error);
         });
         break;
       case 'filter-read':
         var fetchReadSeassion = /*#__PURE__*/function () {
-          var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-            var readSession;
-            return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-              while (1) {
-                switch (_context4.prev = _context4.next) {
-                  case 0:
-                    _context4.next = 2;
-                    return getConversations({
-                      order_by: "read"
-                    });
-                  case 2:
-                    readSession = _context4.sent;
-                    return _context4.abrupt("return", readSession);
-                  case 4:
-                  case "end":
-                    return _context4.stop();
-                }
-              }
-            }, _callee4);
-          }));
-          return function fetchReadSeassion() {
-            return _ref5.apply(this, arguments);
-          };
-        }();
-        fetchReadSeassion().then(function (readResponse) {
-          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
-            sessionList: readResponse.data,
-            filteredSessions: readResponse.data
-          }));
-        }).catch(function (error) {});
-        break;
-      case 'filter-unread':
-        var fetchUnReadSeassion = /*#__PURE__*/function () {
           var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
             var readSession;
             return _regeneratorRuntime().wrap(function _callee5$(_context5) {
@@ -18739,7 +18746,7 @@ var Dropdown = function Dropdown(_ref) {
                   case 0:
                     _context5.next = 2;
                     return getConversations({
-                      order_by: "unread"
+                      order_by: "read"
                     });
                   case 2:
                     readSession = _context5.sent;
@@ -18751,8 +18758,41 @@ var Dropdown = function Dropdown(_ref) {
               }
             }, _callee5);
           }));
-          return function fetchUnReadSeassion() {
+          return function fetchReadSeassion() {
             return _ref6.apply(this, arguments);
+          };
+        }();
+        fetchReadSeassion().then(function (readResponse) {
+          setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
+            sessionList: readResponse.data,
+            filteredSessions: readResponse.data
+          }));
+        }).catch(function (error) {});
+        break;
+      case 'filter-unread':
+        var fetchUnReadSeassion = /*#__PURE__*/function () {
+          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+            var readSession;
+            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+              while (1) {
+                switch (_context6.prev = _context6.next) {
+                  case 0:
+                    _context6.next = 2;
+                    return getConversations({
+                      order_by: "unread"
+                    });
+                  case 2:
+                    readSession = _context6.sent;
+                    return _context6.abrupt("return", readSession);
+                  case 4:
+                  case "end":
+                    return _context6.stop();
+                }
+              }
+            }, _callee6);
+          }));
+          return function fetchUnReadSeassion() {
+            return _ref7.apply(this, arguments);
           };
         }();
         fetchUnReadSeassion().then(function (unReadResponse) {
@@ -18764,31 +18804,31 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-latest':
         var fetchLatestSeassion = /*#__PURE__*/function () {
-          var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
             var pageLimit, latestSession;
-            return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
               while (1) {
-                switch (_context6.prev = _context6.next) {
+                switch (_context7.prev = _context7.next) {
                   case 0:
                     pageLimit = {
                       limit: '15',
                       page: 1,
-                      timezone: getTimezoneString()
+                      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_5__.getTimezoneString)()
                     };
-                    _context6.next = 3;
+                    _context7.next = 3;
                     return getConversations(pageLimit);
                   case 3:
-                    latestSession = _context6.sent;
-                    return _context6.abrupt("return", latestSession);
+                    latestSession = _context7.sent;
+                    return _context7.abrupt("return", latestSession);
                   case 5:
                   case "end":
-                    return _context6.stop();
+                    return _context7.stop();
                 }
               }
-            }, _callee6);
+            }, _callee7);
           }));
           return function fetchLatestSeassion() {
-            return _ref7.apply(this, arguments);
+            return _ref8.apply(this, arguments);
           };
         }();
         fetchLatestSeassion().then(function (latestResponse) {
@@ -18800,28 +18840,28 @@ var Dropdown = function Dropdown(_ref) {
         break;
       case 'filter-oldest':
         var fetchOldestSeassion = /*#__PURE__*/function () {
-          var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+          var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
             var oldestSession;
-            return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+            return _regeneratorRuntime().wrap(function _callee8$(_context8) {
               while (1) {
-                switch (_context7.prev = _context7.next) {
+                switch (_context8.prev = _context8.next) {
                   case 0:
-                    _context7.next = 2;
+                    _context8.next = 2;
                     return getConversations({
                       order_by: "oldest"
                     });
                   case 2:
-                    oldestSession = _context7.sent;
-                    return _context7.abrupt("return", oldestSession);
+                    oldestSession = _context8.sent;
+                    return _context8.abrupt("return", oldestSession);
                   case 4:
                   case "end":
-                    return _context7.stop();
+                    return _context8.stop();
                 }
               }
-            }, _callee7);
+            }, _callee8);
           }));
           return function fetchOldestSeassion() {
-            return _ref8.apply(this, arguments);
+            return _ref9.apply(this, arguments);
           };
         }();
         fetchOldestSeassion().then(function (oldestResponse) {
@@ -18838,11 +18878,11 @@ var Dropdown = function Dropdown(_ref) {
   /* Handle the open close dropdown icon */
   var renderDropdownIcon = function renderDropdownIcon() {
     if (openDropdown) {
-      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return dropdownIconOpen ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
         src: dropdownIconOpen
       }) : '';
     } else {
-      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return dropdownIconClose ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
         src: dropdownIconClose
       }) : '';
     }
@@ -18863,47 +18903,47 @@ var Dropdown = function Dropdown(_ref) {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [openDropdown]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     className: selectable ? "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown wpwax-vm-dropdown-selectable') : "".concat(openDropdown ? 'wpwax-vm-dropdown wpwax-vm-dropdown-open' : 'wpwax-vm-dropdown'),
     ref: ref,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
       href: "#",
       className: dropdownText ? "wpwax-vm-dropdown__toggle" : "".concat(selectable ? "wpwax-vm-dropdown__toggle" : "wpwax-vm-dropdown__toggle wpwax-vm-dropdown__toggle-icon-only"),
       onClick: handleDropdown,
-      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      children: [dropdownText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
-          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+          children: ["Order by ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
             className: "wpwax-vm-selected",
             children: filterText
           })]
         })]
-      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      }) : "", dropdownSelectedText ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
         className: "wpwax-vm-dropdown__toggle--text",
-        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        children: [textIcon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
           src: textIcon
-        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        }) : '', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           className: "wpwax-vm-dropdown__toggle--text-content",
           children: selectedItemText
         })]
-      }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }) : "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         children: renderDropdownIcon()
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("ul", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("ul", {
       className: openDropdown ? "wpwax-vm-dropdown__content wpwax-vm-show" : "wpwax-vm-dropdown__content",
       children: dropdownList.map(function (item, i) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("li", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
             href: "#",
             onClick: function onClick(e) {
               return handleDropdownTrigger(e, item.name);
             },
-            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            children: [item.icon ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
               className: "wpwax-vm-dropdown-item-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
                 src: item.icon
               })
             }) : '', item.text]

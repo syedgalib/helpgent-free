@@ -127,7 +127,7 @@ const TagFilter = props =>{
             // addTagModalOpen: false
         });
         const termArgs = {
-            term_ids: checkedForFilter.join(',')
+            terms: checkedForFilter.join(',')
         }
         const fetchSessionByTerm = async ()=>{
             
@@ -210,7 +210,7 @@ const TagFilter = props =>{
         setTimeout(() => {
             fetchNextTags()
                 .then((nextTagResponse) => {
-                    if (nextTagResponse.data.data.length === 0) {
+                    if (nextTagResponse.data.length === 0) {
                         setState({
                             ...state,
                             hasMore: false,
@@ -219,7 +219,7 @@ const TagFilter = props =>{
                     } else {
                         setTagState({
                             ...tagState,
-                            allTags: allTags.concat(nextTagResponse.data.data)
+                            allTags: allTags.concat(nextTagResponse.data)
                         });
                     }
                 })
@@ -263,7 +263,7 @@ const TagFilter = props =>{
 
                                         return(
                                             <div className="wpwax-vm-tag-filter__check" key={index}>
-                                                <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} value={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
+                                                <Checkbox id={`wpwax-vm-term-${item.term_id}`} label={item.name} checked={checkedForFilter.indexOf(item.term_id) === -1 ? false : true} onChange={e=>handleTagSelection(e)}/>
                                             </div>
                                         )
                                     })

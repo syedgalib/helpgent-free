@@ -216,10 +216,6 @@ const Taglist = (props) => {
                             hasMore: false,
                         });
                     } else {
-                        setState({
-                            ...state,
-                            hasMore: false,
-                        });
                         setTagState({
                             ...tagState,
                             allTags: allTags.concat(nextTagResponse.data)

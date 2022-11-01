@@ -8,6 +8,10 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX', 'helpgent' );
 }
 
+if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {
+    define( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS', apply_filters( 'helpgent_auth_token_expires_after_days', 7 ) );
+}
+
 if ( ! defined( 'HELPGENT_UPLOAD_DIR_PATH' ) ) {
 	define( 'HELPGENT_UPLOAD_DIR_PATH',  WP_CONTENT_DIR . '/uploads/' . WPWAX_CUSTOMER_SUPPORT_APP_PREFIX );
 }

@@ -96,6 +96,11 @@ class Authentication extends Rest_Base {
 		}
 
 		$email = Helper\get_current_user_email();
+
+		if ( empty( $email ) ) {
+			return $this->response( true, null );
+		}
+
 		$users = Helper\get_users_data_by( 'email', [ $email ] );
 
 		$user = ( ! empty( $users ) ) ? $users[0] : null;

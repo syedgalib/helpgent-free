@@ -312,7 +312,7 @@ class Messages extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpgent_after_message_insert', $data, $args );
+        do_action( 'helpgent_after_message_inserted', $data, $args );
 
         $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;

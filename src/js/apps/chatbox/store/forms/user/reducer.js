@@ -15,6 +15,8 @@ const initialState = {
     formData: {
         name: '',
         email: '',
+        phone: '',
+        password: '',
     },
     user: null,
     is_varified: false,

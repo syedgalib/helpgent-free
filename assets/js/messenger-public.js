@@ -5597,7 +5597,7 @@ function Success() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
@@ -5605,7 +5605,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../store/forms/user/actionCreator */ "./src/js/apps/chatbox/store/forms/user/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -5624,18 +5626,25 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Form() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
+        chatboxTemplateOptions: state.chatboxTemplate.template && state.chatboxTemplate.template.options ? state.chatboxTemplate.template.options : {},
         userForm: state.userForm,
         messengerForm: state.messengerForm
       };
     }),
+    chatboxTemplateOptions = _useSelector.chatboxTemplateOptions,
     userForm = _useSelector.userForm,
     messengerForm = _useSelector.messengerForm;
   var nameRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var emailRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var phoneRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var passwordRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var confirmPasswordRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState2 = _slicedToArray(_useState, 2),
     errorMessage = _useState2[0],
@@ -5647,33 +5656,120 @@ function Form() {
     if (userForm.formData.email) {
       emailRef.current.value = userForm.formData.email;
     }
-  }, []);
-
-  // After User Creation Failed
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (false !== userForm.status) {
-      return;
-    }
     if (userForm.statusMessage) {
       setErrorMessage(userForm.statusMessage);
     } else if (messengerForm.statusMessage) {
       setErrorMessage(messengerForm.statusMessage);
     }
-  }, [userForm.status]);
+  }, []);
+  function getCollectInfoFields() {
+    return Array.isArray(chatboxTemplateOptions.collectInfo) ? chatboxTemplateOptions.collectInfo : [];
+  }
+  function showNameField() {
+    return isLoggedIn() ? false : true;
+  }
+  function showEmailField() {
+    return isLoggedIn() ? false : true;
+  }
+  function showPhoneField() {
+    return getCollectInfoFields().includes('phone');
+  }
+  function showPasswordField() {
+    return !isLoggedIn() && !isGuestLoginEnabled();
+  }
+  function isLoggedIn() {
+    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('current_user');
+  }
+  function isGuestLoginEnabled() {
+    return (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_6__.useCoreData)('settings.guestSubmission');
+  }
 
   // submitHandler
   function submitHandler(e) {
     e.preventDefault();
-    var name = nameRef.current.value;
-    var email = emailRef.current.value;
-    if (!name || !email) {
+
+    // Reset Error Message
+    setErrorMessage('');
+
+    // Form Fields
+    var formFields = [{
+      name: 'name',
+      ref: nameRef,
+      required: true
+    }, {
+      name: 'email',
+      ref: emailRef,
+      required: true
+    }, {
+      name: 'phone',
+      ref: phoneRef,
+      required: true
+    }, {
+      name: 'password',
+      ref: passwordRef,
+      required: true,
+      type: 'password',
+      minLength: 5
+    }, {
+      name: 'confirmPassword',
+      ref: confirmPasswordRef,
+      required: true,
+      type: 'confirm_password'
+    }];
+
+    // Get Active Fields
+    var activeFields = formFields.filter(function (field) {
+      return field.ref.current;
+    });
+
+    // Validate Reqired Data
+    var missingReqiredData = activeFields.map(function (field) {
+      return field.ref.current.value ? true : false;
+    }).includes(false);
+    if (missingReqiredData) {
       setErrorMessage('Please fill up the required fields');
       return;
     }
-    var formData = {
-      name: name,
-      email: email
-    };
+
+    // Validate Password Field if Presents
+    var passwordFields = activeFields.filter(function (field) {
+      return ['password', 'confirm_password'].includes(field.type);
+    });
+    if (passwordFields.length) {
+      var passwordField = passwordFields[0];
+      var password = passwordField.ref.current.value;
+
+      // Validate password length
+      if (passwordField.minLength && password.length < passwordField.minLength) {
+        setErrorMessage("Password must be at least ".concat(passwordField.minLength, " character long"));
+        return;
+      }
+
+      // Check if password match with confirm password
+      var matchPassword = passwordFields.every(function (field) {
+        return field.ref.current.value === password;
+      });
+      if (!matchPassword) {
+        setErrorMessage('Password do not match');
+        return;
+      }
+    }
+    activeFields = activeFields.filter(function (field) {
+      return field.type !== 'confirm_password';
+    });
+    var formData = {};
+    var _iterator = _createForOfIteratorHelper(activeFields),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var field = _step.value;
+        formData[field.name] = field.ref.current.value;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
     dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.updateFormData)(formData, true));
     dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
       submitted: false,
@@ -5681,42 +5777,73 @@ function Form() {
     }));
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].SENDING));
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
     onSubmit: submitHandler,
     className: "wpwax-vm-h-100pr",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "wpwax-vm-chatbox-contact wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
           className: "wpwax-vm-contact-form__title",
           children: "Before you go, please leave your contact details so we can get back to you\u2026"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), showNameField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
             ref: nameRef,
             type: "text",
             className: "wpwax-vm-form__element",
             placeholder: "Your name*"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), showEmailField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
             ref: emailRef,
             type: "email",
             className: "wpwax-vm-form__element",
             placeholder: "Your email*"
           })
+        }), showPhoneField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          className: "wpwax-vm-form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+            // required
+            ref: phoneRef,
+            type: "tel",
+            className: "wpwax-vm-form__element",
+            placeholder: "Your phone*"
+          })
+        }), showPasswordField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-form-group",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              // required
+              ref: passwordRef,
+              type: "password",
+              className: "wpwax-vm-form__element",
+              placeholder: "Password*"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+            className: "wpwax-vm-form-group",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              // required
+              ref: confirmPasswordRef,
+              type: "password",
+              className: "wpwax-vm-form__element",
+              placeholder: "Confirm Password*"
+            })
+          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
           type: "submit",
           className: "wpwax-vm-btn wpwax-vm-w-f wpwax-vm-btn-block wpwax-vm-btn-lg wpwax-vm-btn-primary",
-          children: ["Submit ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: ["Submit ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
             src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
           })]
-        }), errorMessage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        }), errorMessage && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
           children: errorMessage
         })]
@@ -9991,7 +10118,9 @@ var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE
 var initialState = {
   formData: {
     name: '',
-    email: ''
+    email: '',
+    phone: '',
+    password: ''
   },
   user: null,
   is_varified: false,

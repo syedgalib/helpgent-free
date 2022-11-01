@@ -121,7 +121,7 @@ function Form() {
 		let activeFields = formFields.filter( field => field.ref.current );
 
 		// Validate Reqired Data
-		const missingReqiredData = activeFields.map( field => field.ref.current.value ? true : false ).includes( false );
+		const missingReqiredData = activeFields.map( field => field.required && ! field.ref.current.value ? true : false ).includes( true );
 
         if ( missingReqiredData ) {
             setErrorMessage('Please fill up the required fields');

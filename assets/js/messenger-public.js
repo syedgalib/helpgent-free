@@ -5724,8 +5724,8 @@ function Form() {
 
     // Validate Reqired Data
     var missingReqiredData = activeFields.map(function (field) {
-      return field.ref.current.value ? true : false;
-    }).includes(false);
+      return field.required && !field.ref.current.value ? true : false;
+    }).includes(true);
     if (missingReqiredData) {
       setErrorMessage('Please fill up the required fields');
       return;

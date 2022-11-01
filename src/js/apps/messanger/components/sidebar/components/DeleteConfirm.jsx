@@ -1,9 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import apiService from 'apiService/Service.js';
+import useConversationAPI from 'API/useConversationAPI.js';
 import { DeleteConfirmWrap } from "./Style";
 import { handleReadSessions } from '../../../store/sessions/actionCreator';
 
 const DeleteConfirm = props => {
+    const { deleteItem: deleteConversation } = useConversationAPI();
     const { deleteBy, modalOpen,  outerState, setOuterState, onSuccess } = props;
 
     /* initialize Form Data */
@@ -31,8 +33,8 @@ const DeleteConfirm = props => {
 
     const handledelete = async (event) =>{
         event.preventDefault();
-
-        await apiService.datadelete(`/sessions/${deleteBy}`)
+        
+        await deleteConversation(deleteBy)
         .then(response => {
             const newSessionlist = sessions.filter(item=> item.session_id !== deleteBy);
             dispatch(handleReadSessions(newSessionlist));

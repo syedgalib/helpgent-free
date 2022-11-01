@@ -6951,7 +6951,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Table = function Table() {
   var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
-    createForm = _useFormAPI.createItem,
     getAllForms = _useFormAPI.getItems,
     updateFormName = _useFormAPI.updateItem,
     deleteForm = _useFormAPI.deleteItem;
@@ -7064,7 +7063,6 @@ var Table = function Table() {
   var _handleOk = function handleOk(e) {
     e.preventDefault();
     deleteForm(deleteId).then(function (response) {
-      console.log(response);
       if (response.success) {
         var stateData = data.filter(function (item) {
           return item.id !== deleteId;
@@ -8855,7 +8853,6 @@ var GeneralSettings = function GeneralSettings() {
     displayedCustomPages = _useSelector.displayedCustomPages,
     chatVisibilityType = _useSelector.chatVisibilityType,
     sendMail = _useSelector.sendMail;
-  console.log(collectInfo);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       openCollapse: true
     }),
@@ -10508,7 +10505,6 @@ var Checkbox = function Checkbox(_ref) {
     checked = _ref.checked,
     onChange = _ref.onChange,
     disabled = _ref.disabled;
-  console.log(checked);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -11371,15 +11367,12 @@ function _getResponse() {
           case 13:
             _context.prev = 13;
             _context.t0 = _context["catch"](1);
-            console.error({
-              error: _context.t0
-            });
             status.success = false;
             status.statusCode = _context.t0.response.status;
             status.message = _context.t0.response.data.message;
             status.headers = _context.t0.response.headers;
             return _context.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -11418,15 +11411,12 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.error({
-              error: _context2.t0
-            });
             status.success = false;
             status.statusCode = _context2.t0.response.status;
             status.message = _context2.t0.response.data.message;
             status.headers = _context2.t0.response.headers;
             return _context2.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context2.stop();
         }
@@ -11574,7 +11564,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
 
 /***/ }),
 
@@ -11598,7 +11588,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -11622,7 +11612,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -11634,7 +11624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
 
 /***/ }),
 
@@ -11658,7 +11648,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 

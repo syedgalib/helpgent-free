@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AddTagWrap } from './Style';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
 import Checkbox from 'Components/form-fields/Checkbox.jsx';
 import {
@@ -9,12 +8,17 @@ import {
     handleTagFormModal,
 } from '../../../store/tags/actionCreator';
 import apiService from 'apiService/Service.js';
+import useTermAPI from 'API/useTermAPI.js';
+import useConversationAPI from 'API/useConversationAPI.js';
 import userIcon from 'Assets/svg/icons/users.svg';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import loadingSpin from 'Assets/svg/loaders/loading-spin.svg';
-import Taglist from './Taglist.jsx';
+import { getTimezoneString } from 'Helper/utils.js';
 
 const AddTag = (props) => {
+    const { createItem: createTerm, getItems: getTerms, updateItem: updateTerm } = useTermAPI();
+    const { getItems: getConversations, updateTerms: updateConversationTerm } = useConversationAPI();
+    
     const overlay = document.querySelector('.wpax-vm-overlay');
     /* initialize Form Data */
     const { sessions } = useSelector((state) => {
@@ -62,7 +66,7 @@ const AddTag = (props) => {
     } = addFormState;
 
     const currentSession = sessionList.filter(
-        (singleSession) => singleSession.session_id === activeSessionId
+        (singleSession) => singleSession.id === activeSessionId
     );
 
     useEffect(() => {
@@ -91,7 +95,8 @@ const AddTag = (props) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:12});
+                
+                const tagsResponse = await getTerms({limit:12});
                 return tagsResponse;
             }
             fetchTags()
@@ -99,7 +104,7 @@ const AddTag = (props) => {
                     setTagState({
                         ...tagState,
                         tagLoader: false,
-                        allTags: tagsResponse.data.data,
+                        allTags: tagsResponse.data,
                     });
                     setState({
                         ...state,
@@ -151,6 +156,7 @@ const AddTag = (props) => {
             tagInput: e.target.value,
         });
     };
+    
     const handleCreateTerm = async (e) => {
         e.preventDefault();
         const termData = {
@@ -163,47 +169,57 @@ const AddTag = (props) => {
         });
         if (tagInput !== '') {
             if (editableTermId !== '') {
-                // const findSameTag = allTags.find(item=> item.name.toLowerCase() === tagInput.toLowerCase());
-                // console.log(findSameTag);
-                // if(findSameTag){
+                await updateTerm(editableTermId,termData)
+                    .then((response) => {
+                        
+                        let termIndex = allTags.findIndex(
+                            (obj) => obj.term_id === editableTermId
+                        );
 
-                // }
-
-                await apiService
-                    .dataAdd(`/messages/terms/${editableTermId}`, termData)
-                        .then((response) => {
-                            let termIndex = allTags.findIndex(
-                                (obj) => obj.term_id === editableTermId
-                            );
-                            allTags[termIndex].name = tagInput;
-                            setTagState({
-                                ...tagState,
-                                tagLoader: false,
-                                allTags: [...allTags],
-                            });
+                        allTags[termIndex].name = tagInput;
+                        setTagState({
+                            ...tagState,
+                            tagLoader: false,
+                            allTags: [...allTags],
+                        });
+                        setAddFormState({
+                            ...addFormState,
+                            addTagResponseStatus: 'success',
+                            addTagResponse: 'Successfully Edited',
+                        });
+                    })
+                    .catch(error =>{
+                        if(error.statusCode === 403){
                             setAddFormState({
                                 ...addFormState,
-                                tagInput: '',
-                                addTagResponseStatus: 'success',
-                                addTagResponse: 'Successfully Edited',
+                                addTagResponseStatus: 'danger',
+                                addTagResponse: error.message,
+                            });
+                        }
+                        setTagState({
+                            ...tagState,
+                            tagLoader: false,
+                        });
+                    });
+                    const pageLimit = {
+                        limit: '15',
+                        page: 1,
+                        timezone: getTimezoneString(),
+                    };
+                    await getConversations(pageLimit)
+                        .then(response =>{
+                            setSessionState({
+                                ...sessionState,
+                                sessionList: response.data
                             });
                         })
                         .catch(error =>{
-                            if(error.response.data.code === 403){
-                                setAddFormState({
-                                    ...addFormState,
-                                    addTagResponseStatus: 'danger',
-                                    addTagResponse: error.response.data.message,
-                                });
-                            }
-                            setTagState({
-                                ...tagState,
-                                tagLoader: false,
-                            });
-                        });
+            
+                        })
             }else{
-                apiService.dataAdd('/messages/terms',termData)
+                createTerm(termData)
                     .then(response => {
+                        console.log(response)
                         setTagState({
                             ...tagState,
                             tagLoader: false,
@@ -220,11 +236,11 @@ const AddTag = (props) => {
                         });
                     })
                     .catch(error =>{
-                        if(error.response.data.code === 403){
+                        if(error.statusCode === 403){
                             setAddFormState({
                                 ...addFormState,
                                 addTagResponseStatus: 'danger',
-                                addTagResponse: error.response.data.message,
+                                addTagResponse: error.message,
                             });
                         }
                         setTagState({
@@ -248,6 +264,7 @@ const AddTag = (props) => {
 
     const handleAssignList = (e)=>{
         if(e.target.checked){
+            
             if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                 setAddFormState({
                     ...addFormState,
@@ -328,20 +345,22 @@ const AddTag = (props) => {
 
     const handleAssignTerm = async (e) =>{
         const updateTermData = {
-            add_term_ids: newAssigned.join(','),
-            remove_term_ids: newUnAssinged.join(',')
+            add_terms: newAssigned.join(','),
+            remove_terms: newUnAssinged.join(',')
         }
         setTagState({
             ...tagState,
             tagLoader: true,
         });
-        await apiService.dataAdd(`/sessions/${activeSessionId}/update-terms`,updateTermData)
+
+        
+        await updateConversationTerm(activeSessionId,updateTermData)
             .then(response => {
                 setTagState({
                     ...tagState,
                     assignedTags: [
                         ...tagState.assignedTags,
-                        response.data.data.success
+                        response.success
                     ],
                     tagLoader: false,
                 });
@@ -354,11 +373,11 @@ const AddTag = (props) => {
                 });
             })
             .catch(error =>{
-                if(error.response.data.code === 403){
+                if(error.statusCode === 403){
                     setAddFormState({
                         ...addFormState,
                         addTagResponseStatus: 'danger',
-                        addTagResponse: error.response.data.message,
+                        addTagResponse: error.message,
                     });
                 }
                 setTagState({
@@ -367,11 +386,16 @@ const AddTag = (props) => {
                 });
             })
 
-        await apiService.getAll('/sessions')
+        const pageLimit = {
+            limit: '15',
+            page: 1,
+            timezone: getTimezoneString(),
+        };
+        await getConversations(pageLimit)
             .then(response =>{
                 setSessionState({
                     ...sessionState,
-                    sessionList: response.data.data
+                    sessionList: response.data
                 });
             })
             .catch(error =>{
@@ -386,8 +410,10 @@ const AddTag = (props) => {
             page: tagsPageNumber,
         };
 
+        console.log(tagsPageNumber)
+
         const fetchNextTags = async () => {
-            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            const nextTagResponse = await getTerms(pageArg);
             return nextTagResponse;
         };
 
@@ -406,7 +432,7 @@ const AddTag = (props) => {
                 setTagState({
                     ...tagState,
                     tagLoader: false,
-                    allTags: allTags.concat(nextTagResponse.data.data)
+                    allTags: allTags.concat(nextTagResponse.data)
                 });
             })
             .catch((error) => {
@@ -440,6 +466,7 @@ const AddTag = (props) => {
     if (images.length > 1) {
         multiImg = true;
     }
+
     return (
         <React.Fragment>
             <AddTagWrap
@@ -549,6 +576,13 @@ const AddTag = (props) => {
                                                             id={`wpwax-vm-term-${item.term_id}`}
                                                             label={item.name}
                                                             value={
+                                                                asignedTerms.indexOf(
+                                                                    item.term_id
+                                                                ) === -1
+                                                                    ? false
+                                                                    : true
+                                                            }
+                                                            checked={
                                                                 asignedTerms.indexOf(
                                                                     item.term_id
                                                                 ) === -1

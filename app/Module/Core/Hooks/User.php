@@ -13,7 +13,7 @@ class User {
      * @return void
      */
     public function __construct() {
-		add_action( 'wp_loginn', [ $this, 'migrate_guest_to_wp_user' ] );
+		add_action( 'wp_login', [ $this, 'migrate_guest_to_wp_user' ] );
     }
 
 	/**
@@ -38,7 +38,6 @@ class User {
 				update_user_meta( $user->user_id, '_' . $meta['meta_key'], $meta['meta_value'] );
 			}
 		}
-		$user->remove_role( 'subscriber' );
 		$user->add_role( HELPGENT_CLIENT_ROLE );
 		Guest_User_Model::delete_item( $is_guest['id'] );
 	}

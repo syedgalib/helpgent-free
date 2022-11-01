@@ -8,6 +8,10 @@ if ( ! defined( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX' ) ) {
     define( 'WPWAX_CUSTOMER_SUPPORT_APP_PREFIX', 'helpgent' );
 }
 
+if ( ! defined( 'HELPGENT_CLIENT_ROLE' ) ) {
+    define( 'HELPGENT_CLIENT_ROLE', 'wpwax_vm_client' );
+}
+
 if ( ! defined( 'HELPGENT_UPLOAD_DIR_PATH' ) ) {
 	define( 'HELPGENT_UPLOAD_DIR_PATH',  WP_CONTENT_DIR . '/uploads/' . WPWAX_CUSTOMER_SUPPORT_APP_PREFIX );
 }

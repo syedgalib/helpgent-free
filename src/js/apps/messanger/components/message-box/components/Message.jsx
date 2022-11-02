@@ -10,94 +10,10 @@ import VideoMessage from './VideoMessage.jsx';
 
 import { MessageBox } from './Style';
 
-function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
+function Message({ data, currentUser }) {
     const container = useRef();
-    const [updatingIsSeen, setUpdatingIsSeen] = useState(false);
 
 	const isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
-
-    // @Init State
-    useEffect(
-        function () {
-            if (updatingIsSeen) {
-                return;
-            }
-
-            if (data.is_seen) {
-                return;
-            }
-
-            const self = container.current;
-
-            let parentScrollMeta = containerScrollMeta;
-
-            if (!parentScrollMeta) {
-                const offsetParent = self.offsetParent;
-
-                parentScrollMeta = {
-                    viewPortTop: offsetParent.scrollTop,
-                    viewPortBottom:
-                        offsetParent.scrollTop + offsetParent.offsetHeight,
-                };
-            }
-
-            if (!Object.keys(parentScrollMeta).length) {
-                return;
-            }
-
-            if (!self) {
-                return;
-            }
-
-            const viewPortTop = parentScrollMeta.viewPortTop;
-            const viewPortBottom = parentScrollMeta.viewPortBottom;
-
-            const selfTop = self.offsetTop;
-            const selfBottom = selfTop + self.offsetHeight;
-            const isVisible =
-                selfTop >= viewPortTop && selfBottom <= viewPortBottom;
-
-            if (isVisible) {
-                setUpdatingIsSeen(true);
-
-                createSeenBy(data.id)
-                    .then(() => {
-                        setUpdatingIsSeen(false);
-                        onMarkedAsRead();
-                    })
-                    .catch((error) => {
-                        console.error({ error });
-                        setUpdatingIsSeen(false);
-                    });
-            }
-        },
-        [containerScrollMeta]
-    );
-
-    const createSeenBy = async (id, args) => {
-        let status = {
-            success: false,
-            data: null,
-        };
-
-        try {
-            const response = await http.postData(
-                `/messages/${id}/seen-by`,
-                args
-            );
-
-            status.success = true;
-            status.data = response;
-
-            return status;
-        } catch (error) {
-            status.success = false;
-
-            console.error({ error });
-
-            return status;
-        }
-    };
 
     /* Load Message Content */
     const setMessageContent = () => {
@@ -111,7 +27,7 @@ function Message({ data, currentUser, containerScrollMeta, onMarkedAsRead }) {
     };
 
     const singleMessageContainerClass = ( ( ( data.message_type == 'audio' ) || ( data.message_type == 'video' ) ) && ! data.attachment_id ) ? 'wpwax-vm-message-content wpwax-vm-message-attachment-not-found' : 'wpwax-vm-message-content';
-    
+
     return (
         <MessageBox
             ref={container}

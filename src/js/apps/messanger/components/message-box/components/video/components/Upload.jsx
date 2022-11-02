@@ -8,11 +8,15 @@ import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../store/messages/actionCreator';
 
-import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
+import useMessangerAPI from 'API/useMessangerAPI';
 
 const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
-    // Local Data
+
+	// Use API
+	const { createItem: createMessangerItem } = useMessangerAPI();
+
+	// Local Data
     const [textMessage, setTextMessage] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [recordedVidioURL, setRecordedVidioURL] = useState('');
@@ -34,6 +38,11 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
+        close();
+    };
+
+    /* Close */
+    const close = () => {
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
     };
@@ -151,7 +160,6 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
         // Send The Message
         const messageResponse = await createTextMessage({
-            session_id: sessionID,
             attachment_id: attachmentID,
             message: textMessage,
         });
@@ -169,6 +177,8 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
         setIsSending(false);
         onSuccess();
+
+		close();
         dispatch(handleReplyModeChange(false));
     }
 
@@ -195,7 +205,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     }
 
     async function createTextMessage(customArgs) {
-        const defaultArgs = { message_type: 'video' };
+        const defaultArgs = { conversation_id: sessionID, message_type: 'video' };
 
         const args = { ...defaultArgs, ...customArgs };
 
@@ -205,7 +215,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         };
 
         try {
-            const response = await http.postData('/messages', args);
+            const response = await createMessangerItem( args );
 
             status.success = true;
             status.data = response;

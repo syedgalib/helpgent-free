@@ -12,6 +12,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 
 import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
+import useMessangerAPI from 'API/useMessangerAPI';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
@@ -21,6 +22,9 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+	// Use API
+	const { createItem: createMessangerItem } = useMessangerAPI();
 
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [textMessage, setTextMessage] = useState('');
@@ -164,7 +168,6 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
         // Send The Message
         const messageResponse = await createTextMessage({
-            session_id: sessionID,
             attachment_id: attachmentID,
             message: textMessage,
         });
@@ -182,6 +185,8 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
         setIsSending(false);
         onSuccess();
+
+		close();
         dispatch(handleReplyModeChange(false));
     }
 
@@ -208,8 +213,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     }
 
     async function createTextMessage(customArgs) {
-        const defaultArgs = { message_type: 'video' };
-
+        const defaultArgs = { conversation_id: sessionID, message_type: 'video' };
         const args = { ...defaultArgs, ...customArgs };
 
         let status = {
@@ -218,7 +222,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         };
 
         try {
-            const response = await http.postData('/messages', args);
+            const response = await createMessangerItem( args );
 
             status.success = true;
             status.data = response;
@@ -242,6 +246,11 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
+		close();
+    };
+
+    /* Close */
+    const close = () => {
 		stopRecording();
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));

@@ -192,9 +192,9 @@ class Messages extends Rest_Base
         // Filter By Message
         if ( ! empty( $args['where']['message'] ) ) {
             $args['where']['message'] = [
-                'field'   => 'message',
+                'key'     => 'message',
                 'compare' => 'LIKE',
-                'value'   => "'%" . $args['where']['message'] . "%'",
+                'value'   => $args['where']['message'],
             ];
         }
 

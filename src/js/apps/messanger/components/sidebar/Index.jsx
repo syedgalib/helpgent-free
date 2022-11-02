@@ -59,7 +59,12 @@ const filterDropdown = [
 ];
 
 const Sidebar = ({ sessionState, setSessionState }) => {
-    const { getItems: getConversations, updateItem: updateFormName, deleteItem: deleteForm } = useConversationAPI();
+    const {
+		getItems: getConversations,
+		updateItem: updateFormName,
+		deleteItem: deleteForm,
+	} = useConversationAPI();
+
     const { getItems: getTerms } = useTermAPI();
 
 	const { doAction } = wpwaxHooks;
@@ -106,7 +111,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
-            
+
             const searchByNameMailResponse = await getConversations(searchArg);
             return searchByNameMailResponse;
         };
@@ -176,7 +181,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                
+
                 const tagsResponse = await getTerms({limit:5});
                 return tagsResponse;
             }
@@ -276,7 +281,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(sessionList);
+    // console.log(sessionList);
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -292,7 +297,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         <ReactSVG src={rotateIcon} />
                     </a>
                 </div>
-                
+
             </div>
             {successMessage !== '' ? (
                 <span className='wpwax-vm-notice wpwax-vm-notice-success'>
@@ -523,13 +528,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     : 'wpwax-vm-usermedia'
                                             }
                                             key={index}
-                                            onClick={(e) =>
-                                                handeSelectSession(
-                                                    e,
-                                                    item,
-                                                    index
-                                                )
-                                            }
+                                            onClick={ (e) => {
+												handeSelectSession( e, item, index );
+											}}
                                         >
                                             <div className='wpwax-vm-usermedia__left'>
                                                 <MediaBox

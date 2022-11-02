@@ -6,6 +6,10 @@ use WP_Error;
 use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 
+use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_admin;
+use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_client;
+use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_guest;
+
 class Attachment {
 
     /**
@@ -32,6 +36,7 @@ class Attachment {
 
 		$attachment_id = ( ! empty( $_GET['attachment_id'] ) && is_numeric( $_GET['attachment_id'] ) ) ? ( int ) $_GET['attachment_id'] : 0;
 
+
 		if ( empty( $attachment_id ) ) {
 			status_header(404);
 			die('File not found.');
@@ -43,7 +48,6 @@ class Attachment {
 			status_header(403);
 			die( $attachment->get_error_message() );
 		}
-
 		if ( ! $this->can_user_access_the_attachment( $attachment_id ) ) {
 			status_header(403);
 			die('You are not allowed to access the file.');
@@ -51,7 +55,7 @@ class Attachment {
 
 		$matches = [];
 
-		preg_match( '/attachment_.+$/', $attachment[ 'link' ], $matches );
+		preg_match( '/attachment_.+$/', $attachment[ 'url' ], $matches );
 
 		if ( empty( $matches ) ) {
 			status_header(404);
@@ -59,7 +63,7 @@ class Attachment {
 		}
 
 		$file_name = $matches[0];
-		$file      = WP_CONTENT_DIR . '/uploads/wpwax-vm/' . $file_name;
+		$file      = HELPGENT_UPLOAD_DIR_PATH . '/' . $file_name;
 
 		if ( file_exists( $file ) ) {
 			header('Content-Type: application/octet-stream');
@@ -144,7 +148,11 @@ class Attachment {
 	 */
 	public function is_user_authenticated() {
 
-		if ( current_user_can( 'administrator' ) || current_user_can( 'wpwax_vm_client' ) ) {
+		$is_admin  = is_current_user_admin();
+		$is_client = is_current_user_client();
+		$is_guest  = is_current_user_guest();
+
+		if ( $is_admin || $is_client || $is_guest ) {
 			return true;
 		}
 

@@ -362,7 +362,6 @@ class Conversations extends Rest_Base
 			$last_message_data = self::get_message_by_id( $last_message_id );
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
 
-
 			$messages = Message_Model::get_items([
 				'where' => [
 					'conversation_id' => $conversation['id'],

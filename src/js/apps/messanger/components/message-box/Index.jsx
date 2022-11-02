@@ -887,8 +887,6 @@ function MessageBox({ setSessionState }) {
 
         const attachmentID = attachmentResponse.data.id;
 
-		console.log( { attachmentID } );
-
         // Send The Message
         const response = await createMessage({
             message_type: 'audio',

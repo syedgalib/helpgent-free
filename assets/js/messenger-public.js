@@ -11617,18 +11617,13 @@ function MessageBox(_ref) {
               setIsSendingAudioMessage(false);
               return _context10.abrupt("return");
             case 15:
-              attachmentID = attachmentResponse.data.id;
-              console.log({
-                attachmentID: attachmentID
-              });
-
-              // Send The Message
-              _context10.next = 19;
+              attachmentID = attachmentResponse.data.id; // Send The Message
+              _context10.next = 18;
               return createMessage({
                 message_type: 'audio',
                 attachment_id: attachmentID
               });
-            case 19:
+            case 18:
               response = _context10.sent;
               console.log({
                 response: response
@@ -11637,18 +11632,18 @@ function MessageBox(_ref) {
 
               // Show Alert on Error
               if (response.success) {
-                _context10.next = 26;
+                _context10.next = 25;
                 break;
               }
               _message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(_message);
               return _context10.abrupt("return");
-            case 26:
+            case 25:
               setRecordedVoiceTimeInSecond(0);
 
               // Load Latest
               loadLatestMessages();
-            case 28:
+            case 27:
             case "end":
               return _context10.stop();
           }

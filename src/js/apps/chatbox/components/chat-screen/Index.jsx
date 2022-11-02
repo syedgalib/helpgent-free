@@ -13,12 +13,8 @@ import Text from './components/text/Index.jsx';
 import ScreenRecord from './components/screen-record/Index.jsx';
 import screenTypes from '../../store/chatbox/screenTypes';
 import { useFormHooks } from '../../store/forms/hooks.js';
-import { useEffect } from 'react';
-
-import { changeChatScreen } from '../../store/chatbox/actionCreator';
 
 function ChatScreen( { show } ) {
-	const dispatch = useDispatch();
     useFormHooks();
 
     const { currentChatScreen } = useSelector((state) => {
@@ -39,19 +35,6 @@ function ChatScreen( { show } ) {
         [screenTypes.SUCCESS]: <Success />,
         [screenTypes.SPLASH_SCREEN]: <SplashScreen />,
     };
-
-	useEffect( () => {
-
-		loadInitData();
-
-	}, [] );
-
-	async function loadInitData() {
-
-
-		// dispatch( changeChatScreen( screenTypes.HOME ) );
-
-	}
 
     function getCurrentScreen() {
         if ( ! Object.keys(screens).includes( currentChatScreen ) ) {

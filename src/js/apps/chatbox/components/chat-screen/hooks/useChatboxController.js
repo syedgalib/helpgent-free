@@ -16,12 +16,12 @@ export default function useChatboxController() {
 	 */
 	function needToGoContactPage() {
 
-		const isLoggedIn  = isLoggedIn();
-		const isClient    = isUserClient();
-		const isAdmin     = isUserAdmin();
-		const collectInfo = ( Array.isArray( chatboxTemplateOptions.collectInfo ) ) ? chatboxTemplateOptions.collectInfo : [];
+		const isUserLoggedIn = isLoggedIn();
+		const isClient       = isUserClient();
+		const isAdmin        = isUserAdmin();
+		const collectInfo    = ( Array.isArray( chatboxTemplateOptions.collectInfo ) ) ? chatboxTemplateOptions.collectInfo : [];
 
-		if ( ! isLoggedIn  ) {
+		if ( ! isUserLoggedIn  ) {
 			return true;
 		}
 

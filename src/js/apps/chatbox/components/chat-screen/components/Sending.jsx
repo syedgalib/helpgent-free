@@ -36,10 +36,12 @@ function Sending() {
 		ERROR: 'ERROR',
 	};
 
+	const email = ( userForm.user && userForm.user.email ) ? userForm.user.email : '';
+
 	// Local States
 	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
-	const [ userID, setUserID ] = useState( messengerForm.formData.user_id );
+	const [ userEmail, setUserEmail ] = useState( email );
 
     // @Init
     useEffect(() => {
@@ -83,7 +85,7 @@ function Sending() {
 			return;
 		}
 
-		const userID = createUserResponse.data.id;
+		const userID = createUserResponse.data.email;
 
 		// Add user ID to message
 		dispatch(
@@ -92,7 +94,7 @@ function Sending() {
 			})
 		);
 
-		setUserID( userID );
+		setUserEmail( userID );
 
 		// Verify user if exists
 		// --------------------------------
@@ -116,13 +118,13 @@ function Sending() {
 
 
 	// Submit Message
-	async function submitMessage( argUserID ) {
+	async function submitMessage( _userEmail ) {
 		// Reset States
 		setErrorMessage( '' );
 
 		const formData = {
 			...messengerForm.formData,
-			user_id: ( argUserID ) ? argUserID : userID
+			user_email: ( _userEmail ) ? _userEmail : userEmail
 		};
 
 		// Create Message
@@ -182,7 +184,9 @@ function Sending() {
 		let status = { success: false, message: '', data: null };
 
 		try  {
-			const conversation = await createConversationItem();
+			const email = ( args.user_email ) ? args.user_email : '';
+
+			const conversation = await createConversationItem( { created_by: email } );
 			args.conversation_id = conversation.data.id;
 
 			const response = await createMessangerItem( args );

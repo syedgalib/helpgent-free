@@ -56,7 +56,7 @@ export default function useChatboxController() {
 			return false;
 		}
 
-		return userForm.user.isAdmin;
+		return userForm.user.is_admin;
 
 	}
 
@@ -71,7 +71,7 @@ export default function useChatboxController() {
 			return false;
 		}
 
-		return userForm.user.isClient;
+		return userForm.user.is_client;
 
 	}
 

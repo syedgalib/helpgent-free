@@ -8825,7 +8825,7 @@ function useChatboxController() {
     if (!userForm.user) {
       return false;
     }
-    return userForm.user.isAdmin;
+    return userForm.user.is_admin;
   }
 
   /**
@@ -8837,7 +8837,7 @@ function useChatboxController() {
     if (!userForm.user) {
       return false;
     }
-    return userForm.user.isClient;
+    return userForm.user.is_client;
   }
 
   /**

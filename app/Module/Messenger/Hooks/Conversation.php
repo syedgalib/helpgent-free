@@ -16,9 +16,9 @@ class Conversation {
      */
     public function __construct() {
 		add_action( 'helpgent_after_term_deleted', [ $this, 'remove_conversation_term_relationship' ], 20, 1 );
-		add_action( 'helpgent_after_message_insert', [ $this, 'mark_conversation_as_unread' ], 20, 2 );
-		add_action( 'helpgent_after_message_insert', [ $this, 'update_conversation_meta' ], 20, 2 );
-		// add_action( 'helpgent_after_message_insert', [ $this, 'migrate_user' ], 20, 2 );
+		add_action( 'helpgent_after_message_inserted', [ $this, 'mark_conversation_as_unread' ], 20, 2 );
+		add_action( 'helpgent_after_message_inserted', [ $this, 'update_conversation_meta' ], 20, 2 );
+		// add_action( 'helpgent_after_message_inserted', [ $this, 'migrate_user' ], 20, 2 );
     }
 
     /**

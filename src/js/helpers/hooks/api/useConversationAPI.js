@@ -4,7 +4,7 @@ import useAPI from './useAPI';
 export default function useConversationAPI() {
 	const routeBase = 'conversations';
 	const { getResponse, postData, updateData, } = http;
-	const { getItems, getItem, createItem, deleteItem } = useAPI( routeBase );
+	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
 
 	/**
 	 * Mark as read
@@ -88,6 +88,7 @@ export default function useConversationAPI() {
 		getItems,
 		getItem,
 		createItem,
+		updateItem,
 		deleteItem,
 		markAsRead,
 		markAsUnread,

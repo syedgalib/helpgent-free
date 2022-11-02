@@ -250,12 +250,17 @@ class Auth_Token_Model extends DB_Model {
 		$status = self::create_item([
 			'token'      => $token,
 			'email'      => $email,
-			'expires_at' => $expires_at,
+			'expires_at' => helpgent_get_duration_date( HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS ),
 		]);
 
 		if ( is_wp_error( $status ) ) {
 			return $status;
 		}
+
+		/**
+		 * Fiers after successfully generate a token
+		 */
+		do_action( 'helpgent_guest_token_created', $status );
 
 		return $status;
 	}
@@ -333,25 +338,6 @@ class Auth_Token_Model extends DB_Model {
 		$token  = str_shuffle( $random );
 
 		return $token;
-	}
-
-	/**
-	 * Get expiry date
-	 *
-	 * @return string Expiry Date
-	 */
-	public static function get_expiry_date() {
-		$now     = current_time( 'mysql', true );
-		$days    = apply_filters( 'helpgent_auth_token_expires_after_days', 7 );
-		$hour    = $days * 24;
-		$minutes = $hour * 60;
-		$seconds = $minutes * 60;
-
-		$expiry = date( 'Y-m-d H:i:s', strtotime( $now ) + $seconds );
-		$expiry = apply_filters( 'helpgent_auth_token_expiry_date', $expiry );
-
-		return $expiry;
-
 	}
 
 }

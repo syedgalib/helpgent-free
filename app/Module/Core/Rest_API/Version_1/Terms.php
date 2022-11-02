@@ -5,7 +5,8 @@ namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
 
-class Terms extends Rest_Base {
+class Terms extends Rest_Base
+{
 
     /**
      * Rest Base
@@ -14,7 +15,8 @@ class Terms extends Rest_Base {
      */
     public $rest_base = 'terms';
 
-    public function register_routes() {
+    public function register_routes()
+    {
 
         register_rest_route(
             $this->namespace,
@@ -22,8 +24,8 @@ class Terms extends Rest_Base {
             [
                 [
                     'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_items' ],
-                    'permission_callback' => [ $this, 'check_auth_permission' ],
+                    'callback'            => [$this, 'get_items'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -31,14 +33,14 @@ class Terms extends Rest_Base {
                         ],
                         'page' => [
                             'default'           => 1,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'validate_callback' => [$this, 'validate_int'],
                         ],
                     ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => [ $this, 'create_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'callback'            => [$this, 'create_item'],
+                    'permission_callback' => [$this, 'check_admin_permission'],
                     'args'                => [
                         'name' => [
                             'required'          => true,
@@ -50,7 +52,7 @@ class Terms extends Rest_Base {
                         ],
                         'parent' => [
                             'default'           => 0,
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'validate_callback' => [$this, 'validate_int'],
                         ],
                     ],
                 ],
@@ -68,8 +70,8 @@ class Terms extends Rest_Base {
                 ],
                 [
                     'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => [ $this, 'get_item' ],
-                    'permission_callback' => [ $this, 'check_auth_permission' ],
+                    'callback'            => [$this, 'get_item'],
+                    'permission_callback' => [$this, 'check_auth_permission'],
                     'args'                => [
                         'timezone' => [
                             'default'           => '',
@@ -79,8 +81,8 @@ class Terms extends Rest_Base {
                 ],
                 [
                     'methods'             => \WP_REST_Server::EDITABLE,
-                    'callback'            => [ $this, 'update_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'callback'            => [$this, 'update_item'],
+                    'permission_callback' => [$this, 'check_admin_permission'],
                     'args'                => [
                         'name' => [
                             'required'          => false,
@@ -91,18 +93,17 @@ class Terms extends Rest_Base {
                             'sanitize_callback' => 'sanitize_text_field',
                         ],
                         'parent' => [
-                            'validate_callback' => [ $this, 'validate_int' ],
+                            'validate_callback' => [$this, 'validate_int'],
                         ],
                     ],
                 ],
                 [
                     'methods'             => \WP_REST_Server::DELETABLE,
-                    'callback'            => [ $this, 'delete_item' ],
-                    'permission_callback' => [ $this, 'check_admin_permission' ],
+                    'callback'            => [$this, 'delete_item'],
+                    'permission_callback' => [$this, 'check_admin_permission'],
                 ],
             ]
         );
-
     }
 
     /**
@@ -111,63 +112,64 @@ class Terms extends Rest_Base {
      * @param $request
      * @return array Response
      */
-    public function get_items( $request ) {
+    public function get_items($request)
+    {
         $args = $request->get_params();
 
-		$where = [];
+        $where = [];
 
         $where['term_id']  = '';
         $where['name']     = '';
         $where['term_key'] = '';
         $where['parent']   = '';
 
-        $where = Helper\filter_params( $where, $args );
+        $where = Helper\filter_params($where, $args);
 
-		if ( isset( $where['name'] ) ) {
-			$where['name'] = [
-				'key'     => 'name',
-				'compare' => 'LIKE',
-				'value'   => $where['name'],
-			];
-		}
+        if (isset($where['name'])) {
+            $where['name'] = [
+                'key'     => 'name',
+                'compare' => 'LIKE',
+                'value'   => $where['name'],
+            ];
+        }
 
         $default = [];
 
         $default['limit'] = 20;
         $default['page']  = 1;
 
-        $args = Helper\filter_params( $default, $args );
+        $args = Helper\filter_params($default, $args);
         $args['where'] = $where;
 
-        $data    = Term_Model::get_items( $args );
+        $data    = Term_Model::get_items($args);
         $results = $data['results'];
 
-        if ( empty( $results ) ) {
-			$headers = [
-				'X-WP-Total'      => 0,
-				'X-WP-TotalPages' => 0,
-			];
+        if (empty($results)) {
+            $headers = [
+                'X-WP-Total'      => 0,
+                'X-WP-TotalPages' => 0,
+            ];
 
-            return $this->response( true, [], '', $headers );
+            return $this->response(true, [], '', $headers);
         }
 
         // Prepare items for response
-        foreach ( $results as $key => $value ) {
-            $item = $this->prepare_item_for_response( $value, $args );
+        foreach ($results as $key => $value) {
+            $item = $this->prepare_item_for_response($value, $args);
 
-            if ( empty( $item ) ) {
+            if (empty($item)) {
                 continue;
             }
 
-            $results[ $key ] = $item;
+            $results[$key] = $item;
         }
 
-		$headers = [
-			'X-WP-Total'      => $data['found_items'],
-			'X-WP-TotalPages' => $data['total_page'],
-		];
+        $headers = [
+            'X-WP-Total'      => $data['found_items'],
+            'X-WP-TotalPages' => $data['total_page'],
+        ];
 
-        return $this->response( true, $results, '', $headers );
+        return $this->response(true, $results, '', $headers);
     }
 
     /**
@@ -176,21 +178,22 @@ class Terms extends Rest_Base {
      * @param object $request
      * @return array Response
      */
-    public function get_item( $request ) {
+    public function get_item($request)
+    {
         $args = $request->get_params();
         $id   = (int) $args['term_id'];
 
         $success = false;
-        $data    = Term_Model::get_item( $id );
+        $data    = Term_Model::get_item($id);
 
-        if ( is_wp_error( $data ) ) {
+        if (is_wp_error($data)) {
             return $data;
         }
 
         $success = true;
-        $data    = $this->prepare_item_for_response( $data, $args );
+        $data    = $this->prepare_item_for_response($data, $args);
 
-        return $this->response( $success, $data );
+        return $this->response($success, $data);
     }
 
     /**
@@ -199,23 +202,22 @@ class Terms extends Rest_Base {
      * @param $request
      * @return array Response
      */
-    public function create_item( $request ) {
+    public function create_item($request)
+    {
         $args = $request->get_params();
         $default_args = [];
 
-        $args = array_merge( $default_args, $args );
-        $data = Term_Model::create_item( $args );
+        $args = array_merge($default_args, $args);
+        $data = Term_Model::create_item($args);
 
-        if ( is_wp_error( $data ) ) {
+        if (is_wp_error($data)) {
             return $data;
         }
 
-        return $data;
+        $data = (!empty($data)) ? $this->prepare_item_for_response($data, $args) : null;
+        $success = !empty($data) ? true : false;
 
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
-        $success = ! empty( $data ) ? true : false;
-
-        return $this->response( $success, $data );
+        return $this->response($success, $data);
     }
 
     /**
@@ -224,19 +226,20 @@ class Terms extends Rest_Base {
      * @param $request
      * @return array Response
      */
-    public function update_item( $request ) {
+    public function update_item($request)
+    {
         $args = $request->get_params();
 
-        $data = Term_Model::update_item( $args );
+        $data = Term_Model::update_item($args);
 
-        if ( is_wp_error( $data ) ) {
+        if (is_wp_error($data)) {
             return $data;
         }
 
-        $data = ( ! empty( $data ) ) ? $this->prepare_item_for_response( $data, $args ) : null;
-        $success = ! empty( $data ) ? true : false;
+        $data = (!empty($data)) ? $this->prepare_item_for_response($data, $args) : null;
+        $success = !empty($data) ? true : false;
 
-        return $this->response( $success, $data );
+        return $this->response($success, $data);
     }
 
     /**
@@ -245,16 +248,16 @@ class Terms extends Rest_Base {
      * @param $request
      * @return array Response
      */
-    public function delete_item( $request ) {
+    public function delete_item($request)
+    {
         $args = $request->get_params();
 
-        $operation = Term_Model::delete_item( $args['term_id'] );
+        $operation = Term_Model::delete_item($args['term_id']);
 
-        if ( is_wp_error( $operation ) ) {
+        if (is_wp_error($operation)) {
             return $operation;
         }
 
-        return $this->response( true );
+        return $this->response(true);
     }
-
 }

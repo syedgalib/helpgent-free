@@ -4,6 +4,9 @@ import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
 import http from 'Helper/http';
 
+import useConversationAPI from "API/useConversationAPI";
+import useMessangerAPI from "API/useMessangerAPI";
+
 import {
 	upateState as updateUserState
 } from '../../../store/forms/user/actionCreator';
@@ -13,9 +16,6 @@ import {
     submitForm as submitMessengerForm,
     upateState as upateMessengerFormState,
 } from '../../../store/forms/messenger/actionCreator';
-
-import useConversationAPI from '../../../../../helpers/hooks/api/useConversationAPI';
-import useMessangerAPI from '../../../../../helpers/hooks/api/useMessangerAPI';
 
 function Sending() {
     const dispatch = useDispatch();

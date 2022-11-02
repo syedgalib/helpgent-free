@@ -2,10 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
 
-use AazzTech\DirTheme\Helper;
+use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
-
-use function WPWaxCustomerSupportApp\Base\Helper\get_users_data_by_ids;
 
 class User {
 
@@ -15,7 +13,7 @@ class User {
      * @return void
      */
     public function __construct() {
-		add_action( 'wp_login', [ $this, 'migrate_guest_to_wp_user' ], 10, 2 );
+		add_action( 'user_register', [ $this, 'migrate_guest_to_wp_user' ], 10, 2 );
     }
 
 	/**
@@ -27,8 +25,10 @@ class User {
      */
 	public function migrate_guest_to_wp_user( $user_name, $user ) {
 
+		$user = get_user_by( 'email', $user['user_email'] );
+
 		$is_guest = Guest_User_Model::get_items( [ 'where' => [ 'email' => $user->user_email ] ] );
-		
+
 		if( is_wp_error( $is_guest ) ) {
 			return;
 		}
@@ -46,7 +46,9 @@ class User {
 				update_user_meta( $user->user_id, '_' . $meta['meta_key'], $meta['meta_value'] );
 			}
 		}
-		$user->add_role( HELPGENT_CLIENT_ROLE );
+		if( ! Helper\is_user_admin( $user ) ) {
+			$user->add_role( HELPGENT_CLIENT_ROLE );
+		}
 		Guest_User_Model::delete_item( $is_guest['id'] );
 	}
 

@@ -2,8 +2,10 @@
 
 namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
 
+use AazzTech\DirTheme\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
 
+use function WPWaxCustomerSupportApp\Base\Helper\get_users_data_by_ids;
 
 class User {
 
@@ -13,7 +15,7 @@ class User {
      * @return void
      */
     public function __construct() {
-		add_action( 'wp_login', [ $this, 'migrate_guest_to_wp_user' ] );
+		add_action( 'wp_login', [ $this, 'migrate_guest_to_wp_user' ], 10, 2 );
     }
 
 	/**
@@ -25,11 +27,17 @@ class User {
      */
 	public function migrate_guest_to_wp_user( $user_name, $user ) {
 
-		$is_guest = Guest_User_Model::get_item( $user->user_email );
+		$is_guest = Guest_User_Model::get_items( [ 'where' => [ 'email' => $user->user_email ] ] );
 		
 		if( is_wp_error( $is_guest ) ) {
 			return;
 		}
+
+		if( empty( $is_guest ) ) {
+			return;
+		}
+
+		$is_guest = $is_guest[0];
 
 		$metas = Guest_User_Model::get_meta( $is_guest['id'] );
 		

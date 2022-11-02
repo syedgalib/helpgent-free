@@ -292,13 +292,24 @@ function Sending() {
 	async function createTheMessage( args ) {
 		let status = { success: false, message: '', data: null };
 
+
+		const email = ( args.user_email ) ? args.user_email : '';
+		const conversation = await createConversation( { created_by: email } );
+
+		if ( ! conversation.success ) {
+
+		}
+
+		console.log( { conversation, email } );
+
+
+
 		try  {
 
 			const email = ( args.user_email ) ? args.user_email : '';
-
 			const conversation = await createConversation( { created_by: email } );
 
-			console.log( { conversation } );
+			console.log( { conversation, email } );
 
 
 			status.success = false;

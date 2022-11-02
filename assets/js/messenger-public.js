@@ -5232,8 +5232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../store/forms/messenger/actionCreator */ "./src/js/apps/chatbox/store/forms/messenger/actionCreator.js");
 /* harmony import */ var _helpers_hooks_api_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../helpers/hooks/api/useConversationAPI */ "./src/js/helpers/hooks/api/useConversationAPI.js");
 /* harmony import */ var _helpers_hooks_api_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../helpers/hooks/api/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5258,14 +5257,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Sending() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_9__["default"])(),
-    isLoggedIn = _useChatboxController.isLoggedIn,
-    isUserAdmin = _useChatboxController.isUserAdmin,
-    isUserClient = _useChatboxController.isUserClient,
-    enabledGuestSubmission = _useChatboxController.enabledGuestSubmission;
   var _useConversationAPI = (0,_helpers_hooks_api_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__["default"])(),
     createConversationItem = _useConversationAPI.createItem;
   var _useMessangerAPI = (0,_helpers_hooks_api_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__["default"])(),
@@ -5294,63 +5287,75 @@ function Sending() {
     _useState4 = _slicedToArray(_useState3, 2),
     errorMessage = _useState4[0],
     setErrorMessage = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(userForm.user.email),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(messengerForm.formData.user_id),
     _useState6 = _slicedToArray(_useState5, 2),
-    userEmail = _useState6[0],
-    setUserEmail = _useState6[1];
+    userID = _useState6[0],
+    setUserID = _useState6[1];
 
   // @Init
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     init();
   }, []);
-
-  /**
-   * Init
-   *
-   * @ If user is logged in
-   *   # If user is client or admin
-   *     - Send The Message
-   *   # If user is not client or admin
-   *     - Update current user role and meta data
-   * 	   - Send The Message
-   *
-   * @ If user is not logged in
-   *   # If guest login is enabled
-   *     - Register user as guest
-   *        - If user exist -> Swith to Autentication Page
-   * 	   - Send The Message
-   *   # If guest login not enabled
-   *     - Register user as WP user
-   *       - If user exist -> Swith to Autentication Page
-   *     - Send The Message
-   */
   function init() {
     return _init.apply(this, arguments);
-  } /**
-     * Handle Logged In User
-     *
-     * # If user is client or admin
-     *   - Send The Message
-     * # If user is not client or admin
-     *   - Update current user role and meta data
-     * 	 - Send The Message
-     */
+  } // Submit Message
   function _init() {
     _init = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var createUserResponse, userID;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!isLoggedIn()) {
+              if (!(messengerForm.formData.user_id && userForm.is_varified)) {
                 _context.next = 3;
                 break;
               }
-              handleLoggedInUser();
+              submitMessage();
               return _context.abrupt("return");
             case 3:
-              // Handle New User
-              handleNewUser();
-            case 4:
+              _context.next = 5;
+              return createUser(userForm.formData);
+            case 5:
+              createUserResponse = _context.sent;
+              if (createUserResponse.success) {
+                _context.next = 10;
+                break;
+              }
+              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
+                status: false,
+                statusMessage: createUserResponse.message
+              }));
+
+              // Return to Contact Form Page if failed
+              setTimeout(function () {
+                dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].CONTACT_FORM));
+              }, 2000);
+              return _context.abrupt("return");
+            case 10:
+              userID = createUserResponse.data.id; // Add user ID to message
+              dispatch((0,_store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_6__.updateFormData)({
+                user_id: userID
+              }));
+              setUserID(userID);
+
+              // Verify user if exists
+              // --------------------------------
+              if (createUserResponse.data.is_new_user) {
+                _context.next = 17;
+                break;
+              }
+              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_5__.upateState)({
+                user: createUserResponse.data,
+                needAuthentication: true,
+                is_varified: false
+              }));
+              dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].USER_AUTHENTICATION_FORM));
+              return _context.abrupt("return");
+            case 17:
+              // Submit Message
+              // --------------------------------
+              submitMessage(userID);
+            case 18:
             case "end":
               return _context.stop();
           }
@@ -5359,170 +5364,32 @@ function Sending() {
     }));
     return _init.apply(this, arguments);
   }
-  function handleLoggedInUser() {
-    return _handleLoggedInUser.apply(this, arguments);
-  } /**
-     * Handle New User
-     *
-     * # If guest login is enabled
-     *   - Register user as guest
-     *     - If user exist -> Swith to Autentication Page
-     *   - Send The Message
-     * # If guest login not enabled
-     *   - Register user as WP user
-     *     - If user exist -> Swith to Autentication Page
-     *     - Send The Message
-     */
-  function _handleLoggedInUser() {
-    _handleLoggedInUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var updateCurrentUserResponse;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              if (!(isUserAdmin() || isUserClient())) {
-                _context2.next = 3;
-                break;
-              }
-              submitMessage();
-              return _context2.abrupt("return");
-            case 3:
-              _context2.next = 5;
-              return updateCurrentUser();
-            case 5:
-              updateCurrentUserResponse = _context2.sent;
-              if (updateCurrentUserResponse.success) {
-                _context2.next = 9;
-                break;
-              }
-              setCurrentStage(stages.ERROR);
-              return _context2.abrupt("return");
-            case 9:
-              // Submit Message
-              submitMessage();
-            case 10:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
-    }));
-    return _handleLoggedInUser.apply(this, arguments);
-  }
-  function handleNewUser() {
-    return _handleNewUser.apply(this, arguments);
-  } /**
-     * Update Current User
-     */
-  function _handleNewUser() {
-    _handleNewUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var userResponse;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return registerUser();
-            case 2:
-              userResponse = _context3.sent;
-              if (userResponse.success) {
-                _context3.next = 5;
-                break;
-              }
-              return _context3.abrupt("return");
-            case 5:
-              submitMessage();
-            case 6:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-    return _handleNewUser.apply(this, arguments);
-  }
-  function updateCurrentUser() {
-    return _updateCurrentUser.apply(this, arguments);
-  } /**
-     * Register User
-     *
-     */
-  function _updateCurrentUser() {
-    _updateCurrentUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-    return _updateCurrentUser.apply(this, arguments);
-  }
-  function registerUser() {
-    return _registerUser.apply(this, arguments);
-  } /**
-     * Register WP User
-     *
-     */
-  function _registerUser() {
-    _registerUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              if (!enabledGuestSubmission()) {
-                _context5.next = 2;
-                break;
-              }
-              return _context5.abrupt("return", registerGuestUser());
-            case 2:
-              return _context5.abrupt("return", registerWPUser());
-            case 3:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }));
-    return _registerUser.apply(this, arguments);
-  }
-  function registerWPUser() {}
-
-  /**
-   * Register Guest User
-   */
-  function registerGuestUser() {}
-
-  // Submit Message
   function submitMessage(_x) {
     return _submitMessage.apply(this, arguments);
   } // createUser
   function _submitMessage() {
-    _submitMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(argUserEmail) {
+    _submitMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(argUserID) {
       var formData, response;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               // Reset States
               setErrorMessage('');
               formData = _objectSpread(_objectSpread({}, messengerForm.formData), {}, {
-                user_email: argUserEmail ? argUserEmail : userEmail
+                user_id: argUserID ? argUserID : userID
               }); // Create Message
-              _context6.next = 4;
+              _context2.next = 4;
               return createMessage(formData);
             case 4:
-              response = _context6.sent;
+              response = _context2.sent;
               if (response.success) {
-                _context6.next = 9;
+                _context2.next = 9;
                 break;
               }
               setErrorMessage(response.message);
               setCurrentStage(stages.ERROR);
-              return _context6.abrupt("return");
+              return _context2.abrupt("return");
             case 9:
               // Navigate to Success Screen
               setTimeout(function () {
@@ -5530,10 +5397,10 @@ function Sending() {
               }, 2000);
             case 10:
             case "end":
-              return _context6.stop();
+              return _context2.stop();
           }
         }
-      }, _callee6);
+      }, _callee2);
     }));
     return _submitMessage.apply(this, arguments);
   }
@@ -5541,11 +5408,11 @@ function Sending() {
     return _createUser.apply(this, arguments);
   } // createMessage
   function _createUser() {
-    _createUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(args) {
+    _createUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(args) {
       var status, response;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               status = {
                 success: false,
@@ -5556,11 +5423,11 @@ function Sending() {
                 status: null,
                 statusMessage: ''
               }));
-              _context7.prev = 2;
-              _context7.next = 5;
+              _context3.prev = 2;
+              _context3.next = 5;
               return Helper_http__WEBPACK_IMPORTED_MODULE_4__["default"].postData("/users", args);
             case 5:
-              response = _context7.sent;
+              response = _context3.sent;
               status.success = true;
               status.data = response.data;
               status.message = 'The user has been created successfuly';
@@ -5568,19 +5435,19 @@ function Sending() {
                 status: true,
                 statusMessage: status.message
               }));
-              return _context7.abrupt("return", status);
+              return _context3.abrupt("return", status);
             case 13:
-              _context7.prev = 13;
-              _context7.t0 = _context7["catch"](2);
+              _context3.prev = 13;
+              _context3.t0 = _context3["catch"](2);
               status.success = false;
-              status.message = _context7.t0.response.data && _context7.t0.response.data.message ? _context7.t0.response.data.message : _context7.t0.message;
-              return _context7.abrupt("return", status);
+              status.message = _context3.t0.response.data && _context3.t0.response.data.message ? _context3.t0.response.data.message : _context3.t0.message;
+              return _context3.abrupt("return", status);
             case 18:
             case "end":
-              return _context7.stop();
+              return _context3.stop();
           }
         }
-      }, _callee7, null, [[2, 13]]);
+      }, _callee3, null, [[2, 13]]);
     }));
     return _createUser.apply(this, arguments);
   }
@@ -5588,44 +5455,44 @@ function Sending() {
     return _createMessage.apply(this, arguments);
   } // Retry
   function _createMessage() {
-    _createMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(args) {
+    _createMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(args) {
       var status, conversation, response;
-      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               status = {
                 success: false,
                 message: '',
                 data: null
               };
-              _context8.prev = 1;
-              _context8.next = 4;
+              _context4.prev = 1;
+              _context4.next = 4;
               return createConversationItem();
             case 4:
-              conversation = _context8.sent;
+              conversation = _context4.sent;
               args.conversation_id = conversation.data.id;
-              _context8.next = 8;
+              _context4.next = 8;
               return createMessangerItem(args);
             case 8:
-              response = _context8.sent;
+              response = _context4.sent;
               status.success = true;
               status.data = response.data;
               status.message = 'The message has been created successfuly';
-              return _context8.abrupt("return", status);
+              return _context4.abrupt("return", status);
             case 15:
-              _context8.prev = 15;
-              _context8.t0 = _context8["catch"](1);
+              _context4.prev = 15;
+              _context4.t0 = _context4["catch"](1);
               status.success = false;
-              status.message = _context8.t0.response.data && _context8.t0.response.data.message ? _context8.t0.response.data.message : _context8.t0.message;
-              console.error(_context8.t0);
-              return _context8.abrupt("return", status);
+              status.message = _context4.t0.response.data && _context4.t0.response.data.message ? _context4.t0.response.data.message : _context4.t0.message;
+              console.error(_context4.t0);
+              return _context4.abrupt("return", status);
             case 21:
             case "end":
-              return _context8.stop();
+              return _context4.stop();
           }
         }
-      }, _callee8, null, [[1, 15]]);
+      }, _callee4, null, [[1, 15]]);
     }));
     return _createMessage.apply(this, arguments);
   }
@@ -5635,20 +5502,20 @@ function Sending() {
     submitMessage();
   }
   if (currentStage === stages.SENDING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
             children: "Sending"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
             children: "We\u2019re currently processing your request"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("p", {
             className: "wpwax-vm-danger-text wpwax-vm-text-danger",
             children: "Please don\u2019t leave this page!"
           })]
@@ -5656,15 +5523,15 @@ function Sending() {
       })
     });
   } else if (currentStage === stages.ERROR) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
             children: errorMessage
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
             href: "#",
             onClick: retry,
             children: "Retry"

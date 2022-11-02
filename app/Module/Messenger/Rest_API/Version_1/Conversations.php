@@ -366,7 +366,9 @@ class Conversations extends Rest_Base
 			$messages = Message_Model::get_items([
 				'where' => [
 					'conversation_id' => $conversation['id'],
-				]
+				],
+				'group_by' => 'user_email',
+				'limit' => -1,
 			]);
 
 			$users = array_map( function( $message ) {

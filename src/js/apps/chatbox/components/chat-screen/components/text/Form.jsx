@@ -1,20 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
-import { updateFormData } from '../../../../store/forms/messenger/actionCreator';
+import { updateFormData as updateMessengerFormData } from '../../../../store/forms/messenger/actionCreator';
 import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../store/forms/messenger/messageTypes';
+import useChatboxController from '../../hooks/useChatboxController';
 
 function Form() {
     const dispatch = useDispatch();
     const textRef = useRef();
 
-	// Store States
-    const { messengerForm } = useSelector((state) => {
-        return {
-            messengerForm: state.messengerForm,
-        };
-    });
+	const { needToGoContactPage } = useChatboxController();
 
     function submitHandler(e) {
         e.preventDefault();
@@ -24,13 +20,14 @@ function Form() {
             message: textRef.current.value,
         };
 
-        dispatch(updateFormData(updatedFormData));
+        dispatch( updateMessengerFormData( updatedFormData ) );
 
-		if ( messengerForm.formData.user_id ) {
-			dispatch(changeChatScreen(screenTypes.SENDING));
-		} else {
-			dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+		if ( needToGoContactPage() ) {
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
+			return;
 		}
+
+		dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
     }
 
     return (

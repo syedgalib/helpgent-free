@@ -40,6 +40,14 @@ const FormUpdater = (label, value,formInitialData) => {
                         chat_visibility_type: value
                     }
                 }
+            case "wpwax-vm-info-collection":
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        collectInfo: value
+                    }
+                }
             case "wpwax-vm-send-mail":
                 return {
                     ...item,

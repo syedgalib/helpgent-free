@@ -3,10 +3,9 @@
 namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
 
 use \WP_REST_Server;
-use \WP_User_Query;
 use \WP_Error;
 use \WP_REST_Response;
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Rest_Helper;
+
 use WPWaxCustomerSupportApp\Base\Helper;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
@@ -26,7 +25,7 @@ class Guest_User extends Rest_Base {
 			array(
 				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'check_guest_permission' ),
+				'permission_callback' => array( $this, 'check_admin_permission' ),
 				'args'                => $this->get_collection_params(),
 			),
 			array(
@@ -73,18 +72,6 @@ class Guest_User extends Rest_Base {
 				'methods'             => WP_REST_Server::DELETABLE,
 				'callback'            => array( $this, 'delete_item' ),
 				'permission_callback' => array( $this, 'check_auth_permission' ),
-				'args'                => array(
-					'force' => array(
-						'default'     => false,
-						'type'        => 'boolean',
-						'description' => __( 'Required to be true, as resource does not support trashing.', 'wpwax-customer-support-app' ),
-					),
-					'reassign' => array(
-						'default'     => 0,
-						'type'        => 'integer',
-						'description' => __( 'ID to reassign posts to.', 'wpwax-customer-support-app' ),
-					),
-				),
 			),
 		) );
 
@@ -184,7 +171,7 @@ class Guest_User extends Rest_Base {
 
 		$user = Guest_User_Model::update_item( $args );
 
-		if ( is_wp_error( $user  ) ) {
+		if ( is_wp_error( $user ) ) {
 			return $user;
 		}
 

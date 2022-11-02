@@ -16,7 +16,8 @@ import MediaBox from 'Components/MediaBox.jsx';
 import Taglist from './components/Taglist.jsx';
 import AddTag from './components/AddTag.jsx';
 import DeleteConfirm from './components/DeleteConfirm.jsx';
-import apiService from 'apiService/Service.js';
+import useConversationAPI from 'API/useConversationAPI.js';
+import useTermAPI from 'API/useTermAPI.js';
 import TagFilter from './components/TagFilter.jsx';
 import { useDebounce } from 'Helper/hooks';
 import { handleReadSessions } from '../../store/sessions/actionCreator';
@@ -58,6 +59,9 @@ const filterDropdown = [
 ];
 
 const Sidebar = ({ sessionState, setSessionState }) => {
+    const { getItems: getConversations, updateItem: updateFormName, deleteItem: deleteForm } = useConversationAPI();
+    const { getItems: getTerms } = useTermAPI();
+
 	const { doAction } = wpwaxHooks;
 
     const ref = useRef(null);
@@ -102,10 +106,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
-            const searchByNameMailResponse = await apiService.getAllByArg(
-                '/sessions',
-                searchArg
-            );
+            
+            const searchByNameMailResponse = await getConversations(searchArg);
             return searchByNameMailResponse;
         };
 
@@ -114,7 +116,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 setSessionState({
                     ...sessionState,
                     loader: false,
-                    sessionList: searchByNameMailResponse.data.data,
+                    sessionList: searchByNameMailResponse.data,
                 });
             })
             .catch((error) => {
@@ -137,10 +139,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSession = async () => {
-            const sessionResponse = await apiService.getAllByArg(
-                '/sessions',
-                pageLimit
-            );
+            const sessionResponse = await getConversations(pageLimit);
             return sessionResponse;
         };
 
@@ -148,11 +147,11 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             .then((sessionResponse) => {
                 setSessionState({
                     ...sessionState,
-                    sessionList: sessionResponse.data.data,
-                    filteredSessions: sessionResponse.data.data,
+                    sessionList: sessionResponse.data,
+                    filteredSessions: sessionResponse.data,
                     loader: false,
                 });
-                dispatch(handleReadSessions(sessionResponse.data.data));
+                dispatch(handleReadSessions(sessionResponse.data));
             })
             .catch((error) => {
                 console.log(error);
@@ -177,16 +176,18 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:5});
+                
+                const tagsResponse = await getTerms({limit:5});
                 return tagsResponse;
             }
             fetchTags()
                 .then((tagsResponse) => {
+                    console.log(tagsResponse)
                     setTagState({
                         ...tagState,
                         tagLoader: false,
-                        allTags: tagsResponse.data.data,
-                        filteredTagList: tagsResponse.data.data,
+                        allTags: tagsResponse.data,
+                        filteredTagList: tagsResponse.data,
                     });
                 })
                 .catch((error) => {
@@ -223,10 +224,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         };
         setPageNumber(pageNumber + 1);
         const fetchNext = async () => {
-            const nextSessionResponse = await apiService.getAllByArg(
-                '/sessions',
-                pageArg
-            );
+            const nextSessionResponse = await getConversations(pageArg);
             return nextSessionResponse;
         };
         setTimeout(() => {
@@ -277,6 +275,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             hasMore: true,
         });
     };
+
+    console.log(sessionList);
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -441,13 +441,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                         }
                                     }
 
-                                    if (Number(item.total_unread) > 0) {
+                                    if (item.read) {
                                         var moreDropdown = wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ?
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-read',
-                                                    text: 'Mark as Read',
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
                                                 },
                                                 {
                                                     icon: tag,
@@ -455,9 +455,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Add tags',
                                                 },
                                                 {
-                                                    icon: checkSlot,
-                                                    name: 'active-conversation',
-                                                    text: 'Active',
+                                                    icon: item.status === 'active' ? archive : checkSlot,
+                                                    name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                                                    text: item.status === 'active' ? 'Archive' : 'Active',
                                                 },
                                                 {
                                                     icon: trash,
@@ -469,8 +469,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-read',
-                                                    text: 'Mark as Read',
+                                                    name: 'mark-unread',
+                                                    text: 'Mark as unread',
                                                 }
                                             ];
                                     } else {
@@ -478,8 +478,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-unread',
-                                                    text: 'Mark as unread',
+                                                    name: 'mark-read',
+                                                    text: 'Mark as read',
                                                 },
                                                 {
                                                     icon: tag,
@@ -487,9 +487,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     text: 'Add tags',
                                                 },
                                                 {
-                                                    icon: archive,
-                                                    name: 'archive-conversation',
-                                                    text: 'Archive',
+                                                    icon: item.status === 'active' ? archive : checkSlot,
+                                                    name: item.status === 'active' ? 'archive-conversation' : 'active-conversation',
+                                                    text: item.status === 'active' ? 'Archive' : 'Active',
                                                 },
                                                 {
                                                     icon: trash,
@@ -501,8 +501,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                             [
                                                 {
                                                     icon: envelopeOpen,
-                                                    name: 'mark-unread',
-                                                    text: 'Mark as unread',
+                                                    name: 'mark-read',
+                                                    text: 'Mark as read',
                                                 }
                                             ]
                                     }
@@ -510,7 +510,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     const metaList = [
                                         {
                                             type: 'date',
-                                            text: item.last_message.updated_on_formatted,
+                                            text: item.last_message.updated_at_formatted,
                                         },
                                     ];
 
@@ -542,19 +542,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     setSessionState={setSessionState}
                                                     sessionTerm={item.terms}
                                                     initialConv={initialConv}
-                                                    sessionId={item.session_id}
+                                                    sessionId={item.id}
                                                     title={titleString.join()}
                                                     metaList={metaList}
                                                 />
                                             </div>
                                             <div className='wpwax-vm-usermedia__right'>
-                                                {Number(item.total_unread) >
-                                                    0 && (
-                                                    <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'>
-                                                        {item.total_unread}
-                                                    </span>
-                                                )}
-
+                                                {!item.read ?  <span className='wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread'></span> : null}
                                                 <Dropdown
                                                     dropdownText={false}
                                                     dropdownIconOpen={ellipsisV}
@@ -566,14 +560,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     setOuterState={
                                                         setSessionState
                                                     }
-                                                    sessionId={item.session_id}
-													onMarkAsRead={ function( session_id, data ) {
-														doAction( 'onMarkAsRead', { session_id, data } );
-
-													}}
-													onMarkAsUnread={ function ( session_id, data ) {
-														doAction( 'onMarkAsUnread', { session_id, data } );
-													}}
+                                                    sessionId={item.id}
                                                 />
                                             </div>
                                         </li>

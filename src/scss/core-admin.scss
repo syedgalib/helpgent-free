@@ -380,7 +380,7 @@
     .wpwax-vm-select__control{
         cursor: pointer;
     }
-    
+
     .wpwax-vm-select__menu{
         border-radius: 10px;
         border: 0 none;
@@ -390,7 +390,7 @@
         background-color: #fff;
         z-index: 100;
         box-shadow: 0 5px 10px rgba(0,0,0,.16);
-        
+
         .wpwax-vm-select__option{
             font-size: 14px;
             font-weight: 500;
@@ -438,7 +438,7 @@
             border-color: transparent;
         }
     }
-    
+
     .css-b62m3t-container{
         width: 100%;
         .wpwax-vm-select__input-container{
@@ -455,7 +455,7 @@
         border: 2px solid transparent;
         border-radius: 6px;
         background-color: #ededed;
-        min-height: 40px;
+        min-height: 44px;
         &.wpwax-vm-select__control--is-focused{
             border-color: var(--color-dark);
         }

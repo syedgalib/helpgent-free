@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import ReactSVG from 'react-inlinesvg';
 import { useDebounce } from 'Helper/hooks';
 import apiService from 'apiService/Service.js';
+import useTermAPI from 'API/useTermAPI.js';
 import { TaglistWrap } from './Style';
 import userImg from 'Assets/img/chatdashboard/user.png';
 import userIcon from 'Assets/svg/icons/users.svg';
@@ -24,6 +25,7 @@ const moreDropdown = [
 ];
 
 const Taglist = (props) => {
+    const { getItems: getTerms } = useTermAPI();
     const overlay = document.querySelector('.wpax-vm-overlay');
     const [state, setState] = useState({
         tagsPageNumber: 2,
@@ -71,10 +73,8 @@ const Taglist = (props) => {
             name: debouncedSearchTerm,
         };
         const fetchSearchNameMail = async () => {
-            const searchByNameMailResponse = await apiService.getAllByArg(
-                '/messages/terms',
-                tagArg
-            );
+            
+            const searchByNameMailResponse = await getTerms(tagArg);
             return searchByNameMailResponse;
         };
 
@@ -84,7 +84,7 @@ const Taglist = (props) => {
                 setTagState({
                     ...tagState,
                     tagLoader: false,
-                    allTags: searchByNameMailResponse.data.data,
+                    allTags: searchByNameMailResponse.data,
                 });
 
                 setState({
@@ -105,7 +105,7 @@ const Taglist = (props) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                const tagsResponse = await apiService.getAllByArg('/messages/terms',{limit:8});
+                const tagsResponse = await getTerms({limit:8});
                 return tagsResponse;
             }
             fetchTags()
@@ -117,7 +117,7 @@ const Taglist = (props) => {
                     setTagState({
                         ...tagState,
                         tagLoader: false,
-                        allTags: tagsResponse.data.data,
+                        allTags: tagsResponse.data,
                     });
                 })
                 .catch((error) => {
@@ -203,25 +203,22 @@ const Taglist = (props) => {
         // setTagsPageNumber(tagsPageNumber + 1);
 
         const fetchNextTags = async () => {
-            const nextTagResponse = await apiService.getAllByArg('/messages/terms',pageArg);
+            
+            const nextTagResponse = await getTerms(pageArg);
             return nextTagResponse;
         };
         setTimeout(() => {
             fetchNextTags()
                 .then((nextTagResponse) => {
-                    if (nextTagResponse.data.data.length === 0) {
+                    if (nextTagResponse.data.length === 0) {
                         setState({
                             ...state,
                             hasMore: false,
                         });
                     } else {
-                        setState({
-                            ...state,
-                            hasMore: false,
-                        });
                         setTagState({
                             ...tagState,
-                            allTags: allTags.concat(nextTagResponse.data.data)
+                            allTags: allTags.concat(nextTagResponse.data)
                         });
                     }
                 })

@@ -63,6 +63,7 @@ function Form() {
 		dispatch(
 			updateUserState({
 				is_varified: true,
+				needAuthentication: false,
 			})
 		);
 

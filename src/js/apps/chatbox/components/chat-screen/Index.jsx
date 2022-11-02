@@ -4,6 +4,7 @@ import Container from './components/screen-wrapper/Index.jsx';
 import Home from './components/home/Index.jsx';
 import ContactForm from './components/contact-form/Index.jsx';
 import UserAuthenticationForm from './components/user-authentication-form/Index.jsx';
+import SplashScreen from './components/SplashScreen.jsx';
 import Sending from './components/Sending.jsx';
 import Success from './components/Success.jsx';
 import Video from './components/video/Index.jsx';
@@ -32,10 +33,11 @@ function ChatScreen( { show } ) {
         [screenTypes.USER_AUTHENTICATION_FORM]: <UserAuthenticationForm />,
         [screenTypes.SENDING]: <Sending />,
         [screenTypes.SUCCESS]: <Success />,
+        [screenTypes.SPLASH_SCREEN]: <SplashScreen />,
     };
 
     function getCurrentScreen() {
-        if (!Object.keys(screens).includes(currentChatScreen)) {
+        if ( ! Object.keys(screens).includes( currentChatScreen ) ) {
             return '';
         }
 
@@ -43,7 +45,7 @@ function ChatScreen( { show } ) {
     }
 
     return (
-        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null 
+        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null
 	);
 }
 

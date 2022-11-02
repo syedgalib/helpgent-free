@@ -1472,8 +1472,6 @@ function MessageBox({ setSessionState }) {
         });
     };
 
-    console.log(messageType);
-
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
         if (messageType === 'text') {

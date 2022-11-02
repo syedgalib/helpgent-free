@@ -12,9 +12,16 @@ import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import { useState } from 'react';
 import screenTypes from '../../../../store/chatbox/screenTypes';
 import { useEffect } from 'react';
+import useChatboxController from '../../hooks/useChatboxController';
 
 function Form() {
     const dispatch = useDispatch();
+
+	const {
+		isLoggedIn,
+		enabledGuestSubmission,
+		getCollectInfoFields
+	} = useChatboxController();
 
     const { userForm, messengerForm } = useSelector((state) => {
         return {
@@ -23,11 +30,15 @@ function Form() {
         };
     });
 
-    const nameRef = useRef();
-    const emailRef = useRef();
+    const nameRef            = useRef();
+    const emailRef           = useRef();
+    const phoneRef           = useRef();
+    const passwordRef        = useRef();
+    const confirmPasswordRef = useRef();
 
     const [errorMessage, setErrorMessage] = useState('');
 
+	// @Init State
     useEffect(() => {
         if (userForm.formData.name) {
             nameRef.current.value = userForm.formData.name;
@@ -36,38 +47,112 @@ function Form() {
         if (userForm.formData.email) {
             emailRef.current.value = userForm.formData.email;
         }
+
+		if ( userForm.statusMessage ) {
+            setErrorMessage( userForm.statusMessage );
+        } else if ( messengerForm.statusMessage ) {
+            setErrorMessage( messengerForm.statusMessage );
+        }
     }, []);
 
-    // After User Creation Failed
-    useEffect(() => {
-        if (false !== userForm.status) {
-            return;
-        }
+	function showNameField() {
+		return isLoggedIn() ? false : true;
+	}
 
-        if (userForm.statusMessage) {
-            setErrorMessage(userForm.statusMessage);
-        } else if (messengerForm.statusMessage) {
-            setErrorMessage(messengerForm.statusMessage);
-        }
-    }, [userForm.status]);
+	function showEmailField() {
+		return isLoggedIn() ? false : true;
+	}
+
+	function showPhoneField() {
+		return getCollectInfoFields().includes( 'phone' );
+	}
+
+	function showPasswordField() {
+		return ! isLoggedIn() && ! enabledGuestSubmission();
+	}
 
     // submitHandler
     function submitHandler(e) {
         e.preventDefault();
 
-        const name = nameRef.current.value;
-        const email = emailRef.current.value;
+		// Reset Error Message
+		setErrorMessage('');
 
-        if (!name || !email) {
+		// Form Fields
+		const formFields = [
+			{
+				name: 'name',
+				ref: nameRef,
+				required: true,
+			},
+			{
+				name: 'email',
+				ref: emailRef,
+				required: true,
+			},
+			{
+				name: 'phone',
+				ref: phoneRef,
+				required: true,
+			},
+			{
+				name: 'password',
+				ref: passwordRef,
+				required: true,
+				type: 'password',
+				minLength: 5,
+			},
+			{
+				name: 'confirmPassword',
+				ref: confirmPasswordRef,
+				required: true,
+				type: 'confirm_password',
+			},
+		];
+
+		// Get Active Fields
+		let activeFields = formFields.filter( field => field.ref.current );
+
+		// Validate Reqired Data
+		const missingReqiredData = activeFields.map( field => field.required && ! field.ref.current.value ? true : false ).includes( true );
+
+        if ( missingReqiredData ) {
             setErrorMessage('Please fill up the required fields');
             return;
         }
 
-        const formData = { name, email };
+		// Validate Password Field if Presents
+		const passwordFields = activeFields.filter( field => [ 'password', 'confirm_password' ].includes( field.type ) );
 
-        dispatch(upateUserFormData(formData, true));
-        dispatch(upateUserState({ submitted: false, status: null }));
-        dispatch(changeChatScreen(screenTypes.SENDING));
+		if ( passwordFields.length ) {
+			const passwordField = passwordFields[0];
+			const password      = passwordField.ref.current.value;
+
+			// Validate password length
+			if ( passwordField.minLength && password.length < passwordField.minLength ) {
+				setErrorMessage( `Password must be at least ${passwordField.minLength} character long` );
+            	return;
+			}
+
+			// Check if password match with confirm password
+			const matchPassword = passwordFields.every( field => field.ref.current.value === password );
+			if ( ! matchPassword ) {
+				setErrorMessage('Password do not match');
+            	return;
+			}
+		}
+
+		activeFields = activeFields.filter( field => field.type !== 'confirm_password' );
+
+        let formData = {};
+
+		for ( const field of activeFields ) {
+			formData[ field.name ] = field.ref.current.value;
+		}
+
+        dispatch( upateUserFormData( formData, true ) );
+        dispatch( upateUserState( { submitted: false, status: null } ) );
+        dispatch( changeChatScreen( screenTypes.SENDING ) );
     }
 
     return (
@@ -79,23 +164,67 @@ function Form() {
                         can get back to you…
                     </h4>
 
-                    <div className='wpwax-vm-form-group'>
-                        <input
-                            ref={nameRef}
-                            type='text'
-                            className='wpwax-vm-form__element'
-                            placeholder='Your name*'
-                        />
-                    </div>
+                    { showNameField() && (
+						<div className='wpwax-vm-form-group'>
+							<input
+								// required
+								ref={nameRef}
+								type='text'
+								className='wpwax-vm-form__element'
+								placeholder='Your name*'
+							/>
+						</div>
+					)}
 
-                    <div className='wpwax-vm-form-group'>
-                        <input
-                            ref={emailRef}
-                            type='email'
-                            className='wpwax-vm-form__element'
-                            placeholder='Your email*'
-                        />
-                    </div>
+					{ showEmailField() && (
+						<div className='wpwax-vm-form-group'>
+							<input
+								// required
+								ref={emailRef}
+								type='email'
+								className='wpwax-vm-form__element'
+								placeholder='Your email*'
+							/>
+						</div>
+					)}
+
+
+					{ showPhoneField() && (
+						<div className='wpwax-vm-form-group'>
+							<input
+								// required
+								ref={phoneRef}
+								type='tel'
+								className='wpwax-vm-form__element'
+								placeholder='Your phone*'
+							/>
+						</div>
+					)}
+
+					{ showPasswordField() && (
+						<>
+							<div className='wpwax-vm-form-group'>
+								<input
+									// required
+									ref={passwordRef}
+									type='password'
+									className='wpwax-vm-form__element'
+									placeholder='Password*'
+								/>
+							</div>
+
+							<div className='wpwax-vm-form-group'>
+								<input
+									// required
+									ref={confirmPasswordRef}
+									type='password'
+									className='wpwax-vm-form__element'
+									placeholder='Confirm Password*'
+								/>
+							</div>
+						</>
+					)}
+
                 </div>
 
                 <div className='wpwax-vm-footer'>

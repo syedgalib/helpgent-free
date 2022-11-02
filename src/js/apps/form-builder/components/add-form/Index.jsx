@@ -105,12 +105,10 @@ const AddForm = () => {
     const dispatch = useDispatch();
 
     function onlySpaces(str) {
-        console.log(str.trim().length===0)
     return str.trim().length === 0;
     }
 
     const handleFormNext = (event,btnName) => {
-        console.log(displayOnCustomPages);
         event.preventDefault();
         if(btnName === "btn-general"){
             if(validation === true){
@@ -121,46 +119,90 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || !displayOnCustomPages){
-                setState({
-                    ...state,
-                    validation: false
-                });
-            }else{
-                setState({
-                    ...state,
-                    currentStage: "form",
-                    validation: true
-                });
-            }
-
-        }else if(btnName === "btn-thank"){
-            if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
-                setState({
-                    ...state,
-                    validation: false,
-                });
-            }else{
-                setState({
-                    ...state,
-                    currentStage: "thank",
-                    validation: true
-                });
-            }
-
-        }else{
-            if(currentStage === "general"){
-                if(onlySpaces(formInitialData.name) || formInitialData.pages.length === 0 || displayOnCustomPages){
-                    setState({
-                        ...state,
-                        validation: false
-                    });
-                }else{
+            
+            if(!displayOnCustomPages){
+                if(!onlySpaces(formInitialData.name)){
                     setState({
                         ...state,
                         currentStage: "form",
                         validation: true
                     });
+                }else{
+                    setState({
+                        ...state,
+                        validation: false
+                    });
+                }
+            }else{
+                if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                    setState({
+                        ...state,
+                        currentStage: "form",
+                        validation: true
+                    });
+                }else{
+                    setState({
+                        ...state,
+                        validation: false
+                    });
+                }
+            }
+        }else if(btnName === "btn-thank"){
+            if(!displayOnCustomPages){
+                if(!onlySpaces(formInitialData.name)){
+                    setState({
+                        ...state,
+                        currentStage: "thank",
+                        validation: true
+                    });
+                }else{
+                    setState({
+                        ...state,
+                        validation: false
+                    });
+                }
+            }else{
+                if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                    setState({
+                        ...state,
+                        currentStage: "thank",
+                        validation: true
+                    });
+                }else{
+                    setState({
+                        ...state,
+                        validation: false
+                    });
+                }
+            }
+        }else{
+            if(currentStage === "general"){
+                if(!displayOnCustomPages){
+                    if(!onlySpaces(formInitialData.name)){
+                        setState({
+                            ...state,
+                            currentStage: "form",
+                            validation: true
+                        });
+                    }else{
+                        setState({
+                            ...state,
+                            validation: false
+                        });
+                    }
+                }else{
+                    if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                        setState({
+                            ...state,
+                            currentStage: "form",
+                            validation: true
+                        });
+                    }else{
+                        setState({
+                            ...state,
+                            validation: false
+                        });
+                    }
                 }
             }else if(currentStage === "form"){
                 setState({
@@ -209,7 +251,7 @@ const AddForm = () => {
                             loading: false,
                         });
                         setResponse(editSessionResponse);
-                        dispatch(handleReadForm([formData]));
+                        dispatch(handleReadForm([editSessionResponse.data]));
                     })
                     .catch((error) => {
                         setState({

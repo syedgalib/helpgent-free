@@ -41,6 +41,10 @@ class Conversations extends Rest_Base
 							'default'           => 'latest',
 							'validate_callback' => [ $this, 'validate_order' ],
 						],
+						'status'       => [
+							'default'           => 'active',
+							'validate_callback' => [ $this, 'validate_conversation_status' ],
+						],
 					],
 				],
 				[
@@ -59,6 +63,10 @@ class Conversations extends Rest_Base
 						'order_by'       => [
 							'default'           => 'latest',
 							'validate_callback' => [ $this, 'validate_order' ],
+						],
+						'status'       => [
+							'default'           => 'active',
+							'validate_callback' => [ $this, 'validate_conversation_status' ],
 						],
 					],
 				],
@@ -177,6 +185,16 @@ class Conversations extends Rest_Base
 	}
 
 	/**
+	 * Validate Conversation status
+	 *
+	 * @param $value
+	 */
+	public function validate_conversation_status( $value )
+	{
+		return in_array( $value, ['active', 'archive'] );
+	}
+
+	/**
 	 * Validate Message Type
 	 *
 	 * @param $value
@@ -208,14 +226,14 @@ class Conversations extends Rest_Base
 
 		$where = [];
 
-		$where['id']         = '';
-		$where['terms']      = '';
-		$where['updated_at'] = '';
-		$where['created_at'] = '';
-		$where['created_by'] = '';
-		$where['status']     = '';
+		$where['id']         = null;
+		$where['terms']      = null;
+		$where['updated_at'] = null;
+		$where['created_at'] = null;
+		$where['created_by'] = null;
+		$where['status']     = 'active';
 
-		$where = Helper\filter_params( $where, $args );
+		$where = Helper\merge_params( $where, $args );
 
 		// Status Query
 		if ( ! empty( $where['status'] ) ) {
@@ -344,6 +362,22 @@ class Conversations extends Rest_Base
 			$last_message_data = self::get_message_by_id( $last_message_id );
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
 
+
+			$messages = Message_Model::get_items([
+				'where' => [
+					'conversation_id' => $conversation['id'],
+				]
+			]);
+
+			$users = array_map( function( $message ) {
+				return $message['user_email'];
+			}, $messages );
+
+			$users = Helper\get_users_data_by( 'email', $users );
+
+
+			$conversation_data[ $conversation_key ]['users'] = $users;
+
 			// Read Status
 			$is_read = Conversation_Model::get_meta( $conversation['id'], 'read' );
 			$conversation_data[ $conversation_key ]['read'] = Helper\is_truthy( $is_read );
@@ -364,7 +398,8 @@ class Conversations extends Rest_Base
 			return null;
 		}
 
-		$message['user'] = Helper\get_users_data_by( 'email', [ $message['user'] ] );
+		$message_user = Helper\get_users_data_by( 'email', [ $message['user_email'] ] );
+		$message['user'] = ( ! empty( $message_user ) ) ? $message_user[0] : null;
 
 		if ( ! empty( $message['created_at'] ) ) {
 			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );

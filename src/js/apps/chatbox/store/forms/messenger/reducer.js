@@ -11,13 +11,11 @@ const {
 
 const initialState = {
     formData: {
-        user_id: 0,
+        user_email: '',
         message: '',
         message_type: 'text',
-        note: '',
         attachment_id: 0,
         terms: '',
-        notify_user: true,
     },
 	initSubmission: false,
 	submited: false,

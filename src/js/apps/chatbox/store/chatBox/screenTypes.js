@@ -8,6 +8,7 @@ const screenTypes = {
     USER_AUTHENTICATION_FORM: 'user_authentication_form',
     SENDING: 'sending',
     SUCCESS: 'success',
+    SPLASH_SCREEN: 'splash_screen',
 };
 
 export default screenTypes;

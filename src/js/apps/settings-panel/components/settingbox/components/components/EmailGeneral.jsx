@@ -1,19 +1,19 @@
 import React from 'react';
-import Switch from "react-switch";
+import Switch from 'react-switch';
 import Radio from 'Components/form-fields/Radio.jsx';
 
-const EmailGeneral = props =>{
+const EmailGeneral = (props) => {
     const { contentState, setContentState } = props;
 
-    const handleUpdateSwitch = (value, event, id)=>{
+    const handleUpdateSwitch = (value, event, id) => {
         setContentState({
             ...contentState,
             options: {
                 ...contentState.options,
-                [id]: value
-            }
+                [id]: value,
+            },
         });
-    }
+    };
 
     const handleChange = (event) => {
         const settingName = event.target.name;
@@ -22,23 +22,27 @@ const EmailGeneral = props =>{
             ...contentState,
             options: {
                 ...contentState.options,
-                [settingName]: settingValue
-            }
+                [settingName]: settingValue,
+            },
         });
-    }
-    console.log(contentState.options.enableEmailNotification);
-    return(
-        <div className="wpwax-vm-settings">
-            <div className="wpwax-vm-settings__single">
-                <h4 className="wpwax-vm-settings__single--label">Enable Email Notification</h4>
-                <div className="wpwax-vm-settings__single--element">
+    };
+    return (
+        <div className='wpwax-vm-settings'>
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='enableEmailNotification'
+                >
+                    Enable Email Notification
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
                     <Switch
                         uncheckedIcon={false}
                         checkedIcon={false}
-                        onColor="#6551F2"
-                        offColor="#E2E2E2"
-                        className="wpwax-vm-switch"
-                        id="enableEmailNotification"
+                        onColor='#6551F2'
+                        offColor='#E2E2E2'
+                        className='wpwax-vm-switch'
+                        id='enableEmailNotification'
                         handleDiameter={14}
                         height={22}
                         width={40}
@@ -71,7 +75,7 @@ const EmailGeneral = props =>{
                                 </div>
                             </div>
                         </div>
-                        <div className="wpwax-vm-settings__swtich-content--item">
+                        <div className='wpwax-vm-settings__swtich-content--item'>
                             <h4>User Events</h4>
                             <div className='wpwax-vm-radio-list'>
                                 <div className='wpwax-vm-radio-single'>
@@ -115,10 +119,8 @@ const EmailGeneral = props =>{
                     </div>
                 </div>
             </div>
-            
         </div>
-        
-    )
-}
+    );
+};
 
 export default EmailGeneral;

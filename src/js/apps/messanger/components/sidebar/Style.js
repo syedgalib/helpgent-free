@@ -212,6 +212,15 @@ const SidebarWrap = Styled.div`
                                     margin-top: 10px;
                                 }
                             }
+                            &:first-child{
+                                a{
+                                    &:hover{
+                                        svg path{
+                                            fill: var(--color-text);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

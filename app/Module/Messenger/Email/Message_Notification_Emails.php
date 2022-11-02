@@ -3,7 +3,11 @@
 namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
+use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Messenger\Hooks\Conversation;
+use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
+
 class Message_Notification_Emails {
 
     /**
@@ -14,7 +18,8 @@ class Message_Notification_Emails {
     public function __construct() {
 
         add_action( 'wpwax_customer_support_app_rest_insert_user', [ $this, 'cache_user_password' ], 20, 3 );
-        add_action( 'helpget_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
+        add_action( 'helpgent_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
+        add_action( 'helpgent_guest_token_created', [ $this, 'notify_after_token_created' ] );
         add_filter( 'wp_mail_from', [ $this, 'mail_from' ] );
         add_filter( 'wp_mail_from_name', [ $this, 'name_from' ] );
 
@@ -22,86 +27,187 @@ class Message_Notification_Emails {
 
     /**
      * Modify name append in recipent name box
-     * 
+     *
      * @param string $name Email from
      * @return string $name Email from
      */
     public function name_from( $name ) {
 
         if( Helper\get_option( 'emailTemplateFromName' ) ) {
-           return Helper\get_option( 'emailTemplateFromName' ); 
+           return Helper\get_option( 'emailTemplateFromName' );
         }
         return $name;
     }
 
     /**
      * Modify email append in recipent email box
-     * 
+     *
      * @param string $email Email from
      * @return string $email Email from
      */
     public function mail_from( $email ) {
 
         if( Helper\get_option( 'emailTemplateFromEmail' ) ) {
-           return Helper\get_option( 'emailTemplateFromEmail' ); 
+           return Helper\get_option( 'emailTemplateFromEmail' );
         }
         return $email;
     }
 
     /**
+     * Notify the guest user to continue conversation with the generated token
+     *
+     * @param array $data Response data
+     * @param array $args Request params.
+     */
+    public function notify_after_token_created( $data ) {
+
+        if ( ! $this->if_has_conversation( $data['email'] ) ) {
+            return;
+        }
+
+        $default = 'Dear User,
+
+        Congratulations! Your requested token has been re-generated and it is valid until '. HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS .' days from now. Go to your dashboard {{DASHBOARD_LINK}}
+
+        Thanks,
+        The Administrator of {{SITE_NAME}}
+                            ';
+
+        $args['subject'] = 'New Token Created';
+        $args['body'] = apply_filters( 'helpgent_new_token_msg', $default );
+
+        $to      = $data['email'];
+
+        $subject = ! empty( $args['subject'] ) ? $args['subject'] : '';
+        $message = ! empty( $args['body'] ) ? $args['body'] : '';
+
+        $subject = self::replace_in_content( $subject );
+		$message = self::replace_in_content( $message );
+
+        $message = self::email_html( $subject, $message );
+
+        $headers = self::get_email_headers( [ 'email' => $to ] );
+
+        return self::send_email( $to, $subject, $message, $headers );
+    }
+
+    public function if_has_conversation( $email ) {
+        $old_conversation = Conversation_Model::get_items(['where' => ['created_by' => $email]]);
+
+		if ( ! empty( $old_conversation ) ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function is_first_conversation( $email ) {
+        $old_conversation = Conversation_Model::get_items(['where' => ['created_by' => $email]]);
+
+		if ( count( $old_conversation ) === 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function is_first_message_in_conversation( $conversation_id ) {
+        $messages = Message_Model::get_items(['where' => ['conversation_id' => $conversation_id]]);
+
+		if ( count( $messages ) === 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Notify all participants
-     * 
+     *
      * @param array $data Response data
      * @param array $args Request params.
      */
     public function notify_after_message_inserted( $data, $args ) {
+        $email_notice = Helper\get_option( 'enableEmailNotification', true );
 
-        $email_notice       = Helper\get_option( 'enableEmailNotification', true );
-        if( ! $email_notice ) {
+		if ( ! $email_notice ) {
             return;
         }
 
-        $old_messages = Message_Model::get_items(['where' => ['user_id' => $args['user_id']]]);
-        $first_chat = false;
-        if (count($old_messages) < 2) {
-            $first_chat = true;
-        }
-        $admin_notice_type  = Helper\get_option( 'adminEmailNotificationType', true );
-        if( ! $first_chat && ( 'multiple' !== $admin_notice_type ) ) {
-            return;
-        }
+		$is_author_admin = Helper\is_user_admin( $data['user_email'] );
+		$users           = $this->get_conversation_users( $data['conversation_id'] );
 
-        $clint = '';
-        $admins = [];
-        $old_sessions = Message_Model::get_items(['where' => ['session_id' => $data['session_id']]]);
-        if( ! empty( $old_sessions ) ) {
-            foreach( $old_sessions as $session ) {
-                $user_id = ! empty( $session['user_id'] ) ? $session['user_id'] : '';
-                if ( Helper\is_user_admin( $session['user_id'] ) ) {
-                    array_push( $admins, $user_id );
-                } else{
-                    $clint = $user_id; 
-                }
-            }
-        }
-        $is_user_admin =  Helper\is_user_admin( $data['user_id'] );
-        
-        $args['replier'] = $data['user_id'];
+		$is_first_message_in_conversation = $this->is_first_message_in_conversation( $args['conversation_id'] );
+		$is_first_conversation = $this->is_first_conversation( $data['user_email'] );
 
-        if( ! $is_user_admin && $admins ) {
-            foreach( $admins as $admin ) {
-                // notify admin
-                self::notify_new_session_created( $admin, $args );
-            }
-           return;
-        }
-        // notify clint
-        if( $first_chat ) {
-            self::user_greeting_on_first_session_created( $clint, $args );
-            return;
-        }
-        self::notify_new_session_created( $clint, $args ); 
+		if ( $is_author_admin ) {
+			$recepents        = $users['clients'];
+			$notificationType = Helper\get_option( 'clientEmailNotificationType', 'multiple' );
+		} else {
+			$recepents        = $users['admins'];
+			$notificationType = Helper\get_option( 'adminEmailNotificationType', 'multiple' );
+		}
+
+		$should_notify = ( 'multiple' === $notificationType );
+
+		if ( 'single' === $notificationType && $is_first_message_in_conversation ) {
+			$should_notify = true;
+		}
+
+		if ( ! $should_notify ) {
+			return;
+		}
+
+		$args['replier'] = $data['user_email'];
+
+		// Send notification for first conversation
+		if ( $is_first_conversation ) {
+			self::user_greeting_on_first_conversation_created( $data['user_email'], $args );
+		}
+
+		// Send notification for new conversation
+		foreach( $recepents as $recepent ) {
+			self::notify_new_conversation_created( $recepent, $args );
+		}
+
     }
+
+	/**
+	 * Get Conversation Users
+	 *
+	 * @param int $conversation_id
+	 * @return array Users
+	 */
+	public function get_conversation_users( $conversation_id ) {
+		$users = [
+			'admins'  => [],
+			'clients' => [],
+		];
+
+		$messages = Message_Model::get_items([
+			'where' => [ 'conversation_id' => $conversation_id ]
+		]);
+
+		if ( empty( $messages ) ) {
+			return $users;
+		}
+
+		foreach( $messages as $message ) {
+			$user_email = ! empty( $message['user_email'] ) ? $message['user_email'] : '';
+
+			if ( empty( $user_email ) ) {
+				continue;
+			}
+
+			if ( Helper\is_user_admin( $message['user_email'] ) ) {
+				array_push( $users['admins'], $user_email );
+			} else {
+				array_push( $users['clients'], $user_email );
+			}
+		}
+
+		return $users;
+	}
 
     /**
      * Cache user password
@@ -112,10 +218,6 @@ class Message_Notification_Emails {
     public function cache_user_password( $user = null, $request = null, $creating = true ) {
 
         if ( ! $creating ) {
-            return;
-        }
-
-        if ( ! self::is_valid_user( $user ) ) {
             return;
         }
 
@@ -136,16 +238,12 @@ class Message_Notification_Emails {
      *
      * @return bool
      */
-    public static function user_greeting_on_first_session_created( $user = null, $args = [] ) {
-
-        if ( ! self::is_valid_user( $user ) ) {
-            return;
-        }
+    public static function user_greeting_on_first_conversation_created( $user = null, $args = [] ) {
 
         $default = 'Dear {{NAME}},
 
         Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}
-        
+
         Thanks,
         The Administrator of {{SITE_NAME}}
                             ';
@@ -164,11 +262,7 @@ class Message_Notification_Emails {
      *
      * @return bool
      */
-    public static function notify_new_session_created( $user = null, $args = [] ) {
-
-        if ( ! self::is_valid_user( $user ) ) {
-            return;
-        }
+    public static function notify_new_conversation_created( $user = null, $args = [] ) {
 
         $default = 'Dear {{NAME}},
 
@@ -177,7 +271,7 @@ class Message_Notification_Emails {
 
         $args['subject'] = Helper\get_option( 'emailTemplateMessageSubject', 'New Message from {{REPLIER_NAME}}' );
         $args['body'] = Helper\get_option( 'emailTemplateMessageBody', $default );
-        
+
         return self::notify_user( $user, $args );
     }
 
@@ -191,23 +285,26 @@ class Message_Notification_Emails {
      */
     protected static function notify_user( $user = null, $args = [] ) {
 
-        if ( ! self::is_valid_user( $user ) ) {
-            return ;
+        if( ! $user ) {
+            return;
         }
 
-        if( is_numeric( $user ) ) {
-            $user = get_user_by( 'id', $user );
-        }
-
+        $is_guest = Auth_Token_Model::get_item( $user );
         $template_data = [];
 
-        $template_data['email'] = $user->user_email;
-        $template_data['name']  = $user->display_name;
+        if( is_email( $user ) ) {
+            $user = get_user_by( 'email', $user );
+            $to      = $user->user_email;
+            $template_data['email'] = $user;
+            $template_data['name']  = 'User';
+        }
 
-        $password = ( ! empty( $args['password'] ) ) ? $args['password'] : self::get_user_cached_password( $user->user_email );
-        $template_data['password'] = ( ! empty( $password ) ) ? $password : __( 'Your chosen password', 'wpwax-customer-support-app' );
+        if( $is_guest ) {
+            $template_data['email'] = $user;
+            $template_data['name']  = 'User';
+            $to = $user;
+        }
 
-        $to      = $user->user_email;
         $subject = ! empty( $args['subject'] ) ? $args['subject'] : __( 'A new conversation has starterd', 'wpwax-customer-support-app' );
         $message = ! empty( $args['body'] ) ? $args['body'] : '';
 
@@ -253,33 +350,6 @@ class Message_Notification_Emails {
     }
 
     /**
-     * Is valid user
-     *
-     * @param WP_User $user
-     * @return bool
-     */
-    protected static function is_valid_user( $user ) {
-
-        if ( is_numeric( $user ) ) {
-            $user = get_user_by( 'id', $user );
-        }
-
-        if ( empty( $user ) ) {
-            return false;
-        }
-
-        if ( empty( $user->user_email ) ) {
-            return false;
-        }
-
-        if ( ! is_email( $user->user_email ) ) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Get user cached password
      *
      * @param string $email
@@ -321,30 +391,31 @@ class Message_Notification_Emails {
      * @return string               It returns the content after replacing the placeholder with proper data.
      */
     public function replace_in_content( $content, $user = null, $args = [] ) {
-       
-        if ( is_numeric( $user ) ) {
-            $user = get_user_by( 'id', $user );
+
+        if ( is_email( $user ) ) {
+            $user = get_user_by( 'email', $user );
         }
 
+        $guest_token   = Auth_Token_Model::get_item( $user );
         $site_name      = get_option( 'blogname' );
         $site_url       = site_url();
         $date_format    = get_option( 'date_format' );
         $time_format    = get_option( 'time_format' );
         $current_time   = current_time( 'timestamp' );
-        $dashboard_link = Helper\get_dashboard_page_link();
-        $replier        = ! empty( $args['replier'] ) ? get_user_by( 'id', $args['replier'] ) : '';
-        $replier_name   = ! is_wp_error( $replier ) ? $replier->display_name : '';
+        $dashboard_link =  Helper\get_dashboard_page_link();
+        $replier        = ! empty( $args['replier'] ) ? get_user_by( 'email', $args['replier'] ) : '';
+        $replier_name   = ! is_wp_error( $replier ) ? $replier->display_name : 'User';
 
         $find_replace = array(
-            '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : '',
+            '{{NAME}}' => ! empty( $user->display_name ) ? $user->display_name : 'User',
             '{{REPLIER_NAME}}' => $replier_name,
-            '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : '',
+            '{{USERNAME}}' => ! empty( $user->user_login ) ? $user->user_login : 'User',
             '{{SITE_NAME}}' => $site_name,
             '{{SITE_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_name ),
             '{{SITE_URL}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_url ),
             '{{TODAY}}' => date_i18n( $date_format, $current_time ),
             '{{NOW}}' => date_i18n( $date_format . ' ' . $time_format, $current_time ),
-            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $dashboard_link, $dashboard_link ),
+            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', ! is_wp_error( $guest_token ) ? add_query_arg( 'token', $guest_token, $dashboard_link ) : $dashboard_link, $dashboard_link ),
             '{{MESSAGE}}' => ! empty( $args['message'] ) ? $args['message'] : '',
         );
         $c = nl2br( strtr( $content, $find_replace ) );
@@ -440,7 +511,7 @@ class Message_Notification_Emails {
                             </table>
                         </td>
                     </tr>
-              
+
                     <tr>
                         <td align="center" valign="top">
                             <!-- Footer -->

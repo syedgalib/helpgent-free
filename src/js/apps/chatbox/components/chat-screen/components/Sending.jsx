@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
-import http from 'Helper/http';
 
 import {
 	upateState as updateUserState
@@ -10,6 +9,8 @@ import {
 
 import {
     updateFormData as updateMessengerFormData,
+    submitForm as submitMessengerForm,
+    upateState as upateMessengerFormState,
 } from '../../../store/forms/messenger/actionCreator';
 
 import useChatboxController from '../hooks/useChatboxController';
@@ -53,6 +54,8 @@ function Sending() {
 		ERROR: 'ERROR',
 	};
 
+	const email = ( userForm.user && userForm.user.email ) ? userForm.user.email : '';
+
 	// Local States
 	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
@@ -81,60 +84,66 @@ function Sending() {
 		init();
     }, []);
 
-
-	/**
-	 * Init
-	 *
-	 * @ If user is logged in
-	 *   # If user is client or admin
-	 *     - Send The Message
-	 *   # If user is not client or admin
-	 *     - Update current user role and meta data
-	 * 	   - Send The Message
-	 *
-	 * @ If user is not logged in
-	 *   # If guest login is enabled
-	 *     - Register user as guest
-	 *        - If user exist -> Swith to Autentication Page
-	 * 	   - Send The Message
-	 *   # If guest login not enabled
-	 *     - Register user as WP user
-	 *       - If user exist -> Swith to Autentication Page
-	 *     - Send The Message
-	 */
 	async function init() {
-		// Handle Logged in User
-		if ( isLoggedIn() ) {
-			handleLoggedInUser();
-			return;
-		}
+		// Situations
+		// @ User is logged in
+		//   # User is not client
+		//   # User is client
 
-		// Handle New User
-		handleNewUser();
-	}
+		// @ User is not logged in
+		//   # Guest Login Enabled
+		//   # Guest Login Not Enabled
 
 
-	/**
-	 * Handle Logged In User
-	 *
-	 * # If user is client or admin
-	 *   - Send The Message
-	 * # If user is not client or admin
-	 *   - Update current user role and meta data
-	 * 	 - Send The Message
-	 */
-	async function handleLoggedInUser() {
-		// If user is client or admin
-		if ( isUserAdmin() || isUserClient() ) {
+		// Submit the messgage if message has user ID
+		// --------------------------------
+		if ( messengerForm.formData.user_id && userForm.is_varified ) {
 			submitMessage();
 			return;
 		}
 
-		// Update Current User
-		const updateCurrentUserResponse = await updateCurrentUser();
+		// Create or get the user
+		// --------------------------------
+		const createUserResponse = await createUser( userForm.formData );
+		if ( ! createUserResponse.success ) {
+			dispatch(
+				updateUserState({
+					status: false,
+					statusMessage: createUserResponse.message,
+				})
+			);
 
-		if ( ! updateCurrentUserResponse.success ) {
-			setCurrentStage( stages.ERROR );
+			// Return to Contact Form Page if failed
+			setTimeout(() => {
+				dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+			}, 2000);
+
+			return;
+		}
+
+		const userID = createUserResponse.data.email;
+
+		// Add user ID to message
+		dispatch(
+			updateMessengerFormData({
+				user_id: userID,
+			})
+		);
+
+		setUserEmail( userID );
+
+		// Verify user if exists
+		// --------------------------------
+		if ( ! createUserResponse.data.is_new_user ) {
+			dispatch(
+				updateUserState({
+					user: createUserResponse.data,
+					needAuthentication: true,
+					is_varified: false,
+				})
+			);
+
+			dispatch(changeChatScreen(screenTypes.USER_AUTHENTICATION_FORM));
 			return;
 		}
 

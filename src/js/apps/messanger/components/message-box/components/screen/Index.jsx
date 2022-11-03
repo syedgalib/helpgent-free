@@ -11,7 +11,7 @@ import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
 
 const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=>{
-    
+
     const [textMessage, setTextMessage] = useState('');
     const [isSending, setIsSending] = useState(false);
 
@@ -22,6 +22,11 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
     /* Handle Close */
     const handleClose = (e) => {
         e.preventDefault();
+        close();
+    };
+
+    /* Handle Close */
+    const close = () => {
         dispatch(handleReplyModeChange(false));
     };
 
@@ -59,7 +64,7 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
 
         // Send The Message
         const messageResponse = await createTextMessage({
-            session_id: sessionID,
+            conversation_id: sessionID,
             attachment_id: attachmentID,
             message: textMessage,
         });
@@ -77,6 +82,8 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
 
         setIsSending(false);
         onSuccess();
+
+		close();
         dispatch(handleReplyModeChange(false));
     }
 

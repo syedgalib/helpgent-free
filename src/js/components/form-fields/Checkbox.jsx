@@ -1,5 +1,4 @@
 const Checkbox = ({ id, label, value, checked, onChange, disabled }) => {
-    console.log(checked);
     return (
         <div className="wpwax-vm-checkbox">
             <input 

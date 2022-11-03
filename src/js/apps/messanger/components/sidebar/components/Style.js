@@ -62,6 +62,12 @@ const TaglistWrap = Styled.div`
                     font-weight: 500;
                     color: var(--color-dark);
                 }
+                &:nth-last-child(-n+3){
+                    .wpwax-vm-dropdown__content{
+                        top: auto;
+                        bottom: 15px;
+                    }
+                }
             }
         }
         .wpwax-vm-dropdown{

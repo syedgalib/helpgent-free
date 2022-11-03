@@ -858,11 +858,22 @@ function get_current_user( $return_wp_user = false ) {
 
 /**
  * Max upload size
- * @return int size in MB
+ * @return int size in bytes
  */
 function max_upload_size() {
-	$custom_size = get_option( 'maxUploadSize', 100 );
+	$custom_size = get_option( 'maxUploadSize', 100 ); // In MB
+	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size * ( 1024 * 1024) : 100;
+
 	return $custom_size > wp_max_upload_size() ? wp_max_upload_size() : $custom_size;
+}
+
+/**
+ * Voice Record Time Limit
+ * @return int seconds
+ */
+function voice_record_time_limit() {
+	$min = WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT; // In Minute
+	return $min * 60;
 }
 
 function get_mime_types($filter_type = '', $return_type = '')

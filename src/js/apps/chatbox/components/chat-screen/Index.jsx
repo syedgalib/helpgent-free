@@ -22,7 +22,6 @@ import useUserAPI from 'API/useUserAPI.js';
 import useSettingsAPI from 'API/useSettingsAPI.js';
 
 function ChatScreen( { show } ) {
-	const dispatch = useDispatch();
     useFormHooks();
 
 	// API

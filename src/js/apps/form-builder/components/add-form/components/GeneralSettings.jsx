@@ -59,8 +59,6 @@ const GeneralSettings = () => {
         };
     });
 
-    console.log(collectInfo);
-
     const [state, setState] = useState({
         openCollapse: true,
     });

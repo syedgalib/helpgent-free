@@ -23,7 +23,7 @@ import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
-	 updateSelectedSession,
+	updateSelectedSession,
     addSession,
     updateSessionMessages,
 	updateSessionMessagesByIDs,
@@ -32,10 +32,14 @@ import {
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';
 
-import http from 'Helper/http.js';
+
 import { formatSecondsAsCountdown } from 'Helper/formatter.js';
 import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { getTimezoneString } from 'Helper/utils.js';
+
+import useConversationAPI from 'API/useConversationAPI.js';
+import useMessangerAPI from 'API/useMessangerAPI.js';
+// import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const CenterBoxStyle = {
     minHeight: '620px',
@@ -48,6 +52,20 @@ const CenterBoxStyle = {
 
 function MessageBox({ setSessionState }) {
 	const { addAction } = wpwaxHooks;
+
+	// Use API
+	const {
+		markAsRead: markConversationAsRead,
+	} = useConversationAPI();
+
+	const {
+		getItems: getMessangerItems,
+		createItem: createMessangerItem,
+	} = useMessangerAPI();
+
+	// const {
+	// 	createItem: createAttachmentItem,
+	// } = useAttachmentAPI();
 
     const {
 		hasPermission,
@@ -79,7 +97,6 @@ function MessageBox({ setSessionState }) {
 	const [screenSize, SCREEN_SIZES] = useScreenSize();
 
     const [sessionMessages, setSessionMessages] = useState([]);
-    const [latestMessageDate, setLatestMessageDate] = useState(null);
 
     const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
     const [isLoadingSession, setIsLoadingSession] = useState(false);
@@ -100,7 +117,7 @@ function MessageBox({ setSessionState }) {
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
             ? parseInt(messengerScriptData.voiceRecordTimeLimit)
             : 300; // 5 Minuites
-    
+
     const [screenRecordState, setScreenRecordState] = useState({
         recordStage: "request_permission"
     });
@@ -111,6 +128,9 @@ function MessageBox({ setSessionState }) {
     // Message Contents
     const [textMessageContent, setTextMessageContent] = useState('');
 
+	// Pagination
+    const paginationPerPage = 20;
+
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
@@ -119,7 +139,6 @@ function MessageBox({ setSessionState }) {
 
     /* initialize Form Data */
     const {
-        paginationPerPage,
         selectedSession,
         allSessions,
         allSessionWindowData,
@@ -128,7 +147,6 @@ function MessageBox({ setSessionState }) {
         messageType,
     } = useSelector((state) => {
         return {
-            paginationPerPage: state.messages.paginationPerPage,
             selectedSession: state.messages.selectedSession,
             allSessions: state.messages.allSessions,
             allSessionWindowData: state.messages.allSessionWindowData,
@@ -222,7 +240,7 @@ function MessageBox({ setSessionState }) {
 
     const getWindowData = (key) => {
         const selectedSessionID = selectedSession
-            ? selectedSession.session_id
+            ? selectedSession.id
             : null;
 
         if (!selectedSessionID) {
@@ -250,13 +268,21 @@ function MessageBox({ setSessionState }) {
         return selectedWindowData;
     };
 
+	const updateWindowData = ( key, value ) => {
+		dispatch(
+			updateSessionWindowData(
+				selectedSession.id,
+				key,
+				value
+			)
+		);
+	}
+
     const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
 	// On Init
 	useEffect( function () {
 		addAction( 'onConversationDelete', onConversationDelete );
-		addAction( 'onMarkAsRead', onMarkAsRead, setSessionMessages );
-		addAction( 'onMarkAsUnread', onMarkAsUnread, setSessionMessages );
 	}, [] );
 
 
@@ -268,76 +294,13 @@ function MessageBox({ setSessionState }) {
 		dispatch( updateSelectedSession( newSession ) );
 	}
 
-	// onMarkAsRead
-	function onMarkAsRead( { session_id, data }, setSessionMessages ) {
-
-		let updatedMessages = {};
-
-		for ( const id of data.messages_marked_as_read ) {
-			updatedMessages[ id ] = { is_seen: true };
-		}
-
-		setSessionMessages( currentMessages => {
-			return currentMessages.map( message => {
-				const updatedMessagesIDs = Object.keys( updatedMessages );
-
-					if ( ! updatedMessagesIDs.includes( `${message.id}` ) ) {
-						return message;
-					}
-
-					const updatedFields = updatedMessages[ message.id ];
-
-					const newUpdatedMessages = {
-						...message,
-						...updatedFields
-					};
-
-					return newUpdatedMessages;
-			});
-		});
-
-		dispatch( updateSessionMessagesByIDs( session_id, updatedMessages ) );
-	}
-
-	// onMarkAsUnread
-	function onMarkAsUnread( { session_id, data }, setSessionMessages ) {
-
-		let updatedMessages = {};
-
-		for ( const id of data.unread_messages ) {
-			updatedMessages[ id ] = { is_seen: false };
-		}
-
-		setSessionMessages( currentMessages => {
-			return currentMessages.map( message => {
-
-				const updatedMessagesIDs = Object.keys( updatedMessages );
-
-				if ( ! updatedMessagesIDs.includes( `${message.id}` ) ) {
-					return message;
-				}
-
-				const updatedFields = updatedMessages[ message.id ];
-
-				const newUpdatedMessages = {
-					...message,
-					...updatedFields
-				};
-
-				return newUpdatedMessages;
-			});
-		});
-
-		dispatch( updateSessionMessagesByIDs( session_id, updatedMessages ) );
-	}
-
     // Effect for API call
     useEffect(() => {
         const text = debouncedSearchTerm;
         if(selectedSession){
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'searchKeyword',
                     text
                 )
@@ -347,7 +310,7 @@ function MessageBox({ setSessionState }) {
             const newSearchQueryArgs = { message: text };
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'searchQueryArgs',
                     newSearchQueryArgs
                 )
@@ -356,7 +319,7 @@ function MessageBox({ setSessionState }) {
                 // Activate Search Mode
                 dispatch(
                     updateSessionWindowData(
-                        selectedSession.session_id,
+                        selectedSession.id,
                         'isSearching',
                         true
                     )
@@ -365,7 +328,7 @@ function MessageBox({ setSessionState }) {
                 // Inactivate Search Mode
                 dispatch(
                     updateSessionWindowData(
-                        selectedSession.session_id,
+                        selectedSession.id,
                         'isSearching',
                         false
                     )
@@ -387,58 +350,66 @@ function MessageBox({ setSessionState }) {
                 return;
             }
 
-            if (!selectedSession.session_id) {
+            if (!selectedSession.id) {
                 return;
             }
 
             setIsLoadingSession(true);
 
-            const session_id = selectedSession.session_id;
+            const id = selectedSession.id;
 
             // Load session data from store if available
-            if (Object.keys(allSessions).includes(session_id)) {
-                setSessionMessages(allSessions[session_id]);
-
-                let latest_message_date = latestMessageDate;
-
-                if (allSessions[session_id].length) {
-                    const sessionMessageItems = allSessions[session_id];
-                    const latestSessionItem =
-                        sessionMessageItems[sessionMessageItems.length - 1];
-
-                    latest_message_date = latestSessionItem.created_on;
-
-                    setLatestMessageDate(latest_message_date);
-                }
-
+            if (Object.keys(allSessions).includes(id)) {
+                setSessionMessages(allSessions[id]);
                 setIsLoadingSession(false);
                 return;
             }
 
             // Fetch session data from API
             const fetchSession = async () => {
-                const sessionResponse = await http.getData('/messages', {
-                    session_id,
+
+				const messages = await getMessangerItems({
+                    conversation_id: id,
                     limit: paginationPerPage,
-					timezone: getTimezoneString(),
                 });
-                return sessionResponse;
+
+                return messages;
             };
 
             fetchSession()
                 .then((response) => {
-                    // Update Latest Message Date
-                    if (response.data.data.length) {
-                        setLatestMessageDate(response.data.data[0].created_on);
-                    }
-
-                    const sessionMessages = response.data.data;
+                    const sessionMessages = response.data;
 
                     // Update The Store
-                    dispatch(addSession(session_id, sessionMessages));
-                    dispatch(addSessionWindowData(session_id));
+                    dispatch(addSession(id, sessionMessages));
+                    dispatch(addSessionWindowData(id));
+
+					const totalPage = ( response.headers && Object.keys( response.headers ).includes( 'x-wp-totalpages' ) ) ? parseInt( response.headers['x-wp-totalpages'] ) : 1;
+					updateWindowData( 'totalPage', totalPage );
 
                     setSessionMessages(sessionMessages);
+
+					markConversationAsRead( id ).then( function() {
+						setSessionState( currentState => {
+							const newState = {
+								...currentState,
+								sessionList: currentState.sessionList.map((session) =>
+									session.id === id
+										? { ...session, read: 1 }
+										: session
+								),
+								filteredSessions: currentState.filteredSessions.map((session) =>
+									session.id === selectedSession.id
+										? { ...session, read: 1 }
+										: session
+								),
+							};
+
+							return newState;
+
+						});
+					});
+
                     setIsLoadingSession(false);
                 })
                 .catch((error) => {
@@ -535,9 +506,6 @@ function MessageBox({ setSessionState }) {
     const searchResults = getWindowData('searchResults');
     const isSearching = getWindowData('isSearching');
     const searchQueryArgs = getWindowData('searchQueryArgs');
-    const messagesContainerScrollMeta = getWindowData(
-        'messagesContainerScrollMeta'
-    );
 
     const isShowingVideoSearchResult = getWindowData(
         'isShowingVideoSearchResult'
@@ -549,7 +517,7 @@ function MessageBox({ setSessionState }) {
     const setSearchResults = function (results) {
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchResults',
                 results
             )
@@ -560,7 +528,7 @@ function MessageBox({ setSessionState }) {
         // Hide Search Results
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isSearching',
                 false
             )
@@ -572,7 +540,7 @@ function MessageBox({ setSessionState }) {
         // Reset Serch Query Args
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchQueryArgs',
                 {}
             )
@@ -584,7 +552,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVideoSearchResult',
                 false
             )
@@ -592,7 +560,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVoiceSearchResult',
                 false
             )
@@ -611,7 +579,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'openSearch',
                 true
             )
@@ -628,7 +596,7 @@ function MessageBox({ setSessionState }) {
         // Close search bar
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'openSearch',
                 false
             )
@@ -637,7 +605,7 @@ function MessageBox({ setSessionState }) {
         // Reset search input
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchKeyword',
                 ''
             )
@@ -697,13 +665,13 @@ function MessageBox({ setSessionState }) {
     /* Handle Reply Mode */
     const haldleReplyMode = () => {
         if (messageType === 'video') {
-            
+
         }else if(messageType === 'screen'){
             return (
                 <Screen
                     recordedBold={recordedScreenBlob}
                     recordUrl={recordedScreenURL}
-                    sessionID={selectedSession.session_id}
+                    sessionID={selectedSession.id}
                     onSuccess={loadLatestMessages}
                     replayingTo={getReplaingToUser()}
                 />
@@ -745,7 +713,7 @@ function MessageBox({ setSessionState }) {
         textMessageContentRef.current.focus();
 
         // Load Latest
-        loadLatestMessages(latestMessageDate);
+        loadLatestMessages();
     };
 
 	const canSendAudioMessage = () => {
@@ -813,7 +781,7 @@ function MessageBox({ setSessionState }) {
 
     const createMessage = async (args) => {
         const defaultArgs = {
-            session_id: selectedSession.session_id,
+            conversation_id: selectedSession.id,
             message_type: 'text',
             message: '',
         };
@@ -829,7 +797,7 @@ function MessageBox({ setSessionState }) {
         };
 
         try {
-            const response = await http.postData('/messages', args);
+            const response = await createMessangerItem( args );
 
             status.success = true;
             status.data = response;
@@ -845,7 +813,7 @@ function MessageBox({ setSessionState }) {
     const getMessages = async (customArgs) => {
         const defaultArgs = {
 			timezone: getTimezoneString(),
-            session_id: selectedSession.session_id,
+            conversation_id: selectedSession.id,
             page: 1,
         };
 
@@ -857,10 +825,9 @@ function MessageBox({ setSessionState }) {
         };
 
         try {
-            const response = await http.getData('/messages', args);
-
+            const response = await getMessangerItems( args );
             status.success = true;
-            status.data = response;
+            status.data = response.data;
 
             return status;
         } catch (error) {
@@ -918,6 +885,8 @@ function MessageBox({ setSessionState }) {
             message_type: 'audio',
             attachment_id: attachmentID,
         });
+
+		console.log( { response } );
 
         setIsSendingAudioMessage(false);
 
@@ -1087,40 +1056,33 @@ function MessageBox({ setSessionState }) {
         }
     };
 
-    async function loadLatestMessages(latest_message_date) {
-        let args = { limit: -1 };
+    async function loadLatestMessages() {
+        let args = { limit: 10, page: 1 };
 
-        latest_message_date = latest_message_date
-            ? latest_message_date
-            : latestMessageDate;
+		const lastMessageID = sessionMessages.length ? sessionMessages[0].id : null;
 
-        if (latest_message_date) {
-            args.created_on = latest_message_date;
-            args.created_on_compare_date_time = '>';
-        }
+		if ( lastMessageID ) {
+			args.id = lastMessageID;
+			args.id_compare = '>';
+		}
 
         const response = await getMessages(args);
 
         // Show Alert on Error
-        if (!response.success) {
+        if ( ! response.success ) {
             const message = response.message
                 ? response.message
                 : 'Somethong went wrong, please try again.';
-            alert(message);
 
+			alert( message );
             return;
         }
 
-        const responseData = response.data.data.data;
+        const responseData = response.data;
 
-        if (!responseData.length) {
+        if ( ! responseData.length) {
             return;
         }
-
-        const newLatestMessageDate = responseData[0].created_on;
-
-        // Update Latest Message Date
-        setLatestMessageDate(newLatestMessageDate);
 
         // Update Latest Message
         let latestItems = responseData;
@@ -1131,7 +1093,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionMessages(
-                selectedSession.session_id,
+                selectedSession.id,
                 updatedSessionMessages
             )
         );
@@ -1142,44 +1104,49 @@ function MessageBox({ setSessionState }) {
 
         // Get Older Messages
         const paginationMeta = getPaginationMeta();
-        const nextPage = paginationMeta.nextPage;
+
+		if ( paginationMeta.isLastPage ) {
+			setIsLoadingMoreMessages(false);
+			return;
+		}
 
         const response = await getMessages({
-            page: nextPage,
-            limit: paginationPerPage,
+            page: paginationMeta.nextPage,
+            limit: paginationMeta.perPage,
         });
 
-        setIsLoadingMoreMessages(false);
-
         // Show Alert on Error
-        if (!response.success) {
+        if ( !  response.success ) {
+			setIsLoadingMoreMessages(false);
             const message = response.message
                 ? response.message
                 : 'Somethong went wrong, please try again.';
-            alert(message);
 
+			alert( message );
             return;
         }
 
         // Update Loaded Session
-        let latestItems = response.data.data.data;
+        const oldItems = response.data;
 
-        if (!latestItems.length) {
+        if ( ! oldItems.length ) {
+			setIsLoadingMoreMessages(false);
             return;
         }
 
-        latestItems = latestItems.splice(
-            0,
-            latestItems.length - paginationMeta.reminder
-        );
+        const updatedSessionMessages = [...sessionMessages, ...oldItems];
 
-        if (!latestItems.length) {
-            return;
-        }
-
-        const updatedSessionMessages = [...sessionMessages, ...latestItems];
+		updateWindowData( 'currentPage', paginationMeta.nextPage );
 
         setSessionMessages(updatedSessionMessages);
+		dispatch(
+            updateSessionMessages(
+                selectedSession.id,
+                updatedSessionMessages
+            )
+        );
+
+		setIsLoadingMoreMessages(false);
     };
 
     const updateTextSearchResult = (event) => {
@@ -1188,7 +1155,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchKeyword',
                 text
             )
@@ -1198,7 +1165,7 @@ function MessageBox({ setSessionState }) {
         const newSearchQueryArgs = { message: text };
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchQueryArgs',
                 newSearchQueryArgs
             )
@@ -1208,7 +1175,7 @@ function MessageBox({ setSessionState }) {
             // Activate Search Mode
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'isSearching',
                     true
                 )
@@ -1217,7 +1184,7 @@ function MessageBox({ setSessionState }) {
             // Inactivate Search Mode
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'isSearching',
                     false
                 )
@@ -1227,14 +1194,12 @@ function MessageBox({ setSessionState }) {
         loadSearchResults(newSearchQueryArgs);
     };
 
-    // const onMessageSearch = debounce(updateTextSearchResult, 250);
-
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
         setMessageDirection('bottom');
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVoiceSearchResult',
                 false
             )
@@ -1243,7 +1208,7 @@ function MessageBox({ setSessionState }) {
         if (isShowingVideoSearchResult) {
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'isShowingVideoSearchResult',
                     false
                 )
@@ -1257,7 +1222,7 @@ function MessageBox({ setSessionState }) {
         //
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVideoSearchResult',
                 true
             )
@@ -1267,7 +1232,7 @@ function MessageBox({ setSessionState }) {
         const newSearchQueryArgs = { message_type: 'video' };
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchQueryArgs',
                 newSearchQueryArgs
             )
@@ -1277,7 +1242,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isSearching',
                 true
             )
@@ -1289,7 +1254,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVideoSearchResult',
                 false
             )
@@ -1298,7 +1263,7 @@ function MessageBox({ setSessionState }) {
         if (isShowingVoiceSearchResult) {
             dispatch(
                 updateSessionWindowData(
-                    selectedSession.session_id,
+                    selectedSession.id,
                     'isShowingVoiceSearchResult',
                     false
                 )
@@ -1312,7 +1277,7 @@ function MessageBox({ setSessionState }) {
         //
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isShowingVoiceSearchResult',
                 true
             )
@@ -1322,7 +1287,7 @@ function MessageBox({ setSessionState }) {
         const newSearchQueryArgs = { message_type: 'audio' };
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'searchQueryArgs',
                 newSearchQueryArgs
             )
@@ -1332,7 +1297,7 @@ function MessageBox({ setSessionState }) {
 
         dispatch(
             updateSessionWindowData(
-                selectedSession.session_id,
+                selectedSession.id,
                 'isSearching',
                 true
             )
@@ -1368,7 +1333,7 @@ function MessageBox({ setSessionState }) {
         }
 
         // Update Loaded Session
-        const searchResults = response.data.data.data;
+        const searchResults = response.data;
 
         setSearchResults(searchResults);
         setIsLoadingSearchResults(false);
@@ -1400,7 +1365,7 @@ function MessageBox({ setSessionState }) {
         }
 
         // Update Loaded Session
-        let latestItems = response.data.data.data;
+        let latestItems = response.data;
 
         if (!latestItems.length) {
             setIsLoadingMoreSearchResults(false);
@@ -1415,64 +1380,20 @@ function MessageBox({ setSessionState }) {
     };
 
     const getPaginationMeta = () => {
-        const currentSession = sessionMessages;
-        const perPage = paginationPerPage;
-        const currentPageItemsCount = currentSession.length;
-        const currentPageItemsReminder = currentPageItemsCount % perPage;
+		const currentPage = getWindowData( 'currentPage' );
+		const totalPage   = getWindowData( 'totalPage' );
+		const perPage     = paginationPerPage;
+		const isLastPage  = currentPage === totalPage;
+		const nextPage    = isLastPage ? 0 : currentPage + 1;
 
-        let currentPage =
-            currentPageItemsCount >= perPage
-                ? (currentPageItemsCount - currentPageItemsReminder) / perPage
-                : 1;
-        currentPage =
-            currentPageItemsCount >= perPage && currentPageItemsReminder > 0
-                ? currentPage + 1
-                : currentPage;
-
-        const nextPage =
-            currentPageItemsReminder > 0 ? currentPage : currentPage + 1;
-
-        return {
-            currentPageItemsCount,
-            perPage,
-            currentPage,
-            nextPage,
-            reminder: currentPageItemsReminder,
-        };
+		return {
+			perPage,
+			currentPage,
+			nextPage,
+			isLastPage,
+			totalPage,
+		};
     };
-
-    const updateUnreadMessagesCount = function () {
-        const session_id = selectedSession.session_id;
-
-        setSessionState((currentState) => {
-            const currentSession = currentState.sessionList.filter(
-                (session) => session.session_id === session_id
-            )[0];
-
-            const total_unread = ( currentSession && currentSession.total_unread ) ? currentSession.total_unread : 0;
-
-            let new_count = parseInt(total_unread) - 1;
-            new_count = new_count < 0 ? '0' : `${new_count}`;
-
-            const newState = {
-                ...currentState,
-                sessionList: currentState.sessionList.map((session) =>
-                    session.session_id === session_id
-                        ? { ...session, total_unread: new_count }
-                        : session
-                ),
-                filteredSessions: currentState.filteredSessions.map((session) =>
-                    session.session_id === selectedSession.session_id
-                        ? { ...session, total_unread: new_count }
-                        : session
-                ),
-            };
-
-            return newState;
-        });
-    };
-
-    console.log(messageType);
 
     /* Handle Load Footer Content */
     const handleFooterContent = function () {
@@ -1544,17 +1465,17 @@ function MessageBox({ setSessionState }) {
                     </a>
                     <div className='wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            
+
                             {
                                 isRecordingVoice ? <a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
                                     <span className='dashicons dashicons-controls-pause'></span>
                                 </a>
-                                : 
+                                :
                                 <a href='#' className='wpwax-vm-messagebox-reply-voice-play' onClick={handleVoicePlay}>
                                     <span className='dashicons dashicons-controls-play'></span>
                                 </a>
                             }
-                            
+
                             <span className='wpwax-vm-audio-range'>
                                 <span
                                     style={{
@@ -1596,10 +1517,10 @@ function MessageBox({ setSessionState }) {
             return (
                 <div className='wpwax-vm-messagebox-footer'>
                     {
-                        messageType === 'video' ? 
+                        messageType === 'video' ?
                             <div className="wpwax-hg-messagebox-video-wrap" ref={videoToggleRef}>
                                 <Video
-                                    sessionID={selectedSession.session_id}
+                                    sessionID={selectedSession.id}
                                     onSuccess={loadLatestMessages}
                                     replayingTo={getReplaingToUser()}
                                 />
@@ -1685,27 +1606,6 @@ function MessageBox({ setSessionState }) {
 
         dispatch(handleMessageTypeChange(''));
         dispatch(handleReplyModeChange(false));
-    };
-
-    // handleOnMarkedAsRead
-    const handleOnMarkedAsRead = (message) => {
-        // Update Seen Status
-        setSessionMessages((currentState) => {
-            return currentState.map((messageItem) =>
-                messageItem.id === message.id
-                    ? { ...messageItem, is_seen: true }
-                    : messageItem
-            );
-        });
-
-        dispatch(
-            updateSessionMessageItem(selectedSession.session_id, message.id, {
-                is_seen: true,
-            })
-        );
-
-        // Update Unread Message Count
-        updateUnreadMessagesCount();
     };
 
     const handleScrollBottom = (event) => {
@@ -1863,7 +1763,7 @@ function MessageBox({ setSessionState }) {
 
                                                     dispatch(
                                                         updateSessionWindowData(
-                                                            selectedSession.session_id,
+                                                            selectedSession.id,
                                                             'messagesContainerScrollMeta',
                                                             scrollMeta
                                                         )
@@ -1881,8 +1781,9 @@ function MessageBox({ setSessionState }) {
                                                     flexDirection:
                                                         'column-reverse',
                                                 }}
-                                                inverse={true} //
-                                                hasMore={true}
+                                                inverse={true}
+                                                hasMore={ true }
+                                                // hasMore={ getWindowData( 'currentPage' ) !== getWindowData( 'totalPage' ) }
                                                 loader={
                                                     isLoadingMoreMessages ? (
                                                         <h3
@@ -1905,17 +1806,7 @@ function MessageBox({ setSessionState }) {
                                                             <Message
                                                                 data={message}
                                                                 key={index}
-                                                                currentUser={
-                                                                    current_user
-                                                                }
-                                                                containerScrollMeta={
-                                                                    messagesContainerScrollMeta
-                                                                }
-                                                                onMarkedAsRead={() => {
-                                                                    handleOnMarkedAsRead(
-                                                                        message
-                                                                    );
-                                                                }}
+                                                                currentUser={current_user}
                                                             />
                                                         );
                                                     }
@@ -1982,9 +1873,7 @@ function MessageBox({ setSessionState }) {
                                                             <Message
                                                                 data={message}
                                                                 key={index}
-                                                                currentUser={
-                                                                    current_user
-                                                                }
+                                                                currentUser={current_user}
                                                             />
                                                         );
                                                     }

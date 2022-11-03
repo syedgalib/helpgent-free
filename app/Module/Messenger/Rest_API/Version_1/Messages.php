@@ -152,6 +152,7 @@ class Messages extends Rest_Base
 
         $where = [];
 
+        $where['id']              = '';
         $where['conversation_id'] = '';
         $where['user_email']      = '';
         $where['message']         = '';
@@ -167,11 +168,13 @@ class Messages extends Rest_Base
 
         $default['limit']    = 20;
         $default['page']     = 1;
-        $default['group_by'] = '';
-        $default['order_by'] = '';
-        $default['timezone'] = '';
+        $default['group_by'] = null;
+        $default['order_by'] = null;
+        $default['timezone'] = null;
 
-        $args = Helper\filter_params( $default, $args );
+        $default['id_compare'] = '=';
+
+        $args = Helper\merge_params( $default, $args );
 
 		// Adjust Timezone
 		if ( ! empty( $args['timezone'] ) ) {
@@ -189,12 +192,20 @@ class Messages extends Rest_Base
 
         $args['where'] = $where;
 
+        if ( ! empty( $args['where']['id'] ) ) {
+            $args['where']['id'] = [
+                'key'     => 'id',
+                'compare' => $args['id_compare'],
+                'value'   => $args['where']['id'],
+            ];
+        }
+
         // Filter By Message
         if ( ! empty( $args['where']['message'] ) ) {
             $args['where']['message'] = [
-                'field'   => 'message',
+                'key'     => 'message',
                 'compare' => 'LIKE',
-                'value'   => "'%" . $args['where']['message'] . "%'",
+                'value'   => $args['where']['message'],
             ];
         }
 
@@ -211,38 +222,53 @@ class Messages extends Rest_Base
 				return $this->response( true, [] );
 			}
 
-			$client_conversations = array_map( function( $conversation ) { return $conversation['id']; }, $client_conversations );
-			$client_conversations = implode( ',', $client_conversations );
+			$client_conversation_list = array_map( function( $conversation ) { return $conversation['id']; }, $client_conversations );
+			$client_conversations     = implode( ',', $client_conversation_list );
 
-			$args['where']['conversation_id'] = [
-                'field'   => 'conversation_id',
-                'compare' => 'IN',
-                'value'   => '(' . $client_conversations . ')',
-            ];
+			if ( ! empty( $args['where']['conversation_id'] ) ) {
+				$args['where']['conversation_id'] = [
+					'key'     => 'conversation_id',
+					'compare' => '=',
+					'value'   => in_array( $args['where']['conversation_id'], $client_conversation_list ) ? $args['where']['conversation_id'] : 0,
+				];
+			} else {
+				$args['where']['conversation_id'] = [
+					'key'     => 'conversation_id',
+					'compare' => 'IN',
+					'value'   => $client_conversations,
+				];
+			}
+
 		}
 
 		if ( isset( $args['timezone'] ) ) {
 			unset( $args['timezone'] );
 		}
 
-        $data = Message_Model::get_items( $args );
+        $data    = Message_Model::get_items( $args );
+        $results = $data['results'];
 
-        if ( empty( $data ) ) {
+        if ( empty( $results ) ) {
             return $this->response( true, [] );
         }
 
         // Prepare items for response
-        foreach ( $data as $key => $value ) {
+        foreach ( $results as $key => $value ) {
             $item = $this->prepare_message_item_for_response( $value, $args );
 
             if ( empty( $item ) ) {
                 continue;
             }
 
-            $data[ $key ] = $item;
+            $results[ $key ] = $item;
         }
 
-        return $this->response( true, $data );
+		$headers = [
+            'X-WP-Total'      => $data['found_items'],
+            'X-WP-TotalPages' => $data['total_pages'],
+        ];
+
+        return $this->response( true, $results, '', $headers );
     }
 
     /**
@@ -312,7 +338,7 @@ class Messages extends Rest_Base
 		 *
          * @since 1.0
          */
-        do_action( 'helpgent_after_message_insert', $data, $args );
+        do_action( 'helpgent_after_message_inserted', $data, $args );
 
         $data    = $this->prepare_message_item_for_response( $data, $args );
         $success = true;

@@ -6951,7 +6951,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Table = function Table() {
   var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
-    createForm = _useFormAPI.createItem,
     getAllForms = _useFormAPI.getItems,
     updateFormName = _useFormAPI.updateItem,
     deleteForm = _useFormAPI.deleteItem;
@@ -7064,7 +7063,6 @@ var Table = function Table() {
   var _handleOk = function handleOk(e) {
     e.preventDefault();
     deleteForm(deleteId).then(function (response) {
-      console.log(response);
       if (response.success) {
         var stateData = data.filter(function (item) {
           return item.id !== deleteId;
@@ -8855,7 +8853,6 @@ var GeneralSettings = function GeneralSettings() {
     displayedCustomPages = _useSelector.displayedCustomPages,
     chatVisibilityType = _useSelector.chatVisibilityType,
     sendMail = _useSelector.sendMail;
-  console.log(collectInfo);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       openCollapse: true
     }),
@@ -10508,7 +10505,6 @@ var Checkbox = function Checkbox(_ref) {
     checked = _ref.checked,
     onChange = _ref.onChange,
     disabled = _ref.disabled;
-  console.log(checked);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "wpwax-vm-checkbox",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -11371,15 +11367,12 @@ function _getResponse() {
           case 13:
             _context.prev = 13;
             _context.t0 = _context["catch"](1);
-            console.error({
-              error: _context.t0
-            });
             status.success = false;
             status.statusCode = _context.t0.response.status;
             status.message = _context.t0.response.data.message;
             status.headers = _context.t0.response.headers;
             return _context.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -11418,15 +11411,12 @@ function _getRestResponse() {
           case 13:
             _context2.prev = 13;
             _context2.t0 = _context2["catch"](1);
-            console.error({
-              error: _context2.t0
-            });
             status.success = false;
             status.statusCode = _context2.t0.response.status;
             status.message = _context2.t0.response.data.message;
             status.headers = _context2.t0.response.headers;
             return _context2.abrupt("return", status);
-          case 21:
+          case 20:
           case "end":
             return _context2.stop();
         }

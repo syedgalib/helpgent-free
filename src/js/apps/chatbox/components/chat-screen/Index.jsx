@@ -24,6 +24,9 @@ import useSettingsAPI from 'API/useSettingsAPI.js';
 function ChatScreen( { show } ) {
     useFormHooks();
 
+	const dispatch = useDispatch();
+
+
 	// API
 	const { getCurrentUser } = useUserAPI();
 	const { getItems: getSettings } = useSettingsAPI();

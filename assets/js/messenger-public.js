@@ -5177,6 +5177,7 @@ function ChatScreen(_ref) {
   var _screens;
   var show = _ref.show;
   (0,_store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_13__.useFormHooks)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
 
   // API
   var _useUserAPI = (0,API_useUserAPI_js__WEBPACK_IMPORTED_MODULE_17__["default"])(),

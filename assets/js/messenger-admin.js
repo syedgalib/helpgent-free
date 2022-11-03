@@ -4986,16 +4986,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _components_message_box_Index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/message-box/Index.jsx */ "./src/js/apps/messanger/components/message-box/Index.jsx");
-/* harmony import */ var _components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sidebar/Index.jsx */ "./src/js/apps/messanger/components/sidebar/Index.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _helpers_hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var _components_message_box_Index_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/message-box/Index.jsx */ "./src/js/apps/messanger/components/message-box/Index.jsx");
+/* harmony import */ var _components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/sidebar/Index.jsx */ "./src/js/apps/messanger/components/sidebar/Index.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -5030,25 +5033,27 @@ function App() {
       tagFilterDropdownOpen: false,
       taglistWithSession: false,
       hasMore: true,
-      loader: true
+      loader: true,
+      currentUser: (0,_helpers_hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_2__.useCoreData)('current_user'),
+      isCurrentUserAdmin: (0,_helpers_hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_2__.useCoreData)('current_user.is_admin') ? true : false
     }),
     _useState2 = _slicedToArray(_useState, 2),
     sessionState = _useState2[0],
     setSessionState = _useState2[1];
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "wpwax-vm-sidebar",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_sidebar_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sessionState: sessionState,
         setSessionState: setSessionState
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "wpwax-vm-messagebox",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_message_box_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_message_box_Index_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         sessionState: sessionState,
         setSessionState: setSessionState
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       className: "wpax-vm-overlay"
     })]
   });
@@ -9200,22 +9205,26 @@ var Sidebar = function Sidebar(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     tagState = _useState2[0],
     setTagState = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(2),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    pageNumber = _useState4[0],
-    setPageNumber = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    isShowingArchive = _useState4[0],
+    setIsShowingArchive = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(2),
     _useState6 = _slicedToArray(_useState5, 2),
-    activeSession = _useState6[0],
-    setaAtiveSession = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    pageNumber = _useState6[0],
+    setPageNumber = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState8 = _slicedToArray(_useState7, 2),
-    refresher = _useState8[0],
-    setRefresher = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    activeSession = _useState8[0],
+    setaAtiveSession = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    searchTerm = _useState10[0],
-    setSearchTerm = _useState10[1];
+    refresher = _useState10[0],
+    setRefresher = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    _useState12 = _slicedToArray(_useState11, 2),
+    searchTerm = _useState12[0],
+    setSearchTerm = _useState12[1];
   var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
   var sessionList = sessionState.sessionList,
     activeSessionId = sessionState.activeSessionId,
@@ -9441,9 +9450,67 @@ var Sidebar = function Sidebar(_ref) {
       hasMore: true
     }));
   };
-
-  // console.log(sessionList);
-
+  var handleToggleArchivedConversation = function handleToggleArchivedConversation(e) {
+    e.preventDefault();
+    var args = {
+      limit: '15',
+      page: 1
+    };
+    if (isShowingArchive) {
+      args.status = 'active';
+      setIsShowingArchive(false);
+    } else {
+      args.status = 'archive';
+      setIsShowingArchive(true);
+    }
+    updateConversations(args);
+  };
+  var updateConversations = function updateConversations(args) {
+    setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+      hasMore: true,
+      loader: true
+    }));
+    setPageNumber(2);
+    var defaultArgs = {
+      limit: '15',
+      page: 1,
+      status: 'active'
+    };
+    args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
+    var fetchSession = /*#__PURE__*/function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var sessionResponse;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return getConversations(args);
+              case 2:
+                sessionResponse = _context5.sent;
+                return _context5.abrupt("return", sessionResponse);
+              case 4:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+      return function fetchSession() {
+        return _ref6.apply(this, arguments);
+      };
+    }();
+    fetchSession().then(function (sessionResponse) {
+      setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
+        sessionList: sessionResponse.data,
+        filteredSessions: sessionResponse.data,
+        loader: false
+      }));
+      dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadSessions)(sessionResponse.data));
+    }).catch(function (error) {
+      console.log(error);
+    });
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_26__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
@@ -9453,8 +9520,10 @@ var Sidebar = function Sidebar(_ref) {
         children: "List of Messages"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
         className: "wpwax-vm-sidebar-top__action",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("a", {
+        children: [sessionState.isCurrentUserAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("a", {
           href: "#",
+          onClick: handleToggleArchivedConversation,
+          className: isShowingArchive ? 'active' : '',
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
             src: Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_24__["default"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
@@ -13223,14 +13292,19 @@ var Dropdown = function Dropdown(_ref) {
           };
         }();
         archiveConversation().then(function (resposne) {
-          var sessionWithArchive = outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              return _objectSpread(_objectSpread({}, item), {}, {
-                status: "archive"
-              });
-            }
-            return item;
+          var sessionWithArchive = outerState.sessionList.filter(function (item, index) {
+            return item.id !== sessionId;
           });
+          // const sessionWithArchive = outerState.sessionList.map((item,index)=>{
+          //     if ( item.id === sessionId ) {
+          //         return {
+          //             ...item,
+          //             status: "archive"
+          //         }
+          //     }
+          //     return item;
+          // });
+
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithArchive
           }));
@@ -13265,13 +13339,8 @@ var Dropdown = function Dropdown(_ref) {
           };
         }();
         activeConversation().then(function (resposne) {
-          var sessionWithActive = outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              return _objectSpread(_objectSpread({}, item), {}, {
-                status: "active"
-              });
-            }
-            return item;
+          var sessionWithActive = outerState.sessionList.filter(function (item, index) {
+            return item.id !== sessionId;
           });
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithActive

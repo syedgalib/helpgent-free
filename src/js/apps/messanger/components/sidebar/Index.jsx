@@ -79,6 +79,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         addTagModalOpen: false,
     });
 
+    const [isShowingArchive, setIsShowingArchive] = useState(false);
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
@@ -281,14 +282,75 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    // console.log(sessionList);
+	const handleToggleArchivedConversation = ( e ) =>  {
+		e.preventDefault();
+
+		let args = {
+			limit: '15',
+			page: 1,
+		};
+
+		if ( isShowingArchive ) {
+			args.status = 'active';
+			setIsShowingArchive( false );
+		} else {
+			args.status = 'archive';
+			setIsShowingArchive( true );
+		}
+
+		updateConversations( args );
+
+	}
+
+	const updateConversations = ( args ) => {
+		setSessionState({
+            ...sessionState,
+            hasMore: true,
+            loader: true,
+        });
+
+        setPageNumber(2);
+
+        const defaultArgs = {
+            limit: '15',
+            page: 1,
+            status: 'active',
+        };
+
+		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
+
+        const fetchSession = async () => {
+            const sessionResponse = await getConversations( args );
+            return sessionResponse;
+        };
+
+        fetchSession()
+            .then((sessionResponse) => {
+                setSessionState({
+                    ...sessionState,
+                    sessionList: sessionResponse.data,
+                    filteredSessions: sessionResponse.data,
+                    loader: false,
+                });
+                dispatch(handleReadSessions(sessionResponse.data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+	};
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
                 <h3 className='wpwax-vm-sidebar-title'>List of Messages</h3>
                 <div className="wpwax-vm-sidebar-top__action">
-                    <a href="#"><ReactSVG src={archive}/><span>Archive</span></a>
+					{ sessionState.isCurrentUserAdmin && (
+						<a href="#" onClick={handleToggleArchivedConversation} className={ isShowingArchive ? 'active' : '' }>
+							<ReactSVG src={archive}/>
+							<span>Archive</span>
+						</a>
+					)}
+
                     <a
                         href='#'
                         className='wpwax-vm-sidebar-refresher'

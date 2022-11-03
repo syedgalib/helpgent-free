@@ -8722,14 +8722,19 @@ var Dropdown = function Dropdown(_ref) {
           };
         }();
         archiveConversation().then(function (resposne) {
-          var sessionWithArchive = outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              return _objectSpread(_objectSpread({}, item), {}, {
-                status: "archive"
-              });
-            }
-            return item;
+          var sessionWithArchive = outerState.sessionList.filter(function (item, index) {
+            return item.id !== sessionId;
           });
+          // const sessionWithArchive = outerState.sessionList.map((item,index)=>{
+          //     if ( item.id === sessionId ) {
+          //         return {
+          //             ...item,
+          //             status: "archive"
+          //         }
+          //     }
+          //     return item;
+          // });
+
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithArchive
           }));
@@ -8764,13 +8769,8 @@ var Dropdown = function Dropdown(_ref) {
           };
         }();
         activeConversation().then(function (resposne) {
-          var sessionWithActive = outerState.sessionList.map(function (item, index) {
-            if (item.id === sessionId) {
-              return _objectSpread(_objectSpread({}, item), {}, {
-                status: "active"
-              });
-            }
-            return item;
+          var sessionWithActive = outerState.sessionList.filter(function (item, index) {
+            return item.id !== sessionId;
           });
           setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
             sessionList: sessionWithActive

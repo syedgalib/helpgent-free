@@ -5275,9 +5275,7 @@ function MessageBox(_ref) {
     setTextMessageContent = _useState30[1];
 
   // Pagination
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPage, setTotalPage] = useState(1);
-  var paginationPerPage = 2;
+  var paginationPerPage = 20;
 
   // Search Results
   var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
@@ -5521,8 +5519,7 @@ function MessageBox(_ref) {
                 _context3.next = 2;
                 return getMessangerItems({
                   conversation_id: id,
-                  limit: paginationPerPage,
-                  timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_21__.getTimezoneString)()
+                  limit: paginationPerPage
                 });
               case 2:
                 messages = _context3.sent;

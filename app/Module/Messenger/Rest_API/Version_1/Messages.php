@@ -222,14 +222,23 @@ class Messages extends Rest_Base
 				return $this->response( true, [] );
 			}
 
-			$client_conversations = array_map( function( $conversation ) { return $conversation['id']; }, $client_conversations );
-			$client_conversations = implode( ',', $client_conversations );
+			$client_conversation_list = array_map( function( $conversation ) { return $conversation['id']; }, $client_conversations );
+			$client_conversations     = implode( ',', $client_conversation_list );
 
-			$args['where']['conversation_id'] = [
-                'field'   => 'conversation_id',
-                'compare' => 'IN',
-                'value'   => '(' . $client_conversations . ')',
-            ];
+			if ( ! empty( $args['where']['conversation_id'] ) ) {
+				$args['where']['conversation_id'] = [
+					'key'     => 'conversation_id',
+					'compare' => '=',
+					'value'   => in_array( $args['where']['conversation_id'], $client_conversation_list ) ? $args['where']['conversation_id'] : 0,
+				];
+			} else {
+				$args['where']['conversation_id'] = [
+					'key'     => 'conversation_id',
+					'compare' => 'IN',
+					'value'   => $client_conversations,
+				];
+			}
+
 		}
 
 		if ( isset( $args['timezone'] ) ) {

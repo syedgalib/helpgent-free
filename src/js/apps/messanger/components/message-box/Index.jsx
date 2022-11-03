@@ -129,9 +129,7 @@ function MessageBox({ setSessionState }) {
     const [textMessageContent, setTextMessageContent] = useState('');
 
 	// Pagination
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [totalPage, setTotalPage] = useState(1);
-    const paginationPerPage = 2;
+    const paginationPerPage = 20;
 
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
@@ -373,7 +371,6 @@ function MessageBox({ setSessionState }) {
 				const messages = await getMessangerItems({
                     conversation_id: id,
                     limit: paginationPerPage,
-					timezone: getTimezoneString(),
                 });
 
                 return messages;

@@ -18,7 +18,7 @@ class Conversation {
 		add_action( 'helpgent_after_term_deleted', [ $this, 'remove_conversation_term_relationship' ], 20, 1 );
 		add_action( 'helpgent_after_message_inserted', [ $this, 'mark_conversation_as_unread' ], 20, 2 );
 		add_action( 'helpgent_after_message_inserted', [ $this, 'update_conversation_meta' ], 20, 2 );
-		// add_action( 'helpgent_after_message_inserted', [ $this, 'migrate_user' ], 20, 2 );
+		add_action( 'helpgent_after_message_deleted', [ $this, 'update_last_message_id' ], 20, 1 );
     }
 
     /**
@@ -87,30 +87,25 @@ class Conversation {
     }
 
     /**
-     * Migrate User
+     * Update last message ID
 	 *
      *
 	 * @param array $message
-	 * @param array $args
      * @return void
      */
-    public function migrate_user( $message = [], $args = [] ) {
+    public function update_last_message_id( $message = [] ) {
+		$conversation_id = $message['conversation_id'];
 
-		if ( Helper\is_current_user_admin() ) {
+		$messages = Message_Model::get_items([
+			'where' => [ 'conversation_id' => $conversation_id ]
+		]);
+
+		if ( empty( $messages ) ) {
+			Conversation_Model::delete_meta( 'last_message_id' );
 			return;
 		}
 
-		if ( Helper\is_current_user_client() ) {
-			return;
-		}
-
-		$email = Helper\get_current_user_email();
-
-		if ( ! empty( $email ) ) {
-			return;
-		}
-
-
+		Conversation_Model::update_meta( $messages[0]['id'] );
     }
 
 }

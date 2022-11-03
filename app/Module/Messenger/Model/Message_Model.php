@@ -338,6 +338,8 @@ class Message_Model extends DB_Model {
 			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
 		}
 
+		do_action( 'helpgent_after_message_deleted', $message );
+
         return true;
     }
 

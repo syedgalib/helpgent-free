@@ -34,7 +34,8 @@ class Conversation {
     /**
      * Mark conversation as unread
 	 *
-	 * If author is client mark the conversation as unread
+	 * If the author is client mark the conversation as unread for admin
+	 * If the author is admin mark the conversation as unread for client
      *
 	 * @param array $message
 	 * @param array $args
@@ -48,13 +49,14 @@ class Conversation {
 			return;
 		}
 
-		$is_user_admin = Helper\is_user_admin( $user_email );
+		$is_author_admin = Helper\is_user_admin( $user_email );
 
-		if ( ! $is_user_admin ) {
+		if ( $is_author_admin  ) {
+			Conversation_Model::update_meta( $message['conversation_id'], 'client_read', 0 );
 			return;
 		}
 
-		Conversation_Model::update_meta( $message['conversation_id'], 'read', 0 );
+		Conversation_Model::update_meta( $message['conversation_id'], 'admin_read', 0 );
     }
 
     /**

@@ -18,6 +18,9 @@ const initialState = {
 		videoStage: 'home',
 		replyMode: false,
 		messagesContainerScrollMeta: null,
+
+		totalPage: 1,
+		currentPage: 1,
 	},
 
     messageType: '',
@@ -196,11 +199,11 @@ const Reducer = (state = initialState, action) => {
                 return state;
             }
 
-            if ( ! Object.keys( state.allSessionWindowData ).includes( data.sessionID ) ){
+            if ( ! Object.keys( state.allSessionWindowData ).includes( data.sessionID ) ) {
                 return state;
             }
 
-            if ( ! Object.keys( state.allSessionWindowData[ data.sessionID ] ).includes( data.key ) ){
+            if ( ! Object.keys( state.allSessionWindowData[ data.sessionID ] ).includes( data.key ) ) {
                 return state;
             }
 

@@ -23,7 +23,7 @@ import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
-	 updateSelectedSession,
+	updateSelectedSession,
     addSession,
     updateSessionMessages,
 	updateSessionMessagesByIDs,
@@ -129,6 +129,11 @@ function MessageBox({ setSessionState }) {
     // Message Contents
     const [textMessageContent, setTextMessageContent] = useState('');
 
+	// Pagination
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [totalPage, setTotalPage] = useState(1);
+    const paginationPerPage = 2;
+
     // Search Results
     const [currentSearchResultPage, setCurrentSearchResultPage] = useState(1);
     const [isLoadingSearchResults, setIsLoadingSearchResults] = useState(false);
@@ -137,7 +142,6 @@ function MessageBox({ setSessionState }) {
 
     /* initialize Form Data */
     const {
-        paginationPerPage,
         selectedSession,
         allSessions,
         allSessionWindowData,
@@ -146,7 +150,6 @@ function MessageBox({ setSessionState }) {
         messageType,
     } = useSelector((state) => {
         return {
-            paginationPerPage: state.messages.paginationPerPage,
             selectedSession: state.messages.selectedSession,
             allSessions: state.messages.allSessions,
             allSessionWindowData: state.messages.allSessionWindowData,
@@ -267,6 +270,16 @@ function MessageBox({ setSessionState }) {
 
         return selectedWindowData;
     };
+
+	const updateWindowData = ( key, value ) => {
+		dispatch(
+			updateSessionWindowData(
+				selectedSession.id,
+				key,
+				value
+			)
+		);
+	}
 
     const debouncedSearchTerm = useDebounce(searchTerm, 250);
 
@@ -392,6 +405,9 @@ function MessageBox({ setSessionState }) {
                     // Update The Store
                     dispatch(addSession(id, sessionMessages));
                     dispatch(addSessionWindowData(id));
+
+					const totalPage = ( response.headers && Object.keys( response.headers ).includes( 'x-wp-totalpages' ) ) ? parseInt( response.headers['x-wp-totalpages'] ) : 1;
+					updateWindowData( 'totalPage', totalPage );
 
                     setSessionMessages(sessionMessages);
 
@@ -832,7 +848,6 @@ function MessageBox({ setSessionState }) {
 
         try {
             const response = await getMessangerItems( args );
-
             status.success = true;
             status.data = response.data;
 
@@ -1063,40 +1078,33 @@ function MessageBox({ setSessionState }) {
         }
     };
 
-    async function loadLatestMessages(latest_message_date) {
-        let args = { limit: -1 };
+    async function loadLatestMessages() {
+        let args = { limit: 10, page: 1 };
 
-        latest_message_date = latest_message_date
-            ? latest_message_date
-            : latestMessageDate;
+		const lastMessageID = sessionMessages.length ? sessionMessages[0].id : null;
 
-        if (latest_message_date) {
-            args.created_at = latest_message_date;
-            args.created_at_compare_date_time = '>';
-        }
+		if ( lastMessageID ) {
+			args.id = lastMessageID;
+			args.id_compare = '>';
+		}
 
         const response = await getMessages(args);
 
         // Show Alert on Error
-        if (!response.success) {
+        if ( ! response.success ) {
             const message = response.message
                 ? response.message
                 : 'Somethong went wrong, please try again.';
-            alert(message);
 
+			alert( message );
             return;
         }
 
         const responseData = response.data;
 
-        if (!responseData.length) {
+        if ( ! responseData.length) {
             return;
         }
-
-        const newLatestMessageDate = responseData[0].created_at;
-
-        // Update Latest Message Date
-        setLatestMessageDate(newLatestMessageDate);
 
         // Update Latest Message
         let latestItems = responseData;
@@ -1118,44 +1126,49 @@ function MessageBox({ setSessionState }) {
 
         // Get Older Messages
         const paginationMeta = getPaginationMeta();
-        const nextPage = paginationMeta.nextPage;
+
+		if ( paginationMeta.isLastPage ) {
+			setIsLoadingMoreMessages(false);
+			return;
+		}
 
         const response = await getMessages({
-            page: nextPage,
-            limit: paginationPerPage,
+            page: paginationMeta.nextPage,
+            limit: paginationMeta.perPage,
         });
 
-        setIsLoadingMoreMessages(false);
-
         // Show Alert on Error
-        if (!response.success) {
+        if ( !  response.success ) {
+			setIsLoadingMoreMessages(false);
             const message = response.message
                 ? response.message
                 : 'Somethong went wrong, please try again.';
-            alert(message);
 
+			alert( message );
             return;
         }
 
         // Update Loaded Session
-        let latestItems = response.data;
+        const oldItems = response.data;
 
-        if (!latestItems.length) {
+        if ( ! oldItems.length ) {
+			setIsLoadingMoreMessages(false);
             return;
         }
 
-        latestItems = latestItems.splice(
-            0,
-            latestItems.length - paginationMeta.reminder
-        );
+        const updatedSessionMessages = [...sessionMessages, ...oldItems];
 
-        if (!latestItems.length) {
-            return;
-        }
-
-        const updatedSessionMessages = [...sessionMessages, ...latestItems];
+		updateWindowData( 'currentPage', paginationMeta.nextPage );
 
         setSessionMessages(updatedSessionMessages);
+		dispatch(
+            updateSessionMessages(
+                selectedSession.id,
+                updatedSessionMessages
+            )
+        );
+
+		setIsLoadingMoreMessages(false);
     };
 
     const updateTextSearchResult = (event) => {
@@ -1202,8 +1215,6 @@ function MessageBox({ setSessionState }) {
 
         loadSearchResults(newSearchQueryArgs);
     };
-
-    // const onMessageSearch = debounce(updateTextSearchResult, 250);
 
     const toggleFilterVideoMessages = (event) => {
         event.preventDefault();
@@ -1391,30 +1402,19 @@ function MessageBox({ setSessionState }) {
     };
 
     const getPaginationMeta = () => {
-        const currentSession = sessionMessages;
-        const perPage = paginationPerPage;
-        const currentPageItemsCount = currentSession.length;
-        const currentPageItemsReminder = currentPageItemsCount % perPage;
+		const currentPage = getWindowData( 'currentPage' );
+		const totalPage   = getWindowData( 'totalPage' );
+		const perPage     = paginationPerPage;
+		const isLastPage  = currentPage === totalPage;
+		const nextPage    = isLastPage ? 0 : currentPage + 1;
 
-        let currentPage =
-            currentPageItemsCount >= perPage
-                ? (currentPageItemsCount - currentPageItemsReminder) / perPage
-                : 1;
-        currentPage =
-            currentPageItemsCount >= perPage && currentPageItemsReminder > 0
-                ? currentPage + 1
-                : currentPage;
-
-        const nextPage =
-            currentPageItemsReminder > 0 ? currentPage : currentPage + 1;
-
-        return {
-            currentPageItemsCount,
-            perPage,
-            currentPage,
-            nextPage,
-            reminder: currentPageItemsReminder,
-        };
+		return {
+			perPage,
+			currentPage,
+			nextPage,
+			isLastPage,
+			totalPage,
+		};
     };
 
     /* Handle Load Footer Content */
@@ -1803,8 +1803,9 @@ function MessageBox({ setSessionState }) {
                                                     flexDirection:
                                                         'column-reverse',
                                                 }}
-                                                inverse={true} //
-                                                hasMore={true}
+                                                inverse={true}
+                                                hasMore={ true }
+                                                // hasMore={ getWindowData( 'currentPage' ) !== getWindowData( 'totalPage' ) }
                                                 loader={
                                                     isLoadingMoreMessages ? (
                                                         <h3

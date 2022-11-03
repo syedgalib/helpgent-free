@@ -5278,6 +5278,11 @@ function MessageBox(_ref) {
     textMessageContent = _useState32[0],
     setTextMessageContent = _useState32[1];
 
+  // Pagination
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPage, setTotalPage] = useState(1);
+  var paginationPerPage = 2;
+
   // Search Results
   var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
     _useState34 = _slicedToArray(_useState33, 2),
@@ -5295,7 +5300,6 @@ function MessageBox(_ref) {
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
-        paginationPerPage: state.messages.paginationPerPage,
         selectedSession: state.messages.selectedSession,
         allSessions: state.messages.allSessions,
         allSessionWindowData: state.messages.allSessionWindowData,
@@ -5304,7 +5308,6 @@ function MessageBox(_ref) {
         messageType: state.messages.messageType
       };
     }),
-    paginationPerPage = _useSelector.paginationPerPage,
     selectedSession = _useSelector.selectedSession,
     allSessions = _useSelector.allSessions,
     allSessionWindowData = _useSelector.allSessionWindowData,
@@ -5452,6 +5455,9 @@ function MessageBox(_ref) {
     }
     return selectedWindowData;
   };
+  var updateWindowData = function updateWindowData(key, value) {
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, key, value));
+  };
   var debouncedSearchTerm = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_6__.useDebounce)(searchTerm, 250);
 
   // On Init
@@ -5553,6 +5559,8 @@ function MessageBox(_ref) {
       // Update The Store
       dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSession)(id, sessionMessages));
       dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSessionWindowData)(id));
+      var totalPage = response.headers && Object.keys(response.headers).includes('x-wp-totalpages') ? parseInt(response.headers['x-wp-totalpages']) : 1;
+      updateWindowData('totalPage', totalPage);
       setSessionMessages(sessionMessages);
       markConversationAsRead(id).then(function () {
         setSessionState(function (currentState) {
@@ -6379,23 +6387,24 @@ function MessageBox(_ref) {
       return _ref16.apply(this, arguments);
     };
   }();
-  function loadLatestMessages(_x13) {
+  function loadLatestMessages() {
     return _loadLatestMessages.apply(this, arguments);
   }
   function _loadLatestMessages() {
-    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24(latest_message_date) {
-      var args, response, message, responseData, newLatestMessageDate, latestItems, updatedSessionMessages;
+    _loadLatestMessages = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24() {
+      var args, lastMessageID, response, message, responseData, latestItems, updatedSessionMessages;
       return _regeneratorRuntime().wrap(function _callee24$(_context24) {
         while (1) {
           switch (_context24.prev = _context24.next) {
             case 0:
               args = {
-                limit: -1
+                limit: 10,
+                page: 1
               };
-              latest_message_date = latest_message_date ? latest_message_date : latestMessageDate;
-              if (latest_message_date) {
-                args.created_at = latest_message_date;
-                args.created_at_compare_date_time = '>';
+              lastMessageID = sessionMessages.length ? sessionMessages[0].id : null;
+              if (lastMessageID) {
+                args.id = lastMessageID;
+                args.id_compare = '>';
               }
               _context24.next = 5;
               return getMessages(args);
@@ -6416,15 +6425,12 @@ function MessageBox(_ref) {
               }
               return _context24.abrupt("return");
             case 13:
-              newLatestMessageDate = responseData[0].created_at; // Update Latest Message Date
-              setLatestMessageDate(newLatestMessageDate);
-
               // Update Latest Message
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
               dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
-            case 19:
+            case 17:
             case "end":
               return _context24.stop();
           }
@@ -6435,7 +6441,7 @@ function MessageBox(_ref) {
   }
   var loadOlderMessages = /*#__PURE__*/function () {
     var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-      var paginationMeta, nextPage, response, message, latestItems, updatedSessionMessages;
+      var paginationMeta, response, message, oldItems, updatedSessionMessages;
       return _regeneratorRuntime().wrap(function _callee15$(_context15) {
         while (1) {
           switch (_context15.prev = _context15.next) {
@@ -6444,43 +6450,44 @@ function MessageBox(_ref) {
 
               // Get Older Messages
               paginationMeta = getPaginationMeta();
-              nextPage = paginationMeta.nextPage;
-              _context15.next = 5;
-              return getMessages({
-                page: nextPage,
-                limit: paginationPerPage
-              });
-            case 5:
-              response = _context15.sent;
-              setIsLoadingMoreMessages(false);
-
-              // Show Alert on Error
-              if (response.success) {
-                _context15.next = 11;
+              if (!paginationMeta.isLastPage) {
+                _context15.next = 5;
                 break;
               }
+              setIsLoadingMoreMessages(false);
+              return _context15.abrupt("return");
+            case 5:
+              _context15.next = 7;
+              return getMessages({
+                page: paginationMeta.nextPage,
+                limit: paginationMeta.perPage
+              });
+            case 7:
+              response = _context15.sent;
+              if (response.success) {
+                _context15.next = 13;
+                break;
+              }
+              setIsLoadingMoreMessages(false);
               message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(message);
               return _context15.abrupt("return");
-            case 11:
+            case 13:
               // Update Loaded Session
-              latestItems = response.data;
-              if (latestItems.length) {
-                _context15.next = 14;
-                break;
-              }
-              return _context15.abrupt("return");
-            case 14:
-              latestItems = latestItems.splice(0, latestItems.length - paginationMeta.reminder);
-              if (latestItems.length) {
+              oldItems = response.data;
+              if (oldItems.length) {
                 _context15.next = 17;
                 break;
               }
+              setIsLoadingMoreMessages(false);
               return _context15.abrupt("return");
             case 17:
-              updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(latestItems));
+              updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(oldItems));
+              updateWindowData('currentPage', paginationMeta.nextPage);
               setSessionMessages(updatedSessionMessages);
-            case 19:
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
+              setIsLoadingMoreMessages(false);
+            case 22:
             case "end":
               return _context15.stop();
           }
@@ -6510,9 +6517,6 @@ function MessageBox(_ref) {
     }
     loadSearchResults(newSearchQueryArgs);
   };
-
-  // const onMessageSearch = debounce(updateTextSearchResult, 250);
-
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
     setMessageDirection('bottom');
@@ -6599,7 +6603,7 @@ function MessageBox(_ref) {
         }
       }, _callee16);
     }));
-    return function loadSearchResults(_x14) {
+    return function loadSearchResults(_x13) {
       return _ref18.apply(this, arguments);
     };
   }();
@@ -6656,19 +6660,17 @@ function MessageBox(_ref) {
     };
   }();
   var getPaginationMeta = function getPaginationMeta() {
-    var currentSession = sessionMessages;
+    var currentPage = getWindowData('currentPage');
+    var totalPage = getWindowData('totalPage');
     var perPage = paginationPerPage;
-    var currentPageItemsCount = currentSession.length;
-    var currentPageItemsReminder = currentPageItemsCount % perPage;
-    var currentPage = currentPageItemsCount >= perPage ? (currentPageItemsCount - currentPageItemsReminder) / perPage : 1;
-    currentPage = currentPageItemsCount >= perPage && currentPageItemsReminder > 0 ? currentPage + 1 : currentPage;
-    var nextPage = currentPageItemsReminder > 0 ? currentPage : currentPage + 1;
+    var isLastPage = currentPage === totalPage;
+    var nextPage = isLastPage ? 0 : currentPage + 1;
     return {
-      currentPageItemsCount: currentPageItemsCount,
       perPage: perPage,
       currentPage: currentPage,
       nextPage: nextPage,
-      reminder: currentPageItemsReminder
+      isLastPage: isLastPage,
+      totalPage: totalPage
     };
   };
 
@@ -6903,7 +6905,7 @@ function MessageBox(_ref) {
         }
       }, _callee18);
     }));
-    return function handleVoiceClose(_x15) {
+    return function handleVoiceClose(_x14) {
       return _ref20.apply(this, arguments);
     };
   }();
@@ -7026,9 +7028,10 @@ function MessageBox(_ref) {
                 display: 'flex',
                 flexDirection: 'column-reverse'
               },
-              inverse: true //
+              inverse: true,
+              hasMore: true
+              // hasMore={ getWindowData( 'currentPage' ) !== getWindowData( 'totalPage' ) }
               ,
-              hasMore: true,
               loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
@@ -7333,7 +7336,7 @@ function Message(_ref) {
   var data = _ref.data,
     currentUser = _ref.currentUser;
   var container = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
+  var isMine = currentUser && currentUser.email === data.user_email;
 
   /* Load Message Content */
   var setMessageContent = function setMessageContent() {
@@ -11737,7 +11740,9 @@ var initialState = {
     messageType: 'video',
     videoStage: 'home',
     replyMode: false,
-    messagesContainerScrollMeta: null
+    messagesContainerScrollMeta: null,
+    totalPage: 1,
+    currentPage: 1
   },
   messageType: '',
   videoStage: 'home',

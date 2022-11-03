@@ -130,7 +130,8 @@ class Conversation_Model extends DB_Model {
 			}
 		}
 
-		$select = "SELECT $fields FROM $conversation_table as conversation";
+		$from   = "FROM $conversation_table as conversation";
+		$select = "SELECT $fields $from";
 		$query  = $select . $join . $where . $group_by . $order . $pagination;
 
 		$results = $wpdb->get_results( $query, ARRAY_A );

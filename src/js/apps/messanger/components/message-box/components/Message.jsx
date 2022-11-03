@@ -12,8 +12,7 @@ import { MessageBox } from './Style';
 
 function Message({ data, currentUser }) {
     const container = useRef();
-
-	const isMine = currentUser && parseInt(currentUser.id) === parseInt(data.user.id);
+	const isMine = currentUser && currentUser.email === data.user_email;
 
     /* Load Message Content */
     const setMessageContent = () => {

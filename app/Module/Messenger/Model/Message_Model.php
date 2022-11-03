@@ -84,6 +84,7 @@ class Message_Model extends DB_Model {
 		$meta_query_count = 0;
 
 		$table_field_map = [
+			'id'              => 'message',
 			'conversation_id' => 'message',
 			'user_email'      => 'message',
 			'created_at'      => 'message',
@@ -99,7 +100,8 @@ class Message_Model extends DB_Model {
 
 		$group_by = ( ! empty( $args['group_by'] ) ) ? ' GROUP BY message.' . $args['group_by'] : '';
 
-		$select = "SELECT message.* FROM $messages_table as message";
+		$from   = "FROM $messages_table as message";
+		$select = "SELECT message.* $from";
 
 		$join = "";
 
@@ -110,9 +112,28 @@ class Message_Model extends DB_Model {
 			}
 		}
 
-		$query = $select . $join . $where . $group_by . $order . $pagination;
+		$query   = $select . $join . $where . $group_by . $order . $pagination;
+		$results = $wpdb->get_results( $query, ARRAY_A );
 
-		return $wpdb->get_results( $query, ARRAY_A );
+		$total_query = "SELECT COUNT(*) " . $from . $join . $where . $group_by;
+		$found_items = $wpdb->get_var( $total_query );
+		$found_items = ( ! empty( $found_items ) ) ? ( int ) $found_items : 0;
+
+		$total_pages = 1;
+
+		if ( ! empty( $pagination ) ) {
+			$remider     = $found_items % $limit;
+			$total_pages = ( $found_items - $remider ) / $limit;
+			$total_pages = ( $remider > 0 ) ? $total_pages + 1 : $total_pages;
+		}
+
+		$data = [
+			'results'     => $results,
+			'found_items' => $found_items,
+			'total_pages' => $total_pages,
+		];
+
+		return $data;
 
     }
 

@@ -10771,65 +10771,61 @@ function MessageBox(_ref) {
     _useState8 = _slicedToArray(_useState7, 2),
     sessionMessages = _useState8[0],
     setSessionMessages = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    latestMessageDate = _useState10[0],
-    setLatestMessageDate = _useState10[1];
+    isLoadingMoreMessages = _useState10[0],
+    setIsLoadingMoreMessages = _useState10[1];
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
-    isLoadingMoreMessages = _useState12[0],
-    setIsLoadingMoreMessages = _useState12[1];
+    isLoadingSession = _useState12[0],
+    setIsLoadingSession = _useState12[1];
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    isLoadingSession = _useState14[0],
-    setIsLoadingSession = _useState14[1];
+    isSendingTextMessage = _useState14[0],
+    setIsSendingTextMessage = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState16 = _slicedToArray(_useState15, 2),
-    isSendingTextMessage = _useState16[0],
-    setIsSendingTextMessage = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState18 = _slicedToArray(_useState17, 2),
-    isSendingAudioMessage = _useState18[0],
-    setIsSendingAudioMessage = _useState18[1];
+    isSendingAudioMessage = _useState16[0],
+    setIsSendingAudioMessage = _useState16[1];
 
   //
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState18 = _slicedToArray(_useState17, 2),
+    recordedAudioBlob = _useState18[0],
+    setRecordedAudioBlob = _useState18[1];
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState20 = _slicedToArray(_useState19, 2),
-    recordedAudioBlob = _useState20[0],
-    setRecordedAudioBlob = _useState20[1];
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    recordedAudioSteam = _useState20[0],
+    setRecordedAudioSteam = _useState20[1];
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState22 = _slicedToArray(_useState21, 2),
-    recordedAudioSteam = _useState22[0],
-    setRecordedAudioSteam = _useState22[1];
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    isRecordingVoice = _useState22[0],
+    setIsRecordingVoice = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState24 = _slicedToArray(_useState23, 2),
-    isRecordingVoice = _useState24[0],
-    setIsRecordingVoice = _useState24[1];
+    recordedVoiceTimeInSecond = _useState24[0],
+    setRecordedVoiceTimeInSecond = _useState24[1];
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState26 = _slicedToArray(_useState25, 2),
-    recordedVoiceTimeInSecond = _useState26[0],
-    setRecordedVoiceTimeInSecond = _useState26[1];
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState28 = _slicedToArray(_useState27, 2),
-    recordedTimeLength = _useState28[0],
-    setRecordedTimeLength = _useState28[1];
+    recordedTimeLength = _useState26[0],
+    setRecordedTimeLength = _useState26[1];
   var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       recordStage: "request_permission"
     }),
-    _useState30 = _slicedToArray(_useState29, 2),
-    screenRecordState = _useState30[0],
-    setScreenRecordState = _useState30[1];
+    _useState28 = _slicedToArray(_useState27, 2),
+    screenRecordState = _useState28[0],
+    setScreenRecordState = _useState28[1];
 
   // Refs
   var textMessageContentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
 
   // Message Contents
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState32 = _slicedToArray(_useState31, 2),
-    textMessageContent = _useState32[0],
-    setTextMessageContent = _useState32[1];
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState30 = _slicedToArray(_useState29, 2),
+    textMessageContent = _useState30[0],
+    setTextMessageContent = _useState30[1];
 
   // Pagination
   // const [currentPage, setCurrentPage] = useState(1);
@@ -10837,18 +10833,18 @@ function MessageBox(_ref) {
   var paginationPerPage = 2;
 
   // Search Results
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1),
+    _useState32 = _slicedToArray(_useState31, 2),
+    currentSearchResultPage = _useState32[0],
+    setCurrentSearchResultPage = _useState32[1];
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState34 = _slicedToArray(_useState33, 2),
-    currentSearchResultPage = _useState34[0],
-    setCurrentSearchResultPage = _useState34[1];
+    isLoadingSearchResults = _useState34[0],
+    setIsLoadingSearchResults = _useState34[1];
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState36 = _slicedToArray(_useState35, 2),
-    isLoadingSearchResults = _useState36[0],
-    setIsLoadingSearchResults = _useState36[1];
-  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState38 = _slicedToArray(_useState37, 2),
-    isLoadingMoreSearchResults = _useState38[0],
-    setIsLoadingMoreSearchResults = _useState38[1];
+    isLoadingMoreSearchResults = _useState36[0],
+    setIsLoadingMoreSearchResults = _useState36[1];
 
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
@@ -11063,13 +11059,6 @@ function MessageBox(_ref) {
     // Load session data from store if available
     if (Object.keys(allSessions).includes(id)) {
       setSessionMessages(allSessions[id]);
-      var latest_message_date = latestMessageDate;
-      if (allSessions[id].length) {
-        var sessionMessageItems = allSessions[id];
-        var latestSessionItem = sessionMessageItems[sessionMessageItems.length - 1];
-        latest_message_date = latestSessionItem.created_at;
-        setLatestMessageDate(latest_message_date);
-      }
       setIsLoadingSession(false);
       return;
     }
@@ -11103,10 +11092,6 @@ function MessageBox(_ref) {
       };
     }();
     fetchSession().then(function (response) {
-      // Update Latest Message Date
-      if (response.data.length) {
-        setLatestMessageDate(response.data[0].created_at);
-      }
       var sessionMessages = response.data;
 
       // Update The Store
@@ -11364,7 +11349,7 @@ function MessageBox(_ref) {
               textMessageContentRef.current.focus();
 
               // Load Latest
-              loadLatestMessages(latestMessageDate);
+              loadLatestMessages();
             case 18:
             case "end":
               return _context5.stop();

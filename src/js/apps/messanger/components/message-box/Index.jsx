@@ -97,7 +97,6 @@ function MessageBox({ setSessionState }) {
 	const [screenSize, SCREEN_SIZES] = useScreenSize();
 
     const [sessionMessages, setSessionMessages] = useState([]);
-    const [latestMessageDate, setLatestMessageDate] = useState(null);
 
     const [isLoadingMoreMessages, setIsLoadingMoreMessages] = useState(false);
     const [isLoadingSession, setIsLoadingSession] = useState(false);
@@ -364,19 +363,6 @@ function MessageBox({ setSessionState }) {
             // Load session data from store if available
             if (Object.keys(allSessions).includes(id)) {
                 setSessionMessages(allSessions[id]);
-
-                let latest_message_date = latestMessageDate;
-
-                if (allSessions[id].length) {
-                    const sessionMessageItems = allSessions[id];
-                    const latestSessionItem =
-                        sessionMessageItems[sessionMessageItems.length - 1];
-
-                    latest_message_date = latestSessionItem.created_at;
-
-                    setLatestMessageDate(latest_message_date);
-                }
-
                 setIsLoadingSession(false);
                 return;
             }
@@ -395,11 +381,6 @@ function MessageBox({ setSessionState }) {
 
             fetchSession()
                 .then((response) => {
-                    // Update Latest Message Date
-                    if (response.data.length) {
-                        setLatestMessageDate(response.data[0].created_at);
-                    }
-
                     const sessionMessages = response.data;
 
                     // Update The Store
@@ -735,7 +716,7 @@ function MessageBox({ setSessionState }) {
         textMessageContentRef.current.focus();
 
         // Load Latest
-        loadLatestMessages(latestMessageDate);
+        loadLatestMessages();
     };
 
 	const canSendAudioMessage = () => {

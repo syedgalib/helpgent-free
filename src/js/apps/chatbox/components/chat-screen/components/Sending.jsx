@@ -8,11 +8,6 @@ import {
 	upateState as updateUserState
 } from '../../../store/forms/user/actionCreator';
 
-import {
-    updateFormData as updateMessengerFormData,
-    submitForm as submitMessengerForm,
-    upateState as upateMessengerFormState,
-} from '../../../store/forms/messenger/actionCreator';
 
 import useChatboxController from '../hooks/useChatboxController';
 
@@ -20,7 +15,6 @@ import useConversationAPI from 'API/useConversationAPI';
 import useMessangerAPI from 'API/useMessangerAPI';
 import useUserAPI from 'API/useUserAPI';
 import useGuestUserAPI from 'API/useGuestUserAPI';
-
 
 function Sending() {
     const dispatch = useDispatch();

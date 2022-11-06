@@ -5261,13 +5261,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store/forms/user/actionCreator */ "./src/js/apps/chatbox/store/forms/user/actionCreator.js");
-/* harmony import */ var _store_forms_messenger_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../store/forms/messenger/actionCreator */ "./src/js/apps/chatbox/store/forms/messenger/actionCreator.js");
-/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var API_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! API/useConversationAPI */ "./src/js/helpers/hooks/api/useConversationAPI.js");
-/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var API_useUserAPI__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! API/useUserAPI */ "./src/js/helpers/hooks/api/useUserAPI.js");
-/* harmony import */ var API_useGuestUserAPI__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! API/useGuestUserAPI */ "./src/js/helpers/hooks/api/useGuestUserAPI.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
+/* harmony import */ var API_useConversationAPI__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! API/useConversationAPI */ "./src/js/helpers/hooks/api/useConversationAPI.js");
+/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
+/* harmony import */ var API_useUserAPI__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! API/useUserAPI */ "./src/js/helpers/hooks/api/useUserAPI.js");
+/* harmony import */ var API_useGuestUserAPI__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! API/useGuestUserAPI */ "./src/js/helpers/hooks/api/useGuestUserAPI.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5293,12 +5292,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Sending() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   // Hooks
-  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_6__["default"])(),
+  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_5__["default"])(),
     currentUser = _useChatboxController.currentUser,
     isUserAdmin = _useChatboxController.isUserAdmin,
     isUserClient = _useChatboxController.isUserClient,
@@ -5306,15 +5304,15 @@ function Sending() {
     enabledGuestSubmission = _useChatboxController.enabledGuestSubmission;
 
   // API
-  var _useUserAPI = (0,API_useUserAPI__WEBPACK_IMPORTED_MODULE_9__["default"])(),
+  var _useUserAPI = (0,API_useUserAPI__WEBPACK_IMPORTED_MODULE_8__["default"])(),
     createUser = _useUserAPI.createItem,
     updateUser = _useUserAPI.updateItem,
     userExists = _useUserAPI.userExists;
-  var _useGuestUserAPI = (0,API_useGuestUserAPI__WEBPACK_IMPORTED_MODULE_10__["default"])(),
+  var _useGuestUserAPI = (0,API_useGuestUserAPI__WEBPACK_IMPORTED_MODULE_9__["default"])(),
     createGuestUser = _useGuestUserAPI.createItem;
-  var _useConversationAPI = (0,API_useConversationAPI__WEBPACK_IMPORTED_MODULE_7__["default"])(),
+  var _useConversationAPI = (0,API_useConversationAPI__WEBPACK_IMPORTED_MODULE_6__["default"])(),
     createConversation = _useConversationAPI.createItem;
-  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__["default"])(),
+  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_7__["default"])(),
     createMessage = _useMessangerAPI.createItem;
 
   // Store States
@@ -5803,20 +5801,20 @@ function Sending() {
     }
   }
   if (currentStage === stages.SENDING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             children: "Sending"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
             children: "We\u2019re currently processing your request"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             className: "wpwax-vm-danger-text wpwax-vm-text-danger",
             children: "Please don\u2019t leave this page!"
           })]
@@ -5824,15 +5822,15 @@ function Sending() {
       })
     });
   } else if (currentStage === stages.ERROR) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
       className: "wpwax-vm-record-send-progress wpwax-vm-p-25 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
           className: "wpwax-vm-text-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h4", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
             children: errorMessage
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
             href: "#",
             onClick: retry,
             children: "Retry"

@@ -2,10 +2,11 @@ import { useSelector } from "react-redux";
 
 export default function useChatboxController() {
 
-	const { chatboxTemplateOptions, userForm } = useSelector((state) => {
+	const { chatboxTemplateOptions, userForm, currentUser } = useSelector((state) => {
         return {
 			chatboxTemplateOptions: ( state.chatboxTemplate.template && state.chatboxTemplate.template.options ) ? state.chatboxTemplate.template.options : {},
 			userForm: state.userForm,
+			currentUser: state.userForm.user,
         };
     });
 
@@ -16,12 +17,12 @@ export default function useChatboxController() {
 	 */
 	function needToGoContactPage() {
 
-		const isUserLoggedIn = isLoggedIn();
-		const isClient       = isUserClient();
-		const isAdmin        = isUserAdmin();
-		const collectInfo    = getCollectInfoFields();
+		const isLoggedIn  = isUserLoggedIn();
+		const isClient    = isUserClient();
+		const isAdmin     = isUserAdmin();
+		const collectInfo = getCollectInfoFields();
 
-		if ( ! isUserLoggedIn  ) {
+		if ( ! isLoggedIn  ) {
 			return true;
 		}
 
@@ -41,7 +42,7 @@ export default function useChatboxController() {
 	 *
 	 * @returns bool
 	 */
-	function isLoggedIn() {
+	function isUserLoggedIn() {
 		return userForm.user ? true : false;
 	}
 
@@ -118,8 +119,9 @@ export default function useChatboxController() {
 
 
 	return {
+		currentUser,
 		needToGoContactPage,
-		isLoggedIn,
+		isUserLoggedIn,
 		isUserAdmin,
 		isUserClient,
 		userRoleIncludes,

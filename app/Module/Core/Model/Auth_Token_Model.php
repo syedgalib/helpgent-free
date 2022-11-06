@@ -245,12 +245,11 @@ class Auth_Token_Model extends DB_Model {
 
 		// Delete old token
 		self::delete_item( $email );
-		$expires_at = self::get_expiry_date();
 
 		$status = self::create_item([
 			'token'      => $token,
 			'email'      => $email,
-			'expires_at' => helpgent_get_duration_date( HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS ),
+			'expires_at' => Helper\get_duration_in_date( HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS ),
 		]);
 
 		if ( is_wp_error( $status ) ) {

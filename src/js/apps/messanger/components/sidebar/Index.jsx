@@ -226,7 +226,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         const pageArg = {
             limit: '12',
             page: pageNumber,
-            timezone: getTimezoneString(),
         };
         setPageNumber(pageNumber + 1);
         const fetchNext = async () => {
@@ -236,7 +235,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         setTimeout(() => {
             fetchNext()
                 .then((nextSessionResponse) => {
-                    if (nextSessionResponse.data.data.length == 0) {
+                    if (nextSessionResponse.data.length == 0) {
                         setSessionState({
                             ...sessionState,
                             hasMore: false,
@@ -245,10 +244,10 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         setSessionState({
                             ...sessionState,
                             sessionList: sessionList.concat(
-                                nextSessionResponse.data.data
+                                nextSessionResponse.data
                             ),
                             filteredSessions: sessionList.concat(
-                                nextSessionResponse.data.data
+                                nextSessionResponse.data
                             ),
                             loader: false,
                         });
@@ -256,7 +255,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
                     dispatch(
                         handleReadSessions(
-                            sessionList.concat(nextSessionResponse.data.data)
+                            sessionList.concat(nextSessionResponse.data)
                         )
                     );
                 })

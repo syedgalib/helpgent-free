@@ -18,7 +18,7 @@ function Form() {
     const dispatch = useDispatch();
 
 	const {
-		isLoggedIn,
+		isUserLoggedIn,
 		enabledGuestSubmission,
 		getCollectInfoFields
 	} = useChatboxController();
@@ -56,11 +56,11 @@ function Form() {
     }, []);
 
 	function showNameField() {
-		return isLoggedIn() ? false : true;
+		return isUserLoggedIn() ? false : true;
 	}
 
 	function showEmailField() {
-		return isLoggedIn() ? false : true;
+		return isUserLoggedIn() ? false : true;
 	}
 
 	function showPhoneField() {
@@ -68,7 +68,7 @@ function Form() {
 	}
 
 	function showPasswordField() {
-		return ! isLoggedIn() && ! enabledGuestSubmission();
+		return ! isUserLoggedIn() && ! enabledGuestSubmission();
 	}
 
     // submitHandler

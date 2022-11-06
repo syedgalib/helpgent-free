@@ -9391,8 +9391,7 @@ var Sidebar = function Sidebar(_ref) {
   var fetchMoreData = function fetchMoreData() {
     var pageArg = {
       limit: '12',
-      page: pageNumber,
-      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_28__.getTimezoneString)()
+      page: pageNumber
     };
     setPageNumber(pageNumber + 1);
     var fetchNext = /*#__PURE__*/function () {
@@ -9420,18 +9419,18 @@ var Sidebar = function Sidebar(_ref) {
     }();
     setTimeout(function () {
       fetchNext().then(function (nextSessionResponse) {
-        if (nextSessionResponse.data.data.length == 0) {
+        if (nextSessionResponse.data.length == 0) {
           setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
             hasMore: false
           }));
         } else {
           setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-            sessionList: sessionList.concat(nextSessionResponse.data.data),
-            filteredSessions: sessionList.concat(nextSessionResponse.data.data),
+            sessionList: sessionList.concat(nextSessionResponse.data),
+            filteredSessions: sessionList.concat(nextSessionResponse.data),
             loader: false
           }));
         }
-        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadSessions)(sessionList.concat(nextSessionResponse.data.data)));
+        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadSessions)(sessionList.concat(nextSessionResponse.data)));
       }).catch(function (error) {
         console.log(error);
       });

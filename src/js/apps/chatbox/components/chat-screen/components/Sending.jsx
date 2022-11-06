@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
 
+
 import {
 	upateState as updateUserState
 } from '../../../store/forms/user/actionCreator';
@@ -26,13 +27,11 @@ function Sending() {
 
 	// Hooks
 	const {
-		needToGoContactPage,
-		isLoggedIn,
+		currentUser,
 		isUserAdmin,
 		isUserClient,
-		userRoleIncludes,
+		isUserLoggedIn,
 		enabledGuestSubmission,
-		getCollectInfoFields,
 	} = useChatboxController();
 
 	// API
@@ -65,106 +64,77 @@ function Sending() {
 
     // @Init
     useEffect(() => {
-		// const _isLoggedIn             = isLoggedIn();
-		// const _isUserAdmin            = isUserAdmin();
-		// const _isUserClient           = isUserClient();
-		// const _enabledGuestSubmission = enabledGuestSubmission();
-		// const _needToGoContactPage    = needToGoContactPage();
-		// const _getCollectInfoFields   = getCollectInfoFields();
-
-
-		// console.log({
-		// 	_isLoggedIn,
-		// 	_isUserAdmin,
-		// 	_isUserClient,
-		// 	_enabledGuestSubmission,
-		// 	_needToGoContactPage,
-		// });
-
 		init();
     }, []);
 
+	/**
+	 * Init
+	 *
+	 * @returns {void}
+	 */
 	async function init() {
-		// Situations
-		// @ User is logged in
-		//   # User is not client
-		//   # User is client
-
-		// @ User is not logged in
-		//   # Guest Login Enabled
-		//   # Guest Login Not Enabled
-
-
-		// Submit the messgage if message has user ID
-		// --------------------------------
-		if ( messengerForm.formData.user_id && userForm.is_varified ) {
-			submitMessage();
+		if ( isUserLoggedIn() ) {
+			handleOldUser();
 			return;
 		}
 
-		// Create or get the user
-		// --------------------------------
-		const createUserResponse = await createUser( userForm.formData );
-		if ( ! createUserResponse.success ) {
-			dispatch(
-				updateUserState({
-					status: false,
-					statusMessage: createUserResponse.message,
-				})
-			);
-
-			// Return to Contact Form Page if failed
-			setTimeout(() => {
-				dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-			}, 2000);
-
-			return;
-		}
-
-		const userID = createUserResponse.data.email;
-
-		// Add user ID to message
-		dispatch(
-			updateMessengerFormData({
-				user_id: userID,
-			})
-		);
-
-		setUserEmail( userID );
-
-		// Verify user if exists
-		// --------------------------------
-		if ( ! createUserResponse.data.is_new_user ) {
-			dispatch(
-				updateUserState({
-					user: createUserResponse.data,
-					needAuthentication: true,
-					is_varified: false,
-				})
-			);
-
-			dispatch(changeChatScreen(screenTypes.USER_AUTHENTICATION_FORM));
-			return;
-		}
-
-		// Submit Message
-		submitMessage();
+		handleNewUser();
 	}
 
 	/**
 	 * Handle New User
 	 *
-	 * # If guest login is enabled
-	 *   - Register user as guest
-	 *     - If user exist -> Swith to Autentication Page
-	 *   - Send The Message
-	 * # If guest login not enabled
-	 *   - Register user as WP user
-	 *     - If user exist -> Swith to Autentication Page
-	 *     - Send The Message
+	 * @returns {void}
 	 */
 	async function handleNewUser() {
 		// Handle Existing User
+		if ( await checkIfUserExists() ) {
+			return;
+		}
+
+		// Register The User
+		const userResponse = await registerUser();
+		if ( ! userResponse.success ) {
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+			return;
+		}
+
+		setUserEmail( userResponse.data.email );
+		submitMessage( userResponse.data.email );
+	}
+
+	/**
+	 * Handle Old User
+	 *
+	 * @returns {void}
+	 */
+	async function handleOldUser() {
+		const isAdmin = isUserAdmin();
+		const isClient = isUserClient();
+
+		const isNewUser = ( ! isAdmin && ! isClient ) ? true : false;
+
+		if ( isNewUser ) {
+			const response = await updateCurrentUser();
+
+			// Switch to Retry Stage if failed
+			if ( ! response.success ) {
+				const message = ( response.message ) ? response.message : 'Something went wrong, please try again';
+				navigateToErrorStage( message, handleOldUser );
+				return;
+			}
+		}
+
+		setUserEmail( currentUser.email );
+		submitMessage( currentUser.email );
+	}
+
+	/**
+	 * Check If User Exists
+	 *
+	 * @returns {bool}
+	 */
+	async function checkIfUserExists() {
 		const email = ( userForm.formData.email ) ? userForm.formData.email : '';
 		const userExistsResponse = await userExists( email );
 
@@ -177,51 +147,54 @@ function Sending() {
 			);
 
 			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
-			return;
+
+			return true;
 		}
 
-		if ( userExistsResponse.data ) {
-			const isGuest = userExistsResponse.data.is_guest;
-
-			if ( isGuest ) {
-				dispatch(
-					updateUserState({
-						status: false,
-						statusMessage: 'You are already registered as guest, please continue from the link provided to your email for further communication.',
-					})
-				);
-
-				dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
-				return;
-			}
-
-			dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
-			return;
+		if ( ! userExistsResponse.data ) {
+			return false;
 		}
 
-		// Register The User
-		const userResponse = await registerUser();
+		dispatch(
+			updateUserState({
+				user: userExistsResponse.data,
+			})
+		);
 
-		if ( ! userResponse.success ) {
+		const isGuest = userExistsResponse.data.is_guest;
+
+		if ( isGuest ) {
+			dispatch(
+				updateUserState({
+					status: false,
+					statusMessage: 'You are already registered as guest, please continue from the link provided to your email for further communication.',
+				})
+			);
+
 			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
-			return;
+			return true;
 		}
 
-		setUserEmail( userResponse.data.email );
-		submitMessage( userResponse.data.email );
+		dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
+		return true;
 	}
 
 	/**
 	 * Update Current User
+	 *
+	 * @returns {object}
 	 */
 	async function updateCurrentUser() {
-		// Assign Client Role To User
-		// Update User Meta
+		let args = JSON.parse( JSON.stringify( userForm.formData ) );
+		args.add_roles = 'wpwax_vm_client';
+
+		return await updateUser( currentUser.id, args );
 	}
 
 	/**
 	 * Register User
 	 *
+	 * @returns {object}
 	 */
 	async function registerUser() {
 		dispatch(
@@ -257,20 +230,29 @@ function Sending() {
 	/**
 	 * Register WP User
 	 *
+	 * @returns {object}
 	 */
 	async function registerWPUser() {
-
+		const args = userForm.formData;
+		return await createUser( args );
 	}
 
 	/**
 	 * Register Guest User
+	 *
+	 * @returns {object}
 	 */
 	async function registerGuestUser() {
 		const args = userForm.formData;
 		return await createGuestUser( args );
 	}
 
-	// Submit Message
+	/**
+	 * Submit Message
+	 *
+	 * @param {string} _userEmail
+	 * @returns {void}
+	 */
 	async function submitMessage( _userEmail ) {
 		// Reset States
 		setErrorMessage( '' );
@@ -281,12 +263,12 @@ function Sending() {
 		};
 
 		// Create Message
-		const response = await createTheMessage( formData );
+		const response = await createTheConversation( formData );
 
 		// Switch to Retry Stage if failed
 		if ( ! response.success ) {
-			setErrorMessage( response.message );
-			setCurrentStage( stages.ERROR );
+			const message = ( response.message ) ? response.message : 'Something went wrong, please try again';
+			navigateToErrorStage( message, submitMessage );
 			return;
 		}
 
@@ -297,69 +279,61 @@ function Sending() {
 	}
 
 
-	// createTheMessage
-	async function createTheMessage( args ) {
-		let status = { success: false, message: '', data: null };
-
-
+	/**
+	 * Create The Conversation
+	 *
+	 * @param {object} args
+	 * @returns {object}
+	 */
+	async function createTheConversation( args ) {
 		const email = ( args.user_email ) ? args.user_email : '';
-		const conversation = await createConversation( { created_by: email } );
+		const conversationResponse = await createConversation( { created_by: email } );
 
-		if ( ! conversation.success ) {
-
+		if ( ! conversationResponse.success ) {
+			return conversationResponse;
 		}
 
-		console.log( { conversation, email } );
+		args.conversation_id = conversationResponse.data.id;
 
+		const messageResponse = await createMessage( args );
 
-
-		try  {
-
-			const email = ( args.user_email ) ? args.user_email : '';
-			const conversation = await createConversation( { created_by: email } );
-
-			console.log( { conversation, email } );
-
-
-			status.success = false;
-			status.message = 'Debugging';
-
-			return status;
-
-			args.conversation_id = conversation.data.id;
-
-			const response = await createMessage( args );
-
-			status.success = true;
-			status.data = response.data;
-			status.message = 'The message has been created successfuly';
-
-			return status;
-
-		} catch ( error ) {
-			status.success = false;
-			status.message = '---';
-			// status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
-
-			console.error( error );
-
-			return status;
+		if ( ! messageResponse.success ) {
+			return messageResponse;
 		}
+
+		return messageResponse;
 	}
 
-	// Show Error Page
-	function showErrorPage( onRetry ) {
-		setCurrentStage( stages.ERROR );
+	/**
+	 * Navigate To Error Stage
+	 *
+	 * @param {string} message
+	 * @param {function} onRetry
+	 * @returns {void}
+	 */
+	function navigateToErrorStage( message, onRetry ) {
+		if ( typeof message === 'string' ) {
+			setErrorMessage( message );
+		}
 
 		if ( typeof onRetry === 'function' ) {
-			setCallbacks({ ...callbacks, onRetry  });
+			setCallbacks( { onRetry: onRetry } );
 		}
+
+		setCurrentStage( stages.ERROR );
 	}
 
-	// Retry
+
+	/**
+	 * Retry
+	 *
+	 * @param {object} event
+	 * @returns {void}
+	 */
 	function retry( event ) {
 		event.preventDefault();
-		// setCurrentStage( stages.SENDING );
+
+		setCurrentStage( stages.SENDING );
 
 		if ( typeof callbacks.onRetry === 'function' ) {
 			callbacks.onRetry();

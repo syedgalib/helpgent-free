@@ -26,7 +26,6 @@ function ChatScreen( { show } ) {
 
 	const dispatch = useDispatch();
 
-
 	// API
 	const { getCurrentUser } = useUserAPI();
 	const { getItems: getSettings } = useSettingsAPI();

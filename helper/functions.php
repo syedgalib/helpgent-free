@@ -1399,3 +1399,17 @@ function get_dashboard_page_link() {
 	return apply_filters( 'helpgent_dashboard_page_link', $link, $page_id );
 }
 
+
+/**
+ * Get date time of specified duration
+ *
+ * @param int $duration_in_days Duration in days
+ * @return string DateTime
+ */
+function get_duration_in_date( $duration_in_days ) {
+	$now     = current_time( 'mysql', true );
+	$seconds = DAY_IN_SECONDS * $duration_in_days;
+	$expiry  = date( 'Y-m-d H:i:s', strtotime( $now ) + $seconds );
+
+	return $expiry;
+}

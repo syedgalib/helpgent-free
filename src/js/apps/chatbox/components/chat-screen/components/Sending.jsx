@@ -24,6 +24,7 @@ function Sending() {
 		currentUser,
 		isUserAdmin,
 		isUserClient,
+		isUserGuest,
 		isUserLoggedIn,
 		enabledGuestSubmission,
 	} = useChatboxController();
@@ -103,10 +104,11 @@ function Sending() {
 	 * @returns {void}
 	 */
 	async function handleOldUser() {
-		const isAdmin = isUserAdmin();
+		const isAdmin  = isUserAdmin();
 		const isClient = isUserClient();
+		const isGuest  = isUserGuest();
 
-		const isNewUser = ( ! isAdmin && ! isClient ) ? true : false;
+		const isNewUser = ( ! isAdmin && ! isClient && ! isGuest ) ? true : false;
 
 		if ( isNewUser ) {
 			const response = await updateCurrentUser();

@@ -67,6 +67,8 @@ function ChatScreen( { show } ) {
 			dispatch( upateUserState( { guestSubmission: settingsResponse.data.guestSubmission } ) );
 		}
 
+		console.log( { currentUserResponse } );
+
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 

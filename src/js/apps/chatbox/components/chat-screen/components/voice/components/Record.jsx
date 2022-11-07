@@ -22,8 +22,14 @@ import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
+import useChatboxController from '../../../hooks/useChatboxController';
 
 function Record() {
+	// Hooks
+	const {
+		needToGoContactPage
+	} = useChatboxController();
+
 	const { addAction } = wpwaxHooks;
 
     const audioRef = useRef();
@@ -82,11 +88,14 @@ function Record() {
 
                 // Navigate to Contact form or Sending Page
                 setTimeout(() => {
-					if ( messengerForm.formData.user_id ) {
-						dispatch(changeChatScreen(screenTypes.SENDING));
-					} else {
-						dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+
+					// Navigate to Contact form or Sending Page
+					if ( needToGoContactPage() ) {
+						dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
+						return;
 					}
+
+					dispatch( changeChatScreen( screenTypes.SENDING ) );
 
                 }, '2000');
             } else if (false === attachmentForm.status) {
@@ -152,7 +161,7 @@ function Record() {
                             sampleRate: 44100,
                         },
                     });
-    
+
                 window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                     type: 'audio',
                     mimeType: 'audio/wav',
@@ -163,14 +172,14 @@ function Record() {
                     },
                 });
                 window.wpwaxCSRecorder.startRecording();
-    
+
                 setIsRecording(true);
                 startTimer();
                 setRecordedTimeInSecond(recordedTimeInSecond);
                 setRecordedAudioSteam(window.wpwaxCSAudioStream);
             } catch (error) {
                 console.log({ error });
-    
+
                 setIsRecording(false);
             }
         }

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useCoreData } from '../../helpers/hooks/useCoreData.jsx';
 import MessageBox from './components/message-box/Index.jsx';
 import Sidebar from './components/sidebar/Index.jsx';
 
@@ -32,7 +34,10 @@ function App() {
         taglistWithSession: false,
         hasMore: true,
         loader: true,
+		currentUser: useCoreData( 'current_user' ),
+		isCurrentUserAdmin: useCoreData( 'current_user.is_admin' ) ? true : false
     });
+
 
     return (
         <ChatDashboardWrap>

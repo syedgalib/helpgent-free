@@ -63,6 +63,11 @@
     margin-top: 20px;
 }
 
+.wpwax-vm-p-5 {
+    padding: 5px;
+    box-sizing: border-box;
+}
+
 .wpwax-vm-p-20 {
     padding: 20px;
     box-sizing: border-box;
@@ -200,6 +205,13 @@
             background-color: var(--color-white);
         }
     }
+}
+
+/* Button Size */
+.wpwax-vm-link {
+	display: inline-block;
+	text-decoration: none;
+	color: var(--color-primary);
 }
 
 /* Button Size */

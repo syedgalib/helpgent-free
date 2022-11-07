@@ -14,9 +14,15 @@ import messageTypes from './../../../../store/forms/messenger/messageTypes';
 import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 
 import useAttachmentAPI from "API/useAttachmentAPI";
+import useChatboxController from '../../hooks/useChatboxController';
 
 function ScreenRecord() {
 	const dispatch = useDispatch();
+
+	// Hooks
+	const {
+		needToGoContactPage
+	} = useChatboxController();
 
 	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
@@ -138,6 +144,11 @@ function ScreenRecord() {
 				attachment_id: response.data.id,
 			})
 		);
+
+		if ( needToGoContactPage() ) {
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
+			return;
+		}
 
 		dispatch( changeChatScreen( screenTypes.SENDING ) );
 	}

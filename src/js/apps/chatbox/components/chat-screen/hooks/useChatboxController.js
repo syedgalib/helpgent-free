@@ -2,10 +2,11 @@ import { useSelector } from "react-redux";
 
 export default function useChatboxController() {
 
-	const { chatboxTemplateOptions, userForm } = useSelector((state) => {
+	const { chatboxTemplateOptions, userForm, currentUser } = useSelector((state) => {
         return {
 			chatboxTemplateOptions: ( state.chatboxTemplate.template && state.chatboxTemplate.template.options ) ? state.chatboxTemplate.template.options : {},
 			userForm: state.userForm,
+			currentUser: state.userForm.user,
         };
     });
 
@@ -16,16 +17,17 @@ export default function useChatboxController() {
 	 */
 	function needToGoContactPage() {
 
-		const isUserLoggedIn = isLoggedIn();
-		const isClient       = isUserClient();
-		const isAdmin        = isUserAdmin();
-		const collectInfo    = ( Array.isArray( chatboxTemplateOptions.collectInfo ) ) ? chatboxTemplateOptions.collectInfo : [];
+		const isLoggedIn  = isUserLoggedIn();
+		const isClient    = isUserClient();
+		const isAdmin     = isUserAdmin();
+		const isGuest     = isUserGuest();
+		const collectInfo = getCollectInfoFields();
 
-		if ( ! isUserLoggedIn  ) {
+		if ( ! isLoggedIn  ) {
 			return true;
 		}
 
-		if ( isClient || isAdmin ) {
+		if ( isClient || isAdmin || isGuest ) {
 			return false;
 		}
 
@@ -41,7 +43,7 @@ export default function useChatboxController() {
 	 *
 	 * @returns bool
 	 */
-	function isLoggedIn() {
+	function isUserLoggedIn() {
 		return userForm.user ? true : false;
 	}
 
@@ -72,6 +74,21 @@ export default function useChatboxController() {
 		}
 
 		return userForm.user.is_client;
+
+	}
+
+	/**
+	 * Is User Guest
+	 *
+	 * @returns bool
+	 */
+	function isUserGuest() {
+
+		if ( ! userForm.user ) {
+			return false;
+		}
+
+		return userForm.user.is_guest;
 
 	}
 
@@ -118,10 +135,12 @@ export default function useChatboxController() {
 
 
 	return {
+		currentUser,
 		needToGoContactPage,
-		isLoggedIn,
+		isUserLoggedIn,
 		isUserAdmin,
 		isUserClient,
+		isUserGuest,
 		userRoleIncludes,
 		enabledGuestSubmission,
 		getCollectInfoFields,

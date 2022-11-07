@@ -396,7 +396,7 @@ class Message_Notification_Emails {
             $user = get_user_by( 'email', $user );
         }
 
-        $guest_token   = Auth_Token_Model::get_item( $user );
+        $guest_token    = Auth_Token_Model::get_item( $user );
         $site_name      = get_option( 'blogname' );
         $site_url       = site_url();
         $date_format    = get_option( 'date_format' );

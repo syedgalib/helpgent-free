@@ -18,6 +18,7 @@ class Script_Data {
 			'supported_video_extensions' => Helper\get_mime_types( 'video', 'extension' ),
 			'max_upload_size'            => Helper\max_upload_size(),
 			'settings'                   => Helper\get_options(),
+			'auth_token'                 => Helper\get_auth_token(),
 		];
 	}
 

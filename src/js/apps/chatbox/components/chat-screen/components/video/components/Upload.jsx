@@ -11,8 +11,14 @@ import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 
 import { updateFormData as updateMessengerFormData } from '../../../../../store/forms/messenger/actionCreator';
 import { submitForm as submitAttachmentForm } from '../../../../../store/forms/attachment/actionCreator';
+import useChatboxController from '../../../hooks/useChatboxController';
 
 const Upload = ({ file, back }) => {
+	// Hooks
+	const {
+		needToGoContactPage
+	} = useChatboxController();
+
     const stages = {
         BEFORE_SEND: 'before_send',
         UPLOADING: 'uploading',
@@ -54,11 +60,12 @@ const Upload = ({ file, back }) => {
                 );
 
 				// Navigate to Contact form or Sending Page
-				if ( messengerForm.formData.user_id ) {
-					dispatch(changeChatScreen(screenTypes.SENDING));
-				} else {
-					dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+				if ( needToGoContactPage() ) {
+					dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
+					return;
 				}
+
+				dispatch( changeChatScreen( screenTypes.SENDING ) );
 
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);

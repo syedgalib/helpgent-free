@@ -858,11 +858,22 @@ function get_current_user( $return_wp_user = false ) {
 
 /**
  * Max upload size
- * @return int size in MB
+ * @return int size in bytes
  */
 function max_upload_size() {
-	$custom_size = get_option( 'maxUploadSize', 100 );
+	$custom_size = get_option( 'maxUploadSize', 100 ); // In MB
+	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size * ( 1024 * 1024) : 100;
+
 	return $custom_size > wp_max_upload_size() ? wp_max_upload_size() : $custom_size;
+}
+
+/**
+ * Voice Record Time Limit
+ * @return int seconds
+ */
+function voice_record_time_limit() {
+	$min = WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT; // In Minute
+	return $min * 60;
 }
 
 function get_mime_types($filter_type = '', $return_type = '')
@@ -1183,7 +1194,109 @@ function is_current_user_client()
 function is_current_user_guest()
 {
 	$email = get_current_user_email();
-	return Guest_User_Model::user_exists( $email );
+
+	if ( empty( $email ) ) {
+		return false;
+	}
+
+	$user_exists = Guest_User_Model::user_exists( $email );
+
+	if ( is_wp_error( $user_exists ) ) {
+		return false;
+	}
+
+	return $user_exists;
+}
+
+/**
+ * Get Authentication Token
+ *
+ * @return string Token
+ */
+function get_auth_token() {
+	global $helpgent_token;
+	return ( ! empty( $helpgent_token ) ) ? $helpgent_token : '';
+}
+
+
+/**
+ * Get Token Email
+ *
+ * @return string Email
+ */
+function get_auth_token_email() {
+
+	$token = get_auth_token();
+
+	if ( empty( $token ) ) {
+		return '';
+	}
+
+	$email = Auth_Token_Model::get_user_email_by_token( $token );
+
+	return $email;
+}
+
+/**
+ * Check if has expaired token
+ *
+ * @return bool
+ */
+function has_expaired_token() {
+
+	global $helpgent_has_expaired_token;
+
+	if ( is_null( $helpgent_has_expaired_token ) ) {
+		return false;
+	}
+
+	return $helpgent_has_expaired_token;
+}
+
+/**
+ * Get Authentication Expaired Token
+ *
+ * @return string Token
+ */
+function get_auth_expaired_token() {
+	global $helpgent_expaired_token;
+	return ( ! empty( $helpgent_expaired_token ) ) ? $helpgent_expaired_token : '';
+}
+
+/**
+ * Get Authentication Expaired Token Email
+ *
+ * @return string Email
+ */
+function get_auth_expaired_token_email() {
+
+	$token = get_auth_expaired_token();
+
+	if ( empty( $token ) ) {
+		return '';
+	}
+
+	$email = Auth_Token_Model::get_user_email_by_token( $token );
+
+	return $email;
+}
+
+/**
+ * Check if current user can use messanger app
+ *
+ * @return bool
+ */
+function current_can_use_messanger_app()
+{
+	$is_admin  = is_current_user_admin();
+	$is_client = is_current_user_client();
+	$is_guest  = is_current_user_guest();
+
+	if ( $is_admin || $is_client || $is_guest ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -1388,3 +1501,17 @@ function get_dashboard_page_link() {
 	return apply_filters( 'helpgent_dashboard_page_link', $link, $page_id );
 }
 
+
+/**
+ * Get date time of specified duration
+ *
+ * @param int $duration_in_days Duration in days
+ * @return string DateTime
+ */
+function get_duration_in_date( $duration_in_days ) {
+	$now     = current_time( 'mysql', true );
+	$seconds = DAY_IN_SECONDS * $duration_in_days;
+	$expiry  = date( 'Y-m-d H:i:s', strtotime( $now ) + $seconds );
+
+	return $expiry;
+}

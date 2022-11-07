@@ -60,13 +60,6 @@ function Form() {
 			return;
 		}
 
-		dispatch(
-			updateUserState({
-				is_varified: true,
-				needAuthentication: false,
-			})
-		);
-
         dispatch(
 			changeChatScreen( screenTypes.SENDING )
 		);

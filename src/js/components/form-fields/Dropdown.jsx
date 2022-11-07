@@ -64,7 +64,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
         switch (btnName) {
             case 'mark-read':
                 const markRead = async ()=>{
-                    
+
                     const response = await conversationRead(sessionId)
                     return response;
                 }
@@ -91,7 +91,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'mark-unread':
                 const markUnRead = async ()=>{
-                    
+
                     const response = await conversationUnread(sessionId);
                     return response;
                 }
@@ -116,22 +116,25 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
                 case 'archive-conversation':
                     const archiveConversation = async ()=>{
-                        
+
                         const response = await updateConversation(sessionId,{status: "archive"});
                         return response;
                     }
                     archiveConversation()
                         .then( resposne =>{
-                            const sessionWithArchive = outerState.sessionList.map((item,index)=>{
-                                if ( item.id === sessionId ) {
-                                    return {
-                                        ...item,
-                                        status: "archive"
-                                    }
-                                }
-                                return item;
+                            const sessionWithArchive = outerState.sessionList.filter(( item, index) => {
+								return item.id !== sessionId;
                             });
-    
+                            // const sessionWithArchive = outerState.sessionList.map((item,index)=>{
+                            //     if ( item.id === sessionId ) {
+                            //         return {
+                            //             ...item,
+                            //             status: "archive"
+                            //         }
+                            //     }
+                            //     return item;
+                            // });
+
                             setOuterState({
                                 ...outerState,
                                 sessionList: sessionWithArchive,
@@ -141,22 +144,17 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     break;
                     case 'active-conversation':
                         const activeConversation = async ()=>{
-                            
+
                             const response = await updateConversation(sessionId,{status: "active"});
                             return response;
                         }
                         activeConversation()
                             .then( resposne =>{
-                                const sessionWithActive = outerState.sessionList.map((item,index)=>{
-                                    if ( item.id === sessionId ) {
-                                        return {
-                                            ...item,
-                                            status: "active"
-                                        }
-                                    }
-                                    return item;
-                                });
-        
+
+								const sessionWithActive = outerState.sessionList.filter(( item, index) => {
+									return item.id !== sessionId;
+								});
+
                                 setOuterState({
                                     ...outerState,
                                     sessionList: sessionWithActive,
@@ -214,7 +212,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                     tagLoader: true
                 });
                 const deleteTerm = async () => {
-                    
+
                     const deleteResponse = await deleteTermById(termId);
                     return deleteResponse;
                 }
@@ -247,7 +245,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'filter-read':
                 const fetchReadSeassion = async ()=>{
-                    
+
                     const readSession = await getConversations({order_by: "read"});
                     return readSession;
                 }
@@ -263,7 +261,7 @@ const Dropdown = ({ selectable, dropdownText, dropdownSelectedText, textIcon, dr
                 break;
             case 'filter-unread':
                 const fetchUnReadSeassion = async ()=>{
-                    
+
                     const readSession = await getConversations({order_by: "unread"});
                     return readSession;
                 }

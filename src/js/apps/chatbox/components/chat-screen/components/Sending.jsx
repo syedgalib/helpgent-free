@@ -2,26 +2,38 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeChatScreen } from '../../../store/chatbox/actionCreator';
 import screenTypes from '../../../store/chatbox/screenTypes';
-import http from 'Helper/http';
 
-import useConversationAPI from "API/useConversationAPI";
-import useMessangerAPI from "API/useMessangerAPI";
 
 import {
 	upateState as updateUserState
 } from '../../../store/forms/user/actionCreator';
 
-import {
-    updateFormData as updateMessengerFormData,
-    submitForm as submitMessengerForm,
-    upateState as upateMessengerFormState,
-} from '../../../store/forms/messenger/actionCreator';
+
+import useChatboxController from '../hooks/useChatboxController';
+
+import useConversationAPI from 'API/useConversationAPI';
+import useMessangerAPI from 'API/useMessangerAPI';
+import useUserAPI from 'API/useUserAPI';
+import useGuestUserAPI from 'API/useGuestUserAPI';
 
 function Sending() {
     const dispatch = useDispatch();
 
-	const { createItem: createConversationItem } = useConversationAPI();
-	const { createItem: createMessangerItem } = useMessangerAPI()
+	// Hooks
+	const {
+		currentUser,
+		isUserAdmin,
+		isUserClient,
+		isUserGuest,
+		isUserLoggedIn,
+		enabledGuestSubmission,
+	} = useChatboxController();
+
+	// API
+	const { createItem: createUser, updateItem: updateUser, userExists } = useUserAPI();
+	const { createItem: createGuestUser } = useGuestUserAPI();
+	const { createItem: createConversation } = useConversationAPI();
+	const { createItem: createMessage } = useMessangerAPI();
 
     // Store States
     const { userForm, messengerForm } = useSelector((state) => {
@@ -41,83 +53,202 @@ function Sending() {
 	// Local States
 	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
-	const [ userEmail, setUserEmail ] = useState( email );
+	const [ userEmail, setUserEmail ] = useState( '' );
+
+	const [ callbacks, setCallbacks ] = useState( { onRetry: submitMessage } );
 
     // @Init
     useEffect(() => {
 		init();
     }, []);
 
+	/**
+	 * Init
+	 *
+	 * @returns {void}
+	 */
 	async function init() {
-		// Situations
-		// @ User is logged in
-		//   # User is not client
-		//   # User is client
-
-		// @ User is not logged in
-		//   # Guest Login Enabled
-		//   # Guest Login Not Enabled
-
-
-		// Submit the messgage if message has user ID
-		// --------------------------------
-		if ( messengerForm.formData.user_id && userForm.is_varified ) {
-			submitMessage();
+		if ( isUserLoggedIn() ) {
+			handleOldUser();
 			return;
 		}
 
-		// Create or get the user
-		// --------------------------------
-		const createUserResponse = await createUser( userForm.formData );
-		if ( ! createUserResponse.success ) {
+		handleNewUser();
+	}
+
+	/**
+	 * Handle New User
+	 *
+	 * @returns {void}
+	 */
+	async function handleNewUser() {
+		// Handle Existing User
+		if ( await checkIfUserExists() ) {
+			return;
+		}
+
+		// Register The User
+		const userResponse = await registerUser();
+		if ( ! userResponse.success ) {
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+			return;
+		}
+
+		setUserEmail( userResponse.data.email );
+		submitMessage( userResponse.data.email );
+	}
+
+	/**
+	 * Handle Old User
+	 *
+	 * @returns {void}
+	 */
+	async function handleOldUser() {
+		const isAdmin  = isUserAdmin();
+		const isClient = isUserClient();
+		const isGuest  = isUserGuest();
+
+		const isNewUser = ( ! isAdmin && ! isClient && ! isGuest ) ? true : false;
+
+		if ( isNewUser ) {
+			const response = await updateCurrentUser();
+
+			// Switch to Retry Stage if failed
+			if ( ! response.success ) {
+				const message = ( response.message ) ? response.message : 'Something went wrong, please try again';
+				navigateToErrorStage( message, handleOldUser );
+				return;
+			}
+		}
+
+		setUserEmail( currentUser.email );
+		submitMessage( currentUser.email );
+	}
+
+	/**
+	 * Check If User Exists
+	 *
+	 * @returns {bool}
+	 */
+	async function checkIfUserExists() {
+		const email = ( userForm.formData.email ) ? userForm.formData.email : '';
+		const userExistsResponse = await userExists( email );
+
+		if ( ! userExistsResponse.success ) {
 			dispatch(
 				updateUserState({
-					status: false,
-					statusMessage: createUserResponse.message,
+					status: null,
+					statusMessage: ( userExistsResponse.message ) ? userExistsResponse.message : 'Something went wrong, please try again.',
 				})
 			);
 
-			// Return to Contact Form Page if failed
-			setTimeout(() => {
-				dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
-			}, 2000);
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
 
-			return;
+			return true;
 		}
 
-		const userID = createUserResponse.data.email;
+		if ( ! userExistsResponse.data ) {
+			return false;
+		}
 
-		// Add user ID to message
 		dispatch(
-			updateMessengerFormData({
-				user_id: userID,
+			updateUserState({
+				user: userExistsResponse.data,
 			})
 		);
 
-		setUserEmail( userID );
+		const isGuest = userExistsResponse.data.is_guest;
 
-		// Verify user if exists
-		// --------------------------------
-		if ( ! createUserResponse.data.is_new_user ) {
+		if ( isGuest ) {
 			dispatch(
 				updateUserState({
-					user: createUserResponse.data,
-					needAuthentication: true,
-					is_varified: false,
+					status: false,
+					statusMessage: 'You are already registered as guest, please continue from the link provided to your email for further communication.',
 				})
 			);
 
-			dispatch(changeChatScreen(screenTypes.USER_AUTHENTICATION_FORM));
-			return;
+			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+			return true;
 		}
 
-		// Submit Message
-		// --------------------------------
-		submitMessage( userID );
+		dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
+		return true;
 	}
 
+	/**
+	 * Update Current User
+	 *
+	 * @returns {object}
+	 */
+	async function updateCurrentUser() {
+		let args = JSON.parse( JSON.stringify( userForm.formData ) );
+		args.add_roles = 'wpwax_vm_client';
 
-	// Submit Message
+		return await updateUser( currentUser.id, args );
+	}
+
+	/**
+	 * Register User
+	 *
+	 * @returns {object}
+	 */
+	async function registerUser() {
+		dispatch(
+			updateUserState({
+				status: null,
+				statusMessage: '',
+			})
+		);
+
+		let response = { success: false };
+
+		// If guest login is enabled
+		if ( enabledGuestSubmission() ) {
+			// Register user as guest
+			response = await registerGuestUser();
+		} else {
+			// Register user as WP user
+			response = await registerWPUser();
+		}
+
+		if ( ! response.success ) {
+			dispatch(
+				updateUserState({
+					status: false,
+					statusMessage: ( response.message ) ? response.message : 'Something went wrong, please try again.',
+				})
+			);
+		}
+
+		return response;
+	}
+
+	/**
+	 * Register WP User
+	 *
+	 * @returns {object}
+	 */
+	async function registerWPUser() {
+		const args = userForm.formData;
+		return await createUser( args );
+	}
+
+	/**
+	 * Register Guest User
+	 *
+	 * @returns {object}
+	 */
+	async function registerGuestUser() {
+		const args = userForm.formData;
+		return await createGuestUser( args );
+	}
+
+	/**
+	 * Submit Message
+	 *
+	 * @param {string} _userEmail
+	 * @returns {void}
+	 */
 	async function submitMessage( _userEmail ) {
 		// Reset States
 		setErrorMessage( '' );
@@ -128,12 +259,12 @@ function Sending() {
 		};
 
 		// Create Message
-		const response = await createMessage( formData );
+		const response = await createTheConversation( formData );
 
 		// Switch to Retry Stage if failed
 		if ( ! response.success ) {
-			setErrorMessage( response.message );
-			setCurrentStage( stages.ERROR );
+			const message = ( response.message ) ? response.message : 'Something went wrong, please try again';
+			navigateToErrorStage( message, submitMessage );
 			return;
 		}
 
@@ -143,75 +274,66 @@ function Sending() {
         }, 2000);
 	}
 
-	// createUser
-	async function createUser( args ) {
-		let status = { success: false, message: '', data: null };
 
-		dispatch(
-			updateUserState({
-				status: null,
-				statusMessage: '',
-			})
-		);
+	/**
+	 * Create The Conversation
+	 *
+	 * @param {object} args
+	 * @returns {object}
+	 */
+	async function createTheConversation( args ) {
+		const email = ( args.user_email ) ? args.user_email : '';
+		const conversationResponse = await createConversation( { created_by: email } );
 
-		try  {
-			const response = await http.postData( "/users", args );
-
-			status.success = true;
-			status.data = response.data;
-			status.message = 'The user has been created successfuly';
-
-			dispatch(
-				updateUserState({
-					status: true,
-					statusMessage: status.message,
-				})
-			);
-
-			return status;
-
-		} catch ( error ) {
-			status.success = false;
-			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
-
-			return status;
+		if ( ! conversationResponse.success ) {
+			return conversationResponse;
 		}
 
-	}
+		args.conversation_id = conversationResponse.data.id;
 
-	// createMessage
-	async function createMessage( args ) {
-		let status = { success: false, message: '', data: null };
+		const messageResponse = await createMessage( args );
 
-		try  {
-			const email = ( args.user_email ) ? args.user_email : '';
-
-			const conversation = await createConversationItem( { created_by: email } );
-			args.conversation_id = conversation.data.id;
-
-			const response = await createMessangerItem( args );
-
-			status.success = true;
-			status.data = response.data;
-			status.message = 'The message has been created successfuly';
-
-			return status;
-
-		} catch ( error ) {
-			status.success = false;
-			status.message = ( error.response.data && error.response.data.message ) ? error.response.data.message : error.message;
-
-			console.error( error );
-
-			return status;
+		if ( ! messageResponse.success ) {
+			return messageResponse;
 		}
+
+		return messageResponse;
 	}
 
-	// Retry
+	/**
+	 * Navigate To Error Stage
+	 *
+	 * @param {string} message
+	 * @param {function} onRetry
+	 * @returns {void}
+	 */
+	function navigateToErrorStage( message, onRetry ) {
+		if ( typeof message === 'string' ) {
+			setErrorMessage( message );
+		}
+
+		if ( typeof onRetry === 'function' ) {
+			setCallbacks( { onRetry: onRetry } );
+		}
+
+		setCurrentStage( stages.ERROR );
+	}
+
+
+	/**
+	 * Retry
+	 *
+	 * @param {object} event
+	 * @returns {void}
+	 */
 	function retry( event ) {
 		event.preventDefault();
+
 		setCurrentStage( stages.SENDING );
-		submitMessage();
+
+		if ( typeof callbacks.onRetry === 'function' ) {
+			callbacks.onRetry();
+		}
 	}
 
 

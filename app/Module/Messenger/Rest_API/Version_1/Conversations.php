@@ -220,7 +220,7 @@ class Conversations extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function get_items($request, $send_rest_response = true)
+	public function get_items( $request, $send_rest_response = true )
 	{
 		$args = $request->get_params();
 
@@ -362,11 +362,12 @@ class Conversations extends Rest_Base
 			$last_message_data = self::get_message_by_id( $last_message_id );
 			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
 
-
 			$messages = Message_Model::get_items([
 				'where' => [
 					'conversation_id' => $conversation['id'],
-				]
+				],
+				'group_by' => 'user_email',
+				'limit' => -1,
 			]);
 
 			$users = array_map( function( $message ) {
@@ -379,7 +380,8 @@ class Conversations extends Rest_Base
 			$conversation_data[ $conversation_key ]['users'] = $users;
 
 			// Read Status
-			$is_read = Conversation_Model::get_meta( $conversation['id'], 'read' );
+			$read_by = ( Helper\is_current_user_admin() ) ? 'admin_read' : 'client_read';
+			$is_read = Conversation_Model::get_meta( $conversation['id'], $read_by, 1 );
 			$conversation_data[ $conversation_key ]['read'] = Helper\is_truthy( $is_read );
 
 		}
@@ -781,12 +783,13 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_edit_conversation() ) {
+		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
 		// Mark as Read
-		Conversation_Model::update_meta( $conversation_id, 'read', 1 );
+		$read_by = ( Helper\is_current_user_admin() ) ? 'admin_read' : 'client_read';
+		Conversation_Model::update_meta( $conversation_id, $read_by, 1 );
 
 		return $this->response( true );
 	}
@@ -809,12 +812,13 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_edit_conversation() ) {
+		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
 		}
 
 		// Mark as Read
-		Conversation_Model::update_meta( $conversation_id, 'read', 0 );
+		$read_by = ( Helper\is_current_user_admin() ) ? 'admin_read' : 'client_read';
+		Conversation_Model::update_meta( $conversation_id, $read_by, 0 );
 
 		return $this->response( true );
 	}

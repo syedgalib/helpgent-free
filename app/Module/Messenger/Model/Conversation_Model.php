@@ -130,7 +130,8 @@ class Conversation_Model extends DB_Model {
 			}
 		}
 
-		$select = "SELECT $fields FROM $conversation_table as conversation";
+		$from   = "FROM $conversation_table as conversation";
+		$select = "SELECT $fields $from";
 		$query  = $select . $join . $where . $group_by . $order . $pagination;
 
 		$results = $wpdb->get_results( $query, ARRAY_A );
@@ -373,7 +374,7 @@ class Conversation_Model extends DB_Model {
 
 		$add_terms = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
 
-        $args = Helper\filter_params( $default, $args );
+        $args = Helper\merge_params( $default, $args );
         $time = current_time( 'mysql', true );
 
         $args['created_at'] = $time;

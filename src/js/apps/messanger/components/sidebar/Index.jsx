@@ -59,7 +59,12 @@ const filterDropdown = [
 ];
 
 const Sidebar = ({ sessionState, setSessionState }) => {
-    const { getItems: getConversations, updateItem: updateFormName, deleteItem: deleteForm } = useConversationAPI();
+    const {
+		getItems: getConversations,
+		updateItem: updateFormName,
+		deleteItem: deleteForm,
+	} = useConversationAPI();
+
     const { getItems: getTerms } = useTermAPI();
 
 	const { doAction } = wpwaxHooks;
@@ -74,6 +79,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         addTagModalOpen: false,
     });
 
+    const [isShowingArchive, setIsShowingArchive] = useState(false);
     const [pageNumber, setPageNumber] = useState(2);
     const [activeSession, setaAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
@@ -106,7 +112,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 			timezone: getTimezoneString(),
         };
         const fetchSearchNameMail = async () => {
-            
+
             const searchByNameMailResponse = await getConversations(searchArg);
             return searchByNameMailResponse;
         };
@@ -176,7 +182,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                 tagLoader: true
             });
             const fetchTags = async () =>{
-                
+
                 const tagsResponse = await getTerms({limit:5});
                 return tagsResponse;
             }
@@ -220,7 +226,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         const pageArg = {
             limit: '12',
             page: pageNumber,
-            timezone: getTimezoneString(),
         };
         setPageNumber(pageNumber + 1);
         const fetchNext = async () => {
@@ -230,7 +235,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         setTimeout(() => {
             fetchNext()
                 .then((nextSessionResponse) => {
-                    if (nextSessionResponse.data.data.length == 0) {
+                    if (nextSessionResponse.data.length == 0) {
                         setSessionState({
                             ...sessionState,
                             hasMore: false,
@@ -239,10 +244,10 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         setSessionState({
                             ...sessionState,
                             sessionList: sessionList.concat(
-                                nextSessionResponse.data.data
+                                nextSessionResponse.data
                             ),
                             filteredSessions: sessionList.concat(
-                                nextSessionResponse.data.data
+                                nextSessionResponse.data
                             ),
                             loader: false,
                         });
@@ -250,7 +255,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
                     dispatch(
                         handleReadSessions(
-                            sessionList.concat(nextSessionResponse.data.data)
+                            sessionList.concat(nextSessionResponse.data)
                         )
                     );
                 })
@@ -276,14 +281,75 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
     };
 
-    console.log(sessionList);
+	const handleToggleArchivedConversation = ( e ) =>  {
+		e.preventDefault();
+
+		let args = {
+			limit: '15',
+			page: 1,
+		};
+
+		if ( isShowingArchive ) {
+			args.status = 'active';
+			setIsShowingArchive( false );
+		} else {
+			args.status = 'archive';
+			setIsShowingArchive( true );
+		}
+
+		updateConversations( args );
+
+	}
+
+	const updateConversations = ( args ) => {
+		setSessionState({
+            ...sessionState,
+            hasMore: true,
+            loader: true,
+        });
+
+        setPageNumber(2);
+
+        const defaultArgs = {
+            limit: '15',
+            page: 1,
+            status: 'active',
+        };
+
+		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
+
+        const fetchSession = async () => {
+            const sessionResponse = await getConversations( args );
+            return sessionResponse;
+        };
+
+        fetchSession()
+            .then((sessionResponse) => {
+                setSessionState({
+                    ...sessionState,
+                    sessionList: sessionResponse.data,
+                    filteredSessions: sessionResponse.data,
+                    loader: false,
+                });
+                dispatch(handleReadSessions(sessionResponse.data));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+	};
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
                 <h3 className='wpwax-vm-sidebar-title'>List of Messages</h3>
                 <div className="wpwax-vm-sidebar-top__action">
-                    <a href="#"><ReactSVG src={archive}/><span>Archive</span></a>
+					{ sessionState.isCurrentUserAdmin && (
+						<a href="#" onClick={handleToggleArchivedConversation} className={ isShowingArchive ? 'active' : '' }>
+							<ReactSVG src={archive}/>
+							<span>Archive</span>
+						</a>
+					)}
+
                     <a
                         href='#'
                         className='wpwax-vm-sidebar-refresher'
@@ -292,7 +358,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         <ReactSVG src={rotateIcon} />
                     </a>
                 </div>
-                
+
             </div>
             {successMessage !== '' ? (
                 <span className='wpwax-vm-notice wpwax-vm-notice-success'>
@@ -523,13 +589,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     : 'wpwax-vm-usermedia'
                                             }
                                             key={index}
-                                            onClick={(e) =>
-                                                handeSelectSession(
-                                                    e,
-                                                    item,
-                                                    index
-                                                )
-                                            }
+                                            onClick={ (e) => {
+												handeSelectSession( e, item, index );
+											}}
                                         >
                                             <div className='wpwax-vm-usermedia__left'>
                                                 <MediaBox

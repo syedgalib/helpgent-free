@@ -272,6 +272,19 @@ class Auth_Token_Model extends DB_Model {
 	 *
 	 * @return bool Status
 	 */
+	public static function is_valid_token( $email, $token ) {
+		return self::has_valid_token( $email, $token );
+	}
+
+	/**
+	 * Validate Token
+	 *
+	 * @param string $email
+	 * @param string $token
+	 *
+	 * @return bool Status
+	 * @deprecated
+	 */
 	public static function has_valid_token( $email, $token ) {
 
 		$token_data = self::get_item( $email );

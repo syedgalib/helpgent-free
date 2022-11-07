@@ -2,6 +2,8 @@
 
 namespace WPWaxCustomerSupportApp\Module\Messenger\Shortcode;
 
+use WPWaxCustomerSupportApp\Base\Helper;
+
 class User_Messenger {
 
     /**
@@ -16,8 +18,12 @@ class User_Messenger {
     }
 
     public function render() {
+		if ( Helper\has_expaired_token() ) {
+			$email = Helper\get_auth_expaired_token_email();
+			return '<div id="wpwax-vm-token-resend-app" data-token-email="' . $email . '" class="wpwax-vm-notice-container"></div>';
+		}
 
-		if ( get_current_user_id() < 1 ) {
+		if ( ! Helper\current_can_use_messanger_app() ) {
 
 			$message = __( 'You need to be logged in to view this content.' );
 

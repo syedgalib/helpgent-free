@@ -5,7 +5,8 @@ import App from "./App.jsx";
 
 document.addEventListener("DOMContentLoaded", function () {
 	const container = document.getElementById("wpwax-vm-chatboard");
-	if (!container) {
+
+	if ( ! container ) {
 		return;
 	}
 

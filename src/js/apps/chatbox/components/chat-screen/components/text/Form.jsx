@@ -27,7 +27,7 @@ function Form() {
 			return;
 		}
 
-		dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+		dispatch( changeChatScreen( screenTypes.SENDING ) );
     }
 
     return (

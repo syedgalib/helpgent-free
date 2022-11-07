@@ -111,6 +111,30 @@ class Users extends Rest_Base {
 			),
 		) );
 
+		register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/current-user',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_current_user' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                ],
+            ]
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/user-exists',
+            [
+                [
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'user_exists' ],
+                    'permission_callback' => [ $this, 'check_guest_permission' ],
+                ],
+            ]
+        );
+
     }
 
 	/**
@@ -219,6 +243,9 @@ class Users extends Rest_Base {
 
 			$old_user_data = get_user_by( 'email', $request['email'] );
 
+			$this->update_user_meta_fields( $old_user_data, $request );
+			$this->update_additional_fields_for_object( $old_user_data, $request );
+
 			$request->set_param( 'context', 'edit' );
 			$request->set_param( 'user_exists', true );
 
@@ -231,12 +258,12 @@ class Users extends Rest_Base {
 
 
 			/**
-			 * Fires after a user is created or updated via the REST API.
+			 * Fires after a user is updated via the REST API.
 			 *
 			 * @param WP_User         $user_data Data used to create the user.
 			 * @param WP_REST_Request $request   Request object.
 			 */
-			do_action( 'wpwax_customer_support_app_rest_insert_user_exists', $old_user_data, $request );
+			do_action( 'wpwax_customer_support_app_rest_update_user', $old_user_data, $request );
 
 			return $response;
 		}
@@ -283,7 +310,7 @@ class Users extends Rest_Base {
 		$this->update_additional_fields_for_object( $user_data, $request );
 
 		/**
-		 * Fires after a user is created or updated via the REST API.
+		 * Fires after a user is updated via the REST API.
 		 *
 		 * @param WP_User         $user_data Data used to create the user.
 		 * @param WP_REST_Request $request   Request object.
@@ -357,6 +384,36 @@ class Users extends Rest_Base {
 			$updated_user_data['user_pass'] = $request['password'];
 		}
 
+		// User roles.
+		global $wp_roles;
+    	$allowed_roles = array_keys( $wp_roles->roles );
+
+		if ( isset( $request['add_roles'] ) ) {
+			$roles = Helper\convert_string_to_array( $request['add_roles'] );
+
+			foreach( $roles as $role ) {
+
+				if ( ! in_array( $role, $allowed_roles ) ) {
+					continue;
+				}
+
+				$user_data->add_role( $role );
+			}
+		}
+
+		if ( isset( $request['remove_roles'] ) ) {
+			$roles = Helper\convert_string_to_array( $request['remove_roles'] );
+
+			foreach( $roles as $role ) {
+
+				if ( ! in_array( $role, $allowed_roles ) ) {
+					continue;
+				}
+
+				$user_data->remove_role( $role );
+			}
+		}
+
 		$this->update_user_meta_fields( $user_data, $request );
 		wp_update_user( $updated_user_data );
 
@@ -368,13 +425,13 @@ class Users extends Rest_Base {
 		}
 
 		/**
-		 * Fires after a user is created or updated via the REST API.
+		 * Fires after a user is updated via the REST API.
 		 *
 		 * @param WP_User         $user  Data used to create the user.
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating user, false when updating user.
 		 */
-		do_action( 'wpwax_customer_support_app_rest_insert_user', $user_data, $request, false );
+		do_action( 'wpwax_customer_support_app_rest_update_user', $user_data, $request, false );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $user_data, $request );
@@ -446,6 +503,7 @@ class Users extends Rest_Base {
 
 	/**
 	 * Authenticate User
+	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response Response object.
 	 */
@@ -484,6 +542,63 @@ class Users extends Rest_Base {
 		$response = rest_ensure_response( $auth );
 
 		return $response;
+	}
+
+	/**
+     * Get Current User
+     *
+	 * @param WP_REST_Request $request Request object.
+     * @return array Response
+     */
+    public function get_current_user() {
+		$wp_user = Helper\get_current_user();
+
+		if ( $wp_user ) {
+			return $this->response( true, $wp_user );
+		}
+
+		$email = Helper\get_current_user_email();
+
+		if ( empty( $email ) ) {
+			return $this->response( true, null );
+		}
+
+		$users = Helper\get_users_data_by( 'email', [ $email ] );
+
+		$user = ( ! empty( $users ) ) ? $users[0] : null;
+
+		return $this->response( true, $user );
+
+	}
+
+	/**
+     * Check if User Exists
+     *
+	 * @param WP_REST_Request $request Request object.
+     * @return array Response
+     */
+    public function user_exists( $request ) {
+		$args = $request->get_params();
+
+		$email = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
+
+		if ( ! is_email( $email ) ) {
+			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		if ( empty( $email ) ) {
+			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            return new WP_Error( 403, $message );
+		}
+
+		$users = Helper\get_users_data_by( 'email', [ $email ] );
+		$user  = ( ! empty( $users ) ) ? $users[0] : false;
+
+		$message = ( $user ) ? __( 'The user is registered.', 'wpwax-customer-support-app' ) : __( 'The user is not registered.', 'wpwax-customer-support-app' );
+
+		return $this->response( true, $user,  );
+
 	}
 
 	/**
@@ -554,19 +669,6 @@ class Users extends Rest_Base {
 		return apply_filters( 'wpwax_customer_support_app_rest_prepare_user', $response, $user, $request );
 	}
 
-    /**
-     * User Custom Metas
-     *
-     * @return array
-     */
-    protected function user_custom_meta_schema() {
-        $metas = [];
-
-        $metas['is_guest'] = [ 'type' => 'bool' ];
-
-        return $metas;
-    }
-
 	/**
 	 * Update user meta fields.
 	 *
@@ -636,6 +738,21 @@ class Users extends Rest_Base {
 
         }
 	}
+
+	/**
+     * User Custom Metas
+     *
+     * @return array
+     */
+    protected function user_custom_meta_schema() {
+        $metas = [];
+
+        $metas['phone'] = [ 'type' =>  'string' ];
+
+		$metas = apply_filters( 'helpgent_user_metas', $metas );
+
+        return $metas;
+    }
 
 	/**
 	 * Prepare links for the request.

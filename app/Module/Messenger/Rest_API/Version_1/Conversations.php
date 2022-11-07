@@ -220,7 +220,7 @@ class Conversations extends Rest_Base
 	 * @param $request
 	 * @return mixed
 	 */
-	public function get_items($request, $send_rest_response = true)
+	public function get_items( $request, $send_rest_response = true )
 	{
 		$args = $request->get_params();
 

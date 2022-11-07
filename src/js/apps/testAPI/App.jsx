@@ -84,20 +84,20 @@ function App() {
 
 	// @Init
 	useEffect( () => {
-		testSettingsAPI();
+		// testConversationAPI();
 	}, []);
 
 	// testSettingsAPI
 	async function testSettingsAPI() {
 		// const response = await getSettingsItems();
-		// const response = await updateSettingsItem( { 
-		// 	userDashboardPage: 3 
+		// const response = await updateSettingsItem( {
+		// 	userDashboardPage: 3
 		// });
 		// const response = await deleteSettingsItem( { userDashboardPage: '' } );
 
 		// console.log( { response } );
 	}
-	
+
 	// testUserAPI
 	async function testUserAPI() {
 		const itemID = 0;

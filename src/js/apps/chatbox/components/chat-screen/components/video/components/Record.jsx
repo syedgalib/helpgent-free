@@ -17,8 +17,14 @@ import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import useChatboxController from '../../../hooks/useChatboxController';
 
 const Record = () => {
+	// Hooks
+	const {
+		needToGoContactPage
+	} = useChatboxController();
+
 	const { addAction } = wpwaxHooks;
     const videoStreemRef = useRef();
     const dispatch = useDispatch();
@@ -72,11 +78,13 @@ const Record = () => {
                 );
 
                 // Navigate to Contact form or Sending Page
-				if ( messengerForm.formData.user_id ) {
-					dispatch(changeChatScreen(screenTypes.SENDING));
-				} else {
-					dispatch(changeChatScreen(screenTypes.CONTACT_FORM));
+				if ( needToGoContactPage() ) {
+					dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
+					return;
 				}
+
+				dispatch( changeChatScreen( screenTypes.SENDING ) );
+
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }

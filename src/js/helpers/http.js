@@ -1,11 +1,18 @@
 import axios from "axios";
 
+let headers = {
+	"Content-type": "application/json",
+};
+
+if ( wpWaxCustomerSupportApp_CoreScriptData.auth_token ) {
+	headers['Helpgent-Token'] = wpWaxCustomerSupportApp_CoreScriptData.auth_token;
+} else {
+	headers['X-WP-Nonce'] = wpWaxCustomerSupportApp_CoreScriptData.apiNonce;
+}
+
 const axiosInstance = axios.create({
 	baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
-	headers: {
-		"Content-type": "application/json",
-		"X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce,
-	},
+	headers: headers,
 });
 
 const getData = ( path, customArgs ) => {
@@ -44,7 +51,7 @@ async function getResponse( request, args, config ) {
 
 	try {
 		const response = await request( args, config );
-		
+
 		status.success    = true;
 		status.statusCode = response.status;
 		status.message    = response.data.message;

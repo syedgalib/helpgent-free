@@ -252,7 +252,7 @@ abstract class Base extends WP_REST_Controller {
 			);
 		}
 
-		$has_valid_token = Auth_Token_Model::has_valid_token( $email, $token );
+		$has_valid_token = Auth_Token_Model::is_valid_token( $email, $token );
 
 		if ( ! $has_valid_token ) {
 			return new \WP_Error(

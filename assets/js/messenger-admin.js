@@ -9391,8 +9391,7 @@ var Sidebar = function Sidebar(_ref) {
   var fetchMoreData = function fetchMoreData() {
     var pageArg = {
       limit: '12',
-      page: pageNumber,
-      timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_28__.getTimezoneString)()
+      page: pageNumber
     };
     setPageNumber(pageNumber + 1);
     var fetchNext = /*#__PURE__*/function () {
@@ -9420,18 +9419,18 @@ var Sidebar = function Sidebar(_ref) {
     }();
     setTimeout(function () {
       fetchNext().then(function (nextSessionResponse) {
-        if (nextSessionResponse.data.data.length == 0) {
+        if (nextSessionResponse.data.length == 0) {
           setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
             hasMore: false
           }));
         } else {
           setSessionState(_objectSpread(_objectSpread({}, sessionState), {}, {
-            sessionList: sessionList.concat(nextSessionResponse.data.data),
-            filteredSessions: sessionList.concat(nextSessionResponse.data.data),
+            sessionList: sessionList.concat(nextSessionResponse.data),
+            filteredSessions: sessionList.concat(nextSessionResponse.data),
             loader: false
           }));
         }
-        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadSessions)(sessionList.concat(nextSessionResponse.data.data)));
+        dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_12__.handleReadSessions)(sessionList.concat(nextSessionResponse.data)));
       }).catch(function (error) {
         console.log(error);
       });
@@ -14972,12 +14971,17 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
+var headers = {
+  "Content-type": "application/json"
+};
+if (wpWaxCustomerSupportApp_CoreScriptData.auth_token) {
+  headers['Helpgent-Token'] = wpWaxCustomerSupportApp_CoreScriptData.auth_token;
+} else {
+  headers['X-WP-Nonce'] = wpWaxCustomerSupportApp_CoreScriptData.apiNonce;
+}
 var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
-  headers: {
-    "Content-type": "application/json",
-    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
-  }
+  headers: headers
 });
 var getData = function getData(path, customArgs) {
   var args = typeof customArgs !== 'undefined' ? {

@@ -473,9 +473,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     const users = item.users.filter(
                                         (p) =>
                                             currentUser &&
-                                            p.id !== parseInt(currentUser.id)
+                                            p.email !== currentUser.email
                                     );
-
                                     let images = [];
                                     let titleString = [];
                                     let initialConv = false;
@@ -497,7 +496,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     }else if(users.length >= 1 && !wpWaxCustomerSupportApp_CoreScriptData.is_user_admin){
                                         images.push(users[0].avater);
                                     }
-
                                     if (item.users.length === 1) {
                                         titleString.push(item.users[0].name);
                                         initialConv = true;
@@ -605,7 +603,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     sessionTerm={item.terms}
                                                     initialConv={initialConv}
                                                     sessionId={item.id}
-                                                    title={titleString.join()}
+                                                    title={titleString}
                                                     metaList={metaList}
                                                 />
                                             </div>

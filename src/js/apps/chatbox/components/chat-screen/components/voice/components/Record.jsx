@@ -36,10 +36,10 @@ function Record() {
     const dispatch = useDispatch();
 
 	// Store States
-    const { attachmentForm, messengerForm } = useSelector((state) => {
+    const { settings, attachmentForm } = useSelector((state) => {
         return {
+			settings: state.settings.options,
             attachmentForm: state.attachmentForm,
-			messengerForm: state.messengerForm,
         };
     });
 
@@ -65,14 +65,37 @@ function Record() {
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
+	const [maxRecordLength, setMaxRecordLength] = useState(null);
+
     // Init State
     useState(function () {
+
+		console.log( { settings } );
+
+		// if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+		// 	const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+		// 	setMaxVideoLength( maxVideoLengthInSeconds );
+		// }
+
         check_if_need_permission().then(function (is_needed_permission) {
             if (is_needed_permission) {
                 setCurrentStage(stages.PERMISSION);
             }
         });
     }, []);
+
+	useEffect( () => {
+
+		if ( ! maxRecordLength ) {
+			return;
+		}
+
+		if ( recordedTimeInSecond >= maxRecordLength ) {
+			stopRecording();
+		}
+
+
+	}, [ recordedTimeInSecond ] );
 
     // On Upload Complete
     useEffect(
@@ -205,7 +228,6 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
-            console.log(blob);
         });
 	};
 

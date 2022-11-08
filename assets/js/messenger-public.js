@@ -7833,10 +7833,12 @@ var Record = function Record() {
   // Store States
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_10__.useSelector)(function (state) {
       return {
+        settings: state.settings.options,
         attachmentForm: state.attachmentForm,
         messengerForm: state.messengerForm
       };
     }),
+    settings = _useSelector.settings,
     attachmentForm = _useSelector.attachmentForm,
     messengerForm = _useSelector.messengerForm;
   var stages = {
@@ -8573,12 +8575,12 @@ function Record() {
   // Store States
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
-        attachmentForm: state.attachmentForm,
-        messengerForm: state.messengerForm
+        settings: state.settings.options,
+        attachmentForm: state.attachmentForm
       };
     }),
-    attachmentForm = _useSelector.attachmentForm,
-    messengerForm = _useSelector.messengerForm;
+    settings = _useSelector.settings,
+    attachmentForm = _useSelector.attachmentForm;
   var stages = {
     HOME: 'home',
     PERMISSION: 'permission',
@@ -8631,15 +8633,36 @@ function Record() {
     _useState22 = _slicedToArray(_useState21, 2),
     recordedTimeInSecond = _useState22[0],
     setRecordedTimeInSecond = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState24 = _slicedToArray(_useState23, 2),
+    maxRecordLength = _useState24[0],
+    setMaxRecordLength = _useState24[1];
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
+    console.log({
+      settings: settings
+    });
+
+    // if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+    // 	const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+    // 	setMaxVideoLength( maxVideoLengthInSeconds );
+    // }
+
     check_if_need_permission().then(function (is_needed_permission) {
       if (is_needed_permission) {
         setCurrentStage(stages.PERMISSION);
       }
     });
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!maxRecordLength) {
+      return;
+    }
+    if (recordedTimeInSecond >= maxRecordLength) {
+      stopRecording();
+    }
+  }, [recordedTimeInSecond]);
 
   // On Upload Complete
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -8821,7 +8844,6 @@ function Record() {
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setCurrentStage(stages.BEFORE_SEND);
-      console.log(blob);
     });
   }
   ;

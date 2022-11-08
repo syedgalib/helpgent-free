@@ -30,8 +30,9 @@ const Record = () => {
     const dispatch = useDispatch();
 
 	// Store States
-    const { attachmentForm, messengerForm } = useSelector((state) => {
+    const { settings, attachmentForm, messengerForm } = useSelector((state) => {
         return {
+			settings: state.settings.options,
             attachmentForm: state.attachmentForm,
 			messengerForm: state.messengerForm,
         };

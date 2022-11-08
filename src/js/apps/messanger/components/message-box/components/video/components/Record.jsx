@@ -10,7 +10,6 @@ import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../s
 import { useEffect } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 
-import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
 import useMessangerAPI from 'API/useMessangerAPI';
 
@@ -33,14 +32,33 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
+	const [ maxRecordLength, setMaxRecordLength ] = useState( null );
+
     const [isSending, setIsSending] = useState(false);
 
     const videoStreemRef = useRef();
 
     // @Init State
     useEffect(function () {
+
+		if ( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
+			setMaxRecordLength( parseInt( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) );
+		}
+
         setupVideoStreem();
     }, []);
+
+	useEffect( () => {
+
+		if ( ! maxRecordLength ) {
+			return;
+		}
+
+		if ( recordedTimeInSecond >= maxRecordLength ) {
+			stopRecording();
+		}
+
+	}, [ recordedTimeInSecond ] );
 
     // handleRecordButtonAction
     const handleRecordButtonAction = (event) => {
@@ -133,6 +151,19 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     function stopTimer() {
         clearInterval(window.wpwaxCSAudioTimer);
     }
+
+	function reversedRecordedTimeInSecond() {
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
+	function getCountDown() {
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
+	}
 
     async function sendVideo(e) {
         e.preventDefault();
@@ -281,7 +312,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                         {isRecording ? (
                             <span className='wpwax-vm-timer'>
                                 {' '}
-                                {formatSecondsAsCountdown(recordedTimeInSecond)}
+                                {getCountDown()}
                             </span>
                         ) : (
                             ''

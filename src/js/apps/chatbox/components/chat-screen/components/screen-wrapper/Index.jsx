@@ -22,7 +22,7 @@ function Container(props) {
 
 	return (
 		<ScreenWrapper className={`wpwax-vm-chatbox-screen-${props.screenName} wpwax-vm-chatbox-screen`}>
-			<div className="wpwax-vm-chatbox-container">
+			<div className="wpwax-vm-chatbox-container" style={{ display: ( props.show ) ? 'block' : 'none' }}>
 				<div className="wpwax-vm-chatbox-btnlist">
 					<button onClick={handleClose} className="wpwax-vm-chatbox-btn-close">
 						<ReactSVG src={crossSmall} />

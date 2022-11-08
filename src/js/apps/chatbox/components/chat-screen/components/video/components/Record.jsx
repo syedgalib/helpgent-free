@@ -30,10 +30,10 @@ const Record = () => {
     const dispatch = useDispatch();
 
 	// Store States
-    const { attachmentForm, messengerForm } = useSelector((state) => {
+    const { settings, attachmentForm } = useSelector((state) => {
         return {
+            settings: state.settings.options,
             attachmentForm: state.attachmentForm,
-			messengerForm: state.messengerForm,
         };
     });
 
@@ -54,8 +54,16 @@ const Record = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
+    const [maxVideoLength, setMaxVideoLength] = useState(null);
+
     // Init State
     useState(function () {
+
+		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+			setMaxVideoLength( maxVideoLengthInSeconds );
+		}
+
         check_if_need_permission().then(function (is_needed_permission) {
             if (is_needed_permission) {
                 setCurrentStage(stages.PERMISSION);
@@ -91,6 +99,19 @@ const Record = () => {
         },
         [attachmentForm.status]
     );
+
+	useEffect( function() {
+
+		if ( ! maxVideoLength ) {
+			return;
+		}
+
+		if ( recordedTimeInSecond >= maxVideoLength ) {
+			stopRecording();
+		}
+
+
+	}, [ recordedTimeInSecond ] );
 
     // check_if_need_permission
     async function check_if_need_permission() {
@@ -206,20 +227,6 @@ const Record = () => {
         }
     }
 
-    function fullscreenVideoStreem(event) {
-        event.preventDefault();
-
-        if (videoStreemRef.current.requestFullscreen) {
-            videoStreemRef.current.requestFullscreen();
-        } else if (videoStreemRef.current.webkitRequestFullscreen) {
-            /* Safari */
-            videoStreemRef.current.webkitRequestFullscreen();
-        } else if (videoStreemRef.current.msRequestFullscreen) {
-            /* IE11 */
-            videoStreemRef.current.msRequestFullscreen();
-        }
-    }
-
     function startTimer() {
         window.wpwaxCSAudioTimer = setInterval(function () {
             setRecordedTimeInSecond(function (currentValue) {
@@ -259,6 +266,19 @@ const Record = () => {
         setCurrentStage(stages.BEFORE_SEND);
     }
 
+	function reversedRecordedTimeInSecond() {
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
+	function getCountDown() {
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
+	}
+
     if (currentStage === stages.PERMISSION) {
         return (
             <VideoRecordWrap className='wpwax-vm-record-permission'>
@@ -291,9 +311,7 @@ const Record = () => {
                         {isRecording ? (
                             <span className='wpwax-vm-timer'>
                                 <span className='wpwax-vm-sec'>
-                                    {formatSecondsAsCountdown(
-                                        recordedTimeInSecond
-                                    )}
+                                    {getCountDown()}
                                 </span>
                             </span>
                         ) : (

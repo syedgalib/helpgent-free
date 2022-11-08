@@ -67,18 +67,28 @@ function MessageBox({ setSessionState }) {
 	// 	createItem: createAttachmentItem,
 	// } = useAttachmentAPI();
 
+	const afterStopRecording = () => {
+		setScreenRecordState({
+			...screenRecordState,
+			recordStage: "beforeSend"
+		});
+
+		dispatch( handleMessageTypeChange('screen') );
+	};
+
     const {
 		hasPermission,
 		requestPermission,
-		permissionDenied,
 		recordedScreenBlob,
 		recordedScreenURL,
 		startRecording,
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
-		reset,
-	} = useScreenRecorder();
+	} = useScreenRecorder({
+		maxRecordLength: getMaxRecordLength(),
+		afterStopRecording,
+	});
 
     const messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
@@ -192,7 +202,15 @@ function MessageBox({ setSessionState }) {
 
 			return;
 		}
+	}
 
+	function getMaxRecordLength() {
+
+		if (  wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
+			return parseInt( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
+		}
+
+		return null;
 	}
 
 
@@ -222,16 +240,7 @@ function MessageBox({ setSessionState }) {
 
     const handleStopScreen = async event =>{
         event.preventDefault();
-        const callback = () => {
-            setScreenRecordState({
-                ...screenRecordState,
-                recordStage: "beforeSend"
-            });
-        }
-
-        stopRecording( callback );
-
-        dispatch(handleMessageTypeChange('screen'));
+        stopRecording();
     }
 
 	const canSendTextMessage = () => {

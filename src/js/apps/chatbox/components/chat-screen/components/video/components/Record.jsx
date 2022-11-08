@@ -54,7 +54,7 @@ const Record = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
-    const [maxVideoLength, setMaxVideoLength] = useState(120);
+    const [maxVideoLength, setMaxVideoLength] = useState(null);
 
     // Init State
     useState(function () {
@@ -101,6 +101,10 @@ const Record = () => {
     );
 
 	useEffect( function() {
+
+		if ( ! maxVideoLength ) {
+			return;
+		}
 
 		if ( recordedTimeInSecond >= maxVideoLength ) {
 			stopRecording();
@@ -263,7 +267,16 @@ const Record = () => {
     }
 
 	function reversedRecordedTimeInSecond() {
-		return ( maxVideoLength - recordedTimeInSecond );
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
+	function getCountDown() {
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
 	}
 
     if (currentStage === stages.PERMISSION) {
@@ -298,9 +311,7 @@ const Record = () => {
                         {isRecording ? (
                             <span className='wpwax-vm-timer'>
                                 <span className='wpwax-vm-sec'>
-                                    {formatSecondsAsCountdown(
-                                        reversedRecordedTimeInSecond()
-                                    )}
+                                    {getCountDown()}
                                 </span>
                             </span>
                         ) : (

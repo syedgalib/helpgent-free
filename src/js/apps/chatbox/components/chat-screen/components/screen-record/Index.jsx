@@ -19,12 +19,26 @@ import useChatboxController from '../../hooks/useChatboxController';
 function ScreenRecord() {
 	const dispatch = useDispatch();
 
+	// Store States
+    const { settings } = useSelector((state) => {
+        return {
+            settings: state.settings.options,
+        };
+    });
+
 	// Hooks
 	const {
 		needToGoContactPage
 	} = useChatboxController();
 
 	const { createItem: createAttachmentItem } = useAttachmentAPI();
+
+	const afterStopRecording = () => {
+		setState({
+			...state,
+			recordStage: "beforeSend"
+		});
+	};
 
 	const {
 		hasPermission,
@@ -37,7 +51,10 @@ function ScreenRecord() {
 		recordedTimeInSecond,
 		getCountDown,
 		reset,
-	} = useScreenRecorder();
+	} = useScreenRecorder({
+		maxRecordLength: getMaxRecordLength(),
+		afterStopRecording,
+	});
 
 	const [state, setState] = useState({
 		recordStage: "request_permission"
@@ -64,6 +81,15 @@ function ScreenRecord() {
 			return;
 		}
 
+	}
+
+	function getMaxRecordLength() {
+
+		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+			return parseInt( settings.maxVideoLength ) * 60;
+		}
+
+		return 0;
 	}
 
 	async function handleRequestPermission( event ) {
@@ -99,14 +125,7 @@ function ScreenRecord() {
 				recordStage: "stopScreen"
 			});
 		} else {
-			const callback = () => {
-				setState({
-					...state,
-					recordStage: "beforeSend"
-				});
-			}
-
-			stopRecording( callback );
+			stopRecording();
 		}
 	}
 

@@ -14572,7 +14572,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-function useScreenRecorder() {
+function useScreenRecorder(config) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     recorder = _useState2[0],
@@ -14609,6 +14609,24 @@ function useScreenRecorder() {
     _useState18 = _slicedToArray(_useState17, 2),
     recordedScreenURL = _useState18[0],
     setRecordedScreenURL = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState20 = _slicedToArray(_useState19, 2),
+    maxRecordLength = _useState20[0],
+    setMaxRecordLength = _useState20[1];
+
+  // @Init
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var _maxRecordLength = config && config.maxRecordLength ? config.maxRecordLength : null;
+    setMaxRecordLength(_maxRecordLength);
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!maxRecordLength) {
+      return;
+    }
+    if (recordedTimeInSecond >= maxRecordLength) {
+      stopRecording();
+    }
+  }, [recordedTimeInSecond]);
 
   // hasPermission
   function hasPermission() {
@@ -14762,7 +14780,7 @@ function useScreenRecorder() {
     }));
     return _initRecording.apply(this, arguments);
   }
-  function stopRecording(afterStopRecording) {
+  function stopRecording() {
     stopTimer();
     recorder.stopRecording(function (url) {
       var blob = recorder.getBlob();
@@ -14775,13 +14793,16 @@ function useScreenRecorder() {
       setRecordedScreenBlob(blob);
       setRecordedScreenURL(url);
       setIsRecording(false);
-      if (typeof afterStopRecording === 'function') {
-        afterStopRecording({
-          blob: blob,
-          url: url
-        });
-      }
+      afterStopRecording({
+        blob: blob,
+        url: url
+      });
     });
+  }
+  function afterStopRecording(recordingData) {
+    if (config && config.afterStopRecording && typeof config.afterStopRecording === 'function') {
+      config.afterStopRecording(recordingData);
+    }
   }
   function startTimer() {
     var timer = setInterval(function () {
@@ -14794,8 +14815,14 @@ function useScreenRecorder() {
   function stopTimer() {
     clearInterval(recordingTimer);
   }
+  function reversedRecordedTimeInSecond() {
+    return maxRecordLength - recordedTimeInSecond;
+  }
   function getCountDown() {
-    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(recordedTimeInSecond);
+    if (!maxRecordLength || recordedTimeInSecond < 1) {
+      return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(recordedTimeInSecond);
+    }
+    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   function reset() {
     setIsRecording(false);

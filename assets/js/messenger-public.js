@@ -15083,9 +15083,7 @@ var Upload = function Upload(_ref) {
               htmlFor: "attachment_video",
               className: "wpawax-vm-reply-btn-upload",
               children: "Choose File"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-              children: "or drag & drop here..."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Max size ", getFormattedMaxUploadSize(), "!"]

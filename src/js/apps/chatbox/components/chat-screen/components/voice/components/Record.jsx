@@ -70,12 +70,10 @@ function Record() {
     // Init State
     useState(function () {
 
-		console.log( { settings } );
-
-		// if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-		// 	const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
-		// 	setMaxVideoLength( maxVideoLengthInSeconds );
-		// }
+		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+			setMaxRecordLength( maxVideoLengthInSeconds );
+		}
 
         check_if_need_permission().then(function (is_needed_permission) {
             if (is_needed_permission) {
@@ -174,7 +172,6 @@ function Record() {
             setIsRecording(true);
             startTimer();
         }else{
-            console.log("record Start")
             try {
                 window.wpwaxCSAudioStream =
                     await navigator.mediaDevices.getUserMedia({
@@ -228,8 +225,25 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
+
+			setRecordedTimeInSecond(0);
+			setIsRecording(false);
+            stopTimer();
         });
 	};
+
+	function reversedRecordedTimeInSecond() {
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
+	function getCountDown() {
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
+	}
 
     // handle Send recording
     function handleSendRecording(e) {
@@ -352,7 +366,7 @@ function Record() {
                     }
                 >
                     <span className='wpwax-vm-sec'>
-                        {formatSecondsAsCountdown(recordedTimeInSecond)}
+                        {getCountDown()}
                     </span>
                 </span>
                 {/* {

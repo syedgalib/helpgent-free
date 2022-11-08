@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatSecondsAsCountdown } from "Helper/formatter";
 
-export default function useScreenRecorder() {
+export default function useScreenRecorder( config ) {
 
 	const [ recorder, setRecorder ]             = useState( null );
 	const [ screenStream, setScreenStream ]     = useState( null );
@@ -14,7 +14,27 @@ export default function useScreenRecorder() {
 	const [ recordedTimeInSecond, setRecordedTimeInSecond ] = useState( 0 );
 	const [ recordedScreenBlob, setRecordedScreenBlob ]     = useState( null );
 	const [ recordedScreenURL, setRecordedScreenURL ]       = useState( '' );
+	const [ maxRecordLength, setMaxRecordLength ]           = useState( null );
 
+	// @Init
+	useEffect( () => {
+
+		const _maxRecordLength = ( config && config.maxRecordLength ) ? config.maxRecordLength : null;
+		setMaxRecordLength( _maxRecordLength );
+
+	}, []);
+
+	useEffect( () => {
+
+		if ( ! maxRecordLength ) {
+			return;
+		}
+
+		if ( recordedTimeInSecond >= maxRecordLength ) {
+			stopRecording();
+		}
+
+	}, [ recordedTimeInSecond ] );
 
 	// hasPermission
     async function hasPermission() {
@@ -108,7 +128,7 @@ export default function useScreenRecorder() {
     }
 
 	// stopRecording
-    function stopRecording( afterStopRecording ) {
+    function stopRecording() {
         stopTimer();
         recorder.stopRecording(function (url) {
             const blob = recorder.getBlob();
@@ -119,12 +139,15 @@ export default function useScreenRecorder() {
             setRecordedScreenBlob(blob);
             setRecordedScreenURL(url);
             setIsRecording(false);
-
-			if ( typeof afterStopRecording === 'function' ) {
-				afterStopRecording( { blob, url } );
-			}
+			afterStopRecording( { blob, url } );
         });
     }
+
+	function afterStopRecording( recordingData ) {
+		if ( config && config.afterStopRecording && typeof config.afterStopRecording === 'function' ) {
+			config.afterStopRecording( recordingData );
+		}
+	}
 
 	function startTimer() {
         const timer = setInterval(function () {
@@ -140,8 +163,17 @@ export default function useScreenRecorder() {
         clearInterval( recordingTimer );
     }
 
+	function reversedRecordedTimeInSecond() {
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
 	function getCountDown() {
-		return formatSecondsAsCountdown( recordedTimeInSecond );
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
 	}
 
 	function reset() {

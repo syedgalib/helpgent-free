@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 
 import { changeChatScreen } from '../../store/chatbox/actionCreator';
 import { upateState as upateUserState } from '../../store/forms/user/actionCreator';
+import { updateSettings } from '../../store/settings/actionCreator';
 
 import useUserAPI from 'API/useUserAPI.js';
 import useSettingsAPI from 'API/useSettingsAPI.js';
@@ -64,10 +65,10 @@ function ChatScreen( { show } ) {
 
 		const settingsResponse = await getSettings();
 		if ( settingsResponse.success && settingsResponse.data && typeof settingsResponse.data.guestSubmission !== 'undefined' ) {
+			dispatch( updateSettings( settingsResponse.data ) );
 			dispatch( upateUserState( { guestSubmission: settingsResponse.data.guestSubmission } ) );
 		}
 
-		console.log( { currentUserResponse } );
 
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
@@ -81,7 +82,7 @@ function ChatScreen( { show } ) {
     }
 
     return (
-        (show) ? <Container screenName={currentChatScreen}>{getCurrentScreen()}</Container> : null
+        <Container show={show} screenName={currentChatScreen}>{getCurrentScreen()}</Container>
 	);
 }
 

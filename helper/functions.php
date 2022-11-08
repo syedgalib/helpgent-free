@@ -868,7 +868,18 @@ function max_upload_size() {
 }
 
 /**
+ * Video Record Time Limit
+ *
+ * @return int seconds
+ */
+function video_record_time_limit() {
+	$min = get_option( 'maxVideoLength', 2 ); // In Minute
+	return $min * 60;
+}
+
+/**
  * Voice Record Time Limit
+ *
  * @return int seconds
  */
 function voice_record_time_limit() {

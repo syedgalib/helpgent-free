@@ -13400,7 +13400,7 @@ function Message(_ref) {
           children: [data.user.name, ","]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-message-time",
-          children: data.created_on_formatted
+          children: data.created_at_formatted
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: "wpwax-vm-message-content__inner",

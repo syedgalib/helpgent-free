@@ -15,6 +15,7 @@ import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 
 import useAttachmentAPI from "API/useAttachmentAPI";
 import useChatboxController from '../../hooks/useChatboxController';
+import useCountdown from 'Hooks/useCountdown';
 
 function ScreenRecord() {
 	const dispatch = useDispatch();
@@ -31,6 +32,13 @@ function ScreenRecord() {
 		needToGoContactPage
 	} = useChatboxController();
 
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
+
 	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
 	const afterStopRecording = () => {
@@ -46,6 +54,7 @@ function ScreenRecord() {
 		permissionDenied,
 		recordedScreenBlob,
 		recordedScreenURL,
+		setupStreem,
 		startRecording,
 		stopRecording,
 		recordedTimeInSecond,
@@ -114,11 +123,16 @@ function ScreenRecord() {
 
 		if(state.recordStage === "startScreen"){
 
-			const hasStarted = await startRecording();
+			const _recorder = await setupStreem();
 
-			if ( ! hasStarted ) {
+			if ( ! _recorder ) {
 				return;
 			}
+
+			// Start Countdown
+			await startCountdown();
+
+			startRecording( _recorder );
 
 			setState({
 				...state,
@@ -219,6 +233,15 @@ function ScreenRecord() {
 	}
 
 	if(state.recordStage === "startScreen" || state.recordStage === "stopScreen"){
+
+		if ( isActiveCountdown ) {
+			return (
+				<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
+					<CountdownPage count={getReverseCount()} />
+				</ScreenRecordWrap>
+			);
+		}
+
 		return (
 			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
 
@@ -239,7 +262,7 @@ function ScreenRecord() {
 				</div>
 
 			</ScreenRecordWrap>
-		)
+		);
 	}
 
 	else if(state.recordStage === "beforeSend"){

@@ -82,6 +82,7 @@ function MessageBox({ setSessionState }) {
 		recordedScreenBlob,
 		recordedScreenURL,
 		startRecording,
+		setupStreem,
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
@@ -225,16 +226,18 @@ function MessageBox({ setSessionState }) {
                     recordStage: "beforeStartScreen"
                 });
 
-                const hasStarted = await startRecording();
+                const _recorder = await setupStreem();
 
-                if ( ! hasStarted ) {
+                if ( ! _recorder ) {
                     return;
-                }else{
-                    setScreenRecordState({
-                        ...screenRecordState,
-                        recordStage: "startScreen"
-                    });
                 }
+
+				startRecording( _recorder );
+
+				setScreenRecordState({
+					...screenRecordState,
+					recordStage: "startScreen"
+				});
 		}
     }
 

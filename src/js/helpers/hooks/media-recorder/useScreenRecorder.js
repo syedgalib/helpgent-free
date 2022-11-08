@@ -73,7 +73,7 @@ export default function useScreenRecorder( config ) {
         }
     }
 
-    async function startRecording() {
+    async function setupStreem() {
         try {
             // Setup Screen Streem
             const newScreenStream = await navigator.mediaDevices.getDisplayMedia({
@@ -106,9 +106,8 @@ export default function useScreenRecorder( config ) {
             });
 
 			setRecorder( newRecorder );
-			initRecording( newRecorder );
 
-			return true;
+			return newRecorder;
 
         } catch (error) {
             console.log({ error });
@@ -118,8 +117,8 @@ export default function useScreenRecorder( config ) {
         }
     }
 
-	// initRecording
-    async function initRecording( recorder ) {
+	// startRecording
+    async function startRecording( recorder ) {
         await recorder.startRecording();
 
         setRecordedTimeInSecond(0);
@@ -187,6 +186,7 @@ export default function useScreenRecorder( config ) {
 	}
 
 	return {
+		recorder,
 		isRecording,
 		permissionDenied,
 		recordedTimeInSecond,
@@ -194,6 +194,7 @@ export default function useScreenRecorder( config ) {
 		recordedScreenURL,
 		hasPermission,
 		requestPermission,
+		setupStreem,
 		startRecording,
 		stopRecording,
 		getCountDown,

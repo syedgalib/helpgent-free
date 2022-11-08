@@ -10,7 +10,7 @@ import audioRangeActive from 'Assets/svg/audio-active.svg';
 import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
-import crossSmall from 'Assets/svg/icons/cross-small.svg'
+import crossSmall from 'Assets/svg/icons/cross-small.svg';
 
 import {
     updateFormData as updateAttachmentFormData,
@@ -23,12 +23,20 @@ import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 import useChatboxController from '../../../hooks/useChatboxController';
+import useCountdown from 'Hooks/useCountdown';
 
 function Record() {
 	// Hooks
 	const {
 		needToGoContactPage
 	} = useChatboxController();
+
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
 
 	const { addAction } = wpwaxHooks;
 
@@ -88,7 +96,6 @@ function Record() {
 
                 // Navigate to Contact form or Sending Page
                 setTimeout(() => {
-
 					// Navigate to Contact form or Sending Page
 					if ( needToGoContactPage() ) {
 						dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
@@ -97,7 +104,7 @@ function Record() {
 
 					dispatch( changeChatScreen( screenTypes.SENDING ) );
 
-                }, '2000');
+                }, 2000);
             } else if (false === attachmentForm.status) {
                 setCurrentStage(stages.UPLOAD_FAILED);
             }
@@ -146,12 +153,15 @@ function Record() {
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 
-        if(recordedAudioSteam){
+        if ( recordedAudioSteam ) {
             window.wpwaxCSRecorder.resumeRecording();
             setIsRecording(true);
             startTimer();
-        }else{
-            console.log("record Start")
+        } else {
+
+			// Start Countdown
+			await startCountdown();
+
             try {
                 window.wpwaxCSAudioStream =
                     await navigator.mediaDevices.getUserMedia({
@@ -202,6 +212,7 @@ function Record() {
                 .getTracks()
                 .forEach((track) => track.stop());
 
+			setRecordedAudioSteam( null );
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
@@ -320,60 +331,63 @@ function Record() {
             </RecorderWrap>
         );
     } else if (currentStage === stages.RECORD) {
+
+		if ( isActiveCountdown ) {
+			return (
+				<RecorderWrap className="wpwax-vm-record-staging">
+					<CountdownPage count={getReverseCount()} />
+				</RecorderWrap>
+			);
+		}
+
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
-                <span
-                    className={
-                        isRecording
-                            ? 'wpwax-vm-timer wpwax-vm-timer-start'
-                            : 'wpwax-vm-timer'
-                    }
-                >
-                    <span className='wpwax-vm-sec'>
-                        {formatSecondsAsCountdown(recordedTimeInSecond)}
-                    </span>
-                </span>
-                {/* {
-                    isRecording ?
-                    <WaveformVisualizer
-                        audio={recordedAudioSteam}
-                        // theme={WaveformVisualizerTheme.squaredBars}
-                    /> : null
-                } */}
-                <div className='wpwax-vm-record-staging__bottom'>
-                    {!isRecording ? (
-                        <p>
-                            Tap to
-                            <span className='wpwax-vm-highlighted'>
+				<span
+					className={
+						isRecording
+							? 'wpwax-vm-timer wpwax-vm-timer-start'
+							: 'wpwax-vm-timer'
+					}
+				>
+					<span className='wpwax-vm-sec'>
+						{formatSecondsAsCountdown(recordedTimeInSecond)}
+					</span>
+				</span>
+
+				<div className='wpwax-vm-record-staging__bottom'>
+					{!isRecording ? (
+						<p>
+							Tap to
+							<span className='wpwax-vm-highlighted'>
 								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
 							</span>
-                            recording!
-                        </p>
-                    ) : (
-                        <p></p>
-                    )}
-                    <div className='wpwax-vm-record-staging__bottom--action'>
-                        {isRecording ? (
-                            <a
-                                href='#'
-                                className='wpwax-vm-record-btn'
-                                onClick={(e) => pauseRecording(e)}
-                            >
-                                <ReactSVG src={pauseSolid} />
-                            </a>
-                        ) : (
-                            <a
-                                href='#'
-                                className='wpwax-vm-record-btn'
-                                onClick={(e) => startRecording(e)}
-                            >
-                                <ReactSVG src={mic} />
-                            </a>
-                        )}
+							recording!
+						</p>
+					) : (
+						<p></p>
+					)}
+					<div className='wpwax-vm-record-staging__bottom--action'>
+						{isRecording ? (
+							<a
+								href='#'
+								className='wpwax-vm-record-btn'
+								onClick={(e) => pauseRecording(e)}
+							>
+								<ReactSVG src={pauseSolid} />
+							</a>
+						) : (
+							<a
+								href='#'
+								className='wpwax-vm-record-btn'
+								onClick={(e) => startRecording(e)}
+							>
+								<ReactSVG src={mic} />
+							</a>
+						)}
 
-                        {getRightBtnContent()}
-                    </div>
-                </div>
+						{getRightBtnContent()}
+					</div>
+				</div>
             </RecorderWrap>
         );
     } else if (currentStage === stages.BEFORE_SEND) {

@@ -6324,6 +6324,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Theme_1() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
@@ -7897,14 +7898,14 @@ var Record = function Record() {
     setRecordedTimeInSecond = _useState14[1];
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState16 = _slicedToArray(_useState15, 2),
-    maxVideoLength = _useState16[0],
-    setMaxVideoLength = _useState16[1];
+    maxRecordLength = _useState16[0],
+    setMaxRecordLength = _useState16[1];
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
     if (settings && typeof settings.maxVideoLength !== 'undefined' && !isNaN(settings.maxVideoLength)) {
       var maxVideoLengthInSeconds = parseInt(settings.maxVideoLength) * 60;
-      setMaxVideoLength(maxVideoLengthInSeconds);
+      setMaxRecordLength(maxVideoLengthInSeconds);
     }
     check_if_need_permission().then(function (is_needed_permission) {
       if (is_needed_permission) {
@@ -7935,10 +7936,10 @@ var Record = function Record() {
     }
   }, [attachmentForm.status]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!maxVideoLength) {
+    if (!maxRecordLength) {
       return;
     }
-    if (recordedTimeInSecond >= maxVideoLength) {
+    if (recordedTimeInSecond >= maxRecordLength) {
       stopRecording();
     }
   }, [recordedTimeInSecond]);
@@ -8855,9 +8856,10 @@ function Record() {
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setCurrentStage(stages.BEFORE_SEND);
-      console.log(blob);
+      // console.log(blob);
     });
   }
+
   ;
 
   // handle Send recording
@@ -10694,7 +10696,6 @@ var initialState = {
   user: null,
   needAuthentication: false,
   guestSubmission: true,
-  is_varified: false,
   isUpdatingFormData: false,
   isReadyFormData: false,
   submitted: false,
@@ -10743,7 +10744,11 @@ var reducer = function reducer() {
         statusMessage: payload
       });
     case RESET:
-      return initialState;
+      var persistentState = {
+        user: state.user,
+        guestSubmission: state.guestSubmission
+      };
+      return _objectSpread(_objectSpread({}, initialState), persistentState);
     default:
       return state;
   }
@@ -20417,6 +20422,7 @@ function useAttachmentAPI() {
   var _useAPI = (0,_useAPI__WEBPACK_IMPORTED_MODULE_0__["default"])(routeBase),
     getItems = _useAPI.getItems,
     getItem = _useAPI.getItem,
+    createItem = _useAPI.createItem,
     updateItem = _useAPI.updateItem,
     deleteItem = _useAPI.deleteItem;
 
@@ -20425,28 +20431,27 @@ function useAttachmentAPI() {
    *
    * @param {object} args file File, link string, expires_on string
    */
-  function createItem(args) {
+  function createAttachmentItem(args) {
     // Set Headers
     var config = {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     };
+    var formData = new FormData();
 
-    // Convert args to FormData
+    // Prepare FormData
     if (args && _typeof(args) === 'object') {
-      var formData = new FormData();
       for (var key in args) {
         formData.append(key, args[key]);
       }
-      args = formData;
     }
-    return createItem(args, config);
+    return createItem(formData, config);
   }
   return {
     getItems: getItems,
     getItem: getItem,
-    createItem: createItem,
+    createItem: createAttachmentItem,
     updateItem: updateItem,
     deleteItem: deleteItem
   };

@@ -18,8 +18,6 @@ const initialState = {
     needAuthentication: false,
     guestSubmission: true,
 
-    is_varified: false,
-
 	isUpdatingFormData: false,
 	isReadyFormData: false,
 	submitted: false,
@@ -77,7 +75,15 @@ const reducer = ( state = initialState, action ) => {
             };
 
         case RESET:
-            return initialState;
+			const persistentState = {
+				user: state.user,
+				guestSubmission: state.guestSubmission
+			};
+
+            return {
+				...initialState,
+				...persistentState,
+			};
 
         default:
             return state;

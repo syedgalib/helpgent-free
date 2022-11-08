@@ -17,6 +17,7 @@ import textIcon from 'Assets/svg/icons/text.svg';
 import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import { useEffect } from 'react';
 
 
 function Theme_1() {
@@ -167,7 +168,7 @@ function Theme_1() {
                 <div className="wpwax-vm-chatbox-inner wpwax-vm-flex-grow-1">
 
                     {
-                        templateOptions.greet_video_url !== "" ? 
+                        templateOptions.greet_video_url !== "" ?
                             <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play">
                                 {
                                     ( isPausedGreetVideo() ) ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
@@ -186,7 +187,7 @@ function Theme_1() {
                         {
                             templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
                                 item => {
-                                    
+
                                     if (
                                         ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item )
                                     ) {

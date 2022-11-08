@@ -54,14 +54,14 @@ const Record = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
-    const [maxVideoLength, setMaxVideoLength] = useState(null);
+    const [maxRecordLength, setMaxRecordLength] = useState(null);
 
     // Init State
     useState(function () {
 
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
 			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
-			setMaxVideoLength( maxVideoLengthInSeconds );
+			setMaxRecordLength( maxVideoLengthInSeconds );
 		}
 
         check_if_need_permission().then(function (is_needed_permission) {
@@ -102,11 +102,11 @@ const Record = () => {
 
 	useEffect( function() {
 
-		if ( ! maxVideoLength ) {
+		if ( ! maxRecordLength ) {
 			return;
 		}
 
-		if ( recordedTimeInSecond >= maxVideoLength ) {
+		if ( recordedTimeInSecond >= maxRecordLength ) {
 			stopRecording();
 		}
 

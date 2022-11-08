@@ -26,8 +26,6 @@ import {
 	updateSelectedSession,
     addSession,
     updateSessionMessages,
-	updateSessionMessagesByIDs,
-    updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';

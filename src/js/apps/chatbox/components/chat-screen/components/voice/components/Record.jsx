@@ -88,7 +88,6 @@ function Record() {
 
                 // Navigate to Contact form or Sending Page
                 setTimeout(() => {
-
 					// Navigate to Contact form or Sending Page
 					if ( needToGoContactPage() ) {
 						dispatch( changeChatScreen( screenTypes.CONTACT_FORM) );
@@ -205,7 +204,7 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
-            console.log(blob);
+            // console.log(blob);
         });
 	};
 

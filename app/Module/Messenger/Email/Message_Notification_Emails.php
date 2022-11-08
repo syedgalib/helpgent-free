@@ -5,6 +5,8 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
+use WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1\Guest_User;
 use WPWaxCustomerSupportApp\Module\Messenger\Hooks\Conversation;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
 
@@ -111,9 +113,17 @@ class Message_Notification_Emails {
     }
 
     public function is_first_conversation( $email ) {
-        $old_conversation = Conversation_Model::get_items(['where' => ['created_by' => $email]]);
-
-		if ( count( $old_conversation ) === 1) {
+        $messages = Message_Model::get_items([
+            'where' => [
+                'user_email' => [
+                    'key'     => 'user_email',
+                    'compare' => 'in',
+                    'value'   => $email,
+                ]
+            ],
+            'group_by' => 'conversation_id'
+        ]);
+		if ( count( $messages ) === 1) {
             return true;
         }
 
@@ -171,11 +181,11 @@ class Message_Notification_Emails {
 
 		// Send notification for first conversation
 		if ( $is_first_conversation ) {
-			self::user_greeting_on_first_conversation_created( $data['user_email'], $args );
+			self::user_greeting_on_first_conversation_created( $users['clients'][0], $args );
 		}
 
 		// Send notification for new conversation
-		foreach( $recepents as $recepent ) {
+		foreach( array_unique( $recepents ) as $recepent ) {
 			self::notify_new_conversation_created( $recepent, $args );
 		}
 
@@ -189,7 +199,7 @@ class Message_Notification_Emails {
 	 */
 	public function get_conversation_users( $conversation_id ) {
 		$users = [
-			'admins'  => [],
+			'admins'  => [ get_option( 'admin_email' ) ],
 			'clients' => [],
 		];
 
@@ -197,11 +207,11 @@ class Message_Notification_Emails {
 			'where' => [ 'conversation_id' => $conversation_id ]
 		]);
 
-		if ( empty( $messages ) ) {
+		if ( empty( $messages['found_items'] ) ) {
 			return $users;
 		}
-
-		foreach( $messages as $message ) {
+        
+		foreach( $messages['results'] as $message ) {
 			$user_email = ! empty( $message['user_email'] ) ? $message['user_email'] : '';
 
 			if ( empty( $user_email ) ) {
@@ -298,19 +308,24 @@ class Message_Notification_Emails {
             return;
         }
 
-        $is_guest = Auth_Token_Model::get_item( $user );
+        $is_guests = Guest_User_Model::get_items( [
+            'where' => [
+                'email' => $user,
+            ],
+        ] );
+        $is_guest = ! empty( $is_guests ) ? $is_guests[0] : '';
         $template_data = [];
 
-        if( is_email( $user ) ) {
-            $user = get_user_by( 'email', $user );
-            $to      = $user->user_email;
-            $template_data['email'] = $user;
-            $template_data['name']  = 'User';
+        $registered_user = get_user_by( 'email', $user );
+        if( $registered_user ) {
+            $to      = $registered_user->user_email;
+            $template_data['email'] = $registered_user->user_email;
+            $template_data['name']  = $registered_user->user_login;
         }
 
         if( $is_guest ) {
             $template_data['email'] = $user;
-            $template_data['name']  = 'User';
+            $template_data['name']  = 'Guest User';
             $to = $user;
         }
 

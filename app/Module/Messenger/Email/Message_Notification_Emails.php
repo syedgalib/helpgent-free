@@ -5,6 +5,8 @@ namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
 use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
 use WPWaxCustomerSupportApp\Base\Helper;
+use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
+use WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1\Guest_User;
 use WPWaxCustomerSupportApp\Module\Messenger\Hooks\Conversation;
 use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
 
@@ -67,7 +69,7 @@ class Message_Notification_Emails {
 
         $default = 'Dear User,
 
-        Congratulations! Your requested token has been re-generated and it is valid until '. HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS .' days from now. Go to your dashboard {{DASHBOARD_LINK}}
+        Congratulations! Your guest token has been generated and it is valid until '. HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS .' days from now. Go to your dashboard {{DASHBOARD_LINK}}
 
         Thanks,
         The Administrator of {{SITE_NAME}}
@@ -82,7 +84,7 @@ class Message_Notification_Emails {
         $message = ! empty( $args['body'] ) ? $args['body'] : '';
 
         $subject = self::replace_in_content( $subject );
-		$message = self::replace_in_content( $message );
+		$message = self::replace_in_content( $message, $data['email'], $data );
 
         $message = self::email_html( $subject, $message );
 
@@ -92,9 +94,18 @@ class Message_Notification_Emails {
     }
 
     public function if_has_conversation( $email ) {
-        $old_conversation = Conversation_Model::get_items(['where' => ['created_by' => $email]]);
+        $messages = Message_Model::get_items([
+            'where' => [
+                'user_email' => [
+                    'key'     => 'user_email',
+                    'compare' => 'in',
+                    'value'   => $email,
+                ]
+            ],
+            'group_by' => 'conversation_id'
+        ]);
 
-		if ( ! empty( $old_conversation ) ) {
+		if ( ! empty( $messages ) ) {
             return true;
         }
 
@@ -102,9 +113,17 @@ class Message_Notification_Emails {
     }
 
     public function is_first_conversation( $email ) {
-        $old_conversation = Conversation_Model::get_items(['where' => ['created_by' => $email]]);
-
-		if ( count( $old_conversation ) === 1) {
+        $messages = Message_Model::get_items([
+            'where' => [
+                'user_email' => [
+                    'key'     => 'user_email',
+                    'compare' => 'in',
+                    'value'   => $email,
+                ]
+            ],
+            'group_by' => 'conversation_id'
+        ]);
+		if ( count( $messages ) === 1) {
             return true;
         }
 
@@ -162,11 +181,11 @@ class Message_Notification_Emails {
 
 		// Send notification for first conversation
 		if ( $is_first_conversation ) {
-			self::user_greeting_on_first_conversation_created( $data['user_email'], $args );
+			self::user_greeting_on_first_conversation_created( $users['clients'][0], $args );
 		}
 
 		// Send notification for new conversation
-		foreach( $recepents as $recepent ) {
+		foreach( array_unique( $recepents ) as $recepent ) {
 			self::notify_new_conversation_created( $recepent, $args );
 		}
 
@@ -180,7 +199,7 @@ class Message_Notification_Emails {
 	 */
 	public function get_conversation_users( $conversation_id ) {
 		$users = [
-			'admins'  => [],
+			'admins'  => [ get_option( 'admin_email' ) ],
 			'clients' => [],
 		];
 
@@ -188,11 +207,11 @@ class Message_Notification_Emails {
 			'where' => [ 'conversation_id' => $conversation_id ]
 		]);
 
-		if ( empty( $messages ) ) {
+		if ( empty( $messages['found_items'] ) ) {
 			return $users;
 		}
-
-		foreach( $messages as $message ) {
+        
+		foreach( $messages['results'] as $message ) {
 			$user_email = ! empty( $message['user_email'] ) ? $message['user_email'] : '';
 
 			if ( empty( $user_email ) ) {
@@ -289,19 +308,24 @@ class Message_Notification_Emails {
             return;
         }
 
-        $is_guest = Auth_Token_Model::get_item( $user );
+        $is_guests = Guest_User_Model::get_items( [
+            'where' => [
+                'email' => $user,
+            ],
+        ] );
+        $is_guest = ! empty( $is_guests ) ? $is_guests[0] : '';
         $template_data = [];
 
-        if( is_email( $user ) ) {
-            $user = get_user_by( 'email', $user );
-            $to      = $user->user_email;
-            $template_data['email'] = $user;
-            $template_data['name']  = 'User';
+        $registered_user = get_user_by( 'email', $user );
+        if( $registered_user ) {
+            $to      = $registered_user->user_email;
+            $template_data['email'] = $registered_user->user_email;
+            $template_data['name']  = $registered_user->user_login;
         }
 
         if( $is_guest ) {
             $template_data['email'] = $user;
-            $template_data['name']  = 'User';
+            $template_data['name']  = 'Guest User';
             $to = $user;
         }
 
@@ -396,13 +420,15 @@ class Message_Notification_Emails {
             $user = get_user_by( 'email', $user );
         }
 
-        $guest_token    = Auth_Token_Model::get_item( $user );
+        $guest_token    = ! empty( $args['token'] ) ? $args['token'] : '';
+       
         $site_name      = get_option( 'blogname' );
         $site_url       = site_url();
         $date_format    = get_option( 'date_format' );
         $time_format    = get_option( 'time_format' );
         $current_time   = current_time( 'timestamp' );
         $dashboard_link =  Helper\get_dashboard_page_link();
+        $dashboard_link =  $guest_token ? add_query_arg( 'token', $guest_token, $dashboard_link ) : $dashboard_link;
         $replier        = ! empty( $args['replier'] ) ? get_user_by( 'email', $args['replier'] ) : '';
         $replier_name   = ! is_wp_error( $replier ) ? $replier->display_name : 'User';
 
@@ -415,7 +441,7 @@ class Message_Notification_Emails {
             '{{SITE_URL}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_url ),
             '{{TODAY}}' => date_i18n( $date_format, $current_time ),
             '{{NOW}}' => date_i18n( $date_format . ' ' . $time_format, $current_time ),
-            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', ! is_wp_error( $guest_token ) ? add_query_arg( 'token', $guest_token, $dashboard_link ) : $dashboard_link, $dashboard_link ),
+            '{{DASHBOARD_LINK}}' => sprintf( '<a href="%s" style="color: #1b83fb;">%s</a>', $dashboard_link, $dashboard_link ),
             '{{MESSAGE}}' => ! empty( $args['message'] ) ? $args['message'] : '',
         );
         $c = nl2br( strtr( $content, $find_replace ) );

@@ -300,7 +300,7 @@ class Conversations extends Rest_Base
 					'group_by' => 'conversation_id'
 				]);
 
-				$conversation_ids = array_map( function( $item ) { $item['conversation_id']; }, $messages );
+				$conversation_ids = array_map( function( $item ) { $item['conversation_id']; }, $messages['results'] );
 				$conversation_ids = trim( join( ',', $conversation_ids ), ',' );
 
 				$args['where']['id'] = [
@@ -372,7 +372,7 @@ class Conversations extends Rest_Base
 
 			$users = array_map( function( $message ) {
 				return $message['user_email'];
-			}, $messages );
+			}, $messages['results'] );
 
 			$users = Helper\get_users_data_by( 'email', $users );
 

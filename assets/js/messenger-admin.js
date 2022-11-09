@@ -9080,9 +9080,7 @@ var Upload = function Upload(_ref) {
               htmlFor: "attachment_video",
               className: "wpawax-vm-reply-btn-upload",
               children: "Choose File"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-              children: "or drag & drop here..."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Max size ", getFormattedMaxUploadSize(), "!"]
@@ -9703,7 +9701,7 @@ var Sidebar = function Sidebar(_ref) {
           }),
           children: sessionList.map(function (item, index) {
             var users = item.users.filter(function (p) {
-              return currentUser && p.id !== parseInt(currentUser.id);
+              return currentUser && p.email !== currentUser.email;
             });
             var images = [];
             var titleString = [];
@@ -9801,7 +9799,7 @@ var Sidebar = function Sidebar(_ref) {
                   sessionTerm: item.terms,
                   initialConv: initialConv,
                   sessionId: item.id,
-                  title: titleString.join(),
+                  title: titleString,
                   metaList: metaList
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {

@@ -6324,6 +6324,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Theme_1() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useSelector)(function (state) {
@@ -8899,9 +8900,10 @@ function Record() {
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setCurrentStage(stages.BEFORE_SEND);
-      console.log(blob);
+      // console.log(blob);
     });
   }
+
   ;
 
   // handle Send recording
@@ -10746,7 +10748,6 @@ var initialState = {
   user: null,
   needAuthentication: false,
   guestSubmission: true,
-  is_varified: false,
   isUpdatingFormData: false,
   isReadyFormData: false,
   submitted: false,
@@ -10795,7 +10796,11 @@ var reducer = function reducer() {
         statusMessage: payload
       });
     case RESET:
-      return initialState;
+      var persistentState = {
+        user: state.user,
+        guestSubmission: state.guestSubmission
+      };
+      return _objectSpread(_objectSpread({}, initialState), persistentState);
     default:
       return state;
   }
@@ -15168,9 +15173,7 @@ var Upload = function Upload(_ref) {
               htmlFor: "attachment_video",
               className: "wpawax-vm-reply-btn-upload",
               children: "Choose File"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-              children: "or drag & drop here..."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Works with ", getSupportedVideoExtensionsAsText()]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Max size ", getFormattedMaxUploadSize(), "!"]
@@ -15791,7 +15794,7 @@ var Sidebar = function Sidebar(_ref) {
           }),
           children: sessionList.map(function (item, index) {
             var users = item.users.filter(function (p) {
-              return currentUser && p.id !== parseInt(currentUser.id);
+              return currentUser && p.email !== currentUser.email;
             });
             var images = [];
             var titleString = [];
@@ -15889,7 +15892,7 @@ var Sidebar = function Sidebar(_ref) {
                   sessionTerm: item.terms,
                   initialConv: initialConv,
                   sessionId: item.id,
-                  title: titleString.join(),
+                  title: titleString,
                   metaList: metaList
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
@@ -20534,6 +20537,7 @@ function useAttachmentAPI() {
   var _useAPI = (0,_useAPI__WEBPACK_IMPORTED_MODULE_0__["default"])(routeBase),
     getItems = _useAPI.getItems,
     getItem = _useAPI.getItem,
+    createItem = _useAPI.createItem,
     updateItem = _useAPI.updateItem,
     deleteItem = _useAPI.deleteItem;
 
@@ -20542,28 +20546,27 @@ function useAttachmentAPI() {
    *
    * @param {object} args file File, link string, expires_on string
    */
-  function createItem(args) {
+  function createAttachmentItem(args) {
     // Set Headers
     var config = {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     };
+    var formData = new FormData();
 
-    // Convert args to FormData
+    // Prepare FormData
     if (args && _typeof(args) === 'object') {
-      var formData = new FormData();
       for (var key in args) {
         formData.append(key, args[key]);
       }
-      args = formData;
     }
-    return createItem(args, config);
+    return createItem(formData, config);
   }
   return {
     getItems: getItems,
     getItem: getItem,
-    createItem: createItem,
+    createItem: createAttachmentItem,
     updateItem: updateItem,
     deleteItem: deleteItem
   };

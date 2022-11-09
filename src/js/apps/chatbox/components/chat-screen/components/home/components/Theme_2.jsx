@@ -164,7 +164,7 @@ function Theme_2() {
                         {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
                     </div>
                     {
-                        templateOptions.greet_video_url && 
+                        templateOptions.greet_video_url &&
                             <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play">
                                 {
                                     ( isPausedGreetVideo() ) ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
@@ -183,8 +183,8 @@ function Theme_2() {
                         {
                             templateOptions.can_replay_in && templateOptions.can_replay_in.length && templateOptions.can_replay_in.map(
                                 item => {
-                                    if ( 
-                                        ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item ) 
+                                    if (
+                                        ! supportedReplayTypes.map( replayTypeItem => replayTypeItem.type ).includes( item )
                                     ) {
                                         return '';
                                     }

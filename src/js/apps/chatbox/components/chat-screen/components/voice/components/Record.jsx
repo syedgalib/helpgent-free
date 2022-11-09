@@ -216,7 +216,7 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
-            console.log(blob);
+            // console.log(blob);
         });
 	};
 

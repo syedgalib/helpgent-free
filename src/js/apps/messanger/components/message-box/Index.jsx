@@ -665,6 +665,9 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
+		// Voice Play
+		voicePlay();
+
         // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
         dispatch(handleReplyModeChange(false));
@@ -930,6 +933,10 @@ function MessageBox({ setSessionState }) {
 
     const handleVoicePlay = async function (event){
         event.preventDefault();
+        voicePlay();
+    }
+
+    const voicePlay = async function (){
         // Prepare Voice Recording;
         if(recordedAudioSteam){
             resumeVoiceRecording();
@@ -1476,12 +1483,13 @@ function MessageBox({ setSessionState }) {
                         <div className='wpwax-vm-messagebox-reply__input'>
 
                             {
-                                isRecordingVoice ? <a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
+                                isRecordingVoice ?
+								<a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
                                     <span className='dashicons dashicons-controls-pause'></span>
                                 </a>
                                 :
                                 <a href='#' className='wpwax-vm-messagebox-reply-voice-play' onClick={handleVoicePlay}>
-                                    <span className='dashicons dashicons-controls-play'></span>
+                                    <span className='dashicons dashicons-microphone'></span>
                                 </a>
                             }
 

@@ -48,6 +48,7 @@ const VideoReplyWrap = Styled.div`
 		.wpwax-vm-countdown {
 			.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
 				font-weight: bold;
+				color: #fff;
 			}
 		}
 	}

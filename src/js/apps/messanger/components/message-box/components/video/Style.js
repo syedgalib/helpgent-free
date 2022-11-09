@@ -13,6 +13,7 @@ const VideoReplyWrap = Styled.div`
     width: calc( 100% - 60px );
     border-radius: 30px;
     z-index: 1000001;
+	overflow: hidden;
     &:after{
         position: absolute;
         left: 0;
@@ -39,16 +40,30 @@ const VideoReplyWrap = Styled.div`
     }
 
 	.wpwax-vm-reply-countdown {
-		position: relative;
-		z-index: 99999;
+		position: absolute;
 		color: #fff;
-		top: 50%;
-		transform: translate(0,-50%);
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 99999;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #7676769c;
 
 		.wpwax-vm-countdown {
 			.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
 				font-weight: bold;
 				color: #fff;
+			}
+
+			.wpwax-vm-countdown-heading {
+				font-size: 110px;
+			}
+
+			.wpwax-vm-countdown-text {
+				font-size: 30px;
 			}
 		}
 	}

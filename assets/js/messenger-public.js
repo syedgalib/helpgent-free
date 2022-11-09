@@ -7099,17 +7099,9 @@ function ScreenRecord() {
     });
   }
   if (state.recordStage === "startScreen" || state.recordStage === "stopScreen") {
-    if (isActiveCountdown) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(CountdownPage, {
-          count: getReverseCount()
-        })
-      });
-    }
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-hg-screenrecord-box",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "wpwax-hg-screenrecord-top",
@@ -7135,7 +7127,12 @@ function ScreenRecord() {
             children: state.recordStage === "startScreen" ? "Select Screen" : "Stop Recording"
           })
         })]
-      })
+      }), isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "wpwax-vm-countdown-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(CountdownPage, {
+          count: getReverseCount()
+        })
+      })]
     });
   } else if (state.recordStage === "beforeSend") {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {

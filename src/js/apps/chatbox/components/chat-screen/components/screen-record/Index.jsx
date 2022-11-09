@@ -233,15 +233,6 @@ function ScreenRecord() {
 	}
 
 	if(state.recordStage === "startScreen" || state.recordStage === "stopScreen"){
-
-		if ( isActiveCountdown ) {
-			return (
-				<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
-					<CountdownPage count={getReverseCount()} />
-				</ScreenRecordWrap>
-			);
-		}
-
 		return (
 			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
 
@@ -260,6 +251,8 @@ function ScreenRecord() {
 						</a>
 					</div>
 				</div>
+
+				{ isActiveCountdown && ( <div className="wpwax-vm-countdown-wrap"><CountdownPage count={getReverseCount()}/></div> ) }
 
 			</ScreenRecordWrap>
 		);

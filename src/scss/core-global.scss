@@ -1323,14 +1323,18 @@
 
 	.wpwax-vm-countdown-heading,
 	.wpwax-vm-countdown-text {
+		font-family: 'Roboto';
+		margin: 0;
 		color: #fff;
+		line-height: normal;
 	}
 
 	.wpwax-vm-countdown-heading {
 		font-size: 150px;
 	}
 	.wpwax-vm-countdown-text {
-		font-size: 30px;
+		margin: 20px 0;
+		font-size: 50px;
 	}
 }
 

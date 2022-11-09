@@ -6,7 +6,6 @@ import Message from './components/Message.jsx';
 import Video from './components/video/Index.jsx';
 import Screen from './components/screen/Index.jsx';
 import { useDebounce } from 'Helper/hooks';
-import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -20,14 +19,15 @@ import attachmentAPI from 'apiService/attachment-api';
 import { useScreenSize } from 'Helper/hooks';
 import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
+import useCountdown from 'Hooks/useCountdown';
+
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
 	updateSelectedSession,
     addSession,
     updateSessionMessages,
-	updateSessionMessagesByIDs,
-    updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';
@@ -76,15 +76,24 @@ function MessageBox({ setSessionState }) {
 		dispatch( handleMessageTypeChange('screen') );
 	};
 
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
+
     const {
 		hasPermission,
 		requestPermission,
 		recordedScreenBlob,
 		recordedScreenURL,
 		startRecording,
+		setupStream,
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
+		recordingIsGoingToStopSoon,
 	} = useScreenRecorder({
 		maxRecordLength: getMaxRecordLength(),
 		afterStopRecording,
@@ -225,16 +234,21 @@ function MessageBox({ setSessionState }) {
                     recordStage: "beforeStartScreen"
                 });
 
-                const hasStarted = await startRecording();
+                const _recorder = await setupStream();
 
-                if ( ! hasStarted ) {
+                if ( ! _recorder ) {
                     return;
-                }else{
-                    setScreenRecordState({
-                        ...screenRecordState,
-                        recordStage: "startScreen"
-                    });
                 }
+
+				// Start Countdown
+				await startCountdown();
+
+				startRecording( _recorder );
+
+				setScreenRecordState({
+					...screenRecordState,
+					recordStage: "startScreen"
+				});
 		}
     }
 
@@ -1558,7 +1572,7 @@ function MessageBox({ setSessionState }) {
                             {
                                 screenRecordState.recordStage !== "startScreen" ? <div className='wpwax-vm-btn-icon'><ReactSVG src={recordIcon} /></div> : null
                             }
-                            <span className='wpwax-vm-btn-text'>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
+                            <span className={ ( recordingIsGoingToStopSoon ) ? 'wpwax-vm-btn-text wpwax-vm-blinking-text' : 'wpwax-vm-btn-text' }>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
                         </a>
                         <a
                             href='#'
@@ -1933,6 +1947,8 @@ function MessageBox({ setSessionState }) {
                     <h2>No conversation is selected.</h2>
                 </div>
             )}
+
+			{ isActiveCountdown && ( <div className="wpwax-vm-countdown-wrap"><CountdownPage count={getReverseCount()}/></div> ) }
         </ChatBoxWrap>
     );
 }

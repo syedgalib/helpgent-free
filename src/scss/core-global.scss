@@ -1308,6 +1308,40 @@
     max-width: unset !important;
 }
 
+
+.wpwax-vm-countdown-wrap {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 99999999;
+	background-color: #89898989;
+
+	.wpwax-vm-countdown-heading,
+	.wpwax-vm-countdown-text {
+		font-family: 'Roboto';
+		margin: 0;
+		color: #fff;
+		line-height: normal;
+	}
+
+	.wpwax-vm-countdown-heading {
+		font-size: 150px;
+	}
+	.wpwax-vm-countdown-text {
+		margin: 20px 0;
+		font-size: 50px;
+	}
+}
+
+.wpwax-vm-blinking-text {
+	animation: wpwaxHgBlinking 1s linear infinite;
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

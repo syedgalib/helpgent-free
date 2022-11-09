@@ -19,11 +19,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import useChatboxController from '../../../hooks/useChatboxController';
 
+import useCountdown from 'Hooks/useCountdown';
+
 const Record = () => {
 	// Hooks
 	const {
 		needToGoContactPage
 	} = useChatboxController();
+
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
 
 	const { addAction } = wpwaxHooks;
     const videoStreemRef = useRef();
@@ -54,14 +63,14 @@ const Record = () => {
     const [isRecording, setIsRecording] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
-    const [maxVideoLength, setMaxVideoLength] = useState(null);
+    const [maxRecordLength, setMaxRecordLength] = useState(null);
 
     // Init State
     useState(function () {
 
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
-			setMaxVideoLength( maxVideoLengthInSeconds );
+			const maxRecordLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+			setMaxRecordLength( maxRecordLengthInSeconds );
 		}
 
         check_if_need_permission().then(function (is_needed_permission) {
@@ -102,11 +111,11 @@ const Record = () => {
 
 	useEffect( function() {
 
-		if ( ! maxVideoLength ) {
+		if ( ! maxRecordLength ) {
 			return;
 		}
 
-		if ( recordedTimeInSecond >= maxVideoLength ) {
+		if ( recordedTimeInSecond >= maxRecordLength ) {
 			stopRecording();
 		}
 
@@ -156,6 +165,10 @@ const Record = () => {
 
     // startRecording
     async function startRecording() {
+
+		// Start Countdown
+		await startCountdown();
+
         await window.wpwaxCSRecorder.startRecording();
 
         setRecordedTimeInSecond(0);
@@ -306,7 +319,10 @@ const Record = () => {
         return (
             <VideoRecordWrap className='wpwax-vm-record-staging'>
                 <video ref={videoStreemRef} muted></video>
-                <div className='wpwax-vm-record-staging__top'>
+
+				{ isActiveCountdown && ( <div className="wpwax-vm-record-staging__countdown"><CountdownPage count={ getReverseCount() } /></div> ) }
+
+				<div className='wpwax-vm-record-staging__top'>
                     <h4 className='wpwax-vm-record-staging__title'>
                         {isRecording ? (
                             <span className='wpwax-vm-timer'>
@@ -319,7 +335,8 @@ const Record = () => {
                         )}
                     </h4>
                 </div>
-                <div
+
+				<div
                     className={
                         isRecording
                             ? 'wpwax-vm-record-staging__action wpwax-vm-record-start'

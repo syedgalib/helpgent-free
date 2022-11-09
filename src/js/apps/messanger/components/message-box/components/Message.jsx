@@ -42,7 +42,7 @@ function Message({ data, currentUser }) {
                         {data.user.name},
                     </span>
                     <span className='wpwax-vm-message-time'>
-                        {data.created_on_formatted}
+                        {data.created_at_formatted}
                     </span>
                 </div>
                 <div className='wpwax-vm-message-content__inner'>

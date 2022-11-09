@@ -82,7 +82,7 @@ function MessageBox({ setSessionState }) {
 		recordedScreenBlob,
 		recordedScreenURL,
 		startRecording,
-		setupStreem,
+		setupStream,
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
@@ -226,7 +226,7 @@ function MessageBox({ setSessionState }) {
                     recordStage: "beforeStartScreen"
                 });
 
-                const _recorder = await setupStreem();
+                const _recorder = await setupStream();
 
                 if ( ! _recorder ) {
                     return;

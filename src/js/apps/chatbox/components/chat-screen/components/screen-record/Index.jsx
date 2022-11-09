@@ -54,7 +54,7 @@ function ScreenRecord() {
 		permissionDenied,
 		recordedScreenBlob,
 		recordedScreenURL,
-		setupStreem,
+		setupStream,
 		startRecording,
 		stopRecording,
 		recordedTimeInSecond,
@@ -123,7 +123,7 @@ function ScreenRecord() {
 
 		if(state.recordStage === "startScreen"){
 
-			const _recorder = await setupStreem();
+			const _recorder = await setupStream();
 
 			if ( ! _recorder ) {
 				return;

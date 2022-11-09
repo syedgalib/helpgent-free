@@ -6860,7 +6860,7 @@ function ScreenRecord() {
     permissionDenied = _useScreenRecorder.permissionDenied,
     recordedScreenBlob = _useScreenRecorder.recordedScreenBlob,
     recordedScreenURL = _useScreenRecorder.recordedScreenURL,
-    setupStreem = _useScreenRecorder.setupStreem,
+    setupStream = _useScreenRecorder.setupStream,
     startRecording = _useScreenRecorder.startRecording,
     stopRecording = _useScreenRecorder.stopRecording,
     recordedTimeInSecond = _useScreenRecorder.recordedTimeInSecond,
@@ -6962,7 +6962,7 @@ function ScreenRecord() {
                 break;
               }
               _context.next = 4;
-              return setupStreem();
+              return setupStream();
             case 4:
               _recorder = _context.sent;
               if (_recorder) {
@@ -11289,7 +11289,7 @@ function MessageBox(_ref) {
     recordedScreenBlob = _useScreenRecorder.recordedScreenBlob,
     recordedScreenURL = _useScreenRecorder.recordedScreenURL,
     startRecording = _useScreenRecorder.startRecording,
-    setupStreem = _useScreenRecorder.setupStreem,
+    setupStream = _useScreenRecorder.setupStream,
     stopRecording = _useScreenRecorder.stopRecording,
     recordedTimeInSecond = _useScreenRecorder.recordedTimeInSecond,
     getCountDown = _useScreenRecorder.getCountDown;
@@ -11490,7 +11490,7 @@ function MessageBox(_ref) {
                 recordStage: "beforeStartScreen"
               }));
               _context.next = 8;
-              return setupStreem();
+              return setupStream();
             case 8:
               _recorder = _context.sent;
               if (_recorder) {
@@ -21862,11 +21862,11 @@ function useScreenRecorder(config) {
     }));
     return _requestPermission.apply(this, arguments);
   }
-  function setupStreem() {
-    return _setupStreem.apply(this, arguments);
+  function setupStream() {
+    return _setupStream.apply(this, arguments);
   } // startRecording
-  function _setupStreem() {
-    _setupStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+  function _setupStream() {
+    _setupStream = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var newScreenStream, newAudioStream, newMixedStream, newRecorder;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
@@ -21917,7 +21917,7 @@ function useScreenRecorder(config) {
         }
       }, _callee3, null, [[0, 15]]);
     }));
-    return _setupStreem.apply(this, arguments);
+    return _setupStream.apply(this, arguments);
   }
   function startRecording(_x) {
     return _startRecording.apply(this, arguments);
@@ -22005,7 +22005,7 @@ function useScreenRecorder(config) {
     recordedScreenURL: recordedScreenURL,
     hasPermission: hasPermission,
     requestPermission: requestPermission,
-    setupStreem: setupStreem,
+    setupStream: setupStream,
     startRecording: startRecording,
     stopRecording: stopRecording,
     getCountDown: getCountDown,

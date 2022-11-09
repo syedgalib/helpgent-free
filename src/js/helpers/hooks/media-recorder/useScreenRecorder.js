@@ -73,7 +73,7 @@ export default function useScreenRecorder( config ) {
         }
     }
 
-    async function setupStreem() {
+    async function setupStream() {
         try {
             // Setup Screen Streem
             const newScreenStream = await navigator.mediaDevices.getDisplayMedia({
@@ -194,7 +194,7 @@ export default function useScreenRecorder( config ) {
 		recordedScreenURL,
 		hasPermission,
 		requestPermission,
-		setupStreem,
+		setupStream,
 		startRecording,
 		stopRecording,
 		getCountDown,

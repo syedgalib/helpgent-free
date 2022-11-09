@@ -6958,7 +6958,7 @@ function ScreenRecord() {
             case 0:
               event.preventDefault();
               if (!(state.recordStage === "startScreen")) {
-                _context.next = 13;
+                _context.next = 14;
                 break;
               }
               _context.next = 4;
@@ -6975,14 +6975,15 @@ function ScreenRecord() {
               return startCountdown();
             case 9:
               startRecording(_recorder);
+              handleMinizeScreen();
               setState(_objectSpread(_objectSpread({}, state), {}, {
                 recordStage: "stopScreen"
               }));
-              _context.next = 14;
+              _context.next = 15;
               break;
-            case 13:
-              stopRecording();
             case 14:
+              stopRecording();
+            case 15:
             case "end":
               return _context.stop();
           }

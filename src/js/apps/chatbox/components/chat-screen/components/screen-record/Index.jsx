@@ -133,6 +133,7 @@ function ScreenRecord() {
 			await startCountdown();
 
 			startRecording( _recorder );
+			handleMinizeScreen();
 
 			setState({
 				...state,

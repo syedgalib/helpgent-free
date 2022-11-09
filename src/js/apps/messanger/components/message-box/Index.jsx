@@ -93,6 +93,7 @@ function MessageBox({ setSessionState }) {
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
+		recordingIsGoingToStopSoon,
 	} = useScreenRecorder({
 		maxRecordLength: getMaxRecordLength(),
 		afterStopRecording,
@@ -1571,7 +1572,7 @@ function MessageBox({ setSessionState }) {
                             {
                                 screenRecordState.recordStage !== "startScreen" ? <div className='wpwax-vm-btn-icon'><ReactSVG src={recordIcon} /></div> : null
                             }
-                            <span className='wpwax-vm-btn-text'>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
+                            <span className={ ( recordingIsGoingToStopSoon ) ? 'wpwax-vm-btn-text wpwax-vm-blinking-text' : 'wpwax-vm-btn-text' }>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
                         </a>
                         <a
                             href='#'

@@ -1338,6 +1338,10 @@
 	}
 }
 
+.wpwax-vm-blinking-text {
+	animation: wpwaxHgBlinking 1s linear infinite;
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

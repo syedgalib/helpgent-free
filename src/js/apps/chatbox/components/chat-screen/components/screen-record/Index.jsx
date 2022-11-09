@@ -59,6 +59,7 @@ function ScreenRecord() {
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
+		recordingIsGoingToStopSoon,
 		reset,
 	} = useScreenRecorder({
 		maxRecordLength: getMaxRecordLength(),

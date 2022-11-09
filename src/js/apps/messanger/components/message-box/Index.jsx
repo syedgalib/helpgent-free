@@ -748,6 +748,7 @@ function MessageBox({ setSessionState }) {
                 : defaultArgs;
 
 
+		setRecordedVoiceTimeInSecond(0);
         stopVoiceTimer();
 
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
@@ -1621,15 +1622,8 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        if (isRecordingVoice) {
-            stopVoiceRecording();
-        } else {
-            setRecordedAudioBlob(null);
-            setRecordedAudioSteam(null);
-        }
-
-        dispatch(handleMessageTypeChange(''));
-        dispatch(handleReplyModeChange(false));
+        stopVoiceRecording();
+		closeVoiceChat();
     };
 
     const handleScrollBottom = (event) => {

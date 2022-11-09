@@ -5856,6 +5856,7 @@ function MessageBox(_ref) {
       sendRecording: false
     };
     args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
+    setRecordedVoiceTimeInSecond(0);
     stopVoiceTimer();
     window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
       var blob = window.wpwaxCSVoiceRecorder.getBlob();
@@ -6884,15 +6885,9 @@ function MessageBox(_ref) {
               }
               return _context18.abrupt("return");
             case 3:
-              if (isRecordingVoice) {
-                stopVoiceRecording();
-              } else {
-                setRecordedAudioBlob(null);
-                setRecordedAudioSteam(null);
-              }
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
-            case 6:
+              stopVoiceRecording();
+              closeVoiceChat();
+            case 5:
             case "end":
               return _context18.stop();
           }

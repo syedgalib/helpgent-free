@@ -44,10 +44,10 @@ function Record() {
     const dispatch = useDispatch();
 
 	// Store States
-    const { attachmentForm, messengerForm } = useSelector((state) => {
+    const { settings, attachmentForm } = useSelector((state) => {
         return {
+			settings: state.settings.options,
             attachmentForm: state.attachmentForm,
-			messengerForm: state.messengerForm,
         };
     });
 
@@ -73,14 +73,35 @@ function Record() {
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
+	const [maxRecordLength, setMaxRecordLength] = useState(null);
+
     // Init State
     useState(function () {
+
+		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+			setMaxRecordLength( maxVideoLengthInSeconds );
+		}
+
         check_if_need_permission().then(function (is_needed_permission) {
             if (is_needed_permission) {
                 setCurrentStage(stages.PERMISSION);
             }
         });
     }, []);
+
+	useEffect( () => {
+
+		if ( ! maxRecordLength ) {
+			return;
+		}
+
+		if ( recordedTimeInSecond >= maxRecordLength ) {
+			stopRecording();
+		}
+
+
+	}, [ recordedTimeInSecond ] );
 
     // On Upload Complete
     useEffect(
@@ -216,9 +237,25 @@ function Record() {
             setRecordedAudioBlob(blob);
             setRecordedAudioURL(url);
             setCurrentStage(stages.BEFORE_SEND);
-            // console.log(blob);
+
+			setRecordedTimeInSecond(0);
+			setIsRecording(false);
+            stopTimer();
         });
 	};
+
+	function reversedRecordedTimeInSecond() {
+		return ( maxRecordLength - recordedTimeInSecond );
+	}
+
+	function getCountDown() {
+
+		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+			return formatSecondsAsCountdown( recordedTimeInSecond );
+		}
+
+		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
+	}
 
     // handle Send recording
     function handleSendRecording(e) {
@@ -342,23 +379,29 @@ function Record() {
 
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
-				<span
-					className={
-						isRecording
-							? 'wpwax-vm-timer wpwax-vm-timer-start'
-							: 'wpwax-vm-timer'
-					}
-				>
-					<span className='wpwax-vm-sec'>
-						{formatSecondsAsCountdown(recordedTimeInSecond)}
-					</span>
-				</span>
-
-				<div className='wpwax-vm-record-staging__bottom'>
-					{!isRecording ? (
-						<p>
-							Tap to
-							<span className='wpwax-vm-highlighted'>
+                <span
+                    className={
+                        isRecording
+                            ? 'wpwax-vm-timer wpwax-vm-timer-start'
+                            : 'wpwax-vm-timer'
+                    }
+                >
+                    <span className='wpwax-vm-sec'>
+                        {getCountDown()}
+                    </span>
+                </span>
+                {/* {
+                    isRecording ?
+                    <WaveformVisualizer
+                        audio={recordedAudioSteam}
+                        // theme={WaveformVisualizerTheme.squaredBars}
+                    /> : null
+                } */}
+                <div className='wpwax-vm-record-staging__bottom'>
+                    {!isRecording ? (
+                        <p>
+                            Tap to
+                            <span className='wpwax-vm-highlighted'>
 								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
 							</span>
 							recording!

@@ -1308,6 +1308,32 @@
     max-width: unset !important;
 }
 
+
+.wpwax-vm-countdown-wrap {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 99999999;
+	background-color: #89898989;
+
+	.wpwax-vm-countdown-heading,
+	.wpwax-vm-countdown-text {
+		color: #fff;
+	}
+
+	.wpwax-vm-countdown-heading {
+		font-size: 150px;
+	}
+	.wpwax-vm-countdown-text {
+		font-size: 30px;
+	}
+}
+
 /* Animation Keyframe */
 @keyframes wpwaxSpinMove {
     100% {

@@ -11179,30 +11179,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/UserAvaterList.jsx */ "./src/js/components/UserAvaterList.jsx");
 /* harmony import */ var _components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Message.jsx */ "./src/js/apps/messanger/components/message-box/components/Message.jsx");
 /* harmony import */ var _components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/video/Index.jsx */ "./src/js/apps/messanger/components/message-box/components/video/Index.jsx");
 /* harmony import */ var _components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/screen/Index.jsx */ "./src/js/apps/messanger/components/message-box/components/screen/Index.jsx");
 /* harmony import */ var Helper_hooks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Helper/hooks */ "./src/js/helpers/hooks.js");
-/* harmony import */ var Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hooks/media-recorder/useScreenRecorder */ "./src/js/helpers/hooks/media-recorder/useScreenRecorder.js");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
-/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
-/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
-/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
-/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/Style.js");
-/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
-/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! apiService/attachment-api */ "./src/js/helpers/apiService/attachment-api.js");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Helper/formatter.js */ "./src/js/helpers/formatter.js");
-/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/js/components/LoadingSpinDot.jsx");
-/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
-/* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
-/* harmony import */ var API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! API/useMessangerAPI.js */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
+/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
+/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
+/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
+/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
+/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/Style.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! apiService/attachment-api */ "./src/js/helpers/apiService/attachment-api.js");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
+/* harmony import */ var Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Hooks/media-recorder/useScreenRecorder */ "./src/js/helpers/hooks/media-recorder/useScreenRecorder.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Helper/formatter.js */ "./src/js/helpers/formatter.js");
+/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/js/components/LoadingSpinDot.jsx");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
+/* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
+/* harmony import */ var API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! API/useMessangerAPI.js */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
@@ -11247,6 +11248,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 // import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 
@@ -11264,9 +11266,9 @@ function MessageBox(_ref) {
     addAction = _wpwaxHooks.addAction;
 
   // Use API
-  var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_22__["default"])(),
+  var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_23__["default"])(),
     markConversationAsRead = _useConversationAPI.markAsRead;
-  var _useMessangerAPI = (0,API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_23__["default"])(),
+  var _useMessangerAPI = (0,API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_24__["default"])(),
     getMessangerItems = _useMessangerAPI.getItems,
     createMessangerItem = _useMessangerAPI.createItem;
 
@@ -11278,9 +11280,14 @@ function MessageBox(_ref) {
     setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
       recordStage: "beforeSend"
     }));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('screen'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('screen'));
   };
-  var _useScreenRecorder = (0,Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_7__["default"])({
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_19__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
+  var _useScreenRecorder = (0,Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_18__["default"])({
       maxRecordLength: getMaxRecordLength(),
       afterStopRecording: afterStopRecording
     }),
@@ -11415,8 +11422,8 @@ function MessageBox(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (messageType === 'video' && videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
       }
     };
     document.addEventListener("mousedown", checkIfClickedOutside);
@@ -11431,7 +11438,7 @@ function MessageBox(_ref) {
     initSetup();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateScreenTogglerContent)(getCountDown()));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateScreenTogglerContent)(getCountDown()));
   }, [recordedTimeInSecond]);
   function initSetup() {
     return _initSetup.apply(this, arguments);
@@ -11483,7 +11490,7 @@ function MessageBox(_ref) {
             case 3:
               grantedPermission = _context.sent;
               if (!grantedPermission) {
-                _context.next = 13;
+                _context.next = 15;
                 break;
               }
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
@@ -11499,11 +11506,14 @@ function MessageBox(_ref) {
               }
               return _context.abrupt("return");
             case 11:
+              _context.next = 13;
+              return startCountdown();
+            case 13:
               startRecording(_recorder);
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
                 recordStage: "startScreen"
               }));
-            case 13:
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -11552,7 +11562,7 @@ function MessageBox(_ref) {
     return selectedWindowData;
   };
   var updateWindowData = function updateWindowData(key, value) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, key, value));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, key, value));
   };
   var debouncedSearchTerm = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_6__.useDebounce)(searchTerm, 250);
 
@@ -11565,26 +11575,26 @@ function MessageBox(_ref) {
   function onConversationDelete(data) {
     var newSessionlist = data.newSessionlist;
     var newSession = newSessionlist.length ? newSessionlist[0] : null;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSelectedSession)(newSession));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSelectedSession)(newSession));
   }
 
   // Effect for API call
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var text = debouncedSearchTerm;
     if (selectedSession) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
 
       // Update Query Args
       var newSearchQueryArgs = {
         message: text
       };
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
       if (text.length) {
         // Activate Search Mode
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
       } else {
         // Inactivate Search Mode
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
       }
       loadSearchResults(newSearchQueryArgs);
     }
@@ -11641,8 +11651,8 @@ function MessageBox(_ref) {
       var sessionMessages = response.data;
 
       // Update The Store
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSession)(id, sessionMessages));
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSessionWindowData)(id));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.addSession)(id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.addSessionWindowData)(id));
       var totalPage = response.headers && Object.keys(response.headers).includes('x-wp-totalpages') ? parseInt(response.headers['x-wp-totalpages']) : 1;
       updateWindowData('totalPage', totalPage);
       setSessionMessages(sessionMessages);
@@ -11733,22 +11743,22 @@ function MessageBox(_ref) {
   var isShowingVideoSearchResult = getWindowData('isShowingVideoSearchResult');
   var isShowingVoiceSearchResult = getWindowData('isShowingVoiceSearchResult');
   var setSearchResults = function setSearchResults(results) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchResults', results));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchResults', results));
   };
   var dismisSearch = function dismisSearch() {
     // Hide Search Results
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
 
     // Reset Serch Result
     setSearchResults([]);
 
     // Reset Serch Query Args
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', {}));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', {}));
   };
   var dismissFilters = function dismissFilters() {
     dismisSearch();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
   };
 
   /* Handle Search Toggle */
@@ -11757,7 +11767,7 @@ function MessageBox(_ref) {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
     dismissFilters();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'openSearch', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'openSearch', true));
   };
   var handleDiactiveSearch = function handleDiactiveSearch(event) {
     event.preventDefault();
@@ -11765,10 +11775,10 @@ function MessageBox(_ref) {
     searchInput.setSelectionRange(0, 0);
 
     // Close search bar
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'openSearch', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'openSearch', false));
 
     // Reset search input
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', ''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', ''));
 
     // Reset Search Result
     dismisSearch();
@@ -11790,15 +11800,15 @@ function MessageBox(_ref) {
   /* Handle Video Message */
   var showReplayViaVideoMessage = function showReplayViaVideoMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('video'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('video'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Text Message */
   var showReplayViaTextMessage = function showReplayViaTextMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('text'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('text'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Voice Message */
@@ -11823,8 +11833,8 @@ function MessageBox(_ref) {
               return _context4.abrupt("return");
             case 6:
               // Show Recording UI
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('voice'));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
             case 8:
             case "end":
               return _context4.stop();
@@ -11840,7 +11850,7 @@ function MessageBox(_ref) {
   /* Handle Reply Mode */
   var haldleReplyMode = function haldleReplyMode() {
     if (messageType === 'video') {} else if (messageType === 'screen') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         recordedBold: recordedScreenBlob,
         recordUrl: recordedScreenURL,
         sessionID: selectedSession.id,
@@ -11979,7 +11989,7 @@ function MessageBox(_ref) {
               };
               _context20.prev = 1;
               _context20.next = 4;
-              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_17__["default"].createAttachment({
+              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_16__["default"].createAttachment({
                 file: file
               });
             case 4:
@@ -12053,7 +12063,7 @@ function MessageBox(_ref) {
           switch (_context8.prev = _context8.next) {
             case 0:
               defaultArgs = {
-                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_21__.getTimezoneString)(),
+                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_22__.getTimezoneString)(),
                 conversation_id: selectedSession.id,
                 page: 1
               };
@@ -12201,8 +12211,8 @@ function MessageBox(_ref) {
     setRecordedAudioSteam(null);
     setRecordedVoiceTimeInSecond(0);
     setIsRecordingVoice(false);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
   var handleVoicePlay = /*#__PURE__*/function () {
     var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(event) {
@@ -12513,7 +12523,7 @@ function MessageBox(_ref) {
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
             case 17:
             case "end":
               return _context24.stop();
@@ -12569,7 +12579,7 @@ function MessageBox(_ref) {
               updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(oldItems));
               updateWindowData('currentPage', paginationMeta.nextPage);
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
               setIsLoadingMoreMessages(false);
             case 22:
             case "end":
@@ -12585,28 +12595,28 @@ function MessageBox(_ref) {
   var updateTextSearchResult = function updateTextSearchResult(event) {
     event.preventDefault();
     var text = event.target.value;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message: text
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     if (text.length) {
       // Activate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
     } else {
       // Inactivate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
     }
     loadSearchResults(newSearchQueryArgs);
   };
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
     setMessageDirection('bottom');
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
     if (isShowingVideoSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
 
       // Close Search
       dismisSearch();
@@ -12614,21 +12624,21 @@ function MessageBox(_ref) {
     }
 
     //
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', true));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message_type: 'video'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
   };
   var filterVoiceMessages = function filterVoiceMessages(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
     if (isShowingVoiceSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
 
       // Close Search
       dismisSearch();
@@ -12636,15 +12646,15 @@ function MessageBox(_ref) {
     }
 
     //
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', true));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message_type: 'audio'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
   };
   var loadSearchResults = /*#__PURE__*/function () {
     var _ref18 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(queryArgs) {
@@ -12761,23 +12771,23 @@ function MessageBox(_ref) {
   /* Handle Load Footer Content */
   var handleFooterContent = function handleFooterContent() {
     if (messageType === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleTextClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("form", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("form", {
               onSubmit: sendTextMessage,
               autoComplete: "off",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                 ref: textMessageContentRef,
                 type: "text",
                 disabled: isSendingTextMessage,
@@ -12788,7 +12798,7 @@ function MessageBox(_ref) {
                 onChange: function onChange(event) {
                   setTextMessageContent(event.target.value);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                 type: "submit",
                 style: {
                   display: 'none'
@@ -12796,151 +12806,151 @@ function MessageBox(_ref) {
                 hidden: true
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendTextMessage() ? false : true,
               onClick: sendTextMessage,
-              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
+              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
               })
             })
           })]
         })]
       });
     } else if (messageType === 'voice') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleVoiceClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: [isRecordingVoice ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: [isRecordingVoice ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-pause",
               onClick: pauseVoiceRecording,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-controls-pause"
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-play",
               onClick: handleVoicePlay,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-controls-play"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-audio-range",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 style: {
                   width: recordedTimeLength + '%'
                 },
                 className: "wpwax-vm-audio-range-inner"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_19__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendAudioMessage() ? false : true,
               onClick: handleSendAudioMessage,
-              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
+              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
               })
             })
           })]
         })]
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [messageType === 'video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        children: [messageType === 'video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
           className: "wpwax-hg-messagebox-video-wrap",
           ref: videoToggleRef,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
             sessionID: selectedSession.id,
             onSuccess: loadLatestMessages,
             replayingTo: getReplaingToUser()
           })
-        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+        }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
           className: "wpwax-vm-messagebox-footer__text",
           children: "How would you like to answer?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-footer__actionlist",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVideoMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Video"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray',
             onClick: screenRecordState.recordStage !== "startScreen" ? handleSelectScreen : handleStopScreen,
-            children: [screenRecordState.recordStage !== "startScreen" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [screenRecordState.recordStage !== "startScreen" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_14__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: screenRecordState.recordStage === "startScreen" ? "".concat(getCountDown()) : "Screen"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVoiceMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Voice"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaTextMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Text"
             })]
@@ -12956,8 +12966,8 @@ function MessageBox(_ref) {
     if (isSendingTextMessage) {
       return;
     }
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Voice Colse */
@@ -12980,8 +12990,8 @@ function MessageBox(_ref) {
                 setRecordedAudioBlob(null);
                 setRecordedAudioSteam(null);
               }
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
             case 6:
             case "end":
               return _context18.stop();
@@ -13009,30 +13019,30 @@ function MessageBox(_ref) {
       });
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_15__.ChatBoxWrap, {
-    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_14__.ChatBoxWrap, {
+    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
       style: {
         height: '100%'
       },
       className: isLoadingSearchResults || isLoadingSession ? 'wpwax-vm-loder-active' : '',
-      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_15__.MessageBoxWrap, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_14__.MessageBoxWrap, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
-            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 users: getSessionUsers()
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: openSearch ? 'wpwax-vm-messagebox-header__right wpwax-vm-search-active' : 'wpwax-vm-messagebox-header__right',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
                 className: "wpwax-vm-messagebox-header__actionlist",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                     className: "wpwax-vm-searchbox",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                       type: "text",
                       ref: searchInputRef,
                       name: "wpwax-vm-messagebox-search"
@@ -13044,43 +13054,43 @@ function MessageBox(_ref) {
                         return setSearchTerm(e.target.value);
                       }
                     })
-                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleActiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleDiactiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "dashicons dashicons-no-alt"
                     })
                   })]
-                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVideoSearchResult ? ' active' : ''),
                     onClick: toggleFilterVideoMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Videos"
                     })]
                   })
-                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVoiceSearchResult ? ' active' : ''),
                     onClick: filterVoiceMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Voice"
                     })]
@@ -13088,20 +13098,20 @@ function MessageBox(_ref) {
                 }) : null]
               })
             })]
-          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__["default"], {
               onScroll: function onScroll(event) {
                 var scrollMeta = {
                   viewPortTop: event.target.scrollTop,
                   viewPortBottom: event.target.scrollTop + event.target.offsetHeight
                 };
-                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'messagesContainerScrollMeta', scrollMeta));
+                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'messagesContainerScrollMeta', scrollMeta));
               },
               height: getMessageBoxHeight(),
               dataLength: sessionMessages.length,
@@ -13116,7 +13126,7 @@ function MessageBox(_ref) {
               hasMore: true
               // hasMore={ getWindowData( 'currentPage' ) !== getWindowData( 'totalPage' ) }
               ,
-              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
+              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -13124,35 +13134,35 @@ function MessageBox(_ref) {
               }) : '',
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
-          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
-            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__["default"], {
               height: getMessageBoxHeight(),
               dataLength: searchResults.length,
               next: function next() {
                 loadMoreSearchResults();
               },
               hasMore: true,
-              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
+              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -13163,34 +13173,39 @@ function MessageBox(_ref) {
               },
               scrollableTarget: "scrollableDiv",
               children: searchResults.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
           }), handleFooterContent()]
-        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
           className: "wpwax-vm-replymode-wrap",
           children: haldleReplyMode()
         }) : '']
-      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_20__["default"], {}) : null]
-    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_21__["default"], {}) : null]
+    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
       style: CenterBoxStyle,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
         children: "No conversation is selected."
+      })
+    }), isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+      className: "wpwax-vm-countdown-wrap",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(CountdownPage, {
+        count: getReverseCount()
       })
     })]
   });

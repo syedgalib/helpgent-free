@@ -6,7 +6,6 @@ import Message from './components/Message.jsx';
 import Video from './components/video/Index.jsx';
 import Screen from './components/screen/Index.jsx';
 import { useDebounce } from 'Helper/hooks';
-import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
 import search from 'Assets/svg/icons/magnifier.svg';
 import videoPlay from 'Assets/svg/icons/video-play.svg';
 import mice from 'Assets/svg/icons/mice.svg';
@@ -20,14 +19,15 @@ import attachmentAPI from 'apiService/attachment-api';
 import { useScreenSize } from 'Helper/hooks';
 import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 
+import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
+import useCountdown from 'Hooks/useCountdown';
+
 import {
     handleReplyModeChange,
     handleMessageTypeChange,
 	updateSelectedSession,
     addSession,
     updateSessionMessages,
-	updateSessionMessagesByIDs,
-    updateSessionMessageItem,
     addSessionWindowData,
     updateSessionWindowData,
 } from '../../store/messages/actionCreator';
@@ -75,6 +75,13 @@ function MessageBox({ setSessionState }) {
 
 		dispatch( handleMessageTypeChange('screen') );
 	};
+
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
 
     const {
 		hasPermission,
@@ -231,6 +238,9 @@ function MessageBox({ setSessionState }) {
                 if ( ! _recorder ) {
                     return;
                 }
+
+				// Start Countdown
+				await startCountdown();
 
 				startRecording( _recorder );
 
@@ -1936,6 +1946,8 @@ function MessageBox({ setSessionState }) {
                     <h2>No conversation is selected.</h2>
                 </div>
             )}
+
+			{ isActiveCountdown && ( <div className="wpwax-vm-countdown-wrap"><CountdownPage count={getReverseCount()}/></div> ) }
         </ChatBoxWrap>
     );
 }

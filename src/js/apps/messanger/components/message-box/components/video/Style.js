@@ -13,6 +13,7 @@ const VideoReplyWrap = Styled.div`
     width: calc( 100% - 60px );
     border-radius: 30px;
     z-index: 1000001;
+	overflow: hidden;
     &:after{
         position: absolute;
         left: 0;
@@ -37,6 +38,36 @@ const VideoReplyWrap = Styled.div`
         border-radius: 0 0 30px 30px;
         background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))
     }
+
+	.wpwax-vm-reply-countdown {
+		position: absolute;
+		color: #fff;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 99999;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #7676769c;
+
+		.wpwax-vm-countdown {
+			.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
+				font-weight: bold;
+				color: #fff;
+			}
+
+			.wpwax-vm-countdown-heading {
+				font-size: 110px;
+			}
+
+			.wpwax-vm-countdown-text {
+				font-size: 30px;
+			}
+		}
+	}
+
     .wpwax-vm-reply-video-bg{
         position: absolute;
         top: 0;

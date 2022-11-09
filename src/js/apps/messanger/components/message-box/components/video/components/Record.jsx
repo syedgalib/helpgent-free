@@ -12,6 +12,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 
 import attachmentAPI from 'apiService/attachment-api';
 import useMessangerAPI from 'API/useMessangerAPI';
+import useCountdown from 'Hooks/useCountdown';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
@@ -21,6 +22,13 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
 
 	// Use API
 	const { createItem: createMessangerItem } = useMessangerAPI();
@@ -114,6 +122,10 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     // startRecording
     async function startRecording() {
+
+		// Start Countdown
+		await startCountdown();
+
         await window.wpwaxCSRecorder.startRecording();
 
         setRecordedTimeInSecond(0);
@@ -296,6 +308,9 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                         : 'wpwax-vm-reply-start'
                 }
             >
+
+				{ isActiveCountdown && ( <div className="wpwax-vm-reply-countdown"><CountdownPage count={ getReverseCount() } /></div> ) }
+
                 <div
                     className='wpwax-vm-reply-video-bg'
                     style={{ backgroundColor: '#000000' }}
@@ -307,34 +322,41 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                         muted
                     ></video>
                 </div>
-                <div className='wpwax-vm-reply-top'>
-                    <h4>
-                        {isRecording ? (
-                            <span className='wpwax-vm-timer'>
-                                {' '}
-                                {getCountDown()}
-                            </span>
-                        ) : (
-                            ''
-                        )}
-                    </h4>
-                    {isRecording || (
-                        <a
-                            href=''
-                            className='wpwax-vm-reply-close'
-                            onClick={handleClose}
-                        >
-                            <span className='dashicons dashicons-no-alt'></span>
-                        </a>
-                    )}
-                </div>
-                <div className='wpwax-vm-reply-bottom'>
-                    <a
-                        href=''
-                        className='wpwax-vm-btn-record'
-                        onClick={handleRecordButtonAction}
-                    ></a>
-                </div>
+
+                { ! isActiveCountdown && (
+					<div className='wpwax-vm-reply-top'>
+						<h4>
+							{isRecording ? (
+								<span className='wpwax-vm-timer'>
+									{' '}
+									{getCountDown()}
+								</span>
+							) : (
+								''
+							)}
+						</h4>
+						{isRecording || (
+							<a
+								href=''
+								className='wpwax-vm-reply-close'
+								onClick={handleClose}
+							>
+								<span className='dashicons dashicons-no-alt'></span>
+							</a>
+						)}
+					</div>
+				) }
+
+				{ ! isActiveCountdown && (
+					<div className='wpwax-vm-reply-bottom'>
+						<a
+							href=''
+							className='wpwax-vm-btn-record'
+							onClick={handleRecordButtonAction}
+						></a>
+					</div>
+				)}
+
             </VideoReplyWrap>
         );
     } else {

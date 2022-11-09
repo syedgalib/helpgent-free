@@ -523,7 +523,6 @@ const MessageBoxWrap = Styled.div`
                     background-color: var(--color-secondary);
                     .wpwax-vm-btn-text{
                         margin-left: 0;
-                        animation: wpwaxHgBlinking 1s linear infinite;
                     }
                 }
             }

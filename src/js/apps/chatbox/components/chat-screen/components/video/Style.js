@@ -135,6 +135,17 @@ const VideoRecordWrap = Styled.div`
 			top: 0;
 			bottom: 0;
         }
+        .wpwax-vm-record-staging__countdown {
+			position: relative;
+			z-index: 9999;
+			color: #fff;
+
+			.wpwax-vm-countdown {
+				.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
+					font-weight: bold;
+				}
+			}
+		}
         .wpwax-vm-record-staging__top{
             position: absolute;
             left: 0;

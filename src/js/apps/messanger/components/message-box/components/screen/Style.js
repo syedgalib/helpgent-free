@@ -36,6 +36,21 @@ const VideoReplyWrap = Styled.div`
         content: "";
         background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))
     }
+
+	.wpwax-vm-reply-countdown {
+		position: relative;
+		z-index: 99999;
+		color: #fff;
+		top: 50%;
+		transform: translate(0,-50%);
+
+		.wpwax-vm-countdown {
+			.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
+				font-weight: bold;
+			}
+		}
+	}
+
     .wpwax-vm-reply-video-bg{
         position: absolute;
         top: 0;

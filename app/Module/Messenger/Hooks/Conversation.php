@@ -102,6 +102,8 @@ class Conversation {
 			'where' => [ 'conversation_id' => $conversation_id ]
 		]);
 
+		$messages = $messages['results'];
+		
 		if ( empty( $messages ) ) {
 			Conversation_Model::delete_meta( 'last_message_id' );
 			return;

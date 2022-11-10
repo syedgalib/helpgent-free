@@ -77,6 +77,8 @@ class Conversation {
 			]
 		]);
 
+		$messages = $messages['results'];
+
 		if ( count( $messages ) === 1 ) {
 			Conversation_Model::update_meta( $conversation_id, 'first_message_id', $message['id'] );
 			Conversation_Model::update_meta( $conversation_id, 'last_message_id', $message['id'] );

@@ -105,6 +105,8 @@ class Message_Notification_Emails {
             'group_by' => 'conversation_id'
         ]);
 
+        $messages = $messages['results'];
+
 		if ( ! empty( $messages ) ) {
             return true;
         }
@@ -123,6 +125,9 @@ class Message_Notification_Emails {
             ],
             'group_by' => 'conversation_id'
         ]);
+
+        $messages = $messages['results'];
+
 		if ( count( $messages ) === 1) {
             return true;
         }
@@ -133,6 +138,8 @@ class Message_Notification_Emails {
     public function is_first_message_in_conversation( $conversation_id ) {
         $messages = Message_Model::get_items(['where' => ['conversation_id' => $conversation_id]]);
 
+        $messages = $messages['results'];
+        
 		if ( count( $messages ) === 1) {
             return true;
         }

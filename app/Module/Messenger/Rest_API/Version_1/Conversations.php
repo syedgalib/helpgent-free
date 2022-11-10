@@ -518,6 +518,8 @@ class Conversations extends Rest_Base
 
 		$messages = Message_Model::get_items( $args );
 
+		$messages = $messages['results'];
+
 		if ( empty( $messages ) ) {
 			return [];
 		}
@@ -584,6 +586,8 @@ class Conversations extends Rest_Base
 
 		$messages = Message_Model::get_items( $messages_args );
 
+		$messages = $messages['results'];
+		
 		foreach( $messages as $message ) {
 			Message_Model::delete_item( $message['id'] );
 		}

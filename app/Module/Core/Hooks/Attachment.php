@@ -106,6 +106,8 @@ class Attachment {
 
 		$attachment_sessions = Message_Model::get_items( $attachment_args );
 
+		$attachment_sessions = $attachment_sessions['results'];
+
 		if ( empty( $attachment_sessions ) ) {
 			return false;
 		}
@@ -123,6 +125,8 @@ class Attachment {
 		];
 
 		$user_sessions = Message_Model::get_items( $user_message_args );
+
+		$user_sessions = $user_sessions['results'];
 
 		if ( empty( $user_sessions ) ) {
 			return false;

@@ -12,8 +12,8 @@ module.exports = {
     'messenger-public': '/src/js/public/messenger-public.js',
     'messenger-admin': '/src/js/admin/messenger-admin.js',
 
-    // Chatbox Template Module
-    'chatbox-template-admin': '/src/js/admin/chatbox-template-admin.js',
+    // Forms Module
+    'forms-admin': '/src/js/admin/forms-admin.js',
 
     // Settings Panel Module
     'settings-panel-admin': '/src/js/admin/settings-panel-admin.js',

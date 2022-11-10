@@ -56,8 +56,6 @@ class Auth_Token_Model extends DB_Model {
 
 		$query = $select . $where . $pagination;
 
-		file_put_contents( WPWAX_CUSTOMER_SUPPORT_APP_BASE . '__log/token.sql', $query );
-
 		return $wpdb->get_results( $query, ARRAY_A );
 
     }

@@ -127,8 +127,6 @@ class Message_Model extends DB_Model {
 			$total_pages = ( $remider > 0 ) ? $total_pages + 1 : $total_pages;
 		}
 
-		file_put_contents( WPWAX_CUSTOMER_SUPPORT_APP_BASE . '__log/message.sql', $query );
-
 		$data = [
 			'results'     => $results,
 			'found_items' => $found_items,

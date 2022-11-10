@@ -328,27 +328,6 @@ const GeneralSettings = () => {
                     </div>
                 </div>
             </div>
-            <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label wpwax-vm-mb-0'>
-                    <span>Receive email upon message submission</span>
-                    <label>
-                        <Switch
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor='#6551f2'
-                            offColor='#E2E2E2'
-                            onHandleColor='#FFFFFF'
-                            className='wpwax-vm-switch'
-                            id='wpwax-vm-send-mail'
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            checked={sendMail}
-                            onChange={handleChangeSwitchValue}
-                        />
-                    </label>
-                </div>
-            </div>
         </GeneralSettingWrap>
     );
 };

@@ -84,6 +84,7 @@ function MessageBox({ setSessionState }) {
 	} = useCountdown();
 
     const {
+		isRecording,
 		hasPermission,
 		requestPermission,
 		recordedScreenBlob,
@@ -680,6 +681,9 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
+		// Voice Play
+		voicePlay();
+
         // Show Recording UI
         dispatch(handleMessageTypeChange('voice'));
         dispatch(handleReplyModeChange(false));
@@ -763,6 +767,7 @@ function MessageBox({ setSessionState }) {
                 : defaultArgs;
 
 
+		setRecordedVoiceTimeInSecond(0);
         stopVoiceTimer();
 
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
@@ -944,6 +949,10 @@ function MessageBox({ setSessionState }) {
 
     const handleVoicePlay = async function (event){
         event.preventDefault();
+        voicePlay();
+    }
+
+    const voicePlay = async function (){
         // Prepare Voice Recording;
         if(recordedAudioSteam){
             resumeVoiceRecording();
@@ -1490,12 +1499,13 @@ function MessageBox({ setSessionState }) {
                         <div className='wpwax-vm-messagebox-reply__input'>
 
                             {
-                                isRecordingVoice ? <a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
+                                isRecordingVoice ?
+								<a href='#' className='wpwax-vm-messagebox-reply-voice-pause' onClick={pauseVoiceRecording}>
                                     <span className='dashicons dashicons-controls-pause'></span>
                                 </a>
                                 :
                                 <a href='#' className='wpwax-vm-messagebox-reply-voice-play' onClick={handleVoicePlay}>
-                                    <span className='dashicons dashicons-controls-play'></span>
+                                    <span className='dashicons dashicons-microphone'></span>
                                 </a>
                             }
 
@@ -1550,20 +1560,29 @@ function MessageBox({ setSessionState }) {
                             </div>
                          : null
                     }
-                    <span className='wpwax-vm-messagebox-footer__text'>
-                        How would you like to answer?
-                    </span>
+
+					{ ! isRecording && (
+						<span className='wpwax-vm-messagebox-footer__text'>
+							How would you like to answer?
+						</span>
+					) }
+
                     <div className='wpwax-vm-messagebox-footer__actionlist'>
-                        <a
-                            href='#'
-                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
-                            onClick={showReplayViaVideoMessage}
-                        >
-                            <div className='wpwax-vm-btn-icon'>
-                                <ReactSVG src={videoPlay} />
-                            </div>
-                            <span className='wpwax-vm-btn-text'>Video</span>
-                        </a>
+
+						{ ! isRecording && (
+							<a
+								href='#'
+								className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
+								onClick={showReplayViaVideoMessage}
+							>
+								<div className='wpwax-vm-btn-icon'>
+									<ReactSVG src={videoPlay} />
+								</div>
+								<span className='wpwax-vm-btn-text'>Video</span>
+							</a>
+						) }
+
+
                         <a
                             href='#'
                             className={screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'}
@@ -1574,26 +1593,33 @@ function MessageBox({ setSessionState }) {
                             }
                             <span className={ ( recordingIsGoingToStopSoon ) ? 'wpwax-vm-btn-text wpwax-vm-blinking-text' : 'wpwax-vm-btn-text' }>{screenRecordState.recordStage === "startScreen" ?  `${getCountDown()}` : "Screen"}</span>
                         </a>
-                        <a
-                            href='#'
-                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
-                            onClick={showReplayViaVoiceMessage}
-                        >
-                            <div className='wpwax-vm-btn-icon'>
-                                <ReactSVG src={mice} />
-                            </div>
-                            <span className='wpwax-vm-btn-text'>Voice</span>
-                        </a>
-                        <a
-                            href='#'
-                            className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
-                            onClick={showReplayViaTextMessage}
-                        >
-                            <div className='wpwax-vm-btn-icon'>
-                                <ReactSVG src={textIcon} />
-                            </div>
-                            <span className='wpwax-vm-btn-text'>Text</span>
-                        </a>
+
+						{ ! isRecording && (
+							<a
+								href='#'
+								className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
+								onClick={showReplayViaVoiceMessage}
+							>
+								<div className='wpwax-vm-btn-icon'>
+									<ReactSVG src={mice} />
+								</div>
+								<span className='wpwax-vm-btn-text'>Voice</span>
+							</a>
+						) }
+
+						{ ! isRecording && (
+							<a
+								href='#'
+								className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray'
+								onClick={showReplayViaTextMessage}
+							>
+								<div className='wpwax-vm-btn-icon'>
+									<ReactSVG src={textIcon} />
+								</div>
+								<span className='wpwax-vm-btn-text'>Text</span>
+							</a>
+						) }
+
                     </div>
                 </div>
             );
@@ -1620,15 +1646,8 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        if (isRecordingVoice) {
-            stopVoiceRecording();
-        } else {
-            setRecordedAudioBlob(null);
-            setRecordedAudioSteam(null);
-        }
-
-        dispatch(handleMessageTypeChange(''));
-        dispatch(handleReplyModeChange(false));
+        stopVoiceRecording();
+		closeVoiceChat();
     };
 
     const handleScrollBottom = (event) => {

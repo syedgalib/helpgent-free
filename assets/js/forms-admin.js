@@ -8155,6 +8155,9 @@ var FormSettings = function FormSettings() {
       button: {
         text: 'Use this media'
       },
+      library: {
+        type: ['video', 'image']
+      },
       multiple: false // Set to true to allow multiple files to be selected
     });
 

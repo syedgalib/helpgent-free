@@ -124,12 +124,10 @@ const SetingBoxWrap = Styled.div`
         }
         .wpwax-vm-seetings-box__actions{
             display: flex;
-            align-items: center;
-            p{
-                font-size: 14px;
-                margin: 0 15px 0 0;
-                color: var(--color-white);
-            }
+			> p {
+				margin-right: 10px;
+				color: #12e774;
+			}
             .wpwax-vm-seetings-box-search{
                 margin-right: 25px;
                 input{
@@ -399,7 +397,7 @@ const SettingContentWrap = Styled.div`
                     min-height: 44px;
                 }
                 textarea.wpwax-vm-form__element{
-                    min-height: 120px;
+                    min-height: 80px;
                 }
             }
         }

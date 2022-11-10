@@ -288,7 +288,7 @@
     textarea {
         &.wpwax-vm-form__element {
             min-height: 100px;
-            resize: none;
+            resize: vertical;
         }
     }
 

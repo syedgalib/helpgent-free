@@ -36,7 +36,7 @@ const DeleteConfirm = props => {
         
         await deleteConversation(deleteBy)
         .then(response => {
-            const newSessionlist = sessions.filter(item=> item.session_id !== deleteBy);
+            const newSessionlist = sessions.filter(item=> item.id !== deleteBy);
             dispatch(handleReadSessions(newSessionlist));
             setOuterState({
                 ...outerState,

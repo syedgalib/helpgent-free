@@ -9151,29 +9151,6 @@ var GeneralSettings = function GeneralSettings() {
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-      className: "wpwax-vm-form-group",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "wpwax-vm-form-group__label wpwax-vm-mb-0",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          children: "Receive email upon message submission"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            uncheckedIcon: false,
-            checkedIcon: false,
-            onColor: "#6551f2",
-            offColor: "#E2E2E2",
-            onHandleColor: "#FFFFFF",
-            className: "wpwax-vm-switch",
-            id: "wpwax-vm-send-mail",
-            handleDiameter: 14,
-            height: 22,
-            width: 40,
-            checked: sendMail,
-            onChange: handleChangeSwitchValue
-          })
-        })]
-      })
     })]
   });
 };

@@ -10597,7 +10597,7 @@ var DeleteConfirm = function DeleteConfirm(props) {
               _context.next = 3;
               return deleteConversation(deleteBy).then(function (response) {
                 var newSessionlist = sessions.filter(function (item) {
-                  return item.session_id !== deleteBy;
+                  return item.id !== deleteBy;
                 });
                 dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_4__.handleReadSessions)(newSessionlist));
                 setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {

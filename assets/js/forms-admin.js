@@ -8182,6 +8182,23 @@ var FormSettings = function FormSettings() {
     // Finally, open the modal on click
     frame.open();
   };
+  function getActiveReplayTypeCount() {
+    var replayTypes = ['video', 'voice', 'text', 'screen_record'];
+    var count = replayTypes.map(function (item) {
+      return chatReplyType.indexOf(item) !== -1 ? 1 : 0;
+    }).reduce(function (total, current) {
+      return total + current;
+    });
+    return count;
+  }
+  function shouldDisabledReplayType(replayType) {
+    var count = getActiveReplayTypeCount();
+    var isActive = chatReplyType.indexOf(replayType) !== -1;
+    if (count < 2 && isActive) {
+      return true;
+    }
+    return false;
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_10__.FormSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -8330,6 +8347,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
             }), " Video"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('video'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8350,6 +8368,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
             }), "Voice"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('voice'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8370,6 +8389,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
             }), "Text"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('text'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8390,6 +8410,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
             }), "Screen"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('screen_record'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",

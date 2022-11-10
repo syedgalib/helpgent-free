@@ -79,8 +79,8 @@ class Admin_Asset extends Enqueuer
     {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-chatbox-template-admin-script'] = [
-            'file_name' => 'chatbox-template-admin',
+        $scripts['wpwax-customer-support-app-forms-admin-script'] = [
+            'file_name' => 'forms-admin',
             'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
             'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/chatboxTemplate/js/admin/',
             'deps'      => [],

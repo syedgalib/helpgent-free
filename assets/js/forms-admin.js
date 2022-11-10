@@ -6851,15 +6851,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/App.jsx":
-/*!**************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/App.jsx ***!
-  \**************************************************/
+/***/ "./src/js/apps/all-forms/App.jsx":
+/*!***************************************!*\
+  !*** ./src/js/apps/all-forms/App.jsx ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_form_table_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/form-table/Index.jsx */ "./src/js/apps/form-builder-archive/components/form-table/Index.jsx");
+/* harmony import */ var _components_form_table_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/form-table/Index.jsx */ "./src/js/apps/all-forms/components/form-table/Index.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -6876,16 +6876,16 @@ function App() {
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/components/form-table/Index.jsx":
-/*!**************************************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/components/form-table/Index.jsx ***!
-  \**************************************************************************/
+/***/ "./src/js/apps/all-forms/components/form-table/Index.jsx":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/form-table/Index.jsx ***!
+  \***************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/js/apps/form-builder-archive/components/pageheader/Index.jsx");
-/* harmony import */ var _components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Table.jsx */ "./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx");
+/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/js/apps/all-forms/components/pageheader/Index.jsx");
+/* harmony import */ var _components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Table.jsx */ "./src/js/apps/all-forms/components/form-table/components/Table.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -6901,10 +6901,10 @@ function FormTable() {
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/components/form-table/components/Style.js":
-/*!************************************************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/components/form-table/components/Style.js ***!
-  \************************************************************************************/
+/***/ "./src/js/apps/all-forms/components/form-table/components/Style.js":
+/*!*************************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/form-table/components/Style.js ***!
+  \*************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6918,10 +6918,10 @@ var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx":
-/*!*************************************************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/components/form-table/components/Table.jsx ***!
-  \*************************************************************************************/
+/***/ "./src/js/apps/all-forms/components/form-table/components/Table.jsx":
+/*!**************************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/form-table/components/Table.jsx ***!
+  \**************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6931,7 +6931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! API/useFormAPI.js */ "./src/js/helpers/hooks/api/useFormAPI.js");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder-archive/components/form-table/components/Style.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Style */ "./src/js/apps/all-forms/components/form-table/components/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -7270,17 +7270,17 @@ var Table = function Table() {
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/components/pageheader/Index.jsx":
-/*!**************************************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/components/pageheader/Index.jsx ***!
-  \**************************************************************************/
+/***/ "./src/js/apps/all-forms/components/pageheader/Index.jsx":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/pageheader/Index.jsx ***!
+  \***************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder-archive/components/pageheader/Style.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/js/apps/all-forms/components/pageheader/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -7305,10 +7305,10 @@ var PageHeader = function PageHeader() {
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/components/pageheader/Style.js":
-/*!*************************************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/components/pageheader/Style.js ***!
-  \*************************************************************************/
+/***/ "./src/js/apps/all-forms/components/pageheader/Style.js":
+/*!**************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/pageheader/Style.js ***!
+  \**************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7322,16 +7322,16 @@ var PageHeaderStyle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].
 
 /***/ }),
 
-/***/ "./src/js/apps/form-builder-archive/index.jsx":
-/*!****************************************************!*\
-  !*** ./src/js/apps/form-builder-archive/index.jsx ***!
-  \****************************************************/
+/***/ "./src/js/apps/all-forms/index.jsx":
+/*!*****************************************!*\
+  !*** ./src/js/apps/all-forms/index.jsx ***!
+  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/js/apps/form-builder-archive/App.jsx");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.jsx */ "./src/js/apps/all-forms/App.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -8182,6 +8182,23 @@ var FormSettings = function FormSettings() {
     // Finally, open the modal on click
     frame.open();
   };
+  function getActiveReplayTypeCount() {
+    var replayTypes = ['video', 'voice', 'text', 'screen_record'];
+    var count = replayTypes.map(function (item) {
+      return chatReplyType.indexOf(item) !== -1 ? 1 : 0;
+    }).reduce(function (total, current) {
+      return total + current;
+    });
+    return count;
+  }
+  function shouldDisabledReplayType(replayType) {
+    var count = getActiveReplayTypeCount();
+    var isActive = chatReplyType.indexOf(replayType) !== -1;
+    if (count < 2 && isActive) {
+      return true;
+    }
+    return false;
+  }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_10__.FormSettingsWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -8330,6 +8347,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
             }), " Video"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('video'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8350,6 +8368,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
             }), "Voice"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('voice'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8370,6 +8389,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
             }), "Text"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('text'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -8390,6 +8410,7 @@ var FormSettings = function FormSettings() {
               src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
             }), "Screen"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            disabled: shouldDisabledReplayType('screen_record'),
             uncheckedIcon: false,
             checkedIcon: false,
             onColor: "#6551f2",
@@ -59330,15 +59351,15 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/*!************************************************!*\
-  !*** ./src/js/admin/chatbox-template-admin.js ***!
-  \************************************************/
+/*!*************************************!*\
+  !*** ./src/js/admin/forms-admin.js ***!
+  \*************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Apps_form_builder_index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Apps/form-builder/index.jsx */ "./src/js/apps/form-builder/index.jsx");
-/* harmony import */ var Apps_form_builder_archive_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Apps/form-builder-archive/index.jsx */ "./src/js/apps/form-builder-archive/index.jsx");
+/* harmony import */ var Apps_all_forms_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Apps/all-forms/index.jsx */ "./src/js/apps/all-forms/index.jsx");
 
 
 }();
 /******/ })()
 ;
-//# sourceMappingURL=chatbox-template-admin.js.map
+//# sourceMappingURL=forms-admin.js.map

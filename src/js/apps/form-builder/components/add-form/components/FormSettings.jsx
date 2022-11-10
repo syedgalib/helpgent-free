@@ -192,6 +192,29 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
+
+
+	function getActiveReplayTypeCount() {
+		const replayTypes = [ 'video', 'voice', 'text', 'screen_record' ];
+
+		const count = replayTypes
+			.map( item => chatReplyType.indexOf( item ) !== -1 ? 1 : 0 )
+			.reduce( ( total, current ) => total + current );
+
+		return count;
+	}
+
+	function shouldDisabledReplayType( replayType ) {
+		const count    = getActiveReplayTypeCount();
+		const isActive = chatReplyType.indexOf( replayType ) !== -1;
+
+		if ( count < 2 && isActive ) {
+			return true;
+		}
+
+		return false;
+	}
+
     return (
         <FormSettingsWrap>
             <div className='wpwax-vm-form-group'>
@@ -278,6 +301,7 @@ const FormSettings = () => {
                     <div className="wpwax-vm-switch-single">
                         <span><ReactSVG src={videoIcon}/> Video</span>
                         <Switch
+							disabled={ shouldDisabledReplayType( 'video' )  }
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor="#6551f2"
@@ -295,6 +319,7 @@ const FormSettings = () => {
                     <div className="wpwax-vm-switch-single">
                         <span><ReactSVG src={miceIcon}/>Voice</span>
                         <Switch
+							disabled={ shouldDisabledReplayType( 'voice' ) }
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor="#6551f2"
@@ -312,6 +337,7 @@ const FormSettings = () => {
                     <div className="wpwax-vm-switch-single">
                         <span><ReactSVG src={textIcon}/>Text</span>
                         <Switch
+							disabled={ shouldDisabledReplayType( 'text' ) }
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor="#6551f2"
@@ -329,6 +355,7 @@ const FormSettings = () => {
                     <div className="wpwax-vm-switch-single">
                         <span><ReactSVG src={recordIcon}/>Screen</span>
                         <Switch
+							disabled={ shouldDisabledReplayType( 'screen_record' ) }
                             uncheckedIcon={false}
                             checkedIcon={false}
                             onColor="#6551f2"

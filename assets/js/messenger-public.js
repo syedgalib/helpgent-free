@@ -6780,7 +6780,7 @@ function Theme_2() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var Assets_svg_icons_window_minimize_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/svg/icons/window-minimize.svg */ "./src/assets/svg/icons/window-minimize.svg");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
@@ -6793,7 +6793,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../../../store/forms/messenger/messageTypes */ "./src/js/apps/chatbox/store/forms/messenger/messageTypes.js");
 /* harmony import */ var API_useAttachmentAPI__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! API/useAttachmentAPI */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
 /* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -6807,6 +6808,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -6838,6 +6840,11 @@ function ScreenRecord() {
   // Hooks
   var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_12__["default"])(),
     needToGoContactPage = _useChatboxController.needToGoContactPage;
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_13__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
   var _useAttachmentAPI = (0,API_useAttachmentAPI__WEBPACK_IMPORTED_MODULE_11__["default"])(),
     createAttachmentItem = _useAttachmentAPI.createItem;
   var afterStopRecording = function afterStopRecording() {
@@ -6854,10 +6861,12 @@ function ScreenRecord() {
     permissionDenied = _useScreenRecorder.permissionDenied,
     recordedScreenBlob = _useScreenRecorder.recordedScreenBlob,
     recordedScreenURL = _useScreenRecorder.recordedScreenURL,
+    setupStream = _useScreenRecorder.setupStream,
     startRecording = _useScreenRecorder.startRecording,
     stopRecording = _useScreenRecorder.stopRecording,
     recordedTimeInSecond = _useScreenRecorder.recordedTimeInSecond,
     getCountDown = _useScreenRecorder.getCountDown,
+    recordingIsGoingToStopSoon = _useScreenRecorder.recordingIsGoingToStopSoon,
     reset = _useScreenRecorder.reset;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       recordStage: "request_permission"
@@ -6944,34 +6953,39 @@ function ScreenRecord() {
   };
   var handleSelectScreen = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-      var hasStarted;
+      var _recorder;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               event.preventDefault();
               if (!(state.recordStage === "startScreen")) {
-                _context.next = 10;
+                _context.next = 14;
                 break;
               }
               _context.next = 4;
-              return startRecording();
+              return setupStream();
             case 4:
-              hasStarted = _context.sent;
-              if (hasStarted) {
+              _recorder = _context.sent;
+              if (_recorder) {
                 _context.next = 7;
                 break;
               }
               return _context.abrupt("return");
             case 7:
+              _context.next = 9;
+              return startCountdown();
+            case 9:
+              startRecording(_recorder);
+              handleMinizeScreen();
               setState(_objectSpread(_objectSpread({}, state), {}, {
                 recordStage: "stopScreen"
               }));
-              _context.next = 11;
+              _context.next = 15;
               break;
-            case 10:
+            case 14:
               stopRecording();
-            case 11:
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -7068,46 +7082,46 @@ function ScreenRecord() {
     }));
   };
   if (state.recordStage === "request_permission") {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-record-permission",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record video, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_7__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: handleRequestPermission,
         children: "Request Permission"
-      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   }
   if (state.recordStage === "startScreen" || state.recordStage === "stopScreen") {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-hg-screenrecord-box",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "wpwax-hg-screenrecord-top",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
             className: "wpwax-hg-record-timer",
             children: getCountDown()
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-hg-btn-minimize",
             onClick: handleMinizeScreen,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__["default"], {
               src: Assets_svg_icons_window_minimize_svg__WEBPACK_IMPORTED_MODULE_2__["default"]
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
           className: "wpwax-hg-screenrecord-action",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-block wpwax-vm-btn-primary",
             onClick: function onClick(e) {
@@ -7116,35 +7130,40 @@ function ScreenRecord() {
             children: state.recordStage === "startScreen" ? "Select Screen" : "Stop Recording"
           })
         })]
-      })
+      }), isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
+        className: "wpwax-vm-countdown-wrap",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(CountdownPage, {
+          count: getReverseCount()
+        })
+      })]
     });
   } else if (state.recordStage === "beforeSend") {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-record-ready",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("form", {
         action: "#",
         className: "wpwax-vm-form",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
           className: "wpwax-vm-recored-video",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
             className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("video", {
               controls: true,
               src: recordedScreenURL
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "wpwax-vm-form-bottom",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
             children: "Ready to send?"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("a", {
             href: "#",
             onClick: handleUpload,
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10",
-            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__["default"], {
               src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               return goBack(e);
@@ -7156,31 +7175,31 @@ function ScreenRecord() {
       })
     });
   } else if (state.recordStage === "uploading") {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-record-send-progress",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content wpwax-vm-text-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
             children: "Uploading"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("h4", {
           children: "We\u2019re currently uploading your file."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
           className: "wpwax-vm-danger-text wpwax-vm-danger-text",
           children: "Please don\u2019t leave this page!"
         })]
       })
     });
   } else if (state.recordStage === "upload_failed") {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Style_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "wpwax-vm-record-ready",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("p", {
           className: "wpwax-vm-danger-text wpwax-vm-mb-20 wpwax-vm-danger-text wpwax-vm-text-center",
           children: "Couldn't upload the file, please try again."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("a", {
           href: "#",
           onClick: tryUploadAgain,
           className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
@@ -7787,7 +7806,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var VideoHomeWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    padding: 0 25px 0;\n    border-radius: 25px;\n    /* min-width: 420px; */\n    height: min(80vh,620px);\n    box-sizing: border-box;\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-vm-video-home{\n        width: 100%;\n        font-family: var(--font-family);\n    }\n    .wpwax-vm-video-home__title{\n        font-size: 18px;\n        font-weight: 600;\n        font-family: var(--font-family);\n        margin: 0 0 30px;\n        color: var(--color-dark);\n        @media only screen and (max-width: 767px){\n            font-size: 15px;\n        }\n    }\n    .wpwax-vm-video-home__btns{\n        a,\n        span{\n            font-family: var(--font-family);\n            display: flex;\n            justify-content: center;\n        }\n        span{\n            font-size: 13px;\n            font-weight: 500;\n            margin: 12px 0;\n            display: inline-block;\n        }\n    }\n    .wpwax-vm-btn{\n        &.wpwax-vm-btn-light{\n            color: var(--color-dark);\n            background-color: var(--color-border-light);\n            &:hover{\n                color: var(--color-dark);\n                background-color: #cfd1d4;\n            }\n        }\n    }\n    .wpwax-vm-short-text{\n        font-size: 12px;\n        font-weight: 500;\n        font-family: var(--font-family);\n        color: #898989;\n        margin: 0;\n    }\n"])));
-var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n    padding: 0 25px;\n    height: min(80vh,620px);\n    /* min-width: 420px; */\n    box-sizing: border-box;\n    text-align: center;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        font-family: var(--font-family);\n        color: var(--color-dark);\n    }\n    &.wpwax-vm-record-permission{\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            margin: 28px 0 0;\n            min-height: 54px;\n            width: 100%;\n            box-sizing: border-box;\n        }\n        .wpwax-video-screen-title{\n            margin-top: 0;\n        }\n        .wpwax-vm-alert{\n            width: 100%;\n            margin-top: 15px;\n            box-sizing: border-box;\n        }\n    }\n    &.wpwax-vm-record-staging{\n        z-index: 101;\n\t\theight: min(80vh,620px);\n        animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n        &:after,\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 20%;\n            content: '';\n            z-index: 1;\n            opacity: .8;\n            background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        &:after{\n            top: -2px;\n            border-radius: 25px 25px 0 0;\n        }\n        &:before{\n            top: auto;\n            bottom: 0;\n            border-radius: 0 0 25px 25px;\n            opacity: .6;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        video{\n\t\t\tposition: absolute;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder-radius: 25px;\n\t\t\tobject-fit: cover;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n        }\n        .wpwax-vm-record-staging__top{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            font-family: var(--font-family);\n            display: flex;\n            justify-content: space-between;\n            z-index: 10;\n            .wpwax-vm-record-staging__title{\n                font-size: 26px;\n                font-weight: 600;\n                text-align: left;\n                margin: 0;\n                padding: 30px;\n                color: var(--color-white);\n                .wpwax-vm-timer{\n                    display: block;\n                    margin: 6px 0 0;\n                }\n            }\n            .wpwax-vm-record-staging__btn-expand{\n                position: absolute;\n                right: 15px;\n                top: 30px;\n            }\n        }\n        .wpwax-vm-record-staging__action{\n            position: absolute;\n            left: 50%;\n            bottom: 30px;\n            transform: translateX(-50%);\n            z-index: 101;\n            &.wpwax-vm-record-start{\n                .wpwax-vm-btn-record{\n                    background-color: var(--color-danger);\n                    &:after{\n                        border-radius: 8px;\n                        background-color: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-btn-record{\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-record-ready{\n        padding: 80px 25px;\n        .wpwax-vm-form{\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            height: 100%;\n        }\n        .wpwax-vm-text-reply{\n            .wpwax-vm-form-group{\n                .wpwax-vm-form__element{\n                    background-color: transparent;\n                    &:focus{\n                        outline: 0 none;\n                        border: 0 none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-recored-video{\n            margin-bottom: 40px;\n            position: relative;\n            .wpwax-vm-recorded-preview{\n                position: relative;\n                border-radius: 15px;\n                background-size: cover;\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 100%;\n                    height: auto;\n                    object-fit: cover;\n\t\t\t\t\tborder-radius: 15px;\n\t\t\t\t}\n            }\n            .wpwax-vm-recored-video__play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                width: 60px;\n                height: 60px;\n                margin: 0 auto;\n                border-radius: 50%;\n                background-color: var(--color-white);\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                div{\n                    line-height: .5;\n                    svg {\n                        width: 16px;\n                        height: 16px;\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-bottom{\n            p{\n                font-size: 20px;\n                font-weight: 600;\n                margin-bottom: 18px;\n            }\n            .wpwax-vm-btn{\n                svg{\n                    position: relative;\n                    top: 0;\n                    margin-left: 10px;\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n            .wpwax-vm-btn-link{\n                display: block;\n                text-decoration: none;\n                font-size: 16px;\n                font-weight: 600;\n                margin-top: 14px;\n                &:hover{\n                    color: var(--color-primary);\n                }\n            }\n        }\n    }\n"])));
+var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: relative;\n    padding: 0 25px;\n    height: min(80vh,620px);\n    /* min-width: 420px; */\n    box-sizing: border-box;\n    text-align: center;\n    font-family: var(--font-family);\n    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n    .wpwax-video-screen-title{\n        font-size: 18px;\n        font-weight: 500;\n        font-family: var(--font-family);\n        color: var(--color-dark);\n    }\n    &.wpwax-vm-record-permission{\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            margin: 28px 0 0;\n            min-height: 54px;\n            width: 100%;\n            box-sizing: border-box;\n        }\n        .wpwax-video-screen-title{\n            margin-top: 0;\n        }\n        .wpwax-vm-alert{\n            width: 100%;\n            margin-top: 15px;\n            box-sizing: border-box;\n        }\n    }\n    &.wpwax-vm-record-staging{\n        z-index: 101;\n\t\theight: min(80vh,620px);\n        animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;\n        &:after,\n        &:before{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 20%;\n            content: '';\n            z-index: 1;\n            opacity: .8;\n            background-image: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        &:after{\n            top: -2px;\n            border-radius: 25px 25px 0 0;\n        }\n        &:before{\n            top: auto;\n            bottom: 0;\n            border-radius: 0 0 25px 25px;\n            opacity: .6;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1));\n        }\n        video{\n\t\t\tposition: absolute;\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tborder-radius: 25px;\n\t\t\tobject-fit: cover;\n\t\t\tleft: 0;\n\t\t\tright: 0;\n\t\t\ttop: 0;\n\t\t\tbottom: 0;\n        }\n        .wpwax-vm-record-staging__countdown {\n\t\t\tposition: relative;\n\t\t\tz-index: 9999;\n\t\t\tcolor: #fff;\n\n\t\t\t.wpwax-vm-countdown {\n\t\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\t\tfont-weight: bold;\n\t\t\t\t}\n\t\t\t}\n\t\t}\n        .wpwax-vm-record-staging__top{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            font-family: var(--font-family);\n            display: flex;\n            justify-content: space-between;\n            z-index: 10;\n            .wpwax-vm-record-staging__title{\n                font-size: 26px;\n                font-weight: 600;\n                text-align: left;\n                margin: 0;\n                padding: 30px;\n                color: var(--color-white);\n                .wpwax-vm-timer{\n                    display: block;\n                    margin: 6px 0 0;\n                }\n            }\n            .wpwax-vm-record-staging__btn-expand{\n                position: absolute;\n                right: 15px;\n                top: 30px;\n            }\n        }\n        .wpwax-vm-record-staging__action{\n            position: absolute;\n            left: 50%;\n            bottom: 30px;\n            transform: translateX(-50%);\n            z-index: 101;\n            &.wpwax-vm-record-start{\n                .wpwax-vm-btn-record{\n                    background-color: var(--color-danger);\n                    &:after{\n                        border-radius: 8px;\n                        background-color: var(--color-white);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-btn-record{\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            &:after{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                content: \"\";\n                z-index: 101;\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-record-ready{\n        padding: 80px 25px;\n        .wpwax-vm-form{\n            position: relative;\n            display: flex;\n            flex-direction: column;\n            justify-content: center;\n            height: 100%;\n        }\n        .wpwax-vm-text-reply{\n            .wpwax-vm-form-group{\n                .wpwax-vm-form__element{\n                    background-color: transparent;\n                    &:focus{\n                        outline: 0 none;\n                        border: 0 none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-recored-video{\n            margin-bottom: 40px;\n            position: relative;\n            .wpwax-vm-recorded-preview{\n                position: relative;\n                border-radius: 15px;\n                background-size: cover;\n\t\t\t\tvideo {\n\t\t\t\t\twidth: 100%;\n                    height: auto;\n                    object-fit: cover;\n\t\t\t\t\tborder-radius: 15px;\n\t\t\t\t}\n            }\n            .wpwax-vm-recored-video__play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                width: 60px;\n                height: 60px;\n                margin: 0 auto;\n                border-radius: 50%;\n                background-color: var(--color-white);\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                div{\n                    line-height: .5;\n                    svg {\n                        width: 16px;\n                        height: 16px;\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n            }\n        }\n        .wpwax-vm-form-bottom{\n            p{\n                font-size: 20px;\n                font-weight: 600;\n                margin-bottom: 18px;\n            }\n            .wpwax-vm-btn{\n                svg{\n                    position: relative;\n                    top: 0;\n                    margin-left: 10px;\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n            .wpwax-vm-btn-link{\n                display: block;\n                text-decoration: none;\n                font-size: 16px;\n                font-weight: 600;\n                margin-top: 14px;\n                &:hover{\n                    color: var(--color-primary);\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -7802,7 +7821,7 @@ var VideoRecordWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Style */ "./src/js/apps/chatbox/components/chat-screen/components/video/Style.js");
 /* harmony import */ var Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Assets/img/chatbox/permission.png */ "./src/assets/img/chatbox/permission.png");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
@@ -7814,7 +7833,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -7843,10 +7863,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Record = function Record() {
   // Hooks
   var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_11__["default"])(),
     needToGoContactPage = _useChatboxController.needToGoContactPage;
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
   var _wpwaxHooks = wpwaxHooks,
     addAction = _wpwaxHooks.addAction;
   var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -7904,8 +7930,8 @@ var Record = function Record() {
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
     if (settings && typeof settings.maxVideoLength !== 'undefined' && !isNaN(settings.maxVideoLength)) {
-      var maxVideoLengthInSeconds = parseInt(settings.maxVideoLength) * 60;
-      setMaxRecordLength(maxVideoLengthInSeconds);
+      var maxRecordLengthInSeconds = parseInt(settings.maxVideoLength) * 60;
+      setMaxRecordLength(maxRecordLengthInSeconds);
     }
     check_if_need_permission().then(function (is_needed_permission) {
       if (is_needed_permission) {
@@ -8034,12 +8060,15 @@ var Record = function Record() {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.next = 2;
-              return window.wpwaxCSRecorder.startRecording();
+              return startCountdown();
             case 2:
+              _context3.next = 4;
+              return window.wpwaxCSRecorder.startRecording();
+            case 4:
               setRecordedTimeInSecond(0);
               setIsRecording(true);
               startTimer();
-            case 5:
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -8167,47 +8196,52 @@ var Record = function Record() {
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_9__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-permission",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record video, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_2__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
         ref: videoStreemRef,
         muted: true
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "wpwax-vm-record-staging__countdown",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(CountdownPage, {
+          count: getReverseCount()
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: "wpwax-vm-record-staging__top",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
           className: "wpwax-vm-record-staging__title",
-          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             className: "wpwax-vm-timer",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
               className: "wpwax-vm-sec",
               children: getCountDown()
             })
           }) : ''
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
         className: isRecording ? 'wpwax-vm-record-staging__action wpwax-vm-record-start' : 'wpwax-vm-record-staging__action',
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-btn-record",
           onClick: function onClick() {
@@ -8221,32 +8255,32 @@ var Record = function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-ready",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("form", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("form", {
         action: "#",
         className: "wpwax-vm-form",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "wpwax-vm-recored-video",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
             className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("video", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
               controls: true,
               src: recordedVidioURL
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
           className: "wpwax-vm-form-bottom",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary wpwax-vm-mb-10",
             onClick: function onClick(e) {
               return sendVideo(e);
             },
-            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            children: ["Send", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_14__["default"], {
               src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_3__["default"]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               return prepareRecordAgain(e);
@@ -8258,31 +8292,31 @@ var Record = function Record() {
       })
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-send-progress",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
         className: "wpwax-vm-record-send-progress__content",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__bar",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("span", {
             children: "Uploading"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("h4", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h4", {
           children: "We\u2019re currently uploading your file."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           className: "wpwax-vm-danger-text",
           children: "Please don\u2019t leave this page!"
         })]
       })
     });
   } else if (currentStage === stages.UPLOAD_FAILED) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
       className: "wpwax-vm-record-send-progress",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
           className: "wpwax-vm-danger-text wpwax-vm-mb-20",
           children: "Couldn't upload the file, please try again."
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           onClick: tryUploadAgain,
           className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
@@ -8546,7 +8580,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Style */ "./src/js/apps/chatbox/components/chat-screen/components/voice/Style.js");
 /* harmony import */ var Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Assets/img/chatbox/permission.png */ "./src/assets/img/chatbox/permission.png");
 /* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
@@ -8563,7 +8597,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/js/apps/chatbox/store/forms/messenger/messageTypes.js");
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
 /* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8596,10 +8631,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Record() {
   // Hooks
   var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_17__["default"])(),
     needToGoContactPage = _useChatboxController.needToGoContactPage;
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_18__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
   var _wpwaxHooks = wpwaxHooks,
     addAction = _wpwaxHooks.addAction;
   var audioRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
@@ -8608,12 +8649,12 @@ function Record() {
   // Store States
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return {
-        attachmentForm: state.attachmentForm,
-        messengerForm: state.messengerForm
+        settings: state.settings.options,
+        attachmentForm: state.attachmentForm
       };
     }),
-    attachmentForm = _useSelector.attachmentForm,
-    messengerForm = _useSelector.messengerForm;
+    settings = _useSelector.settings,
+    attachmentForm = _useSelector.attachmentForm;
   var stages = {
     HOME: 'home',
     PERMISSION: 'permission',
@@ -8666,15 +8707,31 @@ function Record() {
     _useState22 = _slicedToArray(_useState21, 2),
     recordedTimeInSecond = _useState22[0],
     setRecordedTimeInSecond = _useState22[1];
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState24 = _slicedToArray(_useState23, 2),
+    maxRecordLength = _useState24[0],
+    setMaxRecordLength = _useState24[1];
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
+    if (settings && typeof settings.maxVideoLength !== 'undefined' && !isNaN(settings.maxVideoLength)) {
+      var maxVideoLengthInSeconds = parseInt(settings.maxVideoLength) * 60;
+      setMaxRecordLength(maxVideoLengthInSeconds);
+    }
     check_if_need_permission().then(function (is_needed_permission) {
       if (is_needed_permission) {
         setCurrentStage(stages.PERMISSION);
       }
     });
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!maxRecordLength) {
+      return;
+    }
+    if (recordedTimeInSecond >= maxRecordLength) {
+      stopRecording();
+    }
+  }, [recordedTimeInSecond]);
 
   // On Upload Complete
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -8693,7 +8750,7 @@ function Record() {
           return;
         }
         dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_13__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_14__["default"].SENDING));
-      }, '2000');
+      }, 2000);
     } else if (false === attachmentForm.status) {
       setCurrentStage(stages.UPLOAD_FAILED);
     }
@@ -8790,12 +8847,14 @@ function Record() {
               window.wpwaxCSRecorder.resumeRecording();
               setIsRecording(true);
               startTimer();
-              _context3.next = 25;
+              _context3.next = 26;
               break;
             case 8:
-              console.log("record Start");
-              _context3.prev = 9;
-              _context3.next = 12;
+              _context3.next = 10;
+              return startCountdown();
+            case 10:
+              _context3.prev = 10;
+              _context3.next = 13;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -8803,7 +8862,7 @@ function Record() {
                   sampleRate: 44100
                 }
               });
-            case 12:
+            case 13:
               window.wpwaxCSAudioStream = _context3.sent;
               window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSAudioStream, {
                 type: 'audio',
@@ -8819,21 +8878,21 @@ function Record() {
               startTimer();
               setRecordedTimeInSecond(recordedTimeInSecond);
               setRecordedAudioSteam(window.wpwaxCSAudioStream);
-              _context3.next = 25;
+              _context3.next = 26;
               break;
-            case 21:
-              _context3.prev = 21;
-              _context3.t0 = _context3["catch"](9);
+            case 22:
+              _context3.prev = 22;
+              _context3.t0 = _context3["catch"](10);
               console.log({
                 error: _context3.t0
               });
               setIsRecording(false);
-            case 25:
+            case 26:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[9, 21]]);
+      }, _callee3, null, [[10, 22]]);
     }));
     return _startRecording.apply(this, arguments);
   }
@@ -8853,14 +8912,25 @@ function Record() {
       window.wpwaxCSAudioStream.getTracks().forEach(function (track) {
         return track.stop();
       });
+      setRecordedAudioSteam(null);
       setRecordedAudioBlob(blob);
       setRecordedAudioURL(url);
       setCurrentStage(stages.BEFORE_SEND);
-      // console.log(blob);
+      setRecordedTimeInSecond(0);
+      setIsRecording(false);
+      stopTimer();
     });
   }
-
   ;
+  function reversedRecordedTimeInSecond() {
+    return maxRecordLength - recordedTimeInSecond;
+  }
+  function getCountDown() {
+    if (!maxRecordLength || recordedTimeInSecond < 1) {
+      return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_16__.formatSecondsAsCountdown)(recordedTimeInSecond);
+    }
+    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_16__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
+  }
 
   // handle Send recording
   function handleSendRecording(e) {
@@ -8916,13 +8986,13 @@ function Record() {
   };
   var getRightBtnContent = function getRightBtnContent() {
     if (!isRecording && recordedTimeInSecond === 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-close",
         onClick: function onClick(e) {
           return handleCancelRecording(e, 'home');
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
           src: Assets_svg_icons_cross_small_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
         })
       });
@@ -8931,7 +9001,7 @@ function Record() {
     } else if (isRecording && recordedTimeInSecond > 0) {
       return null;
     } else if (!isRecording && recordedTimeInSecond > 0) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-record-btn-right wpwax-vm-btn-send",
         onClick: function onClick(e) {
@@ -8941,60 +9011,68 @@ function Record() {
     }
   };
   if (currentStage === stages.PERMISSION) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
       className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h4", {
         className: "wpwax-video-screen-title",
         children: "To record audio, your browser will need to request access to your camera & microphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("img", {
         src: Assets_img_chatbox_permission_png__WEBPACK_IMPORTED_MODULE_3__["default"],
         alt: "wpwax video support"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
         onClick: function onClick() {
           return requestPermission();
         },
         children: "Request Permission"
-      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      }), permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "wpwax-vm-mt-10 wpwax-vm-alert wpwax-vm-alert-danger",
         children: "Please grant the requested permission"
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
-      className: "wpwax-vm-record-staging",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
-        className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
-          className: "wpwax-vm-sec",
-          children: (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_16__.formatSecondsAsCountdown)(recordedTimeInSecond)
+    if (isActiveCountdown) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+        className: "wpwax-vm-record-staging",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(CountdownPage, {
+          count: getReverseCount()
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      });
+    }
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+      className: "wpwax-vm-record-staging",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+        className: isRecording ? 'wpwax-vm-timer wpwax-vm-timer-start' : 'wpwax-vm-timer',
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
+          className: "wpwax-vm-sec",
+          children: getCountDown()
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-record-staging__bottom",
-        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("p", {
-          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("p", {
+          children: ["Tap to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
             className: "wpwax-vm-highlighted",
             children: recordedTimeInSecond > 0 ? 'resume' : 'start'
           }), "recording!"]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-record-staging__bottom--action",
-          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          children: [isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return pauseRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
               src: Assets_svg_icons_pause_solid_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
             })
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-record-btn",
             onClick: function onClick(e) {
               return startRecording(e);
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
               src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
             })
           }), getRightBtnContent()]
@@ -9002,11 +9080,11 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.BEFORE_SEND) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
       className: "wpwax-vm-record-ready",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("audio", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("audio", {
           ref: audioRef,
           src: recordedAudioURL,
           onPlay: function onPlay() {
@@ -9025,18 +9103,18 @@ function Record() {
             setAudioDuration(event.target.duration);
           }
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-record-ready__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
           href: "#",
           onClick: togglePlayPauseAudio,
           className: isPlayingPreview ? 'wpwax-vm-recorded-pause wpwax-vm-recorded-btn' : 'wpwax-vm-recorded-play wpwax-vm-recorded-btn',
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_20__["default"], {
             src: isPlayingPreview ? Assets_svg_icons_pause_svg__WEBPACK_IMPORTED_MODULE_5__["default"] : Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
           className: "wpwax-vm-audio-range",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("span", {
             style: {
               display: 'block',
               position: 'relative',
@@ -9044,7 +9122,7 @@ function Record() {
               width: '100%',
               height: '60px'
             },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               style: {
                 position: 'absolute',
                 left: 0,
@@ -9057,7 +9135,7 @@ function Record() {
                 backgroundImage: 'url( ' + Assets_svg_audio_inactive_svg__WEBPACK_IMPORTED_MODULE_7__["default"] + ' )',
                 zIndex: 0
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               style: {
                 width: getPlayedTimeInPercent() + '%',
                 position: 'absolute',
@@ -9075,20 +9153,20 @@ function Record() {
             })]
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
         className: "wpwax-vm-record-ready__bottom",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h4", {
           children: "Ready to Send ?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-record-ready__bottom--actions",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               sendAudio(e);
             },
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-mb-10 wpwax-vm-btn-block wpwax-vm-btn-primary",
             children: "Yes"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
             href: "#",
             onClick: function onClick(e) {
               prepareRecordAgain(e);
@@ -9100,21 +9178,21 @@ function Record() {
       })]
     });
   } else if (currentStage === stages.UPLOADING) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "wpwax-vm-record-send-progress wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
             className: "wpwax-vm-record-send-progress__bar",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("span", {
               children: "Uploading"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("h4", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("h4", {
               children: "We\u2019re currently uploading your audio"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-text-danger",
               children: "Please don\u2019t leave this page!"
             })]
@@ -9123,17 +9201,17 @@ function Record() {
       })
     });
   } else if (currentStage === stages.UPLOAD_FAILED) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_2__.RecorderWrap, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
         className: "wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-flex-direction-column wpwax-vm-justify-content-center",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("div", {
           className: "wpwax-vm-record-send-progress__content",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsxs)("div", {
             className: "wpwax-vm-text-center",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("p", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("p", {
               className: "wpwax-vm-danger-text wpwax-vm-mb-20",
               children: "Couldn't upload the file, please try again."
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_19__.jsx)("a", {
               href: "#",
               onClick: function onClick(e) {
                 return prepareRecordAgain(e);
@@ -11131,30 +11209,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/UserAvaterList.jsx */ "./src/js/components/UserAvaterList.jsx");
 /* harmony import */ var _components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Message.jsx */ "./src/js/apps/messanger/components/message-box/components/Message.jsx");
 /* harmony import */ var _components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/video/Index.jsx */ "./src/js/apps/messanger/components/message-box/components/video/Index.jsx");
 /* harmony import */ var _components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/screen/Index.jsx */ "./src/js/apps/messanger/components/message-box/components/screen/Index.jsx");
 /* harmony import */ var Helper_hooks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Helper/hooks */ "./src/js/helpers/hooks.js");
-/* harmony import */ var Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hooks/media-recorder/useScreenRecorder */ "./src/js/helpers/hooks/media-recorder/useScreenRecorder.js");
-/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
-/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
-/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
-/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
-/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
-/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
-/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/Style.js");
-/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
-/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! apiService/attachment-api */ "./src/js/helpers/apiService/attachment-api.js");
-/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Helper/formatter.js */ "./src/js/helpers/formatter.js");
-/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/js/components/LoadingSpinDot.jsx");
-/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
-/* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
-/* harmony import */ var API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! API/useMessangerAPI.js */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/magnifier.svg */ "./src/assets/svg/icons/magnifier.svg");
+/* harmony import */ var Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/video-play.svg */ "./src/assets/svg/icons/video-play.svg");
+/* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
+/* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
+/* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
+/* harmony import */ var Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Assets/svg/loaders/loading-spin.svg */ "./src/assets/svg/loaders/loading-spin.svg");
+/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/Style.js");
+/* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
+/* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! apiService/attachment-api */ "./src/js/helpers/apiService/attachment-api.js");
+/* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
+/* harmony import */ var Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! Hooks/media-recorder/useScreenRecorder */ "./src/js/helpers/hooks/media-recorder/useScreenRecorder.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! Helper/formatter.js */ "./src/js/helpers/formatter.js");
+/* harmony import */ var Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! Components/LoadingSpinDot.jsx */ "./src/js/components/LoadingSpinDot.jsx");
+/* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
+/* harmony import */ var API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! API/useConversationAPI.js */ "./src/js/helpers/hooks/api/useConversationAPI.js");
+/* harmony import */ var API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! API/useMessangerAPI.js */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
@@ -11199,6 +11278,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 // import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 
@@ -11216,9 +11296,9 @@ function MessageBox(_ref) {
     addAction = _wpwaxHooks.addAction;
 
   // Use API
-  var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_22__["default"])(),
+  var _useConversationAPI = (0,API_useConversationAPI_js__WEBPACK_IMPORTED_MODULE_23__["default"])(),
     markConversationAsRead = _useConversationAPI.markAsRead;
-  var _useMessangerAPI = (0,API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_23__["default"])(),
+  var _useMessangerAPI = (0,API_useMessangerAPI_js__WEBPACK_IMPORTED_MODULE_24__["default"])(),
     getMessangerItems = _useMessangerAPI.getItems,
     createMessangerItem = _useMessangerAPI.createItem;
 
@@ -11230,9 +11310,14 @@ function MessageBox(_ref) {
     setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
       recordStage: "beforeSend"
     }));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('screen'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('screen'));
   };
-  var _useScreenRecorder = (0,Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_7__["default"])({
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_19__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
+  var _useScreenRecorder = (0,Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_18__["default"])({
       maxRecordLength: getMaxRecordLength(),
       afterStopRecording: afterStopRecording
     }),
@@ -11242,9 +11327,11 @@ function MessageBox(_ref) {
     recordedScreenBlob = _useScreenRecorder.recordedScreenBlob,
     recordedScreenURL = _useScreenRecorder.recordedScreenURL,
     startRecording = _useScreenRecorder.startRecording,
+    setupStream = _useScreenRecorder.setupStream,
     stopRecording = _useScreenRecorder.stopRecording,
     recordedTimeInSecond = _useScreenRecorder.recordedTimeInSecond,
-    getCountDown = _useScreenRecorder.getCountDown;
+    getCountDown = _useScreenRecorder.getCountDown,
+    recordingIsGoingToStopSoon = _useScreenRecorder.recordingIsGoingToStopSoon;
   var messengerScriptData = wpWaxCustomerSupportApp_MessengerScriptData;
 
   /* Dispasth is used for passing the actions to redux store  */
@@ -11367,8 +11454,8 @@ function MessageBox(_ref) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var checkIfClickedOutside = function checkIfClickedOutside(e) {
       if (messageType === 'video' && videoToggleRef.current && !videoToggleRef.current.contains(e.target)) {
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
       }
     };
     document.addEventListener("mousedown", checkIfClickedOutside);
@@ -11383,7 +11470,7 @@ function MessageBox(_ref) {
     initSetup();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateScreenTogglerContent)(getCountDown()));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateScreenTogglerContent)(getCountDown()));
   }, [recordedTimeInSecond]);
   function initSetup() {
     return _initSetup.apply(this, arguments);
@@ -11424,7 +11511,7 @@ function MessageBox(_ref) {
   }
   var handleSelectScreen = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-      var grantedPermission, hasStarted;
+      var grantedPermission, _recorder;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -11435,26 +11522,30 @@ function MessageBox(_ref) {
             case 3:
               grantedPermission = _context.sent;
               if (!grantedPermission) {
-                _context.next = 14;
+                _context.next = 15;
                 break;
               }
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
                 recordStage: "beforeStartScreen"
               }));
               _context.next = 8;
-              return startRecording();
+              return setupStream();
             case 8:
-              hasStarted = _context.sent;
-              if (hasStarted) {
-                _context.next = 13;
+              _recorder = _context.sent;
+              if (_recorder) {
+                _context.next = 11;
                 break;
               }
               return _context.abrupt("return");
+            case 11:
+              _context.next = 13;
+              return startCountdown();
             case 13:
+              startRecording(_recorder);
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
                 recordStage: "startScreen"
               }));
-            case 14:
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -11503,7 +11594,7 @@ function MessageBox(_ref) {
     return selectedWindowData;
   };
   var updateWindowData = function updateWindowData(key, value) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, key, value));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, key, value));
   };
   var debouncedSearchTerm = (0,Helper_hooks__WEBPACK_IMPORTED_MODULE_6__.useDebounce)(searchTerm, 250);
 
@@ -11516,26 +11607,26 @@ function MessageBox(_ref) {
   function onConversationDelete(data) {
     var newSessionlist = data.newSessionlist;
     var newSession = newSessionlist.length ? newSessionlist[0] : null;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSelectedSession)(newSession));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSelectedSession)(newSession));
   }
 
   // Effect for API call
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var text = debouncedSearchTerm;
     if (selectedSession) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
 
       // Update Query Args
       var newSearchQueryArgs = {
         message: text
       };
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
       if (text.length) {
         // Activate Search Mode
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
       } else {
         // Inactivate Search Mode
-        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+        dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
       }
       loadSearchResults(newSearchQueryArgs);
     }
@@ -11592,8 +11683,8 @@ function MessageBox(_ref) {
       var sessionMessages = response.data;
 
       // Update The Store
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSession)(id, sessionMessages));
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.addSessionWindowData)(id));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.addSession)(id, sessionMessages));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.addSessionWindowData)(id));
       var totalPage = response.headers && Object.keys(response.headers).includes('x-wp-totalpages') ? parseInt(response.headers['x-wp-totalpages']) : 1;
       updateWindowData('totalPage', totalPage);
       setSessionMessages(sessionMessages);
@@ -11684,22 +11775,22 @@ function MessageBox(_ref) {
   var isShowingVideoSearchResult = getWindowData('isShowingVideoSearchResult');
   var isShowingVoiceSearchResult = getWindowData('isShowingVoiceSearchResult');
   var setSearchResults = function setSearchResults(results) {
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchResults', results));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchResults', results));
   };
   var dismisSearch = function dismisSearch() {
     // Hide Search Results
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
 
     // Reset Serch Result
     setSearchResults([]);
 
     // Reset Serch Query Args
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', {}));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', {}));
   };
   var dismissFilters = function dismissFilters() {
     dismisSearch();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
   };
 
   /* Handle Search Toggle */
@@ -11708,7 +11799,7 @@ function MessageBox(_ref) {
     var searchInput = document.getElementById('wpwax-vm-messagebox-search');
     searchInput.setSelectionRange(0, 0);
     dismissFilters();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'openSearch', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'openSearch', true));
   };
   var handleDiactiveSearch = function handleDiactiveSearch(event) {
     event.preventDefault();
@@ -11716,10 +11807,10 @@ function MessageBox(_ref) {
     searchInput.setSelectionRange(0, 0);
 
     // Close search bar
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'openSearch', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'openSearch', false));
 
     // Reset search input
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', ''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', ''));
 
     // Reset Search Result
     dismisSearch();
@@ -11741,15 +11832,15 @@ function MessageBox(_ref) {
   /* Handle Video Message */
   var showReplayViaVideoMessage = function showReplayViaVideoMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('video'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('video'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Text Message */
   var showReplayViaTextMessage = function showReplayViaTextMessage(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('text'));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('text'));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Voice Message */
@@ -11777,8 +11868,8 @@ function MessageBox(_ref) {
               voicePlay();
 
               // Show Recording UI
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('voice'));
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)('voice'));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
             case 9:
             case "end":
               return _context4.stop();
@@ -11794,7 +11885,7 @@ function MessageBox(_ref) {
   /* Handle Reply Mode */
   var haldleReplyMode = function haldleReplyMode() {
     if (messageType === 'video') {} else if (messageType === 'screen') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         recordedBold: recordedScreenBlob,
         recordUrl: recordedScreenURL,
         sessionID: selectedSession.id,
@@ -11934,7 +12025,7 @@ function MessageBox(_ref) {
               };
               _context21.prev = 1;
               _context21.next = 4;
-              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_17__["default"].createAttachment({
+              return apiService_attachment_api__WEBPACK_IMPORTED_MODULE_16__["default"].createAttachment({
                 file: file
               });
             case 4:
@@ -12008,7 +12099,7 @@ function MessageBox(_ref) {
           switch (_context8.prev = _context8.next) {
             case 0:
               defaultArgs = {
-                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_21__.getTimezoneString)(),
+                timezone: (0,Helper_utils_js__WEBPACK_IMPORTED_MODULE_22__.getTimezoneString)(),
                 conversation_id: selectedSession.id,
                 page: 1
               };
@@ -12156,8 +12247,8 @@ function MessageBox(_ref) {
     setRecordedAudioSteam(null);
     setRecordedVoiceTimeInSecond(0);
     setIsRecordingVoice(false);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
   var handleVoicePlay = /*#__PURE__*/function () {
     var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(event) {
@@ -12485,7 +12576,7 @@ function MessageBox(_ref) {
               latestItems = responseData;
               updatedSessionMessages = [].concat(_toConsumableArray(latestItems), _toConsumableArray(sessionMessages));
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
             case 17:
             case "end":
               return _context25.stop();
@@ -12541,7 +12632,7 @@ function MessageBox(_ref) {
               updatedSessionMessages = [].concat(_toConsumableArray(sessionMessages), _toConsumableArray(oldItems));
               updateWindowData('currentPage', paginationMeta.nextPage);
               setSessionMessages(updatedSessionMessages);
-              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
+              dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionMessages)(selectedSession.id, updatedSessionMessages));
               setIsLoadingMoreMessages(false);
             case 22:
             case "end":
@@ -12557,28 +12648,28 @@ function MessageBox(_ref) {
   var updateTextSearchResult = function updateTextSearchResult(event) {
     event.preventDefault();
     var text = event.target.value;
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchKeyword', text));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message: text
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     if (text.length) {
       // Activate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
     } else {
       // Inactivate Search Mode
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', false));
     }
     loadSearchResults(newSearchQueryArgs);
   };
   var toggleFilterVideoMessages = function toggleFilterVideoMessages(event) {
     event.preventDefault();
     setMessageDirection('bottom');
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
     if (isShowingVideoSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
 
       // Close Search
       dismisSearch();
@@ -12586,21 +12677,21 @@ function MessageBox(_ref) {
     }
 
     //
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', true));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message_type: 'video'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
   };
   var filterVoiceMessages = function filterVoiceMessages(event) {
     event.preventDefault();
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVideoSearchResult', false));
     if (isShowingVoiceSearchResult) {
-      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
+      dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', false));
 
       // Close Search
       dismisSearch();
@@ -12608,15 +12699,15 @@ function MessageBox(_ref) {
     }
 
     //
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isShowingVoiceSearchResult', true));
 
     // Update Query Args
     var newSearchQueryArgs = {
       message_type: 'audio'
     };
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'searchQueryArgs', newSearchQueryArgs));
     loadSearchResults(newSearchQueryArgs);
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'isSearching', true));
   };
   var loadSearchResults = /*#__PURE__*/function () {
     var _ref19 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17(queryArgs) {
@@ -12733,23 +12824,23 @@ function MessageBox(_ref) {
   /* Handle Load Footer Content */
   var handleFooterContent = function handleFooterContent() {
     if (messageType === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleTextClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("form", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("form", {
               onSubmit: sendTextMessage,
               autoComplete: "off",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                 ref: textMessageContentRef,
                 type: "text",
                 disabled: isSendingTextMessage,
@@ -12760,7 +12851,7 @@ function MessageBox(_ref) {
                 onChange: function onChange(event) {
                   setTextMessageContent(event.target.value);
                 }
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                 type: "submit",
                 style: {
                   display: 'none'
@@ -12768,151 +12859,151 @@ function MessageBox(_ref) {
                 hidden: true
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendTextMessage() ? false : true,
               onClick: sendTextMessage,
-              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
+              children: !isSendingTextMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
               })
             })
           })]
         })]
       });
     } else if (messageType === 'voice') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-messagebox-reply-text-close",
           onClick: handleVoiceClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             className: "wpwax-vm-messagebox-reply__input",
-            children: [isRecordingVoice ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: [isRecordingVoice ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-pause",
               onClick: pauseVoiceRecording,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-controls-pause"
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-voice-play",
               onClick: handleVoicePlay,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-microphone"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-audio-range",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 style: {
                   width: recordedTimeLength + '%'
                 },
                 className: "wpwax-vm-audio-range-inner"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_19__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
               disabled: canSendAudioMessage() ? false : true,
               onClick: handleSendAudioMessage,
-              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
+              children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 style: {
                   width: '50px',
                   height: '50px'
                 },
-                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
+                src: Assets_svg_loaders_loading_spin_svg__WEBPACK_IMPORTED_MODULE_12__["default"]
               })
             })
           })]
         })]
       });
     } else {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
         className: "wpwax-vm-messagebox-footer",
-        children: [messageType === 'video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        children: [messageType === 'video' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
           className: "wpwax-hg-messagebox-video-wrap",
           ref: videoToggleRef,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_video_Index_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
             sessionID: selectedSession.id,
             onSuccess: loadLatestMessages,
             replayingTo: getReplaingToUser()
           })
-        }) : null, !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+        }) : null, !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
           className: "wpwax-vm-messagebox-footer__text",
           children: "How would you like to answer?"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
           className: "wpwax-vm-messagebox-footer__actionlist",
-          children: [!isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          children: [!isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVideoMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Video"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: screenRecordState.recordStage === "startScreen" ? 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-recording' : 'wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray',
             onClick: screenRecordState.recordStage !== "startScreen" ? handleSelectScreen : handleStopScreen,
-            children: [screenRecordState.recordStage !== "startScreen" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [screenRecordState.recordStage !== "startScreen" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_14__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_13__["default"]
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
-              className: "wpwax-vm-btn-text",
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
+              className: recordingIsGoingToStopSoon ? 'wpwax-vm-btn-text wpwax-vm-blinking-text' : 'wpwax-vm-btn-text',
               children: screenRecordState.recordStage === "startScreen" ? "".concat(getCountDown()) : "Screen"
             })]
-          }), !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaVoiceMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Voice"
             })]
-          }), !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+          }), !isRecording && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
             href: "#",
             className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
             onClick: showReplayViaTextMessage,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-btn-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                src: Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-btn-text",
               children: "Text"
             })]
@@ -12928,8 +13019,8 @@ function MessageBox(_ref) {
     if (isSendingTextMessage) {
       return;
     }
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)(''));
-    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleReplyModeChange)(false));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleMessageTypeChange)(''));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.handleReplyModeChange)(false));
   };
 
   /* Handle Voice Colse */
@@ -12975,30 +13066,30 @@ function MessageBox(_ref) {
       });
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_15__.ChatBoxWrap, {
-    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_14__.ChatBoxWrap, {
+    children: [selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
       style: {
         height: '100%'
       },
       className: isLoadingSearchResults || isLoadingSession ? 'wpwax-vm-loder-active' : '',
-      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_15__.MessageBoxWrap, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+      children: [!isLoadingSession || !isLoadingSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_14__.MessageBoxWrap, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             className: "wpwax-vm-messagebox-header",
-            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            children: [!openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-messagebox-header__left",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
                 users: getSessionUsers()
               })
-            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: openSearch ? 'wpwax-vm-messagebox-header__right wpwax-vm-search-active' : 'wpwax-vm-messagebox-header__right',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
                 className: "wpwax-vm-messagebox-header__actionlist",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-search",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                     className: "wpwax-vm-searchbox",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("input", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("input", {
                       type: "text",
                       ref: searchInputRef,
                       name: "wpwax-vm-messagebox-search"
@@ -13010,43 +13101,43 @@ function MessageBox(_ref) {
                         return setSearchTerm(e.target.value);
                       }
                     })
-                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+                  }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleActiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_7__["default"]
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
                     href: "#",
                     className: "wpwax-vm-search-toggle",
                     onClick: handleDiactiveSearch,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "dashicons dashicons-no-alt"
                     })
                   })]
-                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                }), !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-video",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVideoSearchResult ? ' active' : ''),
                     onClick: toggleFilterVideoMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_video_play_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Videos"
                     })]
                   })
-                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+                }) : null, !openSearch ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
                   className: "wpwax-vm-messagebox-header__action-item wpwax-vm-messagebox-header-voice",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("a", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("a", {
                     href: "#",
                     className: 'wpwax-vm-messagebox-header__action--link' + (isShowingVoiceSearchResult ? ' active' : ''),
                     onClick: filterVoiceMessages,
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_25__["default"], {
-                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
+                      src: Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_9__["default"]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                       className: "wpwax-vm-messagebox-header__action--text",
                       children: "Voice"
                     })]
@@ -13054,20 +13145,20 @@ function MessageBox(_ref) {
                 }) : null]
               })
             })]
-          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          }), !isLoadingSearchResults && !isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
             style: {
               display: 'flex',
               flexDirection: 'column-reverse'
             },
-            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            children: [sessionMessages.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__["default"], {
               onScroll: function onScroll(event) {
                 var scrollMeta = {
                   viewPortTop: event.target.scrollTop,
                   viewPortBottom: event.target.scrollTop + event.target.offsetHeight
                 };
-                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.updateSessionWindowData)(selectedSession.id, 'messagesContainerScrollMeta', scrollMeta));
+                dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSessionWindowData)(selectedSession.id, 'messagesContainerScrollMeta', scrollMeta));
               },
               height: getMessageBoxHeight(),
               dataLength: sessionMessages.length,
@@ -13082,7 +13173,7 @@ function MessageBox(_ref) {
               hasMore: true
               // hasMore={ getWindowData( 'currentPage' ) !== getWindowData( 'totalPage' ) }
               ,
-              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
+              loader: isLoadingMoreMessages ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -13090,35 +13181,35 @@ function MessageBox(_ref) {
               }) : '',
               scrollableTarget: "scrollableDiv",
               children: sessionMessages.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
-          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+          }), !isLoadingSearchResults && isSearching && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsxs)("div", {
             id: "scrollableDiv",
             className: "wpwax-vm-messagebox-body",
-            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            children: [searchResults.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_15__["default"], {
               height: getMessageBoxHeight(),
               dataLength: searchResults.length,
               next: function next() {
                 loadMoreSearchResults();
               },
               hasMore: true,
-              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h3", {
+              loader: isLoadingMoreSearchResults ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h3", {
                 style: {
                   textAlign: 'center'
                 },
@@ -13129,34 +13220,39 @@ function MessageBox(_ref) {
               },
               scrollableTarget: "scrollableDiv",
               children: searchResults.map(function (message, index) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(_components_Message_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   data: message,
                   currentUser: current_user
                 }, index);
               })
-            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
               className: "wpwax-vm-empty-messagebox",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
                 children: "No message found"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("a", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: scrollBtnVisibility ? 'wpwax-vm-scroll-bottom wpwax-vm-show' : 'wpwax-vm-scroll-bottom',
               onClick: handleScrollBottom,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("span", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
                 className: "dashicons dashicons-arrow-down-alt"
               })
             })]
           }), handleFooterContent()]
-        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+        }), replyMode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
           className: "wpwax-vm-replymode-wrap",
           children: haldleReplyMode()
         }) : '']
-      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_20__["default"], {}) : null]
-    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
+      }) : null, isLoadingSearchResults || isLoadingSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(Components_LoadingSpinDot_jsx__WEBPACK_IMPORTED_MODULE_21__["default"], {}) : null]
+    }), !selectedSession && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
       style: CenterBoxStyle,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("h2", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("h2", {
         children: "No conversation is selected."
+      })
+    }), isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
+      className: "wpwax-vm-countdown-wrap",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(CountdownPage, {
+        count: getReverseCount()
       })
     })]
   });
@@ -13182,7 +13278,7 @@ var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 520px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            right: 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: absolute;\n        bottom: 95px;\n        left: 200px;\n        width: 100%;\n        height: auto;\n        max-width: 484px;\n        border-radius: 30px;\n        z-index: 10;\n        box-shadow: 0 20px 50px rgba(0,0,0,.10);\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1399px){\n            max-width: 434px;\n            left: 40px;\n        }\n        @media only screen and (max-width: 1199px){\n            left: 0;\n            bottom: 80px;\n            max-width: 400px;\n        }\n        @media only screen and (max-width: 767px){\n            max-width: fit-content;\n        }\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            padding: 50px;\n            border-radius: 30px;\n            @media only screen and (max-width: 1399px){\n                padding: 40px;\n            }\n            @media only screen and (max-width: 767px){\n                padding: 20px;\n            }\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                right: 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 18px;\n                font-weight: 600;\n                margin: 0 0 20px;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 1199px){\n                    font-size: 16px;\n                }\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                margin: -10px;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    min-height: 70px;\n                    padding: 0 32px;\n                    border-radius: 10px;\n                    background-color: var(--color-bg-general);\n                    @media only screen and (max-width: 1199px){\n                        font-size: 14px;\n                        min-height: 50px;\n                        padding: 0 20px;\n                    }\n                    @media only screen and (max-width: 767px){\n                        min-height: 46px;\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        margin-right: 15px;\n                        svg{\n                            width: 26px;\n                            height: 26px;\n                            @media only screen and (max-width: 1199px){\n                                width: 20px;\n                                height: 20px;\n                            }\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])));
-var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    min-height: 600px;\n    background-color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        min-height: 500px;\n    }\n    h1,\n    h2,\n    h3,\n    h4,\n    h5,\n    h6{\n        font-family: 'Inter', sans-serif;\n    }\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n        .wpwax-vm-media__title{\n            text-transform: initial;\n            line-height: 1.45;\n            font-family: 'Inter', sans-serif;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 0 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                    @media only screen and (max-width: 1399px){\n                        max-width: 34px;\n                        height: 34px;\n                    }\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    @media only screen and (max-width: 1399px){\n                        width: 26px;\n                        height: 26px;\n                    }\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                        @media only screen and (max-width: 1399px){\n                            width: 20px;\n                            height: 20px;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        box-sizing: border-box;\n        @media only screen and (max-width: 1199px){\n            padding: 5px 15px 0 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            @media only screen and (max-width: 1399px){\n                font-size: 13px;\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n            svg{\n                @media only screen and (max-width: 1399px){\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            /* max-height: 600px; */\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        @media only screen and (max-width: 1299px){\n            padding: 20px;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 30px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1399px){\n                font-size: 14px;\n            }\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -5px 0;\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 5px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 25px;\n                        font-size: 14px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 1240px){\n                        padding: 0 10px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 1199px){\n                        padding: 0 20px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 575px){\n                        height: 38px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: .5;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                    @media only screen and (max-width: 575px){\n                        display: none;\n                    }\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-left: 0;\n                    }\n                }\n                &.wpwax-vm-btn-recording{\n                    color: var(--color-white);\n                    background-color: var(--color-secondary);\n                    .wpwax-vm-btn-text{\n                        margin-left: 0;\n                        animation: wpwaxHgBlinking 1s linear infinite;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n\n\t\t\t&[disabled] {\n\t\t\t\topacity: 50%;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-play,\n        .wpwax-vm-messagebox-reply-voice-pause{\n            min-width: 24px;\n            width: 24px;\n            height: 24px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 50%;\n            background-color: var(--color-dark);\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 16px;\n                width: 16px;\n                height: 16px;\n                line-height: 1;\n                position: relative;\n                left: 1px;\n                color: var(--color-white);\n            }\n        }\n        .wpwax-vm-messagebox-reply-voice-pause{\n            background-color: var(--color-text);\n            .dashicons{\n                left: 0;\n            }\n        }\n    }\n"])));
+var MessageBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    border-radius: 20px;\n    min-height: 600px;\n    background-color: var(--color-white);\n    &.wpwax-vm-loder-active{\n        min-height: 500px;\n    }\n    h1,\n    h2,\n    h3,\n    h4,\n    h5,\n    h6{\n        font-family: 'Inter', sans-serif;\n    }\n    .wpwax-vm-messagebox-header{\n        display: flex;\n        align-items: center;\n        justify-content: space-between;\n        padding: 20px 0;\n        border-bottom: 1px solid var(--color-bg-general);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n            align-items: flex-start;\n        }\n        .wpwax-vm-media__title{\n            text-transform: initial;\n            line-height: 1.45;\n            font-family: 'Inter', sans-serif;\n        }\n    }\n    .wpwax-vm-messagebox-header__left{\n        padding-left: 30px;\n        @media only screen and (max-width: 1199px){\n            padding: 0 15px 0;\n            margin: 0;\n        }\n        .wpwax-vm-media{\n            .wpax-vm-imglist{\n                margin: 3px;\n                display: flex;\n                img{\n                    margin: 3px;\n                    max-width: 44px;\n                    border-radius: 50%;\n                    @media only screen and (max-width: 1399px){\n                        max-width: 34px;\n                        height: 34px;\n                    }\n                }\n                .wpwax-vm-more-img{\n                    display: flex;\n                    align-items: center;\n                    justify-content: center;\n                    width: 36px;\n                    height: 36px;\n                    border-radius: 50%;\n                    padding: 4px;\n                    margin: 3px;\n                    background-color: var(--color-primary);\n                    @media only screen and (max-width: 1399px){\n                        width: 26px;\n                        height: 26px;\n                    }\n                    >div{\n                        line-height: 1;\n                        width: max-content;\n                    }\n                    svg{\n                        width: 24px;\n                        height: 24px;\n                        fill: var(--color-white);\n                        @media only screen and (max-width: 1399px){\n                            width: 20px;\n                            height: 20px;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__right{\n        padding-right: 30px;\n        box-sizing: border-box;\n        @media only screen and (max-width: 1199px){\n            padding: 5px 15px 0 25px;\n        }\n        &.wpwax-vm-search-active{\n            width: 100%;\n            padding: 8px 30px;\n            .wpwax-vm-messagebox-header__actionlist{\n                margin: 0;\n                width: 100%;\n                .wpwax-vm-searchbox{\n                    width: 100%;\n                    display: block;\n                }\n                .wpwax-vm-messagebox-header__action-item{\n                    width: 100%;\n                    &.wpwax-vm-messagebox-header-search{\n                        padding: 0;\n                    }\n                }\n            }\n            .wpwax-vm-search-toggle{\n                .dashicons{\n                    font-size: 28px;\n                    width: 28px;\n                    height: 28px;;\n                    color: var(--color-danger);\n                }\n            }\n\n        }\n        .wpwax-vm-messagebox-header__actionlist{\n            display: flex;\n            flex-wrap: wrap;\n            margin: 0 -15px;\n            @media only screen and (max-width: 767px){\n                /* flex-direction: column; */\n                align-items: center;\n                margin: -15px;\n            }\n        }\n        .wpwax-vm-searchbox{\n            width: 100%;\n            display: none;\n            input{\n                font-size: 16px;\n                width: 100%;\n                border: 0 none;\n                border-radius: 0px;\n                &:focus{\n                    outline: none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-search-toggle{\n            text-decoration: none;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n            span{\n                font-size: 24px;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-header__action-item{\n        display: flex;\n        align-items: center;\n        padding: 0 15px;\n        line-height: 1;\n        @media only screen and (max-width: 767px){\n            margin: 10px 0;\n        }\n        &.wpwax-vm-messagebox-header-search{\n            min-height: 40px;\n        }\n        .wpwax-vm-messagebox-header__action--link{\n            display: flex;\n            align-items: center;\n            font-size: 14px;\n            color: #4D4D4D;\n            text-decoration: none;\n            &:hover{\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            &.active{\n\t\t\t\tcolor: var(--color-primary);\n                svg path,\n                svg circle,\n                span{\n                    color: var(--color-primary);\n                    fill: var(--color-primary);\n                }\n            }\n            @media only screen and (max-width: 1399px){\n                font-size: 13px;\n            }\n            svg path,\n            span{\n                transition: .3s;\n            }\n            .wpwax-vm-messagebox-header__action--text{\n                font-weight: 500;\n                display: inline-block;\n                margin-left: 8px;\n            }\n            svg{\n                @media only screen and (max-width: 1399px){\n                    width: 16px;\n                    height: 16px;\n                }\n            }\n        }\n    }\n\n    .wpwax-vm-messagebox-body{\n        position: relative;\n        .infinite-scroll-component {\n            padding-top: 25px;\n            /* max-height: 600px; */\n            &::-webkit-scrollbar {\n                width: 11px;\n            }\n\n            &::-webkit-scrollbar-track {\n                background: var(--color-light);\n            }\n\n            &::-webkit-scrollbar-thumb {\n                background-color: var(--color-bg-gray);\n                border-radius: 6px;\n                border: 3px solid var(--color-light);\n            }\n        }\n        .wpwax-vm-scroll-bottom{\n            position: absolute;\n            left: 50%;\n            bottom: 0;\n            transform: translateX(-50%);\n            display: none;\n            align-items: center;\n            justify-content: center;\n            width: 45px;\n            height: 45px;\n            box-shadow: 0 5px 50px rgba(0,0,0,.15);\n            border-radius: 50%;\n            transform: translateX(-50%);\n            text-decoration: none;\n            color: var(--color-dark);\n            background-color: var(--color-white);\n            &.wpwax-vm-show{\n                display: flex;\n            }\n        }\n    }\n    .wpwax-vm-messagebox-footer{\n        position: relative;\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        padding: 30px;\n        border-top: 1px solid var(--color-border-light);\n        @media only screen and (max-width: 1199px){\n            flex-direction: column;\n        }\n        @media only screen and (max-width: 1299px){\n            padding: 20px;\n        }\n        .wpwax-vm-btn{\n            border-radius: 10px;\n            &:hover{\n                color: var(--color-white);\n                background-color: var(--color-primary);\n                svg path,\n                svg circle{\n                    fill: var(--color-white);\n                }\n            }\n            &.wpwax-vm-btn-lg{\n                height: 48px;\n                padding: 0 30px;\n            }\n        }\n        .wpwax-vm-messagebox-footer__text{\n            display: inline-block;\n            font-size: 15px;\n            font-weight: 500;\n            margin-right: 10px;\n            color: #4D4D4D;\n            @media only screen and (max-width: 1399px){\n                font-size: 14px;\n            }\n            @media only screen and (max-width: 1199px){\n                margin: 0 0 20px 0;\n            }\n        }\n        .wpwax-vm-messagebox-footer__actionlist{\n            margin: -5px 0;\n            display: flex;\n            align-items: center;\n            @media only screen and (max-width: 1199px){\n                text-align: center;\n            }\n            .wpwax-vm-btn{\n                margin: 5px;\n                font-weight: 600;\n                display: inline-flex;\n                align-items: center;\n                &.wpwax-vm-btn-lg{\n                    @media only screen and (max-width: 1399px){\n                        padding: 0 25px;\n                        font-size: 14px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 1240px){\n                        padding: 0 10px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 1199px){\n                        padding: 0 20px;\n                        margin: 5px;\n                    }\n                    @media only screen and (max-width: 575px){\n                        height: 38px;\n                    }\n                }\n                &:hover{\n                    .wpwax-vm-btn-icon{\n                        svg circle,\n                        svg path{\n                            fill: var(--color-white);\n                        }\n                    }\n                }\n                .wpwax-vm-btn-icon,\n                .wpwax-vm-btn-text{\n                    display: inline-block;\n                    line-height: .5;\n                }\n                .wpwax-vm-btn-text{\n                    margin-left: 10px;\n                    @media only screen and (max-width: 575px){\n                        display: none;\n                    }\n                }\n                .wpwax-vm-btn-icon{\n                    svg circle,\n                    svg path{\n                        fill: var(--color-dark);\n                    }\n\n                    svg{\n                        width: 18px;\n                        height: 18px;\n                        margin-left: 0;\n                    }\n                }\n                &.wpwax-vm-btn-recording{\n                    color: var(--color-white);\n                    background-color: var(--color-secondary);\n                    .wpwax-vm-btn-text{\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply{\n            display: flex;\n            width: 100%;\n            padding: 0 30px;\n            @media only screen and (max-width: 767px){\n                padding: 0 15px;\n            }\n            .wpwax-vm-messagebox-reply__input{\n                display: flex;\n                align-items: center;\n                width: 100%;\n                min-height: 52px;\n                border-radius: 26px;\n                padding: 0 30px 0 25px;\n                background-color: var(--color-bg-general);\n                form{\n                    width: 100%;\n                }\n                input{\n                    font-size: 18px;\n                    border: 0 none;\n                    padding: 0;\n                    width: 100%;\n                    background-color: transparent;\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                        border: 0 none;\n                    }\n                }\n                .wpwax-vm-audio-range{\n                    position: relative;\n                    display: block;\n                    width: 100%;\n                    min-height: 10px;\n                    border-radius: 100px;\n                    margin: 0 25px;\n                    background-color: #C4C4C4;\n                    .wpwax-vm-audio-range-inner{\n                        position: absolute;\n                        left: 0;\n                        top: 0;\n                        width: 100%;\n                        height: 10px;\n                        display: block;\n                        border-radius: 100px 0 0 100px;\n                        background-color: var(--color-dark);\n                    }\n                }\n                .wpwax-vm-timer{\n                    font-size: 14px;\n                    font-weight: 500;\n                    color:  var(--color-dark);\n                }\n            }\n        }\n        .wpwax-vm-messagebox-reply-send{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-width: 52px;\n            height: 52px;\n            border-radius: 50%;\n            margin-left: 10px;\n            background-color: var(--color-primary);\n\n\t\t\t&[disabled] {\n\t\t\t\topacity: 50%;\n\t\t\t\tpointer-events: none;\n\t\t\t}\n        }\n        .wpwax-vm-messagebox-reply-text-close{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            position: absolute;\n            top: -27px;\n            width: 54px;\n            height: 54px;\n            border-radius: 50%;\n            text-decoration: none;\n            color: var(--color-white);\n            background-color: var(--color-dark);\n        }\n        .wpwax-vm-messagebox-reply-voice-play,\n        .wpwax-vm-messagebox-reply-voice-pause{\n            min-width: 24px;\n            width: 24px;\n            height: 24px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            border-radius: 50%;\n            background-color: var(--color-dark);\n            text-decoration: none;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 16px;\n                width: 16px;\n                height: 16px;\n                line-height: 1;\n                position: relative;\n                left: 1px;\n                color: var(--color-white);\n            }\n        }\n        .wpwax-vm-messagebox-reply-voice-pause{\n            background-color: var(--color-text);\n            .dashicons{\n                left: 0;\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -13927,7 +14023,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 0px;\n        left: 0;\n        right: 0;\n        top: 80px;\n        bottom: 0;\n        width: 100%;\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 0;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: -40px;\n            right: 40px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 0 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
+var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: relative;\n\t\tz-index: 99999;\n\t\tcolor: #fff;\n\t\ttop: 50%;\n\t\ttransform: translate(0,-50%);\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 0px;\n        left: 0;\n        right: 0;\n        top: 80px;\n        bottom: 0;\n        width: 100%;\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 0;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: -40px;\n            right: 40px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 0 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -14226,7 +14322,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px;\n        left: 80px;\n        top: 80px;\n        bottom: 0;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 160px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 30px;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 20px;\n            right: 30px;\n            text-decoration: none;\n            z-index: 10;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 0 0 30px;\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 0;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
+var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    top: 50px;\n    bottom: 50px;\n    left: 30px;\n    right: 30px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n    width: 100%;\n    width: calc( 100% - 60px );\n    border-radius: 30px;\n    z-index: 1000001;\n\toverflow: hidden;\n    &:after{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .80;\n        z-index: 10;\n        content: \"\";\n        border-radius: 30px 30px 0 0;\n        background: linear-gradient(to top, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n    &:before{\n        position: absolute;\n        left: 0;\n        bottom: 0;\n        width: 100%;\n        height: 150px;\n        opacity: .60;\n        z-index: 10;\n        content: \"\";\n        border-radius: 0 0 30px 30px;\n        background: linear-gradient(to bottom, rgba(0,0,0,0),rgba(0,0,0,1))\n    }\n\n\t.wpwax-vm-reply-countdown {\n\t\tposition: absolute;\n\t\tcolor: #fff;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tz-index: 99999;\n\t\tdisplay: flex;\n\t\tjustify-content: center;\n\t\talign-items: center;\n\t\tbackground: #7676769c;\n\n\t\t.wpwax-vm-countdown {\n\t\t\t.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {\n\t\t\t\tfont-weight: bold;\n\t\t\t\tcolor: #fff;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-heading {\n\t\t\t\tfont-size: 110px;\n\t\t\t}\n\n\t\t\t.wpwax-vm-countdown-text {\n\t\t\t\tfont-size: 30px;\n\t\t\t}\n\t\t}\n\t}\n\n    .wpwax-vm-reply-video-bg{\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 100%;\n        height: 100%;\n        border-radius: 30px;\n        background-size: cover;\n    }\n    .wpwax-vm-reply-top{\n        position: relative;\n        z-index: 100;\n        display: flex;\n        justify-content: space-between;\n        padding: 40px 40px 0;\n        @media only screen and (max-width: 767px){\n            padding: 20px 20px 0;\n        }\n        h4{\n            font-size: 26px;\n            font-weight: 600;\n            margin: 0;\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                font-size: 20px;\n            }\n            .wpwax-vm-timer{\n                display: block;\n                font-size: 16px;\n                margin-top: 14px;\n            }\n        }\n        .wpwax-vm-reply-close{\n            text-decoration: none;\n            .dashicons{\n                font-size: 22px;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-reply-bottom{\n        display: flex;\n        justify-content: center;\n        position: relative;\n        text-align: center;\n        bottom: 40px;\n        z-index: 100;\n        .wpwax-vm-btn-record{\n            position: relative;\n            display: block;\n            width: 90px;\n            height: 90px;\n            border-radius: 50%;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 70px;\n                height: 70px;\n            }\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n                border: 0 none;\n            }\n            &:after{\n                width: 25px;\n                height: 25px;\n                border-radius: 50%;\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                content: '';\n                background-color: var(--color-danger);\n            }\n        }\n    }\n    &.wpwax-vm-reply-start{\n        .wpwax-vm-reply-bottom{\n            .wpwax-vm-btn-record{\n                background-color: var(--color-danger);\n                &:after{\n                    width: 28px;\n                    height: 28px;\n                    border-radius: 8px;\n                    background-color: var(--color-white);\n                }\n            }\n        }\n    }\n    &.wpwax-vm-reply-ready{\n        display: flex;\n        flex-direction: row;\n        border-radius: 30px;\n        left: 80px;\n        top: 80px;\n        bottom: 0;\n        width: calc( 100% - 160px );\n        height: calc( 100vh - 160px );\n\t\tbackground-color: #000000;\n        @media only screen and (max-width: 767px){\n            flex-direction: column;\n        }\n        &:after{\n            border-radius: 30px 0 0 0;\n        }\n        &.wpwax-vm-reply-upload{\n            .wpwax-vm-reply-ready__video{\n                border-radius: 30px 0 0 30px;\n                background-color: var(--color-dark);\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 30px;\n                }\n            }\n            .wpwax-vm-reply-ready__file-input{\n                display: flex;\n                flex-direction: column;\n                justify-content: center;\n                align-items: center;\n                margin: 0 40px 45px;\n                padding: 20px;\n                border-radius: 14px;\n                min-height: 260px;\n                border: 1px dashed #C4C4C4;\n                background-color: #EAEAEA;\n                @media only screen and (max-width: 767px){\n                    margin: 0 30px 40px;\n                }\n                @media only screen and (max-width: 1399px){\n                    min-height: 180px;\n                }\n                input[type=file]{\n                    display: none;\n                }\n                strong{\n                    display: inline-block;\n                    font-size: 14px;\n                    font-weight: 500;\n                    margin: 12px 0;\n                    color: var(--color-dark);\n                }\n                span,\n                p{\n                    font-size: 14px;\n                    font-weight: 500;\n                }\n                p + p{\n                    margin-top: 4px;\n                }\n                .wpwax-vm-dark-alert{\n                    display: inline-block;\n                    margin: 10px 0 14px;\n                    color: var(--color-dark);\n                }\n                p{\n                    margin: 0;\n                    color: var(--color-text);\n                }\n            }\n            .wpawax-vm-reply-btn-upload{\n                font-size: 14px;\n                font-weight: 600;\n                padding: 0 20px;\n                display: inline-flex;\n                align-items: center;\n                min-height: 38px;\n                border-radius: 8px;\n                text-decoration: none;\n                color: var(--color-white);\n                background-color: var(--color-dark);\n            }\n        }\n        .wpwax-vm-reply-close{\n            position: absolute;\n            top: 20px;\n            right: 30px;\n            text-decoration: none;\n            z-index: 10;\n            color: var(--color-dark);\n            .dashicons{\n                font-size: 28px;\n            }\n        }\n        &:before{\n            display: none;\n        }\n        &:after{\n            width: 50%;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                border-radius: 30px 30px 0 0;\n            }\n        }\n        .wpwax-vm-reply-ready__video{\n            width: 50%;\n            position: relative;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                min-height: 280px;\n                height: 100%;\n            }\n            .wpwax-vm-reply-video-bg{\n                border-radius: 0px;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            img{\n                width: 100%;\n                height: 100%;\n                border-radius: 30px 0 0 0;\n                @media only screen and (max-width: 767px){\n                    border-radius: 30px 30px 0 0;\n                }\n            }\n            video{\n                border-radius: 30px 0 0 30px;\n            }\n            .wpwax-vm-reply-ready__video--top{\n                display: flex;\n                justify-content: flex-end;\n                position: relative;\n                padding: 40px 40px 0 0;\n                color: var(--color-white);\n                z-index: 100001;\n                .wpwax-vm-video-timer{\n                    font-size: 14px;\n                    margin-right: 20px;\n                    display: inline-block;\n                }\n            }\n            .wpwax-vm-video_play{\n                position: absolute;\n                left: 50%;\n                top: 50%;\n                transform: translate(-50%,-50%);\n                display: flex;\n                align-items: center;\n               justify-content: center;\n                width: 80px;\n                height: 80px;\n                border-radius: 50%;\n                text-decoration: none;\n                box-shadow: 0 3px 20px rgba(0,0,0,.05);\n                background-color: var(--color-white);\n                .dashicons{\n                    position: relative;\n                    top: -3px;\n                    width: 30px;\n                    height: 22px;\n                    font-size: 30px;\n                    color: var(--color-danger);\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__content{\n            position: relative;\n            width: 50%;\n            border-radius: 0 30px 30px 0;\n            background-color: #F0F0F0;\n            @media only screen and (max-width: 767px){\n                width: 100%;\n                overflow-y: auto;\n                border-radius: 0;\n            }\n            .wpwax-vm-media{\n                padding: 40px 50px 45px;\n                @media only screen and (max-width: 767px){\n                    padding: 40px 30px 45px;\n                }\n                .wpwax-vm-media__body{\n                    top: -2px;\n                }\n                .wpwax-vm-media__title{\n                    font-size: 22px;\n                    font-weight: 600;\n                    font-family: 'Inter', sans-serif;\n                    text-transform: initial;\n                    width: 250px;\n                    line-height: 1.5;\n                    margin-bottom: 6px;\n                }\n                .wpwax-vm-media__meta{\n                    span{\n                        font-size: 15px;\n                        color: var(--color-text);\n                    }\n                }\n                .wpax-vm-imglist{\n                    img{\n                        max-width: 50px;\n                        border-radius: 50%;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form-input{\n            padding: 0 50px;\n            textarea{\n                font-size: 18px;\n                width: 100%;\n                border: 0 none;\n                min-height: 200px;\n                background-color: transparent;\n                &:focus{\n                    outline: none;\n                    border: 0 none;\n                    box-shadow: 0 0;\n                }\n            }\n        }\n        .wpwax-vm-reply-ready__text-form--action{\n            position: absolute;\n            bottom: 0;\n            left: 0;\n            width: 100%;\n            display: flex;\n            border-radius: 0 0 30px 0;\n            background-color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                position: fixed;\n            }\n            .wpwax-vm-reply-ready-btn{\n                display: flex;\n                justify-content: center;\n                align-items: center;\n                flex: 1;\n                min-height: 80px;\n                text-align: center;\n                text-decoration: none;\n                color: #4D4D4D;\n                &:hover{\n                    .wpwax-vm-reply-ready-btn__text{\n                        color: var(--color-primary);\n                    }\n                    span,\n                    svg path{\n                        color: var(--color-primary);\n                        fill: var(--color-primary);\n                    }\n                }\n                .wpwax-vm-reply-ready-btn__text{\n                    display: inline-block;\n                    margin-left: 10px;\n                }\n                svg{\n                    path{\n                        fill: #4D4D4D;\n                    }\n                }\n                &.wpwax-vm-btn-send{\n                    border-left: 1px solid #EDEDED;\n                    .wpwax-vm-reply-ready-btn__text{\n                        margin-right: 10px;\n                        margin-left: 0;\n                    }\n                }\n            }\n        }\n    }\n"])));
 
 
 /***/ }),
@@ -14241,7 +14337,7 @@ var VideoReplyWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].d
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/UserAvaterList.jsx */ "./src/js/components/UserAvaterList.jsx");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Style */ "./src/js/apps/messanger/components/message-box/components/video/Style.js");
@@ -14250,7 +14346,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
 /* harmony import */ var apiService_attachment_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! apiService/attachment-api */ "./src/js/helpers/apiService/attachment-api.js");
 /* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -14278,6 +14375,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Record = function Record(_ref) {
   var sessionID = _ref.sessionID,
     backToHome = _ref.backToHome,
@@ -14290,6 +14388,11 @@ var Record = function Record(_ref) {
 
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
 
   // Use API
   var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_8__["default"])(),
@@ -14421,12 +14524,15 @@ var Record = function Record(_ref) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return window.wpwaxCSRecorder.startRecording();
+              return startCountdown();
             case 2:
+              _context2.next = 4;
+              return window.wpwaxCSRecorder.startRecording();
+            case 4:
               setRecordedTimeInSecond(0);
               setIsRecording(true);
               startTimer();
-            case 5:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -14645,37 +14751,42 @@ var Record = function Record(_ref) {
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleReplyModeChange)(false));
   };
   if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
       className: !isRecording ? 'wpwax-vm-reply-pause' : 'wpwax-vm-reply-start',
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      children: [isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+        className: "wpwax-vm-reply-countdown",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(CountdownPage, {
+          count: getReverseCount()
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-reply-video-bg",
         style: {
           backgroundColor: '#000000'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("video", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("video", {
           ref: videoStreemRef,
           width: "100%",
           height: "100%",
           muted: true
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-reply-top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h4", {
-          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h4", {
+          children: isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("span", {
             className: "wpwax-vm-timer",
             children: [' ', getCountDown()]
           }) : ''
-        }), isRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+        }), isRecording || /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
           href: "",
           className: "wpwax-vm-reply-close",
           onClick: handleClose,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "dashicons dashicons-no-alt"
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      }), !isActiveCountdown && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-reply-bottom",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
           href: "",
           className: "wpwax-vm-btn-record",
           onClick: handleRecordButtonAction
@@ -14683,40 +14794,40 @@ var Record = function Record(_ref) {
       })]
     });
   } else {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_3__.VideoReplyWrap, {
       className: "wpwax-vm-reply-ready",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
         href: "",
         className: "wpwax-vm-reply-close",
         onClick: handleClose,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
           className: "dashicons dashicons-no-alt"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
         className: "wpwax-vm-reply-ready__video",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "wpwax-vm-reply-video-bg",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("video", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("video", {
             controls: true,
             src: recordedVidioURL,
             width: "100%",
             height: "100%"
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
         className: "wpwax-vm-reply-ready__content",
-        children: [replayingTo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        children: [replayingTo && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Components_UserAvaterList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
             users: [replayingTo]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
           className: "wpwax-vm-reply-ready__text-form",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("form", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("form", {
             action: "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
               className: "wpwax-vm-reply-ready__text-form-input",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("textarea", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("textarea", {
                 value: textMessage,
                 name: "wpwax-vm-reply-ready-text",
                 id: "wpwax-vm-reply-ready-text",
@@ -14725,26 +14836,26 @@ var Record = function Record(_ref) {
                   setTextMessage(event.target.value);
                 }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
               className: "wpwax-vm-reply-ready__text-form--action",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-back",
                 onClick: handleClose,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                   className: "dashicons dashicons-arrow-left-alt"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: "Cancel"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("a", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("a", {
                 onClick: sendVideo,
                 href: "#",
                 className: "wpwax-vm-reply-ready-btn wpwax-vm-btn-send",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                   className: "wpwax-vm-reply-ready-btn__text",
                   children: !isSending ? 'Send' : 'Sending...'
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
                   src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
                 })]
               })]
@@ -18969,6 +19080,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./src/js/components/Countdown.jsx":
+/*!*****************************************!*\
+  !*** ./src/js/components/Countdown.jsx ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function App(_ref) {
+  var count = _ref.count,
+    theme = _ref.theme;
+  theme = theme ? theme : 'light';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: theme + ' wpwax-vm-countdown wpwax-vm-text-center',
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", {
+      className: "wpwax-vm-countdown-heading",
+      children: count
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", {
+      className: "wpwax-vm-countdown-text",
+      children: "Get Ready"
+    })]
+  });
+}
+/* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
 /***/ "./src/js/components/Image.jsx":
 /*!*************************************!*\
   !*** ./src/js/components/Image.jsx ***!
@@ -21639,7 +21780,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
@@ -21653,9 +21793,18 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
 function useScreenRecorder(config) {
+  var defaultConfig = {
+    maxRecordLength: null,
+    alertTimeBeforeStop: 10
+  };
+  config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     recorder = _useState2[0],
@@ -21692,21 +21841,18 @@ function useScreenRecorder(config) {
     _useState18 = _slicedToArray(_useState17, 2),
     recordedScreenURL = _useState18[0],
     setRecordedScreenURL = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState20 = _slicedToArray(_useState19, 2),
-    maxRecordLength = _useState20[0],
-    setMaxRecordLength = _useState20[1];
-
-  // @Init
+    recordingIsGoingToStopSoon = _useState20[0],
+    setRecordingIsGoingToStopSoon = _useState20[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var _maxRecordLength = config && config.maxRecordLength ? config.maxRecordLength : null;
-    setMaxRecordLength(_maxRecordLength);
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!maxRecordLength) {
+    if (!config.maxRecordLength) {
       return;
     }
-    if (recordedTimeInSecond >= maxRecordLength) {
+    if (reversedRecordedTimeInSecond() <= config.alertTimeBeforeStop) {
+      setRecordingIsGoingToStopSoon(true);
+    }
+    if (recordedTimeInSecond >= config.maxRecordLength) {
       stopRecording();
     }
   }, [recordedTimeInSecond]);
@@ -21781,11 +21927,11 @@ function useScreenRecorder(config) {
     }));
     return _requestPermission.apply(this, arguments);
   }
-  function startRecording() {
-    return _startRecording.apply(this, arguments);
-  } // initRecording
-  function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+  function setupStream() {
+    return _setupStream.apply(this, arguments);
+  } // startRecording
+  function _setupStream() {
+    _setupStream = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var newScreenStream, newAudioStream, newMixedStream, newRecorder;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
@@ -21820,30 +21966,29 @@ function useScreenRecorder(config) {
                 disableLogs: true
               });
               setRecorder(newRecorder);
-              initRecording(newRecorder);
-              return _context3.abrupt("return", true);
-            case 16:
-              _context3.prev = 16;
+              return _context3.abrupt("return", newRecorder);
+            case 15:
+              _context3.prev = 15;
               _context3.t0 = _context3["catch"](0);
               console.log({
                 error: _context3.t0
               });
               setIsRecording(false);
               return _context3.abrupt("return", false);
-            case 21:
+            case 20:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 16]]);
+      }, _callee3, null, [[0, 15]]);
     }));
-    return _startRecording.apply(this, arguments);
+    return _setupStream.apply(this, arguments);
   }
-  function initRecording(_x) {
-    return _initRecording.apply(this, arguments);
+  function startRecording(_x) {
+    return _startRecording.apply(this, arguments);
   } // stopRecording
-  function _initRecording() {
-    _initRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(recorder) {
+  function _startRecording() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(recorder) {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -21851,17 +21996,18 @@ function useScreenRecorder(config) {
               _context4.next = 2;
               return recorder.startRecording();
             case 2:
+              setRecordingIsGoingToStopSoon(false);
               setRecordedTimeInSecond(0);
               setIsRecording(true);
               startTimer();
-            case 5:
+            case 6:
             case "end":
               return _context4.stop();
           }
         }
       }, _callee4);
     }));
-    return _initRecording.apply(this, arguments);
+    return _startRecording.apply(this, arguments);
   }
   function stopRecording() {
     stopTimer();
@@ -21873,6 +22019,7 @@ function useScreenRecorder(config) {
       audioStream.getTracks().forEach(function (track) {
         return track.stop();
       });
+      setRecordingIsGoingToStopSoon(false);
       setRecordedScreenBlob(blob);
       setRecordedScreenURL(url);
       setIsRecording(false);
@@ -21899,10 +22046,10 @@ function useScreenRecorder(config) {
     clearInterval(recordingTimer);
   }
   function reversedRecordedTimeInSecond() {
-    return maxRecordLength - recordedTimeInSecond;
+    return config.maxRecordLength - recordedTimeInSecond;
   }
   function getCountDown() {
-    if (!maxRecordLength || recordedTimeInSecond < 1) {
+    if (!config.maxRecordLength || recordedTimeInSecond < 1) {
       return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(recordedTimeInSecond);
     }
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
@@ -21917,13 +22064,16 @@ function useScreenRecorder(config) {
     setRecordedScreenURL('');
   }
   return {
+    recorder: recorder,
     isRecording: isRecording,
     permissionDenied: permissionDenied,
     recordedTimeInSecond: recordedTimeInSecond,
     recordedScreenBlob: recordedScreenBlob,
     recordedScreenURL: recordedScreenURL,
+    recordingIsGoingToStopSoon: recordingIsGoingToStopSoon,
     hasPermission: hasPermission,
     requestPermission: requestPermission,
+    setupStream: setupStream,
     startRecording: startRecording,
     stopRecording: stopRecording,
     getCountDown: getCountDown,
@@ -21965,6 +22115,106 @@ function useCoreData() {
     return find(coreData, key);
   }
   return coreData === null || coreData === void 0 ? void 0 : coreData[key];
+}
+
+/***/ }),
+
+/***/ "./src/js/helpers/hooks/useCountdown.js":
+/*!**********************************************!*\
+  !*** ./src/js/helpers/hooks/useCountdown.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ useCountdown; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Components_Countdown_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/Countdown.jsx */ "./src/js/components/Countdown.jsx");
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+function useCountdown(config) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState2 = _slicedToArray(_useState, 2),
+    count = _useState2[0],
+    setCount = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    isActiveCountdown = _useState4[0],
+    setIsActiveCountdown = _useState4[1];
+  var countdownTimer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var defaultConfig = {
+    countdownLength: 3
+  };
+  config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
+  function startCountdown() {
+    return _startCountdown.apply(this, arguments);
+  }
+  function _startCountdown() {
+    _startCountdown = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setIsActiveCountdown(true);
+              startTimer();
+              _context.next = 4;
+              return delay(config.countdownLength + 1);
+            case 4:
+              stopTimer();
+              setIsActiveCountdown(false);
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _startCountdown.apply(this, arguments);
+  }
+  function startTimer() {
+    countdownTimer.current = setInterval(function () {
+      setCount(function (currentValue) {
+        return currentValue + 1;
+      });
+    }, 1000);
+  }
+  function stopTimer() {
+    setCount(0);
+    clearInterval(countdownTimer.current);
+  }
+  function delay(seconds) {
+    return new Promise(function (resolve) {
+      setTimeout(function () {
+        return resolve();
+      }, seconds * 1000);
+    });
+  }
+  function getReverseCount() {
+    return config.countdownLength - count;
+  }
+  return {
+    count: count,
+    isActiveCountdown: isActiveCountdown,
+    startCountdown: startCountdown,
+    CountdownPage: Components_Countdown_jsx__WEBPACK_IMPORTED_MODULE_1__["default"],
+    getReverseCount: getReverseCount
+  };
 }
 
 /***/ }),

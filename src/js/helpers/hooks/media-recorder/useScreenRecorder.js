@@ -3,6 +3,13 @@ import { formatSecondsAsCountdown } from "Helper/formatter";
 
 export default function useScreenRecorder( config ) {
 
+	const defaultConfig = {
+		maxRecordLength: null,
+		alertTimeBeforeStop: 10,
+	};
+
+	config = ( config && typeof config === 'object' ) ? { ...defaultConfig, ...config } : defaultConfig;
+
 	const [ recorder, setRecorder ]             = useState( null );
 	const [ screenStream, setScreenStream ]     = useState( null );
 	const [ audioStream, setAudioStream ]       = useState( null );
@@ -14,23 +21,20 @@ export default function useScreenRecorder( config ) {
 	const [ recordedTimeInSecond, setRecordedTimeInSecond ] = useState( 0 );
 	const [ recordedScreenBlob, setRecordedScreenBlob ]     = useState( null );
 	const [ recordedScreenURL, setRecordedScreenURL ]       = useState( '' );
-	const [ maxRecordLength, setMaxRecordLength ]           = useState( null );
 
-	// @Init
-	useEffect( () => {
-
-		const _maxRecordLength = ( config && config.maxRecordLength ) ? config.maxRecordLength : null;
-		setMaxRecordLength( _maxRecordLength );
-
-	}, []);
+	const [ recordingIsGoingToStopSoon, setRecordingIsGoingToStopSoon ] = useState( false );
 
 	useEffect( () => {
 
-		if ( ! maxRecordLength ) {
+		if ( ! config.maxRecordLength ) {
 			return;
 		}
 
-		if ( recordedTimeInSecond >= maxRecordLength ) {
+		if ( reversedRecordedTimeInSecond() <= config.alertTimeBeforeStop ) {
+			setRecordingIsGoingToStopSoon( true );
+		}
+
+		if ( recordedTimeInSecond >= config.maxRecordLength ) {
 			stopRecording();
 		}
 
@@ -73,7 +77,7 @@ export default function useScreenRecorder( config ) {
         }
     }
 
-    async function startRecording() {
+    async function setupStream() {
         try {
             // Setup Screen Streem
             const newScreenStream = await navigator.mediaDevices.getDisplayMedia({
@@ -106,9 +110,8 @@ export default function useScreenRecorder( config ) {
             });
 
 			setRecorder( newRecorder );
-			initRecording( newRecorder );
 
-			return true;
+			return newRecorder;
 
         } catch (error) {
             console.log({ error });
@@ -118,10 +121,11 @@ export default function useScreenRecorder( config ) {
         }
     }
 
-	// initRecording
-    async function initRecording( recorder ) {
+	// startRecording
+    async function startRecording( recorder ) {
         await recorder.startRecording();
 
+		setRecordingIsGoingToStopSoon( false );
         setRecordedTimeInSecond(0);
         setIsRecording(true);
         startTimer();
@@ -136,6 +140,7 @@ export default function useScreenRecorder( config ) {
             screenStream.getTracks().forEach((track) => track.stop());
             audioStream.getTracks().forEach((track) => track.stop());
 
+			setRecordingIsGoingToStopSoon( false );
             setRecordedScreenBlob(blob);
             setRecordedScreenURL(url);
             setIsRecording(false);
@@ -164,12 +169,12 @@ export default function useScreenRecorder( config ) {
     }
 
 	function reversedRecordedTimeInSecond() {
-		return ( maxRecordLength - recordedTimeInSecond );
+		return ( config.maxRecordLength - recordedTimeInSecond );
 	}
 
 	function getCountDown() {
 
-		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
+		if ( ! config.maxRecordLength || recordedTimeInSecond < 1 ) {
 			return formatSecondsAsCountdown( recordedTimeInSecond );
 		}
 
@@ -187,13 +192,16 @@ export default function useScreenRecorder( config ) {
 	}
 
 	return {
+		recorder,
 		isRecording,
 		permissionDenied,
 		recordedTimeInSecond,
 		recordedScreenBlob,
 		recordedScreenURL,
+		recordingIsGoingToStopSoon,
 		hasPermission,
 		requestPermission,
+		setupStream,
 		startRecording,
 		stopRecording,
 		getCountDown,

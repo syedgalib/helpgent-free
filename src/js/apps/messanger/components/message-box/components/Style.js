@@ -264,6 +264,9 @@ const ContactFormWrap = Styled.div`
 `;
 
 const MessageBox = Styled.div`
+	.wpwax-vm-message-content__inner p {
+		white-space: pre-wrap;
+	}
     &.wpwax-vm-message-single{
         display: flex;
         align-items: flex-start;

@@ -1056,6 +1056,27 @@
     }
 }
 
+.wpwax-vm-messagebox-reply__input textarea {
+	width: 100%;
+	max-height: 160px;
+	min-height: 20px;
+    margin: 10px 0px;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+
+	&:focus, &:active {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.wpwax-vm-messagebox-reply__action {
+	display: flex;
+	align-items: flex-end;
+}
+
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
     height: min(80vh, 600px);

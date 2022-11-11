@@ -59,7 +59,7 @@ class Messages extends Rest_Base
                         ],
                         'message' => [
                             'required'          => false,
-                            'sanitize_callback' => 'sanitize_text_field',
+                            'sanitize_callback' => 'sanitize_textarea_field',
                         ],
                         'attachment_id' => [
                             'required'          => false,

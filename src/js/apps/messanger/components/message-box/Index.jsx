@@ -706,10 +706,13 @@ function MessageBox({ setSessionState }) {
         }
     };
 
-    const sendTextMessage = async function (e) {
+    const handleSendTextMessage = async function (e) {
         e.preventDefault();
+		sendTextMessage();
+    };
 
-        if (isSendingTextMessage) {
+	const sendTextMessage = async function () {
+		if (isSendingTextMessage) {
             return;
         }
 
@@ -741,7 +744,7 @@ function MessageBox({ setSessionState }) {
 
         // Load Latest
         loadLatestMessages();
-    };
+	}
 
 	const canSendAudioMessage = () => {
 		const MIN_AUDIO_MESSAGE_LIMIT_IN_SECONDS = 1;
@@ -1441,33 +1444,31 @@ function MessageBox({ setSessionState }) {
                     </a>
                     <div className='wpwax-vm-messagebox-reply'>
                         <div className='wpwax-vm-messagebox-reply__input'>
-                            <form onSubmit={sendTextMessage} autoComplete='off'>
-                                <input
-                                    ref={textMessageContentRef}
-                                    type='text'
-                                    disabled={isSendingTextMessage}
-                                    name='wpwax-vm-messagebox-reply-input'
-                                    id='wpwax-vm-messagebox-reply-input'
-                                    placeholder='Type a message'
-                                    value={textMessageContent}
-                                    onChange={(event) => {
-                                        setTextMessageContent(event.target.value);
-                                    }}
-                                />
-
-                                <input
-                                    type='submit'
-                                    style={{ display: 'none' }}
-                                    hidden
-                                />
-                            </form>
+							<textarea
+								style={{ height: (textMessageContent.split(/\r*\n/).length * 16) + 'px' }}
+								ref={textMessageContentRef}
+								disabled={isSendingTextMessage}
+								name='wpwax-vm-messagebox-reply-input'
+								id='wpwax-vm-messagebox-reply-input'
+								placeholder='Type a message'
+								value={textMessageContent}
+								onChange={(event) => {
+									setTextMessageContent(event.target.value);
+								}}
+								onKeyPress={( event ) => {
+									if ( 'Enter' === event.key && ! event.shiftKey  ) {
+										sendTextMessage();
+									}
+								}}
+							>
+							</textarea>
                         </div>
                         <div className='wpwax-vm-messagebox-reply__action'>
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
 								disabled={canSendTextMessage() ? false : true}
-                                onClick={sendTextMessage}
+                                onClick={handleSendTextMessage}
                             >
                                 {!isSendingTextMessage ? (
                                     <ReactSVG src={paperPlane} />

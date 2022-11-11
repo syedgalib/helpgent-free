@@ -313,15 +313,17 @@ class Conversations extends Rest_Base
 			}
 		}
 
-		if ( ! empty( $args['where']['terms'] ) ) {
+		if ( isset( $args['where']['terms'] ) ) {
 
-			$args['where']['tax_query'] = [
-				[
-					'taxonomy' => 'tag',
-					'field'    => 'term_id',
-					'terms'    => $args['where']['terms'],
-				]
-			];
+			if ( ! empty( $args['where']['terms'] ) ) {
+				$args['where']['tax_query'] = [
+					[
+						'taxonomy' => 'tag',
+						'field'    => 'term_id',
+						'terms'    => $args['where']['terms'],
+					]
+				];
+			}
 
 			unset( $args['where']['terms'] );
 		}
@@ -587,7 +589,7 @@ class Conversations extends Rest_Base
 		$messages = Message_Model::get_items( $messages_args );
 
 		$messages = $messages['results'];
-		
+
 		foreach( $messages as $message ) {
 			Message_Model::delete_item( $message['id'] );
 		}

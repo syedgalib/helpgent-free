@@ -64,7 +64,7 @@ class Conversation_Model extends DB_Model {
         $default['page']     = 1;
         $default['order_by'] = 'latest';
 
-		$args  = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
+		$args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
 		// Pagination
 		$limit = $args['limit'];

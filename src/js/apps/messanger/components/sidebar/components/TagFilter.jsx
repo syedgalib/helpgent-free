@@ -35,7 +35,7 @@ const TagFilter = props =>{
             name: debouncedSearchTerm,
         };
         const fetchSearchNameMail = async () => {
-            
+
             const searchByNameMailResponse = await getTerms(tagArg);
             return searchByNameMailResponse;
         };
@@ -85,7 +85,7 @@ const TagFilter = props =>{
                 tagLoader: true
             });
             const fetchTags =  async () =>{
-                
+
                 const tagsResponse = await getTerms({limit:5});
                 return tagsResponse;
             }
@@ -130,7 +130,6 @@ const TagFilter = props =>{
             terms: checkedForFilter.join(',')
         }
         const fetchSessionByTerm = async ()=>{
-            
 			const sessionByTermsResponse = await getConversations(termArgs)
 			return sessionByTermsResponse;
 		}
@@ -203,7 +202,6 @@ const TagFilter = props =>{
         setTagsPageNumber(tagsPageNumber + 1);
 
         const fetchNextTags = async () => {
-            
             const nextTagResponse = await getTerms(pageArg);
             return nextTagResponse;
         };
@@ -275,7 +273,7 @@ const TagFilter = props =>{
             </div>
 
 
-            <div className={allTags.length ===0 || checkedForFilter.length === 0 ? "wpwax-vm-tag-filter-action wpwax-vm-tag-filter-action-disabled" : "wpwax-vm-tag-filter-action"}>
+            <div className="wpwax-vm-tag-filter-action">
                 <a href="#" className="wpwax-vm-tag-filter-action__clear" onClick={handleClearChecked}>Clear all</a>
                 <a href="#" className="wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary" onClick={hadnleTagFilterApply}>Apply</a>
             </div>

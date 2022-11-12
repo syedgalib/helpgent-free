@@ -26,8 +26,9 @@ class Message_Notification_Emails
 		add_action('helpgent_guest_token_created', [$this, 'notify_after_token_created']);
 		add_filter('wp_mail_from', [$this, 'mail_from']);
 		add_filter('wp_mail_from_name', [$this, 'name_from']);
-	}
 
+	}
+	
 	/**
 	 * Modify name append in recipent name box
 	 *
@@ -67,13 +68,9 @@ class Message_Notification_Emails
 	public function notify_after_token_created($data)
 	{
 
-		if (!$this->if_has_conversation($data['email'])) {
-			return;
-		}
-
 		$default = 'Dear User,
 
-        Congratulations! Your guest token has been generated and it is valid until ' . HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS . ' days from now. Go to your dashboard {{DASHBOARD_LINK}}
+        Congratulations! Your guest token has been generated and it is valid until ' . HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS . ' days from now. Go to your dashboard {{CONVERSATION_LINK}}
 
         Thanks,
         The Administrator of {{SITE_NAME}}
@@ -95,28 +92,6 @@ class Message_Notification_Emails
 		$headers = self::get_email_headers(['email' => $to]);
 
 		return self::send_email($to, $subject, $message, $headers);
-	}
-
-	public function if_has_conversation($email)
-	{
-		$messages = Message_Model::get_items([
-			'where' => [
-				'user_email' => [
-					'key'     => 'user_email',
-					'compare' => 'in',
-					'value'   => $email,
-				]
-			],
-			'group_by' => 'conversation_id'
-		]);
-
-		$messages = $messages['results'];
-
-		if (!empty($messages)) {
-			return true;
-		}
-
-		return false;
 	}
 
 	public function is_first_conversation($email)
@@ -278,7 +253,7 @@ class Message_Notification_Emails
 
 		$default = 'Dear {{NAME}},
 
-        Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{DASHBOARD_LINK}}
+        Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your dashboard {{CONVERSATION_LINK}}
 
         Thanks,
         The Administrator of {{SITE_NAME}}
@@ -465,7 +440,7 @@ class Message_Notification_Emails
 			'{{SITE_URL}}' => sprintf('<a href="%s" style="color: #1b83fb;">%s</a>', $site_url, $site_url),
 			'{{TODAY}}' => date_i18n($date_format, $current_time),
 			'{{NOW}}' => date_i18n($date_format . ' ' . $time_format, $current_time),
-			'{{DASHBOARD_LINK}}' => sprintf('<a href="%s" style="color: #1b83fb;">%s</a>', $dashboard_link, $dashboard_link),
+			'{{CONVERSATION_LINK}}' => sprintf('<a href="%s" style="color: #1b83fb;">%s</a>', $dashboard_link, $dashboard_link),
 			'{{MESSAGE}}' => !empty($args['message']) ? $args['message'] : '',
 		);
 		$c = nl2br(strtr($content, $find_replace));

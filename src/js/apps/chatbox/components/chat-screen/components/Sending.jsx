@@ -157,7 +157,7 @@ function Sending() {
 			dispatch(
 				updateUserState({
 					status: false,
-					statusMessage: 'You are already registered as guest, please continue from the link provided to your email for further communication.',
+					statusMessage: `${email} is already registered as a guest, please continue from the link provided in your email for further communication.`,
 				})
 			);
 

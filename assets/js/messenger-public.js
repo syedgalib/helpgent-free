@@ -5528,7 +5528,7 @@ function Sending() {
               }
               dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_4__.upateState)({
                 status: false,
-                statusMessage: 'You are already registered as guest, please continue from the link provided to your email for further communication.'
+                statusMessage: "".concat(email, " is already registered as a guest, please continue from the link provided in your email for further communication.")
               }));
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].CONTACT_FORM));
               return _context4.abrupt("return", true);

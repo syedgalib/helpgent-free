@@ -13,7 +13,7 @@ if ( ! defined( 'HELPGENT_CLIENT_ROLE' ) ) {
 }
 
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {
-    define( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS', apply_filters( 'helpgent_auth_token_expires_after_days', 7 ) );
+    define( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS', apply_filters( 'helpgent_auth_token_expires_after_days', 30 ) );
 }
 
 if ( ! defined( 'HELPGENT_UPLOAD_DIR_PATH' ) ) {

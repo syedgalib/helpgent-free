@@ -10,7 +10,6 @@ if ( ! defined( 'HELPGENT_PREFIX' ) ) {
 
 if ( ! defined( 'HELPGENT_CLIENT_ROLE' ) ) {
     define( 'HELPGENT_CLIENT_ROLE', 'wpwax_vm_client' );
-
 }
 
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {
@@ -75,6 +74,10 @@ if ( ! defined( 'HELPGENT_URL' ) ) {
 
 if ( ! defined( 'HELPGENT_ASSET_URL' ) ) {
     define( 'HELPGENT_ASSET_URL', HELPGENT_URL . 'assets/' );
+}
+
+if ( ! defined( 'HELPGENT_ASSET_PATH' ) ) {
+    define( 'HELPGENT_ASSET_PATH', HELPGENT_BASE . 'assets/' );
 }
 
 if ( ! defined( 'HELPGENT_ASSET_SRC_PATH' ) ) {

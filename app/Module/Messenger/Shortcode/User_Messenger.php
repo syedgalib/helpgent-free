@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Shortcode;
+namespace HelpGent\Module\Messenger\Shortcode;
 
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 class User_Messenger {
 

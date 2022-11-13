@@ -1,11 +1,11 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
+namespace HelpGent\Module\Messenger\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Attachment_Model;
 
 class Message_Model extends DB_Model {
 
@@ -147,7 +147,7 @@ class Message_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -158,7 +158,7 @@ class Message_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -197,24 +197,24 @@ class Message_Model extends DB_Model {
         }
 
         if ( empty( $args['conversation_id'] ) ) {
-            $message = __( 'Conversation ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Conversation ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( empty( $args['user_email'] ) ) {
-            $message = __( 'Author email is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Author email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		if ( ! is_email( $args['user_email'] ) ) {
-            $message = __( 'A valid author email is required.', 'wpwax-customer-support-app' );
+            $message = __( 'A valid author email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -233,7 +233,7 @@ class Message_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['id'] ) ) {
-            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -241,7 +241,7 @@ class Message_Model extends DB_Model {
 		$old_data = self::get_item( $args['id'] );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -256,7 +256,7 @@ class Message_Model extends DB_Model {
 		$result = $wpdb->update( $table, $args, $where );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -275,7 +275,7 @@ class Message_Model extends DB_Model {
         global $wpdb;
 
 		if ( empty( $where ) || empty( $update_fields ) ) {
-			$message = __( 'Nothing to update.', 'wpwax-customer-support-app' );
+			$message = __( 'Nothing to update.', 'helpgent' );
 			return new WP_Error( 403, $message );
 		}
 
@@ -294,7 +294,7 @@ class Message_Model extends DB_Model {
 		$result = $wpdb->query( $query );
 
 		if ( false === $result ) {
-			$message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+			$message = __( 'Could not update the resource.', 'helpgent' );
 			return new WP_Error( 403, $message );
 		}
 
@@ -335,7 +335,7 @@ class Message_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
 		if ( empty( $status ) ) {
-			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'Could not delete the resource.', 'helpgent' ) );
 		}
 
 		do_action( 'helpgent_after_message_deleted', $message );

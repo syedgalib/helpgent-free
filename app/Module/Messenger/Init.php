@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger;
+namespace HelpGent\Module\Messenger;
 
-use WPWaxCustomerSupportApp\Helper;
+use HelpGent\Helper;
 
 class Init {
 

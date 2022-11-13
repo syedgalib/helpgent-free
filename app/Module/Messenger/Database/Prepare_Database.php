@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Database;
+namespace HelpGent\Module\Messenger\Database;
 
 class Prepare_Database {
 
@@ -29,7 +29,7 @@ class Prepare_Database {
 	private function get_schema() {
 		global $wpdb;
 
-        $table_prefix = $wpdb->prefix . WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX;
+        $table_prefix = $wpdb->prefix . HELPGENT_DB_TABLE_PREFIX;
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 
 		$tables = "

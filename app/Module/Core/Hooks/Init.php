@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
+namespace HelpGent\Module\Core\Hooks;
 
-use WPWaxCustomerSupportApp\Helper;
+use HelpGent\Helper;
 
 class Init {
 

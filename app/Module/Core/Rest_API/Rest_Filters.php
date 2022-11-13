@@ -1,24 +1,24 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+namespace HelpGent\Module\Core\Rest_API;
 
 
 class Rest_Filters {
 
     /**
      * Constructor
-     * 
+     *
      * @return void
      */
     public function __construct() {
-        
+
         add_filter( 'wpwax_customer_support_app_rest_check_permissions', [ $this, 'allow_read_context_permission' ], 20, 4 );
-        
+
     }
 
     /**
      * Allow read context permission
-     * 
+     *
      * @param boolen $permission
      * @param string $context
      * @param integer $object_id
@@ -30,12 +30,12 @@ class Rest_Filters {
         if ( $context === 'read' ) {
             $permission = true;
         }
-    
+
         if ( $context === 'create' && $object_type === 'user' ) {
             $permission = true;
         }
-    
+
         return $permission;
     }
-    
+
 }

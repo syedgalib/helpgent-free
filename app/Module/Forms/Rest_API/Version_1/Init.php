@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Rest_API\Version_1;
+namespace HelpGent\Module\Forms\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Helper;
+use HelpGent\Helper;
 
 class Init {
 

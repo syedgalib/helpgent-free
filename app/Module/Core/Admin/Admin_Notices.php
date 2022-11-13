@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Admin;
+namespace HelpGent\Module\Core\Admin;
 
 class Admin_Notices
 {

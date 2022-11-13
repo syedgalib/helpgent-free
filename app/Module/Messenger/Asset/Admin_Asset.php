@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Asset;
+namespace HelpGent\Module\Messenger\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Admin_Asset extends Enqueuer {
 
@@ -29,9 +29,9 @@ class Admin_Asset extends Enqueuer {
      * Load Admin CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-admin-style'] = [
+      $scripts['helpgent-messenger-admin-style'] = [
           'file_name' => 'admin',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'admin',
@@ -50,10 +50,10 @@ class Admin_Asset extends Enqueuer {
      * Load Admin JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-admin-script'] = [
+      $scripts['helpgent-messenger-admin-script'] = [
           'file_name' => 'admin',
-          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
@@ -63,10 +63,10 @@ class Admin_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-messenger-admin-script'] = [
+        $scripts['helpgent-messenger-admin-script'] = [
             'file_name' => 'messenger-admin',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
+            'base_path' => HELPGENT_JS_PATH,
             'group'     => 'admin',
 			'data'      => [
                 'wpWaxCustomerSupportApp_MessengerScriptData' => Script_Data::get_base_data(),

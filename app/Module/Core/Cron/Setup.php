@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Cron;
+namespace HelpGent\Module\Core\Cron;
 
 class Setup {
 
@@ -26,7 +26,7 @@ class Setup {
 	 */
 
 	public function unscheduled_cron() {
-		register_deactivation_hook( WPWAX_CUSTOMER_SUPPORT_APP_FILE, function() {
+		register_deactivation_hook( HELPGENT_FILE, function() {
 			$timestamp = wp_next_scheduled( 'helpgent_hourly_cron' );
     		wp_unschedule_event( $timestamp, 'helpgent_hourly_cron' );
 		});

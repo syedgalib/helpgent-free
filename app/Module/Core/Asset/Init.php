@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Asset;
+namespace HelpGent\Module\Core\Asset;
 
-use WPWaxCustomerSupportApp\Helper;
+use HelpGent\Helper;
 
 class Init {
 

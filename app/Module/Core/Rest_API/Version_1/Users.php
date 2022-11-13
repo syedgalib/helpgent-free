@@ -1,13 +1,13 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace HelpGent\Module\Core\Rest_API\Version_1;
 
 use \WP_REST_Server;
 use \WP_User_Query;
 use \WP_Error;
 use \WP_REST_Response;
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Rest_Helper;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Core\Rest_API\Rest_Helper;
+use HelpGent\Base\Helper;
 
 class Users extends Rest_Base {
 
@@ -35,16 +35,16 @@ class Users extends Rest_Base {
 					'email' => array(
 						'required' => true,
 						'type'     => 'string',
-						'description' => __( 'New user email address.', 'wpwax-customer-support-app' ),
+						'description' => __( 'New user email address.', 'helpgent' ),
 					),
 					'username' => array(
 						'required' => false,
-						'description' => __( 'New user username.', 'wpwax-customer-support-app' ),
+						'description' => __( 'New user username.', 'helpgent' ),
 						'type'     => 'string',
 					),
 					'password' => array(
 						'required' => false,
-						'description' => __( 'New user password.', 'wpwax-customer-support-app' ),
+						'description' => __( 'New user password.', 'helpgent' ),
 						'type'     => 'string',
 					),
 				) ),
@@ -55,7 +55,7 @@ class Users extends Rest_Base {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'wpwax-customer-support-app' ),
+					'description' => __( 'Unique identifier for the resource.', 'helpgent' ),
 					'type'        => 'integer',
 				),
 			),
@@ -81,12 +81,12 @@ class Users extends Rest_Base {
 					'force' => array(
 						'default'     => false,
 						'type'        => 'boolean',
-						'description' => __( 'Required to be true, as resource does not support trashing.', 'wpwax-customer-support-app' ),
+						'description' => __( 'Required to be true, as resource does not support trashing.', 'helpgent' ),
 					),
 					'reassign' => array(
 						'default'     => 0,
 						'type'        => 'integer',
-						'description' => __( 'ID to reassign posts to.', 'wpwax-customer-support-app' ),
+						'description' => __( 'ID to reassign posts to.', 'helpgent' ),
 					),
 				),
 			),
@@ -96,11 +96,11 @@ class Users extends Rest_Base {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/authenticate', array(
 			'args' => array(
 				'email' => array(
-					'description' => __( 'User email address.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User email address.', 'helpgent' ),
 					'type'        => 'string',
 				),
 				'password' => array(
-					'description' => __( 'User password.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User password.', 'helpgent' ),
 					'type'        => 'string',
 				),
 			),
@@ -236,7 +236,7 @@ class Users extends Rest_Base {
 	 */
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_id_required', __( 'User ID is required.', 'wpwax-customer-support-app' ), 403 );
+			return new WP_Error( 'wpwax_customer_support_app_rest_user_id_required', __( 'User ID is required.', 'helpgent' ), 403 );
 		}
 
 		if ( email_exists( $request['email'] ) ) {
@@ -339,7 +339,7 @@ class Users extends Rest_Base {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $id ) || empty( $user_data->ID ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'wpwax-customer-support-app' ), array( 'status' => 404 ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), array( 'status' => 404 ) );
 		}
 
 		$user_data = $this->prepare_item_for_response( $user_data, $request );
@@ -359,15 +359,15 @@ class Users extends Rest_Base {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $user_data ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'wpwax-customer-support-app' ), 400 );
+			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), 400 );
 		}
 
 		if ( ! empty( $request['email'] ) && email_exists( $request['email'] ) && $request['email'] !== $user_data->user_email ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_email', __( 'Email address is invalid.', 'wpwax-customer-support-app' ), 400 );
+			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_email', __( 'Email address is invalid.', 'helpgent' ), 400 );
 		}
 
 		if ( ! empty( $request['username'] ) && $request['username'] !== $user_data->user_login ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_argument', __( "Username isn't editable.", 'wpwax-customer-support-app' ), 400 );
+			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_argument', __( "Username isn't editable.", 'helpgent' ), 400 );
 		}
 
 		$updated_user_data = array(
@@ -456,19 +456,19 @@ class Users extends Rest_Base {
 			return new WP_Error(
 				'wpwax_customer_support_app_rest_trash_not_supported',
 				/* translators: %s: force=true */
-				sprintf( __( "Users do not support trashing. Set '%s' to delete.", 'wpwax-customer-support-app' ), 'force=true' ),
+				sprintf( __( "Users do not support trashing. Set '%s' to delete.", 'helpgent' ), 'force=true' ),
 				array( 'status' => 501 )
 			);
 		}
 
 		$user_data = get_userdata( $id );
 		if ( ! $user_data ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource id.', 'wpwax-customer-support-app' ), array( 'status' => 400 ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource id.', 'helpgent' ), array( 'status' => 400 ) );
 		}
 
 		if ( ! empty( $reassign ) ) {
 			if ( $reassign === $id || ! get_userdata( $reassign ) ) {
-				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'wpwax-customer-support-app' ), array( 'status' => 400 ) );
+				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'helpgent' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -483,7 +483,7 @@ class Users extends Rest_Base {
 		if ( ! $result ) {
 			return new WP_Error(
 				'wpwax_customer_support_app_rest_cannot_delete',
-				__( 'The resource cannot be deleted.', 'wpwax-customer-support-app' ),
+				__( 'The resource cannot be deleted.', 'helpgent' ),
 				array( 'status' => 500 )
 			);
 		}
@@ -514,28 +514,28 @@ class Users extends Rest_Base {
 		$password = ( isset( $args['password'] ) ) ? $args['password'] : '';
 
 		if ( empty( $email ) ) {
-			return new WP_Error(  403, __( 'Email is required', 'wpwax-customer-support-app' ) );
+			return new WP_Error(  403, __( 'Email is required', 'helpgent' ) );
 		}
 
 		if ( ! is_email( $email ) ) {
-			return new WP_Error(  403, __( 'A valid email is required', 'wpwax-customer-support-app' ) );
+			return new WP_Error(  403, __( 'A valid email is required', 'helpgent' ) );
 		}
 
 		if ( empty( $password ) ) {
-			return new WP_Error(  403, __( 'Password is required', 'wpwax-customer-support-app' ) );
+			return new WP_Error(  403, __( 'Password is required', 'helpgent' ) );
 		}
 
 		$user = get_user_by( 'email', $email );
 
 		if ( empty( $user ) ) {
-			return new WP_Error(  403, __( 'User does not exists', 'wpwax-customer-support-app' ) );
+			return new WP_Error(  403, __( 'User does not exists', 'helpgent' ) );
 		}
 
 
 		$auth = wp_authenticate( $user->user_login, $password );
 
 		if ( is_wp_error( $auth ) ) {
-			return new WP_Error( 403, __( 'The password is incorrect', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'The password is incorrect', 'helpgent' ) );
 		}
 
 		$auth = $this->prepare_item_for_response( $auth, $request );
@@ -583,19 +583,19 @@ class Users extends Rest_Base {
 		$email = ( ! empty( $args['email'] ) ) ? $args['email'] : '';
 
 		if ( ! is_email( $email ) ) {
-			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'A valid email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( empty( $email ) ) {
-			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		$users = Helper\get_users_data_by( 'email', [ $email ] );
 		$user  = ( ! empty( $users ) ) ? $users[0] : false;
 
-		$message = ( $user ) ? __( 'The user is registered.', 'wpwax-customer-support-app' ) : __( 'The user is not registered.', 'wpwax-customer-support-app' );
+		$message = ( $user ) ? __( 'The user is registered.', 'helpgent' ) : __( 'The user is not registered.', 'helpgent' );
 
 		return $this->response( true, $user,  );
 
@@ -632,7 +632,7 @@ class Users extends Rest_Base {
 		$data = array_merge( $data, $with_data );
 
 		// User avater.
-		$image_id = get_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_USER_META_AVATER, true );
+		$image_id = get_user_meta( $id, HELPGENT_USER_META_AVATER, true );
 
 		if ( $image_id && ! empty( $attachment = get_post( $image_id ) ) ) {
 			$data['avater'] = array(
@@ -648,7 +648,7 @@ class Users extends Rest_Base {
         // Get Custom Metas
         $custom_metas = $this->user_custom_meta_schema();
         foreach( $custom_metas as $meta_key => $schema ) {
-            $meta_value = get_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_META_PREFIX . $meta_key, true );
+            $meta_value = get_user_meta( $id, HELPGENT_META_PREFIX . $meta_key, true );
             $data[ $meta_key ] = $meta_value;
         }
 
@@ -720,9 +720,9 @@ class Users extends Rest_Base {
 
 			// Check if image_id is a valid image attachment before updating the term meta.
 			if ( $image_id && wp_attachment_is_image( $image_id ) ) {
-				update_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_USER_META_AVATER, $image_id );
+				update_user_meta( $id, HELPGENT_USER_META_AVATER, $image_id );
 			} else {
-				delete_term_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_USER_META_AVATER );
+				delete_term_meta( $id, HELPGENT_USER_META_AVATER );
 			}
 		}
 
@@ -734,7 +734,7 @@ class Users extends Rest_Base {
                 continue;
             }
 
-            update_user_meta( $id, WPWAX_CUSTOMER_SUPPORT_APP_META_PREFIX . $meta_key, $request[ $meta_key ] );
+            update_user_meta( $id, HELPGENT_META_PREFIX . $meta_key, $request[ $meta_key ] );
 
         }
 	}
@@ -786,7 +786,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'wpwax-customer-support-app' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -805,7 +805,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions || ! get_option( 'users_can_register' ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'wpwax-customer-support-app' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -824,7 +824,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'wpwax-customer-support-app' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -843,7 +843,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'wpwax-customer-support-app' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -862,7 +862,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'wpwax-customer-support-app' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -884,7 +884,7 @@ class Users extends Rest_Base {
 			$user = get_userdata( $id );
 
 			if ( empty( $user ) ) {
-				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid', __( 'Resource does not exist.', 'wpwax-customer-support-app' ), array( 'status' => 404 ) );
+				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid', __( 'Resource does not exist.', 'helpgent' ), array( 'status' => 404 ) );
 			}
 
 			return Rest_Helper::check_user_permissions( $context, $user->ID );
@@ -905,25 +905,25 @@ class Users extends Rest_Base {
 			'type'       => 'object',
 			'properties' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'wpwax-customer-support-app' ),
+					'description' => __( 'Unique identifier for the resource.', 'helpgent' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'date_created'    => array(
-					'description' => __( 'The date the user was created, as GMT.', 'wpwax-customer-support-app' ),
+					'description' => __( 'The date the user was created, as GMT.', 'helpgent' ),
 					'type'        => 'string',
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'name'           => array(
-					'description' => __( 'The display name for the user.', 'wpwax-customer-support-app' ),
+					'description' => __( 'The display name for the user.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 				),
 				'username' => array(
-					'description' => __( 'User login name.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User login name.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -931,12 +931,12 @@ class Users extends Rest_Base {
 					),
 				),
 				'nickname'           => array(
-					'description' => __( 'The nickname for the user.', 'wpwax-customer-support-app' ),
+					'description' => __( 'The nickname for the user.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view' ),
 				),
 				'first_name' => array(
-					'description' => __( 'User first name.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User first name.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -944,7 +944,7 @@ class Users extends Rest_Base {
 					),
 				),
 				'last_name' => array(
-					'description' => __( 'User last name.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User last name.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 					'arg_options' => array(
@@ -952,57 +952,57 @@ class Users extends Rest_Base {
 					),
 				),
 				'description'        => array(
-					'description' => __( 'Description of the user.', 'wpwax-customer-support-app' ),
+					'description' => __( 'Description of the user.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'email' => array(
-					'description' => __( 'The email address for the user.', 'wpwax-customer-support-app' ),
+					'description' => __( 'The email address for the user.', 'helpgent' ),
 					'type'        => 'string',
 					'format'      => 'email',
 					'context'     => array( 'view', 'edit' ),
 				),
 				'password' => array(
-					'description' => __( 'User password.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User password.', 'helpgent' ),
 					'type'        => 'string',
 					'context'     => array( 'edit' ),
 				),
 				'avater'       => array(
-					'description' => __( 'User avater image data.', 'wpwax-customer-support-app' ),
+					'description' => __( 'User avater image data.', 'helpgent' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit' ),
 					'properties'  => array(
 						'id'                => array(
-							'description' => __( 'Image ID.', 'wpwax-customer-support-app' ),
+							'description' => __( 'Image ID.', 'helpgent' ),
 							'type'        => 'integer',
 							'context'     => array( 'view', 'edit' ),
 						),
 						'date_created'      => array(
-							'description' => __( "The date the image was created, in the site's timezone.", 'wpwax-customer-support-app' ),
+							'description' => __( "The date the image was created, in the site's timezone.", 'helpgent' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_created_gmt'  => array(
-							'description' => __( 'The date the image was created, as GMT.', 'wpwax-customer-support-app' ),
+							'description' => __( 'The date the image was created, as GMT.', 'helpgent' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_modified'     => array(
-							'description' => __( "The date the image was last modified, in the site's timezone.", 'wpwax-customer-support-app' ),
+							'description' => __( "The date the image was last modified, in the site's timezone.", 'helpgent' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'date_modified_gmt' => array(
-							'description' => __( 'The date the image was last modified, as GMT.', 'wpwax-customer-support-app' ),
+							'description' => __( 'The date the image was last modified, as GMT.', 'helpgent' ),
 							'type'        => 'date-time',
 							'context'     => array( 'view', 'edit' ),
 							'readonly'    => true,
 						),
 						'src'               => array(
-							'description' => __( 'Image URL.', 'wpwax-customer-support-app' ),
+							'description' => __( 'Image URL.', 'helpgent' ),
 							'type'        => 'string',
 							'format'      => 'uri',
 							'context'     => array( 'view', 'edit' ),
@@ -1037,7 +1037,7 @@ class Users extends Rest_Base {
 		$params['context']['default'] = 'view';
 
 		$params['exclude'] = array(
-			'description'       => __( 'Ensure result set excludes specific IDs.', 'wpwax-customer-support-app' ),
+			'description'       => __( 'Ensure result set excludes specific IDs.', 'helpgent' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -1046,7 +1046,7 @@ class Users extends Rest_Base {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['include'] = array(
-			'description'       => __( 'Limit result set to specific IDs.', 'wpwax-customer-support-app' ),
+			'description'       => __( 'Limit result set to specific IDs.', 'helpgent' ),
 			'type'              => 'array',
 			'items'             => array(
 				'type'          => 'integer',
@@ -1055,14 +1055,14 @@ class Users extends Rest_Base {
 			'sanitize_callback' => 'wp_parse_id_list',
 		);
 		$params['offset'] = array(
-			'description'        => __( 'Offset the result set by a specific number of items.', 'wpwax-customer-support-app' ),
+			'description'        => __( 'Offset the result set by a specific number of items.', 'helpgent' ),
 			'type'               => 'integer',
 			'sanitize_callback'  => 'absint',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['order'] = array(
 			'default'            => 'asc',
-			'description'        => __( 'Order sort attribute ascending or descending.', 'wpwax-customer-support-app' ),
+			'description'        => __( 'Order sort attribute ascending or descending.', 'helpgent' ),
 			'enum'               => array( 'asc', 'desc' ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
@@ -1070,20 +1070,20 @@ class Users extends Rest_Base {
 		);
 		$params['orderby'] = array(
 			'default'            => 'name',
-			'description'        => __( 'Sort collection by object attribute.', 'wpwax-customer-support-app' ),
+			'description'        => __( 'Sort collection by object attribute.', 'helpgent' ),
 			'enum'               => array_keys( $this->get_orderby_possibles() ),
 			'sanitize_callback'  => 'sanitize_key',
 			'type'               => 'string',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['email'] = array(
-			'description'        => __( 'Limit result set to resources with a specific email.', 'wpwax-customer-support-app' ),
+			'description'        => __( 'Limit result set to resources with a specific email.', 'helpgent' ),
 			'type'               => 'string',
 			'format'             => 'email',
 			'validate_callback'  => 'rest_validate_request_arg',
 		);
 		$params['role'] = array(
-			'description'        => __( 'Limit result set to resources with a specific role.', 'wpwax-customer-support-app' ),
+			'description'        => __( 'Limit result set to resources with a specific role.', 'helpgent' ),
 			'type'               => 'string',
 			'default'            => 'all',
 			'enum'               => array_merge( array( 'all' ), $this->get_role_names() ),

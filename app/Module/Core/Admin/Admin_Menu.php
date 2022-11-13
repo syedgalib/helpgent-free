@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Admin;
+namespace HelpGent\Module\Core\Admin;
 
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 class Admin_Menu {
 
@@ -12,15 +12,15 @@ class Admin_Menu {
 
     public function admin_menu() {
 
-        add_menu_page( __( 'Video Message', 'wpwax-customer-support-app' ), __( 'Video Message', 'wpwax-customer-support-app' ), 'manage_options', 'video-message', '', 'dashicons-format-chat', 77 );
+        add_menu_page( __( 'HelpGent', 'helpgent' ), __( 'HelpGent', 'helpgent' ), 'manage_options', 'video-message', '', 'dashicons-format-chat', 77 );
 
-        add_submenu_page( 'video-message', __( 'All Messages', 'wpwax-customer-support-app' ), __( 'All Messages', 'wpwax-customer-support-app' ), 'manage_options', 'video-message', [$this, 'all_messages'] );
+        add_submenu_page( 'video-message', __( 'All Messages', 'helpgent' ), __( 'All Messages', 'helpgent' ), 'manage_options', 'video-message', [$this, 'all_messages'] );
 
-        add_submenu_page( 'video-message', __( 'Forms', 'wpwax-customer-support-app' ), __( 'Forms', 'wpwax-customer-support-app' ), 'manage_options', 'vm-forms', [$this, 'forms'] );
+        add_submenu_page( 'video-message', __( 'Forms', 'helpgent' ), __( 'Forms', 'helpgent' ), 'manage_options', 'vm-forms', [$this, 'forms'] );
 
-        // add_submenu_page( 'video-message', __( 'Settings', 'wpwax-customer-support-app' ), __( 'Settings', 'wpwax-customer-support-app' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
+        // add_submenu_page( 'video-message', __( 'Settings', 'helpgent' ), __( 'Settings', 'helpgent' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
 
-        // add_submenu_page( 'video-message', __( 'Integrations', 'wpwax-customer-support-app' ), __( 'Integrations', 'wpwax-customer-support-app' ), 'manage_options', 'vm-integrations', [$this, 'integrations'] );
+        // add_submenu_page( 'video-message', __( 'Integrations', 'helpgent' ), __( 'Integrations', 'helpgent' ), 'manage_options', 'vm-integrations', [$this, 'integrations'] );
     }
 
     public function all_messages() {

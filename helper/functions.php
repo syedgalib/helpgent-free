@@ -1,13 +1,13 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Base\Helper;
+namespace HelpGent\Base\Helper;
 
 use WP_Error;
 use WP_Query;
 use WP_User;
-use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
+use HelpGent\Module\Core\Model\Guest_User_Model;
+use HelpGent\Module\Core\Model\Term_Model;
 
 /**
  * Get The Public Template
@@ -40,7 +40,7 @@ function get_template($path = '', $data = [], $extract = true)
 function get_the_template($path = '', $data = [], $extract = true)
 {
 
-	$file_path = WPWAX_CUSTOMER_SUPPORT_APP_TEMPLATE_PATH . $path;
+	$file_path = HELPGENT_TEMPLATE_PATH . $path;
 
 	get_the_file_content($file_path, $data, $extract);
 }
@@ -77,7 +77,7 @@ function get_view($path = '', $data = [], $extract = true)
 function get_the_view($path = '', $data = [], $extract = true)
 {
 
-	$file_path = WPWAX_CUSTOMER_SUPPORT_APP_VIEW_PATH . $path;
+	$file_path = HELPGENT_VIEW_PATH . $path;
 
 	get_the_file_content($file_path, $data, $extract);
 }
@@ -604,7 +604,7 @@ function sanitize_list_items( $list = [], $schema = [], $args = [] )
 			$timezone      = ( ! empty( $args['timezone'] ) ) ? $args['timezone'] : null;
 
 			$list[ $formatted_key ] = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone ) : null;
-			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, WPWAX_CUSTOMER_SUPPORT_APP_DB_DATE_TIME_FORMAT ) : null;
+			$list[ $key ]           = ( ! empty( $list[ $key ] ) ) ? get_formatted_time( $list[ $key ], $timezone, HELPGENT_DB_DATE_TIME_FORMAT ) : null;
 		}
 	}
 
@@ -649,7 +649,7 @@ function convert_to_db_timezone( $time, $local_timezone )
 	$timezone     = new \DateTimeZone( $timezone_txt );
 	$timestamp    = strtotime( $time );
 
-	$formatted_time = wp_date( WPWAX_CUSTOMER_SUPPORT_APP_DB_DATE_TIME_FORMAT, $timestamp, $timezone );
+	$formatted_time = wp_date( HELPGENT_DB_DATE_TIME_FORMAT, $timestamp, $timezone );
 
 	return $formatted_time;
 }
@@ -661,7 +661,7 @@ function convert_to_db_timezone( $time, $local_timezone )
  */
 function get_wp_pages()
 {
-	$homepage = [ [ 'id' => 0, 'title' => __( 'Homepage', 'wpwax-customer-support-app' ), ] ];
+	$homepage = [ [ 'id' => 0, 'title' => __( 'Homepage', 'helpgent' ), ] ];
 
 	$query = new WP_Query([
 		'post_type'      => 'page',
@@ -693,7 +693,7 @@ function get_wp_pages()
  */
 function get_options()
 {
-	return \get_option(WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, []);
+	return \get_option(HELPGENT_OPTIONS, []);
 }
 
 /**
@@ -729,7 +729,7 @@ function update_option($option_key = '', $value = '')
 
 	$options[$option_key] = $value;
 
-	\update_option(WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options);
+	\update_option(HELPGENT_OPTIONS, $options);
 }
 
 /**
@@ -744,7 +744,7 @@ function update_options($new_options = [])
 
 	$options = array_merge($old_options, $new_options);
 
-	\update_option(WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options);
+	\update_option(HELPGENT_OPTIONS, $options);
 
 	return $options;
 }
@@ -764,7 +764,7 @@ function delete_option($option_key = '')
 
 	unset($options[$option_key]);
 
-	\update_option(WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options);
+	\update_option(HELPGENT_OPTIONS, $options);
 }
 
 /**
@@ -790,7 +790,7 @@ function delete_options($option_keys = [])
 		unset($options[$key]);
 	}
 
-	\update_option(WPWAX_CUSTOMER_SUPPORT_APP_OPTIONS, $options);
+	\update_option(HELPGENT_OPTIONS, $options);
 
 	return $options;
 }
@@ -883,7 +883,7 @@ function video_record_time_limit() {
  * @return int seconds
  */
 function voice_record_time_limit() {
-	$min = WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT; // In Minute
+	$min = HELPGENT_VOICE_RECORD_TIME_LIMIT; // In Minute
 	return $min * 60;
 }
 
@@ -1368,7 +1368,7 @@ function is_user_admin( $user )
  * @return array
  */
 function get_admin_roles() {
-	return apply_filters( WPWAX_CUSTOMER_SUPPORT_APP_PREFIX . '_admin_roles', ['administrator'] );
+	return apply_filters( HELPGENT_PREFIX . '_admin_roles', ['administrator'] );
 }
 
 /**
@@ -1467,12 +1467,12 @@ function get_terms_taxonomy_ids( $tax_query = [], $return_type = 'string' ) {
 function user_exists( $email ) {
 
 	if ( empty( $email ) ) {
-		$message = __( 'The email is required.', 'wpwax-customer-support-app' );
+		$message = __( 'The email is required.', 'helpgent' );
 		return new WP_Error( 403, $message );
 	}
 
 	if ( ! is_email( $email ) ) {
-		$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+		$message = __( 'A valid email is required.', 'helpgent' );
 		return new WP_Error( 403, $message );
 	}
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Model;
+namespace HelpGent\Module\Forms\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Form_Page_Relationship_Model extends DB_Model {
 
@@ -91,7 +91,7 @@ class Form_Page_Relationship_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -118,7 +118,7 @@ class Form_Page_Relationship_Model extends DB_Model {
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -135,7 +135,7 @@ class Form_Page_Relationship_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['form_id'] ) ) {
-            $message = __( 'Form ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Form ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -143,7 +143,7 @@ class Form_Page_Relationship_Model extends DB_Model {
 		$old_data = self::get_item( $args['form_id'] );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -157,7 +157,7 @@ class Form_Page_Relationship_Model extends DB_Model {
 		$result = $wpdb->update( $table, $args, $where );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

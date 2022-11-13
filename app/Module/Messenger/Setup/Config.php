@@ -1,7 +1,7 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Setup;
-use WPWaxCustomerSupportApp\Base\Helper;
+namespace HelpGent\Module\Messenger\Setup;
+use HelpGent\Base\Helper;
 class Config {
 
     /**
@@ -22,7 +22,7 @@ class Config {
 	 */
     protected function define_const() {
 
-		defined( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT' ) || define( 'WPWAX_CUSTOMER_SUPPORT_APP_VOICE_RECORD_TIME_LIMIT', apply_filters( 'wpwax_customer_support_app_voice_record_time_limit', Helper\get_option( 'maxVideoLength', 2 ) ) );
+		defined( 'HELPGENT_VOICE_RECORD_TIME_LIMIT' ) || define( 'HELPGENT_VOICE_RECORD_TIME_LIMIT', apply_filters( 'wpwax_customer_support_app_voice_record_time_limit', Helper\get_option( 'maxVideoLength', 2 ) ) );
 
 	}
 

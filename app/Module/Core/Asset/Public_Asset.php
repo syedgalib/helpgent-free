@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Asset;
+namespace HelpGent\Module\Core\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Public_Asset extends Enqueuer {
 
@@ -29,9 +29,9 @@ class Public_Asset extends Enqueuer {
      * Load Public CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-core-public-style'] = [
+      $scripts['helpgent-core-public-style'] = [
           'file_name' => 'public',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'public',
@@ -42,25 +42,25 @@ class Public_Asset extends Enqueuer {
     public function add_css_scripts() {
         $scripts = [];
 
-        // $scripts['wpwax-customer-support-app-public-main-style'] = [
+        // $scripts['helpgent-public-main-style'] = [
         //     'file_name' => 'public-main',
-        //     'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+        //     'base_path' => HELPGENT_CSS_PATH,
         //     'deps'      => [],
         //     'ver'       => $this->script_version,
         //     'group'     => 'public',
         // ];
 
-        $scripts['wpwax-customer-support-app-core-fonts'] = [
+        $scripts['helpgent-core-fonts'] = [
             'file_name' => 'core-fonts',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+            'base_path' => HELPGENT_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'public',
         ];
-        
-        $scripts['wpwax-customer-support-app-core-public-style'] = [
+
+        $scripts['helpgent-core-public-style'] = [
             'file_name' => 'core-public',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+            'base_path' => HELPGENT_CSS_PATH,
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'public',
@@ -74,10 +74,10 @@ class Public_Asset extends Enqueuer {
      * Load Public JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-core-public-script'] = [
+      $scripts['helpgent-core-public-script'] = [
           'file_name' => 'public',
-          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/core/js/public/',
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'public',
           'data'      => [ 'object-key' => [] ],
       ];
@@ -87,10 +87,10 @@ class Public_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-core-public-script'] = [
+        $scripts['helpgent-core-public-script'] = [
             'file_name' => 'core-public',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/core/js/public/',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/core/js/public/',
+            'base_path' => HELPGENT_JS_PATH,
             'group'     => 'public',
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => Script_Data::get_public_data(),

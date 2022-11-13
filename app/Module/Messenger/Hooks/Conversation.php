@@ -1,11 +1,11 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Hooks;
+namespace HelpGent\Module\Messenger\Hooks;
 
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationship_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Messenger\Model\Conversation_Term_Relationship_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Messenger\Model\Conversation_Model;
+use HelpGent\Module\Messenger\Model\Message_Model;
 
 class Conversation {
 
@@ -103,7 +103,7 @@ class Conversation {
 		]);
 
 		$messages = $messages['results'];
-		
+
 		if ( empty( $messages ) ) {
 			Conversation_Model::delete_meta( 'last_message_id' );
 			return;

@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Model;
+namespace HelpGent\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 abstract class DB_Model implements DB_Model_Interface {
 
@@ -84,7 +84,7 @@ abstract class DB_Model implements DB_Model_Interface {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -95,7 +95,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -129,7 +129,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -146,7 +146,7 @@ abstract class DB_Model implements DB_Model_Interface {
         global $wpdb;
 
         if ( empty( $args['id'] ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -156,7 +156,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$old_data = self::get_item( $id );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -170,7 +170,7 @@ abstract class DB_Model implements DB_Model_Interface {
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( ! $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -187,7 +187,7 @@ abstract class DB_Model implements DB_Model_Interface {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -197,7 +197,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -260,7 +260,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$meta_key_exists = self::_meta_key_exists( $object_id, $meta_key, $meta_table, $relation_column );
 
 		if ( $meta_key_exists ) {
-			return new WP_Error( 403, __( 'The resource already exists', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'The resource already exists', 'helpgent' ) );
 		}
 
 		$table = self::get_table_name( $meta_table );
@@ -274,7 +274,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$result = $wpdb->insert( $table, $args );
 
 		if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -315,7 +315,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$result = $wpdb->update( $table, $args, $where );
 
 		if ( is_null( $result ) ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -357,7 +357,7 @@ abstract class DB_Model implements DB_Model_Interface {
 		$status = $wpdb->delete( $table, $where );
 
 		if ( empty( $status ) ) {
-			return new WP_Error( 403, __( 'Could not delete the resource.', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'Could not delete the resource.', 'helpgent' ) );
 		}
 
 		return true;
@@ -395,7 +395,7 @@ abstract class DB_Model implements DB_Model_Interface {
      *
      * @return string Table Name
      */
-    public static function get_table_name( $table = '', $sub_prefix = WPWAX_CUSTOMER_SUPPORT_APP_DB_TABLE_PREFIX . '_' ) {
+    public static function get_table_name( $table = '', $sub_prefix = HELPGENT_DB_TABLE_PREFIX . '_' ) {
         global $wpdb;
 
         return $wpdb->prefix . $sub_prefix . $table;

@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+namespace HelpGent\Module\Core\Rest_API;
 
-use WPWaxCustomerSupportApp\Helper\Date_Time;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Helper\Date_Time;
+use HelpGent\Base\Helper;
 use \DateTimeZone;
 use \WP_Error;
 
@@ -52,7 +52,7 @@ class Rest_Helper {
             $date->setTimezone( new DateTimeZone( Helper\timezone_string() ) );
         }
 
-        if ( ! is_a( $date, 'WPWaxCustomerSupportApp\Helper\Date_Time' ) ) {
+        if ( ! is_a( $date, 'HelpGent\Helper\Date_Time' ) ) {
             return null;
         }
 

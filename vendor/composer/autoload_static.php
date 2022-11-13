@@ -7,20 +7,20 @@ namespace Composer\Autoload;
 class ComposerStaticInit98ae8520e386a00622a1c03d5878aca0
 {
     public static $files = array (
-        '560583e4600c241f920b9db341871723' => __DIR__ . '/../..' . '/helper/const.php',
-        '854bdb27de047fe5c3a87874720da6bd' => __DIR__ . '/../..' . '/helper/global-functions.php',
-        'b8291caa47dc348a73aadee8ba4af8af' => __DIR__ . '/../..' . '/helper/functions.php',
+        'e27423da4ad509ea73c2727c7554f5dd' => __DIR__ . '/../..' . '/helper/const.php',
+        'c93defb4182d26cc5a70a0bb1c0449de' => __DIR__ . '/../..' . '/helper/global-functions.php',
+        '7293952a01e4be7f78dcaedea1664b2c' => __DIR__ . '/../..' . '/helper/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'H' => 
         array (
-            'WPWaxCustomerSupportApp\\' => 24,
+            'HelpGent\\' => 9,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WPWaxCustomerSupportApp\\' => 
+        'HelpGent\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

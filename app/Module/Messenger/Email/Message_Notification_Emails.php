@@ -1,14 +1,14 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Email;
+namespace HelpGent\Module\Messenger\Email;
 
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1\Guest_User;
-use WPWaxCustomerSupportApp\Module\Messenger\Hooks\Conversation;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
+use HelpGent\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Guest_User_Model;
+use HelpGent\Module\Core\Rest_API\Version_1\Guest_User;
+use HelpGent\Module\Messenger\Hooks\Conversation;
+use HelpGent\Module\Messenger\Model\Conversation_Model;
 
 class Message_Notification_Emails
 {
@@ -28,7 +28,7 @@ class Message_Notification_Emails
 		add_filter('wp_mail_from_name', [$this, 'name_from']);
 
 	}
-	
+
 	/**
 	 * Modify name append in recipent name box
 	 *
@@ -323,7 +323,7 @@ class Message_Notification_Emails
 			$to = $user;
 		}
 
-		$subject = !empty($args['subject']) ? $args['subject'] : __('A new conversation has starterd', 'wpwax-customer-support-app');
+		$subject = !empty($args['subject']) ? $args['subject'] : __('A new conversation has starterd', 'helpgent');
 		$message = !empty($args['body']) ? $args['body'] : '';
 
 		$subject = self::replace_in_content($subject, $user, $args);

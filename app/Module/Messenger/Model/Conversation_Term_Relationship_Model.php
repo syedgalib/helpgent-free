@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Model;
+namespace HelpGent\Module\Messenger\Model;
 
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Taxonomy_Model;
+use HelpGent\Model\DB_Model;
+use HelpGent\Module\Core\Model\Term_Model;
+use HelpGent\Module\Core\Model\Term_Taxonomy_Model;
 use \WP_Error;
 
 class Conversation_Term_Relationship_Model extends DB_Model {
@@ -76,7 +76,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
     public static function get_item( $conversation_id ) {
 
         if ( empty( $conversation_id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -101,19 +101,19 @@ class Conversation_Term_Relationship_Model extends DB_Model {
         $table = self::get_table_name( self::$table );
 
         if ( empty( $args['conversation_id'] ) ) {
-            $message = __( 'The conversation ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The conversation ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( empty( $args['term_taxonomy_id'] ) ) {
-            $message = __( 'The term taxonomy ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The term taxonomy ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		$conversation = Conversation_Model::get_item( $args['conversation_id'] );
 
 		if ( is_wp_error( $conversation ) ) {
-			$message = __( 'The conversation does not exist.', 'wpwax-customer-support-app' );
+			$message = __( 'The conversation does not exist.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
@@ -135,7 +135,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -152,7 +152,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['conversation_id'] ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -162,7 +162,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 		$old_data = self::get_item( $conversation_id );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -173,7 +173,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( ! $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -190,7 +190,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $conversation_id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -200,7 +200,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -220,7 +220,7 @@ class Conversation_Term_Relationship_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

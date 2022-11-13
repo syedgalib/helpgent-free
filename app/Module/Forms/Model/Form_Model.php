@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Model;
+namespace HelpGent\Module\Forms\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Form_Model extends DB_Model {
 
@@ -93,7 +93,7 @@ class Form_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -119,19 +119,19 @@ class Form_Model extends DB_Model {
         $default['status']  = 'publish';
 
         if ( empty( $args['name'] ) ) {
-            $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
+            $message = __( 'Form name can not be empty.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		$args['name'] = sanitize_text_field( $args['name'] );
 
         if ( ! isset( $args['options'] ) ) {
-            $message = __( 'Options field is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Options field is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
-            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
+            $message = __( 'Options is not valid JSON data.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -145,14 +145,14 @@ class Form_Model extends DB_Model {
         }
 
         if ( self::name_exists( $args['name'] ) ) {
-            $message = __( 'The form name already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The form name already exists.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -181,7 +181,7 @@ class Form_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['id'] ) ) {
-            $message = __( 'Resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -189,7 +189,7 @@ class Form_Model extends DB_Model {
 		$old_data = self::get_item( $args['id'] );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -198,12 +198,12 @@ class Form_Model extends DB_Model {
         }
 
         if ( ! empty( $args['name'] ) && strtolower( $args['name'] ) !== strtolower( $old_data['name'] ) && self::name_exists( $args['name'] ) ) {
-            $message = __( 'The form name already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The form name already exists.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( isset( $args['options'] ) && ! json_decode( $args['options'] ) ) {
-            $message = __( 'Options is not valid JSON data.', 'wpwax-customer-support-app' );
+            $message = __( 'Options is not valid JSON data.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -237,7 +237,7 @@ class Form_Model extends DB_Model {
         }
 
 		if ( isset( $args['name'] ) && empty( $args['name'] ) ) {
-            $message = __( 'Form name can not be empty.', 'wpwax-customer-support-app' );
+            $message = __( 'Form name can not be empty.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -253,7 +253,7 @@ class Form_Model extends DB_Model {
 		$result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not update the resource as.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource as.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

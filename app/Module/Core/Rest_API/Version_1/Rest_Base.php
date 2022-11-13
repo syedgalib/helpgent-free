@@ -1,14 +1,14 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace HelpGent\Module\Core\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Core\Rest_API\Base;
+use HelpGent\Module\Core\Rest_API\Base;
 
 abstract class Rest_Base extends Base {
 
     /**
      * @var string
      */
-    public $namespace = WPWAX_CUSTOMER_SUPPORT_APP_REST_BASE_PREFIX . '/v1';
+    public $namespace = HELPGENT_REST_BASE_PREFIX . '/v1';
 
 }

@@ -1,15 +1,15 @@
 <?php
 /**
- * WPWaxCustomerSupportApp wrapper for PHP DateTime which adds support for gmt/utc offset when a
+ * HelpGent wrapper for PHP DateTime which adds support for gmt/utc offset when a
  * timezone is absent.
  *
  * This class has been copied from WC_DateTime
  *
- * @package WPWaxCustomerSupportApp
+ * @package HelpGent
  */
 
 
-namespace WPWaxCustomerSupportApp\Helper;
+namespace HelpGent\Helper;
 
 use \DateTime;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace HelpGent\Module\Core\Rest_API\Version_1;
 
 use WP_Error;
-use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
+use HelpGent\Base\Helper;
 
 class Authentication extends Rest_Base {
 
@@ -86,14 +86,14 @@ class Authentication extends Rest_Base {
 
 		if ( $wp_user ) {
 			if ( empty( $password ) ) {
-				$message = __( 'Password is required.', 'wpwax-customer-support-app' );
+				$message = __( 'Password is required.', 'helpgent' );
             	return new WP_Error( 403, $message );
 			}
 
 			$has_valid_password = wp_check_password( $password, $wp_user->user_pass, $wp_user->ID );
 
 			if ( ! $has_valid_password ) {
-				$message = __( 'Password is incorrect.', 'wpwax-customer-support-app' );
+				$message = __( 'Password is incorrect.', 'helpgent' );
             	return new WP_Error( 403, $message );
 			}
 		}
@@ -104,7 +104,7 @@ class Authentication extends Rest_Base {
 			return $token;
 		}
 
-		$message = __( 'The token is generated successfuly. Please check your email.', 'wpwax-customer-support-app' );
+		$message = __( 'The token is generated successfuly. Please check your email.', 'helpgent' );
 		$data    = ( $wp_user ) ? $token : '';
 
         return $this->response( true, $data, $message );
@@ -123,12 +123,12 @@ class Authentication extends Rest_Base {
 		$token = ( ! empty( $args['token'] ) ) ? $args['token'] : '';
 
 		if ( empty( $email ) ) {
-			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( empty( $token ) ) {
-			$message = __( 'Token is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Token is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 

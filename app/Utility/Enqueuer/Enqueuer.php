@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Utility\Enqueuer;
+namespace HelpGent\Utility\Enqueuer;
 
 abstract class Enqueuer extends Enqueuer_Base {
 
@@ -50,7 +50,7 @@ abstract class Enqueuer extends Enqueuer_Base {
      * @return void
      */
     public function setup_load_min_files() {
-        $this->load_min = apply_filters( 'wpwax_customer_support_app_load_min_files', WPWAX_CUSTOMER_SUPPORT_APP_LOAD_MIN_FILES );
+        $this->load_min = apply_filters( 'wpwax_customer_support_app_load_min_files', HELPGENT_LOAD_MIN_FILES );
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class Enqueuer extends Enqueuer_Base {
      * @return void
      */
     public function setup_script_version() {
-        $script_version       = ( $this->load_min ) ? WPWAX_CUSTOMER_SUPPORT_APP_SCRIPT_VERSION : md5( time() );
+        $script_version       = ( $this->load_min ) ? HELPGENT_SCRIPT_VERSION : md5( time() );
         $this->script_version = apply_filters( 'wpwax_customer_support_app_script_version', $script_version );
     }
 

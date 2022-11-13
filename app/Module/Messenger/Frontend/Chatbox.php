@@ -1,7 +1,7 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Frontend;
-use WPWaxCustomerSupportApp\Base\Helper;
+namespace HelpGent\Module\Messenger\Frontend;
+use HelpGent\Base\Helper;
 class Chatbox {
 
     /**

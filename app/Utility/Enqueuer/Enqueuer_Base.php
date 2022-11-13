@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Utility\Enqueuer;
+namespace HelpGent\Utility\Enqueuer;
 
 abstract class Enqueuer_Base {
 
@@ -33,7 +33,7 @@ abstract class Enqueuer_Base {
         foreach ( $args['scripts'] as $handle => $script_args ) {
             $default = [
                 'file_name' => $handle,
-                'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+                'base_path' => HELPGENT_CSS_PATH,
                 'deps'      => [],
                 'ver'       => $this->script_version,
                 'media'     => 'all',
@@ -86,7 +86,7 @@ abstract class Enqueuer_Base {
         foreach ( $args['scripts'] as $handle => $script_args ) {
             $default = [
                 'file_name' => $handle,
-                'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+                'base_path' => HELPGENT_JS_PATH,
                 'link'      => '',
                 'deps'      => [],
                 'ver'       => $this->script_version,
@@ -192,7 +192,7 @@ abstract class Enqueuer_Base {
 
     /**
      * Handle script before enqueue task
-     * 
+     *
      * @param array $task
      */
     public function handle_script_before_enqueue_task( $task = [] ) {

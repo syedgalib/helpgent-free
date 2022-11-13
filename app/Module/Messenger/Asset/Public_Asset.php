@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Asset;
+namespace HelpGent\Module\Messenger\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Public_Asset extends Enqueuer {
 
@@ -29,9 +29,9 @@ class Public_Asset extends Enqueuer {
      * Load Public CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-public-style'] = [
+      $scripts['helpgent-messenger-public-style'] = [
           'file_name' => 'public',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'public',
@@ -50,10 +50,10 @@ class Public_Asset extends Enqueuer {
      * Load Public JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-public-script'] = [
+      $scripts['helpgent-messenger-public-script'] = [
           'file_name' => 'public',
-          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/public/',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/public/',
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'public',
       ];
      *
@@ -62,10 +62,10 @@ class Public_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-messenger-public-script'] = [
+        $scripts['helpgent-messenger-public-script'] = [
             'file_name' => 'messenger-public',
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/public/',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/public/',
+            'base_path' => HELPGENT_JS_PATH,
             'group'     => 'public',
 			'data'      => [
                 'wpWaxCustomerSupportApp_MessengerScriptData' => Script_Data::get_base_data(),

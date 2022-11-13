@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Asset;
+namespace HelpGent\Module\Messenger\Asset;
 
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 class Script_Data {
 

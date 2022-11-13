@@ -1,14 +1,14 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace HelpGent\Module\Core\Rest_API\Version_1;
 
 use \WP_REST_Server;
 use \WP_Error;
 use \WP_REST_Response;
 
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
+use HelpGent\Module\Core\Model\Guest_User_Model;
 
 class Guest_User extends Rest_Base {
 
@@ -36,11 +36,11 @@ class Guest_User extends Rest_Base {
 					'email' => array(
 						'required' => true,
 						'type'     => 'string',
-						'description' => __( 'New user email address.', 'wpwax-customer-support-app' ),
+						'description' => __( 'New user email address.', 'helpgent' ),
 					),
 					'name' => array(
 						'required' => false,
-						'description' => __( 'User name.', 'wpwax-customer-support-app' ),
+						'description' => __( 'User name.', 'helpgent' ),
 						'type'     => 'string',
 					),
 				) ),
@@ -50,7 +50,7 @@ class Guest_User extends Rest_Base {
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', array(
 			'args' => array(
 				'id' => array(
-					'description' => __( 'Unique identifier for the resource.', 'wpwax-customer-support-app' ),
+					'description' => __( 'Unique identifier for the resource.', 'helpgent' ),
 					'type'        => 'integer',
 				),
 			),

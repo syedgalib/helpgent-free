@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Admin;
+namespace HelpGent\Module\Settings_Panel\Admin;
 
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 class Admin_Menu {
 
@@ -11,7 +11,7 @@ class Admin_Menu {
     }
 
     public function admin_menu() {
-        add_submenu_page( 'video-message', __( 'Settings', 'wpwax-customer-support-app' ), __( 'Settings', 'wpwax-customer-support-app' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
+        add_submenu_page( 'video-message', __( 'Settings', 'helpgent' ), __( 'Settings', 'helpgent' ), 'manage_options', 'vm-settings', [$this, 'settings'] );
     }
 
     public function settings() {

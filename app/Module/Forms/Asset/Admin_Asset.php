@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Asset;
+namespace HelpGent\Module\Forms\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Admin_Asset extends Enqueuer
 {
@@ -43,9 +43,9 @@ class Admin_Asset extends Enqueuer
      * Load Admin CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-chatbox-template-admin-style'] = [
+      $scripts['helpgent-chatbox-template-admin-style'] = [
           'file_name' => 'admin',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'admin',
@@ -65,10 +65,10 @@ class Admin_Asset extends Enqueuer
      * Load Admin JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-chatbox-template-admin-script'] = [
+      $scripts['helpgent-chatbox-template-admin-script'] = [
           'file_name' => 'admin',
-          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/chatboxTemplate/js/admin/',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/chatboxTemplate/js/admin/',
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
@@ -79,10 +79,10 @@ class Admin_Asset extends Enqueuer
     {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-forms-admin-script'] = [
+        $scripts['helpgent-forms-admin-script'] = [
             'file_name' => 'forms-admin',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
-            'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/chatboxTemplate/js/admin/',
+            'base_path' => HELPGENT_JS_PATH,
+            'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/chatboxTemplate/js/admin/',
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',

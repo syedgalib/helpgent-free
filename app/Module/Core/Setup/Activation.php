@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Setup;
+namespace HelpGent\Module\Core\Setup;
 
-use WPWaxCustomerSupportApp\Module\Core\Database\Prepare_Database;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Core\Database\Prepare_Database;
+use HelpGent\Base\Helper;
 
 class Activation {
 
@@ -18,7 +18,7 @@ class Activation {
             return;
         }
 
-        register_activation_hook( WPWAX_CUSTOMER_SUPPORT_APP_FILE, [ $this, 'activatation_tasks' ] );
+        register_activation_hook( HELPGENT_FILE, [ $this, 'activatation_tasks' ] );
     }
 
 	/**

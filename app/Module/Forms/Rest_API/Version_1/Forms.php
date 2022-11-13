@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Rest_API\Version_1;
+namespace HelpGent\Module\Forms\Rest_API\Version_1;
 
 use \WP_REST_Response;
-use WPWaxCustomerSupportApp\Module\Forms\Model\Form_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Forms\Model\Form_Model;
+use HelpGent\Base\Helper;
 
 class Forms extends Rest_Base {
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API\Version_1;
+namespace HelpGent\Module\Core\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Module\Core\Model\Term_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Core\Model\Term_Model;
+use HelpGent\Base\Helper;
 
 class Terms extends Rest_Base
 {

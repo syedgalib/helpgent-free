@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace HelpGent\Module\Core\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Auth_Token_Model extends DB_Model {
 
@@ -70,7 +70,7 @@ class Auth_Token_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $email ) ) {
-            $message = __( 'The email ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The email ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -81,7 +81,7 @@ class Auth_Token_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -108,24 +108,24 @@ class Auth_Token_Model extends DB_Model {
         $args = Helper\filter_params( $default, $args );
 
 		if ( empty( $args['token'] ) ) {
-			$message = __( 'Token is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Token is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( empty( $args['email'] ) ) {
-			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( ! is_email( $args['email'] ) ) {
-			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'A valid email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -142,7 +142,7 @@ class Auth_Token_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['email'] ) ) {
-            $message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -152,7 +152,7 @@ class Auth_Token_Model extends DB_Model {
 		$old_data = self::get_item( $email );
 
         if ( is_wp_error( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -163,7 +163,7 @@ class Auth_Token_Model extends DB_Model {
         $result = $wpdb->update( $table, $args, $where, null, '%s' );
 
         if ( ! $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -180,7 +180,7 @@ class Auth_Token_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $email ) ) {
-            $message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -190,7 +190,7 @@ class Auth_Token_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%s' );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -206,12 +206,12 @@ class Auth_Token_Model extends DB_Model {
     public static function create_token( $email ) {
 
 		if ( empty( $email ) ) {
-            $message = __( 'Email is required.', 'wpwax-customer-support-app' );
+            $message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
 		if ( ! is_email( $email ) ) {
-			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'A valid email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
@@ -222,7 +222,7 @@ class Auth_Token_Model extends DB_Model {
 		}
 
 		if ( ! $user_exists ) {
-			$message = __( 'You must be a registered user to create the token.', 'wpwax-customer-support-app' );
+			$message = __( 'You must be a registered user to create the token.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
@@ -237,7 +237,7 @@ class Auth_Token_Model extends DB_Model {
 		]);
 
 		if ( ! empty( $existing_token ) ) {
-			$message = __( 'Something went wrong, please try again.', 'wpwax-customer-support-app' );
+			$message = __( 'Something went wrong, please try again.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 

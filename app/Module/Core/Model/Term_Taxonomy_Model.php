@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace HelpGent\Module\Core\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Term_Taxonomy_Model extends DB_Model {
 
@@ -71,7 +71,7 @@ class Term_Taxonomy_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $term_taxonomy_id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -82,7 +82,7 @@ class Term_Taxonomy_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -109,12 +109,12 @@ class Term_Taxonomy_Model extends DB_Model {
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
         if ( empty( $args['term_id'] ) ) {
-            $message = __( 'The term ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The term ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( empty( $args['taxonomy'] ) ) {
-            $message = __( 'The taxonomy is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The taxonomy is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -122,7 +122,7 @@ class Term_Taxonomy_Model extends DB_Model {
 		$result = $wpdb->insert( $table, $args );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -148,7 +148,7 @@ class Term_Taxonomy_Model extends DB_Model {
         }
 
         if ( empty( $where ) ) {
-            $message = __( 'The resource identifier is missing.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource identifier is missing.', 'helpgent' );
             $log     = [ 'error_key' => 'resource_identifier_is_missing' ];
 
             return new WP_Error( 403, $message, $log );
@@ -163,7 +163,7 @@ class Term_Taxonomy_Model extends DB_Model {
         $old_data = self::get_items( [ 'where' => $where ], true );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             $log     = [ 'error_key' => 'resource_not_found' ];
 
             return new WP_Error( 403, $message, $log );
@@ -176,7 +176,7 @@ class Term_Taxonomy_Model extends DB_Model {
         $result = $wpdb->update( $table, $args, $where );
 
         if ( ! $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             $log     = [ 'error_key' => 'update_failed' ];
 
             return new WP_Error( 403, $message, $log );
@@ -194,7 +194,7 @@ class Term_Taxonomy_Model extends DB_Model {
     public static function delete_item( $term_taxonomy_id ) {
 
         if ( empty( $term_taxonomy_id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -216,7 +216,7 @@ class Term_Taxonomy_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Setup;
+namespace HelpGent\Module\Core\Setup;
 
 class User_Role {
 

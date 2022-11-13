@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace HelpGent\Module\Core\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Attachment_Model extends DB_Model {
 
@@ -62,7 +62,7 @@ class Attachment_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -73,7 +73,7 @@ class Attachment_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -95,7 +95,7 @@ class Attachment_Model extends DB_Model {
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
         if ( ! isset( $args['file'] ) && empty( $args['url'] ) ) {
-            $message = __( 'Required file or url is missing', 'wpwax-customer-support-app' );
+            $message = __( 'Required file or url is missing', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -123,7 +123,7 @@ class Attachment_Model extends DB_Model {
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
-            $message = __( 'Could not create the attachment.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the attachment.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -140,7 +140,7 @@ class Attachment_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['id'] ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -150,7 +150,7 @@ class Attachment_Model extends DB_Model {
 		$old_data = self::get_item( $id );
 
         if ( empty( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -164,7 +164,7 @@ class Attachment_Model extends DB_Model {
         $result = $wpdb->update( $table, $args, $where );
 
         if ( false === $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -194,7 +194,7 @@ class Attachment_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

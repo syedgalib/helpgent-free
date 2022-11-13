@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Asset;
+namespace HelpGent\Module\Messenger\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
+use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Global_Asset extends Enqueuer {
 
@@ -30,9 +30,9 @@ class Global_Asset extends Enqueuer {
      * Load Admin CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-admin-style'] = [
+      $scripts['helpgent-messenger-admin-style'] = [
           'file_name' => 'admin',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'admin',
@@ -51,10 +51,10 @@ class Global_Asset extends Enqueuer {
      * Load Admin JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-messenger-admin-script'] = [
+      $scripts['helpgent-messenger-admin-script'] = [
           'file_name' => 'admin',
-          'src_path'  => WPWAX_CUSTOMER_SUPPORT_APP_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
@@ -64,9 +64,9 @@ class Global_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-messenger-global-record-rtc'] = [
+        $scripts['helpgent-messenger-global-record-rtc'] = [
             'file_name' => 'record-rtc-v5.6.2',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_VENDOR_JS_PATH,
+            'base_path' => HELPGENT_VENDOR_JS_PATH,
         ];
 
         $scripts          = array_merge( $this->js_scripts, $scripts );

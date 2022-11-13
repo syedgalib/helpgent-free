@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace HelpGent\Module\Core\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Term_Model extends DB_Model {
 
@@ -94,7 +94,7 @@ class Term_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $term_id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -112,7 +112,7 @@ class Term_Model extends DB_Model {
         $result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -139,19 +139,19 @@ class Term_Model extends DB_Model {
         }
 
         if ( empty( $args['name'] ) ) {
-            $message = __( 'The term name is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The term name is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( empty( $args['taxonomy'] ) ) {
-            $message = __( 'The taxonomy is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The taxonomy is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         $term_exists = self::term_exists( $args['name'], $args['taxonomy'] );
 
         if ( $term_exists ) {
-            $message = __( 'The resource already exists.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource already exists.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -165,7 +165,7 @@ class Term_Model extends DB_Model {
 		$create_terms = $wpdb->insert( $table, $term_args );
 
         if ( empty( $create_terms ) ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -209,7 +209,7 @@ class Term_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['term_id'] ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -222,12 +222,12 @@ class Term_Model extends DB_Model {
         $term_taxonomy_data = Term_Taxonomy_Model::get_items( $term_taxonomy_args, true );
 
         if ( empty( $old_term_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
         if ( empty( $term_taxonomy_data ) ) {
-            $message = __( 'The resource is not valid.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource is not valid.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -243,7 +243,7 @@ class Term_Model extends DB_Model {
             $term_exists = self::term_exists( $terms_args['name'], $term_taxonomy_data['taxonomy'] );
 
             if ( $term_exists ) {
-                $message = __( 'The resource already exists.', 'wpwax-customer-support-app' );
+                $message = __( 'The resource already exists.', 'helpgent' );
                 return new WP_Error( 403, $message );
             }
 
@@ -255,7 +255,7 @@ class Term_Model extends DB_Model {
             $result = $wpdb->update( $table, $terms_args, $where, null, '%d' );
 
             if ( empty( $result ) ) {
-                $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+                $message = __( 'Could not update the resource.', 'helpgent' );
                 return new WP_Error( 403, $message );
             }
         }
@@ -291,7 +291,7 @@ class Term_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'The resource ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -309,7 +309,7 @@ class Term_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%d' );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 

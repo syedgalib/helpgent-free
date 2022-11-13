@@ -1,12 +1,12 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Helper;
+namespace HelpGent\Helper;
 
 class Serve {
 
     /**
      * Register Services
-     * 
+     *
      * @param array $services Services
      * @return void
      */
@@ -21,12 +21,12 @@ class Serve {
             new $service();
 
         }
-        
+
     }
 
     /**
      * Register Rest Controller
-     * 
+     *
      * @param array $controllers Controllers
      * @return void
      */
@@ -47,7 +47,7 @@ class Serve {
 
             $rest_controller->register_routes();
         }
-        
+
     }
 
 }

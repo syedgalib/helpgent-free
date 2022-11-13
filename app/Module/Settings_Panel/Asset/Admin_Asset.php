@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Asset;
+namespace HelpGent\Module\Settings_Panel\Asset;
 
-use WPWaxCustomerSupportApp\Utility\Enqueuer\Enqueuer;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Utility\Enqueuer\Enqueuer;
+use HelpGent\Base\Helper;
 class Admin_Asset extends Enqueuer {
 
     /**
@@ -29,9 +29,9 @@ class Admin_Asset extends Enqueuer {
      * Load Admin CSS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-settings-panel-admin-style'] = [
+      $scripts['helpgent-settings-panel-admin-style'] = [
           'file_name' => 'admin',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_CSS_PATH,
+          'base_path' => HELPGENT_CSS_PATH,
           'deps'      => [],
           'ver'       => $this->script_version,
           'group'     => 'admin',
@@ -50,9 +50,9 @@ class Admin_Asset extends Enqueuer {
      * Load Admin JS Scripts
      *
      * @Example
-      $scripts['wpwax-customer-support-app-settings-panel-admin-script'] = [
+      $scripts['helpgent-settings-panel-admin-script'] = [
           'file_name' => 'admin',
-          'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+          'base_path' => HELPGENT_JS_PATH,
           'group'     => 'admin',
           'data'      => [ 'object-key' => [] ],
       ];
@@ -62,9 +62,9 @@ class Admin_Asset extends Enqueuer {
     public function add_js_scripts() {
         $scripts = [];
 
-        $scripts['wpwax-customer-support-app-settings-panel-admin-script'] = [
+        $scripts['helpgent-settings-panel-admin-script'] = [
             'file_name' => 'settings-panel-admin',
-            'base_path' => WPWAX_CUSTOMER_SUPPORT_APP_JS_PATH,
+            'base_path' => HELPGENT_JS_PATH,
             'group'     => 'admin',
             'data'      => [
                 'SettingsScriptData' => [

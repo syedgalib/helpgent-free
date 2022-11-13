@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Forms\Setup;
+namespace HelpGent\Module\Forms\Setup;
 
-use WPWaxCustomerSupportApp\Module\Forms\Database\Prepare_Database;
+use HelpGent\Module\Forms\Database\Prepare_Database;
 
 class Activation {
 

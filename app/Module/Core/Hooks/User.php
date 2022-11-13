@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
+namespace HelpGent\Module\Core\Hooks;
 
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Guest_User_Model;
 
 class User {
 
@@ -40,7 +40,7 @@ class User {
 		$is_guest = $is_guest[0];
 
 		$metas = Guest_User_Model::get_meta( $is_guest['id'] );
-		
+
 		if( ! empty( $metas ) ) {
 			foreach( $metas as $index => $meta ) {
 				update_user_meta( $user->user_id, '_' . $meta['meta_key'], $meta['meta_value'] );

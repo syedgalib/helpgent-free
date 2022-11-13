@@ -1,14 +1,14 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Hooks;
+namespace HelpGent\Module\Core\Hooks;
 
 use WP_Error;
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Core\Model\Attachment_Model;
+use HelpGent\Module\Messenger\Model\Message_Model;
 
-use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_admin;
-use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_client;
-use function WPWaxCustomerSupportApp\Base\Helper\is_current_user_guest;
+use function HelpGent\Base\Helper\is_current_user_admin;
+use function HelpGent\Base\Helper\is_current_user_client;
+use function HelpGent\Base\Helper\is_current_user_guest;
 
 class Attachment {
 

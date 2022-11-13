@@ -1,9 +1,9 @@
 <?php
 
-use WPWaxCustomerSupportApp\Module;
-use WPWaxCustomerSupportApp\Helper;
+use HelpGent\Module;
+use HelpGent\Helper;
 
-final class WPWaxCustomerSupportApp {
+final class HelpGent {
 
     /**
      * @var mixed
@@ -29,7 +29,7 @@ final class WPWaxCustomerSupportApp {
     /**
      * Get Instance
      *
-     * @return WPWaxCustomerSupportApp
+     * @return HelpGent
      */
     public static function get_instance() {
 
@@ -58,7 +58,7 @@ final class WPWaxCustomerSupportApp {
      * @return void
      */
     public function load_textdomain() {
-        load_plugin_textdomain( 'wpwax-customer-support-app', false, WPWAX_CUSTOMER_SUPPORT_APP_LANGUAGES );
+        load_plugin_textdomain( 'helpgent', false, HELPGENT_LANGUAGES );
     }
 
     /**
@@ -67,7 +67,7 @@ final class WPWaxCustomerSupportApp {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wpwax-customer-support-app' ), '1.0' );
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
     }
 
     /**
@@ -76,7 +76,7 @@ final class WPWaxCustomerSupportApp {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wpwax-customer-support-app' ), '1.0' );
+        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Model;
+namespace HelpGent\Model;
 
 interface DB_Model_Interface {
 
     /**
      * Get Items
-     * 
+     *
      * @param array $args
      * @return array
      */
@@ -14,7 +14,7 @@ interface DB_Model_Interface {
 
     /**
      * Get Item
-     * 
+     *
      * @param int $id
      * @return array|WP_Error
      */
@@ -22,7 +22,7 @@ interface DB_Model_Interface {
 
     /**
      * Create Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -30,7 +30,7 @@ interface DB_Model_Interface {
 
     /**
      * Update Item
-     * 
+     *
      * @param array $args
      * @return array|WP_Error
      */
@@ -38,7 +38,7 @@ interface DB_Model_Interface {
 
     /**
      * Delete Item
-     * 
+     *
      * @param int $id
      * @return bool
      */

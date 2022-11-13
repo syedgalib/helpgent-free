@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Settings_Panel\Rest_API\Version_1;
+namespace HelpGent\Module\Settings_Panel\Rest_API\Version_1;
 
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Base\Helper;
 
 class Settings_Panel extends Rest_Base {
 

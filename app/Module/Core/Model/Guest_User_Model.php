@@ -1,10 +1,10 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Model;
+namespace HelpGent\Module\Core\Model;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Model\DB_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Model\DB_Model;
+use HelpGent\Base\Helper;
 
 class Guest_User_Model extends DB_Model {
 
@@ -97,7 +97,7 @@ class Guest_User_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'The user ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'The user ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -108,7 +108,7 @@ class Guest_User_Model extends DB_Model {
 		$result = $wpdb->get_row( $query, ARRAY_A );
 
         if ( empty( $result ) ) {
-            $message = __( 'Could not find the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not find the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -136,29 +136,29 @@ class Guest_User_Model extends DB_Model {
         $args      = Helper\merge_params( $default, $args );
 
 		if ( empty( $args['name'] ) ) {
-			$message = __( 'Name is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Name is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( empty( $args['email'] ) ) {
-			$message = __( 'Email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'Email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( ! is_email( $args['email'] ) ) {
-			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'A valid email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		if ( self::user_exists( $args['email'], false ) ) {
-			$message = __( 'The email is already registered.', 'wpwax-customer-support-app' );
+			$message = __( 'The email is already registered.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
 		$result = $wpdb->insert( $table, $args );
 
         if ( ! $result ) {
-            $message = __( 'Could not create the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not create the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -184,7 +184,7 @@ class Guest_User_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $args['id'] ) ) {
-            $message = __( 'User ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'User ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -194,7 +194,7 @@ class Guest_User_Model extends DB_Model {
 		$old_data = self::get_item( $id );
 
         if ( is_wp_error( $old_data ) ) {
-            $message = __( 'The resource not found.', 'wpwax-customer-support-app' );
+            $message = __( 'The resource not found.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -202,7 +202,7 @@ class Guest_User_Model extends DB_Model {
 		$args      = Helper\merge_params( $old_data, $args );
 
 		if ( ! empty( $args['email'] ) && $args['email'] !== $old_data['email'] && self::user_exists( $args['email'], false ) ) {
-			$message = __( 'The email is already in use.', 'wpwax-customer-support-app' );
+			$message = __( 'The email is already in use.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 
@@ -211,7 +211,7 @@ class Guest_User_Model extends DB_Model {
         $result = $wpdb->update( $table, $args, $where, null, '%d' );
 
         if ( false === $result ) {
-            $message = __( 'Could not update the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not update the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -241,7 +241,7 @@ class Guest_User_Model extends DB_Model {
         global $wpdb;
 
         if ( empty( $id ) ) {
-            $message = __( 'User ID is required.', 'wpwax-customer-support-app' );
+            $message = __( 'User ID is required.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -257,7 +257,7 @@ class Guest_User_Model extends DB_Model {
 		$status = $wpdb->delete( $table, $where, '%s' );
 
         if ( empty( $status ) ) {
-            $message = __( 'Could not delete the resource.', 'wpwax-customer-support-app' );
+            $message = __( 'Could not delete the resource.', 'helpgent' );
             return new WP_Error( 403, $message );
         }
 
@@ -279,7 +279,7 @@ class Guest_User_Model extends DB_Model {
 	public static function user_exists( $email, $check_only_geust_user = true ) {
 
 		if ( ! is_email( $email ) ) {
-			$message = __( 'A valid email is required.', 'wpwax-customer-support-app' );
+			$message = __( 'A valid email is required.', 'helpgent' );
             return new WP_Error( 403, $message );
 		}
 

@@ -1,9 +1,9 @@
 {
-    "name": "wpwax/wpwax-customer-support-app",
+    "name": "wpwax/helpgent",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "WPWaxCustomerSupportApp\\": "app/"
+            "HelpGent\\": "app/"
         },
         "files": [
             "helper/const.php",

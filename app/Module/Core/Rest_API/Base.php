@@ -1,19 +1,19 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Rest_API;
+namespace HelpGent\Module\Core\Rest_API;
 
 use \WP_REST_Controller;
 
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Auth_Token_Model;
-use WPWaxCustomerSupportApp\Module\Core\Model\Guest_User_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
+use HelpGent\Module\Core\Model\Guest_User_Model;
 
 abstract class Base extends WP_REST_Controller {
 
     /**
      * @var string
      */
-    public $namespace = WPWAX_CUSTOMER_SUPPORT_APP_REST_BASE_PREFIX . '/v1';
+    public $namespace = HELPGENT_REST_BASE_PREFIX . '/v1';
 
     /**
      * @var mixed
@@ -61,7 +61,7 @@ abstract class Base extends WP_REST_Controller {
      */
     public function response( $is_success, $data = null, $message = '', $headers = [] ) {
 
-        $default_message = $is_success ? __( 'Operation Successful', 'wpwax-customer-support-app' ) : __( 'Operation Failed', 'wpwax-customer-support-app' );
+        $default_message = $is_success ? __( 'Operation Successful', 'helpgent' ) : __( 'Operation Failed', 'helpgent' );
         $message = ( ! empty( $message ) ) ? $message : $default_message;
 
         $response = [

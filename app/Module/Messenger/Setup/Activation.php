@@ -1,8 +1,8 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Setup;
+namespace HelpGent\Module\Messenger\Setup;
 
-use WPWaxCustomerSupportApp\Module\Messenger\Database\Prepare_Database;
+use HelpGent\Module\Messenger\Database\Prepare_Database;
 
 class Activation {
 
@@ -19,14 +19,14 @@ class Activation {
 
 	/**
 	 * Activatation Tasks
-	 * 
+	 *
 	 * @return void
 	 */
     public function activatation_tasks() {
 
 		// Prepare Database
 		new Prepare_Database();
-        
+
 	}
 
 

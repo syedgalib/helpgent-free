@@ -1,12 +1,12 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
+namespace HelpGent\Module\Messenger\Rest_API\Version_1;
 
 use \WP_Error;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Term_Relationship_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Messenger\Model\Conversation_Term_Relationship_Model;
+use HelpGent\Module\Messenger\Model\Conversation_Model;
+use HelpGent\Base\Helper;
 
 class Conversations extends Rest_Base
 {
@@ -468,7 +468,7 @@ class Conversations extends Rest_Base
 	{
 		// Validate Capability
 		if ( ! Helper\is_current_user_admin() ) {
-			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'helpgent' ) );
 		}
 
 		$args = $request->get_params();
@@ -546,7 +546,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_view_conversation(  $request->get_param('id') ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'wpwax-customer-support-app' ) );
+			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'helpgent' ) );
 		}
 
 		$conversation_data = $this->get_items( $request, false );
@@ -629,7 +629,7 @@ class Conversations extends Rest_Base
 		$args = Helper\merge_params( $default, $args );
 
 		if ( empty( $args['id'] ) ) {
-			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
+			$message = __('The conversation ID is required.', 'helpgent');
 			return new WP_Error(403, $message);
 		}
 
@@ -648,7 +648,7 @@ class Conversations extends Rest_Base
 		$remove_terms = ( ! empty( $args['remove_terms'] ) ) ? Helper\convert_string_to_int_array( $args['remove_terms'] ) : [];
 
 		if ( empty( $add_terms ) && empty( $remove_terms ) ) {
-			$message = __('Nothing to add or remove.', 'wpwax-customer-support-app');
+			$message = __('Nothing to add or remove.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
@@ -685,7 +685,7 @@ class Conversations extends Rest_Base
 		$args = Helper\merge_params($default, $args);
 
 		if ( empty( $args['id'] ) ) {
-			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
+			$message = __('The conversation ID is required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
@@ -701,14 +701,14 @@ class Conversations extends Rest_Base
 		}
 
 		if ( empty( $args['terms'] ) ) {
-			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			$message = __('The term IDs are required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
 		$terms = Helper\convert_string_to_int_array( $args['terms'] );
 
 		if ( empty( $terms ) ) {
-			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			$message = __('The term IDs are required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
@@ -737,7 +737,7 @@ class Conversations extends Rest_Base
 		$args = Helper\merge_params($default, $args);
 
 		if ( empty( $args['id'] ) ) {
-			$message = __('The conversation ID is required.', 'wpwax-customer-support-app');
+			$message = __('The conversation ID is required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
@@ -753,14 +753,14 @@ class Conversations extends Rest_Base
 		}
 
 		if ( empty( $args['terms'] ) ) {
-			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			$message = __('The term IDs are required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
 		$terms = Helper\convert_string_to_int_array( $args['terms'] );
 
 		if ( empty( $terms ) ) {
-			$message = __('The term IDs are required.', 'wpwax-customer-support-app');
+			$message = __('The term IDs are required.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 
@@ -870,7 +870,7 @@ class Conversations extends Rest_Base
 		$conversation = Conversation_Model::get_item( $conversation_id );
 
 		if ( is_wp_error( $conversation ) ) {
-			$message = __('The conversation does not exist.', 'wpwax-customer-support-app');
+			$message = __('The conversation does not exist.', 'helpgent');
 			return new WP_Error( 403, $message );
 		}
 

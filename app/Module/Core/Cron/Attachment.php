@@ -1,9 +1,9 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Core\Cron;
+namespace HelpGent\Module\Core\Cron;
 
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
+use HelpGent\Module\Core\Model\Attachment_Model;
+use HelpGent\Base\Helper;
 
 class Attachment {
 
@@ -27,7 +27,7 @@ class Attachment {
 
 	public function manage_attachments() {
 		$this->delete_attachments();
-		
+
 	}
 
 	/**
@@ -36,15 +36,15 @@ class Attachment {
 	 * @return void
 	 */
     public function delete_attachments() {
-		
+
 		$auto_delete_after = Helper\get_option( 'hgAttatchmentDeletionAfter', 45 );
 		$date 	= "-$auto_delete_after days";
 		$value 	= "'" . date('Y-m-d H:i:s', strtotime( $date ) ) . "'";
 
 		$args['where'] = [
 			'created_on' => [
-				'field' 	=> 'created_on', 
-				'value'		=> $value, 
+				'field' 	=> 'created_on',
+				'value'		=> $value,
 				'compare'	=> '<',
 			],
 		];

@@ -1,12 +1,12 @@
 <?php
 
-namespace WPWaxCustomerSupportApp\Module\Messenger\Rest_API\Version_1;
+namespace HelpGent\Module\Messenger\Rest_API\Version_1;
 
 use WP_Error;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Message_Model;
-use WPWaxCustomerSupportApp\Base\Helper;
-use WPWaxCustomerSupportApp\Module\Core\Model\Attachment_Model;
-use WPWaxCustomerSupportApp\Module\Messenger\Model\Conversation_Model;
+use HelpGent\Module\Messenger\Model\Message_Model;
+use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Attachment_Model;
+use HelpGent\Module\Messenger\Model\Conversation_Model;
 
 class Messages extends Rest_Base
 {

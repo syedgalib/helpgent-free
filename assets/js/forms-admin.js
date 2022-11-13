@@ -7524,10 +7524,6 @@ var AddForm = function AddForm() {
     validation = state.validation,
     loading = state.loading,
     fetchStatus = state.fetchStatus;
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("general"),
-    _useState6 = _slicedToArray(_useState5, 2),
-    formStage = _useState6[0],
-    setFormStage = _useState6[1];
 
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -8865,8 +8861,8 @@ var GeneralSettings = function GeneralSettings() {
         templateName: state.form.data[0].name,
         collectInfo: state.form.data[0].options.collectInfo,
         displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
-        chatVisibilityType: state.form.data[0].options.chat_visibility_type,
-        sendMail: state.form.data[0].options.send_mail_upon_message_submission
+        tag: state.form.data[0].options.tag,
+        chatVisibilityType: state.form.data[0].options.chat_visibility_type
       };
     }),
     formData = _useSelector.formData,
@@ -8875,8 +8871,8 @@ var GeneralSettings = function GeneralSettings() {
     displayOnCustomPages = _useSelector.displayOnCustomPages,
     collectInfo = _useSelector.collectInfo,
     displayedCustomPages = _useSelector.displayedCustomPages,
-    chatVisibilityType = _useSelector.chatVisibilityType,
-    sendMail = _useSelector.sendMail;
+    tag = _useSelector.tag,
+    chatVisibilityType = _useSelector.chatVisibilityType;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       openCollapse: true
     }),
@@ -8898,6 +8894,10 @@ var GeneralSettings = function GeneralSettings() {
       }))
     });
   };
+  var initialOption = [{
+    value: '',
+    label: "Select..."
+  }];
   var customPages = [];
   wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map(function (item, index) {
     customPages.push({
@@ -8905,6 +8905,16 @@ var GeneralSettings = function GeneralSettings() {
       label: "".concat(item.title)
     });
   });
+  var allTerms = [];
+  if (wpWaxCustomerSupportApp_CoreScriptData.terms) {
+    allTerms = wpWaxCustomerSupportApp_CoreScriptData.terms.map(function (item) {
+      return {
+        value: item.term_id,
+        label: item.name
+      };
+    });
+  }
+  allTerms = [].concat(initialOption, _toConsumableArray(allTerms));
   var handleCustomPageCheckbox = function handleCustomPageCheckbox() {};
 
   /* To Handle Template Change */
@@ -8959,7 +8969,6 @@ var GeneralSettings = function GeneralSettings() {
     } else {
       updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, selectEvent.value, formData);
     }
-    console.log(updatedData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleOnChangeDisplayOnCustomPages = function handleOnChangeDisplayOnCustomPages(selectEvent, e) {
@@ -8973,6 +8982,10 @@ var GeneralSettings = function GeneralSettings() {
     updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
+  var handleOnChangeTag = function handleOnChangeTag(selectEvent, e) {
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, parseInt(selectEvent.value), formData);
+    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
+  };
   function getSelectedPageDefault() {
     var newArray = [];
     if (displayedCustomPages.length !== 0) {
@@ -8984,6 +8997,12 @@ var GeneralSettings = function GeneralSettings() {
       });
     }
     return newArray;
+  }
+  function getSelectedTag() {
+    var selected = allTerms.filter(function (item) {
+      return parseInt(item.value) === tag;
+    });
+    return selected ? selected[0] : null;
   }
   function onlySpaces(str) {
     return str.trim().length === 0;
@@ -9013,6 +9032,37 @@ var GeneralSettings = function GeneralSettings() {
         className: "wpwax-vm-validate-danger",
         children: "Please Enter Form Name"
       }) : null]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
+      className: "wpwax-vm-form-group",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+        className: "wpwax-vm-form-group__label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+          className: "wpwax-vm-tooltip-wrap",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+            children: "Form Tag"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
+            className: "wpwax-vm-tooltip",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+              className: "wpwax-vm-tooltip-icon",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+              className: "wpwax-vm-tooltip-text",
+              children: "All the messages submitted through this form will be assigned with this tag."
+            })]
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        classNamePrefix: "wpwax-vm-select",
+        options: allTerms,
+        isMulti: false,
+        searchable: true,
+        hideSelectedOptions: false,
+        defaultValue: getSelectedTag(),
+        name: "wpwax-vm-tag",
+        onChange: handleOnChangeTag
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -9113,7 +9163,7 @@ var GeneralSettings = function GeneralSettings() {
         allowSelectAll: true
       }), !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
         className: "wpwax-vm-validate-danger",
-        children: "Please Select a page"
+        children: "Please select a page"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
@@ -10260,8 +10310,7 @@ var formData = [{
     "theme": "theme-1",
     "collectInfo": ["phone"],
     "chat_visibility_type": "show_on_reload",
-    "tag": 1,
-    "send_mail_upon_message_submission": true,
+    "tag": 0,
     "greet_image_url": "",
     "greet_video_url": "",
     "greet_message": "Welcome to Directorist, leave your questions below",
@@ -10353,6 +10402,9 @@ var FormReducer = function FormReducer() {
         loading: true
       });
     case FORM_READ_SUCCESS:
+      console.log('FORM_READ_SUCCESS', {
+        data: data
+      });
       return _objectSpread(_objectSpread({}, state), {}, {
         loading: false,
         data: data
@@ -10579,6 +10631,12 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
       case "wpwax-vm-form-name":
         return _objectSpread(_objectSpread({}, item), {}, {
           name: value
+        });
+      case "wpwax-vm-tag":
+        return _objectSpread(_objectSpread({}, item), {}, {
+          options: _objectSpread(_objectSpread({}, item.options), {}, {
+            tag: value
+          })
         });
       case "wpwax-vm-theme":
         return _objectSpread(_objectSpread({}, item), {}, {

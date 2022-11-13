@@ -10,7 +10,6 @@ class Script_Data {
 		return [
 			'voiceRecordTimeLimit' => Helper\voice_record_time_limit(),
 			'videoRecordTimeLimit' => Helper\video_record_time_limit(),
-			'terms'                => Helper\get_terms(),
 		];
 	}
 

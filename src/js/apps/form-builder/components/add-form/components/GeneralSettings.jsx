@@ -37,8 +37,8 @@ const GeneralSettings = () => {
 		displayOnCustomPages,
         collectInfo,
         displayedCustomPages,
+		tag,
         chatVisibilityType,
-        sendMail,
     } = useSelector((state) => {
         return {
             formData: state.form.data,
@@ -53,9 +53,8 @@ const GeneralSettings = () => {
             displayedCustomPages: state.form.data[0].pages
                 ? state.form.data[0].pages.split(',')
                 : [],
+            tag: state.form.data[0].options.tag,
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
-            sendMail:
-                state.form.data[0].options.send_mail_upon_message_submission,
         };
     });
 
@@ -81,10 +80,22 @@ const GeneralSettings = () => {
         );
     };
 
+	const initialOption = [ { value: '', label: `Select...` } ];
+
     const customPages = [];
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
         customPages.push({ value: `${item.id}`, label: `${item.title}` });
     });
+
+    let allTerms = [];
+
+	if ( wpWaxCustomerSupportApp_CoreScriptData.terms ) {
+		allTerms = wpWaxCustomerSupportApp_CoreScriptData.terms.map( item => {
+			return { value: item.term_id, label: item.name };
+		});
+	}
+
+	allTerms = [ ...initialOption, ...allTerms ];
 
     const handleCustomPageCheckbox = ()=>{}
 
@@ -147,7 +158,7 @@ const GeneralSettings = () => {
         } else {
             updatedData = formUpdater(e.name, selectEvent.value, formData);
         }
-        console.log(updatedData);
+
         dispatch(handleDynamicEdit(updatedData));
     };
 
@@ -165,6 +176,11 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
 	};
 
+	const handleOnChangeTag = ( selectEvent, e ) => {
+		const updatedData = formUpdater( e.name, parseInt( selectEvent.value ), formData );
+        dispatch( handleDynamicEdit( updatedData ) );
+	};
+
     function getSelectedPageDefault() {
         let newArray = [];
         if (displayedCustomPages.length !== 0) {
@@ -175,7 +191,13 @@ const GeneralSettings = () => {
                 newArray.push(filteredPage[0]);
             });
         }
+
         return newArray;
+    }
+
+    function getSelectedTag() {
+		const selected = allTerms.filter( item => parseInt( item.value ) === tag );
+		return ( selected ) ? selected[0] : null;
     }
 
     function onlySpaces(str) {
@@ -202,6 +224,33 @@ const GeneralSettings = () => {
                 {
                    onlySpaces(templateName) ? <span className="wpwax-vm-validate-danger">Please Enter Form Name</span> : null
                 }
+            </div>
+
+			<div className='wpwax-vm-form-group'>
+                <div className='wpwax-vm-form-group__label'>
+                    <span className='wpwax-vm-tooltip-wrap'>
+                        <span>Form Tag</span>
+                        <span className='wpwax-vm-tooltip'>
+                            <span className='wpwax-vm-tooltip-icon'>
+                                <ReactSVG src={questionIcon} />
+                            </span>
+                            <span className='wpwax-vm-tooltip-text'>
+								All the messages submitted through this form will be assigned with this tag.
+                            </span>
+                        </span>
+                    </span>
+                </div>
+
+				<Select
+					classNamePrefix='wpwax-vm-select'
+					options={allTerms}
+					isMulti={false}
+					searchable={true}
+					hideSelectedOptions={false}
+					defaultValue={ getSelectedTag() }
+					name='wpwax-vm-tag'
+					onChange={handleOnChangeTag}
+				/>
             </div>
 
             <div className='wpwax-vm-form-group'>
@@ -295,7 +344,7 @@ const GeneralSettings = () => {
                 }
 
                 {
-                    !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : <span className="wpwax-vm-validate-danger">Please Select a page</span>
+                    !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : <span className="wpwax-vm-validate-danger">Please select a page</span>
                 }
             </div>
 

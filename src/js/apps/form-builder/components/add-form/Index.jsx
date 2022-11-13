@@ -99,8 +99,6 @@ const AddForm = () => {
 
     const { currentStage, validation, loading, fetchStatus} = state;
 
-    const [formStage, setFormStage] = useState("general");
-
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
@@ -119,7 +117,7 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-            
+
             if(!displayOnCustomPages){
                 if(!onlySpaces(formInitialData.name)){
                     setState({

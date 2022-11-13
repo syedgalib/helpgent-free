@@ -6,6 +6,14 @@ const FormUpdater = (label, value,formInitialData) => {
                     ...item,
                     name: value
                 }
+			case "wpwax-vm-tag":
+				return {
+					...item,
+					options: {
+                        ...item.options,
+                        tag: value
+                    }
+				}
             case "wpwax-vm-theme":
                 return {
                     ...item,

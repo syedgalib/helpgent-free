@@ -1378,7 +1378,8 @@ function get_admin_roles() {
  */
 function get_terms() {
 
-	return Term_Model::get_items( [ 'limit' => -1 ] );
+	$terms = Term_Model::get_items( [ 'limit' => -1 ] );
+	return $terms['results'];
 
 }
 

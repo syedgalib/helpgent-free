@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 
 import { upateState as updateUserState } from "./user/actionCreator.js";
-import { updateFormData as updateMessengerFormData } from "./messenger/actionCreator.js";
+import {
+	updateFormData as updateMessengerFormData,
+	upateState as updateMessengerState,
+} from "./messenger/actionCreator.js";
 
 function useFormHooks() {
     const dispatch = useDispatch();
@@ -31,7 +34,7 @@ function useFormHooks() {
 		}
 
 		if ( templateOpions.tag ) {
-			messengerFormData.terms = `${templateOpions.tag}`;
+			dispatch( updateMessengerState( { add_terms: `${templateOpions.tag}` } ) );
 		}
 
 		if ( Object.keys( messengerFormData ).length ) {

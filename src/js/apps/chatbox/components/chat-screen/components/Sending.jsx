@@ -282,8 +282,15 @@ function Sending() {
 	 * @returns {object}
 	 */
 	async function createTheConversation( args ) {
-		const email = ( args.user_email ) ? args.user_email : '';
-		const conversationResponse = await createConversation( { created_by: email } );
+		let conversationArgs = {
+			created_by: ( args.user_email ) ? args.user_email : '',
+		};
+
+		if ( messengerForm.add_terms ) {
+			conversationArgs.add_terms = messengerForm.add_terms;
+		}
+
+		const conversationResponse = await createConversation( conversationArgs );
 
 		if ( ! conversationResponse.success ) {
 			return conversationResponse;

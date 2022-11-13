@@ -1,7 +1,6 @@
 import useConversationAPI from "API/useConversationAPI";
 import useMessangerAPI from "API/useMessangerAPI";
 import actions from "./actions";
-import api from './api';
 
 const {
     upateState,

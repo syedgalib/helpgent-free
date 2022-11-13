@@ -40,12 +40,16 @@ function Form() {
 
 	// @Init State
     useEffect(() => {
-        if (userForm.formData.name) {
+        if ( userForm.formData.name && nameRef.current ) {
             nameRef.current.value = userForm.formData.name;
         }
 
-        if (userForm.formData.email) {
+        if ( userForm.formData.email && emailRef.current) {
             emailRef.current.value = userForm.formData.email;
+        }
+
+        if ( userForm.formData.phone && phoneRef.current) {
+            phoneRef.current.value = userForm.formData.phone;
         }
 
 		if ( userForm.statusMessage ) {
@@ -74,6 +78,19 @@ function Form() {
     // submitHandler
     function submitHandler(e) {
         e.preventDefault();
+        const formValidation = validateFormData();
+
+		if ( ! formValidation.success ) {
+			return;
+		}
+
+        dispatch( upateUserFormData( formValidation.data, true ) );
+        dispatch( upateUserState( { submitted: false, status: null } ) );
+        dispatch( changeChatScreen( screenTypes.SENDING ) );
+    }
+
+	function validateFormData() {
+		let status = { success: false, data: null };
 
 		// Reset Error Message
 		setErrorMessage('');
@@ -81,28 +98,35 @@ function Form() {
 		// Form Fields
 		const formFields = [
 			{
+				label: 'Name',
 				name: 'name',
 				ref: nameRef,
 				required: true,
 			},
 			{
+				label: 'Email',
 				name: 'email',
 				ref: emailRef,
 				required: true,
 			},
 			{
+				label: 'Phone',
 				name: 'phone',
 				ref: phoneRef,
 				required: true,
+				minLength: 10,
 			},
 			{
+				label: 'Password',
 				name: 'password',
 				ref: passwordRef,
 				required: true,
 				type: 'password',
 				minLength: 5,
+				matchWith: 'confirmPassword',
 			},
 			{
+				label: 'Confirm Password',
 				name: 'confirmPassword',
 				ref: confirmPasswordRef,
 				required: true,
@@ -113,47 +137,60 @@ function Form() {
 		// Get Active Fields
 		let activeFields = formFields.filter( field => field.ref.current );
 
-		// Validate Reqired Data
-		const missingReqiredData = activeFields.map( field => field.required && ! field.ref.current.value ? true : false ).includes( true );
 
-        if ( missingReqiredData ) {
-            setErrorMessage('Please fill up the required fields');
-            return;
-        }
+		// Validate Form Data
+		let errorMessages = [];
 
-		// Validate Password Field if Presents
-		const passwordFields = activeFields.filter( field => [ 'password', 'confirm_password' ].includes( field.type ) );
+		for ( const field of activeFields ) {
+			const fieldValue = field.ref.current.value;
 
-		if ( passwordFields.length ) {
-			const passwordField = passwordFields[0];
-			const password      = passwordField.ref.current.value;
-
-			// Validate password length
-			if ( passwordField.minLength && password.length < passwordField.minLength ) {
-				setErrorMessage( `Password must be at least ${passwordField.minLength} character long` );
-            	return;
+			// Validate Required Field
+			if ( typeof field.required !== 'undefined' && field.required && ! fieldValue.length ) {
+				errorMessages.push( `${field.label} is required` );
 			}
 
-			// Check if password match with confirm password
-			const matchPassword = passwordFields.every( field => field.ref.current.value === password );
-			if ( ! matchPassword ) {
-				setErrorMessage('Password do not match');
-            	return;
+			// Validate Min Length
+			if ( typeof field.minLength !== 'undefined' && fieldValue.length < field.minLength ) {
+				errorMessages.push( `${field.label} must be at least ${field.minLength} character long` );
 			}
+
+			// Validate Match Field
+			if ( typeof field.matchWith !== 'undefined' ) {
+				const matchField = activeFields.filter( activeField => activeField.name === field.matchWith );
+
+				if ( ! matchField.length ) {
+					continue;
+				}
+
+				if ( matchField[0].ref.current.value !== fieldValue ) {
+					errorMessages.push( `${field.label} do not match` );
+				}
+			}
+
 		}
 
-		activeFields = activeFields.filter( field => field.type !== 'confirm_password' );
+		if ( errorMessages.length ) {
+			setErrorMessage( errorMessages[0] );
+			return status;
+		}
 
-        let formData = {};
+		// Filter Match Fields
+		const matchFields = activeFields.filter( item => item.matchWith ).map( item => item.matchWith );
+		activeFields = activeFields.filter( field => {
+			return ! matchFields.includes( field.name );
+		});
+
+		let formData = {};
 
 		for ( const field of activeFields ) {
 			formData[ field.name ] = field.ref.current.value;
 		}
 
-        dispatch( upateUserFormData( formData, true ) );
-        dispatch( upateUserState( { submitted: false, status: null } ) );
-        dispatch( changeChatScreen( screenTypes.SENDING ) );
-    }
+		status.success = true;
+		status.data = formData;
+
+		return status;
+	}
 
     return (
         <form onSubmit={submitHandler} className='wpwax-vm-h-100pr'>
@@ -167,7 +204,7 @@ function Form() {
                     { showNameField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								required
+								// required
 								ref={nameRef}
 								type='text'
 								className='wpwax-vm-form__element'
@@ -179,7 +216,7 @@ function Form() {
 					{ showEmailField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								required
+								// required
 								ref={emailRef}
 								type='email'
 								className='wpwax-vm-form__element'
@@ -192,7 +229,7 @@ function Form() {
 					{ showPhoneField() && (
 						<div className='wpwax-vm-form-group'>
 							<input
-								required
+								// required
 								ref={phoneRef}
 								type='tel'
 								className='wpwax-vm-form__element'
@@ -205,7 +242,7 @@ function Form() {
 						<>
 							<div className='wpwax-vm-form-group'>
 								<input
-									required
+									// required
 									ref={passwordRef}
 									type='password'
 									className='wpwax-vm-form__element'
@@ -215,7 +252,7 @@ function Form() {
 
 							<div className='wpwax-vm-form-group'>
 								<input
-									required
+									// required
 									ref={confirmPasswordRef}
 									type='password'
 									className='wpwax-vm-form__element'

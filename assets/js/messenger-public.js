@@ -5521,12 +5521,9 @@ function Sending() {
               }
               return _context4.abrupt("return", false);
             case 10:
-              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_4__.upateState)({
-                user: userExistsResponse.data
-              }));
               isGuest = userExistsResponse.data.is_guest;
               if (!isGuest) {
-                _context4.next = 16;
+                _context4.next = 15;
                 break;
               }
               dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_4__.upateState)({
@@ -5535,7 +5532,10 @@ function Sending() {
               }));
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].CONTACT_FORM));
               return _context4.abrupt("return", true);
-            case 16:
+            case 15:
+              dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_4__.upateState)({
+                user: userExistsResponse.data
+              }));
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].USER_AUTHENTICATION_FORM));
               return _context4.abrupt("return", true);
             case 18:
@@ -6025,11 +6025,14 @@ function Form() {
 
   // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (userForm.formData.name) {
+    if (userForm.formData.name && nameRef.current) {
       nameRef.current.value = userForm.formData.name;
     }
-    if (userForm.formData.email) {
+    if (userForm.formData.email && emailRef.current) {
       emailRef.current.value = userForm.formData.email;
+    }
+    if (userForm.formData.phone && phoneRef.current) {
+      phoneRef.current.value = userForm.formData.phone;
     }
     if (userForm.statusMessage) {
       setErrorMessage(userForm.statusMessage);
@@ -6053,30 +6056,53 @@ function Form() {
   // submitHandler
   function submitHandler(e) {
     e.preventDefault();
+    var formValidation = validateFormData();
+    if (!formValidation.success) {
+      return;
+    }
+    dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.updateFormData)(formValidation.data, true));
+    dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
+      submitted: false,
+      status: null
+    }));
+    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].SENDING));
+  }
+  function validateFormData() {
+    var status = {
+      success: false,
+      data: null
+    };
 
     // Reset Error Message
     setErrorMessage('');
 
     // Form Fields
     var formFields = [{
+      label: 'Name',
       name: 'name',
       ref: nameRef,
       required: true
     }, {
+      label: 'Email',
       name: 'email',
       ref: emailRef,
       required: true
     }, {
+      label: 'Phone',
       name: 'phone',
       ref: phoneRef,
-      required: true
+      required: true,
+      minLength: 10
     }, {
+      label: 'Password',
       name: 'password',
       ref: passwordRef,
       required: true,
       type: 'password',
-      minLength: 5
+      minLength: 5,
+      matchWith: 'confirmPassword'
     }, {
+      label: 'Confirm Password',
       name: 'confirmPassword',
       ref: confirmPasswordRef,
       required: true,
@@ -6088,60 +6114,77 @@ function Form() {
       return field.ref.current;
     });
 
-    // Validate Reqired Data
-    var missingReqiredData = activeFields.map(function (field) {
-      return field.required && !field.ref.current.value ? true : false;
-    }).includes(true);
-    if (missingReqiredData) {
-      setErrorMessage('Please fill up the required fields');
-      return;
-    }
-
-    // Validate Password Field if Presents
-    var passwordFields = activeFields.filter(function (field) {
-      return ['password', 'confirm_password'].includes(field.type);
-    });
-    if (passwordFields.length) {
-      var passwordField = passwordFields[0];
-      var password = passwordField.ref.current.value;
-
-      // Validate password length
-      if (passwordField.minLength && password.length < passwordField.minLength) {
-        setErrorMessage("Password must be at least ".concat(passwordField.minLength, " character long"));
-        return;
-      }
-
-      // Check if password match with confirm password
-      var matchPassword = passwordFields.every(function (field) {
-        return field.ref.current.value === password;
-      });
-      if (!matchPassword) {
-        setErrorMessage('Password do not match');
-        return;
-      }
-    }
-    activeFields = activeFields.filter(function (field) {
-      return field.type !== 'confirm_password';
-    });
-    var formData = {};
+    // Validate Form Data
+    var errorMessages = [];
     var _iterator = _createForOfIteratorHelper(activeFields),
       _step;
     try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _loop = function _loop() {
         var field = _step.value;
-        formData[field.name] = field.ref.current.value;
+        var fieldValue = field.ref.current.value;
+
+        // Validate Required Field
+        if (typeof field.required !== 'undefined' && field.required && !fieldValue.length) {
+          errorMessages.push("".concat(field.label, " is required"));
+        }
+
+        // Validate Min Length
+        if (typeof field.minLength !== 'undefined' && fieldValue.length < field.minLength) {
+          errorMessages.push("".concat(field.label, " must be at least ").concat(field.minLength, " character long"));
+        }
+
+        // Validate Match Field
+        if (typeof field.matchWith !== 'undefined') {
+          var matchField = activeFields.filter(function (activeField) {
+            return activeField.name === field.matchWith;
+          });
+          if (!matchField.length) {
+            return "continue";
+          }
+          if (matchField[0].ref.current.value !== fieldValue) {
+            errorMessages.push("".concat(field.label, " do not match"));
+          }
+        }
+      };
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _ret = _loop();
+        if (_ret === "continue") continue;
       }
     } catch (err) {
       _iterator.e(err);
     } finally {
       _iterator.f();
     }
-    dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.updateFormData)(formData, true));
-    dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
-      submitted: false,
-      status: null
-    }));
-    dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].SENDING));
+    if (errorMessages.length) {
+      setErrorMessage(errorMessages[0]);
+      return status;
+    }
+
+    // Filter Match Fields
+    var matchFields = activeFields.filter(function (item) {
+      return item.matchWith;
+    }).map(function (item) {
+      return item.matchWith;
+    });
+    activeFields = activeFields.filter(function (field) {
+      return !matchFields.includes(field.name);
+    });
+    var formData = {};
+    var _iterator2 = _createForOfIteratorHelper(activeFields),
+      _step2;
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var field = _step2.value;
+        formData[field.name] = field.ref.current.value;
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+    status.success = true;
+    status.data = formData;
+    return status;
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
     onSubmit: submitHandler,
@@ -6156,7 +6199,7 @@ function Form() {
         }), showNameField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-            required: true,
+            // required
             ref: nameRef,
             type: "text",
             className: "wpwax-vm-form__element",
@@ -6165,7 +6208,7 @@ function Form() {
         }), showEmailField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-            required: true,
+            // required
             ref: emailRef,
             type: "email",
             className: "wpwax-vm-form__element",
@@ -6174,7 +6217,7 @@ function Form() {
         }), showPhoneField() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "wpwax-vm-form-group",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-            required: true,
+            // required
             ref: phoneRef,
             type: "tel",
             className: "wpwax-vm-form__element",
@@ -6184,7 +6227,7 @@ function Form() {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "wpwax-vm-form-group",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-              required: true,
+              // required
               ref: passwordRef,
               type: "password",
               className: "wpwax-vm-form__element",
@@ -6193,7 +6236,7 @@ function Form() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "wpwax-vm-form-group",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-              required: true,
+              // required
               ref: confirmPasswordRef,
               type: "password",
               className: "wpwax-vm-form__element",

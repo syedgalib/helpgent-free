@@ -151,12 +151,6 @@ function Sending() {
 			return false;
 		}
 
-		dispatch(
-			updateUserState({
-				user: userExistsResponse.data,
-			})
-		);
-
 		const isGuest = userExistsResponse.data.is_guest;
 
 		if ( isGuest ) {
@@ -170,6 +164,12 @@ function Sending() {
 			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
 			return true;
 		}
+
+		dispatch(
+			updateUserState({
+				user: userExistsResponse.data,
+			})
+		);
 
 		dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
 		return true;

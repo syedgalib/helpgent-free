@@ -355,14 +355,24 @@ class Conversations extends Rest_Base
 			}
 
 			// Get First Message
-			$first_message_id   = Conversation_Model::get_meta( $conversation['id'], 'first_message_id' );
-			$first_message_data = self::get_message_by_id( $first_message_id );
-			$conversation_data[ $conversation_key ]['first_message'] = $first_message_data;
+			$first_message = Message_Model::get_items([
+				'where'    => [ 'conversation_id' => $conversation['id'] ],
+				'order_by' => 'oldest',
+				'limit'    => 1,
+			]);
+
+			$first_message = ( ! empty( $first_message['results']  ) ) ? $this->prepare_message_item( $first_message['results'][0] ) : null;
+			$conversation_data[ $conversation_key ]['first_message'] = $first_message;
 
 			// Get Last Message
-			$last_message_id   = Conversation_Model::get_meta( $conversation['id'], 'last_message_id' );
-			$last_message_data = self::get_message_by_id( $last_message_id );
-			$conversation_data[ $conversation_key ]['last_message']  = $last_message_data;
+			$last_message = Message_Model::get_items([
+				'where'    => [ 'conversation_id' => $conversation['id'] ],
+				'order_by' => 'latest',
+				'limit'    => 1,
+			]);
+
+			$last_message = ( ! empty( $last_message['results'] ) ) ? $this->prepare_message_item( $last_message['results'][0] ) : null;
+			$conversation_data[ $conversation_key ]['last_message']  = $last_message;
 
 			$messages = Message_Model::get_items([
 				'where' => [
@@ -377,8 +387,6 @@ class Conversations extends Rest_Base
 			}, $messages['results'] );
 
 			$users = Helper\get_users_data_by( 'email', $users );
-
-
 			$conversation_data[ $conversation_key ]['users'] = $users;
 
 			// Read Status
@@ -401,6 +409,25 @@ class Conversations extends Rest_Base
 		if ( is_wp_error( $message ) || empty( $message ) ) {
 			return null;
 		}
+
+		$message_user = Helper\get_users_data_by( 'email', [ $message['user_email'] ] );
+		$message['user'] = ( ! empty( $message_user ) ) ? $message_user[0] : null;
+
+		if ( ! empty( $message['created_at'] ) ) {
+			$message['created_at']           = Helper\get_formatted_time( $message['created_at'], $timezone, 'Y-m-d h:m:s' );
+			$message['created_at_formatted'] = Helper\get_formatted_time( $message['created_at'], $timezone );
+		}
+
+		if ( ! empty( $message['updated_at'] ) ) {
+			$message['updated_at']           = Helper\get_formatted_time( $message['updated_at'], $timezone, 'Y-m-d h:m:s' );
+			$message['updated_at_formatted'] = Helper\get_formatted_time( $message['updated_at'], $timezone );
+		}
+
+
+		return $message;
+	}
+
+	public function prepare_message_item( $message, $timezone = '' ) {
 
 		$message_user = Helper\get_users_data_by( 'email', [ $message['user_email'] ] );
 		$message['user'] = ( ! empty( $message_user ) ) ? $message_user[0] : null;

@@ -579,7 +579,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     const metaList = [
                                         {
                                             type: 'date',
-                                            text: item.last_message.updated_at_formatted,
+                                            text: ( item.last_message && item.last_message.updated_at_formatted ) ? item.last_message.updated_at_formatted : '',
                                         },
                                     ];
 

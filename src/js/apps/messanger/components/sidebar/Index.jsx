@@ -81,7 +81,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const [isShowingArchive, setIsShowingArchive] = useState(false);
     const [pageNumber, setPageNumber] = useState(2);
-    const [activeSession, setaAtiveSession] = useState('');
+    const [activeSession, setAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
@@ -266,12 +266,17 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     };
 
     const handeSelectSession = (e, item, index) => {
-        setaAtiveSession(`wpwax-vm-session-${index}`);
+        setAtiveSession(`wpwax-vm-session-${index}`);
         dispatch(updateSelectedSession(item));
     };
 
     const handleRefresh = (event) => {
         event.preventDefault();
+
+		doAction( 'beforeConversationRefresh' );
+
+		setAtiveSession('');
+
         setRefresher({
             refresher: !refresher,
         });

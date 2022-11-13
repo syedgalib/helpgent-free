@@ -38,9 +38,11 @@ const {
     UPDATE_SESSION_MESSAGES,
     UPDATE_SESSION_MESSAGES_BY_IDS,
     UPDATE_SESSION_MESSAGE_ITEM,
+	RESET_ALL_SESSIONS,
 
     ADD_SESSION_WINDOW_DATA,
     UPDATE_SESSION_WINDOW_DATA,
+	RESET_ALL_SESSION_WINDOW_DATA,
 
     REPLY_MODE_UPDATE_BEGIN,
     REPLY_MODE_UPDATE_SUCCESS,
@@ -169,6 +171,12 @@ const Reducer = (state = initialState, action) => {
 				},
             };
 
+		case RESET_ALL_SESSIONS:
+			return {
+				...state,
+				allSessions: {},
+			};
+
         case ADD_SESSION_WINDOW_DATA:
 
             if ( !data ) {
@@ -216,6 +224,12 @@ const Reducer = (state = initialState, action) => {
 						[ data.key ]: data.value,
 					}
 				},
+            };
+
+        case RESET_ALL_SESSION_WINDOW_DATA:
+            return {
+                ...state,
+                allSessionWindowData: {},
             };
 
         case REPLY_MODE_UPDATE_BEGIN:

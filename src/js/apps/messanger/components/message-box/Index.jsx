@@ -26,6 +26,8 @@ import {
     handleReplyModeChange,
     handleMessageTypeChange,
 	updateSelectedSession,
+	resetAllSessions,
+	resetAllSessionWindowData,
     addSession,
     updateSessionMessages,
     addSessionWindowData,
@@ -307,8 +309,16 @@ function MessageBox({ setSessionState }) {
 	// On Init
 	useEffect( function () {
 		addAction( 'onConversationDelete', onConversationDelete );
+		addAction( 'beforeConversationRefresh', beforeConversationRefresh );
 	}, [] );
 
+
+	// beforeConversationRefresh
+	function beforeConversationRefresh() {
+		dispatch( updateSelectedSession( null ) );
+		dispatch( resetAllSessions() );
+		dispatch( resetAllSessionWindowData() );
+	}
 
 	// onConversationDelete
 	function onConversationDelete( data ) {

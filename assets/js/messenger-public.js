@@ -11555,7 +11555,15 @@ function MessageBox(_ref) {
   // On Init
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     addAction('onConversationDelete', onConversationDelete);
+    addAction('beforeConversationRefresh', beforeConversationRefresh);
   }, []);
+
+  // beforeConversationRefresh
+  function beforeConversationRefresh() {
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSelectedSession)(null));
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.resetAllSessions)());
+    dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_17__.resetAllSessionWindowData)());
+  }
 
   // onConversationDelete
   function onConversationDelete(data) {
@@ -15379,7 +15387,7 @@ var Sidebar = function Sidebar(_ref) {
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState8 = _slicedToArray(_useState7, 2),
     activeSession = _useState8[0],
-    setaAtiveSession = _useState8[1];
+    setAtiveSession = _useState8[1];
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
     refresher = _useState10[0],
@@ -15600,11 +15608,13 @@ var Sidebar = function Sidebar(_ref) {
     }, 1500);
   };
   var handeSelectSession = function handeSelectSession(e, item, index) {
-    setaAtiveSession("wpwax-vm-session-".concat(index));
+    setAtiveSession("wpwax-vm-session-".concat(index));
     dispatch((0,_store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_27__.updateSelectedSession)(item));
   };
   var handleRefresh = function handleRefresh(event) {
     event.preventDefault();
+    doAction('beforeConversationRefresh');
+    setAtiveSession('');
     setRefresher({
       refresher: !refresher
     });
@@ -17668,6 +17678,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handleMessageStageChange": function() { return /* binding */ handleMessageStageChange; },
 /* harmony export */   "handleMessageTypeChange": function() { return /* binding */ handleMessageTypeChange; },
 /* harmony export */   "handleReplyModeChange": function() { return /* binding */ handleReplyModeChange; },
+/* harmony export */   "resetAllSessionWindowData": function() { return /* binding */ resetAllSessionWindowData; },
+/* harmony export */   "resetAllSessions": function() { return /* binding */ resetAllSessions; },
 /* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; },
 /* harmony export */   "updateSelectedSession": function() { return /* binding */ updateSelectedSession; },
 /* harmony export */   "updateSessionMessageItem": function() { return /* binding */ updateSessionMessageItem; },
@@ -17686,8 +17698,10 @@ var updateSelectedSession = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].upd
   updateSessionMessages = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessages,
   updateSessionMessagesByIDs = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessagesByIDs,
   updateSessionMessageItem = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionMessageItem,
+  resetAllSessions = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].resetAllSessions,
   addSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].addSessionWindowData,
   updateSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSessionWindowData,
+  resetAllSessionWindowData = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].resetAllSessionWindowData,
   replyModeUpdateBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateBegin,
   replyModeUpdateSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateSuccess,
   replyModeUpdateError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].replyModeUpdateError,
@@ -17791,8 +17805,10 @@ var actions = {
   UPDATE_SESSION_MESSAGES: 'UPDATE_SESSION_MESSAGES',
   UPDATE_SESSION_MESSAGES_BY_IDS: 'UPDATE_SESSION_MESSAGES_BY_IDS',
   UPDATE_SESSION_MESSAGE_ITEM: 'UPDATE_SESSION_MESSAGES_ITEM',
+  RESET_ALL_SESSIONS: 'RESET_ALL_SESSIONS',
   ADD_SESSION_WINDOW_DATA: 'ADD_SESSION_WINDOW_DATA',
   UPDATE_SESSION_WINDOW_DATA: 'UPDATE_SESSION_WINDOW_DATA',
+  RESET_ALL_SESSION_WINDOW_DATA: 'RESET_ALL_SESSION_WINDOW_DATA',
   REPLY_MODE_UPDATE_BEGIN: 'REPLY_MODE_UPDATE_BEGIN',
   REPLY_MODE_UPDATE_SUCCESS: 'REPLY_MODE_UPDATE_SUCCESS',
   REPLY_MODE_UPDATE_ERR: 'REPLY_MODE_UPDATE_ERR',
@@ -17844,6 +17860,16 @@ var actions = {
         messageID: messageID,
         updatedMessage: updatedMessage
       }
+    };
+  },
+  resetAllSessions: function resetAllSessions() {
+    return {
+      type: actions.RESET_ALL_SESSIONS
+    };
+  },
+  resetAllSessionWindowData: function resetAllSessionWindowData() {
+    return {
+      type: actions.RESET_ALL_SESSION_WINDOW_DATA
     };
   },
   addSessionWindowData: function addSessionWindowData(sessionID) {
@@ -17969,8 +17995,10 @@ var UPDATE_SELECTED_SESSION = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].U
   UPDATE_SESSION_MESSAGES = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGES,
   UPDATE_SESSION_MESSAGES_BY_IDS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGES_BY_IDS,
   UPDATE_SESSION_MESSAGE_ITEM = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_MESSAGE_ITEM,
+  RESET_ALL_SESSIONS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET_ALL_SESSIONS,
   ADD_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].ADD_SESSION_WINDOW_DATA,
   UPDATE_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SESSION_WINDOW_DATA,
+  RESET_ALL_SESSION_WINDOW_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET_ALL_SESSION_WINDOW_DATA,
   REPLY_MODE_UPDATE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_BEGIN,
   REPLY_MODE_UPDATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_SUCCESS,
   REPLY_MODE_UPDATE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].REPLY_MODE_UPDATE_ERR,
@@ -18056,6 +18084,10 @@ var Reducer = function Reducer() {
           return message.id === data.messageID ? _objectSpread(_objectSpread({}, message), data.updatedMessage) : message;
         })))
       });
+    case RESET_ALL_SESSIONS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessions: {}
+      });
     case ADD_SESSION_WINDOW_DATA:
       if (!data) {
         return state;
@@ -18085,6 +18117,10 @@ var Reducer = function Reducer() {
       }
       return _objectSpread(_objectSpread({}, state), {}, {
         allSessionWindowData: _objectSpread(_objectSpread({}, state.allSessionWindowData), {}, _defineProperty({}, data.sessionID, _objectSpread(_objectSpread({}, state.allSessionWindowData[data.sessionID]), {}, _defineProperty({}, data.key, data.value))))
+      });
+    case RESET_ALL_SESSION_WINDOW_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        allSessionWindowData: {}
       });
     case REPLY_MODE_UPDATE_BEGIN:
       return _objectSpread(_objectSpread({}, state), {}, {

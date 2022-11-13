@@ -6,9 +6,11 @@ const {
     updateSessionMessages,
     updateSessionMessagesByIDs,
     updateSessionMessageItem,
+    resetAllSessions,
 
 	addSessionWindowData,
 	updateSessionWindowData,
+	resetAllSessionWindowData,
 
     replyModeUpdateBegin,
     replyModeUpdateSuccess,
@@ -63,9 +65,11 @@ export {
     addSession,
     addSessionWindowData,
 	updateSessionWindowData,
+	resetAllSessionWindowData,
     updateSessionMessages,
     updateSessionMessagesByIDs,
     updateSessionMessageItem,
+    resetAllSessions,
     handleReplyModeChange,
     handleMessageTypeChange,
     handleMessageStageChange,

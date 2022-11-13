@@ -13,7 +13,7 @@ class User_Messenger {
      */
     public function __construct() {
 
-        add_shortcode( 'wpwax_video_support_user_messenger', [ $this, 'render' ] );
+        add_shortcode( 'helpgent_messages', [ $this, 'render' ] );
 
     }
 

@@ -5309,7 +5309,7 @@ function MessageBox(_ref) {
     _useState26 = _slicedToArray(_useState25, 2),
     recordedTimeLength = _useState26[0],
     setRecordedTimeLength = _useState26[1];
-  var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseInt(messengerScriptData.voiceRecordTimeLimit) : 300; // 5 Minuites
+  var voiceRecordingLimitInSecond = messengerScriptData && typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined' ? parseFloat(messengerScriptData.voiceRecordTimeLimit) : 120; // 2 Minuites
 
   var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       recordStage: "request_permission"
@@ -5417,7 +5417,7 @@ function MessageBox(_ref) {
   }
   function getMaxRecordLength() {
     if (wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit) {
-      return parseInt(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit);
+      return parseFloat(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit);
     }
     return null;
   }
@@ -5740,6 +5740,12 @@ function MessageBox(_ref) {
     r = isNaN(r) ? 0 : r;
     return r * 100;
   };
+  var getRemainingVoiceTimeInSecond = function getRemainingVoiceTimeInSecond() {
+    return voiceRecordingLimitInSecond - recordedVoiceTimeInSecond;
+  };
+  var getVoiceCountdown = function getVoiceCountdown() {
+    return (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__.formatSecondsAsCountdown)(getRemainingVoiceTimeInSecond());
+  };
 
   /* Focus Input field when search inopen */
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -5910,8 +5916,7 @@ function MessageBox(_ref) {
               stopVoiceRecording({
                 sendRecording: true
               });
-              closeVoiceChat();
-            case 5:
+            case 4:
             case "end":
               return _context7.stop();
           }
@@ -5929,7 +5934,6 @@ function MessageBox(_ref) {
       sendRecording: false
     };
     args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
-    setRecordedVoiceTimeInSecond(0);
     stopVoiceTimer();
     window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
       var blob = window.wpwaxCSVoiceRecorder.getBlob();
@@ -6110,62 +6114,57 @@ function MessageBox(_ref) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
+              console.log('sendAudioMessage');
               if (!isSendingAudioMessage) {
-                _context11.next = 2;
+                _context11.next = 3;
                 break;
               }
               return _context11.abrupt("return");
-            case 2:
+            case 3:
               attachment = blob ? blob : recordedAudioBlob;
               if (attachment) {
-                _context11.next = 6;
+                _context11.next = 7;
                 break;
               }
               alert('No recordings found');
               return _context11.abrupt("return");
-            case 6:
+            case 7:
               setIsSendingAudioMessage(true);
 
               // Upload The Attachment
-              _context11.next = 9;
+              _context11.next = 10;
               return createAttachment(attachment);
-            case 9:
+            case 10:
               attachmentResponse = _context11.sent;
               if (attachmentResponse.success) {
-                _context11.next = 15;
+                _context11.next = 16;
                 break;
               }
               message = attachmentResponse.message ? attachmentResponse.message : 'Somethong went wrong, please try again.';
               alert(message);
               setIsSendingAudioMessage(false);
               return _context11.abrupt("return");
-            case 15:
+            case 16:
               attachmentID = attachmentResponse.data.id; // Send The Message
-              _context11.next = 18;
+              _context11.next = 19;
               return createMessage({
                 message_type: 'audio',
                 attachment_id: attachmentID
               });
-            case 18:
+            case 19:
               response = _context11.sent;
-              console.log({
-                response: response
-              });
-              setIsSendingAudioMessage(false);
-
-              // Show Alert on Error
               if (response.success) {
-                _context11.next = 25;
+                _context11.next = 24;
                 break;
               }
               _message = response.message ? response.message : 'Somethong went wrong, please try again.';
               alert(_message);
               return _context11.abrupt("return");
-            case 25:
-              setRecordedVoiceTimeInSecond(0);
-
-              // Load Latest
-              loadLatestMessages();
+            case 24:
+              _context11.next = 26;
+              return loadLatestMessages();
+            case 26:
+              setIsSendingAudioMessage(false);
             case 27:
             case "end":
               return _context11.stop();
@@ -6207,6 +6206,15 @@ function MessageBox(_ref) {
       return _ref14.apply(this, arguments);
     };
   }();
+  var canStartRecording = function canStartRecording() {
+    if (isSendingAudioMessage) {
+      return false;
+    }
+    if (recordedVoiceTimeInSecond >= voiceRecordingLimitInSecond) {
+      return false;
+    }
+    return true;
+  };
   var voicePlay = /*#__PURE__*/function () {
     var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
       var audioStreem;
@@ -6214,27 +6222,33 @@ function MessageBox(_ref) {
         while (1) {
           switch (_context13.prev = _context13.next) {
             case 0:
+              if (canStartRecording()) {
+                _context13.next = 2;
+                break;
+              }
+              return _context13.abrupt("return");
+            case 2:
               if (!recordedAudioSteam) {
-                _context13.next = 4;
+                _context13.next = 6;
                 break;
               }
               resumeVoiceRecording();
-              _context13.next = 11;
+              _context13.next = 13;
               break;
-            case 4:
-              _context13.next = 6;
-              return setupAudioStreem();
             case 6:
+              _context13.next = 8;
+              return setupAudioStreem();
+            case 8:
               audioStreem = _context13.sent;
               if (audioStreem) {
-                _context13.next = 10;
+                _context13.next = 12;
                 break;
               }
               alert('Something went wrong, please try again.');
               return _context13.abrupt("return");
-            case 10:
+            case 12:
               startVoiceRecording();
-            case 11:
+            case 13:
             case "end":
               return _context13.stop();
           }
@@ -6852,14 +6866,14 @@ function MessageBox(_ref) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("span", {
               className: "wpwax-vm-timer",
-              children: (0,Helper_formatter_js__WEBPACK_IMPORTED_MODULE_20__.formatSecondsAsCountdown)(recordedVoiceTimeInSecond)
+              children: getVoiceCountdown()
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("div", {
             className: "wpwax-vm-messagebox-reply__action",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-messagebox-reply-send",
-              disabled: canSendAudioMessage() ? false : true,
+              disabled: canSendAudioMessage() && !isSendingAudioMessage ? false : true,
               onClick: handleSendAudioMessage,
               children: !isSendingAudioMessage ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_25__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_26__["default"], {
                 src: Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
@@ -8543,7 +8557,7 @@ var Record = function Record(_ref) {
   // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit) {
-      setMaxRecordLength(parseInt(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit));
+      setMaxRecordLength(parseFloat(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit));
     }
     setupVideoStreem();
   }, []);
@@ -10027,7 +10041,7 @@ var Sidebar = function Sidebar(_ref) {
             }
             var metaList = [{
               type: 'date',
-              text: item.last_message.updated_at_formatted
+              text: item.last_message && item.last_message.updated_at_formatted ? item.last_message.updated_at_formatted : ''
             }];
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("li", {
               className: "wpwax-vm-session-".concat(index) === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active' : 'wpwax-vm-usermedia',
@@ -15974,7 +15988,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
 
 /***/ }),
 
@@ -15986,7 +16000,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
 
 /***/ }),
 
@@ -16022,7 +16036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
 
 /***/ }),
 
@@ -16034,7 +16048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
 
 /***/ }),
 
@@ -16058,7 +16072,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
 
 /***/ }),
 
@@ -16094,7 +16108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -16118,7 +16132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
 
 /***/ }),
 
@@ -16154,7 +16168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -16178,7 +16192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
 
 /***/ }),
 
@@ -16190,7 +16204,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
 
 /***/ }),
 
@@ -16202,7 +16216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -16262,7 +16276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -16286,7 +16300,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 

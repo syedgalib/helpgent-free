@@ -78,9 +78,9 @@ function Record() {
     // Init State
     useState(function () {
 
-		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			const maxVideoLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
-			setMaxRecordLength( maxVideoLengthInSeconds );
+		if ( settings && typeof settings.maxVoiceLength !== 'undefined' && ! isNaN( settings.maxVoiceLength ) ) {
+			const maxVoiceLengthInSeconds = parseFloat( settings.maxVoiceLength ) * 60;
+			setMaxRecordLength( maxVoiceLengthInSeconds );
 		}
 
         check_if_need_permission().then(function (is_needed_permission) {

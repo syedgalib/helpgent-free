@@ -883,7 +883,7 @@ function video_record_time_limit() {
  * @return int seconds
  */
 function voice_record_time_limit() {
-	$min = HELPGENT_VOICE_RECORD_TIME_LIMIT; // In Minute
+	$min = get_option( 'maxVoiceLength', 2 ); // In Minute
 	return $min * 60;
 }
 

@@ -96,7 +96,7 @@ function ScreenRecord() {
 	function getMaxRecordLength() {
 
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			return parseInt( settings.maxVideoLength ) * 60;
+			return parseFloat( settings.maxVideoLength ) * 60;
 		}
 
 		return 0;

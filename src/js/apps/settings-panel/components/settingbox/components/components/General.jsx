@@ -143,7 +143,7 @@ const General = (props) => {
                     className='wpwax-vm-settings__single--label'
                     htmlFor='wpwax-vm-max-video-length'
                 >
-                    Maximum Video Length
+                    Maximum Video Record Length
                 </label>
                 <div className='wpwax-vm-settings__single--element'>
                     <div className='wpwax-vm-form-group'>
@@ -155,7 +155,34 @@ const General = (props) => {
                             placeholder='Ex: 10'
                             value={contentState.options.maxVideoLength}
                             onChange={handleChange}
-                            min='0'
+                            min='1'
+                        />
+                        <div className='wpwax-vm-input-addon'>
+                            <span className='wpwax-vm-input-addon__text'>
+                                Mins
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='wpwax-vm-settings__single'>
+                <label
+                    className='wpwax-vm-settings__single--label'
+                    htmlFor='wpwax-vm-max-voice-length'
+                >
+                    Maximum Voice Record Length
+                </label>
+                <div className='wpwax-vm-settings__single--element'>
+                    <div className='wpwax-vm-form-group'>
+                        <input
+                            type='number'
+                            className='wpwax-vm-form__element'
+                            id='wpwax-vm-max-voice-length'
+                            name='maxVoiceLength'
+                            placeholder='Ex: 10'
+                            value={contentState.options.maxVoiceLength}
+                            onChange={handleChange}
+                            min='1'
                         />
                         <div className='wpwax-vm-input-addon'>
                             <span className='wpwax-vm-input-addon__text'>

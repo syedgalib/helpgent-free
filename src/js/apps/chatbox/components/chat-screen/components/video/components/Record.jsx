@@ -69,7 +69,7 @@ const Record = () => {
     useState(function () {
 
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			const maxRecordLengthInSeconds = parseInt( settings.maxVideoLength ) * 60;
+			const maxRecordLengthInSeconds = parseFloat( settings.maxVideoLength ) * 60;
 			setMaxRecordLength( maxRecordLengthInSeconds );
 		}
 

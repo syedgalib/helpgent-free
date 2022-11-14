@@ -50,7 +50,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     useEffect(function () {
 
 		if ( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
-			setMaxRecordLength( parseInt( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) );
+			setMaxRecordLength( parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) );
 		}
 
         setupVideoStreem();

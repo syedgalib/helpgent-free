@@ -56,6 +56,7 @@ const SettingBox = () => {
             chatHeadPosition: 'bottom-right',
             userDashboardPage: '2',
             maxVideoLength: '2',
+            maxVoiceLength: '2',
             videoQuality: '720',
             attatchmentDeletionAfter: '20',
             maxUploadSize: '300',

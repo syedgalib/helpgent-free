@@ -137,8 +137,8 @@ function MessageBox({ setSessionState }) {
     const voiceRecordingLimitInSecond =
         messengerScriptData &&
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
-            ? parseInt(messengerScriptData.voiceRecordTimeLimit)
-            : 300; // 5 Minuites
+            ? parseFloat(messengerScriptData.voiceRecordTimeLimit)
+            : 120; // 2 Minuites
 
     const [screenRecordState, setScreenRecordState] = useState({
         recordStage: "request_permission"
@@ -219,7 +219,7 @@ function MessageBox({ setSessionState }) {
 	function getMaxRecordLength() {
 
 		if (  wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
-			return parseInt( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
+			return parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
 		}
 
 		return null;
@@ -486,7 +486,8 @@ function MessageBox({ setSessionState }) {
         const timeLength = calculateRecordedTimeLength();
         setRecordedTimeLength(timeLength);
 
-        if (recordedVoiceTimeInSecond >= voiceRecordingLimitInSecond) {
+
+        if ( recordedVoiceTimeInSecond >= voiceRecordingLimitInSecond ) {
             stopVoiceRecording();
         }
     }, [recordedVoiceTimeInSecond]);
@@ -656,6 +657,16 @@ function MessageBox({ setSessionState }) {
         return r * 100;
     };
 
+	const getRemainingVoiceTimeInSecond = () => {
+		return (voiceRecordingLimitInSecond - recordedVoiceTimeInSecond);
+	}
+
+	const getVoiceCountdown = () => {
+		return formatSecondsAsCountdown(
+			getRemainingVoiceTimeInSecond()
+		)
+	}
+
     /* Focus Input field when search inopen */
     useEffect(() => {
         if (!searchInputRef.current) {
@@ -763,11 +774,12 @@ function MessageBox({ setSessionState }) {
 
     const handleSendAudioMessage = async function (e) {
         e.preventDefault();
+
         if (isSendingAudioMessage) {
             return;
         }
+
         stopVoiceRecording({ sendRecording: true });
-        closeVoiceChat();
     };
 
     // stopRecording
@@ -779,8 +791,6 @@ function MessageBox({ setSessionState }) {
                 ? { ...defaultArgs, ...args }
                 : defaultArgs;
 
-
-		setRecordedVoiceTimeInSecond(0);
         stopVoiceTimer();
 
         window.wpwaxCSVoiceRecorder.stopRecording(function (url) {
@@ -891,6 +901,7 @@ function MessageBox({ setSessionState }) {
     };
 
     const sendAudioMessage = async function (blob) {
+
         if (isSendingAudioMessage) {
             return;
         }
@@ -927,10 +938,6 @@ function MessageBox({ setSessionState }) {
             attachment_id: attachmentID,
         });
 
-		console.log( { response } );
-
-        setIsSendingAudioMessage(false);
-
         // Show Alert on Error
         if (!response.success) {
             const message = response.message
@@ -941,10 +948,10 @@ function MessageBox({ setSessionState }) {
             return;
         }
 
-        setRecordedVoiceTimeInSecond(0)
-
         // Load Latest
-        loadLatestMessages();
+        await loadLatestMessages();
+
+		setIsSendingAudioMessage(false);
     };
 
     const closeVoiceChat = () => {
@@ -965,7 +972,24 @@ function MessageBox({ setSessionState }) {
         voicePlay();
     }
 
-    const voicePlay = async function (){
+	const canStartRecording = () => {
+		if ( isSendingAudioMessage ) {
+			return false;
+		}
+
+		if ( recordedVoiceTimeInSecond >= voiceRecordingLimitInSecond ) {
+			return false;
+		}
+
+		return true;
+	};
+
+    const voicePlay = async function () {
+
+		if ( ! canStartRecording() ) {
+			return;
+		}
+
         // Prepare Voice Recording;
         if(recordedAudioSteam){
             resumeVoiceRecording();
@@ -1529,16 +1553,14 @@ function MessageBox({ setSessionState }) {
                                 ></span>
                             </span>
                             <span className='wpwax-vm-timer'>
-                                {formatSecondsAsCountdown(
-                                    recordedVoiceTimeInSecond
-                                )}
+                                {getVoiceCountdown()}
                             </span>
                         </div>
                         <div className='wpwax-vm-messagebox-reply__action'>
                             <a
                                 href='#'
                                 className='wpwax-vm-messagebox-reply-send'
-								disabled={canSendAudioMessage() ? false : true}
+								disabled={canSendAudioMessage() && ! isSendingAudioMessage ? false : true}
                                 onClick={handleSendAudioMessage}
                             >
                                 {!isSendingAudioMessage ? (

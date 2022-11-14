@@ -26,7 +26,6 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Config::class,
             Activation::class,
         ];
     }

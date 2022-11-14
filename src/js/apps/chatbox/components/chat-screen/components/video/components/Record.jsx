@@ -67,7 +67,6 @@ const Record = () => {
 
     // Init State
     useState(function () {
-
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
 			const maxRecordLengthInSeconds = parseFloat( settings.maxVideoLength ) * 60;
 			setMaxRecordLength( maxRecordLengthInSeconds );
@@ -203,6 +202,30 @@ const Record = () => {
 			setIsInitializedBeforeCloseChatbox( true );
 		}
 
+		const resulations = {
+			'360': {
+				width: 640,
+				height: 360,
+			},
+			'480': {
+				width: 640,
+				height: 480,
+			},
+			'720' : {
+				width: 1280,
+				height: 720,
+			},
+		};
+
+		let videoQuality = 720;
+
+		if ( settings && typeof settings.videoQuality !== 'undefined' && ! isNaN( settings.videoQuality ) ) {
+			videoQuality = `${settings.videoQuality}`;
+		}
+
+		const videoQualityHasValidResulation = Object.keys( resulations ).includes( videoQuality );
+		const resulation = ( videoQualityHasValidResulation ) ? resulations[ videoQuality ] : resulations['720'];
+
         try {
             // Setup Video Streem
             window.wpwaxCSVideoStream =
@@ -212,7 +235,11 @@ const Record = () => {
                         noiseSuppression: true,
                         sampleRate: 44100,
                     },
-                    video: { facingMode: 'user' },
+                    video: {
+						facingMode: 'user',
+						width: { ideal: resulation.width },
+    					height: { ideal: resulation.height },
+					},
                 });
 
             window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {

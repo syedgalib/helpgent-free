@@ -8169,14 +8169,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var qualityOptions = [{
+  value: '360',
+  label: '360p ( 640x360 )'
+}, {
+  value: '480',
+  label: '480p ( 640x480 )'
+}, {
   value: '720',
-  label: '720p'
-}, {
-  value: '500',
-  label: '500p'
-}, {
-  value: '300',
-  label: '300p'
+  label: '720p ( 1280x720 )'
 }];
 var chatHeadPositions = [{
   value: 'bottom-right',

@@ -13,6 +13,7 @@ import { formatSecondsAsCountdown } from 'Helper/formatter';
 import attachmentAPI from 'apiService/attachment-api';
 import useMessangerAPI from 'API/useMessangerAPI';
 import useCountdown from 'Hooks/useCountdown';
+import { useCoreData } from 'Hooks/useCoreData.jsx';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
@@ -83,6 +84,32 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     // setupVideoStreem
     async function setupVideoStreem() {
+		const resulations = {
+			'360': {
+				width: 640,
+				height: 360,
+			},
+			'480': {
+				width: 640,
+				height: 480,
+			},
+			'720' : {
+				width: 1280,
+				height: 720,
+			},
+		};
+
+		let videoQuality = 720;
+
+		const settingsVideoQuality = useCoreData( 'settings.videoQuality' );
+
+		if ( settingsVideoQuality && ! isNaN( settingsVideoQuality ) ) {
+			videoQuality = `${settingsVideoQuality}`;
+		}
+
+		const videoQualityHasValidResulation = Object.keys( resulations ).includes( videoQuality );
+		const resulation = ( videoQualityHasValidResulation ) ? resulations[ videoQuality ] : resulations['720'];
+
         try {
             // Setup Video Streem
             window.wpwaxCSVideoStream =
@@ -92,7 +119,11 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                         noiseSuppression: true,
                         sampleRate: 44100,
                     },
-                    video: { facingMode: 'user' },
+                    video: {
+						facingMode: 'user',
+						width: { ideal: resulation.width },
+    					height: { ideal: resulation.height },
+					},
                 });
 
             window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {

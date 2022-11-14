@@ -3,9 +3,9 @@ import { default as Select } from 'react-select';
 import Switch from 'react-switch';
 
 const qualityOptions = [
-    { value: '720', label: '720p' },
-    { value: '500', label: '500p' },
-    { value: '300', label: '300p' },
+    { value: '360', label: '360p ( 640x360 )' },
+    { value: '480', label: '480p ( 640x480 )' },
+    { value: '720', label: '720p ( 1280x720 )' },
 ];
 
 const chatHeadPositions = [

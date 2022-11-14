@@ -13,6 +13,7 @@ import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
 import recordIcon from 'Assets/svg/icons/desktop.svg';
+import crossIcon from 'Assets/svg/icons/cross.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import attachmentAPI from 'apiService/attachment-api';
@@ -1474,7 +1475,7 @@ function MessageBox({ setSessionState }) {
                         className='wpwax-vm-messagebox-reply-text-close'
                         onClick={handleTextClose}
                     >
-                        <span className='dashicons dashicons-no-alt'></span>
+                        <ReactSVG src={crossIcon} />
                     </a>
                     <div className='wpwax-vm-messagebox-reply'>
                         <div className='wpwax-vm-messagebox-reply__input'>
@@ -1528,7 +1529,7 @@ function MessageBox({ setSessionState }) {
                         className='wpwax-vm-messagebox-reply-text-close'
                         onClick={handleVoiceClose}
                     >
-                        <span className='dashicons dashicons-no-alt'></span>
+                        <ReactSVG src={crossIcon} />
                     </a>
                     <div className='wpwax-vm-messagebox-reply wpwax-vm-messagebox-reply-voice'>
                         <div className='wpwax-vm-messagebox-reply__input'>

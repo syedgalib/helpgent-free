@@ -23548,7 +23548,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
 
 /***/ }),
 

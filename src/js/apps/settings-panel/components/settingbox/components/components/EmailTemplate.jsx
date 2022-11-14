@@ -2,8 +2,27 @@ import React from 'react';
 import Switch from 'react-switch';
 
 const defaultTemplateBody = `Dear {{NAME}},
-    Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your conversation {{CONVERSATION_LINK}}
-    Thanks,The Administrator of {{SITE_NAME}}`;
+
+Thank You For Sharing Your Concern. 
+
+We have received your request. A support representative will get back to you within 24 hours.
+
+You can continue the conversation from the link {{CONVERSATION_LINK}}
+
+Thanks,
+The Administrator of {{SITE_NAME}}`;
+
+const defaultTemplateBodyGuest = `Dear {{NAME}},
+
+Thank You For Sharing Your Concern. 
+
+We have received your request. A support representative will get back to you within 24 hours.
+
+A guest token has been generated that can be used to access the conversation and it is valid until 30 days from now. You can continue conversation from the link {{CONVERSATION_LINK}}
+
+Thanks,
+The Administrator of {{SITE_NAME}}`;
+
 const defaultMessageBody = `Dear {{NAME}},
     Message Details:
     {{MESSAGE}}
@@ -243,6 +262,30 @@ const EmailTemplate = (props) => {
                                             contentState.options
                                                 .emailTemplateGreetingBody ||
                                             defaultTemplateBody
+                                        }
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className='wpwax-vm-settings__single'>
+                            <label
+                                className='wpwax-vm-settings__single--label'
+                                htmlFor='wpwax-vm-mail-from-body-guest'
+                            >
+                                Email Body (Guest)
+                            </label>
+                            <div className='wpwax-vm-settings__single--element'>
+                                <div className='wpwax-vm-form-group'>
+                                    <textarea
+                                        className='wpwax-vm-form__element'
+                                        id='wpwax-vm-mail-from-body-guest'
+                                        name='emailTemplateGreetingBodyGuest'
+                                        placeholder=''
+                                        defaultValue={
+                                            contentState.options
+                                                .emailTemplateGreetingBodyGuest ||
+                                            defaultTemplateBodyGuest
                                         }
                                         onChange={handleChange}
                                     />

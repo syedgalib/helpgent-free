@@ -704,15 +704,14 @@ function get_options()
  *
  * @return mixed Option
  */
-function get_option($option_key = '', $default = '')
-{
+function get_option( $option_key = '', $default = '' ) {
 	$options = get_options();
 
-	if (!isset($options[$option_key])) {
+	if ( ! isset( $options[ $option_key ] ) || '' === $options[ $option_key ] ) {
 		return $default;
 	}
 
-	return $options[$option_key];
+	return $options[ $option_key ];
 }
 
 /**
@@ -942,6 +941,48 @@ function get_current_user_email()
 }
 
 /**
+ * Get user data by.
+ *
+ * @param string $by
+ * @param string $subject
+ * @return array Users Data
+ */
+function get_user_data_by( $by = 'id', $subject = '' ) {
+
+	if ( empty( $by ) || empty( $subject ) ) {
+		return false;
+	}
+
+	$user = get_user_by( $by, $subject );
+
+	if ( empty( $user ) ) {
+		if ( 'email' === $by ) {
+			$guest_user = Guest_User_Model::get_items([
+				'where' => [
+					'email' => $subject
+				]
+			]);
+
+			if ( empty( $guest_user ) ) {
+				return false;
+			}
+
+			$user_data = prepare_guest_user_data( $guest_user[0] );
+
+			if ( $user_data ) {
+				return $user_data;
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	return prepare_user_data( $user );
+}
+
+/**
  * Get users data by.
  *
  * @param array $items
@@ -1103,37 +1144,41 @@ function prepare_user_data( $user, $fields = [] ) {
 
 	$user_info = [];
 
-	$default_fields = ['id', 'email', 'name', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_client', 'is_guest' ];
-	$fields = (!empty($fields)) ? $fields : $default_fields;
+	$default_fields = ['id', 'email', 'name', 'username', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_client', 'is_guest' ];
+	$fields = ( ! empty( $fields ) ) ? $fields : $default_fields;
 
-	if (in_array('id', $fields)) {
+	if ( in_array( 'id', $fields ) ) {
 		$user_info['id'] = $user->ID;
 	}
 
-	if (in_array('name', $fields)) {
+	if ( in_array( 'name', $fields ) ) {
 		$user_info['name'] = $user->display_name;
 	}
 
-	if (in_array('email', $fields)) {
+	if ( in_array( 'username', $fields ) ) {
+		$user_info['username'] = $user->user_login;
+	}
+
+	if ( in_array('email', $fields ) ) {
 		$user_info['email'] = $user->user_email;
 	}
 
-	if (in_array('first_name', $fields)) {
-		$user_info['first_name'] = get_user_meta($user->ID, 'first_name', true);
+	if ( in_array( 'first_name', $fields ) ) {
+		$user_info['first_name'] = get_user_meta( $user->ID, 'first_name', true );
 	}
 
-	if (in_array('last_name', $fields)) {
-		$user_info['last_name'] = get_user_meta($user->ID, 'last_name', true);
+	if ( in_array( 'last_name', $fields ) ) {
+		$user_info['last_name'] = get_user_meta( $user->ID, 'last_name', true );
 	}
 
-	if (in_array('avater', $fields)) {
+	if ( in_array( 'avater', $fields ) ) {
 		$avater = get_user_meta($user->ID, '_wpwax_vm_avater', true);
-		$avater = (!empty($avater)) ? $avater : get_avatar_url($user->ID);
+		$avater = ( ! empty($avater ) ) ? $avater : get_avatar_url($user->ID);
 
 		$user_info['avater'] = $avater;
 	}
 
-	if (in_array('roles', $fields)) {
+	if ( in_array( 'roles', $fields ) ) {
 		$user_info['roles'] = $user->roles;
 	}
 
@@ -1166,6 +1211,7 @@ function prepare_guest_user_data( $user = [] )
 
 	$user['avater']    = get_avatar_url( $user['email'] );
 	$user['roles']     = [];
+	$user['username']  = $user['id'];
 	$user['is_admin']  = false;
 	$user['is_client'] = false;
 	$user['is_guest']  = true;

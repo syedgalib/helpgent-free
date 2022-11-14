@@ -7834,7 +7834,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var defaultTemplateBody = "Dear {{NAME}},\n    Congratulations! Your message has been submitted. One of our agents will connect you shortly. Go to your conversation {{CONVERSATION_LINK}}\n    Thanks,The Administrator of {{SITE_NAME}}";
+var defaultTemplateBody = "Dear {{NAME}},\n\nThank You For Sharing Your Concern. \n\nWe have received your request. A support representative will get back to you within 24 hours.\n\nYou can continue the conversation from the link {{CONVERSATION_LINK}}\n\nThanks,\nThe Administrator of {{SITE_NAME}}";
+var defaultTemplateBodyGuest = "Dear {{NAME}},\n\nThank You For Sharing Your Concern. \n\nWe have received your request. A support representative will get back to you within 24 hours.\n\nA guest token has been generated that can be used to access the conversation and it is valid until 30 days from now. You can continue conversation from the link {{CONVERSATION_LINK}}\n\nThanks,\nThe Administrator of {{SITE_NAME}}";
 var defaultMessageBody = "Dear {{NAME}},\n    Message Details:\n    {{MESSAGE}}\n\tGo to your conversation {{CONVERSATION_LINK}}\n\t";
 var EmailTemplate = function EmailTemplate(props) {
   var contentState = props.contentState,
@@ -8055,6 +8056,26 @@ var EmailTemplate = function EmailTemplate(props) {
                   name: "emailTemplateGreetingBody",
                   placeholder: "",
                   defaultValue: contentState.options.emailTemplateGreetingBody || defaultTemplateBody,
+                  onChange: handleChange
+                })
+              })
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            className: "wpwax-vm-settings__single",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+              className: "wpwax-vm-settings__single--label",
+              htmlFor: "wpwax-vm-mail-from-body-guest",
+              children: "Email Body (Guest)"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+              className: "wpwax-vm-settings__single--element",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+                className: "wpwax-vm-form-group",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("textarea", {
+                  className: "wpwax-vm-form__element",
+                  id: "wpwax-vm-mail-from-body-guest",
+                  name: "emailTemplateGreetingBodyGuest",
+                  placeholder: "",
+                  defaultValue: contentState.options.emailTemplateGreetingBodyGuest || defaultTemplateBodyGuest,
                   onChange: handleChange
                 })
               })

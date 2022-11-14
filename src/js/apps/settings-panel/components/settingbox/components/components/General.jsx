@@ -98,7 +98,7 @@ const General = (props) => {
                         name='chatHeadPosition'
                         onChange={handleChangeSelectValue}
                         placeholder='Select a position...'
-                        defaultValue={
+                        value={
                             chatHeadPositions.filter(function (option) {
                                 return (
                                     option.value ===
@@ -106,6 +106,7 @@ const General = (props) => {
                                 );
                             })[0]
                         }
+                        defaultValue={ {value: 'bottom-left', label: 'Bottom Left'} }
                     />
                 </div>
             </div>
@@ -124,6 +125,14 @@ const General = (props) => {
                         searchable={false}
                         hideSelectedOptions={false}
                         placeholder='Select a page...'
+                        value={
+                            dashboardPages.filter(function (option) {
+                                return (
+                                    option.value ===
+                                    contentState.options.userDashboardPage
+                                );
+                            })[0]
+                        }
                         defaultValue={
                             dashboardPages.filter(function (option) {
                                 return (
@@ -210,7 +219,7 @@ const General = (props) => {
                         name='videoQuality'
                         onChange={handleChangeSelectValue}
                         placeholder='Select video quality...'
-                        defaultValue={
+                        value={
                             qualityOptions.filter(function (option) {
                                 return (
                                     option.value ===
@@ -218,6 +227,7 @@ const General = (props) => {
                                 );
                             })[0]
                         }
+                        defaultValue={{ value: '720', label: '720p' }}
                     />
                 </div>
             </div>

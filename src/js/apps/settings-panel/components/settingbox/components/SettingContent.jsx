@@ -8,6 +8,7 @@ import ChatBoxPreview from "./ChatBoxPreview.jsx";
 import EmailGeneral from './components/EmailGeneral.jsx';
 import EmailTemplate from "./components/EmailTemplate.jsx";
 import General from "./components/General.jsx";
+import License from "./components/license.jsx";
 import angleDown from 'Assets/svg/icons/angle-down.svg';
 import angleUp from 'Assets/svg/icons/angle-up.svg';
 import handRight from 'Assets/svg/icons/hand-right.svg';
@@ -68,6 +69,9 @@ const SettingContent = props => {
                 {
                     contentState.contentKey === "email_template" ? <EmailTemplate contentState={contentState} setContentState={setContentState} /> : null
                 }
+                {/* {
+                    contentState.contentKey === "license" ? <License contentState={contentState} setContentState={setContentState} /> : null
+                } */}
             </form>
 
         </SettingContentWrap>

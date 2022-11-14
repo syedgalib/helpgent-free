@@ -9,6 +9,7 @@ import QuestonCircle from 'Assets/svg/icons/question-circle.svg';
 import globe from 'Assets/svg/icons/globe.svg';
 import envelope from 'Assets/svg/icons/envelope.svg';
 import slider from 'Assets/svg/icons/slider.svg';
+import handShake from 'Assets/svg/icons/handshake.svg';
 import link from 'Assets/svg/icons/link.svg';
 import LoadingSpinDot from 'Components/LoadingSpinDot.jsx';
 import { SetingBoxWrap } from './Style';
@@ -44,6 +45,12 @@ const SettingBox = () => {
                 },
             ],
         },
+        // {
+        //     label: 'Licensing',
+        //     path: 'license',
+        //     navId: 'wpwax-vm-license-settings',
+        //     icon: <ReactSVG src={handShake} />,
+        // },
     ];
 
     const totalNav = settingsNav.length;
@@ -72,6 +79,7 @@ const SettingBox = () => {
             emailTemplateMessageSubject: '',
             emailTemplateMessageBody: '',
             enableEmailFooter: true,
+            licenseKey: "",
         },
         message: '',
         loading: true,

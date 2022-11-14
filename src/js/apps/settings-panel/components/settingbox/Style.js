@@ -228,6 +228,11 @@ const SidebarMenuItem = Styled.li`
         }
         .wpwax-vm-sidebar-nav__item--icon{
             ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
+            svg{
+                width: 18px;
+                height: 18px;
+                fill: var(--color-primary);
+            }
         }
         .wpwax-vm-sidebar-nav__item--text{
             position: relative;
@@ -394,12 +399,48 @@ const SettingContentWrap = Styled.div`
                 max-width: 200px;
             }
             .wpwax-vm-form-group {
+                &.wpwax-vm-form-group-mixed{
+                    display: flex;
+                    align-items: center;
+                    .wpwax-vm-btn-activation{
+                        border-radius: 6px;
+                        height: 44px;
+                        /* border-color: transparent;
+                        background-color: var(--color-success); */
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 8px;
+                        &.wpwax-vm-btn-success{
+                            &:hover{
+                                color: var(--color-white);
+                                background-color: #049b7e;
+                            }
+                        }
+                        &.wpwax-vm-btn-danger{
+                            &:hover{
+                                color: var(--color-white);
+                                background-color: #ad0606;
+                            }
+                        }
+                    }
+                    .wpwax-vm-form__element{
+                        border-radius: 6px;
+                    }
+                }
                 .wpwax-vm-form__element{
                     min-height: 44px;
                 }
                 textarea.wpwax-vm-form__element{
                     min-height: 80px;
                 }
+            }
+            .wpwax-alert-success{
+                display: block;
+                margin-top: 6px;
+                color: var(--color-success);
+            }
+            .wpwax-alert-danger{
+                display: block;
+                margin-top: 6px;
+                color: var(--color-danger);
             }
         }
         .wpwax-vm-inline-switch{

@@ -56,7 +56,7 @@ const TemplateBox = Styled.div`
             .dashicons{
                 width: 15px;
                 height: 15px;
-                margin-right: 8px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
                 position: relative;
                 top: -4px;
             }
@@ -108,6 +108,7 @@ const TemplateBox = Styled.div`
     }
     .wpwax-vm-titlebox__editor-action{
         margin-left: 10px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
         a{
             display: inline-flex;
             align-items: center;
@@ -159,7 +160,7 @@ const TemplateBox = Styled.div`
             &.wpwax-vm-titlebox__editor--edit{
                 font-size: 15px;
                 display: none;
-                margin-left: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 15px;
                 &:before{
                     color: #2C99FF;
                 }

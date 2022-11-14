@@ -8,7 +8,7 @@ const ChatboxForm = Styled.div`
 	}
     .wpwax-vm-chatbox-bg{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: 0;
         width: 100%;
         height: 100%;
@@ -25,7 +25,7 @@ const ChatboxForm = Styled.div`
                 font-weight: 600;
                 color: var(--color-white);
                 &.wpwax-vm-timer{
-                    margin-right: 20px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                 }
             }
         }
@@ -146,14 +146,14 @@ const ChatboxForm = Styled.div`
                     align-items: center;
                     position: absolute;
                     top: 20px;
-                    right: 15px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 15px;
                     z-index: 101;
                     span{
                         font-size: 13px;
                         font-weight: 600;
                         &.wpwax-vm-timer{
                             display: block;
-                            margin-right: 20px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                             color: var(--color-white);
                         }
                     }
@@ -170,7 +170,7 @@ const ChatboxForm = Styled.div`
                     }
                     &:after{
                         position: absolute;
-                        left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                         top: 0;
                         width: 100%;
                         height: 280px;
@@ -181,7 +181,7 @@ const ChatboxForm = Styled.div`
                     }
                     &:before{
                         position: absolute;
-                        left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                         bottom: -100px;
                         width: 100%;
                         height: 250px;
@@ -250,13 +250,13 @@ const ContactFormWrap = Styled.div`
             position: absolute;
             width: calc( 100% - 50px );
             bottom: 25px;
-            left: 25px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 25px;
             .wpwax-vm-btn{
                 border-radius: 10px;
                 svg{
                     width: 16px;
                     height: 16px;
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 }
             }
         }
@@ -277,7 +277,7 @@ const MessageBox = Styled.div`
             padding: 0 15px;
         }
         .wpwax-vm-message-author{
-            margin-left: 15px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 15px;
             img{
                 max-width: 44px;
                 border-radius: 50%;
@@ -306,7 +306,7 @@ const MessageBox = Styled.div`
                 }
                 .wpwax-vm-message-time{
                     display:  inline-block;
-                    margin-left: 4px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 4px;
                 }
             }
             .wpwax-vm-message-content__inner{
@@ -331,8 +331,8 @@ const MessageBox = Styled.div`
         &.wpwax-vm-message-single-replied{
             justify-content: flex-start;
             .wpwax-vm-message-author{
-                margin-left: 0;
-                margin-right: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                 order: -1;
             }
             .wpwax-vm-message-content{
@@ -399,7 +399,7 @@ const MessageBox = Styled.div`
             position: relative;
             &:after{
                 position: absolute;
-                left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;
@@ -412,7 +412,7 @@ const MessageBox = Styled.div`
             .wpwax-vm-btn-download{
                 position: absolute;
                 top: 30px;
-                right: 40px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
                 z-index: 10;
             }
             .wpwax-vm-btn-download{
@@ -440,7 +440,7 @@ const MessageBox = Styled.div`
             .wpwax-vm-btn-play{
                 svg{
                     position: relative;
-                    left: 2px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 2px;
                     top: 0px;
                 }
             }
@@ -459,7 +459,7 @@ const MessageBox = Styled.div`
                     .dashicons{
                         top: 0;
                         font-size: 24px;
-                        margin-right: 10px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
                         color: var(--color-dark);
                     }
                 }

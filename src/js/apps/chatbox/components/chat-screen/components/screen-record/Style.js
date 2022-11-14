@@ -14,6 +14,7 @@ const ScreenRecordWrap = Styled.div`
         position: absolute;
         top: 10px;
         right: 40px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
         line-height: 1;
         svg{
             width: 25px;
@@ -138,7 +139,7 @@ const ScreenRecordWrap = Styled.div`
                 svg{
                     position: relative;
                     top: 0;
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                     width: 16px;
                     height: 16px;
                 }

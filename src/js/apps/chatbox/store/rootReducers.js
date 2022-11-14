@@ -7,6 +7,7 @@ import chatboxTemplate from './chatboxTemplate/reducer';
 import messengerForm from './forms/messenger/reducer';
 import attachmentForm from './forms/attachment/reducer';
 import userForm from './forms/user/reducer';
+import changeLayout from './layoutModes/reducers';
 
 const rootReducers = combineReducers({
     settings,
@@ -16,6 +17,7 @@ const rootReducers = combineReducers({
     messengerForm,
     attachmentForm,
     userForm,
+    changeLayout
 });
 
 export default rootReducers;

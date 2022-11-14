@@ -104,7 +104,7 @@ const VideoRecordWrap = Styled.div`
         &:after,
         &:before{
             position: absolute;
-            left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             top: 0;
             width: 100%;
             height: 20%;
@@ -148,7 +148,7 @@ const VideoRecordWrap = Styled.div`
 		}
         .wpwax-vm-record-staging__top{
             position: absolute;
-            left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             top: 0;
             width: 100%;
             font-family: var(--font-family);
@@ -169,7 +169,7 @@ const VideoRecordWrap = Styled.div`
             }
             .wpwax-vm-record-staging__btn-expand{
                 position: absolute;
-                right: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 15px;
                 top: 30px;
             }
         }
@@ -279,7 +279,7 @@ const VideoRecordWrap = Styled.div`
                 svg{
                     position: relative;
                     top: 0;
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                     width: 16px;
                     height: 16px;
                 }

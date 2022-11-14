@@ -11,7 +11,7 @@ const ChatBoxWrap = Styled.div`
         position: relative;
         &:after{
             position: fixed;
-            left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             top: 0;
             width: 100%;
             height: 100%;
@@ -23,7 +23,7 @@ const ChatBoxWrap = Styled.div`
     .wpwax-vm-record-home{
         position: fixed;
         top: 80px;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         width: 100%;
         height: 100%;
         z-index: 100002;
@@ -33,7 +33,7 @@ const ChatBoxWrap = Styled.div`
         background-color: var(--color-white);
         .wpwax-vm-record-home__close{
             position: absolute;
-            right: 40px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
             top: -50px;
             text-decoration: none;
             color: var(--color-white);
@@ -46,7 +46,7 @@ const ChatBoxWrap = Styled.div`
     .wpwax-vm-video-msg{
         position: absolute;
         bottom: 95px;
-        left: 200px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 200px;
         width: 100%;
         height: auto;
         max-width: 484px;
@@ -56,10 +56,10 @@ const ChatBoxWrap = Styled.div`
         background-color: var(--color-white);
         @media only screen and (max-width: 1399px){
             max-width: 434px;
-            left: 40px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 40px;
         }
         @media only screen and (max-width: 1199px){
-            left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             bottom: 80px;
             max-width: 400px;
         }
@@ -81,7 +81,7 @@ const ChatBoxWrap = Styled.div`
             }
             .wpwax-vm-video-msg__close{
                 position: absolute;
-                right: 40px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
                 top: -50px;
                 text-decoration: none;
                 color: var(--color-white);
@@ -148,7 +148,7 @@ const ChatBoxWrap = Styled.div`
                         }
                     }
                     .wpwax-vm-video-home__action--icon{
-                        margin-right: 15px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                         svg{
                             width: 26px;
                             height: 26px;
@@ -204,7 +204,7 @@ const MessageBoxWrap = Styled.div`
         }
     }
     .wpwax-vm-messagebox-header__left{
-        padding-left: 30px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'padding-left' : 'padding-right')}: 30px;
         @media only screen and (max-width: 1199px){
             padding: 0 15px 0;
             margin: 0;
@@ -254,7 +254,7 @@ const MessageBoxWrap = Styled.div`
         }
     }
     .wpwax-vm-messagebox-header__right{
-        padding-right: 30px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 30px;
         box-sizing: border-box;
         @media only screen and (max-width: 1199px){
             padding: 5px 15px 0 25px;
@@ -365,7 +365,7 @@ const MessageBoxWrap = Styled.div`
             .wpwax-vm-messagebox-header__action--text{
                 font-weight: 500;
                 display: inline-block;
-                margin-left: 8px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 8px;
             }
             svg{
                 @media only screen and (max-width: 1399px){
@@ -448,7 +448,7 @@ const MessageBoxWrap = Styled.div`
             display: inline-block;
             font-size: 15px;
             font-weight: 500;
-            margin-right: 10px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
             color: #4D4D4D;
             @media only screen and (max-width: 1399px){
                 font-size: 14px;
@@ -501,7 +501,7 @@ const MessageBoxWrap = Styled.div`
                     line-height: .5;
                 }
                 .wpwax-vm-btn-text{
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                     @media only screen and (max-width: 575px){
                         display: none;
                     }
@@ -515,14 +515,14 @@ const MessageBoxWrap = Styled.div`
                     svg{
                         width: 18px;
                         height: 18px;
-                        margin-left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
                     }
                 }
                 &.wpwax-vm-btn-recording{
                     color: var(--color-white);
                     background-color: var(--color-secondary);
                     .wpwax-vm-btn-text{
-                        margin-left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
                     }
                 }
             }
@@ -567,7 +567,7 @@ const MessageBoxWrap = Styled.div`
                     background-color: #C4C4C4;
                     .wpwax-vm-audio-range-inner{
                         position: absolute;
-                        left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                         top: 0;
                         width: 100%;
                         height: 10px;
@@ -590,7 +590,7 @@ const MessageBoxWrap = Styled.div`
             min-width: 52px;
             height: 52px;
             border-radius: 50%;
-            margin-left: 10px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
             background-color: var(--color-primary);
 
 			&[disabled] {
@@ -629,14 +629,14 @@ const MessageBoxWrap = Styled.div`
                 height: 16px;
                 line-height: 1;
                 position: relative;
-                left: 1px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 1px;
                 color: var(--color-white);
             }
         }
         .wpwax-vm-messagebox-reply-voice-pause{
             background-color: var(--color-text);
             .dashicons{
-                left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             }
         }
     }

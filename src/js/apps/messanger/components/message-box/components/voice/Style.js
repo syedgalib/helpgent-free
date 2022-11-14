@@ -69,7 +69,7 @@ const RecorderWrap = Styled.div`
                     width: 70px;
                     height: 70px;
                     position: absolute;
-                    right: 40px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
                     top: 50%;
                     transform: translateY(-50%);
                     border-radius: 50%;
@@ -110,7 +110,7 @@ const RecorderWrap = Styled.div`
                 z-index: 101;
                 &:after{
                     position: absolute;
-                    left: 0;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                     top: 0;
                     width: 100%;
                     height: 100%;
@@ -143,7 +143,7 @@ const RecorderWrap = Styled.div`
                     line-height: 1;
                     svg{
                         position: relative;
-                        left: 2px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 2px;
                         path{
                             fill: var(--color-danger);
                         }

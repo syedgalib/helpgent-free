@@ -14,10 +14,10 @@ const ChatDashboardWrap = Styled.div`
     }
     .wpwax-vm-sidebar{
         width: 340px;
-        padding-left: 10px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'padding-left' : 'padding-right')}: 10px;
         @media only screen and (max-width: 991px){
             margin-bottom: 6px;
-            padding-left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'padding-left' : 'padding-right')}: 0;
         }
     }
     .wpwax-vm-messagebox{
@@ -35,7 +35,7 @@ const ChatDashboardWrap = Styled.div`
         }
         .wpwax-vm-loder-active{
             &:after{
-                left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;

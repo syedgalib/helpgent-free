@@ -16,7 +16,7 @@ const VideoReplyWrap = Styled.div`
 	overflow: hidden;
     &:after{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: 0;
         width: 100%;
         height: 150px;
@@ -28,7 +28,7 @@ const VideoReplyWrap = Styled.div`
     }
     &:before{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         bottom: 0;
         width: 100%;
         height: 150px;
@@ -71,7 +71,7 @@ const VideoReplyWrap = Styled.div`
     .wpwax-vm-reply-video-bg{
         position: absolute;
         top: 0;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         width: 100%;
         height: 100%;
         border-radius: 30px;
@@ -161,7 +161,7 @@ const VideoReplyWrap = Styled.div`
         display: flex;
         flex-direction: row;
         border-radius: 30px;
-        left: 80px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 80px;
         top: 80px;
         bottom: 0;
         width: calc( 100% - 160px );
@@ -242,7 +242,7 @@ const VideoReplyWrap = Styled.div`
         .wpwax-vm-reply-close{
             position: absolute;
             top: 20px;
-            right: 30px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 30px;
             text-decoration: none;
             z-index: 10;
             color: var(--color-dark);
@@ -294,7 +294,7 @@ const VideoReplyWrap = Styled.div`
                 z-index: 100001;
                 .wpwax-vm-video-timer{
                     font-size: 14px;
-                    margin-right: 20px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                     display: inline-block;
                 }
             }
@@ -305,7 +305,7 @@ const VideoReplyWrap = Styled.div`
                 transform: translate(-50%,-50%);
                 display: flex;
                 align-items: center;
-               justify-content: center;
+                justify-content: center;
                 width: 80px;
                 height: 80px;
                 border-radius: 50%;
@@ -381,7 +381,7 @@ const VideoReplyWrap = Styled.div`
         .wpwax-vm-reply-ready__text-form--action{
             position: absolute;
             bottom: 0;
-            left: 0;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
             width: 100%;
             display: flex;
             border-radius: 0 0 30px 0;
@@ -410,7 +410,7 @@ const VideoReplyWrap = Styled.div`
                 }
                 .wpwax-vm-reply-ready-btn__text{
                     display: inline-block;
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 }
                 svg{
                     path{
@@ -418,10 +418,10 @@ const VideoReplyWrap = Styled.div`
                     }
                 }
                 &.wpwax-vm-btn-send{
-                    border-left: 1px solid #EDEDED;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'border-left' : 'border-right')}: 1px solid #EDEDED;
                     .wpwax-vm-reply-ready-btn__text{
-                        margin-right: 10px;
-                        margin-left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
                     }
                 }
             }

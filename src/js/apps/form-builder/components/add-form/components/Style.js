@@ -57,7 +57,7 @@ const PreviewWrap = Styled.div`
             bottom: 15px;
             z-index: 10;
             svg{
-                margin-right: 6px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 6px;
             }
         }
     }

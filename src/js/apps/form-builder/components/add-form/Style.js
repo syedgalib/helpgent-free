@@ -48,6 +48,10 @@ const AddFormStyle = Styled.div`
                 border-radius: 14px;
             }
         }
+        .wpwax-vm-form-group .wpwax-vm-form__element:not(:last-child){
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
         .wpwax-vm-add-form__tab{
             .wpwax-vm-notice{
                 display: block;
@@ -71,7 +75,7 @@ const AddFormStyle = Styled.div`
                 .wpwax-vm-notice-close{
                     position: absolute;
                     top: 12px;
-                    right: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 10px;
                     text-decoration: none;
                     margin: 0;
                     line-height: 1;
@@ -205,10 +209,10 @@ const AddFormStyle = Styled.div`
                 .wpwax-vm-form-group__input-single{
                     span,
                     >label{
-                        margin-right: 45px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 45px;
                         min-width: 70px;
                         @media only screen and (max-width: 1199px) {
-                            margin-right: 10px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
                         }
                     }
                     input{
@@ -240,14 +244,14 @@ const AddFormStyle = Styled.div`
                 font-size: 14px;
                 font-weight: 500;
                 display: inline-block;
-                margin-right: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                 min-width: 130px;
                 width: 130px;
                 color: var(--color-dark);
                 @media only screen and (max-width: 1199px) {
                     min-width: 95px;
                     width: 95px;
-                    margin-right: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
                 }
                 &.wpwax-vm-select__indicator-separator{
                     display: none;
@@ -313,7 +317,7 @@ const AddFormStyle = Styled.div`
                 border: 0 none;
             }
             svg{
-                margin-left: 10px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
             }
         }
         button{
@@ -335,13 +339,13 @@ const AddFormStyle = Styled.div`
         align-items: center;
         justify-content: center;
         padding-top: 80px;
-        margin-left: -70px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -70px;
         z-index: 0;
         @media only screen and (max-width: 1399px) {
             padding-top: 60px;
         }
         @media only screen and (max-width: 1299px) {
-            margin-left: 0px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
         }
         /* @media only screen and (max-width: 760px) {
             display: none;
@@ -356,7 +360,7 @@ const AddFormStyle = Styled.div`
             svg{
                 position: relative;
                 top: 3px;
-                margin-right: 5px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 5px;
             }
         }
     }
@@ -406,7 +410,7 @@ const AddFormStyle = Styled.div`
     }
     .wpwax-vm-media-preview{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: 0;
         width: 100%;
         height: 100%;
@@ -432,7 +436,7 @@ const AddFormStyle = Styled.div`
             .wpwax-vm-media-preview__replace--icon{
                 position: relative;
                 top: 2px;
-                margin-right: 8px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
             }
         }
         .wpwax-vm-media-preview__src{
@@ -441,7 +445,7 @@ const AddFormStyle = Styled.div`
             z-index: 1;
             &:after{
                 position: absolute;
-                left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                 top: 0;
                 width: 100%;
                 height: 100%;

@@ -111,7 +111,7 @@ const RecorderWrap = Styled.div`
                     width: 70px;
                     height: 70px;
                     position: absolute;
-                    right: 25px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
                     top: 50%;
                     transform: translateY(-50%);
                     border-radius: 50%;
@@ -229,7 +229,7 @@ const RecorderWrap = Styled.div`
                         width: 25px;
                         height: 25px;
                         position: relative;
-                        left: 0;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                         path{
                             fill: var(--color-primary);
                         }

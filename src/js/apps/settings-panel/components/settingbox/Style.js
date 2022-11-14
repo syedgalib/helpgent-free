@@ -12,7 +12,7 @@ const SetingBoxWrap = Styled.div`
     }
     @media only screen and (max-width: 1199px) {
         max-width: 900px;
-        margin-right: 15px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
     }
     .wpwax-vm-settings-top{
         display: flex;
@@ -54,7 +54,7 @@ const SetingBoxWrap = Styled.div`
                     }
                 }
                 svg {
-                    margin-right: 8px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
                     path{
                         fill: var(--color-text);
                     }
@@ -227,7 +227,7 @@ const SidebarMenuItem = Styled.li`
             outline: none;
         }
         .wpwax-vm-sidebar-nav__item--icon{
-            margin-right: 15px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
         }
         .wpwax-vm-sidebar-nav__item--text{
             position: relative;
@@ -247,7 +247,7 @@ const SidebarMenuItem = Styled.li`
         }
     }
     ul{
-        padding-left: 60px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'padding-left' : 'padding-right')}: 60px;
         li{
             a{
                 display: block;
@@ -308,7 +308,7 @@ const SettingContentWrap = Styled.div`
             }
         }
         .wpwax-vm-radio{
-            margin-right: 6px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 6px;
             & + span{
                 flex: auto;
             }
@@ -331,7 +331,7 @@ const SettingContentWrap = Styled.div`
         .wpwax-vm-settings__single--label{
             font-size: 14px;
             font-weight: 500;
-            margin: 0 40px 0 0;
+            margin: ${({ theme }) => (theme.direction === 'ltr' ? '0 40px 0 0' : '0 0 0 40px')};
             white-space: nowrap;
             min-width: 280px;
             color: var(--color-dark);
@@ -339,7 +339,7 @@ const SettingContentWrap = Styled.div`
                 min-width: 160px;
             }
             @media only screen and (max-width: 767px) {
-                margin: 0 0 15px 0;
+                margin: ${({ theme }) => (theme.direction === 'ltr' ? '0 15px 0 0' : '0 0 0 15px')};
             }
         }
         .wpwax-vm-settings__single--element{
@@ -350,14 +350,14 @@ const SettingContentWrap = Styled.div`
                 .wpwax-vm-setting-info{
                     display: flex;
                     text-decoration: none;
-                    margin-left: 30px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 30px;
                 }
                 .wpwax-vm-setting-has-info__text{
                     display: inline-block;
                     font-size: 13px;
                     font-weight: 500;
                     color: var(--color-info);
-                    margin-left: 8px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 8px;
                 }
             }
             .wpwax-vm-radio-list{
@@ -371,7 +371,7 @@ const SettingContentWrap = Styled.div`
                             top: -2px;
                             font-size: 14px;
                             font-weight: 500;
-                            margin-left: 6px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 6px;
                             color: #4D4D4D;
                         }
                     }
@@ -386,6 +386,7 @@ const SettingContentWrap = Styled.div`
                     font-size: 14px;
                     font-weight: 500;
                     margin-left: 8px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 8px;
                     color: var(--color-dark);
                 }
             }
@@ -407,7 +408,7 @@ const SettingContentWrap = Styled.div`
             label{
                 font-size: 14px;
                 font-weight: 500;
-                margin-right: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                 color: var(--color-dark);
             }
         }
@@ -434,7 +435,7 @@ const SettingContentWrap = Styled.div`
                 display: inline-block;
                 font-size: 13px;
                 font-weight: 500;
-                margin-left: 10px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 color: var(--color-info);
             }
         }
@@ -455,7 +456,7 @@ const SettingContentWrap = Styled.div`
         }
     }
     .wpwax-vm-checkbox label{
-        margin-left: 10px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
     }
 `;
 
@@ -517,7 +518,7 @@ const ChatBoxPreviewWrap = Styled.div`
             border-radius: 50%;
             width: 85px;
             height: 85px;
-            margin-right: 15px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
             box-shadow: 0 0 15px rgba(0,0,0,.10);
             background-color: var(--color-white);
             img{

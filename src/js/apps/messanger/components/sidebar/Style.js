@@ -55,7 +55,7 @@ const SidebarWrap = Styled.div`
                 }
                 span{
                     display: inline-block;
-                    margin-left: 6px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 6px;
                 }
                 svg{
                     width: 14px;
@@ -64,7 +64,7 @@ const SidebarWrap = Styled.div`
                     fill: var(--color-text);
                 }
                 &.wpwax-vm-sidebar-refresher{
-                    margin-left: 30px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 30px;
                 }
             }
         }
@@ -77,7 +77,7 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-dropdown{
             width: 100%;
             .wpwax-vm-dropdown__toggle--text{
-                margin-right: 15px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 15px;
                 align-items: center;
             }
             .wpwax-vm-dropdown__content{
@@ -101,10 +101,10 @@ const SidebarWrap = Styled.div`
             white-space: nowrap;
             color: #4D4D4D;
             min-width: 56px;
-            margin-left: 30px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 30px;
             transition: color .25s ease-in;
             svg{
-                margin-right: 10px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
                 path{
                     transition: color .25s ease-in; 
                 }
@@ -129,7 +129,7 @@ const SidebarWrap = Styled.div`
         }
         .wpwax-vm-search-toggle{
             position: absolute;
-            right: 20px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 20px;
             top: 12px;
             line-height: 1;
             &:focus{
@@ -180,7 +180,7 @@ const SidebarWrap = Styled.div`
                 border-radius: 10px;
                 background-color: transparent;
                 transition: background .3s ease-in;
-                margin-left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 &.wpwax-vm-active,
                 &:hover{
                     background: var(--color-white);
@@ -246,7 +246,7 @@ const SidebarWrap = Styled.div`
                         width: 35px;
                         height: 35px;
                         border-radius: 50%;
-                        margin-left: -16px;
+                        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -16px;
                         background-color: var(--color-bg-gray);
                         box-shadow: 0 6px 40px rgba(144,144,144,.25);
                         >div{
@@ -271,7 +271,7 @@ const SidebarWrap = Styled.div`
                             border-radius: 50%;
                             position: absolute;
                             top: 20px;
-                            right: -2px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: -2px;
                             background-color: var(--color-white);
                             img{
                                 max-width: 15px;
@@ -326,8 +326,8 @@ const SidebarWrap = Styled.div`
             }
             
             .wpwax-vm-dropdown__content{
-                left: auto;
-                right: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: auto;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 0;
                 min-width: 220px;
                 li{
                     padding: 0 16px;
@@ -376,7 +376,7 @@ const SidebarWrap = Styled.div`
                         z-index: 10;
                         &:after{
                             position: absolute;
-                            left: -15px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: -15px;
                             top: 50%;
                             width: calc(100% + 30px);
                             height: 100%;
@@ -405,7 +405,7 @@ const SidebarWrap = Styled.div`
             display: flex;
             align-items: center;
             .wpwax-vm-usermedia-status{
-                margin-right: 5px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 5px;
 
             }
         }
@@ -417,7 +417,7 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-taglist-author__img{
             display: flex;
             align-items: center;
-            margin-right: 12px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 12px;
             line-height: 1;
             img{
                 max-width: 40px;
@@ -430,7 +430,7 @@ const SidebarWrap = Styled.div`
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-left: -20px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -20px;
                 background-color: var(--color-bg-general);
                 svg{
                     width: 20px;
@@ -480,7 +480,7 @@ const SessionFilterWrap = Styled.div`
     }
     .wpwax-vm-search-dropdown{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: 40px;
         width: 100%;
         margin: 0;

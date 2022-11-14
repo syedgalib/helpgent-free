@@ -35,7 +35,7 @@ const TaglistWrap = Styled.div`
             height: 215px;
             overflow-y: auto;
             .infinite-scroll-component {
-                padding-right: 10px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 10px;
                 min-height: 200px;
             }
             &::-webkit-scrollbar {
@@ -68,13 +68,22 @@ const TaglistWrap = Styled.div`
                         bottom: 15px;
                     }
                 }
+                &:nth-child(1),
+                &:nth-child(2),
+                &:nth-child(3){
+                    .wpwax-vm-dropdown__content{
+                        top: 15px;
+                        bottom: auto;
+                    }
+                    
+                }
             }
         }
         .wpwax-vm-dropdown{
             .wpwax-vm-dropdown__content{
                 min-width: 160px;
-                left: auto;
-                right: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: auto;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 0;
                 li{
                     &:not(:last-child){
                         margin-bottom: 0;
@@ -96,7 +105,7 @@ const TaglistWrap = Styled.div`
             .wpwax-vm-btn-icon{
                 font-size: 12px;
                 line-height: 1.85;
-                margin-right: 3px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 3px;
             }
         }
     }
@@ -174,7 +183,7 @@ const AddTagWrap = Styled.div`
             label{
                 top: 0px;
                 line-height: 1.15;
-                margin-left: 8px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 8px;
                 color: var(--color-dark);
             }
         }
@@ -246,7 +255,7 @@ const AddTagWrap = Styled.div`
                 svg{
                     width: 24px;
                     height: 24px;
-                    margin-left: 5px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 5px;
                     path{
                         fill: var(--color-primary);
                     }
@@ -294,7 +303,7 @@ const DeleteConfirmWrap = Styled.div`
 const TagFilterDropdown = Styled.div`
     position: absolute;
     width: calc(100% - 20px);
-    left: 10px;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 10px;
     top: 45px;
     padding: 20px;
     z-index: 10;
@@ -359,7 +368,7 @@ const TagFilterDropdown = Styled.div`
                 color: var(--color-dark);
             }
             input{
-                margin-right: 12px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 12px;
             }
         }
         .wpwax-vm-more-loader{

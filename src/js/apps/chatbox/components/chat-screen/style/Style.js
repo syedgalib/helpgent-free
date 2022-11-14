@@ -14,7 +14,7 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-bg{
         position: absolute;
-        left: 0;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: 0;
         width: 100%;
         height: 100%;
@@ -40,7 +40,7 @@ const ChatboxForm = Styled.div`
                 font-weight: 600;
                 color: var(--color-white);
                 &.wpwax-vm-timer{
-                    margin-right: 20px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                 }
             }
             .wpwax-vm-fulscreen-trigger{
@@ -217,7 +217,7 @@ const ChatboxForm = Styled.div`
                 }
                 &:after{
                     position: absolute;
-                    left: 0;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                     top: 0;
                     width: 100%;
                     height: 280px;
@@ -228,7 +228,7 @@ const ChatboxForm = Styled.div`
                 }
                 &:before{
                     position: absolute;
-                    left: 0;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                     bottom: -210px;
                     width: 100%;
                     height: 320px;
@@ -242,14 +242,14 @@ const ChatboxForm = Styled.div`
                     align-items: center;
                     position: absolute;
                     top: 20px;
-                    right: 15px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 15px;
                     z-index: 101;
                     span{
                         font-size: 13px;
                         font-weight: 600;
                         &.wpwax-vm-timer{
                             display: block;
-                            margin-right: 20px;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
                             color: var(--color-white);
                         }
                     }
@@ -336,13 +336,13 @@ const ContactFormWrap = Styled.div`
             position: absolute;
             width: calc( 100% - 50px );
             bottom: 25px;
-            left: 25px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 25px;
             .wpwax-vm-btn{
                 border-radius: 10px;
                 svg{
                     width: 16px;
                     height: 16px;
-                    margin-left: 10px;
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 }
             }
         }

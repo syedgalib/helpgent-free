@@ -9,7 +9,7 @@ const PageHeaderStyle = Styled.div`
         font-weight: 500;
     }
     .wpwax-vm-page-header-btn{
-        margin-left: 20px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 20px;
         &:focus{
             outline: none;
             box-shadow: 0 0;

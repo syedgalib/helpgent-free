@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 const AvatarWrap = Styled.div`
     position: fixed;
     bottom: 30px;
-    right: 25px;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
     width: 130px;
     height: 130px;
     border-radius: 50%;

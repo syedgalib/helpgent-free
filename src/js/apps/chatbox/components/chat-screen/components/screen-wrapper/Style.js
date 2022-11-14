@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 const ScreenWrapper = Styled.div`
     position: fixed;
     bottom: 15px;
-    right: 25px;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
     height: auto;
     width: 400px;
     z-index: 100;
@@ -26,7 +26,7 @@ const ScreenWrapper = Styled.div`
     }
     @media only screen and (max-width: 767px){
         width: 350px;
-        right: 15px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 15px;
     }
     @media only screen and (max-width: 575px){
         width: 345px;
@@ -99,7 +99,7 @@ const ScreenWrapper = Styled.div`
             &:after,
             &:before{
                 position: absolute;
-                left: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
                 top: 0px;
                 width: 100%;
                 height: 336px;
@@ -129,7 +129,7 @@ const ScreenWrapper = Styled.div`
         }
         .wpwax-vm-chatbox-btn-close{
             position: absolute;
-            right: -18px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: -18px;
             top: -18px;
             display: flex;
             align-items: center;
@@ -147,7 +147,7 @@ const ScreenWrapper = Styled.div`
             @media only screen and (max-width: 575px){
                 width: 32px;
                 height: 32px;
-                right: -12px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: -12px;
                 top: -12px;
             }
             &:hover{

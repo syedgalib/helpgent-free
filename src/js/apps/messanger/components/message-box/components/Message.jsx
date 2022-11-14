@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import author from 'Assets/img/chatdashboard/user.png';
 import { useRef } from 'react';
-import { useEffect } from 'react';
-import http from 'Helper/http.js';
 import Image from 'Components/Image.jsx';
 import TextMessage from './TextMessage.jsx';
 import AudioMessage from './AudioMessage.jsx';

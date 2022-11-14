@@ -551,24 +551,9 @@ class Users extends Rest_Base {
      * @return array Response
      */
     public function get_current_user() {
-		$wp_user = Helper\get_current_user();
-
-		if ( $wp_user ) {
-			return $this->response( true, $wp_user );
-		}
-
-		$email = Helper\get_current_user_email();
-
-		if ( empty( $email ) ) {
-			return $this->response( true, null );
-		}
-
-		$users = Helper\get_users_data_by( 'email', [ $email ] );
-
-		$user = ( ! empty( $users ) ) ? $users[0] : null;
+		$user = Helper\get_current_user();
 
 		return $this->response( true, $user );
-
 	}
 
 	/**

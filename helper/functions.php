@@ -842,18 +842,14 @@ function get_default_admin_user()
 	return prepare_user_data($admin_user);
 }
 
-function get_current_user( $return_wp_user = false ) {
-	$current_user = get_user_by( 'id', get_current_user_id() );
+function get_current_user() {
+	$current_user = get_users_data_by( 'email', [ get_current_user_email() ] );
 
 	if ( empty( $current_user) ) {
 		return false;
 	}
 
-	if ( $return_wp_user ) {
-		return $current_user;
-	}
-
-	return prepare_user_data( $current_user );
+	return $current_user[0];
 }
 
 /**
@@ -1323,17 +1319,23 @@ function is_user_guest( $email )
 /**
  * Check if user is client
  *
+ * @param WP_User $user
  * @return bool
  */
 function is_user_client( $user )
 {
+
+	if ( ! $user instanceof WP_User ) {
+		return false;
+	}
+
 	return user_can( $user, 'wpwax_vm_client' );
 }
 
 /**
  * Check if user is admin
  *
- * @param WP_User $user
+ * @param WP_User|String|Integer|Array $user
  * @return bool
  */
 function is_user_admin( $user )
@@ -1344,11 +1346,13 @@ function is_user_admin( $user )
 
 	if ( is_numeric( $user ) ) {
 		$user = get_user_by( 'id', $user );
-	} else if ( is_string( $user ) && is_email( $user ) ) {
+	} else if ( is_string( $user ) ) {
 		$user = get_user_by( 'email', $user );
+	} else if ( is_array( $user ) && ! empty( $user['email'] ) ) {
+		$user = get_user_by( 'email', $user['email'] );
 	}
 
-	if ( empty( $user ) ) {
+	if ( ! $user instanceof WP_User ) {
 		return false;
 	}
 

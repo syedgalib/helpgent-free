@@ -7466,15 +7466,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Assets/img/chatdashboard/user.png */ "./src/assets/img/chatdashboard/user.png");
-/* harmony import */ var Helper_http_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Helper/http.js */ "./src/js/helpers/http.js");
-/* harmony import */ var Components_Image_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/Image.jsx */ "./src/js/components/Image.jsx");
-/* harmony import */ var _TextMessage_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TextMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/TextMessage.jsx");
-/* harmony import */ var _AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AudioMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/AudioMessage.jsx");
-/* harmony import */ var _VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./VideoMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/VideoMessage.jsx");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/components/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
+/* harmony import */ var Components_Image_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Components/Image.jsx */ "./src/js/components/Image.jsx");
+/* harmony import */ var _TextMessage_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TextMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/TextMessage.jsx");
+/* harmony import */ var _AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./AudioMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/AudioMessage.jsx");
+/* harmony import */ var _VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./VideoMessage.jsx */ "./src/js/apps/messanger/components/message-box/components/VideoMessage.jsx");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/message-box/components/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -7494,45 +7491,45 @@ function Message(_ref) {
   /* Load Message Content */
   var setMessageContent = function setMessageContent() {
     if (data.message_type === 'text') {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_TextMessage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_TextMessage_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         data: data
       });
     } else if (data.message_type === 'video') {
-      return data.attachment_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      return data.attachment_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_VideoMessage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
         data: data
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
         children: "This video has been removed."
       });
     } else if (data.message_type === 'audio') {
-      return data.attachment_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return data.attachment_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_AudioMessage_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: data
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
         children: "This audio has been removed."
       });
     }
   };
   var singleMessageContainerClass = (data.message_type == 'audio' || data.message_type == 'video') && !data.attachment_id ? 'wpwax-vm-message-content wpwax-vm-message-attachment-not-found' : 'wpwax-vm-message-content';
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.MessageBox, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_6__.MessageBox, {
     ref: container,
     className: isMine ? "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type) : "wpwax-vm-message-single wpwax-vm-message-single-".concat(data.message_type, " wpwax-vm-message-single-replied"),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: singleMessageContainerClass,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "wpwax-vm-message-content__top",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
           className: "wpwax-vm-message--authorname",
           children: [data.user.name, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           className: "wpwax-vm-message-time",
           children: data.created_at_formatted
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wpwax-vm-message-content__inner",
         children: setMessageContent()
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "wpwax-vm-message-author",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_Image_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Components_Image_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
         src: data.user.avater ? data.user.avater : Assets_img_chatdashboard_user_png__WEBPACK_IMPORTED_MODULE_1__["default"],
         alt: "Author Avater"
       })
@@ -15989,7 +15986,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
 
 /***/ }),
 
@@ -16001,7 +15998,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
 
 /***/ }),
 
@@ -16037,7 +16034,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
 
 /***/ }),
 
@@ -16049,7 +16046,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
 
 /***/ }),
 
@@ -16085,7 +16082,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
 
 /***/ }),
 
@@ -16121,7 +16118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -16145,7 +16142,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
 
 /***/ }),
 
@@ -16181,7 +16178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -16205,7 +16202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
 
 /***/ }),
 
@@ -16217,7 +16214,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
 
 /***/ }),
 
@@ -16229,7 +16226,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -16289,7 +16286,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -16313,7 +16310,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 

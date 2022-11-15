@@ -176,7 +176,7 @@ class Attachment extends Rest_Base {
         $args = array_merge( $default_args, $args );
 
         if ( isset( $_FILES['file'] ) ) {
-            $args['file'] = $_FILES['file'];
+            $args['file'] = wp_unslash( $_FILES['file'] );
 			$args['file']['name'] = uniqid( 'attachment_', true );
 			$check_ext = wp_check_filetype_and_ext( $args['file'], $args['file']['name'] );
 

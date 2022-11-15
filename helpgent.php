@@ -23,6 +23,9 @@
  */
 
 require dirname( __FILE__ ) . '/vendor/autoload.php';
+require dirname( __FILE__ ) . '/helper/const.php';
+require dirname( __FILE__ ) . '/helper/global-functions.php';
+require dirname( __FILE__ ) . '/helper/functions.php';
 require dirname( __FILE__ ) . '/app.php';
 
 if ( ! function_exists( 'HelpGent' ) ) {
@@ -32,4 +35,3 @@ if ( ! function_exists( 'HelpGent' ) ) {
 }
 
 HelpGent();
-

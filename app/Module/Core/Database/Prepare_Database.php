@@ -33,7 +33,7 @@ class Prepare_Database {
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 
 		$tables = "
-		CREATE TABLE {$table_prefix}_auth_tokens (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_auth_tokens (
 			email varchar(255) NOT NULL,
 			token varchar(255) NOT NULL,
 			expires_at datetime NULL,
@@ -42,7 +42,7 @@ class Prepare_Database {
             KEY token (token)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_guest_users (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_guest_users (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			email varchar(255) NOT NULL,
 			name varchar(255) NOT NULL,
@@ -52,7 +52,7 @@ class Prepare_Database {
             KEY email (email)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_guest_user_meta (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_guest_user_meta (
 			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			user_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
@@ -63,7 +63,7 @@ class Prepare_Database {
 			KEY meta_key (meta_key)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_attachments (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_attachments (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			created_at datetime NOT NULL,
 			url varchar(255) NOT NULL DEFAULT '',
@@ -72,7 +72,7 @@ class Prepare_Database {
             KEY url (url)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_terms (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_terms (
 			term_id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(200) NOT NULL DEFAULT '',
 			term_key varchar(200) NOT NULL DEFAULT '',
@@ -81,7 +81,7 @@ class Prepare_Database {
 			KEY term_key (term_key)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_term_taxonomy (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_term_taxonomy (
 			term_taxonomy_id bigint(20) unsigned NOT NULL auto_increment,
 			term_id bigint(20) unsigned NOT NULL DEFAULT 0,
 			taxonomy varchar(32) NOT NULL  DEFAULT '',

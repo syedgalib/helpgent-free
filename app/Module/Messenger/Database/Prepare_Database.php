@@ -33,7 +33,7 @@ class Prepare_Database {
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 
 		$tables = "
-		CREATE TABLE {$table_prefix}_messages (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_messages (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			conversation_id bigint(20) unsigned NOT NULL,
 			user_email varchar(255) NOT NULL,
@@ -51,7 +51,7 @@ class Prepare_Database {
 			KEY updated_at (updated_at)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_message_meta (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_message_meta (
 			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			message_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
@@ -62,7 +62,7 @@ class Prepare_Database {
 			KEY meta_key (meta_key)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_conversations (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_conversations (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			title varchar(255) NOT NULL DEFAULT '',
 			created_by varchar(255) NOT NULL DEFAULT '',
@@ -74,7 +74,7 @@ class Prepare_Database {
 			KEY status (status)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_conversation_meta (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_conversation_meta (
 			meta_id bigint(20) unsigned NOT NULL auto_increment,
 			conversation_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
@@ -85,7 +85,7 @@ class Prepare_Database {
 			KEY meta_key (meta_key)
 		) $collate;
 
-		CREATE TABLE {$table_prefix}_conversation_term_relationships (
+		CREATE TABLE IF NOT EXISTS {$table_prefix}_conversation_term_relationships (
 			conversation_id bigint(20) unsigned NOT NULL,
 			term_taxonomy_id bigint(20) unsigned NOT NULL,
 			term_order int(11) unsigned NOT NULL DEFAULT 0,

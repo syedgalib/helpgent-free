@@ -46,7 +46,7 @@ class Attachment {
 
 		if ( is_wp_error( $attachment ) ) {
 			status_header(403);
-			die( $attachment->get_error_message() );
+			die( esc_html( $attachment->get_error_message() ) );
 		}
 		if ( ! $this->can_user_access_the_attachment( $attachment_id ) ) {
 			status_header(403);

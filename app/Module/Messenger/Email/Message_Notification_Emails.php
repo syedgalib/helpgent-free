@@ -103,19 +103,6 @@ class Message_Notification_Emails {
 			$should_notify = true;
 		}
 
-		file_put_contents( HELPGENT_BASE . '__log/notification-log.json', json_encode([
-			'is_author_admin'                  => $is_author_admin,
-			'users'                            => $users,
-			'is_first_message_in_conversation' => $is_first_message_in_conversation,
-			'is_first_conversation'            => $is_first_conversation,
-			'recipients'                       => $recipients,
-			'data'                             => $data,
-			'notification_on'                  => $notification_on,
-			'from_name'                        => $from_name,
-			'from_email'                       => $from_email,
-			'should_notify'                    => $should_notify,
-		]));
-
 		if ( ! $should_notify ) {
 			return;
 		}

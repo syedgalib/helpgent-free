@@ -15,4 +15,9 @@ node_modules/
 __*/
 /*.txt
 
+# Composer
+vendor/
+
+/.cache/*
+
 vite.user-config.js

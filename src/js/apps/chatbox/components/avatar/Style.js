@@ -12,7 +12,7 @@ const AvatarWrap = Styled.div`
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0,0,0,.16);
     background-color: var(--color-white);
-    z-index: 100;
+    z-index: 1000;
     img {
         width: 100%;
         height: 100%;

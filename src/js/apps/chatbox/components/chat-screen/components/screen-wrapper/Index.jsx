@@ -6,7 +6,7 @@ import { useResetStore } from "../../../../store/reset.js";
 import crossSmall from 'Assets/svg/icons/cross-small.svg';
 import ScreenWrapper from "./Style";
 
-function Container(props) {
+function Container( props ) {
 	const { doAction } = wpwaxHooks;
 
 	const dispatch   = useDispatch();
@@ -20,8 +20,19 @@ function Container(props) {
 		dispatch( hideChatbox() );
 	}
 
+
+	const getContainerClassNames = () => {
+		let classNames = `wpwax-vm-chatbox-screen-${props.screenName} wpwax-vm-chatbox-screen`;
+
+		if ( props.staticContainer ) {
+			classNames += ' helpgent-static-container'
+		}
+
+		return classNames;
+	}
+
 	return (
-		<ScreenWrapper className={`wpwax-vm-chatbox-screen-${props.screenName} wpwax-vm-chatbox-screen`} style={{ display: ( props.show ) ? 'block' : 'none' }}>
+		<ScreenWrapper className={getContainerClassNames()} style={{ display: ( props.show ) ? 'block' : 'none' }}>
 			<div className="wpwax-vm-chatbox-container">
 				<div className="wpwax-vm-chatbox-btnlist">
 					<button onClick={handleClose} className="wpwax-vm-chatbox-btn-close">

@@ -206,7 +206,8 @@ function ScreenRecord() {
 		});
 	}
 
-	function handleBackScreen() {
+	function handleBackScreen(event) {
+		event.preventDefault();
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 

@@ -345,7 +345,8 @@ function Record() {
         }
     };
 
-    function handleBackScreen() {
+    function handleBackScreen(event) {
+        event.preventDefault();
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 
@@ -412,7 +413,7 @@ function Record() {
                         <p>
                             Click below to
                             <span className='wpwax-vm-highlighted'>
-								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
+								{ recordedTimeInSecond > 0 ? ' resume ' : ' start ' }
 							</span>
 							recording!
 						</p>

@@ -102,7 +102,8 @@ const Video = () => {
         return size;
     }
 
-    function handleBackScreen() {
+    function handleBackScreen(event) {
+        event.preventDefault();
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 

@@ -27,9 +27,10 @@ function App() {
 	// Init State
 	useEffect( () => {
 		dispatch( loadTemplate() );
-		if(document.documentElement.getAttribute('dir') === 'rtl'){
+
+		if ( document.documentElement.getAttribute('dir') === 'rtl'){
 			dispatch(handleChangeLayoutDirection('rtl'));
-		}else{
+		} else{
 			dispatch(handleChangeLayoutDirection('ltr'));
 		}
 	}, []);

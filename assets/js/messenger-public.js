@@ -4975,6 +4975,1425 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/js/apps/chatbox-form/App.jsx":
+/*!******************************************!*\
+  !*** ./src/js/apps/chatbox-form/App.jsx ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var Apps_chatbox_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Apps/chatbox/components/chat-screen/Index.jsx */ "./src/js/apps/chatbox/components/chat-screen/Index.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var API_useFormAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! API/useFormAPI */ "./src/js/helpers/hooks/api/useFormAPI.js");
+/* harmony import */ var _store_chatboxTemplate_actionCreator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/chatboxTemplate/actionCreator */ "./src/js/apps/chatbox-form/store/chatboxTemplate/actionCreator.js");
+/* harmony import */ var _store_layoutModes_actionCreator_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/layoutModes/actionCreator.js */ "./src/js/apps/chatbox-form/store/layoutModes/actionCreator.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/chatbox/screenTypes */ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js");
+/* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store/chatbox/actionCreator */ "./src/js/apps/chatbox-form/store/chatbox/actionCreator.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+function App(_ref) {
+  var id = _ref.id;
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.useSelector)(function (state) {
+      return {
+        dir: state.changeLayout.dir
+      };
+    }),
+    dir = _useSelector.dir;
+  var theme = {
+    direction: dir
+  };
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.useDispatch)();
+  var _useFormAPI = (0,API_useFormAPI__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    getFormItem = _useFormAPI.getItem;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
+    _useState2 = _slicedToArray(_useState, 2),
+    isLoadingInitData = _useState2[0],
+    setIsLoadingInitData = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
+    _useState4 = _slicedToArray(_useState3, 2),
+    failedLoadingForm = _useState4[0],
+    setFailedLoadingForm = _useState4[1];
+
+  // @Init
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    loadInitialData();
+  }, []);
+  function loadInitialData() {
+    return _loadInitialData.apply(this, arguments);
+  }
+  function _loadInitialData() {
+    _loadInitialData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              setIsLoadingInitData(true);
+
+              // Setup RTL
+              setupRTL();
+
+              // Load Form
+              _context.next = 4;
+              return loadForm();
+            case 4:
+              setIsLoadingInitData(false);
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _loadInitialData.apply(this, arguments);
+  }
+  function setupRTL() {
+    if (document.documentElement.getAttribute('dir') === 'rtl') {
+      dispatch((0,_store_layoutModes_actionCreator_js__WEBPACK_IMPORTED_MODULE_4__.handleChangeLayoutDirection)('rtl'));
+    } else {
+      dispatch((0,_store_layoutModes_actionCreator_js__WEBPACK_IMPORTED_MODULE_4__.handleChangeLayoutDirection)('ltr'));
+    }
+  }
+  function loadForm() {
+    return _loadForm.apply(this, arguments);
+  }
+  function _loadForm() {
+    _loadForm = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var response;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return getFormItem(id);
+            case 2:
+              response = _context2.sent;
+              if (!response.success) {
+                _context2.next = 7;
+                break;
+              }
+              setFailedLoadingForm(false);
+              dispatch((0,_store_chatboxTemplate_actionCreator__WEBPACK_IMPORTED_MODULE_3__.loadTemplateSuccess)([response.data]));
+              return _context2.abrupt("return");
+            case 7:
+              setFailedLoadingForm(true);
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return _loadForm.apply(this, arguments);
+  }
+  if (isLoadingInitData) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "wpwax-vm-text-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+        children: "Please wait..."
+      })
+    });
+  }
+  if (failedLoadingForm) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      className: "wpwax-vm-text-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+        children: "Could not load the form, please try again"
+      })
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(styled_components__WEBPACK_IMPORTED_MODULE_9__.ThemeProvider, {
+    theme: theme,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Apps_chatbox_components_chat_screen_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      show: true,
+      staticContainer: true
+    })
+  });
+}
+/* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/index.jsx":
+/*!********************************************!*\
+  !*** ./src/js/apps/chatbox-form/index.jsx ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./src/js/apps/chatbox-form/store/store.js");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./App.jsx */ "./src/js/apps/chatbox-form/App.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  var container = document.getElementById("helpgent-form");
+  if (!container) {
+    return;
+  }
+  var formID = container.getAttribute('data-id');
+  formID = formID ? parseInt(formID) : 0;
+  (0,react_dom_client__WEBPACK_IMPORTED_MODULE_0__.createRoot)(container).render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_1__.Provider, {
+    store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"],
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      id: formID
+    })
+  }));
+});
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/actionCreator.js":
+/*!*****************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/actionCreator.js ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
+/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
+/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
+/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
+/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
+
+var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
+  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
+  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
+  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
+  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/actions.js":
+/*!***********************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/actions.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  SHOW_CHATBOX: 'SHOW_CHATBOX',
+  HIDE_CHATBOX: 'HIDE_CHATBOX',
+  SHOW_TOGGLER: 'SHOW_TOGGLER',
+  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
+  HIDE_TOGGLER: 'HIDE_TOGGLER',
+  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
+  showChatbox: function showChatbox() {
+    return {
+      type: actions.SHOW_CHATBOX
+    };
+  },
+  hideChatbox: function hideChatbox() {
+    return {
+      type: actions.HIDE_CHATBOX
+    };
+  },
+  showToggler: function showToggler() {
+    return {
+      type: actions.SHOW_TOGGLER
+    };
+  },
+  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
+    return {
+      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+      payload: content
+    };
+  },
+  hideToggler: function hideToggler() {
+    return {
+      type: actions.HIDE_TOGGLER
+    };
+  },
+  changeChatScreen: function changeChatScreen(sceenType) {
+    return {
+      type: actions.CHANGE_CHAT_SCREEN,
+      payload: sceenType
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/reducers.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/reducers.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
+/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  showChatbox: false,
+  screenToggler: false,
+  screenTogglerContent: 'Open',
+  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
+};
+var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
+  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
+  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
+  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
+  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
+var chatboxReducers = function chatboxReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case SHOW_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showChatbox: true
+      });
+    case HIDE_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
+        showChatbox: false
+      });
+    case SHOW_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: true
+      });
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenTogglerContent: payload
+      });
+    case HIDE_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: false
+      });
+    case CHANGE_CHAT_SCREEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: payload
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/replayTypes.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/replayTypes.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var replayTypes = {
+  TEXT: 'text',
+  AUDIO: 'voice',
+  VIDEO: 'video',
+  SCREEN_RECORDING: 'screen_record'
+};
+/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/screenTypes.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var screenTypes = {
+  HOME: 'home',
+  VIDEO: 'video',
+  AUDIO: 'voice',
+  TEXT: 'text',
+  SCREEN_RECORD: 'screen_record',
+  CONTACT_FORM: 'contact_form',
+  USER_AUTHENTICATION_FORM: 'user_authentication_form',
+  SENDING: 'sending',
+  SUCCESS: 'success',
+  SPLASH_SCREEN: 'splash_screen'
+};
+/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatboxTemplate/actionCreator.js":
+/*!*************************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatboxTemplate/actionCreator.js ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "loadTemplate": function() { return /* binding */ loadTemplate; },
+/* harmony export */   "loadTemplateSuccess": function() { return /* binding */ loadTemplateSuccess; }
+/* harmony export */ });
+/* harmony import */ var Helper_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Helper/parser */ "./src/js/helpers/parser.js");
+/* harmony import */ var API_useFormAPI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! API/useFormAPI */ "./src/js/helpers/hooks/api/useFormAPI.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatboxTemplate/actions.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+var loadTemplateBegain = _actions__WEBPACK_IMPORTED_MODULE_2__["default"].loadTemplateBegain,
+  loadTemplateSuccess = _actions__WEBPACK_IMPORTED_MODULE_2__["default"].loadTemplateSuccess,
+  loadTemplateError = _actions__WEBPACK_IMPORTED_MODULE_2__["default"].loadTemplateError;
+var _useFormAPI = (0,API_useFormAPI__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+  getFormItems = _useFormAPI.getItems;
+var loadTemplate = function loadTemplate() {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
+      var isFrontPage, isHome, currentPageID, pageID, args, response, result;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              dispatch(loadTemplateBegain());
+              isFrontPage = (0,Helper_parser__WEBPACK_IMPORTED_MODULE_0__.parseInteger)(wpWaxCustomerSupportApp_CoreScriptData.isFrontPage, 0);
+              isHome = (0,Helper_parser__WEBPACK_IMPORTED_MODULE_0__.parseInteger)(wpWaxCustomerSupportApp_CoreScriptData.isHome, 0);
+              currentPageID = (0,Helper_parser__WEBPACK_IMPORTED_MODULE_0__.parseInteger)(wpWaxCustomerSupportApp_CoreScriptData.currentPageID, 0);
+              pageID = isFrontPage || isHome ? 0 : currentPageID;
+              args = {
+                pages: pageID
+              };
+              _context.next = 9;
+              return getFormItems(args);
+            case 9:
+              response = _context.sent;
+              result = response.data;
+              dispatch(loadTemplateSuccess(result));
+              _context.next = 17;
+              break;
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](0);
+              dispatch(loadTemplateError(_context.t0));
+            case 17:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 14]]);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatboxTemplate/actions.js":
+/*!*******************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatboxTemplate/actions.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  LOAD_TEMPLATE_BEGAIN: 'LOAD_TEMPLATE_BEGAIN',
+  LOAD_TEMPLATE_SUCCESS: 'LOAD_TEMPLATE_SUCCESS',
+  LOAD_TEMPLATE_ERROR: 'LOAD_TEMPLATE_ERROR',
+  loadTemplateBegain: function loadTemplateBegain() {
+    return {
+      type: actions.LOAD_TEMPLATE_BEGAIN
+    };
+  },
+  loadTemplateSuccess: function loadTemplateSuccess(response) {
+    return {
+      type: actions.LOAD_TEMPLATE_SUCCESS,
+      payload: response
+    };
+  },
+  loadTemplateError: function loadTemplateError(response) {
+    return {
+      type: actions.LOAD_TEMPLATE_ERROR,
+      payload: response
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatboxTemplate/defaultChatboxTemplate.js":
+/*!**********************************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatboxTemplate/defaultChatboxTemplate.js ***!
+  \**********************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  // Genearal
+  "name": "Support",
+  "is_default": false,
+  "page_ids": '',
+  "options": {
+    "theme": 'theme-1',
+    "chat_visibility_type": 'show_on_reload',
+    // show_on_reload | never_show_after_close
+    "tag": 1,
+    // Home Page
+    "greet_video_url": "http://wpwax-support-app.local/wp-content/uploads/2022/06/mixkit-worker-in-front-of-the-computer-with-headset-23726-medium.mp4",
+    "greet_message": "Welcome to Directorist, leave your questions below",
+    "chat_options_title": "How would you like to chat?",
+    "can_replay_in": ['video', 'screenRecord', 'audio', 'text'],
+    "show_footer": true,
+    "footer_message": "You can practice before sending",
+    // Thank Page
+    "thank_page_title": "Thank You",
+    "show_thank_page_description": true,
+    "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
+    "collect_info": true,
+    "collectable_info": ['phone'],
+    "show_thank_page_cta_button": true,
+    "thank_page_cta_button_text": "Try for Free",
+    "thank_page_cta_button_url": "https://www.example.com",
+    "thank_page_background_color": "#ffffff",
+    "thank_page_title_font_size": "xx-large",
+    // Template Style
+    "primary_color": "#2271b1",
+    "page_background_color": "#ffffff",
+    "font_family": "Roboto",
+    "font_size": "medium",
+    "font_color": "#898989",
+    "greet_message_font_color": "#FFFFFF",
+    "greet_message_font_size": "medium",
+    "chat_options_title_font_size": "medium",
+    "chat_options_title_font_color": "#FFFFFF",
+    "footer_message_font_size": "medium",
+    "primary_button_font_color": "#FFFFFF",
+    "primary_button_border_radius": "15",
+    "primary_button_background_color": "#2271b1",
+    "secondary_button_font_color": "#FFFFFF",
+    "secondary_button_border_radius": "15",
+    "secondary_button_background_color": "#EDEDED"
+  }
+});
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatboxTemplate/reducer.js":
+/*!*******************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatboxTemplate/reducer.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatboxTemplate/actions.js");
+/* harmony import */ var _defaultChatboxTemplate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./defaultChatboxTemplate */ "./src/js/apps/chatbox-form/store/chatboxTemplate/defaultChatboxTemplate.js");
+/* harmony import */ var _chatbox_replayTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../chatbox/replayTypes */ "./src/js/apps/chatbox-form/store/chatbox/replayTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var LOAD_TEMPLATE_BEGAIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].LOAD_TEMPLATE_BEGAIN,
+  LOAD_TEMPLATE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].LOAD_TEMPLATE_SUCCESS,
+  LOAD_TEMPLATE_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].LOAD_TEMPLATE_ERROR;
+var preparePrimaryButtonStyle = function preparePrimaryButtonStyle(options) {
+  return {
+    color: options['primary_button_font_color'],
+    backgroundColor: options['primary_button_background_color'],
+    borderRadius: options['button_border_radius'],
+    border: 'hidden',
+    fontFamily: options['font_family'],
+    fontSize: options['font_size']
+  };
+};
+var prepareChatTitleStyle = function prepareChatTitleStyle(options) {
+  return {
+    color: options['chat_options_title_font_color'],
+    fontFamily: options['font_family'],
+    fontSize: options['chat_options_title_font_size']
+  };
+};
+var prepareGreetMessageStyle = function prepareGreetMessageStyle(options) {
+  return {
+    color: options['greet_message_font_color'],
+    fontFamily: options['font_family'],
+    fontSize: options['greet_message_font_size']
+  };
+};
+function loadTemplateStyle(options) {
+  var chatBoxDom = document.querySelector('#helpgent-form');
+  chatBoxDom.style.setProperty("--color-page-bg", options.page_background_color);
+  chatBoxDom.style.setProperty("--color-page-header-bg", options.page_header_background_color);
+  chatBoxDom.style.setProperty("--color-text-greet", options.greet_message_font_color);
+  chatBoxDom.style.setProperty("--font-size-greet", options.greet_message_font_size + 'em');
+  chatBoxDom.style.setProperty("--play-button-bg", options.play_btn_background);
+  chatBoxDom.style.setProperty("--color-text-chat", options.chat_options_title_font_color);
+  chatBoxDom.style.setProperty("--font-size-chat", options.chat_options_title_font_size + 'em');
+  chatBoxDom.style.setProperty("--font-family", options.font_family);
+  chatBoxDom.style.setProperty("--btn-radius", options.button_border_radius + 'px');
+  chatBoxDom.style.setProperty("--primary-button-color", options.primary_button_font_color);
+  chatBoxDom.style.setProperty("--primary-button-bg", options.primary_button_background_color);
+  chatBoxDom.style.setProperty("--color-footer-text", options.footer_message_color);
+  chatBoxDom.style.setProperty("--footer-text-font-size", options.footer_message_font_size + 'em');
+  chatBoxDom.style.setProperty("--color-thank-page-bg", options.thank_page_background_color);
+  chatBoxDom.style.setProperty("--color-thank-title", options.thank_page_title_color);
+  chatBoxDom.style.setProperty("--font-size-thank-title", options.thank_page_title_font_size + 'em');
+  chatBoxDom.style.setProperty("--color-thank-desc", options.thank_page_description_color);
+  chatBoxDom.style.setProperty("--font-size-thank-desc", options.thank_page_description_font_size + 'em');
+}
+var initialState = {
+  isLoading: false,
+  showChatbox: false,
+  template: _defaultChatboxTemplate__WEBPACK_IMPORTED_MODULE_1__["default"],
+  supportedReplayTypes: [{
+    type: _chatbox_replayTypes__WEBPACK_IMPORTED_MODULE_2__["default"].TEXT,
+    label: 'Text'
+  }, {
+    type: _chatbox_replayTypes__WEBPACK_IMPORTED_MODULE_2__["default"].AUDIO,
+    label: 'Voice'
+  }, {
+    type: _chatbox_replayTypes__WEBPACK_IMPORTED_MODULE_2__["default"].VIDEO,
+    label: 'Video'
+  }, {
+    type: _chatbox_replayTypes__WEBPACK_IMPORTED_MODULE_2__["default"].SCREEN_RECORDING,
+    label: 'Screen Recording'
+  }],
+  primaryButton: {
+    color: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
+    radius: '10',
+    fontFamily: 'roboto',
+    fontSize: 'medium'
+  },
+  chatTitle: {
+    fontFamily: 'roboto',
+    fontSize: 'medium',
+    color: '#FFFFFF'
+  },
+  greetMessage: {
+    fontFamily: 'roboto',
+    fontSize: 'medium',
+    color: '#FFFFFF'
+  },
+  primaryColor: '#2271b1',
+  pageBackgroundColor: '#ffffff'
+};
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  switch (action.type) {
+    case LOAD_TEMPLATE_BEGAIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isLoading: true
+      });
+    case LOAD_TEMPLATE_SUCCESS:
+      var form = action.payload.length ? action.payload[0] : null;
+      var options = form ? form['options'] : {};
+      if (form) {
+        loadTemplateStyle(options);
+      }
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isLoading: false,
+        showChatbox: form ? true : false,
+        template: form
+      });
+    case LOAD_TEMPLATE_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isLoading: false,
+        showChatbox: false
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/attachment/actions.js":
+/*!********************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/attachment/actions.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  UPDATE_FORM_DATA: 'UPDATE_ATTACHMENT_FORM_DATA',
+  SUBMIT_FORM_BEGAIN: 'SUBMIT_ATTACHMENT_FORM_BEGAIN',
+  SUBMIT_FORM_SUCCESS: 'SUBMIT_ATTACHMENT_FORM_SUCCESS',
+  SUBMIT_FORM_ERROR: 'SUBMIT_ATTACHMENT_FORM_ERROR',
+  RESET: 'RESET_ATTACHMENT',
+  updateFormData: function updateFormData(formData) {
+    return {
+      type: actions.UPDATE_FORM_DATA,
+      payload: formData
+    };
+  },
+  submitFormBegain: function submitFormBegain() {
+    return {
+      type: actions.SUBMIT_FORM_BEGAIN
+    };
+  },
+  submitFormSuccess: function submitFormSuccess(response) {
+    return {
+      type: actions.SUBMIT_FORM_SUCCESS,
+      payload: response
+    };
+  },
+  submitFormError: function submitFormError(response) {
+    return {
+      type: actions.SUBMIT_FORM_ERROR,
+      payload: response
+    };
+  },
+  reset: function reset() {
+    return {
+      type: actions.RESET
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/attachment/reducer.js":
+/*!********************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/attachment/reducer.js ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/forms/attachment/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UPDATE_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_FORM_DATA,
+  RESET = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET,
+  SUBMIT_FORM_BEGAIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_BEGAIN,
+  SUBMIT_FORM_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_SUCCESS,
+  SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR;
+var initialState = {
+  uploadedAttachment: null,
+  formData: {},
+  isSubmitting: false,
+  status: null
+};
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case UPDATE_FORM_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        formData: _objectSpread(_objectSpread({}, state.formData), payload)
+      });
+    case SUBMIT_FORM_BEGAIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        submited: true,
+        isSubmitting: true,
+        status: null
+      });
+    case SUBMIT_FORM_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        uploadedAttachment: payload,
+        isSubmitting: false,
+        status: true
+      });
+    case SUBMIT_FORM_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isSubmitting: false,
+        status: false
+      });
+    case RESET:
+      return initialState;
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/messenger/actions.js":
+/*!*******************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/messenger/actions.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  UPDATE_STATE: 'UPDATE_MESSENGER_FORM_STATE',
+  UPDATE_FORM_DATA: 'UPDATE_MESSENGER_FORM_DATA',
+  SUBMIT_FORM_BEGAIN: 'SUBMIT_MESSENGER_FORM_BEGAIN',
+  SUBMIT_FORM_SUCCESS: 'SUBMIT_MESSENGER_FORM_SUCCESS',
+  SUBMIT_FORM_ERROR: 'SUBMIT_MESSENGER_FORM_ERROR',
+  RESET: 'RESET_MESSENGER',
+  upateState: function upateState(data) {
+    return {
+      type: actions.UPDATE_STATE,
+      payload: data
+    };
+  },
+  updateFormData: function updateFormData(formData) {
+    return {
+      type: actions.UPDATE_FORM_DATA,
+      payload: formData
+    };
+  },
+  submitFormBegain: function submitFormBegain() {
+    return {
+      type: actions.SUBMIT_FORM_BEGAIN
+    };
+  },
+  submitFormSuccess: function submitFormSuccess(response) {
+    return {
+      type: actions.SUBMIT_FORM_SUCCESS,
+      payload: response
+    };
+  },
+  submitFormError: function submitFormError(response) {
+    return {
+      type: actions.SUBMIT_FORM_ERROR,
+      payload: response
+    };
+  },
+  reset: function reset() {
+    return {
+      type: actions.RESET
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/messenger/reducer.js":
+/*!*******************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/messenger/reducer.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/forms/messenger/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE,
+  UPDATE_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_FORM_DATA,
+  RESET = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET,
+  SUBMIT_FORM_BEGAIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_BEGAIN,
+  SUBMIT_FORM_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_SUCCESS,
+  SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR;
+var initialState = {
+  formData: {
+    user_email: '',
+    message: '',
+    message_type: 'text',
+    attachment_id: 0
+  },
+  add_terms: '',
+  initSubmission: false,
+  submited: false,
+  isSubmitting: false,
+  status: null,
+  statusMessage: ''
+};
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case UPDATE_STATE:
+      return _objectSpread(_objectSpread({}, state), payload);
+    case UPDATE_FORM_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        formData: _objectSpread(_objectSpread({}, state.formData), payload)
+      });
+    case SUBMIT_FORM_BEGAIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        submited: true,
+        isSubmitting: true,
+        status: null
+      });
+    case SUBMIT_FORM_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isSubmitting: false,
+        status: true
+      });
+    case SUBMIT_FORM_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isSubmitting: false,
+        status: false,
+        statusMessage: payload
+      });
+    case RESET:
+      return initialState;
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/user/actions.js":
+/*!**************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/user/actions.js ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  UPDATE_STATE: 'UPDATE_USER_FORM_STATE',
+  UPDATING_FORM_DATA: 'UPDATING_USER_FORM_DATA',
+  UPDATE_FORM_DATA: 'UPDATE_USER_FORM_DATA',
+  UPDATED_FORM_DATA: 'UPDATED_USER_FORM_DATA',
+  SUBMIT_FORM_BEGAIN: 'SUBMIT_USER_FORM_BEGAIN',
+  SUBMIT_FORM_SUCCESS: 'SUBMIT_USER_FORM_SUCCESS',
+  SUBMIT_FORM_ERROR: 'SUBMIT_USER_FORM_ERROR',
+  RESET: 'RESET_USER',
+  upateState: function upateState(data) {
+    return {
+      type: actions.UPDATE_STATE,
+      payload: data
+    };
+  },
+  upatingFormData: function upatingFormData() {
+    return {
+      type: actions.UPDATING_FORM_DATA
+    };
+  },
+  updateFormDataAction: function updateFormDataAction(formData, isFinalUpdate) {
+    return {
+      type: actions.UPDATE_FORM_DATA,
+      payload: {
+        formData: formData,
+        isFinalUpdate: isFinalUpdate
+      }
+    };
+  },
+  upatedFormData: function upatedFormData() {
+    return {
+      type: actions.UPDATED_FORM_DATA
+    };
+  },
+  submitFormBegain: function submitFormBegain() {
+    return {
+      type: actions.SUBMIT_FORM_BEGAIN
+    };
+  },
+  submitFormSuccess: function submitFormSuccess(response) {
+    return {
+      type: actions.SUBMIT_FORM_SUCCESS,
+      payload: response
+    };
+  },
+  submitFormError: function submitFormError(response) {
+    return {
+      type: actions.SUBMIT_FORM_ERROR,
+      payload: response
+    };
+  },
+  reset: function reset() {
+    return {
+      type: actions.RESET
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/forms/user/reducer.js":
+/*!**************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/forms/user/reducer.js ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/forms/user/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var UPDATE_STATE = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_STATE,
+  UPDATING_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATING_FORM_DATA,
+  UPDATE_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_FORM_DATA,
+  UPDATED_FORM_DATA = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATED_FORM_DATA,
+  SUBMIT_FORM_BEGAIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_BEGAIN,
+  SUBMIT_FORM_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_SUCCESS,
+  SUBMIT_FORM_ERROR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SUBMIT_FORM_ERROR,
+  RESET = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RESET;
+var initialState = {
+  formData: {},
+  user: null,
+  needAuthentication: false,
+  guestSubmission: true,
+  isUpdatingFormData: false,
+  isReadyFormData: false,
+  submitted: false,
+  isSubmitting: false,
+  status: null,
+  statusMessage: ''
+};
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case UPDATE_STATE:
+      return _objectSpread(_objectSpread({}, state), payload);
+    case UPDATING_FORM_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isUpdatingFormData: true
+      });
+    case UPDATE_FORM_DATA:
+      var _isReadyFormData = typeof payload.isFinalUpdate === 'boolean' ? payload.isFinalUpdate : state.isReadyFormData;
+      return _objectSpread(_objectSpread({}, state), {}, {
+        formData: _objectSpread(_objectSpread({}, state.formData), payload.formData),
+        isReadyFormData: _isReadyFormData
+      });
+    case UPDATED_FORM_DATA:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isUpdatingFormData: false
+      });
+    case SUBMIT_FORM_BEGAIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        submitted: true,
+        isSubmitting: true,
+        status: null
+      });
+    case SUBMIT_FORM_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        user: payload,
+        isSubmitting: false,
+        status: true
+      });
+    case SUBMIT_FORM_ERROR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isSubmitting: false,
+        status: false,
+        statusMessage: payload
+      });
+    case RESET:
+      var persistentState = {
+        user: state.user,
+        guestSubmission: state.guestSubmission
+      };
+      return _objectSpread(_objectSpread({}, initialState), persistentState);
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/layoutModes/actionCreator.js":
+/*!*********************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/layoutModes/actionCreator.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handleChangeLayoutDirection": function() { return /* binding */ handleChangeLayoutDirection; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/layoutModes/actions.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var changeLayoutDirectionBegin = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeLayoutDirectionBegin,
+  changeLayoutDirectionSuccess = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeLayoutDirectionSuccess,
+  changeLayoutDirectionError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeLayoutDirectionError;
+var handleChangeLayoutDirection = function handleChangeLayoutDirection(direction) {
+  return /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(dispatch) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              try {
+                dispatch(changeLayoutDirectionBegin());
+                dispatch(changeLayoutDirectionSuccess(direction));
+              } catch (err) {
+                dispatch(changeLayoutDirectionError(err));
+              }
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+};
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/layoutModes/actions.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/layoutModes/actions.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  CHANGE_LAYOUT_DIRECTION_BEGIN: 'CHANGE_LAYOUT_DIRECTION_BEGIN',
+  CHANGE_LAYOUT_DIRECTION_SUCCESS: 'CHANGE_LAYOUT_DIRECTION_SUCCESS',
+  CHANGE_LAYOUT_DIRECTION_ERR: 'CHANGE_LAYOUT_DIRECTION_ERR',
+  changeLayoutDirectionBegin: function changeLayoutDirectionBegin() {
+    return {
+      type: actions.CHANGE_LAYOUT_DIRECTION_BEGIN
+    };
+  },
+  changeLayoutDirectionSuccess: function changeLayoutDirectionSuccess(direction) {
+    return {
+      type: actions.CHANGE_LAYOUT_DIRECTION_SUCCESS,
+      direction: direction
+    };
+  },
+  changeLayoutDirectionError: function changeLayoutDirectionError(err) {
+    return {
+      type: actions.CHANGE_LAYOUT_DIRECTION_ERR,
+      err: err
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/layoutModes/reducers.js":
+/*!****************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/layoutModes/reducers.js ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/layoutModes/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var initialState = {
+  dir: "ltr",
+  loading: false,
+  error: null
+};
+var CHANGE_LAYOUT_DIRECTION_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_LAYOUT_DIRECTION_BEGIN,
+  CHANGE_LAYOUT_DIRECTION_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_LAYOUT_DIRECTION_SUCCESS,
+  CHANGE_LAYOUT_DIRECTION_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_LAYOUT_DIRECTION_ERR;
+var ChangeLayoutReducer = function ChangeLayoutReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    direction = action.direction,
+    err = action.err;
+  switch (type) {
+    case CHANGE_LAYOUT_DIRECTION_BEGIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: true
+      });
+    case CHANGE_LAYOUT_DIRECTION_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        dir: direction,
+        loading: false
+      });
+    case CHANGE_LAYOUT_DIRECTION_ERR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        error: err,
+        loading: false
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (ChangeLayoutReducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/rootReducers.js":
+/*!********************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/rootReducers.js ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _settings_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./settings/reducer */ "./src/js/apps/chatbox-form/store/settings/reducer.js");
+/* harmony import */ var _video_reducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./video/reducers */ "./src/js/apps/chatbox-form/store/video/reducers.js");
+/* harmony import */ var _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chatbox/reducers */ "./src/js/apps/chatbox-form/store/chatbox/reducers.js");
+/* harmony import */ var _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chatboxTemplate/reducer */ "./src/js/apps/chatbox-form/store/chatboxTemplate/reducer.js");
+/* harmony import */ var _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./forms/messenger/reducer */ "./src/js/apps/chatbox-form/store/forms/messenger/reducer.js");
+/* harmony import */ var _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./forms/attachment/reducer */ "./src/js/apps/chatbox-form/store/forms/attachment/reducer.js");
+/* harmony import */ var _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./forms/user/reducer */ "./src/js/apps/chatbox-form/store/forms/user/reducer.js");
+/* harmony import */ var _layoutModes_reducers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./layoutModes/reducers */ "./src/js/apps/chatbox-form/store/layoutModes/reducers.js");
+
+
+
+
+
+
+
+
+
+var rootReducers = (0,redux__WEBPACK_IMPORTED_MODULE_8__.combineReducers)({
+  settings: _settings_reducer__WEBPACK_IMPORTED_MODULE_0__["default"],
+  video: _video_reducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  chatbox: _chatbox_reducers__WEBPACK_IMPORTED_MODULE_2__["default"],
+  chatboxTemplate: _chatboxTemplate_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  messengerForm: _forms_messenger_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  attachmentForm: _forms_attachment_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  userForm: _forms_user_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
+  changeLayout: _layoutModes_reducers__WEBPACK_IMPORTED_MODULE_7__["default"]
+});
+/* harmony default export */ __webpack_exports__["default"] = (rootReducers);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/settings/actions.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/settings/actions.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  UPDATE_SETTINGS: 'UPDATE_SETTINGS',
+  updateSettings: function updateSettings(options) {
+    return {
+      type: actions.UPDATE_SETTINGS,
+      payload: options
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/settings/reducer.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/settings/reducer.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/settings/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var initialState = {
+  options: {}
+};
+var UPDATE_SETTINGS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SETTINGS;
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case UPDATE_SETTINGS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        options: _objectSpread(_objectSpread({}, state.options), payload)
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/store.js":
+/*!*************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/store.js ***!
+  \*************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
+/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
+/* harmony import */ var _rootReducers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rootReducers */ "./src/js/apps/chatbox-form/store/rootReducers.js");
+
+
+
+
+
+var store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.configureStore)({
+  reducer: _rootReducers__WEBPACK_IMPORTED_MODULE_1__["default"],
+  middleware: function middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: false
+    });
+  }
+}, (0,redux_devtools_extension__WEBPACK_IMPORTED_MODULE_0__.composeWithDevTools)((0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_4__["default"].withExtraArgument())));
+/* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/video/actions.js":
+/*!*********************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/video/actions.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  RECORD_STAGE_CHANGE_BEGIN: 'RECORD_STAGE_CHANGE_BEGIN',
+  RECORD_STAGE_CHANGE_SUCCESS: 'RECORD_STAGE_CHANGE_SUCCESS',
+  RECORD_STAGE_CHANGE_ERR: 'RECORD_STAGE_CHANGE_ERR',
+  recordStageChageBegin: function recordStageChageBegin() {
+    return {
+      type: actions.RECORD_STAGE_CHANGE_BEGIN
+    };
+  },
+  recordStageChagSuccess: function recordStageChagSuccess(data) {
+    return {
+      type: actions.RECORD_STAGE_CHANGE_SUCCESS,
+      data: data
+    };
+  },
+  recordStageChagErr: function recordStageChagErr(error) {
+    return {
+      type: actions.RECORD_STAGE_CHANGE_ERR,
+      error: error
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/video/reducers.js":
+/*!**********************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/video/reducers.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/video/actions.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var videoFrom = [{
+  stage: "home"
+}];
+var initialState = {
+  row: videoFrom,
+  loading: false,
+  error: null
+};
+var RECORD_STAGE_CHANGE_BEGIN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RECORD_STAGE_CHANGE_BEGIN,
+  RECORD_STAGE_CHANGE_SUCCESS = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RECORD_STAGE_CHANGE_SUCCESS,
+  RECORD_STAGE_CHANGE_ERR = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].RECORD_STAGE_CHANGE_ERR;
+var VideoReducer = function VideoReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    row = action.row,
+    error = action.error;
+  switch (type) {
+    case RECORD_STAGE_CHANGE_BEGIN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isLoading: true
+      });
+    case RECORD_STAGE_CHANGE_SUCCESS:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        row: row,
+        isLoading: false
+      });
+    case RECORD_STAGE_CHANGE_ERR:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        error: error,
+        isLoading: false
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (VideoReducer);
+
+/***/ }),
+
 /***/ "./src/js/apps/chatbox/App.jsx":
 /*!*************************************!*\
   !*** ./src/js/apps/chatbox/App.jsx ***!
@@ -5128,7 +6547,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    ", ": 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    overflow: hidden;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    z-index: 100;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n        object-fit: cover;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])), function (_ref) {
+var AvatarWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 30px;\n    ", ": 25px;\n    width: 130px;\n    height: 130px;\n    border-radius: 50%;\n    padding: 6px;\n    cursor: pointer;\n    overflow: hidden;\n    box-shadow: 0 5px 10px rgba(0,0,0,.16);\n    background-color: var(--color-white);\n    z-index: 1000;\n    img {\n        width: 100%;\n        height: 100%;\n        border-radius: 50%;\n        object-fit: cover;\n    }\n    video{\n        width: 100% !important;\n        height: 100% !important;\n        object-fit: cover;\n        border-radius: 50%;\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'right' : 'left';
 });
@@ -5194,7 +6613,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function ChatScreen(_ref) {
   var _screens;
-  var show = _ref.show;
+  var show = _ref.show,
+    staticContainer = _ref.staticContainer;
   (0,_store_forms_hooks_js__WEBPACK_IMPORTED_MODULE_13__.useFormHooks)();
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_0__.useDispatch)();
 
@@ -5223,18 +6643,21 @@ function ChatScreen(_ref) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_15__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].SPLASH_SCREEN));
+
+              // Update user data
+              _context.next = 3;
               return getCurrentUser();
-            case 2:
+            case 3:
               currentUserResponse = _context.sent;
               if (currentUserResponse.success && currentUserResponse.data) {
                 dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_16__.upateState)({
                   user: currentUserResponse.data
                 }));
               }
-              _context.next = 6;
+              _context.next = 7;
               return getSettings();
-            case 6:
+            case 7:
               settingsResponse = _context.sent;
               if (settingsResponse.success && settingsResponse.data && typeof settingsResponse.data.guestSubmission !== 'undefined') {
                 dispatch((0,_store_settings_actionCreator__WEBPACK_IMPORTED_MODULE_17__.updateSettings)(settingsResponse.data));
@@ -5243,7 +6666,7 @@ function ChatScreen(_ref) {
                 }));
               }
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_15__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_12__["default"].HOME));
-            case 9:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -5260,6 +6683,7 @@ function ChatScreen(_ref) {
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)(_components_screen_wrapper_Index_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
     show: show,
+    staticContainer: staticContainer,
     screenName: currentChatScreen,
     children: getCurrentScreen()
   });
@@ -7182,7 +8606,8 @@ function ScreenRecord() {
       recordStage: "startScreen"
     }));
   };
-  function handleBackScreen() {
+  function handleBackScreen(event) {
+    event.preventDefault();
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_1__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_11__["default"].HOME));
   }
   if (state.recordStage === "request_permission") {
@@ -7400,8 +8825,15 @@ function Container(props) {
     resetStore();
     dispatch((0,_store_chatbox_actionCreator_js__WEBPACK_IMPORTED_MODULE_1__.hideChatbox)());
   }
+  var getContainerClassNames = function getContainerClassNames() {
+    var classNames = "wpwax-vm-chatbox-screen-".concat(props.screenName, " wpwax-vm-chatbox-screen");
+    if (props.staticContainer) {
+      classNames += ' helpgent-static-container';
+    }
+    return classNames;
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "wpwax-vm-chatbox-screen-".concat(props.screenName, " wpwax-vm-chatbox-screen"),
+    className: getContainerClassNames(),
     style: {
       display: props.show ? 'block' : 'none'
     },
@@ -7439,7 +8871,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ScreenWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 15px;\n    ", ": 25px;\n    height: auto;\n    width: 400px;\n    z-index: 100;\n    border-radius: 25px;\n    font-family: var(--font-family);\n    box-shadow: 0 3px 30px rgba(0,0,0,.10);\n    background-color: var(--color-white);\n    animation: wpwaxVideoOpen .4s ease-in-out;\n    &.wpwax-vm-chatbox-screen-home{\n        width: 430px;\n        @media only screen and (max-width: 767px){\n            width: 350px;\n        }\n        @media only screen and (max-width: 575px){\n            width: 345px;\n        }\n        @media only screen and (max-width: 379px){\n            width: 320px;\n        }\n    }\n    @media only screen and (max-width: 767px){\n        width: 350px;\n        ", ": 15px;\n    }\n    @media only screen and (max-width: 575px){\n        width: 345px;\n    }\n    @media only screen and (max-width: 379px){\n        width: 320px;\n    }\n    .wpwax-vm-chatbox-text{\n        position: relative;\n        padding: 80px 25px 25px;\n        background-color: var(--color-white);\n        border-radius: 25px;\n        @media only screen and (max-width: 767px){\n            padding: 70px 25px 25px;\n        }\n        .wpwax-vm-btn-back{\n            position: absolute;\n            left: 25px;\n            top: 25px;\n            @media only screen and (max-width: 767px){\n                left: 15px;\n                top: 15px;\n            }\n        }\n        .wpwax-vm-chatbox-text-form-inner{\n            /* min-height: 580px; */\n            height: min(70vh, 520px);\n            input{\n                font-family: var(--font-family);\n                &::placeholder{\n                    font-family: var(--font-family);\n                }\n            }\n            .wpwax-vm-form-group{\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-form-group textarea.wpwax-vm-form__element{\n                font-size: 16px;\n                line-height: 1.75;\n                font-family: var(--font-family);\n                align-items: stretch;\n                flex: 1;\n                padding: 0 5px;\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-contact{\n        height: min(80vh,570px);\n        font-family: var(--font-family);\n        \n        .wpwax-vm-footer{\n            button{\n                font-family: var(--font-family);\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n                &:not(:hover):not(:active):not(.has-text-color){\n                    color: var(--color-white);\n                }\n            }\n        }\n        .wpwax-vm-form-group{\n            .wpwax-vm-form__element{\n                min-height: 46px;\n            }\n        }\n        .wpwax-vm-footer{\n            margin-top: 40px;\n        }\n    }\n    .wpwax-vm-chatbox-container{\n        height: 100%;\n        position: relative;\n        font-size: 18px;\n        height: 100%;\n        .wpwax-vm-chatbox-wrap{\n            height: 100%;\n            position: relative;\n            z-index: 101;\n            height: min(80vh,620px);\n            &:after,\n            &:before{\n                position: absolute;\n                ", ": 0;\n                top: 0px;\n                width: 100%;\n                height: 336px;\n                content: '';\n                opacity: .9;\n                z-index: 10;\n                border-radius: 25px;\n                background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n            &:after{\n                top: -2px;\n            }\n            &:before{\n                top: auto;\n                bottom: 0;\n                height: 340px;\n                background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n        }\n        .wpwax-vm-chatbox-btnlist{\n            .wpwax-vm-chatbox-btn-close{\n                svg{\n                    width: 10px;\n                    height: 10px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            ", ": -18px;\n            top: -18px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 38px;\n            height: 38px;\n            padding: 0;\n            border-radius: 50%;\n            cursor: pointer;\n            z-index: 102;\n            border-color: transparent;\n            transition: background-color .3s ease-in-out;\n            background-color: var(--color-dark);\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 30px;\n                height: 30px;\n                ", ": -10px;\n                top: -10px;\n            }\n            @media only screen and (max-width: 575px){\n                width: 32px;\n                height: 32px;\n                ", ": -12px;\n                top: -12px;\n            }\n            &:hover{\n                background-color: var(--color-danger);\n            }\n            svg{\n                width: 16px;\n                height: 16px;\n            }\n        }\n        .wpwax-vm-chatbox-header,\n        .wpwax-vm-chatbox-inner,\n        .wpwax-vm-chatbox-footer{\n            position: relative;\n            z-index: 100\n        }\n        .wpwax-vm-btn-block{\n            width: auto;\n        }\n    }\n    .wpwax-vm-record-send-success{\n        font-family: var(--font-family);\n        border-radius: 25px;\n        background-color: var(--color-thank-page-bg);\n        h4{\n            font-family: var(--font-family);\n        }\n    }\n    .wpwax-vm-record-send-success__content {\n        min-height: 320px;\n        font-family: var(--font-family);\n        font-size: var(--font-size);\n        .wpwax-vm-text-color{\n            font-size: var(--font-size-thank-desc);\n            color: var(--color-thank-desc);\n        }\n        p{\n            margin: 0;\n            font-family: var(--font-family);\n        }\n    }\n\n    .wpwax-vm-record-send-success__bottom{\n        a{\n            font-family: var(--font-family);\n        }\n    }\n"])), function (_ref) {
+var ScreenWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: fixed;\n    bottom: 15px;\n    ", ": 25px;\n    height: auto;\n    width: 400px;\n    z-index: 100;\n    border-radius: 25px;\n    font-family: var(--font-family);\n    box-shadow: 0 3px 30px rgba(0,0,0,.10);\n    background-color: var(--color-white);\n    animation: wpwaxVideoOpen .4s ease-in-out;\n    &.helpgent-static-container{\n        position: static;\n        margin: 0 auto;\n        animation: none;\n        .wpwax-vm-chatbox-container{\n            .wpwax-vm-chatbox-btn-close{\n                display: none;\n            }\n        }\n        .wpwax-hg-btn-minimize{\n            display: none;\n        }\n    }\n    &.wpwax-vm-chatbox-screen-home{\n        width: 430px;\n        @media only screen and (max-width: 767px){\n            width: 350px;\n        }\n        @media only screen and (max-width: 575px){\n            width: 345px;\n        }\n        @media only screen and (max-width: 379px){\n            width: 320px;\n        }\n    }\n    @media only screen and (max-width: 767px){\n        width: 350px;\n        ", ": 15px;\n    }\n    @media only screen and (max-width: 575px){\n        width: 345px;\n    }\n    @media only screen and (max-width: 379px){\n        width: 320px;\n    }\n    .wpwax-vm-chatbox-text{\n        position: relative;\n        padding: 80px 25px 25px;\n        background-color: var(--color-white);\n        border-radius: 25px;\n        @media only screen and (max-width: 767px){\n            padding: 70px 25px 25px;\n        }\n        .wpwax-vm-btn-back{\n            position: absolute;\n            left: 25px;\n            top: 25px;\n            @media only screen and (max-width: 767px){\n                left: 15px;\n                top: 15px;\n            }\n        }\n        .wpwax-vm-chatbox-text-form-inner{\n            /* min-height: 580px; */\n            height: min(70vh, 520px);\n            input{\n                font-family: var(--font-family);\n                &::placeholder{\n                    font-family: var(--font-family);\n                }\n            }\n            .wpwax-vm-form-group{\n                align-items: stretch;\n                flex: 1;\n            }\n            .wpwax-vm-form-group textarea.wpwax-vm-form__element{\n                font-size: 16px;\n                line-height: 1.75;\n                font-family: var(--font-family);\n                align-items: stretch;\n                flex: 1;\n                padding: 0 5px;\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n            }\n        }\n    }\n    .wpwax-vm-chatbox-contact{\n        height: min(80vh,570px);\n        font-family: var(--font-family);\n        \n        .wpwax-vm-footer{\n            button{\n                font-family: var(--font-family);\n            }\n            .wpwax-vm-btn-block{\n                width: 100%;\n                &:not(:hover):not(:active):not(.has-text-color){\n                    color: var(--color-white);\n                }\n            }\n        }\n        .wpwax-vm-form-group{\n            .wpwax-vm-form__element{\n                min-height: 46px;\n            }\n        }\n        .wpwax-vm-footer{\n            margin-top: 40px;\n        }\n    }\n    .wpwax-vm-chatbox-container{\n        height: 100%;\n        position: relative;\n        font-size: 18px;\n        height: 100%;\n        .wpwax-vm-chatbox-wrap{\n            height: 100%;\n            position: relative;\n            z-index: 101;\n            height: min(80vh,620px);\n            &:after,\n            &:before{\n                position: absolute;\n                ", ": 0;\n                top: 0px;\n                width: 100%;\n                height: 336px;\n                content: '';\n                opacity: .9;\n                z-index: 10;\n                border-radius: 25px;\n                background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n            &:after{\n                top: -2px;\n            }\n            &:before{\n                top: auto;\n                bottom: 0;\n                height: 340px;\n                background-image: linear-gradient(to top, rgba(0,0,0,1) , rgba(0,0,0,0));\n            }\n        }\n        .wpwax-vm-chatbox-btnlist{\n            .wpwax-vm-chatbox-btn-close{\n                svg{\n                    width: 10px;\n                    height: 10px;\n                }\n            }\n        }\n        .wpwax-vm-chatbox-btn-close{\n            position: absolute;\n            ", ": -18px;\n            top: -18px;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            width: 38px;\n            height: 38px;\n            padding: 0;\n            border-radius: 50%;\n            cursor: pointer;\n            z-index: 102;\n            border-color: transparent;\n            transition: background-color .3s ease-in-out;\n            background-color: var(--color-dark);\n            color: var(--color-white);\n            @media only screen and (max-width: 767px){\n                width: 30px;\n                height: 30px;\n                ", ": -10px;\n                top: -10px;\n            }\n            @media only screen and (max-width: 575px){\n                width: 32px;\n                height: 32px;\n                ", ": -12px;\n                top: -12px;\n            }\n            &:hover{\n                background-color: var(--color-danger);\n            }\n            svg{\n                width: 16px;\n                height: 16px;\n            }\n        }\n        .wpwax-vm-chatbox-header,\n        .wpwax-vm-chatbox-inner,\n        .wpwax-vm-chatbox-footer{\n            position: relative;\n            z-index: 100\n        }\n        .wpwax-vm-btn-block{\n            width: auto;\n        }\n    }\n    .wpwax-vm-record-send-success{\n        font-family: var(--font-family);\n        border-radius: 25px;\n        background-color: var(--color-thank-page-bg);\n        h4{\n            font-family: var(--font-family);\n        }\n    }\n    .wpwax-vm-record-send-success__content {\n        min-height: 320px;\n        font-family: var(--font-family);\n        font-size: var(--font-size);\n        .wpwax-vm-text-color{\n            font-size: var(--font-size-thank-desc);\n            color: var(--color-thank-desc);\n        }\n        p{\n            margin: 0;\n            font-family: var(--font-family);\n        }\n    }\n\n    .wpwax-vm-record-send-success__bottom{\n        a{\n            font-family: var(--font-family);\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'right' : 'left';
 }, function (_ref2) {
@@ -7563,7 +8995,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Text() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  function handleBackScreen() {
+  function handleBackScreen(event) {
+    event.preventDefault();
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_5__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_4__["default"].HOME));
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -7918,7 +9351,8 @@ var Video = function Video() {
     var size = sizeInMB < 1 ? "".concat(sizeInKB, " KB") : "".concat(sizeInMB, " MB");
     return size;
   }
-  function handleBackScreen() {
+  function handleBackScreen(event) {
+    event.preventDefault();
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_4__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_5__["default"].HOME));
   }
   if (currentStage === stages.HOME) {
@@ -9255,7 +10689,8 @@ function Record() {
       });
     }
   };
-  function handleBackScreen() {
+  function handleBackScreen(event) {
+    event.preventDefault();
     dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_14__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_15__["default"].HOME));
   }
   if (currentStage === stages.PERMISSION) {
@@ -9315,7 +10750,7 @@ function Record() {
         children: [!isRecording ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("p", {
           children: ["Click below to", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("span", {
             className: "wpwax-vm-highlighted",
-            children: recordedTimeInSecond > 0 ? 'resume' : 'start'
+            children: recordedTimeInSecond > 0 ? ' resume ' : ' start '
           }), "recording!"]
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsx)("p", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_20__.jsxs)("div", {
           className: "wpwax-vm-record-staging__bottom--action",
@@ -9715,6 +11150,194 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./src/js/apps/chatbox/store/chatbox/actionCreator.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/actionCreator.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
+/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
+/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
+/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
+/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
+
+var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
+  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
+  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
+  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
+  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/actions.js":
+/*!******************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/actions.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  SHOW_CHATBOX: 'SHOW_CHATBOX',
+  HIDE_CHATBOX: 'HIDE_CHATBOX',
+  SHOW_TOGGLER: 'SHOW_TOGGLER',
+  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
+  HIDE_TOGGLER: 'HIDE_TOGGLER',
+  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
+  showChatbox: function showChatbox() {
+    return {
+      type: actions.SHOW_CHATBOX
+    };
+  },
+  hideChatbox: function hideChatbox() {
+    return {
+      type: actions.HIDE_CHATBOX
+    };
+  },
+  showToggler: function showToggler() {
+    return {
+      type: actions.SHOW_TOGGLER
+    };
+  },
+  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
+    return {
+      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+      payload: content
+    };
+  },
+  hideToggler: function hideToggler() {
+    return {
+      type: actions.HIDE_TOGGLER
+    };
+  },
+  changeChatScreen: function changeChatScreen(sceenType) {
+    return {
+      type: actions.CHANGE_CHAT_SCREEN,
+      payload: sceenType
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/reducers.js":
+/*!*******************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/reducers.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
+/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  showChatbox: false,
+  screenToggler: false,
+  screenTogglerContent: 'Open',
+  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
+};
+var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
+  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
+  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
+  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
+  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
+var chatboxReducers = function chatboxReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case SHOW_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showChatbox: true
+      });
+    case HIDE_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
+        showChatbox: false
+      });
+    case SHOW_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: true
+      });
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenTogglerContent: payload
+      });
+    case HIDE_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: false
+      });
+    case CHANGE_CHAT_SCREEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: payload
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/replayTypes.js":
+/*!**********************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/replayTypes.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var replayTypes = {
+  TEXT: 'text',
+  AUDIO: 'voice',
+  VIDEO: 'video',
+  SCREEN_RECORDING: 'screen_record'
+};
+/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/screenTypes.js":
+/*!**********************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/screenTypes.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var screenTypes = {
+  HOME: 'home',
+  VIDEO: 'video',
+  AUDIO: 'voice',
+  TEXT: 'text',
+  SCREEN_RECORD: 'screen_record',
+  CONTACT_FORM: 'contact_form',
+  USER_AUTHENTICATION_FORM: 'user_authentication_form',
+  SENDING: 'sending',
+  SUCCESS: 'success',
+  SPLASH_SCREEN: 'splash_screen'
+};
+/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
+
+/***/ }),
+
 /***/ "./src/js/apps/chatbox/store/chatboxTemplate/actionCreator.js":
 /*!********************************************************************!*\
   !*** ./src/js/apps/chatbox/store/chatboxTemplate/actionCreator.js ***!
@@ -9724,7 +11347,8 @@ document.addEventListener("DOMContentLoaded", function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "loadTemplate": function() { return /* binding */ loadTemplate; }
+/* harmony export */   "loadTemplate": function() { return /* binding */ loadTemplate; },
+/* harmony export */   "loadTemplateSuccess": function() { return /* binding */ loadTemplateSuccess; }
 /* harmony export */ });
 /* harmony import */ var Helper_parser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Helper/parser */ "./src/js/helpers/parser.js");
 /* harmony import */ var API_useFormAPI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! API/useFormAPI */ "./src/js/helpers/hooks/api/useFormAPI.js");
@@ -10063,194 +11687,6 @@ var reducer = function reducer() {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (reducer);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/actionCreator.js":
-/*!************************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/actionCreator.js ***!
-  \************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
-/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
-/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
-/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
-/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
-/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
-/* harmony export */ });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
-
-var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
-  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
-  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
-  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
-  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
-  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
-
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/actions.js":
-/*!******************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/actions.js ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var actions = {
-  SHOW_CHATBOX: 'SHOW_CHATBOX',
-  HIDE_CHATBOX: 'HIDE_CHATBOX',
-  SHOW_TOGGLER: 'SHOW_TOGGLER',
-  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
-  HIDE_TOGGLER: 'HIDE_TOGGLER',
-  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
-  showChatbox: function showChatbox() {
-    return {
-      type: actions.SHOW_CHATBOX
-    };
-  },
-  hideChatbox: function hideChatbox() {
-    return {
-      type: actions.HIDE_CHATBOX
-    };
-  },
-  showToggler: function showToggler() {
-    return {
-      type: actions.SHOW_TOGGLER
-    };
-  },
-  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
-    return {
-      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
-      payload: content
-    };
-  },
-  hideToggler: function hideToggler() {
-    return {
-      type: actions.HIDE_TOGGLER
-    };
-  },
-  changeChatScreen: function changeChatScreen(sceenType) {
-    return {
-      type: actions.CHANGE_CHAT_SCREEN,
-      payload: sceenType
-    };
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (actions);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/reducers.js":
-/*!*******************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/reducers.js ***!
-  \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
-/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var initialState = {
-  showChatbox: false,
-  screenToggler: false,
-  screenTogglerContent: 'Open',
-  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
-};
-var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
-  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
-  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
-  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
-  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
-  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
-var chatboxReducers = function chatboxReducers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  var type = action.type,
-    payload = action.payload;
-  switch (type) {
-    case SHOW_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        showChatbox: true
-      });
-    case HIDE_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
-        showChatbox: false
-      });
-    case SHOW_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: true
-      });
-    case UPDATE_SCREEN_TOGGLER_CONTENT:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenTogglerContent: payload
-      });
-    case HIDE_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: false
-      });
-    case CHANGE_CHAT_SCREEN:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: payload
-      });
-    default:
-      return state;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/replayTypes.js":
-/*!**********************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/replayTypes.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var replayTypes = {
-  TEXT: 'text',
-  AUDIO: 'voice',
-  VIDEO: 'video',
-  SCREEN_RECORDING: 'screen_record'
-};
-/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/screenTypes.js":
-/*!**********************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/screenTypes.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var screenTypes = {
-  HOME: 'home',
-  VIDEO: 'video',
-  AUDIO: 'voice',
-  TEXT: 'text',
-  SCREEN_RECORD: 'screen_record',
-  CONTACT_FORM: 'contact_form',
-  USER_AUTHENTICATION_FORM: 'user_authentication_form',
-  SENDING: 'sending',
-  SUCCESS: 'success',
-  SPLASH_SCREEN: 'splash_screen'
-};
-/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
 
 /***/ }),
 
@@ -21149,10 +22585,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var Helper_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Helper/http */ "./src/js/helpers/http.js");
 /* harmony import */ var Helper_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Helper/utils */ "./src/js/helpers/utils.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 function useAPI(routeBase) {
@@ -23537,7 +24976,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a2a11c72343dfb60756f4ea68eb1e6c7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a4d99765e112c7e1fddb7f7f5526a51.svg");
 
 /***/ }),
 
@@ -23549,7 +24988,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9f989ef074c5dd61331c8b4e9fc8ae1d.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2e75ea146b4bfaab558a0b7192b3bc6e.svg");
 
 /***/ }),
 
@@ -23585,7 +25024,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5787ac4f10ee83e624cebeaae649d450.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0ae28158b1025d49b08ee0da73b3c74e.svg");
 
 /***/ }),
 
@@ -23597,7 +25036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
 
 /***/ }),
 
@@ -23609,7 +25048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
 
 /***/ }),
 
@@ -23633,7 +25072,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e982cf393765f5e500fdee94df43af44.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/157405c3191adfa8fec63927c734b34b.svg");
 
 /***/ }),
 
@@ -23657,7 +25096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
 
 /***/ }),
 
@@ -23669,7 +25108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
 
 /***/ }),
 
@@ -23681,7 +25120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7ee24f89586350cdfb9dffa92d0ff330.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dfcf1da472821448ba1ba66598a574af.svg");
 
 /***/ }),
 
@@ -23693,7 +25132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
 
 /***/ }),
 
@@ -23717,7 +25156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
 
 /***/ }),
 
@@ -23753,7 +25192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -23777,7 +25216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
 
 /***/ }),
 
@@ -23813,7 +25252,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -23849,7 +25288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
 
 /***/ }),
 
@@ -23861,7 +25300,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
 
 /***/ }),
 
@@ -23885,7 +25324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5b0df7c10353c906e25b5510a23748db.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2f49a20e9cd02df54b919077ff532c76.svg");
 
 /***/ }),
 
@@ -23897,7 +25336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -23957,7 +25396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -23993,7 +25432,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 
@@ -65701,8 +67140,10 @@ var __webpack_exports__ = {};
   \*******************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Apps_chatbox_index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Apps/chatbox/index.jsx */ "./src/js/apps/chatbox/index.jsx");
-/* harmony import */ var Apps_messanger_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Apps/messanger/index.jsx */ "./src/js/apps/messanger/index.jsx");
-/* harmony import */ var Apps_token_resend_app_index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Apps/token-resend-app/index.jsx */ "./src/js/apps/token-resend-app/index.jsx");
+/* harmony import */ var Apps_chatbox_form_index_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Apps/chatbox-form/index.jsx */ "./src/js/apps/chatbox-form/index.jsx");
+/* harmony import */ var Apps_messanger_index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Apps/messanger/index.jsx */ "./src/js/apps/messanger/index.jsx");
+/* harmony import */ var Apps_token_resend_app_index_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Apps/token-resend-app/index.jsx */ "./src/js/apps/token-resend-app/index.jsx");
+
 
 
 

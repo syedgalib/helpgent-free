@@ -22,7 +22,7 @@ import { updateSettings } from '../../store/settings/actionCreator';
 import useUserAPI from 'API/useUserAPI.js';
 import useSettingsAPI from 'API/useSettingsAPI.js';
 
-function ChatScreen( { show } ) {
+function ChatScreen( { show, staticContainer } ) {
     useFormHooks();
 
 	const dispatch = useDispatch();
@@ -57,6 +57,8 @@ function ChatScreen( { show } ) {
 	}, [] );
 
 	async function loadInitData() {
+		dispatch( changeChatScreen( screenTypes.SPLASH_SCREEN ) );
+
 		// Update user data
 		const currentUserResponse = await getCurrentUser();
 		if ( currentUserResponse.success && currentUserResponse.data ) {
@@ -68,7 +70,6 @@ function ChatScreen( { show } ) {
 			dispatch( updateSettings( settingsResponse.data ) );
 			dispatch( upateUserState( { guestSubmission: settingsResponse.data.guestSubmission } ) );
 		}
-
 
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
@@ -82,7 +83,7 @@ function ChatScreen( { show } ) {
     }
 
     return (
-        <Container show={show} screenName={currentChatScreen}>{getCurrentScreen()}</Container>
+        <Container show={show} staticContainer={staticContainer} screenName={currentChatScreen}>{getCurrentScreen()}</Container>
 	);
 }
 

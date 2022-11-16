@@ -10,7 +10,8 @@ function Text() {
 
 	const dispatch = useDispatch();
 
-	function handleBackScreen() {
+	function handleBackScreen(event) {
+		event.preventDefault();
 		dispatch( changeChatScreen( screenTypes.HOME ) );
 	}
 	return (

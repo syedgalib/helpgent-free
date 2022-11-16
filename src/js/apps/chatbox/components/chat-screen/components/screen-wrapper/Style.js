@@ -12,6 +12,19 @@ const ScreenWrapper = Styled.div`
     box-shadow: 0 3px 30px rgba(0,0,0,.10);
     background-color: var(--color-white);
     animation: wpwaxVideoOpen .4s ease-in-out;
+    &.helpgent-static-container{
+        position: static;
+        margin: 0 auto;
+        animation: none;
+        .wpwax-vm-chatbox-container{
+            .wpwax-vm-chatbox-btn-close{
+                display: none;
+            }
+        }
+        .wpwax-hg-btn-minimize{
+            display: none;
+        }
+    }
     &.wpwax-vm-chatbox-screen-home{
         width: 430px;
         @media only screen and (max-width: 767px){

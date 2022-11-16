@@ -9146,7 +9146,7 @@ var GeneralSettings = function GeneralSettings() {
         templateName: state.form.data[0].name,
         collectInfo: state.form.data[0].options.collectInfo,
         displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
-        tag: state.form.data[0].options.tag,
+        // tag: state.form.data[0].options.tag,
         chatVisibilityType: state.form.data[0].options.chat_visibility_type
       };
     }),
@@ -9156,7 +9156,6 @@ var GeneralSettings = function GeneralSettings() {
     displayOnCustomPages = _useSelector.displayOnCustomPages,
     collectInfo = _useSelector.collectInfo,
     displayedCustomPages = _useSelector.displayedCustomPages,
-    tag = _useSelector.tag,
     chatVisibilityType = _useSelector.chatVisibilityType;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       openCollapse: true
@@ -9283,12 +9282,12 @@ var GeneralSettings = function GeneralSettings() {
     }
     return newArray;
   }
-  function getSelectedTag() {
-    var selected = allTerms.filter(function (item) {
-      return parseInt(item.value) === tag;
-    });
-    return selected ? selected[0] : null;
-  }
+
+  // function getSelectedTag() {
+  // 	const selected = allTerms.filter( item => parseInt( item.value ) === tag );
+  // 	return ( selected ) ? selected[0] : null;
+  // }
+
   function onlySpaces(str) {
     return str.trim().length === 0;
   }
@@ -9317,37 +9316,6 @@ var GeneralSettings = function GeneralSettings() {
         className: "wpwax-vm-validate-danger",
         children: "Please Enter Form Name"
       }) : null]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-          className: "wpwax-vm-tooltip-wrap",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            children: "Form Tag"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
-            className: "wpwax-vm-tooltip",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-              className: "wpwax-vm-tooltip-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                src: Assets_svg_icons_question_circle_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-              className: "wpwax-vm-tooltip-text",
-              children: "All the messages submitted through this form will be assigned with this tag."
-            })]
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        classNamePrefix: "wpwax-vm-select",
-        options: allTerms,
-        isMulti: false,
-        searchable: true,
-        hideSelectedOptions: false,
-        defaultValue: getSelectedTag(),
-        name: "wpwax-vm-tag",
-        onChange: handleOnChangeTag
-      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
@@ -10605,7 +10573,6 @@ var formData = [{
     "theme": "theme-1",
     "collectInfo": ["phone"],
     "chat_visibility_type": "show_on_reload",
-    "tag": 0,
     "greet_image_url": "",
     "greet_video_url": "",
     "greet_message": "Welcome to Directorist, leave your questions below",

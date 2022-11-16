@@ -37,7 +37,7 @@ const GeneralSettings = () => {
 		displayOnCustomPages,
         collectInfo,
         displayedCustomPages,
-		tag,
+		// tag,
         chatVisibilityType,
     } = useSelector((state) => {
         return {
@@ -53,7 +53,7 @@ const GeneralSettings = () => {
             displayedCustomPages: state.form.data[0].pages
                 ? state.form.data[0].pages.split(',')
                 : [],
-            tag: state.form.data[0].options.tag,
+            // tag: state.form.data[0].options.tag,
             chatVisibilityType: state.form.data[0].options.chat_visibility_type,
         };
     });
@@ -195,10 +195,10 @@ const GeneralSettings = () => {
         return newArray;
     }
 
-    function getSelectedTag() {
-		const selected = allTerms.filter( item => parseInt( item.value ) === tag );
-		return ( selected ) ? selected[0] : null;
-    }
+    // function getSelectedTag() {
+	// 	const selected = allTerms.filter( item => parseInt( item.value ) === tag );
+	// 	return ( selected ) ? selected[0] : null;
+    // }
 
     function onlySpaces(str) {
         return str.trim().length === 0;
@@ -226,7 +226,7 @@ const GeneralSettings = () => {
                 }
             </div>
 
-			<div className='wpwax-vm-form-group'>
+			{/* <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
                         <span>Form Tag</span>
@@ -251,7 +251,7 @@ const GeneralSettings = () => {
 					name='wpwax-vm-tag'
 					onChange={handleOnChangeTag}
 				/>
-            </div>
+            </div> */}
 
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>

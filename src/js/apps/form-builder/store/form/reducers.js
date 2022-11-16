@@ -7,7 +7,6 @@ const formData = [
         "theme":"theme-1",
         "collectInfo": ["phone"],
         "chat_visibility_type":"show_on_reload",
-        "tag": 0,
         "greet_image_url":"",
         "greet_video_url":"",
         "greet_message":"Welcome to Directorist, leave your questions below",

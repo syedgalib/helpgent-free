@@ -40,7 +40,7 @@ class Prepare_Database {
         $collate      = $wpdb->has_cap( 'collation' ) ? $wpdb->get_charset_collate() : '';
 
 		$tables = "
-		CREATE TABLE IF NOT EXISTS {$table_prefix}_forms (
+		CREATE TABLE {$table_prefix}_forms (
 			id bigint(20) unsigned NOT NULL auto_increment,
 			name varchar(255) NOT NULL DEFAULT '',
 			status varchar(255) NOT NULL DEFAULT 'publish',
@@ -48,7 +48,7 @@ class Prepare_Database {
 			PRIMARY KEY (id)
 		  ) $collate;
 
-		CREATE TABLE IF NOT EXISTS {$table_prefix}_form_page_relationships (
+		CREATE TABLE {$table_prefix}_form_page_relationships (
 			form_id bigint(20) unsigned NOT NULL,
 			page_id bigint(20) unsigned NOT NULL,
 			PRIMARY KEY (form_id, page_id),

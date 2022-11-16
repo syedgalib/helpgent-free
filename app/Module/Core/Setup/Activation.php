@@ -56,7 +56,7 @@ class Activation {
 		$page_id = wp_insert_post(
 			[
 				'post_title'     => 'All Messages',
-				'post_content'   => '[wpwax_video_support_user_messenger]',
+				'post_content'   => '[helpgent_messages]',
 				'post_status'    => 'publish',
 				'post_type'      => 'page',
 				'comment_status' => 'closed',

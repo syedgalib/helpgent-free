@@ -202,8 +202,6 @@ function Sending() {
 			return status;
 		}
 
-		console.log( 'chk-7' );
-
 		const callback = () => {
 			dispatch(
 				updateUserState({

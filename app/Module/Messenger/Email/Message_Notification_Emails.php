@@ -343,7 +343,7 @@ class Message_Notification_Emails {
 	 * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
 	 * @return string               It returns the content after replacing the placeholder with proper data.
 	 */
-	public function replace_in_content( $content, $user = null, $args = [] ) {
+	public static function replace_in_content( $content, $user = null, $args = [] ) {
 		$token          = ! empty( $args['token'] ) ? $args['token'] : '';
 		$site_name      = get_option('blogname');
 		$site_url       = site_url();

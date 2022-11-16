@@ -1,6 +1,7 @@
 import Styled from 'styled-components';
 
 const VideoHomeWrap = Styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
@@ -12,6 +13,15 @@ const VideoHomeWrap = Styled.div`
     height: min(80vh,620px);
     box-sizing: border-box;
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
+    .wpwax-vm-btn-back{
+        position: absolute;
+        left: 25px;
+        top: 25px;
+        @media only screen and (max-width: 767px){
+            top: 15px;
+            left: 15px;
+        }
+    }
     .wpwax-vm-video-home{
         width: 100%;
         font-family: var(--font-family);

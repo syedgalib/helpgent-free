@@ -179,11 +179,11 @@ const SidebarWrap = Styled.div`
                 padding: 12px;
                 border-radius: 10px;
                 background-color: transparent;
-                transition: background .3s ease-in;
+                transition: background-color .3s ease-in;
                 ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
                 &.wpwax-vm-active,
                 &:hover{
-                    background: var(--color-white);
+                    background-color: var(--color-white);
                 }
                 &:nth-last-child(-n+2){
                     .wpwax-vm-dropdown{
@@ -226,11 +226,28 @@ const SidebarWrap = Styled.div`
                 }
                 .wpwax-vm-media__body{
                     top: -3px;
+                    .wpwax-vm-media__meta{
+                        color: var(--color-text);
+                    }
+                }
+                .wpwax-vm-usermedia__left{
+                    &.wpwax-vm-media-unread{
+                        .wpwax-vm-media__body{
+                            .wpwax-vm-media__title{
+                                color: var(--color-dark);
+                            }
+                            .wpwax-vm-media__meta{
+                                color: #4D4D4D;
+                            }
+                        }
+                    }
+                    
                 }
                 .wpwax-vm-media__title{
                     line-height: 1.5;
                     text-transform: initial;
                     font-family: 'Inter', sans-serif;
+                    color: #4D4D4D;
                 }
                 .wpax-vm-imglist{
                     display: flex;

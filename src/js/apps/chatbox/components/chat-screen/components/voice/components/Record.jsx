@@ -11,6 +11,7 @@ import audioRangeInactive from 'Assets/svg/audio-inactive.svg';
 import mic from 'Assets/svg/icons/mice.svg';
 import pauseSolid from 'Assets/svg/icons/pause-solid.svg';
 import crossSmall from 'Assets/svg/icons/cross-small.svg';
+import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
 
 import {
     updateFormData as updateAttachmentFormData,
@@ -344,9 +345,14 @@ function Record() {
         }
     };
 
+    function handleBackScreen() {
+		dispatch( changeChatScreen( screenTypes.HOME ) );
+	}
+
     if (currentStage === stages.PERMISSION) {
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
+                <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
                 <h4 className='wpwax-video-screen-title'>
                     To record audio, your browser will need to request access to
                     your camera & microphone.
@@ -379,6 +385,10 @@ function Record() {
 
         return (
             <RecorderWrap className='wpwax-vm-record-staging'>
+                {
+                    recordedTimeInSecond === 0 && !isRecording ? <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a> : null
+                }
+                
                 <span
                     className={
                         isRecording
@@ -400,7 +410,7 @@ function Record() {
                 <div className='wpwax-vm-record-staging__bottom'>
                     {!isRecording ? (
                         <p>
-                            Tap to
+                            Click below to
                             <span className='wpwax-vm-highlighted'>
 								{ recordedTimeInSecond > 0 ? 'resume' : 'start' }
 							</span>

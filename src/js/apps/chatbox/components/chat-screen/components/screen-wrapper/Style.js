@@ -35,11 +35,25 @@ const ScreenWrapper = Styled.div`
         width: 320px;
     }
     .wpwax-vm-chatbox-text{
+        position: relative;
+        padding: 80px 25px 25px;
         background-color: var(--color-white);
         border-radius: 25px;
+        @media only screen and (max-width: 767px){
+            padding: 70px 25px 25px;
+        }
+        .wpwax-vm-btn-back{
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            @media only screen and (max-width: 767px){
+                left: 15px;
+                top: 15px;
+            }
+        }
         .wpwax-vm-chatbox-text-form-inner{
             /* min-height: 580px; */
-            height: min(80vh, 580px);
+            height: min(70vh, 520px);
             input{
                 font-family: var(--font-family);
                 &::placeholder{
@@ -56,6 +70,7 @@ const ScreenWrapper = Styled.div`
                 font-family: var(--font-family);
                 align-items: stretch;
                 flex: 1;
+                padding: 0 5px;
             }
             .wpwax-vm-btn-block{
                 width: 100%;
@@ -144,6 +159,12 @@ const ScreenWrapper = Styled.div`
             transition: background-color .3s ease-in-out;
             background-color: var(--color-dark);
             color: var(--color-white);
+            @media only screen and (max-width: 767px){
+                width: 30px;
+                height: 30px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: -10px;
+                top: -10px;
+            }
             @media only screen and (max-width: 575px){
                 width: 32px;
                 height: 32px;

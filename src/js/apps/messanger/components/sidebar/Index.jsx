@@ -596,7 +596,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 												handeSelectSession( e, item, index );
 											}}
                                         >
-                                            <div className='wpwax-vm-usermedia__left'>
+                                            <div className={item.read ? 'wpwax-vm-usermedia__left' : 'wpwax-vm-usermedia__left wpwax-vm-media-unread'}>
                                                 <MediaBox
                                                     chatingMedia={true}
                                                     lastMessage={

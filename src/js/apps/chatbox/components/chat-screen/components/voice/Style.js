@@ -18,11 +18,21 @@ const RecorderWrap = Styled.div`
         margin-bottom: 26px;
     }
     &.wpwax-vm-record-staging{
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding: 0 25px;
 		height: min(80vh,620px);
+        .wpwax-vm-btn-back{
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            @media only screen and (max-width: 767px){
+                top: 15px;
+                left: 15px;
+            }
+        }
         .wpwax-vm-timer{
             span{
                 font-size: 50px;
@@ -45,10 +55,6 @@ const RecorderWrap = Styled.div`
             }
             p{
                 min-height: 32px;
-            }
-            .wpwax-vm-highlighted{
-                display: inline-block;
-                margin: 0 6px;
             }
             .wpwax-vm-record-staging__bottom--action{
                 position: relative;
@@ -98,6 +104,10 @@ const RecorderWrap = Styled.div`
                     transition: background-color .3s ease-in-out;
                     background-color: #FC495D;
                     border: 2px solid #FC495D;
+                    @media only screen and (max-width: 767px){
+                        width: 90px;
+                        height: 90px;
+                    }
                     &:hover{
                         color: #FC495D;
                         background-color: #fff;
@@ -119,6 +129,10 @@ const RecorderWrap = Styled.div`
                     text-decoration: none;
                     transition: background-color .3s ease-in-out;
                     color: var(--color-white);
+                    @media only screen and (max-width: 767px){
+                        width: 60px;
+                        height: 60px;
+                    }
                     &.wpwax-vm-btn-close{
                         &:hover{
                             background-color: var(--color-danger);

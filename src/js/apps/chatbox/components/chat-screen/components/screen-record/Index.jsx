@@ -3,6 +3,8 @@ import ReactSVG from 'react-inlinesvg';
 import { showToggler, updateScreenTogglerContent } from "../../../../store/chatbox/actionCreator";
 import minimizeIcon from 'Assets/svg/icons/window-minimize.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
+import screenShare from 'Assets/svg/icons/screen-share.svg';
+import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
 import ScreenRecordWrap from './Style.js';
 import { useDispatch, useSelector } from "react-redux";
 import useScreenRecorder from 'Hooks/media-recorder/useScreenRecorder';
@@ -204,10 +206,14 @@ function ScreenRecord() {
 		});
 	}
 
+	function handleBackScreen() {
+		dispatch( changeChatScreen( screenTypes.HOME ) );
+	}
+
 	if(state.recordStage === "request_permission"){
 		return (
 			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-record-permission">
-
+				<a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
 				<h4 className='wpwax-video-screen-title'>
                     To record video, your browser will need to request access to
                     your camera & microphone.
@@ -236,21 +242,22 @@ function ScreenRecord() {
 
 	if(state.recordStage === "startScreen" || state.recordStage === "stopScreen"){
 		return (
-			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-h-100pr wpwax-vm-chat-screen">
-
-				<div className="wpwax-hg-screenrecord-box">
-					<div className="wpwax-hg-screenrecord-top">
-						<span className="wpwax-hg-record-timer">{ getCountDown() }</span>
-						<a href="#" className="wpwax-hg-btn-minimize" onClick={handleMinizeScreen}>
-							<ReactSVG src={minimizeIcon} />
-						</a>
-					</div>
-					<div className="wpwax-hg-screenrecord-action">
-						<a href="#" className="wpwax-vm-btn wpwax-vm-btn-block wpwax-vm-btn-primary" onClick={e=>handleSelectScreen(e)}>
-							{
-								state.recordStage === "startScreen" ? "Select Screen" : "Stop Recording"
-							}
-						</a>
+			<ScreenRecordWrap className="wpwax-vm-p-20 wpwax-vm-record-staging">
+				{
+					state.recordStage === "startScreen" ? <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a> : null
+				}
+				<div className="wpwax-vm-record-staging__top">
+					<span className={state.recordStage === "startScreen" ? 'wpwax-vm-timer' : 'wpwax-vm-timer wpwax-vm-timer-start'}>
+						<span className="wpwax-vm-sec">{ getCountDown() }</span>
+					</span>
+					<a href="#" className="wpwax-hg-btn-minimize" onClick={handleMinizeScreen}><ReactSVG src={minimizeIcon} /></a>
+				</div>
+				<div className="wpwax-vm-record-staging__bottom">
+					{
+						state.recordStage === "startScreen" ? <p>Click below to <span className="wpwax-vm-highlighted">start</span> recording</p> : null
+					}
+					<div className="wpwax-vm-record-staging__bottom--action">
+						<a href="#" className={state.recordStage === "startScreen" ? 'wpwax-vm-record-btn' : 'wpwax-vm-record-btn wpwax-vm-record-progress'} onClick={e=>handleSelectScreen(e)}><ReactSVG src={screenShare}/></a>
 					</div>
 				</div>
 

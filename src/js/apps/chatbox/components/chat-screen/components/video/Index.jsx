@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import ReactSVG from 'react-inlinesvg';
 import Record from './components/Record.jsx';
 import Upload from './components/Upload.jsx';
+import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
+import screenTypes from '../../../../store/chatbox/screenTypes';
 import { VideoHomeWrap } from './Style';
+import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
 
 const Video = () => {
+
+    const dispatch = useDispatch();
+    
     const stages = {
         HOME: 'home',
         RECORD: 'record',
@@ -94,9 +102,14 @@ const Video = () => {
         return size;
     }
 
+    function handleBackScreen() {
+		dispatch( changeChatScreen( screenTypes.HOME ) );
+	}
+
     if (currentStage === stages.HOME) {
         return (
             <VideoHomeWrap>
+                <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
                 <div className='wpwax-vm-video-home'>
                     <h3 className='wpwax-vm-video-home__title'>
                         How would you like to create this step?

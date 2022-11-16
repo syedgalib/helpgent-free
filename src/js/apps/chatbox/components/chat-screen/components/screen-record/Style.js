@@ -6,19 +6,163 @@ const ScreenRecordWrap = Styled.div`
 	flex-direction: column;
     justify-content: center;
     align-items: center;
+    .wpwax-vm-btn-back{
+        position: absolute;
+        left: 25px;
+        top: 25px;
+        @media only screen and (max-width: 767px){
+            top: 15px;
+            left: 15px;
+        }
+    }
+    &.wpwax-vm-record-staging{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+		height: min(80vh,620px);
+        .wpwax-vm-timer{
+            span{
+                font-size: 50px;
+                font-weight: 500;
+                color: var(--color-text);
+            }
+            &.wpwax-vm-timer-start{
+                span{
+                    color: #FC495D;
+                }
+            }
+        }
+        .wpwax-vm-record-staging__bottom{
+            padding-top: 180px;
+            @media only screen and (max-width: 1399px){
+                padding-top: 120px;
+            }
+            @media only screen and (max-width: 1299px){
+                padding-top: 100px;
+            }
+            p{
+                min-height: 32px;
+            }
+            .wpwax-vm-highlighted{
+                display: inline-block;
+            }
+            .wpwax-vm-record-staging__bottom--action{
+                position: relative;
+                .wpwax-vm-pause-btn{
+                    display: none;
+                    position: relative;
+                    &:after{
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 14px;
+                        transform: translate(-50%,-50%);
+                        content: '';
+                        background-color: var(--color-white);
+                        z-index: 101;
+                    }
+                }
+                .wpwax-vm-record-btn{
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    &:hover{
+                        svg{
+                            path{
+                                fill: #FC495D;
+                            }
+                        }
+                        &:after{
+                            background-color: #FC495D;
+                        }
+                    }
+                    &:after{
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 12px;
+                        content: '';
+                        display: none;
+                        background-color: var(--color-white);
+                    }
+                    &.wpwax-vm-record-progress{
+                        svg{
+                            display: none;
+                        }
+                        &:after{
+                            display: block;
+                        }
+                    }
+                    svg{
+                        width: 36px;
+                        height: 36px;
+                        path{
+                            fill: var(--color-white);
+                        }
+                    }
 
-    &.wpwax-vm-chat-screen{
-        min-height: min(30vh,520px);
+                }
+                .wpwax-vm-record-btn,
+                .wpwax-vm-pause-btn{
+                    width: 110px;
+                    height: 110px;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                    transition: background-color .3s ease-in-out;
+                    background-color: #FC495D;
+                    border: 2px solid #FC495D;
+                    &:hover{
+                        color: #FC495D;
+                        background-color: #fff;
+                    }
+                    @media only screen and (max-width: 767px){
+                        width: 90px;
+                        height: 90px;
+                    }
+                }
+                &.wpwax-vm-record-start{
+                    .wpwax-vm-record-btn{
+                        display: none;
+                    }
+                    .wpwax-vm-pause-btn{
+                        display: block;
+                    }
+                    .wpwax-vm-btn-close{
+                        display: none;
+                    }
+                }
+            }
+            p{
+                font-size: 18px;
+                font-weight: 600;
+                margin-bottom:30px;
+                color: var(--color-dark);
+                .wpwax-vm-highlighted{
+                    color: #EF0000;
+                }
+            }
+        }
     }
     .wpwax-hg-btn-minimize{
         position: absolute;
-        top: 10px;
+        top: 20px;
         right: 40px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
         line-height: 1;
+        @media only screen and (max-width: 767px){
+            top: 0;
+            right: 25px;
+        }
         svg{
             width: 25px;
             height: 25px;
+            fill: var(--color-text);
         }
     }
     .wpwax-hg-record-timer{

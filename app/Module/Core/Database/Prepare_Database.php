@@ -37,7 +37,6 @@ class Prepare_Database {
 			email varchar(255) NOT NULL,
 			token varchar(255) NOT NULL,
 			expires_at datetime NULL,
-
 			PRIMARY KEY (email,token),
             KEY token (token)
 		) $collate;
@@ -47,7 +46,6 @@ class Prepare_Database {
 			email varchar(255) NOT NULL,
 			name varchar(255) NOT NULL,
 			created_at datetime NOT NULL,
-
 			PRIMARY KEY (id),
             KEY email (email)
 		) $collate;
@@ -57,7 +55,6 @@ class Prepare_Database {
 			user_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NOT NULL DEFAULT '',
-
 			PRIMARY KEY (meta_id),
 			KEY user_id (user_id),
 			KEY meta_key (meta_key)

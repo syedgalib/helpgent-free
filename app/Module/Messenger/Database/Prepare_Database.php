@@ -44,7 +44,6 @@ class Prepare_Database {
 			parent_type varchar(255) NULL,
 			created_at datetime NOT NULL,
 			updated_at datetime NOT NULL,
-
 			PRIMARY KEY (id),
 			KEY user_email (user_email),
 			KEY created_at (created_at),
@@ -56,7 +55,6 @@ class Prepare_Database {
 			message_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NULL,
-
 			PRIMARY KEY (meta_id),
 			KEY message_id (message_id),
 			KEY meta_key (meta_key)
@@ -69,7 +67,6 @@ class Prepare_Database {
 			status varchar(255) NOT NULL DEFAULT 'publish',
 			created_at datetime NOT NULL,
 			updated_at datetime NOT NULL,
-
 			PRIMARY KEY (id),
 			KEY status (status)
 		) $collate;
@@ -79,7 +76,6 @@ class Prepare_Database {
 			conversation_id bigint(20) unsigned NOT NULL,
 			meta_key varchar(255) NOT NULL,
 			meta_value longtext NULL,
-
 			PRIMARY KEY (meta_id),
 			KEY conversation_id (conversation_id),
 			KEY meta_key (meta_key)
@@ -89,7 +85,6 @@ class Prepare_Database {
 			conversation_id bigint(20) unsigned NOT NULL,
 			term_taxonomy_id bigint(20) unsigned NOT NULL,
 			term_order int(11) unsigned NOT NULL DEFAULT 0,
-
 			PRIMARY KEY (conversation_id, term_taxonomy_id),
 			KEY term_taxonomy_id (term_taxonomy_id)
 		) $collate;

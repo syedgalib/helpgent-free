@@ -83,7 +83,15 @@ function Sending() {
 	 */
 	async function handleNewUser() {
 		// Handle Existing User
-		if ( await checkIfUserExists() ) {
+
+		const userExistsStatus = await checkIfUserExists();
+
+		if ( userExistsStatus.status ) {
+
+			if ( typeof userExistsStatus.callback === 'function' ) {
+				userExistsStatus.callback();
+			}
+
 			return;
 		}
 
@@ -103,15 +111,28 @@ function Sending() {
 	 *
 	 * @returns {void}
 	 */
-	async function handleOldUser() {
-		const isAdmin  = isUserAdmin();
-		const isClient = isUserClient();
-		const isGuest  = isUserGuest();
+	async function handleOldUser( args ) {
+
+		const defaultArgs = { user: null };
+
+		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
+
+		let currentUserEmail = ( currentUser && currentUser.email ) ? currentUser.email : '';
+		let isAdmin          = isUserAdmin();
+		let isClient         = isUserClient();
+		let isGuest          = isUserGuest();
+
+		if ( args.user ) {
+			currentUserEmail = args.user.email;
+			isAdmin          = args.user.is_admin;
+			isClient         = args.user.is_client;
+			isGuest          = args.user.is_guest;
+		}
 
 		const isNewUser = ( ! isAdmin && ! isClient && ! isGuest ) ? true : false;
 
 		if ( isNewUser ) {
-			const response = await updateCurrentUser();
+			const response = await updateCurrentUser( args.user );
 
 			// Switch to Retry Stage if failed
 			if ( ! response.success ) {
@@ -121,8 +142,8 @@ function Sending() {
 			}
 		}
 
-		setUserEmail( currentUser.email );
-		submitMessage( currentUser.email );
+		setUserEmail( currentUserEmail );
+		submitMessage( currentUserEmail );
 	}
 
 	/**
@@ -131,48 +152,72 @@ function Sending() {
 	 * @returns {bool}
 	 */
 	async function checkIfUserExists() {
+
+		let status = { status: false, callback: null };
+
 		const email = ( userForm.formData.email ) ? userForm.formData.email : '';
 		const userExistsResponse = await userExists( email );
 
 		if ( ! userExistsResponse.success ) {
-			dispatch(
-				updateUserState({
-					status: null,
-					statusMessage: ( userExistsResponse.message ) ? userExistsResponse.message : 'Something went wrong, please try again.',
-				})
-			);
 
-			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+			const callback = () => {
+				dispatch(
+					updateUserState({
+						status: null,
+						statusMessage: ( userExistsResponse.message ) ? userExistsResponse.message : 'Something went wrong, please try again.',
+					})
+				);
+	
+				dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
+			};
 
-			return true;
+			status.status = true;
+			status.callback = callback;
+			
+			return status;
 		}
 
 		if ( ! userExistsResponse.data ) {
-			return false;
+			status.status = false;
+			return status;
 		}
 
 		const isGuest = userExistsResponse.data.is_guest;
 
 		if ( isGuest ) {
-			dispatch(
-				updateUserState({
-					status: false,
-					statusMessage: `${email} is already registered as a guest, please continue from the link provided in your email for further communication.`,
-				})
-			);
+			const callback = () => {
+				dispatch(
+					updateUserState({
+						user: userExistsResponse.data,
+					})
+				);
+	
+				handleOldUser( { user: userExistsResponse.data } );
+			};
 
-			dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
-			return true;
+			status.status = true;
+			status.data = userExistsResponse.data;
+			status.callback = callback;
+
+			return status;
 		}
 
-		dispatch(
-			updateUserState({
-				user: userExistsResponse.data,
-			})
-		);
+		console.log( 'chk-7' );
 
-		dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
-		return true;
+		const callback = () => {
+			dispatch(
+				updateUserState({
+					user: userExistsResponse.data,
+				})
+			);
+	
+			dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
+		};
+
+		status.status = true;
+		status.callback = callback;
+
+		return status;
 	}
 
 	/**

@@ -25,7 +25,7 @@ class Authentication {
 	 * @return void
 	 */
 	public function integrate_auth_token() {
-		$token = ( isset( $_GET['token'] ) ) ? $_GET['token'] : '';
+		$token = ( isset( $_GET['token'] ) ) ? helpgent_clean( wp_unslash( $_GET['token'] ) ) : '';
 
 		if ( empty( $token ) ) {
 			return;

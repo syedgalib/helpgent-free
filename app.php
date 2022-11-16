@@ -67,7 +67,7 @@ final class HelpGent {
      * @return void
      */
     public function __clone() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
     }
 
     /**
@@ -76,7 +76,7 @@ final class HelpGent {
      * @return void
      */
     public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
+        _doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'helpgent' ), '1.0' );
     }
 
 }

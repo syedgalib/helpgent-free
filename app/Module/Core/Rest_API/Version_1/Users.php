@@ -269,7 +269,7 @@ class Users extends Rest_Base {
 		}
 
         if ( ! is_email( $request['email'] ) ) {
-            return new WP_REST_Response( [ 'success' => false, 'message' => _( 'A valid email is required' ) ], 403 );
+            return new WP_REST_Response( [ 'success' => false, 'message' => __( 'A valid email is required', 'helpgent' ) ], 403 );
         }
 
         if ( empty( $request['password'] ) ) {

@@ -291,7 +291,7 @@ class Messages extends Rest_Base
 
 		// Validate Client Capability
 		if ( ! $this->can_current_user_view_conversation( $data['conversation_id'] ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to view the resource.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'helpgent' ) );
 		}
 
         $success = true;
@@ -317,7 +317,7 @@ class Messages extends Rest_Base
 
 		// Validate Client Capability
 		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this action.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this action.', 'helpgent' ) );
 		}
 
 		/**
@@ -366,7 +366,7 @@ class Messages extends Rest_Base
 		$is_author = $old_data['user_email'] === Helper\get_current_user_email();
 
 		if ( ! ( $is_admin || $is_author ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to update the resource.', 'helpgent' ) );
 		}
 
 		$args = $request->get_params();
@@ -418,7 +418,7 @@ class Messages extends Rest_Base
 		$is_author = $old_data['user_email'] === Helper\get_current_user_email();
 
 		if ( ! ( $is_admin || $is_author ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to update the resource.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to update the resource.', 'helpgent' ) );
 		}
 
         $operation = Message_Model::delete_item( $args['id'] );
@@ -450,7 +450,7 @@ class Messages extends Rest_Base
 		]);
 
 		if ( empty( $client_conversations ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this action.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this action.', 'helpgent' ) );
 		}
 
 		$client_conversations = array_map( function( $conversations ) { return $conversations['id']; }, $client_conversations );

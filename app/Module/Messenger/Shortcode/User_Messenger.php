@@ -25,7 +25,7 @@ class User_Messenger {
 
 		if ( ! Helper\current_can_use_messanger_app() ) {
 
-			$message = __( 'You need to be logged in to view this content.' );
+			$message = __( 'You need to be logged in to view this content.', 'helpgent' );
 
 			return "<div class='wpwax-vm-notice-container'><p class='wpwax-vm-notice wpwax-vm-notice-warning wpwax-vm-text-center'>${message}</p></div>";
 		}

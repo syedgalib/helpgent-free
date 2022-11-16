@@ -17,7 +17,7 @@ class Admin_Menu {
 
         if ( $is_edit ) {
             $id = ! empty( $_GET['formid'] ) ? (int) $_GET['formid'] : 'new';
-            echo '<div id="wpwax-vm-form-edit" data-formid="' . $id . '"></div>';
+            echo '<div id="wpwax-vm-form-edit" data-formid="' . esc_attr( $id ) . '"></div>';
         } else {
             echo '<div id="wpwax-vm-forms"></div>';
         }

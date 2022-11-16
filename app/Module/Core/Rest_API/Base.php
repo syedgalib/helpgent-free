@@ -105,7 +105,7 @@ abstract class Base extends WP_REST_Controller {
     public function error_nonce_missing() {
         return new \WP_Error(
             'nonce_missing',
-            __( 'Header:X-WP-Nonce is missing' ),
+            __( 'Header:X-WP-Nonce is missing', 'helpgent' ),
             ['status' => rest_authorization_required_code()]
         );
     }
@@ -113,7 +113,7 @@ abstract class Base extends WP_REST_Controller {
     public function error_admin_check_failed() {
         return new \WP_Error(
             'admin_check_failed',
-            __( 'You are not allowed to perform this operation.' ),
+            __( 'You are not allowed to perform this operation.', 'helpgent' ),
             ['status' => rest_authorization_required_code()]
         );
     }
@@ -121,7 +121,7 @@ abstract class Base extends WP_REST_Controller {
     public function error_auth_check_failed() {
         return new \WP_Error(
             'auth_check_failed',
-            __( 'You are not allowed to perform this operation.' ),
+            __( 'You are not allowed to perform this operation.', 'helpgent' ),
             ['status' => rest_authorization_required_code()]
         );
     }
@@ -247,7 +247,7 @@ abstract class Base extends WP_REST_Controller {
 		if ( empty( $email ) ) {
 			return new \WP_Error(
 				'auth_check_failed',
-				__( 'You are not allowed to perform this operation.' ),
+				__( 'You are not allowed to perform this operation.', 'helpgent' ),
 				[ 'status' => rest_authorization_required_code() ]
 			);
 		}
@@ -257,7 +257,7 @@ abstract class Base extends WP_REST_Controller {
 		if ( ! $has_valid_token ) {
 			return new \WP_Error(
 				'auth_check_failed',
-				__( 'You are not allowed to perform this operation.' ),
+				__( 'You are not allowed to perform this operation.', 'helpgent' ),
 				[ 'status' => rest_authorization_required_code() ]
 			);
 		}

@@ -606,7 +606,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_edit_conversation() ) {
-			return new WP_Error( 403, __( 'You are not allowed to delete the resource.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'helpgent' ) );
 		}
 
 		// Delete Messages
@@ -668,7 +668,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_edit_conversation() ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
 		$add_terms    = ( ! empty( $args['add_terms'] ) ) ? Helper\convert_string_to_int_array( $args['add_terms'] ) : [];
@@ -724,7 +724,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_edit_conversation() ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
 		if ( empty( $args['terms'] ) ) {
@@ -776,7 +776,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_edit_conversation() ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
 		if ( empty( $args['terms'] ) ) {
@@ -817,7 +817,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
 		// Mark as Read
@@ -846,7 +846,7 @@ class Conversations extends Rest_Base
 
 		// Validate Capability
 		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this operation.' ) );
+			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
 		// Mark as Read

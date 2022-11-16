@@ -13,3 +13,18 @@ function wpwax_vm_change_upload_directory( $uploads ) {
 
 	return $uploads;
 }
+
+/**
+ * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+ * Non-scalar values are ignored.
+ *
+ * @param string|array $var Data to sanitize.
+ * @return string|array
+ */
+function helpgent_clean( $var ) {
+	if ( is_array( $var ) ) {
+		return array_map( 'helpgent_clean', $var );
+	} else {
+		return is_scalar($var) ? sanitize_text_field($var) : $var;
+	}
+}

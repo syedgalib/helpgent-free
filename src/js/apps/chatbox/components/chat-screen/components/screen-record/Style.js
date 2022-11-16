@@ -6,6 +6,7 @@ const ScreenRecordWrap = Styled.div`
 	flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-vm-btn-back{
         position: absolute;
         left: 25px;

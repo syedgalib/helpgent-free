@@ -245,32 +245,35 @@
 }
 
 /* Wpwax Back Button */
-.wpwax-vm-btn-back{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    transition: background-color .3s ease-in;
-    background-color: var(--color-bg-general);
-    &:hover{
-        background-color: #d5d4d4;
-    }
-    svg{
-        path{
-            fill: var(--color-dark);
+.wpwax-vm-chatbox-screen{
+    .wpwax-vm-btn-back{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        transition: background-color .3s ease-in;
+        background-color: var(--color-bg-general);
+        &:hover{
+            background-color: #d5d4d4;
         }
-    }
-    @media only screen and (max-width: 767px){
-        width: 28px;
-        height: 28px;
         svg{
-            width: 12px;
-            height: 12px;
+            path{
+                fill: var(--color-dark);
+            }
+        }
+        @media only screen and (max-width: 767px){
+            width: 28px;
+            height: 28px;
+            svg{
+                width: 12px;
+                height: 12px;
+            }
         }
     }
 }
+
 
 /* Form Elements Style */
 .wpwax-vm-input-desc {

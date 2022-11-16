@@ -7,7 +7,10 @@ import { components, default as Select } from 'react-select';
 import ReactSVG from 'react-inlinesvg';
 import Switch from 'react-switch';
 import formUpdater from 'Helper/FormUpdater';
-import { handleDynamicEdit, updateFormSettings } from '../../../store/form/actionCreator';
+import {
+    handleDynamicEdit,
+    updateFormSettings,
+} from '../../../store/form/actionCreator';
 import { GeneralSettingWrap } from './Style';
 
 import questionIcon from 'Assets/svg/icons/question-circle.svg';
@@ -19,25 +22,24 @@ export const fontOptions = [
 ];
 
 export const fontSizeOptions = [
-    { value: "1.3", label: "large" },
-    { value: "1.5", label: "x-large" },
-    { value: "2", label: "xx-large" },
-    { value: "1.2", label: "medium" },
-    { value: "1", label: "small" },
-    { value: ".85", label: "smaller" },
-    { value: ".80", label: "x-small" },
-]
+    { value: '1.3', label: 'large' },
+    { value: '1.5', label: 'x-large' },
+    { value: '2', label: 'xx-large' },
+    { value: '1.2', label: 'medium' },
+    { value: '1', label: 'small' },
+    { value: '.85', label: 'smaller' },
+    { value: '.80', label: 'x-small' },
+];
 
 const GeneralSettings = () => {
     /* initialize Form Data */
     const {
         formData,
-        primaryColor,
         templateName,
-		displayOnCustomPages,
+        displayOnCustomPages,
         collectInfo,
         displayedCustomPages,
-		// tag,
+        // tag,
         chatVisibilityType,
     } = useSelector((state) => {
         return {
@@ -47,14 +49,13 @@ const GeneralSettings = () => {
             primaryColor: state.form.data[0].options.primary_color,
             fontFamily: state.form.data[0].options.font_color,
             fontSize: state.form.data[0].options.font_size,
-			displayOnCustomPages: state.form.settings.displayOnCustomPages,
+            displayOnCustomPages: state.form.settings.displayOnCustomPages,
             templateName: state.form.data[0].name,
             collectInfo: state.form.data[0].options.collectInfo,
             displayedCustomPages: state.form.data[0].pages
                 ? state.form.data[0].pages.split(',')
                 : [],
             // tag: state.form.data[0].options.tag,
-            chatVisibilityType: state.form.data[0].options.chat_visibility_type,
         };
     });
 
@@ -80,7 +81,7 @@ const GeneralSettings = () => {
         );
     };
 
-	const initialOption = [ { value: '', label: `Select...` } ];
+    const initialOption = [{ value: '', label: `Select...` }];
 
     const customPages = [];
     wpWaxCustomerSupportApp_CoreScriptData.wp_pages.map((item, index) => {
@@ -89,26 +90,17 @@ const GeneralSettings = () => {
 
     let allTerms = [];
 
-	if ( wpWaxCustomerSupportApp_CoreScriptData.terms ) {
-		allTerms = wpWaxCustomerSupportApp_CoreScriptData.terms.map( item => {
-			return { value: item.term_id, label: item.name };
-		});
-	}
+    if (wpWaxCustomerSupportApp_CoreScriptData.terms) {
+        allTerms = wpWaxCustomerSupportApp_CoreScriptData.terms.map((item) => {
+            return { value: item.term_id, label: item.name };
+        });
+    }
 
-	allTerms = [ ...initialOption, ...allTerms ];
+    allTerms = [...initialOption, ...allTerms];
 
-    const handleCustomPageCheckbox = ()=>{}
+    const handleCustomPageCheckbox = () => {};
 
     /* To Handle Template Change */
-    const handleChatVisibility = (e) => {
-        let visiblityType = e.target.value;
-        const updatedData = formUpdater(
-            'chat-visibility',
-            visiblityType,
-            formData
-        );
-        dispatch(handleDynamicEdit(updatedData));
-    };
 
     const handleChangeInputValue = (e) => {
         console.log(e.target.id, e.target.checked);
@@ -116,34 +108,44 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
     };
 
-    const handleCollectInfo = (e) =>{
+    const handleCollectInfo = (e) => {
         const checkboxValue = e.target.value;
         let newCollectInfo = [...collectInfo];
-        if(newCollectInfo.includes(checkboxValue,0)){
-            newCollectInfo = newCollectInfo.filter(item=> item !== checkboxValue);
-        }else{
+        if (newCollectInfo.includes(checkboxValue, 0)) {
+            newCollectInfo = newCollectInfo.filter(
+                (item) => item !== checkboxValue
+            );
+        } else {
             newCollectInfo.push(checkboxValue);
         }
-        const updatedData = formUpdater("wpwax-vm-info-collection", newCollectInfo, formData);
+        const updatedData = formUpdater(
+            'wpwax-vm-info-collection',
+            newCollectInfo,
+            formData
+        );
         dispatch(handleDynamicEdit(updatedData));
-    }
+    };
 
     const handleChangeSwitchValue = (value, event, id) => {
-        if(id === 'wpwax-vm-display-default'){
+        if (id === 'wpwax-vm-display-default') {
             value = !value;
         }
         const updatedData = formUpdater(id, value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
 
-    function handleChangeDisplayOnCustomPagesSwitchValue( value, event, id ) {
-		dispatch( updateFormSettings( 'displayOnCustomPages', value ) );
+    function handleChangeDisplayOnCustomPagesSwitchValue(value, event, id) {
+        dispatch(updateFormSettings('displayOnCustomPages', value));
 
-		if ( ! value ) {
-			const updatedData = formUpdater( 'wpwax-vm-display-custom-pages' , '', formData );
-        	dispatch( handleDynamicEdit( updatedData ) );
-		}
-    };
+        if (!value) {
+            const updatedData = formUpdater(
+                'wpwax-vm-display-custom-pages',
+                '',
+                formData
+            );
+            dispatch(handleDynamicEdit(updatedData));
+        }
+    }
 
     const handleChangeSelectValue = (selectEvent, e) => {
         let customPageIds = '';
@@ -162,24 +164,28 @@ const GeneralSettings = () => {
         dispatch(handleDynamicEdit(updatedData));
     };
 
-	const handleOnChangeDisplayOnCustomPages = ( selectEvent, e ) => {
-		let customPageIds = '';
+    const handleOnChangeDisplayOnCustomPages = (selectEvent, e) => {
+        let customPageIds = '';
         let updatedData = '';
 
-		let newPageIdsArray = [];
-		selectEvent.map((item) => {
-			newPageIdsArray.push(item.value);
-		});
-		customPageIds = newPageIdsArray.join(',');
-		updatedData = formUpdater(e.name, customPageIds, formData);
+        let newPageIdsArray = [];
+        selectEvent.map((item) => {
+            newPageIdsArray.push(item.value);
+        });
+        customPageIds = newPageIdsArray.join(',');
+        updatedData = formUpdater(e.name, customPageIds, formData);
 
         dispatch(handleDynamicEdit(updatedData));
-	};
+    };
 
-	const handleOnChangeTag = ( selectEvent, e ) => {
-		const updatedData = formUpdater( e.name, parseInt( selectEvent.value ), formData );
-        dispatch( handleDynamicEdit( updatedData ) );
-	};
+    const handleOnChangeTag = (selectEvent, e) => {
+        const updatedData = formUpdater(
+            e.name,
+            parseInt(selectEvent.value),
+            formData
+        );
+        dispatch(handleDynamicEdit(updatedData));
+    };
 
     function getSelectedPageDefault() {
         let newArray = [];
@@ -196,8 +202,8 @@ const GeneralSettings = () => {
     }
 
     // function getSelectedTag() {
-	// 	const selected = allTerms.filter( item => parseInt( item.value ) === tag );
-	// 	return ( selected ) ? selected[0] : null;
+    // 	const selected = allTerms.filter( item => parseInt( item.value ) === tag );
+    // 	return ( selected ) ? selected[0] : null;
     // }
 
     function onlySpaces(str) {
@@ -221,12 +227,14 @@ const GeneralSettings = () => {
                     placeholder='Enter form name (eg. Support Form)'
                     onChange={(e) => handleChangeInputValue(e)}
                 />
-                {
-                   onlySpaces(templateName) ? <span className="wpwax-vm-validate-danger">Please Enter Form Name</span> : null
-                }
+                {onlySpaces(templateName) ? (
+                    <span className='wpwax-vm-validate-danger'>
+                        Please Enter Form Name
+                    </span>
+                ) : null}
             </div>
 
-			{/* <div className='wpwax-vm-form-group'>
+            {/* <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
                         <span>Form Tag</span>
@@ -235,7 +243,8 @@ const GeneralSettings = () => {
                                 <ReactSVG src={questionIcon} />
                             </span>
                             <span className='wpwax-vm-tooltip-text'>
-								All the messages submitted through this form will be assigned with this tag.
+                                All the messages submitted through this form
+                                will be assigned with this tag.
                             </span>
                         </span>
                     </span>
@@ -263,33 +272,33 @@ const GeneralSettings = () => {
                     <div className='wpwax-vm-chekbox-single'>
                         <span>Name</span>
                         <Checkbox
-                            id="collect-info-phone"
-                            label=""
+                            id='collect-info-phone'
+                            label=''
                             onChange={handleCollectInfo}
                             checked={true}
-                            value="name"
+                            value='name'
                             disabled={true}
                         />
                     </div>
                     <div className='wpwax-vm-chekbox-single'>
                         <span>Email </span>
                         <Checkbox
-                            id="collect-info-phone"
-                            label=""
+                            id='collect-info-phone'
+                            label=''
                             onChange={handleCollectInfo}
                             checked={true}
-                            value="email"
+                            value='email'
                             disabled={true}
                         />
                     </div>
                     <div className='wpwax-vm-chekbox-single'>
                         <span>Phone Number</span>
                         <Checkbox
-                            id="collect-info-phone"
-                            label=""
+                            id='collect-info-phone'
+                            label=''
                             onChange={handleCollectInfo}
-                            checked={collectInfo.includes('phone',0)}
-                            value="phone"
+                            checked={collectInfo.includes('phone', 0)}
+                            value='phone'
                         />
                     </div>
                 </div>
@@ -320,13 +329,14 @@ const GeneralSettings = () => {
                             handleDiameter={14}
                             height={22}
                             width={40}
-                            checked={ displayOnCustomPages }
-                            onChange={handleChangeDisplayOnCustomPagesSwitchValue}
+                            checked={displayOnCustomPages}
+                            onChange={
+                                handleChangeDisplayOnCustomPagesSwitchValue
+                            }
                         />
                     </label>
                 </div>
-                {
-                    ! displayOnCustomPages ? null :
+                {!displayOnCustomPages ? null : (
                     <Select
                         classNamePrefix='wpwax-vm-select'
                         options={customPages}
@@ -341,41 +351,14 @@ const GeneralSettings = () => {
                         onChange={handleOnChangeDisplayOnCustomPages}
                         allowSelectAll={true}
                     />
-                }
+                )}
 
-                {
-                    !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : <span className="wpwax-vm-validate-danger">Please select a page</span>
-                }
-            </div>
-
-            <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label'>
-                    <span>Close chat option</span>
-                </div>
-                <div className='wpwax-vm-radio-list'>
-                    <div className='wpwax-vm-radio-single'>
-                        <span>If closed never show again</span>
-                        <Radio
-                            id='wpwax-vm-never-show'
-                            label=''
-                            value='never_load'
-                            name='wpwax-vm-close-option'
-                            onChange={(e) => handleChatVisibility(e)}
-                            checked={chatVisibilityType === 'never_load'}
-                        />
-                    </div>
-                    <div className='wpwax-vm-radio-single'>
-                        <span>Show on reload</span>
-                        <Radio
-                            id='wpwax-vm-load-show'
-                            label=''
-                            value='show_on_reload'
-                            name='wpwax-vm-close-option'
-                            onChange={(e) => handleChatVisibility(e)}
-                            checked={chatVisibilityType === 'show_on_reload'}
-                        />
-                    </div>
-                </div>
+                {!displayOnCustomPages ||
+                displayedCustomPages.length !== 0 ? null : (
+                    <span className='wpwax-vm-validate-danger'>
+                        Please select a page
+                    </span>
+                )}
             </div>
         </GeneralSettingWrap>
     );

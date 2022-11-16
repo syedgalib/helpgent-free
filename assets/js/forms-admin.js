@@ -9111,26 +9111,26 @@ var fontOptions = [{
   label: 'Legend'
 }];
 var fontSizeOptions = [{
-  value: "1.3",
-  label: "large"
+  value: '1.3',
+  label: 'large'
 }, {
-  value: "1.5",
-  label: "x-large"
+  value: '1.5',
+  label: 'x-large'
 }, {
-  value: "2",
-  label: "xx-large"
+  value: '2',
+  label: 'xx-large'
 }, {
-  value: "1.2",
-  label: "medium"
+  value: '1.2',
+  label: 'medium'
 }, {
-  value: "1",
-  label: "small"
+  value: '1',
+  label: 'small'
 }, {
-  value: ".85",
-  label: "smaller"
+  value: '.85',
+  label: 'smaller'
 }, {
-  value: ".80",
-  label: "x-small"
+  value: '.80',
+  label: 'x-small'
 }];
 var GeneralSettings = function GeneralSettings() {
   /* initialize Form Data */
@@ -9145,13 +9145,11 @@ var GeneralSettings = function GeneralSettings() {
         displayOnCustomPages: state.form.settings.displayOnCustomPages,
         templateName: state.form.data[0].name,
         collectInfo: state.form.data[0].options.collectInfo,
-        displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : [],
+        displayedCustomPages: state.form.data[0].pages ? state.form.data[0].pages.split(',') : []
         // tag: state.form.data[0].options.tag,
-        chatVisibilityType: state.form.data[0].options.chat_visibility_type
       };
     }),
     formData = _useSelector.formData,
-    primaryColor = _useSelector.primaryColor,
     templateName = _useSelector.templateName,
     displayOnCustomPages = _useSelector.displayOnCustomPages,
     collectInfo = _useSelector.collectInfo,
@@ -9202,11 +9200,7 @@ var GeneralSettings = function GeneralSettings() {
   var handleCustomPageCheckbox = function handleCustomPageCheckbox() {};
 
   /* To Handle Template Change */
-  var handleChatVisibility = function handleChatVisibility(e) {
-    var visiblityType = e.target.value;
-    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('chat-visibility', visiblityType, formData);
-    dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
-  };
+
   var handleChangeInputValue = function handleChangeInputValue(e) {
     console.log(e.target.id, e.target.checked);
     var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
@@ -9222,7 +9216,7 @@ var GeneralSettings = function GeneralSettings() {
     } else {
       newCollectInfo.push(checkboxValue);
     }
-    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])("wpwax-vm-info-collection", newCollectInfo, formData);
+    var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('wpwax-vm-info-collection', newCollectInfo, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleChangeSwitchValue = function handleChangeSwitchValue(value, event, id) {
@@ -9239,7 +9233,6 @@ var GeneralSettings = function GeneralSettings() {
       dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
     }
   }
-  ;
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
     var customPageIds = '';
     var updatedData = '';
@@ -9417,45 +9410,6 @@ var GeneralSettings = function GeneralSettings() {
       }), !displayOnCustomPages || displayedCustomPages.length !== 0 ? null : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
         className: "wpwax-vm-validate-danger",
         children: "Please select a page"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-          children: "Close chat option"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-        className: "wpwax-vm-radio-list",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            children: "If closed never show again"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            id: "wpwax-vm-never-show",
-            label: "",
-            value: "never_load",
-            name: "wpwax-vm-close-option",
-            onChange: function onChange(e) {
-              return handleChatVisibility(e);
-            },
-            checked: chatVisibilityType === 'never_load'
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-          className: "wpwax-vm-radio-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            children: "Show on reload"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Components_form_fields_Radio_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            id: "wpwax-vm-load-show",
-            label: "",
-            value: "show_on_reload",
-            name: "wpwax-vm-close-option",
-            onChange: function onChange(e) {
-              return handleChatVisibility(e);
-            },
-            checked: chatVisibilityType === 'show_on_reload'
-          })]
-        })]
       })]
     })]
   });
@@ -10572,7 +10526,6 @@ var formData = [{
   options: {
     "theme": "theme-1",
     "collectInfo": ["phone"],
-    "chat_visibility_type": "show_on_reload",
     "greet_image_url": "",
     "greet_video_url": "",
     "greet_message": "Welcome to Directorist, leave your questions below",
@@ -11056,12 +11009,6 @@ var FormUpdater = function FormUpdater(label, value, formInitialData) {
       case "wpwax-vm-display-custom-pages":
         return _objectSpread(_objectSpread({}, item), {}, {
           pages: value
-        });
-      case "chat-visibility":
-        return _objectSpread(_objectSpread({}, item), {}, {
-          options: _objectSpread(_objectSpread({}, item.options), {}, {
-            chat_visibility_type: value
-          })
         });
       case "wpwax-vm-info-collection":
         return _objectSpread(_objectSpread({}, item), {}, {

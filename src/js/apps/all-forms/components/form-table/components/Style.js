@@ -31,18 +31,46 @@ const TemplateBox = Styled.div`
         }
     }
     .wpwax-vm-table{
-        tr{
-            th{
-                &.wpwax-vm-head-name{
-                    width: 80%;
-                    @media only screen and (max-width: 1499px) {
-                        width: 70%;
-                    }
-                }
-                &.wpwax-vm-head-action{
-                    text-align: right;
-                }
+
+		@media (min-width: 1000px) {
+			table-layout: fixed;
+		}
+
+        tr {
+            th {
+				&.wpwax-vm-head-name {
+					width: 200px;
+
+					@media (min-width: 1150px) {
+						width: 320px;
+					}
+				}
+				&.wpwax-vm-head-shortcode {
+					width: 210px;
+				}
+				&.wpwax-vm-head-status {
+					width: 80px;
+				}
+				&.wpwax-vm-head-action {
+					text-align: right;
+				}
             }
+
+			td.wpwax-vm-head-shortcode input {
+				cursor: copy;
+				border: 0;
+				box-shadow: none;
+				font-family: monospace;
+				font-size: 12px;
+				width: 190px;
+				text-align: center;
+
+				&:focus {
+					outline: 0;
+					border: 0;
+					box-shadow: none;
+				}
+			}
         }
         .wpwax-vm-table-action{
             margin: -8px;
@@ -65,15 +93,18 @@ const TemplateBox = Styled.div`
     .wpwax-vm-titlebox{
         display: flex;
         align-items: center;
-        .wpwax-vm-titlebox-inner{
-            display: flex;
-            align-items: center;
-            min-width: 240px;
-        }
+
+		@media (min-width: 600px) {
+			min-width: 200px;
+		}
+
+		.wpwax-vm-titlebox__data {
+			padding-right: 20px;
+		}
         .wpwax-vm-titlebox__name{
             display: none;
             font-weight: 500;
-            min-width: 240px;
+            // width: 250px;
             color: var(--color-dark);
             &.wpwax-vm-show{
                 display: block;
@@ -99,14 +130,17 @@ const TemplateBox = Styled.div`
             border: 0 none;
             background-color: transparent;
             border-bottom: 1px solid var(--color-border-light);
+			border-radius: 0;
+			padding-left: 0;
+			padding-right: 0;
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
             }
         }
-        
+
     }
-    .wpwax-vm-titlebox__editor-action{
+    .wpwax-vm-titlebox__actions{
         margin-left: 10px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
         a{
@@ -116,66 +150,73 @@ const TemplateBox = Styled.div`
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            background-color: #fff;
-            box-shadow: 0 5px 10px #adb4d260;
+            box-shadow: none;
             margin: 2px;
-            transition: 0.3s ease;
+            transition-duration: 0.3s;
+			transition-timing-function: ease;
+			transition-property: background-color;
             text-decoration: none;
-            &:focus{
+            &:focus,
+			&:hover {
                 outline: none;
-                box-shadow: 0 0;
+                box-shadow: 0 5px 10px #adb4d260;
             }
-            &.wpwax-vm-titlebox__editor--cancel{
+
+			&.wpwax-vm-titlebox__editor--edit,
+			&.wpwax-vm-titlebox__editor--cancel,
+			&.wpwax-vm-titlebox__editor--yes {
+				display: none;
+				border: 1px solid;
+
+				&.wpwax-vm-show {
+                    display: inline-flex;
+                }
+			}
+
+			&.wpwax-vm-titlebox__editor--cancel,
+			&.wpwax-vm-titlebox__editor--yes {
+				color: var(--color-white);
+			}
+
+            &.wpwax-vm-titlebox__editor--cancel {
                 background-color: var(--color-danger);
-                border: 1px solid var(--color-danger);
-                display: none;
-                &:hover{
+                border-color: var(--color-danger);
+
+                &:hover {
                     color: var(--color-danger);
                     border-color: var(--color-danger);
                     background-color: var(--color-white);
-                    .dashicons:before{
-                        color: var(--color-danger);
-                    }
-                }
-                &.wpwax-vm-show{
-                    display: inline-flex;;
                 }
             }
-            &.wpwax-vm-titlebox__editor--yes{
+            &.wpwax-vm-titlebox__editor--yes {
                 background-color: var(--color-success);
-                border: 1px solid var(--color-success);
-                display: none;
-                &:hover{
+                border-color: var(--color-success);
+
+                &:hover {
                     color: var(--color-success);
                     border-color: var(--color-success);
                     background-color: var(--color-white);
-                    .dashicons:before{
-                        color: var(--color-success);
-                    }
-                }
-                &.wpwax-vm-show{
-                    display: inline-flex;;
                 }
             }
-            &.wpwax-vm-titlebox__editor--edit{
-                font-size: 15px;
-                display: none;
+
+            &.wpwax-vm-titlebox__editor--edit {
+				position: relative;
+				top: -12px;
+				color: var(--color-info);
+				border-color: transparent;
                 ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 15px;
-                &:before{
-                    color: #2C99FF;
-                }
-                &.wpwax-vm-show{
-                    display: inline-flex;
+
+				&:hover {
+					border-color: var(--color-white);
+                    background-color: var(--color-white);
                 }
             }
-            .dashicons{
-                line-height: 1;
+
+            .dashicons {
                 position: relative;
-                top: -2px;
-                &:before{
-                    font-size: 15px;
-                    color: var(--color-white);
-                }
+                top: 2px;
+				font-size: 16px;
+				color: currentColor;
             }
         }
     }

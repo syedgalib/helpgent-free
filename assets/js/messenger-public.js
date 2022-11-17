@@ -5172,194 +5172,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
-/***/ "./src/js/apps/chatbox-form/store/chatbox/actionCreator.js":
-/*!*****************************************************************!*\
-  !*** ./src/js/apps/chatbox-form/store/chatbox/actionCreator.js ***!
-  \*****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
-/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
-/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
-/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
-/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
-/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
-/* harmony export */ });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
-
-var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
-  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
-  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
-  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
-  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
-  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
-
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox-form/store/chatbox/actions.js":
-/*!***********************************************************!*\
-  !*** ./src/js/apps/chatbox-form/store/chatbox/actions.js ***!
-  \***********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var actions = {
-  SHOW_CHATBOX: 'SHOW_CHATBOX',
-  HIDE_CHATBOX: 'HIDE_CHATBOX',
-  SHOW_TOGGLER: 'SHOW_TOGGLER',
-  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
-  HIDE_TOGGLER: 'HIDE_TOGGLER',
-  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
-  showChatbox: function showChatbox() {
-    return {
-      type: actions.SHOW_CHATBOX
-    };
-  },
-  hideChatbox: function hideChatbox() {
-    return {
-      type: actions.HIDE_CHATBOX
-    };
-  },
-  showToggler: function showToggler() {
-    return {
-      type: actions.SHOW_TOGGLER
-    };
-  },
-  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
-    return {
-      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
-      payload: content
-    };
-  },
-  hideToggler: function hideToggler() {
-    return {
-      type: actions.HIDE_TOGGLER
-    };
-  },
-  changeChatScreen: function changeChatScreen(sceenType) {
-    return {
-      type: actions.CHANGE_CHAT_SCREEN,
-      payload: sceenType
-    };
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (actions);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox-form/store/chatbox/reducers.js":
-/*!************************************************************!*\
-  !*** ./src/js/apps/chatbox-form/store/chatbox/reducers.js ***!
-  \************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
-/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var initialState = {
-  showChatbox: false,
-  screenToggler: false,
-  screenTogglerContent: 'Open',
-  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
-};
-var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
-  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
-  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
-  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
-  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
-  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
-var chatboxReducers = function chatboxReducers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  var type = action.type,
-    payload = action.payload;
-  switch (type) {
-    case SHOW_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        showChatbox: true
-      });
-    case HIDE_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
-        showChatbox: false
-      });
-    case SHOW_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: true
-      });
-    case UPDATE_SCREEN_TOGGLER_CONTENT:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenTogglerContent: payload
-      });
-    case HIDE_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: false
-      });
-    case CHANGE_CHAT_SCREEN:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: payload
-      });
-    default:
-      return state;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox-form/store/chatbox/replayTypes.js":
-/*!***************************************************************!*\
-  !*** ./src/js/apps/chatbox-form/store/chatbox/replayTypes.js ***!
-  \***************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var replayTypes = {
-  TEXT: 'text',
-  AUDIO: 'voice',
-  VIDEO: 'video',
-  SCREEN_RECORDING: 'screen_record'
-};
-/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js":
-/*!***************************************************************!*\
-  !*** ./src/js/apps/chatbox-form/store/chatbox/screenTypes.js ***!
-  \***************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var screenTypes = {
-  HOME: 'home',
-  VIDEO: 'video',
-  AUDIO: 'voice',
-  TEXT: 'text',
-  SCREEN_RECORD: 'screen_record',
-  CONTACT_FORM: 'contact_form',
-  USER_AUTHENTICATION_FORM: 'user_authentication_form',
-  SENDING: 'sending',
-  SUCCESS: 'success',
-  SPLASH_SCREEN: 'splash_screen'
-};
-/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
-
-/***/ }),
-
 /***/ "./src/js/apps/chatbox-form/store/chatboxTemplate/actionCreator.js":
 /*!*************************************************************************!*\
   !*** ./src/js/apps/chatbox-form/store/chatboxTemplate/actionCreator.js ***!
@@ -5655,6 +5467,194 @@ var reducer = function reducer() {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/actionCreator.js":
+/*!*****************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/actionCreator.js ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
+/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
+/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
+/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
+/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
+
+var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
+  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
+  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
+  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
+  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/actions.js":
+/*!***********************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/actions.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  SHOW_CHATBOX: 'SHOW_CHATBOX',
+  HIDE_CHATBOX: 'HIDE_CHATBOX',
+  SHOW_TOGGLER: 'SHOW_TOGGLER',
+  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
+  HIDE_TOGGLER: 'HIDE_TOGGLER',
+  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
+  showChatbox: function showChatbox() {
+    return {
+      type: actions.SHOW_CHATBOX
+    };
+  },
+  hideChatbox: function hideChatbox() {
+    return {
+      type: actions.HIDE_CHATBOX
+    };
+  },
+  showToggler: function showToggler() {
+    return {
+      type: actions.SHOW_TOGGLER
+    };
+  },
+  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
+    return {
+      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+      payload: content
+    };
+  },
+  hideToggler: function hideToggler() {
+    return {
+      type: actions.HIDE_TOGGLER
+    };
+  },
+  changeChatScreen: function changeChatScreen(sceenType) {
+    return {
+      type: actions.CHANGE_CHAT_SCREEN,
+      payload: sceenType
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/reducers.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/reducers.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox-form/store/chatbox/actions.js");
+/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  showChatbox: false,
+  screenToggler: false,
+  screenTogglerContent: 'Open',
+  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
+};
+var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
+  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
+  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
+  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
+  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
+var chatboxReducers = function chatboxReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case SHOW_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showChatbox: true
+      });
+    case HIDE_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
+        showChatbox: false
+      });
+    case SHOW_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: true
+      });
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenTogglerContent: payload
+      });
+    case HIDE_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: false
+      });
+    case CHANGE_CHAT_SCREEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: payload
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/replayTypes.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/replayTypes.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var replayTypes = {
+  TEXT: 'text',
+  AUDIO: 'voice',
+  VIDEO: 'video',
+  SCREEN_RECORDING: 'screen_record'
+};
+/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox-form/store/chatbox/screenTypes.js":
+/*!***************************************************************!*\
+  !*** ./src/js/apps/chatbox-form/store/chatbox/screenTypes.js ***!
+  \***************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var screenTypes = {
+  HOME: 'home',
+  VIDEO: 'video',
+  AUDIO: 'voice',
+  TEXT: 'text',
+  SCREEN_RECORD: 'screen_record',
+  CONTACT_FORM: 'contact_form',
+  USER_AUTHENTICATION_FORM: 'user_authentication_form',
+  SENDING: 'sending',
+  SUCCESS: 'success',
+  SPLASH_SCREEN: 'splash_screen'
+};
+/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
 
 /***/ }),
 
@@ -11150,194 +11150,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
-/***/ "./src/js/apps/chatbox/store/chatbox/actionCreator.js":
-/*!************************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/actionCreator.js ***!
-  \************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
-/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
-/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
-/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
-/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
-/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
-/* harmony export */ });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
-
-var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
-  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
-  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
-  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
-  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
-  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
-
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/actions.js":
-/*!******************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/actions.js ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var actions = {
-  SHOW_CHATBOX: 'SHOW_CHATBOX',
-  HIDE_CHATBOX: 'HIDE_CHATBOX',
-  SHOW_TOGGLER: 'SHOW_TOGGLER',
-  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
-  HIDE_TOGGLER: 'HIDE_TOGGLER',
-  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
-  showChatbox: function showChatbox() {
-    return {
-      type: actions.SHOW_CHATBOX
-    };
-  },
-  hideChatbox: function hideChatbox() {
-    return {
-      type: actions.HIDE_CHATBOX
-    };
-  },
-  showToggler: function showToggler() {
-    return {
-      type: actions.SHOW_TOGGLER
-    };
-  },
-  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
-    return {
-      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
-      payload: content
-    };
-  },
-  hideToggler: function hideToggler() {
-    return {
-      type: actions.HIDE_TOGGLER
-    };
-  },
-  changeChatScreen: function changeChatScreen(sceenType) {
-    return {
-      type: actions.CHANGE_CHAT_SCREEN,
-      payload: sceenType
-    };
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (actions);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/reducers.js":
-/*!*******************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/reducers.js ***!
-  \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
-/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-var initialState = {
-  showChatbox: false,
-  screenToggler: false,
-  screenTogglerContent: 'Open',
-  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
-};
-var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
-  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
-  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
-  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
-  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
-  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
-var chatboxReducers = function chatboxReducers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  var type = action.type,
-    payload = action.payload;
-  switch (type) {
-    case SHOW_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        showChatbox: true
-      });
-    case HIDE_CHATBOX:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
-        showChatbox: false
-      });
-    case SHOW_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: true
-      });
-    case UPDATE_SCREEN_TOGGLER_CONTENT:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenTogglerContent: payload
-      });
-    case HIDE_TOGGLER:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        screenToggler: false
-      });
-    case CHANGE_CHAT_SCREEN:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentChatScreen: payload
-      });
-    default:
-      return state;
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/replayTypes.js":
-/*!**********************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/replayTypes.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var replayTypes = {
-  TEXT: 'text',
-  AUDIO: 'voice',
-  VIDEO: 'video',
-  SCREEN_RECORDING: 'screen_record'
-};
-/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
-
-/***/ }),
-
-/***/ "./src/js/apps/chatbox/store/chatbox/screenTypes.js":
-/*!**********************************************************!*\
-  !*** ./src/js/apps/chatbox/store/chatbox/screenTypes.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var screenTypes = {
-  HOME: 'home',
-  VIDEO: 'video',
-  AUDIO: 'voice',
-  TEXT: 'text',
-  SCREEN_RECORD: 'screen_record',
-  CONTACT_FORM: 'contact_form',
-  USER_AUTHENTICATION_FORM: 'user_authentication_form',
-  SENDING: 'sending',
-  SUCCESS: 'success',
-  SPLASH_SCREEN: 'splash_screen'
-};
-/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
-
-/***/ }),
-
 /***/ "./src/js/apps/chatbox/store/chatboxTemplate/actionCreator.js":
 /*!********************************************************************!*\
   !*** ./src/js/apps/chatbox/store/chatboxTemplate/actionCreator.js ***!
@@ -11687,6 +11499,194 @@ var reducer = function reducer() {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (reducer);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/actionCreator.js":
+/*!************************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/actionCreator.js ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "changeChatScreen": function() { return /* binding */ changeChatScreen; },
+/* harmony export */   "hideChatbox": function() { return /* binding */ hideChatbox; },
+/* harmony export */   "hideToggler": function() { return /* binding */ hideToggler; },
+/* harmony export */   "showChatbox": function() { return /* binding */ showChatbox; },
+/* harmony export */   "showToggler": function() { return /* binding */ showToggler; },
+/* harmony export */   "updateScreenTogglerContent": function() { return /* binding */ updateScreenTogglerContent; }
+/* harmony export */ });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
+
+var showChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showChatbox,
+  hideChatbox = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideChatbox,
+  showToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].showToggler,
+  updateScreenTogglerContent = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateScreenTogglerContent,
+  hideToggler = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].hideToggler,
+  changeChatScreen = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].changeChatScreen;
+
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/actions.js":
+/*!******************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/actions.js ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var actions = {
+  SHOW_CHATBOX: 'SHOW_CHATBOX',
+  HIDE_CHATBOX: 'HIDE_CHATBOX',
+  SHOW_TOGGLER: 'SHOW_TOGGLER',
+  UPDATE_SCREEN_TOGGLER_CONTENT: 'UPDATE_SCREEN_TOGGLER_CONTENT',
+  HIDE_TOGGLER: 'HIDE_TOGGLER',
+  CHANGE_CHAT_SCREEN: 'CHANGE_CHAT_SCREEN',
+  showChatbox: function showChatbox() {
+    return {
+      type: actions.SHOW_CHATBOX
+    };
+  },
+  hideChatbox: function hideChatbox() {
+    return {
+      type: actions.HIDE_CHATBOX
+    };
+  },
+  showToggler: function showToggler() {
+    return {
+      type: actions.SHOW_TOGGLER
+    };
+  },
+  updateScreenTogglerContent: function updateScreenTogglerContent(content) {
+    return {
+      type: actions.UPDATE_SCREEN_TOGGLER_CONTENT,
+      payload: content
+    };
+  },
+  hideToggler: function hideToggler() {
+    return {
+      type: actions.HIDE_TOGGLER
+    };
+  },
+  changeChatScreen: function changeChatScreen(sceenType) {
+    return {
+      type: actions.CHANGE_CHAT_SCREEN,
+      payload: sceenType
+    };
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (actions);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/reducers.js":
+/*!*******************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/reducers.js ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/js/apps/chatbox/store/chatbox/actions.js");
+/* harmony import */ var _screenTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var initialState = {
+  showChatbox: false,
+  screenToggler: false,
+  screenTogglerContent: 'Open',
+  currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN
+};
+var SHOW_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_CHATBOX,
+  HIDE_CHATBOX = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_CHATBOX,
+  SHOW_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].SHOW_TOGGLER,
+  UPDATE_SCREEN_TOGGLER_CONTENT = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].UPDATE_SCREEN_TOGGLER_CONTENT,
+  HIDE_TOGGLER = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].HIDE_TOGGLER,
+  CHANGE_CHAT_SCREEN = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].CHANGE_CHAT_SCREEN;
+var chatboxReducers = function chatboxReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var type = action.type,
+    payload = action.payload;
+  switch (type) {
+    case SHOW_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showChatbox: true
+      });
+    case HIDE_CHATBOX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].HOME,
+        showChatbox: false
+      });
+    case SHOW_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: true
+      });
+    case UPDATE_SCREEN_TOGGLER_CONTENT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenTogglerContent: payload
+      });
+    case HIDE_TOGGLER:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        screenToggler: false
+      });
+    case CHANGE_CHAT_SCREEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentChatScreen: payload
+      });
+    default:
+      return state;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (chatboxReducers);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/replayTypes.js":
+/*!**********************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/replayTypes.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var replayTypes = {
+  TEXT: 'text',
+  AUDIO: 'voice',
+  VIDEO: 'video',
+  SCREEN_RECORDING: 'screen_record'
+};
+/* harmony default export */ __webpack_exports__["default"] = (replayTypes);
+
+/***/ }),
+
+/***/ "./src/js/apps/chatbox/store/chatbox/screenTypes.js":
+/*!**********************************************************!*\
+  !*** ./src/js/apps/chatbox/store/chatbox/screenTypes.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var screenTypes = {
+  HOME: 'home',
+  VIDEO: 'video',
+  AUDIO: 'voice',
+  TEXT: 'text',
+  SCREEN_RECORD: 'screen_record',
+  CONTACT_FORM: 'contact_form',
+  USER_AUTHENTICATION_FORM: 'user_authentication_form',
+  SENDING: 'sending',
+  SUCCESS: 'success',
+  SPLASH_SCREEN: 'splash_screen'
+};
+/* harmony default export */ __webpack_exports__["default"] = (screenTypes);
 
 /***/ }),
 
@@ -13125,7 +13125,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var CenterBoxStyle = {
-  minHeight: '620px',
+  minHeight: '770px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -15155,7 +15155,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 520px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            ", ": 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            ", ": 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: absolute;\n        bottom: 95px;\n        ", ": 200px;\n        width: 100%;\n        height: auto;\n        max-width: 484px;\n        border-radius: 30px;\n        z-index: 10;\n        box-shadow: 0 20px 50px rgba(0,0,0,.10);\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1399px){\n            max-width: 434px;\n            ", ": 40px;\n        }\n        @media only screen and (max-width: 1199px){\n            ", ": 0;\n            bottom: 80px;\n            max-width: 400px;\n        }\n        @media only screen and (max-width: 767px){\n            max-width: fit-content;\n        }\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            padding: 50px;\n            border-radius: 30px;\n            @media only screen and (max-width: 1399px){\n                padding: 40px;\n            }\n            @media only screen and (max-width: 767px){\n                padding: 20px;\n            }\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                ", ": 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 18px;\n                font-weight: 600;\n                margin: 0 0 20px;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 1199px){\n                    font-size: 16px;\n                }\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                margin: -10px;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    min-height: 70px;\n                    padding: 0 32px;\n                    border-radius: 10px;\n                    background-color: var(--color-bg-general);\n                    @media only screen and (max-width: 1199px){\n                        font-size: 14px;\n                        min-height: 50px;\n                        padding: 0 20px;\n                    }\n                    @media only screen and (max-width: 767px){\n                        min-height: 46px;\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        ", ": 15px;\n                        svg{\n                            width: 26px;\n                            height: 26px;\n                            @media only screen and (max-width: 1199px){\n                                width: 20px;\n                                height: 20px;\n                            }\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
+var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 620px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            ", ": 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            ", ": 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: absolute;\n        bottom: 95px;\n        ", ": 200px;\n        width: 100%;\n        height: auto;\n        max-width: 484px;\n        border-radius: 30px;\n        z-index: 10;\n        box-shadow: 0 20px 50px rgba(0,0,0,.10);\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1399px){\n            max-width: 434px;\n            ", ": 40px;\n        }\n        @media only screen and (max-width: 1199px){\n            ", ": 0;\n            bottom: 80px;\n            max-width: 400px;\n        }\n        @media only screen and (max-width: 767px){\n            max-width: fit-content;\n        }\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            padding: 50px;\n            border-radius: 30px;\n            @media only screen and (max-width: 1399px){\n                padding: 40px;\n            }\n            @media only screen and (max-width: 767px){\n                padding: 20px;\n            }\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                ", ": 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 18px;\n                font-weight: 600;\n                margin: 0 0 20px;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 1199px){\n                    font-size: 16px;\n                }\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                margin: -10px;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    min-height: 70px;\n                    padding: 0 32px;\n                    border-radius: 10px;\n                    background-color: var(--color-bg-general);\n                    @media only screen and (max-width: 1199px){\n                        font-size: 14px;\n                        min-height: 50px;\n                        padding: 0 20px;\n                    }\n                    @media only screen and (max-width: 767px){\n                        min-height: 46px;\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        ", ": 15px;\n                        svg{\n                            width: 26px;\n                            height: 26px;\n                            @media only screen and (max-width: 1199px){\n                                width: 20px;\n                                height: 20px;\n                            }\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref2) {
@@ -24976,7 +24976,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a4d99765e112c7e1fddb7f7f5526a51.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a2a11c72343dfb60756f4ea68eb1e6c7.svg");
 
 /***/ }),
 
@@ -24988,7 +24988,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2e75ea146b4bfaab558a0b7192b3bc6e.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/9f989ef074c5dd61331c8b4e9fc8ae1d.svg");
 
 /***/ }),
 
@@ -25024,7 +25024,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0ae28158b1025d49b08ee0da73b3c74e.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5787ac4f10ee83e624cebeaae649d450.svg");
 
 /***/ }),
 
@@ -25036,7 +25036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
 
 /***/ }),
 
@@ -25048,7 +25048,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
 
 /***/ }),
 
@@ -25072,7 +25072,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/157405c3191adfa8fec63927c734b34b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e982cf393765f5e500fdee94df43af44.svg");
 
 /***/ }),
 
@@ -25096,7 +25096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
 
 /***/ }),
 
@@ -25108,7 +25108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
 
 /***/ }),
 
@@ -25120,7 +25120,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dfcf1da472821448ba1ba66598a574af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7ee24f89586350cdfb9dffa92d0ff330.svg");
 
 /***/ }),
 
@@ -25132,7 +25132,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
 
 /***/ }),
 
@@ -25156,7 +25156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
 
 /***/ }),
 
@@ -25192,7 +25192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
 
 /***/ }),
 
@@ -25216,7 +25216,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
 
 /***/ }),
 
@@ -25252,7 +25252,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
 
 /***/ }),
 
@@ -25288,7 +25288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
 
 /***/ }),
 
@@ -25300,7 +25300,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
 
 /***/ }),
 
@@ -25324,7 +25324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2f49a20e9cd02df54b919077ff532c76.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5b0df7c10353c906e25b5510a23748db.svg");
 
 /***/ }),
 
@@ -25336,7 +25336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
 
 /***/ }),
 
@@ -25396,7 +25396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 
@@ -25432,7 +25432,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
 
 /***/ }),
 

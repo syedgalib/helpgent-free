@@ -183,13 +183,17 @@ const PreviewWrap = Styled.div`
                 justify-content: center;
                 flex-direction: column;
                 box-sizing: border-box;
+                white-space: nowrap;
                 height: min(80vh,90px);
                 text-transform: capitalize;
-                flex: 1;
-                margin: 1.5%;
+                width: 90px;
+                flex-basis: 90px;
+                margin: 5px;
                 pointer-events: none;
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
+                    width: 95px;
+                    flex-basis: 95px;
                 }
                 >div{
                     line-height: 0;
@@ -249,19 +253,18 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        width: 450px;
+        width: 380px;
         min-height: 560px;
         border-radius: 25px;
-        padding: 30px;
+        padding: 25px;
         font-size: 18px;
         background-color: var(--color-page-bg);
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
-            width: 500px;
+            width: 430px;
             background-color: var(--color-page-bg);
         }
         @media only screen and (max-width: 1399px) {
-            width: 400px;
             font-size: 16px;
             min-height: 480px;
         }
@@ -269,7 +272,7 @@ const PreviewWrap = Styled.div`
             width: 380px
         }
         @media only screen and (max-width: 1024px) {
-            width: 360px;
+            width: 380px;
             font-size: 14px;
             min-height: 480px;
         }
@@ -365,9 +368,6 @@ const PreviewWrap = Styled.div`
                 padding: 0 25px;
                 min-height: 198px;
                 background-color: var(--color-page-bg);
-                @media only screen and (max-width: 1199px) {
-                    padding: 0 15px;
-                }
                 .wpwax-vm-preview-footer__title{
                     font-size: var(--font-size-chat);
                     font-weight: 600;

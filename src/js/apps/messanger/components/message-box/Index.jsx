@@ -45,7 +45,7 @@ import useMessangerAPI from 'API/useMessangerAPI.js';
 // import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const CenterBoxStyle = {
-    minHeight: '620px',
+    minHeight: '770px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

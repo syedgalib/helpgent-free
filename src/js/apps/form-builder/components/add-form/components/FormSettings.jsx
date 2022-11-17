@@ -25,12 +25,8 @@ export const templateOptions = [
 
 export const fontSizeOptions = [
     { value: "1.3", label: "large" },
-    { value: "1.5", label: "x-large" },
-    { value: "2", label: "xx-large" },
     { value: "1.2", label: "medium" },
-    { value: "1", label: "small" },
-    { value: ".85", label: "smaller" },
-    { value: ".80", label: "x-small" },
+    { value: "1", label: "x-small" },
 ]
 const FormSettings = () => {
     /* initialize Form Data */

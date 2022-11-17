@@ -103,7 +103,7 @@ const AddForm = () => {
     const dispatch = useDispatch();
 
     function onlySpaces(str) {
-    return str.trim().length === 0;
+        return str.trim().length === 0;
     }
 
     const handleFormNext = (event,btnName) => {
@@ -117,22 +117,14 @@ const AddForm = () => {
                 });
             }
         }else if(btnName === "btn-form"){
-
             if(!displayOnCustomPages){
-                if(!onlySpaces(formInitialData.name)){
-                    setState({
-                        ...state,
-                        currentStage: "form",
-                        validation: true
-                    });
-                }else{
-                    setState({
-                        ...state,
-                        validation: false
-                    });
-                }
+                setState({
+                    ...state,
+                    currentStage: "form",
+                    validation: true
+                });
             }else{
-                if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                if(formInitialData.pages && formInitialData.pages.length !== 0){
                     setState({
                         ...state,
                         currentStage: "form",
@@ -147,20 +139,13 @@ const AddForm = () => {
             }
         }else if(btnName === "btn-thank"){
             if(!displayOnCustomPages){
-                if(!onlySpaces(formInitialData.name)){
-                    setState({
-                        ...state,
-                        currentStage: "thank",
-                        validation: true
-                    });
-                }else{
-                    setState({
-                        ...state,
-                        validation: false
-                    });
-                }
+                setState({
+                    ...state,
+                    currentStage: "thank",
+                    validation: true
+                });
             }else{
-                if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                if(formInitialData.pages && formInitialData.pages.length !== 0){
                     setState({
                         ...state,
                         currentStage: "thank",
@@ -176,20 +161,13 @@ const AddForm = () => {
         }else{
             if(currentStage === "general"){
                 if(!displayOnCustomPages){
-                    if(!onlySpaces(formInitialData.name)){
-                        setState({
-                            ...state,
-                            currentStage: "form",
-                            validation: true
-                        });
-                    }else{
-                        setState({
-                            ...state,
-                            validation: false
-                        });
-                    }
+                    setState({
+                        ...state,
+                        currentStage: "form",
+                        validation: true
+                    });
                 }else{
-                    if(formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)){
+                    if(formInitialData.pages && formInitialData.pages.length !== 0){
                         setState({
                             ...state,
                             currentStage: "form",

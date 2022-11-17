@@ -46,7 +46,7 @@ const formData = [
         "button_border_radius":"10",
         "chat_options_title_font_size": "1",
         "chat_options_title_font_color": "#ffffff",
-        "footer_message_font_size": ".80",
+        "footer_message_font_size": "1.2",
         "footer_message_color": "#ffffff",
         "primary_button_font_color": "#ffffff",
         "primary_button_background_color": "#6551f2",

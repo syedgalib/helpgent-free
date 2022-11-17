@@ -241,10 +241,7 @@ class Forms extends Rest_Base {
         $data = Form_Model::create_item( $args );
 
         if ( is_wp_error( $data ) ) {
-            return new WP_REST_Response(
-                [ 'success' => false, 'message' => $data->get_error_message() ],
-                $data->get_error_code()
-            );
+            return $data;
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();
@@ -272,10 +269,7 @@ class Forms extends Rest_Base {
         $data = Form_Model::update_item( $args );
 
         if ( is_wp_error( $data ) ) {
-            return new WP_REST_Response(
-                [ 'success' => false, 'message' => $data->get_error_message() ],
-                $data->get_error_code()
-            );
+            return $data;
         }
 
         $args['sanitize_schema'] = $this->get_sanitize_schema();

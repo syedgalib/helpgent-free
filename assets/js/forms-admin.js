@@ -6906,6 +6906,199 @@ function App() {
 
 /***/ }),
 
+/***/ "./src/js/apps/all-forms/components/CreateFormModal.jsx":
+/*!**************************************************************!*\
+  !*** ./src/js/apps/all-forms/components/CreateFormModal.jsx ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Components/Modal.jsx */ "./src/js/components/Modal.jsx");
+/* harmony import */ var API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! API/useFormAPI.js */ "./src/js/helpers/hooks/api/useFormAPI.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var CreateFormModal = function CreateFormModal(props) {
+  var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    createForm = _useFormAPI.createItem;
+  var formState = props.formState,
+    setFormState = props.setFormState;
+
+  /* Initialize State */
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      formCreationResponse: '',
+      defaultForm: {
+        name: "Untitled",
+        options: {
+          "theme": "theme-1",
+          "collectInfo": ["phone"],
+          "greet_image_url": "",
+          "greet_video_url": "",
+          "greet_message": "Welcome to Directorist, leave your questions below",
+          "greet_message_font_color": "#ffffff",
+          "greet_message_font_size": "1.3",
+          "show_description": true,
+          "description": "Welcome to Directorist, leave your questions below",
+          "chat_options_title": "How would you like to chat?",
+          "can_replay_in": ["video", "voice", "text", "screen_record"],
+          "show_footer": true,
+          "footer_message": "You can practice before sending",
+          "thank_page_title": "Thank You",
+          "show_thank_page_description": true,
+          "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
+          "show_thank_page_cta_button": true,
+          "thank_page_cta_button_text": "Try for Free",
+          "thank_page_cta_button_url": "https://wpwax.com/",
+          "thank_page_background_color": "#ffffff",
+          "thank_page_title_color": "#000000",
+          "thank_page_title_font_size": "2",
+          "thank_page_description_font_size": "1",
+          "thank_page_description_color": "#000000",
+          "play_btn_background": "#ffffff",
+          "page_background_color": "#ffffff",
+          "page_header_background_color": "#6551f2",
+          "thank_page_cta_font_color": "#23030308",
+          "thank_page_cta_button_color": "#236551F2",
+          "thank_page_cta_button_text_color": "#23ffffff",
+          "thank_page_cta_button_radius": "10",
+          "font_family": "Inter",
+          "font_color": "#23ffffff",
+          "button_color": "#6551f2",
+          "button_border_radius": "10",
+          "chat_options_title_font_size": "1",
+          "chat_options_title_font_color": "#ffffff",
+          "footer_message_font_size": ".80",
+          "footer_message_color": "#ffffff",
+          "primary_button_font_color": "#ffffff",
+          "primary_button_background_color": "#6551f2"
+        },
+        pages: ""
+      }
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    state = _useState2[0],
+    setState = _useState2[1];
+  function handleChangeInputValue(e) {
+    setState(_objectSpread(_objectSpread({}, state), {}, {
+      defaultForm: _objectSpread(_objectSpread({}, state.defaultForm), {}, {
+        name: e.target.value
+      })
+    }));
+  }
+  function handleCreateForm(_x) {
+    return _handleCreateForm.apply(this, arguments);
+  } /* Handle Delete Modal Cancelation */
+  function _handleCreateForm() {
+    _handleCreateForm = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var formData;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              formData = {
+                name: state.defaultForm.name,
+                options: JSON.stringify(state.defaultForm.options),
+                pages: state.defaultForm.pages
+              };
+              if (onlySpaces(state.defaultForm.name)) {
+                _context.next = 5;
+                break;
+              }
+              _context.next = 5;
+              return createForm(formData).then(function (addFormResponse) {
+                if (addFormResponse.success) {
+                  window.location.href = "".concat(location.href, "&mode=edit&id=").concat(addFormResponse.data.id);
+                } else {
+                  setState(_objectSpread(_objectSpread({}, state), {}, {
+                    formCreationResponse: addFormResponse
+                  }));
+                }
+              });
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _handleCreateForm.apply(this, arguments);
+  }
+  var _handleCancel = function handleCancel(e) {
+    e.preventDefault();
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
+      createFormModalStatus: 'close'
+    }));
+  };
+  function onlySpaces(str) {
+    return str.trim().length === 0;
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: "wpwax-vm-create-form-modal",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      title: "Create Form",
+      handleCancel: function handleCancel(e) {
+        return _handleCancel(e);
+      },
+      status: formState.createFormModalStatus,
+      footer: false,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "wpwax-hg-create-form",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+          action: "",
+          onSubmit: handleCreateForm,
+          children: [state.formCreationResponse.statusCode === 403 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "wpwax-vm-danger-text",
+            children: "Please Try Again"
+          }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "wpwax-vm-form-group",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+              type: "text",
+              className: "wpwax-vm-form__element",
+              id: "wpwax-vm-chat-title",
+              placeholder: "Form Name",
+              value: state.defaultForm.name,
+              onChange: function onChange(e) {
+                return handleChangeInputValue(e);
+              }
+            }), state.formCreationResponse.statusCode === 500 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+              className: "wpwax-vm-danger-text",
+              children: "Please Enter Form Name"
+            }) : null]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            type: "submit",
+            className: onlySpaces(state.defaultForm.name) ? 'wpwax-vm-btn wpwax-vm-btn-dark wpwax-vm-btn-block wpwax-vm-btn-disabled' : 'wpwax-vm-btn wpwax-vm-btn-dark wpwax-vm-btn-block',
+            disabled: onlySpaces(state.defaultForm.name) ? true : false,
+            children: "Create Form"
+          })]
+        })
+      })
+    })
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (CreateFormModal);
+
+/***/ }),
+
 /***/ "./src/js/apps/all-forms/components/form-table/Index.jsx":
 /*!***************************************************************!*\
   !*** ./src/js/apps/all-forms/components/form-table/Index.jsx ***!
@@ -6914,17 +7107,77 @@ function App() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/js/apps/all-forms/components/pageheader/Index.jsx");
-/* harmony import */ var _components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Table.jsx */ "./src/js/apps/all-forms/components/form-table/components/Table.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! API/useFormAPI.js */ "./src/js/helpers/hooks/api/useFormAPI.js");
+/* harmony import */ var _pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pageheader/Index.jsx */ "./src/js/apps/all-forms/components/pageheader/Index.jsx");
+/* harmony import */ var _components_Table_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Table.jsx */ "./src/js/apps/all-forms/components/form-table/components/Table.jsx");
+/* harmony import */ var _CreateFormModal_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CreateFormModal.jsx */ "./src/js/apps/all-forms/components/CreateFormModal.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
 
 
 function FormTable() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Table_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+    getAllForms = _useFormAPI.getItems;
+
+  /* Initialize State */
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      data: [],
+      titleInput: '',
+      message: '',
+      responseType: '',
+      deleteId: '',
+      modalStatus: 'close',
+      createFormModalStatus: 'close',
+      loader: true
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    state = _useState2[0],
+    setState = _useState2[1];
+
+  /* useEffect Hook used for render data when component was mounted  */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getAllForms({
+      status: 'draft,publish'
+    }).then(function (response) {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        data: response.data,
+        loader: false
+      }));
+    }).catch(function (error) {
+      setState(_objectSpread(_objectSpread({}, state), {}, {
+        message: error.message,
+        responseType: 'error',
+        loader: false
+      }));
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_pageheader_Index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      formState: state,
+      setFormState: setState
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Table_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      formState: state,
+      setFormState: setState
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_CreateFormModal_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      formState: state,
+      setFormState: setState
+    })]
   });
 }
 /* harmony default export */ __webpack_exports__["default"] = (FormTable);
@@ -6943,7 +7196,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n\n\t\t@media (min-width: 1000px) {\n\t\t\ttable-layout: fixed;\n\t\t}\n\n        tr {\n            th {\n\t\t\t\t&.wpwax-vm-head-name {\n\t\t\t\t\twidth: 200px;\n\n\t\t\t\t\t@media (min-width: 1150px) {\n\t\t\t\t\t\twidth: 320px;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-shortcode {\n\t\t\t\t\twidth: 210px;\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-status {\n\t\t\t\t\twidth: 80px;\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-action {\n\t\t\t\t\ttext-align: right;\n\t\t\t\t}\n            }\n\n\t\t\ttd.wpwax-vm-head-shortcode input {\n\t\t\t\tcursor: copy;\n\t\t\t\tborder: 0;\n\t\t\t\tbox-shadow: none;\n\t\t\t\tfont-family: monospace;\n\t\t\t\tfont-size: 12px;\n\t\t\t\twidth: 190px;\n\t\t\t\ttext-align: center;\n\n\t\t\t\t&:focus {\n\t\t\t\t\toutline: 0;\n\t\t\t\t\tborder: 0;\n\t\t\t\t\tbox-shadow: none;\n\t\t\t\t}\n\t\t\t}\n        }\n        .wpwax-vm-table-action{\n            margin: -8px;\n            text-align: right;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            .dashicons{\n                width: 15px;\n                height: 15px;\n                ", ": 8px;\n                position: relative;\n                top: -4px;\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n\n\t\t@media (min-width: 600px) {\n\t\t\tmin-width: 200px;\n\t\t}\n\n\t\t.wpwax-vm-titlebox__data {\n\t\t\tpadding-right: 20px;\n\t\t}\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            // width: 250px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n\t\t\tborder-radius: 0;\n\t\t\tpadding-left: 0;\n\t\t\tpadding-right: 0;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n\n    }\n    .wpwax-vm-titlebox__actions{\n        margin-left: 10px;\n        ", ": 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            box-shadow: none;\n            margin: 2px;\n            transition-duration: 0.3s;\n\t\t\ttransition-timing-function: ease;\n\t\t\ttransition-property: background-color;\n            text-decoration: none;\n            &:focus,\n\t\t\t&:hover {\n                outline: none;\n                box-shadow: 0 5px 10px #adb4d260;\n            }\n\n\t\t\t&.wpwax-vm-titlebox__editor--edit,\n\t\t\t&.wpwax-vm-titlebox__editor--cancel,\n\t\t\t&.wpwax-vm-titlebox__editor--yes {\n\t\t\t\tdisplay: none;\n\t\t\t\tborder: 1px solid;\n\n\t\t\t\t&.wpwax-vm-show {\n                    display: inline-flex;\n                }\n\t\t\t}\n\n\t\t\t&.wpwax-vm-titlebox__editor--cancel,\n\t\t\t&.wpwax-vm-titlebox__editor--yes {\n\t\t\t\tcolor: var(--color-white);\n\t\t\t}\n\n            &.wpwax-vm-titlebox__editor--cancel {\n                background-color: var(--color-danger);\n                border-color: var(--color-danger);\n\n                &:hover {\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes {\n                background-color: var(--color-success);\n                border-color: var(--color-success);\n\n                &:hover {\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                }\n            }\n\n            &.wpwax-vm-titlebox__editor--edit {\n\t\t\t\tposition: relative;\n\t\t\t\ttop: -12px;\n\t\t\t\tcolor: var(--color-info);\n\t\t\t\tborder-color: transparent;\n                ", ": 15px;\n\n\t\t\t\t&:hover {\n\t\t\t\t\tborder-color: var(--color-white);\n                    background-color: var(--color-white);\n                }\n            }\n\n            .dashicons {\n                position: relative;\n                top: 2px;\n\t\t\t\tfont-size: 16px;\n\t\t\t\tcolor: currentColor;\n            }\n        }\n    }\n"])), function (_ref) {
+var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    border-radius: 10px;\n    padding: 20px;\n    background-color: var(--color-white);\n    a{\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n    }\n    .wpwax-vm-table-wrap{\n        position: relative;\n        min-height: 200px;\n        .wpwax-vm-loading-spin{\n            position: absolute;\n            left: 50%;\n            top: 50%;\n            z-index: 101;\n        }\n        .wpwax-vm-modal{\n            .wpwax-vm-modal__body{\n                text-align: center;\n                p{\n                    font-weight: 600;\n                    font-size: 18px;\n                    color: var(--color-dark);\n                }\n            }\n        }\n    }\n    .wpwax-vm-table{\n\n\t\t@media (min-width: 1000px) {\n\t\t\ttable-layout: fixed;\n\t\t}\n\n        tr {\n            th {\n\t\t\t\t&.wpwax-vm-head-name {\n\t\t\t\t\twidth: 200px;\n\n\t\t\t\t\t@media (min-width: 1150px) {\n\t\t\t\t\t\twidth: 320px;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-shortcode {\n\t\t\t\t\twidth: 210px;\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-status {\n\t\t\t\t\twidth: 80px;\n\t\t\t\t}\n\t\t\t\t&.wpwax-vm-head-action {\n\t\t\t\t\ttext-align: right;\n\t\t\t\t}\n            }\n\n\t\t\ttd.wpwax-vm-head-shortcode input {\n\t\t\t\tcursor: copy;\n\t\t\t\tborder: 0;\n\t\t\t\tbox-shadow: none;\n\t\t\t\tfont-family: monospace;\n\t\t\t\tfont-size: 12px;\n\t\t\t\twidth: 190px;\n\t\t\t\ttext-align: center;\n\n\t\t\t\t&:focus {\n\t\t\t\t\toutline: 0;\n\t\t\t\t\tborder: 0;\n\t\t\t\t\tbox-shadow: none;\n\t\t\t\t}\n\t\t\t}\n        }\n        .wpwax-vm-table-action{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            margin: -8px;\n            text-align: right;\n        }\n        .wpwax-vm-btn{\n            font-size: 14px;\n            padding: 0 14px;\n            margin: 8px;\n            text-decoration: none;\n            &:hover{\n                svg{\n                    path{\n                        fill: var(--color-dark);\n                    }\n                }\n            }\n            svg{\n                ", ": 8px;\n            }\n            &.wpwax-vm-btn-danger{\n                &:hover{\n                    svg{\n                        path{\n                            fill: var(--color-danger);\n                        }\n                    }\n                }\n                svg{\n                    path{\n                        fill: var(--color-white);\n                    }\n                }\n            }\n        }\n    }\n    .wpwax-vm-titlebox{\n        display: flex;\n        align-items: center;\n\n\t\t@media (min-width: 600px) {\n\t\t\tmin-width: 200px;\n\t\t}\n\n\t\t.wpwax-vm-titlebox__data {\n\t\t\tpadding-right: 20px;\n\t\t}\n        .wpwax-vm-titlebox__name{\n            display: none;\n            font-weight: 500;\n            // width: 250px;\n            color: var(--color-dark);\n            &.wpwax-vm-show{\n                display: block;\n            }\n            span{\n                display: block;\n            }\n            .wpwax-vm-titlebox__id{\n                font-size: 13px;\n                font-weight: 400;\n                display: block;\n                margin-top: 4px;\n                color: var(--color-gray);\n            }\n        }\n    }\n    .wpwax-vm-titlebox__editor{\n        display: none;\n        &.wpwax-vm-show{\n            display: flex;\n        }\n        input{\n            border: 0 none;\n            background-color: transparent;\n            border-bottom: 1px solid var(--color-border-light);\n\t\t\tborder-radius: 0;\n\t\t\tpadding-left: 0;\n\t\t\tpadding-right: 0;\n            &:focus{\n                outline: none;\n                box-shadow: 0 0;\n            }\n        }\n\n    }\n    .wpwax-vm-titlebox__actions{\n        margin-left: 10px;\n        ", ": 10px;\n        a{\n            display: inline-flex;\n            align-items: center;\n            justify-content: center;\n            width: 30px;\n            height: 30px;\n            border-radius: 50%;\n            box-shadow: none;\n            margin: 2px;\n            transition-duration: 0.3s;\n\t\t\ttransition-timing-function: ease;\n\t\t\ttransition-property: background-color;\n            text-decoration: none;\n            &:focus,\n\t\t\t&:hover {\n                outline: none;\n                box-shadow: 0 5px 10px #adb4d260;\n            }\n\n\t\t\t&.wpwax-vm-titlebox__editor--edit,\n\t\t\t&.wpwax-vm-titlebox__editor--cancel,\n\t\t\t&.wpwax-vm-titlebox__editor--yes {\n\t\t\t\tdisplay: none;\n\t\t\t\tborder: 1px solid;\n\n\t\t\t\t&.wpwax-vm-show {\n                    display: inline-flex;\n                }\n\t\t\t}\n\n\t\t\t&.wpwax-vm-titlebox__editor--cancel,\n\t\t\t&.wpwax-vm-titlebox__editor--yes {\n\t\t\t\tcolor: var(--color-white);\n\t\t\t}\n\n            &.wpwax-vm-titlebox__editor--cancel {\n                background-color: var(--color-danger);\n                border-color: var(--color-danger);\n\n                &:hover {\n                    color: var(--color-danger);\n                    border-color: var(--color-danger);\n                    background-color: var(--color-white);\n                }\n            }\n            &.wpwax-vm-titlebox__editor--yes {\n                background-color: var(--color-success);\n                border-color: var(--color-success);\n\n                &:hover {\n                    color: var(--color-success);\n                    border-color: var(--color-success);\n                    background-color: var(--color-white);\n                }\n            }\n\n            &.wpwax-vm-titlebox__editor--edit {\n\t\t\t\tposition: relative;\n\t\t\t\ttop: -12px;\n\t\t\t\tcolor: var(--color-info);\n\t\t\t\tborder-color: transparent;\n                ", ": 15px;\n\n\t\t\t\t&:hover {\n\t\t\t\t\tborder-color: var(--color-white);\n                    background-color: var(--color-white);\n                }\n            }\n\n            .dashicons {\n                position: relative;\n                top: 2px;\n\t\t\t\tfont-size: 16px;\n\t\t\t\tcolor: currentColor;\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 }, function (_ref2) {
@@ -6966,13 +7219,16 @@ var TemplateBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! Components/Modal.jsx */ "./src/js/components/Modal.jsx");
-/* harmony import */ var Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Assets/img/builder/no-data.png */ "./src/assets/img/builder/no-data.png");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! API/useFormAPI.js */ "./src/js/helpers/hooks/api/useFormAPI.js");
-/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
-/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/js/apps/all-forms/components/form-table/components/Style.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! API/useFormAPI.js */ "./src/js/helpers/hooks/api/useFormAPI.js");
+/* harmony import */ var react_switch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-switch */ "./node_modules/react-switch/dist/index.dev.mjs");
+/* harmony import */ var Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/img/builder/no-data.png */ "./src/assets/img/builder/no-data.png");
+/* harmony import */ var Assets_svg_icons_edit_alt_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/edit-alt.svg */ "./src/assets/svg/icons/edit-alt.svg");
+/* harmony import */ var Assets_svg_icons_trash_2_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/trash-2.svg */ "./src/assets/svg/icons/trash-2.svg");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Style */ "./src/js/apps/all-forms/components/form-table/components/Style.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -6990,48 +7246,38 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var Table = function Table() {
-  var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_3__["default"])(),
-    getAllForms = _useFormAPI.getItems,
+
+
+
+var Table = function Table(props) {
+  var _useFormAPI = (0,API_useFormAPI_js__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     updateForm = _useFormAPI.updateItem,
     deleteForm = _useFormAPI.deleteItem;
-
-  /* Initialize State */
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-      data: [],
-      titleInput: '',
-      message: '',
-      responseType: '',
-      deleteId: '',
-      modalStatus: 'close',
-      loader: true
-    }),
-    _useState2 = _slicedToArray(_useState, 2),
-    state = _useState2[0],
-    setState = _useState2[1];
+  var formState = props.formState,
+    setFormState = props.setFormState;
 
   /* Initialize editElementIndex State */
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
       editElementIndex: ''
     }),
-    _useState4 = _slicedToArray(_useState3, 2),
-    editElementIndexState = _useState4[0],
-    seteditElementIndexState = _useState4[1];
+    _useState2 = _slicedToArray(_useState, 2),
+    editElementIndexState = _useState2[0],
+    seteditElementIndexState = _useState2[1];
 
   /* State Destructuring  */
-  var data = state.data,
-    titleInput = state.titleInput,
-    message = state.message,
-    responseType = state.responseType,
-    modalStatus = state.modalStatus,
-    deleteId = state.deleteId,
-    loader = state.loader;
+  var data = formState.data,
+    titleInput = formState.titleInput,
+    message = formState.message,
+    responseType = formState.responseType,
+    modalStatus = formState.modalStatus,
+    deleteId = formState.deleteId,
+    loader = formState.loader;
   var editElementIndex = editElementIndexState.editElementIndex;
 
   /* Edit Mode Activation */
   var onOpenEditFormName = function onOpenEditFormName(event, name, index) {
     event.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       titleInput: name
     }));
     seteditElementIndexState({
@@ -7049,7 +7295,7 @@ var Table = function Table() {
 
   /* Update form Name */
   var onUpdateFormName = function onUpdateFormName(event) {
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       titleInput: event.target.value
     }));
   };
@@ -7057,7 +7303,7 @@ var Table = function Table() {
   /* Remove The Notice Box */
   var removeNotice = function removeNotice(event) {
     event.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       message: ''
     }));
   };
@@ -7076,14 +7322,14 @@ var Table = function Table() {
           }
           return form;
         });
-        setState(_objectSpread(_objectSpread({}, state), {}, {
+        setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: forms,
           responseType: 'success',
           message: response.message,
           loader: false
         }));
       } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
+        setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: data,
           responseType: 'warning',
           message: response.message,
@@ -7106,7 +7352,7 @@ var Table = function Table() {
         var stateData = data.filter(function (item) {
           return item.id !== deleteId;
         });
-        setState(_objectSpread(_objectSpread({}, state), {}, {
+        setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: stateData,
           responseType: 'success',
           message: response.message,
@@ -7115,7 +7361,7 @@ var Table = function Table() {
         }));
       }
     }).catch(function (error) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
+      setFormState(_objectSpread(_objectSpread({}, formState), {}, {
         message: error.message,
         responseType: 'error',
         modalStatus: 'close',
@@ -7127,7 +7373,7 @@ var Table = function Table() {
   /* Handle Delete Modal Cancelation */
   var _handleCancel = function handleCancel(e) {
     e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       modalStatus: 'close'
     }));
   };
@@ -7135,30 +7381,11 @@ var Table = function Table() {
   /* Delete Form */
   var onFormDelete = function onFormDelete(e, id) {
     e.preventDefault();
-    setState(_objectSpread(_objectSpread({}, state), {}, {
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
       modalStatus: 'open',
       deleteId: id
     }));
   };
-
-  /* useEffect Hook used for render data when component was mounted  */
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    getAllForms({
-      status: 'draft,publish'
-    }).then(function (response) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        // titleInput: response.data.name,
-        data: response.data,
-        loader: false
-      }));
-    }).catch(function (error) {
-      setState(_objectSpread(_objectSpread({}, state), {}, {
-        message: error.message,
-        responseType: 'error',
-        loader: false
-      }));
-    });
-  }, []);
 
   // Clipboard code was copied from w3schools.com
   var onShortcodeCopy = function onShortcodeCopy(event) {
@@ -7179,14 +7406,14 @@ var Table = function Table() {
           }
           return form;
         });
-        setState(_objectSpread(_objectSpread({}, state), {}, {
+        setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: forms,
           responseType: 'success',
           message: response.message,
           loader: false
         }));
       } else {
-        setState(_objectSpread(_objectSpread({}, state), {}, {
+        setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: data,
           responseType: 'warning',
           message: response.message,
@@ -7197,116 +7424,122 @@ var Table = function Table() {
       console.log(error);
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  var handleCreateNew = function handleCreateNew(e) {
+    e.preventDefault();
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
+      createFormModalStatus: 'open'
+    }));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: loader ? 'wpwax-vm-loder-active' : null,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-table-wrap wpwax-vm-table-responsive",
-      children: [message ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+      children: [message ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
         className: "".concat(responseType === 'success' ? 'wpwax-vm-notice wpwax-vm-notice-success' : 'wpwax-vm-notice wpwax-vm-notice-danger'),
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-notice__text",
           children: message
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-notice__close",
           onClick: removeNotice,
           children: "x"
         })]
-      }) : '', loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+      }) : '', loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
         className: "wpwax-vm-loading-spin",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
           className: "wpwax-vm-spin-dot"
         })]
-      }) : data.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
+      }) : data.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("table", {
         className: "wpwax-vm-table",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
               className: "wpwax-vm-head-name",
               children: "Name"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
               className: "wpwax-vm-head-shortcode",
               children: "Shortcode"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
               className: "wpwax-vm-head-status",
               children: "Status"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("th", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("th", {
               className: "wpwax-vm-head-action",
               children: "Action"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("tbody", {
           children: data.map(function (value, key) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                   className: "wpwax-vm-titlebox",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                     className: "wpwax-vm-titlebox__data",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
                       className: editElementIndex === key ? 'wpwax-vm-titlebox__name' : 'wpwax-vm-titlebox__name wpwax-vm-show',
-                      children: [value.name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+                      children: [value.name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
                         className: "wpwax-vm-titlebox__id",
                         children: ["ID: ", value.id]
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                       className: editElementIndex === key ? "wpwax-vm-titlebox__editor wpwax-vm-show" : "wpwax-vm-titlebox__editor",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
                         type: "text",
                         name: "wpwax-vm-title-input",
                         value: titleInput || '',
                         onChange: onUpdateFormName
                       })
                     })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                     className: "wpwax-vm-titlebox__actions",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                       href: "#",
                       className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--cancel wpwax-vm-show' : 'wpwax-vm-titlebox__editor--cancel',
                       onClick: onCloseEditFormName,
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
                         className: "dashicons dashicons-no"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                       href: "#",
                       className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--yes wpwax-vm-show' : 'wpwax-vm-titlebox__editor--yes',
                       onClick: function onClick(e) {
                         return updateFormName(e, value.id);
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
                         className: "dashicons dashicons-yes"
                       })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
                       href: "#",
                       className: editElementIndex === key ? 'wpwax-vm-titlebox__editor--edit' : 'wpwax-vm-titlebox__editor--edit wpwax-vm-show',
                       onClick: function onClick(e) {
                         return onOpenEditFormName(e, value.name, key);
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
                         className: "dashicons dashicons-edit"
                       })
                     })]
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
                 className: "wpwax-vm-head-shortcode",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("label", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
                     onClick: onShortcodeCopy,
                     type: "text",
                     readOnly: true,
                     value: "[helpgent_form id=\"".concat(value.id, "\"]")
                   })
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
                 className: "wpwax-vm-head-status",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   uncheckedIcon: false,
                   checkedIcon: false,
                   onColor: "#6551f2",
@@ -7322,49 +7555,50 @@ var Table = function Table() {
                     return onUpdateFormStatus(status, value.id);
                   }
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("td", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
                   className: "wpwax-vm-table-action",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
                     href: "".concat(location.href, "&mode=edit&id=").concat(value.id),
                     className: "wpwax-vm-btn wpwax-vm-btn-light",
-                    children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                      className: "dashicons dashicons-edit"
-                    }), ' ', "Edit"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
+                    children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                      src: Assets_svg_icons_edit_alt_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+                    }), "Edit"]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
                     href: "#",
                     className: "wpwax-vm-btn wpwax-vm-btn-danger",
                     onClick: function onClick(e) {
                       return onFormDelete(e, value.id);
                     },
-                    children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                      className: "dashicons dashicons-trash"
-                    }), ' ', "Delete"]
+                    children: [' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
+                      src: Assets_svg_icons_trash_2_svg__WEBPACK_IMPORTED_MODULE_6__["default"]
+                    }), "Delete"]
                   })]
                 })
               })]
             }, key);
           })
         })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-empty-table-box",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: "wpwax-empty-table-box__img",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-            src: Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("img", {
+            src: Assets_img_builder_no_data_png__WEBPACK_IMPORTED_MODULE_4__["default"],
             alt: "Video Support"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
           className: "wpwax-empty-table-box__content",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
             children: "Ready to start creating your first video message form?"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("a", {
-            href: location.href + '&mode=edit',
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("a", {
+            href: "#",
             className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-primary",
+            onClick: handleCreateNew,
             children: "Create Form"
           })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Components_Modal_jsx__WEBPACK_IMPORTED_MODULE_0__["default"], {
         title: "Delete Template",
         handleOk: function handleOk(e) {
           return _handleOk(e);
@@ -7373,7 +7607,8 @@ var Table = function Table() {
           return _handleCancel(e);
         },
         status: modalStatus,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+        footer: true,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
           children: "Are Your Sure ?"
         })
       })]
@@ -7396,22 +7631,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Style */ "./src/js/apps/all-forms/components/pageheader/Style.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-
-var PageHeader = function PageHeader() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+var PageHeader = function PageHeader(props) {
+  var formState = props.formState,
+    setFormState = props.setFormState;
+  var handleCreateNew = function handleCreateNew(e) {
+    e.preventDefault();
+    setFormState(_objectSpread(_objectSpread({}, formState), {}, {
+      createFormModalStatus: 'open'
+    }));
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__["default"], {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h2", {
         className: "wpwax-vm-page-header-title",
         children: "All Forms"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
-        href: location.href + '&mode=edit',
+      }), formState.data.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", {
+        href: "#",
         className: "wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-dark",
+        onClick: handleCreateNew,
         children: "Create New"
-      })]
+      }) : null]
     })
   });
 };
@@ -7865,18 +8111,12 @@ var AddForm = function AddForm() {
       }
     } else if (btnName === "btn-form") {
       if (!displayOnCustomPages) {
-        if (!onlySpaces(formInitialData.name)) {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            currentStage: "form",
-            validation: true
-          }));
-        } else {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            validation: false
-          }));
-        }
+        setState(_objectSpread(_objectSpread({}, state), {}, {
+          currentStage: "form",
+          validation: true
+        }));
       } else {
-        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+        if (formInitialData.pages && formInitialData.pages.length !== 0) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: "form",
             validation: true
@@ -7889,18 +8129,12 @@ var AddForm = function AddForm() {
       }
     } else if (btnName === "btn-thank") {
       if (!displayOnCustomPages) {
-        if (!onlySpaces(formInitialData.name)) {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            currentStage: "thank",
-            validation: true
-          }));
-        } else {
-          setState(_objectSpread(_objectSpread({}, state), {}, {
-            validation: false
-          }));
-        }
+        setState(_objectSpread(_objectSpread({}, state), {}, {
+          currentStage: "thank",
+          validation: true
+        }));
       } else {
-        if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+        if (formInitialData.pages && formInitialData.pages.length !== 0) {
           setState(_objectSpread(_objectSpread({}, state), {}, {
             currentStage: "thank",
             validation: true
@@ -7914,18 +8148,12 @@ var AddForm = function AddForm() {
     } else {
       if (currentStage === "general") {
         if (!displayOnCustomPages) {
-          if (!onlySpaces(formInitialData.name)) {
-            setState(_objectSpread(_objectSpread({}, state), {}, {
-              currentStage: "form",
-              validation: true
-            }));
-          } else {
-            setState(_objectSpread(_objectSpread({}, state), {}, {
-              validation: false
-            }));
-          }
+          setState(_objectSpread(_objectSpread({}, state), {}, {
+            currentStage: "form",
+            validation: true
+          }));
         } else {
-          if (formInitialData.pages.length !== 0 && !onlySpaces(formInitialData.name)) {
+          if (formInitialData.pages && formInitialData.pages.length !== 0) {
             setState(_objectSpread(_objectSpread({}, state), {}, {
               currentStage: "form",
               validation: true
@@ -8365,22 +8593,10 @@ var fontSizeOptions = [{
   value: "1.3",
   label: "large"
 }, {
-  value: "1.5",
-  label: "x-large"
-}, {
-  value: "2",
-  label: "xx-large"
-}, {
   value: "1.2",
   label: "medium"
 }, {
   value: "1",
-  label: "small"
-}, {
-  value: ".85",
-  label: "smaller"
-}, {
-  value: ".80",
   label: "x-small"
 }];
 var FormSettings = function FormSettings() {
@@ -9246,7 +9462,7 @@ var GeneralSettings = function GeneralSettings() {
           id: "wpwax-vm".concat(props.value),
           label: props.label,
           onChange: handleCustomPageCheckbox,
-          value: props.isSelected
+          checked: props.isSelected
         })
       }))
     });
@@ -9361,30 +9577,6 @@ var GeneralSettings = function GeneralSettings() {
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_7__.GeneralSettingWrap, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
-      className: "wpwax-vm-form-group",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-        className: "wpwax-vm-form-group__label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
-          htmlFor: "wpwax-vm-form-name",
-          children: ["Form Name", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            className: "wpwax-vm-require-sign",
-            children: "*"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
-        type: "text",
-        className: "wpwax-vm-form__element",
-        id: "wpwax-vm-form-name",
-        value: templateName,
-        placeholder: "Enter form name (eg. Support Form)",
-        onChange: function onChange(e) {
-          return handleChangeInputValue(e);
-        }
-      }), onlySpaces(templateName) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-        className: "wpwax-vm-validate-danger",
-        children: "Please Enter Form Name"
-      }) : null]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
       className: "wpwax-vm-form-group",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
         className: "wpwax-vm-form-group__label",
@@ -9893,7 +10085,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var GeneralSettingWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n"])));
 var FormSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    \n"])));
 var ThankSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    .wpwax-vm-chekbox-list{\n        .wpwax-vm-chekbox-single{\n            span{\n                text-transform: capitalize;\n            }\n        }\n    }\n"])));
-var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    font-family: var(--font-family);\n    color: var(--color-text);\n    \n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                ", ": 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 360px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 340px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        .wpwax-vm-preview-title{\n            font-weight: 600;\n            line-height: 1.25;\n            margin: 0 0 15px;\n            word-break: break-word;\n            font-size: var(--font-size-greet);\n            color: var(--color-text-greet);\n        }\n        .wpwax-vm-preview-description{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            color: var(--color-description);\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n        @media only screen and (max-width: 1199px) {\n            padding: 100px 0 40px;\n        }\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--play-button-bg);\n        i,\n        svg{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            color: var(--color-text-chat);\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                height: min(80vh,90px);\n                text-transform: capitalize;\n                flex: 1;\n                margin: 1.5%;\n                pointer-events: none;\n                @media only screen and (max-width: 1199px) {\n                    padding: 0 15px;\n                }\n                >div{\n                    line-height: 0;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 6px 0 6px;\n                    path,\n                    circle{\n                        fill: var(--primary-button-color);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            margin: 18px 0 0;\n            min-height: 20px;\n            opacity: .8;\n            text-align: center;\n            color: var(--color-footer-text);\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 420px;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        @media only screen and (max-width: 1399px) {\n            width: 380px;\n            padding: 240px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            padding: 220px 30px;\n            width: 320px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 475px) {\n            min-height: 480px;\n        }\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 450px;\n        min-height: 560px;\n        border-radius: 25px;\n        padding: 30px;\n        font-size: 18px;\n        background-color: var(--color-page-bg);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            width: 500px;\n            background-color: var(--color-page-bg);\n        }\n        @media only screen and (max-width: 1399px) {\n            width: 400px;\n            font-size: 16px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 380px\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 360px;\n            font-size: 14px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 575px) {\n            width: 320px;\n            padding: 20px;\n        }\n        @media only screen and (max-width: 475px) {\n            width: 280px;\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            /* min-height: 620px; */\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                z-index: 100;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-preview-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                    color: var(--color-text-greet);\n                }\n                .wpwax-vm-preview-description{\n                    display: block;\n                    margin-top: 8px;\n                }\n            }\n           .wpwax-vm-preview-inner{\n                position: static;\n                padding: 0;\n                min-height: 290px;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 360px;\n                    opacity: .9;\n                    border-radius: 25px 25px 0 0;\n                    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);\n                    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: 2px;\n                    width: 100%;\n                    height: 340px;\n                    opacity: .9;\n                    border-radius: 0 0 25px 25px;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 10;\n                }\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-100%);\n                   z-index: 100;\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10;\n                    min-height: 290px;\n                    background-size: cover;\n                    &:before,\n                    &:after{\n                        display: none\n                    }\n               }\n               video{\n                    width: 100%;\n                    height: 340px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 25px;\n                min-height: 198px;\n                background-color: var(--color-page-bg);\n                @media only screen and (max-width: 1199px) {\n                    padding: 0 15px;\n                }\n                .wpwax-vm-preview-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    opacity: .8;\n                    color: var(--color-footer-text);\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        font-size: 18px;\n        width: 100%;\n        height: 100%;\n        padding: 155px 30px 30px;\n        border-radius: 25px;\n        box-sizing: border-box;\n        width: 480px;\n        background-color: var(--color-thank-page-bg);\n        @media only screen and (max-width: 1399px) {\n            width: 450px;\n            padding: 75px 15px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 360px;\n            padding: 100px 15px 30px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: var(--font-size-thank-title);\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-thank-title);\n            }\n            p{\n                font-size: var(--font-size-thank-desc);\n                font-weight: 500;\n                line-height: 1.625;\n                color: var(--color-thank-desc);\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0;\n            @media only screen and (max-width: 1199px) {\n                margin-top: 140px;\n            }\n            @media only screen and (max-width: 1024px) {\n                margin-top: 100px;\n            }\n        }\n    }\n"])), function (_ref) {
+var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    font-family: var(--font-family);\n    color: var(--color-text);\n    \n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                ", ": 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 360px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 340px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        .wpwax-vm-preview-title{\n            font-weight: 600;\n            line-height: 1.25;\n            margin: 0 0 15px;\n            word-break: break-word;\n            font-size: var(--font-size-greet);\n            color: var(--color-text-greet);\n        }\n        .wpwax-vm-preview-description{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            color: var(--color-description);\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 140px 0 50px;\n        @media only screen and (max-width: 1199px) {\n            padding: 100px 0 40px;\n        }\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        background-color: var(--play-button-bg);\n        i,\n        svg{\n            width: 30px;\n            height: 30px;\n            color: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            color: var(--color-text-chat);\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                white-space: nowrap;\n                height: min(80vh,90px);\n                text-transform: capitalize;\n                width: 90px;\n                flex-basis: 90px;\n                margin: 5px;\n                pointer-events: none;\n                @media only screen and (max-width: 1199px) {\n                    padding: 0 15px;\n                    width: 95px;\n                    flex-basis: 95px;\n                }\n                >div{\n                    line-height: 0;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 6px 0 6px;\n                    path,\n                    circle{\n                        fill: var(--primary-button-color);\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            margin: 18px 0 0;\n            min-height: 20px;\n            opacity: .8;\n            text-align: center;\n            color: var(--color-footer-text);\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 420px;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        @media only screen and (max-width: 1399px) {\n            width: 380px;\n            padding: 240px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            padding: 220px 30px;\n            width: 320px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 475px) {\n            min-height: 480px;\n        }\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 380px;\n        min-height: 560px;\n        border-radius: 25px;\n        padding: 25px;\n        font-size: 18px;\n        background-color: var(--color-page-bg);\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            width: 430px;\n            background-color: var(--color-page-bg);\n        }\n        @media only screen and (max-width: 1399px) {\n            font-size: 16px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 380px\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 380px;\n            font-size: 14px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 575px) {\n            width: 320px;\n            padding: 20px;\n        }\n        @media only screen and (max-width: 475px) {\n            width: 280px;\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            /* min-height: 620px; */\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                z-index: 100;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-preview-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                    color: var(--color-text-greet);\n                }\n                .wpwax-vm-preview-description{\n                    display: block;\n                    margin-top: 8px;\n                }\n            }\n           .wpwax-vm-preview-inner{\n                position: static;\n                padding: 0;\n                min-height: 290px;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 360px;\n                    opacity: .9;\n                    border-radius: 25px 25px 0 0;\n                    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);\n                    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: 2px;\n                    width: 100%;\n                    height: 340px;\n                    opacity: .9;\n                    border-radius: 0 0 25px 25px;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 10;\n                }\n               .wpwax-vm-btn-play{\n                   position: absolute;\n                   left: 50%;\n                   top: 50%;\n                   transform: translate(-50%,-100%);\n                   z-index: 100;\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10;\n                    min-height: 290px;\n                    background-size: cover;\n                    &:before,\n                    &:after{\n                        display: none\n                    }\n               }\n               video{\n                    width: 100%;\n                    height: 340px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                padding: 0 25px;\n                min-height: 198px;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-preview-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    opacity: .8;\n                    color: var(--color-footer-text);\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        font-size: 18px;\n        width: 100%;\n        height: 100%;\n        padding: 155px 30px 30px;\n        border-radius: 25px;\n        box-sizing: border-box;\n        width: 480px;\n        background-color: var(--color-thank-page-bg);\n        @media only screen and (max-width: 1399px) {\n            width: 450px;\n            padding: 75px 15px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 360px;\n            padding: 100px 15px 30px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: var(--font-size-thank-title);\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-thank-title);\n            }\n            p{\n                font-size: var(--font-size-thank-desc);\n                font-weight: 500;\n                line-height: 1.625;\n                color: var(--color-thank-desc);\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: 200px;\n            padding: 0;\n            @media only screen and (max-width: 1199px) {\n                margin-top: 140px;\n            }\n            @media only screen and (max-width: 1024px) {\n                margin-top: 100px;\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 });
@@ -9942,23 +10134,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var fontSizeOptions = [{
-  value: "1.3",
+  value: "2",
   label: "large"
 }, {
-  value: "1.5",
-  label: "x-large"
-}, {
-  value: "2",
-  label: "xx-large"
-}, {
-  value: "1.2",
-  label: "medium"
-}, {
   value: "1",
-  label: "small"
-}, {
-  value: ".85",
-  label: "smaller"
+  label: "medium"
 }, {
   value: ".80",
   label: "x-small"
@@ -10636,7 +10816,7 @@ var formData = [{
     "button_border_radius": "10",
     "chat_options_title_font_size": "1",
     "chat_options_title_font_color": "#ffffff",
-    "footer_message_font_size": ".80",
+    "footer_message_font_size": "1.2",
     "footer_message_color": "#ffffff",
     "primary_button_font_color": "#ffffff",
     "primary_button_background_color": "#6551f2"
@@ -10942,7 +11122,7 @@ var Modal = function Modal(props) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "wpwax-vm-modal__body",
         children: props.children
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), props.footer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "wpwax-vm-modal__footer",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "wpwax-vm-modal-footer__action",
@@ -10958,7 +11138,7 @@ var Modal = function Modal(props) {
             children: "Ok"
           })]
         })
-      })]
+      }) : null]
     })]
   });
 };
@@ -12051,7 +12231,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
 
 /***/ }),
 
@@ -12067,6 +12247,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/assets/svg/icons/edit-alt.svg":
+/*!*******************************************!*\
+  !*** ./src/assets/svg/icons/edit-alt.svg ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4acafedc879db5c3ee59e4d4b9f40022.svg");
+
+/***/ }),
+
 /***/ "./src/assets/svg/icons/hand-down.svg":
 /*!********************************************!*\
   !*** ./src/assets/svg/icons/hand-down.svg ***!
@@ -12075,7 +12267,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -12099,7 +12291,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -12111,7 +12303,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
 
 /***/ }),
 
@@ -12127,6 +12319,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/assets/svg/icons/trash-2.svg":
+/*!******************************************!*\
+  !*** ./src/assets/svg/icons/trash-2.svg ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e71e27adca527078d96ce152987af970.svg");
+
+/***/ }),
+
 /***/ "./src/assets/svg/icons/video-camera.svg":
 /*!***********************************************!*\
   !*** ./src/assets/svg/icons/video-camera.svg ***!
@@ -12135,7 +12339,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 

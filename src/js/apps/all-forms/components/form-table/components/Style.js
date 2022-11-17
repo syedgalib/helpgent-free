@@ -73,6 +73,9 @@ const TemplateBox = Styled.div`
 			}
         }
         .wpwax-vm-table-action{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
             margin: -8px;
             text-align: right;
         }
@@ -81,12 +84,29 @@ const TemplateBox = Styled.div`
             padding: 0 14px;
             margin: 8px;
             text-decoration: none;
-            .dashicons{
-                width: 15px;
-                height: 15px;
+            &:hover{
+                svg{
+                    path{
+                        fill: var(--color-dark);
+                    }
+                }
+            }
+            svg{
                 ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
-                position: relative;
-                top: -4px;
+            }
+            &.wpwax-vm-btn-danger{
+                &:hover{
+                    svg{
+                        path{
+                            fill: var(--color-danger);
+                        }
+                    }
+                }
+                svg{
+                    path{
+                        fill: var(--color-white);
+                    }
+                }
             }
         }
     }

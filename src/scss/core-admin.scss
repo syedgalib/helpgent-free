@@ -419,6 +419,15 @@
                 background-color: var(--color-bg-general);
             }
         }
+        .wpwax-vm-select__menu-list {
+            &.wpwax-vm-select__menu-list--is-multi{
+                .wpwax-vm-select__option{
+                    &.wpwax-vm-select__option--is-selected{
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
     }
     .wpwax-vm-select__control{
         .wpwax-vm-select__value-container{

@@ -4,7 +4,7 @@ const ChatBoxWrap = Styled.div`
 	height: 100%;
     >div{
         @media only screen and (max-width: 1399px) {
-            min-height: 520px !important;
+            min-height: 620px !important;
         }
     }
     .wpwax-vm-replymode-wrap{

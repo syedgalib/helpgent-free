@@ -13,12 +13,15 @@ const Modal = props => {
                 <div className="wpwax-vm-modal__body">
                     {props.children}
                 </div>
-                <div className="wpwax-vm-modal__footer">
-                    <div className="wpwax-vm-modal-footer__action">
-                        <a href="#" className="wpwax-vm-modal-footer__action--cancel" onClick={props.handleCancel}>Cancel</a>
-                        <a href="#" className="wpwax-vm-modal-footer__action--ok" onClick={props.handleOk}>Ok</a>
-                    </div>
-                </div>
+                {
+                    props.footer ? 
+                        <div className="wpwax-vm-modal__footer">
+                            <div className="wpwax-vm-modal-footer__action">
+                                <a href="#" className="wpwax-vm-modal-footer__action--cancel" onClick={props.handleCancel}>Cancel</a>
+                                <a href="#" className="wpwax-vm-modal-footer__action--ok" onClick={props.handleOk}>Ok</a>
+                            </div>
+                        </div> : null
+                }
             </div>
         </React.Fragment>
 

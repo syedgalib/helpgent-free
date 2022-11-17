@@ -1,27 +1,20 @@
 import Modal from 'Components/Modal.jsx';
-import noData from 'Assets/img/builder/no-data.png';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import ReactSVG from 'react-inlinesvg';
 import useFormAPI from 'API/useFormAPI.js';
 import Switch from 'react-switch';
+import noData from 'Assets/img/builder/no-data.png';
+import editIcon from 'Assets/svg/icons/edit-alt.svg';
+import trashIcon from 'Assets/svg/icons/trash-2.svg';
 import TemplateBox from './Style';
 
-const Table = () => {
+const Table = props => {
     const {
-        getItems: getAllForms,
         updateItem: updateForm,
         deleteItem: deleteForm,
     } = useFormAPI();
 
-    /* Initialize State */
-    const [state, setState] = useState({
-        data: [],
-        titleInput: '',
-        message: '',
-        responseType: '',
-        deleteId: '',
-        modalStatus: 'close',
-        loader: true,
-    });
+    const { formState, setFormState } = props;
 
     /* Initialize editElementIndex State */
     const [editElementIndexState, seteditElementIndexState] = useState({
@@ -37,14 +30,15 @@ const Table = () => {
         modalStatus,
         deleteId,
         loader,
-    } = state;
+    } = formState;
+    
     const { editElementIndex } = editElementIndexState;
 
     /* Edit Mode Activation */
     const onOpenEditFormName = (event, name, index) => {
         event.preventDefault();
-        setState({
-            ...state,
+        setFormState({
+            ...formState,
             titleInput: name,
         });
         seteditElementIndexState({
@@ -62,8 +56,8 @@ const Table = () => {
 
     /* Update form Name */
     const onUpdateFormName = (event) => {
-        setState({
-            ...state,
+        setFormState({
+            ...formState,
             titleInput: event.target.value,
         });
     };
@@ -71,8 +65,8 @@ const Table = () => {
     /* Remove The Notice Box */
     const removeNotice = (event) => {
         event.preventDefault();
-        setState({
-            ...state,
+        setFormState({
+            ...formState,
             message: '',
         });
     };
@@ -94,16 +88,16 @@ const Table = () => {
                         }
                         return form;
                     });
-                    setState({
-                        ...state,
+                    setFormState({
+                        ...formState,
                         data: forms,
                         responseType: 'success',
                         message: response.message,
                         loader: false,
                     });
                 } else {
-                    setState({
-                        ...state,
+                    setFormState({
+                        ...formState,
                         data: data,
                         responseType: 'warning',
                         message: response.message,
@@ -129,8 +123,8 @@ const Table = () => {
                     const stateData = data.filter(
                         (item) => item.id !== deleteId
                     );
-                    setState({
-                        ...state,
+                    setFormState({
+                        ...formState,
                         data: stateData,
                         responseType: 'success',
                         message: response.message,
@@ -140,8 +134,8 @@ const Table = () => {
                 }
             })
             .catch((error) => {
-                setState({
-                    ...state,
+                setFormState({
+                    ...formState,
                     message: error.message,
                     responseType: 'error',
                     modalStatus: 'close',
@@ -153,8 +147,8 @@ const Table = () => {
     /* Handle Delete Modal Cancelation */
     const handleCancel = (e) => {
         e.preventDefault();
-        setState({
-            ...state,
+        setFormState({
+            ...formState,
             modalStatus: 'close',
         });
     };
@@ -162,33 +156,12 @@ const Table = () => {
     /* Delete Form */
     const onFormDelete = (e, id) => {
         e.preventDefault();
-        setState({
-            ...state,
+        setFormState({
+            ...formState,
             modalStatus: 'open',
             deleteId: id,
         });
     };
-
-    /* useEffect Hook used for render data when component was mounted  */
-    useEffect(() => {
-        getAllForms({ status: 'draft,publish' })
-            .then((response) => {
-                setState({
-                    ...state,
-                    // titleInput: response.data.name,
-                    data: response.data,
-                    loader: false,
-                });
-            })
-            .catch((error) => {
-                setState({
-                    ...state,
-                    message: error.message,
-                    responseType: 'error',
-                    loader: false,
-                });
-            });
-    }, []);
 
     // Clipboard code was copied from w3schools.com
     const onShortcodeCopy = (event) => {
@@ -209,16 +182,16 @@ const Table = () => {
                         }
                         return form;
                     });
-                    setState({
-                        ...state,
+                    setFormState({
+                        ...formState,
                         data: forms,
                         responseType: 'success',
                         message: response.message,
                         loader: false,
                     });
                 } else {
-                    setState({
-                        ...state,
+                    setFormState({
+                        ...formState,
                         data: data,
                         responseType: 'warning',
                         message: response.message,
@@ -230,6 +203,14 @@ const Table = () => {
                 console.log(error);
             });
     };
+
+    const handleCreateNew = e =>{
+        e.preventDefault()
+        setFormState({
+            ...formState,
+            createFormModalStatus: 'open'
+        });
+    }
 
     return (
         <TemplateBox className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -406,7 +387,7 @@ const Table = () => {
                                                     className='wpwax-vm-btn wpwax-vm-btn-light'
                                                 >
                                                     {' '}
-                                                    <span className='dashicons dashicons-edit'></span>{' '}
+                                                    <ReactSVG src={editIcon} />
                                                     Edit
                                                 </a>
                                                 <a
@@ -420,7 +401,7 @@ const Table = () => {
                                                     }
                                                 >
                                                     {' '}
-                                                    <span className='dashicons dashicons-trash'></span>{' '}
+                                                    <ReactSVG src={trashIcon} />
                                                     Delete
                                                 </a>
                                             </div>
@@ -441,8 +422,9 @@ const Table = () => {
                                 form?
                             </p>
                             <a
-                                href={location.href + '&mode=edit'}
+                                href="#"
                                 className={`wpwax-vm-page-header-btn wpwax-vm-btn wpwax-vm-btn-primary`}
+                                onClick={handleCreateNew}
                             >
                                 Create Form
                             </a>
@@ -455,6 +437,7 @@ const Table = () => {
                     handleOk={(e) => handleOk(e)}
                     handleCancel={(e) => handleCancel(e)}
                     status={modalStatus}
+                    footer={true}
                 >
                     <p>Are Your Sure ?</p>
                 </Modal>

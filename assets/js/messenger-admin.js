@@ -5197,7 +5197,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var CenterBoxStyle = {
-  minHeight: '620px',
+  minHeight: '770px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -7227,7 +7227,7 @@ __webpack_require__.r(__webpack_exports__);
 var _templateObject, _templateObject2;
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 520px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            ", ": 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            ", ": 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: absolute;\n        bottom: 95px;\n        ", ": 200px;\n        width: 100%;\n        height: auto;\n        max-width: 484px;\n        border-radius: 30px;\n        z-index: 10;\n        box-shadow: 0 20px 50px rgba(0,0,0,.10);\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1399px){\n            max-width: 434px;\n            ", ": 40px;\n        }\n        @media only screen and (max-width: 1199px){\n            ", ": 0;\n            bottom: 80px;\n            max-width: 400px;\n        }\n        @media only screen and (max-width: 767px){\n            max-width: fit-content;\n        }\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            padding: 50px;\n            border-radius: 30px;\n            @media only screen and (max-width: 1399px){\n                padding: 40px;\n            }\n            @media only screen and (max-width: 767px){\n                padding: 20px;\n            }\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                ", ": 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 18px;\n                font-weight: 600;\n                margin: 0 0 20px;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 1199px){\n                    font-size: 16px;\n                }\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                margin: -10px;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    min-height: 70px;\n                    padding: 0 32px;\n                    border-radius: 10px;\n                    background-color: var(--color-bg-general);\n                    @media only screen and (max-width: 1199px){\n                        font-size: 14px;\n                        min-height: 50px;\n                        padding: 0 20px;\n                    }\n                    @media only screen and (max-width: 767px){\n                        min-height: 46px;\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        ", ": 15px;\n                        svg{\n                            width: 26px;\n                            height: 26px;\n                            @media only screen and (max-width: 1199px){\n                                width: 20px;\n                                height: 20px;\n                            }\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
+var ChatBoxWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\theight: 100%;\n    >div{\n        @media only screen and (max-width: 1399px) {\n            min-height: 620px !important;\n        }\n    }\n    .wpwax-vm-replymode-wrap{\n        position: relative;\n        &:after{\n            position: fixed;\n            ", ": 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            content: '';\n            z-index: 100001;\n            background-color: rgba(0,0,0,.80);\n        }\n    }\n    .wpwax-vm-record-home{\n        position: fixed;\n        top: 80px;\n        ", ": 0;\n        width: 100%;\n        height: 100%;\n        z-index: 100002;\n        border-radius: 30px 30px 0 0;\n        display: flex;\n        align-items: center;\n        background-color: var(--color-white);\n        .wpwax-vm-record-home__close{\n            position: absolute;\n            ", ": 40px;\n            top: -50px;\n            text-decoration: none;\n            color: var(--color-white);\n            .dashicons{\n                font-size: 30px;\n            }\n        }\n\n    }\n    .wpwax-vm-video-msg{\n        position: absolute;\n        bottom: 95px;\n        ", ": 200px;\n        width: 100%;\n        height: auto;\n        max-width: 484px;\n        border-radius: 30px;\n        z-index: 10;\n        box-shadow: 0 20px 50px rgba(0,0,0,.10);\n        background-color: var(--color-white);\n        @media only screen and (max-width: 1399px){\n            max-width: 434px;\n            ", ": 40px;\n        }\n        @media only screen and (max-width: 1199px){\n            ", ": 0;\n            bottom: 80px;\n            max-width: 400px;\n        }\n        @media only screen and (max-width: 767px){\n            max-width: fit-content;\n        }\n        &.wpwax-vm-video-msg-home{\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            flex-direction: column;\n            padding: 50px;\n            border-radius: 30px;\n            @media only screen and (max-width: 1399px){\n                padding: 40px;\n            }\n            @media only screen and (max-width: 767px){\n                padding: 20px;\n            }\n            .wpwax-vm-video-msg__close{\n                position: absolute;\n                ", ": 40px;\n                top: -50px;\n                text-decoration: none;\n                color: var(--color-white);\n                .dashicons{\n                    font-size: 30px;\n                }\n            }\n            .wpwax-vm-video-home__title{\n                font-size: 18px;\n                font-weight: 600;\n                margin: 0 0 20px;\n                font-family: var(--font-family);\n                color: var(--color-dark);\n                @media only screen and (max-width: 1199px){\n                    font-size: 16px;\n                }\n                @media only screen and (max-width: 767px){\n                    text-align: center;\n                    margin: 20px 25px;\n                }\n            }\n            .wpwax-vm-video-home__action{\n                display: flex;\n                margin: -10px;\n                @media only screen and (max-width: 767px){\n                    flex-direction: column;\n                }\n                .wpwax-vm-video-home__action--btn{\n                    display: flex;\n                    justify-content: center;\n                    align-items: center;\n                    font-size: 15px;\n                    font-weight: 600;\n                    margin: 10px;\n                    border-radius: 10px;\n                    text-align: center;\n                    text-decoration: none;\n                    min-height: 70px;\n                    padding: 0 32px;\n                    border-radius: 10px;\n                    background-color: var(--color-bg-general);\n                    @media only screen and (max-width: 1199px){\n                        font-size: 14px;\n                        min-height: 50px;\n                        padding: 0 20px;\n                    }\n                    @media only screen and (max-width: 767px){\n                        min-height: 46px;\n                    }\n                    &:focus{\n                        outline: none;\n                        box-shadow: 0 0;\n                    }\n                    &:hover{\n                        .wpwax-vm-video-home__action--icon{\n                            svg{\n                                path{\n                                    fill: var(--color-primary)\n                                }\n                            }\n                        }\n                        .wpwax-vm-video-home__action--text{\n                            color: var(--color-primary);\n                        }\n                    }\n                    .wpwax-vm-video-home__action--icon{\n                        ", ": 15px;\n                        svg{\n                            width: 26px;\n                            height: 26px;\n                            @media only screen and (max-width: 1199px){\n                                width: 20px;\n                                height: 20px;\n                            }\n                            path{\n                                fill: var(--color-dark);\n                            }\n                        }\n                    }\n                    .wpwax-vm-video-home__action--text{\n                        font-size: 15px;\n                        font-weight: 600;\n                        color: var(--color-dark);\n                    }\n                }\n            }\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'left' : 'right';
 }, function (_ref2) {
@@ -16019,7 +16019,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
 
 /***/ }),
 
@@ -16031,7 +16031,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
 
 /***/ }),
 
@@ -16067,7 +16067,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
 
 /***/ }),
 
@@ -16079,7 +16079,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
 
 /***/ }),
 
@@ -16091,7 +16091,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
 
 /***/ }),
 
@@ -16115,7 +16115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
 
 /***/ }),
 
@@ -16151,7 +16151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
 
 /***/ }),
 
@@ -16175,7 +16175,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
 
 /***/ }),
 
@@ -16211,7 +16211,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
 
 /***/ }),
 
@@ -16235,7 +16235,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
 
 /***/ }),
 
@@ -16247,7 +16247,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
 
 /***/ }),
 
@@ -16259,7 +16259,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
 
 /***/ }),
 
@@ -16319,7 +16319,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 
@@ -16343,7 +16343,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
 
 /***/ }),
 

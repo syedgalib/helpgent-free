@@ -74,7 +74,7 @@ const GeneralSettings = () => {
                         id={`wpwax-vm${props.value}`}
                         label={props.label}
                         onChange={handleCustomPageCheckbox}
-                        value={props.isSelected}
+                        checked={props.isSelected}
                     />
                 </components.Option>
             </div>
@@ -212,28 +212,6 @@ const GeneralSettings = () => {
 
     return (
         <GeneralSettingWrap>
-            <div className='wpwax-vm-form-group'>
-                <div className='wpwax-vm-form-group__label'>
-                    <label htmlFor='wpwax-vm-form-name'>
-                        Form Name
-                        <span className='wpwax-vm-require-sign'>*</span>
-                    </label>
-                </div>
-                <input
-                    type='text'
-                    className='wpwax-vm-form__element'
-                    id='wpwax-vm-form-name'
-                    value={templateName}
-                    placeholder='Enter form name (eg. Support Form)'
-                    onChange={(e) => handleChangeInputValue(e)}
-                />
-                {onlySpaces(templateName) ? (
-                    <span className='wpwax-vm-validate-danger'>
-                        Please Enter Form Name
-                    </span>
-                ) : null}
-            </div>
-
             {/* <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>

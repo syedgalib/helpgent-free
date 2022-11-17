@@ -37,7 +37,7 @@ class Activation {
 		// Create required page
 		$this->create_page();
 
-		do_action( 'wpwax_customer_support_app_on_activation' );
+		do_action( 'helpgent_on_activation' );
 	}
 
 	/**

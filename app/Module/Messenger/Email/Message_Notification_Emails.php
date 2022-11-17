@@ -395,7 +395,7 @@ class Message_Notification_Emails {
                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
                         <tr>
                             <td colspan="2" valign="middle" id="credit" style="display: flex; justify-content: center; align-items: center">
-                                ' . sprintf(wp_kses_post(wpautop(wptexturize(apply_filters('wpwax_customer_support_app_email_footer_text', '<span style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: 600;\'>Built with <i style="margin: 0 4px; position: relative; top: 2px;"> ❤️ </i> by %s</span>')))), $author) . '
+                                ' . sprintf(wp_kses_post(wpautop(wptexturize(apply_filters('helpgent_email_footer_text', '<span style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 16px; font-weight: 600;\'>Built with <i style="margin: 0 4px; position: relative; top: 2px;"> ❤️ </i> by %s</span>')))), $author) . '
                             </td>
                         </tr>
                     </table>

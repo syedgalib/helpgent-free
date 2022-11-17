@@ -29,7 +29,7 @@ class Rest_Helper {
 
         $permission = current_user_can( $contexts[ $context ], $object_id );
 
-        return apply_filters( 'wpwax_customer_support_app_rest_check_permissions', $permission, $context, $object_id, 'user' );
+        return apply_filters( 'helpgent_rest_check_permissions', $permission, $context, $object_id, 'user' );
     }
 
     /**
@@ -74,7 +74,7 @@ class Rest_Helper {
         // Check parsed URL.
         if ( ! $parsed_url || ! is_array( $parsed_url ) ) {
             /* translators: %s: image URL */
-            return new WP_Error( 'wpwax_customer_support_app_rest_invalid_image_url', sprintf( __( 'Invalid URL %s.', 'helpgent' ), $image_url ), array( 'status' => 400 ) );
+            return new WP_Error( 'helpgent_rest_invalid_image_url', sprintf( __( 'Invalid URL %s.', 'helpgent' ), $image_url ), array( 'status' => 400 ) );
         }
 
         // Ensure url is valid.
@@ -94,7 +94,7 @@ class Rest_Helper {
         // If error storing temporarily, return the error.
         if ( is_wp_error( $file_array['tmp_name'] ) ) {
             return new WP_Error(
-                'wpwax_customer_support_app_rest_invalid_remote_image_url',
+                'helpgent_rest_invalid_remote_image_url',
                 /* translators: %s: image URL */
                 sprintf( __( 'Error getting remote image %s.', 'helpgent' ), $image_url ) . ' '
                 /* translators: %s: error message */
@@ -117,10 +117,10 @@ class Rest_Helper {
             @unlink( $file_array['tmp_name'] ); // @codingStandardsIgnoreLine.
 
             /* translators: %s: error message */
-            return new WP_Error( 'wpwax_customer_support_app_rest_invalid_image', sprintf( __( 'Invalid image: %s', 'helpgent' ), $file['error'] ), array( 'status' => 400 ) );
+            return new WP_Error( 'helpgent_rest_invalid_image', sprintf( __( 'Invalid image: %s', 'helpgent' ), $file['error'] ), array( 'status' => 400 ) );
         }
 
-        do_action( 'wpwax_customer_support_app_rest_api_uploaded_image_from_url', $file, $image_url );
+        do_action( 'helpgent_rest_api_uploaded_image_from_url', $file, $image_url );
 
         return $file;
     }
@@ -134,7 +134,7 @@ class Rest_Helper {
      */
     public static function allowed_image_mime_types() {
         return apply_filters(
-            'wpwax_customer_support_app_rest_allowed_image_mime_types',
+            'helpgent_rest_allowed_image_mime_types',
             array(
                 'jpg|jpeg|jpe' => 'image/jpeg',
                 // 'gif'          => 'image/gif',

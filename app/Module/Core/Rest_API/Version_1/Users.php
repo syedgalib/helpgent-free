@@ -181,7 +181,7 @@ class Users extends Rest_Base {
 		 * @param array           $prepared_args Array of arguments for WP_User_Query.
 		 * @param WP_REST_Request $request       The current request.
 		 */
-		$prepared_args = apply_filters( 'wpwax_customer_support_app_rest_user_query', $prepared_args, $request );
+		$prepared_args = apply_filters( 'helpgent_rest_user_query', $prepared_args, $request );
 
 		$query = new WP_User_Query( $prepared_args );
 
@@ -236,7 +236,7 @@ class Users extends Rest_Base {
 	 */
 	public function create_item( $request ) {
 		if ( ! empty( $request['id'] ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_id_required', __( 'User ID is required.', 'helpgent' ), 403 );
+			return new WP_Error( 'helpgent_rest_user_id_required', __( 'User ID is required.', 'helpgent' ), 403 );
 		}
 
 		if ( email_exists( $request['email'] ) ) {
@@ -263,7 +263,7 @@ class Users extends Rest_Base {
 			 * @param WP_User         $user_data Data used to create the user.
 			 * @param WP_REST_Request $request   Request object.
 			 */
-			do_action( 'wpwax_customer_support_app_rest_update_user', $old_user_data, $request );
+			do_action( 'helpgent_rest_update_user', $old_user_data, $request );
 
 			return $response;
 		}
@@ -316,7 +316,7 @@ class Users extends Rest_Base {
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating user, false when updating user.
 		 */
-		do_action( 'wpwax_customer_support_app_rest_insert_user', $user_data, $request, true );
+		do_action( 'helpgent_rest_insert_user', $user_data, $request, true );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $user_data, $request, [ 'is_new_user' => true ] );
@@ -339,7 +339,7 @@ class Users extends Rest_Base {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $id ) || empty( $user_data->ID ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), array( 'status' => 404 ) );
+			return new WP_Error( 'helpgent_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), array( 'status' => 404 ) );
 		}
 
 		$user_data = $this->prepare_item_for_response( $user_data, $request );
@@ -359,15 +359,15 @@ class Users extends Rest_Base {
 		$user_data = get_userdata( $id );
 
 		if ( empty( $user_data ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), 400 );
+			return new WP_Error( 'helpgent_rest_invalid_id', __( 'Invalid resource ID.', 'helpgent' ), 400 );
 		}
 
 		if ( ! empty( $request['email'] ) && email_exists( $request['email'] ) && $request['email'] !== $user_data->user_email ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_email', __( 'Email address is invalid.', 'helpgent' ), 400 );
+			return new WP_Error( 'helpgent_rest_user_invalid_email', __( 'Email address is invalid.', 'helpgent' ), 400 );
 		}
 
 		if ( ! empty( $request['username'] ) && $request['username'] !== $user_data->user_login ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_argument', __( "Username isn't editable.", 'helpgent' ), 400 );
+			return new WP_Error( 'helpgent_rest_user_invalid_argument', __( "Username isn't editable.", 'helpgent' ), 400 );
 		}
 
 		$updated_user_data = array(
@@ -431,7 +431,7 @@ class Users extends Rest_Base {
 		 * @param WP_REST_Request $request   Request object.
 		 * @param boolean         $creating  True when creating user, false when updating user.
 		 */
-		do_action( 'wpwax_customer_support_app_rest_update_user', $user_data, $request, false );
+		do_action( 'helpgent_rest_update_user', $user_data, $request, false );
 
 		$request->set_param( 'context', 'edit' );
 		$response = $this->prepare_item_for_response( $user_data, $request );
@@ -454,7 +454,7 @@ class Users extends Rest_Base {
 		// We don't support trashing for this type, error out.
 		if ( ! $force ) {
 			return new WP_Error(
-				'wpwax_customer_support_app_rest_trash_not_supported',
+				'helpgent_rest_trash_not_supported',
 				/* translators: %s: force=true */
 				sprintf( __( "Users do not support trashing. Set '%s' to delete.", 'helpgent' ), 'force=true' ),
 				array( 'status' => 501 )
@@ -463,12 +463,12 @@ class Users extends Rest_Base {
 
 		$user_data = get_userdata( $id );
 		if ( ! $user_data ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_invalid_id', __( 'Invalid resource id.', 'helpgent' ), array( 'status' => 400 ) );
+			return new WP_Error( 'helpgent_rest_invalid_id', __( 'Invalid resource id.', 'helpgent' ), array( 'status' => 400 ) );
 		}
 
 		if ( ! empty( $reassign ) ) {
 			if ( $reassign === $id || ! get_userdata( $reassign ) ) {
-				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'helpgent' ), array( 'status' => 400 ) );
+				return new WP_Error( 'helpgent_rest_user_invalid_reassign', __( 'Invalid resource id for reassignment.', 'helpgent' ), array( 'status' => 400 ) );
 			}
 		}
 
@@ -482,7 +482,7 @@ class Users extends Rest_Base {
 
 		if ( ! $result ) {
 			return new WP_Error(
-				'wpwax_customer_support_app_rest_cannot_delete',
+				'helpgent_rest_cannot_delete',
 				__( 'The resource cannot be deleted.', 'helpgent' ),
 				array( 'status' => 500 )
 			);
@@ -495,7 +495,7 @@ class Users extends Rest_Base {
 		 * @param WP_REST_Response $response  The response returned from the API.
 		 * @param WP_REST_Request  $request   The request sent to the API.
 		 */
-		do_action( 'wpwax_customer_support_app_rest_delete_user', $user_data, $response, $request );
+		do_action( 'helpgent_rest_delete_user', $user_data, $response, $request );
 
 		return $response;
 	}
@@ -651,7 +651,7 @@ class Users extends Rest_Base {
 		 * @param WP_User          $user     User object used to create response.
 		 * @param WP_REST_Request  $request  Request object.
 		 */
-		return apply_filters( 'wpwax_customer_support_app_rest_prepare_user', $response, $user, $request );
+		return apply_filters( 'helpgent_rest_prepare_user', $response, $user, $request );
 	}
 
 	/**
@@ -771,7 +771,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'helpgent_rest_cannot_view', __( 'Sorry, you cannot list resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -790,7 +790,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions || ! get_option( 'users_can_register' ) ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'helpgent_rest_cannot_create', __( 'Sorry, you are not allowed to create resources.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -809,7 +809,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'helpgent_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -828,7 +828,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'helpgent_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -847,7 +847,7 @@ class Users extends Rest_Base {
 		}
 
 		if ( ! $permissions ) {
-			return new WP_Error( 'wpwax_customer_support_app_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
+			return new WP_Error( 'helpgent_rest_cannot_delete', __( 'Sorry, you are not allowed to delete this resource.', 'helpgent' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
 		return $permissions;
@@ -869,7 +869,7 @@ class Users extends Rest_Base {
 			$user = get_userdata( $id );
 
 			if ( empty( $user ) ) {
-				return new WP_Error( 'wpwax_customer_support_app_rest_user_invalid', __( 'Resource does not exist.', 'helpgent' ), array( 'status' => 404 ) );
+				return new WP_Error( 'helpgent_rest_user_invalid', __( 'Resource does not exist.', 'helpgent' ), array( 'status' => 404 ) );
 			}
 
 			return Rest_Helper::check_user_permissions( $context, $user->ID );

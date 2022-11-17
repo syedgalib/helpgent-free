@@ -13,7 +13,7 @@ class Activation {
      */
     public function __construct() {
 
-        add_action( 'wpwax_customer_support_app_on_activation', [ $this, 'activatation_tasks' ] );
+        add_action( 'helpgent_on_activation', [ $this, 'activatation_tasks' ] );
 
     }
 

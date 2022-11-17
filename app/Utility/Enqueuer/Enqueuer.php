@@ -50,7 +50,7 @@ abstract class Enqueuer extends Enqueuer_Base {
      * @return void
      */
     public function setup_load_min_files() {
-        $this->load_min = apply_filters( 'wpwax_customer_support_app_load_min_files', HELPGENT_LOAD_MIN_FILES );
+        $this->load_min = apply_filters( 'helpgent_load_min_files', HELPGENT_LOAD_MIN_FILES );
     }
 
     /**
@@ -60,7 +60,7 @@ abstract class Enqueuer extends Enqueuer_Base {
      */
     public function setup_script_version() {
         $script_version       = ( $this->load_min ) ? HELPGENT_SCRIPT_VERSION : md5( time() );
-        $this->script_version = apply_filters( 'wpwax_customer_support_app_script_version', $script_version );
+        $this->script_version = apply_filters( 'helpgent_script_version', $script_version );
     }
 
     /**
@@ -69,8 +69,8 @@ abstract class Enqueuer extends Enqueuer_Base {
      * @return void
      */
     public function apply_hook_to_scripts() {
-        $this->css_scripts = apply_filters( 'wpwax_customer_support_app_css_scripts', $this->css_scripts );
-        $this->js_scripts  = apply_filters( 'wpwax_customer_support_app_js_scripts', $this->js_scripts );
+        $this->css_scripts = apply_filters( 'helpgent_css_scripts', $this->css_scripts );
+        $this->js_scripts  = apply_filters( 'helpgent_js_scripts', $this->js_scripts );
     }
 
 }

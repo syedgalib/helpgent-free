@@ -134,7 +134,7 @@ abstract class Base extends WP_REST_Controller {
      */
     public function check_guest_permission( $request ) {
 
-        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+        $skip_permission = apply_filters( 'helpgent_skip_rest_permission', false );
 
         if ( $skip_permission ) {
             return true;
@@ -167,7 +167,7 @@ abstract class Base extends WP_REST_Controller {
      */
     public function check_auth_permission( $request ) {
 
-        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+        $skip_permission = apply_filters( 'helpgent_skip_rest_permission', false );
 
         if ( $skip_permission ) {
             return true;
@@ -207,7 +207,7 @@ abstract class Base extends WP_REST_Controller {
      */
     public function check_admin_permission( $request ) {
 
-        $skip_permission = apply_filters( 'wpwax_customer_support_app_skip_rest_permission', false );
+        $skip_permission = apply_filters( 'helpgent_skip_rest_permission', false );
 
         if ( $skip_permission ) {
             return true;

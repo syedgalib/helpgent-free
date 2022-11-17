@@ -12,7 +12,7 @@ class Rest_Filters {
      */
     public function __construct() {
 
-        add_filter( 'wpwax_customer_support_app_rest_check_permissions', [ $this, 'allow_read_context_permission' ], 20, 4 );
+        add_filter( 'helpgent_rest_check_permissions', [ $this, 'allow_read_context_permission' ], 20, 4 );
 
     }
 

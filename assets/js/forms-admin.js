@@ -7301,7 +7301,7 @@ var Table = function Table() {
                     onClick: onShortcodeCopy,
                     type: "text",
                     readOnly: true,
-                    value: "[helpgent_form id=\"".concat(value.id, "\"/]")
+                    value: "[helpgent_form id=\"".concat(value.id, "\"]")
                   })
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {

@@ -372,7 +372,7 @@ const Table = () => {
                                                     onClick={onShortcodeCopy}
                                                     type='text'
                                                     readOnly
-                                                    value={`[helpgent_form id="${value.id}"/]`}
+                                                    value={`[helpgent_form id="${value.id}"]`}
                                                 />
                                             </label>
                                         </td>

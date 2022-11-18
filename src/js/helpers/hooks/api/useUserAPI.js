@@ -1,11 +1,11 @@
 import http from 'Helper/http';
-import useRestAPI from './useRestAPI';
+import useAPI from './useAPI';
 
 export default function useUserAPI() {
 	const routeBase = 'users';
 	const { getResponse, getRestResponse, getData, postData } = http;
 
-	const { getItems, getItem, createItem, updateItem, deleteItem } = useRestAPI( routeBase );
+	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase, true );
 
 	/**
 	 * Authenticate

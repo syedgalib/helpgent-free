@@ -1,8 +1,6 @@
 import axios from "axios";
 
-let headers = {
-	"Content-type": "application/json",
-};
+let headers = { "Content-type": "application/json" };
 
 if ( wpWaxCustomerSupportApp_CoreScriptData.auth_token ) {
 	headers['Helpgent-Token'] = wpWaxCustomerSupportApp_CoreScriptData.auth_token;
@@ -15,33 +13,40 @@ const axiosInstance = axios.create({
 	headers: headers,
 });
 
-const getData = ( path, customArgs ) => {
+const getAxiosInstance = function( baseURL ) {
+	return axios.create({
+		baseURL: ( baseURL ) ? baseURL : wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
+		headers: headers,
+	});
+}
+
+const getData = ( path, customArgs, baseURL ) => {
 	const args = ( typeof customArgs !== 'undefined' ) ? { params: customArgs } : {};
-	return axiosInstance.get( path, args );
+	return getAxiosInstance( baseURL ).get( path, args );
 }
 
-const postData = ( path, customArgs, customConfig ) => {
+const postData = ( path, customArgs, customConfig, baseURL ) => {
 	const args   = ( typeof customArgs !== 'undefined' ) ? customArgs : {};
 	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
-	return axiosInstance.post( path, args, config );
+	return getAxiosInstance( baseURL ).post( path, args, config );
 }
 
-const updateData = ( path, customArgs, customConfig ) => {
+const updateData = ( path, customArgs, customConfig, baseURL ) => {
 	const args   = ( typeof customArgs !== 'undefined' ) ? customArgs : {};
 	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
-    return axiosInstance.post( path, args, config );
+    return getAxiosInstance( baseURL ).post( path, args, config );
 }
 
-const deleteData = ( path, customArgs, customConfig ) => {
+const deleteData = ( path, customArgs, customConfig, baseURL ) => {
 	const args   = ( typeof customArgs !== 'undefined' ) ? { data: customArgs } : {};
 	const config = ( customConfig && typeof customConfig === 'object' ) ? customConfig : {};
 
-    return axiosInstance.delete( path, args, config );
+    return getAxiosInstance( baseURL ).delete( path, args, config );
 }
 
-async function getResponse( request, args, config ) {
+async function getResponse( request, args, config, apiBase ) {
 	let status = {
 		success: false,
 		message: '',
@@ -50,7 +55,7 @@ async function getResponse( request, args, config ) {
 	};
 
 	try {
-		const response = await request( args, config );
+		const response = await request( args, config, apiBase );
 
 		status.success    = true;
 		status.statusCode = response.status;
@@ -70,7 +75,7 @@ async function getResponse( request, args, config ) {
 	}
 }
 
-async function getRestResponse( request, args, config ) {
+async function getRestResponse( request, args, config, apiBase ) {
 	let status = {
 		success: false,
 		message: '',
@@ -79,7 +84,7 @@ async function getRestResponse( request, args, config ) {
 	};
 
 	try {
-		const response = await request( args, config );
+		const response = await request( args, config, apiBase );
 
 		status.success    = true;
 		status.statusCode = response.status;

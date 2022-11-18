@@ -14,7 +14,7 @@ const AddFormStyle = Styled.div`
         width: 420px;
         min-height: 660px;
         border-radius: 14px;
-        z-index: 10;
+        z-index: 99999;
         font-family: 'Inter';
         background-color: #fff;
         @media only screen and (max-width: 1199px) {
@@ -26,6 +26,7 @@ const AddFormStyle = Styled.div`
         }
         @media only screen and (max-width: 760px) {
             width: 420px;
+            z-index: 10;
         }
         @media only screen and (max-width: 479px) {
             width: 380px;
@@ -202,7 +203,7 @@ const AddFormStyle = Styled.div`
             height: 200px;
             background-color: #e2e2e2;
         }
-        
+
         .wpwax-vm-form-group__input-list {
             margin-top: 14px;
             &.wpwax-vm-addbtn-style{
@@ -224,7 +225,7 @@ const AddFormStyle = Styled.div`
                     }
                 }
             }
-            
+
             &.wpwax-vm-hide{
                 display: none;
             }
@@ -418,10 +419,7 @@ const AddFormStyle = Styled.div`
         background-color: #ededed;
         z-index: 10;
         .wpwax-vm-media-preview__replace{
-            position: absolute;
-            left: 50%;
-            bottom: 15px;
-            transform: translateX(-50%);
+			margin: 5px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -432,7 +430,6 @@ const AddFormStyle = Styled.div`
             padding: 0 20px;
             color: #000000;
             background-color: #ffffff;
-            z-index: 1;
             .wpwax-vm-media-preview__replace--icon{
                 position: relative;
                 top: 2px;

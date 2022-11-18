@@ -514,6 +514,13 @@
         margin: 0.1875rem;
     }
 }
+@media only screen and (max-width: 760px) {
+    #wpwax-vm-form-edit{
+        .wpwax-vm-page-inner{
+            padding: 20px 10px 0 0;
+        }
+    }
+}
 @media only screen and (max-width: 575px) {
     .wpwax-vm-modal {
         width: 320px;

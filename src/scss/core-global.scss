@@ -1428,6 +1428,36 @@
 	animation: wpwaxHgBlinking 1s linear infinite;
 }
 
+.wpwax-vm-media-actions {
+	position: absolute;
+    left: 50%;
+    bottom: 15px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transform: translateX(-50%);
+	z-index: 1;
+
+	path {
+		fill: #000000;
+	}
+}
+
+.helpgent-modal-wrap {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #00000087;
+	z-index: 999999999999999999999;
+}
+
+
+
 /* Create Form Modal */
 .wpwax-vm-create-form-modal{
     .wpwax-vm-modal-title{

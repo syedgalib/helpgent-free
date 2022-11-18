@@ -14503,8 +14503,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-function useAPI(routeBase) {
+function useAPI(routeBase, returnRestResponse) {
   var getResponse = Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getResponse,
+    getRestResponse = Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getRestResponse,
     getData = Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].getData,
     postData = Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].postData,
     updateData = Helper_http__WEBPACK_IMPORTED_MODULE_0__["default"].updateData,
@@ -14516,7 +14517,7 @@ function useAPI(routeBase) {
    * @param {object} args
    * @returns {object} status
    */
-  function getItems(_x) {
+  function getItems(_x, _x2) {
     return _getItems.apply(this, arguments);
   } /**
      * Get Item
@@ -14525,14 +14526,14 @@ function useAPI(routeBase) {
      * @returns {object} status
      */
   function _getItems() {
-    _getItems = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(args) {
+    _getItems = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(args, apiBase) {
       var request;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               request = /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(args) {
+                var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(args, config, apiBase) {
                   return _regeneratorRuntime().wrap(function _callee$(_context) {
                     while (1) {
                       switch (_context.prev = _context.next) {
@@ -14541,7 +14542,7 @@ function useAPI(routeBase) {
                             args.timezone = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_1__.getTimezoneString)();
                           }
                           _context.next = 3;
-                          return getData(routeBase, args);
+                          return getData(routeBase, args, apiBase);
                         case 3:
                           return _context.abrupt("return", _context.sent);
                         case 4:
@@ -14551,15 +14552,24 @@ function useAPI(routeBase) {
                     }
                   }, _callee);
                 }));
-                return function request(_x10) {
+                return function request(_x15, _x16, _x17) {
                   return _ref.apply(this, arguments);
                 };
               }();
-              _context2.next = 3;
-              return getResponse(request, args);
-            case 3:
-              return _context2.abrupt("return", _context2.sent);
+              if (!returnRestResponse) {
+                _context2.next = 5;
+                break;
+              }
+              _context2.next = 4;
+              return getRestResponse(request, args, null, apiBase);
             case 4:
+              return _context2.abrupt("return", _context2.sent);
+            case 5:
+              _context2.next = 7;
+              return getResponse(request, args, null, apiBase);
+            case 7:
+              return _context2.abrupt("return", _context2.sent);
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -14568,7 +14578,7 @@ function useAPI(routeBase) {
     }));
     return _getItems.apply(this, arguments);
   }
-  function getItem(_x2) {
+  function getItem(_x3, _x4) {
     return _getItem.apply(this, arguments);
   } /**
      * Create Item
@@ -14577,14 +14587,14 @@ function useAPI(routeBase) {
      * @returns {object} status
      */
   function _getItem() {
-    _getItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(id) {
+    _getItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(id, apiBase) {
       var request;
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               request = /*#__PURE__*/function () {
-                var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(id) {
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(id, config, apiBase) {
                   var args;
                   return _regeneratorRuntime().wrap(function _callee3$(_context3) {
                     while (1) {
@@ -14594,7 +14604,7 @@ function useAPI(routeBase) {
                             timezone: (0,Helper_utils__WEBPACK_IMPORTED_MODULE_1__.getTimezoneString)()
                           };
                           _context3.next = 3;
-                          return getData("".concat(routeBase, "/").concat(id), args);
+                          return getData("".concat(routeBase, "/").concat(id), args, apiBase);
                         case 3:
                           return _context3.abrupt("return", _context3.sent);
                         case 4:
@@ -14604,15 +14614,24 @@ function useAPI(routeBase) {
                     }
                   }, _callee3);
                 }));
-                return function request(_x11) {
+                return function request(_x18, _x19, _x20) {
                   return _ref2.apply(this, arguments);
                 };
               }();
-              _context4.next = 3;
-              return getResponse(request, id);
-            case 3:
-              return _context4.abrupt("return", _context4.sent);
+              if (!returnRestResponse) {
+                _context4.next = 5;
+                break;
+              }
+              _context4.next = 4;
+              return getRestResponse(request, id, null, apiBase);
             case 4:
+              return _context4.abrupt("return", _context4.sent);
+            case 5:
+              _context4.next = 7;
+              return getResponse(request, id, null, apiBase);
+            case 7:
+              return _context4.abrupt("return", _context4.sent);
+            case 8:
             case "end":
               return _context4.stop();
           }
@@ -14621,7 +14640,7 @@ function useAPI(routeBase) {
     }));
     return _getItem.apply(this, arguments);
   }
-  function createItem(_x3, _x4) {
+  function createItem(_x5, _x6, _x7) {
     return _createItem.apply(this, arguments);
   } /**
      * Update Item
@@ -14631,20 +14650,20 @@ function useAPI(routeBase) {
      * @returns {object} status
      */
   function _createItem() {
-    _createItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args, config) {
+    _createItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(args, config, apiBase) {
       var request;
       return _regeneratorRuntime().wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               request = /*#__PURE__*/function () {
-                var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(args, config) {
+                var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(args, config, apiBase) {
                   return _regeneratorRuntime().wrap(function _callee5$(_context5) {
                     while (1) {
                       switch (_context5.prev = _context5.next) {
                         case 0:
                           _context5.next = 2;
-                          return postData(routeBase, args, config);
+                          return postData(routeBase, args, config, apiBase);
                         case 2:
                           return _context5.abrupt("return", _context5.sent);
                         case 3:
@@ -14654,15 +14673,24 @@ function useAPI(routeBase) {
                     }
                   }, _callee5);
                 }));
-                return function request(_x12, _x13) {
+                return function request(_x21, _x22, _x23) {
                   return _ref3.apply(this, arguments);
                 };
               }();
-              _context6.next = 3;
-              return getResponse(request, args, config);
-            case 3:
-              return _context6.abrupt("return", _context6.sent);
+              if (!returnRestResponse) {
+                _context6.next = 5;
+                break;
+              }
+              _context6.next = 4;
+              return getRestResponse(request, args, config, apiBase);
             case 4:
+              return _context6.abrupt("return", _context6.sent);
+            case 5:
+              _context6.next = 7;
+              return getResponse(request, args, config, apiBase);
+            case 7:
+              return _context6.abrupt("return", _context6.sent);
+            case 8:
             case "end":
               return _context6.stop();
           }
@@ -14671,7 +14699,7 @@ function useAPI(routeBase) {
     }));
     return _createItem.apply(this, arguments);
   }
-  function updateItem(_x5, _x6, _x7) {
+  function updateItem(_x8, _x9, _x10, _x11) {
     return _updateItem.apply(this, arguments);
   } /**
      * Delete Item
@@ -14681,14 +14709,14 @@ function useAPI(routeBase) {
      * @returns {object} status
      */
   function _updateItem() {
-    _updateItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(id, args, config) {
+    _updateItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(id, args, config, apiBase) {
       var request;
       return _regeneratorRuntime().wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
               request = /*#__PURE__*/function () {
-                var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(args, config) {
+                var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(args, config, apiBase) {
                   return _regeneratorRuntime().wrap(function _callee7$(_context7) {
                     while (1) {
                       switch (_context7.prev = _context7.next) {
@@ -14697,7 +14725,7 @@ function useAPI(routeBase) {
                             args.timezone = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_1__.getTimezoneString)();
                           }
                           _context7.next = 3;
-                          return updateData("".concat(routeBase, "/").concat(args.id), args.params, config);
+                          return updateData("".concat(routeBase, "/").concat(args.id), args.params, config, apiBase);
                         case 3:
                           return _context7.abrupt("return", _context7.sent);
                         case 4:
@@ -14707,18 +14735,30 @@ function useAPI(routeBase) {
                     }
                   }, _callee7);
                 }));
-                return function request(_x14, _x15) {
+                return function request(_x24, _x25, _x26) {
                   return _ref4.apply(this, arguments);
                 };
               }();
-              _context8.next = 3;
+              if (!returnRestResponse) {
+                _context8.next = 5;
+                break;
+              }
+              _context8.next = 4;
+              return getRestResponse(request, {
+                id: id,
+                params: args
+              }, config, apiBase);
+            case 4:
+              return _context8.abrupt("return", _context8.sent);
+            case 5:
+              _context8.next = 7;
               return getResponse(request, {
                 id: id,
                 params: args
-              }, config);
-            case 3:
+              }, config, apiBase);
+            case 7:
               return _context8.abrupt("return", _context8.sent);
-            case 4:
+            case 8:
             case "end":
               return _context8.stop();
           }
@@ -14727,18 +14767,18 @@ function useAPI(routeBase) {
     }));
     return _updateItem.apply(this, arguments);
   }
-  function deleteItem(_x8, _x9) {
+  function deleteItem(_x12, _x13, _x14) {
     return _deleteItem.apply(this, arguments);
   }
   function _deleteItem() {
-    _deleteItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(id, args) {
+    _deleteItem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(id, args, apiBase) {
       var request;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
               request = /*#__PURE__*/function () {
-                var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(args) {
+                var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(args, config, apiBase) {
                   var params;
                   return _regeneratorRuntime().wrap(function _callee9$(_context9) {
                     while (1) {
@@ -14746,7 +14786,7 @@ function useAPI(routeBase) {
                         case 0:
                           params = typeof args.params !== 'undefined' ? args.params : {};
                           _context9.next = 3;
-                          return deleteData("".concat(routeBase, "/").concat(args.id), params);
+                          return deleteData("".concat(routeBase, "/").concat(args.id), params, null, apiBase);
                         case 3:
                           return _context9.abrupt("return", _context9.sent);
                         case 4:
@@ -14756,18 +14796,30 @@ function useAPI(routeBase) {
                     }
                   }, _callee9);
                 }));
-                return function request(_x16) {
+                return function request(_x27, _x28, _x29) {
                   return _ref5.apply(this, arguments);
                 };
               }();
-              _context10.next = 3;
+              if (!returnRestResponse) {
+                _context10.next = 5;
+                break;
+              }
+              _context10.next = 4;
+              return getRestResponse(request, {
+                id: id,
+                params: args
+              }, null, apiBase);
+            case 4:
+              return _context10.abrupt("return", _context10.sent);
+            case 5:
+              _context10.next = 7;
               return getResponse(request, {
                 id: id,
                 params: args
-              });
-            case 3:
+              }, null, apiBase);
+            case 7:
               return _context10.abrupt("return", _context10.sent);
-            case 4:
+            case 8:
             case "end":
               return _context10.stop();
           }
@@ -15733,34 +15785,40 @@ var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
   headers: headers
 });
-var getData = function getData(path, customArgs) {
+var getAxiosInstance = function getAxiosInstance(baseURL) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default().create({
+    baseURL: baseURL ? baseURL : wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
+    headers: headers
+  });
+};
+var getData = function getData(path, customArgs, baseURL) {
   var args = typeof customArgs !== 'undefined' ? {
     params: customArgs
   } : {};
-  return axiosInstance.get(path, args);
+  return getAxiosInstance(baseURL).get(path, args);
 };
-var postData = function postData(path, customArgs, customConfig) {
+var postData = function postData(path, customArgs, customConfig, baseURL) {
   var args = typeof customArgs !== 'undefined' ? customArgs : {};
   var config = customConfig && _typeof(customConfig) === 'object' ? customConfig : {};
-  return axiosInstance.post(path, args, config);
+  return getAxiosInstance(baseURL).post(path, args, config);
 };
-var updateData = function updateData(path, customArgs, customConfig) {
+var updateData = function updateData(path, customArgs, customConfig, baseURL) {
   var args = typeof customArgs !== 'undefined' ? customArgs : {};
   var config = customConfig && _typeof(customConfig) === 'object' ? customConfig : {};
-  return axiosInstance.post(path, args, config);
+  return getAxiosInstance(baseURL).post(path, args, config);
 };
-var deleteData = function deleteData(path, customArgs, customConfig) {
+var deleteData = function deleteData(path, customArgs, customConfig, baseURL) {
   var args = typeof customArgs !== 'undefined' ? {
     data: customArgs
   } : {};
   var config = customConfig && _typeof(customConfig) === 'object' ? customConfig : {};
-  return axiosInstance.delete(path, args, config);
+  return getAxiosInstance(baseURL).delete(path, args, config);
 };
-function getResponse(_x, _x2, _x3) {
+function getResponse(_x, _x2, _x3, _x4) {
   return _getResponse.apply(this, arguments);
 }
 function _getResponse() {
-  _getResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request, args, config) {
+  _getResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(request, args, config, apiBase) {
     var status, response;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
@@ -15774,7 +15832,7 @@ function _getResponse() {
             };
             _context.prev = 1;
             _context.next = 4;
-            return request(args, config);
+            return request(args, config, apiBase);
           case 4:
             response = _context.sent;
             status.success = true;
@@ -15800,11 +15858,11 @@ function _getResponse() {
   }));
   return _getResponse.apply(this, arguments);
 }
-function getRestResponse(_x4, _x5, _x6) {
+function getRestResponse(_x5, _x6, _x7, _x8) {
   return _getRestResponse.apply(this, arguments);
 }
 function _getRestResponse() {
-  _getRestResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(request, args, config) {
+  _getRestResponse = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(request, args, config, apiBase) {
     var status, response;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
@@ -15818,7 +15876,7 @@ function _getRestResponse() {
             };
             _context2.prev = 1;
             _context2.next = 4;
-            return request(args, config);
+            return request(args, config, apiBase);
           case 4:
             response = _context2.sent;
             status.success = true;
@@ -15867,7 +15925,9 @@ var http = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "debounce": function() { return /* binding */ debounce; },
-/* harmony export */   "getTimezoneString": function() { return /* binding */ getTimezoneString; }
+/* harmony export */   "generateFileNameFromBlob": function() { return /* binding */ generateFileNameFromBlob; },
+/* harmony export */   "getTimezoneString": function() { return /* binding */ getTimezoneString; },
+/* harmony export */   "makeid": function() { return /* binding */ makeid; }
 /* harmony export */ });
 /* harmony import */ var _formatter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formatter */ "./src/js/helpers/formatter.js");
 
@@ -15912,6 +15972,23 @@ function getTimezoneString() {
     return formatted;
   }
   return diff < 0 ? formatted : '-' + formatted;
+}
+function generateFileNameFromBlob(blob) {
+  if (!blob instanceof Blob) {
+    return '';
+  }
+  var type = blob.type.match(/^[\w]+\/[\w]+/);
+  var ext = type ? type[0].replace(/^[\w]+\//, '') : '';
+  return makeid(10) + '.' + ext;
+}
+function makeid(length) {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 /***/ }),
@@ -16019,7 +16096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
 
 /***/ }),
 
@@ -16031,7 +16108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
 
 /***/ }),
 
@@ -16067,7 +16144,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
 
 /***/ }),
 
@@ -16079,7 +16156,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
 
 /***/ }),
 
@@ -16091,7 +16168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
 
 /***/ }),
 
@@ -16115,7 +16192,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
 
 /***/ }),
 
@@ -16151,7 +16228,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -16175,7 +16252,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
 
 /***/ }),
 
@@ -16211,7 +16288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -16235,7 +16312,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a5958b8d8fdeab6dad14dbfb459f1e75.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e09b8290e53aa88fff9acfebbe32d7ad.svg");
 
 /***/ }),
 
@@ -16247,7 +16324,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
 
 /***/ }),
 
@@ -16259,7 +16336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -16319,7 +16396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -16343,7 +16420,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 

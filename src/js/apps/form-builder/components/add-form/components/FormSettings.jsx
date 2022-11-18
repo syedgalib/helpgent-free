@@ -1,4 +1,8 @@
+import VideoRecorderPopup from 'Components/video-recorder-popup/App.jsx';
+
 import replaceIcon from 'Assets/svg/icons/replace.svg';
+import cross from 'Assets/svg/icons/cross.svg';
+
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { default as Select } from 'react-select';
@@ -11,6 +15,7 @@ import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import recordIcon from 'Assets/svg/icons/desktop.svg';
 import { FormSettingsWrap } from './Style';
+import useWPAttachmentAPI from 'API/useWPAttachmentAPI';
 
 export const fontOptions = [
     { value: "Roboto,sans-serif", label: "Roboto" },
@@ -90,6 +95,8 @@ const FormSettings = () => {
         };
     });
 
+	const { createItem: createAttachmentItem } = useWPAttachmentAPI();
+
     const [state, setState] = useState({
         openCollapse: true,
     });
@@ -99,6 +106,8 @@ const FormSettings = () => {
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
+
+	const [ showVideoRecorderPopup, setShowVideoRecorderPopup ] = useState( false );
 
     /* For updating each element, we create seperate function */
     const handleChatArray = (type) => {
@@ -168,6 +177,9 @@ const FormSettings = () => {
             let attachment = frame.state().get('selection').first() && frame.state().get('selection').first().toJSON();
             const attatchmentType = attachment.type
             const attatchmentUrl = attachment.url
+
+			console.log( { attatchmentUrl } );
+
             if (attatchmentType === "image") {
                 setState({
                     ...state,
@@ -191,6 +203,65 @@ const FormSettings = () => {
         // Finally, open the modal on click
         frame.open();
     }
+
+	function handleRecordVideo( e ) {
+		e.preventDefault();
+		setShowVideoRecorderPopup( true );
+	}
+
+	function onSelectRecordVideo( data ) {
+		if ( ! data ) {
+			return;
+		}
+
+		let updatedData = formUpdater( 'greet-media-image', '', formData );
+		updatedData = formUpdater( 'greet-media-video', data, formData );
+
+		dispatch( handleDynamicEdit( updatedData ) );
+
+		setState({
+			...state,
+			grettingVideo: data,
+			grettingImage: ''
+		});
+	}
+
+	async function onSaveRecordVideo( args ) {
+		let status = { success: false, message: '', data: null };
+
+		const fileResponse = await createAttachmentItem( { file: args.file } );
+
+		if ( ! fileResponse.success ) {
+			status.message = fileResponse.message;
+			return status;
+		}
+
+		status.success = true;
+		status.data = fileResponse.data.source_url;
+
+		return status;
+	}
+
+	function onCloseRecordVideo() {
+		setShowVideoRecorderPopup( false );
+	}
+
+	function removeGrettingAttachment( e ) {
+		e.preventDefault();
+
+		let updatedData = formUpdater('greet-media-image', '', formData);
+		updatedData = formUpdater('greet-media-video', '', formData);
+
+		dispatch( handleDynamicEdit( updatedData ) );
+
+		setState({
+			...state,
+			grettingImage: '',
+			grettingVideo: '',
+		});
+	}
+
+
 
 
 	function getActiveReplayTypeCount() {
@@ -244,8 +315,15 @@ const FormSettings = () => {
                 </div>
                 <div className={grettingVideo !== '' || grettingImage !== '' ? 'wpwax-vm-uploader wpax-vm-has-src' : 'wpwax-vm-uploader'}>
                     <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
-                        <a href="#" className="wpwax-vm-media-upload" onClick={e => openUploader(e)}>Add image/video</a>
+                        <a href="#" className="wpwax-vm-media-upload" onClick={openUploader}>Add image/video</a>
                     </span>
+
+					<p>or</p>
+
+                    <span className="wpwax-vm-btn wpwax-vm-media-btn wpwax-vm-upload-trigger">
+                        <a href="#" className="wpwax-vm-media-upload" onClick={handleRecordVideo}>Record a video</a>
+                    </span>
+
                     {
                         grettingVideo !== '' || grettingImage !== '' ?
                             <div className="wpwax-vm-media-preview">
@@ -253,7 +331,12 @@ const FormSettings = () => {
                                     {grettingImage !== '' ? <img src={grettingImage} alt="Wpwax Video Support" /> : null}
                                     {grettingVideo !== '' ? <video src={grettingVideo}></video> : null}
                                 </div>
-                                <a href="#" className="wpwax-vm-media-preview__replace" onClick={e => openUploader(e)}><span className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></span> Replace</a>
+
+								<div className="wpwax-vm-media-actions">
+									<a href="#" className="wpwax-vm-media-preview__replace" onClick={removeGrettingAttachment}><span className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={cross} /></span> Remove</a>
+									<a href="#" className="wpwax-vm-media-preview__replace" onClick={openUploader}><span className="wpwax-vm-media-preview__replace--icon"><ReactSVG src={replaceIcon} /></span> Replace</a>
+								</div>
+
                             </div> : null
                     }
                 </div>
@@ -540,6 +623,17 @@ const FormSettings = () => {
                     </div>
                 </div>
             </div>
+
+
+			{ showVideoRecorderPopup &&
+				<VideoRecorderPopup
+					onSelect={onSelectRecordVideo}
+					onSave={onSaveRecordVideo}
+					onClose={onCloseRecordVideo}
+				/>
+			}
+
+
         </FormSettingsWrap>
     );
 }

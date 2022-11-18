@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useEffect } from 'react';
+import useWPAttachmentAPI from 'API/useWPAttachmentAPI';
 import useAttachmentAPI from 'API/useAttachmentAPI';
 import useFormAPI from 'API/useFormAPI';
 import useMessangerAPI from 'API/useMessangerAPI';
@@ -15,6 +16,15 @@ function App() {
 		updateItem: updateSettingsItem,
 		deleteItem: deleteSettingsItem,
 	} = useSettingsAPI();
+
+	// WP Attachment API
+	const {
+		getItems: getWPAttachmentItems,
+		getItem: getWPAttachmentItem,
+		createItem: createWPAttachmentItem,
+		updateItem: updateWPAttachmentItem,
+		deleteItem: deleteWPAttachmentItem,
+	} = useWPAttachmentAPI();
 
 	// Attachment API
 	const {
@@ -171,6 +181,18 @@ function App() {
 		// console.log( { response } );
 	}
 
+	// testWPAttachmentAPI
+	async function testWPAttachmentAPI() {
+		// const itemID = 0;
+
+		// const response = await getAttachmentItems();
+		// const response = await getAttachmentItem( itemID );
+		// const response = await updateAttachmentItem( itemID, { created_at: '2030-01-01 00:00:00' } );
+		// const response = await deleteAttachmentItem( itemID );
+
+		// console.log( { response } );
+	}
+
 	// testAttachmentAPI
 	async function testAttachmentAPI() {
 		// const itemID = 0;
@@ -196,13 +218,26 @@ function App() {
 
 	}
 
+	const [ isUploadingAttachment, setIsUploadingAttachment ] = useState( false );
+
 	async function handleSubmit( event ) {
 		event.preventDefault();
+		console.log( 'handleSubmit' );
+
+		if ( isUploadingAttachment ) {
+			console.log( 'Please wait.' );
+			return;
+		}
+
+		setIsUploadingAttachment( true );
 
 		const file = selectedFile;
-		const response = await createAttachmentItem( { file } );
+		// const response = await createAttachmentItem( { file } );
+		const response = await createWPAttachmentItem( { file } );
 
 		console.log( { response } );
+
+		setIsUploadingAttachment( false );
 	}
 
 

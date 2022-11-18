@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 
 
-export default function useAPI( routeBase ) {
-	const { getResponse, getData, postData, updateData, deleteData } = http;
+export default function useAPI( routeBase, returnRestResponse ) {
+	const { getResponse, getRestResponse, getData, postData, updateData, deleteData } = http;
 
 	/**
 	 * Get Items
@@ -13,17 +13,21 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function getItems( args ) {
+	async function getItems( args, apiBase ) {
 
-		const request = async function( args ) {
+		const request = async function( args, config, apiBase ) {
 			if ( args && typeof args === 'object' ) {
 				args.timezone = getTimezoneString();
 			}
 
-			return await getData( routeBase, args );
+			return await getData( routeBase, args, apiBase );
 		}
 
-		return await getResponse( request, args );
+		if ( returnRestResponse ) {
+			return await getRestResponse( request, args, null, apiBase );
+		}
+
+		return await getResponse( request, args, null, apiBase );
 	}
 
 	/**
@@ -32,14 +36,18 @@ export default function useAPI( routeBase ) {
 	 * @param {int} id
 	 * @returns {object} status
 	 */
-	async function getItem( id ) {
+	async function getItem( id, apiBase ) {
 
-		const request = async function( id ) {
+		const request = async function( id, config, apiBase ) {
 			const args = { timezone:  getTimezoneString() };
-			return await getData( `${routeBase}/${id}`, args );
+			return await getData( `${routeBase}/${id}`, args, apiBase );
 		}
 
-		return await getResponse( request, id );
+		if ( returnRestResponse ) {
+			return await getRestResponse( request, id, null, apiBase );
+		}
+
+		return await getResponse( request, id, null, apiBase );
 	}
 
 	/**
@@ -48,13 +56,17 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function createItem( args, config ) {
+	async function createItem( args, config, apiBase ) {
 
-		const request = async function( args, config ) {
-			return await postData( routeBase, args, config );
+		const request = async function( args, config, apiBase ) {
+			return await postData( routeBase, args, config, apiBase );
 		}
 
-		return await getResponse( request, args, config );
+		if ( returnRestResponse ) {
+			return await getRestResponse( request, args, config, apiBase );
+		}
+
+		return await getResponse( request, args, config, apiBase );
 	}
 
 	/**
@@ -64,17 +76,21 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	async function updateItem( id, args, config ) {
+	async function updateItem( id, args, config, apiBase ) {
 
-		const request = async function( args, config ) {
+		const request = async function( args, config, apiBase ) {
 			if ( args && typeof args === 'object' ) {
 				args.timezone = getTimezoneString();
 			}
 
-			return await updateData( `${routeBase}/${args.id}`, args.params, config );
+			return await updateData( `${routeBase}/${args.id}`, args.params, config, apiBase );
 		}
 
-		return await getResponse( request, { id, params: args }, config );
+		if ( returnRestResponse ) {
+			return await getRestResponse( request, { id, params: args }, config, apiBase );
+		}
+
+		return await getResponse( request, { id, params: args }, config, apiBase );
 	}
 
 	/**
@@ -84,16 +100,20 @@ export default function useAPI( routeBase ) {
 	 * @param {object} args
 	 * @returns {object} status
 	 */
-	 async function deleteItem( id, args ) {
+	 async function deleteItem( id, args, apiBase ) {
 
-		const request = async function( args ) {
+		const request = async function( args, config, apiBase ) {
 
 			const params = ( typeof args.params !== 'undefined' ) ? args.params : {};
 
-			return await deleteData( `${routeBase}/${args.id}`, params );
+			return await deleteData( `${routeBase}/${args.id}`, params, null, apiBase );
 		}
 
-		return await getResponse( request, { id, params: args } );
+		if ( returnRestResponse ) {
+			return await getRestResponse( request, { id, params: args }, null, apiBase );
+		}
+
+		return await getResponse( request, { id, params: args }, null, apiBase );
 	}
 
 	return {

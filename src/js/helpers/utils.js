@@ -42,3 +42,24 @@ export function getTimezoneString() {
 
 	return ( diff < 0 ) ? formatted : '-' + formatted;
 }
+
+export function generateFileNameFromBlob( blob ) {
+	if ( ! blob instanceof Blob ) {
+		return '';
+	}
+
+	const type = blob.type.match( /^[\w]+\/[\w]+/ );
+	const ext = ( type ) ? type[0].replace( /^[\w]+\//, '' ) : '';
+
+	return makeid( 10 ) + '.' + ext;
+}
+
+export function makeid( length ) {
+	var result           = '';
+	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var charactersLength = characters.length;
+	for ( var i = 0; i < length; i++ ) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+}

@@ -190,6 +190,7 @@ const PreviewWrap = Styled.div`
                 flex-basis: 90px;
                 margin: 5px;
                 pointer-events: none;
+                white-space: nowrap;
                 @media only screen and (max-width: 1199px) {
                     padding: 0 15px;
                     width: 95px;
@@ -240,7 +241,8 @@ const PreviewWrap = Styled.div`
             width: 320px;
         }
         @media only screen and (max-width: 475px) {
-            min-height: 480px;
+            max-height: 480px;
+            width: 280px;
         }
         p{
             font-size: 20px;

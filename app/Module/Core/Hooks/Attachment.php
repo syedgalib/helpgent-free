@@ -18,7 +18,7 @@ class Attachment {
      * @return void
      */
     public function __construct() {
-		add_filter( 'upload_mimes', [ $this, 'add_additional_mimes_support' ] );
+		add_filter( 'upload_mimes', [ $this, 'add_additional_mimes_support' ], 20, 1 );
 		add_action( 'admin_post_dynamic_attachment_link', [ $this, 'dynamic_attachment_link' ] );
     }
 

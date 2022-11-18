@@ -8,6 +8,7 @@ class Script_Data {
 
 	public static function get_base_data() {
 		return [
+			'apiBase'                    => rest_url(),
 			'apiEndpoint'                => rest_url( HELPGENT_PREFIX . '/v1' ),
 			'apiNonce'                   => wp_create_nonce( 'wp_rest' ),
 			'wp_pages'                   => Helper\get_wp_pages(),

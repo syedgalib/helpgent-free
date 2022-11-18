@@ -116,9 +116,6 @@ const FormReducer = (state = initialState, action) => {
         loading: true,
       };
     case FORM_READ_SUCCESS:
-
-	  console.log( 'FORM_READ_SUCCESS', { data } );
-
       return {
         ...state,
         loading: false,

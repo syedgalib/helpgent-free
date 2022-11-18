@@ -1,8 +1,11 @@
+import { generateFileNameFromBlob } from 'Helper/utils';
 import useAPI from './useAPI';
 
-export default function useAttachmentAPI() {
-	const routeBase = 'attachments';
-	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase );
+export default function useWPAttachmentAPI() {
+	const apiBase   = wpWaxCustomerSupportApp_CoreScriptData.apiBase;
+	const routeBase = 'wp/v2/media';
+
+	const { getItems, getItem, createItem, updateItem, deleteItem } = useAPI( routeBase, true );
 
 	/**
 	 * Create Item
@@ -13,6 +16,7 @@ export default function useAttachmentAPI() {
 		// Set Headers
 		const config = { headers: {
 			'Content-Type': 'multipart/form-data',
+			'Content-Disposition': 'attachment; filename=attachment',
 		}};
 
 		let formData = new FormData();
@@ -30,7 +34,7 @@ export default function useAttachmentAPI() {
 			}
 		}
 
-		return createItem( formData, config );
+		return createItem( formData, config, apiBase );
 	}
 
 	return {

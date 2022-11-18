@@ -283,9 +283,9 @@ class Conversations extends Rest_Base
 			$users = Helper\search_users( $args['search'], ['email'] );
 
 			if ( ! empty( $users ) ) {
-				$users = array_map(function ($user) {
+				$users = array_map( function( $user ) {
 					return $user['email'];
-				}, $users);
+				}, $users );
 
 				$users_emails = trim( join( ',', $users ) );
 
@@ -300,17 +300,19 @@ class Conversations extends Rest_Base
 					'group_by' => 'conversation_id'
 				]);
 
-				$conversation_ids = array_map( function( $item ) { $item['conversation_id']; }, $messages['results'] );
+				$conversation_ids = array_map( function( $item ) { return $item['conversation_id']; }, $messages['results'] );
 				$conversation_ids = trim( join( ',', $conversation_ids ), ',' );
 
 				$args['where']['id'] = [
-					'field'   => 'id',
+					'key'     => 'id',
 					'compare' => 'IN',
-					'value'   => "( $conversation_ids )",
+					'value'   => "$conversation_ids",
 				];
 			} else {
 				$args['where']['id'] = 0;
 			}
+
+			unset( $args['search'] );
 		}
 
 		if ( isset( $args['where']['terms'] ) ) {

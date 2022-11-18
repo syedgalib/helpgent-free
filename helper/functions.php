@@ -1071,25 +1071,43 @@ function get_users_data_by_ids($user_ids = [])
  *
  * @return array Users
  */
-function search_users($keyword = '', $fields = [])
-{
+function search_users( $keyword = '', $fields = [] ) {
+	$users = [];
 
-	if (empty($keyword)) {
+	$wp_users    = search_wp_users( $keyword, $fields );
+	$guest_users = search_guest_users( $keyword );
+
+	$users = array_merge( $users, $wp_users, $guest_users );
+
+	return $users;
+}
+
+
+/**
+ * Search WP Users
+ *
+ * @param string $keyword
+ * @param array $fields
+ *
+ * @return array Users
+ */
+function search_wp_users( $keyword = '', $fields = [] ) {
+	if ( empty( $keyword ) ) {
 		return [];
 	}
 
 	$prepared_args = [];
 
-	if (is_email($keyword)) {
+	if ( is_email( $keyword ) ) {
 		// Search by email.
 		$prepared_args['search']         = $keyword;
-		$prepared_args['search_columns'] = array('user_email');
+		$prepared_args['search_columns'] = array( 'user_email' );
 	} else {
 		// Search by name.
-		$name_parts = explode(' ', trim($keyword));
+		$name_parts = explode( ' ', trim( $keyword ) );
 		$name_query = ['relation' => 'OR'];
 
-		foreach ($name_parts as $name) {
+		foreach ( $name_parts as $name ) {
 			$name_query[] = [
 				'key'     => 'display_name',
 				'value'   => $name,
@@ -1118,10 +1136,50 @@ function search_users($keyword = '', $fields = [])
 	$users_data = [];
 	$users = new \WP_User_Query($prepared_args);
 
-	foreach ($users->results as $user) {
+	foreach ( $users->results as $user ) {
 		$user_data = prepare_user_data($user, $fields);
 
-		if (!empty($user_data)) {
+		if ( ! empty( $user_data ) ) {
+			$users_data[] = $user_data;
+		}
+	}
+
+	return $users_data;
+}
+
+/**
+ * Search Guest Users
+ *
+ * @param string $keyword
+ * @param array $fields
+ *
+ * @return array Users
+ */
+function search_guest_users( $keyword = '', $fields = [] ) {
+	$query_args = [
+		'where' => [
+			'name' => [
+				'key'     => 'name',
+				'compare' => 'like',
+				'value'   => $keyword,
+			]
+		]
+	];
+
+	if ( is_email( $keyword ) ) {
+		$query_args['where'] = [
+			'email' => $keyword,
+		];
+	}
+
+	$users = Guest_User_Model::get_items( $query_args );
+
+	$users_data = [];
+
+	foreach ( $users as $user ) {
+		$user_data = prepare_guest_user_data( $user );
+
+		if ( ! empty( $user_data ) ) {
 			$users_data[] = $user_data;
 		}
 	}
@@ -1203,8 +1261,7 @@ function prepare_user_data( $user, $fields = [] ) {
  * @param array $user
  * @return array|false User
  */
-function prepare_guest_user_data( $user = [] )
-{
+function prepare_guest_user_data( $user = [] ) {
 	if ( empty( $user ) ) {
 		return false;
 	}

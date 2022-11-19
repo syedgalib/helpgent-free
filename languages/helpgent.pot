@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-16 05:43+0000\n"
+"POT-Creation-Date: 2022-11-19 05:57+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Email is required."
 msgstr ""
 
-#: ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:149, ../app/Module/Core/Model/Guest_User_Model.php:282, ../app/Module/Core/Rest_API/Version_1/Users.php:571, ../helper/functions.php:1525
+#: ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:149, ../app/Module/Core/Model/Guest_User_Model.php:282, ../app/Module/Core/Rest_API/Version_1/Users.php:571, ../helper/functions.php:1582
 msgid "A valid email is required."
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Header:X-WP-Nonce is missing"
 msgstr ""
 
-#: ../app/Module/Core/Rest_API/Base.php:116, ../app/Module/Core/Rest_API/Base.php:124, ../app/Module/Core/Rest_API/Base.php:250, ../app/Module/Core/Rest_API/Base.php:260, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:671, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:727, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:779, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:820, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:849
+#: ../app/Module/Core/Rest_API/Base.php:116, ../app/Module/Core/Rest_API/Base.php:124, ../app/Module/Core/Rest_API/Base.php:250, ../app/Module/Core/Rest_API/Base.php:260, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:673, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:729, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:781, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:822, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:851
 msgid "You are not allowed to perform this operation."
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Nothing to update."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:104, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:659, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:715, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:767
+#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:104, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:661, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:717, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:769
 msgid "The conversation ID is required."
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "The term taxonomy ID is required."
 msgstr ""
 
-#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:116, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:900
+#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:116, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:902
 msgid "The conversation does not exist."
 msgstr ""
 
@@ -451,19 +451,19 @@ msgstr ""
 msgid "Limit result set to resources with a specific role."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:498, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:609
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:500, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:611
 msgid "You are not allowed to delete the resource."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:576, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:294
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:578, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:294
 msgid "You are not allowed to view the resource."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:678
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:680
 msgid "Nothing to add or remove."
 msgstr ""
 
-#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:731, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:738, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:783, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:790
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:733, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:740, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:785, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:792
 msgid "The term IDs are required."
 msgstr ""
 
@@ -483,6 +483,6 @@ msgstr ""
 msgid "Homepage"
 msgstr ""
 
-#: ../helper/functions.php:1520
+#: ../helper/functions.php:1577
 msgid "The email is required."
 msgstr ""

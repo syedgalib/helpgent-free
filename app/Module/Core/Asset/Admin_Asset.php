@@ -50,6 +50,14 @@ class Admin_Asset extends Enqueuer {
             'group'     => 'admin',
         ];
 
+		$scripts['helpgent-core-admin-fonts'] = [
+            'file_name' => 'core-fonts',
+            'base_path' => HELPGENT_CSS_PATH,
+            'deps'      => [],
+            'ver'       => $this->script_version,
+            'group'     => 'admin',
+        ];
+
         $scripts           = array_merge( $this->css_scripts, $scripts );
         $this->css_scripts = $scripts;
     }

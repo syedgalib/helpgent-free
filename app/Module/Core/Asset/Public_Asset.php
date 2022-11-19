@@ -50,7 +50,7 @@ class Public_Asset extends Enqueuer {
         //     'group'     => 'public',
         // ];
 
-        $scripts['helpgent-core-fonts'] = [
+        $scripts['helpgent-core-public-fonts'] = [
             'file_name' => 'core-fonts',
             'base_path' => HELPGENT_CSS_PATH,
             'deps'      => [],

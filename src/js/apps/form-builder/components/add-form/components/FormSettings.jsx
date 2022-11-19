@@ -30,8 +30,8 @@ export const templateOptions = [
 
 export const fontSizeOptions = [
     { value: "1.3", label: "large" },
-    { value: "1.2", label: "medium" },
-    { value: "1", label: "x-small" },
+    { value: "1", label: "medium" },
+    { value: ".80", label: "small" },
 ]
 const FormSettings = () => {
     /* initialize Form Data */
@@ -139,8 +139,46 @@ const FormSettings = () => {
     }
 
     const handleChangeSelectValue = (selectEvent, e) => {
-        const updatedData = formUpdater(e.name, selectEvent.value, formData);
-        dispatch(handleDynamicEdit(updatedData));
+        // let updateFormData = {};
+        if(e.name === "wpwax-vm-theme" && selectEvent.value === "theme-2"){
+            const updateFormData = formData.map(item =>{
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        chat_options_title_font_color: "#030308",
+                        footer_message_color: "#4D4D4D",
+                        theme: selectEvent.value
+                    }
+                }
+            });
+            dispatch(handleDynamicEdit(updateFormData));
+        }else if(e.name === "wpwax-vm-theme" && selectEvent.value === "theme-1"){
+            const updateFormData = formData.map(item =>{
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        chat_options_title_font_color: "#ffffff",
+                        footer_message_color: "#ffffff",
+                        theme: selectEvent.value
+                    }
+                }
+            });
+            dispatch(handleDynamicEdit(updateFormData));
+        }else{
+            const updateFormData = formData.map(item =>{
+                return {
+                    ...item,
+                    options: {
+                        ...item.options,
+                        theme: selectEvent.value
+                    }
+                }
+            });
+            dispatch(handleDynamicEdit(updateFormData));
+        }
+        
     };
 
     /* To handle section toggle */
@@ -177,8 +215,6 @@ const FormSettings = () => {
             let attachment = frame.state().get('selection').first() && frame.state().get('selection').first().toJSON();
             const attatchmentType = attachment.type
             const attatchmentUrl = attachment.url
-
-			console.log( { attatchmentUrl } );
 
             if (attatchmentType === "image") {
                 setState({

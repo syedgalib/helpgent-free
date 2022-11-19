@@ -17,7 +17,6 @@ import textIcon from 'Assets/svg/icons/text.svg';
 import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
-import { useEffect } from 'react';
 
 
 function Theme_1() {

@@ -34,6 +34,7 @@ const ChatboxForm = Styled.div`
             font-weight: 600;
             line-height: 1.33;
             color: #ffffff;
+            word-break: break-word;
             margin: 15px 0 15px;
         }
         .wpwax-vm-chatbox-subtitle{
@@ -134,6 +135,7 @@ const ChatboxForm = Styled.div`
                 .wpwax-vm-chatbox-title{
                     font-size: 15px;
                     font-weight: 600;
+                    word-break: break-word;
                     margin: 0;
                 }
             }

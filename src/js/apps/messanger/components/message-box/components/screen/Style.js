@@ -89,6 +89,10 @@ const VideoReplyWrap = Styled.div`
                 font-size: 22px;
                 color: var(--color-white);
             }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
         }
     }
     .wpwax-vm-reply-bottom{
@@ -231,6 +235,10 @@ const VideoReplyWrap = Styled.div`
             color: var(--color-white);
             .dashicons{
                 font-size: 28px;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
             }
         }
         &:before{

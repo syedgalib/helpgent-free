@@ -61,6 +61,7 @@ const editForm = (id,args) => {
 };
 
 const handleDynamicEdit = data => {
+  console.log(data);
   return async dispatch => {
     try {
       dispatch(formReadBegin());

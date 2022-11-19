@@ -187,6 +187,7 @@ const FormUpdater = (label, value,formInitialData) => {
                     }
                 }
             case "wpwax-vm-chat-title-color":
+                console.log(value);
                 return {
                     ...item,
                     options: {

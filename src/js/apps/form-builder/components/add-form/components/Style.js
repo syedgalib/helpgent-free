@@ -121,10 +121,27 @@ const PreviewWrap = Styled.div`
     }
     .wpwax-vm-preview-header{
         position: relative;
+        padding: 25px 25px 0;
+        .wpwax-vm-chatbox-header__top{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .wpwax-vm-timer{
+                margin-right: 20px;
+            }
+            span{
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--color-white);
+            }
+            .wpwax-vm-fulscreen-trigger{
+                line-height: 1;
+            }
+        }
         .wpwax-vm-preview-title{
             font-weight: 600;
             line-height: 1.25;
-            margin: 0 0 15px;
+            margin: 15px 0 15px;
             word-break: break-word;
             font-size: var(--font-size-greet);
             color: var(--color-text-greet);
@@ -133,6 +150,7 @@ const PreviewWrap = Styled.div`
             font-size: 15px;
             font-weight: 500;
             line-height: 1.5;
+            word-break: break-word;
             color: var(--color-description);
         }
     }
@@ -141,7 +159,7 @@ const PreviewWrap = Styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 140px 0 50px;
+        padding: 100px 0 70px;
         @media only screen and (max-width: 1199px) {
             padding: 100px 0 40px;
         }
@@ -155,15 +173,26 @@ const PreviewWrap = Styled.div`
         margin: 0 auto;
         border-radius: 50%;
         text-decoration: none;
+        opacity: 0;
+        visibility: visible;
+        z-index: -1;
         background-color: var(--play-button-bg);
         i,
         svg{
-            width: 30px;
-            height: 30px;
+            width: 26px;
+            height: 26px;
             color: var(--color-primary);
+            fill: var(--color-primary);
             &:before{
                 font-size: 30px;
             }
+        }
+        &:focus{
+            outline: none;
+            box-shadow: 0 0;
+        }
+        svg.wpwax-vm-play{
+            margin-left: 3px;
         }
     }
     .wpwax-vm-preview-footer{
@@ -172,10 +201,13 @@ const PreviewWrap = Styled.div`
             font-size: var(--font-size-chat);
             font-weight: 600;
             color: var(--color-text-chat);
+            padding: 0 25px;
+            word-break: break-word;
             text-align: center;
         }
         .wpwax-vm-preview-footer__actions{
             display: flex;
+            padding: 0 25px;
             margin: -10px;
             a{
                 display: flex;
@@ -195,6 +227,10 @@ const PreviewWrap = Styled.div`
                     padding: 0 15px;
                     width: 95px;
                     flex-basis: 95px;
+                    height: min(80vh,80px);
+                }
+                @media only screen and (max-width: 575px) {
+                    height: min(80vh,60px);
                 }
                 >div{
                     line-height: 0;
@@ -208,20 +244,43 @@ const PreviewWrap = Styled.div`
                         fill: var(--primary-button-color);
                     }
                 }
+                span{
+                    @media only screen and (max-width: 760px) {
+                        display: none;
+                    }
+                }
             }
         }
         .wpwax-vm-preview-footer__text{
             font-size: var(--footer-text-font-size);
             font-weight: 500;
-            margin: 18px 0 0;
+            padding: 0 25px;
+            margin: 18px 0 10px;
             min-height: 20px;
             opacity: .8;
             text-align: center;
+            word-break: break-word;
             color: var(--color-footer-text);
+        }
+        .wpwax-vm-chatbox-footer__bottom{
+            margin: 0;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 8px;
+            text-align: center;
+            border-radius: 0 0 25px 25px;
+            background-color: #4537A5;
+            color: rgba(255,255,255,.80);
+            a{
+                font-size: 13px;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--color-white);
+            }
         }
     }
     .wpwax-vm-preview-general{
-        width: 420px;
+        width: 370px;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -230,7 +289,7 @@ const PreviewWrap = Styled.div`
         padding: 270px 30px;
         background-color: var(--color-dark);
         @media only screen and (max-width: 1399px) {
-            width: 380px;
+            width: 370px;
             padding: 240px 30px;
         }
         @media only screen and (max-width: 1199px) {
@@ -238,11 +297,15 @@ const PreviewWrap = Styled.div`
             width: 320px;
         }
         @media only screen and (max-width: 991px) {
-            width: 320px;
+            width: 290px;
         }
         @media only screen and (max-width: 475px) {
             max-height: 480px;
             width: 280px;
+        }
+        @media only screen and (max-width: 375px) {
+            max-height: 380px;
+            width: 240px;
         }
         p{
             font-size: 20px;
@@ -255,28 +318,55 @@ const PreviewWrap = Styled.div`
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        width: 380px;
+        width: 430px;
         min-height: 560px;
         border-radius: 25px;
-        padding: 25px;
         font-size: 18px;
         background-color: var(--color-page-bg);
+        &:hover{
+            .wpwax-vm-btn-play{
+                opacity: 1;
+                visibility: visible;
+                z-index: 10;
+            }
+        }
         &.wpwax-vm-preview-form-theme-2{
             padding: 0;
             width: 430px;
             background-color: var(--color-page-bg);
+            @media only screen and (max-width: 1199px) {
+                width: 370px
+            }
+            @media only screen and (max-width: 991px) {
+                width: 350px;
+            }
+            @media only screen and (max-width: 575px) {
+                width: 320px;
+            }
+            @media only screen and (max-width: 760px) {
+                width: 370px;
+            }
+            @media only screen and (max-width: 475px) {
+                width: 320px;
+            }
+            @media only screen and (max-width: 360px) {
+                width: 300px;
+            }
         }
         @media only screen and (max-width: 1399px) {
             font-size: 16px;
             min-height: 480px;
         }
         @media only screen and (max-width: 1199px) {
-            width: 380px
+            width: 370px
         }
         @media only screen and (max-width: 1024px) {
-            width: 380px;
+            width: 350px;
             font-size: 14px;
             min-height: 480px;
+        }
+        @media only screen and (max-width: 991px) {
+            width: 320px;
         }
         @media only screen and (max-width: 760px) {
             width: 380px;
@@ -287,6 +377,9 @@ const PreviewWrap = Styled.div`
         }
         @media only screen and (max-width: 475px) {
             width: 280px;
+        }
+        @media only screen and (max-width: 360px) {
+            width: 260px;
         }
     }
     .wpwax-vm-preview-from{
@@ -302,23 +395,28 @@ const PreviewWrap = Styled.div`
                     font-size: var(--font-size-greet);
                     font-weight: 600;
                     margin: 0;
+                    word-break: break-word;
                     color: var(--color-text-greet);
                 }
                 .wpwax-vm-preview-description{
                     display: block;
                     margin-top: 8px;
+                    word-break: break-word;
                 }
             }
            .wpwax-vm-preview-inner{
-                position: static;
+                position: relative;
                 padding: 0;
                 min-height: 290px;
+                @media only screen and (max-width: 1199px) {
+                    min-height: 250px;
+                }
                 &:after{
                     position: absolute;
                     left: 0;
-                    top: 0;
+                    top: -110px;
                     width: 100%;
-                    height: 360px;
+                    height: 280px;
                     opacity: .9;
                     border-radius: 25px 25px 0 0;
                     background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
@@ -331,21 +429,49 @@ const PreviewWrap = Styled.div`
                 &:before{
                     position: absolute;
                     left: 0;
-                    bottom: 2px;
+                    bottom: -200px;
                     width: 100%;
-                    height: 340px;
+                    height: 320px;
                     opacity: .9;
                     border-radius: 0 0 25px 25px;
                     background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));
                     content: '';
                     z-index: 10;
                 }
+                .wpwax-vm-chatbox-inner-action{
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    top: 20px;
+                    right: 15px;
+                    z-index: 101;
+                    span.wpwax-vm-timer{
+                        display: block;
+                        margin-right: 20px;
+                        color: var(--color-white);
+                    }
+                    span{
+                        font-size: 13px;
+                        font-weight: 600;
+                    }
+                    .wpwax-vm-fulscreen-trigger{
+                        line-height: 1;
+                    }
+                }
+                .wpwax-vm-chatbox-video{
+                    position: relative;
+                    height: 300px;
+                    overflow: hidden;
+                }
                .wpwax-vm-btn-play{
-                   position: absolute;
-                   left: 50%;
-                   top: 50%;
-                   transform: translate(-50%,-100%);
-                   z-index: 100;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%,-50%);
+                    z-index: 100;
+                    svg.wpwax-vm-play{
+                        margin-left: 3px;
+                    }
                }
                .wpwax-vm-preview-img{  
                     position: relative;
@@ -359,7 +485,7 @@ const PreviewWrap = Styled.div`
                }
                video{
                     width: 100%;
-                    height: 340px;
+                    height: 300px;
                }
                
            }
@@ -367,13 +493,14 @@ const PreviewWrap = Styled.div`
                 position: relative;
                 z-index: 10;
                 border-radius: 0 0 25px 25px;
-                padding: 0 25px;
-                min-height: 198px;
+                min-height: 185px;
                 background-color: var(--color-page-bg);
                 .wpwax-vm-preview-footer__title{
                     font-size: var(--font-size-chat);
                     font-weight: 600;
                     margin: 14px 0 20px;
+                    padding: 0 25px;
+                    word-break: break-word;
                     color: var(--color-text-chat);
                 }
                 .wpwax-vm-preview-footer__text{
@@ -381,6 +508,7 @@ const PreviewWrap = Styled.div`
                     font-weight: 500;
                     margin-bottom: 15px;
                     opacity: .8;
+                    word-break: break-word;
                     color: var(--color-footer-text);
                 }
            }
@@ -405,21 +533,30 @@ const PreviewWrap = Styled.div`
         font-size: 18px;
         width: 100%;
         height: 100%;
-        padding: 155px 30px 30px;
+        padding: 120px 30px 30px;
         border-radius: 25px;
         box-sizing: border-box;
-        width: 480px;
+        width: 430px;
         background-color: var(--color-thank-page-bg);
         @media only screen and (max-width: 1399px) {
-            width: 450px;
-            padding: 75px 15px 30px;
+            width: 400px;
+            padding: 75px 30px 30px;
         }
         @media only screen and (max-width: 1199px) {
+            width: 400px;
+            padding: 100px 20px 20px;
+        }
+        @media only screen and (max-width: 991px) {
             width: 360px;
-            padding: 100px 15px 30px;
         }
         @media only screen and (max-width: 760px) {
-            width: 380px;
+            width: 400px;
+        }
+        @media only screen and (max-width: 479px) {
+            width: 350px;
+        }
+        @media only screen and (max-width: 375px) {
+            width: 300px;
         }
         .wpwax-vm-preview-thank__content{
             text-align: center;
@@ -435,6 +572,7 @@ const PreviewWrap = Styled.div`
                 font-size: var(--font-size-thank-desc);
                 font-weight: 500;
                 line-height: 1.625;
+                word-break: break-word;
                 color: var(--color-thank-desc);
             }
         }

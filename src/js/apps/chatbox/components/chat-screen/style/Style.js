@@ -50,6 +50,7 @@ const ChatboxForm = Styled.div`
         .wpwax-vm-chatbox-title{
             font-family: var(--font-family);
             font-size: var(--font-size-greet);
+            word-break: break-word;
             font-weight: 600;
             line-height: 1.2;
             color: var(--color-text-greet);
@@ -60,6 +61,7 @@ const ChatboxForm = Styled.div`
             font-weight: 500;
             display: inline-block;
             margin-top: 8px;
+            word-break: break-word;
             font-family: var(--font-family);
             color: var(--color-description)
         }
@@ -92,6 +94,9 @@ const ChatboxForm = Styled.div`
                 font-size: 30px;
             }
         }
+        svg.wpwax-vm-play{
+            margin-left: 3px;
+        }
     }
     .wpwax-vm-chatbox-footer{
         .wpwax-vm-chatbox-footer__title{
@@ -99,7 +104,7 @@ const ChatboxForm = Styled.div`
             font-size: var(--font-size-chat);
             font-weight: 600;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             text-transform: inherit;
             color: var(--color-text-chat);
         }
@@ -200,6 +205,7 @@ const ChatboxForm = Styled.div`
                 .wpwax-vm-chatbox-title{
                     font-family: var(--font-family);
                     font-size: var(--font-size-greet);
+                    word-break: break-word;
                     font-weight: 600;
                     margin: 0;
                 }
@@ -218,7 +224,7 @@ const ChatboxForm = Styled.div`
                 &:after{
                     position: absolute;
                     ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
-                    top: 0;
+                    top: -110px;
                     width: 100%;
                     height: 280px;
                     opacity: .9;
@@ -278,6 +284,9 @@ const ChatboxForm = Styled.div`
                     visibility: hidden;
                     transition: .3s;
                     z-index: 10;
+                    svg.wpwax-vm-play{
+                        margin-left: 3px;
+                    }
                 }
                 .wpwax-vm-chatbox-img{
                     img{

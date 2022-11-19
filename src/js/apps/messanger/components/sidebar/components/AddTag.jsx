@@ -618,7 +618,7 @@ const AddTag = (props) => {
                                             className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary wpwax-vm-btnlink'
                                             onClick={handleAssignTerm}
                                         >
-                                            Update
+                                            Save
                                         </a>
                                     ) : null}
                                 </React.Fragment>

@@ -14,7 +14,6 @@ const AddFormStyle = Styled.div`
         width: 420px;
         min-height: 660px;
         border-radius: 14px;
-        z-index: 99999;
         font-family: 'Inter';
         background-color: #fff;
         @media only screen and (max-width: 1199px) {
@@ -29,10 +28,13 @@ const AddFormStyle = Styled.div`
             z-index: 10;
         }
         @media only screen and (max-width: 479px) {
-            width: 380px;
+            width: 360px;
         }
         @media only screen and (max-width: 375px) {
             width: 340px;
+        }
+        @media only screen and (max-width: 350px) {
+            width: 300px;
         }
         .wpwax-vm-loading-spin{
             position: absolute;
@@ -144,6 +146,9 @@ const AddFormStyle = Styled.div`
         }
         @media only screen and (max-width: 960px) {
             text-align: left;
+        }
+        @media only screen and (max-width: 760px) {
+            text-align: center;
         }
         .wpwax-vm-add-form__top--btn{
             display: inline-flex;
@@ -339,18 +344,14 @@ const AddFormStyle = Styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 80px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -70px;
         z-index: 0;
-        @media only screen and (max-width: 1399px) {
-            padding-top: 60px;
-        }
         @media only screen and (max-width: 1299px) {
             ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
         }
-        /* @media only screen and (max-width: 760px) {
-            display: none;
-        } */
+        @media only screen and (max-width: 760px) {
+            margin-top: 30px;
+        }
         .wpwax-vm-preview-label{
             font-size: 14px;
             font-weight: 500;

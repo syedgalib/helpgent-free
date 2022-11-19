@@ -105,6 +105,10 @@ const VideoPopupWrap = Styled.div`
                 font-size: 22px;
                 color: var(--color-white);
             }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
         }
     }
     .wpwax-vm-reply-bottom{
@@ -156,6 +160,21 @@ const VideoPopupWrap = Styled.div`
             }
         }
     }
+    &.wpwax-vm-reply-pause{
+        .wpwax-vm-reply-close{
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            z-index: 10;
+            .dashicons{
+                font-size: 28px;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+        }
+    }
     &.wpwax-vm-reply-ready{
         position: relative;
         display: flex;
@@ -177,6 +196,10 @@ const VideoPopupWrap = Styled.div`
         }
         .wpwax-vm-reply-close{
             color: #fff !important;
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
         }
         &.wpwax-vm-reply-upload{
             .wpwax-vm-reply-ready__video{
@@ -246,13 +269,17 @@ const VideoPopupWrap = Styled.div`
         }
         .wpwax-vm-reply-close{
             position: absolute;
-            top: 20px;
-            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 30px;
+            top: 25px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 25px;
             text-decoration: none;
             z-index: 999;
             color: var(--color-dark);
             .dashicons{
                 font-size: 28px;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
             }
         }
         &:before{

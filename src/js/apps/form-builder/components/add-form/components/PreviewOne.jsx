@@ -1,13 +1,17 @@
 import propTypes from 'prop-types';
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from 'react-redux';
 // import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
+import { formatTimeAsCountdown } from 'Helper/formatter';
 import { PreviewWrap } from './Style';
 import miceIcon from 'Assets/svg/icons/mice.svg';
 import recordIcon from 'Assets/svg/icons/desktop.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
+import playIcon from 'Assets/svg/icons/play.svg';
+import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
+import expander from "Assets/svg/icons/expand.svg";
 
 
 const PreviewOne = ({ previewStage }) => {
@@ -22,6 +26,10 @@ const PreviewOne = ({ previewStage }) => {
     const [state, setState] = useState({
         isPaused: false,
     });
+
+
+    const [ greetVideoTotalDuration, setGreetVideoTotalDuration ] = useState( '00:00' );
+    const [ greetVideoPlayedDuration, setGreetVideoPlayedDuration ] = useState( '00:00' );
 
     /* Destructuring State */
     const { isPaused } = state;
@@ -40,9 +48,50 @@ const PreviewOne = ({ previewStage }) => {
 
     const greetVideoDom = useRef();
 
+    // Greet Video
+    function handleLoadedGreetVideoMetadata() {
+
+        const duration = greetVideoDom.current.duration;
+        console.log(duration);
+        const prettyDuration = formatTimeAsCountdown( duration );
+
+        if ( ! prettyDuration ) {
+            return;
+        }
+
+        setGreetVideoTotalDuration( prettyDuration );
+        greetVideoDom.current.addEventListener( 'timeupdate', updateGreetVideoElapsedTime );
+    }
+
+    function updateGreetVideoElapsedTime() {
+        if ( ! greetVideoDom.current ) {
+            return;
+        }
+
+        const currentTime = greetVideoDom.current.currentTime;
+        const prettyCurrentTime = formatTimeAsCountdown( currentTime );
+
+        if ( ! prettyCurrentTime ) {
+            return;
+        }
+
+        setGreetVideoPlayedDuration( prettyCurrentTime );
+    }
+
+    function fullscreenGreetVideo( event ) {
+        event.preventDefault();
+
+        if (greetVideoDom.current.requestFullscreen) {
+            greetVideoDom.current.requestFullscreen();
+        } else if (greetVideoDom.current.webkitRequestFullscreen) { /* Safari */
+            greetVideoDom.current.webkitRequestFullscreen();
+        } else if (greetVideoDom.current.msRequestFullscreen) { /* IE11 */
+            greetVideoDom.current.msRequestFullscreen();
+        }
+    }
+
     const handleToggleGreetVideo = e => {
         e.preventDefault()
-        console.log(greetVideoDom.current.paused);
         if (greetVideoDom.current.paused) {
             greetVideoDom.current.play();
             setState({
@@ -51,6 +100,12 @@ const PreviewOne = ({ previewStage }) => {
             return;
         }
         greetVideoDom.current.pause();
+        setState({
+            isPaused: false
+        });
+    }
+
+    function handleStopStatus(){
         setState({
             isPaused: false
         });
@@ -79,10 +134,22 @@ const PreviewOne = ({ previewStage }) => {
                                     formOption.greet_image_url !== '' ? <img src={formOption.greet_image_url} alt="Wpwax Video Support Plugin" /> : null
                                 }
                                 {
-                                    formOption.greet_video_url !== '' ? <video ref={greetVideoDom} className="wpwax-vmpreview-video" src={formOption.greet_video_url} alt="Wpwax Video Support Plugin" /> : null
+                                    formOption.greet_video_url !== '' ? <video ref={greetVideoDom} className="wpwax-vmpreview-video" onLoadedMetadata={handleLoadedGreetVideoMetadata} src={formOption.greet_video_url} onEnded={handleStopStatus} alt="Wpwax Video Support Plugin" /> : null
                                 }
                             </div>
                             <div className="wpwax-vm-preview-header">
+                            {
+                                formOption.greet_video_url !== "" ?
+                                <div className="wpwax-vm-chatbox-header__top">
+                                    <span className="wpwax-vm-timer">
+                                        <span className="wpwax-vm-count-time">{ greetVideoPlayedDuration }</span>
+                                        <span className="wpwax-vm-total-time"> / { greetVideoTotalDuration }</span>
+                                    </span>
+                                    <a href="#" onClick={fullscreenGreetVideo} className="wpwax-vm-fulscreen-trigger">
+                                        <ReactSVG src={expander} />
+                                    </a>
+                                </div> : null
+                            }
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
                                     <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
@@ -91,7 +158,12 @@ const PreviewOne = ({ previewStage }) => {
                             </div>
                             <div className="wpwax-vm-preview-inner">
                                 {
-                                    formOption.greet_video_url !== '' ? <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}><i className={!isPaused ? 'dashicons dashicons-controls-play' : 'dashicons dashicons-controls-pause'}></i></a> : null
+                                    formOption.greet_video_url !== '' ? 
+                                        <a href="#" className="wpwax-vm-btn-play" onClick={e => handleToggleGreetVideo(e)}>
+                                            {
+                                                !isPaused ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
+                                            }
+                                        </a> : null
                                 }
                             </div>
                             <div className="wpwax-vm-preview-footer">
@@ -101,11 +173,12 @@ const PreviewOne = ({ previewStage }) => {
                                         formOption.can_replay_in.map((item, index) =>
                                             <a href="#" className="wpwax-vm-btn wpwax-vm-btn-md wpwax-vm-btn-primary" key={index}>
                                                 {iconContent(item)}
-                                                {item === "screen_record" ? "Screen" : item}
+                                                <span>{item === "screen_record" ? "Screen" : item}</span>
                                             </a>)
                                     }
                                 </div>
                                 <p className="wpwax-vm-preview-footer__text">{formOption.show_footer ? formOption.footer_message : null}</p>
+                                <p className="wpwax-vm-chatbox-footer__bottom">Powered by <a href="#">WpWax</a></p>
                             </div>
                         </div>
                     </>

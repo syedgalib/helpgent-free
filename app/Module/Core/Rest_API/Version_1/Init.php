@@ -31,6 +31,7 @@ class Init {
             Authentication::class,
             Terms::class,
             Attachment::class,
+            Licensing::class,
         ];
     }
 

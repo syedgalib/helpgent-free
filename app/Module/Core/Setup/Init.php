@@ -28,6 +28,7 @@ class Init {
         return [
             Activation::class,
             User_Role::class,
+            EDD_SL_Plugin_Updater::class,
         ];
     }
 

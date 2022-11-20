@@ -17,8 +17,6 @@ class Setup {
 
     }
 
-
-
 	/**
 	 * Remove custom cron evernt on deactivation
 	 *
@@ -27,8 +25,8 @@ class Setup {
 
 	public function unscheduled_cron() {
 		register_deactivation_hook( HELPGENT_FILE, function() {
-			$timestamp = wp_next_scheduled( 'helpgent_hourly_cron' );
-    		wp_unschedule_event( $timestamp, 'helpgent_hourly_cron' );
+			$timestamp = wp_next_scheduled( 'helpgent_daily_cron' );
+    		wp_unschedule_event( $timestamp, 'helpgent_daily_cron' );
 		});
 	}
 
@@ -38,8 +36,8 @@ class Setup {
 	 * @return void
 	 */
     public function cron_event() {
-		if ( ! wp_next_scheduled( 'helpgent_hourly_cron' ) ) {
-			wp_schedule_event( time(), 'daily', 'helpgent_hourly_cron' );
+		if ( ! wp_next_scheduled( 'helpgent_daily_cron' ) ) {
+			wp_schedule_event( time(), 'daily', 'helpgent_daily_cron' );
 		}
 	}
 

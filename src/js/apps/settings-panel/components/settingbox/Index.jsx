@@ -45,12 +45,12 @@ const SettingBox = () => {
                 },
             ],
         },
-        // {
-        //     label: 'Licensing',
-        //     path: 'license',
-        //     navId: 'wpwax-vm-license-settings',
-        //     icon: <ReactSVG src={handShake} />,
-        // },
+        {
+            label: 'Licensing',
+            path: 'license',
+            navId: 'wpwax-vm-license-settings',
+            icon: <ReactSVG src={handShake} />,
+        },
     ];
 
     const totalNav = settingsNav.length;
@@ -79,7 +79,7 @@ const SettingBox = () => {
             emailTemplateMessageSubject: '',
             emailTemplateMessageBody: '',
             enableEmailFooter: true,
-            licenseKey: "",
+            helpgent_license: "",
         },
         message: '',
         loading: true,

@@ -343,6 +343,10 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             });
 	};
 
+    const interval = setInterval(function() {
+        // method to be executed;
+      }, 5000);
+
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>

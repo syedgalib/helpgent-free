@@ -297,9 +297,6 @@ const FormSettings = () => {
 		});
 	}
 
-
-
-
 	function getActiveReplayTypeCount() {
 		const replayTypes = [ 'video', 'voice', 'text', 'screen_record' ];
 

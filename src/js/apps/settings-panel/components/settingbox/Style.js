@@ -305,6 +305,16 @@ const SettingContentWrap = Styled.div`
         height: 200px;
         background-color: #e2e2e2;
     }
+    .wpwax-vm-modal{
+        width: 420px;
+        .wpwax-vm-modal__body{
+            p{
+                font-size: 16px;
+                margin: 0;
+                padding: 15px 0;
+            }
+        }
+    }
     .wpwax-vm-radio-list{
         margin-top: 14px;
         .wpwax-vm-radio-single{
@@ -419,6 +429,14 @@ const SettingContentWrap = Styled.div`
                                 color: var(--color-white);
                                 background-color: #ad0606;
                             }
+                        }
+                        >span{
+                            display: flex;
+                            align-items: center;
+                        }
+                        .wpwax-vm-dots{
+                            display: inline-block;
+                            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 16px;
                         }
                     }
                     .wpwax-vm-form__element{

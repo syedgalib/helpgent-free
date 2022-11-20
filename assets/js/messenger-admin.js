@@ -9857,6 +9857,9 @@ var Sidebar = function Sidebar(_ref) {
       console.log(error);
     });
   };
+  var interval = setInterval(function () {
+    // method to be executed;
+  }, 5000);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_26__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {

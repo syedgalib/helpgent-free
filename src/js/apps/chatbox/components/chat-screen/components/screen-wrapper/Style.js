@@ -205,13 +205,13 @@ const ScreenWrapper = Styled.div`
     .wpwax-vm-record-send-success{
         font-family: var(--font-family);
         border-radius: 25px;
+        height: min(80vh,620px);
         background-color: var(--color-thank-page-bg);
         h4{
             font-family: var(--font-family);
         }
     }
     .wpwax-vm-record-send-success__content {
-        min-height: 320px;
         font-family: var(--font-family);
         font-size: var(--font-size);
         .wpwax-vm-text-color{

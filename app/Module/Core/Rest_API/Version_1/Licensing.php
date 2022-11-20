@@ -72,7 +72,7 @@ class Licensing extends Rest_Base {
 		// make sure the response came back okay
 		if ( is_wp_error($response) || 200 !== $response_code ) {
 
-			return new WP_Error( 'helpgent_license_error', __('An error occurred, please try again.', 'helpgent'), $response_code );
+			return new WP_Error( 'helpgent_license_error', __('Something went wrong, please try again.', 'helpgent'), $response_code );
 
 		} 
 		
@@ -97,7 +97,7 @@ class Licensing extends Rest_Base {
 
 				case 'missing' :
 
-					return new WP_Error( 'helpgent_license_missing', __('License missing.', 'helpgent'), $response_code );
+					return new WP_Error( 'helpgent_invalid_license', __('License is not valid.', 'helpgent'), $response_code );
 
 				case 'invalid' :
 				case 'site_inactive' :
@@ -114,24 +114,26 @@ class Licensing extends Rest_Base {
 
 				default :
 
-				return new WP_Error( 'helpgent_license_error', __('An error occurred, please try again.', 'helpgent'), $response_code );
+				return new WP_Error( 'helpgent_license_error', __('Something went wrong, please try again.', 'helpgent'), $response_code );
 
 			}
 		
 		}
 	
 
+		$response = [
+			'success' 	=> true,
+			'data' 		=> $license_data,
+			'message' 	=> __( 'License activation successfull', 'helpgent' ),
+		];
+
 		Helper\update_option( 'helpgent_license', $license );
 		Helper\update_option( 'helpgent_license_activated', 1 );
 
 		if( $action === 'deactivate') {
-			Helper\update_option( 'helpgent_license', '' );
+			$response['message'] = __( 'License deactivation successfull', 'helpgent' );
 			Helper\update_option( 'helpgent_license_activated', '' );
 		}
-
-		$response = [
-			'license_data' => $license_data
-		];
 
 		$response = rest_ensure_response( $response );
 		$response->set_status( 201 );

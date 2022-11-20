@@ -79,7 +79,7 @@ function ChatScreen( { show, staticContainer } ) {
             return '';
         }
 
-        return screens[currentChatScreen];
+        return screens['success'];
     }
 
     return (

@@ -69,9 +69,9 @@ const SettingContent = props => {
                 {
                     contentState.contentKey === "email_template" ? <EmailTemplate contentState={contentState} setContentState={setContentState} /> : null
                 }
-                {/* {
+                {
                     contentState.contentKey === "license" ? <License contentState={contentState} setContentState={setContentState} /> : null
-                } */}
+                }
             </form>
 
         </SettingContentWrap>

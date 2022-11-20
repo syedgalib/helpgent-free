@@ -316,10 +316,8 @@ class Form_Model extends DB_Model {
         $form_name = strtolower( sanitize_text_field( $form_name ) );
 
         $table = self::get_table_name( self::$table );
-        $sql   = "SELECT LOWER(name) FROM {$table} WHERE name = '{$form_name}'";
 
-        $query   = $wpdb->prepare( $sql );
-        $results = $wpdb->get_row( $query, ARRAY_A );
+        $results = $wpdb->get_row( $wpdb->prepare( "SELECT LOWER(name) FROM {$table} WHERE name = %s", $form_name ), ARRAY_A );
 
         return ! empty( $results ) ? true : false;
     }

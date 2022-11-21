@@ -146,15 +146,33 @@ const VideoRecordWrap = Styled.div`
 			bottom: 0;
         }
         .wpwax-vm-record-staging__countdown {
-			position: relative;
+			position: absolute;
 			z-index: 9999;
 			color: #fff;
+			background: rgb(127 127 127 / 50%);
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 25px;
 
 			.wpwax-vm-countdown {
                 font-family: var(--font-family);
 				.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
+					font-family: var(--font-family);
 					font-weight: bold;
-                    font-family: var(--font-family);
+					color: #fff;
+				}
+				.wpwax-vm-countdown-heading {
+    				margin: 0;
+					font-size: 100px;
+				}
+				.wpwax-vm-countdown-text {
+					margin: 20px 0;
+					font-size: 30px;	
 				}
 			}
 		}

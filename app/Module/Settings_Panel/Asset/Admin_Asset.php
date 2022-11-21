@@ -6,6 +6,8 @@ use HelpGent\Utility\Enqueuer\Enqueuer;
 use HelpGent\Base\Helper;
 class Admin_Asset extends Enqueuer {
 
+	public $settings_pages = [ 'helpgent_page_vm-settings' ];
+
     /**
      * Constuctor
      *
@@ -66,6 +68,7 @@ class Admin_Asset extends Enqueuer {
             'file_name' => 'settings-panel-admin',
             'base_path' => HELPGENT_JS_PATH,
             'group'     => 'admin',
+            'page'      => $this->settings_pages,
             'data'      => [
                 'SettingsScriptData' => [
                     'pages'     => Helper\get_wp_pages(),

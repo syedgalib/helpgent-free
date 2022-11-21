@@ -22,7 +22,6 @@ abstract class Enqueuer extends Enqueuer_Base {
      * @return void
      */
     public function enqueue_scripts( $page = '' ) {
-
         // Set Script Version
         $this->setup_load_min_files();
 

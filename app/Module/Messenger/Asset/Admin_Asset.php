@@ -6,6 +6,8 @@ use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Admin_Asset extends Enqueuer {
 
+	public $messenger_pages = [ 'toplevel_page_video-message' ];
+
     /**
      * Constuctor
      *
@@ -68,7 +70,8 @@ class Admin_Asset extends Enqueuer {
             'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/messenger/js/admin/',
             'base_path' => HELPGENT_JS_PATH,
             'group'     => 'admin',
-			'data'      => [
+            'page'      => $this->messenger_pages,
+            'data'      => [
                 'wpWaxCustomerSupportApp_MessengerScriptData' => Script_Data::get_base_data(),
             ],
         ];

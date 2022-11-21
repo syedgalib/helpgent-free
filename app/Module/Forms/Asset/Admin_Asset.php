@@ -7,6 +7,8 @@ use HelpGent\Utility\Enqueuer\Enqueuer;
 class Admin_Asset extends Enqueuer
 {
 
+	public $forms_pages = [ 'helpgent_page_vm-forms' ];
+
     /**
      * Constuctor
      *
@@ -86,6 +88,7 @@ class Admin_Asset extends Enqueuer
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',
+			'page'      => $this->forms_pages,
         ];
 
         $scripts          = array_merge($this->js_scripts, $scripts);

@@ -143,7 +143,6 @@ abstract class Enqueuer_Base
      */
     public function can_enqueue_asset($script_id = '', $script_args = [], $group_args = [])
     {
-
         $in_group = true;
 
         if (isset($script_args['group'])) {

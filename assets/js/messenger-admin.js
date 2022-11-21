@@ -14311,10 +14311,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* Create Instance */
 var axiosInstance = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
-  baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
+  baseURL: wpWaxCustomerSupportApp_CoreScriptData ? wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint : '',
   headers: {
     "Content-type": "application/json",
-    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce
+    "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData ? wpWaxCustomerSupportApp_CoreScriptData.apiNonce : ''
   }
 });
 var getAll = function getAll(path) {

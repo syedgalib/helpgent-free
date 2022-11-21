@@ -6,6 +6,12 @@ use HelpGent\Utility\Enqueuer\Enqueuer;
 
 class Admin_Asset extends Enqueuer {
 
+	public $admin_pages = [
+		'helpgent_page_vm-forms',
+		'toplevel_page_video-message',
+		'helpgent_page_vm-settings',
+	];
+
     /**
      * Constuctor
      *
@@ -48,6 +54,7 @@ class Admin_Asset extends Enqueuer {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',
+			'page'      =>  $this->admin_pages,
         ];
 
 		$scripts['helpgent-core-admin-fonts'] = [
@@ -56,6 +63,7 @@ class Admin_Asset extends Enqueuer {
             'deps'      => [],
             'ver'       => $this->script_version,
             'group'     => 'admin',
+			'page'      =>  $this->admin_pages,
         ];
 
         $scripts           = array_merge( $this->css_scripts, $scripts );
@@ -84,6 +92,7 @@ class Admin_Asset extends Enqueuer {
             'src_path'  => HELPGENT_ASSET_SRC_PATH . 'modules/core/js/admin/',
             'base_path' => HELPGENT_JS_PATH,
             'group'     => 'admin',
+			'page'      =>  $this->admin_pages,
             'data'      => [
                 'wpWaxCustomerSupportApp_CoreScriptData' => Script_Data::get_base_data(),
             ],

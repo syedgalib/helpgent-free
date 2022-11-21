@@ -1,10 +1,10 @@
 import axios from 'axios';
 /* Create Instance */
 const axiosInstance = axios.create({
-    baseURL: wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint,
+    baseURL: ( wpWaxCustomerSupportApp_CoreScriptData ) ? wpWaxCustomerSupportApp_CoreScriptData.apiEndpoint : '',
     headers: {
         "Content-type": "application/json",
-        "X-WP-Nonce": wpWaxCustomerSupportApp_CoreScriptData.apiNonce,
+        "X-WP-Nonce": ( wpWaxCustomerSupportApp_CoreScriptData ) ? wpWaxCustomerSupportApp_CoreScriptData.apiNonce : '',
     }
 });
 

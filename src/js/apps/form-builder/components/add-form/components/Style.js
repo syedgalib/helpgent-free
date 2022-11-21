@@ -220,6 +220,7 @@ const PreviewWrap = Styled.div`
                 text-transform: capitalize;
                 width: 90px;
                 flex-basis: 90px;
+                flex-grow: 1;
                 margin: 5px;
                 pointer-events: none;
                 white-space: nowrap;

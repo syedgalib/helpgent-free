@@ -344,7 +344,7 @@ const AddFormStyle = Styled.div`
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -70px;
+        /* ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -70px; */
         z-index: 0;
         @media only screen and (max-width: 1299px) {
             ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;

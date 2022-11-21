@@ -521,9 +521,9 @@ function MessageBox({ setSessionState }) {
                   avater: '',
               };
 
-        let replayingTo = admin_user;
+        let replayingTo = JSON.parse( JSON.stringify( admin_user ) );
 
-        if (is_user_admin) {
+        if ( is_user_admin ) {
             replayingTo =
                 selectedSession.first_message &&
                 selectedSession.first_message.user
@@ -533,15 +533,13 @@ function MessageBox({ setSessionState }) {
                     : null;
         }
 
-        if (!replayingTo) {
+        if ( ! replayingTo ) {
             replayingTo = {
                 name: 'Unknown User',
                 email: '',
                 avater: '',
             };
         }
-
-        replayingTo.name = 'Replaying to ' + replayingTo.name;
 
         return replayingTo;
     }

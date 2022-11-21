@@ -5683,7 +5683,7 @@ function MessageBox(_ref) {
       email: '',
       avater: ''
     };
-    var replayingTo = admin_user;
+    var replayingTo = JSON.parse(JSON.stringify(admin_user));
     if (is_user_admin) {
       replayingTo = selectedSession.first_message && selectedSession.first_message.user ? JSON.parse(JSON.stringify(selectedSession.first_message.user)) : null;
     }
@@ -5694,7 +5694,6 @@ function MessageBox(_ref) {
         avater: ''
       };
     }
-    replayingTo.name = 'Replaying to ' + replayingTo.name;
     return replayingTo;
   }
   var openSearch = getWindowData('openSearch');

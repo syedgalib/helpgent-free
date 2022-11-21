@@ -16,6 +16,7 @@ import useCountdown from 'Hooks/useCountdown';
 import { useCoreData } from 'Hooks/useCoreData.jsx';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
+
     const stages = {
         SUBMIT: 'submit',
         RECORD: 'record',

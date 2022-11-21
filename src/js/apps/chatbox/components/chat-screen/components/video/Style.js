@@ -15,8 +15,8 @@ const VideoHomeWrap = Styled.div`
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-vm-btn-back{
         position: absolute;
-        left: 25px;
-        top: 25px;
+        left: 15px;
+        top: 15px;
         @media only screen and (max-width: 767px){
             top: 15px;
             left: 15px;
@@ -151,8 +151,10 @@ const VideoRecordWrap = Styled.div`
 			color: #fff;
 
 			.wpwax-vm-countdown {
+                font-family: var(--font-family);
 				.wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
 					font-weight: bold;
+                    font-family: var(--font-family);
 				}
 			}
 		}

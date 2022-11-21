@@ -3,7 +3,6 @@ import Styled from 'styled-components';
 const RecorderWrap = Styled.div`
     text-align: center;
     padding: 0 25px;
-    /* min-width: 420px; */
     box-sizing: border-box;
     font-family: var(--font-family);
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
@@ -26,8 +25,8 @@ const RecorderWrap = Styled.div`
 		height: min(80vh,620px);
         .wpwax-vm-btn-back{
             position: absolute;
-            left: 25px;
-            top: 25px;
+            left: 15px;
+            top: 15px;
             @media only screen and (max-width: 767px){
                 top: 15px;
                 left: 15px;
@@ -182,6 +181,12 @@ const RecorderWrap = Styled.div`
                 }
             }
         }
+        .wpwax-vm-countdown{
+            font-family: var(--font-family);
+            .wpwax-vm-countdown-heading, .wpwax-vm-countdown-text {
+                font-family: var(--font-family);
+            }
+        }
     }
     &.wpwax-vm-record-before-send{
         padding: 80px 25px;
@@ -273,6 +278,10 @@ const RecorderWrap = Styled.div`
                 }
             }
         }
+    }
+    &.wpwax-vm-record-uuploading,
+    &.wpwax-vm-upload-faild{
+        height: min(80vh,620px);
     }
 `;
 

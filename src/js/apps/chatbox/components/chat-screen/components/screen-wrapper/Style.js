@@ -57,8 +57,8 @@ const ScreenWrapper = Styled.div`
         }
         .wpwax-vm-btn-back{
             position: absolute;
-            left: 25px;
-            top: 25px;
+            left: 15px;
+            top: 15px;
             @media only screen and (max-width: 767px){
                 left: 15px;
                 top: 15px;

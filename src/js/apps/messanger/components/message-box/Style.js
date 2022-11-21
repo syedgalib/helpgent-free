@@ -251,6 +251,15 @@ const MessageBoxWrap = Styled.div`
                     }
                 }
             }
+            .wpwax-vm-media__title{
+                width: 340px;
+                @media only screen and (max-width: 1299px){
+                    width: 280px;
+                }
+                @media only screen and (max-width: 575px){
+                    width: 220px;
+                }
+            }
         }
     }
     .wpwax-vm-messagebox-header__right{

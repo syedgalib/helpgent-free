@@ -70,15 +70,15 @@ function App( { id } ) {
 	if ( isLoadingInitData ) {
 		return (
 			<div className="wpwax-vm-text-center">
-				<h2>Please wait...</h2>
+				<h4>Please wait...</h4>
 			</div>
 		);
 	}
 
 	if ( failedLoadingForm ) {
 		return (
-			<div className="wpwax-vm-text-center">
-				<h2>Could not load the form, please try again</h2>
+			<div className="wpwax-vm-shortcode-contact wpwax-vm-text-center wpwax-vm-notice wpwax-vm-notice-danger">
+				<p>Could not load the form, please try again</p>
 			</div>
 		);
 	}

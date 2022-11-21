@@ -22,10 +22,11 @@ import videoIcon from 'Assets/svg/icons/video-camera.svg';
 function Theme_1() {
     const dispatch = useDispatch();
 
-    const { templateOptions, supportedReplayTypes } = useSelector( state => {
+    const { templateOptions, supportedReplayTypes, displayChatbox } = useSelector( state => {
         return {
 			templateOptions: state.chatboxTemplate.template.options,
 			supportedReplayTypes: state.chatboxTemplate.supportedReplayTypes,
+            displayChatbox: state.chatbox.showChatbox
         };
     });
 
@@ -118,22 +119,25 @@ function Theme_1() {
     return (
         <ChatboxForm>
             <div className="wpwax-vm-chatbox-wrap wpwax-vm-d-flex wpwax-vm-flex-direction-column">
-                <div className="wpwax-vm-chatbox-bg">
-                {  templateOptions.greet_video_url &&
-				    <video
-                        ref={greetVideo}
-                        style={{objectFit: 'cover'}}
-                        width='100%'
-                        height='100%'
-                        src={templateOptions.greet_video_url}
-                        onLoadedMetadata={handleLoadedGreetVideoMetadata}
-                        onClick={toggolePlayGreetVideo}
-                    >
-                    </video>
+                {
+                    displayChatbox ? 
+                    <div className="wpwax-vm-chatbox-bg">
+                        {  templateOptions.greet_video_url &&
+                            <video
+                                ref={greetVideo}
+                                style={{objectFit: 'cover'}}
+                                width='100%'
+                                height='100%'
+                                src={templateOptions.greet_video_url}
+                                onLoadedMetadata={handleLoadedGreetVideoMetadata}
+                                onClick={toggolePlayGreetVideo}
+                            >
+                            </video>
+                        }
+                        {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
+                    </div> : null
                 }
-                {  templateOptions.greet_image_url && <img src={templateOptions.greet_image_url} alt="Wpwax Support Video Plugin" /> }
-                </div>
-
+                
                 <div className="wpwax-vm-chatbox-header">
                     {
                         templateOptions.greet_video_url !== "" ?

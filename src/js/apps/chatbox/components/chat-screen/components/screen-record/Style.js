@@ -9,8 +9,8 @@ const ScreenRecordWrap = Styled.div`
     animation: 0.4s ease-in-out 0s 1 normal none wpwaxVmScaling;
     .wpwax-vm-btn-back{
         position: absolute;
-        left: 25px;
-        top: 25px;
+        left: 15px;
+        top: 15px;
         @media only screen and (max-width: 767px){
             top: 15px;
             left: 15px;
@@ -152,8 +152,8 @@ const ScreenRecordWrap = Styled.div`
     }
     .wpwax-hg-btn-minimize{
         position: absolute;
-        top: 20px;
-        right: 40px;
+        top: 10px;
+        right: 30px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'right' : 'left')}: 40px;
         line-height: 1;
         @media only screen and (max-width: 767px){

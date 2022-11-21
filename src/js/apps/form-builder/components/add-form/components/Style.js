@@ -159,9 +159,9 @@ const PreviewWrap = Styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 100px 0 70px;
+        padding: 80px 0 55px;
         @media only screen and (max-width: 1199px) {
-            padding: 100px 0 40px;
+            padding: 70px 0 45px;
         }
     }
     .wpwax-vm-btn-play{
@@ -537,6 +537,7 @@ const PreviewWrap = Styled.div`
         border-radius: 25px;
         box-sizing: border-box;
         width: 430px;
+        height: min(80vh, 560px);
         background-color: var(--color-thank-page-bg);
         @media only screen and (max-width: 1399px) {
             width: 400px;
@@ -577,14 +578,8 @@ const PreviewWrap = Styled.div`
             }
         }
         .wpwax-vm-preview-thank__botttom{
-            margin-top: 200px;
+            margin-top: auto;
             padding: 0;
-            @media only screen and (max-width: 1199px) {
-                margin-top: 140px;
-            }
-            @media only screen and (max-width: 1024px) {
-                margin-top: 100px;
-            }
         }
     }
 `;

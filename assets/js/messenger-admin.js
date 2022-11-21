@@ -5220,17 +5220,22 @@ function MessageBox(_ref) {
   // 	createItem: createAttachmentItem,
   // } = useAttachmentAPI();
 
-  var afterStopRecording = function afterStopRecording() {
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_20__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    stopCountdown = _useCountdown.stopCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
+  var afterStopRecording = function afterStopRecording(data) {
+    stopCountdown();
+    if (!data) {
+      return;
+    }
     setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
       recordStage: "beforeSend"
     }));
     dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_18__.handleMessageTypeChange)('screen'));
   };
-  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_20__["default"])(),
-    isActiveCountdown = _useCountdown.isActiveCountdown,
-    startCountdown = _useCountdown.startCountdown,
-    CountdownPage = _useCountdown.CountdownPage,
-    getReverseCount = _useCountdown.getReverseCount;
   var _useScreenRecorder = (0,Hooks_media_recorder_useScreenRecorder__WEBPACK_IMPORTED_MODULE_19__["default"])({
       maxRecordLength: getMaxRecordLength(),
       afterStopRecording: afterStopRecording
@@ -5425,7 +5430,7 @@ function MessageBox(_ref) {
   }
   var handleSelectScreen = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
-      var grantedPermission, _recorder;
+      var grantedPermission, isStarted;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -5436,7 +5441,7 @@ function MessageBox(_ref) {
             case 3:
               grantedPermission = _context.sent;
               if (!grantedPermission) {
-                _context.next = 15;
+                _context.next = 16;
                 break;
               }
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
@@ -5445,21 +5450,23 @@ function MessageBox(_ref) {
               _context.next = 8;
               return setupStream();
             case 8:
-              _recorder = _context.sent;
-              if (_recorder) {
-                _context.next = 11;
+              _context.next = 10;
+              return startCountdown();
+            case 10:
+              _context.next = 12;
+              return startRecording();
+            case 12:
+              isStarted = _context.sent;
+              if (isStarted) {
+                _context.next = 15;
                 break;
               }
               return _context.abrupt("return");
-            case 11:
-              _context.next = 13;
-              return startCountdown();
-            case 13:
-              startRecording(_recorder);
+            case 15:
               setScreenRecordState(_objectSpread(_objectSpread({}, screenRecordState), {}, {
                 recordStage: "startScreen"
               }));
-            case 15:
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -15252,44 +15259,36 @@ function useScreenRecorder(config) {
   config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
-    recorder = _useState2[0],
-    setRecorder = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    recordingTimer = _useState2[0],
+    setRecordingTimer = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    screenStream = _useState4[0],
-    setScreenStream = _useState4[1];
+    isRecording = _useState4[0],
+    setIsRecording = _useState4[1];
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
-    audioStream = _useState6[0],
-    setAudioStream = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    permissionDenied = _useState6[0],
+    setPermissionDenied = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState8 = _slicedToArray(_useState7, 2),
-    recordingTimer = _useState8[0],
-    setRecordingTimer = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    recordedTimeInSecond = _useState8[0],
+    setRecordedTimeInSecond = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState10 = _slicedToArray(_useState9, 2),
-    isRecording = _useState10[0],
-    setIsRecording = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    recordedScreenBlob = _useState10[0],
+    setRecordedScreenBlob = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState12 = _slicedToArray(_useState11, 2),
-    permissionDenied = _useState12[0],
-    setPermissionDenied = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    recordedScreenURL = _useState12[0],
+    setRecordedScreenURL = _useState12[1];
+  var recordingTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var recorderRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var screenStreamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var audioStreamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
-    recordedTimeInSecond = _useState14[0],
-    setRecordedTimeInSecond = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState16 = _slicedToArray(_useState15, 2),
-    recordedScreenBlob = _useState16[0],
-    setRecordedScreenBlob = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState18 = _slicedToArray(_useState17, 2),
-    recordedScreenURL = _useState18[0],
-    setRecordedScreenURL = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState20 = _slicedToArray(_useState19, 2),
-    recordingIsGoingToStopSoon = _useState20[0],
-    setRecordingIsGoingToStopSoon = _useState20[1];
+    recordingIsGoingToStopSoon = _useState14[0],
+    setRecordingIsGoingToStopSoon = _useState14[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!config.maxRecordLength) {
       return;
@@ -15377,7 +15376,7 @@ function useScreenRecorder(config) {
   } // startRecording
   function _setupStream() {
     _setupStream = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var newScreenStream, newAudioStream, newMixedStream, newRecorder;
+      var newMixedStream;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -15388,11 +15387,8 @@ function useScreenRecorder(config) {
                 video: true
               });
             case 3:
-              newScreenStream = _context3.sent;
-              setScreenStream(newScreenStream);
-
-              // Setup Audio Streem
-              _context3.next = 7;
+              screenStreamRef.current = _context3.sent;
+              _context3.next = 6;
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
@@ -15400,52 +15396,60 @@ function useScreenRecorder(config) {
                   sampleRate: 44100
                 }
               });
-            case 7:
-              newAudioStream = _context3.sent;
-              setAudioStream(newAudioStream);
-              newMixedStream = new MediaStream([].concat(_toConsumableArray(newScreenStream.getTracks()), _toConsumableArray(newAudioStream.getTracks())));
-              newRecorder = new RecordRTC(newMixedStream, {
+            case 6:
+              audioStreamRef.current = _context3.sent;
+              newMixedStream = new MediaStream([].concat(_toConsumableArray(screenStreamRef.current.getTracks()), _toConsumableArray(audioStreamRef.current.getTracks())));
+              recorderRef.current = new RecordRTC(newMixedStream, {
                 type: 'video',
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true
               });
-              setRecorder(newRecorder);
-              return _context3.abrupt("return", newRecorder);
-            case 15:
-              _context3.prev = 15;
+
+              // Stop Recording If Native Stop Sharing Button Is Pressed
+              screenStreamRef.current.getVideoTracks()[0].onended = stopRecording;
+              return _context3.abrupt("return", recorderRef.current);
+            case 13:
+              _context3.prev = 13;
               _context3.t0 = _context3["catch"](0);
               console.log({
                 error: _context3.t0
               });
               setIsRecording(false);
               return _context3.abrupt("return", false);
-            case 20:
+            case 18:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[0, 15]]);
+      }, _callee3, null, [[0, 13]]);
     }));
     return _setupStream.apply(this, arguments);
   }
-  function startRecording(_x) {
+  function startRecording() {
     return _startRecording.apply(this, arguments);
   } // stopRecording
   function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(recorder) {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
       return _regeneratorRuntime().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
-              return recorder.startRecording();
+              if (recorderRef.current) {
+                _context4.next = 2;
+                break;
+              }
+              return _context4.abrupt("return", false);
             case 2:
+              _context4.next = 4;
+              return recorderRef.current.startRecording();
+            case 4:
               setRecordingIsGoingToStopSoon(false);
               setRecordedTimeInSecond(0);
               setIsRecording(true);
               startTimer();
-            case 6:
+              return _context4.abrupt("return", true);
+            case 9:
             case "end":
               return _context4.stop();
           }
@@ -15456,12 +15460,30 @@ function useScreenRecorder(config) {
   }
   function stopRecording() {
     stopTimer();
-    recorder.stopRecording(function (url) {
-      var blob = recorder.getBlob();
-      screenStream.getTracks().forEach(function (track) {
+    var state = recorderRef.current ? recorderRef.current.getState() : 'inactive';
+    if ('inactive' === state) {
+      if (screenStreamRef.current) {
+        screenStreamRef.current.getTracks().forEach(function (track) {
+          return track.stop();
+        });
+      }
+      if (audioStreamRef.current) {
+        audioStreamRef.current.getTracks().forEach(function (track) {
+          return track.stop();
+        });
+      }
+      recorderRef.current = null;
+      setRecordedTimeInSecond(0);
+      setIsRecording(false);
+      afterStopRecording();
+      return;
+    }
+    recorderRef.current.stopRecording(function (url) {
+      var blob = recorderRef.current.getBlob();
+      screenStreamRef.current.getTracks().forEach(function (track) {
         return track.stop();
       });
-      audioStream.getTracks().forEach(function (track) {
+      audioStreamRef.current.getTracks().forEach(function (track) {
         return track.stop();
       });
       setRecordingIsGoingToStopSoon(false);
@@ -15480,15 +15502,14 @@ function useScreenRecorder(config) {
     }
   }
   function startTimer() {
-    var timer = setInterval(function () {
+    recordingTimerRef.current = setInterval(function () {
       setRecordedTimeInSecond(function (currentValue) {
         return currentValue + 1;
       });
     }, 1000);
-    setRecordingTimer(timer);
   }
   function stopTimer() {
-    clearInterval(recordingTimer);
+    clearInterval(recordingTimerRef.current);
   }
   function reversedRecordedTimeInSecond() {
     return config.maxRecordLength - recordedTimeInSecond;
@@ -15500,16 +15521,17 @@ function useScreenRecorder(config) {
     return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   function reset() {
+    recorderRef.current = null;
+    screenStreamRef.current = null;
+    audioStreamRef.current = null;
     setIsRecording(false);
-    setRecorder(null);
-    setScreenStream(null);
     setRecordingTimer(null);
     setRecordedTimeInSecond(0);
     setRecordedScreenBlob(null);
     setRecordedScreenURL('');
   }
   return {
-    recorder: recorder,
+    recorder: recorderRef.current,
     isRecording: isRecording,
     permissionDenied: permissionDenied,
     recordedTimeInSecond: recordedTimeInSecond,
@@ -15632,6 +15654,26 @@ function useCountdown(config) {
     }));
     return _startCountdown.apply(this, arguments);
   }
+  function stopCountdown() {
+    return _stopCountdown.apply(this, arguments);
+  }
+  function _stopCountdown() {
+    _stopCountdown = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              stopTimer();
+              setIsActiveCountdown(false);
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+    return _stopCountdown.apply(this, arguments);
+  }
   function startTimer() {
     countdownTimer.current = setInterval(function () {
       setCount(function (currentValue) {
@@ -15657,6 +15699,7 @@ function useCountdown(config) {
     count: count,
     isActiveCountdown: isActiveCountdown,
     startCountdown: startCountdown,
+    stopCountdown: stopCountdown,
     CountdownPage: Components_Countdown_jsx__WEBPACK_IMPORTED_MODULE_1__["default"],
     getReverseCount: getReverseCount
   };
@@ -16099,7 +16142,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8f13f82c2c1c69e53ed1bf618799b9b8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/244fb65370a118797eeec0b955e59839.svg");
 
 /***/ }),
 
@@ -16111,7 +16154,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a31f30177650c9a7e44ed2cac0553d4a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/50b518426dacc941247077f5af6431b7.svg");
 
 /***/ }),
 
@@ -16147,7 +16190,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/97579941a6616468761edbd343988c89.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/dffcc4e7e75f301f5402d7160d1df7b3.svg");
 
 /***/ }),
 
@@ -16159,7 +16202,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/20f11a0a3a31a4e804ba3a840119231b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/16d2ec28c3f1fbb6ada3def6bce8c5ee.svg");
 
 /***/ }),
 
@@ -16171,7 +16214,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
 
 /***/ }),
 
@@ -16195,7 +16238,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6cfe103e71de693d28738fda28edec7a.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8d2b8b6aa19071f93e3f3002c892ba6f.svg");
 
 /***/ }),
 
@@ -16231,7 +16274,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -16255,7 +16298,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/2b85f66fab288c60d97f364a69fd35e4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1c1bdde6d639d3ced190e50a1476023a.svg");
 
 /***/ }),
 
@@ -16291,7 +16334,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/010dfc021af9cd6ea21c48de0d8081af.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6de0e7de2ca4e86b7aa9a41c518ee666.svg");
 
 /***/ }),
 
@@ -16315,7 +16358,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6659ccb5ec7b0e703310cd6327f8f09d.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/be80f8cd2cc115230741ab2bab26611e.svg");
 
 /***/ }),
 
@@ -16327,7 +16370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/b9f4406981b1258d700d8be3812c19c2.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e6a27a381efbc761efc6c28f2234ecd8.svg");
 
 /***/ }),
 
@@ -16339,7 +16382,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4bdfa00a3ced139893ac100cda3ac599.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/93027aee639aabcb9f14af38f4cf0f33.svg");
 
 /***/ }),
 
@@ -16399,7 +16442,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 
@@ -16423,7 +16466,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7822bcc25cf76e5567532b2044752493.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/586199078f576021bbee1504fcc8acdd.svg");
 
 /***/ }),
 

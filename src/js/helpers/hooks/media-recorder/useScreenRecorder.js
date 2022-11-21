@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatSecondsAsCountdown } from "Helper/formatter";
 
 export default function useScreenRecorder( config ) {
@@ -10,9 +10,6 @@ export default function useScreenRecorder( config ) {
 
 	config = ( config && typeof config === 'object' ) ? { ...defaultConfig, ...config } : defaultConfig;
 
-	const [ recorder, setRecorder ]             = useState( null );
-	const [ screenStream, setScreenStream ]     = useState( null );
-	const [ audioStream, setAudioStream ]       = useState( null );
 	const [ recordingTimer, setRecordingTimer ] = useState( null );
 
 	const [ isRecording, setIsRecording ]           = useState( false );
@@ -21,6 +18,11 @@ export default function useScreenRecorder( config ) {
 	const [ recordedTimeInSecond, setRecordedTimeInSecond ] = useState( 0 );
 	const [ recordedScreenBlob, setRecordedScreenBlob ]     = useState( null );
 	const [ recordedScreenURL, setRecordedScreenURL ]       = useState( '' );
+
+	const recordingTimerRef = useRef();
+	const recorderRef       = useRef();
+	const screenStreamRef   = useRef();
+	const audioStreamRef    = useRef();
 
 	const [ recordingIsGoingToStopSoon, setRecordingIsGoingToStopSoon ] = useState( false );
 
@@ -80,14 +82,10 @@ export default function useScreenRecorder( config ) {
     async function setupStream() {
         try {
             // Setup Screen Streem
-            const newScreenStream = await navigator.mediaDevices.getDisplayMedia({
-				video: true,
-			});
-
-			setScreenStream( newScreenStream );
+            screenStreamRef.current = await navigator.mediaDevices.getDisplayMedia({ video: true });
 
 			// Setup Audio Streem
-			const newAudioStream = await navigator.mediaDevices.getUserMedia({
+			audioStreamRef.current = await navigator.mediaDevices.getUserMedia({
 				audio: {
 					echoCancellation: true,
 					noiseSuppression: true,
@@ -95,23 +93,22 @@ export default function useScreenRecorder( config ) {
 				},
 			});
 
-			setAudioStream( newAudioStream );
-
 			const newMixedStream = new MediaStream([
-				...newScreenStream.getTracks(),
-				...newAudioStream.getTracks(),
+				...screenStreamRef.current.getTracks(),
+				...audioStreamRef.current.getTracks(),
 			]);
 
-            const newRecorder = new RecordRTC( newMixedStream, {
+            recorderRef.current = new RecordRTC( newMixedStream, {
                 type: 'video',
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true,
             });
 
-			setRecorder( newRecorder );
+			// Stop Recording If Native Stop Sharing Button Is Pressed
+			screenStreamRef.current.getVideoTracks()[0].onended = stopRecording;
 
-			return newRecorder;
+			return recorderRef.current;
 
         } catch (error) {
             console.log({ error });
@@ -122,23 +119,50 @@ export default function useScreenRecorder( config ) {
     }
 
 	// startRecording
-    async function startRecording( recorder ) {
-        await recorder.startRecording();
+    async function startRecording() {
+		if ( ! recorderRef.current ) {
+			return false;
+		}
+
+        await recorderRef.current.startRecording();
 
 		setRecordingIsGoingToStopSoon( false );
         setRecordedTimeInSecond(0);
         setIsRecording(true);
         startTimer();
+
+		return true;
     }
 
 	// stopRecording
     function stopRecording() {
         stopTimer();
-        recorder.stopRecording(function (url) {
-            const blob = recorder.getBlob();
 
-            screenStream.getTracks().forEach((track) => track.stop());
-            audioStream.getTracks().forEach((track) => track.stop());
+		const state = ( recorderRef.current ) ? recorderRef.current.getState() : 'inactive';
+
+		if ( 'inactive' === state ) {
+			if ( screenStreamRef.current ) {
+				screenStreamRef.current.getTracks().forEach((track) => track.stop());
+			}
+
+			if ( audioStreamRef.current ) {
+				audioStreamRef.current.getTracks().forEach((track) => track.stop());
+			}
+
+			recorderRef.current = null;
+
+			setRecordedTimeInSecond(0);
+			setIsRecording(false);
+			
+			afterStopRecording();
+			return;
+		}
+
+        recorderRef.current.stopRecording(function (url) {
+			const blob = recorderRef.current.getBlob();
+
+            screenStreamRef.current.getTracks().forEach((track) => track.stop());
+            audioStreamRef.current.getTracks().forEach((track) => track.stop());
 
 			setRecordingIsGoingToStopSoon( false );
             setRecordedScreenBlob(blob);
@@ -155,17 +179,15 @@ export default function useScreenRecorder( config ) {
 	}
 
 	function startTimer() {
-        const timer = setInterval(function () {
+        recordingTimerRef.current = setInterval(function () {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
         }, 1000);
-
-		setRecordingTimer( timer );
     }
 
     function stopTimer() {
-        clearInterval( recordingTimer );
+        clearInterval( recordingTimerRef.current );
     }
 
 	function reversedRecordedTimeInSecond() {
@@ -182,9 +204,11 @@ export default function useScreenRecorder( config ) {
 	}
 
 	function reset() {
+		recorderRef.current     = null;
+		screenStreamRef.current = null;
+		audioStreamRef.current  = null;
+
 		setIsRecording( false );
-		setRecorder( null );
-		setScreenStream( null );
 		setRecordingTimer( null );
 		setRecordedTimeInSecond( 0 );
 		setRecordedScreenBlob( null );
@@ -192,7 +216,7 @@ export default function useScreenRecorder( config ) {
 	}
 
 	return {
-		recorder,
+		recorder: recorderRef.current,
 		isRecording,
 		permissionDenied,
 		recordedTimeInSecond,

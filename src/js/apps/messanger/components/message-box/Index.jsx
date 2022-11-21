@@ -70,7 +70,21 @@ function MessageBox({ setSessionState }) {
 	// 	createItem: createAttachmentItem,
 	// } = useAttachmentAPI();
 
-	const afterStopRecording = () => {
+	const {
+		isActiveCountdown,
+		startCountdown,
+		stopCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
+
+	const afterStopRecording = ( data ) => {
+		stopCountdown();
+
+		if ( ! data ) {
+			return;
+		}
+
 		setScreenRecordState({
 			...screenRecordState,
 			recordStage: "beforeSend"
@@ -78,13 +92,6 @@ function MessageBox({ setSessionState }) {
 
 		dispatch( handleMessageTypeChange('screen') );
 	};
-
-	const {
-		isActiveCountdown,
-		startCountdown,
-		CountdownPage,
-		getReverseCount,
-	} = useCountdown();
 
     const {
 		isRecording,
@@ -227,7 +234,7 @@ function MessageBox({ setSessionState }) {
 	}
 
 
-    const handleSelectScreen = async event =>{
+    const handleSelectScreen = async event => {
         event.preventDefault();
 
 		const grantedPermission = await requestPermission();
@@ -238,16 +245,17 @@ function MessageBox({ setSessionState }) {
                     recordStage: "beforeStartScreen"
                 });
 
-                const _recorder = await setupStream();
-
-                if ( ! _recorder ) {
-                    return;
-                }
+                await setupStream();
 
 				// Start Countdown
 				await startCountdown();
 
-				startRecording( _recorder );
+				// Start Recording
+				const isStarted = await startRecording();
+
+				if ( ! isStarted ) {
+					return;
+				}
 
 				setScreenRecordState({
 					...screenRecordState,

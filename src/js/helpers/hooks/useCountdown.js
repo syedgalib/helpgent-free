@@ -23,6 +23,11 @@ export default function useCountdown( config ) {
 		setIsActiveCountdown( false );
 	}
 
+	async function stopCountdown() {
+		stopTimer();
+		setIsActiveCountdown( false );
+	}
+
 	function startTimer() {
 		countdownTimer.current = setInterval(function () {
 			setCount(function (currentValue) {
@@ -52,6 +57,7 @@ export default function useCountdown( config ) {
 		count,
 		isActiveCountdown,
 		startCountdown,
+		stopCountdown,
 		CountdownPage: Countdown,
 		getReverseCount,
 	}

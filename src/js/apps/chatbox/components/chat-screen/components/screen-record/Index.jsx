@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactSVG from 'react-inlinesvg';
-import { showToggler, updateScreenTogglerContent } from "../../../../store/chatbox/actionCreator";
+import { showToggler, hideToggler, updateScreenTogglerContent } from "../../../../store/chatbox/actionCreator";
 import minimizeIcon from 'Assets/svg/icons/window-minimize.svg';
 import paperPlan from 'Assets/svg/icons/paper-plane.svg';
 import screenShare from 'Assets/svg/icons/screen-share.svg';
@@ -37,13 +37,21 @@ function ScreenRecord() {
 	const {
 		isActiveCountdown,
 		startCountdown,
+		stopCountdown,
 		CountdownPage,
 		getReverseCount,
 	} = useCountdown();
 
 	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
-	const afterStopRecording = () => {
+	const afterStopRecording = ( data ) => {
+		stopCountdown();
+		dispatch(hideToggler());
+
+		if ( ! data ) {
+			return;
+		}
+
 		setState({
 			...state,
 			recordStage: "beforeSend"
@@ -61,7 +69,6 @@ function ScreenRecord() {
 		stopRecording,
 		recordedTimeInSecond,
 		getCountDown,
-		recordingIsGoingToStopSoon,
 		reset,
 	} = useScreenRecorder({
 		maxRecordLength: getMaxRecordLength(),
@@ -124,18 +131,20 @@ function ScreenRecord() {
 	const handleSelectScreen = async event => {
 		event.preventDefault();
 
-		if(state.recordStage === "startScreen"){
+		if( state.recordStage === "startScreen" ){
 
-			const _recorder = await setupStream();
-
-			if ( ! _recorder ) {
-				return;
-			}
+			await setupStream();
 
 			// Start Countdown
 			await startCountdown();
 
-			startRecording( _recorder );
+			// Start Recording
+			const isStarted = await startRecording();
+
+			if ( ! isStarted ) {
+				return;
+			}
+
 			handleMinizeScreen();
 
 			setState({

@@ -16,7 +16,6 @@ import recordIcon from 'Assets/svg/icons/desktop.svg';
 import crossIcon from 'Assets/svg/icons/cross.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import attachmentAPI from 'apiService/attachment-api';
 import { useScreenSize } from 'Helper/hooks';
 import { updateScreenTogglerContent } from "../../store/messages/actionCreator";
 
@@ -42,7 +41,7 @@ import { getTimezoneString } from 'Helper/utils.js';
 
 import useConversationAPI from 'API/useConversationAPI.js';
 import useMessangerAPI from 'API/useMessangerAPI.js';
-// import useAttachmentAPI from 'API/useAttachmentAPI.js';
+import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const CenterBoxStyle = {
     minHeight: '770px',
@@ -66,9 +65,9 @@ function MessageBox({ setSessionState }) {
 		createItem: createMessangerItem,
 	} = useMessangerAPI();
 
-	// const {
-	// 	createItem: createAttachmentItem,
-	// } = useAttachmentAPI();
+	const {
+		createItem: createAttachmentItem,
+	} = useAttachmentAPI();
 
 	const {
 		isActiveCountdown,
@@ -759,7 +758,7 @@ function MessageBox({ setSessionState }) {
         if (!response.success) {
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
             textMessageContentRef.current.focus();
 
@@ -815,26 +814,6 @@ function MessageBox({ setSessionState }) {
                 sendRecording: args.sendRecording,
             });
         });
-    }
-
-    async function createAttachment(file) {
-        let status = {
-            success: false,
-            data: null,
-        };
-
-        try {
-            const response = await attachmentAPI.createAttachment({ file });
-
-            status.data = response.data.data;
-            status.success = true;
-
-            return status;
-        } catch (error) {
-            status.success = false;
-            console.error({ error });
-            return status;
-        }
     }
 
     const createMessage = async (args) => {
@@ -923,13 +902,13 @@ function MessageBox({ setSessionState }) {
         setIsSendingAudioMessage(true);
 
         // Upload The Attachment
-        const attachmentResponse = await createAttachment(attachment);
+        const attachmentResponse = await createAttachmentItem( { file: attachment } );
 
         // Show Alert on Error
         if (!attachmentResponse.success) {
             const message = attachmentResponse.message
                 ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
             alert(message);
             setIsSendingAudioMessage(false);
@@ -949,7 +928,7 @@ function MessageBox({ setSessionState }) {
         if (!response.success) {
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
 
             return;
@@ -1148,7 +1127,7 @@ function MessageBox({ setSessionState }) {
         if ( ! response.success ) {
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
 			alert( message );
             return;
@@ -1196,7 +1175,7 @@ function MessageBox({ setSessionState }) {
 			setIsLoadingMoreMessages(false);
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
 			alert( message );
             return;
@@ -1401,7 +1380,7 @@ function MessageBox({ setSessionState }) {
         if (!response.success) {
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
 
             setIsLoadingSearchResults(false);
@@ -1433,7 +1412,7 @@ function MessageBox({ setSessionState }) {
         if (!response.success) {
             const message = response.message
                 ? response.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
 
             setIsLoadingMoreSearchResults(false);

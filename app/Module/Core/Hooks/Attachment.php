@@ -3,10 +3,7 @@
 namespace HelpGent\Module\Core\Hooks;
 
 use HelpGent\Module\Core\Model\Attachment_Model;
-use HelpGent\Module\Messenger\Model\Message_Model;
-
 use HelpGent\Base\Helper;
-
 class Attachment {
 
     /**
@@ -16,7 +13,8 @@ class Attachment {
      */
     public function __construct() {
 		add_filter( 'upload_mimes', [ $this, 'add_additional_mimes_support' ], 20, 1 );
-		add_action( 'admin_post_dynamic_attachment_link', [ $this, 'dynamic_attachment_link' ] );
+		add_action( 'init', [ $this, 'add_atachment_page_rewrite_rule' ] );
+		add_action( 'template_redirect', [ $this, 'setup_attachment_page' ] );
     }
 
 	/**
@@ -24,14 +22,31 @@ class Attachment {
 	 *
 	 * @return void
 	 */
-	public function dynamic_attachment_link() {
+	public function add_atachment_page_rewrite_rule() {
+		add_rewrite_rule( "helpgent-attachment/([0-9]+)/?$", 'index.php', 'top' );
+	}
+
+	/**
+	 * Setup Attachment page
+	 *
+	 * @return mixed
+	 */
+	public function setup_attachment_page() {
+		global $wp;
+
+		$matches = [];
+		$has_match = preg_match( '/helpgent-attachment\/([0-9]+)/', $wp->request, $matches );
+
+		$attachment_id = ( count( $matches ) > 1 ) ? ( int ) $matches[1] : 0;
+
+		if ( ! $has_match ) {
+			return;
+		}
 
 		if ( ! Helper\is_user_authenticated() ) {
 			status_header(403);
 			die('You are not allowed to access the file.');
 		}
-
-		$attachment_id = ( ! empty( $_GET['attachment_id'] ) && is_numeric( $_GET['attachment_id'] ) ) ? ( int ) $_GET['attachment_id'] : 0;
 
 		if ( empty( $attachment_id ) ) {
 			status_header( 404 );
@@ -45,68 +60,42 @@ class Attachment {
 			die( esc_html( $attachment->get_error_message() ) );
 		}
 
-		if ( ! $this->can_user_access_the_attachment( $attachment_id ) ) {
+		if ( ! Helper\current_user_can_access_the_attachment( $attachment_id ) ) {
 			status_header( 403 );
 			die('You are not allowed to access the file.');
 		}
 
 		$matches = [];
 
-		preg_match( '/attachment_.+$/', $attachment[ 'url' ], $matches );
+		$upload_dir_url = HELPGENT_UPLOAD_DIR_URL . '/';
 
-		if ( empty( $matches ) ) {
-			status_header( 404 );
-			die('File not found.');
-		}
-
-		$file_name = $matches[0];
+		$file_name = str_replace( $upload_dir_url, '', $attachment[ 'url' ] );
 		$file      = HELPGENT_UPLOAD_DIR_PATH . '/' . $file_name;
 
-		if ( file_exists( $file ) ) {
-			header('Content-Type: application/octet-stream');
-			header( "Content-Disposition: attachment; filename=" . basename( $file_name ) );
-			header('Content-Transfer-Encoding: binary');
-			header('Expires: 0');
-			header('Cache-Control: must-revalidate');
-			header('Pragma: public');
-			header('Content-Length: ' . filesize( $file ) );
-			readfile( $file );
+		if ( ! file_exists( $file ) ) {
+			die();
 		}
+
+		$render = ( ! empty( $_GET['render'] ) ) ? true : false;
+
+		header( 'Content-Type: ' . $attachment['media_type'] );
+		header( "Content-Disposition: attachment; filename=" . basename( $file_name ) );
+
+		if ( $render ) {
+			header( "Content-Disposition: inline" );
+		}
+
+		header( 'Cache-Control: must-revalidate' );
+		header( 'Pragma: public');
+		header( "Pragma: no-cache" );
+		header( "Cache-Control: no-cache, no-store, must-revalidate" );
+		header( 'Cache-Control: pre-check=0, post-check=0, max-age=0', false );
+		header( "Expires: 0" );
+		header( 'Content-Length: ' . filesize( $file ) );
+
+		readfile( $file );
 
 		die();
-	}
-
-	/**
-	 * Can User Access The Attachment
-	 *
-	 * @param int $attachment_id
-	 * @return bool Status
-	 */
-	public function can_user_access_the_attachment( $attachment_id = 0 ) {
-
-		if ( current_user_can( 'administrator' ) ) {
-			return true;
-		}
-
-		// Get the attachment session ID
-		$attachment_args = [
-			'where' => [
-				'field'   => 'attachment_id',
-				'compare' => '=',
-				'value'   => $attachment_id,
-			],
-			'limit' => 1,
-		];
-
-		$attachment_messeges = Message_Model::get_items( $attachment_args );
-
-		if ( empty( $attachment_messeges['results'] ) ) {
-			return false;
-		}
-
-		$attachment_conversation_id = $attachment_messeges['results'][0]['conversation_id'];
-
-		return Helper\current_user_can_view_conversation( $attachment_conversation_id );
 	}
 
     /**

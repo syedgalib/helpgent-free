@@ -23,7 +23,6 @@ export default function useAttachmentAPI() {
 			for ( let key in args ) {
 				if ( args[ key ] instanceof Blob ) {
 					const fileName = generateFileNameFromBlob( args[ key ] );
-					console.log( { fileName } );
 					formData.append( key, args[ key ], fileName );
 					continue;
 				}

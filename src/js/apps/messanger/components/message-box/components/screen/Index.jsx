@@ -6,9 +6,9 @@ import { handleReplyModeChange } from '../../../../store/messages/actionCreator'
 import { VideoReplyWrap } from './Style';
 import plane from 'Assets/svg/icons/paper-plane.svg';
 
-
 import http from 'Helper/http.js';
 import attachmentAPI from 'apiService/attachment-api';
+import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=>{
 
@@ -18,6 +18,7 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
     /* Handle Close */
     const handleClose = (e) => {
@@ -46,13 +47,13 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
         setIsSending(true);
 
         // Upload The Attachment
-        const attachmentResponse = await createAttachment(recordedBold);
+        const attachmentResponse = await createAttachmentItem({ file: recordedBold });
 
         // Show Alert on Error
         if (!attachmentResponse.success) {
             const message = attachmentResponse.message
                 ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
             alert(message);
             setIsSending(false);
@@ -73,7 +74,7 @@ const Screen = ({ recordedBold, recordUrl, sessionID, onSuccess, replayingTo })=
         if (!messageResponse.success) {
             const message = messageResponse.message
                 ? messageResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
             setIsSending(false);
 

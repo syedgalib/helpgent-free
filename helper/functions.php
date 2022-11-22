@@ -9,6 +9,7 @@ use HelpGent\Module\Core\Model\Auth_Token_Model;
 use HelpGent\Module\Core\Model\Guest_User_Model;
 use HelpGent\Module\Core\Model\Term_Model;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
+use HelpGent\Module\Messenger\Model\Message_Model;
 
 /**
  * Get The Public Template
@@ -1497,7 +1498,14 @@ function get_attachment_link( $attachment_id = 0 ) {
 		return '';
 	}
 
-	return admin_url( 'admin-post.php?action=dynamic_attachment_link&attachment_id=' . $attachment_id );
+	$url   = home_url( 'helpgent-attachment/' . $attachment_id );
+	$token = get_auth_token();
+
+	if ( ! empty( $token ) ) {
+		$url = add_query_arg(  'token', $token, $url );
+	}
+
+	return $url;
 }
 
 
@@ -1629,4 +1637,34 @@ function get_duration_in_date( $duration_in_days ) {
 	$expiry  = date( 'Y-m-d H:i:s', strtotime( $now ) + $seconds );
 
 	return $expiry;
+}
+
+
+/**
+ * Check If Current User Can Access The Attachment
+ *
+ * @param int $attachment_id
+ * @return bool Status
+ */
+function current_user_can_access_the_attachment( $attachment_id = 0 ) {
+
+    if ( current_user_can( 'administrator' ) ) {
+        return true;
+    }
+
+    // Get the attachment session ID
+    $attachment_args = [
+        'where' => [ 'attachment_id' => $attachment_id ],
+        'limit' => 1,
+    ];
+
+    $attachment_messeges = Message_Model::get_items( $attachment_args );
+
+    if ( empty( $attachment_messeges['results'] ) ) {
+        return false;
+    }
+
+    $attachment_conversation_id = $attachment_messeges['results'][0]['conversation_id'];
+
+    return current_user_can_view_conversation( $attachment_conversation_id );
 }

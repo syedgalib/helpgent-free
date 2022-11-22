@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-// import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg'
 import { useDispatch } from 'react-redux';
 import UserAvaterList from 'Components/UserAvaterList.jsx';
@@ -10,10 +9,10 @@ import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../s
 import { useEffect } from 'react';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 
-import attachmentAPI from 'apiService/attachment-api';
 import useMessangerAPI from 'API/useMessangerAPI';
 import useCountdown from 'Hooks/useCountdown';
 import { useCoreData } from 'Hooks/useCoreData.jsx';
+import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
@@ -33,7 +32,8 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 	} = useCountdown();
 
 	// Use API
-	const { createItem: createMessangerItem } = useMessangerAPI();
+	const { createItem: createMessangerItem }  = useMessangerAPI();
+	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [textMessage, setTextMessage] = useState('');
@@ -225,13 +225,13 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         setIsSending(true);
 
         // Upload The Attachment
-        const attachmentResponse = await createAttachment(recordedVideoBlob);
+        const attachmentResponse = await createAttachmentItem( { file: recordedVideoBlob } );
 
         // Show Alert on Error
         if (!attachmentResponse.success) {
             const message = attachmentResponse.message
                 ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
             alert(message);
             setIsSending(false);
@@ -251,7 +251,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         if (!messageResponse.success) {
             const message = messageResponse.message
                 ? messageResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
             setIsSending(false);
 
@@ -263,28 +263,6 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 		close();
         dispatch(handleReplyModeChange(false));
-    }
-
-    async function createAttachment(file) {
-        let status = {
-            success: false,
-            data: null,
-        };
-
-        try {
-            const response = await attachmentAPI.createAttachment({ file });
-
-            status.data = response.data.data;
-            status.success = true;
-
-            return status;
-        } catch (error) {
-            status.success = false;
-
-            console.error({ error });
-
-            return status;
-        }
     }
 
     async function createTextMessage(customArgs) {

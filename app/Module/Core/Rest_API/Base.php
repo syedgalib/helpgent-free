@@ -260,6 +260,7 @@ abstract class Base extends WP_REST_Controller {
 			$GLOBALS['current_user'] = $wp_user;
 		} else {
 			$GLOBALS['helpgent_guest_user'] = $email;
+			$GLOBALS['helpgent_token']      = $token;
 		}
 
 		return true;

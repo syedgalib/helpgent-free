@@ -12761,9 +12761,6 @@ function useWPAttachmentAPI() {
       for (var key in args) {
         if (args[key] instanceof Blob) {
           var fileName = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_0__.generateFileNameFromBlob)(args[key]);
-          console.log({
-            fileName: fileName
-          });
           formData.append(key, args[key], fileName);
           continue;
         }

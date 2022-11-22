@@ -8,13 +8,14 @@ import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../store/messages/actionCreator';
 
-import attachmentAPI from 'apiService/attachment-api';
 import useMessangerAPI from 'API/useMessangerAPI';
+import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 	// Use API
 	const { createItem: createMessangerItem } = useMessangerAPI();
+	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
 	// Local Data
     const [textMessage, setTextMessage] = useState('');
@@ -142,13 +143,13 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         setIsSending(true);
 
         // Upload The Attachment
-        const attachmentResponse = await createAttachment(selectedFile);
+        const attachmentResponse = await createAttachmentItem({ file: selectedFile});
 
         // Show Alert on Error
         if (!attachmentResponse.success) {
             const message = attachmentResponse.message
                 ? attachmentResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
 
             alert(message);
             setIsSending(false);
@@ -168,7 +169,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         if (!messageResponse.success) {
             const message = messageResponse.message
                 ? messageResponse.message
-                : 'Somethong went wrong, please try again.';
+                : 'Something went wrong, please try again.';
             alert(message);
             setIsSending(false);
 
@@ -180,28 +181,6 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
 		close();
         dispatch(handleReplyModeChange(false));
-    }
-
-    async function createAttachment(file) {
-        let status = {
-            success: false,
-            data: null,
-        };
-
-        try {
-            const response = await attachmentAPI.createAttachment({ file });
-
-            status.data = response.data.data;
-            status.success = true;
-
-            return status;
-        } catch (error) {
-            status.success = false;
-
-            console.error({ error });
-
-            return status;
-        }
     }
 
     async function createTextMessage(customArgs) {

@@ -52,7 +52,7 @@ const License = (props) => {
             setMessageState({
                 ...messageState,
                 updateLicenseMessageType: 'danger',
-                updateLicenseMessage: 'Plear Enter Your License Key'
+                updateLicenseMessage: 'Please enter your license key'
             });
             return;
         }
@@ -100,12 +100,13 @@ const License = (props) => {
                         updateLicenseMessageType: 'success',
                         updateLicenseMessage: licenseUpdateResponse.message
                     });
-                    setTimeout(() => {
+                    const successRemovalTimer = setTimeout(() => {
                         setMessageState({
                             ...messageState,
                             updateLicenseMessageType: 'success',
                             updateLicenseMessage: ''
                         });
+                        clearTimeout( successRemovalTimer );
                     }, 3000);
                     if(licenseUpdateResponse.data.license === 'valid'){
                         setContentState({
@@ -137,13 +138,6 @@ const License = (props) => {
                         updateLicenseMessageType: 'danger',
                         updateLicenseMessage: licenseUpdateResponse.message
                     });
-                    setTimeout(() => {
-                        setMessageState({
-                            ...messageState,
-                            updateLicenseMessageType: 'danger',
-                            updateLicenseMessage: ''
-                        });
-                    }, 2000);
                 }
             })
     }
@@ -155,7 +149,7 @@ const License = (props) => {
                     className='wpwax-vm-settings__single--label'
                     htmlFor='wpwax-vm-license-key'
                 >
-                    Active you license
+                    License Key
                 </label>
                 <div className='wpwax-vm-settings__single--element'>
                     <div className='wpwax-vm-form-group wpwax-vm-form-group-mixed'>
@@ -164,7 +158,7 @@ const License = (props) => {
                             className='wpwax-vm-form__element'
                             id='wpwax-vm-license-key'
                             name='helpgent_license'
-                            placeholder='Ex: helpgent'
+                            placeholder='Your license key'
                             value={contentState.options.helpgent_license}
                             onChange={handleInputChange}
                         />

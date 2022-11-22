@@ -9322,7 +9322,7 @@ var Video = function Video() {
     var supported_video_extensions = getSupportedVideoExtensions();
     var fileExt = file.type.replace(/.+\//, '.');
     if (supported_video_extensions.length && !supported_video_extensions.includes(fileExt)) {
-      setSelectedFileErrorMessage('Sorry, the selected file type is not supported.');
+      setSelectedFileErrorMessage('The selected file type is not supported.');
       return;
     }
     if (file.size > getMaxUploadSize()) {
@@ -18372,7 +18372,7 @@ var DeleteConfirm = function DeleteConfirm(props) {
                 dispatch((0,_store_sessions_actionCreator__WEBPACK_IMPORTED_MODULE_4__.handleReadSessions)(newSessionlist));
                 setOuterState(_objectSpread(_objectSpread({}, outerState), {}, {
                   sessionList: newSessionlist,
-                  successMessage: "Session Successfully Deleted",
+                  successMessage: "Conversation has been deleted successfully",
                   rejectMessage: "",
                   deleteModalOpen: !modalOpen
                 }));
@@ -18874,7 +18874,7 @@ var TagFilter = function TagFilter(props) {
             }, index);
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
             className: "wpwax-vm-empty",
-            children: "Sorry!! No Tag Found"
+            children: "No Tag Found"
           })
         })
       })
@@ -19297,9 +19297,9 @@ var Taglist = function Taglist(props) {
         }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "wpwax-vm-empty",
           children: taglistWithSession ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
-            children: "Sorry!! No Assigned Tags Found"
+            children: "No Assigned Tags Found"
           }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("p", {
-            children: "Sorry!! No Tags Found"
+            children: "No Tags Found"
           })
         })
       })]

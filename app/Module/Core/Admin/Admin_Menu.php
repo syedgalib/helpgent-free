@@ -17,6 +17,6 @@ class Admin_Menu {
 			$icon = 'data:image/svg+xml;base64,' . base64_encode( $icon );
 		}
 
-        add_menu_page( __( 'HelpGent', 'helpgent' ), __( 'HelpGent', 'helpgent' ), 'manage_options', 'video-message', '', $icon, 77 );
+        add_menu_page( __( 'HelpGent', 'helpgent' ), __( 'HelpGent', 'helpgent' ), 'manage_options', 'video-message', '', $icon, 25 );
     }
 }

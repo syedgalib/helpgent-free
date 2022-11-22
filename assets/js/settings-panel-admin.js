@@ -6987,7 +6987,7 @@ var SettingBox = function SettingBox() {
       path: 'email_template'
     }]
   }, {
-    label: 'Licensing',
+    label: 'License',
     path: 'license',
     navId: 'wpwax-vm-license-settings',
     icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__["default"], {
@@ -7808,7 +7808,7 @@ var EmailGeneral = function EmailGeneral(props) {
             id: "wpwax-vm-mail-from-email",
             name: "emailTemplateFromEmail",
             placeholder: "example@gmail.com",
-            defaultValue: contentState.options.emailTemplateFromEmail || 'demo@gmail.com',
+            defaultValue: contentState.options.emailTemplateFromEmail,
             onChange: handleChange
           })
         })
@@ -8243,218 +8243,236 @@ var General = function General(props) {
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "wpwax-vm-settings",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "guestSubmission",
-        children: "Enable Guest Submission"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          className: "wpwax-vm-switch",
-          id: "guestSubmission",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: contentState.options.guestSubmission,
-          onChange: handleUpdateSwitch
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "chat-head-position",
-        children: "Chat Head Position"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          inputId: "chat-head-position",
-          classNamePrefix: "wpwax-vm-select",
-          options: chatHeadPositions,
-          closeMenuOnSelect: true,
-          hideSelectedOptions: false,
-          searchable: false,
-          name: "chatHeadPosition",
-          onChange: handleChangeSelectValue,
-          placeholder: "Select a position...",
-          value: chatHeadPositions.filter(function (option) {
-            return option.value === contentState.options.chatHeadPosition;
-          })[0],
-          defaultValue: {
-            value: 'bottom-left',
-            label: 'Bottom Left'
-          }
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "user-messages-page",
-        children: "User Messages Page"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          inputId: "user-messages-page",
-          classNamePrefix: "wpwax-vm-select",
-          options: dashboardPages,
-          searchable: false,
-          hideSelectedOptions: false,
-          placeholder: "Select a page...",
-          value: dashboardPages.filter(function (option) {
-            return option.value === contentState.options.userDashboardPage;
-          })[0],
-          defaultValue: dashboardPages.filter(function (option) {
-            return option.value === contentState.options.userDashboardPage;
-          })[0],
-          name: "userDashboardPage",
-          onChange: handleChangeSelectValue,
-          allowSelectAll: true
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-max-video-length",
-        children: "Maximum Video Record Length"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "wpwax-vm-form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "number",
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-max-video-length",
-            name: "maxVideoLength",
-            placeholder: "Ex: 10",
-            value: contentState.options.maxVideoLength,
-            onChange: handleChange,
-            min: "1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-input-addon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "wpwax-vm-input-addon__text",
-              children: "Mins"
-            })
-          })]
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-max-voice-length",
-        children: "Maximum Voice Record Length"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "wpwax-vm-form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "number",
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-max-voice-length",
-            name: "maxVoiceLength",
-            placeholder: "Ex: 10",
-            value: contentState.options.maxVoiceLength,
-            onChange: handleChange,
-            min: "1"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-input-addon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "wpwax-vm-input-addon__text",
-              children: "Mins"
-            })
-          })]
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "video-resolution",
-        children: "Video Resolution"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          inputId: "video-resolution",
-          classNamePrefix: "wpwax-vm-select",
-          options: resolutionOptions,
-          closeMenuOnSelect: true,
-          hideSelectedOptions: false,
-          searchable: false,
-          name: "videoResolution",
-          onChange: handleChangeSelectValue,
-          placeholder: "Select video resulation...",
-          value: resolutionOptions.filter(function (option) {
-            return option.value === contentState.options.videoResolution;
-          })[0],
-          defaultValue: parseResolutionOption(720)
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-max-upload-size",
-        children: "Maximum Upload Size"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "wpwax-vm-form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "number",
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-max-upload-size",
-            name: "maxUploadSize",
-            placeholder: "Ex: 10",
-            value: contentState.options.maxUploadSize,
-            onChange: handleChange,
-            min: "0"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-input-addon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "wpwax-vm-input-addon__text",
-              children: "MB"
-            })
-          })]
-        })
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "wpwax-vm-settings__single",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        className: "wpwax-vm-settings__single--label",
-        htmlFor: "wpwax-vm-delete-attatchment",
-        children: "Store Attachments For"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "wpwax-vm-settings__single--element",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+      className: "wpwax-vm-card",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "wpwax-vm-card-body",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "wpwax-vm-form-group",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "number",
-            className: "wpwax-vm-form__element",
-            id: "wpwax-vm-delete-attatchment",
-            name: "attatchmentDeletionAfter",
-            placeholder: "Ex: 45",
-            value: contentState.options.attatchmentDeletionAfter,
-            onChange: handleChange,
-            min: "0"
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "guestSubmission",
+            children: "Enable Guest Submission"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "wpwax-vm-input-addon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "wpwax-vm-input-addon__text",
-              children: "Days"
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+              uncheckedIcon: false,
+              checkedIcon: false,
+              onColor: "#6551F2",
+              offColor: "#E2E2E2",
+              className: "wpwax-vm-switch",
+              id: "guestSubmission",
+              handleDiameter: 14,
+              height: 22,
+              width: 40,
+              checked: contentState.options.guestSubmission,
+              onChange: handleUpdateSwitch
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-          className: "wpwax-vm-input-desc",
-          children: "Then delete automatically. Or leave empty to store as many days as you want."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "chat-head-position",
+            children: "Chat Head Position"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              inputId: "chat-head-position",
+              classNamePrefix: "wpwax-vm-select",
+              options: chatHeadPositions,
+              closeMenuOnSelect: true,
+              hideSelectedOptions: false,
+              searchable: false,
+              name: "chatHeadPosition",
+              onChange: handleChangeSelectValue,
+              placeholder: "Select a position...",
+              value: chatHeadPositions.filter(function (option) {
+                return option.value === contentState.options.chatHeadPosition;
+              })[0],
+              defaultValue: {
+                value: 'bottom-left',
+                label: 'Bottom Left'
+              }
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "user-messages-page",
+            children: "User Messages Page"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              inputId: "user-messages-page",
+              classNamePrefix: "wpwax-vm-select",
+              options: dashboardPages,
+              searchable: false,
+              hideSelectedOptions: false,
+              placeholder: "Select a page...",
+              value: dashboardPages.filter(function (option) {
+                return option.value === contentState.options.userDashboardPage;
+              })[0],
+              defaultValue: dashboardPages.filter(function (option) {
+                return option.value === contentState.options.userDashboardPage;
+              })[0],
+              name: "userDashboardPage",
+              onChange: handleChangeSelectValue,
+              allowSelectAll: true
+            })
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "wpwax-vm-card",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "wpwax-vm-card-header",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          className: "wpwax-vm-card-header__title",
+          children: "Voice & Video"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "wpwax-vm-card-body",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "wpwax-vm-max-video-length",
+            children: "Maximum Video Record Length"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "number",
+                className: "wpwax-vm-form__element",
+                id: "wpwax-vm-max-video-length",
+                name: "maxVideoLength",
+                placeholder: "Ex: 10",
+                value: contentState.options.maxVideoLength,
+                onChange: handleChange,
+                min: "1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-input-addon",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "wpwax-vm-input-addon__text",
+                  children: "Mins"
+                })
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "wpwax-vm-max-voice-length",
+            children: "Maximum Voice Record Length"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "number",
+                className: "wpwax-vm-form__element",
+                id: "wpwax-vm-max-voice-length",
+                name: "maxVoiceLength",
+                placeholder: "Ex: 10",
+                value: contentState.options.maxVoiceLength,
+                onChange: handleChange,
+                min: "1"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-input-addon",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "wpwax-vm-input-addon__text",
+                  children: "Mins"
+                })
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "video-resolution",
+            children: "Video Resolution"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              inputId: "video-resolution",
+              classNamePrefix: "wpwax-vm-select",
+              options: resolutionOptions,
+              closeMenuOnSelect: true,
+              hideSelectedOptions: false,
+              searchable: false,
+              name: "videoResolution",
+              onChange: handleChangeSelectValue,
+              placeholder: "Select video resulation...",
+              value: resolutionOptions.filter(function (option) {
+                return option.value === contentState.options.videoResolution;
+              })[0],
+              defaultValue: parseResolutionOption(720)
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "wpwax-vm-max-upload-size",
+            children: "Maximum Upload Size"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "number",
+                className: "wpwax-vm-form__element",
+                id: "wpwax-vm-max-upload-size",
+                name: "maxUploadSize",
+                placeholder: "Ex: 10",
+                value: contentState.options.maxUploadSize,
+                onChange: handleChange,
+                min: "0"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-input-addon",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "wpwax-vm-input-addon__text",
+                  children: "MB"
+                })
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "wpwax-vm-settings__single",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+            className: "wpwax-vm-settings__single--label",
+            htmlFor: "wpwax-vm-delete-attatchment",
+            children: "Remove Attachments After"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "wpwax-vm-settings__single--element",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+              className: "wpwax-vm-form-group",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                type: "number",
+                className: "wpwax-vm-form__element",
+                id: "wpwax-vm-delete-attatchment",
+                name: "attatchmentDeletionAfter",
+                placeholder: "Ex: 45",
+                value: contentState.options.attatchmentDeletionAfter,
+                onChange: handleChange,
+                min: "0"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                className: "wpwax-vm-input-addon",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                  className: "wpwax-vm-input-addon__text",
+                  children: "Days"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "wpwax-vm-input-desc",
+              children: "Leave empty to store as many days as you want."
+            })]
+          })]
         })]
       })]
     })]
@@ -8544,7 +8562,7 @@ var License = function License(props) {
     if (onlySpaces(contentState.options.helpgent_license)) {
       setMessageState(_objectSpread(_objectSpread({}, messageState), {}, {
         updateLicenseMessageType: 'danger',
-        updateLicenseMessage: 'Plear Enter Your License Key'
+        updateLicenseMessage: 'Please enter your license key'
       }));
       return;
     }
@@ -8603,11 +8621,12 @@ var License = function License(props) {
           updateLicenseMessageType: 'success',
           updateLicenseMessage: licenseUpdateResponse.message
         }));
-        setTimeout(function () {
+        var successRemovalTimer = setTimeout(function () {
           setMessageState(_objectSpread(_objectSpread({}, messageState), {}, {
             updateLicenseMessageType: 'success',
             updateLicenseMessage: ''
           }));
+          clearTimeout(successRemovalTimer);
         }, 3000);
         if (licenseUpdateResponse.data.license === 'valid') {
           setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
@@ -8631,12 +8650,6 @@ var License = function License(props) {
           updateLicenseMessageType: 'danger',
           updateLicenseMessage: licenseUpdateResponse.message
         }));
-        setTimeout(function () {
-          setMessageState(_objectSpread(_objectSpread({}, messageState), {}, {
-            updateLicenseMessageType: 'danger',
-            updateLicenseMessage: ''
-          }));
-        }, 2000);
       }
     });
   }
@@ -8647,7 +8660,7 @@ var License = function License(props) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "wpwax-vm-license-key",
-        children: "Active you license"
+        children: "License Key"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -8657,7 +8670,7 @@ var License = function License(props) {
             className: "wpwax-vm-form__element",
             id: "wpwax-vm-license-key",
             name: "helpgent_license",
-            placeholder: "Ex: helpgent",
+            placeholder: "Your license key",
             value: contentState.options.helpgent_license,
             onChange: handleInputChange
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {

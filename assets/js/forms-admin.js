@@ -6953,19 +6953,19 @@ var CreateFormModal = function CreateFormModal(props) {
           "collectInfo": ["phone"],
           "greet_image_url": "",
           "greet_video_url": "",
-          "greet_message": "Welcome to Directorist, leave your questions below",
+          "greet_message": "Hello there! 👋",
           "greet_message_font_color": "#ffffff",
           "greet_message_font_size": "1.3",
           "show_description": true,
-          "description": "Welcome to Directorist, leave your questions below",
-          "chat_options_title": "How would you like to chat?",
+          "description": "Please leave your questions below",
+          "chat_options_title": "How would you like to contact?",
           "can_replay_in": ["video", "voice", "text", "screen_record"],
           "show_footer": true,
-          "footer_message": "You can practice before sending",
-          "thank_page_title": "Thank You",
+          "footer_message": "You can review it before sending",
+          "thank_page_title": "Thank You 💐",
           "show_thank_page_description": true,
-          "thank_page_description": "Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface",
-          "show_thank_page_cta_button": true,
+          "thank_page_description": "Your message has been sent successfully. You will receive a reply soon.",
+          "show_thank_page_cta_button": false,
           "thank_page_cta_button_text": "Try for Free",
           "thank_page_cta_button_url": "https://wpwax.com/",
           "thank_page_background_color": "#ffffff",
@@ -8309,9 +8309,9 @@ var AddForm = function AddForm() {
       if (response.statusCode === 200) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
           className: "wpwax-vm-notice wpwax-vm-notice-success",
-          children: ["Successfully Saved. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("br", {}), " Are you going to forms page? ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+          children: ["Successfully Saved. ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("br", {}), " To view all forms", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
             href: "".concat(location.origin).concat(location.pathname, "?page=vm-forms"),
-            children: "Click Here "
+            children: "click here "
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
             href: "#",
             className: "wpwax-vm-notice-close",
@@ -8332,7 +8332,7 @@ var AddForm = function AddForm() {
       } else {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("span", {
           className: "wpwax-vm-notice wpwax-vm-notice-danger",
-          children: ["Sorry not saved. Please ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
+          children: ["Failed to save the form. Please ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("a", {
             href: "",
             children: "Try again"
           }), " "]
@@ -9771,7 +9771,7 @@ var GeneralSettings = function GeneralSettings() {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
           className: "wpwax-vm-tooltip-wrap",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
-            children: "Display on Custom pages"
+            children: "Display on Selected Pages"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("span", {
             className: "wpwax-vm-tooltip",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -9781,7 +9781,7 @@ var GeneralSettings = function GeneralSettings() {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
               className: "wpwax-vm-tooltip-text",
-              children: "Tooltip Text will be here"
+              children: "Enable it to display the chat icon on selected pages only."
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("label", {

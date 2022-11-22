@@ -285,13 +285,13 @@ const GeneralSettings = () => {
             <div className='wpwax-vm-form-group'>
                 <div className='wpwax-vm-form-group__label'>
                     <span className='wpwax-vm-tooltip-wrap'>
-                        <span>Display on Custom pages</span>
+                        <span>Display on Selected Pages</span>
                         <span className='wpwax-vm-tooltip'>
                             <span className='wpwax-vm-tooltip-icon'>
                                 <ReactSVG src={questionIcon} />
                             </span>
                             <span className='wpwax-vm-tooltip-text'>
-                                Tooltip Text will be here
+                                Enable it to display the chat icon on selected pages only.
                             </span>
                         </span>
                     </span>

@@ -37,7 +37,7 @@ const Video = () => {
 
 		if ( supported_video_extensions.length && ! supported_video_extensions.includes( fileExt ) ) {
 			setSelectedFileErrorMessage(
-                'Sorry, the selected file type is not supported.'
+                'The selected file type is not supported.'
             );
             return;
 		}

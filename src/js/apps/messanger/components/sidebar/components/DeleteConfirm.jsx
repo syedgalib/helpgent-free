@@ -41,7 +41,7 @@ const DeleteConfirm = props => {
             setOuterState({
                 ...outerState,
                 sessionList: newSessionlist,
-                successMessage: `Session Successfully Deleted`,
+                successMessage: `Conversation has been deleted successfully`,
                 rejectMessage: "",
                 deleteModalOpen: !modalOpen
             });

@@ -179,10 +179,7 @@ const EmailGeneral = (props) => {
                             id='wpwax-vm-mail-from-email'
                             name='emailTemplateFromEmail'
                             placeholder='example@gmail.com'
-                            defaultValue={
-                                contentState.options.emailTemplateFromEmail ||
-                                'demo@gmail.com'
-                            }
+                            defaultValue={ contentState.options.emailTemplateFromEmail }
                             onChange={handleChange}
                         />
                     </div>

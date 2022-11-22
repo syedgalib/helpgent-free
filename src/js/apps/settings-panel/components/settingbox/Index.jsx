@@ -46,7 +46,7 @@ const SettingBox = () => {
             ],
         },
         {
-            label: 'Licensing',
+            label: 'License',
             path: 'license',
             navId: 'wpwax-vm-license-settings',
             icon: <ReactSVG src={handShake} />,

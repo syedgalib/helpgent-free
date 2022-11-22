@@ -265,7 +265,7 @@ const TagFilter = props =>{
                                             </div>
                                         )
                                     })
-                                    : <span className='wpwax-vm-empty'>Sorry!! No Tag Found</span>
+                                    : <span className='wpwax-vm-empty'>No Tag Found</span>
                             }
                         </InfiniteScroll>
                     </div>

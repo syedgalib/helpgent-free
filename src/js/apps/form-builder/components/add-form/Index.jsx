@@ -301,7 +301,7 @@ const AddForm = () => {
         if(response){
             if(response.statusCode === 200){
                 return (
-                    <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> Are you going to forms page? <a href={`${location.origin}${location.pathname}?page=vm-forms`}>Click Here </a>
+                    <span className="wpwax-vm-notice wpwax-vm-notice-success">Successfully Saved. <br></br> To view all forms<a href={`${location.origin}${location.pathname}?page=vm-forms`}>click here </a>
                         <a href="#" className="wpwax-vm-notice-close" onClick={handleNoticeClose}><span className="dashicons dashicons-no-alt"></span></a>
                     </span>
                 )
@@ -310,7 +310,7 @@ const AddForm = () => {
                     <span className="wpwax-vm-notice wpwax-vm-notice-danger">{response.message} Please <a href="">Try again</a> </span>
                 )
             }else{
-                return <span className="wpwax-vm-notice wpwax-vm-notice-danger">Sorry not saved. Please <a href="">Try again</a> </span>;
+                return <span className="wpwax-vm-notice wpwax-vm-notice-danger">Failed to save the form. Please <a href="">Try again</a> </span>;
             }
         }
     }

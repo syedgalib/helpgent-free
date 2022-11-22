@@ -51,8 +51,7 @@ const PreviewOne = ({ previewStage }) => {
     // Greet Video
     function handleLoadedGreetVideoMetadata() {
 
-        const duration = greetVideoDom.current.duration;
-        console.log(duration);
+        const duration = ( greetVideoDom.current ) ? greetVideoDom.current.duration : 0;
         const prettyDuration = formatTimeAsCountdown( duration );
 
         if ( ! prettyDuration ) {

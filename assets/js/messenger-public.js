@@ -9487,10 +9487,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../store/chatbox/screenTypes */ "./src/js/apps/chatbox/store/chatbox/screenTypes.js");
 /* harmony import */ var _store_forms_messenger_messageTypes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../store/forms/messenger/messageTypes */ "./src/js/apps/chatbox/store/forms/messenger/messageTypes.js");
-/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
-/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../hooks/useChatboxController */ "./src/js/apps/chatbox/components/chat-screen/hooks/useChatboxController.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
@@ -9522,28 +9522,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Record = function Record() {
-  // Hooks
-  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_11__["default"])(),
-    needToGoContactPage = _useChatboxController.needToGoContactPage;
-  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_12__["default"])(),
-    isActiveCountdown = _useCountdown.isActiveCountdown,
-    startCountdown = _useCountdown.startCountdown,
-    CountdownPage = _useCountdown.CountdownPage,
-    getReverseCount = _useCountdown.getReverseCount;
-  var _wpwaxHooks = wpwaxHooks,
-    addAction = _wpwaxHooks.addAction;
-  var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_10__.useDispatch)();
-
-  // Store States
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_10__.useSelector)(function (state) {
-      return {
-        settings: state.settings.options,
-        attachmentForm: state.attachmentForm
-      };
-    }),
-    settings = _useSelector.settings,
-    attachmentForm = _useSelector.attachmentForm;
   var stages = {
     PERMISSION: 'permission',
     RECORD: 'record',
@@ -9551,55 +9529,92 @@ var Record = function Record() {
     UPLOADING: 'uploading',
     UPLOAD_FAILED: 'upload_failed'
   };
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
     _useState2 = _slicedToArray(_useState, 2),
-    isInitializedBeforeCloseChatbox = _useState2[0],
-    setIsInitializedBeforeCloseChatbox = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState4 = _slicedToArray(_useState3, 2),
-    permissionDenied = _useState4[0],
-    setPermissionDenied = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
-    _useState6 = _slicedToArray(_useState5, 2),
-    currentStage = _useState6[0],
-    setCurrentStage = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState8 = _slicedToArray(_useState7, 2),
-    recordedVideoBlob = _useState8[0],
-    setRecordedVidioBlob = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState10 = _slicedToArray(_useState9, 2),
-    recordedVidioURL = _useState10[0],
-    setRecordedVidioURL = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState12 = _slicedToArray(_useState11, 2),
-    isRecording = _useState12[0],
-    setIsRecording = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState14 = _slicedToArray(_useState13, 2),
-    recordedTimeInSecond = _useState14[0],
-    setRecordedTimeInSecond = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState16 = _slicedToArray(_useState15, 2),
-    maxRecordLength = _useState16[0],
-    setMaxRecordLength = _useState16[1];
+    currentStage = _useState2[0],
+    setCurrentStage = _useState2[1];
+
+  // Store States
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_9__.useSelector)(function (state) {
+      return {
+        settings: state.settings.options,
+        attachmentForm: state.attachmentForm
+      };
+    }),
+    settings = _useSelector.settings,
+    attachmentForm = _useSelector.attachmentForm;
+
+  // useChatboxController
+  var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_10__["default"])(),
+    needToGoContactPage = _useChatboxController.needToGoContactPage;
+
+  // useCountdown
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_11__["default"])(),
+    isActiveCountdown = _useCountdown.isActiveCountdown,
+    startCountdown = _useCountdown.startCountdown,
+    CountdownPage = _useCountdown.CountdownPage,
+    getReverseCount = _useCountdown.getReverseCount;
+
+  // useVideoRecorder
+  var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_12__["default"])({
+      maxRecordLength: getMaxRecordLength(),
+      resolution: getVideoResolution(),
+      afterStopRecording: function afterStopRecording() {
+        setCurrentStage(stages.BEFORE_SEND);
+      }
+    }),
+    isRecording = _useVideoRecorder.isRecording,
+    permissionDenied = _useVideoRecorder.permissionDenied,
+    recordedBlob = _useVideoRecorder.recordedBlob,
+    recordedVideoURL = _useVideoRecorder.recordedURL,
+    videoStreemRef = _useVideoRecorder.videoStreemRef,
+    hasPermission = _useVideoRecorder.hasPermission,
+    requestPermission = _useVideoRecorder.requestPermission,
+    setupStream = _useVideoRecorder.setupStream,
+    startRecording = _useVideoRecorder.startRecording,
+    stopRecording = _useVideoRecorder.stopRecording,
+    getCountDown = _useVideoRecorder.getCountDown,
+    resetVideoRecorder = _useVideoRecorder.reset;
+  var _wpwaxHooks = wpwaxHooks,
+    addAction = _wpwaxHooks.addAction;
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_9__.useDispatch)();
 
   // Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
-    if (settings && typeof settings.maxVideoLength !== 'undefined' && !isNaN(settings.maxVideoLength)) {
-      var maxRecordLengthInSeconds = parseFloat(settings.maxVideoLength) * 60;
-      setMaxRecordLength(maxRecordLengthInSeconds);
-    }
-    check_if_need_permission().then(function (is_needed_permission) {
-      if (is_needed_permission) {
-        setCurrentStage(stages.PERMISSION);
-      } else {
-        setupVideoStreem();
-      }
-    });
+    initialSetup();
   }, []);
-
-  // On Upload Complete
+  function initialSetup() {
+    return _initialSetup.apply(this, arguments);
+  } // On Upload Complete
+  function _initialSetup() {
+    _initialSetup = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _hasPermission;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return hasPermission();
+            case 2:
+              _hasPermission = _context.sent;
+              if (!_hasPermission) {
+                _context.next = 7;
+                break;
+              }
+              addAction('beforeCloseChatbox', stopRecording);
+              setupStream();
+              return _context.abrupt("return");
+            case 7:
+              setCurrentStage(stages.PERMISSION);
+            case 8:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return _initialSetup.apply(this, arguments);
+  }
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (true === attachmentForm.status) {
       // Update Messenger Form Data
@@ -9618,266 +9633,68 @@ var Record = function Record() {
       setCurrentStage(stages.UPLOAD_FAILED);
     }
   }, [attachmentForm.status]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!maxRecordLength) {
-      return;
-    }
-    if (recordedTimeInSecond >= maxRecordLength) {
-      stopRecording();
-    }
-  }, [recordedTimeInSecond]);
-
-  // check_if_need_permission
-  function check_if_need_permission() {
-    return _check_if_need_permission.apply(this, arguments);
-  } // requestPermission
-  function _check_if_need_permission() {
-    _check_if_need_permission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var microphonePermission, cameraPermission;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.prev = 0;
-              _context.next = 3;
-              return navigator.permissions.query({
-                name: 'microphone'
-              });
-            case 3:
-              microphonePermission = _context.sent;
-              _context.next = 6;
-              return navigator.permissions.query({
-                name: 'camera'
-              });
-            case 6:
-              cameraPermission = _context.sent;
-              return _context.abrupt("return", microphonePermission.state !== 'granted' || cameraPermission.state !== 'granted');
-            case 10:
-              _context.prev = 10;
-              _context.t0 = _context["catch"](0);
-              return _context.abrupt("return", true);
-            case 13:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, null, [[0, 10]]);
-    }));
-    return _check_if_need_permission.apply(this, arguments);
+  function handleVideoStartStopButton(_x) {
+    return _handleVideoStartStopButton.apply(this, arguments);
   }
-  function requestPermission() {
-    return _requestPermission.apply(this, arguments);
-  } // startRecording
-  function _requestPermission() {
-    _requestPermission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+  function _handleVideoStartStopButton() {
+    _handleVideoStartStopButton = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
-              return navigator.mediaDevices.getUserMedia({
-                audio: {
-                  echoCancellation: true,
-                  noiseSuppression: true,
-                  sampleRate: 44100
-                },
-                video: {
-                  facingMode: 'user'
-                }
-              });
-            case 3:
-              setupVideoStreem();
-              setCurrentStage(stages.RECORD);
-              _context2.next = 11;
+              e.preventDefault();
+              if (!isRecording) {
+                _context2.next = 5;
+                break;
+              }
+              stopRecording();
+              _context2.next = 8;
               break;
+            case 5:
+              _context2.next = 7;
+              return startCountdown();
             case 7:
-              _context2.prev = 7;
-              _context2.t0 = _context2["catch"](0);
-              console.error({
-                error: _context2.t0
-              });
-              setPermissionDenied(true);
-            case 11:
+              startRecording();
+            case 8:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 7]]);
+      }, _callee2);
     }));
-    return _requestPermission.apply(this, arguments);
+    return _handleVideoStartStopButton.apply(this, arguments);
   }
-  function startRecording() {
-    return _startRecording.apply(this, arguments);
-  } // stopRecording
-  function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return startCountdown();
-            case 2:
-              _context3.next = 4;
-              return window.wpwaxCSRecorder.startRecording();
-            case 4:
-              setRecordedTimeInSecond(0);
-              setIsRecording(true);
-              startTimer();
-            case 7:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }));
-    return _startRecording.apply(this, arguments);
+  function getMaxRecordLength() {
+    if (settings && typeof settings.maxVideoLength !== 'undefined' && !isNaN(settings.maxVideoLength)) {
+      return parseFloat(settings.maxVideoLength) * 60;
+    }
+    return null;
   }
-  function stopRecording() {
-    stopTimer();
-    window.wpwaxCSRecorder.stopRecording(function (url) {
-      var blob = window.wpwaxCSRecorder.getBlob();
-      var tracks = window.wpwaxCSVideoStream.getTracks();
-      tracks.forEach(function (track) {
-        return track.stop();
-      });
-      setRecordedVidioBlob(blob);
-      setRecordedVidioURL(url);
-      setIsRecording(false);
-      setCurrentStage(stages.BEFORE_SEND);
-    });
-    var tracks = window.wpwaxCSVideoStream.getTracks();
-    tracks.forEach(function (track) {
-      return track.stop();
-    });
-  }
-
-  // setupVideoStreem
-  function setupVideoStreem() {
-    return _setupVideoStreem.apply(this, arguments);
-  }
-  function _setupVideoStreem() {
-    _setupVideoStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      var resulations, videoQuality, videoQualityHasValidResulation, resulation;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!isInitializedBeforeCloseChatbox) {
-                addAction('beforeCloseChatbox', stopRecording);
-                setIsInitializedBeforeCloseChatbox(true);
-              }
-              resulations = {
-                '360': {
-                  width: 640,
-                  height: 360
-                },
-                '480': {
-                  width: 640,
-                  height: 480
-                },
-                '720': {
-                  width: 1280,
-                  height: 720
-                }
-              };
-              videoQuality = 720;
-              if (settings && typeof settings.videoQuality !== 'undefined' && !isNaN(settings.videoQuality)) {
-                videoQuality = "".concat(settings.videoQuality);
-              }
-              videoQualityHasValidResulation = Object.keys(resulations).includes(videoQuality);
-              resulation = videoQualityHasValidResulation ? resulations[videoQuality] : resulations['720'];
-              _context4.prev = 6;
-              _context4.next = 9;
-              return navigator.mediaDevices.getUserMedia({
-                audio: {
-                  echoCancellation: true,
-                  noiseSuppression: true,
-                  sampleRate: 44100
-                },
-                video: {
-                  facingMode: 'user',
-                  width: {
-                    ideal: resulation.width
-                  },
-                  height: {
-                    ideal: resulation.height
-                  }
-                }
-              });
-            case 9:
-              window.wpwaxCSVideoStream = _context4.sent;
-              window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true
-              });
-              if (videoStreemRef.current.srcObject) {
-                videoStreemRef.current.srcObject.getVideoTracks().forEach(function (track) {
-                  track.stop();
-                  videoStreemRef.current.srcObject.removeTrack(track);
-                });
-              }
-              videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
-              videoStreemRef.current.play();
-              _context4.next = 20;
-              break;
-            case 16:
-              _context4.prev = 16;
-              _context4.t0 = _context4["catch"](6);
-              console.log({
-                error: _context4.t0
-              });
-              setIsRecording(false);
-            case 20:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[6, 16]]);
-    }));
-    return _setupVideoStreem.apply(this, arguments);
-  }
-  function startTimer() {
-    window.wpwaxCSAudioTimer = setInterval(function () {
-      setRecordedTimeInSecond(function (currentValue) {
-        return currentValue + 1;
-      });
-    }, 1000);
-  }
-  function stopTimer() {
-    clearInterval(window.wpwaxCSAudioTimer);
+  function getVideoResolution() {
+    var resolution = null;
+    if (settings && typeof settings.videoResolution !== 'undefined' && !isNaN(settings.videoResolution)) {
+      resolution = "".concat(settings.videoResolution);
+    }
+    return resolution;
   }
   function sendVideo(e) {
     e.preventDefault();
     setCurrentStage(stages.UPLOADING);
     var formData = {
-      file: recordedVideoBlob
+      file: recordedBlob
     };
     dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_4__.updateFormData)(formData));
     dispatch((0,_store_forms_attachment_actionCreator__WEBPACK_IMPORTED_MODULE_4__.submitForm)(formData));
   }
   function prepareRecordAgain(e) {
     e.preventDefault();
-    setupVideoStreem();
-    setRecordedTimeInSecond(0);
-    setIsRecording(false);
+    resetVideoRecorder();
+    setupStream();
     setCurrentStage(stages.RECORD);
   }
   function tryUploadAgain(e) {
     e.preventDefault();
     setCurrentStage(stages.BEFORE_SEND);
-  }
-  function reversedRecordedTimeInSecond() {
-    return maxRecordLength - recordedTimeInSecond;
-  }
-  function getCountDown() {
-    if (!maxRecordLength || recordedTimeInSecond < 1) {
-      return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_9__.formatSecondsAsCountdown)(recordedTimeInSecond);
-    }
-    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_9__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
   }
   if (currentStage === stages.PERMISSION) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_1__.VideoRecordWrap, {
@@ -9891,8 +9708,9 @@ var Record = function Record() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
         href: "#",
         className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary",
-        onClick: function onClick() {
-          return requestPermission();
+        onClick: function onClick(e) {
+          e.preventDefault();
+          requestPermission();
         },
         children: "Request Permission"
       }), permissionDenied !== null && permissionDenied && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -9928,13 +9746,7 @@ var Record = function Record() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-btn-record",
-          onClick: function onClick() {
-            if (isRecording) {
-              stopRecording();
-            } else {
-              startRecording();
-            }
-          }
+          onClick: handleVideoStartStopButton
         })
       })]
     });
@@ -9950,7 +9762,7 @@ var Record = function Record() {
             className: "wpwax-vm-recorded-preview wpax-vm-preview-bg",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("video", {
               controls: true,
-              src: recordedVidioURL
+              src: recordedVideoURL
             })
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
@@ -16020,13 +15832,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var _components_Record_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Record.jsx */ "./src/js/apps/messanger/components/message-box/components/video/components/Record.jsx");
 /* harmony import */ var _components_Upload_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Upload.jsx */ "./src/js/apps/messanger/components/message-box/components/video/components/Upload.jsx");
 /* harmony import */ var Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/video-camera.svg */ "./src/assets/svg/icons/video-camera.svg");
 /* harmony import */ var Assets_svg_icons_cloud_upload_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/cloud-upload.svg */ "./src/assets/svg/icons/cloud-upload.svg");
 /* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -16048,6 +15861,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Video = function Video(_ref) {
   var sessionID = _ref.sessionID,
     onSuccess = _ref.onSuccess,
@@ -16061,6 +15875,20 @@ var Video = function Video(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     currentStage = _useState2[0],
     setCurrentStage = _useState2[1];
+  var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_7__["default"])(),
+    permissionDenied = _useVideoRecorder.permissionDenied,
+    recordedTimeInSecond = _useVideoRecorder.recordedTimeInSecond,
+    recordedBlob = _useVideoRecorder.recordedBlob,
+    recordedURL = _useVideoRecorder.recordedURL,
+    recordingIsGoingToStopSoon = _useVideoRecorder.recordingIsGoingToStopSoon,
+    videoStreemRef = _useVideoRecorder.videoStreemRef,
+    hasPermission = _useVideoRecorder.hasPermission,
+    requestPermission = _useVideoRecorder.requestPermission,
+    setupStream = _useVideoRecorder.setupStream,
+    startRecording = _useVideoRecorder.startRecording,
+    stopRecording = _useVideoRecorder.stopRecording,
+    getCountDown = _useVideoRecorder.getCountDown,
+    reset = _useVideoRecorder.reset;
 
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -16104,24 +15932,25 @@ var Video = function Video(_ref) {
   // canRecordVideo
   var canRecordVideo = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var needPermission, hasPermission;
+      var grantedPermission;
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return checkIfNeedPermission();
+              return hasPermission();
             case 2:
-              needPermission = _context2.sent;
-              if (!needPermission) {
-                _context2.next = 11;
+              if (!_context2.sent) {
+                _context2.next = 4;
                 break;
               }
+              return _context2.abrupt("return", true);
+            case 4:
               _context2.next = 6;
               return requestPermission();
             case 6:
-              hasPermission = _context2.sent;
-              if (hasPermission) {
+              grantedPermission = _context2.sent;
+              if (grantedPermission) {
                 _context2.next = 10;
                 break;
               }
@@ -16130,8 +15959,6 @@ var Video = function Video(_ref) {
             case 10:
               return _context2.abrupt("return", true);
             case 11:
-              return _context2.abrupt("return", true);
-            case 12:
             case "end":
               return _context2.stop();
           }
@@ -16140,84 +15967,6 @@ var Video = function Video(_ref) {
     }));
     return function canRecordVideo() {
       return _ref3.apply(this, arguments);
-    };
-  }();
-
-  // checkIfNeedPermission
-  var checkIfNeedPermission = /*#__PURE__*/function () {
-    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var microphonePermission, cameraPermission;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return navigator.permissions.query({
-                name: 'microphone'
-              });
-            case 3:
-              microphonePermission = _context3.sent;
-              _context3.next = 6;
-              return navigator.permissions.query({
-                name: 'camera'
-              });
-            case 6:
-              cameraPermission = _context3.sent;
-              return _context3.abrupt("return", microphonePermission.state !== 'granted' || cameraPermission.state !== 'granted');
-            case 10:
-              _context3.prev = 10;
-              _context3.t0 = _context3["catch"](0);
-              return _context3.abrupt("return", true);
-            case 13:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 10]]);
-    }));
-    return function checkIfNeedPermission() {
-      return _ref4.apply(this, arguments);
-    };
-  }();
-
-  // requestPermission
-  var requestPermission = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.prev = 0;
-              _context4.next = 3;
-              return navigator.mediaDevices.getUserMedia({
-                audio: {
-                  echoCancellation: true,
-                  noiseSuppression: true,
-                  sampleRate: 44100
-                },
-                video: {
-                  facingMode: 'user'
-                }
-              });
-            case 3:
-              return _context4.abrupt("return", true);
-            case 6:
-              _context4.prev = 6;
-              _context4.t0 = _context4["catch"](0);
-              console.log({
-                error: _context4.t0
-              });
-              return _context4.abrupt("return", false);
-            case 10:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4, null, [[0, 6]]);
-    }));
-    return function requestPermission() {
-      return _ref5.apply(this, arguments);
     };
   }();
 
@@ -16230,38 +15979,38 @@ var Video = function Video(_ref) {
     setCurrentStage(stages.HOME);
   };
   if (currentStage === stages.HOME) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "wpwax-vm-video-msg wpwax-vm-video-msg-home",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h4", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h4", {
         className: "wpwax-vm-video-home__title",
         children: "How would you like to create this step?"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
         className: "wpwax-vm-video-home__action",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-video-home__action--btn",
           onClick: handleRecord,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-video-home__action--icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
               src: Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_4__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-video-home__action--text",
             children: "Record Video"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-video-home__action--btn",
           onClick: function onClick(e) {
             return updateStage(e, stages.UPLOAD);
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
             className: "wpwax-vm-video-home__action--icon",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_9__["default"], {
               src: Assets_svg_icons_cloud_upload_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
             className: "wpwax-vm-video-home__action--text",
             children: "Upload Video"
           })]
@@ -16269,14 +16018,14 @@ var Video = function Video(_ref) {
       })]
     });
   } else if (currentStage === stages.RECORD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Record_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Record_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       sessionID: sessionID,
       backToHome: backToHome,
       onSuccess: onSuccess,
       replayingTo: replayingTo
     });
   } else if (currentStage === stages.UPLOAD) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Upload_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Upload_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
       sessionID: sessionID,
       backToHome: backToHome,
       onSuccess: onSuccess,
@@ -16357,11 +16106,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Style */ "./src/js/apps/messanger/components/message-box/components/video/Style.js");
 /* harmony import */ var Assets_svg_icons_paper_plane_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/paper-plane.svg */ "./src/assets/svg/icons/paper-plane.svg");
 /* harmony import */ var _store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../store/messages/actionCreator */ "./src/js/apps/messanger/store/messages/actionCreator.js");
-/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
-/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
-/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
-/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
-/* harmony import */ var API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! API/useAttachmentAPI.js */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
+/* harmony import */ var API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! API/useMessangerAPI */ "./src/js/helpers/hooks/api/useMessangerAPI.js");
+/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! API/useAttachmentAPI.js */ "./src/js/helpers/hooks/api/useAttachmentAPI.js");
+/* harmony import */ var Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! Hooks/useCountdown */ "./src/js/helpers/hooks/useCountdown.js");
+/* harmony import */ var Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! Hooks/media-recorder/useVideoRecorder */ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -16403,16 +16152,35 @@ var Record = function Record(_ref) {
 
   /* Dispasth is used for passing the actions to redux store  */
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_8__["default"])(),
+
+  // useCountdown
+  var _useCountdown = (0,Hooks_useCountdown__WEBPACK_IMPORTED_MODULE_9__["default"])(),
     isActiveCountdown = _useCountdown.isActiveCountdown,
     startCountdown = _useCountdown.startCountdown,
     CountdownPage = _useCountdown.CountdownPage,
     getReverseCount = _useCountdown.getReverseCount;
 
+  // useVideoRecorder
+  var _useVideoRecorder = (0,Hooks_media_recorder_useVideoRecorder__WEBPACK_IMPORTED_MODULE_10__["default"])({
+      maxRecordLength: getMaxRecordLength(),
+      resolution: getVideoResolution(),
+      afterStopRecording: function afterStopRecording() {
+        setCurrentStage(stages.BEFORE_SEND);
+      }
+    }),
+    isRecording = _useVideoRecorder.isRecording,
+    recordedVideoBlob = _useVideoRecorder.recordedBlob,
+    recordedVideoURL = _useVideoRecorder.recordedURL,
+    videoStreemRef = _useVideoRecorder.videoStreemRef,
+    setupVideoStreem = _useVideoRecorder.setupStream,
+    startVideoRecording = _useVideoRecorder.startRecording,
+    stopRecording = _useVideoRecorder.stopRecording,
+    getCountDown = _useVideoRecorder.getCountDown;
+
   // Use API
-  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_7__["default"])(),
+  var _useMessangerAPI = (0,API_useMessangerAPI__WEBPACK_IMPORTED_MODULE_6__["default"])(),
     createMessangerItem = _useMessangerAPI.createItem;
-  var _useAttachmentAPI = (0,API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_10__["default"])(),
+  var _useAttachmentAPI = (0,API_useAttachmentAPI_js__WEBPACK_IMPORTED_MODULE_8__["default"])(),
     createAttachmentItem = _useAttachmentAPI.createItem;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.RECORD),
     _useState2 = _slicedToArray(_useState, 2),
@@ -16422,47 +16190,15 @@ var Record = function Record(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     textMessage = _useState4[0],
     setTextMessage = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState6 = _slicedToArray(_useState5, 2),
-    recordedVideoBlob = _useState6[0],
-    setRecordedVidioBlob = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    recordedVidioURL = _useState8[0],
-    setRecordedVidioURL = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState10 = _slicedToArray(_useState9, 2),
-    isRecording = _useState10[0],
-    setIsRecording = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    _useState12 = _slicedToArray(_useState11, 2),
-    recordedTimeInSecond = _useState12[0],
-    setRecordedTimeInSecond = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState14 = _slicedToArray(_useState13, 2),
-    maxRecordLength = _useState14[0],
-    setMaxRecordLength = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState16 = _slicedToArray(_useState15, 2),
-    isSending = _useState16[0],
-    setIsSending = _useState16[1];
-  var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+    isSending = _useState6[0],
+    setIsSending = _useState6[1];
 
   // @Init State
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit) {
-      setMaxRecordLength(parseFloat(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit));
-    }
     setupVideoStreem();
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (!maxRecordLength) {
-      return;
-    }
-    if (recordedTimeInSecond >= maxRecordLength) {
-      stopRecording();
-    }
-  }, [recordedTimeInSecond]);
 
   // handleRecordButtonAction
   var handleRecordButtonAction = function handleRecordButtonAction(event) {
@@ -16475,212 +16211,102 @@ var Record = function Record(_ref) {
     startRecording();
   };
 
-  // setupVideoStreem
-  function setupVideoStreem() {
-    return _setupVideoStreem.apply(this, arguments);
-  } // startRecording
-  function _setupVideoStreem() {
-    _setupVideoStreem = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var resulations, videoQuality, settingsVideoQuality, videoQualityHasValidResulation, resulation;
+  // startRecording
+  function startRecording() {
+    return _startRecording.apply(this, arguments);
+  }
+  function _startRecording() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              resulations = {
-                '360': {
-                  width: 640,
-                  height: 360
-                },
-                '480': {
-                  width: 640,
-                  height: 480
-                },
-                '720': {
-                  width: 1280,
-                  height: 720
-                }
-              };
-              videoQuality = 720;
-              settingsVideoQuality = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_9__.useCoreData)('settings.videoQuality');
-              if (settingsVideoQuality && !isNaN(settingsVideoQuality)) {
-                videoQuality = "".concat(settingsVideoQuality);
-              }
-              videoQualityHasValidResulation = Object.keys(resulations).includes(videoQuality);
-              resulation = videoQualityHasValidResulation ? resulations[videoQuality] : resulations['720'];
-              _context.prev = 6;
-              _context.next = 9;
-              return navigator.mediaDevices.getUserMedia({
-                audio: {
-                  echoCancellation: true,
-                  noiseSuppression: true,
-                  sampleRate: 44100
-                },
-                video: {
-                  facingMode: 'user',
-                  width: {
-                    ideal: resulation.width
-                  },
-                  height: {
-                    ideal: resulation.height
-                  }
-                }
-              });
-            case 9:
-              window.wpwaxCSVideoStream = _context.sent;
-              window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true
-              });
-              if (videoStreemRef.current.srcObject) {
-                videoStreemRef.current.srcObject.getVideoTracks().forEach(function (track) {
-                  track.stop();
-                  videoStreemRef.current.srcObject.removeTrack(track);
-                });
-              }
-              videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
-              videoStreemRef.current.play();
-              _context.next = 20;
-              break;
-            case 16:
-              _context.prev = 16;
-              _context.t0 = _context["catch"](6);
-              console.log({
-                error: _context.t0
-              });
-              setIsRecording(false);
-            case 20:
+              _context.next = 2;
+              return startCountdown();
+            case 2:
+              // Start Video Recording
+              startVideoRecording();
+            case 3:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[6, 16]]);
-    }));
-    return _setupVideoStreem.apply(this, arguments);
-  }
-  function startRecording() {
-    return _startRecording.apply(this, arguments);
-  } // stopRecording
-  function _startRecording() {
-    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 2;
-              return startCountdown();
-            case 2:
-              _context2.next = 4;
-              return window.wpwaxCSRecorder.startRecording();
-            case 4:
-              setRecordedTimeInSecond(0);
-              setIsRecording(true);
-              startTimer();
-            case 7:
-            case "end":
-              return _context2.stop();
-          }
-        }
-      }, _callee2);
+      }, _callee);
     }));
     return _startRecording.apply(this, arguments);
   }
-  function stopRecording() {
-    stopTimer();
-    window.wpwaxCSRecorder.stopRecording(function (url) {
-      var blob = window.wpwaxCSRecorder.getBlob();
-      var tracks = window.wpwaxCSVideoStream.getTracks();
-      tracks.forEach(function (track) {
-        return track.stop();
-      });
-      setRecordedVidioBlob(blob);
-      setRecordedVidioURL(url);
-      setIsRecording(false);
-      setCurrentStage(stages.BEFORE_SEND);
-    });
-    var tracks = window.wpwaxCSVideoStream.getTracks();
-    tracks.forEach(function (track) {
-      return track.stop();
-    });
-  }
-  function startTimer() {
-    window.wpwaxCSAudioTimer = setInterval(function () {
-      setRecordedTimeInSecond(function (currentValue) {
-        return currentValue + 1;
-      });
-    }, 1000);
-  }
-  function stopTimer() {
-    clearInterval(window.wpwaxCSAudioTimer);
-  }
-  function reversedRecordedTimeInSecond() {
-    return maxRecordLength - recordedTimeInSecond;
-  }
-  function getCountDown() {
-    if (!maxRecordLength || recordedTimeInSecond < 1) {
-      return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_6__.formatSecondsAsCountdown)(recordedTimeInSecond);
+  function getMaxRecordLength() {
+    if (wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit) {
+      return parseFloat(wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit);
     }
-    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_6__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
+    return null;
+  }
+  function getVideoResolution() {
+    var resolution = null;
+    var videoResolution = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_7__.useCoreData)('settings.videoResolution');
+    if (!isNaN(videoResolution)) {
+      resolution = "".concat(videoResolution);
+    }
+    return resolution;
   }
   function sendVideo(_x) {
     return _sendVideo.apply(this, arguments);
   }
   function _sendVideo() {
-    _sendVideo = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(e) {
+    _sendVideo = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(e) {
       var attachmentResponse, message, attachmentID, messageResponse, _message;
-      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
               e.preventDefault();
               if (!isSending) {
-                _context3.next = 3;
+                _context2.next = 3;
                 break;
               }
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
             case 3:
               if (recordedVideoBlob) {
-                _context3.next = 6;
+                _context2.next = 6;
                 break;
               }
               setSelectedFileErrorMessage('Please select a video');
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
             case 6:
               setIsSending(true);
 
               // Upload The Attachment
-              _context3.next = 9;
+              _context2.next = 9;
               return createAttachmentItem({
                 file: recordedVideoBlob
               });
             case 9:
-              attachmentResponse = _context3.sent;
+              attachmentResponse = _context2.sent;
               if (attachmentResponse.success) {
-                _context3.next = 15;
+                _context2.next = 15;
                 break;
               }
               message = attachmentResponse.message ? attachmentResponse.message : 'Something went wrong, please try again.';
               alert(message);
               setIsSending(false);
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
             case 15:
               attachmentID = attachmentResponse.data.id; // Send The Message
-              _context3.next = 18;
+              _context2.next = 18;
               return createTextMessage({
                 attachment_id: attachmentID,
                 message: textMessage
               });
             case 18:
-              messageResponse = _context3.sent;
+              messageResponse = _context2.sent;
               if (messageResponse.success) {
-                _context3.next = 24;
+                _context2.next = 24;
                 break;
               }
               _message = messageResponse.message ? messageResponse.message : 'Something went wrong, please try again.';
               alert(_message);
               setIsSending(false);
-              return _context3.abrupt("return");
+              return _context2.abrupt("return");
             case 24:
               setIsSending(false);
               onSuccess();
@@ -16688,10 +16314,10 @@ var Record = function Record(_ref) {
               dispatch((0,_store_messages_actionCreator__WEBPACK_IMPORTED_MODULE_5__.handleReplyModeChange)(false));
             case 28:
             case "end":
-              return _context3.stop();
+              return _context2.stop();
           }
         }
-      }, _callee3);
+      }, _callee2);
     }));
     return _sendVideo.apply(this, arguments);
   }
@@ -16699,11 +16325,11 @@ var Record = function Record(_ref) {
     return _createTextMessage.apply(this, arguments);
   } /* Handle Back */
   function _createTextMessage() {
-    _createTextMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(customArgs) {
+    _createTextMessage = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(customArgs) {
       var defaultArgs, args, status, response;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               defaultArgs = {
                 conversation_id: sessionID,
@@ -16714,28 +16340,28 @@ var Record = function Record(_ref) {
                 success: false,
                 data: null
               };
-              _context4.prev = 3;
-              _context4.next = 6;
+              _context3.prev = 3;
+              _context3.next = 6;
               return createMessangerItem(args);
             case 6:
-              response = _context4.sent;
+              response = _context3.sent;
               status.success = true;
               status.data = response;
-              return _context4.abrupt("return", status);
+              return _context3.abrupt("return", status);
             case 12:
-              _context4.prev = 12;
-              _context4.t0 = _context4["catch"](3);
+              _context3.prev = 12;
+              _context3.t0 = _context3["catch"](3);
               status.success = false;
               console.error({
-                error: _context4.t0
+                error: _context3.t0
               });
-              return _context4.abrupt("return", status);
+              return _context3.abrupt("return", status);
             case 17:
             case "end":
-              return _context4.stop();
+              return _context3.stop();
           }
         }
-      }, _callee4, null, [[3, 12]]);
+      }, _callee3, null, [[3, 12]]);
     }));
     return _createTextMessage.apply(this, arguments);
   }
@@ -16815,7 +16441,7 @@ var Record = function Record(_ref) {
           className: "wpwax-vm-reply-video-bg",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("video", {
             controls: true,
-            src: recordedVidioURL,
+            src: recordedVideoURL,
             width: "100%",
             height: "100%"
           })
@@ -22432,9 +22058,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "formatTimeAsCountdown": function() { return /* binding */ formatTimeAsCountdown; }
 /* harmony export */ });
 function formatTimeAsCountdown(timeInSecond) {
-  return !isNaN(timeInSecond) ? new Date(timeInSecond * 1000).toISOString().substring(14, 19) : '00:00';
+  return typeof timeInSecond !== 'number' ? new Date(timeInSecond * 1000).toISOString().substring(14, 19) : '00:00';
 }
 function formatSecondsAsCountdown(timeInSecond) {
+  if (typeof timeInSecond !== 'number') {
+    return '';
+  }
   var second = timeInSecond % 60;
   var fotmatted_second = parseInt(second);
   fotmatted_second = fotmatted_second < 10 ? '0' + fotmatted_second : fotmatted_second;
@@ -23775,38 +23404,34 @@ function useScreenRecorder(config) {
     alertTimeBeforeStop: 10
   };
   config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
-    recordingTimer = _useState2[0],
-    setRecordingTimer = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    isRecording = _useState2[0],
+    setIsRecording = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState4 = _slicedToArray(_useState3, 2),
-    isRecording = _useState4[0],
-    setIsRecording = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    permissionDenied = _useState4[0],
+    setPermissionDenied = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState6 = _slicedToArray(_useState5, 2),
-    permissionDenied = _useState6[0],
-    setPermissionDenied = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    recordedTimeInSecond = _useState6[0],
+    setRecordedTimeInSecond = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState8 = _slicedToArray(_useState7, 2),
-    recordedTimeInSecond = _useState8[0],
-    setRecordedTimeInSecond = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    recordedScreenBlob = _useState8[0],
+    setRecordedScreenBlob = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState10 = _slicedToArray(_useState9, 2),
-    recordedScreenBlob = _useState10[0],
-    setRecordedScreenBlob = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState12 = _slicedToArray(_useState11, 2),
-    recordedScreenURL = _useState12[0],
-    setRecordedScreenURL = _useState12[1];
+    recordedScreenURL = _useState10[0],
+    setRecordedScreenURL = _useState10[1];
   var recordingTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var recorderRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var screenStreamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   var audioStreamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState14 = _slicedToArray(_useState13, 2),
-    recordingIsGoingToStopSoon = _useState14[0],
-    setRecordingIsGoingToStopSoon = _useState14[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    recordingIsGoingToStopSoon = _useState12[0],
+    setRecordingIsGoingToStopSoon = _useState12[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (!config.maxRecordLength) {
       return;
@@ -24043,7 +23668,6 @@ function useScreenRecorder(config) {
     screenStreamRef.current = null;
     audioStreamRef.current = null;
     setIsRecording(false);
-    setRecordingTimer(null);
     setRecordedTimeInSecond(0);
     setRecordedScreenBlob(null);
     setRecordedScreenURL('');
@@ -24056,6 +23680,359 @@ function useScreenRecorder(config) {
     recordedScreenBlob: recordedScreenBlob,
     recordedScreenURL: recordedScreenURL,
     recordingIsGoingToStopSoon: recordingIsGoingToStopSoon,
+    hasPermission: hasPermission,
+    requestPermission: requestPermission,
+    setupStream: setupStream,
+    startRecording: startRecording,
+    stopRecording: stopRecording,
+    getCountDown: getCountDown,
+    reset: reset
+  };
+}
+
+/***/ }),
+
+/***/ "./src/js/helpers/hooks/media-recorder/useVideoRecorder.js":
+/*!*****************************************************************!*\
+  !*** ./src/js/helpers/hooks/media-recorder/useVideoRecorder.js ***!
+  \*****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ useVideoRecorder; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
+/* harmony import */ var Helper_video_resolution__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Helper/video-resolution */ "./src/js/helpers/video-resolution.js");
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+
+
+function useVideoRecorder(config) {
+  var defaultConfig = {
+    maxRecordLength: null,
+    alertTimeBeforeStop: 10,
+    resolution: null
+  };
+  config = config && _typeof(config) === 'object' ? _objectSpread(_objectSpread({}, defaultConfig), config) : defaultConfig;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    isRecording = _useState2[0],
+    setIsRecording = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    permissionDenied = _useState4[0],
+    setPermissionDenied = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    _useState6 = _slicedToArray(_useState5, 2),
+    recordedTimeInSecond = _useState6[0],
+    setRecordedTimeInSecond = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    recordedBlob = _useState8[0],
+    setRecordedBlob = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState10 = _slicedToArray(_useState9, 2),
+    recordedURL = _useState10[0],
+    setRecordedURL = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    recordingIsGoingToStopSoon = _useState12[0],
+    setRecordingIsGoingToStopSoon = _useState12[1];
+  var recorderRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var streamRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var recordingTimerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var videoStreemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!config.maxRecordLength) {
+      return;
+    }
+    if (reversedRecordedTimeInSecond() <= config.alertTimeBeforeStop) {
+      setRecordingIsGoingToStopSoon(true);
+    }
+    if (recordedTimeInSecond >= config.maxRecordLength) {
+      stopRecording();
+    }
+  }, [recordedTimeInSecond]);
+
+  // hasPermission
+  function hasPermission() {
+    return _hasPermission.apply(this, arguments);
+  } // requestPermission
+  function _hasPermission() {
+    _hasPermission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var microphonePermission, status;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return navigator.permissions.query({
+                name: 'microphone'
+              });
+            case 3:
+              microphonePermission = _context.sent;
+              status = microphonePermission.state === 'granted';
+              return _context.abrupt("return", status);
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              return _context.abrupt("return", false);
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 8]]);
+    }));
+    return _hasPermission.apply(this, arguments);
+  }
+  function requestPermission() {
+    return _requestPermission.apply(this, arguments);
+  }
+  function _requestPermission() {
+    _requestPermission = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: true
+              });
+            case 3:
+              return _context2.abrupt("return", true);
+            case 6:
+              _context2.prev = 6;
+              _context2.t0 = _context2["catch"](0);
+              console.error({
+                error: _context2.t0
+              });
+              setPermissionDenied(true);
+              return _context2.abrupt("return", false);
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 6]]);
+    }));
+    return _requestPermission.apply(this, arguments);
+  }
+  function getResolution() {
+    var configResolution = config.resolution && !isNaN(config.resolution) ? "".concat(config.resolution) : null;
+    var selectedResulation = configResolution && Object.keys(Helper_video_resolution__WEBPACK_IMPORTED_MODULE_2__.resolutions).includes(configResolution) ? Helper_video_resolution__WEBPACK_IMPORTED_MODULE_2__.resolutions[configResolution] : null;
+    return selectedResulation;
+  }
+  function setupStream() {
+    return _setupStream.apply(this, arguments);
+  } // startRecording
+  function _setupStream() {
+    _setupStream = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var resolution, videoStreamConfig;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              resolution = getResolution();
+              videoStreamConfig = {};
+              if (resolution) {
+                videoStreamConfig = {
+                  width: {
+                    ideal: resolution.width
+                  },
+                  height: {
+                    ideal: resolution.height
+                  }
+                };
+              }
+
+              // Setup Screen Streem
+              _context3.next = 6;
+              return navigator.mediaDevices.getUserMedia({
+                audio: {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  sampleRate: 44100
+                },
+                video: _objectSpread({
+                  facingMode: 'user'
+                }, videoStreamConfig)
+              });
+            case 6:
+              streamRef.current = _context3.sent;
+              recorderRef.current = new RecordRTC(streamRef.current, {
+                type: 'video',
+                mimeType: 'video/webm;codecs=vp9',
+                recorderType: RecordRTC.MediaStreamRecorder,
+                disableLogs: true
+              });
+              if (videoStreemRef.current.srcObject) {
+                videoStreemRef.current.srcObject.getVideoTracks().forEach(function (track) {
+                  track.stop();
+                  videoStreemRef.current.srcObject.removeTrack(track);
+                });
+              }
+              videoStreemRef.current.srcObject = streamRef.current;
+              videoStreemRef.current.play();
+              return _context3.abrupt("return", recorderRef.current);
+            case 14:
+              _context3.prev = 14;
+              _context3.t0 = _context3["catch"](0);
+              console.error({
+                error: _context3.t0
+              });
+              setIsRecording(false);
+              return _context3.abrupt("return", false);
+            case 19:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[0, 14]]);
+    }));
+    return _setupStream.apply(this, arguments);
+  }
+  function startRecording() {
+    return _startRecording.apply(this, arguments);
+  } // stopRecording
+  function _startRecording() {
+    _startRecording = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (recorderRef.current) {
+                _context4.next = 2;
+                break;
+              }
+              return _context4.abrupt("return", false);
+            case 2:
+              _context4.next = 4;
+              return recorderRef.current.startRecording();
+            case 4:
+              setRecordingIsGoingToStopSoon(false);
+              setRecordedTimeInSecond(0);
+              setIsRecording(true);
+              startTimer();
+              return _context4.abrupt("return", true);
+            case 9:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+    return _startRecording.apply(this, arguments);
+  }
+  function stopRecording(args) {
+    var defaultArgs = {
+      terminate: false
+    };
+    args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
+    stopTimer();
+    var state = recorderRef.current ? recorderRef.current.getState() : 'inactive';
+    if ('inactive' === state) {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(function (track) {
+          return track.stop();
+        });
+      }
+      recorderRef.current = null;
+      setRecordedTimeInSecond(0);
+      setIsRecording(false);
+      afterStopRecording();
+      return;
+    }
+    recorderRef.current.stopRecording(function (url) {
+      var blob = recorderRef.current.getBlob();
+      streamRef.current.getTracks().forEach(function (track) {
+        return track.stop();
+      });
+      setRecordingIsGoingToStopSoon(false);
+      setRecordedBlob(blob);
+      setRecordedURL(url);
+      setIsRecording(false);
+      if (!args.terminate) {
+        afterStopRecording({
+          blob: blob,
+          url: url
+        });
+      }
+    });
+  }
+  function afterStopRecording(recordingData) {
+    if (config && config.afterStopRecording && typeof config.afterStopRecording === 'function') {
+      config.afterStopRecording(recordingData);
+    }
+  }
+  function startTimer() {
+    recordingTimerRef.current = setInterval(function () {
+      setRecordedTimeInSecond(function (currentValue) {
+        return currentValue + 1;
+      });
+    }, 1000);
+  }
+  function stopTimer() {
+    clearInterval(recordingTimerRef.current);
+  }
+  function reversedRecordedTimeInSecond() {
+    return config.maxRecordLength - recordedTimeInSecond;
+  }
+  function getCountDown() {
+    if (!config.maxRecordLength || recordedTimeInSecond < 1) {
+      return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(recordedTimeInSecond);
+    }
+    return (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_1__.formatSecondsAsCountdown)(reversedRecordedTimeInSecond());
+  }
+  function reset() {
+    if (isRecording) {
+      stopRecording({
+        terminate: true
+      });
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(function (track) {
+        return track.stop();
+      });
+    }
+    recorderRef.current = null;
+    streamRef.current = null;
+    recordingTimerRef.current = null;
+    videoStreemRef.current = null;
+    setIsRecording(false);
+    setRecordedTimeInSecond(0);
+    setRecordedBlob(null);
+    setRecordedURL('');
+  }
+  return {
+    recorder: recorderRef.current,
+    isRecording: isRecording,
+    permissionDenied: permissionDenied,
+    recordedTimeInSecond: recordedTimeInSecond,
+    recordedBlob: recordedBlob,
+    recordedURL: recordedURL,
+    recordingIsGoingToStopSoon: recordingIsGoingToStopSoon,
+    videoStreemRef: videoStreemRef,
     hasPermission: hasPermission,
     requestPermission: requestPermission,
     setupStream: setupStream,
@@ -24582,6 +24559,57 @@ function makeid(length) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+/***/ }),
+
+/***/ "./src/js/helpers/video-resolution.js":
+/*!********************************************!*\
+  !*** ./src/js/helpers/video-resolution.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getLabel": function() { return /* binding */ getLabel; },
+/* harmony export */   "resolutions": function() { return /* binding */ resolutions; }
+/* harmony export */ });
+var resolutions = {
+  360: {
+    width: 640,
+    height: 360
+  },
+  480: {
+    width: 640,
+    height: 480
+  },
+  720: {
+    width: 1280,
+    height: 720
+  },
+  1080: {
+    width: 1920,
+    height: 1080
+  },
+  1440: {
+    width: 2560,
+    height: 1440
+  },
+  2160: {
+    width: 3840,
+    height: 2160,
+    hdKey: '4K'
+  },
+  7680: {
+    width: 7680,
+    height: 4320,
+    hdKey: '8K'
+  }
+};
+function getLabel(resulation) {
+  var hd = resulation.hdKey ? " (".concat(resulation.hdKey, ")") : '';
+  return "".concat(resulation.height, "p").concat(hd, ": ").concat(resulation.width, "x").concat(resulation.height);
 }
 
 /***/ }),

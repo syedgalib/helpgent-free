@@ -14,29 +14,23 @@ import { updateFormData as updateMessengerFormData } from '../../../../../store/
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../../store/chatbox/screenTypes';
 import messageTypes from '../../../../../store/forms/messenger/messageTypes';
-import { formatSecondsAsCountdown } from 'Helper/formatter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import useChatboxController from '../../../hooks/useChatboxController';
 
 import useCountdown from 'Hooks/useCountdown';
+import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 
 const Record = () => {
-	// Hooks
-	const {
-		needToGoContactPage
-	} = useChatboxController();
+	const stages = {
+        PERMISSION: 'permission',
+        RECORD: 'record',
+        BEFORE_SEND: 'before_send',
+        UPLOADING: 'uploading',
+        UPLOAD_FAILED: 'upload_failed',
+    };
 
-	const {
-		isActiveCountdown,
-		startCountdown,
-		CountdownPage,
-		getReverseCount,
-	} = useCountdown();
-
-	const { addAction } = wpwaxHooks;
-    const videoStreemRef = useRef();
-    const dispatch = useDispatch();
+    const [ currentStage, setCurrentStage ] = useState(stages.RECORD);
 
 	// Store States
     const { settings, attachmentForm } = useSelector((state) => {
@@ -46,40 +40,61 @@ const Record = () => {
         };
     });
 
-    const stages = {
-        PERMISSION: 'permission',
-        RECORD: 'record',
-        BEFORE_SEND: 'before_send',
-        UPLOADING: 'uploading',
-        UPLOAD_FAILED: 'upload_failed',
-    };
+	// useChatboxController
+	const {
+		needToGoContactPage
+	} = useChatboxController();
 
-    const [isInitializedBeforeCloseChatbox, setIsInitializedBeforeCloseChatbox] = useState(false);
+	// useCountdown
+	const {
+		isActiveCountdown,
+		startCountdown,
+		CountdownPage,
+		getReverseCount,
+	} = useCountdown();
 
-    const [permissionDenied, setPermissionDenied] = useState(null);
-    const [currentStage, setCurrentStage] = useState(stages.RECORD);
-    const [recordedVideoBlob, setRecordedVidioBlob] = useState(null);
-    const [recordedVidioURL, setRecordedVidioURL] = useState('');
-    const [isRecording, setIsRecording] = useState(false);
-    const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
+	// useVideoRecorder
+	const {
+		isRecording,
+		permissionDenied,
+		recordedBlob,
+		recordedURL: recordedVideoURL,
+		videoStreemRef,
+		hasPermission,
+		requestPermission,
+		setupStream,
+		startRecording,
+		stopRecording,
+		getCountDown,
+		reset: resetVideoRecorder,
+	} = useVideoRecorder({
+		maxRecordLength: getMaxRecordLength(),
+		resolution: getVideoResolution(),
+		afterStopRecording: function() {
+			setCurrentStage(stages.BEFORE_SEND);
+		}
+	});
 
-    const [maxRecordLength, setMaxRecordLength] = useState(null);
+	const { addAction } = wpwaxHooks;
+    const dispatch = useDispatch();
+    
 
     // Init State
     useState(function () {
-		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			const maxRecordLengthInSeconds = parseFloat( settings.maxVideoLength ) * 60;
-			setMaxRecordLength( maxRecordLengthInSeconds );
+		initialSetup();
+    }, []);
+
+	async function initialSetup() {
+		const _hasPermission = await hasPermission();
+
+		if ( _hasPermission ) {
+			addAction( 'beforeCloseChatbox', stopRecording );
+			setupStream();
+			return;
 		}
 
-        check_if_need_permission().then(function (is_needed_permission) {
-            if (is_needed_permission) {
-                setCurrentStage(stages.PERMISSION);
-            } else {
-                setupVideoStreem();
-            }
-        });
-    }, []);
+		setCurrentStage( stages.PERMISSION );
+	}
 
     // On Upload Complete
     useEffect(
@@ -108,184 +123,40 @@ const Record = () => {
         [attachmentForm.status]
     );
 
-	useEffect( function() {
+	async function handleVideoStartStopButton( e ) {
+		e.preventDefault();
 
-		if ( ! maxRecordLength ) {
-			return;
-		}
-
-		if ( recordedTimeInSecond >= maxRecordLength ) {
+		if ( isRecording ) {
 			stopRecording();
+		} else {
+			await startCountdown();
+			startRecording();
+		}
+	}
+
+	function getMaxRecordLength() {
+		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
+			return parseFloat( settings.maxVideoLength ) * 60;
 		}
 
+		return null;
+	}
 
-	}, [ recordedTimeInSecond ] );
+	function getVideoResolution() {
+		let resolution = null;
 
-    // check_if_need_permission
-    async function check_if_need_permission() {
-        try {
-            const microphonePermission = await navigator.permissions.query({
-                name: 'microphone',
-            });
-
-            const cameraPermission = await navigator.permissions.query({
-                name: 'camera',
-            });
-
-            return (
-                microphonePermission.state !== 'granted' ||
-                cameraPermission.state !== 'granted'
-            );
-        } catch (_) {
-            return true;
-        }
-    }
-
-    // requestPermission
-    async function requestPermission() {
-        try {
-            await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100,
-                },
-                video: { facingMode: 'user' },
-            });
-
-			setupVideoStreem();
-            setCurrentStage(stages.RECORD);
-        } catch (error) {
-            console.error({ error });
-
-            setPermissionDenied(true);
-        }
-    }
-
-    // startRecording
-    async function startRecording() {
-
-		// Start Countdown
-		await startCountdown();
-
-        await window.wpwaxCSRecorder.startRecording();
-
-        setRecordedTimeInSecond(0);
-        setIsRecording(true);
-        startTimer();
-    }
-
-    // stopRecording
-    function stopRecording() {
-        stopTimer();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSRecorder.getBlob();
-
-            const tracks = window.wpwaxCSVideoStream.getTracks();
-            tracks.forEach((track) => track.stop());
-
-            setRecordedVidioBlob(blob);
-            setRecordedVidioURL(url);
-            setIsRecording(false);
-            setCurrentStage(stages.BEFORE_SEND);
-        });
-
-        const tracks = window.wpwaxCSVideoStream.getTracks();
-        tracks.forEach((track) => track.stop());
-    }
-
-    // setupVideoStreem
-    async function setupVideoStreem() {
-
-		if ( ! isInitializedBeforeCloseChatbox ) {
-			addAction( 'beforeCloseChatbox', stopRecording );
-			setIsInitializedBeforeCloseChatbox( true );
+		if ( settings && typeof settings.videoResolution !== 'undefined' && ! isNaN( settings.videoResolution ) ) {
+			resolution = `${settings.videoResolution}`;
 		}
 
-		const resulations = {
-			'360': {
-				width: 640,
-				height: 360,
-			},
-			'480': {
-				width: 640,
-				height: 480,
-			},
-			'720' : {
-				width: 1280,
-				height: 720,
-			},
-		};
-
-		let videoQuality = 720;
-
-		if ( settings && typeof settings.videoQuality !== 'undefined' && ! isNaN( settings.videoQuality ) ) {
-			videoQuality = `${settings.videoQuality}`;
-		}
-
-		const videoQualityHasValidResulation = Object.keys( resulations ).includes( videoQuality );
-		const resulation = ( videoQualityHasValidResulation ) ? resulations[ videoQuality ] : resulations['720'];
-
-        try {
-            // Setup Video Streem
-            window.wpwaxCSVideoStream =
-                await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        sampleRate: 44100,
-                    },
-                    video: {
-						facingMode: 'user',
-						width: { ideal: resulation.width },
-    					height: { ideal: resulation.height },
-					},
-                });
-
-            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true,
-            });
-
-            if (videoStreemRef.current.srcObject) {
-                videoStreemRef.current.srcObject
-                    .getVideoTracks()
-                    .forEach((track) => {
-                        track.stop();
-                        videoStreemRef.current.srcObject.removeTrack(track);
-                    });
-            }
-
-            videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
-            videoStreemRef.current.play();
-        } catch (error) {
-            console.log({ error });
-
-            setIsRecording(false);
-        }
-    }
-
-    function startTimer() {
-        window.wpwaxCSAudioTimer = setInterval(function () {
-            setRecordedTimeInSecond(function (currentValue) {
-                return currentValue + 1;
-            });
-        }, 1000);
-    }
-
-    function stopTimer() {
-        clearInterval(window.wpwaxCSAudioTimer);
-    }
+		return resolution;
+	}
 
     function sendVideo(e) {
         e.preventDefault();
         setCurrentStage(stages.UPLOADING);
 
-        const formData = {
-            file: recordedVideoBlob,
-        };
+        const formData = { file: recordedBlob };
 
         dispatch(updateAttachmentFormData(formData));
         dispatch(submitAttachmentForm(formData));
@@ -294,30 +165,16 @@ const Record = () => {
     function prepareRecordAgain(e) {
         e.preventDefault();
 
-        setupVideoStreem();
+		resetVideoRecorder();
+		setupStream();
 
-        setRecordedTimeInSecond(0);
-        setIsRecording(false);
-        setCurrentStage(stages.RECORD);
+        setCurrentStage( stages.RECORD );
     }
 
     function tryUploadAgain(e) {
         e.preventDefault();
         setCurrentStage(stages.BEFORE_SEND);
     }
-
-	function reversedRecordedTimeInSecond() {
-		return ( maxRecordLength - recordedTimeInSecond );
-	}
-
-	function getCountDown() {
-
-		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
-			return formatSecondsAsCountdown( recordedTimeInSecond );
-		}
-
-		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
-	}
 
     if (currentStage === stages.PERMISSION) {
         return (
@@ -330,7 +187,7 @@ const Record = () => {
                 <a
                     href='#'
                     className='wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-block wpwax-vm-btn-primary'
-                    onClick={() => requestPermission()}
+                    onClick={ ( e ) => { e.preventDefault(); requestPermission() } }
                 >
                     Request Permission
                 </a>
@@ -373,13 +230,7 @@ const Record = () => {
                     <a
                         href='#'
                         className='wpwax-vm-btn-record'
-                        onClick={() => {
-                            if (isRecording) {
-                                stopRecording();
-                            } else {
-                                startRecording();
-                            }
-                        }}
+                        onClick={ handleVideoStartStopButton }
                     ></a>
                 </div>
             </VideoRecordWrap>
@@ -390,7 +241,7 @@ const Record = () => {
                 <form action='#' className='wpwax-vm-form'>
                     <div className='wpwax-vm-recored-video'>
                         <div className='wpwax-vm-recorded-preview wpax-vm-preview-bg'>
-                            <video controls src={recordedVidioURL}></video>
+                            <video controls src={recordedVideoURL}></video>
                         </div>
                     </div>
                     <div className='wpwax-vm-form-bottom'>

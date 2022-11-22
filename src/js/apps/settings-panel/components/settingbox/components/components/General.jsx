@@ -2,11 +2,13 @@ import React from 'react';
 import { default as Select } from 'react-select';
 import Switch from 'react-switch';
 
-const qualityOptions = [
-    { value: '360', label: '360p ( 640x360 )' },
-    { value: '480', label: '480p ( 640x480 )' },
-    { value: '720', label: '720p ( 1280x720 )' },
-];
+import { resolutions, getLabel } from "Helper/video-resolution";
+
+const parseResolutionOption = function ( key ) {
+	return { value: key, label: getLabel( resolutions[ key ] ) };
+};
+
+const resolutionOptions = Object.keys( resolutions ).map( parseResolutionOption ).reverse();
 
 const chatHeadPositions = [
     { value: 'bottom-right', label: 'Bottom Right' },
@@ -204,30 +206,27 @@ const General = (props) => {
             <div className='wpwax-vm-settings__single'>
                 <label
                     className='wpwax-vm-settings__single--label'
-                    htmlFor='video-quality'
+                    htmlFor='video-resolution'
                 >
-                    Video Quality
+                    Video Resolution
                 </label>
                 <div className='wpwax-vm-settings__single--element'>
                     <Select
-                        inputId='video-quality'
+                        inputId='video-resolution'
                         classNamePrefix='wpwax-vm-select'
-                        options={qualityOptions}
+                        options={resolutionOptions}
                         closeMenuOnSelect={true}
                         hideSelectedOptions={false}
                         searchable={false}
-                        name='videoQuality'
+                        name='videoResolution'
                         onChange={handleChangeSelectValue}
-                        placeholder='Select video quality...'
+                        placeholder='Select video resulation...'
                         value={
-                            qualityOptions.filter(function (option) {
-                                return (
-                                    option.value ===
-                                    contentState.options.videoQuality
-                                );
+                            resolutionOptions.filter(function (option) {
+                                return ( option.value === contentState.options.videoResolution );
                             })[0]
                         }
-                        defaultValue={{ value: '720', label: '720p' }}
+                        defaultValue={ parseResolutionOption( 720 ) }
                     />
                 </div>
             </div>

@@ -10,8 +10,6 @@ export default function useScreenRecorder( config ) {
 
 	config = ( config && typeof config === 'object' ) ? { ...defaultConfig, ...config } : defaultConfig;
 
-	const [ recordingTimer, setRecordingTimer ] = useState( null );
-
 	const [ isRecording, setIsRecording ]           = useState( false );
 	const [ permissionDenied, setPermissionDenied ] = useState( null );
 
@@ -209,7 +207,6 @@ export default function useScreenRecorder( config ) {
 		audioStreamRef.current  = null;
 
 		setIsRecording( false );
-		setRecordingTimer( null );
 		setRecordedTimeInSecond( 0 );
 		setRecordedScreenBlob( null );
 		setRecordedScreenURL( '' );

@@ -9,6 +9,8 @@ import upload from 'Assets/svg/icons/cloud-upload.svg';
 
 import { handleReplyModeChange } from '../../../../store/messages/actionCreator';
 
+import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
+
 const Video = ({ sessionID, onSuccess, replayingTo }) => {
     const stages = {
         HOME: 'home',
@@ -17,6 +19,22 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
     };
 
     const [currentStage, setCurrentStage] = useState(stages.HOME);
+
+	const {
+		permissionDenied,
+		recordedTimeInSecond,
+		recordedBlob,
+		recordedURL,
+		recordingIsGoingToStopSoon,
+		videoStreemRef,
+		hasPermission,
+		requestPermission,
+		setupStream,
+		startRecording,
+		stopRecording,
+		getCountDown,
+		reset,
+	} = useVideoRecorder();
 
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
@@ -43,62 +61,19 @@ const Video = ({ sessionID, onSuccess, replayingTo }) => {
 
     // canRecordVideo
     const canRecordVideo = async function () {
-        const needPermission = await checkIfNeedPermission();
 
-        if (needPermission) {
-            const hasPermission = await requestPermission();
+		if ( await hasPermission() ) {
+			return true;
+		}
 
-            if (!hasPermission) {
-                alert(
-                    'Please grant the requested permission to record the video'
-                );
-                return false;
-            }
+        const grantedPermission = await requestPermission();
 
-            return true;
-        }
+		if ( ! grantedPermission) {
+			alert( 'Please grant the requested permission to record the video' );
+			return false;
+		}
 
-        return true;
-    };
-
-    // checkIfNeedPermission
-    const checkIfNeedPermission = async function () {
-        try {
-            const microphonePermission = await navigator.permissions.query({
-                name: 'microphone',
-            });
-
-            const cameraPermission = await navigator.permissions.query({
-                name: 'camera',
-            });
-
-            return (
-                microphonePermission.state !== 'granted' ||
-                cameraPermission.state !== 'granted'
-            );
-        } catch (_) {
-            return true;
-        }
-    };
-
-    // requestPermission
-    const requestPermission = async function () {
-        try {
-            await navigator.mediaDevices.getUserMedia({
-                audio: {
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100,
-                },
-                video: { facingMode: 'user' },
-            });
-
-            return true;
-        } catch (error) {
-            console.log({ error });
-
-            return false;
-        }
+		return true;
     };
 
     /* Handle Close */

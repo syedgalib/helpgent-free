@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import ReactSVG from 'react-inlinesvg'
 
 import Container from './Style';
-import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 import useCountdown from 'Hooks/useCountdown';
@@ -22,7 +20,6 @@ function App( { onSelect, onSave, onClose } ) {
 	} = useCountdown();
 
 	const {
-		recorder,
 		isRecording,
 		recordedBlob,
 		recordedURL,
@@ -76,9 +73,9 @@ function App( { onSelect, onSave, onClose } ) {
             return;
         }
 
-		if ( recorder ) {
-			startRecording( recorder );
-		}
+		await startCountdown();
+
+		startRecording();
     };
 
 	// onSubmit

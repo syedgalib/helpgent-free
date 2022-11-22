@@ -7,15 +7,15 @@ import plane from 'Assets/svg/icons/paper-plane.svg';
 
 import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../store/messages/actionCreator';
 import { useEffect } from 'react';
-import { formatSecondsAsCountdown } from 'Helper/formatter';
 
 import useMessangerAPI from 'API/useMessangerAPI';
-import useCountdown from 'Hooks/useCountdown';
 import { useCoreData } from 'Hooks/useCoreData.jsx';
 import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
-const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
+import useCountdown from 'Hooks/useCountdown';
+import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
 
+const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
         SUBMIT: 'submit',
         RECORD: 'record',
@@ -24,6 +24,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
+	// useCountdown
 	const {
 		isActiveCountdown,
 		startCountdown,
@@ -31,44 +32,37 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 		getReverseCount,
 	} = useCountdown();
 
+	// useVideoRecorder
+	const {
+		isRecording,
+		recordedBlob: recordedVideoBlob,
+		recordedURL: recordedVideoURL,
+		videoStreemRef,
+		setupStream: setupVideoStreem,
+		startRecording: startVideoRecording,
+		stopRecording,
+		getCountDown,
+	} = useVideoRecorder({
+		maxRecordLength: getMaxRecordLength(),
+		resolution: getVideoResolution(),
+		afterStopRecording: function() {
+			setCurrentStage(stages.BEFORE_SEND);
+		}
+	});
+
 	// Use API
 	const { createItem: createMessangerItem }  = useMessangerAPI();
 	const { createItem: createAttachmentItem } = useAttachmentAPI();
 
     const [currentStage, setCurrentStage] = useState(stages.RECORD);
     const [textMessage, setTextMessage] = useState('');
-    const [recordedVideoBlob, setRecordedVidioBlob] = useState(null);
-    const [recordedVidioURL, setRecordedVidioURL] = useState('');
-    const [isRecording, setIsRecording] = useState(false);
-    const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
-
-	const [ maxRecordLength, setMaxRecordLength ] = useState( null );
 
     const [isSending, setIsSending] = useState(false);
 
-    const videoStreemRef = useRef();
-
     // @Init State
     useEffect(function () {
-
-		if ( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
-			setMaxRecordLength( parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) );
-		}
-
         setupVideoStreem();
     }, []);
-
-	useEffect( () => {
-
-		if ( ! maxRecordLength ) {
-			return;
-		}
-
-		if ( recordedTimeInSecond >= maxRecordLength ) {
-			stopRecording();
-		}
-
-	}, [ recordedTimeInSecond ] );
 
     // handleRecordButtonAction
     const handleRecordButtonAction = (event) => {
@@ -83,130 +77,33 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
         startRecording();
     };
 
-    // setupVideoStreem
-    async function setupVideoStreem() {
-		const resulations = {
-			'360': {
-				width: 640,
-				height: 360,
-			},
-			'480': {
-				width: 640,
-				height: 480,
-			},
-			'720' : {
-				width: 1280,
-				height: 720,
-			},
-		};
-
-		let videoQuality = 720;
-
-		const settingsVideoQuality = useCoreData( 'settings.videoQuality' );
-
-		if ( settingsVideoQuality && ! isNaN( settingsVideoQuality ) ) {
-			videoQuality = `${settingsVideoQuality}`;
-		}
-
-		const videoQualityHasValidResulation = Object.keys( resulations ).includes( videoQuality );
-		const resulation = ( videoQualityHasValidResulation ) ? resulations[ videoQuality ] : resulations['720'];
-
-        try {
-            // Setup Video Streem
-            window.wpwaxCSVideoStream =
-                await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: true,
-                        noiseSuppression: true,
-                        sampleRate: 44100,
-                    },
-                    video: {
-						facingMode: 'user',
-						width: { ideal: resulation.width },
-    					height: { ideal: resulation.height },
-					},
-                });
-
-            window.wpwaxCSRecorder = new RecordRTC(window.wpwaxCSVideoStream, {
-                type: 'video',
-                mimeType: 'video/webm;codecs=vp9',
-                recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true,
-            });
-
-            if (videoStreemRef.current.srcObject) {
-                videoStreemRef.current.srcObject
-                    .getVideoTracks()
-                    .forEach((track) => {
-                        track.stop();
-                        videoStreemRef.current.srcObject.removeTrack(track);
-                    });
-            }
-
-            videoStreemRef.current.srcObject = window.wpwaxCSVideoStream;
-            videoStreemRef.current.play();
-        } catch (error) {
-            console.log({ error });
-
-            setIsRecording(false);
-        }
-    }
-
     // startRecording
     async function startRecording() {
-
 		// Start Countdown
 		await startCountdown();
 
-        await window.wpwaxCSRecorder.startRecording();
-
-        setRecordedTimeInSecond(0);
-        setIsRecording(true);
-        startTimer();
+		// Start Video Recording
+		startVideoRecording();
     }
 
-    // stopRecording
-    function stopRecording() {
-        stopTimer();
-        window.wpwaxCSRecorder.stopRecording(function (url) {
-            let blob = window.wpwaxCSRecorder.getBlob();
-
-            const tracks = window.wpwaxCSVideoStream.getTracks();
-            tracks.forEach((track) => track.stop());
-
-            setRecordedVidioBlob(blob);
-            setRecordedVidioURL(url);
-            setIsRecording(false);
-            setCurrentStage(stages.BEFORE_SEND);
-        });
-
-        const tracks = window.wpwaxCSVideoStream.getTracks();
-        tracks.forEach((track) => track.stop());
-    }
-
-    function startTimer() {
-        window.wpwaxCSAudioTimer = setInterval(function () {
-            setRecordedTimeInSecond(function (currentValue) {
-                return currentValue + 1;
-            });
-        }, 1000);
-    }
-
-    function stopTimer() {
-        clearInterval(window.wpwaxCSAudioTimer);
-    }
-
-	function reversedRecordedTimeInSecond() {
-		return ( maxRecordLength - recordedTimeInSecond );
-	}
-
-	function getCountDown() {
-
-		if ( ! maxRecordLength || recordedTimeInSecond < 1 ) {
-			return formatSecondsAsCountdown( recordedTimeInSecond );
+	function getMaxRecordLength() {
+		if ( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
+			return parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
 		}
 
-		return formatSecondsAsCountdown( reversedRecordedTimeInSecond() );
+		return null;
+	}
+
+	function getVideoResolution() {
+		let resolution = null;
+
+		const videoResolution = useCoreData( 'settings.videoResolution' );
+
+		if ( ! isNaN( videoResolution ) ) {
+			resolution = `${videoResolution}`;
+		}
+
+		return resolution;
 	}
 
     async function sendVideo(e) {
@@ -384,7 +281,7 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                     <div className='wpwax-vm-reply-video-bg'>
                         <video
                             controls
-                            src={recordedVidioURL}
+                            src={recordedVideoURL}
                             width='100%'
                             height='100%'
                         ></video>

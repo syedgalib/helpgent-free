@@ -1,19 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { formatSecondsAsCountdown } from "Helper/formatter";
+import { resolutions } from "Helper/video-resolution";
 
 export default function useVideoRecorder( config ) {
 
 	const defaultConfig = {
 		maxRecordLength: null,
 		alertTimeBeforeStop: 10,
-		resulation: null,
+		resolution: null,
 	};
 
 	config = ( config && typeof config === 'object' ) ? { ...defaultConfig, ...config } : defaultConfig;
-
-	const [ recorder, setRecorder ]             = useState( null );
-	const [ stream, setStream ]                 = useState( null );
-	const [ recordingTimer, setRecordingTimer ] = useState( null );
 
 	const [ isRecording, setIsRecording ]           = useState( false );
 	const [ permissionDenied, setPermissionDenied ] = useState( null );
@@ -24,7 +21,10 @@ export default function useVideoRecorder( config ) {
 
 	const [ recordingIsGoingToStopSoon, setRecordingIsGoingToStopSoon ] = useState( false );
 
-	const videoStreemRef = useRef();
+	const recorderRef       = useRef();
+	const streamRef         = useRef();
+	const recordingTimerRef = useRef();
+	const videoStreemRef    = useRef();
 
 	useEffect( () => {
 
@@ -76,49 +76,28 @@ export default function useVideoRecorder( config ) {
         }
     }
 
-	function getResulation() {
-		const resulations = {
-			'360': {
-				width: 640,
-				height: 360,
-			},
-			'480': {
-				width: 640,
-				height: 480,
-			},
-			'720' : {
-				width: 1280,
-				height: 720,
-			},
-		};
+	function getResolution() {
+		const configResolution   = config.resolution && ! isNaN( config.resolution ) ?  `${config.resolution}` : null;
+		const selectedResulation = ( configResolution && Object.keys( resolutions ).includes( configResolution ) ) ? resolutions[ configResolution ] : null;
 
-		let videoQuality = 720;
-
-		const configVideoQuality = config.resulation;
-
-		if ( configVideoQuality && ! isNaN( configVideoQuality ) ) {
-			videoQuality = `${configVideoQuality}`;
-		}
-
-		const videoQualityHasValidResulation = Object.keys( resulations ).includes( videoQuality );
-		return ( videoQualityHasValidResulation ) ? resulations[ videoQuality ] : null;
+		return selectedResulation;
 	}
 
     async function setupStream() {
         try {
-			const resulation = getResulation();
+			const resolution = getResolution();
 
 			let videoStreamConfig = {};
 
-			if ( resulation ) {
+			if ( resolution ) {
 				videoStreamConfig = {
-					width: { ideal: resulation.width },
-					height: { ideal: resulation.height },
+					width: { ideal: resolution.width },
+					height: { ideal: resolution.height },
 				}
 			}
 
             // Setup Screen Streem
-            const newStream = await navigator.mediaDevices.getUserMedia({
+            streamRef.current = await navigator.mediaDevices.getUserMedia({
 				audio: {
 					echoCancellation: true,
 					noiseSuppression: true,
@@ -130,16 +109,13 @@ export default function useVideoRecorder( config ) {
 				},
 			});
 
-			setStream( newStream );
 
-            const newRecorder = new RecordRTC( newStream, {
+            recorderRef.current = new RecordRTC( streamRef.current, {
                 type: 'video',
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true,
             });
-
-			setRecorder( newRecorder );
 
 			if ( videoStreemRef.current.srcObject ) {
                 videoStreemRef.current.srcObject
@@ -150,10 +126,10 @@ export default function useVideoRecorder( config ) {
                     });
             }
 
-            videoStreemRef.current.srcObject = newStream;
+            videoStreemRef.current.srcObject = streamRef.current;
             videoStreemRef.current.play();
 
-			return newRecorder;
+			return recorderRef.current;
 
         } catch (error) {
             console.error({ error });
@@ -164,13 +140,19 @@ export default function useVideoRecorder( config ) {
     }
 
 	// startRecording
-    async function startRecording( recorder ) {
-        await recorder.startRecording();
+    async function startRecording() {
+		if ( ! recorderRef.current ) {
+			return false;
+		}
+
+		await recorderRef.current.startRecording();
 
 		setRecordingIsGoingToStopSoon( false );
         setRecordedTimeInSecond(0);
         setIsRecording(true);
         startTimer();
+
+		return true;
     }
 
 	// stopRecording
@@ -180,10 +162,27 @@ export default function useVideoRecorder( config ) {
 		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
 
         stopTimer();
-        recorder.stopRecording( function ( url ) {
-            const blob = recorder.getBlob();
 
-            stream.getTracks().forEach((track) => track.stop());
+		const state = ( recorderRef.current ) ? recorderRef.current.getState() : 'inactive';
+
+		if ( 'inactive' === state ) {
+			if ( streamRef.current ) {
+				streamRef.current.getTracks().forEach((track) => track.stop());
+			}
+
+			recorderRef.current = null;
+
+			setRecordedTimeInSecond(0);
+			setIsRecording(false);
+			
+			afterStopRecording();
+			return;
+		}
+
+        recorderRef.current.stopRecording( function ( url ) {
+            const blob = recorderRef.current.getBlob();
+
+            streamRef.current.getTracks().forEach((track) => track.stop());
 
 			setRecordingIsGoingToStopSoon( false );
             setRecordedBlob(blob);
@@ -204,17 +203,15 @@ export default function useVideoRecorder( config ) {
 	}
 
 	function startTimer() {
-        const timer = setInterval(function () {
+        recordingTimerRef.current = setInterval(function () {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
         }, 1000);
-
-		setRecordingTimer( timer );
     }
 
     function stopTimer() {
-        clearInterval( recordingTimer );
+        clearInterval( recordingTimerRef.current );
     }
 
 	function reversedRecordedTimeInSecond() {
@@ -231,26 +228,27 @@ export default function useVideoRecorder( config ) {
 	}
 
 	function reset() {
-
 		if ( isRecording ) {
 			stopRecording( { terminate: true } );
 		}
 
-		if ( stream ) {
-			stream.getTracks().forEach((track) => track.stop());
+		if ( streamRef.current ) {
+			streamRef.current.getTracks().forEach((track) => track.stop());
 		}
 
+		recorderRef.current       = null;
+		streamRef.current         = null;
+		recordingTimerRef.current = null;
+		videoStreemRef.current    = null;
+
 		setIsRecording( false );
-		setRecorder( null );
-		setStream( null );
-		setRecordingTimer( null );
 		setRecordedTimeInSecond( 0 );
 		setRecordedBlob( null );
 		setRecordedURL( '' );
 	}
 
 	return {
-		recorder,
+		recorder: recorderRef.current,
 		isRecording,
 		permissionDenied,
 		recordedTimeInSecond,

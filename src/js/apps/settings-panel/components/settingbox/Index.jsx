@@ -64,7 +64,7 @@ const SettingBox = () => {
             userDashboardPage: '2',
             maxVideoLength: '2',
             maxVoiceLength: '2',
-            videoQuality: '720',
+            videoResolution: '720',
             attatchmentDeletionAfter: '20',
             maxUploadSize: '300',
             enableEmailNotification: true,

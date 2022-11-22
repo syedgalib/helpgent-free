@@ -188,14 +188,6 @@ abstract class Base extends WP_REST_Controller {
             return $this->error_nonce_missing();
         }
 
-		$is_admin  = Helper\is_current_user_admin();
-		$is_client = current_user_can( 'wpwax_vm_client' );
-		$is_guest  =  $has_valid_token;
-
-        if ( ! in_array( true, [ $is_admin, $is_client, $is_guest ] ) ) {
-            return $this->error_auth_check_failed();
-        }
-
         return true;
     }
 

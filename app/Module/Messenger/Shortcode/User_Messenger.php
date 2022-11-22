@@ -23,7 +23,7 @@ class User_Messenger {
 			return '<div id="wpwax-vm-token-resend-app" data-token-email="' . $email . '" class="wpwax-vm-notice-container"></div>';
 		}
 
-		if ( ! Helper\current_can_use_messanger_app() ) {
+		if ( ! Helper\is_user_authenticated() ) {
 
 			$message = __( 'You need to be logged in to view this content.', 'helpgent' );
 

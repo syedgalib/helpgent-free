@@ -24,13 +24,14 @@ export default function useWPAttachmentAPI() {
 		// Prepare FormData
 		if ( args && typeof args === 'object' ) {
 			for ( let key in args ) {
-				let fileName = '';
-
 				if ( args[ key ] instanceof Blob ) {
-					fileName = generateFileNameFromBlob( args[ key ] );
+					const fileName = generateFileNameFromBlob( args[ key ] );
+					console.log( { fileName } );
+					formData.append( key, args[ key ], fileName );
+					continue;
 				}
 
-				formData.append( key, args[ key ], fileName );
+				formData.append( key, args[ key ] );
 			}
 		}
 

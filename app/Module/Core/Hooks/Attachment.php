@@ -2,13 +2,10 @@
 
 namespace HelpGent\Module\Core\Hooks;
 
-use WP_Error;
 use HelpGent\Module\Core\Model\Attachment_Model;
 use HelpGent\Module\Messenger\Model\Message_Model;
 
-use function HelpGent\Base\Helper\is_current_user_admin;
-use function HelpGent\Base\Helper\is_current_user_client;
-use function HelpGent\Base\Helper\is_current_user_guest;
+use HelpGent\Base\Helper;
 
 class Attachment {
 
@@ -29,27 +26,27 @@ class Attachment {
 	 */
 	public function dynamic_attachment_link() {
 
-		if ( ! $this->is_user_authenticated() ) {
+		if ( ! Helper\is_user_authenticated() ) {
 			status_header(403);
 			die('You are not allowed to access the file.');
 		}
 
 		$attachment_id = ( ! empty( $_GET['attachment_id'] ) && is_numeric( $_GET['attachment_id'] ) ) ? ( int ) $_GET['attachment_id'] : 0;
 
-
 		if ( empty( $attachment_id ) ) {
-			status_header(404);
+			status_header( 404 );
 			die('File not found.');
 		}
 
 		$attachment = Attachment_Model::get_item( $attachment_id );
 
 		if ( is_wp_error( $attachment ) ) {
-			status_header(403);
+			status_header( 403 );
 			die( esc_html( $attachment->get_error_message() ) );
 		}
+
 		if ( ! $this->can_user_access_the_attachment( $attachment_id ) ) {
-			status_header(403);
+			status_header( 403 );
 			die('You are not allowed to access the file.');
 		}
 
@@ -58,7 +55,7 @@ class Attachment {
 		preg_match( '/attachment_.+$/', $attachment[ 'url' ], $matches );
 
 		if ( empty( $matches ) ) {
-			status_header(404);
+			status_header( 404 );
 			die('File not found.');
 		}
 
@@ -91,76 +88,25 @@ class Attachment {
 			return true;
 		}
 
-		if ( ! current_user_can( 'wpwax_vm_client' ) ) {
-			return false;
-		}
-
 		// Get the attachment session ID
 		$attachment_args = [
 			'where' => [
 				'field'   => 'attachment_id',
 				'compare' => '=',
 				'value'   => $attachment_id,
-			]
+			],
+			'limit' => 1,
 		];
 
-		$attachment_sessions = Message_Model::get_items( $attachment_args );
+		$attachment_messeges = Message_Model::get_items( $attachment_args );
 
-		$attachment_sessions = $attachment_sessions['results'];
-
-		if ( empty( $attachment_sessions ) ) {
+		if ( empty( $attachment_messeges['results'] ) ) {
 			return false;
 		}
 
-		$attachment_session_id = $attachment_sessions[0]['session_id'];
+		$attachment_conversation_id = $attachment_messeges['results'][0]['conversation_id'];
 
-		// Get all the session ID of the current user
-		$user_message_args = [
-			'limit' => -1,
-			'where' => [
-				'field'   => 'user_id',
-				'compare' => '=',
-				'value'   => get_current_user_id(),
-			]
-		];
-
-		$user_sessions = Message_Model::get_items( $user_message_args );
-
-		$user_sessions = $user_sessions['results'];
-
-		if ( empty( $user_sessions ) ) {
-			return false;
-		}
-
-		$user_sessions = array_map( function( $message ) { return $message['session_id']; }, $user_sessions );
-
-		// If user sessions includes attachment session ID
-		// let user access the file
-
-		if ( in_array( $attachment_session_id, $user_sessions ) ) {
-			return true;
-		}
-
-		// Otherwise block the access
-		return false;
-	}
-
-	/**
-	 * Is User Authenticated
-	 *
-	 * @return bool Status
-	 */
-	public function is_user_authenticated() {
-
-		$is_admin  = is_current_user_admin();
-		$is_client = is_current_user_client();
-		$is_guest  = is_current_user_guest();
-
-		if ( $is_admin || $is_client || $is_guest ) {
-			return true;
-		}
-
-		return false;
+		return Helper\current_user_can_view_conversation( $attachment_conversation_id );
 	}
 
     /**

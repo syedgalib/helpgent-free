@@ -4,10 +4,6 @@ namespace HelpGent\Module\Core\Hooks;
 
 use HelpGent\Module\Core\Model\Auth_Token_Model;
 
-use function HelpGent\Base\Helper\is_current_user_admin;
-use function HelpGent\Base\Helper\is_current_user_client;
-use function HelpGent\Base\Helper\is_current_user_guest;
-
 class Authentication {
 
     /**

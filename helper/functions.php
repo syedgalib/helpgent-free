@@ -8,6 +8,7 @@ use WP_User;
 use HelpGent\Module\Core\Model\Auth_Token_Model;
 use HelpGent\Module\Core\Model\Guest_User_Model;
 use HelpGent\Module\Core\Model\Term_Model;
+use HelpGent\Module\Messenger\Model\Conversation_Model;
 
 /**
  * Get The Public Template
@@ -1202,7 +1203,7 @@ function prepare_user_data( $user, $fields = [] ) {
 
 	$user_info = [];
 
-	$default_fields = ['id', 'email', 'name', 'username', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_client', 'is_guest' ];
+	$default_fields = ['id', 'email', 'name', 'username', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_guest' ];
 	$fields = ( ! empty( $fields ) ) ? $fields : $default_fields;
 
 	if ( in_array( 'id', $fields ) ) {
@@ -1244,10 +1245,6 @@ function prepare_user_data( $user, $fields = [] ) {
 		$user_info['is_admin'] = is_user_admin( $user ) ;
 	}
 
-	if ( in_array( 'is_client', $fields ) ) {
-		$user_info['is_client'] = is_user_client( $user );
-	}
-
 	if ( in_array( 'is_guest', $fields ) ) {
 		$user_info['is_guest'] = false;
 	}
@@ -1270,7 +1267,6 @@ function prepare_guest_user_data( $user = [] ) {
 	$user['roles']     = [];
 	$user['username']  = $user['id'];
 	$user['is_admin']  = false;
-	$user['is_client'] = false;
 	$user['is_guest']  = true;
 
 	return $user;
@@ -1281,8 +1277,7 @@ function prepare_guest_user_data( $user = [] ) {
  *
  * @return bool
  */
-function is_current_user_admin()
-{
+function is_current_user_admin() {
 	return is_user_admin( get_current_user_email() );
 }
 
@@ -1291,18 +1286,7 @@ function is_current_user_admin()
  *
  * @return bool
  */
-function is_current_user_client()
-{
-	return current_user_can( 'wpwax_vm_client' );
-}
-
-/**
- * Check if current user is client
- *
- * @return bool
- */
-function is_current_user_guest()
-{
+function is_current_user_guest() {
 	$email = get_current_user_email();
 
 	if ( empty( $email ) ) {
@@ -1392,21 +1376,12 @@ function get_auth_expaired_token_email() {
 }
 
 /**
- * Check if current user can use messanger app
+ * Check If User Is Authenticated
  *
- * @return bool
+ * @return bool Status
  */
-function current_can_use_messanger_app()
-{
-	$is_admin  = is_current_user_admin();
-	$is_client = is_current_user_client();
-	$is_guest  = is_current_user_guest();
-
-	if ( $is_admin || $is_client || $is_guest ) {
-		return true;
-	}
-
-	return false;
+function is_user_authenticated() {
+	return ! empty( get_current_user_email() );
 }
 
 /**
@@ -1618,6 +1593,27 @@ function get_dashboard_page_link() {
 	}
 
 	return apply_filters( 'helpgent_dashboard_page_link', $link, $page_id );
+}
+
+/**
+ * Check If Current User Can View Conversation
+ *
+ * @param string $conversation_id
+ * @return bool
+ */
+function current_user_can_view_conversation( $conversation_id ) {
+
+	if ( is_current_user_admin() ) {
+		return true;
+	}
+
+	$conversation = Conversation_Model::get_item( $conversation_id );
+
+	if ( is_wp_error( $conversation ) ) {
+		return false;
+	}
+
+	return $conversation['created_by'] === get_current_user_email();
 }
 
 

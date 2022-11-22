@@ -29,11 +29,11 @@ class User {
 
 		$is_guest = Guest_User_Model::get_items( [ 'where' => [ 'email' => $user->user_email ] ] );
 
-		if( is_wp_error( $is_guest ) ) {
+		if ( is_wp_error( $is_guest ) ) {
 			return;
 		}
 
-		if( empty( $is_guest ) ) {
+		if ( empty( $is_guest ) ) {
 			return;
 		}
 
@@ -41,14 +41,12 @@ class User {
 
 		$metas = Guest_User_Model::get_meta( $is_guest['id'] );
 
-		if( ! empty( $metas ) ) {
+		if ( ! empty( $metas ) ) {
 			foreach( $metas as $index => $meta ) {
-				update_user_meta( $user->user_id, '_' . $meta['meta_key'], $meta['meta_value'] );
+				update_user_meta( $user->user_id, HELPGENT_META_PREFIX . $meta['meta_key'], $meta['meta_value'] );
 			}
 		}
-		if( ! Helper\is_user_admin( $user ) ) {
-			$user->add_role( HELPGENT_CLIENT_ROLE );
-		}
+
 		Guest_User_Model::delete_item( $is_guest['id'] );
 	}
 

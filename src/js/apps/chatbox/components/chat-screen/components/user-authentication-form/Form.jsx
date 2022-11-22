@@ -60,9 +60,14 @@ function Form() {
 			return;
 		}
 
-        dispatch(
-			changeChatScreen( screenTypes.SENDING )
-		);
+		const headers = response.data.headers;
+		const token = Object.keys( headers ).includes( 'helpgent-token' ) ? headers['helpgent-token'] : '';
+
+		if ( token ) {
+			dispatch( updateUserState( { token } ) );
+		}
+
+        dispatch( changeChatScreen( screenTypes.SENDING ) );
     }
 
 	// authenticate

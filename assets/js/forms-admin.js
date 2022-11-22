@@ -12759,11 +12759,15 @@ function useWPAttachmentAPI() {
     // Prepare FormData
     if (args && _typeof(args) === 'object') {
       for (var key in args) {
-        var fileName = '';
         if (args[key] instanceof Blob) {
-          fileName = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_0__.generateFileNameFromBlob)(args[key]);
+          var fileName = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_0__.generateFileNameFromBlob)(args[key]);
+          console.log({
+            fileName: fileName
+          });
+          formData.append(key, args[key], fileName);
+          continue;
         }
-        formData.append(key, args[key], fileName);
+        formData.append(key, args[key]);
       }
     }
     return createItem(formData, config, apiBase);

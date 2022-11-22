@@ -15,6 +15,7 @@ import useConversationAPI from 'API/useConversationAPI';
 import useMessangerAPI from 'API/useMessangerAPI';
 import useUserAPI from 'API/useUserAPI';
 import useGuestUserAPI from 'API/useGuestUserAPI';
+import { useRef } from 'react';
 
 function Sending() {
     const dispatch = useDispatch();
@@ -22,9 +23,6 @@ function Sending() {
 	// Hooks
 	const {
 		currentUser,
-		isUserAdmin,
-		isUserClient,
-		isUserGuest,
 		isUserLoggedIn,
 		enabledGuestSubmission,
 	} = useChatboxController();
@@ -48,12 +46,11 @@ function Sending() {
 		ERROR: 'ERROR',
 	};
 
-	const email = ( userForm.user && userForm.user.email ) ? userForm.user.email : '';
-
 	// Local States
 	const [ currentStage, setCurrentStage ] = useState( stages.SENDING );
 	const [ errorMessage, setErrorMessage ] = useState( '' );
-	const [ userEmail, setUserEmail ] = useState( '' );
+
+	const userEmailRef = useRef();
 
 	const [ callbacks, setCallbacks ] = useState( { onRetry: submitMessage } );
 
@@ -83,7 +80,6 @@ function Sending() {
 	 */
 	async function handleNewUser() {
 		// Handle Existing User
-
 		const userExistsStatus = await checkIfUserExists();
 
 		if ( userExistsStatus.status ) {
@@ -102,7 +98,6 @@ function Sending() {
 			return;
 		}
 
-		setUserEmail( userResponse.data.email );
 		submitMessage( userResponse.data.email );
 	}
 
@@ -118,31 +113,11 @@ function Sending() {
 		args = ( args && typeof args === 'object' ) ? { ...defaultArgs, ...args } : defaultArgs;
 
 		let currentUserEmail = ( currentUser && currentUser.email ) ? currentUser.email : '';
-		let isAdmin          = isUserAdmin();
-		let isClient         = isUserClient();
-		let isGuest          = isUserGuest();
 
-		if ( args.user ) {
+		if ( args.user && args.user.email ) {
 			currentUserEmail = args.user.email;
-			isAdmin          = args.user.is_admin;
-			isClient         = args.user.is_client;
-			isGuest          = args.user.is_guest;
 		}
 
-		const isNewUser = ( ! isAdmin && ! isClient && ! isGuest ) ? true : false;
-
-		if ( isNewUser ) {
-			const response = await updateCurrentUser( args.user );
-
-			// Switch to Retry Stage if failed
-			if ( ! response.success ) {
-				const message = ( response.message ) ? response.message : 'Something went wrong, please try again';
-				navigateToErrorStage( message, handleOldUser );
-				return;
-			}
-		}
-
-		setUserEmail( currentUserEmail );
 		submitMessage( currentUserEmail );
 	}
 
@@ -159,7 +134,6 @@ function Sending() {
 		const userExistsResponse = await userExists( email );
 
 		if ( ! userExistsResponse.success ) {
-
 			const callback = () => {
 				dispatch(
 					updateUserState({
@@ -167,13 +141,13 @@ function Sending() {
 						statusMessage: ( userExistsResponse.message ) ? userExistsResponse.message : 'Something went wrong, please try again.',
 					})
 				);
-	
+
 				dispatch( changeChatScreen( screenTypes.CONTACT_FORM ) );
 			};
 
 			status.status = true;
 			status.callback = callback;
-			
+
 			return status;
 		}
 
@@ -191,7 +165,7 @@ function Sending() {
 						user: userExistsResponse.data,
 					})
 				);
-	
+
 				handleOldUser( { user: userExistsResponse.data } );
 			};
 
@@ -208,7 +182,7 @@ function Sending() {
 					user: userExistsResponse.data,
 				})
 			);
-	
+
 			dispatch( changeChatScreen( screenTypes.USER_AUTHENTICATION_FORM ) );
 		};
 
@@ -225,8 +199,6 @@ function Sending() {
 	 */
 	async function updateCurrentUser() {
 		let args = JSON.parse( JSON.stringify( userForm.formData ) );
-		args.add_roles = 'wpwax_vm_client';
-
 		return await updateUser( currentUser.id, args );
 	}
 
@@ -293,13 +265,16 @@ function Sending() {
 	 * @returns {void}
 	 */
 	async function submitMessage( _userEmail ) {
+
 		// Reset States
 		setErrorMessage( '' );
 
 		const formData = {
 			...messengerForm.formData,
-			user_email: ( _userEmail ) ? _userEmail : userEmail
+			user_email: ( _userEmail ) ? _userEmail : userEmailRef.current
 		};
+
+		userEmailRef.current = formData.user_email;
 
 		// Create Message
 		const response = await createTheConversation( formData );
@@ -333,7 +308,17 @@ function Sending() {
 			conversationArgs.add_terms = messengerForm.add_terms;
 		}
 
-		const conversationResponse = await createConversation( conversationArgs );
+		let apiConfig = {};
+
+		if ( userForm.token ) {
+			apiConfig = {
+				headers: {
+					'Helpgent-Token': userForm.token
+				}
+			};
+		}
+
+		const conversationResponse = await createConversation( conversationArgs, apiConfig );
 
 		if ( ! conversationResponse.success ) {
 			return conversationResponse;
@@ -341,7 +326,7 @@ function Sending() {
 
 		args.conversation_id = conversationResponse.data.id;
 
-		const messageResponse = await createMessage( args );
+		const messageResponse = await createMessage( args, apiConfig );
 
 		if ( ! messageResponse.success ) {
 			return messageResponse;

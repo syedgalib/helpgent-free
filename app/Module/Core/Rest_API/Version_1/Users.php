@@ -8,6 +8,7 @@ use \WP_Error;
 use \WP_REST_Response;
 use HelpGent\Module\Core\Rest_API\Rest_Helper;
 use HelpGent\Base\Helper;
+use HelpGent\Module\Core\Model\Auth_Token_Model;
 
 class Users extends Rest_Base {
 
@@ -280,7 +281,7 @@ class Users extends Rest_Base {
 		$user_data = array(
 			'user_email' => $request['email'],
 			'user_pass'  => $request['password'],
-			'role'       => 'wpwax_vm_client',
+			'role'       => 'subscriber',
 		);
 
 		if ( isset( $request['username'] ) ) {
@@ -531,7 +532,6 @@ class Users extends Rest_Base {
 			return new WP_Error(  403, __( 'User does not exists', 'helpgent' ) );
 		}
 
-
 		$auth = wp_authenticate( $user->user_login, $password );
 
 		if ( is_wp_error( $auth ) ) {
@@ -540,6 +540,16 @@ class Users extends Rest_Base {
 
 		$auth = $this->prepare_item_for_response( $auth, $request );
 		$response = rest_ensure_response( $auth );
+
+		add_filter( 'helpgent_notify_token_created', '__return_false' );
+
+		$token = Auth_Token_Model::create_token( $email );
+
+		remove_filter( 'helpgent_notify_token_created', '__return_false' );
+
+		if ( ! is_wp_error( $token ) ) {
+			$response->header( 'Helpgent-Token', $token['token'] );
+		}
 
 		return $response;
 	}

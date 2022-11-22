@@ -8,8 +8,7 @@ use HelpGent\Base\Helper;
 use HelpGent\Module\Core\Model\Attachment_Model;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
 
-class Messages extends Rest_Base
-{
+class Messages extends Rest_Base {
 
     /**
      * Rest Base
@@ -290,7 +289,7 @@ class Messages extends Rest_Base
         }
 
 		// Validate Client Capability
-		if ( ! $this->can_current_user_view_conversation( $data['conversation_id'] ) ) {
+		if ( ! Helper\current_user_can_view_conversation( $data['conversation_id'] ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'helpgent' ) );
 		}
 
@@ -315,9 +314,11 @@ class Messages extends Rest_Base
 
 		$conversation_id = ( ! empty( $args['conversation_id'] ) ) ? $args['conversation_id'] : 0;
 
-		// Validate Client Capability
-		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this action.', 'helpgent' ) );
+		// Validate Capability
+		$is_guest = Helper\is_user_guest( $args['user_email'] );
+
+		if ( ! Helper\current_user_can_view_conversation( $conversation_id ) && ! $is_guest ) {
+			return new WP_Error( 403, __( '@ You are not allowed to perform this action.', 'helpgent' ) );
 		}
 
 		/**
@@ -418,7 +419,7 @@ class Messages extends Rest_Base
 		$is_author = $old_data['user_email'] === Helper\get_current_user_email();
 
 		if ( ! ( $is_admin || $is_author ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to update the resource.', 'helpgent' ) );
+			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'helpgent' ) );
 		}
 
         $operation = Message_Model::delete_item( $args['id'] );
@@ -429,35 +430,6 @@ class Messages extends Rest_Base
 
         return $this->response(true);
     }
-
-	/**
-	 * Can Current User View Conversation
-	 *
-	 * @param string $conversation_id
-	 * @return bool
-	 */
-	public function can_current_user_view_conversation( $conversation_id ) {
-
-		if ( Helper\is_current_user_admin() ) {
-			return true;
-		}
-
-		// Get All Client Conversations
-		$client_conversations = Conversation_Model::get_items([
-			'where' => [
-				'created_by' => Helper\get_current_user_email(),
-			]
-		]);
-
-		if ( empty( $client_conversations ) ) {
-			return new WP_Error( 403, __( 'You are not allowed to perform this action.', 'helpgent' ) );
-		}
-
-		$client_conversations = array_map( function( $conversations ) { return $conversations['id']; }, $client_conversations );
-		$can_view_message     = in_array( $conversation_id, $client_conversations );
-
-		return $can_view_message;
-	}
 
     /**
      * Prepare message item for response

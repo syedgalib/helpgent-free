@@ -17,6 +17,7 @@ class Message_Notification_Emails {
 	public function __construct() {
 		add_action( 'helpgent_after_message_inserted', [ $this, 'notify_after_message_inserted' ], 10, 2 );
 		add_action( 'helpgent_guest_token_created', [ $this, 'notify_after_token_created' ], 1, 20 );
+		add_filter( 'helpgent_notify_token_created', [ $this, 'skip_notify_token_created_for_first_conversation' ], 2, 20 );
 	}
 
 	/**
@@ -26,9 +27,9 @@ class Message_Notification_Emails {
 	 * @param array $args Request params.
 	 */
 	public function notify_after_token_created( $data ) {
-		$has_conversation = $this->is_first_conversation( $data['email'] );
+		$should_notify = apply_filters( 'helpgent_notify_token_created', true, $data );
 
-		if ( ! $has_conversation ) {
+		if ( ! $should_notify ) {
 			return;
 		}
 
@@ -59,6 +60,13 @@ class Message_Notification_Emails {
 		$headers = self::get_email_headers();
 
 		return self::send_email( $to, $subject, $message, $headers );
+	}
+
+	public function skip_notify_token_created_for_first_conversation( $should_notify = true, $data = [] ) {
+		$has_conversation = $this->is_first_conversation( $data['email'] );
+		$should_notify    = ! $has_conversation ? false : true;
+
+		return $should_notify;
 	}
 
 	/**

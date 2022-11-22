@@ -1,4 +1,5 @@
 import useAPI from './useAPI';
+import { generateFileNameFromBlob } from 'Helper/utils';
 
 export default function useAttachmentAPI() {
 	const routeBase = 'attachments';
@@ -20,13 +21,14 @@ export default function useAttachmentAPI() {
 		// Prepare FormData
 		if ( args && typeof args === 'object' ) {
 			for ( let key in args ) {
-				let fileName = '';
-
 				if ( args[ key ] instanceof Blob ) {
-					fileName = generateFileNameFromBlob( args[ key ] );
+					const fileName = generateFileNameFromBlob( args[ key ] );
+					console.log( { fileName } );
+					formData.append( key, args[ key ], fileName );
+					continue;
 				}
 
-				formData.append( key, args[ key ], fileName );
+				formData.append( key, args[ key ] );
 			}
 		}
 

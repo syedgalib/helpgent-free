@@ -6754,15 +6754,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Sending() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
   // Hooks
   var _useChatboxController = (0,_hooks_useChatboxController__WEBPACK_IMPORTED_MODULE_5__["default"])(),
     currentUser = _useChatboxController.currentUser,
-    isUserAdmin = _useChatboxController.isUserAdmin,
-    isUserClient = _useChatboxController.isUserClient,
-    isUserGuest = _useChatboxController.isUserGuest,
     isUserLoggedIn = _useChatboxController.isUserLoggedIn,
     enabledGuestSubmission = _useChatboxController.enabledGuestSubmission;
 
@@ -6791,7 +6789,6 @@ function Sending() {
     SENDING: 'SENDING',
     ERROR: 'ERROR'
   };
-  var email = userForm.user && userForm.user.email ? userForm.user.email : '';
 
   // Local States
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(stages.SENDING),
@@ -6802,16 +6799,13 @@ function Sending() {
     _useState4 = _slicedToArray(_useState3, 2),
     errorMessage = _useState4[0],
     setErrorMessage = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    userEmail = _useState6[0],
-    setUserEmail = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  var userEmailRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       onRetry: submitMessage
     }),
-    _useState8 = _slicedToArray(_useState7, 2),
-    callbacks = _useState8[0],
-    setCallbacks = _useState8[1];
+    _useState6 = _slicedToArray(_useState5, 2),
+    callbacks = _useState6[0],
+    setCallbacks = _useState6[1];
 
   // @Init
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -6891,9 +6885,8 @@ function Sending() {
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].CONTACT_FORM));
               return _context2.abrupt("return");
             case 12:
-              setUserEmail(userResponse.data.email);
               submitMessage(userResponse.data.email);
-            case 14:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -6911,7 +6904,7 @@ function Sending() {
      */
   function _handleOldUser() {
     _handleOldUser = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(args) {
-      var defaultArgs, currentUserEmail, isAdmin, isClient, isGuest, isNewUser, response, message;
+      var defaultArgs, currentUserEmail;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -6921,35 +6914,11 @@ function Sending() {
               };
               args = args && _typeof(args) === 'object' ? _objectSpread(_objectSpread({}, defaultArgs), args) : defaultArgs;
               currentUserEmail = currentUser && currentUser.email ? currentUser.email : '';
-              isAdmin = isUserAdmin();
-              isClient = isUserClient();
-              isGuest = isUserGuest();
-              if (args.user) {
+              if (args.user && args.user.email) {
                 currentUserEmail = args.user.email;
-                isAdmin = args.user.is_admin;
-                isClient = args.user.is_client;
-                isGuest = args.user.is_guest;
               }
-              isNewUser = !isAdmin && !isClient && !isGuest ? true : false;
-              if (!isNewUser) {
-                _context3.next = 16;
-                break;
-              }
-              _context3.next = 11;
-              return updateCurrentUser(args.user);
-            case 11:
-              response = _context3.sent;
-              if (response.success) {
-                _context3.next = 16;
-                break;
-              }
-              message = response.message ? response.message : 'Something went wrong, please try again';
-              navigateToErrorStage(message, handleOldUser);
-              return _context3.abrupt("return");
-            case 16:
-              setUserEmail(currentUserEmail);
               submitMessage(currentUserEmail);
-            case 18:
+            case 5:
             case "end":
               return _context3.stop();
           }
@@ -7054,12 +7023,11 @@ function Sending() {
           switch (_context5.prev = _context5.next) {
             case 0:
               args = JSON.parse(JSON.stringify(userForm.formData));
-              args.add_roles = 'wpwax_vm_client';
-              _context5.next = 4;
+              _context5.next = 3;
               return updateUser(currentUser.id, args);
-            case 4:
+            case 3:
               return _context5.abrupt("return", _context5.sent);
-            case 5:
+            case 4:
             case "end":
               return _context5.stop();
           }
@@ -7196,25 +7164,28 @@ function Sending() {
               // Reset States
               setErrorMessage('');
               formData = _objectSpread(_objectSpread({}, messengerForm.formData), {}, {
-                user_email: _userEmail ? _userEmail : userEmail
-              }); // Create Message
-              _context9.next = 4;
+                user_email: _userEmail ? _userEmail : userEmailRef.current
+              });
+              userEmailRef.current = formData.user_email;
+
+              // Create Message
+              _context9.next = 5;
               return createTheConversation(formData);
-            case 4:
+            case 5:
               response = _context9.sent;
               if (response.success) {
-                _context9.next = 9;
+                _context9.next = 10;
                 break;
               }
               message = response.message ? response.message : 'Something went wrong, please try again';
               navigateToErrorStage(message, submitMessage);
               return _context9.abrupt("return");
-            case 9:
+            case 10:
               // Navigate to Success Screen
               setTimeout(function () {
                 dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_3__["default"].SUCCESS));
               }, 2000);
-            case 10:
+            case 11:
             case "end":
               return _context9.stop();
           }
@@ -7234,7 +7205,7 @@ function Sending() {
      */
   function _createTheConversation() {
     _createTheConversation = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(args) {
-      var conversationArgs, conversationResponse, messageResponse;
+      var conversationArgs, apiConfig, conversationResponse, messageResponse;
       return _regeneratorRuntime().wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
@@ -7245,29 +7216,37 @@ function Sending() {
               if (messengerForm.add_terms) {
                 conversationArgs.add_terms = messengerForm.add_terms;
               }
-              _context10.next = 4;
-              return createConversation(conversationArgs);
-            case 4:
+              apiConfig = {};
+              if (userForm.token) {
+                apiConfig = {
+                  headers: {
+                    'Helpgent-Token': userForm.token
+                  }
+                };
+              }
+              _context10.next = 6;
+              return createConversation(conversationArgs, apiConfig);
+            case 6:
               conversationResponse = _context10.sent;
               if (conversationResponse.success) {
-                _context10.next = 7;
+                _context10.next = 9;
                 break;
               }
               return _context10.abrupt("return", conversationResponse);
-            case 7:
+            case 9:
               args.conversation_id = conversationResponse.data.id;
-              _context10.next = 10;
-              return createMessage(args);
-            case 10:
+              _context10.next = 12;
+              return createMessage(args, apiConfig);
+            case 12:
               messageResponse = _context10.sent;
               if (messageResponse.success) {
-                _context10.next = 13;
+                _context10.next = 15;
                 break;
               }
               return _context10.abrupt("return", messageResponse);
-            case 13:
+            case 15:
               return _context10.abrupt("return", messageResponse);
-            case 14:
+            case 16:
             case "end":
               return _context10.stop();
           }
@@ -9108,7 +9087,7 @@ function Form() {
   } // authenticate
   function _submitHandler() {
     _submitHandler = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var email, password, formData, response;
+      var email, password, formData, response, headers, token;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -9148,8 +9127,15 @@ function Form() {
               setIsLoading(false);
               return _context.abrupt("return");
             case 18:
+              headers = response.data.headers;
+              token = Object.keys(headers).includes('helpgent-token') ? headers['helpgent-token'] : '';
+              if (token) {
+                dispatch((0,_store_forms_user_actionCreator__WEBPACK_IMPORTED_MODULE_3__.upateState)({
+                  token: token
+                }));
+              }
               dispatch((0,_store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__.changeChatScreen)(_store_chatbox_screenTypes__WEBPACK_IMPORTED_MODULE_6__["default"].SENDING));
-            case 19:
+            case 22:
             case "end":
               return _context.stop();
           }
@@ -10989,14 +10975,8 @@ function useChatboxController() {
    */
   function needToGoContactPage() {
     var isLoggedIn = isUserLoggedIn();
-    var isClient = isUserClient();
-    var isAdmin = isUserAdmin();
-    var isGuest = isUserGuest();
     var collectInfo = getCollectInfoFields();
-    if (!isLoggedIn) {
-      return true;
-    }
-    if (isClient || isAdmin || isGuest) {
+    if (isLoggedIn) {
       return false;
     }
     if (!collectInfo.length) {
@@ -11024,18 +11004,6 @@ function useChatboxController() {
       return false;
     }
     return userForm.user.is_admin;
-  }
-
-  /**
-   * Is User Client
-   *
-   * @returns bool
-   */
-  function isUserClient() {
-    if (!userForm.user) {
-      return false;
-    }
-    return userForm.user.is_client;
   }
 
   /**
@@ -11091,7 +11059,6 @@ function useChatboxController() {
     needToGoContactPage: needToGoContactPage,
     isUserLoggedIn: isUserLoggedIn,
     isUserAdmin: isUserAdmin,
-    isUserClient: isUserClient,
     isUserGuest: isUserGuest,
     userRoleIncludes: userRoleIncludes,
     enabledGuestSubmission: enabledGuestSubmission,
@@ -22980,7 +22947,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": function() { return /* binding */ useAttachmentAPI; }
 /* harmony export */ });
 /* harmony import */ var _useAPI__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useAPI */ "./src/js/helpers/hooks/api/useAPI.js");
+/* harmony import */ var Helper_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! Helper/utils */ "./src/js/helpers/utils.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
 
 function useAttachmentAPI() {
   var routeBase = 'attachments';
@@ -23008,11 +22977,15 @@ function useAttachmentAPI() {
     // Prepare FormData
     if (args && _typeof(args) === 'object') {
       for (var key in args) {
-        var fileName = '';
         if (args[key] instanceof Blob) {
-          fileName = generateFileNameFromBlob(args[key]);
+          var fileName = (0,Helper_utils__WEBPACK_IMPORTED_MODULE_1__.generateFileNameFromBlob)(args[key]);
+          console.log({
+            fileName: fileName
+          });
+          formData.append(key, args[key], fileName);
+          continue;
         }
-        formData.append(key, args[key], fileName);
+        formData.append(key, args[key]);
       }
     }
     return createItem(formData, config);

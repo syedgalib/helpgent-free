@@ -16,18 +16,10 @@ export default function useChatboxController() {
 	 * @returns bool
 	 */
 	function needToGoContactPage() {
-
 		const isLoggedIn  = isUserLoggedIn();
-		const isClient    = isUserClient();
-		const isAdmin     = isUserAdmin();
-		const isGuest     = isUserGuest();
 		const collectInfo = getCollectInfoFields();
 
-		if ( ! isLoggedIn  ) {
-			return true;
-		}
-
-		if ( isClient || isAdmin || isGuest ) {
+		if ( isLoggedIn  ) {
 			return false;
 		}
 
@@ -59,21 +51,6 @@ export default function useChatboxController() {
 		}
 
 		return userForm.user.is_admin;
-
-	}
-
-	/**
-	 * Is User Client
-	 *
-	 * @returns bool
-	 */
-	function isUserClient() {
-
-		if ( ! userForm.user ) {
-			return false;
-		}
-
-		return userForm.user.is_client;
 
 	}
 
@@ -139,7 +116,6 @@ export default function useChatboxController() {
 		needToGoContactPage,
 		isUserLoggedIn,
 		isUserAdmin,
-		isUserClient,
 		isUserGuest,
 		userRoleIncludes,
 		enabledGuestSubmission,

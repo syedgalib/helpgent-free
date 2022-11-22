@@ -8,8 +8,7 @@ use HelpGent\Module\Messenger\Model\Conversation_Term_Relationship_Model;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
 use HelpGent\Base\Helper;
 
-class Conversations extends Rest_Base
-{
+class Conversations extends Rest_Base {
 
 	/**
 	 * Rest Base
@@ -497,7 +496,7 @@ class Conversations extends Rest_Base
 	{
 		// Validate Capability
 		if ( ! Helper\is_current_user_admin() ) {
-			return new WP_Error( 403, __( 'You are not allowed to delete the resource.', 'helpgent' ) );
+			return new WP_Error( 403, __( 'You are not allowed to update the resource.', 'helpgent' ) );
 		}
 
 		$args = $request->get_params();
@@ -574,7 +573,7 @@ class Conversations extends Rest_Base
 		$request->set_param( 'id', $request->get_param('id') );
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation(  $request->get_param('id') ) ) {
+		if ( ! Helper\current_user_can_view_conversation(  $request->get_param('id') ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to view the resource.', 'helpgent' ) );
 		}
 
@@ -818,7 +817,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
+		if ( ! Helper\current_user_can_view_conversation( $conversation_id ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
@@ -847,7 +846,7 @@ class Conversations extends Rest_Base
 		}
 
 		// Validate Capability
-		if ( ! $this->can_current_user_view_conversation( $conversation_id ) ) {
+		if ( ! Helper\current_user_can_view_conversation( $conversation_id ) ) {
 			return new WP_Error( 403, __( 'You are not allowed to perform this operation.', 'helpgent' ) );
 		}
 
@@ -856,27 +855,6 @@ class Conversations extends Rest_Base
 		Conversation_Model::update_meta( $conversation_id, $read_by, 0 );
 
 		return $this->response( true );
-	}
-
-	/**
-	 * Can Current User View Session
-	 *
-	 * @param string $conversation_id
-	 * @return bool
-	 */
-	public function can_current_user_view_conversation( $conversation_id ) {
-
-		if ( Helper\is_current_user_admin() ) {
-			return true;
-		}
-
-		$conversation = Conversation_Model::get_item( $conversation_id );
-
-		if ( is_wp_error( $conversation ) ) {
-			return false;
-		}
-
-		return $conversation['created_by'] === Helper\get_current_user_email();
 	}
 
 	/**

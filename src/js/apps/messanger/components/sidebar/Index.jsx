@@ -37,6 +37,7 @@ import checkSlot from 'Assets/svg/icons/check-to-slot.svg';
 import { SidebarWrap, SessionFilterWrap } from './Style';
 import { updateSelectedSession } from '../../store/messages/actionCreator.js';
 import { getTimezoneString } from 'Helper/utils.js';
+import { useCoreData } from 'Hooks/useCoreData.jsx';
 
 /* Dropdown Array Item Declaration */
 const filterDropdown = [
@@ -84,7 +85,8 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     const [activeSession, setAtiveSession] = useState('');
     const [refresher, setRefresher] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
-    const currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+    const currentUser = useCoreData( 'current_user' );
+	const isCurrentUserAdmin = useCoreData( 'is_user_admin' );
 
     const {
         sessionList,
@@ -400,13 +402,16 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 								placeholder='Search'
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
-                            <a
-                                href='#'
-                                className='wpwax-vm-search-toggle'
-                                onClick={handleToggleSearchDropdown}
-                            >
-                                <ReactSVG src={slider} />
-                            </a>
+
+							{ isCurrentUserAdmin &&
+								<a
+									href='#'
+									className='wpwax-vm-search-toggle'
+									onClick={handleToggleSearchDropdown}
+								>
+									<ReactSVG src={slider} />
+								</a>
+							}
                         </div>
                         <ul className='wpwax-vm-search-dropdown'>
                             <li ref={ref}>
@@ -609,7 +614,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                                     img={images}
                                                     sessionState={sessionState}
                                                     setSessionState={setSessionState}
-                                                    sessionTerm={item.terms}
+                                                    sessionTerm={ isCurrentUserAdmin ? item.terms : [] }
                                                     initialConv={initialConv}
                                                     sessionId={item.id}
                                                     title={titleString}
@@ -639,7 +644,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                         </ul>
                     ) : (
                         <div className='wpwax-vm-empty'>
-                            <p>Not Found</p>
+                            <p>No Item Found</p>
                         </div>
                     )}
                 </div>

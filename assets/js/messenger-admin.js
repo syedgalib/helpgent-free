@@ -9322,7 +9322,7 @@ var Upload = function Upload(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
+/* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! react-inlinesvg */ "./node_modules/react-inlinesvg/esm/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-infinite-scroll-component */ "./node_modules/react-infinite-scroll-component/dist/index.es.js");
 /* harmony import */ var Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! Components/form-fields/Dropdown.jsx */ "./src/js/components/form-fields/Dropdown.jsx");
@@ -9351,7 +9351,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Style */ "./src/js/apps/messanger/components/sidebar/Style.js");
 /* harmony import */ var _store_messages_actionCreator_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../store/messages/actionCreator.js */ "./src/js/apps/messanger/store/messages/actionCreator.js");
 /* harmony import */ var Helper_utils_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! Helper/utils.js */ "./src/js/helpers/utils.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! Hooks/useCoreData.jsx */ "./src/js/helpers/hooks/useCoreData.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -9373,6 +9374,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  -- Date: 12/09/2022
 
 --------------------------------*/
+
 
 
 
@@ -9464,7 +9466,8 @@ var Sidebar = function Sidebar(_ref) {
     _useState12 = _slicedToArray(_useState11, 2),
     searchTerm = _useState12[0],
     setSearchTerm = _useState12[1];
-  var currentUser = wpWaxCustomerSupportApp_CoreScriptData.current_user;
+  var currentUser = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_29__.useCoreData)('current_user');
+  var isCurrentUserAdmin = (0,Hooks_useCoreData_jsx__WEBPACK_IMPORTED_MODULE_29__.useCoreData)('is_user_admin');
   var sessionList = sessionState.sessionList,
     activeSessionId = sessionState.activeSessionId,
     deleteModalOpen = sessionState.deleteModalOpen,
@@ -9754,53 +9757,53 @@ var Sidebar = function Sidebar(_ref) {
   var interval = setInterval(function () {
     // method to be executed;
   }, 5000);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_26__.SidebarWrap, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)(_Style__WEBPACK_IMPORTED_MODULE_26__.SidebarWrap, {
     className: loader ? 'wpwax-vm-loder-active' : null,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
       className: "wpwax-vm-sidebar-top",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("h3", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("h3", {
         className: "wpwax-vm-sidebar-title",
         children: "All Conversations"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
         className: "wpwax-vm-sidebar-top__action",
-        children: [sessionState.isCurrentUserAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("a", {
+        children: [sessionState.isCurrentUserAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("a", {
           href: "#",
           onClick: handleToggleArchivedConversation,
           className: isShowingArchive ? 'active' : '',
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
             src: Assets_svg_icons_box_archive_svg__WEBPACK_IMPORTED_MODULE_24__["default"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
             children: "Archive"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("a", {
           href: "#",
           className: "wpwax-vm-sidebar-refresher",
           onClick: handleRefresh,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
             src: Assets_svg_icons_rotate_right_svg__WEBPACK_IMPORTED_MODULE_20__["default"]
           })
         })]
       })]
-    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+    }), successMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-success",
       children: successMessage
-    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+    }) : null, rejectMessage !== '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
       className: "wpwax-vm-notice wpwax-vm-notice-danger",
       children: rejectMessage
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
       className: "wpwax-vm-sidebar-filter",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_26__.SessionFilterWrap, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_Style__WEBPACK_IMPORTED_MODULE_26__.SessionFilterWrap, {
         className: sessionFilterDropdown ? 'wpwax-vm-search-dropdown-show' : null,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
           className: "wpwax-vm-sidebar-search",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
             className: "wpwax-vm-form-group wpwax-vm-form-icon-left",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
               className: "wpwax-vm-input-icon",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
                 src: Assets_svg_icons_magnifier_svg__WEBPACK_IMPORTED_MODULE_18__["default"]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("input", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("input", {
               type: "text",
               className: "wpwax-vm-form__element",
               id: "wpwax-vm-filter-search",
@@ -9808,28 +9811,28 @@ var Sidebar = function Sidebar(_ref) {
               onChange: function onChange(e) {
                 return setSearchTerm(e.target.value);
               }
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("a", {
+            }), isCurrentUserAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("a", {
               href: "#",
               className: "wpwax-vm-search-toggle",
               onClick: handleToggleSearchDropdown,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
                 src: Assets_svg_icons_slider_svg__WEBPACK_IMPORTED_MODULE_19__["default"]
               })
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("ul", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("ul", {
             className: "wpwax-vm-search-dropdown",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("li", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("li", {
               ref: ref,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("a", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("a", {
                 href: "",
                 onClick: handleTagFilterDropdown,
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
                   className: "wpwax-vm-search-dropdown__text",
                   children: "Search by tags"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
                   className: "dashicons dashicons-arrow-down-alt2"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_components_TagFilter_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], {
                 outerState: sessionState,
                 setOuterState: setSessionState,
                 tagState: tagState,
@@ -9838,9 +9841,9 @@ var Sidebar = function Sidebar(_ref) {
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
         className: "wpwax-vm-sidebar-filter__quick-actions",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           dropdownText: true,
           textIcon: Assets_svg_icons_filter_svg__WEBPACK_IMPORTED_MODULE_15__["default"],
           dropdownIconOpen: Assets_svg_icons_angle_up_svg__WEBPACK_IMPORTED_MODULE_17__["default"],
@@ -9848,39 +9851,39 @@ var Sidebar = function Sidebar(_ref) {
           dropdownList: filterDropdown,
           outerState: sessionState,
           setOuterState: setSessionState
-        }), wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("a", {
+        }), wpWaxCustomerSupportApp_CoreScriptData.is_user_admin ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("a", {
           href: "#",
           className: "wpwax-vm-btn-all-tags",
           onClick: handleAllTagActivation,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
             src: Assets_svg_icons_tag_svg__WEBPACK_IMPORTED_MODULE_21__["default"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
             children: "Tags"
           })]
         }) : null]
       })]
-    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("span", {
+    }), loader ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("span", {
       className: "wpwax-vm-loading-spin",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
         className: "wpwax-vm-spin-dot"
       })]
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("div", {
       className: "wpwax-vm-sidebar-userlist",
-      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("ul", {
+      children: sessionList.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("ul", {
         id: "scrollableDiv",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_infinite_scroll_component__WEBPACK_IMPORTED_MODULE_2__["default"], {
           dataLength: sessionList.length,
           next: fetchMoreData,
           hasMore: hasMore,
           scrollableTarget: "scrollableDiv",
-          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_30__["default"], {
+          loader: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_31__["default"], {
               src: Assets_svg_icons_loader_svg__WEBPACK_IMPORTED_MODULE_23__["default"]
             })
           }),
@@ -9968,30 +9971,30 @@ var Sidebar = function Sidebar(_ref) {
               type: 'date',
               text: item.last_message && item.last_message.updated_at_formatted ? item.last_message.updated_at_formatted : ''
             }];
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("li", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("li", {
               className: "wpwax-vm-session-".concat(index) === activeSession ? 'wpwax-vm-usermedia wpwax-vm-active' : 'wpwax-vm-usermedia',
               onClick: function onClick(e) {
                 handeSelectSession(e, item, index);
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("div", {
                 className: item.read ? 'wpwax-vm-usermedia__left' : 'wpwax-vm-usermedia__left wpwax-vm-media-unread',
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Components_MediaBox_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   chatingMedia: true,
                   lastMessage: item.last_message,
                   img: images,
                   sessionState: sessionState,
                   setSessionState: setSessionState,
-                  sessionTerm: item.terms,
+                  sessionTerm: isCurrentUserAdmin ? item.terms : [],
                   initialConv: initialConv,
                   sessionId: item.id,
                   title: titleString,
                   metaList: metaList
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsxs)("div", {
                 className: "wpwax-vm-usermedia__right",
-                children: [!item.read ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("span", {
+                children: [!item.read ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("span", {
                   className: "wpwax-vm-usermedia-status wpwax-vm-usermedia-status-unread"
-                }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+                }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(Components_form_fields_Dropdown_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
                   dropdownText: false,
                   dropdownIconOpen: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
                   dropdownIconClose: Assets_svg_icons_ellipsis_v_svg__WEBPACK_IMPORTED_MODULE_13__["default"],
@@ -10004,23 +10007,23 @@ var Sidebar = function Sidebar(_ref) {
             }, index);
           })
         })
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("div", {
         className: "wpwax-vm-empty",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)("p", {
-          children: "Not Found"
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)("p", {
+          children: "No Item Found"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_components_Taglist_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_components_AddTag_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
       sessionState: sessionState,
       setSessionState: setSessionState,
       tagState: tagState,
       setTagState: setTagState
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_29__.jsx)(_components_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_30__.jsx)(_components_DeleteConfirm_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       deleteBy: activeSessionId,
       modalOpen: deleteModalOpen,
       outerState: sessionState,

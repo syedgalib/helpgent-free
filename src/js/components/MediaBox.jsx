@@ -131,8 +131,8 @@ const MediaBox = ({
                 })}
 
                 {
-                    
-                    chatingMedia && fourSessionTerm.length !==0 ?
+
+                    chatingMedia && fourSessionTerm.length !== 0 ?
                     <div className="wpwax-hg-assigned-tags">
                         {
                             fourSessionTerm.map(( tag, i ) => <span className="wpwax-hg-assigned-tags__item" key={i}>{tag.name}</span>)
@@ -140,7 +140,7 @@ const MediaBox = ({
                         {
                             sessionTerm.length > 4 ? <a className="wpwax-hg-assigned-tags__item wpwax-hg-assigned-tags__item-add" onClick={handleAddTag}><span>....</span></a> : null
                         }
-                        
+
                     </div> : null
                 }
             </div>

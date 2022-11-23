@@ -1,6 +1,6 @@
 <?php
 
-namespace HelpGent\Module\Settings_Panel;
+namespace HelpGent\Module\Settings_Panel\Setup;
 
 use HelpGent\Helper;
 
@@ -26,10 +26,7 @@ class Init {
      */
     protected function get_controllers() {
         return [
-            Setup\Init::class,
-            Asset\Init::class,
-            Admin\Init::class,
-            Rest_API\Init::class,
+            Activation::class,
         ];
     }
 

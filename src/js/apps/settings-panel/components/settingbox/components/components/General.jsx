@@ -60,7 +60,7 @@ const General = (props) => {
     return (
         <div className='wpwax-vm-settings'>
             <div className='wpwax-vm-card'>
-                
+
                 <div className='wpwax-vm-card-body'>
                     <div className='wpwax-vm-settings__single'>
                         <label
@@ -222,7 +222,7 @@ const General = (props) => {
                             </p>
                         </div>
                     </div>
-                   
+
                     <div className='wpwax-vm-settings__single'>
                         <label
                             className='wpwax-vm-settings__single--label'
@@ -285,7 +285,7 @@ const General = (props) => {
                                 You can use maximum of 50 MB in free version.
                             </p>
                         </div>
-                    </div>  
+                    </div>
                     <div className='wpwax-vm-settings__single'>
                         <label
                             className='wpwax-vm-settings__single--label'

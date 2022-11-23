@@ -630,19 +630,33 @@ class Conversation_Model extends DB_Model {
 		}
 
 		foreach( $terms as $term_id ) {
-
-			$term = Term_Model::get_item( $term_id );
-
-			if ( is_wp_error( $term ) ) {
-				continue;
-			}
-
-			Conversation_Term_Relationship_Model::create_item([
-				'conversation_id'  => $item_id,
-				'term_taxonomy_id' => $term['term_taxonomy_id'],
-			]);
-
+			self::add_term( $item_id, $term_id );
 		}
+	}
+
+	/**
+	 * Add terms to item
+	 *
+	 * @param int $item_id
+	 * @param array $term_id
+	 *
+	 * @return void
+	 */
+	public static function add_term( $item_id, $term_id ) {
+		if ( empty( $item_id ) ||  empty( $term_id ) ) {
+			return;
+		}
+
+		$term = Term_Model::get_item( $term_id );
+
+		if ( is_wp_error( $term ) ) {
+			return;
+		}
+
+		Conversation_Term_Relationship_Model::create_item([
+			'conversation_id'  => $item_id,
+			'term_taxonomy_id' => $term['term_taxonomy_id'],
+		]);
 	}
 
 	/**

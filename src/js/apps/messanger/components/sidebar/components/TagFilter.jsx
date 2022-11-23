@@ -9,6 +9,7 @@ import Checkbox from "Components/form-fields/Checkbox.jsx";
 import magnifier from 'Assets/svg/icons/magnifier.svg';
 import loaders from 'Assets/svg/icons/loader.svg';
 import { TagFilterDropdown } from './Style';
+import { getTimezoneString } from 'Helper/utils.js';
 
 const TagFilter = props =>{
     const { getItems: getTerms } = useTermAPI();
@@ -34,56 +35,61 @@ const TagFilter = props =>{
         const tagArg = {
             name: debouncedSearchTerm,
         };
-        const fetchSearchNameMail = async () => {
+        if(tagFilterDropdownOpen){
+            const fetchSearchNameMail = async () => {
 
-            const searchByNameMailResponse = await getTerms(tagArg);
-            return searchByNameMailResponse;
-        };
-
-        fetchSearchNameMail()
-            .then((searchByNameMailResponse) => {
-
-                setTagState({
-                    ...tagState,
-                    tagLoader: false,
-                    allTags: searchByNameMailResponse.data,
+                const searchByNameMailResponse = await getTerms(tagArg);
+                return searchByNameMailResponse;
+            };
+    
+            fetchSearchNameMail()
+                .then((searchByNameMailResponse) => {
+    
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: searchByNameMailResponse.data,
+                    });
+    
+                    setState({
+                        ...state,
+                        hasMore: false,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-
-                setState({
-                    ...state,
-                    hasMore: false,
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
+        }
+        
     },[debouncedSearchTerm]);
 
-    useEffect(() => {
-        const checkIfClickedOutside = e => {
+    // useEffect(() => {
+    //     const checkIfClickedOutside = e => {
+    //         console.log(tagFilterDropdownOpen);
+    //         if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
 
-            if (tagFilterDropdownOpen && ref.current && !ref.current.contains(e.target)) {
-
-                setOuterState({
-					...outerState,
-                    tagFilterDropdownOpen: false
-                });
-            }
-        }
-        document.addEventListener("mousedown", checkIfClickedOutside)
-        return () => {
-            // Cleanup the event listener
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-	}, [tagFilterDropdownOpen]);
+    //             setOuterState({
+	// 				...outerState,
+    //                 tagFilterDropdownOpen: false
+    //             });
+    //         }
+    //     }
+    //     document.addEventListener("mousedown", checkIfClickedOutside)
+    //     return () => {
+    //         // Cleanup the event listener
+    //         document.removeEventListener("mousedown", checkIfClickedOutside)
+    //     }
+	// }, [tagFilterDropdownOpen]);
 
     useEffect(() => {
         // if(tagFilterDropdownOpen){
-            setTagState({
-                ...tagState,
-                tagLoader: true
-            });
+            if(allTags.length ===0){
+                setTagState({
+                    ...tagState,
+                    tagLoader: true
+                });
+            }
+            
             const fetchTags =  async () =>{
 
                 const tagsResponse = await getTerms({limit:5});
@@ -117,7 +123,7 @@ const TagFilter = props =>{
                     console.log(error);
                 });
         // }
-	}, [sessionFilterDropdown]);
+	}, [tagFilterDropdownOpen]);
 
     const hadnleTagFilterApply = event =>{
         event.preventDefault();
@@ -192,6 +198,26 @@ const TagFilter = props =>{
         });
 
 		filterTextFieldRef.current.value = '';
+
+        const pageLimit = {
+            limit: '15',
+            page: 1,
+            timezone: getTimezoneString(),
+        };
+
+        const fetchUpdatedSessions =  async () =>{
+
+            const updatedSessionResponse = await getConversations(pageLimit);
+            return updatedSessionResponse;
+        }
+        fetchUpdatedSessions()
+            .then(updatedSessionResponse =>{
+                setOuterState({
+                    ...outerState,
+                    // tagFilterDropdownOpen: false,
+                    sessionList: updatedSessionResponse.data
+                });
+            })
     }
 
     const fetchMoreTags = ()=>{
@@ -228,12 +254,13 @@ const TagFilter = props =>{
     }
 
     return(
-        <TagFilterDropdown className={sessionFilterDropdown && tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
+        <TagFilterDropdown className={tagFilterDropdownOpen ? "wpwax-vm-tagfilter-show": null} ref={ref}>
             <div className="wpwax-vm-tag-search">
                 <div className="wpwax-vm-input-icon"><ReactSVG src={magnifier} /></div>
-				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search" onChange={(e) => setSearchTag(e.target.value)}/>
+				<input type="text" className="wpwax-vm-form__element" ref={filterTextFieldRef} placeholder="Search tags" onChange={(e) => setSearchTag(e.target.value)}/>
             </div>
             <div className={tagLoader ? "wpwax-vm-tag-filter-list-wrap wpwax-vm-loder-active": "wpwax-vm-tag-filter-list-wrap"}>
+                <h4 className="wpwax-vm-all-tag-title">All Tags</h4>
                 {
                     tagLoader ?
                     <span className="wpwax-vm-loading-spin">

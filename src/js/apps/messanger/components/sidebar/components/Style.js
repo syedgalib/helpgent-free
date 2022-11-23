@@ -119,6 +119,7 @@ const AddTagWrap = Styled.div`
             display: inline-block;
             font-size: 18px;
             font-weight: 600;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 25px;
             color: var(--color-dark);
         }
     }
@@ -302,41 +303,45 @@ const DeleteConfirmWrap = Styled.div`
 
 const TagFilterDropdown = Styled.div`
     position: absolute;
-    width: calc(100% - 20px);
-    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 10px;
+    width: 100%;
+    ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
     top: 45px;
     padding: 20px;
-    z-index: 10;
+    z-index: 0;
     display: none;
     box-sizing: border-box;
     border-radius: 10px;
     box-shadow: 0 5px 30px rgba( 0, 0, 0, .10 );
     cursor: auto;
+    z-index: 10;
     background-color: var(--color-white);
     &.wpwax-vm-tagfilter-show{
         display: block;
     }
     .wpwax-vm-tag-search{
+        position: absolute;
+        top: -45px;
+        left: 0px;
+        padding: 0;
+        z-index: 10;
         display: flex;
         align-items: center;
         padding: 0 16px;
         border-radius: 10px;
         margin-bottom: 28px;
-        background-color: var(--color-bg-general);
+        width: calc(100% - 70px);
+        background-color: #DDDDDD;
         .wpwax-vm-input-icon{
             position: relative;
-            top: 1px;
+            top: 0;
             line-height: 1;
-            svg{
-                width: 12px;
-                height: 12px;
-            }
         }
         input{
             width: 100%;
-            min-height: 38px;
-            background-color: transparent !important;
+            min-height: 40px;
+            background-color: #DDDDDD !important;
             border: 0 none;
+            padding-left: 12px;
             &:focus{
                 outline: 0;
                 box-shadow: 0 0;
@@ -345,6 +350,11 @@ const TagFilterDropdown = Styled.div`
     }
     .wpwax-vm-tag-filter-list-wrap{
         min-height: 60px;
+        .wpwax-vm-all-tag-title{
+            font-size: 14px;
+            margin: 0 0 18px;
+            color: var(--color-dark);
+        }
     }
     .wpwax-vm-tag-filter-list{
         overflow-y: auto;

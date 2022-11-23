@@ -25,6 +25,9 @@ const ChatboxForm = Styled.div`
             height: 100%;
             object-fit: cover;
         }
+        video{
+            height: 100%;
+        }
     }
     .wpwax-vm-chatbox-header{
         padding: 25px;

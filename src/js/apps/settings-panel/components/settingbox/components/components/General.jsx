@@ -30,8 +30,12 @@ const General = (props) => {
     };
 
     const handleChange = (event) => {
-        const settingName = event.target.name;
-        const settingValue = event.target.value;
+        const settingName   = event.target.name;
+        const settingValue  = event.target.value;
+        const max           = event.target.max;
+        if( max && settingValue > max ) {
+            return;
+        }
         setContentState({
             ...contentState,
             options: {

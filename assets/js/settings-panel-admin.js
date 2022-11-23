@@ -8236,6 +8236,10 @@ var General = function General(props) {
   var handleChange = function handleChange(event) {
     var settingName = event.target.name;
     var settingValue = event.target.value;
+    var max = event.target.max;
+    if (max && settingValue > max) {
+      return;
+    }
     setContentState(_objectSpread(_objectSpread({}, contentState), {}, {
       options: _objectSpread(_objectSpread({}, contentState.options), {}, _defineProperty({}, settingName, settingValue))
     }));

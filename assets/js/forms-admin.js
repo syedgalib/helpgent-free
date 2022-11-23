@@ -7312,12 +7312,24 @@ var Table = function Table(props) {
   var updateFormName = function updateFormName(event, id) {
     event.preventDefault();
     var args = {
-      name: titleInput ? titleInput : ''
+      name: titleInput
     };
+    var matchOldName = data.some(function (form) {
+      return form.id === id && form.name === titleInput;
+    });
+    if (matchOldName) {
+      setFormState(_objectSpread(_objectSpread({}, formState), {}, {
+        responseType: 'success',
+        message: "You did not change the form name, try something different"
+      }));
+      return;
+    }
     updateForm(id, args).then(function (response) {
       if (response.success) {
+        var oldName = '';
         var forms = data.map(function (form) {
           if (form.id === id) {
+            oldName = form.name;
             form.name = titleInput;
           }
           return form;
@@ -7325,7 +7337,7 @@ var Table = function Table(props) {
         setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: forms,
           responseType: 'success',
-          message: response.message,
+          message: "\"".concat(oldName, "\" has been updated to \"").concat(response.data.name, "\""),
           loader: false
         }));
       } else {
@@ -7348,14 +7360,20 @@ var Table = function Table(props) {
   var _handleOk = function handleOk(e) {
     e.preventDefault();
     deleteForm(deleteId).then(function (response) {
+      console.log(response);
       if (response.success) {
-        var stateData = data.filter(function (item) {
-          return item.id !== deleteId;
+        var formName = '';
+        var stateData = data.filter(function (form) {
+          if (form.id === deleteId) {
+            formName = form.name;
+            return false;
+          }
+          return true;
         });
         setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: stateData,
           responseType: 'success',
-          message: response.message,
+          message: "\"".concat(formName, "\" has been deleted"),
           modalStatus: 'close',
           loader: false
         }));
@@ -7399,6 +7417,7 @@ var Table = function Table(props) {
     updateForm(id, {
       status: newStatus
     }).then(function (response) {
+      console.log(response);
       if (response.success) {
         var forms = data.map(function (form) {
           if (form.id === id) {
@@ -7409,7 +7428,7 @@ var Table = function Table(props) {
         setFormState(_objectSpread(_objectSpread({}, formState), {}, {
           data: forms,
           responseType: 'success',
-          message: response.message,
+          message: newStatus === 'publish' ? "\"".concat(response.data.name, "\" has been published.") : "\"".concat(response.data.name, "\" has been unpublished."),
           loader: false
         }));
       } else {
@@ -13607,7 +13626,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
 
 /***/ }),
 
@@ -13619,7 +13638,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
 
 /***/ }),
 
@@ -13643,7 +13662,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4acafedc879db5c3ee59e4d4b9f40022.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8a3896af92253324d42578be2d87e824.svg");
 
 /***/ }),
 
@@ -13655,7 +13674,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
 
 /***/ }),
 
@@ -13667,7 +13686,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
 
 /***/ }),
 
@@ -13703,7 +13722,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6659ccb5ec7b0e703310cd6327f8f09d.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/be80f8cd2cc115230741ab2bab26611e.svg");
 
 /***/ }),
 
@@ -13715,7 +13734,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
 
 /***/ }),
 
@@ -13727,7 +13746,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
 
 /***/ }),
 
@@ -13751,7 +13770,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e71e27adca527078d96ce152987af970.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/35eeb46da9f05be2021c1bd5715fce46.svg");
 
 /***/ }),
 
@@ -13763,7 +13782,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
 
 /***/ }),
 

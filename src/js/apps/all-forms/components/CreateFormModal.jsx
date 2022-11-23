@@ -94,6 +94,14 @@ const CreateFormModal = props => {
                         });
                     }
                 })
+        }else{
+            setState({
+                ...state,
+                formCreationResponse: {
+                    statusCode: 500,
+                    message: 'Please enter form name'
+                },
+            });
         }
     }
 
@@ -123,7 +131,7 @@ const CreateFormModal = props => {
                         {state.formCreationResponse.statusCode === 403 ? <span className="wpwax-vm-danger-text">Please Try Again</span> : null}
                         <div className="wpwax-vm-form-group">
                             <input type="text" className="wpwax-vm-form__element" id="wpwax-vm-chat-title" placeholder="Form Name" value={state.defaultForm.name} onChange={(e) => handleChangeInputValue(e)}/>
-                            {state.formCreationResponse.statusCode === 500 ? <span className="wpwax-vm-danger-text">Please Enter Form Name</span> : null}
+                            {state.formCreationResponse.statusCode === 500 ? <span className="wpwax-vm-danger-text">{state.formCreationResponse.message}</span> : null}
                         </div>
                         <button type="submit" className={ onlySpaces(state.defaultForm.name) ? 'wpwax-vm-btn wpwax-vm-btn-dark wpwax-vm-btn-block wpwax-vm-btn-disabled' : 'wpwax-vm-btn wpwax-vm-btn-dark wpwax-vm-btn-block'} disabled={onlySpaces(state.defaultForm.name) ? true : false}>Create Form</button>
                     </form>

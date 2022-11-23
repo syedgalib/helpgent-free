@@ -87,7 +87,7 @@ const ChatboxForm = Styled.div`
         opacity: 0;
         visibility: visible;
         z-index: -1;
-        background-color: var(--color-white);
+        background-color: var(--play-button-bg);
         i,
         svg{
             width: 22px;

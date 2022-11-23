@@ -133,7 +133,7 @@ class Activation
 				  ], 
 			'show_footer'                      => true,
 			'footer_message'                   => 'You can review it before sending',
-			'thank_page_title'                 => 'Thank You',
+			'thank_page_title'                 => 'Thank You 💐',
 			'show_thank_page_description'      => 'Your message has been send successfully. You will receive a reply soon.',
 			'thank_page_description'           => '',
 			'show_thank_page_cta_button'       => false,

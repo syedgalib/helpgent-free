@@ -12,7 +12,7 @@ class Admin_Menu {
 
     public function plugin_action_links( $links ){
         $links[] = '<a target="_blank" href="' . esc_url( admin_url( 'admin.php?page=vm-settings' )) . '">Settings</a>';
-		$links[] = '<a target="_blank" style="color: #EFAE00;font-weight: 700;" href="' . esc_url('https://wpwax.com/helpgent/') . '">Get Pro</a>';
+		$links[] = '<a target="_blank" style="color: #39b54a;font-weight: 700;" href="' . esc_url('https://wpwax.com/helpgent/') . '">Get Pro</a>';
 
 		return $links;
     }

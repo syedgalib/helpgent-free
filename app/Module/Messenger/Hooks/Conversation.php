@@ -5,7 +5,6 @@ namespace HelpGent\Module\Messenger\Hooks;
 use HelpGent\Module\Messenger\Model\Conversation_Term_Relationship_Model;
 use HelpGent\Base\Helper;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
-use HelpGent\Module\Messenger\Model\Message_Model;
 
 class Conversation {
 
@@ -18,6 +17,7 @@ class Conversation {
 		add_action( 'helpgent_after_term_deleted', [ $this, 'remove_conversation_term_relationship' ], 20, 1 );
 		add_action( 'helpgent_after_conversation_insert', [ $this, 'migrate_to_client_after_conversation_insert' ], 20, 2 );
 		add_action( 'helpgent_after_message_inserted', [ $this, 'mark_conversation_as_unread' ], 20, 2 );
+		add_action( 'helpgent_after_term_insert', [ $this, 'add_term_to_conversation' ], 20, 3 );
     }
 
     /**
@@ -74,5 +74,24 @@ class Conversation {
 
 		Conversation_Model::update_meta( $message['conversation_id'], 'admin_read', 0 );
     }
+
+	/**
+	 * Add Term To Conversation
+	 *
+	 * @param array $data
+	 * @param array $args
+	 * @param array $main_args
+	 *
+	 * @return void
+	 */
+	function add_term_to_conversation( $data = [], $args = [], $main_args = [] ) {
+		$conversation_id = ! empty( $main_args['conversation_id'] ) ? $main_args['conversation_id'] : 0;
+
+		if ( empty( $conversation_id ) ) {
+			return;
+		}
+
+		Conversation_Model::add_term( $conversation_id, $data['term_id'] );
+	}
 
 }

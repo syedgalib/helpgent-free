@@ -167,15 +167,7 @@ const FormSettings = () => {
             });
             dispatch(handleDynamicEdit(updateFormData));
         }else{
-            const updateFormData = formData.map(item =>{
-                return {
-                    ...item,
-                    options: {
-                        ...item.options,
-                        theme: selectEvent.value
-                    }
-                }
-            });
+            const updateFormData = formUpdater(e.name, selectEvent.value, formData);
             dispatch(handleDynamicEdit(updateFormData));
         }
         
@@ -648,8 +640,6 @@ const FormSettings = () => {
 					onClose={onCloseRecordVideo}
 				/>
 			}
-
-
         </FormSettingsWrap>
     );
 }

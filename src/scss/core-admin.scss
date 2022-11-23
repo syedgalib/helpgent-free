@@ -503,7 +503,11 @@
     }
 }
 
-
+#wpwax-vm-form-edit{
+    .wpwax-vm-page-inner{
+        padding: 0
+    }
+}
 
 /* Responsive Css */
 @media only screen and (max-width: 1299px) {
@@ -519,14 +523,7 @@
 @media only screen and (max-width: 991px) {
     #wpwax-vm-form-edit{
         .wpwax-vm-page-inner{
-            padding: 20px 15px 0 0;
-        }
-    }
-}
-@media only screen and (max-width: 760px) {
-    #wpwax-vm-form-edit{
-        .wpwax-vm-page-inner{
-            padding: 20px 10px 0 0;
+            padding: 20px 0 0 0;
         }
     }
 }

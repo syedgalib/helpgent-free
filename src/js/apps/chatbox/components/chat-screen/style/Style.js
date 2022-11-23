@@ -25,6 +25,9 @@ const ChatboxForm = Styled.div`
             height: 100%;
             object-fit: cover;
         }
+        video{
+            height: 100%;
+        }
     }
     .wpwax-vm-chatbox-header{
         padding: 25px;
@@ -84,7 +87,7 @@ const ChatboxForm = Styled.div`
         opacity: 0;
         visibility: visible;
         z-index: -1;
-        background-color: var(--color-white);
+        background-color: var(--play-button-bg);
         i,
         svg{
             width: 22px;

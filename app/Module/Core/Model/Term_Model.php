@@ -130,11 +130,13 @@ class Term_Model extends DB_Model {
 
 		$table = self::get_table_name( self::$table );
 
+		$main_args = $args;
+
         $default = [];
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 
-        if ( ! isset( $args['term_id'] ) ) {
+        if ( isset( $args['term_id'] ) ) {
             unset( $args['term_id'] );
         }
 
@@ -195,6 +197,8 @@ class Term_Model extends DB_Model {
         }
 
         $data = array_merge( $term, $term_taxonomy );
+
+		do_action( 'helpgent_after_term_insert', $data, $args, $main_args );
 
         return $data;
     }

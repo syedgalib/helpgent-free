@@ -13,11 +13,5 @@ node_modules/
 
 # Others
 __*/
-/*.txt
-
-# Composer
-vendor/
 
 /.cache/*
-
-vite.user-config.js

@@ -1,0 +1,544 @@
+# Copyright (C) 2022 HelpGent
+# This file is distributed under the same license as the HelpGent package.
+msgid ""
+msgstr ""
+"Project-Id-Version: HelpGent\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-11-23 07:02+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../app/Model/DB_Model.php:87, ../app/Model/DB_Model.php:149, ../app/Model/DB_Model.php:190, ../app/Module/Core/Model/Attachment_Model.php:65, ../app/Module/Core/Model/Attachment_Model.php:143, ../app/Module/Core/Model/Term_Model.php:97, ../app/Module/Core/Model/Term_Model.php:212, ../app/Module/Core/Model/Term_Model.php:294, ../app/Module/Core/Model/Term_Taxonomy_Model.php:74, ../app/Module/Core/Model/Term_Taxonomy_Model.php:197, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:79, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:155, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:193
+msgid "The resource ID is required."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:98, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Core/Model/Auth_Token_Model.php:84, ../app/Module/Core/Model/Guest_User_Model.php:107, ../app/Module/Core/Model/Term_Model.php:115, ../app/Module/Core/Model/Term_Taxonomy_Model.php:85, ../app/Module/Forms/Model/Form_Model.php:96, ../app/Module/Forms/Model/Form_Model.php:192, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:94, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:146, ../app/Module/Messenger/Model/Conversation_Model.php:351, ../app/Module/Messenger/Model/Conversation_Model.php:429, ../app/Module/Messenger/Model/Message_Model.php:161, ../app/Module/Messenger/Model/Message_Model.php:244
+msgid "Could not find the resource."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:132, ../app/Model/DB_Model.php:277, ../app/Module/Core/Model/Auth_Token_Model.php:128, ../app/Module/Core/Model/Guest_User_Model.php:157, ../app/Module/Core/Model/Term_Model.php:168, ../app/Module/Core/Model/Term_Taxonomy_Model.php:125, ../app/Module/Forms/Model/Form_Model.php:155, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Conversation_Model.php:395, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:138, ../app/Module/Messenger/Model/Message_Model.php:217
+msgid "Could not create the resource."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:159, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Core/Model/Auth_Token_Model.php:155, ../app/Module/Core/Model/Guest_User_Model.php:193, ../app/Module/Core/Model/Term_Model.php:225, ../app/Module/Core/Model/Term_Taxonomy_Model.php:166, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:165
+msgid "The resource not found."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:173, ../app/Model/DB_Model.php:318, ../app/Module/Core/Model/Attachment_Model.php:167, ../app/Module/Core/Model/Auth_Token_Model.php:166, ../app/Module/Core/Model/Guest_User_Model.php:210, ../app/Module/Core/Model/Term_Model.php:258, ../app/Module/Core/Model/Term_Taxonomy_Model.php:179, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:160, ../app/Module/Messenger/Model/Conversation_Model.php:446, ../app/Module/Messenger/Model/Conversation_Model.php:494, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:176, ../app/Module/Messenger/Model/Message_Model.php:259, ../app/Module/Messenger/Model/Message_Model.php:297
+msgid "Could not update the resource."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:200, ../app/Model/DB_Model.php:360, ../app/Module/Core/Model/Attachment_Model.php:197, ../app/Module/Core/Model/Auth_Token_Model.php:193, ../app/Module/Core/Model/Guest_User_Model.php:256, ../app/Module/Core/Model/Term_Model.php:312, ../app/Module/Core/Model/Term_Taxonomy_Model.php:219, ../app/Module/Messenger/Model/Conversation_Model.php:526, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:203, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:223, ../app/Module/Messenger/Model/Message_Model.php:338
+msgid "Could not delete the resource."
+msgstr ""
+
+#: ../app/Model/DB_Model.php:263
+msgid "The resource already exists"
+msgstr ""
+
+#: ../app/Module/Contacts/Admin/Admin_Menu.php:14, ../app/Module/Contacts/Admin/Admin_Menu.php:14
+msgid "Contacts"
+msgstr ""
+
+#: ../app/Module/Contacts/Model/Contacts_Model.php:184, ../app/Module/Core/Model/Auth_Token_Model.php:116, ../app/Module/Core/Model/Auth_Token_Model.php:145, ../app/Module/Core/Model/Auth_Token_Model.php:183, ../app/Module/Core/Model/Auth_Token_Model.php:209, ../app/Module/Core/Model/Guest_User_Model.php:140, ../app/Module/Core/Rest_API/Version_1/Authentication.php:126, ../app/Module/Core/Rest_API/Version_1/Users.php:586
+msgid "Email is required."
+msgstr ""
+
+#: ../app/Module/Contacts/Model/Contacts_Model.php:189, ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:145, ../app/Module/Core/Model/Guest_User_Model.php:278, ../app/Module/Core/Rest_API/Version_1/Users.php:581, ../helper/functions.php:1610
+msgid "A valid email is required."
+msgstr ""
+
+#: ../app/Module/Core/Admin/Admin_Menu.php:29, ../app/Module/Core/Admin/Admin_Menu.php:29
+msgid "HelpGent"
+msgstr ""
+
+#: ../app/Module/Core/Model/Attachment_Model.php:98
+msgid "Required file or url is missing"
+msgstr ""
+
+#: ../app/Module/Core/Model/Attachment_Model.php:126
+msgid "Could not create the attachment."
+msgstr ""
+
+#: ../app/Module/Core/Model/Auth_Token_Model.php:73
+msgid "The email ID is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Auth_Token_Model.php:111, ../app/Module/Core/Rest_API/Version_1/Authentication.php:131
+msgid "Token is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Auth_Token_Model.php:225
+msgid "You must be a registered user to create the token."
+msgstr ""
+
+#: ../app/Module/Core/Model/Auth_Token_Model.php:240, ../app/Module/Core/Rest_API/Version_1/Licensing.php:75, ../app/Module/Core/Rest_API/Version_1/Licensing.php:117
+msgid "Something went wrong, please try again."
+msgstr ""
+
+#: ../app/Module/Core/Model/Guest_User_Model.php:96
+msgid "The user ID is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Guest_User_Model.php:135
+msgid "Name is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Guest_User_Model.php:150
+msgid "The email is already registered."
+msgstr ""
+
+#: ../app/Module/Core/Model/Guest_User_Model.php:183, ../app/Module/Core/Model/Guest_User_Model.php:240, ../app/Module/Core/Rest_API/Version_1/Users.php:240
+msgid "User ID is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Guest_User_Model.php:201
+msgid "The email is already in use."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Model.php:142
+msgid "The term name is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Model.php:147, ../app/Module/Core/Model/Term_Taxonomy_Model.php:117
+msgid "The taxonomy is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Model.php:154, ../app/Module/Core/Model/Term_Model.php:246
+msgid "The resource already exists."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Model.php:230
+msgid "The resource is not valid."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Taxonomy_Model.php:112
+msgid "The term ID is required."
+msgstr ""
+
+#: ../app/Module/Core/Model/Term_Taxonomy_Model.php:151
+msgid "The resource identifier is missing."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Base.php:64
+msgid "Operation Successful"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Base.php:64
+msgid "Operation Failed"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Base.php:108
+msgid "Header:X-WP-Nonce is missing"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Base.php:116, ../app/Module/Core/Rest_API/Base.php:124, ../app/Module/Core/Rest_API/Base.php:242, ../app/Module/Core/Rest_API/Base.php:252, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:672, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:728, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:780, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:821, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:850
+msgid "You are not allowed to perform this operation."
+msgstr ""
+
+#. translators: %s: image URL
+#: ../app/Module/Core/Rest_API/Rest_Helper.php:77
+msgid "Invalid URL %s."
+msgstr ""
+
+#. translators: %s: image URL
+#: ../app/Module/Core/Rest_API/Rest_Helper.php:99
+msgid "Error getting remote image %s."
+msgstr ""
+
+#. translators: %s: error message
+#: ../app/Module/Core/Rest_API/Rest_Helper.php:101
+msgid "Error: %s"
+msgstr ""
+
+#. translators: %s: error message
+#: ../app/Module/Core/Rest_API/Rest_Helper.php:120
+msgid "Invalid image: %s"
+msgstr ""
+
+#: ../app/Module/Forms/Admin/Admin_Menu.php:12, ../app/Module/Forms/Admin/Admin_Menu.php:12
+msgid "Forms"
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:122, ../app/Module/Forms/Model/Form_Model.php:240
+msgid "Form name can not be empty."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:129
+msgid "Options field is required."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:134, ../app/Module/Forms/Model/Form_Model.php:206
+msgid "Options is not valid JSON data."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:148, ../app/Module/Forms/Model/Form_Model.php:201
+msgid "The form name already exists."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:184, ../app/Module/Messenger/Model/Conversation_Model.php:341, ../app/Module/Messenger/Model/Conversation_Model.php:421, ../app/Module/Messenger/Model/Message_Model.php:150, ../app/Module/Messenger/Model/Message_Model.php:236
+msgid "Resource ID is required."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Model.php:256
+msgid "Could not update the resource as."
+msgstr ""
+
+#: ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:138
+msgid "Form ID is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Admin/Admin_Menu.php:14, ../app/Module/Messenger/Admin/Admin_Menu.php:14
+msgid "All Messages"
+msgstr ""
+
+#: ../app/Module/Messenger/Email/Message_Notification_Emails.php:289
+msgid "A new conversation has starterd"
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Conversation_Model.php:388, ../app/Module/Messenger/Model/Message_Model.php:205
+msgid "Author email is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Conversation_Model.php:475, ../app/Module/Messenger/Model/Message_Model.php:278
+msgid "Nothing to update."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:104, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:660, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:716, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:768
+msgid "The conversation ID is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:109
+msgid "The term taxonomy ID is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:116, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:880
+msgid "The conversation does not exist."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Message_Model.php:200
+msgid "Conversation ID is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Model/Message_Model.php:210
+msgid "A valid author email is required."
+msgstr ""
+
+#: ../app/Module/Messenger/Shortcode/User_Messenger.php:28
+msgid "You need to be logged in to view this content."
+msgstr ""
+
+#: ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14, ../app/Module/Settings_Panel/Admin/Admin_Menu.php:14
+msgid "Settings"
+msgstr ""
+
+#: ../app/Module/Settings_Panel/Admin/Admin_Menu.php:15, ../app/Module/Settings_Panel/Admin/Admin_Menu.php:15
+msgid "Go Pro"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Authentication.php:89
+msgid "Password is required."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Authentication.php:96
+msgid "Password is incorrect."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Authentication.php:107
+msgid "The token is generated successfuly. Please check your email."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Guest_User.php:39, ../app/Module/Core/Rest_API/Version_1/Users.php:39
+msgid "New user email address."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Guest_User.php:43
+msgid "User name."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Guest_User.php:53, ../app/Module/Core/Rest_API/Version_1/Users.php:59, ../app/Module/Core/Rest_API/Version_1/Users.php:903
+msgid "Unique identifier for the resource."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:31
+msgid "License key is required."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:36
+msgid "License action is required."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:83
+msgid "License data not found."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:92
+msgid "License expired."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:96
+msgid "License revoked."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:100
+msgid "License is not valid."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:105
+msgid "License remote not found."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:109
+msgid "License dismatch."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:113
+msgid "License limit exceeded."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:127
+msgid "License activation successfull"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:134
+msgid "License deactivation successfull"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Licensing.php:155
+msgid "Sorry, you are not allowed to modify lincense."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:43
+msgid "New user username."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:48
+msgid "New user password."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:85
+msgid "Required to be true, as resource does not support trashing."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:90
+msgid "ID to reassign posts to."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:100
+msgid "User email address."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:104, ../app/Module/Core/Rest_API/Version_1/Users.php:961
+msgid "User password."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:273, ../app/Module/Core/Rest_API/Version_1/Users.php:522
+msgid "A valid email is required"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:343, ../app/Module/Core/Rest_API/Version_1/Users.php:363
+msgid "Invalid resource ID."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:367
+msgid "Email address is invalid."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:371
+msgid "Username isn't editable."
+msgstr ""
+
+#. translators: %s: force=true
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:460
+msgid "Users do not support trashing. Set '%s' to delete."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:467
+msgid "Invalid resource id."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:472
+msgid "Invalid resource id for reassignment."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:487
+msgid "The resource cannot be deleted."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:518
+msgid "Email is required"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:526
+msgid "Password is required"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:532
+msgid "User does not exists"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:538
+msgid "The password is incorrect"
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:593
+msgid "The user is registered."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:593
+msgid "The user is not registered."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:784
+msgid "Sorry, you cannot list resources."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:803
+msgid "Sorry, you are not allowed to create resources."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:822
+msgid "Sorry, you cannot view this resource."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:841
+msgid "Sorry, you are not allowed to edit this resource."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:860
+msgid "Sorry, you are not allowed to delete this resource."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:882
+msgid "Resource does not exist."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:909
+msgid "The date the user was created, as GMT."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:916
+msgid "The display name for the user."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:921
+msgid "User login name."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:929
+msgid "The nickname for the user."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:934
+msgid "User first name."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:942
+msgid "User last name."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:950
+msgid "Description of the user."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:955
+msgid "The email address for the user."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:966
+msgid "User avater image data."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:971
+msgid "Image ID."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:976
+msgid "The date the image was created, in the site's timezone."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:982
+msgid "The date the image was created, as GMT."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:988
+msgid "The date the image was last modified, in the site's timezone."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:994
+msgid "The date the image was last modified, as GMT."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1000
+msgid "Image URL."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1035
+msgid "Ensure result set excludes specific IDs."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1044
+msgid "Limit result set to specific IDs."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1053
+msgid "Offset the result set by a specific number of items."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1060
+msgid "Order sort attribute ascending or descending."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1068
+msgid "Sort collection by object attribute."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1075
+msgid "Limit result set to resources with a specific email."
+msgstr ""
+
+#: ../app/Module/Core/Rest_API/Version_1/Users.php:1081
+msgid "Limit result set to resources with a specific role."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:499, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:370
+msgid "You are not allowed to update the resource."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:577, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:293
+msgid "You are not allowed to view the resource."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:610, ../app/Module/Messenger/Rest_API/Version_1/Messages.php:422
+msgid "You are not allowed to delete the resource."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:679
+msgid "Nothing to add or remove."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:732, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:739, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:784, ../app/Module/Messenger/Rest_API/Version_1/Conversations.php:791
+msgid "The term IDs are required."
+msgstr ""
+
+#: ../app/Module/Messenger/Rest_API/Version_1/Messages.php:321
+msgid "@ You are not allowed to perform this action."
+msgstr ""
+
+#: ../app.php:70, ../app.php:79
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../helper/functions.php:666
+msgid "Homepage"
+msgstr ""
+
+#: ../helper/functions.php:1605
+msgid "The email is required."
+msgstr ""

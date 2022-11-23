@@ -1,0 +1,1 @@
+<div id="wpwax-vm-chatboard"></div>

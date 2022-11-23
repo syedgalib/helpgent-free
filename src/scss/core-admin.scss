@@ -1,0 +1,537 @@
+@import './core-global.scss';
+
+.wpwax-vm-page-inner {
+    padding: 20px 30px 0 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.wpwax-vm-radio {
+    input[type='radio'] {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #d9d9d9;
+
+        &:focus {
+            border-color: #d9d9d9;
+            box-shadow: 0 0;
+        }
+
+        &:checked {
+            background-color: #6551f2;
+            border-color: #6551f2;
+
+            &:focus {
+                border-color: #6551f2;
+            }
+
+            &:before {
+                position: relative;
+                top: 1px;
+                left: 1px;
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+/* Color Plate */
+.wpwax-vm-form__color-plate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    flex: 1;
+    height: 40px;
+    border-radius: 6px;
+    background-color: var(--color-bg-general);
+
+    .wpwax-vm-form__color-text {
+        padding-left: 15px;
+        margin: 0;
+    }
+
+    input[type='color'] {
+        position: relative;
+        flex: none;
+        appearance: none;
+        padding: 0;
+        width: 26px;
+        min-height: 26px;
+        margin-right: 15px;
+        border-radius: 50%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 10;
+
+        &::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        &::-webkit-color-swatch {
+            border: none;
+        }
+    }
+
+    .wpwax-vm-form__color-ball {
+        position: absolute;
+        right: 15px;
+        top: 7px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .block-picker {
+        position: absolute !important;
+        left: 5px;
+        top: 50px;
+        z-index: 10;
+    }
+}
+
+/* Form Elements Style */
+.wpwax-vm-form-group {
+    .wpwax-vm-form__element {
+        &:focus {
+            box-shadow: 0 0;
+            outline: 0 none;
+        }
+    }
+
+    .wpwax-vm-form-group__label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        line-height: 1;
+        margin-bottom: 12px;
+
+        span {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.35;
+            margin-right: 6px;
+            color: #4d4d4d;
+        }
+
+        .wpwax-vm-tooltip-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            .wpwax-vm-tooltip {
+                .wpwax-vm-tooltip-text {
+                    top: -40px;
+                    transform: translateX(-47%);
+                    font-size: 12px;
+                    text-align: center;
+                    color: var(--color-white);
+                }
+
+                .wpwax-vm-tooltip-icon {
+                    position: relative;
+                    top: 2px;
+                    display: block;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+/* Table Style */
+.wpwax-vm-table-responsive {
+    display: block !important;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+.wpwax-vm-table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+    border-spacing: 0;
+    empty-cells: show;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: visible;
+
+    thead {
+        background-color: var(--color-light);
+        border-radius: 6px;
+
+        tr {
+            th {
+                padding: 16px 20px;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 500;
+                color: var(--color-text);
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            &:hover {
+                td {
+                    background-color: var(--color-lighter);
+                }
+            }
+
+            td {
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--color-text);
+                padding: 15px 20px;
+            }
+        }
+    }
+
+    tr {
+        th,
+        td {
+            &:first-child {
+                border-radius: 6px 0 0 6px;
+            }
+
+            &:last-child {
+                border-radius: 0 6px 6px 0;
+            }
+        }
+    }
+    .wpwax-notfound-text {
+        border-radius: 6px;
+        background-color: rgba(101, 81, 242, 0.2);
+        a {
+            font-weight: 700;
+            display: inline-block;
+            margin: 0 6px;
+            text-transform: capitalize;
+            color: var(--color-primary);
+        }
+    }
+}
+
+/* Notice Style */
+.wpwax-vm-notice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    min-height: 40px;
+    border-radius: 8px;
+    padding: 0 15px;
+    color: var(--color-white);
+
+    &.wpwax-vm-notice-success {
+        color: var(--color-success);
+        background-color: rgba(32, 201, 151, 0.15);
+    }
+
+    &.wpwax-vm-notice-danger {
+        color: var(--color-danger);
+        background-color: rgba(245, 34, 45, 0.15);
+    }
+
+    .wpwax-vm-notice__text {
+        line-height: 1;
+    }
+
+    .wpwax-vm-notice__close {
+        text-decoration: none;
+        position: absolute;
+        right: 15px;
+        top: 2px;
+        color: var(--color-dark);
+    }
+
+    &.wpwax-vm-hide {
+        display: none;
+    }
+}
+
+.wpwax-vm-text-highlighted {
+    font-size: 16px;
+    margin: 0;
+    color: var(--color-danger);
+}
+
+.wpwax-vm-require-sign,
+.wpwax-vm-form-group .wpwax-vm-form-group__label .wpwax-vm-require-sign {
+    color: var(--color-danger);
+}
+
+/* Tooltip Style */
+.wpwax-vm-tooltip {
+    position: relative;
+
+    &:hover {
+        .wpwax-vm-tooltip-text {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    .wpwax-vm-tooltip-icon {
+        cursor: pointer;
+    }
+
+    .wpwax-vm-tooltip-text {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        min-width: 140px;
+        font-size: 12px;
+        border-radius: 6px;
+        padding: 4px 10px;
+        min-height: 26px;
+        display: flex;
+        align-items: center;
+        z-index: 101;
+        opacity: 0;
+        visibility: hidden;
+        color: var(--color-white);
+        background-color: var(--color-dark);
+
+        &:after {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 12px solid var(--color-dark);
+            content: '';
+        }
+    }
+}
+
+/* Loading Animation */
+.wpwax-vm-loading-spin {
+    display: inline-block;
+    width: 1.75em;
+    height: 1.75em;
+    position: relative;
+    transform: rotate(45deg);
+    animation: wpwaxRotate 1.2s infinite linear;
+
+    .wpwax-vm-spin-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        transform: scale(0.75);
+        position: absolute;
+        opacity: 0.3;
+        animation: wpwaxSpinMove 1s infinite linear alternate;
+        background-color: var(--color-primary);
+
+        &:nth-child(1) {
+            left: 0;
+            top: 0;
+        }
+
+        &:nth-child(2) {
+            right: 0;
+            top: 0;
+            animation-delay: 0.3s;
+        }
+
+        &:nth-child(3) {
+            left: 0;
+            bottom: 0;
+            -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+        }
+
+        &:nth-child(4) {
+            right: 0;
+            bottom: 0;
+            animation-delay: 0.7s;
+        }
+    }
+}
+
+.wpwax-vm-loder-active {
+    position: relative;
+
+    &:after {
+        position: absolute;
+        left: -20px;
+        top: -20px;
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        content: '';
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+    }
+}
+
+/* Select Style */
+.wpwax-vm-form-group,
+.wpwax-vm-settings__single{
+    .wpwax-vm-select__control{
+        cursor: pointer;
+    }
+
+    .wpwax-vm-select__menu{
+        border-radius: 10px;
+        border: 0 none;
+        border-radius: 10px;
+        padding: 8px 10px;
+        margin: 0;
+        background-color: #fff;
+        z-index: 100;
+        box-shadow: 0 5px 10px rgba(0,0,0,.16);
+
+        .wpwax-vm-select__option{
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            color: #000;
+            &:not(:last-child){
+                margin-bottom: 6px;
+            }
+            .wpwax-vm-checkbox label{
+                font-size: 13px;
+                font-weight: 400;
+                color: var(--color-dark);
+            }
+            .wpwax-vm-checkbox{
+                align-items: center;
+                label{
+                    width: 100%;
+                    padding: 0 12px 0;
+                }
+            }
+            &:hover,
+            &.wpwax-vm-select__option--is-focused,
+            &.wpwax-vm-select__option--is-selected{
+                background-color: var(--color-bg-general);
+            }
+        }
+        .wpwax-vm-select__menu-list {
+            &.wpwax-vm-select__menu-list--is-multi{
+                .wpwax-vm-select__option{
+                    &.wpwax-vm-select__option--is-selected{
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+    }
+    .wpwax-vm-select__control{
+        .wpwax-vm-select__value-container{
+            &.wpwax-vm-select__value-container--is-multi{
+                padding: 5px 8px 5px 12px;
+                .wpwax-vm-select__input-container{
+                    .wpwax-vm-select__input{
+                        min-height: auto;
+                    }
+                }
+                .wpwax-vm-select__option{
+                    margin: 3px 0;
+                }
+            }
+        }
+        &:hover{
+            border-color: transparent;
+        }
+    }
+
+    .css-b62m3t-container{
+        width: 100%;
+        .wpwax-vm-select__input-container{
+            input{
+                color: #898989;
+                min-height: 22px;
+                &:focus{
+                    box-shadow: 0 0;
+                }
+            }
+        }
+    }
+    .wpwax-vm-select__control{
+        border: 2px solid transparent;
+        border-radius: 6px;
+        background-color: #ededed;
+        min-height: 44px;
+        &.wpwax-vm-select__control--is-focused{
+            border-color: var(--color-dark);
+        }
+        .wpwax-vm-select__indicator-separator{
+            display: none;
+        }
+        .wpwax-vm-select__value-container{
+            padding: 2px 8px 2px 12px;
+        }
+        .wpwax-vm-select__indicator{
+            padding: 8px 10px 8px 8px;
+            svg{
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+    .wpwax-vm-select__single-value{
+        font-size: 14px;
+        font-weight: 500;
+        color: #4D4D4D;
+    }
+    .css-1pahdxg-control{
+        // border: 0 none;
+        box-shadow: 0 0;
+        background-color: #ededed;
+        // &:hover{
+        //     border-color: transparent;
+        // }
+    }
+    .css-1okebmr-indicatorSeparator{
+        min-width: auto;
+        background-color: transparent;
+    }
+}
+
+
+
+/* Responsive Css */
+@media only screen and (max-width: 1299px) {
+    // .wpwax-vm-page-inner {
+    //     padding: 0;
+    // }
+}
+@media only screen and (max-width: 782px) {
+    input[type='radio']:checked:before {
+        margin: 0.1875rem;
+    }
+}
+@media only screen and (max-width: 991px) {
+    #wpwax-vm-form-edit{
+        .wpwax-vm-page-inner{
+            padding: 20px 15px 0 0;
+        }
+    }
+}
+@media only screen and (max-width: 760px) {
+    #wpwax-vm-form-edit{
+        .wpwax-vm-page-inner{
+            padding: 20px 10px 0 0;
+        }
+    }
+}
+@media only screen and (max-width: 575px) {
+    .wpwax-vm-modal {
+        width: 320px;
+    }
+}

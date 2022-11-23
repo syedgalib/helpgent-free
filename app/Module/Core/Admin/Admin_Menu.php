@@ -6,6 +6,15 @@ class Admin_Menu {
 
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+        add_filter('plugin_action_links_' . plugin_basename(HELPGENT_FILE), [$this, 'plugin_action_links']);
+
+    }
+
+    public function plugin_action_links( $links ){
+        $links[] = '<a target="_blank" href="' . esc_url( admin_url( 'admin.php?page=vm-settings' )) . '">Settings</a>';
+		$links[] = '<a target="_blank" style="color: #EFAE00;font-weight: 700;" href="' . esc_url('https://wpwax.com/helpgent/') . '">Get Pro</a>';
+
+		return $links;
     }
 
     public function admin_menu() {

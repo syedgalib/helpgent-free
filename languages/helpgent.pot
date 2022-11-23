@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-23 05:29+0000\n"
+"POT-Creation-Date: 2022-11-23 07:02+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -18,28 +18,40 @@ msgstr ""
 msgid "The resource ID is required."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:98, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Core/Model/Auth_Token_Model.php:84, ../app/Module/Core/Model/Guest_User_Model.php:111, ../app/Module/Core/Model/Term_Model.php:115, ../app/Module/Core/Model/Term_Taxonomy_Model.php:85, ../app/Module/Forms/Model/Form_Model.php:96, ../app/Module/Forms/Model/Form_Model.php:192, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:94, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:146, ../app/Module/Messenger/Model/Conversation_Model.php:351, ../app/Module/Messenger/Model/Conversation_Model.php:429, ../app/Module/Messenger/Model/Message_Model.php:161, ../app/Module/Messenger/Model/Message_Model.php:244
+#: ../app/Model/DB_Model.php:98, ../app/Module/Core/Model/Attachment_Model.php:76, ../app/Module/Core/Model/Auth_Token_Model.php:84, ../app/Module/Core/Model/Guest_User_Model.php:107, ../app/Module/Core/Model/Term_Model.php:115, ../app/Module/Core/Model/Term_Taxonomy_Model.php:85, ../app/Module/Forms/Model/Form_Model.php:96, ../app/Module/Forms/Model/Form_Model.php:192, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:94, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:146, ../app/Module/Messenger/Model/Conversation_Model.php:351, ../app/Module/Messenger/Model/Conversation_Model.php:429, ../app/Module/Messenger/Model/Message_Model.php:161, ../app/Module/Messenger/Model/Message_Model.php:244
 msgid "Could not find the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:132, ../app/Model/DB_Model.php:277, ../app/Module/Core/Model/Auth_Token_Model.php:128, ../app/Module/Core/Model/Guest_User_Model.php:161, ../app/Module/Core/Model/Term_Model.php:168, ../app/Module/Core/Model/Term_Taxonomy_Model.php:125, ../app/Module/Forms/Model/Form_Model.php:155, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Conversation_Model.php:395, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:138, ../app/Module/Messenger/Model/Message_Model.php:217
+#: ../app/Model/DB_Model.php:132, ../app/Model/DB_Model.php:277, ../app/Module/Core/Model/Auth_Token_Model.php:128, ../app/Module/Core/Model/Guest_User_Model.php:157, ../app/Module/Core/Model/Term_Model.php:168, ../app/Module/Core/Model/Term_Taxonomy_Model.php:125, ../app/Module/Forms/Model/Form_Model.php:155, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:121, ../app/Module/Messenger/Model/Conversation_Model.php:395, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:138, ../app/Module/Messenger/Model/Message_Model.php:217
 msgid "Could not create the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:159, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Core/Model/Auth_Token_Model.php:155, ../app/Module/Core/Model/Guest_User_Model.php:197, ../app/Module/Core/Model/Term_Model.php:225, ../app/Module/Core/Model/Term_Taxonomy_Model.php:166, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:165
+#: ../app/Model/DB_Model.php:159, ../app/Module/Core/Model/Attachment_Model.php:153, ../app/Module/Core/Model/Auth_Token_Model.php:155, ../app/Module/Core/Model/Guest_User_Model.php:193, ../app/Module/Core/Model/Term_Model.php:225, ../app/Module/Core/Model/Term_Taxonomy_Model.php:166, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:165
 msgid "The resource not found."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:173, ../app/Model/DB_Model.php:318, ../app/Module/Core/Model/Attachment_Model.php:167, ../app/Module/Core/Model/Auth_Token_Model.php:166, ../app/Module/Core/Model/Guest_User_Model.php:214, ../app/Module/Core/Model/Term_Model.php:258, ../app/Module/Core/Model/Term_Taxonomy_Model.php:179, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:160, ../app/Module/Messenger/Model/Conversation_Model.php:446, ../app/Module/Messenger/Model/Conversation_Model.php:494, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:176, ../app/Module/Messenger/Model/Message_Model.php:259, ../app/Module/Messenger/Model/Message_Model.php:297
+#: ../app/Model/DB_Model.php:173, ../app/Model/DB_Model.php:318, ../app/Module/Core/Model/Attachment_Model.php:167, ../app/Module/Core/Model/Auth_Token_Model.php:166, ../app/Module/Core/Model/Guest_User_Model.php:210, ../app/Module/Core/Model/Term_Model.php:258, ../app/Module/Core/Model/Term_Taxonomy_Model.php:179, ../app/Module/Forms/Model/Form_Page_Relationship_Model.php:160, ../app/Module/Messenger/Model/Conversation_Model.php:446, ../app/Module/Messenger/Model/Conversation_Model.php:494, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:176, ../app/Module/Messenger/Model/Message_Model.php:259, ../app/Module/Messenger/Model/Message_Model.php:297
 msgid "Could not update the resource."
 msgstr ""
 
-#: ../app/Model/DB_Model.php:200, ../app/Model/DB_Model.php:360, ../app/Module/Core/Model/Attachment_Model.php:197, ../app/Module/Core/Model/Auth_Token_Model.php:193, ../app/Module/Core/Model/Guest_User_Model.php:260, ../app/Module/Core/Model/Term_Model.php:312, ../app/Module/Core/Model/Term_Taxonomy_Model.php:219, ../app/Module/Messenger/Model/Conversation_Model.php:526, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:203, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:223, ../app/Module/Messenger/Model/Message_Model.php:338
+#: ../app/Model/DB_Model.php:200, ../app/Model/DB_Model.php:360, ../app/Module/Core/Model/Attachment_Model.php:197, ../app/Module/Core/Model/Auth_Token_Model.php:193, ../app/Module/Core/Model/Guest_User_Model.php:256, ../app/Module/Core/Model/Term_Model.php:312, ../app/Module/Core/Model/Term_Taxonomy_Model.php:219, ../app/Module/Messenger/Model/Conversation_Model.php:526, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:203, ../app/Module/Messenger/Model/Conversation_Term_Relationship_Model.php:223, ../app/Module/Messenger/Model/Message_Model.php:338
 msgid "Could not delete the resource."
 msgstr ""
 
 #: ../app/Model/DB_Model.php:263
 msgid "The resource already exists"
+msgstr ""
+
+#: ../app/Module/Contacts/Admin/Admin_Menu.php:14, ../app/Module/Contacts/Admin/Admin_Menu.php:14
+msgid "Contacts"
+msgstr ""
+
+#: ../app/Module/Contacts/Model/Contacts_Model.php:184, ../app/Module/Core/Model/Auth_Token_Model.php:116, ../app/Module/Core/Model/Auth_Token_Model.php:145, ../app/Module/Core/Model/Auth_Token_Model.php:183, ../app/Module/Core/Model/Auth_Token_Model.php:209, ../app/Module/Core/Model/Guest_User_Model.php:140, ../app/Module/Core/Rest_API/Version_1/Authentication.php:126, ../app/Module/Core/Rest_API/Version_1/Users.php:586
+msgid "Email is required."
+msgstr ""
+
+#: ../app/Module/Contacts/Model/Contacts_Model.php:189, ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:145, ../app/Module/Core/Model/Guest_User_Model.php:278, ../app/Module/Core/Rest_API/Version_1/Users.php:581, ../helper/functions.php:1610
+msgid "A valid email is required."
 msgstr ""
 
 #: ../app/Module/Core/Admin/Admin_Menu.php:29, ../app/Module/Core/Admin/Admin_Menu.php:29
@@ -62,14 +74,6 @@ msgstr ""
 msgid "Token is required."
 msgstr ""
 
-#: ../app/Module/Core/Model/Auth_Token_Model.php:116, ../app/Module/Core/Model/Auth_Token_Model.php:145, ../app/Module/Core/Model/Auth_Token_Model.php:183, ../app/Module/Core/Model/Auth_Token_Model.php:209, ../app/Module/Core/Model/Guest_User_Model.php:144, ../app/Module/Core/Rest_API/Version_1/Authentication.php:126, ../app/Module/Core/Rest_API/Version_1/Users.php:586
-msgid "Email is required."
-msgstr ""
-
-#: ../app/Module/Core/Model/Auth_Token_Model.php:121, ../app/Module/Core/Model/Auth_Token_Model.php:214, ../app/Module/Core/Model/Guest_User_Model.php:149, ../app/Module/Core/Model/Guest_User_Model.php:282, ../app/Module/Core/Rest_API/Version_1/Users.php:581, ../helper/functions.php:1565
-msgid "A valid email is required."
-msgstr ""
-
 #: ../app/Module/Core/Model/Auth_Token_Model.php:225
 msgid "You must be a registered user to create the token."
 msgstr ""
@@ -78,23 +82,23 @@ msgstr ""
 msgid "Something went wrong, please try again."
 msgstr ""
 
-#: ../app/Module/Core/Model/Guest_User_Model.php:100
+#: ../app/Module/Core/Model/Guest_User_Model.php:96
 msgid "The user ID is required."
 msgstr ""
 
-#: ../app/Module/Core/Model/Guest_User_Model.php:139
+#: ../app/Module/Core/Model/Guest_User_Model.php:135
 msgid "Name is required."
 msgstr ""
 
-#: ../app/Module/Core/Model/Guest_User_Model.php:154
+#: ../app/Module/Core/Model/Guest_User_Model.php:150
 msgid "The email is already registered."
 msgstr ""
 
-#: ../app/Module/Core/Model/Guest_User_Model.php:187, ../app/Module/Core/Model/Guest_User_Model.php:244, ../app/Module/Core/Rest_API/Version_1/Users.php:240
+#: ../app/Module/Core/Model/Guest_User_Model.php:183, ../app/Module/Core/Model/Guest_User_Model.php:240, ../app/Module/Core/Rest_API/Version_1/Users.php:240
 msgid "User ID is required."
 msgstr ""
 
-#: ../app/Module/Core/Model/Guest_User_Model.php:205
+#: ../app/Module/Core/Model/Guest_User_Model.php:201
 msgid "The email is already in use."
 msgstr ""
 
@@ -535,6 +539,6 @@ msgstr ""
 msgid "Homepage"
 msgstr ""
 
-#: ../helper/functions.php:1560
+#: ../helper/functions.php:1605
 msgid "The email is required."
 msgstr ""

@@ -284,6 +284,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
         });
         setSessionState({
             ...sessionState,
+            sessionFilterDropdown: false,
             hasMore: true,
         });
     };
@@ -352,7 +353,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
             <div className='wpwax-vm-sidebar-top'>
-                <h3 className='wpwax-vm-sidebar-title'>All Conversations</h3>
+                <h3 className='wpwax-vm-sidebar-title'>
+                    <a href="#" onClick={handleRefresh}>All Conversations</a>
+                </h3>
                 <div className="wpwax-vm-sidebar-top__action">
 					{ sessionState.isCurrentUserAdmin && (
 						<a href="#" onClick={handleToggleArchivedConversation} className={ isShowingArchive ? 'active' : '' }>

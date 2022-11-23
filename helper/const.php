@@ -106,15 +106,19 @@ if ( ! defined( 'HELPGENT_LOAD_MIN_FILES' ) ) {
 
 // Meta Keys
 if ( ! defined( 'HELPGENT_META_PREFIX' ) ) {
-    define( 'HELPGENT_META_PREFIX',  HELPGENT_PREFIX . '_' );
+    define( 'HELPGENT_META_PREFIX', '_' . HELPGENT_PREFIX . '_' );
 }
 
 if ( ! defined( 'HELPGENT_USER_META_AVATER' ) ) {
     define( 'HELPGENT_USER_META_AVATER', HELPGENT_META_PREFIX . 'user_avater' );
 }
 
-if ( ! defined( 'HELPGENT_USER_META_IS_GUEST' ) ) {
-    define( 'HELPGENT_USER_META_IS_GUEST', HELPGENT_META_PREFIX . 'is_guest' );
+if ( ! defined( 'HELPGENT_USER_META_IS_CLIENT' ) ) {
+    define( 'HELPGENT_USER_META_IS_CLIENT', HELPGENT_META_PREFIX . 'is_client' );
+}
+
+if ( ! defined( 'HELPGENT_USER_META_PHONE' ) ) {
+    define( 'HELPGENT_USER_META_PHONE', HELPGENT_META_PREFIX . 'phone' );
 }
 
 if ( ! defined( 'HELPGENT_OPTIONS' ) ) {

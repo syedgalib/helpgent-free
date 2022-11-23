@@ -1,0 +1,1 @@
+export function useSettingOption(id,value)

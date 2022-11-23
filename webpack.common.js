@@ -17,6 +17,9 @@ module.exports = {
 
     // Settings Panel Module
     'settings-panel-admin': '/src/js/admin/settings-panel-admin.js',
+
+    // Contact List Module
+    'contact-list-admin': '/src/js/admin/contact-list-admin.js',
   },
 
   output: {

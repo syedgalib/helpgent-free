@@ -286,6 +286,16 @@ const MessageBox = Styled.div`
             }
         }
         .wpwax-vm-message-content{
+            max-width: 870px;
+            @media only screen and (max-width: 1599px){
+                max-width: 730px;
+            }
+            @media only screen and (max-width: 1399px){
+                max-width: 590px;
+            }
+            @media only screen and (max-width: 1299px){
+                max-width: 540px;
+            }
             &.wpwax-vm-message-attachment-not-found{
                 .wpwax-vm-message-content__inner{
                     background-color: transparent;

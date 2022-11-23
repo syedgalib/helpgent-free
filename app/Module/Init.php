@@ -30,6 +30,7 @@ class Init {
             Messenger\Init::class,
             Forms\Init::class,
             Settings_Panel\Init::class,
+            Contacts\Init::class,
         ];
     }
 

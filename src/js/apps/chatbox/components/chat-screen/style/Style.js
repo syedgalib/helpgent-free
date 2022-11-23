@@ -1,10 +1,10 @@
 import Styled from 'styled-components';
 
 const ChatboxForm = Styled.div`
-    font-family: var(--font-family);
     font-size: 18px;
     height: 100%;
     box-sizing: border-box;
+    font-family: var(--font-family);
     &:hover{
         .wpwax-vm-btn-play{
             opacity: 1;
@@ -48,13 +48,14 @@ const ChatboxForm = Styled.div`
             }
         }
         .wpwax-vm-chatbox-title{
-            font-family: var(--font-family);
-            font-size: var(--font-size-greet);
             word-break: break-word;
             font-weight: 600;
             line-height: 1.2;
-            color: var(--color-text-greet);
+            text-transform: capitalize;
             margin: 15px 0 5px;
+            color: var(--color-text-greet);
+            font-family: var(--font-family);
+            font-size: var(--font-size-greet);
         }
         .wpwax-vm-chatbox-description{
             font-size: 15px;
@@ -100,12 +101,12 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-footer{
         .wpwax-vm-chatbox-footer__title{
-            font-family: var(--font-family);
-            font-size: var(--font-size-chat);
             font-weight: 600;
             text-align: center;
             margin-bottom: 18px;
             text-transform: inherit;
+            font-family: var(--font-family);
+            font-size: var(--font-size-chat);
             color: var(--color-text-chat);
         }
         .wpwax-vm-chatbox-footer__actions{
@@ -130,9 +131,9 @@ const ChatboxForm = Styled.div`
                 transform: scale(1);
                 transition transform .2s ease-in;
                 &:hover{
+                    transform: scale(1.06);
                     background-color: var(--primary-button-bg);
                     color: var(--primary-button-color);
-                    transform: scale(1.06);
                     /* fill: var(--primary-button-bg);
                     path{
                         fill: var(--primary-button-bg);
@@ -147,9 +148,9 @@ const ChatboxForm = Styled.div`
                     width: 18px;
                     height: 18px;
                     margin: 0 0 4px;
-                    fill: var(--color-white);
+                    fill: var(--primary-button-color);
                     path{
-                        fill: var(--color-white);
+                        fill: var(--primary-button-color);
                     }
                 }
                 span{
@@ -160,13 +161,13 @@ const ChatboxForm = Styled.div`
             }
         }
         .wpwax-vm-chatbox-footer__text{
-            font-family: var(--font-family);
-            font-size: var(--footer-text-font-size);
             font-weight: 500;
             opacity: .8;
             margin: 12px 0 8px;
             text-align: center;
             min-height: 20px;
+            font-family: var(--font-family);
+            font-size: var(--footer-text-font-size);
             color: var(--color-footer-text);
         }
         .wpwax-vm-chatbox-footer__bottom{
@@ -203,11 +204,12 @@ const ChatboxForm = Styled.div`
                     padding: 15px;
                 }
                 .wpwax-vm-chatbox-title{
-                    font-family: var(--font-family);
-                    font-size: var(--font-size-greet);
+                    text-transform: capitalize;
                     word-break: break-word;
                     font-weight: 600;
                     margin: 0;
+                    font-family: var(--font-family);
+                    font-size: var(--font-size-greet);
                 }
             }
             .wpwax-vm-chatbox-inner{
@@ -303,17 +305,17 @@ const ChatboxForm = Styled.div`
                 padding: 0;
                 background-color: var(--color-page-bg);
                 .wpwax-vm-chatbox-footer__title{
-                    font-family: var(--font-family);
-                    font-size: var(--font-size-chat);
                     font-weight: 600;
                     margin: 0 0 20px;
                     padding-top: 12px;
+                    font-family: var(--font-family);
+                    font-size: var(--font-size-chat);
                     color: var(--color-text-chat);
                 }
                 .wpwax-vm-chatbox-footer__text{
-                    font-size: var(--footer-text-font-size);
                     font-weight: 500;
                     margin: 12px 0 8px;
+                    font-size: var(--footer-text-font-size);
                     color: var(--color-footer-text);
                 }
             }
@@ -329,9 +331,9 @@ const ContactFormWrap = Styled.div`
         .wpwax-vm-contact-form__title{
             font-size: 18px;
             font-weight: 500;
-            font-family: var(--font-family);
             line-height: 1.333;
             margin: 0 0 30px;
+            font-family: var(--font-family);
             color: var(--color-dark);
         }
         .wpwax-vm-form-group{

@@ -27,8 +27,6 @@ const EmailGeneral = (props) => {
         });
     };
 
-    console.log(contentState);
-
     return (
         <div className='wpwax-vm-settings'>
             <div className='wpwax-vm-settings__single'>

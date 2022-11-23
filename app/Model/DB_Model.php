@@ -412,7 +412,7 @@ abstract class DB_Model implements DB_Model_Interface {
 	 *
 	 * @return string Where Query
 	 */
-	public static function prepare_where_query_v2( $where_args = [], $table_field_map = [], &$tax_query_count = 0, &$meta_query_count = 0 ) {
+	public static function prepare_where_query_v2( $where_args = [], $table_field_map = [], &$tax_query_count = 0, &$meta_query_count = 0, $skip_if_field_key_not_found = false ) {
 		$where = ' WHERE 1=1';
 		$supported_conditions = [ 'AND', 'OR' ];
 
@@ -502,23 +502,28 @@ abstract class DB_Model implements DB_Model_Interface {
 			// General Query
 			// Case 1
 			if ( ! is_array( $value ) ) {
-				$where_table_name = ( ! empty( $table_field_map[ $key ] ) ) ? $table_field_map[ $key ] . '.' : '';
-				$where .= " AND {$where_table_name}{$key}='{$value}'";
+				$field_key = self::prepare_field_key( $key, $table_field_map );
+
+				if ( $skip_if_field_key_not_found && empty( $field_key ) ) {
+					continue;
+				}
+
+				$where .= " AND {$field_key}='{$value}'";
 				continue;
 			}
 
 			// Case 2
 			if ( ! empty( $value['condition'] ) && ! empty( $value['rules'] ) ) {
-
 				$_where     = '';
 				$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
 
 				foreach ( $value['rules'] as $index => $rule ) {
-					$rule_key         = $rule['key'];
-					$where_table_name = ( ! empty( $table_field_map[ $rule_key ] ) ) ? $table_field_map[ $rule_key ] . '.' : '';
-					$where_table_name = ( ! empty( $rule[ 'table' ] ) ) ? $rule[ 'table' ]  . '.' : $where_table_name;
+					$_key = self::prepare_field_key( $rule['key'], $table_field_map );
 
-					$_key     = $where_table_name . $rule['key'];
+					if (  $skip_if_field_key_not_found && empty( $_key ) ) {
+						continue;
+					}
+
 					$_compare = ( ! empty( $rule['compare'] ) ) ? $rule['compare'] : '=';
 					$_value   = self::parse_query_value( $rule['value'], $_compare );
 
@@ -535,19 +540,54 @@ abstract class DB_Model implements DB_Model_Interface {
 				continue;
 			}
 
+			if ( empty( $value['key'] ) || empty( $value['value'] ) ) {
+				continue;
+			}
+
 			// Case 3
-			$value_key        = $value['key'];
-			$where_table_name = ( ! empty( $table_field_map[ $value_key ] ) ) ? $table_field_map[ $value_key ] . '.' : '';
-			$where_table_name = ( ! empty( $value[ 'table' ] ) ) ? $value[ 'table' ]  . '.' : $where_table_name;
-			$_key             = $where_table_name . $value['key'];
-			$_compare         = $value['compare'];
-			$_compare         = ( ! empty( $value['compare'] ) ) ? $value['compare'] : '=';
-			$_value           = self::parse_query_value( $value['value'], $_compare );
+			$_key = self::prepare_field_key( $value['key'], $table_field_map );
+
+			if ( $skip_if_field_key_not_found && empty( $_key ) ) {
+				continue;
+			}
+
+			$_compare = ( ! empty( $value['compare'] ) ) ? $value['compare'] : '=';
+			$_value   = self::parse_query_value( $value['value'], $_compare );
 
 			$where .= " AND {$_key} {$_compare} {$_value}";
 		}
 
 		return $where;
+	}
+
+	/**
+	 * Prepare Field Key
+	 *
+	 * @param string $key
+	 * @param array $field_map
+	 *
+	 * @return string Field Key
+	 */
+	public static function prepare_field_key( $key = '', $field_map = [] ) {
+		if ( empty( $field_map[ $key ] ) ) {
+			return '';
+		}
+
+		$table = $field_map[ $key ];
+
+		if ( is_string( $table ) ) {
+			return $table . '.' . $key;
+		}
+
+		if ( ! is_array( $table ) ) {
+			return '';
+		}
+
+		if ( empty( $table['table'] ) || empty( $table['key'] ) ) {
+			return '';
+		}
+
+		return $table['table'] . '.' . $table['key'];
 	}
 
 	/**

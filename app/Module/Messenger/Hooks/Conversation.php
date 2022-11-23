@@ -16,6 +16,7 @@ class Conversation {
      */
     public function __construct() {
 		add_action( 'helpgent_after_term_deleted', [ $this, 'remove_conversation_term_relationship' ], 20, 1 );
+		add_action( 'helpgent_after_conversation_insert', [ $this, 'migrate_to_client_after_conversation_insert' ], 20, 2 );
 		add_action( 'helpgent_after_message_inserted', [ $this, 'mark_conversation_as_unread' ], 20, 2 );
     }
 
@@ -27,6 +28,23 @@ class Conversation {
      */
     public function remove_conversation_term_relationship( $term = [] ) {
 		Conversation_Term_Relationship_Model::delete_item_where([ 'term_taxonomy_id' => $term['term_taxonomy_id'] ]);
+    }
+
+    /**
+     * Migrate to Client After Conversation Insert
+     *
+	 * @param array $data
+	 * @param array $args
+     * @return void
+     */
+    public function migrate_to_client_after_conversation_insert( $data = [], $args = [] ) {
+		$created_by = ( ! empty( $data['created_by'] ) ) ? $data['created_by'] : '';
+
+		if ( empty( $created_by ) ) {
+			return;
+		}
+
+		Helper\migrate_user_to_client( $created_by );
     }
 
     /**

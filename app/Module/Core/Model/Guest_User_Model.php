@@ -45,13 +45,9 @@ class Guest_User_Model extends DB_Model {
 
         $default = [];
 
-        $default['id']         = null;
-        $default['name']       = null;
-        $default['email']      = null;
-        $default['created_at'] = null;
-        $default['limit']      = 20;
-        $default['page']       = 1;
-        $default['where']      = null;
+        $default['limit'] = 20;
+        $default['page']  = 1;
+        $default['where'] = null;
 
 		$args = Helper\merge_params( $default, $args );
 

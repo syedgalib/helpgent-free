@@ -1204,8 +1204,11 @@ function prepare_user_data( $user, $fields = [] ) {
 
 	$user_info = [];
 
-	$default_fields = ['id', 'email', 'name', 'username', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_guest' ];
+	$default_fields = ['id', 'email', 'name', 'username', 'first_name', 'last_name', 'roles', 'avater', 'is_admin', 'is_guest', 'is_client', 'phone' ];
 	$fields = ( ! empty( $fields ) ) ? $fields : $default_fields;
+
+	$is_user_admin  = is_user_admin( $user );
+	$is_user_client = is_user_client( $user );
 
 	if ( in_array( 'id', $fields ) ) {
 		$user_info['id'] = $user->ID;
@@ -1243,11 +1246,19 @@ function prepare_user_data( $user, $fields = [] ) {
 	}
 
 	if ( in_array( 'is_admin', $fields ) ) {
-		$user_info['is_admin'] = is_user_admin( $user ) ;
+		$user_info['is_admin'] = $is_user_admin;
+	}
+
+	if ( in_array( 'is_client', $fields ) ) {
+		$user_info['is_client'] = $is_user_client;
 	}
 
 	if ( in_array( 'is_guest', $fields ) ) {
 		$user_info['is_guest'] = false;
+	}
+
+	if ( in_array( 'phone', $fields ) ) {
+		$user_info['phone'] = get_user_meta( $user->ID, HELPGENT_USER_META_PHONE, true );
 	}
 
 	return $user_info;
@@ -1264,11 +1275,12 @@ function prepare_guest_user_data( $user = [] ) {
 		return false;
 	}
 
-	$user['avater']    = get_avatar_url( $user['email'] );
-	$user['roles']     = [];
-	$user['username']  = $user['id'];
-	$user['is_admin']  = false;
-	$user['is_guest']  = true;
+	$user['avater']   = get_avatar_url( $user['email'] );
+	$user['roles']    = [];
+	$user['username'] = $user['id'];
+	$user['is_admin'] = false;
+	$user['is_guest'] = true;
+	$user['phone']    = Guest_User_Model::get_meta( $user['id'], 'phone' );
 
 	return $user;
 }
@@ -1301,6 +1313,35 @@ function is_current_user_guest() {
 	}
 
 	return $user_exists;
+}
+
+/**
+ * Migrate User to Client
+ *
+ * @param string $user_email
+ * @param bool $skip_admin
+ * @return void
+ */
+function migrate_user_to_client( $user_email = '', $skip_admin = true ) {
+	$is_client = is_user_client( $user_email );
+
+	if ( $is_client ) {
+		return;
+	}
+
+	$is_admin = is_user_admin( $user_email );
+
+	if ( $skip_admin && $is_admin ) {
+		return;
+	}
+
+	$user = get_user_by( 'email', $user_email );
+
+	if ( empty( $user ) ) {
+		return;
+	}
+
+	update_user_meta( $user->ID, HELPGENT_USER_META_IS_CLIENT, 1 );
 }
 
 /**
@@ -1401,14 +1442,22 @@ function is_user_guest( $email )
  * @param WP_User $user
  * @return bool
  */
-function is_user_client( $user )
-{
+function is_user_client( $user ) {
+	if ( is_numeric( $user ) ) {
+		$user = get_user_by( 'id', $user );
+	} else if ( is_string( $user ) ) {
+		$user = get_user_by( 'email', $user );
+	} else if ( is_array( $user ) && ! empty( $user['email'] ) ) {
+		$user = get_user_by( 'email', $user['email'] );
+	}
 
 	if ( ! $user instanceof WP_User ) {
 		return false;
 	}
 
-	return user_can( $user, 'wpwax_vm_client' );
+	$is_client = get_user_meta( $user->ID, HELPGENT_USER_META_IS_CLIENT, true );
+
+	return is_truthy( $is_client );
 }
 
 /**
@@ -1417,8 +1466,7 @@ function is_user_client( $user )
  * @param WP_User|String|Integer|Array $user
  * @return bool
  */
-function is_user_admin( $user )
-{
+function is_user_admin( $user ) {
 	if ( empty ( $user ) ) {
 		return false;
 	}
@@ -1460,10 +1508,8 @@ function get_admin_roles() {
  * @return array
  */
 function get_terms() {
-
 	$terms = Term_Model::get_items( [ 'limit' => -1 ] );
 	return $terms['results'];
-
 }
 
 
@@ -1474,7 +1520,6 @@ function get_terms() {
  * @return string Timezone String
  */
 function sanitize_timezone_string( $timezone_string ) {
-
 	if ( empty( $timezone_string ) ) {
 		return $timezone_string;
 	}

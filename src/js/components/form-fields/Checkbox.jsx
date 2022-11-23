@@ -1,8 +1,9 @@
-const Checkbox = ({ id, label, value, checked, onChange, disabled }) => {
+const Checkbox = ({ id, name, label, value, checked, onChange, disabled }) => {
     return (
         <div className="wpwax-vm-checkbox">
             <input 
                 id={id} 
+                name={name}
                 type="checkbox"
                 value={value}
                 checked={checked} 

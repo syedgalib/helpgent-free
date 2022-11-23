@@ -13,33 +13,26 @@ class User {
      * @return void
      */
     public function __construct() {
-		add_action( 'user_register', [ $this, 'migrate_guest_to_wp_user' ], 10, 2 );
+		add_action( 'user_register', [ $this, 'migrate_guest_to_client' ], 10, 2 );
     }
 
 	/**
-     * Remove user from guest table
+     * Guest User Migration
      *
      * @param array $user_name
      * @param object $user
      * @return bool
      */
-	public function migrate_guest_to_wp_user( $user_name, $user ) {
+	public function migrate_guest_to_client( $user_name, $user ) {
+		$user        = get_user_by( 'email', $user['user_email'] );
+		$guest_users = Guest_User_Model::get_items( [ 'where' => [ 'email' => $user->user_email ] ] );
 
-		$user = get_user_by( 'email', $user['user_email'] );
-
-		$is_guest = Guest_User_Model::get_items( [ 'where' => [ 'email' => $user->user_email ] ] );
-
-		if ( is_wp_error( $is_guest ) ) {
+		if ( empty( $guest_users ) ) {
 			return;
 		}
 
-		if ( empty( $is_guest ) ) {
-			return;
-		}
-
-		$is_guest = $is_guest[0];
-
-		$metas = Guest_User_Model::get_meta( $is_guest['id'] );
+		$guest = $guest_users[0];
+		$metas = Guest_User_Model::get_meta( $guest['id'] );
 
 		if ( ! empty( $metas ) ) {
 			foreach( $metas as $index => $meta ) {
@@ -47,7 +40,9 @@ class User {
 			}
 		}
 
-		Guest_User_Model::delete_item( $is_guest['id'] );
+		Guest_User_Model::delete_item( $guest['id'] );
+
+		Helper\migrate_user_to_client( $user->user_email );
 	}
 
 }

@@ -25,6 +25,14 @@ const SidebarWrap = Styled.div`
         .wpwax-vm-sidebar-title{
             margin: 0;
             font-family: 'Inter', sans-serif;
+            a{
+                text-decoration: none;
+                transition: .3s;
+                color: var(--color-dark);
+                &:hover{
+                    color: var(--color-primary);
+                }
+            }
         }
         .wpwax-vm-sidebar-refresher{
             line-height: 1;

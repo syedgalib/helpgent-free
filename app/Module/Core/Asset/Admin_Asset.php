@@ -10,6 +10,7 @@ class Admin_Asset extends Enqueuer {
 		'helpgent_page_vm-forms',
 		'toplevel_page_video-message',
 		'helpgent_page_vm-settings',
+		'helpgent_page_vm-contacts',
 	];
 
     /**

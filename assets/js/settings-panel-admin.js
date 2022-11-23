@@ -6986,13 +6986,6 @@ var SettingBox = function SettingBox() {
       label: 'Email Template',
       path: 'email_template'
     }]
-  }, {
-    label: 'License',
-    path: 'license',
-    navId: 'wpwax-vm-license-settings',
-    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__["default"], {
-      src: Assets_svg_icons_handshake_svg__WEBPACK_IMPORTED_MODULE_10__["default"]
-    })
   }];
   var totalNav = settingsNav.length;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
@@ -7156,6 +7149,18 @@ var SettingBox = function SettingBox() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
             className: "wpwax-vm-settings-top__link-text",
             children: "Support"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("a", {
+          target: "_blank",
+          href: "https://wpwax.com/helpgent/",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+            className: "wpwax-vm-settings-top__link-icon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_15__["default"], {
+              src: Assets_svg_icons_link_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("span", {
+            className: "wpwax-vm-settings-top__link-text",
+            children: "Go Pro"
           })]
         })]
       })]
@@ -8150,21 +8155,28 @@ var EmailTemplate = function EmailTemplate(props) {
         className: "wpwax-vm-settings__single--label",
         htmlFor: "enableEmailFooter",
         children: "Enable Footer"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "wpwax-vm-settings__single--element",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          uncheckedIcon: false,
-          checkedIcon: false,
-          onColor: "#6551F2",
-          offColor: "#E2E2E2",
-          className: "wpwax-vm-switch",
-          id: "enableEmailFooter",
-          handleDiameter: 14,
-          height: 22,
-          width: 40,
-          checked: contentState.options.enableEmailFooter === 'undefined' ? true : contentState.options.enableEmailFooter,
-          onChange: handleUpdateSwitch
-        })
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "wpwax-vm-form-group",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            disabled: "disabled",
+            uncheckedIcon: false,
+            checkedIcon: false,
+            onColor: "#6551F2",
+            offColor: "#E2E2E2",
+            className: "wpwax-vm-switch",
+            id: "enableEmailFooter",
+            handleDiameter: 14,
+            height: 22,
+            width: 40,
+            checked: contentState.options.enableEmailFooter === 'undefined' ? true : contentState.options.enableEmailFooter,
+            onChange: handleUpdateSwitch
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+          className: "wpwax-vm-input-desc-pro",
+          children: "Upgrate Pro to disable email footer."
+        })]
       })]
     })]
   });
@@ -8340,9 +8352,9 @@ var General = function General(props) {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "wpwax-vm-max-video-length",
             children: "Maximum Video Record Length"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__single--element",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "wpwax-vm-form-group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 type: "number",
@@ -8352,7 +8364,8 @@ var General = function General(props) {
                 placeholder: "Ex: 10",
                 value: contentState.options.maxVideoLength,
                 onChange: handleChange,
-                min: "1"
+                min: "1",
+                max: "2"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-input-addon",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -8360,7 +8373,10 @@ var General = function General(props) {
                   children: "Mins"
                 })
               })]
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "wpwax-vm-input-desc-pro",
+              children: "You can use maximum of 2 mins in free version."
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-settings__single",
@@ -8368,9 +8384,9 @@ var General = function General(props) {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "wpwax-vm-max-voice-length",
             children: "Maximum Voice Record Length"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__single--element",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "wpwax-vm-form-group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 type: "number",
@@ -8380,7 +8396,8 @@ var General = function General(props) {
                 placeholder: "Ex: 10",
                 value: contentState.options.maxVoiceLength,
                 onChange: handleChange,
-                min: "1"
+                min: "1",
+                max: "2"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-input-addon",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -8388,7 +8405,10 @@ var General = function General(props) {
                   children: "Mins"
                 })
               })]
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "wpwax-vm-input-desc-pro",
+              children: "You can use maximum of 2 mins in free version."
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-settings__single",
@@ -8396,23 +8416,29 @@ var General = function General(props) {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "video-resolution",
             children: "Video Resolution"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__single--element",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              inputId: "video-resolution",
-              classNamePrefix: "wpwax-vm-select",
-              options: resolutionOptions,
-              closeMenuOnSelect: true,
-              hideSelectedOptions: false,
-              searchable: false,
-              name: "videoResolution",
-              onChange: handleChangeSelectValue,
-              placeholder: "Select video resulation...",
-              value: resolutionOptions.filter(function (option) {
-                return option.value === contentState.options.videoResolution;
-              })[0],
-              defaultValue: parseResolutionOption(720)
-            })
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+              className: "wpwax-vm-form-group",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                inputId: "video-resolution",
+                classNamePrefix: "wpwax-vm-select",
+                options: resolutionOptions,
+                closeMenuOnSelect: true,
+                hideSelectedOptions: false,
+                searchable: false,
+                name: "videoResolution",
+                onChange: handleChangeSelectValue,
+                placeholder: "Select video resulation...",
+                value: resolutionOptions.filter(function (option) {
+                  return option.value === contentState.options.videoResolution;
+                })[0],
+                defaultValue: parseResolutionOption(720)
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "wpwax-vm-input-desc-pro",
+              children: "You can use maximum of 720p in free version."
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-settings__single",
@@ -8420,9 +8446,9 @@ var General = function General(props) {
             className: "wpwax-vm-settings__single--label",
             htmlFor: "wpwax-vm-max-upload-size",
             children: "Maximum Upload Size"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "wpwax-vm-settings__single--element",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "wpwax-vm-form-group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
                 type: "number",
@@ -8432,7 +8458,8 @@ var General = function General(props) {
                 placeholder: "Ex: 10",
                 value: contentState.options.maxUploadSize,
                 onChange: handleChange,
-                min: "0"
+                min: "0",
+                max: "50"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                 className: "wpwax-vm-input-addon",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -8440,7 +8467,10 @@ var General = function General(props) {
                   children: "MB"
                 })
               })]
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+              className: "wpwax-vm-input-desc-pro",
+              children: "You can use maximum of 50 MB in free version."
+            })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "wpwax-vm-settings__single",
@@ -8453,6 +8483,7 @@ var General = function General(props) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "wpwax-vm-form-group",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                disabled: "disabled",
                 type: "number",
                 className: "wpwax-vm-form__element",
                 id: "wpwax-vm-delete-attatchment",
@@ -8469,8 +8500,8 @@ var General = function General(props) {
                 })
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-              className: "wpwax-vm-input-desc",
-              children: "Leave empty to store as many days as you want."
+              className: "wpwax-vm-input-desc-pro",
+              children: "Upgrade to HelpGent Pro to use this feature."
             })]
           })]
         })]
@@ -10982,24 +11013,6 @@ var resolutions = {
   720: {
     width: 1280,
     height: 720
-  },
-  1080: {
-    width: 1920,
-    height: 1080
-  },
-  1440: {
-    width: 2560,
-    height: 1440
-  },
-  2160: {
-    width: 3840,
-    height: 2160,
-    hdKey: '4K'
-  },
-  7680: {
-    width: 7680,
-    height: 4320,
-    hdKey: '8K'
   }
 };
 function getLabel(resulation) {

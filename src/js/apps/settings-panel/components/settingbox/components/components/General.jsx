@@ -178,6 +178,7 @@ const General = (props) => {
                                     value={contentState.options.maxVideoLength}
                                     onChange={handleChange}
                                     min='1'
+                                    max='2'
                                 />
                                 <div className='wpwax-vm-input-addon'>
                                     <span className='wpwax-vm-input-addon__text'>
@@ -185,6 +186,9 @@ const General = (props) => {
                                     </span>
                                 </div>
                             </div>
+                            <p className='wpwax-vm-input-desc-pro'>
+                                You can use maximum of 2 mins in free version.
+                            </p>
                         </div>
                     </div>
                     <div className='wpwax-vm-settings__single'>
@@ -205,6 +209,7 @@ const General = (props) => {
                                     value={contentState.options.maxVoiceLength}
                                     onChange={handleChange}
                                     min='1'
+                                    max='2'
                                 />
                                 <div className='wpwax-vm-input-addon'>
                                     <span className='wpwax-vm-input-addon__text'>
@@ -212,6 +217,9 @@ const General = (props) => {
                                     </span>
                                 </div>
                             </div>
+                            <p className='wpwax-vm-input-desc-pro'>
+                                You can use maximum of 2 mins in free version.
+                            </p>
                         </div>
                     </div>
                    
@@ -223,23 +231,28 @@ const General = (props) => {
                             Video Resolution
                         </label>
                         <div className='wpwax-vm-settings__single--element'>
-                            <Select
-                                inputId='video-resolution'
-                                classNamePrefix='wpwax-vm-select'
-                                options={resolutionOptions}
-                                closeMenuOnSelect={true}
-                                hideSelectedOptions={false}
-                                searchable={false}
-                                name='videoResolution'
-                                onChange={handleChangeSelectValue}
-                                placeholder='Select video resulation...'
-                                value={
-                                    resolutionOptions.filter(function (option) {
-                                        return ( option.value === contentState.options.videoResolution );
-                                    })[0]
-                                }
-                                defaultValue={ parseResolutionOption( 720 ) }
-                            />
+                            <div className='wpwax-vm-form-group'>
+                                <Select
+                                    inputId='video-resolution'
+                                    classNamePrefix='wpwax-vm-select'
+                                    options={resolutionOptions}
+                                    closeMenuOnSelect={true}
+                                    hideSelectedOptions={false}
+                                    searchable={false}
+                                    name='videoResolution'
+                                    onChange={handleChangeSelectValue}
+                                    placeholder='Select video resulation...'
+                                    value={
+                                        resolutionOptions.filter(function (option) {
+                                            return ( option.value === contentState.options.videoResolution );
+                                        })[0]
+                                    }
+                                    defaultValue={ parseResolutionOption( 720 ) }
+                                />
+                            </div>
+                            <p className='wpwax-vm-input-desc-pro'>
+                                You can use maximum of 720p in free version.
+                            </p>
                         </div>
                     </div>
                     <div className='wpwax-vm-settings__single'>
@@ -260,6 +273,7 @@ const General = (props) => {
                                     value={contentState.options.maxUploadSize}
                                     onChange={handleChange}
                                     min='0'
+                                    max='50'
                                 />
                                 <div className='wpwax-vm-input-addon'>
                                     <span className='wpwax-vm-input-addon__text'>
@@ -267,6 +281,9 @@ const General = (props) => {
                                     </span>
                                 </div>
                             </div>
+                            <p className='wpwax-vm-input-desc-pro'>
+                                You can use maximum of 50 MB in free version.
+                            </p>
                         </div>
                     </div>  
                     <div className='wpwax-vm-settings__single'>
@@ -279,6 +296,7 @@ const General = (props) => {
                         <div className='wpwax-vm-settings__single--element'>
                             <div className='wpwax-vm-form-group'>
                                 <input
+                                    disabled='disabled'
                                     type='number'
                                     className='wpwax-vm-form__element'
                                     id='wpwax-vm-delete-attatchment'
@@ -296,9 +314,8 @@ const General = (props) => {
                                     </span>
                                 </div>
                             </div>
-                            <p className='wpwax-vm-input-desc'>
-                                Leave empty to store as
-                                many days as you want.
+                            <p className='wpwax-vm-input-desc-pro'>
+                                Upgrade to HelpGent Pro to use this feature.
                             </p>
                         </div>
                     </div>

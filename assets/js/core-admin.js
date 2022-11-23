@@ -165,6 +165,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Lib_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(Lib_hooks__WEBPACK_IMPORTED_MODULE_1__);
 
 
+window.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('helpgent_pro_menu').previousElementSibling.remove();
+});
 }();
 /******/ })()
 ;

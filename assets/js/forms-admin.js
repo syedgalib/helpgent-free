@@ -6959,7 +6959,7 @@ var CreateFormModal = function CreateFormModal(props) {
           "show_description": true,
           "description": "Please leave your questions below",
           "chat_options_title": "How would you like to contact?",
-          "can_replay_in": ["video", "voice", "text", "screen_record"],
+          "can_replay_in": ["video", "voice", "text"],
           "show_footer": true,
           "footer_message": "You can review it before sending",
           "thank_page_title": "Thank You 💐",
@@ -9111,27 +9111,6 @@ var FormSettings = function FormSettings() {
             width: 40,
             id: "wpwax-vm-reply-text",
             checked: chatReplyType.indexOf('text') === -1 ? false : true,
-            onChange: handleChatReplyType
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
-          className: "wpwax-vm-switch-single",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("span", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_16__["default"], {
-              src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_11__["default"]
-            }), "Screen"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_switch__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            disabled: shouldDisabledReplayType('screen_record'),
-            uncheckedIcon: false,
-            checkedIcon: false,
-            onColor: "#6551f2",
-            offColor: "#E2E2E2",
-            onHandleColor: "#FFFFFF",
-            className: "wpwax-vm-switch",
-            handleDiameter: 14,
-            height: 22,
-            width: 40,
-            id: "wpwax-vm-reply-screen",
-            checked: chatReplyType.indexOf('screen_record') === -1 ? false : true,
             onChange: handleChatReplyType
           })]
         })]
@@ -13511,24 +13490,6 @@ var resolutions = {
   720: {
     width: 1280,
     height: 720
-  },
-  1080: {
-    width: 1920,
-    height: 1080
-  },
-  1440: {
-    width: 2560,
-    height: 1440
-  },
-  2160: {
-    width: 3840,
-    height: 2160,
-    hdKey: '4K'
-  },
-  7680: {
-    width: 7680,
-    height: 4320,
-    hdKey: '8K'
   }
 };
 function getLabel(resulation) {

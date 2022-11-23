@@ -45,12 +45,6 @@ const SettingBox = () => {
                 },
             ],
         },
-        {
-            label: 'License',
-            path: 'license',
-            navId: 'wpwax-vm-license-settings',
-            icon: <ReactSVG src={handShake} />,
-        },
     ];
 
     const totalNav = settingsNav.length;
@@ -189,6 +183,14 @@ const SettingBox = () => {
                         </span>
                         <span className='wpwax-vm-settings-top__link-text'>
                             Support
+                        </span>
+                    </a>
+                    <a target='_blank' href='https://wpwax.com/helpgent/'>
+                        <span className='wpwax-vm-settings-top__link-icon'>
+                            <ReactSVG src={link} />
+                        </span>
+                        <span className='wpwax-vm-settings-top__link-text'>
+                            Go Pro
                         </span>
                     </a>
                 </div>

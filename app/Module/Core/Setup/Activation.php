@@ -130,7 +130,6 @@ class Activation
 					 'video', 
 					 'voice', 
 					 'text', 
-					 'screen_record' 
 				  ], 
 			'show_footer'                      => true,
 			'footer_message'                   => 'You can review it before sending',

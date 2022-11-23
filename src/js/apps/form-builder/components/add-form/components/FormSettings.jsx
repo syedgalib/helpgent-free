@@ -467,24 +467,7 @@ const FormSettings = () => {
                             onChange={handleChatReplyType}
                         />
                     </div>
-                    <div className="wpwax-vm-switch-single">
-                        <span><ReactSVG src={recordIcon}/>Screen</span>
-                        <Switch
-							disabled={ shouldDisabledReplayType( 'screen_record' ) }
-                            uncheckedIcon={false}
-                            checkedIcon={false}
-                            onColor="#6551f2"
-                            offColor="#E2E2E2"
-                            onHandleColor="#FFFFFF"
-                            className="wpwax-vm-switch"
-                            handleDiameter={14}
-                            height={22}
-                            width={40}
-                            id="wpwax-vm-reply-screen"
-                            checked={chatReplyType.indexOf('screen_record') === -1 ? false : true}
-                            onChange={handleChatReplyType}
-                        />
-                    </div>
+                   
                 </div>
             </div>
             <div className="wpwax-vm-form-group">

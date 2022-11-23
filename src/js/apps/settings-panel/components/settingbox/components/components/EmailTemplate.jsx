@@ -361,24 +361,30 @@ const EmailTemplate = (props) => {
                     Enable Footer
                 </label>
                 <div className='wpwax-vm-settings__single--element'>
-                    <Switch
-                        uncheckedIcon={false}
-                        checkedIcon={false}
-                        onColor='#6551F2'
-                        offColor='#E2E2E2'
-                        className='wpwax-vm-switch'
-                        id='enableEmailFooter'
-                        handleDiameter={14}
-                        height={22}
-                        width={40}
-                        checked={
-                            contentState.options.enableEmailFooter ===
-                            'undefined'
-                                ? true
-                                : contentState.options.enableEmailFooter
-                        }
-                        onChange={handleUpdateSwitch}
-                    />
+                    <div className='wpwax-vm-form-group'>
+                        <Switch
+                            disabled='disabled'
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            onColor='#6551F2'
+                            offColor='#E2E2E2'
+                            className='wpwax-vm-switch'
+                            id='enableEmailFooter'
+                            handleDiameter={14}
+                            height={22}
+                            width={40}
+                            checked={
+                                contentState.options.enableEmailFooter ===
+                                'undefined'
+                                    ? true
+                                    : contentState.options.enableEmailFooter
+                            }
+                            onChange={handleUpdateSwitch}
+                        />
+                    </div>
+                    <p className='wpwax-vm-input-desc-pro'>
+                        Upgrate Pro to disable email footer.
+                    </p>
                 </div>
             </div>
         </div>

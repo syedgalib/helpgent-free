@@ -27,8 +27,7 @@ const CreateFormModal = props => {
 				"can_replay_in":[
 				"video",
 				"voice",
-				"text",
-				"screen_record"
+				"text"
 				],
 				"show_footer":true,
 				"footer_message":"You can review it before sending",

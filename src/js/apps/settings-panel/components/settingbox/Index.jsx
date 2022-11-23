@@ -61,7 +61,7 @@ const SettingBox = () => {
         options: {
             guestSubmission: true,
             chatHeadPosition: 'bottom-right',
-            userDashboardPage: '2',
+            userDashboardPage: '',
             maxVideoLength: '2',
             maxVoiceLength: '2',
             videoResolution: '720',

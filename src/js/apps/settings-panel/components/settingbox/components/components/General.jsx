@@ -60,7 +60,7 @@ const General = (props) => {
     return (
         <div className='wpwax-vm-settings'>
             <div className='wpwax-vm-card'>
-                
+
                 <div className='wpwax-vm-card-body'>
                     <div className='wpwax-vm-settings__single'>
                         <label
@@ -214,7 +214,7 @@ const General = (props) => {
                             </div>
                         </div>
                     </div>
-                   
+
                     <div className='wpwax-vm-settings__single'>
                         <label
                             className='wpwax-vm-settings__single--label'
@@ -268,7 +268,7 @@ const General = (props) => {
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                     <div className='wpwax-vm-settings__single'>
                         <label
                             className='wpwax-vm-settings__single--label'

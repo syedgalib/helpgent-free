@@ -739,13 +739,13 @@ function update_option($option_key = '', $value = '')
  * @param array $options
  * @return array $options
  */
-function update_options($new_options = [])
+function update_options( $new_options = [] )
 {
 	$old_options = get_options();
 
-	$options = array_merge($old_options, $new_options);
+	$options = array_merge( $old_options, $new_options );
 
-	\update_option(HELPGENT_OPTIONS, $options);
+	\update_option( HELPGENT_OPTIONS, $options );
 
 	return $options;
 }

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { showChatbox } from "../../store/chatbox/actionCreator";
 import AvatarWrap from "./Style";
-import avater from 'Assets/img/avatar.png';
+import intro from 'Assets/img/intro.gif';
 
 function Avatar() {
 	const videoRef = useRef();
@@ -41,7 +41,7 @@ function Avatar() {
 				templateOptions.greet_image_url ? <img className="wpwwax-vm-avatar" src={ templateOptions.greet_image_url } alt="Avatar" /> : null
 			}
 			{
-				!templateOptions.greet_video_url && !templateOptions.greet_image_url ? <img className="wpwwax-vm-avatar" src={ avater } alt="Avatar" /> : null
+				!templateOptions.greet_video_url && !templateOptions.greet_image_url ? <img className="wpwwax-vm-avatar" src={ intro } alt="Avatar" /> : null
 			}
 		</AvatarWrap> : null
 	);

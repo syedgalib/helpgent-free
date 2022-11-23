@@ -6489,7 +6489,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _store_chatbox_actionCreator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/chatbox/actionCreator */ "./src/js/apps/chatbox/store/chatbox/actionCreator.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/js/apps/chatbox/components/avatar/Style.js");
-/* harmony import */ var Assets_img_avatar_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/img/avatar.png */ "./src/assets/img/avatar.png");
+/* harmony import */ var Assets_img_intro_gif__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/img/intro.gif */ "./src/assets/img/intro.gif");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -6543,7 +6543,7 @@ function Avatar() {
       alt: "Avatar"
     }) : null, !templateOptions.greet_video_url && !templateOptions.greet_image_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
       className: "wpwwax-vm-avatar",
-      src: Assets_img_avatar_png__WEBPACK_IMPORTED_MODULE_4__["default"],
+      src: Assets_img_intro_gif__WEBPACK_IMPORTED_MODULE_4__["default"],
       alt: "Avatar"
     }) : null]
   }) : null;
@@ -24661,18 +24661,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ "./src/assets/img/avatar.png":
-/*!***********************************!*\
-  !*** ./src/assets/img/avatar.png ***!
-  \***********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6f8660f3df8cdcc746a16451c1420363.png");
-
-/***/ }),
-
 /***/ "./src/assets/img/chatbox/permission.png":
 /*!***********************************************!*\
   !*** ./src/assets/img/chatbox/permission.png ***!
@@ -24706,6 +24694,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/be848ad380f508b04945641600198566.png");
+
+/***/ }),
+
+/***/ "./src/assets/img/intro.gif":
+/*!**********************************!*\
+  !*** ./src/assets/img/intro.gif ***!
+  \**********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/fe07ad8d037b6f517a65a6e8e3a2e32b.gif");
 
 /***/ }),
 

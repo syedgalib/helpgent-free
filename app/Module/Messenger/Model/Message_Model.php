@@ -122,9 +122,9 @@ class Message_Model extends DB_Model {
 		$total_pages = 1;
 
 		if ( ! empty( $pagination ) ) {
-			$remider     = $found_items % $limit;
-			$total_pages = ( $found_items - $remider ) / $limit;
-			$total_pages = ( $remider > 0 ) ? $total_pages + 1 : $total_pages;
+			$remainder     = $found_items % $limit;
+			$total_pages = ( $found_items - $remainder ) / $limit;
+			$total_pages = ( $remainder > 0 ) ? $total_pages + 1 : $total_pages;
 		}
 
 		$data = [

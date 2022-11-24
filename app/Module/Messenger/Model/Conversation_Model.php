@@ -101,6 +101,7 @@ class Conversation_Model extends DB_Model {
 			'status'     => 'conversation',
 			'created_at' => 'conversation',
 			'updated_at' => 'conversation',
+			'created_by' => 'conversation',
 			'user_email' => 'message',
 		];
 

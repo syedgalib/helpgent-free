@@ -10,6 +10,7 @@ import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../s
 
 import useMessangerAPI from 'API/useMessangerAPI';
 import useAttachmentAPI from 'API/useAttachmentAPI.js';
+import { MB_IN_BYTES } from 'Helper/const';
 
 const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
@@ -84,7 +85,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     function getMaxUploadSize() {
         if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
-            return 0;
+            return 100 * MB_IN_BYTES;
         }
 
         return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);

@@ -7,11 +7,12 @@ import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 import screenTypes from '../../../../store/chatbox/screenTypes';
 import { VideoHomeWrap } from './Style';
 import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
+import { MB_IN_BYTES } from 'Helper/const.js';
 
 const Video = () => {
 
     const dispatch = useDispatch();
-    
+
     const stages = {
         HOME: 'home',
         RECORD: 'record',
@@ -85,7 +86,7 @@ const Video = () => {
 
     function getMaxUploadSize() {
         if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
-            return 0;
+            return 100 * MB_IN_BYTES;
         }
 
         return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);

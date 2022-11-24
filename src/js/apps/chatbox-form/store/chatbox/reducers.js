@@ -2,7 +2,7 @@ import actions from './actions';
 import screenTypes from './screenTypes';
 
 const initialState = {
-	showChatbox: false,
+	showChatbox: true,
   	screenToggler: false,
   	screenTogglerContent: 'Open',
 	currentChatScreen: screenTypes.SPLASH_SCREEN,

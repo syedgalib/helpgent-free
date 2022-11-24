@@ -13075,8 +13075,7 @@ function useVideoRecorder(config) {
               return navigator.mediaDevices.getUserMedia({
                 audio: {
                   echoCancellation: true,
-                  noiseSuppression: true,
-                  sampleRate: 44100
+                  noiseSuppression: true
                 },
                 video: _objectSpread({
                   facingMode: 'user'
@@ -13088,7 +13087,8 @@ function useVideoRecorder(config) {
                 type: 'video',
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
-                disableLogs: true
+                disableLogs: true,
+                numberOfAudioChannels: 1
               });
               if (videoStreemRef.current.srcObject) {
                 videoStreemRef.current.srcObject.getVideoTracks().forEach(function (track) {

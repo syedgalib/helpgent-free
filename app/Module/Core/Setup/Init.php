@@ -27,6 +27,7 @@ class Init {
     protected function get_controllers() {
         return [
             Activation::class,
+            Flush_Rewrite_Rules::class,
             EDD_SL_Plugin_Updater::class,
         ];
     }

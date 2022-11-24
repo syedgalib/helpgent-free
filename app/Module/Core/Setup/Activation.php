@@ -116,8 +116,8 @@ class Activation
 		$options = [
 			'theme'       => 'theme-1',
 			'collectInfo' => [
-				  'phone' 
-			   ], 
+				  'phone'
+			   ],
 			'greet_image_url'          => '',
 			'greet_video_url'          => '',
 			'greet_message'            => 'Hello there! 👋',
@@ -127,11 +127,11 @@ class Activation
 			'description'              => 'Please leave your questions below',
 			'chat_options_title'       => 'How would you like to contact?',
 			'can_replay_in'            => [
-					 'video', 
-					 'voice', 
-					 'text', 
-					 'screen_record' 
-				  ], 
+					 'video',
+					 'voice',
+					 'text',
+					 'screen_record'
+				  ],
 			'show_footer'                      => true,
 			'footer_message'                   => 'You can review it before sending',
 			'thank_page_title'                 => 'Thank You 💐',

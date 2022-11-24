@@ -3,7 +3,7 @@
 namespace HelpGent\Module\Settings_Panel\Setup;
 
 use HelpGent\Base\Helper;
-use HelpGent\Module\Settings_Panel\Model\Settings;
+use HelpGent\Module\Settings_Panel\Model\Settings_Model;
 
 class Activation {
 
@@ -29,7 +29,7 @@ class Activation {
 			return;
 		}
 
-		Helper\update_options( Settings::get_default_options() );
+		Helper\update_options( Settings_Model::get_default_options() );
 	}
 
 }

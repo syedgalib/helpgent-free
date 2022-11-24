@@ -170,9 +170,7 @@ function Theme_2() {
                     {
                         templateOptions.greet_video_url &&
                             <a href="#" onClick={toggolePlayGreetVideo} className="wpwax-vm-btn-play">
-                                {
-                                    ( isPausedGreetVideo() ) ? <ReactSVG src={playIcon} /> : <ReactSVG src={pauseIcon} />
-                                }
+                                <ReactSVG src={ isPausedGreetVideo() ? playIcon : pauseIcon } />
                             </a>
                     }
 

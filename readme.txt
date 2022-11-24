@@ -18,11 +18,11 @@ HelpGent is a free yet reliable, asynchronous communicaiton tool that offers jaw
 
 The plugin can boast of the features like an Attractive Builder with Customization, Two Theme Form Support Home Screen, Color Font Size customization ability, Search & Sorting by Text, Videos & Voice, Nice Filtering System By Tag, Search Conversation by name & email, and Quick Name edit.
 
-👉 Join Our FB Community: HelpGent Community(https://www.facebook.com/HelpGent/)
-​​👉 Official Facebook Page: Like and Follow on Facebook(https://www.facebook.com/HelpGent/)
-👉 Official Twitter Handle: Follow on Twitter(https://twitter.com/helpgent)
-👉 Official YouTube Channel: Follow on YouTube(https://www.youtube.com/c/wpWax)
-👉 Official Support: Contact(https://wpwax.com/contact/)
+👉 Join Our FB Community: [HelpGent Community](https://www.facebook.com/HelpGent/)
+​​👉 Official Facebook Page: [Like and Follow on Facebook](https://www.facebook.com/HelpGent/)
+👉 Official Twitter Handle: [Follow on Twitter](https://twitter.com/helpgent)
+👉 Official YouTube Channel: [Follow on YouTube](https://www.youtube.com/c/wpWax)
+👉 Official Support: [Contact](https://wpwax.com/contact/)
 
 == THE ONLY WORDPRESS PLUGIN FOR VIDEO MESSAGING ==
 

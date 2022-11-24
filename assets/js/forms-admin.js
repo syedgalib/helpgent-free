@@ -13595,7 +13595,7 @@ function generateFileNameFromBlob(blob) {
   }
   var type = blob.type.match(/^[\w]+\/[\w]+/);
   var ext = type ? type[0].replace(/^[\w]+\//, '') : '';
-  return makeid(10) + '.' + ext;
+  return Date.now() + '.' + ext;
 }
 function makeid(length) {
   var result = '';

@@ -498,13 +498,14 @@ abstract class DB_Model implements DB_Model_Interface {
 				continue;
 			}
 
-
 			// General Query
+			$return_key_if_table_not_found = $skip_if_field_key_not_found ? false : true;
+
 			// Case 1
 			if ( ! is_array( $value ) ) {
-				$field_key = self::prepare_field_key( $key, $table_field_map );
+				$field_key = self::prepare_field_key( $key, $table_field_map, $return_key_if_table_not_found );
 
-				if ( $skip_if_field_key_not_found && empty( $field_key ) ) {
+				if ( empty( $field_key ) ) {
 					continue;
 				}
 
@@ -518,14 +519,14 @@ abstract class DB_Model implements DB_Model_Interface {
 				$_condition = ( ! empty( $value['condition'] ) && in_array( $value['condition'], $supported_conditions ) ) ? $value['condition'] : 'AND';
 
 				foreach ( $value['rules'] as $index => $rule ) {
-					$_key = self::prepare_field_key( $rule['key'], $table_field_map );
+					$_key = self::prepare_field_key( $rule['key'], $table_field_map, $return_key_if_table_not_found );
 
-					if (  $skip_if_field_key_not_found && empty( $_key ) ) {
+					if ( empty( $_key ) ) {
 						continue;
 					}
 
 					$_compare = ( ! empty( $rule['compare'] ) ) ? $rule['compare'] : '=';
-					$_value   = self::parse_query_value( $rule['value'], $_compare );
+					$_value   = self::parse_query_value( $rule['value'], $_compare, $return_key_if_table_not_found );
 
 					if ( $index === 0 ) {
 						$_where .= " {$_key} {$_compare} {$_value}";
@@ -545,9 +546,9 @@ abstract class DB_Model implements DB_Model_Interface {
 			}
 
 			// Case 3
-			$_key = self::prepare_field_key( $value['key'], $table_field_map );
+			$_key = self::prepare_field_key( $value['key'], $table_field_map, $return_key_if_table_not_found );
 
-			if ( $skip_if_field_key_not_found && empty( $_key ) ) {
+			if ( empty( $_key ) ) {
 				continue;
 			}
 
@@ -568,9 +569,9 @@ abstract class DB_Model implements DB_Model_Interface {
 	 *
 	 * @return string Field Key
 	 */
-	public static function prepare_field_key( $key = '', $field_map = [] ) {
-		if ( empty( $field_map[ $key ] ) ) {
-			return '';
+	public static function prepare_field_key( $key = '', $field_map = [], $return_key_if_table_not_found = true ) {
+		if ( empty( $field_map[ $key ]  ) ) {
+			return ( $return_key_if_table_not_found ) ?  $key : '';
 		}
 
 		$table = $field_map[ $key ];
@@ -580,11 +581,11 @@ abstract class DB_Model implements DB_Model_Interface {
 		}
 
 		if ( ! is_array( $table ) ) {
-			return '';
+			return ( $return_key_if_table_not_found ) ?  $key : '';
 		}
 
 		if ( empty( $table['table'] ) || empty( $table['key'] ) ) {
-			return '';
+			return ( $return_key_if_table_not_found ) ?  $key : '';
 		}
 
 		return $table['table'] . '.' . $table['key'];

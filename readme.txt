@@ -1,6 +1,6 @@
 ﻿=== HelpGent ===
 Contributors: wpwax
-Tags: chat, support,voice,video,audio,screen record, asynchronous
+Tags: chat, support,voice,video,audio,screen record, asynchronous, message
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0

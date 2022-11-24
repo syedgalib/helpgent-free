@@ -31,7 +31,6 @@ const Table = props => {
         deleteId,
         loader,
     } = formState;
-    
     const { editElementIndex } = editElementIndexState;
 
     /* Edit Mode Activation */
@@ -76,14 +75,29 @@ const Table = props => {
         event.preventDefault();
 
         let args = {
-            name: titleInput ? titleInput : '',
+            name: titleInput,
         };
+
+		const matchOldName = data.some((form) => (form.id === id && form.name === titleInput));
+
+		if (matchOldName) {
+			setFormState({
+				...formState,
+				responseType: 'success',
+				message: `You did not change the form name, try something different`,
+			});
+
+			return;
+		}
 
         updateForm(id, args)
             .then((response) => {
                 if (response.success) {
+					let oldName = '';
                     const forms = data.map((form) => {
                         if (form.id === id) {
+							oldName = form.name;
+
                             form.name = titleInput;
                         }
                         return form;
@@ -92,7 +106,7 @@ const Table = props => {
                         ...formState,
                         data: forms,
                         responseType: 'success',
-                        message: response.message,
+                        message: `"${oldName}" has been updated to "${response.data.name}"`,
                         loader: false,
                     });
                 } else {
@@ -119,15 +133,22 @@ const Table = props => {
 
         deleteForm(deleteId)
             .then((response) => {
+				console.log(response);
+
                 if (response.success) {
-                    const stateData = data.filter(
-                        (item) => item.id !== deleteId
-                    );
+					let formName = '';
+                    const stateData = data.filter((form) => {
+						if (form.id === deleteId) {
+							formName = form.name;
+							return false;
+						}
+						return true;
+					});
                     setFormState({
                         ...formState,
                         data: stateData,
                         responseType: 'success',
-                        message: response.message,
+                        message: `"${formName}" has been deleted`,
                         modalStatus: 'close',
                         loader: false,
                     });
@@ -175,6 +196,7 @@ const Table = props => {
 
         updateForm(id, { status: newStatus })
             .then((response) => {
+				console.log(response);
                 if (response.success) {
                     const forms = data.map((form) => {
                         if (form.id === id) {
@@ -186,7 +208,7 @@ const Table = props => {
                         ...formState,
                         data: forms,
                         responseType: 'success',
-                        message: response.message,
+                        message: ( newStatus === 'publish' ? `"${response.data.name}" has been published.` : `"${response.data.name}" has been unpublished.` ),
                         loader: false,
                     });
                 } else {

@@ -4,10 +4,11 @@ const AddFormStyle = Styled.div`
     display: flex;
     align-items: flex-start;
     color: #4D4D4D;
-    margin-top: 30px;
+    margin: 30px 20px 0 0;
     @media only screen and (max-width: 760px) {
         flex-direction: column;
-        align-items: center
+        align-items: center;
+        margin: 30px 10px 0 0;
     }
     .wpwax-vm-add-form{
         position: relative;
@@ -301,22 +302,36 @@ const AddFormStyle = Styled.div`
         justify-content: center;
         align-items: center;
         border-radius: 0 0 14px 14px;
-        padding: 12px 0;
+        padding: 10px;
+        margin: -5px;
         transition: background-color .3s ease-in-out;
-        background-color: #6551f2;
-        &:hover{
+        /* background-color: #6551f2; */
+        /* &:hover{
             background-color: #3e2bc5;
-        }
-        a{
+        } */
+        button{
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             min-height: 24px;
+            margin: 5px;
+            border-radius: 10px;
             text-decoration: none;
             color: #ffffff;
+            &.wpwax-vm-btn-gray{
+                color: #4D4D4D;
+                &:hover{
+                    background-color: #cfd1d4;
+                }
+                svg{
+                    path{
+                        fill: #4D4D4D;
+                    }
+                }
+            }
             &:focus{
                 outline: none;
                 box-shadow: 0 0;
@@ -326,7 +341,7 @@ const AddFormStyle = Styled.div`
                 ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 10px;
             }
         }
-        button{
+        /* button{
             font-size: 17px;
             font-weight: 600;
             border: 0 none;
@@ -336,7 +351,7 @@ const AddFormStyle = Styled.div`
             width: 100%;
             cursor: pointer;
             background: transparent;
-        }
+        } */
     }
     .wpwax-vm-preview{
         flex: auto;
@@ -469,7 +484,142 @@ const AddFormStyle = Styled.div`
     }
 `;
 
+const FormTopStyle = Styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    min-height: 60px;
+    background-color: var(--color-white);
+    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -20px;
+    @media only screen and (max-width: 991px) {
+        flex-direction: column;
+    }
+    @media only screen and (max-width: 1100px) {
+        padding: 20px 15px;
+    }
+    @media only screen and (max-width: 475px) {
+        ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: -10px;
+    }
+    .wpwax-vm-form-top__left{
+        display: flex;
+        align-items: center;
+        @media only screen and (max-width: 991px) {
+            margin-bottom: 15px;
+        }
+        @media only screen and (max-width: 475px) {
+            flex-direction: column;
+            align-items: center;
+        }
+        a{
+            font-size: 14px;
+            font-weight: 500;
+            color: #1B83FB;
+            min-height: 20px;
+            text-decoration: none;
+            border-right: 1px solid var(--color-border-light);
+            ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 20px;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 20px;
+            @media only screen and (max-width: 1100px) {
+                ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 10px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 10px;
+            }
+            @media only screen and (max-width: 475px) {
+                ${({ theme }) => (theme.direction === 'ltr' ? 'padding-right' : 'padding-left')}: 0;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 0;
+                border-right: 0px;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: 0 0;
+            }
+            svg{
+                width: 12px;
+                height: 12px;
+                position: relative;
+                top: 1px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 4px;
+                path{
+                    fill: #1B83FB;
+                }
+            }
+        }
+        p{
+            font-size: 14px;
+            color: #4D4D4D;
+            margin: 0;
+            svg{
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
+                path{
+                    fill: var(--color-gray);
+                }
+            }
+            strong{
+                font-weight: 600;
+                color: var(--color-dark);
+            }
+        }
+    }
+    .wpwax-vm-form-top__right{
+        display: flex;
+        margin: -15px;
+        @media only screen and (max-width: 1100px) {
+            margin: -10px;
+        }
+        @media only screen and (max-width: 475px) {
+            flex-direction: column;
+            align-items: center;
+        }
+        a{
+            margin: 15px;
+            @media only screen and (max-width: 1100px) {
+                margin: 10px;
+            }
+            &.wpwax-vm-form-top__link{
+                font-size: 14px;
+                font-weight: 500;
+                display: none;
+                align-items: center;
+                text-decoration: none;
+                color: #4D4D4D;
+                svg{
+                    ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
+                    path{
+                        fill: var(--color-text);
+                    }
+                }
+                &:hover{
+                    color: var(--color-primary);
+                    svg{
+                        path{
+                            fill: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+        .wpwax-vm-btn-upgrade{
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 13.5px;
+            background-color: #FEAD13;
+            border: 1px solid #FEAD13;
+            color: #000;
+            display: none;
+            height: 30px;
+            svg{
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-right' : 'margin-left')}: 8px;
+                ${({ theme }) => (theme.direction === 'ltr' ? 'margin-left' : 'margin-right')}: 0;
+            }
+            &:hover{
+                background-color: var(--color-white);
+            }
+        }
+    }
+`;
+
 export {
     AddFormStyle,
+    FormTopStyle
 };
 

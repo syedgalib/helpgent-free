@@ -72,38 +72,45 @@ const Taglist = (props) => {
         const tagArg = {
             name: debouncedSearchTerm,
         };
-        const fetchSearchNameMail = async () => {
+        if(tagListModalOpen){
+
+            const fetchSearchNameMail = async () => {
             
-            const searchByNameMailResponse = await getTerms(tagArg);
-            return searchByNameMailResponse;
-        };
-
-        fetchSearchNameMail()
-            .then((searchByNameMailResponse) => {
-
-                setTagState({
-                    ...tagState,
-                    tagLoader: false,
-                    allTags: searchByNameMailResponse.data,
+                const searchByNameMailResponse = await getTerms(tagArg);
+                return searchByNameMailResponse;
+            };
+    
+            fetchSearchNameMail()
+                .then((searchByNameMailResponse) => {
+    
+                    setTagState({
+                        ...tagState,
+                        tagLoader: false,
+                        allTags: searchByNameMailResponse.data,
+                    });
+    
+                    setState({
+                        ...state,
+                        hasMore: false,
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
-
-                setState({
-                    ...state,
-                    hasMore: false,
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        }
+        
 
     },[debouncedSearchTerm]);
 
     useEffect(() => {
         if(tagListModalOpen){
-            setTagState({
-                ...tagState,
-                tagLoader: true
-            });
+            if(allTags.length === 0){
+                setTagState({
+                    ...tagState,
+                    tagLoader: true
+                });
+            }
+            
             const fetchTags = async () =>{
                 const tagsResponse = await getTerms({limit:8});
                 return tagsResponse;

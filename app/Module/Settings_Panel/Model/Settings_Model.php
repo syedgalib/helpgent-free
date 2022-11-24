@@ -3,7 +3,7 @@
 namespace HelpGent\Module\Settings_Panel\Model;
 use HelpGent\Base\Helper;
 
-class Settings {
+class Settings_Model {
 
 	/**
 	 * Get Default Options
@@ -38,6 +38,19 @@ class Settings {
 		$options = apply_filters( 'helpgent_default_settings', $options );
 
 		return $options;
+	}
+
+	/**
+	 * Get Secret Option Keys
+	 *
+	 * @return array Secret Option Keys
+	 */
+	public static function get_secret_option_keys() {
+
+		return apply_filters( 'helpgent_secret_option_keys', [
+			'helpgent_license',
+		]);
+
 	}
 
 }

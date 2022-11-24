@@ -697,19 +697,18 @@ function get_wp_pages()
 function get_options( $hide_secret_options = true ) {
 
 	$secret_option_keys = Settings_Model::get_secret_option_keys();
-	$options            = \get_option(HELPGENT_OPTIONS, []);
+	$options            = \get_option( HELPGENT_OPTIONS, [] );
 
 	if ( ! $hide_secret_options ) {
 		return $options;
 	}
 
-	foreach( array_keys( $options ) as $option_key ) {
+	foreach( $secret_option_keys as $secret_key ) {
 
-		if ( ! in_array( $option_key, $secret_option_keys ) ) {
-			continue;
+		if ( isset( $options[ $secret_key ] ) ) {
+			unset( $options[ $secret_key ] );
 		}
 
-		unset( $options[ $option_key ] );
 	}
 
 	return $options;

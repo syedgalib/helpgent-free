@@ -14,6 +14,7 @@ import useAttachmentAPI from 'API/useAttachmentAPI.js';
 
 import useCountdown from 'Hooks/useCountdown';
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
+import { MIN_IN_SECONDS } from 'Helper/const';
 
 const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const stages = {
@@ -91,11 +92,11 @@ const Record = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 			return parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
 		}
 
-		return null;
+		return 2 * MIN_IN_SECONDS;
 	}
 
 	function getVideoResolution() {
-		let resolution = null;
+		let resolution = 720;
 
 		const videoResolution = useCoreData( 'settings.videoResolution' );
 

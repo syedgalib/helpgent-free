@@ -64,7 +64,6 @@ export default function useScreenRecorder( config ) {
 				audio: {
 					echoCancellation: true,
 					noiseSuppression: true,
-					sampleRate: 44100,
 				},
 			})
 
@@ -87,7 +86,6 @@ export default function useScreenRecorder( config ) {
 				audio: {
 					echoCancellation: true,
 					noiseSuppression: true,
-					sampleRate: 44100,
 				},
 			});
 
@@ -101,6 +99,7 @@ export default function useScreenRecorder( config ) {
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true,
+				numberOfAudioChannels: 1,
             });
 
 			// Stop Recording If Native Stop Sharing Button Is Pressed
@@ -151,7 +150,7 @@ export default function useScreenRecorder( config ) {
 
 			setRecordedTimeInSecond(0);
 			setIsRecording(false);
-			
+
 			afterStopRecording();
 			return;
 		}

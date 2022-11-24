@@ -42,6 +42,7 @@ import { getTimezoneString } from 'Helper/utils.js';
 import useConversationAPI from 'API/useConversationAPI.js';
 import useMessangerAPI from 'API/useMessangerAPI.js';
 import useAttachmentAPI from 'API/useAttachmentAPI.js';
+import { MIN_IN_SECONDS } from 'Helper/const.js';
 
 const CenterBoxStyle = {
     minHeight: '770px',
@@ -145,7 +146,7 @@ function MessageBox({ setSessionState }) {
         messengerScriptData &&
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
             ? parseFloat(messengerScriptData.voiceRecordTimeLimit)
-            : 120; // 2 Minuites
+            : 2 * MIN_IN_SECONDS;
 
     const [screenRecordState, setScreenRecordState] = useState({
         recordStage: "request_permission"
@@ -229,7 +230,7 @@ function MessageBox({ setSessionState }) {
 			return parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
 		}
 
-		return null;
+		return MIN_IN_SECONDS * 2;
 	}
 
 
@@ -999,7 +1000,6 @@ function MessageBox({ setSessionState }) {
                     audio: {
                         echoCancellation: true,
                         noiseSuppression: true,
-                        sampleRate: 44100,
                     },
                 });
 
@@ -1010,6 +1010,7 @@ function MessageBox({ setSessionState }) {
                     mimeType: 'audio/wav',
                     recorderType: RecordRTC.StereoAudioRecorder,
                     disableLogs: true,
+					numberOfAudioChannels: 1,
                 }
             );
 

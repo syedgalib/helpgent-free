@@ -20,6 +20,7 @@ import useChatboxController from '../../../hooks/useChatboxController';
 
 import useCountdown from 'Hooks/useCountdown';
 import useVideoRecorder from 'Hooks/media-recorder/useVideoRecorder';
+import { MIN_IN_SECONDS } from 'Helper/const';
 
 const Record = () => {
 	const stages = {
@@ -77,7 +78,7 @@ const Record = () => {
 
 	const { addAction } = wpwaxHooks;
     const dispatch = useDispatch();
-    
+
 
     // Init State
     useState(function () {
@@ -136,14 +137,14 @@ const Record = () => {
 
 	function getMaxRecordLength() {
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			return parseFloat( settings.maxVideoLength ) * 60;
+			return parseFloat( settings.maxVideoLength ) * MIN_IN_SECONDS;
 		}
 
-		return null;
+		return 2 * MIN_IN_SECONDS;
 	}
 
 	function getVideoResolution() {
-		let resolution = null;
+		let resolution = 720;
 
 		if ( settings && typeof settings.videoResolution !== 'undefined' && ! isNaN( settings.videoResolution ) ) {
 			resolution = `${settings.videoResolution}`;

@@ -875,7 +875,8 @@ function get_current_user() {
  */
 function max_upload_size() {
 	$custom_size = get_option( 'maxUploadSize', 100 ); // In MB
-	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size * ( 1024 * 1024) : 100;
+	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size : 100;
+	$custom_size = $custom_size * MB_IN_BYTES; // In Bytes
 
 	return $custom_size > wp_max_upload_size() ? wp_max_upload_size() : $custom_size;
 }

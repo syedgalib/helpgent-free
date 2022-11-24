@@ -101,7 +101,6 @@ export default function useVideoRecorder( config ) {
 				audio: {
 					echoCancellation: true,
 					noiseSuppression: true,
-					sampleRate: 44100,
 				},
 				video: {
 					facingMode: 'user',
@@ -115,6 +114,7 @@ export default function useVideoRecorder( config ) {
                 mimeType: 'video/webm;codecs=vp9',
                 recorderType: RecordRTC.MediaStreamRecorder,
                 disableLogs: true,
+				numberOfAudioChannels: 1,
             });
 
 			if ( videoStreemRef.current.srcObject ) {
@@ -174,7 +174,7 @@ export default function useVideoRecorder( config ) {
 
 			setRecordedTimeInSecond(0);
 			setIsRecording(false);
-			
+
 			afterStopRecording();
 			return;
 		}

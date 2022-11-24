@@ -171,18 +171,30 @@ const VideoReplyWrap = Styled.div`
         width: calc( 100% - 160px );
         height: calc( 100vh - 160px );
 		background-color: #000000;
+        @media only screen and (max-width: 991px){
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 30px;
+            width: calc( 100% - 60px );
+        }
         @media only screen and (max-width: 767px){
             flex-direction: column;
+            ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 15px;
+            width: calc( 100% - 30px );
         }
         &:after{
             border-radius: 30px 0 0 0;
+            @media only screen and (max-width: 767px){
+                display: none;
+            }
+        }
+        .wpwax-vm-reply-video-bg{
+            position: static;
         }
         &.wpwax-vm-reply-upload{
             .wpwax-vm-reply-ready__video{
                 border-radius: 30px 0 0 30px;
                 background-color: var(--color-dark);
                 @media only screen and (max-width: 767px){
-                    border-radius: 30px 30px 0 30px;
+                    /* display: none; */
                 }
             }
             .wpwax-vm-reply-ready__file-input{
@@ -196,11 +208,12 @@ const VideoReplyWrap = Styled.div`
                 min-height: 260px;
                 border: 1px dashed #C4C4C4;
                 background-color: #EAEAEA;
-                @media only screen and (max-width: 767px){
-                    margin: 0 30px 40px;
-                }
                 @media only screen and (max-width: 1399px){
+                    margin: 0 30px 40px;
                     min-height: 180px;
+                }
+                @media only screen and (max-width: 767px){
+                    min-height: 100px;
                 }
                 input[type=file]{
                     display: none;
@@ -250,6 +263,10 @@ const VideoReplyWrap = Styled.div`
             text-decoration: none;
             z-index: 10;
             color: var(--color-dark);
+            @media only screen and (max-width: 767px){
+                z-index: 1000;
+                color: var(--color-white);
+            }
             .dashicons{
                 font-size: 28px;
             }
@@ -272,9 +289,9 @@ const VideoReplyWrap = Styled.div`
             width: 50%;
             position: relative;
             @media only screen and (max-width: 767px){
+                //display: none;
                 width: 100%;
-                min-height: 280px;
-                height: 100%;
+                height: 200px;
             }
             .wpwax-vm-reply-video-bg{
                 border-radius: 0px;
@@ -292,6 +309,9 @@ const VideoReplyWrap = Styled.div`
             }
             video{
                 border-radius: 30px 0 0 30px;
+                @media only screen and (max-width: 767px){
+                    border-radius: 30px 30px 0 0;
+                }
             }
             .wpwax-vm-reply-ready__video--top{
                 display: flex;
@@ -333,17 +353,35 @@ const VideoReplyWrap = Styled.div`
         .wpwax-vm-reply-ready__content{
             position: relative;
             width: 50%;
+            height: 100%;
             border-radius: 0 30px 30px 0;
             background-color: #F0F0F0;
+            display: flex;
+            flex-direction: column;
+            /* overflow-y: auto; */
             @media only screen and (max-width: 767px){
                 width: 100%;
                 overflow-y: auto;
+                overflow-x: hidden;
                 border-radius: 0;
+                &::-webkit-scrollbar {
+                    width: 11px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: var(--color-light);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--color-bg-gray);
+                    border-radius: 6px;
+                    border: 3px solid var(--color-light);
+                }
             }
             .wpwax-vm-media{
                 padding: 40px 50px 45px;
-                @media only screen and (max-width: 767px){
-                    padding: 40px 30px 45px;
+                @media only screen and (max-width: 1399px){
+                    padding: 20px 30px 25px;
                 }
                 .wpwax-vm-media__body{
                     top: -2px;
@@ -356,11 +394,17 @@ const VideoReplyWrap = Styled.div`
                     width: 250px;
                     line-height: 1.5;
                     margin-bottom: 6px;
+                    @media only screen and (max-width: 1399px){
+                        font-size: 20px;
+                    }
                 }
                 .wpwax-vm-media__meta{
                     span{
                         font-size: 15px;
                         color: var(--color-text);
+                        @media only screen and (max-width: 1399px){
+                            font-size: 14px;
+                        }
                     }
                 }
                 .wpax-vm-imglist{
@@ -370,9 +414,28 @@ const VideoReplyWrap = Styled.div`
                     }
                 }
             }
+            .wpwax-vm-reply-ready__text-form{
+                overflow-y: auto;
+                &::-webkit-scrollbar {
+                    width: 11px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: var(--color-light);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--color-bg-gray);
+                    border-radius: 6px;
+                    border: 3px solid var(--color-light);
+                }
+            }
         }
         .wpwax-vm-reply-ready__text-form-input{
             padding: 0 50px;
+            @media only screen and (max-width: 1399px){
+                padding: 0 30px;
+            }
             textarea{
                 font-size: 18px;
                 width: 100%;
@@ -394,9 +457,9 @@ const VideoReplyWrap = Styled.div`
             display: flex;
             border-radius: 0 0 30px 0;
             background-color: var(--color-white);
-            @media only screen and (max-width: 767px){
+            /* @media only screen and (max-width: 767px){
                 position: fixed;
-            }
+            } */
             .wpwax-vm-reply-ready-btn{
                 display: flex;
                 justify-content: center;
@@ -406,6 +469,12 @@ const VideoReplyWrap = Styled.div`
                 text-align: center;
                 text-decoration: none;
                 color: #4D4D4D;
+                @media only screen and (max-width: 1299px){
+                    min-height: 60px;
+                }
+                @media only screen and (max-width: 767px){
+                    min-height: 50px;
+                }
                 &:hover{
                     .wpwax-vm-reply-ready-btn__text{
                         color: var(--color-primary);

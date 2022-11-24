@@ -75,6 +75,9 @@ const VideoPopupWrap = Styled.div`
         height: 100%;
         border-radius: 30px;
         background-size: cover;
+        video{
+            border-radius: 30px;
+        }
     }
     .wpwax-vm-reply-top{
         position: relative;
@@ -180,7 +183,7 @@ const VideoPopupWrap = Styled.div`
         display: flex;
         flex-direction: row;
         border-radius: 30px 30px 0 0;
-        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 80px;
+        ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 0;
         top: -20px;
         left: 0;
         bottom: auto;
@@ -188,6 +191,7 @@ const VideoPopupWrap = Styled.div`
         height: calc( 100vh - 200px );
 		background-color: #000000;
         @media only screen and (max-width: 767px){
+            width: calc( 100% - 80px );
             flex-direction: column;
         }
         &:after{
@@ -297,7 +301,7 @@ const VideoPopupWrap = Styled.div`
             position: relative;
             @media only screen and (max-width: 767px){
                 width: 100%;
-                min-height: 280px;
+                min-height: 240px;
                 height: 100%;
             }
             .wpwax-vm-reply-video-bg{
@@ -315,7 +319,7 @@ const VideoPopupWrap = Styled.div`
                 }
             }
             video{
-                border-radius: 30px 0 0 30px;
+                border-radius: 30px 30px 0 0;
             }
             .wpwax-vm-reply-ready__video--top{
                 display: flex;
@@ -368,6 +372,19 @@ const VideoPopupWrap = Styled.div`
                 width: 100%;
                 overflow-y: auto;
                 border-radius: 0;
+                &::-webkit-scrollbar {
+                    width: 11px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: var(--color-light);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--color-bg-gray);
+                    border-radius: 6px;
+                    border: 3px solid var(--color-light);
+                }
             }
             .wpwax-vm-media{
                 padding: 40px 50px 45px;
@@ -464,4 +481,3 @@ const VideoPopupWrap = Styled.div`
 `;
 
 export default VideoPopupWrap;
-

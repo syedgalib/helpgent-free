@@ -119,12 +119,12 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 {
 	include_media_uploader_files();
 
-	add_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
+	add_filter( 'upload_dir', 'helpgent_change_upload_directory' );
 
 	$time = current_time('mysql');
 	$file = wp_handle_upload( $file, $overrides, $time );
 
-	remove_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
+	remove_filter( 'upload_dir', 'helpgent_change_upload_directory' );
 
 	return $file;
 }

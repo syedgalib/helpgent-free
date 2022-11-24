@@ -8,10 +8,6 @@ if ( ! defined( 'HELPGENT_PREFIX' ) ) {
     define( 'HELPGENT_PREFIX', 'helpgent' );
 }
 
-if ( ! defined( 'HELPGENT_CLIENT_ROLE' ) ) {
-    define( 'HELPGENT_CLIENT_ROLE', 'wpwax_vm_client' );
-}
-
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {
     define( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS', apply_filters( 'helpgent_auth_token_expires_after_days', 30 ) );
 }

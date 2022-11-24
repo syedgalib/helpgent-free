@@ -30,6 +30,7 @@ class Attachment_Model extends DB_Model {
         $default['limit'] = 20;
         $default['page']  = 1;
         $default['order'] = 'latest';
+        $default['where'] = [];
 
         $args = ( is_array( $args ) ) ? array_merge( $default, $args ) : $default;
 

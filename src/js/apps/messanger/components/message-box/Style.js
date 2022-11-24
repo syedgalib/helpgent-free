@@ -638,7 +638,6 @@ const MessageBoxWrap = Styled.div`
                 height: 16px;
                 line-height: 1;
                 position: relative;
-                ${({ theme }) => (theme.direction === 'ltr' ? 'left' : 'right')}: 1px;
                 color: var(--color-white);
             }
         }

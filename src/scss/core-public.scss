@@ -29,6 +29,7 @@
 #wpwax-vm-chatboard {
     padding: 0 25px 35px;
     border-radius: 8px;
+    box-sizing: border-box;
     background-color: var(--color-bg-page);
     @media only screen and (max-width: 767px) {
         padding: 0 15px 35px;
@@ -78,4 +79,18 @@
     font-weight: 600;
     transform: scale(1);
     animation: wpwaxHgPulse 2s infinite;
+}
+
+.wpwax-vm-bottom-left{
+    .wpwax-hg-screen-toggler {
+        right: auto;
+        left: 30px;
+    }
+}
+
+.wpwax-vm-bottom-middle{
+    .wpwax-hg-screen-toggler {
+        right: 50%;
+        transform: translateX(-50%);
+    }
 }

@@ -8129,6 +8129,10 @@ var AddForm = function AddForm() {
     _useState4 = _slicedToArray(_useState3, 2),
     response = _useState4[0],
     setResponse = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState6 = _slicedToArray(_useState5, 2),
+    formValidation = _useState6[0],
+    setFormValidation = _useState6[1];
   var currentStage = state.currentStage,
     validation = state.validation,
     loading = state.loading,
@@ -8228,7 +8232,6 @@ var AddForm = function AddForm() {
         pages: formInitialData.pages
       };
       if (id) {
-        console.log(id);
         setState(_objectSpread(_objectSpread({}, state), {}, {
           loading: true
         }));
@@ -8256,7 +8259,6 @@ var AddForm = function AddForm() {
           };
         }();
         editSession().then(function (editSessionResponse) {
-          console.log(editSessionResponse);
           setState(_objectSpread(_objectSpread({}, state), {}, {
             loading: false
           }));
@@ -8297,7 +8299,6 @@ var AddForm = function AddForm() {
           };
         }();
         addSession().then(function (addSessionResponse) {
-          console.log(addSessionResponse);
           var formResetData = {
             id: formInitialData.id,
             name: "",
@@ -8329,7 +8330,10 @@ var AddForm = function AddForm() {
     if (currentStage === "general") {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
         className: "wpwax-vm-add-form__content",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_components_GeneralSettings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          formValidation: formValidation,
+          setFormValidation: setFormValidation
+        })
       });
     } else if (currentStage === "form") {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)("div", {
@@ -8513,8 +8517,9 @@ var AddForm = function AddForm() {
                   children: "Save"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)("button", {
                   href: "#",
-                  className: "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray",
+                  className: formValidation ? "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" : "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-disabled",
                   onClick: handleFormNext,
+                  disabled: !formValidation,
                   children: ["Next ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_18__["default"], {
                     src: Assets_svg_icons_arrow_small_left_svg__WEBPACK_IMPORTED_MODULE_8__["default"]
                   })]
@@ -9682,7 +9687,10 @@ var fontSizeOptions = [{
   value: '.80',
   label: 'x-small'
 }];
-var GeneralSettings = function GeneralSettings() {
+var GeneralSettings = function GeneralSettings(props) {
+  var formValidation = props.formValidation,
+    setFormValidation = props.setFormValidation;
+
   /* initialize Form Data */
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_3__.useSelector)(function (state) {
       return {
@@ -9752,7 +9760,6 @@ var GeneralSettings = function GeneralSettings() {
   /* To Handle Template Change */
 
   var handleChangeInputValue = function handleChangeInputValue(e) {
-    console.log(e.target.id, e.target.checked);
     var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.target.id, e.target.value, formData);
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
@@ -9782,6 +9789,11 @@ var GeneralSettings = function GeneralSettings() {
       var updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])('wpwax-vm-display-custom-pages', '', formData);
       dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
     }
+    if (value) {
+      setFormValidation(false);
+    } else {
+      setFormValidation(true);
+    }
   }
   var handleChangeSelectValue = function handleChangeSelectValue(selectEvent, e) {
     var customPageIds = '';
@@ -9807,6 +9819,11 @@ var GeneralSettings = function GeneralSettings() {
     });
     customPageIds = newPageIdsArray.join(',');
     updatedData = (0,Helper_FormUpdater__WEBPACK_IMPORTED_MODULE_5__["default"])(e.name, customPageIds, formData);
+    if (updatedData[0].pages === '') {
+      setFormValidation(false);
+    } else {
+      setFormValidation(true);
+    }
     dispatch((0,_store_form_actionCreator__WEBPACK_IMPORTED_MODULE_6__.handleDynamicEdit)(updatedData));
   };
   var handleOnChangeTag = function handleOnChangeTag(selectEvent, e) {
@@ -9961,7 +9978,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
-/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
+/* harmony import */ var Assets_svg_icons_screen_record_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/screen-record.svg */ "./src/assets/svg/icons/screen-record.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
 /* harmony import */ var Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/video-camera.svg */ "./src/assets/svg/icons/video-camera.svg");
 /* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
@@ -10026,7 +10043,7 @@ var PreviewOne = function PreviewOne(_ref) {
       });
     } else if (button === 'screen_record') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+        src: Assets_svg_icons_screen_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
     } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -10043,7 +10060,7 @@ var PreviewOne = function PreviewOne(_ref) {
   // Greet Video
   function handleLoadedGreetVideoMetadata() {
     var duration = greetVideoDom.current ? greetVideoDom.current.duration : 0;
-    var prettyDuration = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatTimeAsCountdown)(duration);
+    var prettyDuration = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatSecondsAsCountdown)(duration);
     if (!prettyDuration) {
       return;
     }
@@ -10055,7 +10072,7 @@ var PreviewOne = function PreviewOne(_ref) {
       return;
     }
     var currentTime = greetVideoDom.current.currentTime;
-    var prettyCurrentTime = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatTimeAsCountdown)(currentTime);
+    var prettyCurrentTime = formatTimeAsCountdown(currentTime);
     if (!prettyCurrentTime) {
       return;
     }
@@ -10127,7 +10144,7 @@ var PreviewOne = function PreviewOne(_ref) {
             alt: "Wpwax Video Support Plugin"
           }) : null]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-          className: "wpwax-vm-preview-header",
+          className: "wpwax-vm-preview-header wpwax-vm-custom-scrollbar",
           children: [formOption.greet_video_url !== "" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
             className: "wpwax-vm-chatbox-header__top",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
@@ -10199,19 +10216,19 @@ var PreviewOne = function PreviewOne(_ref) {
     }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
       className: "wpwax-vm-preview-thank",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-        className: "wpwax-vm-preview-thank__content",
+        className: "wpwax-vm-preview-thank__content wpwax-vm-custom-scrollbar",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h3", {
           children: formOption.thank_page_title
         }), formOption.show_thank_page_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
           children: formOption.thank_page_description
         }) : null]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+      }), formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-preview-thank__botttom",
-        children: formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
           className: "wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block",
           children: formOption.thank_page_cta_button_text
-        }) : null
-      })]
+        })
+      }) : null]
     }) : null]
   });
 };
@@ -10239,7 +10256,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var Helper_formatter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! Helper/formatter */ "./src/js/helpers/formatter.js");
 /* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Style */ "./src/js/apps/form-builder/components/add-form/components/Style.js");
 /* harmony import */ var Assets_svg_icons_mice_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! Assets/svg/icons/mice.svg */ "./src/assets/svg/icons/mice.svg");
-/* harmony import */ var Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/desktop.svg */ "./src/assets/svg/icons/desktop.svg");
+/* harmony import */ var Assets_svg_icons_screen_record_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! Assets/svg/icons/screen-record.svg */ "./src/assets/svg/icons/screen-record.svg");
 /* harmony import */ var Assets_svg_icons_text_svg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! Assets/svg/icons/text.svg */ "./src/assets/svg/icons/text.svg");
 /* harmony import */ var Assets_svg_icons_video_camera_svg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! Assets/svg/icons/video-camera.svg */ "./src/assets/svg/icons/video-camera.svg");
 /* harmony import */ var Assets_svg_icons_play_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! Assets/svg/icons/play.svg */ "./src/assets/svg/icons/play.svg");
@@ -10304,7 +10321,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
       });
     } else if (button === 'screen_record') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
-        src: Assets_svg_icons_desktop_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
+        src: Assets_svg_icons_screen_record_svg__WEBPACK_IMPORTED_MODULE_5__["default"]
       });
     } else if (button === 'voice') {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_inlinesvg__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -10321,7 +10338,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
   // Greet Video
   function handleLoadedGreetVideoMetadata() {
     var duration = greetVideoDom.current ? greetVideoDom.current.duration : 0;
-    var prettyDuration = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatTimeAsCountdown)(duration);
+    var prettyDuration = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatSecondsAsCountdown)(duration);
     if (!prettyDuration) {
       return;
     }
@@ -10333,7 +10350,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
       return;
     }
     var currentTime = greetVideoDom.current.currentTime;
-    var prettyCurrentTime = (0,Helper_formatter__WEBPACK_IMPORTED_MODULE_2__.formatTimeAsCountdown)(currentTime);
+    var prettyCurrentTime = formatTimeAsCountdown(currentTime);
     if (!prettyCurrentTime) {
       return;
     }
@@ -10380,7 +10397,7 @@ var PreviewTwo = function PreviewTwo(_ref) {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "wpwax-vm-preview-from wpwax-vm-preview-form-theme-2",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-          className: "wpwax-vm-preview-header",
+          className: "wpwax-vm-preview-header wpwax-vm-custom-scrollbar",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h4", {
             className: "wpwax-vm-preview-title",
             children: formOption.greet_message
@@ -10472,20 +10489,20 @@ var PreviewTwo = function PreviewTwo(_ref) {
     }) : previewStage === 'thank' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
       className: "wpwax-vm-preview-thank",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
-        className: "wpwax-vm-preview-thank__content",
+        className: "wpwax-vm-preview-thank__content wpwax-vm-custom-scrollbar",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h3", {
           children: formOption.thank_page_title
         }), formOption.show_thank_page_description ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("p", {
           children: formOption.thank_page_description
-        }) : '']
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+        }) : null]
+      }), formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
         className: "wpwax-vm-preview-thank__botttom",
-        children: formOption.show_thank_page_cta_button ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
           className: "wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block",
           children: formOption.thank_page_cta_button_text
-        }) : ''
-      })]
-    }) : ''
+        })
+      }) : null]
+    }) : null
   });
 };
 PreviewTwo.propTypes = {
@@ -10516,7 +10533,7 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 var GeneralSettingWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    \n"])));
 var FormSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    \n"])));
 var ThankSettingsWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    .wpwax-vm-chekbox-list{\n        .wpwax-vm-chekbox-single{\n            span{\n                text-transform: capitalize;\n            }\n        }\n    }\n"])));
-var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    font-family: var(--font-family);\n    color: var(--color-text);\n    \n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                ", ": 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 360px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 340px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        padding: 25px 25px 0;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            .wpwax-vm-timer{\n                margin-right: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n            }\n            .wpwax-vm-fulscreen-trigger{\n                line-height: 1;\n            }\n        }\n        .wpwax-vm-preview-title{\n            font-weight: 600;\n            line-height: 1.25;\n            margin: 15px 0 15px;\n            word-break: break-word;\n            font-size: var(--font-size-greet);\n            color: var(--color-text-greet);\n        }\n        .wpwax-vm-preview-description{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            word-break: break-word;\n            color: var(--color-description);\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 80px 0 55px;\n        @media only screen and (max-width: 1199px) {\n            padding: 70px 0 45px;\n        }\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--play-button-bg);\n        i,\n        svg{\n            width: 26px;\n            height: 26px;\n            color: var(--color-primary);\n            fill: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n        svg.wpwax-vm-play{\n            margin-left: 3px;\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            color: var(--color-text-chat);\n            padding: 0 25px;\n            word-break: break-word;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                white-space: nowrap;\n                height: min(80vh,90px);\n                text-transform: capitalize;\n                width: 90px;\n                flex-basis: 90px;\n                flex-grow: 1;\n                margin: 5px;\n                pointer-events: none;\n                white-space: nowrap;\n                @media only screen and (max-width: 1199px) {\n                    padding: 0 15px;\n                    width: 95px;\n                    flex-basis: 95px;\n                    height: min(80vh,80px);\n                }\n                @media only screen and (max-width: 575px) {\n                    height: min(80vh,60px);\n                }\n                >div{\n                    line-height: 0;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 6px 0 6px;\n                    path,\n                    circle{\n                        fill: var(--primary-button-color);\n                    }\n                }\n                span{\n                    @media only screen and (max-width: 760px) {\n                        display: none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            padding: 0 25px;\n            margin: 18px 0 10px;\n            min-height: 20px;\n            opacity: .8;\n            text-align: center;\n            word-break: break-word;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 370px;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        @media only screen and (max-width: 1399px) {\n            width: 370px;\n            padding: 240px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            padding: 220px 30px;\n            width: 320px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 290px;\n        }\n        @media only screen and (max-width: 475px) {\n            max-height: 480px;\n            width: 280px;\n        }\n        @media only screen and (max-width: 375px) {\n            max-height: 380px;\n            width: 240px;\n        }\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 430px;\n        min-height: 560px;\n        border-radius: 25px;\n        font-size: 18px;\n        background-color: var(--color-page-bg);\n        &:hover{\n            .wpwax-vm-btn-play{\n                opacity: 1;\n                visibility: visible;\n                z-index: 10;\n            }\n        }\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            width: 430px;\n            background-color: var(--color-page-bg);\n            @media only screen and (max-width: 1199px) {\n                width: 370px\n            }\n            @media only screen and (max-width: 991px) {\n                width: 350px;\n            }\n            @media only screen and (max-width: 575px) {\n                width: 320px;\n            }\n            @media only screen and (max-width: 760px) {\n                width: 370px;\n            }\n            @media only screen and (max-width: 475px) {\n                width: 320px;\n            }\n            @media only screen and (max-width: 360px) {\n                width: 300px;\n            }\n        }\n        @media only screen and (max-width: 1399px) {\n            font-size: 16px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 370px\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 350px;\n            font-size: 14px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 575px) {\n            width: 320px;\n            padding: 20px;\n        }\n        @media only screen and (max-width: 475px) {\n            width: 280px;\n        }\n        @media only screen and (max-width: 360px) {\n            width: 260px;\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            /* min-height: 620px; */\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                z-index: 100;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-preview-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                    word-break: break-word;\n                    color: var(--color-text-greet);\n                }\n                .wpwax-vm-preview-description{\n                    display: block;\n                    margin-top: 8px;\n                    word-break: break-word;\n                }\n            }\n           .wpwax-vm-preview-inner{\n                position: relative;\n                padding: 0;\n                min-height: 290px;\n                @media only screen and (max-width: 1199px) {\n                    min-height: 250px;\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: -60px;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    border-radius: 25px 25px 0 0;\n                    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);\n                    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -200px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    border-radius: 0 0 25px 25px;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span.wpwax-vm-timer{\n                        display: block;\n                        margin-right: 20px;\n                        color: var(--color-white);\n                    }\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                .wpwax-vm-chatbox-video{\n                    position: relative;\n                    height: 300px;\n                    overflow: hidden;\n                }\n               .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 100;\n                    svg.wpwax-vm-play{\n                        margin-left: 3px;\n                    }\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10;\n                    min-height: 290px;\n                    background-size: cover;\n                    &:before,\n                    &:after{\n                        display: none\n                    }\n               }\n               video{\n                    width: 100%;\n                    height: 300px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                min-height: 185px;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-preview-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    padding: 0 25px;\n                    word-break: break-word;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    opacity: .8;\n                    word-break: break-word;\n                    color: var(--color-footer-text);\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        font-size: 18px;\n        width: 100%;\n        height: 100%;\n        padding: 120px 30px 30px;\n        border-radius: 25px;\n        box-sizing: border-box;\n        width: 430px;\n        height: min(80vh, 560px);\n        background-color: var(--color-thank-page-bg);\n        @media only screen and (max-width: 1399px) {\n            width: 400px;\n            padding: 75px 30px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 400px;\n            padding: 100px 20px 20px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 360px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 400px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 350px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 300px;\n        }\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            margin: 0 auto;\n            h3{\n                font-size: var(--font-size-thank-title);\n                font-weight: 600;\n                line-height: 1.07;\n                color: var(--color-thank-title);\n            }\n            p{\n                font-size: var(--font-size-thank-desc);\n                font-weight: 500;\n                line-height: 1.625;\n                word-break: break-word;\n                color: var(--color-thank-desc);\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            margin-top: auto;\n            padding: 0;\n        }\n    }\n"])), function (_ref) {
+var PreviewWrap = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    z-index: 10;\n    position: relative;\n    word-break: break-all;\n    padding-top: 0;\n    font-family: var(--font-family);\n    color: var(--color-text);\n    \n    &.wpwax-vm-loder-active{\n        &:after{\n            border-radius: 25px;\n        }\n    }\n    .wpwax-vm-loading-spin{\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        z-index: 100;\n    }\n    .wpwax-vm-media-preview{\n        position: absolute;\n        left: -90%;\n        top: -160px;\n        height: 210px;\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 100%;\n            background-color: rgba(0, 0, 0, .50);\n            z-index: 0;\n            border-radius: 12px;\n            content: '';\n        }\n        .wpwax-vm-media-preview__replace{\n            position: absolute;\n            left: 50%;\n            transform: translateX(-50%);\n            bottom: 15px;\n            z-index: 10;\n            svg{\n                ", ": 6px;\n            }\n        }\n    }\n    .wpwax-vm-preview-bg{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n    }\n    .wpwax-vm-preview-img{\n        position: absolute;\n        left: 0;\n        top: 0;\n        width: 100%;\n        height: 100%;\n        z-index: 0;\n        img{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        video{\n            width: 100%;\n            height: 100%;\n            border-radius: 25px;\n            object-fit: cover;\n        }\n        &:after{\n            position: absolute;\n            left: 0;\n            top: 0;\n            width: 100%;\n            height: 360px;\n            opacity: .9;\n            border-radius: 25px 25px 0 0;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,1) , rgba(0,0,0,0));\n            content: '';\n            z-index: 0;\n        }\n        &:before{\n            position: absolute;\n            left: 0;\n            bottom: 0;\n            width: 100%;\n            height: 340px;\n            opacity: .9;\n            border-radius: 0 0 25px 25px;\n            background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n            content: '';\n            z-index: 0;\n        }\n    }\n    .wpwax-vm-preview-header{\n        position: relative;\n        max-height: 160px;\n        padding: 25px 25px 0;\n        .wpwax-vm-chatbox-header__top{\n            display: flex;\n            align-items: center;\n            justify-content: flex-end;\n            .wpwax-vm-timer{\n                margin-right: 20px;\n            }\n            span{\n                font-size: 14px;\n                font-weight: 600;\n                color: var(--color-white);\n            }\n            .wpwax-vm-fulscreen-trigger{\n                line-height: 1;\n            }\n        }\n        .wpwax-vm-preview-title{\n            font-weight: 600;\n            line-height: 1.25;\n            margin: 15px 0 15px;\n            word-break: break-word;\n            font-size: var(--font-size-greet);\n            color: var(--color-text-greet);\n        }\n        .wpwax-vm-preview-description{\n            font-size: 15px;\n            font-weight: 500;\n            line-height: 1.5;\n            word-break: break-word;\n            color: var(--color-description);\n        }\n    }\n    .wpwax-vm-preview-inner{\n        position: relative;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        padding: 80px 0 55px;\n        @media only screen and (max-width: 1199px) {\n            padding: 70px 0 45px;\n        }\n    }\n    .wpwax-vm-btn-play{\n        display: flex;\n        align-items: center;\n        justify-content: center;\n        width: 80px;\n        height: 80px;\n        margin: 0 auto;\n        border-radius: 50%;\n        text-decoration: none;\n        opacity: 0;\n        visibility: visible;\n        z-index: -1;\n        background-color: var(--play-button-bg);\n        i,\n        svg{\n            width: 26px;\n            height: 26px;\n            color: var(--color-primary);\n            fill: var(--color-primary);\n            &:before{\n                font-size: 30px;\n            }\n        }\n        &:focus{\n            outline: none;\n            box-shadow: 0 0;\n        }\n        svg.wpwax-vm-play{\n            margin-left: 3px;\n        }\n    }\n    .wpwax-vm-preview-footer{\n        position: relative;\n        .wpwax-vm-preview-footer__title{\n            font-size: var(--font-size-chat);\n            font-weight: 600;\n            color: var(--color-text-chat);\n            padding: 0 25px;\n            word-break: break-word;\n            text-align: center;\n        }\n        .wpwax-vm-preview-footer__actions{\n            display: flex;\n            padding: 0 25px;\n            margin: -10px;\n            a{\n                display: flex;\n                align-items: center;\n                justify-content: center;\n                flex-direction: column;\n                box-sizing: border-box;\n                white-space: nowrap;\n                height: min(80vh,90px);\n                text-transform: capitalize;\n                width: 90px;\n                flex-basis: 90px;\n                flex-grow: 1;\n                margin: 5px;\n                pointer-events: none;\n                white-space: nowrap;\n                @media only screen and (max-width: 1199px) {\n                    padding: 0 15px;\n                    width: 95px;\n                    flex-basis: 95px;\n                    height: min(80vh,80px);\n                }\n                @media only screen and (max-width: 575px) {\n                    height: min(80vh,60px);\n                }\n                >div{\n                    line-height: 0;\n                }\n                svg{\n                    width: 18px;\n                    height: 18px;\n                    margin: 6px 0 6px;\n                    path,\n                    circle{\n                        fill: var(--primary-button-color);\n                    }\n                }\n                span{\n                    @media only screen and (max-width: 760px) {\n                        display: none;\n                    }\n                }\n            }\n        }\n        .wpwax-vm-preview-footer__text{\n            font-size: var(--footer-text-font-size);\n            font-weight: 500;\n            padding: 0 25px;\n            margin: 18px 0 10px;\n            min-height: 20px;\n            opacity: .8;\n            text-align: center;\n            word-break: break-word;\n            color: var(--color-footer-text);\n        }\n        .wpwax-vm-chatbox-footer__bottom{\n            margin: 0;\n            font-size: 12px;\n            font-weight: 500;\n            padding: 8px;\n            text-align: center;\n            border-radius: 0 0 25px 25px;\n            background-color: #4537A5;\n            color: rgba(255,255,255,.80);\n            a{\n                font-size: 13px;\n                font-weight: 600;\n                text-decoration: none;\n                color: var(--color-white);\n            }\n        }\n    }\n    .wpwax-vm-preview-general{\n        width: 370px;\n        height: 100%;\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        border-radius: 25px;\n        padding: 270px 30px;\n        background-color: var(--color-dark);\n        @media only screen and (max-width: 1399px) {\n            width: 370px;\n            padding: 240px 30px;\n        }\n        @media only screen and (max-width: 1199px) {\n            padding: 220px 30px;\n            width: 320px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 290px;\n        }\n        @media only screen and (max-width: 475px) {\n            max-height: 480px;\n            width: 280px;\n        }\n        @media only screen and (max-width: 375px) {\n            max-height: 380px;\n            width: 240px;\n        }\n        p{\n            font-size: 20px;\n            font-weight: 500;\n            opacity: .4;\n        }\n    }\n    .wpwax-vm-preview-from{\n        display: flex;\n        flex-direction: column;\n        justify-content: space-between;\n        height: 100%;\n        width: 430px;\n        min-height: 560px;\n        border-radius: 25px;\n        font-size: 18px;\n        background-color: var(--color-page-bg);\n        &:hover{\n            .wpwax-vm-btn-play{\n                opacity: 1;\n                visibility: visible;\n                z-index: 10;\n            }\n        }\n        &.wpwax-vm-preview-form-theme-2{\n            padding: 0;\n            width: 430px;\n            background-color: var(--color-page-bg);\n            @media only screen and (max-width: 1199px) {\n                width: 370px\n            }\n            @media only screen and (max-width: 991px) {\n                width: 350px;\n            }\n            @media only screen and (max-width: 575px) {\n                width: 320px;\n            }\n            @media only screen and (max-width: 760px) {\n                width: 370px;\n            }\n            @media only screen and (max-width: 475px) {\n                width: 320px;\n            }\n            @media only screen and (max-width: 360px) {\n                width: 300px;\n            }\n        }\n        @media only screen and (max-width: 1399px) {\n            font-size: 16px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 370px\n        }\n        @media only screen and (max-width: 1024px) {\n            width: 350px;\n            font-size: 14px;\n            min-height: 480px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 320px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 380px;\n        }\n        @media only screen and (max-width: 575px) {\n            width: 320px;\n            padding: 20px;\n        }\n        @media only screen and (max-width: 475px) {\n            width: 280px;\n        }\n        @media only screen and (max-width: 360px) {\n            width: 260px;\n        }\n    }\n    .wpwax-vm-preview-from{\n        &.wpwax-vm-preview-form-theme-2{\n            /* min-height: 620px; */\n            .wpwax-vm-preview-header{\n                position: relative;\n                padding: 20px;\n                border-radius: 25px 25px 0 0;\n                z-index: 100;\n                background-color: var(--color-page-header-bg);\n                .wpwax-vm-preview-title{\n                    font-size: var(--font-size-greet);\n                    font-weight: 600;\n                    margin: 0;\n                    word-break: break-word;\n                    color: var(--color-text-greet);\n                }\n                .wpwax-vm-preview-description{\n                    display: block;\n                    margin-top: 8px;\n                    word-break: break-word;\n                }\n            }\n           .wpwax-vm-preview-inner{\n                position: relative;\n                padding: 0;\n                min-height: 290px;\n                @media only screen and (max-width: 1199px) {\n                    min-height: 250px;\n                }\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: -60px;\n                    width: 100%;\n                    height: 280px;\n                    opacity: .9;\n                    border-radius: 25px 25px 0 0;\n                    background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);\n                    background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);\n                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00000000',GradientType=0 );\n                    content: '';\n                    z-index: 10;\n                }\n                &:before{\n                    position: absolute;\n                    left: 0;\n                    bottom: -200px;\n                    width: 100%;\n                    height: 320px;\n                    opacity: .9;\n                    border-radius: 0 0 25px 25px;\n                    background-image: linear-gradient(to bottom, rgba(0,0,0,0) , rgba(0,0,0,1));\n                    content: '';\n                    z-index: 10;\n                }\n                .wpwax-vm-chatbox-inner-action{\n                    display: flex;\n                    align-items: center;\n                    position: absolute;\n                    top: 20px;\n                    right: 15px;\n                    z-index: 101;\n                    span.wpwax-vm-timer{\n                        display: block;\n                        margin-right: 20px;\n                        color: var(--color-white);\n                    }\n                    span{\n                        font-size: 13px;\n                        font-weight: 600;\n                    }\n                    .wpwax-vm-fulscreen-trigger{\n                        line-height: 1;\n                    }\n                }\n                .wpwax-vm-chatbox-video{\n                    position: relative;\n                    height: 300px;\n                    overflow: hidden;\n                }\n               .wpwax-vm-btn-play{\n                    position: absolute;\n                    left: 50%;\n                    top: 50%;\n                    transform: translate(-50%,-50%);\n                    z-index: 100;\n                    svg.wpwax-vm-play{\n                        margin-left: 3px;\n                    }\n               }\n               .wpwax-vm-preview-img{  \n                    position: relative;\n                    z-index: 10;\n                    min-height: 290px;\n                    background-size: cover;\n                    &:before,\n                    &:after{\n                        display: none\n                    }\n               }\n               video{\n                    width: 100%;\n                    height: 300px;\n               }\n               \n           }\n           .wpwax-vm-preview-footer{\n                position: relative;\n                z-index: 10;\n                border-radius: 0 0 25px 25px;\n                min-height: 185px;\n                background-color: var(--color-page-bg);\n                .wpwax-vm-preview-footer__title{\n                    font-size: var(--font-size-chat);\n                    font-weight: 600;\n                    margin: 14px 0 20px;\n                    padding: 0 25px;\n                    word-break: break-word;\n                    color: var(--color-text-chat);\n                }\n                .wpwax-vm-preview-footer__text{\n                    font-size: var(--footer-text-font-size);\n                    font-weight: 500;\n                    margin-bottom: 15px;\n                    opacity: .8;\n                    word-break: break-word;\n                    color: var(--color-footer-text);\n                }\n           }\n           .wpwax-vmpreview-video{\n                position: relative;\n                z-index: 10;\n                &:after{\n                    position: absolute;\n                    left: 0;\n                    top: 0;\n                    width: 100%;\n                    height: 100%;\n                    z-index: -1;\n                    background-color: rgba(3,3,8,.30);\n                }\n            }\n        }\n    }\n    .wpwax-vm-preview-thank{\n        display: flex; \n        flex-direction: column;\n        justify-content: center;\n        flex-grow: 1;\n        font-size: 18px;\n        width: 100%;\n        height: 100%;\n        padding: 30px;\n        border-radius: 25px;\n        box-sizing: border-box;\n        width: 430px;\n        height: min(80vh, 560px);\n        background-color: var(--color-thank-page-bg);\n        @media only screen and (max-width: 1399px) {\n            width: 400px;\n        }\n        @media only screen and (max-width: 1199px) {\n            width: 400px;\n            padding: 20px;\n        }\n        @media only screen and (max-width: 991px) {\n            width: 360px;\n        }\n        @media only screen and (max-width: 760px) {\n            width: 400px;\n        }\n        @media only screen and (max-width: 479px) {\n            width: 350px;\n        }\n        @media only screen and (max-width: 375px) {\n            width: 300px;\n        }\n        .wpwax-vm-preview-thank__content{\n            text-align: center;\n            max-width: 370px;\n            max-height: 400px;\n            overflow-y: auto;\n            margin: auto;\n            h3{\n                font-weight: 600;\n                line-height: 1.07;\n                margin: 10px 0 15px;\n                font-size: var(--font-size-thank-title);\n                color: var(--color-thank-title);\n            }\n            p{\n                font-weight: 500;\n                line-height: 1.625;\n                word-break: break-word;\n                margin-bottom: 10px;\n                font-size: var(--font-size-thank-desc);\n                color: var(--color-thank-desc);\n            }\n        }\n        .wpwax-vm-preview-thank__botttom{\n            /* margin-top: auto; */\n            padding: 0;\n        }\n    }\n"])), function (_ref) {
   var theme = _ref.theme;
   return theme.direction === 'ltr' ? 'margin-right' : 'margin-left';
 });
@@ -10568,7 +10585,7 @@ var fontSizeOptions = [{
   value: "2",
   label: "large"
 }, {
-  value: "1",
+  value: ".915",
   label: "medium"
 }, {
   value: ".80",
@@ -11233,7 +11250,7 @@ var formData = [{
     "thank_page_background_color": "#ffffff",
     "thank_page_title_color": "#000000",
     "thank_page_title_font_size": "2",
-    "thank_page_description_font_size": "1",
+    "thank_page_description_font_size": ".915",
     "thank_page_description_color": "#000000",
     "play_btn_background": "#ffffff",
     "page_background_color": "#ffffff",
@@ -13727,7 +13744,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/769394540a11897608d5398fd4781791.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0377489012635c8b05ab46c436e85508.svg");
 
 /***/ }),
 
@@ -13739,7 +13756,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0ae28158b1025d49b08ee0da73b3c74e.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5787ac4f10ee83e624cebeaae649d450.svg");
 
 /***/ }),
 
@@ -13751,7 +13768,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/0934b254d5a8e4a3dddb66d81bcca69b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/1a1a038b1701964ad27aa132a1b19d9b.svg");
 
 /***/ }),
 
@@ -13775,7 +13792,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8a3896af92253324d42578be2d87e824.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4acafedc879db5c3ee59e4d4b9f40022.svg");
 
 /***/ }),
 
@@ -13787,7 +13804,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/7bdbd1531253cce0fe1d5199c6d7105b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/8e20b84cb8971bd0e527aaad36d5b469.svg");
 
 /***/ }),
 
@@ -13799,7 +13816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/cd35ccecec94b883af66ae0a95d45b63.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/64e7b8e3aff7af1c7c0515ecc74939f4.svg");
 
 /***/ }),
 
@@ -13811,7 +13828,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/a3eef5653c7c1f8bd5ce9361ff6f1e5b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/fcc46f2e1dd4c83ac1e6b506c4e79e8d.svg");
 
 /***/ }),
 
@@ -13823,7 +13840,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5264f201249885e63211cc022d19a460.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4be05d0c4b39bd9dc2f568f12c4f89c4.svg");
 
 /***/ }),
 
@@ -13859,7 +13876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3b5ff3b44e37c17479410c69db854be9.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/39d44904af19c5fc3a72a7a23476e850.svg");
 
 /***/ }),
 
@@ -13871,7 +13888,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/be80f8cd2cc115230741ab2bab26611e.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/6659ccb5ec7b0e703310cd6327f8f09d.svg");
 
 /***/ }),
 
@@ -13883,7 +13900,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/4438b31f658710cf5e6c4b94d92a42e8.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/3db29a459742c5438b7cabbfa3954a74.svg");
 
 /***/ }),
 
@@ -13895,7 +13912,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/42e306c17bf15c70ffd3b5a93115588b.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/5ce99a8c9d710cd93a399c84b3b83f44.svg");
 
 /***/ }),
 
@@ -13907,7 +13924,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/bab0b2e99c9ef8241e226d6f65a372fd.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d9a4af656f20ad88bbf90c8288f47332.svg");
+
+/***/ }),
+
+/***/ "./src/assets/svg/icons/screen-record.svg":
+/*!************************************************!*\
+  !*** ./src/assets/svg/icons/screen-record.svg ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/927b4e50dcfbb7e3730aa8d1b80c6ab2.svg");
 
 /***/ }),
 
@@ -13931,7 +13960,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/35eeb46da9f05be2021c1bd5715fce46.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/e71e27adca527078d96ce152987af970.svg");
 
 /***/ }),
 
@@ -13943,7 +13972,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/d8dba257a497b016a86de2c763d54b45.svg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "../images/89ae629e82c56521487a61e8ac2d7d93.svg");
 
 /***/ }),
 

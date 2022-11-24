@@ -101,6 +101,7 @@ const AddForm = () => {
     });
 
     const [response, setResponse] = useState("");
+    const [formValidation, setFormValidation] = useState(true);
 
     const { currentStage, validation, loading, fetchStatus} = state;
 
@@ -215,7 +216,6 @@ const AddForm = () => {
                 pages: formInitialData.pages,
             }
             if (id) {
-                console.log(id);
                 setState({
                     ...state,
                     loading: true
@@ -226,7 +226,6 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
-                        console.log(editSessionResponse)
                         setState({
                             ...state,
                             loading: false,
@@ -253,7 +252,6 @@ const AddForm = () => {
                 }
                 addSession()
                     .then( addSessionResponse => {
-                        console.log(addSessionResponse)
                         const formResetData = {
                             id: formInitialData.id,
                             name: "",
@@ -289,7 +287,7 @@ const AddForm = () => {
     const getFormContent = () => {
         if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
-                <GeneralSettings />
+                <GeneralSettings formValidation={formValidation} setFormValidation={setFormValidation} />
             </div>
         } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
@@ -400,7 +398,7 @@ const AddForm = () => {
                                             : 
                                             <React.Fragment>
                                                 <button href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Save</button>
-                                                <button href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" onClick={handleFormNext}>Next <ReactSVG src={arrowLeft} /></button>
+                                                <button href="#" className={formValidation ? "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" : "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-disabled"} onClick={handleFormNext} disabled={!formValidation} >Next <ReactSVG src={arrowLeft} /></button>
                                             </React.Fragment>
                                         }
                                     </div>

@@ -3,11 +3,11 @@ import React, { useState, useRef } from "react";
 import { useSelector } from 'react-redux';
 // import { ReactSVG } from 'react-svg';
 import ReactSVG from 'react-inlinesvg';
-import { formatTimeAsCountdown } from 'Helper/formatter';
+import { formatSecondsAsCountdown } from 'Helper/formatter';
 import { PreviewWrap } from './Style';
 
 import miceIcon from 'Assets/svg/icons/mice.svg';
-import recordIcon from 'Assets/svg/icons/desktop.svg';
+import recordIcon from 'Assets/svg/icons/screen-record.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import videoIcon from 'Assets/svg/icons/video-camera.svg';
 import playIcon from 'Assets/svg/icons/play.svg';
@@ -51,7 +51,7 @@ const PreviewTwo = ({ previewStage }) => {
     function handleLoadedGreetVideoMetadata() {
 
         const duration = ( greetVideoDom.current ) ? greetVideoDom.current.duration : 0;
-        const prettyDuration = formatTimeAsCountdown( duration );
+        const prettyDuration = formatSecondsAsCountdown( duration );
 
         if ( ! prettyDuration ) {
             return;
@@ -119,7 +119,7 @@ const PreviewTwo = ({ previewStage }) => {
                 previewStage === 'form' ?
                     <>
                         <div className="wpwax-vm-preview-from wpwax-vm-preview-form-theme-2">
-                            <div className="wpwax-vm-preview-header">
+                            <div className="wpwax-vm-preview-header wpwax-vm-custom-scrollbar">
                                 <h4 className="wpwax-vm-preview-title">{formOption.greet_message}</h4>
                                 {formOption.show_description ?
                                     <span className="wpwax-vm-preview-description">{formOption.description}</span> : ''
@@ -188,23 +188,19 @@ const PreviewTwo = ({ previewStage }) => {
                     :
                     previewStage === 'thank' ?
                         <div className="wpwax-vm-preview-thank">
-                            <div className="wpwax-vm-preview-thank__content">
+                            <div className="wpwax-vm-preview-thank__content wpwax-vm-custom-scrollbar">
                                 <h3>{formOption.thank_page_title}</h3>
                                 {
                                     formOption.show_thank_page_description ?
-                                        <p>{formOption.thank_page_description}</p> :
-                                        ''
+                                        <p>{formOption.thank_page_description}</p> : null
                                 }
                             </div>
-                            <div className="wpwax-vm-preview-thank__botttom">
-                                {formOption.show_thank_page_cta_button ?
-                                    <button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block">{formOption.thank_page_cta_button_text}</button> :
-                                    ''
-                                }
-                            </div>
+
+                            {formOption.show_thank_page_cta_button ?
+                                <div className="wpwax-vm-preview-thank__botttom"><button className="wpwax-vm-btn wpwax-vm-btn-primary wpwax-vm-btn-lg wpwax-vm-btn-block">{formOption.thank_page_cta_button_text}</button></div> : null
+                            }
                         </div>
-                        :
-                        ''
+                        : null
             }
         </PreviewWrap>
     );

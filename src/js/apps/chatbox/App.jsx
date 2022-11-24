@@ -39,7 +39,8 @@ function App() {
 		return '';
 	}
 
-	const handleScreenToggle = () =>{
+	const handleScreenToggle = event =>{
+		event.preventDefault();
 		dispatch(hideToggler());
 	}
 

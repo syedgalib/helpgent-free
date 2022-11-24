@@ -31,6 +31,7 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-header{
         padding: 25px;
+        max-height: 160px;
         @media only screen and (max-width: 767px){
             padding: 15px;
         }

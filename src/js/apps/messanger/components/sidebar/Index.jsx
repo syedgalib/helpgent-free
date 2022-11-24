@@ -193,6 +193,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+                    successMessage: "",
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));
@@ -262,7 +263,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const fetchMoreData = () => {
         const pageArg = {
-            limit: '12',
+            limit: '15',
             page: pageNumber,
         };
         setPageNumber(pageNumber + 1);
@@ -373,6 +374,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+                    successMessage: "",
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));

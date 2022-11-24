@@ -12,7 +12,7 @@ import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
-import recordIcon from 'Assets/svg/icons/desktop.svg';
+import recordIcon from 'Assets/svg/icons/screen-record.svg';
 import crossIcon from 'Assets/svg/icons/cross.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -246,15 +246,15 @@ function MessageBox({ setSessionState }) {
 
                 await setupStream();
 
-				// Start Countdown
-				await startCountdown();
-
-				// Start Recording
+                // Start Recording
 				const isStarted = await startRecording();
 
 				if ( ! isStarted ) {
 					return;
 				}
+
+				// Start Countdown
+				await startCountdown();
 
 				setScreenRecordState({
 					...screenRecordState,

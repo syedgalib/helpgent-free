@@ -40,7 +40,6 @@ What’s more, the plugin allows your customers to record and share their points
 
 Here is how HelpGent with its features will help you make your content stand out, increase conversion, build audience’s trust, generate more leads, save your time, increase customer retention, and reduce support cost.
 
-
 == Free Features ==
 
 Kickstart your business with the splash of this plugin nothing like before.
@@ -65,14 +64,14 @@ Kickstart your business with the splash of this plugin nothing like before.
 
 == Core HelpGent Features in a Flash ==
 
-* Attractive builder with customization
-* Two theme form support home screen
-* Color font size customization ability
-* Search & sorting by text videos and voice
-* Nice filtering system by tag
-* Search conversation by name & email
-* Keep messages unread for future reply
-* Quick name edit
+* Attractive builder with customization.
+* Two theme form support home screen.
+* Color font size customization ability.
+* Search & sorting by text videos and voice.
+* Nice filtering system by tag.
+* Search conversation by name & email.
+* Keep messages unread for future reply.
+* Quick name edit.
 
 == Premium Features ==
 

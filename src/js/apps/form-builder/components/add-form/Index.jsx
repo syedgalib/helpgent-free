@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
-import handsDown from 'Assets/svg/icons/hand-down.svg';
 import ReactSVG from 'react-inlinesvg';
 import FormSettings from "./components/FormSettings.jsx";
 import GeneralSettings from "./components/GeneralSettings.jsx";
@@ -9,8 +7,15 @@ import PreviewOne from "./components/PreviewOne.jsx";
 import PreviewTwo from "./components/PreviewTwo.jsx";
 import ThankSettings from "./components/ThankSettings.jsx";
 import useFormAPI from 'API/useFormAPI.js';
+import arrowLeft from 'Assets/svg/icons/arrow-small-left.svg';
+import arrowRight from 'Assets/svg/icons/arrow-small-right.svg';
+import handsDown from 'Assets/svg/icons/hand-down.svg';
+import pen from 'Assets/svg/icons/pen.svg';
+import file from 'Assets/svg/icons/file.svg';
+import roundStar from 'Assets/svg/icons/round-star.svg';
+import football from 'Assets/svg/icons/football.svg';
 
-import { AddFormStyle } from './Style';
+import { AddFormStyle, FormTopStyle } from './Style';
 
 import { handleReadForm, updateFormSettings } from '../../store/form/actionCreator';
 
@@ -96,6 +101,7 @@ const AddForm = () => {
     });
 
     const [response, setResponse] = useState("");
+    const [formValidation, setFormValidation] = useState(true);
 
     const { currentStage, validation, loading, fetchStatus} = state;
 
@@ -210,7 +216,6 @@ const AddForm = () => {
                 pages: formInitialData.pages,
             }
             if (id) {
-                console.log(id);
                 setState({
                     ...state,
                     loading: true
@@ -221,7 +226,6 @@ const AddForm = () => {
                 }
                 editSession()
                     .then( editSessionResponse => {
-                        console.log(editSessionResponse)
                         setState({
                             ...state,
                             loading: false,
@@ -248,7 +252,6 @@ const AddForm = () => {
                 }
                 addSession()
                     .then( addSessionResponse => {
-                        console.log(addSessionResponse)
                         const formResetData = {
                             id: formInitialData.id,
                             name: "",
@@ -284,7 +287,7 @@ const AddForm = () => {
     const getFormContent = () => {
         if (currentStage === "general") {
             return <div className="wpwax-vm-add-form__content">
-                <GeneralSettings />
+                <GeneralSettings formValidation={formValidation} setFormValidation={setFormValidation} />
             </div>
         } else if (currentStage === "form") {
             return <div className="wpwax-vm-add-form__content">
@@ -346,64 +349,78 @@ const AddForm = () => {
     }, []);
 
     return (
-        <AddFormStyle>
-
-            <div className={loading ? "wpwax-vm-add-form wpwax-vm-loder-active" : "wpwax-vm-add-form"}>
-                {
-                    loading ? <span className="wpwax-vm-loading-spin">
-                        <span className="wpwax-vm-spin-dot"></span>
-                        <span className="wpwax-vm-spin-dot"></span>
-                        <span className="wpwax-vm-spin-dot"></span>
-                        <span className="wpwax-vm-spin-dot"></span>
-                    </span>
-                    :
-
-                    <form action="" onSubmit={handleAddTemplate}>
+        <React.Fragment>
+            <FormTopStyle className="wpwax-vm-form-top">
+                <div className="wpwax-vm-form-top__left">
+                    <a href={`${location.pathname}?page=vm-forms`}><ReactSVG src={arrowRight} /> All Forms</a>
+                    <p><ReactSVG src={pen} /> You are editing the <strong>{ name }</strong> form</p>
+                </div>
+                <div className="wpwax-vm-form-top__right">
+                    <a href="" className="wpwax-vm-btn wpwax-vm-btn-rounded wpwax-vm-btn-upgrade"><ReactSVG src={roundStar} /> Upgrade to PRO</a>
+                    <a href="" className="wpwax-vm-form-top__link"><ReactSVG src={file} /> Doc</a>
+                    <a href="" className="wpwax-vm-form-top__link"><ReactSVG src={football} /> Need Help ?</a>
+                </div>
+            </FormTopStyle>
+            <AddFormStyle>
+                <div className={loading ? "wpwax-vm-add-form wpwax-vm-loder-active" : "wpwax-vm-add-form"}>
                     {
-                        state.fetchStatus ?
-                            <>
-                                <div className="wpwax-vm-add-form__tab">
-                                    <ul className="wpwax-vm-add-form__top">
-                                        <li className={currentStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-general")}>General</li>
-                                        <li className={currentStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-form")}>Form Settings</li>
-                                        <li className={currentStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-thank")}>Thank You Page</li>
-                                    </ul>
-
-                                    {
-                                        getFormContent()
-                                    }
-                                    {
-                                        getFormResponse()
-                                    }
-                                </div>
-
-                                <div className="wpwax-vm-add-form__bottom">
-
-                                    {
-                                        currentStage === "form" || currentStage === "general" ? <a href="#" className="wpwax-vm-form-next" onClick={handleFormNext}>Next <ReactSVG src={arrowLeft} /></a> : null
-                                    }
-                                    {
-                                        currentStage === "thank" ? <button type="submit" className="wpwax-vm-form-save">Save</button> : null
-                                    }
-
-                                </div>
-                            </>
-                            : <p>Sorry !! Server Error. Please Try Again.</p>
-                    }
-                    </form>
-                }
-
-            </div>
-            <div className="wpwax-vm-preview">
-                <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>
-                {
-                    formInitialData.options.theme === 'theme-1' ?
-                        <PreviewOne previewStage={currentStage} />
+                        loading ? <span className="wpwax-vm-loading-spin">
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                            <span className="wpwax-vm-spin-dot"></span>
+                        </span>
                         :
-                        <PreviewTwo previewStage={currentStage} />
-                }
-            </div>
-        </AddFormStyle>
+
+                        <form action="" onSubmit={handleAddTemplate}>
+                        {
+                            state.fetchStatus ?
+                                <>
+                                    <div className="wpwax-vm-add-form__tab">
+                                        <ul className="wpwax-vm-add-form__top">
+                                            <li className={currentStage === "general" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-general")}>General</li>
+                                            <li className={currentStage === "form" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-form")}>Form Settings</li>
+                                            <li className={currentStage === "thank" ? "wpwax-vm-add-form__top--btn wpwax-vm-add-form__top--btn-selected" : "wpwax-vm-add-form__top--btn"} onClick={(event)=>handleFormNext(event,"btn-thank")}>Thank You Page</li>
+                                        </ul>
+
+                                        {
+                                            getFormContent()
+                                        }
+                                        {
+                                            getFormResponse()
+                                        }
+                                    </div>
+
+                                    <div className="wpwax-vm-add-form__bottom">
+                                        {
+                                            currentStage === "thank" ? 
+                                            <button href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Save</button> 
+                                            : 
+                                            <React.Fragment>
+                                                <button href="#" className="wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-primary">Save</button>
+                                                <button href="#" className={formValidation ? "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray" : "wpwax-vm-btn wpwax-vm-btn-lg wpwax-vm-btn-gray wpwax-vm-btn-disabled"} onClick={handleFormNext} disabled={!formValidation} >Next <ReactSVG src={arrowLeft} /></button>
+                                            </React.Fragment>
+                                        }
+                                    </div>
+                                </>
+                                : <p>Sorry !! Server Error. Please Try Again.</p>
+                        }
+                        </form>
+                    }
+
+                </div>
+                <div className="wpwax-vm-preview">
+                    <span className="wpwax-vm-preview-label"><ReactSVG src={handsDown} />Preview your changes</span>
+                    {
+                        formInitialData.options.theme === 'theme-1' ?
+                            <PreviewOne previewStage={currentStage} />
+                            :
+                            <PreviewTwo previewStage={currentStage} />
+                    }
+                </div>
+            </AddFormStyle>
+        </React.Fragment>
+        
     )
 }
 

@@ -121,6 +121,7 @@ const PreviewWrap = Styled.div`
     }
     .wpwax-vm-preview-header{
         position: relative;
+        max-height: 160px;
         padding: 25px 25px 0;
         .wpwax-vm-chatbox-header__top{
             display: flex;
@@ -415,7 +416,7 @@ const PreviewWrap = Styled.div`
                 &:after{
                     position: absolute;
                     left: 0;
-                    top: -110px;
+                    top: -60px;
                     width: 100%;
                     height: 280px;
                     opacity: .9;
@@ -531,10 +532,12 @@ const PreviewWrap = Styled.div`
     .wpwax-vm-preview-thank{
         display: flex; 
         flex-direction: column;
+        justify-content: center;
+        flex-grow: 1;
         font-size: 18px;
         width: 100%;
         height: 100%;
-        padding: 120px 30px 30px;
+        padding: 30px;
         border-radius: 25px;
         box-sizing: border-box;
         width: 430px;
@@ -542,11 +545,10 @@ const PreviewWrap = Styled.div`
         background-color: var(--color-thank-page-bg);
         @media only screen and (max-width: 1399px) {
             width: 400px;
-            padding: 75px 30px 30px;
         }
         @media only screen and (max-width: 1199px) {
             width: 400px;
-            padding: 100px 20px 20px;
+            padding: 20px;
         }
         @media only screen and (max-width: 991px) {
             width: 360px;
@@ -563,23 +565,27 @@ const PreviewWrap = Styled.div`
         .wpwax-vm-preview-thank__content{
             text-align: center;
             max-width: 370px;
-            margin: 0 auto;
+            max-height: 400px;
+            overflow-y: auto;
+            margin: auto;
             h3{
-                font-size: var(--font-size-thank-title);
                 font-weight: 600;
                 line-height: 1.07;
+                margin: 10px 0 15px;
+                font-size: var(--font-size-thank-title);
                 color: var(--color-thank-title);
             }
             p{
-                font-size: var(--font-size-thank-desc);
                 font-weight: 500;
                 line-height: 1.625;
                 word-break: break-word;
+                margin-bottom: 10px;
+                font-size: var(--font-size-thank-desc);
                 color: var(--color-thank-desc);
             }
         }
         .wpwax-vm-preview-thank__botttom{
-            margin-top: auto;
+            /* margin-top: auto; */
             padding: 0;
         }
     }

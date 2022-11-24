@@ -7,12 +7,12 @@ import { useState } from 'react';
 import { changeChatScreen } from '../../../../../store/chatbox/actionCreator';
 import { canReplay } from '../../../../../store/chatboxTemplate/hooks';
 
-import { formatTimeAsCountdown } from 'Helper/formatter';
+import { formatSecondsAsCountdown } from 'Helper/formatter';
 
 import { ChatboxForm } from '../../../style/Style';
 import expander from "Assets/svg/icons/expand.svg";
 import miceIcon from 'Assets/svg/icons/mice.svg';
-import recordIcon from 'Assets/svg/icons/desktop.svg';
+import recordIcon from 'Assets/svg/icons/screen-record.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import playIcon from 'Assets/svg/icons/play.svg';
 import pauseIcon from 'Assets/svg/icons/pause-solid.svg';
@@ -40,7 +40,7 @@ function Theme_1() {
         greetVideo.current.play();
 
         const duration = greetVideo.current.duration;
-        const prettyDuration = formatTimeAsCountdown( duration );
+        const prettyDuration = formatSecondsAsCountdown( duration );
 
         if ( ! prettyDuration ) {
             return;
@@ -56,7 +56,7 @@ function Theme_1() {
         }
 
         const currentTime = greetVideo.current.currentTime;
-        const prettyCurrentTime = formatTimeAsCountdown( currentTime );
+        const prettyCurrentTime = formatSecondsAsCountdown( currentTime );
 
         if ( ! prettyCurrentTime ) {
             return;
@@ -138,7 +138,7 @@ function Theme_1() {
                     </div> : null
                 }
                 
-                <div className="wpwax-vm-chatbox-header">
+                <div className="wpwax-vm-chatbox-header wpwax-vm-custom-scrollbar">
                     {
                         templateOptions.greet_video_url !== "" ?
                         <div className="wpwax-vm-chatbox-header__top">

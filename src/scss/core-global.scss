@@ -255,6 +255,14 @@
     width: 100%;
 }
 
+/* Rounded Button Style */
+
+.wpwax-vm-btn {
+    &.wpwax-vm-btn-rounded{
+        border-radius: 15px;
+    }
+}
+
 /* Wpwax Back Button */
 .wpwax-vm-chatbox-screen{
     .wpwax-vm-btn-back{
@@ -1171,6 +1179,8 @@
     border: none;
     outline: none;
     resize: none;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
     background: transparent;
 
 	&:focus, &:active {
@@ -1182,6 +1192,24 @@
 .wpwax-vm-messagebox-reply__action {
 	display: flex;
 	align-items: flex-end;
+}
+
+/* scrollbar */
+.wpwax-vm-custom-scrollbar{
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 11px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--color-light);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--color-bg-gray);
+        border-radius: 6px;
+        border: 3px solid var(--color-light);
+    }
 }
 
 // ----------------------------------------

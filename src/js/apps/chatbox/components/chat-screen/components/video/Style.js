@@ -246,6 +246,7 @@ const VideoRecordWrap = Styled.div`
             display: flex;
             flex-direction: column;
             justify-content: center;
+            width: 100%;
             height: 100%;
         }
         .wpwax-vm-text-reply{
@@ -268,7 +269,7 @@ const VideoRecordWrap = Styled.div`
                 background-size: cover;
 				video {
 					width: 100%;
-                    height: auto;
+                    height: 240px;
                     object-fit: cover;
 					border-radius: 15px;
 				}

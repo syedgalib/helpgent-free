@@ -51,7 +51,7 @@ export function generateFileNameFromBlob( blob ) {
 	const type = blob.type.match( /^[\w]+\/[\w]+/ );
 	const ext = ( type ) ? type[0].replace( /^[\w]+\//, '' ) : '';
 
-	return makeid( 10 ) + '.' + ext;
+	return Date.now() + '.' + ext;
 }
 
 export function makeid( length ) {

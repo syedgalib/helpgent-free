@@ -127,6 +127,13 @@ const SidebarWrap = Styled.div`
     }
     .wpwax-vm-sidebar-search{
         position: relative;
+        .wpwax-vm-form-group{
+            &.wpwax-vm-tag-dropdown-open{
+                .wpwax-vm-form__element{
+                    pointer-events: none;
+                }
+            }
+        }
         .wpwax-vm-form__element{
             border-radius: 10px;
             background-color: #DDDDDD;
@@ -468,10 +475,9 @@ const SidebarWrap = Styled.div`
             font-size: 18px;
             font-weight: 600;
             line-height: 1.5;
-            width: 240px;
+            /* width: 240px;
             overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            text-overflow: ellipsis; */
             color: var(--color-dark);
         }
     }

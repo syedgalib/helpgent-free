@@ -100,7 +100,7 @@ const MediaBox = ({
             ) : null}
 
             <div className='wpwax-vm-media__body'>
-                <h5 className='wpwax-vm-media__title'>{title}</h5>
+                <h5 className='wpwax-vm-media__title'>{title.toString()}</h5>
 
                 {metaList.map((item, i) => {
                     return (

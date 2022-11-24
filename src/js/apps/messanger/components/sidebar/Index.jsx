@@ -104,8 +104,9 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     /* Dispasth is used for passing the actions to redux store  */
     const dispatch = useDispatch();
 
-
     const debouncedSearchTerm = useDebounce(searchTerm, 300) ;
+
+    const refSidebar = useRef(null);
 
     // Effect for API call
     useEffect(() => {
@@ -134,6 +135,41 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     },[debouncedSearchTerm]);
 
     useEffect(() => {
+        const checkIfClickedOutside = e => {
+            if (tagFilterDropdownOpen && refSidebar.current && !refSidebar.current.contains(e.target)) {
+                const pageLimit = {
+                    limit: '15',
+                    page: 1,
+                    timezone: getTimezoneString(),
+                };
+                setSessionState({
+					...sessionState,
+                    tagFilterDropdownOpen: false
+                });
+        
+                const fetchUpdatedSessions =  async () =>{
+        
+                    const updatedSessionResponse = await getConversations(pageLimit);
+                    return updatedSessionResponse;
+                }
+                fetchUpdatedSessions()
+                    .then(updatedSessionResponse =>{
+                        setSessionState({
+                            ...sessionState,
+                            tagFilterDropdownOpen: false,
+                            sessionList: updatedSessionResponse.data
+                        });
+                    });
+            }
+        }
+        document.addEventListener("mousedown", checkIfClickedOutside)
+        return () => {
+            // Cleanup the event listener
+            document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+	}, [tagFilterDropdownOpen]);
+
+    useEffect(() => {
         setSessionState({
             ...sessionState,
             hasMore: true,
@@ -157,6 +193,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+                    successMessage: "",
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));
@@ -168,6 +205,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
     }, [refresher]);
 
     const handleToggleSearchDropdown = (event) => {
+        
         event.preventDefault();
         setSessionState({
             ...sessionState,
@@ -190,7 +228,6 @@ const Sidebar = ({ sessionState, setSessionState }) => {
             }
             fetchTags()
                 .then((tagsResponse) => {
-                    console.log(tagsResponse)
                     setTagState({
                         ...tagState,
                         tagLoader: false,
@@ -226,7 +263,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const fetchMoreData = () => {
         const pageArg = {
-            limit: '12',
+            limit: '15',
             page: pageNumber,
         };
         setPageNumber(pageNumber + 1);
@@ -337,6 +374,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                     ...sessionState,
                     sessionList: sessionResponse.data,
                     filteredSessions: sessionResponse.data,
+                    successMessage: "",
                     loader: false,
                 });
                 dispatch(handleReadSessions(sessionResponse.data));
@@ -348,7 +386,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 
     const interval = setInterval(function() {
         // method to be executed;
-      }, 5000);
+    }, 5000);
 
     return (
         <SidebarWrap className={loader ? 'wpwax-vm-loder-active' : null}>
@@ -392,12 +430,13 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                             : null
                     }
                 >
-                    <div className='wpwax-vm-sidebar-search'>
-                        <div className='wpwax-vm-form-group wpwax-vm-form-icon-left'>
+                    <div className='wpwax-vm-sidebar-search' ref={refSidebar}>
+                        
+                        <div className={tagFilterDropdownOpen ? 'wpwax-vm-form-group wpwax-vm-form-icon-left wpwax-vm-tag-dropdown-open' : 'wpwax-vm-form-group wpwax-vm-form-icon-left'}>
                             <span className='wpwax-vm-input-icon'>
                                 <ReactSVG src={magnifier} />
                             </span>
-
+                            
                             <input
                                 type='text'
 								className='wpwax-vm-form__element'
@@ -410,14 +449,20 @@ const Sidebar = ({ sessionState, setSessionState }) => {
 								<a
 									href='#'
 									className='wpwax-vm-search-toggle'
-									onClick={handleToggleSearchDropdown}
+									onClick={handleTagFilterDropdown}
 								>
 									<ReactSVG src={slider} />
 								</a>
 							}
                         </div>
+                        <TagFilter
+                            outerState={sessionState}
+                            setOuterState={setSessionState}
+                            tagState={tagState}
+                            setTagState={setTagState}
+                        />
                         <ul className='wpwax-vm-search-dropdown'>
-                            <li ref={ref}>
+                            {/* <li ref={ref}>
                                 <a href='' onClick={handleTagFilterDropdown}>
                                     <span className='wpwax-vm-search-dropdown__text'>
                                         Search by tags
@@ -430,7 +475,7 @@ const Sidebar = ({ sessionState, setSessionState }) => {
                                     tagState={tagState}
                                     setTagState={setTagState}
                                 />
-                            </li>
+                            </li> */}
                             {/* <li>
 								<a href="">
 									<span className="wpwax-vm-search-dropdown__text">Search by date</span>

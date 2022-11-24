@@ -89,11 +89,14 @@ const AddTag = (props) => {
             });
         }
 
-        if(allTags.length === 0){
-            setTagState({
-                ...tagState,
-                tagLoader: true
-            });
+        if(addTagModalOpen){
+            if(allTags.length === 0){
+                setTagState({
+                    ...tagState,
+                    tagLoader: true
+                });
+            }
+            
             const fetchTags = async () =>{
                 
                 const tagsResponse = await getTerms({limit:12});
@@ -121,6 +124,29 @@ const AddTag = (props) => {
         }
 
     }, [addTagModalOpen]);
+
+    useEffect(() => {
+        
+            const pageLimit = {
+                limit: '15',
+                page: 1,
+                timezone: getTimezoneString(),
+            };
+
+            const fetchUpdatedSessions =  async () =>{
+
+                const updatedSessionResponse = await getConversations(pageLimit);
+                return updatedSessionResponse;
+            }
+            fetchUpdatedSessions()
+                .then(updatedSessionResponse =>{
+                    setSessionState({
+                        ...sessionState,
+                        sessionList: updatedSessionResponse.data
+                    });
+                })
+        
+	}, [addTagResponse]);
 
     /* Handle Modal Close */
     const handleCloseModal = (event) => {
@@ -156,6 +182,10 @@ const AddTag = (props) => {
             tagInput: e.target.value,
         });
     };
+
+    function onlySpaces(str) {
+        return str.trim().length === 0;
+    }
     
     const handleCreateTerm = async (e) => {
         e.preventDefault();
@@ -167,93 +197,90 @@ const AddTag = (props) => {
             ...tagState,
             tagLoader: true,
         });
-        if (tagInput !== '') {
+        if (!onlySpaces(tagInput)) {
             if (editableTermId !== '') {
                 await updateTerm(editableTermId,termData)
                     .then((response) => {
-                        
-                        let termIndex = allTags.findIndex(
-                            (obj) => obj.term_id === editableTermId
-                        );
 
-                        allTags[termIndex].name = tagInput;
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                            allTags: [...allTags],
-                        });
-                        setAddFormState({
-                            ...addFormState,
-                            addTagResponseStatus: 'success',
-                            addTagResponse: 'Successfully Edited',
-                        });
-                    })
-                    .catch(error =>{
-                        if(error.statusCode === 403){
+                        if(response.statusCode === 200){
+                            let termIndex = allTags.findIndex(
+                                (obj) => obj.term_id === editableTermId
+                            );
+    
+                            allTags[termIndex].name = tagInput;
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                                allTags: [...allTags],
+                            });
+                            setAddFormState({
+                                ...addFormState,
+                                addTagResponseStatus: 'success',
+                                addTagResponse: 'Successfully Edited',
+                            });
+                        }else{
                             setAddFormState({
                                 ...addFormState,
                                 addTagResponseStatus: 'danger',
-                                addTagResponse: error.message,
+                                addTagResponse: response.message,
+                            });
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
                             });
                         }
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                        });
+                        
                     });
-                    const pageLimit = {
-                        limit: '15',
-                        page: 1,
-                        timezone: getTimezoneString(),
-                    };
-                    await getConversations(pageLimit)
-                        .then(response =>{
+                    
+            }else{
+                const addTermData = {
+                    taxonomy: 'tag',
+                    name: tagInput,
+                    conversation_id: currentSession[0].id
+                };
+                createTerm(addTermData)
+                    .then(response => {
+                        if(response.statusCode === 200){
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
+                                allTags: [
+                                    ...allTags,
+                                    response.data
+                                ]
+                            });
                             setSessionState({
                                 ...sessionState,
-                                sessionList: response.data
+                                asignedTerms: [
+                                    ...asignedTerms,
+                                    response.data.term_id
+                                ],
                             });
-                        })
-                        .catch(error =>{
-            
-                        })
-            }else{
-                createTerm(termData)
-                    .then(response => {
-                        console.log(response)
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                            allTags: [
-                                ...allTags,
-                                response.data
-                            ]
-                        });
-                        setAddFormState({
-                            ...addFormState,
-                            tagInput: "",
-                            addTagResponseStatus: "success",
-                            addTagResponse: "Successfully Added",
-                        });
-                    })
-                    .catch(error =>{
-                        if(error.statusCode === 403){
+                            setAddFormState({
+                                ...addFormState,
+                                tagInput: "",
+                                addTagResponseStatus: "success",
+                                addTagResponse: "Successfully Added",
+                            });
+                        }else{
                             setAddFormState({
                                 ...addFormState,
                                 addTagResponseStatus: 'danger',
-                                addTagResponse: error.message,
+                                addTagResponse: response.message,
+                            });
+                            setTagState({
+                                ...tagState,
+                                tagLoader: false,
                             });
                         }
-                        setTagState({
-                            ...tagState,
-                            tagLoader: false,
-                        });
                     });
+                    
             }
         } else {
             setAddFormState({
                 ...addFormState,
                 addTagResponseStatus: 'danger',
-                addTagResponse: 'Please enter Tag',
+                addTagResponse: 'Please enter tag name',
             });
             setTagState({
                 ...tagState,
@@ -262,9 +289,13 @@ const AddTag = (props) => {
         }
     };
 
-    const handleAssignList = (e)=>{
+    const handleAssignList = (e,name)=>{
+        let newAssignedTag = newAssigned;
+        let newUnAssignedTag = newUnAssinged;
+        let assignedTags = asignedTerms;
+        let checkStatus = '';
         if(e.target.checked){
-            
+            checkStatus = "assigned";
             if (newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                 setAddFormState({
                     ...addFormState,
@@ -273,6 +304,10 @@ const AddTag = (props) => {
                         e.target.id.replace('wpwax-vm-term-','')
                     ]
                 });
+                newAssignedTag = [
+                    ...newAssignedTag,
+                    e.target.id.replace('wpwax-vm-term-','')
+                ]
                 if(newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                     let virtualArray = [...newUnAssinged];
                     virtualArray.splice(virtualArray.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
@@ -283,7 +318,12 @@ const AddTag = (props) => {
                             e.target.id.replace('wpwax-vm-term-','')
                         ],
                         newUnAssinged: virtualArray
-                    })
+                    });
+                    newAssignedTag = [
+                        ...newAssignedTag,
+                        e.target.id.replace('wpwax-vm-term-','')
+                    ]
+                    newUnAssignedTag = virtualArray
                 }
             }
 
@@ -296,8 +336,14 @@ const AddTag = (props) => {
                         ids
                     ],
                 });
+
+                assignedTags = [
+                    ...assignedTags,
+                    ids
+                ];
             }
         }else{
+            checkStatus = "unassigned"
             if (newUnAssinged.indexOf(e.target.id.replace('wpwax-vm-term-','')) === -1){
                 setAddFormState({
                     ...addFormState,
@@ -306,6 +352,10 @@ const AddTag = (props) => {
                         e.target.id.replace('wpwax-vm-term-','')
                     ]
                 });
+                newUnAssignedTag = [
+                    ...newUnAssignedTag,
+                    e.target.id.replace('wpwax-vm-term-','')
+                ]
                 if(newAssigned.indexOf(e.target.id.replace('wpwax-vm-term-','')) !== -1){
                     let virtualArrayT = [...newAssigned];
                     virtualArrayT.splice(virtualArrayT.indexOf(e.target.id.replace('wpwax-vm-term-','')),1);
@@ -316,7 +366,12 @@ const AddTag = (props) => {
                             e.target.id.replace('wpwax-vm-term-','')
                         ],
                         newAssigned: virtualArrayT
-                    })
+                    });
+                    // newUnAssignedTag = [
+                    //     ...newUnAssignedTag,
+                    //     e.target.id.replace('wpwax-vm-term-','')
+                    // ]
+                    newAssignedTag = virtualArrayT
                 }
             }else{
                 setAddFormState({
@@ -326,6 +381,11 @@ const AddTag = (props) => {
                         e.target.id.replace('wpwax-vm-term-','')
                     ]
                 });
+
+                newUnAssignedTag = [
+                    ...newUnAssignedTag,
+                    e.target.id.replace('wpwax-vm-term-','')
+                ]
             }
 
 
@@ -338,15 +398,18 @@ const AddTag = (props) => {
                     ...sessionState,
                     asignedTerms: [...array]
                 });
+                assignedTags = [...array];
             }
-
         }
+
+        handleAssignTerm( newAssignedTag, newUnAssignedTag, assignedTags, name, checkStatus );
     }
 
-    const handleAssignTerm = async (e) =>{
+
+    const handleAssignTerm = async ( newAssignedTag, newUnAssignedTag, assignedTags, name, checkStatus ) =>{
         const updateTermData = {
-            add_terms: newAssigned.join(','),
-            remove_terms: newUnAssinged.join(',')
+            add_terms: newAssignedTag.join(','),
+            remove_terms: newUnAssignedTag.join(',')
         }
         setTagState({
             ...tagState,
@@ -367,7 +430,7 @@ const AddTag = (props) => {
                 setAddFormState({
                     ...addFormState,
                     addTagResponseStatus: 'success',
-                    addTagResponse: "Successfully Updated",
+                    addTagResponse: `"${name}" tag has been ${checkStatus}`,
                     newAssigned: [],
                     newUnAssinged: []
                 });
@@ -395,6 +458,7 @@ const AddTag = (props) => {
             .then(response =>{
                 setSessionState({
                     ...sessionState,
+                    asignedTerms: assignedTags,
                     sessionList: response.data
                 });
             })
@@ -409,8 +473,6 @@ const AddTag = (props) => {
             limit: '12',
             page: tagsPageNumber,
         };
-
-        console.log(tagsPageNumber)
 
         const fetchNextTags = async () => {
             const nextTagResponse = await getTerms(pageArg);
@@ -456,10 +518,8 @@ const AddTag = (props) => {
             images.push(currentSession[0].users[0].avater);
             titleString.push(currentSession[0].users[0].name);
         } else {
-            for (let i = 0; i < users.length; i++) {
-                images.push(users[i].avater);
-                titleString.push(users[i].name);
-            }
+            const getuser = users.filter(item=> !item.is_admin);
+            titleString.push(getuser[0].name)
         }
     }
 
@@ -513,8 +573,8 @@ const AddTag = (props) => {
                             {taglistWithSession
                                 ? `${
                                       editableTermId !== '' ? 'Edit' : 'Add'
-                                  } Tags of ${titleString}`
-                                : `Edit Tag`}
+                                  } tags to ${titleString.length > 2 ? `${titleString[0]} , ${titleString[1]} and others` : `${titleString[0]} ${titleString.length == 1 ? '' : `and ${titleString[1]}`}` }`
+                                : `Edit tag`}
                         </span>
                     </div>
                     <a
@@ -549,7 +609,7 @@ const AddTag = (props) => {
                                 className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary'
                                 onClick={(e) => handleCreateTerm(e)}
                             >
-                                {editableTermId !== '' ? 'Apply' : 'Apply'}
+                                {editableTermId !== '' ? 'Edit' : 'Add new'}
                             </button>
                         </div>
                     </form>
@@ -591,7 +651,8 @@ const AddTag = (props) => {
                                                             }
                                                             onChange={(e) =>
                                                                 handleAssignList(
-                                                                    e
+                                                                    e,
+                                                                    item.name
                                                                 )
                                                             }
                                                         />
@@ -612,15 +673,6 @@ const AddTag = (props) => {
                                     {
                                         totalTags > allTags.length ? <a href="#" className="wpwax-vm-loadmore" onClick={e=>handleLoadMore(e)}> Load more {pageLoader ? <ReactSVG src={loadingSpin} /> : null } </a> : null
                                     }
-                                    {allTags.length !== 0 ? (
-                                        <a
-                                            href='#'
-                                            className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-primary wpwax-vm-btnlink'
-                                            onClick={handleAssignTerm}
-                                        >
-                                            Save
-                                        </a>
-                                    ) : null}
                                 </React.Fragment>
                             )}
                         </div>
@@ -638,16 +690,6 @@ const AddTag = (props) => {
                             })}
                         </ul>
                     )}
-                </div>
-
-                <div className='wpwax-vm-modal__footer'>
-                    <a
-                        href='#'
-                        className='wpwax-vm-btn wpwax-vm-btn-sm wpwax-vm-btn-white'
-                        onClick={handleCloseModal}
-                    >
-                        Cancel
-                    </a>
                 </div>
             </AddTagWrap>
         </React.Fragment>

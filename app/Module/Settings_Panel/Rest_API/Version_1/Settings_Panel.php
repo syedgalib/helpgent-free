@@ -46,7 +46,7 @@ class Settings_Panel extends Rest_Base {
      * @return mixed
      */
     public function get_items( $request ) {
-		$data = Helper\get_options();
+		$data = Helper\get_options( true );
 
         return $this->response( true, $data );
     }

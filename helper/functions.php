@@ -10,6 +10,7 @@ use HelpGent\Module\Core\Model\Guest_User_Model;
 use HelpGent\Module\Core\Model\Term_Model;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
 use HelpGent\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Settings_Panel\Model\Settings_Model;
 
 /**
  * Get The Public Template
@@ -693,9 +694,24 @@ function get_wp_pages()
  *
  * @return array Options
  */
-function get_options()
-{
-	return \get_option(HELPGENT_OPTIONS, []);
+function get_options( $hide_secret_options = true ) {
+
+	$secret_option_keys = Settings_Model::get_secret_option_keys();
+	$options            = \get_option( HELPGENT_OPTIONS, [] );
+
+	if ( ! $hide_secret_options ) {
+		return $options;
+	}
+
+	foreach( $secret_option_keys as $secret_key ) {
+
+		if ( isset( $options[ $secret_key ] ) ) {
+			unset( $options[ $secret_key ] );
+		}
+
+	}
+
+	return $options;
 }
 
 /**

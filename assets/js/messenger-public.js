@@ -5268,7 +5268,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var initialState = {
-  showChatbox: false,
+  showChatbox: true,
   screenToggler: false,
   screenTogglerContent: 'Open',
   currentChatScreen: _screenTypes__WEBPACK_IMPORTED_MODULE_1__["default"].SPLASH_SCREEN

@@ -57,7 +57,7 @@ class Message_Notification_Emails {
 		$message = self::replace_in_content( $message, $user, $data );
 
 		$message = self::email_html( $subject, $message );
-		$headers = self::get_email_headers();
+		$headers = self::get_email_headers( $data );
 
 		return self::send_email( $to, $subject, $message, $headers );
 	}
@@ -92,15 +92,14 @@ class Message_Notification_Emails {
 		$admin_name  = Helper\get_option( 'emailTemplateFromName' );
 
 		if ( $is_author_admin ) {
-			$user = Helper\get_user_data_by( 'email', $data['user_email'] );
-
-			$from_name       = ( ! empty( $user ) ) ? $user['name'] : '';
-			$from_email      = $data['user_email'];
+			$from_name       = $admin_name;
+			$from_email      = $admin_email;
 			$recipients      = $users['clients'];
 			$notification_on = Helper\get_option('clientEmailNotificationOn', 'every_message');
 		} else {
-			$from_name       = $admin_name;
-			$from_email      = $admin_email;
+			$user            = Helper\get_user_data_by( 'email', $data['user_email'] );
+			$from_name       = ( ! empty( $user ) ) ? $user['name'] : '';
+			$from_email      = $data['user_email'];
 			$recipients      = $users['admins'];
 			$notification_on = Helper\get_option('adminEmailNotificationOn', 'every_message');
 		}
@@ -427,7 +426,7 @@ class Message_Notification_Emails {
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Directorist</title>
 
-			<style type="text/css"> 
+			<style type="text/css">
 				@media screen and (max-width: 991px) {
 					#wrapper {
 						padding: 30px 0 !important;

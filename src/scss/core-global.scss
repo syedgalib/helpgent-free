@@ -1207,6 +1207,29 @@
     }
 }
 
+
+.helpgent-greet-greetings {
+	text-align: center;
+    font-family: var(--font-family);
+}
+
+.helpgent-greet-title {
+	font-size: 20px;
+    font-weight: 500;
+    color: #292929;
+    margin: 10px 0;
+    font-family: var(--font-family);
+}
+
+.helpgent-greet-subtitle {
+	font-size: 16px;
+    color: #9c9bcb;
+    margin: 5px 0;
+    font-weight: 500;
+	font-family: var(--font-family);
+}
+
+
 // ----------------------------------------
 .wpwax-vm-record-send-progress {
     height: min(80vh, 600px);

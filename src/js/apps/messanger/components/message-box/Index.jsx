@@ -12,7 +12,7 @@ import mice from 'Assets/svg/icons/mice.svg';
 import textIcon from 'Assets/svg/icons/text.svg';
 import paperPlane from 'Assets/svg/icons/paper-plane.svg';
 import loadingIcon from 'Assets/svg/loaders/loading-spin.svg';
-import recordIcon from 'Assets/svg/icons/desktop.svg';
+import recordIcon from 'Assets/svg/icons/screen-record.svg';
 import crossIcon from 'Assets/svg/icons/cross.svg';
 import { ChatBoxWrap, MessageBoxWrap } from './Style';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -42,6 +42,8 @@ import { getTimezoneString } from 'Helper/utils.js';
 import useConversationAPI from 'API/useConversationAPI.js';
 import useMessangerAPI from 'API/useMessangerAPI.js';
 import useAttachmentAPI from 'API/useAttachmentAPI.js';
+import { useCoreData } from 'Hooks/useCoreData.jsx';
+import { MIN_IN_SECONDS } from 'Helper/const.js';
 
 const CenterBoxStyle = {
     minHeight: '770px',
@@ -52,7 +54,7 @@ const CenterBoxStyle = {
     borderRadius: '20px',
 };
 
-function MessageBox({ setSessionState }) {
+function MessageBox({ sessionState, setSessionState }) {
 	const { addAction } = wpwaxHooks;
 
 	// Use API
@@ -145,7 +147,7 @@ function MessageBox({ setSessionState }) {
         messengerScriptData &&
         typeof messengerScriptData.voiceRecordTimeLimit !== 'undefined'
             ? parseFloat(messengerScriptData.voiceRecordTimeLimit)
-            : 120; // 2 Minuites
+            : 2 * MIN_IN_SECONDS;
 
     const [screenRecordState, setScreenRecordState] = useState({
         recordStage: "request_permission"
@@ -223,13 +225,42 @@ function MessageBox({ setSessionState }) {
 		}
 	}
 
+	function getGreetTitle() {
+		const current_user = useCoreData( 'current_user' );
+		const useName      =  ( current_user ) ? `, ${current_user.name}` : '';
+
+		return `Welcome back${useName}`;
+	}
+
+	function getTotalUnreadCount() {
+		if ( ! sessionState.sessionList.length ) {
+			return 0;
+		}
+
+		const count = sessionState.sessionList.map( item => ! item.read ).reduce( ( prev, current ) => prev + current );
+
+		return count;
+	}
+
+	function getGreetSubtitle() {
+		const totalUnreadCount = getTotalUnreadCount();
+
+		if ( ! totalUnreadCount ) {
+			return '';
+		}
+
+		const plural = ( totalUnreadCount > 1 ) ? 's' : '';
+
+		return `You have ${totalUnreadCount} unread conversation${plural}`;
+	}
+
 	function getMaxRecordLength() {
 
 		if (  wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit ) {
 			return parseFloat( wpWaxCustomerSupportApp_MessengerScriptData.videoRecordTimeLimit );
 		}
 
-		return null;
+		return MIN_IN_SECONDS * 2;
 	}
 
 
@@ -246,15 +277,15 @@ function MessageBox({ setSessionState }) {
 
                 await setupStream();
 
-				// Start Countdown
-				await startCountdown();
-
-				// Start Recording
+                // Start Recording
 				const isStarted = await startRecording();
 
 				if ( ! isStarted ) {
 					return;
 				}
+
+				// Start Countdown
+				await startCountdown();
 
 				setScreenRecordState({
 					...screenRecordState,
@@ -999,7 +1030,6 @@ function MessageBox({ setSessionState }) {
                     audio: {
                         echoCancellation: true,
                         noiseSuppression: true,
-                        sampleRate: 44100,
                     },
                 });
 
@@ -1010,6 +1040,7 @@ function MessageBox({ setSessionState }) {
                     mimeType: 'audio/wav',
                     recorderType: RecordRTC.StereoAudioRecorder,
                     disableLogs: true,
+					numberOfAudioChannels: 1,
                 }
             );
 
@@ -1982,7 +2013,14 @@ function MessageBox({ setSessionState }) {
 
             {!selectedSession && (
                 <div style={CenterBoxStyle}>
-                    <h2>No conversation is selected.</h2>
+					<div className="helpgent-greet-greetings">
+						<h2 className='helpgent-greet-title'>{ getGreetTitle() }</h2>
+						{ getTotalUnreadCount() > 0 && (
+							<h3 className='helpgent-greet-subtitle'>{ getGreetSubtitle() }</h3>
+						) }
+						
+					</div>
+                    
                 </div>
             )}
 

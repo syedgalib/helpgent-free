@@ -1,15 +1,11 @@
 <?php
 
 if ( ! defined( 'HELPGENT_VERSION' ) ) {
-    define( 'HELPGENT_VERSION', '0.1.1' );
+    define( 'HELPGENT_VERSION', '1.0.0' );
 }
 
 if ( ! defined( 'HELPGENT_PREFIX' ) ) {
     define( 'HELPGENT_PREFIX', 'helpgent' );
-}
-
-if ( ! defined( 'HELPGENT_CLIENT_ROLE' ) ) {
-    define( 'HELPGENT_CLIENT_ROLE', 'wpwax_vm_client' );
 }
 
 if ( ! defined( 'HELPGENT_AUTH_TOKEN_EXPIRES_AFTER_DAYS' ) ) {

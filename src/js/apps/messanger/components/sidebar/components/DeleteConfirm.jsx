@@ -46,6 +46,16 @@ const DeleteConfirm = props => {
                 deleteModalOpen: !modalOpen
             });
 
+            setTimeout(() => {
+                setOuterState({
+                    ...outerState,
+                    sessionList: newSessionlist,
+                    successMessage: "",
+                    rejectMessage: "",
+                    deleteModalOpen: false
+                });
+            }, 3000);
+
 			if ( typeof onSuccess === 'function' ) {
 				onSuccess( { response, newSessionlist } );
 			}

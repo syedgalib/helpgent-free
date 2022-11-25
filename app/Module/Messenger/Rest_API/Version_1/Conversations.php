@@ -398,7 +398,10 @@ class Conversations extends Rest_Base {
 		}
 
 		if ( $send_rest_response ) {
-			return $this->response( true, $conversation_data );
+			$total_unread_count = Conversation_Model::get_total_unread_items_count();
+			$headers = [ 'X-WP-Total-Unread' => $total_unread_count ];
+
+			return $this->response( true, $conversation_data, '', $headers );
 		}
 
 		return $conversation_data;

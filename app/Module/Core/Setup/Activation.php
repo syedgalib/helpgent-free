@@ -116,8 +116,8 @@ class Activation
 		$options = [
 			'theme'       => 'theme-1',
 			'collectInfo' => [
-				  'phone' 
-			   ], 
+				  'phone'
+			   ],
 			'greet_image_url'          => '',
 			'greet_video_url'          => '',
 			'greet_message'            => 'Hello there! 👋',

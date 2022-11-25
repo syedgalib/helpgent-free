@@ -3,7 +3,6 @@ function formatTimeAsCountdown( timeInSecond ) {
 }
 
 function formatSecondsAsCountdown(timeInSecond) {
-
 	if ( typeof timeInSecond !== 'number' ) {
 		return '';
 	}

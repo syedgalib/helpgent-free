@@ -31,7 +31,10 @@ export const fontSizeOptions = [
     { value: '.80', label: 'x-small' },
 ];
 
-const GeneralSettings = () => {
+const GeneralSettings = props => {
+
+    const { formValidation, setFormValidation } = props;
+
     /* initialize Form Data */
     const {
         formData,
@@ -103,7 +106,6 @@ const GeneralSettings = () => {
     /* To Handle Template Change */
 
     const handleChangeInputValue = (e) => {
-        console.log(e.target.id, e.target.checked);
         const updatedData = formUpdater(e.target.id, e.target.value, formData);
         dispatch(handleDynamicEdit(updatedData));
     };
@@ -136,7 +138,6 @@ const GeneralSettings = () => {
 
     function handleChangeDisplayOnCustomPagesSwitchValue(value, event, id) {
         dispatch(updateFormSettings('displayOnCustomPages', value));
-
         if (!value) {
             const updatedData = formUpdater(
                 'wpwax-vm-display-custom-pages',
@@ -144,6 +145,11 @@ const GeneralSettings = () => {
                 formData
             );
             dispatch(handleDynamicEdit(updatedData));
+        }
+        if(value){
+            setFormValidation(false);
+        }else{
+            setFormValidation(true);
         }
     }
 
@@ -174,6 +180,12 @@ const GeneralSettings = () => {
         });
         customPageIds = newPageIdsArray.join(',');
         updatedData = formUpdater(e.name, customPageIds, formData);
+
+        if(updatedData[0].pages === ''){
+            setFormValidation(false);
+        }else{
+            setFormValidation(true);
+        }
 
         dispatch(handleDynamicEdit(updatedData));
     };

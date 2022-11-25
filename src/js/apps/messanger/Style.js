@@ -13,7 +13,7 @@ const ChatDashboardWrap = Styled.div`
         padding: 0 15px 0 5px;
     }
     .wpwax-vm-sidebar{
-        width: 340px;
+        width: 330px;
         ${({ theme }) => (theme.direction === 'ltr' ? 'padding-left' : 'padding-right')}: 10px;
         @media only screen and (max-width: 991px){
             margin-bottom: 6px;
@@ -21,7 +21,7 @@ const ChatDashboardWrap = Styled.div`
         }
     }
     .wpwax-vm-messagebox{
-        flex: auto;
+        flex: 1;
         margin: 0 40px 0 30px;
         border-radius: 20px;
         /* background-color: var(--color-white); */

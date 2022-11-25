@@ -57,7 +57,7 @@ class Message_Notification_Emails {
 		$message = self::replace_in_content( $message, $user, $data );
 
 		$message = self::email_html( $subject, $message );
-		$headers = self::get_email_headers();
+		$headers = self::get_email_headers( $data );
 
 		return self::send_email( $to, $subject, $message, $headers );
 	}
@@ -92,15 +92,14 @@ class Message_Notification_Emails {
 		$admin_name  = Helper\get_option( 'emailTemplateFromName' );
 
 		if ( $is_author_admin ) {
-			$user = Helper\get_user_data_by( 'email', $data['user_email'] );
-
-			$from_name       = ( ! empty( $user ) ) ? $user['name'] : '';
-			$from_email      = $data['user_email'];
+			$from_name       = $admin_name;
+			$from_email      = $admin_email;
 			$recipients      = $users['clients'];
 			$notification_on = Helper\get_option('clientEmailNotificationOn', 'every_message');
 		} else {
-			$from_name       = $admin_name;
-			$from_email      = $admin_email;
+			$user            = Helper\get_user_data_by( 'email', $data['user_email'] );
+			$from_name       = ( ! empty( $user ) ) ? $user['name'] : '';
+			$from_email      = $data['user_email'];
 			$recipients      = $users['admins'];
 			$notification_on = Helper\get_option('adminEmailNotificationOn', 'every_message');
 		}
@@ -426,7 +425,42 @@ class Message_Notification_Emails {
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Directorist</title>
+
+			<style type="text/css">
+				@media screen and (max-width: 991px) {
+					#wrapper {
+						padding: 30px 0 !important;
+					}
+
+					#wrapper table >tbody >tr >td >table{
+						width: 500px;
+					}
+
+					#wrapper table >tbody >tr >td >table >tbody >tr >td >table{
+						width: 100%;
+					}
+
+					#wrapper table table table table tr td{
+						padding: 20px !important;
+					}
+
+					#wrapper table table table table tr td p{
+						margin: 0;
+					}
+				}
+				@media screen and (max-width: 575px) {
+
+					#wrapper table >tbody >tr >td >table{
+						width: 340px;
+					}
+
+					#wrapper table >tbody >tr >td >table >tbody >tr >td >table{
+						width: 100%;
+					}
+				}
+			</style>
         </head>
+
         <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="padding: 0;">
             <div id="wrapper" dir="ltr" style="background-color: #f7f7f7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
                 <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">

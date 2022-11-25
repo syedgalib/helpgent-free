@@ -25,6 +25,7 @@ import messageTypes from '../../../../../store/forms/messenger/messageTypes';
 import { formatSecondsAsCountdown } from 'Helper/formatter';
 import useChatboxController from '../../../hooks/useChatboxController';
 import useCountdown from 'Hooks/useCountdown';
+import { SECOND_IN_MILLISECONDS, MIN_IN_SECONDS } from 'Helper/const';
 
 function Record() {
 	// Hooks
@@ -74,13 +75,13 @@ function Record() {
     const [isPlayingPreview, setIsPlayingPreview] = useState(false);
     const [recordedTimeInSecond, setRecordedTimeInSecond] = useState(0);
 
-	const [maxRecordLength, setMaxRecordLength] = useState(null);
+	const [maxRecordLength, setMaxRecordLength] = useState( 2 * MIN_IN_SECONDS );
 
     // Init State
     useState(function () {
 
 		if ( settings && typeof settings.maxVoiceLength !== 'undefined' && ! isNaN( settings.maxVoiceLength ) ) {
-			const maxVoiceLengthInSeconds = parseFloat( settings.maxVoiceLength ) * 60;
+			const maxVoiceLengthInSeconds = parseFloat( settings.maxVoiceLength ) * MIN_IN_SECONDS;
 			setMaxRecordLength( maxVoiceLengthInSeconds );
 		}
 
@@ -154,7 +155,6 @@ function Record() {
                 audio: {
                     echoCancellation: true,
                     noiseSuppression: true,
-                    sampleRate: 44100,
                 },
             });
 
@@ -190,7 +190,6 @@ function Record() {
                         audio: {
                             echoCancellation: true,
                             noiseSuppression: true,
-                            sampleRate: 44100,
                         },
                     });
 
@@ -199,9 +198,7 @@ function Record() {
                     mimeType: 'audio/wav',
                     recorderType: RecordRTC.StereoAudioRecorder,
                     disableLogs: true,
-                    ondataavailable: function (blob) {
-                        console.log();
-                    },
+					numberOfAudioChannels: 1,
                 });
                 window.wpwaxCSRecorder.startRecording();
 
@@ -269,7 +266,7 @@ function Record() {
             setRecordedTimeInSecond(function (currentValue) {
                 return currentValue + 1;
             });
-        }, 1000);
+        }, SECOND_IN_MILLISECONDS );
     }
 
     function stopTimer() {
@@ -389,7 +386,7 @@ function Record() {
                 {
                     recordedTimeInSecond === 0 && !isRecording ? <a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a> : null
                 }
-                
+
                 <span
                     className={
                         isRecording

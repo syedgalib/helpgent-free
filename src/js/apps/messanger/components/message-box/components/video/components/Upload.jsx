@@ -10,6 +10,7 @@ import { handleReplyModeChange, handleMessageTypeChange } from '../../../../../s
 
 import useMessangerAPI from 'API/useMessangerAPI';
 import useAttachmentAPI from 'API/useAttachmentAPI.js';
+import { MB_IN_BYTES } from 'Helper/const';
 
 const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
@@ -22,8 +23,8 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [recordedVidioURL, setRecordedVidioURL] = useState('');
 
-    const [selectedFileErrorMessage, setSelectedFileErrorMessage] =
-        useState('');
+    const [showSupportedExtensions, setShowSupportedExtensions]   = useState(false);
+    const [selectedFileErrorMessage, setSelectedFileErrorMessage] = useState('');
 
     const [isSending, setIsSending] = useState(false);
 
@@ -61,11 +62,12 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 		const fileExt = file.type.replace( /.+\//, '.' );
 
 		if ( supported_video_extensions.length && ! supported_video_extensions.includes( fileExt ) ) {
-			setSelectedFileErrorMessage(
-                'Sorry, the selected file type is not supported.'
-            );
+			setShowSupportedExtensions( true );
+			setSelectedFileErrorMessage( 'Sorry, the selected file type is not supported.' );
             return;
 		}
+
+		setShowSupportedExtensions( false );
 
         if (file.size > getMaxUploadSize()) {
             setSelectedFileErrorMessage(
@@ -83,7 +85,7 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
 
     function getMaxUploadSize() {
         if (isNaN(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size)) {
-            return 0;
+            return 100 * MB_IN_BYTES;
         }
 
         return parseInt(wpWaxCustomerSupportApp_CoreScriptData.max_upload_size);
@@ -240,6 +242,13 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                                 onChange={(e) => prepareForUpload(e)}
                             />
 
+							{
+								selectedFile &&
+								<div className='wpwax-vm-reply-info' style={{margin: '10px 0'}}>
+									<p>{selectedFile.name}</p>
+								</div>
+							}
+
                             <label
                                 htmlFor='attachment_video'
                                 className='wpawax-vm-reply-btn-upload'
@@ -247,7 +256,11 @@ const Upload = ({ sessionID, backToHome, onSuccess, replayingTo }) => {
                                 Choose File
                             </label>
                             <br/>
-                            <p>Works with {getSupportedVideoExtensionsAsText()}</p>
+
+							{ showSupportedExtensions && (
+								<p>Supported extensions {getSupportedVideoExtensionsAsText()}</p>
+							) }
+
                             <p>Max size {getFormattedMaxUploadSize()}!</p>
 
                             {!selectedFileErrorMessage || (

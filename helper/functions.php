@@ -10,6 +10,7 @@ use HelpGent\Module\Core\Model\Guest_User_Model;
 use HelpGent\Module\Core\Model\Term_Model;
 use HelpGent\Module\Messenger\Model\Conversation_Model;
 use HelpGent\Module\Messenger\Model\Message_Model;
+use HelpGent\Module\Settings_Panel\Model\Settings_Model;
 
 /**
  * Get The Public Template
@@ -118,12 +119,12 @@ function handle_media_upload( $file, $overrides = array( 'test_form' => false ) 
 {
 	include_media_uploader_files();
 
-	add_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
+	add_filter( 'upload_dir', 'helpgent_change_upload_directory' );
 
 	$time = current_time('mysql');
 	$file = wp_handle_upload( $file, $overrides, $time );
 
-	remove_filter( 'upload_dir', 'wpwax_vm_change_upload_directory' );
+	remove_filter( 'upload_dir', 'helpgent_change_upload_directory' );
 
 	return $file;
 }
@@ -693,9 +694,24 @@ function get_wp_pages()
  *
  * @return array Options
  */
-function get_options()
-{
-	return \get_option(HELPGENT_OPTIONS, []);
+function get_options( $hide_secret_options = true ) {
+
+	$secret_option_keys = Settings_Model::get_secret_option_keys();
+	$options            = \get_option( HELPGENT_OPTIONS, [] );
+
+	if ( ! $hide_secret_options ) {
+		return $options;
+	}
+
+	foreach( $secret_option_keys as $secret_key ) {
+
+		if ( isset( $options[ $secret_key ] ) ) {
+			unset( $options[ $secret_key ] );
+		}
+
+	}
+
+	return $options;
 }
 
 /**
@@ -859,7 +875,8 @@ function get_current_user() {
  */
 function max_upload_size() {
 	$custom_size = get_option( 'maxUploadSize', 100 ); // In MB
-	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size * ( 1024 * 1024) : 100;
+	$custom_size = ( is_numeric( $custom_size ) ) ? (int) $custom_size : 100;
+	$custom_size = $custom_size * MB_IN_BYTES; // In Bytes
 
 	return $custom_size > wp_max_upload_size() ? wp_max_upload_size() : $custom_size;
 }

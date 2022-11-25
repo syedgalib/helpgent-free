@@ -35,6 +35,22 @@ final class HelpGent {
 
         if ( null === self::$instance ) {
             self::$instance = new self();
+
+			/**
+			 * Fire loaded action hook once everything is loaded.
+			 *
+			 * Call anything safely once Helpgent is fully loaded with all functionalites.
+			 * For example, all the helpgent extensions can use this hook to load safely.
+			 * Usage:
+			 * add_action( 'helpgent_loaded', static function( $instance ) {
+			 *     $instance->{any prop or method}
+			 * } );
+			 *
+			 * @since 0.1.0
+			 *
+			 * @param object Instance of HelpGent
+			 */
+			do_action( 'helpgent_loaded', self::$instance );
         }
 
         return self::$instance;

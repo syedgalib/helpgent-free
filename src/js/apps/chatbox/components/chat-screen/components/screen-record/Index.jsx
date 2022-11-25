@@ -18,6 +18,7 @@ import { changeChatScreen } from '../../../../store/chatbox/actionCreator';
 import useAttachmentAPI from "API/useAttachmentAPI";
 import useChatboxController from '../../hooks/useChatboxController';
 import useCountdown from 'Hooks/useCountdown';
+import { MIN_IN_SECONDS } from 'Helper/const';
 
 function ScreenRecord() {
 	const dispatch = useDispatch();
@@ -103,12 +104,11 @@ function ScreenRecord() {
 	}
 
 	function getMaxRecordLength() {
-
 		if ( settings && typeof settings.maxVideoLength !== 'undefined' && ! isNaN( settings.maxVideoLength ) ) {
-			return parseFloat( settings.maxVideoLength ) * 60;
+			return parseFloat( settings.maxVideoLength ) * MIN_IN_SECONDS;
 		}
 
-		return 0;
+		return 2 * MIN_IN_SECONDS;
 	}
 
 	async function handleRequestPermission( event ) {
@@ -135,15 +135,15 @@ function ScreenRecord() {
 
 			await setupStream();
 
-			// Start Countdown
-			await startCountdown();
-
 			// Start Recording
 			const isStarted = await startRecording();
 
 			if ( ! isStarted ) {
 				return;
 			}
+
+			// Start Countdown
+			await startCountdown();
 
 			handleMinizeScreen();
 
@@ -226,7 +226,7 @@ function ScreenRecord() {
 				<a href="#" className="wpwax-vm-btn-back" onClick={handleBackScreen}><ReactSVG src={arrowRight} /></a>
 				<h4 className='wpwax-video-screen-title'>
                     To record video, your browser will need to request access to
-                    your camera & microphone.
+                    your microphone.
                 </h4>
                 <img src={permissionImg} alt='wpwax video support' />
 

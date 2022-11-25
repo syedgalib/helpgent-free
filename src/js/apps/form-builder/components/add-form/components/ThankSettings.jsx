@@ -9,7 +9,7 @@ import { ThankSettingsWrap } from './Style';
 
 export const fontSizeOptions = [
     { value: "2", label: "large" },
-    { value: "1", label: "medium" },
+    { value: ".915", label: "medium" },
     { value: ".80", label: "small" },
 ]
 const ThankSettings = () => {

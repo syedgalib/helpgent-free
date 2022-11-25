@@ -176,6 +176,9 @@ const MessageBoxWrap = Styled.div`
     border-radius: 20px;
     min-height: 600px;
     background-color: var(--color-white);
+    @media only screen and (max-width: 1199px){
+        min-height: 550px;
+    }
     &.wpwax-vm-loder-active{
         min-height: 500px;
     }

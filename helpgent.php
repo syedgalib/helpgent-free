@@ -8,10 +8,10 @@
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       HelpGent
+ * Plugin Name:       HelpGent Pro
  * Plugin URI:        https://github.com/sovware/helpgent
- * Description:       A customer support app
- * Version:           0.1.0
+ * Description:       HelpGent is a reliable, asynchronous communicaiton tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.
+ * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            wpWax

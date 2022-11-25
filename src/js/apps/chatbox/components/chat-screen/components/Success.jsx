@@ -38,15 +38,17 @@ function Success() {
 
                 <div className='wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column'>
                     <div className='wpwax-vm-record-send-success__content wpwax-vm-flex-grow-1 wpwax-vm-d-flex wpwax-vm-flex-direction-column wpwax-vm-justify-content-center wpwax-vm-p-30'>
-                        <h3 className='wpwax-vm-success__title wpwax-vm-m-0'>
-                            {templateOptions.thank_page_title}
-                        </h3>
+                        <div className="wpwax-vm-record-send-success__content-inner wpwax-vm-custom-scrollbar">
+                            <h3 className='wpwax-vm-success__title wpwax-vm-m-0'>
+                                {templateOptions.thank_page_title}
+                            </h3>
 
-                        {templateOptions.show_thank_page_description && (
-                            <p className='wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500'>
-                                {templateOptions.thank_page_description}
-                            </p>
-                        )}
+                            {templateOptions.show_thank_page_description && (
+                                <p className='wpwax-vm-text-color wpwax-vm-font-size-16 wpwax-vm-font-weight-500'>
+                                    {templateOptions.thank_page_description}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
                     {templateOptions.show_thank_page_cta_button && (

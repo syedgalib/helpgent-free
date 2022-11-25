@@ -148,6 +148,66 @@ class Conversation_Model extends DB_Model {
     }
 
 	/**
+     * Get Total Unread Items count
+     *
+     * @param array $args
+     * @return array
+     */
+    public static function get_total_unread_items_count() {
+		global $wpdb;
+
+		$conversation_table      = self::get_table_name( self::$table );
+		$conversation_meta_table = self::get_table_name( self::$meta_table );
+
+		$is_admin           = Helper\is_current_user_admin();
+		$current_user_email = Helper\get_current_user_email();
+		$read_key           = $is_admin ? 'admin_read' : 'client_read';
+
+		$table_field_map = [
+			'id'         => 'conversation',
+			'status'     => 'conversation',
+			'created_by' => 'conversation',
+		];
+
+		$where = [
+			'status' => 'active',
+			'meta_query' => [
+				[
+					'key'   => $read_key,
+					'value' => '0',
+				]
+			],
+		];
+
+
+		if ( ! $is_admin ) {
+			$where['created_by'] = $current_user_email;
+		}
+
+		$tax_query_count  = 0;
+		$meta_query_count = 0;
+
+		$where = self::prepare_where_query_v2( $where, $table_field_map, $tax_query_count, $meta_query_count );
+
+		$join = '';
+
+		// Join Message Meta Tables
+		if ( ! empty( $meta_query_count )  ) {
+			for ( $i = 0; $i < $meta_query_count; $i++ ) {
+				$join .= " LEFT JOIN $conversation_meta_table as meta_$i ON conversation.id = meta_$i.conversation_id";
+			}
+		}
+
+		$select = "SELECT COUNT(*) FROM $conversation_table AS conversation";
+		$query  = $select . $join . $where;
+
+		$results = $wpdb->get_var( $query );
+		$results = ( is_numeric( $results ) ) ? ( int ) $results : 0;
+
+		return $results;
+	}
+
+	/**
 	 * Prepare Result Item
 	 *
 	 * @param array $item

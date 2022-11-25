@@ -214,12 +214,19 @@ const ScreenWrapper = Styled.div`
     .wpwax-vm-record-send-success__content {
         font-family: var(--font-family);
         font-size: var(--font-size);
+        .wpwax-vm-record-send-success__content-inner{
+            max-height: 180px;
+            @media only screen and (max-width: 1299px) {
+                max-height: 220px;
+            }
+        }
         .wpwax-vm-text-color{
             font-size: var(--font-size-thank-desc);
             color: var(--color-thank-desc);
         }
         p{
             margin: 0;
+            word-break: break-word;
             font-family: var(--font-family);
         }
     }

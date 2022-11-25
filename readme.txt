@@ -4,7 +4,7 @@ Tags: chat, support,voice,video,audio,screen record, asynchronous, message
 Requires at least: 5.0
 Tested up to: 6.1.1
 Requires PHP: 7.0
-Stable tag: 0.1.1
+Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -91,15 +91,16 @@ Kickstart your business with the splash of this plugin nothing like before.
 
 👉 **Email Footer:** A footer is an email element placed at the bottom, which usually contains general information about a company. If you wish, you can customize the name and tag your own brand on it or delete it if necessary.
 
-👉 **Offload media to Google Drive (Upcoming):** When you are going through tons of request files, you can offload those requests to Google Drive. Thus, you can unload your work pressure bringing the things aside.
+👉 **Collect leads:** Collecting leads with HelpGent is much easier. Through the help of contact form, you can have the information of the leads and later on you can persuade them to become your paid customers.
 
-👉 **Collect leads (Upcoming):** Collecting leads with HelpGent is much easier. Through the help of contact form, you can have the information of the leads and later on you can persuade them to become your paid customers.
+👉 **Offload media to Google Drive (Upcoming):** When you are going through tons of request files, you can offload those requests to Google Drive. Thus, you can unload your work pressure bringing the things aside.
 
 == Installation ==
 
 Please follow the official installation guide from here to install this plugin: https://wordpress.org/support/article/managing-plugins/#installing-plugins-1
 
 == Changelog ==
-1.0.0 - Nov 24, 2022
+
+1.0.0 - Nov 26, 2022
 
 * Initial launch

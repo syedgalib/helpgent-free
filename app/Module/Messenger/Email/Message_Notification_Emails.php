@@ -426,7 +426,42 @@ class Message_Notification_Emails {
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <title>Directorist</title>
+
+			<style type="text/css"> 
+				@media screen and (max-width: 991px) {
+					#wrapper {
+						padding: 30px 0 !important;
+					}
+
+					#wrapper table >tbody >tr >td >table{
+						width: 500px;
+					}
+
+					#wrapper table >tbody >tr >td >table >tbody >tr >td >table{
+						width: 100%;
+					}
+
+					#wrapper table table table table tr td{
+						padding: 20px !important;
+					}
+
+					#wrapper table table table table tr td p{
+						margin: 0;
+					}
+				}
+				@media screen and (max-width: 575px) {
+
+					#wrapper table >tbody >tr >td >table{
+						width: 340px;
+					}
+
+					#wrapper table >tbody >tr >td >table >tbody >tr >td >table{
+						width: 100%;
+					}
+				}
+			</style>
         </head>
+
         <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="padding: 0;">
             <div id="wrapper" dir="ltr" style="background-color: #f7f7f7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
                 <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">

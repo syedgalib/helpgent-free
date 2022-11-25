@@ -352,6 +352,7 @@ const SettingContentWrap = Styled.div`
             color: var(--color-dark);
             @media only screen and (max-width: 1299px) {
                 min-width: 160px;
+                white-space: normal;
             }
             @media only screen and (max-width: 767px) {
                 margin: ${({ theme }) => (theme.direction === 'ltr' ? '0 15px 0 0' : '0 0 0 15px')};

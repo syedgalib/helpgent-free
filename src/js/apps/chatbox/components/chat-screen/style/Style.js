@@ -32,6 +32,14 @@ const ChatboxForm = Styled.div`
     .wpwax-vm-chatbox-header{
         padding: 25px;
         max-height: 160px;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
         @media only screen and (max-width: 767px){
             padding: 15px;
         }
@@ -193,7 +201,6 @@ const ChatboxForm = Styled.div`
     }
     .wpwax-vm-chatbox-wrap{
         &.wpwax-vm-chatbox-theme-2{
-            height: auto;
             box-shadow: 0 3px 30px rgba(0,0,0,.10);
             border-radius: 25px;
             &:before,
@@ -203,6 +210,7 @@ const ChatboxForm = Styled.div`
             .wpwax-vm-chatbox-header{
                 padding: 20px;
                 border-radius: 25px 25px 0 0;
+                min-height: 55px;
                 background-color: var(--color-page-header-bg);
                 @media only screen and (max-width: 767px){
                     padding: 15px;

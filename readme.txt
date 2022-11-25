@@ -1,4 +1,4 @@
-﻿=== HelpGent ===
+﻿=== HelpGent -  Your Ultimate Help Agent for Video, Voice, and Text Messaging with Screen Record Facility ===
 Contributors: wpwax
 Tags: chat, support,voice,video,audio,screen record, asynchronous, message
 Requires at least: 5.0
@@ -12,9 +12,15 @@ An asynchronous communication tool that allows visitors to engage using text, vo
 
 == Description ==
 
+**👁️[Plugin Demo](https://demo.wpwax.com/helpgent/) | 🚀[Pro Version](https://wpwax.com/helpgent/) | 👩🏼‍💻[Support](https://wpwax.com/contact/)**
+
 In WordPress, there isn't any way to connect with your customer, audience, or prospect using video messaging. You don't even have screen recording facility either in while taking customer support. This is a big let down for many who are looking for a good video solution for their business. That's where HelpGent comes - an asynchronous comunicaiton plugin that allows you to quickly and easily record your screen, voice, and share those recordings through messaging with anyone in just a few clicks.
 
+[youtube https://www.youtube.com/watch?v=G83LEzSKoHM]
+
 HelpGent is a free yet reliable, asynchronous communicaiton tool that offers jaw-dropping qualities like video messaging, voice messaging, text messaging, and screen recording.  With this awesome plugin, you can connect with your audience on a more personal level. This is the WordPress plugin where you can take your room to fatten your email list, generate more & more leads, and concrete the level of trust with your customers.
+
+[youtube https://www.youtube.com/watch?v=ishfZGrseNM&t=54s]
 
 The plugin can boast of the features like an Attractive Builder with Customization, Two Theme Form Support Home Screen, Color Font Size customization ability, Search & Sorting by Text, Videos & Voice, Nice Filtering System By Tag, Search Conversation by name & email, and Quick Name edit.
 
@@ -94,6 +100,53 @@ Kickstart your business with the splash of this plugin nothing like before.
 👉 **Collect leads:** Collecting leads with HelpGent is much easier. Through the help of contact form, you can have the information of the leads and later on you can persuade them to become your paid customers.
 
 👉 **Offload media to Google Drive (Upcoming):** When you are going through tons of request files, you can offload those requests to Google Drive. Thus, you can unload your work pressure bringing the things aside.
+
+== Frequently Asked Questions ==
+
+= Is HelpGent Free or Paid? =
+HelpGent is a freemium plugin. It has a free version with limited features and a premium version with more features.
+
+= Is registration mandatory for visitors to send a message? =
+Absolutely not! Any visitors/guest can send video, voice, text, and screen recordings without registration.  
+
+= How does the guest user receive replies and sends follow-up messages? =
+After sending a message, a guest token is sent to the guest user’s email to access the conversation and send follow-up messages.
+
+= Is the conversation data encrypted/secured? =
+Yes, all the information is stored in your database, not any 3rd party servers like in live chats. 
+
+= Can I replace my contact form with HelpGent? =
+Yes, just replace it with the HelpGent form’s shortcode.
+
+= Do the recipients get notified in real-time? =
+Yes, the recipients as well as the admin get real-time notifications through email upon receiving replies.  
+
+= Can I add a custom call to action on Thank You page? =
+Yes, you have the option to add a custom call to action button. 
+
+= Can I use HelpGent with any theme? =
+Yes, HelpGent should work wonders with all the major themes.
+
+= Do you have a refund policy? =
+Yes, we have a 30-day money-back guarantee. If you think the product is not a perfect fit for your needs we will refund you within the first 30 days of your purchase.
+
+= What happens if I do not renew my license? =
+If you do not wish to renew, the extension/theme will function properly but you won't receive support and updates.
+
+= Can I cancel at any time? =
+Yes, you can cancel anytime. You’ll still be able to use the plugin without updates and support, which is not recommended.
+
+= What payment methods are accepted? =
+We accept PayPal payments as well as all major credit cards including Visa, Mastercard, and American Express.
+
+= I need help with other inquiries, can you assist me? =
+Surely! You can ask us any questions. We are always happy to assist. Contact us here
+
+= Can I upgrade my license? =
+Yes, you can upgrade your license to any yearly or lifetime plan anytime within the subscription period. Just log in to your directorist account and navigate to Dashboard → Subscription → Upgrade.
+
+= Do I need to pay the full price during the upgrade? =
+No, you need to pay the difference only and the difference will be calculated based on the days remaining.
 
 == Installation ==
 
